@@ -1,0 +1,41 @@
+   _____                       .__  __                     ___ ___  __      __  ______  
+  /  _  \    ____   ___________|__|/  |_  _____   ____    /   |   \/  \    /  \/  __  \ 
+ /  /_\  \  / ___\ /  _ \_  __ \  \   __\/     \ /  _ \  /    ~    \   \/\/   />      < 
+/    |    \/ /_/  >  <_> )  | \/  ||  | |  Y Y  (  <_> ) \    Y    /\        //   --   \
+\____|__  /\___  / \____/|__|  |__||__| |__|_|  /\____/   \___|_  /  \__/\  / \______  /
+        \//_____/                             \/                \/        \/         \/ 
+        
+Il mio programma comincia con l'estrazione dei caratteri dal file di testo, 
+permutandoli dentro una struttura dati che salva le posizioni di tutte le pedine, più
+il turno del giocatore attuale, così facendo, tale struttura dati da informazioni 
+riguardo l'istante di gioco attuale, vale a dire turno e disposizione delle pedine.
+
+Una volta fatto ciò, si passa l'istante (userò il termine "istante" per definire 
+tale struttura dati) ad una funzione ricorsiva "elaborazione_ricorsiva_strutturaDati", 
+insieme ad altre liste e dizionari che servono per il calcolo delle posizioni ed
+il cambio di turno. Tale funzione ricorsiva controlla nella struttura dati tutte
+le posizioni che riguardano gli spazi vuoti, cioè quelli nella quale non ci sono
+pedine ed è effettivamente possibile posizionarne di nuove (salvo alcuni casi). 
+
+Per ognuna di queste posizioni, tramite una funzione "is_space_valid", si controlla 
+che ci siano pedine adiacenti del colore opposto a quelle appartenenti al giocatore
+che sta giocando il turno, se si, si procede ad effettuare il posizionamento della nuova
+pedina ed il cambio di pedine per tutte quelle avversarie che vanno intercambiate
+secondo le regole del gioco.
+Una volta fatto ciò la funzione ritorna il nuovo istante modificato, se non ci dovessero
+essere posizioni valide, la funzione ritornerà False.
+
+Una volta controllato ciò abbiamo due casi :
+
+Posizione valida :
+    è stata trovata una posizione valida, l'istante di gioco nuovo è stato creato
+    ed il turno è stato modificato, si può quindi procedere a richiamare la funzione
+    ricorsiva, rieseguendo l'operazione sul nuovo istante
+
+Posizione NON valida :
+    Vuol dire che ci troviamo in un istante in cui il gioco è finito, procediamo
+    al calcolo del vincitore modificando la tupla che descrive le vittorie dei neri,
+    dei bianchi e dei pareggi, per poi ritornare tale tupla, facendo così, alla fine
+    quando sarà stato calcolato il vincitore per ogni singolo caso, avremo la tupla corretta,
+    modificata ad ogni singola ricorsione nella quale si ha un istante "finale".
+    

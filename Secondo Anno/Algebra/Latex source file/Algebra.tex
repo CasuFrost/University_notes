@@ -1,0 +1,950 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\title{Algebra}
+\author{Marco Casu}
+\date{\vspace{-5ex}}
+\begin{document}
+
+
+
+\maketitle
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/LogoAlgebra.jpg}
+    }
+\end{figure}
+\newpage 
+\section{Insiemi e Relazioni}
+Sappiamo già che un insieme non è altro di una collezione di oggetti distinti.\raggedright\\
+\centering
+\(A=\{1,2,3,4,5\}\)\\
+\raggedright
+Ricapitoliamo le proprietà basiche degli insiemi : 
+\begin{itemize}
+    \item \textbf{Intersezione} - \(A \cap B \rightarrow \{x | x\in A \land x\in B\}\)
+    \item \textbf{Unione} - \(A \cup B \rightarrow \{x | x\in A \lor x\in B\}\)  
+    \item \textbf{Sottoinsieme} - \(A \subseteq B \rightarrow  \{x\in A \implies x \in B\}\)
+    \item \textbf{Insieme complementare} - \(A^c_{\text{in B}} \rightarrow \{x\in B | x \notin A\}\)
+\end{itemize}
+\subsection{Proprietà fondamentali degli insiemi}
+Elenchiamo le già note proprietà degli insiemi :
+\begin{itemize}
+    \item \textbf{Associativa} - \( (A \cap B)\cap C =  (C \cap B)\cap A \)  oppure   \( (A \cup B)\cup C =  (C \cup B)\cup A \)
+    \item \textbf{De Morgan} - Se \(A, B \subseteq C\) allora \((A \cap B)^c = A^c \cup B^c\) oppure \((A \cup B)^c = A^c \cap B^c\) 
+    \item \textbf{Distributiva} - \( (A\cup B)\cap C = (A \cap C)\cup(B \cap C)  \) oppure \( (A\cap B)\cup C = (A \cup C)\cap(B \cup C)  \)
+\end{itemize}
+Un insieme particolare associato ad un dato insieme \(A\) è \textbf{l'insieme delle parti} di \(A\),
+è l'insieme di tutti i possibili sotto-insiemi di \(A\) e si indica con :
+\begin{equation}
+    \mathcal{P}(A) = \{ B | B \subseteq A \}
+\end{equation}
+\\Introduciamo adesso il concetto di \textbf{prodotto cartesiano} su due insiemi \(A\) e \(B\),
+ esso non è altro che l'insieme di tutte le coppie ordinate dove il primo elemento appartiene ad \(A\)
+ ed il secondo elemento a \(B\) :
+ \begin{equation}
+    A \times B = \{ (a,b) | a\in A, b\in B\}
+ \end{equation}
+\subsection{Le Relazioni}
+Una relazione \(\rho\) da un insieme \(A\) ad un insieme \(B\), è un sotto-insieme del prodotto
+cartesiano \( A \times B\).
+\begin{equation}
+    \rho \subseteq A \times B \text{,  se } (a,b)\in \rho \text{ si scrive }a\rho b
+\end{equation}
+Il dominio di tale relazione \(\rho\) risulta essere :
+\begin{equation}
+    \mathcal{D}(\rho)=\{a\in A | \exists b\in B \text{ per il quale risulti }a\rho b\}
+\end{equation}
+La sua immagine : 
+\begin{equation}
+    \Im(\rho)=\{b\in B | \exists a\in A \text{ per il quale risulti }a\rho b\}
+\end{equation}
+Per una relazione \(\rho\), se il suo dominio risulta essere tutto \(A\), e 
+\(\forall a\in A \exists \text{ un unico } b \in B | a\rho b\), tale \(\rho\) è 
+anche una \textbf{funzione}.
+\\\textit{Esempio di relazione : }\\
+sia \(A=\{a,b,c,d\}\), è definita la relazione \(\rho \subseteq A\times A = \{(a,b),(b,c),(c,c),(c,a),(d,b)\}\).
+\newpage Abbiamo due modi per poter visualizzare una relazione, un formato tabellare, ed un formato 
+con nodi e collegamenti fra gli elementi della relazione. Per la relazione \(\rho \) appena enunciata si ha la seguente rappresentazione tabellare
+dove si inserisce un 1 nel punto in cui le due coordinate sono in relazione fra loro : 
+\\ \hphantom{.}\\
+\centering
+\begin{tabular}{ c c c c c }
+    \(d\) & 0 & 0 & 0 & 0  \\ 
+    \(c\) & 0 & 1 & 1 & 0  \\ 
+    \(b\) & 1 & 0 & 0 & 1  \\ 
+    \(a\) & 0 & 0 & 1 & 0  \\ 
+    &\(a\) & \(b\) & \(c\) & \(d\) 
+        
+   \end{tabular}
+\\ 
+ \hphantom{.}\\
+ \raggedright
+Vediamone adesso una rappresentazione con nodi e collegamenti : 
+ \\
+ \centering
+\begin{tikzpicture}[
+    mydot/.style={
+      circle,
+      fill,
+      inner sep=2pt
+    },
+    >=latex,
+    shorten >= 3pt,
+    shorten <= 3pt
+    ]
+    \node[mydot,label={left:a}] (a1) {}; 
+    \node[mydot,below=of a1,label={left:b}] (a2) {}; 
+    \node[mydot,below=of a2,label={left:c}] (a3) {}; 
+    \node[mydot,below=of a3,label={left:d}] (a4) {}; 
+    
+    \node[mydot,right=2cm of a1,label={right:a}] (b1) {}; 
+    \node[mydot,below=of b1,label={right:b}] (b2) {}; 
+    \node[mydot,below=of b2,label={right:c}] (b3) {}; 
+    \node[mydot,below=of b3,label={right:d}] (b4) {}; 
+    
+    \path[->] (a1) edge (b2);
+    \path[->] (a2) edge (b3);
+    \path[->] (a3) edge (b1)
+      edge (b3);
+    \path[->] (a4) edge (b2) ;
+    
+    \end{tikzpicture}
+    \\ 
+ \raggedright
+ Essendo le relazioni degli insiemi, possiamo considerare le operazioni di unione ed intersezione
+ anche per le relazioni. Esista per ogni relazione, anche la sua \textbf{relazione inversa},
+ se \(\rho\) è definita da \(A\) a \(B\), esisterà \(\rho^{-1}\) definita da \(B\) a \(A\).
+ \begin{equation}
+    \rho^{-1} = \{ (b,a) \in B\times A | a\rho b\} \text{ quindi } a\rho b \implies b\rho^{-1} a
+ \end{equation}
+ Se la relazione \(\rho\) è una funzione, non è detto che la sua relazione inversa sia una funzione anch'essa,
+ prendiamo ad esempio la relazione \(\rho \subset \mathbb{R} \times \mathbb{R}  =\{ (x,x^2) \forall a\in \mathbb{R}\}\), che non è altro che
+ la funzione di una variabile reale \(f(x)=x^2\). Tale funzione, per \(x=-a\) ed \(x=a\), ha sempre \(f(x)=a^2\), per due valori
+ appartenti al dominio ha la stessa immagine, la sua funzione inversa avrebbe quindi un punto che mappa due immagini.
+\\\hphantom{.}\\
+Una relazione nota su insieme \(A\) è la \textbf{relazione identità}, definita : \(\Delta_A = \{(a,a)\in A \times A\}\).
+\subsection{Relazioni di Equivalenza}
+Una relazione \(\rho\) definita su un insieme \(A\), quindi \(\rho \subseteq A \times A\), è detta \textbf{relazione 
+di equivalenza} se soddisfa i seguenti requisiti : 
+\begin{itemize}
+    \item \(\rho\) è \textbf{riflessiva}, ossia è vero che :  \(a\rho a \forall a \in A\)
+    \item \(\rho\) è \textbf{simmetrica}, ossia è vero che se esiste \(a\rho a'\) allora esiste \(a'\rho a\)
+    \item \(\rho\) è \textbf{transitiva}, se esistono \(a\rho a'\) e \(a'\rho a''\), allora esiste \(a\rho a''\)
+\end{itemize}
+Un esempio di relazione di equivalenza è la relazione di \textit{avere la stessa età} su un 
+insieme di studenti, difatti soddisfa tutti e 3 i requisiti : 
+\begin{itemize}
+    \item è \textbf{riflessiva} perchè ognuno ha la stessa età di se stesso.
+    \item è \textbf{simmetrica} perchè se tizio ha la stessa età di caio, caio ha la stessa età di tizio.
+    \item è \textbf{transitiva} perchè se tizio ha la stessa età di caio e caio ha la stessa età di sempronio, tizio ha la stessa età di sempronio.
+\end{itemize}\newpage
+Un esempio di relazione \textbf{non} di equivalenza è la relazione di \textit{genitorialità}, ad esempio non è simmetrica, perchè se 
+tizio è padre di caio, caio non è assolutamente padre di tizio.
+\subsection{Le Classi di Equivalenza}
+Sia \(\rho\) una relazione di equivalenza definita su \(A\), si definisce \textbf{classe di equivalenza} di un 
+elemento \(a\in A\), e si denota con \([a]\), l'insieme di tutti gli elementi di \(A\) che sono equivalenti (ossia in relazione di 
+equivalenza) ad \(a\), ossia 
+\begin{equation}
+    [a] = \{b\in A | b\rho a\}
+\end{equation}
+Ad esempio, su una relazione di \textit{avere la stessa età}, in ogni classe di equivalenza ci sono tutte le persone
+che hanno la stessa età : ogni classe può essere quindi un etichetta con il numero corrispondente all'età.
+\\ \textit{Esempio esteso : }\\
+Si prenda in considerazione il seguente insieme di persone :\\\centering \(A=\{\)Valentino,Marco,Luca,Alessandro,Davide\(\}\)\\
+\raggedright
+Ognuno ha i seguenti anni : 
+\begin{itemize}
+    \item Valentino - 20
+    \item Marco - 19
+    \item Luca - 20
+    \item Alessandro - 19
+    \item Davide - 19
+\end{itemize}
+La relazione di \textit{avere la stessa età} su \(A\) è definita come :\\ \(\rho=\{(Valentino,Luca),(Luca,Luca),(Marco,Alessandro),(Alessandro,Davide)...ecc\}\)
+\\La classe di equivalenza \([Marco]=\{Marco,Alessandro,Davide\}\) definisce tutti gli elementi in relazione con \(Marco\), e rappresenta
+tutte le persone di età uguale a 19.\\\hphantom{.}\\
+Sia \(A\) un insieme sulla quale è definita una relazione di equivalenza, l'insieme \(\nicefrac{A}{a}\) è detto 
+\textbf{insieme quoziente}, ed è l'insieme che contiene tutte le classi di equivalenza della relazione definita su \(A\).
+\begin{equation}
+    \nicefrac{A}{a}=\{[a], a\in A\}
+\end{equation}
+Vediamo adesso un \textbf{importante proprietà} delle classi di equivalenza : 
+\newtheorem{theorem}{Teorema}
+\begin{theorem}
+\begin{equation}
+    [a]=[b] \iff a\rho b
+\end{equation}
+\end{theorem}
+\newtheorem{dimostrazione}{Dimostrazione}
+\begin{dimostrazione}
+    Ovviamente \(b\in [b]\) perchè \(b\rho b\), essendo  \([a]=[b] \implies b \in [a]\implies b\rho a\implies a\rho b\),
+    Analogamente, se \(a\rho b\), se esiste \(c \in [a]\implies c\rho a \implies c \rho b \implies c\in [b]\implies
+    [a]\subseteq[b]\).\\
+    se esiste \(c \in [b]\implies c\rho b \implies c \rho a \implies c\in [a]\implies
+    [b]\subseteq[a]\). Essendo \( [b]\subseteq[a]\) e \( [a]\subseteq[b]\), per forza di cose \([a]=[b]\).
+\end{dimostrazione}
+\raggedleft\(\blacksquare\)\newpage
+\raggedright \subsubsection{Le Partizioni}
+Dicesi \textbf{partizione} di un insieme \(A\) una \textit{collezione di parti o sotto-insiemi} \(A_\alpha\) non 
+vuoti di \(A\) tali che \textbf{l'unione} di tutti i sotto-insiemi sia \(A\), ossia, tali collezioni \textit{ricoprono} \(A\).
+\begin{equation}
+    \bigcup_\alpha A_\alpha = A 
+\end{equation}
+Ciò significa che \(A_\alpha \cap A_\beta \ne \varnothing \implies A_\alpha = A_\beta\), in un linguaggio meno formale, tutte le partizioni 
+di un insieme \(A\), non condividono nessun elemento di \(A\). Nell'immagine seguente, \(A'\) e \(A''\) sono partizioni di \(A\).
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.3\textwidth ]{images/Partizioni.png}
+    }
+\end{figure}
+\newtheorem{prop}{Proposizione}
+\begin{prop}
+    Sia \(\rho\) una relazione di equivalenza su \(A\), le classi di equivalenza di \(\rho\) sono
+    partizioni di \(A\).
+\end{prop}
+\textit{Dimostrazione}:\\
+    Ricoprono totalmente \(A\), essendo \(a \rho a \forall a \in A\), ogni \(a\) appartiene alla sua classe 
+    di equivalenza.  Inoltre le classi di equivalenza, o coincidono o sono disgiunte.
+\begin{prop}
+    Ogni partizione di un insieme \(A\) determina su \(A\) una relazione di equivalenza, per la quale i sotto insiemi
+    della partizione sono le classi di equivalenza.
+\end{prop}
+\textit{Dimostrazione}:\\
+Se indichiamo con \(B_\alpha\) i sotto-insiemi della partizione \(A_\alpha\) su \(A\), è ovvio che :
+\begin{equation}
+    a\rho b \implies \exists B_\alpha | a,b \in B_\alpha
+\end{equation}
+Una relazione di equivalenza definisce a sua volta delle classi di equivalenza, che definiscono a loro volta delle partizioni.
+\subsection{Relazioni di Ordine Parziale}
+Introduciamo adesso un'altro gruppo di relazioni, ma prima necessitiamo della definizione di \textbf{relazione antisimmetrica} :
+\begin{equation}
+    \text{Sia }\rho \text{ una relazione, essa si dice \textbf{antisimmetrica} se è vero che } a\rho b \text{ e } b\rho a \implies a=b 
+\end{equation}
+Detto ciò, possiamo definire una \textit{relazione di ordine} parziale se essa è :\begin{itemize}
+    \item Riflessiva
+    \item Transitiva
+    \item Antisimmetrica
+\end{itemize}
+\textit{Esempio 1} - Sia \(X\) un insieme, e sia \(\mathcal{P} (X)\) l'insieme delle sue parti, definiamo 
+la relazione sugli elementi di \(\mathcal{P} (X)\) nel seguente modo \(\rho = \{\{A,B\} \text{ con } A,B\in\mathcal{P}(X) \text{ se } A\subseteq B\}\),
+quindi \(A\rho B \iff A\subseteq B\), è chiaro che tale relazione soddisfa i 3 requisiti, è quindi 
+di ordine parziale.\\\hphantom{.}\\
+\textit{Esempio 2} - Prendiamo come relazione la divisibilità in \(\mathbb{N}\text{*} = \mathbb{N}\backslash \{0\}\)  
+, siano \(a,b \in \mathbb{N}\text{*}\) vale che \(a\rho b\iff a | b\), dove \(a|b\) significa \textit{ \(a\) divide \(b\)},
+ossia che \(\exists x \in \mathbb{N}\text{*} \text{ tale che } b=a\cdot x\). Tale relazione è di ordine parziale 
+dato che è riflessiva (\(a=1\cdot a\) quindi \(a\rho a\)), è transitiva (dato che se \(a\) è divisibile per \(b\)
+e \(b\) è divisibile per \(c\), è ovvio che \(a\) sia divisibile per \(c\)), e risulta essere anche 
+antisimmetrica, dato che : 
+\begin{equation}
+     \begin{cases} 
+        a\rho b\\
+        b\rho a 
+     \end{cases}
+     \implies 
+     \begin{cases} 
+        b=ax\\
+        a=by 
+     \end{cases}
+     \implies a = (ax)y \implies xy = 1
+\end{equation}
+Quando si ha una relazione di ordine parziale, gli elementi di tale relazione godono della proprietà 
+di poter essere rappresentati graficamente in un determinato modo, ma prima di enunciare tale rappresentazione,
+necessitiamo di una definizione.
+\begin{theorem}
+    Sia \(\rho\) una relazione d'ordine parziale su un insieme \(A\), presi \(a,b \in A\), diciamo che 
+    \(a\) \textbf{è coperto} da \(b\) e scriveremo \begin{equation}
+        a\preccurlyeq b
+    \end{equation}
+    se \(a\rho b \) e non esiste nessun elemento \(c\) tale che \(a\rho c \) e \(c \rho b\).
+\end{theorem}
+Ad esempio, prendiamo l'insieme \(A  = \{1,2,3,5,6.10,15,30\}\), ossia dei numeri naturali che dividono \(30\).
+Risulta chiaro come :
+\begin{itemize}
+    \item \(2 !\preccurlyeq 30\) 30 non è il primo valore che si fa 
+    dividere da 2, ci sono valori prima di 30 per il quale 2 è divisore.
+    \item \(2 !\preccurlyeq 3\) dato che 2 e 3 non sono nemmeno in relazione.
+    \item \(2 \preccurlyeq 6\) perchè 6 è il primo numero che 2 può dividere. 
+\end{itemize}
+Stabilito ciò, possiamo \textit{rappresentare graficamente} una relazione di ordine parziale su un 
+insieme finito tramite il \textbf{diagramma di Hasse}, disegnando tutti gli elementi dell'insieme, 
+collegandoli con una fraccia ogni dove un elemento \textit{copre} un altro.
+\\ \begin{center}
+    preso \(A=\{1,2,3,5,6.10,15,30\}\) e la relazione di divisibilità prima enunciata, si ha
+\end{center}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.5\textwidth ]{images/DiagrammaHasse.png}
+    }
+\end{figure}
+\newpage
+\subsection{I Numeri Naturali}
+Dalle scuole elementari siamo abituati a lavorare e fare operazioni con i numeri naturali, in questa 
+sezione ne daremo una definizione assiomatica in termini di \textit{fondamenti della matematica}.
+È importante in questo
+momento non considerare assolutamente il concetto di numeri naturali che ci è ben chiaro, e cercare di leggere il seguente 
+paragrafo da un punto di vista puramente logico, dando nulla per scontato.
+\subsubsection{La Terna di Peano}
+Introduciamo prima quella che è un'astrazione dei numeri naturali, ossia la \textbf{terna di Peano}. 
+\begin{equation}
+    (\mathbb{N} ,\sigma ,0)
+\end{equation}
+Si indica in questo caso con \(\mathbb{N}\) un insieme di elementi, non i numeri naturali alla quale siamo abituati,
+con \(\sigma\) invece si indica una funzione \(\sigma : \mathbb{N}\rightarrow\mathbb{N}\),
+e dato ogni elemento \(n\in \mathbb{N}\), l'elemento \(\sigma(n)\) si dice \textit{successivo} di \(n\).  Su tale terna, sono definiti 
+3 fondamentali assiomi : 
+\begin{itemize}
+    \item \(\mathbb{N}_1\) - \(\sigma\) è una funzione iniettiva.
+    \item \(\mathbb{N}_2\) - \(0 \notin \Im(\sigma)\), 0 non è contenuto nell'immagine di \(\sigma\).
+    \item \(\mathbb{N}_3\) (\textit{Principio di induzione matematica}) - Se \(U\subseteq\mathbb{N}\), ed è vero che :
+    \begin{itemize}
+        \item\(0\in U\)
+        \item\(k\in U \implies \sigma(k)\in U\)
+    \end{itemize}
+    Allora \(U=\mathbb{N}\)
+    \\\hphantom{.}\\\textit{Dimostrazione}\\
+    Considero \(U=\{0\}\cup\{n|\exists n' \text{ tale che }\sigma(n')=n\}\) quindi \(k\in U \implies \exists k' | k=\sigma(k')\)
+     allora risulta ovvio che \(\sigma(k)=\sigma(\sigma(k')) \in U \implies U = \mathbb{N} \).
+\end{itemize}
+\subsubsection{Definizione Formale}
+Dati tali assiomi adesso procesiamo nel riconnetterci con l'insieme dei numeri naturali da noi conosciuti,
+enunciandone le proprietà elementari secondo la terna di Peano.\\
+Sia \((\mathbb{N} ,\sigma ,0)\) una terna di Peano, presi \(n,m \in \mathbb{N}\), dirò che \(n\le m \iff m = \sigma(\sigma(\sigma(...n)))\),
+ossia che \(n\) è minore o uguale di \(m\) se \(m\) è uguale a \(\sigma\) applicato su \(n\) un certo numero di volte. 
+\begin{quote}
+    \textbf{Proposizione} - Questo stabilisce una relazione di ordine totale.
+\end{quote}
+Adesso definiamo le operazioni elementari che conosciamo sui numeri naturali, ossia di somma e prodotto.\\
+Definiamo la \textbf{somma} come operazione su un insieme \(\mathbb{N} \times \mathbb{N} \rightarrow\mathbb{N}\), ossia che 
+associa ad ogni coppia di elementi di \(\mathbb{N}\), un elemento di \(\mathbb{N}\).
+\begin{equation}
+    n,m\in \mathbb{N}\text{ si definisce somma } n\times m \rightarrow n+m
+\end{equation}
+La somma è definita in tal modo :
+\begin{itemize}
+    \item (i) \(0+b=b\)
+    \item (ii) \(\sigma(a)+b=\sigma(a+b)\)
+\end{itemize}
+\begin{quote}
+    \textbf{Osservazione} - \(\sigma(0)+b = \sigma(0+b)=\sigma(b)\),
+    Se poniamo \(\sigma(0)=1\), allora vediamo che \(\sigma(b)=b+1\).
+\end{quote}
+Definamo adesso il \textbf{prodotto}, sempre come un operazione \(\mathbb{N} \times \mathbb{N} \rightarrow\mathbb{N}\)
+avente le seguenti proprietà :
+\begin{itemize}
+    \item (i) \(0\cdot b=0 \forall b\in \mathbb{N}\)
+    \item (ii) \(\sigma(a)\cdot b = a\cdot b +b\)
+\end{itemize}
+\begin{quote}
+    \textit{Si può dire che gli assiomi di Peano caratterizzano i numeri naturali. Quello che si deve 
+    accettare senza dimostrazione, è l'esistenza di un insieme \(\mathbb{N}\) verificante gli
+    assiomi di Peano.}
+\end{quote}
+\section{I Numeri Interi}
+Nell'insieme \(\mathbb{N}\), non ci è permesso risolvere \(x+1=0\). In questo capitolo partiremo dai numeri 
+naturali per costruirne un estensione in grado di rappresentare gli interi. Partendo dal prodotto cartesiano 
+\(\mathbb{N}\times\mathbb{N}\), costruiamo una relazione del tipo : 
+\begin{equation}
+    (n,m)\sim (n',m')\iff n+m' = m+n'
+\end{equation}
+In linguaggio meno formale, una coppia \((0,a)\) è in relazione con tutte le coppie \(n,m\), per cui \(n-m=-a\),
+ed  una coppia \((a,0)\) è in relazione con tutte le coppie \(n,m\), per cui \(n-m=a\).\\
+\textit{Esempio :}
+\begin{center}
+    \((5,6)\sim (0,1)\iff 5+1 = 6+0 \)\\\((8,2)\sim (6,0)\iff 8+0 = 2+6\)
+\end{center}
+Si nota facilmente come tale relazaione sia di equivalenza, possiamo quindi definire delle classi di equivalenza
+che ripartiscono l'insieme \(\mathbb{N}\times\mathbb{N}\) in classi \([(n,m)]\). Scegliamo come \textit{rappresentanti}
+delle classi di equivalenza gli elementi che prevedono uno dei due elementi uguale a \textit{zero}, ogni classe sarà 
+rappresentabile con uno dei seguenti rappresentanti distinti :
+\begin{center}
+    \((0,0)\)\hphantom{\(,(2,0),(3,0)...,(n,0)...\)}\\\((1,0),(2,0),(3,0)...,(n,0)...\)
+    \\\((0,1),(0,2),(0,3)...,(0,n)...\)
+\end{center}
+Abbiamo detto che ogni classe \([(a,0)]\) contiene tutti gli elementi \((n,m)\) per cui \(n-m=a\), ad esempio
+si noti come : 
+\begin{center}
+    [(5,0)] = \{(10,5),(35,30),(1434,1429)...\}
+\end{center}
+Analogamente : 
+\begin{center}
+    [(0,3)] = \{(5,8),(1,4),(22,25)...\}
+\end{center}
+Poniamo per \textbf{definizione} : 
+\begin{equation}
+     \mathbb{Z} = \displaystyle\sfrac{\mathbb{N}\times\mathbb{N}}{\sim}
+\end{equation}
+\newpage Ossia l'insieme \( \mathbb{Z} \) è l'insieme quoziente\footnote{l'insieme di tutte le 
+classi di equivalenza.} di \(\mathbb{N}\times\mathbb{N}\) sulla relazione \(\sim\)
+precedentemente definita. Possiamo inoltre decomporre \(\mathbb{Z}\) nei seguenti sotto-insiemi :
+\begin{center}
+    \(\mathbb{Z} = \mathbb{Z}^+ \cup \{0\}\cup \mathbb{Z}^-\)
+\end{center} 
+Dove (com'è di facile intuizione) si ha :
+\begin{center}
+    \(\mathbb{Z}^+ =\{ [(n,0)] | n \in \mathbb{N}\backslash\{0\}\}\)\\
+    \(0=[(0,0)]\)\hphantom{aaaaaaaaaaaaa.}\\
+    \(\mathbb{Z}^- =\{ [(0,n)] | n \in \mathbb{N}\backslash\{0\}\}\)
+\end{center} 
+Gli elementi di \(\mathbb{Z}^+\) saranno denominati \textbf{interi positivi} mentre quelli 
+di \(\mathbb{Z}^-\) \textbf{interi negativi}, l'insieme \(\mathbb{Z}\) è un \textit{estensione} di \(\mathbb{N}\), 
+dato che contiene al suo interno  \(\mathbb{Z}^+ \cup \{0\}\) che è identificabile come \(\mathbb{N}\) tramite l'applicazione
+iniettiva da \(\mathbb{N}\) in \(\mathbb{Z}\) che associa ad ogni naturale \(n\) la classe \([(n,0)]\). 
+Definiamo adesso su \(\mathbb{Z}\) le operazioni elementari di somma e prodotto :
+\\\hphantom{.}\\\textbf{Somma : }\\
+\begin{center}
+    \([(n,m)]+[(n',m')] = [(n+n',m+m')]\)
+\end{center}
+\textit{Esempio 1 : }
+\begin{center}
+    \([(5,0)]+[(0,9)] = [(5,9)] = [(0,4)]\) 
+\end{center}
+\textbf{Prodotto : }\\
+\begin{center}
+    \([(n,m)]\cdot[(n',m')] = [(n\cdot n'+m\cdot m',n'\cdot m+n\cdot m')]\)
+\end{center}
+\textit{Esempio 2 : }
+\begin{center}
+    \([(7,0)]\cdot[(0,2)] = [(7\cdot 0+0\cdot 2,0\cdot 0+7\cdot 2)]=[(0,14)]\)
+\end{center}
+Da ora in poi indicheremo gli elementi di \(\mathbb{Z}\) in tal modo :
+\begin{center}
+\( [(n,0)] = n \)\hphantom{spac}\( [(0,0)] = 0 \)\hphantom{spac}\( [(0,n)] = -n \)
+\end{center}
+Riprendendo gli esempi di prima, è chiaro come adesso siano definite le operazioni elementari che siamo 
+abituati ad utilizzare fin dalle elementari.\\
+\begin{center}
+    \textit{Esempio 1 } \(\rightarrow 5+(-9)=-4\) \\
+    \textit{Esempio 2 } \(\rightarrow 7\cdot (-2)=-14\) 
+\end{center}
+\textbf{Osservazioni : }
+\begin{center}
+    \( [(n,0)]+[(0,n)] = [(n+0,0+n)]=[(n,n)]\sim[(0,0)]\implies     n + (-n) = 0\)
+\end{center}
+In \(\mathbb{Z}\) ci sono due importanti elementi, \([(0,0)]=0\) e \([(1,0)]=1\), dati tali elementi e le operazioni
+precedentemente definite, diciamo che \(\mathbb{Z}\) è una \textbf{struttura algebrica}.\newpage
+\subsection{Divisibilità in \(\mathbb{Z}\)}
+\textbf{Teorema Fondamentale} : Presi due numeri \(a,b\in\mathbb{Z}\), con \(b\ne0\), esistono e sono unici due 
+numeri \(q,r\in\mathbb{Z}\) tale che :\begin{center}
+    \(a=bq+r\) dove \(0\le r < |b|\)
+\end{center}
+Dove \(a\) è detto \textit{dividendo}, \(b\) è detto \textit{divisore}, \(q\) è detto \textit{quoziente} ed
+\(r\) è detto \textit{resto}.\\ \hphantom{.}\\ \textbf{\textit{Dimostrazione :}}\\
+(\textit{Esistenza}) Consideriamo un numero intero \(b\ge1\) e l'insieme \(S=\{a-bx\ge0,x\in \mathbb{Z}\}\), si 
+ha che \(S\ne\emptyset\) perchè, ponendo ad esempio \(x=-|a|\), si verifica \(a+b|a|\ge 0\). Per \textit{principio del 
+buon ordinamento}, essendo \(S\) sottoinsieme di \(\mathbb{N}\), \(S\) ha un minimo, che denoteremo \(r\). Quindi 
+\(r\in S \implies r= a-bq\) con \(q\in\mathbb{Z}\). Segue che \(a=bq+r\), e tale coppia \(q,r\) è unica dato che 
+\(r\) essendo un minimo, è unico. Si dimostra facilmente \(0\le r < |b|\), sicuramente \(0\le r\) dato 
+che \(r\in S\), poniamo per assurdo che \(r\ge |b|\), quindi \(r-b\ge 0\). 
+Dato che prima si è scritto \( r= a-bq\), ora abbiamo  \( r-b= a-bq-b\), che possiamo riscrivere come 
+\(a-b(q+1)\), che rientra nella forma \(a-bx\) definita inizialmente nell'insieme \(S\). Ciò vuol dire che 
+\(r-b\in  S\), ovviamente \(r>r-b\), ma \(r\) è il minimo di \(S\) quindi è \textbf{assurdo} che \(r-b\) sia 
+in \(S\), per questo \(r<|b|\).\\\hphantom{.}\\
+\textbf{Definizione }: presi \(a,b\in\mathbb{Z}\) si dice che \(a\) \textit{divide} \(b\), e si scrive 
+\(a|b\), se esiste \(c\in\mathbb{Z}\) tale che \(b=ac\).\\
+Osservazioni :\begin{itemize}
+    \item 1) ogni \(a\in\mathbb{Z}\) ha sempre i divisori \textit{ovvi}, ossia \(\pm 1\) e \(\pm a\).
+    \item 2) \(\forall a\in\mathbb{Z}, a|0\).
+    \item 3) \(0|a \iff a=0\)
+    \item 4) \(a|1 \iff a=\pm 1\)
+    \item 5.1) se \(a|b\) e \(a|c\), allora \(\forall x,\forall y,a|bx+cy\), si dimostra facilmente :\begin{equation}
+        \begin{cases}
+            a|b \implies b = at
+            \\a|c \implies c = as
+        \end{cases}\implies bx+cy = atx+asy=a(tx+sy)\implies a|bx+xy
+    \end{equation}
+    \item 5.2) se \(\forall x,\forall y,a|bx+cy\), allora \(a|b\) e \(a|c\).
+\end{itemize}
+\subsection{Il Massimo Comun Divisore}
+\textbf{Definizione }: Siano \(a,b\ne 0,0\in\mathbb{Z}\), \(d\ge1\in\mathbb{Z}\) si dice \textbf{massimo comun divisore}
+di \((a,b)\) se:\begin{itemize}
+    \item i) \(d|a\) e \(d|b\)
+    \item ii) se \(d'|a\) e \(d'|b\) allora \(d'|d\)
+\end{itemize}
+Il massimo comun divisore esiste \(\forall a,b\ne 0,0\in\mathbb{Z}\) ed è \textit{unico}.\\
+\textbf{\textit{Dimostrazione }:}\\
+(\textit{Esistenza}) Vogliamo dimostrare che \(MCD(a,b)\) esiste. Sia \(S=\{ax+by>0,\forall x,y \in\mathbb{Z} \}\subseteq\mathbb{N}\backslash\{0\}\)
+un insieme, ovviamente non vuoto, essendo sotto-insieme dei numeri naturali vale il principio del buon ordinamento, 
+quindi esiste un minimo in \(S\), che denotiamo \(d=ax_0+by_0\). Vogliamo provare che \(MCD(a,b)=d\), per la (5.2) basta dimostrare 
+che \(d|ax+by\)  \( \forall x,y\), prendo \(ax+by\) e lo divido per \(d\), vale ovviamente : \(ax+by=d\cdot q+r\) 
+con \(0\le r < |d|\). Ci basta ora dimostrare che \(r=0\). Supponiamo per \textit{assurdo} che \(r>0\), ciò vorrebbe 
+dire che, essendo \(d=ax_0+by_0\), ho che :\begin{equation}
+    ax+by=(ax_0+by_0)\cdot q +r\implies r= a(x-x_0q)+b(y-y_0q)
+\end{equation}
+Essendo di tale forma, vuol dire che essendo maggiore di 0,\(r\in S\). Si giunge ad una contraddizione, dato 
+che \(r\) è strettamente minore di \(d\), ma abbiamo definito \(d\) come il minimo di \(s\), quindi è impossibile 
+che \(r>0\). Essendo \(r=0\), si ha che \(d|ax+by\), quindi \(d|a\) e  \(d|b\), \(d\) è il massimo comun divisore. \(\blacksquare\)
+\\\hphantom{.}\\Abbiamo visto che tale \(d\) può essere scritto nella forma \(d=ax_0+by_0\) per due coefficenti \(x_0,y_0\). Tale 
+forma è detta \textbf{identità di Bézout}, e \textit{non è unica}. Vediamo alcune proposizioni:\begin{itemize}
+    \item 1) se \(a\ne0\) e \(a|b\), allora \(MCD(a,b)=|a|\)
+    \item 2) \(MCD(a,\pm a)=a\)
+    \item 3) \(MCD(a,0)=a\)
+    \item 4) \(MCD(\pm 1,a)=1\)
+    \item 5) Siano \(a,b,c \in \mathbb{Z}\) tutti diversi da 0, vale che \(MCD(ab,ac)=|a|\cdot MCD(b,c)\)
+    \item 6) \(MCD(a,b)=d\implies MCD(\dfrac{a}{d},\dfrac{b}{d})=1\)
+\end{itemize}
+\textbf{Definizione }: Siano \(a,b\ne 0\), se \(MCD(a,b)=1\), allora \(a\) e \(b\) si dicono \textit{co-primi}. Se 
+due numeri sono co-primi, allora \(\exists r,s \in \mathbb{Z}\) t.c. \(ar+bs=1\).\\
+\textit{Lemma di Euclide} : se \(a|bc\) e \(MCD(a,b)=1\) allora \(a|c\). \\
+\textbf{\textit{Dimostrazione }:}\\
+Abbiamo per ipotesi che \(ar+bs=1\), allora \(c=c\cdot 1 = c\cdot (ar+bs)\), e per ipotesi essendo \(a|bc\) vuol dire 
+che \(bc = ax\) per qualche \(x\). allora \(c=a(cr)+a(xs)=a(cr+xs)\implies a|c\). \(\blacksquare\) 
+\\\hphantom{.}\\Vediamo un importante \textit{lemma}, sappiamo che se \(a,b\in\mathbb{Z}\) con \(b\ne 0\), si ha che 
+\(a=bq+r\) con \(0\le r<|b|\). Si ha che \(MCD(a,b)=MCD(b,r)\).\\\textbf{\textit{Dimostrazione }:}\\
+Sia \(d=MCD(a,b)\) e \(d'=MCD(b,r)\). In generale, se \(a|b\) e \(b|a\implies a=\pm b\). Per tale osservazione, 
+dobbiamo dimostrare che \(d|d'\) e \(d'|d\).
+\begin{itemize}
+    \item Sappiamo che \(d|a\) e \(d|b\), quindi \(d|a-bq\implies d|r\), essendo che \(d|r\) e  \(d|b\), si ha 
+    che \(d|d'\) perchè \(d'=MCD(b,r)\). 
+    \item Sappiamo che \(d'|d\) e \(d'|r\), quindi \(d'|bq+r\implies d'|a\), essendo che \(d'|a\) e  \(d'|b\), si ha 
+    che \(d'|d\) perchè \(d=MCD(a,b)\). 
+\end{itemize}
+\raggedleft{\(\blacksquare\)}
+
+\raggedright
+\subsubsection{L'Algoritmo Euclideo}\label{algEuclideo}
+Vediamo ora l'algoritmo per trovare il massimo comun divisore di due numeri \(a,b\), per cui vale la 
+condizione \(a\ge b>0\). Vediamo come si fa passo per passo.
+\begin{itemize}
+    \item Passo 1) divido \(a\) per \(b\), ed ottengo \(a=bq_1+r_1\). Se \(r_1\ne 0\), continuo. 
+    \item Passo 2) divido \(b\) per \(r_1\), ed ottengo \(b=r_1q_2+r_2\). Se \(r_2\ne 0\), continuo.
+    \item Passo 3) divido \(r_1\) per \(r_2\), ed ottengo \(r_1=r_2q_3+r_3\). Se \(r_3\ne 0\), continuo.
+\end{itemize}
+\textit{Osservazione :} Procedendo in tal modo, definiamo una successione di interi strettamente decrescente :\begin{center}
+    \(b>r_1>r_2>r_3...\)
+\end{center}
+Quindi, ad un certo punto, otterremo un resto pari a 0 : 
+\begin{itemize}
+    \item Passo \(n\)) divido \(r_{n-2}\) per \(r_{n-1}\), ed ottengo \(r_{n-2}=r_{n-2}q_n+r_n\). Se \(r_n\ne 0\), continuo.
+    \item Passo \(n+1\)) divido \(r_{n-1}\) per \(r_{n}\), ed ottengo \(r_{n-1}=r_{n}q_{n+1}+r_{n+1}\). A questo punto ho che 
+    \(r_{n+1}=0\)
+\end{itemize}
+Ho trovato finalmente che \(r_{n+1}=0\), per lemma di Euclide, si ricordi che : \(MCD(r_{n-1},r_{n})=MCD(r_{n},r_{n+1})\implies MCD(r_{n-1},r_{n})=MCD(r_{n},0)\implies MCD(r_{n-1},r_{n})=r_n\).
+\\ A questo punto risulta chiaro che :\begin{equation}
+    MCD(a,b)=MCD(b,r_1)=MCD(r_1,r_2)...,=MCD(r_n,0)=r_n
+\end{equation}
+Quindi, \(MCD(a,b)\) è uguale all'ultimo resto non nullo.
+\subsection{Equazioni Diofantee}\label{eqDiof}
+Un \textit{equazione diofantea} è un equazione della forma :\begin{center}
+    \(ax+by=c\) con \(a,b,c\in\mathbb{Z}\)
+\end{center}
+Dove si vogliono trovare delle soluzioni intere, ossia con \(x,y\in \mathbb{Z}\). Tale equazione, 
+ha soluzione intera \textbf{se e solo se} il massimo comun divisore fra \(a\) e \(b\) divide \(c\).
+\begin{center}
+    con \(a,b,c\in\mathbb{Z}\), \(\exists x,y \in \mathbb{Z}\) tale che  \(ax+by=c\) \(\iff\) \(MCD(a,b)|c\)  
+\end{center}
+\subsubsection{Risoluzione}
+Vediamo adesso passo-passo come si risolve un equazione di questo tipo:
+\begin{itemize}
+    \item 1) Bisogna prima verificare che l'equazione sia risolvibile, si calcoli quindi \(MCD(a,b)=d\), se esso 
+    divide \(c\), l'equazione ammette soluzione.
+    \item 2) Usare l'algoritmo euclideo\ref{algEuclideo} per trovare un'identità di Bézout per \(d\), esprimendolo 
+    nella forma \(d=ax_0+by_0\), utilizzeremo proprio tali coefficenti \((x_0,y_0)\). 
+    \item 3) Moltiplicare \((x_0,y_0)\) per \(\dfrac{c}{d}\), ottenendo \((\tilde x,\tilde y)\)=\((\dfrac{c}{d}\cdot x_0,\dfrac{c}{d}\cdot y_0)\).
+    \item 4) Per qualsiasi \(k\in\mathbb{Z}\), le soluzioni dell'equazione diofantea sono della forma : \begin{center}
+        \((\tilde x+k\cdot \dfrac{b}{d},\tilde y-k\cdot \dfrac{a}{d})\)
+    \end{center}
+\end{itemize}
+Vediamo un \textit{Esempio} di risoluzione, sia :
+\begin{center}
+    \(2x+5y=3\)
+\end{center}
+\begin{itemize}
+    \item Uso l'algoritmo di Euclide per trovare \(MCD(5,2)\) : (1)\(5=2\cdot 2 +1\)   (2)\(2=2\cdot 1 +0\). 
+    Trovo quindi \(MCD(5,2)=1\).
+    \item Tramite tale algoritmo, identifico anche la combinazione lineare \(1=(-2)\cdot2+(1)\cdot 5\).
+    \item Moltiplico \((-2,1)\) per \(3\), ottenendo \((-6,3)\).
+    \item Tutte le soluzioni sono : \((-6+(k\cdot 5),3-(k\cdot2))\), difatti, per \(k=1\) ho : \(2(-6+5)+5(3-2)=3\).
+\end{itemize}
+\section{Strutture Algebriche Notevoli}
+Vediamo prima una definizione :
+\begin{quote}
+    Sia \(X\) un insieme, un \textbf{operazione binaria} in \(X\) è un \textit{aapplicazione} 
+    \(* : X\times X \rightarrow X\), ossia che ad ogni elemento del prodotto cartesiano \(X\times X\) associa
+    un elemento di \(X\).
+\end{quote}
+Ad esempio, l'operazione somma \(+\) nei numeri naturali è un operazione binaria. \((\mathbb{Z},+)\) è un insieme con 
+un'operazione binaria definita su di esso. Vediamo adesso alcune strutture algebriche notevoli e largamente studiate.
+\subsection{Definizione di Semigruppo}
+Il \textbf{semigruppo} è un insieme \(S\) dotato di un operazione \(*\) verificante i seguenti punti :
+\begin{itemize}
+    \item \textbf{1.1} - \(*\) è \textbf{associativa}, ossia \((s*s')*s''=s*s'*s''\).
+    \item \textbf{1.2} - \(\exists e \in S | e*s=s=s*e \forall s\in S\) dove tale \(e\) è detto \textbf{elemento nullo}.
+\end{itemize}
+Se dovesse accadere che \(\forall s,s' \in S | s*s'=s'*s\) si dice che il semigruppo \(S,*\) è anche \textbf{commutativo}.
+\\\textit{Esempio 1 : } Sia \(S=\{f:X\rightarrow X\}\) l'insieme delle funzioni definite su un insieme \(X\), l'operazione
+\(\circ \) detta composizione è associativa, presenta l'elemento neutro (la funzione identità), ma non è commutativa, 
+dato che \(f \circ g\ne g \circ f\), quindi \((S,\circ)\) è un semigruppo non commutativo.
+\subsection{Definizione di Gruppo}
+Il \textbf{gruppo} è un insieme \(S\) dotato di un operazione \(*\) verificante i punti del semigruppo, ma avendo una 
+condizione aggiunta necessaria :
+\begin{itemize}
+    \item \textbf{2.1} - \(*\) è \textbf{associativa}, ossia \((s*s')*s''=s*s'*s''\).
+    \item \textbf{2.2} - \(\exists e \in S | e*s=s=s*e \forall s\in S\) dove tale \(e\) è detto \textbf{elemento nullo}.
+    \item \textbf{2.3} - \( \forall s\in S \exists s' | s*s'=e=s'*s\) dove \(s'\) è detto \textbf{inverso} di \(s\).
+\end{itemize}
+\textit{Esempio 1 :} \((\mathbb{N},+)\) non è un gruppo, ma \((\mathbb{Z},+)\) si, dato che \(\forall x\in\mathbb{Z} 
+\exists -x | x+(-x)=0\), ovviamente \(0\) è l'elemento neutro.\\
+\textit{Esempio 2 :} Sia \(X\) un insieme, l'insieme \(S=\{f:X\rightarrow X \text{ biettiva}\}\) ossia di tutte 
+le funzioni biettive su \(X\), con l'operazione \(\circ\) di composizione, è un gruppo, dato che 
+\(\forall f \in S \exists f^{-1} | f\circ f^{-1} = d_x\), dove \(d_x\) è la funzione identità (l'elemento neutro).\\
+\hphantom{.}\\È importante notare che per definizione, l'elemento neutro \(e\), se esiste è unico. La \textbf{dimostrazione}
+è semplice : sia \(\tilde{e}\) un'altro elemento neutro su \((S,*)\). dato che \(\forall s\in S|s*\tilde{e}=s=\tilde{e}*s\implies 
+\tilde{e}*e=e=e*\tilde{e}\), ma dato che anche \(e\) è elemento neutro, \(e*\tilde{e}=\tilde{e}=\tilde{e}*e\).\begin{equation}
+    \begin{cases}
+        e*\tilde{e}=\tilde{e}=\tilde{e}*e\\
+        \tilde{e}*e=e=e*\tilde{e}
+    \end{cases}
+    \implies \tilde{e}=e \textbf{ L'elemento neutro è unico.}
+\end{equation}
+\subsubsection{Il Gruppo Simmetrico \(S_n\)}
+Sia \(X\) un insieme ,abbiamo chiamato il gruppo di tutte le sue corrispondenze biunivoche
+ \(f:X\rightarrow X\) con il simbolo \((S(X),\circ)\), nel caso in cui \(X\) sia finito, con cardinalità 
+ \(|X|=n\), si indicherà con \(S_n\), e prende il nome di \textbf{gruppo simmetrico di grado \(n\)}. Tale gruppo 
+ non è commutativo, data l'operazione di composizione \(\circ\). È facile notare come ogni elemento \(\sigma\) di 
+ \(S_n\) sia una permutazione di \(X=\{1,2,3,4...,n\}\), quindi la cardinalità sarà \(|S_n|=n!\). \\
+\subsection{Definizione di Anello}\label{ringDef}
+L'anello \((A,\odot,*) \) è un insieme dotato di 2 operazioni con le seguenti proprietà :
+\begin{itemize}
+    \item \textbf{3.1} - \((A,\odot) \) è un \textbf{gruppo commutativo}, dove \(O_A\) è l'elemento neutro.
+    \item \textbf{3.2} - L'operazione \(*\) è \textbf{associativa}.
+    \item \textbf{3.3} - Riguardo le due operazioni, valgono le proprietà \textbf{distributive} : 
+    \begin{equation}
+        \begin{split}
+        (a\odot a')*b = (a*b)\odot (a'*b)
+        \end{split}
+    \end{equation}
+\end{itemize} 
+Per essere un anello, non è necessario che 
+ l'operazione \(*\) sia commutativa, nel caso dovesse esserlo, l'anello si dice commutativo. \\
+ Un anello si dice \textbf{unitario} se \(\exists u\in A | a*u=a=u*a \forall a\in A\), ossia, se è definito 
+ l'elemento neutro sull'operazione \(*\).
+ \\Un anello commutativo, è detto \textbf{privo di divisori dello zero} se :
+  \begin{equation}a*b=O_A \implies a=O_A \lor b=O_A\end{equation}Dove si ricordi che \(O_A\) è l'elemento 
+  neutro definito su \((A,\odot) \).\\
+  Se un anello commutativo è privo di divisori dello zero, ed è unitario, si dice \textbf{dominio di integrità}.\\
+  L'insieme dei numeri interi \((\mathbb{Z},+,\cdot,0)\) è un \textit{anello commutativo unitario} con unità 1, privo di divisori
+  dello \(0\), detto quindi \textit{dominio di integrità}.
+\\\textbf{Proprietà dell'anello}\\
+\begin{itemize}
+    \item \textbf{(1)} \(\forall a\in A, a\cdot 0 = 0\) ciò si dimostra facilmente, infatti \(a\cdot 0 = a\cdot 0+0\), ma essendo
+    che \(a\cdot 0=a\cdot (0+0)\) si ha \(a\cdot 0 + 0 = a\cdot (0+0)\), aggiungo ad entrambi i membri \(-a\cdot0\)
+    ed ottengo \(-a\cdot 0 + a\cdot 0 + 0 = -a\cdot 0 + a\cdot 0 + a\cdot 0 \implies 0+0=a\cdot 0 +0 \implies a\cdot 0=0\). \(\blacksquare\)
+    \item \textbf{(2)} \(a\cdot(-b)=-(-ab)=(-a)\cdot b\)
+    \item \textbf{(3)} \((-a)\cdot (-b)= ab\)
+    \item \textbf{(4)} \(a\cdot(b-c)=(a\cdot b)-(a\cdot c)\)
+\end{itemize}
+In ogni anello unitario (non necessariamente commutativo) \((A,+,\cdot)\) si definisce \(\mathcal{U}(A)=\{a\in A |
+\exists a' | a\cdot a' = 1  = a'\cdot a\}\), ossia l'insieme degli elementi invertibili di \(A\), ad esempio, nei 
+numeri interi si ha \(\mathcal{U}(\mathbb{Z})=\{1,-1\}\). Si nota facilmente che l'insieme degli elementi invertibili 
+è un gruppo. Vediamo ora un importante proprietà : \begin{center}
+    \(a,b \in \mathcal{U}(A)\implies a\cdot b \in \mathcal{U}(A)\)
+\end{center}
+Ossia, il prodotto di due elementi invertibili, è anche esso un elemento invertibile.\\\textit{Dimostrazione:}\\
+Siano \(a'\) l'inverso moltiplicativo di \(a\) e \(b'\) l'inverso moltiplicativo di \(b\), quindi \(a,b,a',b'\in \mathcal{U}(A)\).
+Ciò vuol dire che \(a'\cdot b'\) è l'inverso moltiplicativo di \(a\cdot b\), dato che \((a'\cdot b')\cdot (a\cdot b) 
+= b'\cdot(a'\cdot a)\cdot b=b'\cdot1\cdot b=b'\cdot b=1\), è quindi dimostrato che essendo \(a'b'\) l'inverso di 
+\(ab\), essi sono invertibili, per cui fanno parte di \(\mathcal{U}(A)\). \(\blacksquare\)
+\\\large\textbf{Notazioni semplificate}\\
+\normalsize Da questo punto in poi useremo le seguenti notazioni semplificate : \begin{itemize}
+    \item \textbf{Gruppo} - \((S,\cdot,1)\) dove "\(S\)" è l'insieme, "\(\cdot\)" 
+    l'operazione, ed "\(1\)" l'elemento neutro.
+    \item \textbf{Gruppo Commutativo} - \((S,+,0)\) dove "\(S\)" è l'insieme, "\(+\)" 
+    l'operazione, e "\(0\)" l'elemento neutro.
+    \item \textbf{Anello} - \((A,+,\cdot,0)\) dove "\(S\)" è l'insieme, "\(+\)" 
+    la prima operazione, per cui \((A,+)\) risulta un gruppo commutativo,
+    "\(\cdot\)" la seconda operazione, e "\(0\)" l'elemento neutro. Se unitario, si usa "1" come simbolo per l'unità.
+\end{itemize}
+\subsection{Definizione di Campo}
+Abbiamo visto che l'insieme degli invertibili di un anello è uguale a tutti quegli elementi, che moltiplicati per 
+un altro elemento dell'insieme, detto \textit{inverso}, sono uguali all'elemento neutro rispetto l'operazione di prodotto.
+Infatti in un anello, l'inverso esiste per tutti gli elementi rispetto l'operazione di somma (essendo un 
+gruppo), ma non del prodotto. \\Da qui possiamo dare la definizione di \textbf{campo}, che si denota con
+\(\mathbb{K},+,\cdot\), e non è altro che un \textit{anello commutativo unitario} per cui vale la seguente proprietà :
+\begin{center}
+    \(
+        \forall k\in\mathbb{K} ,k\ne0, \exists k' | k\cdot k' = 1  \) dove \(1\) è l'elemento neutro rispetto all'operazione "\(\cdot\)", e 
+        \(0\) è l'elemento neutro rispetto all'operazione "\(+\)".
+\end{center}
+Quindi un campo, è un anello commutativo unitario per cui esiste l'inverso di ogni elemento rispetto l'operazione di prodotto, difatti 
+vale che \(\mathcal{U}(\mathbb{K})=\mathbb{K}\backslash \{0\}\). Due noti esempi di campo che conosciamo sono il campo 
+dei numeri razionali \(\mathbb{Q}\) ed il campo dei numeri reali \(\mathbb{R}\).
+\section{L'Anello \(\mathbb{Z}_n\)}
+L'insieme dei numeri interi \(\mathbb{Z}\) è il più semplice e chiaro esempio di anello. Vediamo adesso un anello 
+commutativo unitario, \textbf{privo di divisori dello zero}, che non sia quindi dominio di integrità. Definiamo 
+prima di tutto una relazione : \begin{equation}
+    a\sim_n b \iff a-b \text{ è divisibile per }n
+\end{equation}
+L'insieme \(\mathbb{Z}_n\equiv \sfrac{\mathbb{Z}}{\sim_n}\) non è altro che l'insieme quoziente di tale relazione sui numeri interi.
+Ossia l'insieme delle sue classi di equivalenza. \(\mathbb{Z}_n=\{[0],[1],[2]...,[n-1]\}\).
+Notiamo come la cardinalità di tale insieme sia proprio \(n\), e che :\begin{center}
+    \([-1]=[n-1]\) perchè \(n-1\sim_n 1 \iff n-1-(-1)=n\)\\
+    \([0]=[n]\) perchè \(n\sim_n 0 \iff n-0=n\)\\
+    \([1]=[n+1]\) perchè \(n+1\sim_n 1 \iff n+1-1=n\)\\
+    \([10]=[n+10]\) perchè \(n+10\sim_n 10 \iff n+10-10=n\)\\
+\end{center} 
+Su tale insieme sono definiti somma e prodotto (ben posti):\begin{center}
+    \([k]+[h]=[k+h]\)\\\([k]\cdot[h]=[k\cdot h]\)
+\end{center}Ha un elemento neutro per la somma \([0]\), ed 
+uno per il prodotto \([1]\). L'anello è commutativo ed unitario, però possiede \textit{divisori dello zero}, se prendo 
+ad esempio \(\mathbb{Z}_{12}\), nonostante \([3]\ne[4]\ne[0]\), risulta che \([3]\cdot[4]=[12]=[0]\) perchè 
+\(12\sim_{12}0\iff12-0=12\) e 12 è divisibile per 12. \textit{Osservazione:} Se non si è in un dominio di integrità 
+non è possibile semplificare un equazione, si prenda \(\mathbb{Z}_{10}\), sicuramente \([8]=[2][4]\) e 
+\([8]=[28]=[7][4]\), quindi \([7][4]=[2][4]\), semplificando il \([4]\) otterrei \([7]=[2]\) che non è vero.
+\\\hphantom{.}\\\textbf{Notazione : } Al posto di \(\mathbb{Z}_n\) scriveremo (mod \(n)\), e se \(a=b\) (mod \(n)\), potremmo anche 
+scrivere  \(a\equiv b\) (mod \(n)\).
+\subsection{Equazioni in \(\mathbb{Z}_n\) : Congruenze Lineari}
+In questo paragrafo ci occuperemo di esplicare come si risolve un equazione detta \textit{congruenza lineare}, del tipo :\begin{center}
+    \(ax\equiv b\)  (mod \(n)\)
+\end{center}
+Ossia, trovare un \(x_0\) tale che \(ax_0\equiv b\) in \(\mathbb{Z}_n\).
+\\\textbf{Proposizione} : La congruenza lineare \(ax\equiv b\)  (mod \(n)\) ammette soluzioni \textbf{se e solo se} \(MCD(a,n)|b\). La \textit{Dimostrazione}
+ è semplice, dato che risolvore una congruenza lineare equivale a risolvere un equazione diofantea\ref{eqDiof} 
+ del tipo:\begin{center}
+    \(ax+ny=b\)
+ \end{center}
+\textbf{Proposizione} : Se \(x_0\) è una soluzione di \(ax\equiv b\)  (mod \(n)\), \textit{tutte} le soluzioni di tale 
+congruenza saranno del tipo :\begin{center}
+    \(x_0+h\cdot \dfrac{n}{MCD(a,n)}\) con \(h\in \mathbb{Z}\)
+\end{center}
+Ma tale generalizzazione identifica infinite soluzioni congruenti fra loro, le soluzioni diverse (mod \(n)\) sono 
+quindi esattamente \(d=MCD(a,n)\).\\Come accennato precedentemente, per risolvere una congruenza lineare
+\(ax\equiv b\)  (mod \(n)\), basta risolvere  \(ax+ny=b\), trovando : \((x_0+h\cdot \dfrac{n}{MCD(a,n)},y_0+h\cdot \dfrac{a}{MCD(a,n)})\), 
+e considerando la prima coordinata della coppia.
+\subsection{La funzione di Eulero}
+Il \textit{Teorema di Eulero}, enucia che, se \(n\) è un intero positivo, ed \(a\) è co-primo rispetto ad \(n\), allora
+è vero che :
+\begin{center}
+    \(a^{\varphi(n)}\equiv 1\) (mod \(n)\)
+\end{center} 
+Dove \(\varphi\) è la \textbf{funzione di Eulero}, che associa ad ogni \(n\), il numero di tutti gli interi 
+positivi minori di \(n\), che sono co-primi con \(n\). Ad \textit{esempio} :\begin{itemize}
+    \item \(\varphi(20)=8\) perchè i co-primi con 20 minori di esso sono : \(1,3,7,9,11,13,17,19\).
+    \item \(\varphi(6)=2\) perchè i co-primi con 6 minori di esso sono : \(1,5\).
+\end{itemize}
+Ci occuperemo di capire come calcolare \(\varphi(n)\) per ogni intero \(n\) della quale si conosca la \textit{fattorizzazione}.
+\\\hphantom{.}\\\textbf{Proposizione} : Sia \(n=p_1^{h_1}\cdot p_2^{h_2}...\cdot p_k^{h_k}\) la fattorizzazione in numeri 
+primi di \(n\), dove \(\forall i \in \{1,2...,k\}\), \(p_i\) è un numero primo distinto, risulta :\begin{center}
+    \(
+        \varphi(n)=  \varphi(p_1^{h_1})\cdot\varphi(p_2^{h_2})...,\cdot  \varphi(p_k^{h_k})
+    \)
+\end{center}
+Con tale risultato, non rimane che calcolare il valore di \(\varphi\) sulle potenze dei numeri primi.
+\\\hphantom{.}\\\textbf{Proposizione }: Se \(p\) è un numero primo, allora :\begin{center}
+    \(
+        \varphi(p_{h}) = p^h-p^{h-1} 
+    \)
+\end{center}
+Tale risultato risulta quasi scontato, tutti i numeri co-primi con un numero primo, sono tutti i numeri minori 
+di tale numero, dato che esso non condivide divisori con nessuno. Parlando di potenze, non sono co-primi con 
+\(p^h\), solo i multipli di \(p\), che sono del tipo : \(p\cdot i\). Ora per ogni \(n\) della quale si conosca la fattorizzazione, 
+siamo in grado di calcolare la sua funzione di Eulero : \begin{itemize}
+    \item \(\varphi(72)=\varphi(2^3\cdot 3^2)=\varphi(2^3)\varphi(3^2)=(2^3-2^2)(3^2-3)=(4)(6)=24\)
+    \item \(\varphi(8)=\varphi(2^3)=(2^3-2^2)=4\)
+\end{itemize}
+\subsubsection{Gli Invertibili di \(\mathbb{Z}_n\)}
+Ricordiamo che \(\mathbb{Z}_n\) ha la struttura di un anello commutativo con unità\ref{ringDef}, ha quindi un insieme di 
+elementi invertibili. Vogliamo determinare la cardinalità di tale insieme \(\mathcal{U}(\mathbb{Z}_n)\).
+\\\hphantom{.}\\\textbf{Proposizione }: In \(\mathbb{Z}_n\), gli unici elementi \textit{invertibili} sono 
+quelle classi \(a\) tali che \(MCD(a,n)=1\), ossia, tutti gli elementi co-primi con \(n\), e sono esattamente 
+\(\varphi(n)\), quindi, se \(p\) è primo, tutti gli elementi di \(\mathbb{Z}_p\) escluso lo 0 sono co-primi con \(p\), quindi,
+ogni classe non nulla è invertibile : \(|\mathcal{U}(\mathbb{Z}_p)|=\varphi(p)=p-1\). \\ 
+Ricordando che un campo è un anello commutativo con unità, per cui ogni elemento non nullo è invertibile, 
+si arriva al seguente risultato :\begin{quote}
+    \begin{center}
+        Se \(p\) è un numero primo, allora l'anello \(\mathbb{Z}_p\) è un \textit{campo}.
+    \end{center}
+\end{quote}
+
+\section{I Numeri Razionali}
+Abbiamo definito i numeri naturali, che servono per la definizione degli interi, che useremo a loro volta per definire 
+i \textbf{numeri razionali}. Prima però, dobbiamo stabilire una \textit{relazione} su \(\mathbb{Z}\times\mathbb{Z}\backslash \{0\}\),
+ossia sul prodotto cartesiano fra gli interi, e gli interi escluso l'elemento neutro rispetto la somma. Definiamo la 
+relazione \(\rho\) in tal modo :\begin{equation}
+    (a,b)\rho(c,d)\iff a\cdot d=b\cdot c
+\end{equation}
+Ad esempio, \((2,1)\rho(4,2)\) perchè \(2\cdot 2 = 4 \cdot 1\), oppure \((3,2)\rho(6,4)\) perchè \(3\cdot 4 = 6 \cdot 2\).
+Definiamo l'insieme dei razionali come l'insieme quoziente del prodotto cartesiano fra gli interi, e gli interi 
+escluso l'elemento neutro rispetto la somma, rispetto la relazione appena definita.\begin{center}
+    \(\mathbb{Q}=\{\sfrac{\mathbb{Z}\times\mathbb{Z}\backslash \{0\}}{\rho}\}\)
+\end{center}
+Ossia l'insieme di tutte le classi di equivalenza. Denotiamo poi \(0:=[(0,1)]\) e \(1:=[(1,1)]\).
+Come abbiamo visto prima, \((2,1)\rho(4,2)\), quindi \([(2,1)]=[(4,2)]\). Come abbiamo detto in precedenza, 
+\(\mathbb{Q}\) è un campo. Definiamo quindi due operazioni, ossia la somma ed il prodotto.\begin{itemize}
+    \item somma : \([(a,b)]+[(c,d)]=[(ad+bc,bd)]\)
+    \item prodotto : \([(a,b)]\cdot[(c,d)]=[(ac,bd)]\)
+\end{itemize}
+Tali operazioni fra classi di equivalenza sono \textit{ben poste}, ossia non dipendono dalla scelta dei rappresentanti 
+delle classi. Difatti se \([(a,b)]=[(c,d)]\) e  \([(a',b')]=[(c',d')]\), si avrà che \([(a,b)]+[(a',b')]=[(c,d)]+[(c',d')]\), ossia 
+che \((ab'+ba',bb')\rho(cd'+dc',dd')\implies (ab'+ba')\cdot dd' = bb' \cdot (cd'+dc')\). \\\hphantom{.}\\Abbiamo quindi due
+operazioni con definiti elementi neutri, uno per la somma \(0:=[(0,1)]\) ed uno per il prodotto  \(1:=[(1,1)]\), è un 
+anello commutativo unitario, ed inoltre è un campo, dato che presi qualsiasi \([(a,b)]\) con \(a\ne 0\) allora 
+\([(a,b)]\cdot[(b,a)]=1\), questo è di facile verifica dato che \([(a,b)]\cdot[(b,a)]=[(ab,ba)]=[(1,1)]=1\) dato che 
+\( (ab,ba)\rho(1,1)\iff ab\cdot 1 = ba \cdot 1\), ed essendo il prodotto definito su \(\mathbb{Z}\) commutativo, ciò 
+risulta vero.\\\hphantom{.}\\
+L'insieme \(\mathbb{Z}\) si identifica come sotto-insieme di \(\mathbb{Q}\), dato che c'è un'applicazione iniettiva \(\varphi\)
+che associa ad ogni intero, la sua classe in \(\mathbb{Q}\). Per ogni intero \(a\), si ha \(\varphi(a)=[(a,1)]\). Inoltre, è 
+compatibile con le operazioni di somma e prodotto, dato che:\begin{center} \(\varphi(a+b)=\varphi(a)+\varphi(b)=[(a,1)]+[(b,1)]=
+[(a\cdot1 + b\cdot 1,1\cdot 1)]=[(a+b,1)] \)\end{center}
+Si dice che \(\mathbb{Z}\) è sotto-insieme di \(\mathbb{Q}\), di fatti \(\mathbb{Z}\) è in biezione con 
+\(\{[(a,1)]|a\in \mathbb{Z}\}\). L'inverso di \([(a,b)]\) è \([(b,a)]\). Possiamo usare una \textbf{notazione semplificata} e 
+denotare ogni elemento:\begin{center} \([(a,b)]:=\dfrac{a}{b}\)\end{center} Qui risultano chiare note tutte le proprietà e le operazioni fatte sui razionali che 
+svolgiamo fin dalle elementari. \begin{center}
+    \(
+        [(3,2)]+[(9,4)]=[(3\cdot4 + 2\cdot 9,2\cdot 4)] \text{ in notazione semplificata risulta } \dfrac{3}{2}+
+        \dfrac{9}{4} =\dfrac{3\cdot 4 + 2\cdot 9}{2\cdot 4}=\dfrac{12+18}{8}=\dfrac{30}{8}=\dfrac{15}{4}
+    \) dato che \([(30,8)]=[(15,4)]\iff(30,8)\rho(15,4)\iff 30\cdot4=15\cdot8\)
+\end{center}
+\section{Il Campo dei Numeri Complessi}
+Un equazione del tipo \(3x=5\) non ha soluzione in \(\mathbb{Z}\), si è appunto creata una sua estension \(\mathbb{Q}\)
+che ammette la soluzione \(x=\frac{5}{3}\). Un equazione del tipo \(x^2=2\) non ha soluzione nei numeri razionali, ma 
+la ha in quella dei numeri reali, ossia \(x=\sqrt{2}\). Vediamo l'equazione \(x^2+1=0\), è un equazione di secondo 
+grado che non ammette nessuna soluzione reale, di fatto non esistono numeri reali, il quale quadrato equivale a \(-1\).
+Esiste un estensione di \(\mathbb{R}\), definita nel seguente modo. \subsection{Definizione}
+I \textbf{numeri complessi} sono una struttura di questo tipo : si consideri \(\mathbb{R}^2=\{(x,y)|x,y \in \mathbb{R}\}\), ossia tutte le coppie ordinate di numeri
+reali, ed introduciamo due operazioni : \begin{itemize}
+    \item \textbf{Somma} - \((x,y)+(x',y')=(x+x',y+y')\)
+    \item \textbf{Prdototto} - \((x,y)\cdot(x',y')=(xx'-yy',xy'+yx')\)
+\end{itemize}
+Si noti come l'elemento neutro additivo è \((0,0)\) e l'elemento neutro moltiplicativo \((1,0)\). Ogni elemento ha 
+un inverso, presa la coppia \((x,y)\ne (0,0)\) si ha :\begin{equation}
+    (x,y)^{-1}=(\dfrac{x}{x^2+y^2},\dfrac{-y}{x^2+y^2})
+\end{equation}
+\textit{Dimostrazione :}\begin{equation}
+    (x,y)\cdot(\dfrac{x}{x^2+y^2},\dfrac{-y}{x^2+y^2})=(x\cdot\dfrac{x}{x^2+y^2}-y\cdot\dfrac{-y}{x^2+y^2},x\cdot\dfrac{-y}{x^2+y^2}+y\cdot\dfrac{x}{x^2+y^2})=
+\end{equation}\begin{equation}= (\dfrac{x^2+y^2}{x^2+y^2},\dfrac{-xy+xy}{x^2+y^2})=(1,0)\text{\hphantom{aaa}} \blacksquare
+\end{equation}
+\((R^2,+,\cdot)\) è un \textbf{campo} noto come \textit{campo dei numeri complessi} ed è denotato con \(\mathbb{C}\).
+Esiste un applicazione iniettiva \(\varphi\) da \(\mathbb{R}\) a \(\mathbb{C}\) che associa \(\varphi : x\rightarrow(x,0)\). \(R\) è un 
+\textit{sotto-campo} di \(\mathbb{C}\), dato che l'applicazione \textit{conserva} le operazioni, i complessi sono quindi 
+un estensione dei reali.\begin{equation}
+    \varphi(x\cdot_{\mathbb{R}} x')=\varphi(x)\cdot_{\mathbb{C}}\varphi(x')
+\end{equation}\begin{equation}
+    \varphi(x+_{\mathbb{R}} x')=\varphi(x)+_{\mathbb{C}} \varphi(x')
+\end{equation}
+L'equazione iniziale \(x^2+1=0\), che possiamo riscrivere \(x^2+(1,0)=(0,0)\), ammette soluzione in \(\mathbb{C}\),
+ed è proprio \(x=(0,1)\), difatti : 
+\begin{center}
+    \(
+        (0,1)^2+(1,0)=(0,0)\implies(0,1)(0,1)+(1,0)=(0,0)\implies(0\cdot 0 - 1\cdot 1,0\cdot 1 + 1\cdot 0)+(1,0)=(0,0)
+        \implies(-1,0)+(1,0)=(0,0)\implies (-1+1,0)=(0,0)\implies (0,0)=(0,0) \checkmark
+    \)
+\end{center}
+Denoteremo \((a,0)\equiv a\) per ogni \(a\in \mathbb{R}\). Notiamo come qualsiasi numero complesso della forma 
+\((a,b)\) può essere riscritto come \((a,0)+(0,b)\), ma \((0,b)=(0,1)(b,0)\), quindi posso rappresentare ogni numero 
+come \((a,0)+(0,1)(b,0)\), ossia la somma di un reale con un altro reale moltiplicato per \((0,1)\). Tale numero viene 
+denotato con \(i\), ed è detta \textbf{unità immaginaria}, possiamo quindi rappresentare ogni numero complesso nella seguente 
+forma : \((a,b)\equiv a+ib\) , con \(i^2=-1\).
+\subsection{Teorema Fondamentale dell'Algebra}
+Ogni equazione algebrica con coefficenti complessi (quindi in particolare reali) di grado \(n\), ammette 
+precisamente \(n\) soluzioni in \(\mathbb{C}\) (contando le moltiplicità). Si dice che \(\mathbb{C}\) è 
+\textbf{algebricamente chiuso}.
+\section{Teoria degli Anelli}
+\subsection{Isomorfismi e Omomorfismi tra Anelli}
+Abbiamo visto precedentemente la definizione assiomatica di \textit{Anello}, presentiamo ora un altra importante 
+definizione : \newtheorem{deff}{Definizione}
+\begin{deff}
+    Un \textbf{isomorfismo}  \(\varphi\) tra due anelli \(R\) e \(R'\) è una corrispondenza biunivoca tra \(R\) e \(R'\) che 
+    conserva le operazioni, tale che \begin{center}
+        \(\varphi(a+b)=\varphi(a)+ \varphi(b)\text{ } \forall a,b\in R  \)
+    \end{center}
+    \begin{center}
+        \(\varphi(a\cdot b)=\varphi(a)\cdot \varphi(b)\text{ } \forall a,b\in R  \)
+    \end{center}
+\end{deff}
+Se i due anelli sono \textit{isomorfi}, si scrive \(R\backsimeq  R'\). La relazione di isomorfismo è una relazione 
+di equivalenza, e qualunque proprietà algebrica che vale in \(R\), vale anche in \(R'\), e viceversa, godendo delle 
+stesse proprietà, dal punti di vista algebrico sono \textit{indistinguibili}, si considerano quindi uguali due 
+anelli isomorfi. \\\hphantom{.}\\
+Spesso fra due anelli, esiste un applicazione che ne conservi le operazioni, ma che non è biunivoca. Si da la seguente 
+definizione:\begin{deff}
+    Dati due anelli \(R,+,\cdot\) e \(R',+,\cdot\), si chiama \textbf{omomorfismo} di \(R\) in \(R'\) ogni 
+    corrispondenza \(\varphi\) da \(R\) ad \(R'\) tale che :
+    \begin{center}
+        \(\varphi(r_1+r_2)=\varphi(r_1)+ \varphi(r_2)\text{ } \forall r_1,r_2\in R  \)
+    \end{center}
+    \begin{center}
+        \(\varphi(r_1\cdot r_2)=\varphi(r_1)\cdot \varphi(r_2) \text{ }\forall r_1,r_2\in R  \)
+    \end{center}
+\end{deff}\subsubsection{Nucleo di un omomorfismo}
+Inoltre si definisce un \textbf{nucleo} di omomorfismo \(\varphi\) tra \(R\) e \(R'\), il sotto-insieme 
+di \(R\) costituito da tutti gli elementi che hanno come immagine l'elemento neutro rispetto la somma (lo zero) di \(R'\), indicato
+con \(0_{R'}\). Tale nucleo si indica con :
+\begin{equation}
+    Ker\varphi = \{r\in R|\varphi(r)= 0_{R'}\}
+\end{equation}
+\textit{Esempio :}\\
+Prendiamo l'ismorfismo \(\varphi : \mathbb{Q}\rightarrow \mathbb{Q}\) definito come \(\varphi(a)=a+(-2)\), avremo che 
+\(Ker\varphi = \{2\}\).\\\hphantom{.}\\
+\(Ker\varphi\) gode di un importante \textit{proprietà}, moltiplicando un qualunque \(a\in Ker\varphi\) per un 
+qualunque \(b\in R\), il risultato sarà sempre un elemento di \(Ker\varphi\) : 
+\begin{equation}
+    \text{siano } k\in Ker\varphi\text{ e } r\in R \text{ vale che }\varphi(k\cdot r)=\varphi(k)\cdot\varphi(r)=0\cdot \varphi(r)=0
+\end{equation}\subsubsection{Ideale di un Anello}
+Definiamo adesso cos'è un \textbf{ideale} :\\
+Un \textit{ideale destro} di un anello \(R\), è un sotto-gruppo additivo \(I\) di \(R\),  tale che, \(\forall a\in I\) e 
+\(\forall r \in R\), risulta che \(ar \in I\). \\Un \textit{ideale sinistro} di un anello \(R\), è un sotto-gruppo additivo \(I\) di \(R\),  tale che, \(\forall a\in I\) e 
+\(\forall r \in R\), vale che \(r\cdot a \in I\). \\
+Se un ideale è sia sinistro che destro si dice \textit{bilatero}, e si denota nel seguente modo :\begin{equation}
+    I \trianglelefteq  R
+\end{equation}
+Per come l'abbiamo definito prima, è ovvio che il nucleo di un omomorfismo tra due anelli \(Ker\varphi\) sia un ideale bilatero.
+Ogni anello \(R\) possiede due ideali detti \textit{banali}, ossia \(\{0\}\) e \(R\).\\ \hphantom{.}\\
+\(\{0\}\) è un ideale \(I\) di \(R\) perchè \(\forall a\in R\), essendo 0 l'unico elemento di \(I\), è ovvio che \(a\cdot 0 = 0\cdot a = 0 \in I\).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage\hphantom{.}\color{red}Da qui in poi sono BOZZE
+\color{black}
+\section{Teoria dei Gruppi}
+\subsection{Il Gruppo Simmetrico \(S_n\)}
+Sia \(X\) un insieme ,abbiamo chiamato il gruppo di tutte le sue corrispondenze biunivoche
+ \(f:X\rightarrow X\) con il simbolo \((S(X),\circ)\), nel caso in cui \(X\) sia finito, con cardinalità 
+ \(|X|=n\), si indicherà con \(S_n\), e prende il nome di \textbf{gruppo simmetrico di grado \(n\)}. Tale gruppo 
+ non è commutativo, data l'operazione di composizione \(\circ\). È facile notare come ogni elemento \(\sigma\) di 
+ \(S_n\) sia una permutazione di \(X=\{1,2,3,4...,n\}\), quindi la cardinalità sarà \(|S_n|=n!\). \\
+ Una proprietà importante, è che se \((G,*)\) è un gruppo, esiste una \textit{mappa iniettiva} \(\varphi\) da \((G,*)\) a 
+ \((S(G),\circ)\) che \textit{conserva} le operazioni, ossia :
+ \begin{center}
+    \(
+        \varphi(a*b) = \varphi(a)\circ\varphi(b)  
+    \)
+ \end{center}
+ \subsection{Omomorfismo tra Gruppi}
+ Siano \((G,*)\) e \((G',\cdot)\) due gruppi, un applicazione \(\varphi\) tra \(G\) e \(G'\) si dice \textbf{omomorfismo}
+  se :\begin{center}
+    \(
+        \varphi(a*b)=\varphi(a)\cdot \varphi(b) \text{ con }a,b\in G  
+    \)
+  \end{center}
+Ossia se \textit{conserva} l'operazione. Prima abbiamo parlato di gruppo simmetrico, esso stabilisce sempre un 
+omomorfismo iniettivo \textit{canonico} \(\varphi : (X,*)\rightarrow (S(X),\circ)\). Se un omomorfismo è anche 
+biunivoco, si dice \textbf{isomorofismo}.
+ \end{document}

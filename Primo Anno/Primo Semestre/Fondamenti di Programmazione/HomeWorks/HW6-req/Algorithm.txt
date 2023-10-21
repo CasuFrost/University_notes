@@ -1,0 +1,69 @@
+   _____  .__                       .__  __                   
+  /  _  \ |  |    ____   ___________|__|/  |_  _____   ____   
+ /  /_\  \|  |   / ___\ /  _ \_  __ \  \   __\/     \ /  _ \  
+/    |    \  |__/ /_/  >  <_> )  | \/  ||  | |  Y Y  (  <_> ) 
+\____|__  /____/\___  / \____/|__|  |__||__| |__|_|  /\____/  
+        \/     /_____/                             \/         
+  ___ ___  __      __  ________                               
+ /   |   \/  \    /  \/  _____/                               
+/    ~    \   \/\/   /   __  \                                
+\    Y    /\        /\  |__\  \                               
+ \___|_  /  \__/\  /  \_____  /                               
+       \/        \/         \/            
+
+La funzione generate snake prende in Input 4 valori : 
+start_img (il percorso dell'immagine di partenza)
+position (la posizione iniziale del serpente all'interno dell'immagine)
+commands (La stringa contenente tutti i comandi sottoforma di carattere o coppia di caratteri)
+out_img  (il percorso destinato all'immagine elaborata alla fine dell'algoritmo)
+
+Tramite il metodo "load" della libreria "images", trasformo l'immagine contenuta 
+nel percorso start_img in una matrice, dopodichè passo tale matrice ad una funzione chiamata get_commands, insieme 
+ad una lista di comandi presi dalla stringa commands tramite il metodo "split",
+passo inoltre anche position e  out_img.   
+  
+la funzione get_commands crea una lista che rappresenta le posizioni del serpente,
+e come primo valore passa la posizione iniziale, si calcola poi tramite la matrice 
+dell'immagine due limiti, rappresentanti la larghezza ed altezza dello schermo.
+La funzione procede poi nell'iterare per ogni "comando" presente nella lista di comandi.
+
+Per ognuno di esso calcola la possibile posizione che il serpente dovrà assumere,
+controllando che non superi i "limiti" dello schermo che ci siamo prima salvati.
+Una volta controllato ciò abbiamo la variabile di tale posizione chiamata "nextPos"
+Controlliamo che essa, non si trovi sulla matrice dell'immagine su un pixel colorato
+di rosso. Se si, romperemo il ciclo di iterazione di comandi, salvando l'immagine
+tramite il metodo "save" della libreria images, e ritornando la lunghezza del serpente,
+che equivale alla lunghezza della lista contenente le posizioni del serpente.
+Una volta controllato ciò, controlliamo che il serpente non si stia incrociando 
+verticalmente o orizzontalmente, controllando se la "next pos" non sia, sulla matrice
+dell'immagine un pixel verde, rappresentante il corpo del serpente.
+
+Controlliamo poi che il serpente non si incroci diagonalmente, tale controllo
+viene fatto calcolandosi le 2 possibili posizioni proibite, esse variano in base
+al comando dato, e non devono essere verdi, se sono verdi vuol dire che il serpente sta cercando
+di incrociarsi diagonalmente e non va bene.
+
+Una volta eseguiti i controlli, se il serpente si sta incrociando romperemo il ciclo di iterazione di comandi, 
+salvando l'immagine tramite il metodo "save" della libreria images, e ritornando la lunghezza del serpente,
+che equivale alla lunghezza della lista contenente le posizioni del serpente.
+
+
+se il serpente NON si sta incrociando possiamo procedere nel muoverlo. 
+Di tale operazione si occupa una funzione chiamata "ricalcolo_posizioni_serpente",
+Questa funzione prende in input la matrice dell'immagine, le posizioni del serpente e la "nextPos",
+Prima di tutto inserisce al primo valore nella lista di posizioni la "nextPos" calcolata in precedenza,
+Cioè il punto nella quale il serpente deve muoversi. Controlla poi che quella posizione 
+sulla matrice dell'immagine non sia un pixel arancione, se si, vuol dire che è "cibo", ed il serpente
+deve aumentare la sua lunghezza come già fatto ma senza spostarsi, quindi verificato che sia cibo :
+Si colora quella posizione di verde e si esce dalla funzione, avendo aggiornato le posizioni del serpente.
+
+nel caso non sia cibo, comunque il pixel verrà colorato di verde, ma il pixel
+che si trova nella matrice corrispondente all'ultimo valore della lista di posizioni del serpente verrà colorato di 
+grigio, ciò rappresenterà la scia. Una volta fatto ciò tale elemento si rimuove dalla lista e la funzione finisce,
+avendo correttamente aggiornato la posizione del serpente.
+
+Alla fine di tutto, una volta finiti i comandi da iterare, se non si è andati
+incontro a nessun ostacolo, si salva l'immagine tramite il metodo "save" della libreria images, e ritornando la lunghezza del serpente,
+che equivale alla lunghezza della lista contenente le posizioni del serpente.
+
+ 

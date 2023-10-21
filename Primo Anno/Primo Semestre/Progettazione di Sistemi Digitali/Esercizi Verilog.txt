@@ -1,0 +1,19 @@
+//Esame Di Progettazione di Sistemi Digitali - 11/01/2022 - A esercizio 4 
+module mux(input  logic a, 
+                input logic  b,
+                input logic  c,
+                
+                output logic   y);
+  assign y = (!b&!a&!c | !b&a&!c | b&!a&!c | b&b&!c) ? a&b : !b&!a&c ? c : !b&a&c ? 1 : b&!a&c ? 0 : b^c ;
+endmodule
+
+
+
+//Esame Di Progettazione di Sistemi Digitali - 11/01/2022 - B esercizio 4 
+module mux2(input  logic a, 
+                input logic  b,
+                input logic  c,
+                
+                output logic   y);
+  assign y = (!b&!a&!c | !b&!a&c | b&a&!c | b&a&c) ? a^b : !b&a&!c ? c : !b&a&c ? 1 : 0 ;
+endmodule

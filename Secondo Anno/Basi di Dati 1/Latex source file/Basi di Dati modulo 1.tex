@@ -1,0 +1,1123 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\definecolor{light-gray}{gray}{0.95}
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\title{Basi di Dati 1}
+\author{Marco Casu}
+\date{\vspace{-5ex}}
+\begin{document}
+
+
+
+\maketitle
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/DatabaseStilizzato.png}
+    }
+\end{figure}
+\newpage 
+\section{Introduzione}
+L'informazione memorizzata nei sistemi elettronici può essere di due tipi, \textbf{strutturata}
+e \textbf{non strutturata}. In questo corso ci occuperemo dell'informazion strutturata, ossia composta da 
+oggetti matematici ben definiti. Un \textbf{sistema informativo} connette e contiene le informazioni,
+alla quale si può accedere da diversi componenti. Si prenda come esempio di sistema informativo l'archivio
+fisico dei documenti (ossia i dati) di una azienda, ad esso, possono accedere i vari reparti, come la sezione 
+commercio o le risorse umane, ognuno ha a disposizione l'accesso ad un determinato sotto-insieme di dati (permessi).
+Prima di adoperare i sistemi informativi, ogni reparto aveva il suo personale archivio, ciò faceva si che molti dei dati
+fossero duplicati e presenti per più reparti, causando un elevata \textbf{ridondanza} di dati. Inoltre, due dati da 2 archivi
+diversi potrebbero dipendere tra loro. È quindi importante mantenere l'informazione \textbf{centralizzata}.
+I dati vanno organizzati, gestiti, e regolamentati da permessi di accesso a secondo dell'utente che vuole accedervi.
+\\\\Un sistema informativo è composto dai seguenti componenti : 
+\begin{itemize}
+    \item Database (DB)
+    \item Database Managment System (DBSM) - Ossia il software per il mantenimento dei dati  
+    \item Application Software
+    \item Computer Hardware - La memoria nella quale è contenuto
+\end{itemize}
+È importante mantenere una visione astratta del modello di sistema informativo, che sia indipendente
+dall'hardware in uso. Fissiamo un modello che utilizzi tipi di dati che non possano variare nel tempo,
+strutturati in maniera completa, è necessario pensare ad un metodo formale per organizzare i dati.
+Vogliamo farlo in un ambiente condiviso, preoccupandoci quindi di quali e quanti dati vengono condivisi condivisi
+con i singoli utenti, che avranno permessi diversi e potranno accedere a dati diversi (ad esempio, uno studente può
+accedere ai suoi esami registrati, ma non a quelli degl altri). Inolte bisogna anche amministrare i metodi
+con cui si accede ai dati, preoccupandoci della concorrenza (accedere allo stesso dato nello stesso momento).
+I dati vengono organizzati in maniera omogenea, esiste un tipo di dato per descrivere un entità (ad esempio uno studente),
+e tutte le volte che si vuole immagazinare nel sistema uno studente, bisogna ricorrere allo stesso tipo di dato.
+L'informazione viene rappresentata da un aggregamento di più dati \textit{grezzi}, ossia, rispettivamente la stringa
+ "\textit{Maurizio Ernesti}" e l'intero "3761523746", insieme rappresentano l'informazione di un 
+ professore (nome, cognome e numero di telefono).\\\\
+ Il modello è il modo in cui decidiamo di organizzare e collegare i dati, esistono modelli \textbf{logici}, 
+ indipendenti dalla struttura fisica, come il \textbf{modello relazionale}, ed esistono modelli \textbf{concettuali},
+ ossia rappresentazioni ancora più astratte indipendenti dal modello logico, i primi modelli sono stati introdotti
+ negli anni 60.
+ \\\\
+ \begin{minipage}{0.16\textwidth}
+    \includegraphics[width=\linewidth]{images/GrafoViola.png}
+    \end{minipage}
+    \begin{minipage}{0.8\textwidth}\raggedright
+        un esempio è il modello \textit{Mesh}, rappresentato con un grafo, dove i nodi sono i dati (i record), e
+        gli archi le loro relazioni.
+    \end{minipage}
+    \noindent
+    \\\\
+In questo modello i collegamenti sono esplicitati fisicamente (possiamo immaginare con dei puntatori), i modelli
+relazionali, diversamente, hanno relazioni rappresentate implicitamente dai valori stessi che contengono.
+\\
+
+\centering
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{4}{|c|}{\textbf{Studenti}}\\
+    \hline
+    Matricola & Cognome & Nome & Compleanno\\
+    \hline
+    276545 & Gialli & Lucia & 25/11/1980\\
+    \hline
+    176515 & Rossi & Mario & 13/09/1982\\
+    \hline
+    348191 & Verdi & Andrea & 04/07/1981\\
+    \hline
+    \end{tabular}
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{3}{|c|}{\textbf{Esami}}\\
+    \hline
+    Studente & Voto & Corso \\
+    \hline
+    348191 & 25 & 01 \\
+    \hline
+    176515 & 18 & 02 \\
+    \hline
+    176515 & 27 & 02 \\
+    \hline
+    \end{tabular}
+\\ 
+ \hphantom{.}\\
+ \raggedright
+La relazione tra gli esami e gli studenti (ogni studente ha \(n\) esami registrati) è data implicitamente
+dalla presenza del campo \textit{Studente} nella tabella \textit{Esami}, che equivale al campo \textit{Matricola}
+della tabella \textit{Studenti}, il modello relazionale è basato su oggetti, classi ed attributi.
+Ad esempio, se volessi sapere che voto ha preso \textit{Mario Rossi} al corso numero 02, mi basterebbe
+consultare la tabella \textit{Esame}, e controllare il campo che ha la matricola equivalente a quella di \textit{Mario Rossi}.
+\\Lo schema logico descrive la presenza di tutte le entità con i loro rispettivi attributi, esistono poi gli schemi
+esterni, ossia sotto-insiemi degli schemi, destinati a determinati tipi di utenti che ne hanno l'accesso. Anche lo schema 
+logico completo può essere schema esterno, il super-amministratore di un sistema informativo, come schema esterno, avrà 
+l'intero schema logico, avendo accesso a tutte le entità.
+\\Come già detto, lo schema logico rappresenta la struttura degli oggetti/entità, ed è invariata nel tempo, ma la 
+sua istanza, ossia gli effettivi campi delle tabelle, possono variare, ed anche rapidamente. Per gestire gli schemi si utilizzano
+dei veri e propri linguaggi.
+\begin{itemize}
+    \item \textbf{Data Definition Language (DDL)} - Per la definizione degli schemi logici ed altre operazioni generali.
+    \item \textbf{Data Manipulation Language (DML)} - Per interrogare lo schema logico, leggerne i valori ed eventualmente modificarli. 
+\end{itemize}
+È largamente utilizzato il linguaggio \textbf{SQL (Structured Query Language)}, che funge sia da DDL che da DML.
+\\Un base di dati deve essere :
+\begin{itemize}
+    \item Manipolabile
+    \item Modificabile
+    \item Centralizzata
+    \item Il minimo ridondante
+    \item Sicura
+\end{itemize}
+ I dati molto spesso devono soddisfare certi vincoli (ad esempio, ogni studente ha una sola residenza)
+ , tali vincoli son chiamati \textbf{dipendenze funzionali}, e possono riguardare anche il dominio di certi
+ attributi (ad esempio, il voto verbalizzato di un esame deve essere maggiore o uguale a 18 e minore o uguale a 30).
+ I dati devono essere protetti da accessi non autorizzati, è necessaria la dichiarazione di regole di accesso.
+\\Definiamo adesso uno specifico tipo di operazione sulle basi di dati, ossia le \textbf{transizioni}, che non sono altr
+che sequenze ordinate di operazioni che vanno obbligatoriamente eseguite insieme in sequenza, con il divieto
+assoluto che ne venga eseguita solo una parte.
+Facciamo un esempio, si dia il caso che su una base di dati bancaria, si vogliano trasferire 1000 euro dal conto \textit{C1} 
+al conto \textit{C2}, le seguenti operazioni definite informalmente sono :
+\begin{itemize}
+    \item Cercare il conto \textit{C1}
+    \item Sottrarne al bilancio 1000
+    \item Cercare il conto \textit{C2}
+    \item Aggiungerne al bilancio 1000
+\end{itemize} 
+Se per errore si eseguono solo i primi 2 passi, ci si ritroveranno 1000 euro persi, sottratti al primo conto, ma non
+addizionati al secondo. Una transizione va quindi completamente eseguita, se non dovesse essere così, l'intera sequenza
+di operazioni va abortita. Inoltre, è importante notare che data la concorrenzialità, in una base di dati potrebbe
+accadere di accedere allo stesso dato nello stesso momento, ciò potrebbe causare errori, è quindi importante evitare
+di lavorare contemporaneamente su uno stesso specifico campo.
+\section{Il Modello Relazionale}
+Il modello relazionale è basato sulla relazione intesa in senso matematico, una relazione non è altro che un
+insieme di tuple, tutte della stessa lunghezza, con elementi appartenenti a diversi domini. Il dominio è 
+l'insieme dei possibili valori che gli elementi delle tuple possono assumere. Se prendiamo una lista di \(k\) domini,
+il prodotto cartesiano di tutti i \(k\) domini è l'insieme di tuple di lunghezza \(k\).
+\begin{equation}
+    D_1 \times D_2 \times D_3....\times D_k = \{(v_1,v_2,v_3...,v_k)|v_1\in D_1,v_2\in D_2,v_3\in D_3...,v_k\in D_k\}
+\end{equation}
+Per esempio, per \(k=2\) consideriamo i seguenti domini \(D_1=\{White,Black\}\) e \(D_2=\{0,1,2\}\), si ha che :
+\begin{equation}
+    D_1\times D_2 = \{(White,0),(White,1),(White,2),(Black,0),(Black,1),(Black,2)\}
+\end{equation}
+È una relazione di grado 2, perchè ogni tupla ha 2 coordinate.
+\newtheorem{theorem}{Teorema}
+\begin{theorem}
+    Il grado di una relazione è equivalente al numero di elementi di ogni tupla appartenente a tale relazione.
+    \end{theorem}
+In tale prodotto cartesiano è possibile costruire \(2^6\) possibili relazioni, ossia sotto-insiemi del
+prodotto cartesiano.
+\begin{theorem}
+    Una relazione è un qualsiasi sottoinsieme del prodotto cartesiano.
+\end{theorem}
+\subsection{Notazione con Indice}\label{notConInd}
+Sia \(r\) una relazione di grado \(k\), data \(t\) una tupla appartenente alla 
+relazione \(r\), ed \(i\) un intero da \(1\) a \(k\), con \(t[i]\) si intende l'elemento
+alla cooridnata \(i\)-esima della tupla \(t\).
+\\
+\hphantom{.}\\
+\centering
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{2}{|c|}{\textbf{Tabella}}\\
+    \hline
+    Black & 0 \\
+    \hline
+    White & 0 \\
+    \hline
+    \end{tabular}\\
+    \raggedright
+Se prendiamo \(t\) come la prima riga della tabella, si avrà che \(t[1]=\)
+"\textit{Black}" e  \(t[2]=0\).\\
+Ricordando la notazione tabellare, in basi di dati le intestazioni delle colonne ed il loro dominio
+è denominato \textbf{attributo} (ad Esempio \textit{Name : string}).
+In una tabella, due attributi distinti non possono avere lo stesso nome.\\
+\subsection{Rappresentazione come Funzioni}
+Sia \(R\) un oggetto definito come insieme di attributi, una tupla su \(R\), ossia un istanza di
+tale oggetto, può essere visto come una funzione definita su \(R\) che associa ad ogni attributo \(A\), un valore
+presente nel dominio di \(A\). Considerando ciò, presa \(t\) una tupla di \(R\), ed \(A\) uno dei suoi attributi,
+indichiamo con \(t(A)\), il valore (ossia l'istanza) di quell'attributo preso dalla funzione \(t\) sulla variabile \(A\).
+
+Ad esempio, la relazione \(R\) ha la tupla \(t_1=(Paolo,Rossi,2,26.5)\), considerando \(t_1\) come una funzione,
+essa associa ad ogni attributo \(A\), un elemento del suo dominio :
+\begin{equation}
+    f : (Nome,Cognome,Esami,Media)\rightarrow string\cup string\cup int \cup real
+\end{equation}
+Da qui si ha \hphantom{aa} \(t_1(Nome)=Paolo\)\hphantom{aa}  \(t_1(Cognome)=Rossi\)\hphantom{aa} \(t_1(Media)=26.5\)\\
+
+
+Lo schema logico, è il dominio di tale funzione, l'istanza sono le tuple, le istanze sono insiemi di tuple,
+ossia una relazione.
+\begin{theorem}
+    L'istanza è un sotto-insieme di tuple
+\end{theorem}
+Ogni riga della tabella è una tupla distinta, ed ogni colonna corrisponde al dominio. Possiamo quindi rappresentare
+un oggetto della base di dati con la seguente notazione : 
+\begin{equation}
+    R(A_1,A_2,A_3...,A_k)
+\end{equation}
+Qui \(R\) è una relazione dello schema, quindi uno schema di basi di dati non è altro che un 
+insieme di relazioni \((R_1,R_2,R_3...,R_k)\) (invarianti nel tempo) per le quali, ognuna di esse possiede un istanza (variante nel tempo).
+Da qui in poi, utilizzeremo \(R\) per denominare le relazioni, ed \(r\) per le loro istanze.\\
+Riprendendo la notazione con indice vista in precedenza \ref{notConInd}, si pò utilizzare puttosto
+che un indice intero, l'intestazione dell'attributo per il quale si voglia leggere l'istanza.\\
+\centering
+\hphantom{.}\\
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{3}{|c|}{\textbf{Luoghi}}\\
+    \hline
+    Città & Regione & Popolozione \\
+    \hline
+    Roma & Lazio & 3000000 \\
+    \hline
+    Milano & Lombardia & 1500000 \\
+    \hline
+    Genova & Liguria & 150000 \\
+    \hline
+    \end{tabular}
+\\ 
+ \hphantom{.}\\
+ \raggedright
+ Data \(t_1\) la prima riga dell'istanza, si ha \(t_1[\)Città\(]\)="\textit{Roma}". È possibile anche farlo
+ con sottoinsiemi di attributi, ossia \(t_1[\)Regione,Popolazione\(]\)=("\textit{Lazio}",\(3000000\)). Non è importante
+ l'ordine degli attributi come argomenti, come "risultato" riceviamo una sotto-tupla della tupla \(t_1\), detta \textit{restrizione}.
+Abbiamo visto come le istanze delle tabelle non sono altro che insiemi di tuple, esistono tante possibili istanze quanto la cardinalità
+del prodotto delle cardinalità dei domini.\\
+Può succedere in certi casi, che nell'istanza di una relazione, sia presente una riga in cui un attributo è \textbf{sconosciuto},
+per rappresentare tale campo nelle basi di dati, si utilizzi il valore polimorfico\footnote{Appartente a tutti i domini} \(NULL\), utilizzato
+per riempire gli spazi vuoti, ad esempio in una tabella contente i dati degli utenti iscritti ad un sito, è possibile che alcuni utenti abbiano
+omesso il numero di telefono, per loro il campo avrà valore \(NULL\), ossia sconosciuto. Si ricordi che \(NULL\) è diverso da \(0\).
+\\\centering
+\hphantom{.}\\
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{3}{|c|}{\textbf{Luoghi}}\\
+    \hline
+    Matricola & Nome & Cellulare \\
+    \hline
+    1039 & Luca & 3475746371 \\
+    \hline
+    4316 & Giorgio & \(NULL\) \\
+    \hline
+    1499 & Sandro & 3857482845 \\
+    \hline
+    \end{tabular}\\
+ \raggedright
+ \subsection{Integrità dei Dati}\label{intDeiDati}
+ La presenza di un valore \(NULL\) può causare alcuni errori, vedremo come sono presenti alcuni attributi, le quali
+ istanze devono per forza essere dichiarate e non sconosciute. Esistono però diversi tipi di errori, come
+ dei campi identificativi duplicati o valori fuori dominio.
+ \\\centering
+\hphantom{.}\\
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{3}{|c|}{\textbf{Studenti}}\\
+\hline
+Matricola & Nome & Media \\
+\hline
+\color{red}1039\color{black} & Luca & 28 \\
+\hline
+4316 & Giorgio & \color{blue}33\color{black} \\
+\hline
+\color{red}1039\color{black} & Sandro & 22 \\
+\hline
+\end{tabular}
+\\ 
+ \hphantom{.}\\
+ \raggedright
+ \begin{itemize}
+    \color{red}\item Errore 1 - \color{black} Nella prima e nella terza riga sono presenti due studenti con la stessa matricola. Il campo matricola 
+    identifica ogni singolo e distinto studente, e non può essere duplicato.
+    \color{blue}\item Errore 2 - \color{black} Uno studente ha come media dei voti 33, è impossibile dato che i voti sono compresi tra
+    18 e 30, è quindi un valore fuori dominio.
+    
+ \end{itemize}
+Tali errori vengono definiti problemi di \textbf{integrità dei dati}, per mantenere tale integrità è necessario
+che le istanze delle relazioni soddisfino delle determinate proprietà dette \textbf{vincoli}. Vedremo che esistono :
+\begin{itemize}
+    \item Vincoli di chiave
+    \item Vincoli di dominio
+    \item Vincoli funzionali
+    \item Vincoli di esistenza
+\end{itemize}
+\centering
+\hphantom{.}\\
+\begin{tabular}{|l|l|l|l|l|l|r|}
+    \hline
+\multicolumn{6}{|c|}{\textbf{Impiegati}}\\
+\hline
+Codice Impiegato & Nome & Cognome & Ruolo & Assunzione & Dipartimento\\
+\hline
+01 & Luca & Rossi & Analista & \color{red}1785 & 01 \\
+\hline
+\color{red}02 & Mario & Verdi & Amministratore & 1980 & 02 \\
+\hline
+\color{red}02 & Giorgio & Neri & Ricercatore & 1985 & \color{red}05 \\
+\hline
+\end{tabular}\\\hphantom{.}\\\hphantom{.}\\
+\begin{tabular}{|l|l|r|}
+    \hline
+\multicolumn{2}{|c|}{\textbf{Dipartimenti}}\\
+\hline
+Numero & Nome \\
+\hline
+01 & Managment \\
+\hline
+02 & Amministrazione \\
+\hline
+\end{tabular}\\
+ \hphantom{.}\\
+ \raggedright
+Vediamo come nello schema logico appena mostrato ci sono diversi vincoli da definire che non sono rispettati.
+Ad esempio, va definito il vincolo di dominio per cui il valore "Assunzione"\(\ge1980\), ossia tale valore deve essere
+strettamente maggiore di una certa data (possibile data di nascita dell'azienda). Si noti che non si sta rispettando
+un vincolo di chiave, dato che il "Codice Impiegato" presente nella seconda e nella terza riga lo stesso valore, essendo
+esso l'attributo identificativo, non deve essere duplicato ("Codice Impiegato" \(UNIQUE\)). Un altro errore meno evidente, è che
+alla terza riga della tabella "Impiegati", è presente un campo dipartimento con codice \(05\), tale campo dovrebbe
+collegare quella riga con il suo rispettivo dipartimento presente su un altra tabella, ma notiamo che nella tabella "Dipartimenti", 
+non è presente alcuna riga con "Numero" identificativo \(05\). Un altro vincolo noto è il vincolo di esistenza, che impone ad un certo
+attributo di non accettare valore \(NULL\).\\\hphantom{.}\\
+Un altra importante distinzione da fare tra vincoli è di suddividerli in :
+\begin{itemize}
+    \item \textbf{Intra-relazionali} - Vincoli definiti e da soddisfare all'interno della singola tabella (Ad esempio, un vincolo di dominio 
+    per il quale un valore deve essere sufficentemente grande).
+    \item \textbf{Inter-relazionali} - Vincoli soddisfatti dai collegamenti di più tabelle (Un chiaro esempio è il sopra-citato errore sulla tabella del 
+    dipartimento).
+\end{itemize}
+\subsection{Le Chiavi}
+In un istanza \(r\) di una relazione \(R\), per ogni tupla è necessario che vi sia un attributo (o un insieme di attributi ) \(X\)
+che la identifichi e distingua dalle altre tuple (che quindi non sia mai duplicato). Tale attributo/insieme di attributi è detto
+\textbf{chiave}, un chiaro esempio può essere il campo "Matricola" all'interno di un'ipotetica tabella studenti.
+Vediamo una definizione più formale.
+\begin{theorem}
+    \hphantom{.}\\\textbf{ Punto 1 }- Per ogni istanza della relazione \(R\), non esistono due tuple \(t_1,t_2\) che hanno gli stessi valori
+    per tutti i singoli attributi, preso un insieme di attribtui \(X\), vale sempre \(t_1[X]\ne t_2[X]\).
+    \begin{equation}
+        \text{sia }X\in R(A_1,A_2...,A_k) | \forall t_1,t_2 \in r \text{ se }t_1[X]=t_2[X] \implies t_1=t_2
+    \end{equation}
+    \textbf{ Punto 2 }- Inoltre, non esistono sotto-insiemi di \(X\) che soddisfino la condizione sopra-citata.
+    \begin{equation}
+        \forall X'\subseteq X, \exists t_1,t_2 \in r \text{ tale che } t_1[X']=t_2[X'] \land t_1 \ne t_2
+    \end{equation}
+\end{theorem}
+Approfondendo il punto 2, se esiste una relazione \(R\) con chiave \(X=(A_1,A_2,A_3)\), è chiaro che, nella 
+sua istanza \(r\), non esisteranno due righe con gli stessi valori assegnati \(X\), quindi, preso il sotto-insieme
+\(X'=(A_1,A_2)\), se esistono due tuple \(t_1,t_2\) tali che \(t_1[X']=t_2[X']\), per forza di cose esse non 
+saranno la stessa tupla in quanto, per il punto 1, differiranno per l'attributo \(A_3\).
+È importante per una relazione che abbia una chiave significativa basata sull'informazione che rappresenta
+( Una relazione che rappresenta degli studenti, non può avere come chiave il campo del nome, dato che potrebbero 
+esserci 2 studenti con lo stesso nome, bensì si prediliga la matricola), si sceglie quindi una \textbf{chiave primaria},
+ovviamente con vincolo di esistenza.
+\subsubsection{La Chiave Esterna}
+Può esistere inoltre un attributto nelle relazioni detto \textbf{chiave esterna} o \textbf{foreign key},
+essa identifica all'interno di una relazione, un attributo associato ad un altra relazione (un altra tabella),
+identificandone la chiave primaria.
+\\ \hphantom{.}\\
+\centering
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{4}{|c|}{\textbf{Studenti}}\\
+    \hline
+    \color{blue}Matricola & Cognome & Nome & Compleanno\\
+    \hline
+    276545 & Gialli & Lucia & 25/11/1980\\
+    \hline
+    176515 & Rossi & Mario & 13/09/1982\\
+    \hline
+    348191 & Verdi & Andrea & 04/07/1981\\
+    \hline
+    \end{tabular}
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{3}{|c|}{\textbf{Esami}}\\
+    \hline
+    \color{blue}Studente & Voto & Corso \\
+    \hline
+    348191 & 25 & 01 \\
+    \hline
+    176515 & 18 & 02 \\
+    \hline
+    176515 & 27 & 02 \\
+    \hline
+    \end{tabular}
+\\ 
+ \hphantom{.}\\
+ \raggedright
+Nella tabella "\textit{Esami}", l'attributo "\textit{Studente}" è una chiave esterna che identifica e collega 
+tale tabella con la relazione "\textit{Studenti}", tramite la sua chiave primaria "\textit{Matricola}",
+Dato che ad ogni esame è associato uno studente che l'ha sostenuto. Il vincolo di integrità inter-relazionale
+precedentemente citato impone che per ogni valore presente su un attributo di una chiave esterna, esista 
+il suo corrispettivo campo con tale valore nella relazione alla quale fa riferimento. Si ricordi che tale vincolo
+non è violato dalla presenza di un valore \(NULL\). 
+\\ \hphantom{.}\\
+\centering
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{4}{|c|}{\textbf{Multe}}\\
+    \hline
+    Codice & Data & Ufficiale & Targa\\
+    \hline
+    4312 & 01/12/1988 & 001 & AA123AA\\
+    \hline
+    1351 & 12/04/1989 & \color{blue}\(NULL\) & KA194AR\\
+    \hline
+    9572 & 10/10/1990 & 002 & ND193MF\\
+    \hline
+    \end{tabular}
+\begin{tabular}{|l|l|l|r|}
+    \hline
+\multicolumn{3}{|c|}{\textbf{Ufficiali}}\\
+    \hline
+    Codice & Nome & Cognome \\
+    \hline
+    001 & Giancarlo & Pozzi \\
+    \hline
+    002 & Sara & Tua \\
+    \hline
+    003 & Nicola & Canti \\
+    \hline
+    \end{tabular}
+\\ 
+ \hphantom{.}\\
+ \raggedright
+Può quindi esistere un istanza dove la chiave esterna ha valore \(NULL\),
+conseguentemente non avrà nessun riferimento nella relazione alla quale è collegata. 
+\subsection{Le Dipendenze Funzionali}
+Come si possono definire facilmente i vincoli di integrità dei dati\ref{intDeiDati} visti nei paragrafi 
+precedenti? Nelle basi di dati si utilizzano le note \textbf{dipendenze funzionali}, ossia un insieme
+di attributi che dipende da un altro insieme di attributi all'interno dello stesso schema. Tale definizione
+può sembrare poco esplicativa, ma è di vitale importanza in questo paragrafo che lo studente abbia
+ben saldo in mente il concetto di dipendenza funzionale, in quanto centrale nel corso di \textit{Basi di Dati}.
+Formalmente, una dipendenza funzionale stabilisce un collegamento semantico tra due distinti insiemi 
+di attributi \(X\) e \(Y\) appartenenti allo stesso schema. Si scrive:
+\begin{equation}
+    X\rightarrow Y
+\end{equation}
+e si legge : "X \textbf{determina} Y", stabilendone dei vincoli di integrità.
+\begin{theorem}
+    Sia \(r\) un istanza della relazione \(R\), la dipendenza funzionale \(X\rightarrow Y\) è soddisfatta se :
+    \begin{itemize}
+        \item Sia \(X\) che \(Y\) sono due sotto-insieme distinti di \(R\).
+        \item Le tuple di \(r\) che sono identiche per \(X\), sono anche identiche per \(Y\). \begin{equation}
+            \forall t_1,t_2 \in R \text{ se } t_1[X]=t_2[X] \implies t_1[Y]=t_2[Y]
+        \end{equation}
+    \end{itemize}
+\end{theorem}
+\newpage\section{Algebra relazionale}
+Tramite \textbf{l'algebra relazionale} possiamo fare interrogazioni alla nostra base di dati per 
+ottenere informazioni su una porzione di essa, le \textit{query} sono scritte in linguaggio SQL, e vengono
+tradotte nel linguaggio formale e procedurale dell'algera relazionale. L'algebra relazionale fornisce 
+degli operatori che lavorano sulle istanze delle nostre relazioni, vi sono 4 tipi di operatori :
+\begin{itemize}
+    \item Operatori di rimozione sulle singole relazioni
+    \item Operatori insiemistici 
+    \item Operatori che combinano tuple da relazioni diverse 
+    \item Operatore di rinomina
+\end{itemize}
+Vediamo nel dettaglio tutti gli operatori che abbiamo a disposizione :
+\subsubsection{Proiezione}
+L'operatore di proiezione, indicato con \(\pi\), esegue un \textit{taglio verticale} su una 
+tabella, selezionando un sotto-insieme degli attributi, creando una tabella come quella iniziale, 
+ma con esclusivamente le istanze degli attributi selezionati.\begin{center}
+    \( \pi_{A_1,A_2,..A_k}(R) \) 
+\end{center}
+\textit{Esempio :}\begin{center} Sia : 
+    \begin{tabular}{|l|l|l|r|}
+        \hline
+    \multicolumn{3}{|c|}{\textbf{Customer}}\\
+        \hline
+        Code & Name & Town \\
+        \hline
+        001 & Giancarlo & Roma \\
+        \hline
+        002 & Sara & Cagliari \\
+        \hline
+        003 & Nicola & Roma \\
+        \hline
+        \end{tabular}
+        ho che \(\pi_{Name}(Customer)=\)
+        \begin{tabular}{ |l|r| } 
+            
+            \hline Roma \\ 
+            \hline Cagliari  \\ 
+            \hline
+           \end{tabular}
+\end{center}
+\subsubsection{Selezione}
+La selezione, indicata con \(\sigma\), esegue un \textit{taglio orizzontale} sulla tabella, ossia, seleziona tutte le righe 
+che soddisfano un determinato vincolo \(C\), tale vincolo è un sepressione booleana della forma 
+\(A\Theta B\), dove \(\Theta\in\{<,>,=,\le,ge\}\). La condizione ovviamente per esser valida, ha bisogno 
+che \(A\) e \(B\) abbiano lo stesso dominio (non posso comparare un intero con una stringa).\begin{center}
+    \( \sigma_{C}(R)\)
+\end{center}
+\textit{Esempio :}\begin{center} Sia : 
+    \begin{tabular}{|l|l|l|r|}
+        \hline
+    \multicolumn{3}{|c|}{\textbf{Customer}}\\
+        \hline
+        Code & Name & Town \\
+        \hline
+        001 & Giancarlo & Roma \\
+        \hline
+        002 & Sara & Cagliari \\
+        \hline
+        003 & Nicola & Roma \\
+        \hline
+        \end{tabular}
+        ho che :\end{center}\begin{center}  \( \sigma_{Town="Roma"}(Customer)=\)
+        \begin{tabular}{|l|l|l|r|}
+            \hline
+   
+            Code & Name & Town \\
+            \hline
+            001 & Giancarlo & Roma \\
+            \hline
+            003 & Nicola & Roma \\
+            \hline
+            \end{tabular}
+\end{center}
+Ovviamente posso utilizzare gli operatori logici per eseguire richieste multiple :
+\begin{center}  \( \sigma_{Town="Roma"\land Code=001}(Customer)=\)
+    \begin{tabular}{|l|l|l|r|}
+        
+        \hline
+        Code & Name & Town \\
+        \hline
+        001 & Giancarlo & Roma \\
+        \hline
+        \end{tabular}
+        \\\hphantom{.}\\Vale la proprietà : \(\sigma_{C}(\sigma_{C'}(R))=\sigma_{C\land C'}(R)\)
+    \end{center}
+    \subsubsection{Unione}
+L'operazione di unione fra due relazioni, denominata con il simbolo \(\cup\), come nel senso insiemistico, crea una nuova istanza 
+della relazione, contenente le tuple da entrambe le relazioni. Non si possono unire due relazioni 
+qualsiasi, è necessario che esse siano \textbf{union-compatibili}, ossia che abbiano lo stesso 
+numero di attributi, e che gli attributi corrispondenti abbiano lo stesso dominio.
+\begin{center}
+    Siano : 
+    \begin{tabular}{|l|l|r|}
+        \hline
+    \multicolumn{2}{|c|}{\textbf{Insegnanti}}\\
+        \hline
+        Code & Name  \\
+        \hline
+        \color{blue}001 & \color{blue}Giancarlo  \\
+        \hline
+        002 & Sara  \\
+        \hline
+        003 & Nicola\\
+        \hline
+        \end{tabular}
+        \begin{tabular}{|l|l|r|}
+            \hline
+        \multicolumn{2}{|c|}{\textbf{Admin}}\\
+            \hline
+            Code & Name  \\
+            \hline
+            \color{red}001 & \color{red}Luca  \\
+            \hline
+            004 & Andrea  \\
+            \hline
+            005 & Carlo\\
+            \hline
+            \end{tabular}
+ Si ha che :\end{center}\begin{center}
+\(Insegnanti\cup Admin = \)
+\begin{tabular}{|l|l|r|}
+    \hline
+    Code & Name  \\
+    \hline
+    \color{blue}001 & \color{blue}Giancarlo  \\
+    \hline
+    002 & Sara  \\
+    \hline
+    003 & Nicola\\
+    \hline
+    004 & Andrea  \\
+    \hline
+    005 & Carlo\\
+    \hline
+    \end{tabular} \end{center}
+    Si noti come la riga 
+    \begin{tabular}{|l|l|r|}
+        \hline
+        \color{red}001 & \color{red}Luca \\  \hline
+    \end{tabular} 
+non appare nell'unione, dato che condivide la stessa chiave con la riga 
+\begin{tabular}{|l|l|r|}
+    \hline
+    \color{blue}001 & \color{blue}Giancarlo \\  \hline
+\end{tabular} 
+, quindi, quando si uniscono due relazioni, bisogna fare attenzione che due righe da esse non condividano 
+la stessa chiave, altrimenti si avrà una perdita di informazioni. Si noti che, se una delle due tabelle avesse 
+presentato un attributo di troppo, esso sarebbe potuto essere stato rimosso con una proiezione, rendendole comunque 
+union-compatibili.
+\subsubsection{Differenza}
+Come per l'unione, è necessario che le due relazioni sulla quale voglio applicare la differenza siano 
+union-compatibili. Si indica con il simbolo \(-\), ed il risultato fra due relazioni, conterrà 
+le tuple del primo operando, che non stanno anche nel secondo operando.
+\begin{center}
+    Siano : 
+    \begin{tabular}{|l|l|r|}
+        \hline
+    \multicolumn{2}{|c|}{\textbf{Insegnanti}}\\
+        \hline
+        Code & Name  \\
+        \hline
+        001 & Giancarlo  \\
+        \hline
+        002 & Sara  \\
+        \hline
+        \end{tabular}
+        \begin{tabular}{|l|l|r|}
+            \hline
+        \multicolumn{2}{|c|}{\textbf{Admin}}\\
+            \hline
+            Code & Name  \\
+            \hline
+            002 & Sara  \\
+            \hline
+            \end{tabular}
+ Si ha che :\end{center}\begin{center}
+    \(Insegnanti-Admin =\)
+    \begin{tabular}{|l|l|r|}
+        \hline
+        Code & Name  \\
+        \hline
+       
+        001 & Giancarlo  \\
+        \hline
+        \end{tabular}
+ \end{center}
+ La differenza non è commutativa! Infatti, in questo caso \(Admin-Insegnanti=\emptyset \)
+\newpage
+\subsubsection{Intersezione}
+Anch'essa richiede che i due operandi siano union-compatibili. Si indica con \(\cap\), ed il
+risultato conterrà esclusivamente le tuple che fanno parte sia della prima che della seconda relazione.
+(si noti che \(A\cap B = A - (A-B)\)).
+\begin{center}
+    Siano : 
+    \begin{tabular}{|l|l|r|}
+        \hline
+    \multicolumn{2}{|c|}{\textbf{Insegnanti}}\\
+        \hline
+        Code & Name  \\
+        \hline
+        001 & Giancarlo  \\
+        \hline
+        002 & Sara  \\
+        \hline
+        \end{tabular}
+        \begin{tabular}{|l|l|r|}
+            \hline
+        \multicolumn{2}{|c|}{\textbf{Admin}}\\
+            \hline
+            Code & Name  \\
+            \hline
+            002 & Sara  \\
+            \hline
+            004 & Andrea  \\
+            \hline
+            \end{tabular}
+ Si ha che :\end{center}\begin{center}
+    \(Insegnanti\cap Admin =\)
+    \begin{tabular}{|l|l|r|}
+        \hline
+        Code & Name  \\
+        \hline
+        002 & Sara  \\
+        \hline
+        \end{tabular}
+ \end{center}
+ Vediamo adesso gli operatori della terza categoria, che creano \textbf{relazioni multiple}
+ combinando tabelle eterogenee.
+ \subsubsection{Prodotto Cartesiano}
+ Il prodotto cartesiano è indicato con il simbolo \(\times\), e rappresenta tutte le possibili 
+ combinazioni di righe fra gli elementi del primo operando con gli elementi del secondo, tale 
+ operazione risulta parecchio dispendiosa, e potrebbe associare elementi che non hanno 
+ nessuna correlazione sensata, ad esempio :
+ \begin{center}
+    Siano : 
+    \begin{tabular}{|l|l|r|}
+        \hline
+    \multicolumn{2}{|c|}{\textbf{Customer}}\\
+        \hline
+        Code & Name  \\
+        \hline
+        001 & Giancarlo  \\
+        \hline
+        002 & Sara  \\
+        \hline
+        \end{tabular}
+        \begin{tabular}{|l|l|r|}
+            \hline
+        \multicolumn{2}{|c|}{\textbf{Order}}\\
+            \hline
+            CO & Customer  \\
+            \hline
+            AX00 & 001  \\
+            \hline
+            AX01 & 002  \\
+            \hline
+            \end{tabular}
+ Si ha che :\end{center}\begin{center}
+    \(Customer\times Order =\)
+    \begin{tabular}{|l|l|l|l|r|}
+        \hline
+        Code & Name & CO & Customer  \\
+        \hline
+        001 & Giancarlo & AX00 & 001 \\\hline
+        001 & Giancarlo & AX01 & 002 \\\hline
+        002 & Sara & AX00 & 001 \\\hline
+        002 & Sara & AX01 & 002 \\
+        \hline
+        \end{tabular}
+ \end{center}
+ Logicamente però, stiamo associando a dei clienti, degli ordini che non gli appartengono (il campo \(Customer\) 
+ di \(Order\) è la foreign key che identifica il campo \(Code\) della tabella \(Customer\)). Quindi, se volessimo 
+ una tabella con ogni cliente e gli ordini ad esso associati, combineremo anche una selezione del tipo :
+ \begin{center}
+    \(\sigma_{Customer.Code=Order.Customer}(Customer\times Order) =\)
+    \begin{tabular}{|l|l|l|l|r|}
+        \hline
+        Code & Name & CO & Customer  \\
+        \hline
+        001 & Giancarlo & AX00 & 001 \\\hline
+        002 & Sara & AX01 & 002 \\
+        \hline
+        \end{tabular}
+ \end{center}
+ È chiaro che, per tabelle con numerosi elementi, il prodotto cartesiano da computare risulta parecchio 
+ dispendioso, dato che, se \(R_1\) ha \(n\) elementi, ed \(R_2\) ha \(m\) elementi, il prodotto cartesiano 
+ \(R_1\times R_2\) avrà \(n\cdot m\) elementi, e quando si opera su basi di dati con milioni di righe, tale operazione 
+ deve essere evitata quando possibile, per questo esiste un'operazione simile al prodotto cartesiano, 
+ che seleziona automaticamente le righe da combinare secondo parametri ben precisi.\newpage
+ \subsubsection{Join}
+ L'operatore join, indicato dal simbolo \(\Join \), seleziona le tuple del prodotto cartesiano 
+ che soddisfano una precisa condizione \(C\), ossia che gli attributi con lo stesso nome, debbano 
+ avere anche lo stesso valore, è quindi importante che si denominino in maniera precisa gli attributi 
+ di relazioni che si vogliono combinare con il join.\begin{equation}
+    R_1\Join R_2 = \sigma_C(R_1\times R_2)\end{equation}\begin{equation}
+    C = R_1.A_1 = R_2.A_1 \land R_1.A_2 = R_2.A_2 \land ... \land R_1.A_k = R_2.A_k 
+\end{equation}
+dove \(A_1,A_2...,A_k\) sono gli attributi condivisi con lo stesso nome fra \(R_1\) e \(R_2\).
+La tabella risultante, non presenterà due volte gli attributi da \(R_1\) e \(R_2\) con lo stesso 
+nome, ma li unirà in un attributo solo. \\Se dovesse 
+capitare che le due relazioni non hanno alcun attributo in comune, il risultato sarà il prodotto cartesiano.
+\begin{center}
+    Siano : 
+    \begin{tabular}{|l|l|r|}
+        \hline
+    \multicolumn{2}{|c|}{\textbf{Customer}}\\
+        \hline
+        Code & Name  \\
+        \hline
+        001 & Giancarlo  \\
+        \hline
+        002 & Sara  \\
+        \hline
+        003 & Lucia  \\
+        \hline
+        \end{tabular}
+        \begin{tabular}{|l|l|l|r|}
+            \hline
+        \multicolumn{3}{|c|}{\textbf{Order}}\\
+            \hline
+            CO & Code & Item  \\
+            \hline
+            AX00 & 001 & Glue \\
+            \hline
+            AX01 & 002 & Bricks \\
+            \hline
+            AX02 & 001 & Shoes \\
+            \hline
+            \end{tabular}
+ Si ha che :\end{center}\begin{center}
+    \(Customer\Join Order =\)
+    \begin{tabular}{|l|l|l|l|r|}
+        \hline
+        Customer.Code & Name & CO & Item  \\
+        \hline
+        001 & Giancarlo & AX00 & Glue \\\hline
+        001 & Giancarlo & AX02 & Shoes \\\hline
+        002 & Sara & AX01 & Bricks \\
+        \hline
+        \end{tabular}
+ \end{center}
+\subsubsection{\(\Theta\)-Join}
+Il \(\Theta\)-Join (Che si pronuncia "theta join"), selezione le tuple risultanti dal prodotto cartesiano,
+che soddisfino la condizione \(A\Theta B\) dove \(\Theta\in\{<,>,=,\le,ge\}\) ed \(A,B\) sono 
+attributi rispettivamente della prima, e seconda relazione (il dominio di \(A\) deve essere lo stesso
+del dominio di \(B\)).\begin{equation}
+    R_1\Join_{A\Theta B}R_2 = \sigma_{A\Theta B}(R_1\times R_2)
+\end{equation}
+\subsubsection{Condizioni Negative}
+È possibile utilizzare il simbolo \(\lnot C\) per intendere che si vogliono selezionare tutte le 
+tuple che non soddisfino la condizione \(C\).
+\begin{center} Sia : 
+    \begin{tabular}{|l|l|l|r|}
+        \hline
+    \multicolumn{3}{|c|}{\textbf{Customer}}\\
+        \hline
+        Code & Name & Town \\
+        \hline
+        001 & Giancarlo & Roma \\
+        \hline
+        002 & Sara & Cagliari \\
+        \hline
+        003 & Nicola & Roma \\
+        \hline
+        004 & Gianluca & Venezia \\
+        \hline
+        \end{tabular}
+        ho che : \end{center}\begin{center} \(\sigma_{\lnot(Town="Roma")}(Customer)=\)
+        \begin{tabular}{ |l|l|l|r| } 
+            \hline 002 & Sara & Cagliari \\ 
+            \hline 004 & Gianluca & Venezia \\
+        \hline
+           \end{tabular}
+\end{center}
+\newpage\subsection{Quantificazione Universale}
+Per ora tutti gli operatori che abbiamo visto, implicano una quantificazione esistenziale, quando seleziono 
+da una relazione le righe che soddisfano una condizione C, seleziona le righe anche se vi è un altro 
+elemento che non soddisfa tale condizione.\\\hphantom{.}\\ Se seleziono tutti i clienti che hanno ordini con 
+prezzo superiore a 100 euro, selezionerà tutti i clieni che hanno \textbf{almeno} un ordine 
+superiore a 100 euro, non solo quelli che hanno \textbf{esclusivamente} ordini superiori a 100 euro.
+\\ Vogliamo scrivere query che implichino la quantificazione universale e non esistenziale, ossia, 
+che tale condizione valga "\textbf{per ogni}", e ciò è equivalente a "\textbf{non c'e ne sono tali che}":
+\begin{itemize}
+    \item I clienti che hanno solo ordini superiori a 100 euro = I clienti che non hanno ordini inferiori o uguali a 100 euro
+\end{itemize}
+\begin{center}
+    Siano : 
+    \begin{tabular}{|l|l|r|}
+        \hline
+    \multicolumn{2}{|c|}{\textbf{Customer}}\\
+        \hline
+        Code & Name  \\
+        \hline
+        001 & Giancarlo  \\
+        \hline
+        002 & Sara  \\
+        \hline
+        003 & Lucia  \\
+        \hline
+        \end{tabular}
+        \begin{tabular}{|l|l|l|r|}
+            \hline
+        \multicolumn{3}{|c|}{\textbf{Order}}\\
+            \hline
+            CO & Code & Price  \\
+            \hline
+            AX00 & 001 & 90 \\
+            \hline
+            AX01 & 002 & 120 \\
+            \hline
+            AX02 & 001 & 200 \\
+            \hline
+            \end{tabular}
+\end{center}
+Vogliamo elencare nome e codice dei clienti che hanno fatto ordini esclusivamente con prezzo superiore a 100 euro, quindi, 
+\textit{Giancarlo} non sarà incluso, dato che ha fatto si un ordine da 200 euro, ma anche uno da 90 euro.
+La nostra query \(Q\) sarà :
+\begin{equation}
+    Q = Customer-\pi_{Code,Name}(\sigma_{Price\le 100}(Customer \Join Order))
+\end{equation}
+Quindi, prendere tutti coloro che hanno fatto solo ordini superiori a 100 euro, equivale a prendere 
+il totale, e sottrarne coloro che hanno fatto almeno un ordine inferiore o uguale a 100 euro.
+\begin{center}
+    \(Q = \)
+    \begin{tabular}{|l|l|r|}
+        \hline
+        Code & Name  \\
+        \hline
+        
+        002 & Sara  \\
+        
+        \hline
+        \end{tabular}
+\end{center}\subsection{Esempi di Esercizi}\subsubsection{Esempio 1}
+Ci sono situazioni in cui dobbiamo combinare una relazione con se stessa per ottenere paia di 
+tuple della stessa tabella, vediamo un esempio, si osservino le seguenti relazioni :
+\begin{center}
+    
+        \begin{tabular}{|llll|}
+        \hline
+        \multicolumn{4}{|c|}{Impiegati}                                                                  \\ \hline
+        \multicolumn{1}{|l|}{Name}    & \multicolumn{1}{l|}{Cod} & \multicolumn{1}{l|}{Salario} & CodSup \\ \hline
+        \multicolumn{1}{|l|}{Rossi}   & \multicolumn{1}{l|}{C1}  & \multicolumn{1}{l|}{100}     & C3     \\ \hline
+        \multicolumn{1}{|l|}{Pirlo}   & \multicolumn{1}{l|}{C2}  & \multicolumn{1}{l|}{200}     & C3     \\ \hline
+        \multicolumn{1}{|l|}{Bianchi} & \multicolumn{1}{l|}{C3}  & \multicolumn{1}{l|}{500}     & NULL   \\ \hline
+        \multicolumn{1}{|l|}{Verdi}   & \multicolumn{1}{l|}{C4}  & \multicolumn{1}{l|}{200}     & C2     \\ \hline
+        \multicolumn{1}{|l|}{Neri}    & \multicolumn{1}{l|}{C5}  & \multicolumn{1}{l|}{150}     & C1     \\ \hline
+        \multicolumn{1}{|l|}{Tosi}    & \multicolumn{1}{l|}{C6}  & \multicolumn{1}{l|}{100}     & C1     \\ \hline
+        \end{tabular} 
+\end{center}
+Dove \(CodSup\) identifica il \(Cod\) della riga che ogni impiegato ha come supervisore. Ad esempio, Rossi ha 
+come supervisore Bianchi, e Neri ha come supervisore Rossi. Vogliamo trovare tutti gli impiegati che hanno 
+lo stipendio superiore o uguale al loro supervisore. Per procedere possiamo combinare tramite il prodotto cartesiano 
+la tabella con se stessa, prima però rinominando ogni attributo aggiungendoci una \(C\) davanti, per identificare 
+una tabella che è copia dell'altra:
+\begin{equation}
+    ImpiegatiC = \rho_{Name,Cod,Salario,CodSup\rightarrow CName,CCod,CSalario,CCodSup }(Impiegati)
+\end{equation}
+Adesso procediamo col combinare tali tabelle, però selezionando esclusivamente le tuple che hanno 
+il \(CodSup\) ed il \(CCod\) identici, in modo che avremo una lista dei dipendenti con a destra 
+il loro superiore.
+\begin{equation}
+    \sigma_{CodSup=CCod}(Impiegati \times ImpiegatiC)
+\end{equation}
+\begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|}
+        \hline
+        Name  & Cod & Salario & CodSup & CName   & CCod & CSalario & CCodSup \\ \hline
+        Rossi & C1  & 100     & C3     & Bianchi & C3   & 500      & NULL    \\ \hline
+        Pirlo & C2  & 200     & C3     & Bianchi & C3   & 500      & NULL    \\ \hline
+        Verdi & C4  & 200     & C2     & Pirlo   & C2   & 200      & C3      \\ \hline
+        Neri  & C5  & 150     & C1     & Rossi   & C1   & 100      & C3      \\ \hline
+        Tosi  & C6  & 100     & C1     & Rossi   & C1   & 100      & C3      \\ \hline
+        \end{tabular}
+\end{center}
+Fatto ciò adesso, ci basta selezionare quelli che hanno il salario superiore o uguale a quello del proprio 
+supervisore, ossia \(Salario\ge CSalario\) :
+\begin{equation}
+    \sigma_{(CodSup=CCod)\land(Salario\ge CSalario)}(Impiegati \times ImpiegatiC)
+\end{equation}\begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|}
+        \hline
+        Name  & Cod & Salario & CodSup & CName & CCod & CSalario & CCodSup \\ \hline
+        Verdi & C4  & 200     & C2     & Pirlo & C2   & 200      & C3      \\ \hline
+        Neri  & C5  & 150     & C1     & Rossi & C1   & 100      & C3      \\ \hline
+        Tosi  & C6  & 100     & C1     & Rossi & C1   & 100      & C3      \\ \hline
+        \end{tabular}
+\end{center}\subsubsection{Esempio 2}
+Vediamo adesso un esempio di un altro tipo, si consideri sempre la stessa relazione di prima :
+\begin{center}
+    
+    \begin{tabular}{|llll|}
+    \hline
+    \multicolumn{4}{|c|}{Imp}                                                                  \\ \hline
+    \multicolumn{1}{|l|}{Name}    & \multicolumn{1}{l|}{Cod} & \multicolumn{1}{l|}{Salario} & CodSup \\ \hline
+    \multicolumn{1}{|l|}{Rossi}   & \multicolumn{1}{l|}{C1}  & \multicolumn{1}{l|}{100}     & C3     \\ \hline
+    \multicolumn{1}{|l|}{Pirlo}   & \multicolumn{1}{l|}{C2}  & \multicolumn{1}{l|}{200}     & C3     \\ \hline
+    \multicolumn{1}{|l|}{Bianchi} & \multicolumn{1}{l|}{C3}  & \multicolumn{1}{l|}{500}     & NULL   \\ \hline
+    \multicolumn{1}{|l|}{Verdi}   & \multicolumn{1}{l|}{C4}  & \multicolumn{1}{l|}{200}     & C2     \\ \hline
+    \multicolumn{1}{|l|}{Neri}    & \multicolumn{1}{l|}{C5}  & \multicolumn{1}{l|}{150}     & C1     \\ \hline
+    \multicolumn{1}{|l|}{Tosi}    & \multicolumn{1}{l|}{C6}  & \multicolumn{1}{l|}{100}     & C1     \\ \hline
+    \end{tabular} 
+\end{center}
+Adesso vogliamo trovare l'impiegato che il salario più alto, ma come possiamo fare? Procederemo con il comparare 
+ogni impiegato con tutti gli altri, seleziondo esclusivamente quelli che hanno lo stipendio inferiore all'impiegato 
+con la quale sono stati comparati (selezioniamo esclusivamente il codice impiegato):\begin{equation}
+    Imp2=Imp
+\end{equation}
+\begin{equation}
+    \pi_{Imp.cod}(Imp \Join_{Imp.Salario<Imp2.Salario}Imp2)
+\end{equation}
+\newpage Ottengo la tabella :
+\begin{center}
+    \begin{tabular}{|l|}
+        \hline
+        Impiegati.Cod \\ \hline
+        C1            \\ \hline
+        C2            \\ \hline
+        C4            \\ \hline
+        C5            \\ \hline
+        C6            \\ \hline
+        \end{tabular}
+\end{center}
+Che rappresenta tutti gli impiegati che hanno qualcuno con lo stipendio superiore al loro. Quindi,
+chi non è presente in questa tabella, sarà l'impiegato con lo stipendio più alto. Prendiamo allora tutti 
+gli impiegati e sottraiamo ad essi la nostra tabella.
+\begin{center}
+    \(\pi_{Cod}(Imp)-\pi_{Imp.cod}(Imp \Join_{Imp.Salario<Imp2.Salario}Imp2)=\)\\\hphantom{.}\\=
+    \begin{tabular}{|l|}
+        \hline
+        C1 \\ \hline
+        C2 \\ \hline
+        C3 \\ \hline
+        C4 \\ \hline
+        C5 \\ \hline
+        C6 \\ \hline
+        \end{tabular} \(-\)
+        \begin{tabular}{|l|}
+            \hline
+            C1 \\ \hline
+            C2 \\ \hline
+            C4 \\ \hline
+            C5 \\ \hline
+            C6 \\ \hline
+            \end{tabular}
+            \(=\)
+    \begin{tabular}{|l|}
+        \hline
+        C3 \\ \hline
+        \end{tabular}
+\end{center}
+Quindi l'impiegato di codice \(C3\), ossia \begin{tabular}{|l|l|l|l|}
+    \hline
+    Bianchi & C3 & 500 & NULL \\ \hline
+    \end{tabular} è colui con lo stipendio più alto. 
+\section{Design di un Database}
+L'obbiettivo è capire come creare uno schema in maniera corretta, immaginiamo di dover creare 
+una base di dati per memorizzare le informazioni relative agli studenti di un corso di laurea 
+triennale, ed i relativi esami sostenuti.\begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+        \hline
+        Matricola  & SurN & Name & BirthD & City & Prov & ExCode & ExName & Doc & Date & Grade \\ \hline
+        01  & Rossi & Mario & ... & Roma & Roma & 10 & Physics & Pippo & ... & 28 \\ \hline
+        02  & Bianchi & Paolo & ... & Tolfa & Roma & 10 & Physics & Pippo & ... & 26 \\ \hline
+        01  & Rossi & Mario & ... & Roma & Roma & 20 & Chemistry & Pluto & ... & 27 \\ \hline
+        \end{tabular}
+\end{center}
+È estremamente sbagliato salvare tutti i dati in una sola relazione, per ogni esame, devo salvare 
+ogni volta tutti i dati di uno studente, creando ridondanza e spreco di memoria, inoltre se uno studente
+non ha sostenuto alcun esame, non apparirà nell'archivio, ed un esame che non è stato sostenuto da 
+nessuno risulterà inesistente. È corretto suddividere tale relazione in 3 diverse tabelle :
+\begin{center}
+    \begin{tabular}{|l|l|l|l|l|r|}
+        \hline
+        \multicolumn{6}{|c|}{Studenti}   \\\hline
+        Matricola  & SurN & Name & BirthD & City & Prov  \\ \hline
+        01  & Rossi & Mario & ... & Roma & Roma \\ \hline
+        02  & Bianchi & Paolo & ... & Tolfa & Roma  \\ \hline
+        01  & Rossi & Mario & ... & Roma & Roma  \\ \hline
+        \end{tabular}
+        \begin{tabular}{|l|l|r|}
+            \hline
+            \multicolumn{3}{|c|}{Corso}   \\\hline
+            ExCode  & ExName & Doc  \\ \hline
+            10  & Physics & Pippo \\ \hline
+            20  & Chemistry & Pluto\\ \hline
+            \end{tabular}
+\end{center}
+\begin{center}
+    \begin{tabular}{|l|l|l|r|}
+        \hline
+        \multicolumn{4}{|c|}{Esami}   \\\hline
+        Matricola  & ExCode & Data & Grade  \\ \hline
+        01  & 10 & ... & 28  \\ \hline
+        01  & 20 & ... & 27  \\ \hline
+        02  & 10 & ... & 26  \\ \hline
+        \end{tabular}
+\end{center}
+\subsection{Definizioni Formali}
+Uno \textbf{schema relazionale}, che si denota con \(R\) è un insieme di attributi del tipo:\begin{center}
+    \(R=\{A_1,A_2,A_3...,A_k\}\)
+\end{center}
+Solitamente un sotto insieme di attributi di \(R\) viene indicato con le lettre \(X\) oppure \(Y\),
+e l'unione si può denotare \(XY\equiv X\cup Y\). 
+Data una relazione \(R\), una \textbf{tupla} \(r\) è una funzione che associa ad ogni attributo, 
+un valore appartenente al suo dominio : \begin{center}
+    \(
+      R=\{nome,cognome\}\)   \(r[nome]=marco, r[cognome]=rossi  
+    \)
+\end{center}
+Preso \(X\subset R\), diciamo che due tuple \(r_1,r_2\) \textbf{coincidono} su \(X\) se :\begin{center}
+    \(\forall A\in X,r_1[A]=r_2[A]\)
+\end{center}
+\begin{center}
+    \begin{tabular}{|l|l|r|}
+        \hline
+        \multicolumn{3}{|c|}{Corso}   \\\hline
+        Nome  & Cognome & Voto  \\ \hline
+        Paolo  & Rossi & 29 \\ \hline
+        Mario  & Rossi & 29\\ \hline
+        \end{tabular}
+        Le due tuple coincidono su \(\{\)Cognome,Voto\(\}\)
+\end{center}
+Un \textbf{istanza} su uno schema relazionale \(R\) è l'insieme di tutte le tuple su \(R\).
+Una \textbf{dipendenza funzionale} su \(R\) è una coppia ordinata \(X,Y\) di sotto-insiemi di \(R\), ossia 
+di attributi di \(R\), che si denota con \(X\rightarrow Y\), ed indica che :\begin{center}
+    per ogni coppia di tuple \(r_1,r_2\), vale che \(r_1[X]=r_2[X]\implies r_1[Y]=r_2[Y]\)
+\end{center}
+E si dice \(X\) \textit{determina} \(Y\), dove \(X\) è detto determinante ed \(Y\) dipendente. Le dipendenze 
+funzionali esprimono dei \textit{vincoli}. Uno schema \(R\) può avere un \textbf{insieme di dipendenze funzionali}
+denotato con \(F\) :\begin{center}
+    \(F=\{A\rightarrow B,D\rightarrow B...,G\rightarrow H\}\)
+\end{center} se un istanza soddisfa ogni dipendenza di \(F\), ossia tutte le dipendenze funzionali, è 
+detta istanza \textbf{legale}. Le dipendenze godono di una relazione di \textit{transitività}, ossia,
+se \(A\rightarrow B\) e \(B\rightarrow C\), allora \(A\rightarrow C\), non è però necessario aggiungere 
+quest'ultima all'insieme \(F\), dato che è implicita, e vogliamo mantenere \(F\) il più piccolo possibile. 
+Ci sono quindi dipendenze funzionali che sono soddisfatte per ogni istanza della relazione, che però 
+non è necessario includere in \(F\), un altro esempio :\begin{center}
+    se \(taxCode\rightarrow name,surname\) \\
+    è ovvio che \(taxCode\rightarrow name\)  e  \(taxCode\rightarrow surname\)
+\end{center}
+Ma queste due ultime non saranno incluse in \(F\). Tali dipendenze sono dette \textbf{banali}, ad 
+esempio, se \(Y\subset X\), se \(A\rightarrow X\) ovviamente \(A\rightarrow Y\). Il numero delle dipendenze 
+banali è \textit{esponenziale} :\begin{center}
+    \(
+    X\rightarrow Y \iff \forall A\in Y, X\rightarrow A    
+    \)
+\end{center} 
+Tutte le dipendenze banali che non è necessario includere in \(F\), si trovano in un insieme 
+più grande detto \textbf{chiusura di }\(F\), che si denota con \(F^+\), contenente tutte le 
+dipendenze funzionali soddisfatte da un'istanza, è chiaro che \(F\subseteq F^+\).
+
+Passiamo alla definizione di \textbf{chiave}. Un sotto-insieme di attributi \(K\) è detto chiave se :\begin{itemize}
+    \item \(K\rightarrow R \in F^+\)
+    \item \(\nexists K'\subset K | K'\rightarrow R \in F^+\)
+\end{itemize}
+Detto in maniera meno formale, non esisteranno due tuple di una relazione con gli stessi valori 
+per le chiavi. Nei linguaggi come \textit{SQL}, fra gli attributi della chiave se ne definisce uno 
+in particolare detto \textbf{chiave primaria},che non può assumere valore \code{NULL}.
+\end{document}
