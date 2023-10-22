@@ -754,7 +754,11 @@ siamo in grado di calcolare la sua funzione di Eulero : \begin{itemize}
 Ricordiamo che \(\mathbb{Z}_n\) ha la struttura di un anello commutativo con unità\ref{ringDef}, ha quindi un insieme di 
 elementi invertibili. Vogliamo determinare la cardinalità di tale insieme \(\mathcal{U}(\mathbb{Z}_n)\).
 \\\hphantom{.}\\\textbf{Proposizione }: In \(\mathbb{Z}_n\), gli unici elementi \textit{invertibili} sono 
-quelle classi \(a\) tali che \(MCD(a,n)=1\), ossia, tutti gli elementi co-primi con \(n\), e sono esattamente 
+quelle classi \(a\) tali che \(MCD(a,n)=1\). \\
+Ossia, tutti gli elementi co-primi con \(n\), ed equivale a risolvere la congruenza :\begin{center}
+    \(ax\equiv 1 \) (mod \(n)\)
+\end{center} Tale congruenza ammette un unica soluzione, se e solo se \(MCD(a,n)=1\). Gli 
+invertibili, sono esattamente 
 \(\varphi(n)\), quindi, se \(p\) è primo, tutti gli elementi di \(\mathbb{Z}_p\) escluso lo 0 sono co-primi con \(p\), quindi,
 ogni classe non nulla è invertibile : \(|\mathcal{U}(\mathbb{Z}_p)|=\varphi(p)=p-1\). \\ 
 Ricordando che un campo è un anello commutativo con unità, per cui ogni elemento non nullo è invertibile, 
