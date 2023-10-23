@@ -9,6 +9,8 @@
 \usepackage[english]{babel}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \usepackage{wrapfig}
+\usepackage{float}
+\usepackage{listings}
 \title{Sistemi Operativi 1}
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -314,4 +316,66 @@ Un processo in esecuzione può ritrovarsi in uno dei seguenti 5 \textbf{stati} :
     \includegraphics[width=0.7\textwidth ]{images/processStates.png}
     }
 \end{figure}
+Il sistema operativo per creare nuovi processi utilizza delle opportune chiamate di sistema. Per convenzione, 
+un processo \textit{Parent} (detto anche padre) è quello dalla quale si esegue la chiamata per generare nuovi processi, detti 
+\textit{Figli}. Ogni processo ha d.ue valori interi utilizzati per identificare se stesso: \code{PID}, ed 
+il suo parent : \code{PPID}. In sistemi come Unix, il process scheduler ha come PID=0, esso inizializza 
+come prima cosa un processo noto come \code{init}, che ha PID=1, e si occuperà di creare tutti i processi, sarà 
+quindi il parent primario. I processi vengono creati tramite una chiamata di sistema denominata \code{fork()}.
+Ogni processo crea più figli, generando una struttura gerarchica ad albero.\\
+\hphantom{}\\ La chiamata \code{fork()} nello 
+specifico, non crea un nuovo processo, ma crea un processo \textit{clone}, identico a quello chiamante, si utilizza 
+poi una chiamata \code{exec()}, che prendendo come parametri l'indirizzo in memoria di un determinato programma, 
+sostituirà al processo corrente le istruzioni del programma nuovo che si vuole eseguire. Sarà quindi la congiunzione 
+di tali chiamate \code{fork()} ed \code{exec()} a generare un nuovo processo.
+\\\hphantom{}\\ 
+Quando un processo padre genera un figlio, ha due possibili opzioni :\begin{itemize}
+    \item Arrestare la sua esecuzione, ed attendere che il processo figlio appena generato termini prima di ricominciare,
+    tramite la chiamata \code{wait()}.
+    \item Continuare la sua esecuzione, in maniera concorrente con il suo processo figlio.
+\end{itemize}
+Vediamo come un programma si occupa di generare un nuovo processo tramite la chiamata di sistema :\newpage
+\begin{lstlisting}[language=C]
+    #include <sys/types.h>
+    #include <stdio.h>
+    #include <unistd.h>
+    
+    int main(){
+        pid_t pid;
+        /* fork a child process */
+        pid = fork();
+
+        if(pid<0){
+            /* error occurred */
+            fprint("Fork Failed");
+            exit(-1);
+        }
+
+        else if(pid==0){
+            /* child process */
+            execlp("bin/ls","ls",NULL);
+        }
+
+        else{
+            /* parent process */
+            wait(NULL);
+            printf("Child Complete");
+            exit(0);
+        }
+    }
+\end{lstlisting}
+Si osservi il codice sopra mostrato. Quando viene eseguito un \code{fork()} e creato un clone, i due processi 
+padre e figlio differiranno esclusivamente per il loro PID. La funzione \code{fork()} ritorna il PID del 
+processo appena clonato, se esso è il processo figlio, il PID sarà 0, per questo si entrà nel blocco 
+di codice che si occuperà di fare l'\code{exec()} sostituendo le istruzioni con quelle del 
+programma presente all'indirizzo \code{"bin/ls"}, generando così un nuovo processo. Se il PID è diverso da 0, 
+il programma eseguirà una \code{wait()}, aspettando che il processo figlio termini, prima di ricominciare.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.9\textwidth ]{images/forkGraph.png}
+    }
+\end{figure}
+Sarà quindi il programma scritto dall'utente a dover implementare la logica adeguata (tramite la 
+lettura dei PID) per capire se il processo attualmente in esecuzione è quello padre o quello figlio
+
 \end{document}
