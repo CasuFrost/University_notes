@@ -369,4 +369,73 @@ facilmente :\begin{center}
         \mathbb{P}(\{\omega_1,\omega_2\})=\mathbb{P}_1(\omega_1)\cdot\mathbb{P}_2(\omega_2)=\dfrac{1}{|\Omega_1|}\cdot\dfrac{1}{|\Omega_2|}=\dfrac{1}{|\Omega_1\times\Omega_2|}=\dfrac{1}{|\Omega|}
     \)
 \end{center}
+\subsubsection{Indipendenza di Eventi}
+Sia \(\mathbb{P}\) la funzione probabilità, che in un certo modello probabilistico soddisfa la seguente 
+condizione di \textit{compatibilità} : Sia \(A\subset\Omega\) un evento particolare, per cui posso decidere 
+l'esito dell'esperimento osservando esclusivamente \((\Omega_1,\mathbb{P}_1)\), tale che \(\forall A_1 \in \Omega_1\), \(A=A_1\times \Omega_2\).
+In matematica, tale \(A\) è detto \textit{cilindro}. Vale che \(\mathbb{P}(A)=\mathbb{P}_1(A)_1\).\begin{center}
+\(
+  \mathbb{P}(A)=\displaystyle\sum_{(\omega_1,\omega_2)\in A_1\times\Omega_2}\mathbb{P}_1(\omega_1)\cdot\mathbb{P}_2(\omega_2)  
+    =\displaystyle\sum_{\omega_1\in A_1}\mathbb{P}_1(\omega_1)\cdot\displaystyle\sum_{\omega_2\in \Omega_2}\mathbb{P}_2(\omega_2)=\displaystyle\sum_{\omega_1\in A_1}\mathbb{P}_1(\omega_1)\cdot 1=\mathbb{P}_1(A)_1
+  \)
+\end{center}
+Se esiste un evento \(B\), che è un evento particolare, per cui posso decidere 
+l'esito dell'esperimento osservando esclusivamente \((\Omega_2,\mathbb{P}_2)\) (analogamente al primo caso), 
+risulta che \(\mathbb{P}(A\cap B)=\mathbb{P}(A)\cdot\mathbb{P}(B)\). Tali eventi non si \textit{influenzano} 
+fra loro : \begin{quote}
+    In un modello probabilistico \((\Omega,\mathbb{P})\), due eventi \(A,B\subseteq \Omega\) sono detti 
+    \textbf{indipendenti} se : \begin{center}
+        \(\mathbb{P}(A\cap B)=\mathbb{P}(A)\cdot\mathbb{P}(B)\)
+    \end{center}
+\end{quote}
+Tale relazione di \textit{indipendenza} è data esclusivamente dalla funzione probabilità, non è 
+una proprietà insiemistica.\\\hphantom{.}\\\textit{Esempio }:
+Estraggo a caso una carta fra un mazzo di 40. \(\Omega=\{\omega|1\le\omega\le40\} \), 
+ed ho i due eventi \(A=\{\) Estraggo un 7 \(\}\) e \\\(B=\{\) Estraggo una carta di denara \(\}\), tali 
+eventi sono indipendenti, dato che l'estrazione di un 7, in nessun modo condiziona la probabilità di 
+estrarre una carta di denara, e viceversa. Infatti \(\mathbb{P}(A)\cdot\mathbb{P}(B)=\dfrac{1}{10}\cdot\dfrac{1}{4}=\dfrac{1}{40}=\mathbb{P}(A\cap B)\).
+\\\hphantom{.}\\
+Discutiamo adesso \textbf{l'indipendenza fra 3 eventi}. \(A,B,C\subseteq\Omega\), si dicono \textit{indipendenti} se
+sono soddisfatte le seguenti condizioni :\begin{itemize}
+    \item \( \mathbb{P}(A\cap B)=\mathbb{P}(A)\cdot\mathbb{P}(B),\mathbb{P}(A\cap C)=\mathbb{P}(A)\cdot\mathbb{P}(C),\mathbb{P}(C\cap B)=\mathbb{P}(C)\cdot\mathbb{P}(B) \)
+    \item \(\mathbb{P}(A\cap B\cap C)=\mathbb{P}(A)\cdot\mathbb{P}(B)\cdot\mathbb{P}(C)\)
+\end{itemize}
+Passiamo al caso generale, \(n\) eventi \(A_1,A_2,A_3...,A_n\) si dicono \textbf{indipendenti} quando, presa 
+una qualunque sotto-famiglia di tali insiemi, la probabilità di tale intersezione \textit{fattorizza} :
+\begin{center}
+    \(
+    \forall k| 1\le i_1 <i_2...,<i_k\le n \), \(
+    \mathbb{P}(A_{i_1}\cap A_{i_2}...,\cap A_{i_k})=\mathbb{P}(A_{i_1})\mathbb{P}(A_{i_2})...,\cdot \mathbb{P}(A_{i_k})    \)
+    
+\end{center}
+Ad esempio, in uno schema di probabilità prodotto, se prendo \(A_1\subset\Omega_1,A_2\subset\Omega_2...,A_n\subset\Omega_n\), 
+risulta che tali eventi sono tutti indipendenti fra loro.\newpage
+\subsection{Schema di Bernoulli}
+Apriamo una digressione su un noto schema probabilistico. Vi è un \textit{esperimento binario}\footnote{
+    Un esperimento con due esiti (ad esempio il lancio di una moneta)
+} ripetuto \(n\) volte, gli esiti di tale risultato vengono codificati con 0 ed 1, quindi si ha :
+\( \Omega=\{(\omega_1,\omega_2...\omega_n)|\omega_i\in\{0,1\}\} \). Lo schema è quello di uno spazio 
+di probabilità prodotto, dove \((\Omega_i,\mathbb{P}_i)\) definisce ogni lancio
+. Si definisce una costante reale \(p\in[0,1]\), tale che, per ogni singolo lancio risulta che :\begin{itemize}
+    \item \(\mathbb{P}_i(\{1\})=p\)
+    \item \(\mathbb{P}_i(\{0\})=1-p\)
+\end{itemize}
+Ovviamente se \(p=\dfrac{1}{2}\), la probabilità è uniforme. Scegliendo diversi lanci, risulta che :
+\begin{center}
+   \(n=2\implies \Omega =\{00,01,10,11\}\) con \(\mathbb{P}(00)=(1-p)^2\), \(\mathbb{P}(11)=p^2\), \(\mathbb{P}(01)=\mathbb{P}(10)=p(1-p)\)
+\end{center}
+\begin{center}
+    \(n=3\implies\Omega=\{000,001,010,011,100,101,110,111\}\) con \(\mathbb{P}(000)=(1-p)^3\), \(\mathbb{P}(111)=p^3\)...ecc
+\end{center}
+In generale, per \(n\) lanci risulta che :\begin{center}
+    Sia \(A\in \Omega\) : \(\mathbb{P}(A)=p^{\text{occorrenze di 1 in } A}\cdot (1-p)^{\text{occorrenze di 0 in } A}\)
+\end{center}
+Qui risulta comoda la codifica binaria perchè posso scrivere tale probabilità come :\begin{center}
+    \(\mathbb{P}(\{(\omega_1,\omega_2...\omega_n)\})=\displaystyle p^{\displaystyle \sum^n_{i=1}\omega_i}\)
+\end{center}
+Per un evento \(A\) in cui si ottiene \(k\) volte 1 ed \(n-k\) volte 0, la sua probabilità risulta 
+essere : \begin{center}
+    \(\mathbb{P}(A)=\displaystyle\binom{n}{k}p^k\cdot (1-p)^{n-k}\)
+\end{center}
+Tale formula è detta \textbf{distribuzione binomiale}.
 \end{document}
