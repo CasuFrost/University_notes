@@ -316,6 +316,7 @@ Un processo in esecuzione può ritrovarsi in uno dei seguenti 5 \textbf{stati} :
     \includegraphics[width=0.7\textwidth ]{images/processStates.png}
     }
 \end{figure}
+\subsection{Creazione dei Processi}
 Il sistema operativo per creare nuovi processi utilizza delle opportune chiamate di sistema. Per convenzione, 
 un processo \textit{Parent} (detto anche padre) è quello dalla quale si esegue la chiamata per generare nuovi processi, detti 
 \textit{Figli}. Ogni processo ha d.ue valori interi utilizzati per identificare se stesso: \code{PID}, ed 
@@ -366,7 +367,8 @@ Vediamo come un programma si occupa di generare un nuovo processo tramite la chi
 \end{lstlisting}
 Si osservi il codice sopra mostrato. Quando viene eseguito un \code{fork()} e creato un clone, i due processi 
 padre e figlio differiranno esclusivamente per il loro PID. La funzione \code{fork()} ritorna il PID del 
-processo appena clonato, se esso è il processo figlio, il PID sarà 0, per questo si entrà nel blocco 
+processo appena clonato(quindi il padre avrà salvato nella variabile, il PID del figlio)
+, il processo figlio, avrà la variabile pid=0, per questo si entrà nel blocco 
 di codice che si occuperà di fare l'\code{exec()} sostituendo le istruzioni con quelle del 
 programma presente all'indirizzo \code{"bin/ls"}, generando così un nuovo processo. Se il PID è diverso da 0, 
 il programma eseguirà una \code{wait()}, aspettando che il processo figlio termini, prima di ricominciare.
@@ -376,6 +378,35 @@ il programma eseguirà una \code{wait()}, aspettando che il processo figlio term
     }
 \end{figure}
 Sarà quindi il programma scritto dall'utente a dover implementare la logica adeguata (tramite la 
-lettura dei PID) per capire se il processo attualmente in esecuzione è quello padre o quello figlio
+lettura dei PID) per capire se il processo attualmente in esecuzione è quello padre o quello figlio.
+\\\hphantom{}\\ 
+Un processo può esplicitamente richiedere la sua terminazione tramite la chiamata di 
+sistema \code{exit()}, dando un codice di uscita, che per convenzione è 0 quando tale processo 
+ha terminato la sua esecuzione senza errori, altrimenti -1, oppure può essere terminato in maniere 
+forzata dal suo processo padre. Un processo non può esistere senza padre,
+se un processo padre termina ma vi sono ancora dei processi figli in esecuzione, essi, detti 
+processi \textit{orfani}, vengono ereditati dal processo \code{init}, che si occuperà di terminarli.
+Quando un processo termina, lo spazio dedicato alle sue risorse viene liberato.
+\subsection{Scheduling dei Processi}
+Un sistema operativo deve far conto a due obbiettivi : \begin{itemize}
+    \item far si che la CPU stia costantemente eseguendo processi 
+    \item avere un t empo di risposta accettabile per i programmi che interagiscono con l'utente
+\end{itemize}
+Lo scheduler si occupa di decidere quale processo eseguire venendo in contro a tali obbiettivi, anche se 
+essi possono entrare in conflitto fra loro. Il sistema operativo salva tutti i PCBs\footnote{
+ Process Control Block
+} dei processi in delle code, ci sono 5 code, una per ogni possibile stato. Quando un processo cambia stato, 
+il suo PCB viene eliminato dalla coda precedente ed inserito nella nuova coda corrispondente. Ovviamente, 
+nella \textit{Running Queue} vi può essere un solo processo per volta (in sistemi con architetture single core).
+Nelle altre code, non ci sono limiti teorici di dimensioni.
+\\\hphantom{}\\ 
+Esistono due tipi di scheduler.\begin{itemize}
+    \item Il \textbf{long-term scheduler} si occupa di selezionare i processi da eseguire dalla memoria secondaria 
+    (ad esempio, il disco) e di caricarli in memoria principale, viene eseguito poco frequentemente.
+    \item Lo \textbf{short-term scheduler} nvece, si occupa di selezionare i
+     processi dalla coda dei pronti e di assegnarli alla CPU per l'esecuzione, viene eseguito molto frequentemente,
+     circa ogni 50-100 millisecondi.
+\end{itemize}
 
+\color{red} \textbf{Continuare da }: Slide :05-Basics-of-OS-Process-Management.pdf pagina 71
 \end{document}
