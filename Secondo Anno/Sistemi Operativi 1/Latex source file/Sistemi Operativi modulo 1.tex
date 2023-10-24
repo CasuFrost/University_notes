@@ -166,7 +166,7 @@ prefissato per un job tramite il timer).
     \item \textbf{Gestione dei file}
     \item \textbf{Controllo dei dispositivi}
     \item \textbf{Manutenzione delle informazioni} 
-    \item \textbf{Comunicazion tra processi} - per far comunicare due processi, o si utilizza un canale unico di 
+    \item \textbf{Comunicazione tra processi} - per far comunicare due processi, o si utilizza un canale unico di 
     comunicazione tra i due (\textit{message passing}), oppure si fornisce un area di memoria condivisa tra due processi,
     che andrà poi liberata una volta finita la comunicazione(\textit{shared memory}).
     \item \textbf{Protezione} - forniscono agli utenti accesso temporaneo e limitato ai permessi.
@@ -407,6 +407,39 @@ Esistono due tipi di scheduler.\begin{itemize}
      processi dalla coda dei pronti e di assegnarli alla CPU per l'esecuzione, viene eseguito molto frequentemente,
      circa ogni 50-100 millisecondi.
 \end{itemize}
+Abbiamo già definit l'operazione di \textit{Content Switch}, ossia quella di interrompere un processo per 
+eseguirne un altro. Tale operazione risulta costosa in termini computazionali, dato che è necessario salvare 
+lostato del processo da interrompere e caricare lo stato del processo da eseguire dai loro rispettivi 
+PCB. Il content switch è quindi operazione da eseguire solo quando necessario, quando avviene un interruzione, oppure 
+quando un processo impiega troppo tempo generando un interruzione del timer. I processi che utilizzano principalmente 
+la CPU per eseguire esclusivamente calcoli (talvolta pesanti), che quindi richiedono più tempo per essere 
+completati, senza però fare richieste di I/O, sono detti \textit{CPU-bound processes}.
+\\\hphantom{}\\ 
+Il tempo che impiega la CPU per fare content switch è "sprecato" dato che non si stanno effettuando 
+calcoli utili all'esecuzione dei processi, quindi a seconda delle disponibilità, è possibile implementare 
+un quanto di tempo massimo dedicato ad ogni processo, a seconda delle esigenze :\begin{itemize}
+    \item Un quanto di tempo minore farà si che si eseguiranno più content switch, aumentando la responsività.
+    \item Un quanto di tempo maggiore risulterà in meno content switch, minimizzando il tempo perso della CPU, massimizzandone
+    il suo utilizzo.
+\subsection{Comunicazione fra processi}
+\end{itemize}
 
-\color{red} \textbf{Continuare da }: Slide :05-Basics-of-OS-Process-Management.pdf pagina 71
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
+\color{red} \textbf{Continuare da }: Slide :05-Basics-of-OS-Process-Management.pdf pagina 71
