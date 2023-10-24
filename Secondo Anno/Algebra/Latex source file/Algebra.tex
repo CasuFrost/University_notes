@@ -564,6 +564,61 @@ Vediamo un \textit{Esempio} di risoluzione, sia :
     \item Moltiplico \((-2,1)\) per \(3\), ottenendo \((-6,3)\).
     \item Tutte le soluzioni sono : \((-6+(k\cdot 5),3-(k\cdot2))\), difatti, per \(k=1\) ho : \(2(-6+5)+5(3-2)=3\).
 \end{itemize}
+\subsection{Il Minimo Comune Multiplo}
+Il \textit{minimo comune multiplo} fra due numeri \(a,b\), che si indica con \(mcm(a,b)\), è quel valore \(h\ge0\) tale che,
+\(a|h\) e \(b|h\), e se esiste \(h'\) tale che \(a|h'\) e \(b|h'\), allora \(h|h'\). Ne seguono le seguenti 
+osservazioni:\begin{itemize}
+    \item 1) \(mcm(a,0)=0\)
+    \item 2) \(mcm(a,1)=a\)
+    \item 3) \(mcm(a.b)=0\implies a=o\lor b=0\)
+\end{itemize}
+\textbf{Corollario :} Se \(a,b\in\mathbb{Z}\) e \(a,b\ne 0\), allora \(|ab|=MCD(a,b)\cdot mcm(a,b)\), quindi \(mcm(a,b)=\dfrac{|ab|}{MCD(a,b)}\).
+\subsection{I Numeri Primi}
+Un intero \(p\ge 2\) è detto \textit{primo} se i suoi divisori sono esclusivamente \(\pm 1\) e \(\pm p\). Quindi,
+ segue la seguente osservazione : Se \(p|xy\) e \(p\nmid x \implies p|y\), è chiaro che \(p\) è primo 
+ se e solo se, se \(p\) divide un prodotto : \(p|xy\), \(x\ne \pm1\implies y=\pm 1\). La generalizzazione 
+ di elemento primo è la seguente :
+ \begin{quote}
+    Un elemento \(p\) di un anello \ref{ringDef} \((\mathbb{Z},+,\cdot)\) è detto \textbf{irriducibile} se:\begin{center} \(p=xy, x\notin \mathcal{U}(\mathbb{Z})\implies y\in \mathcal{U}(\mathbb{Z})\) 
+    \end{center}\end{quote}
+Un qualsiasi dominio di integrità può presentare elementi primi o irriducibili, se \(a\in A,+,\cdot)\) è primo, 
+allora \(a\) è irriducibile (primo \(\implies\) irriducibile). non è però vero il contrario, in generale, se un elemento 
+è irriducibile, non è per forza primo (irriducibile \(\nRightarrow \) primo). Nei numeri interi \(\mathbb{Z}\), 
+gli elementi irriducibili sono i numeri primi. 
+\subsubsection{Teorema Fondamentale dell'Aritmetica}
+Se \(n\ge 2\), \(n\in \mathbb{N}\), tale \(n\) è un prodotto di numeri primi (può essere fattorizzato in numeri primi).
+Inoltre, tale fattorizzazione ha scrittura : \begin{center}
+    \( n=p_1^{h_1}\cdot p_2^{h_2} \cdot p_3^{h_3} ...,\cdot p_s^{h_s}   \) con \(h_i\ge1\) e \(s\ge 1\)
+\end{center}
+Dove \(p_1,p_2...,p_s\) sono \(s\) primi distinti, e tale scrittura è \textbf{unica} a meno dell'ordine dei fattori.
+Consegue che, preso un qualunque intero \(z\) diverso da zero e diverso da \(\pm1\), ha scrittura :
+\begin{center}
+    \( z=\pm p_1^{h_1}\cdot p_2^{h_2} \cdot p_3^{h_3} ...,\cdot p_s^{h_s}   \) con \(h_i\ge1\) e \(p_i\) irriducibili \(> 1\)
+\end{center}
+Vediamo una proprietà, sia : 
+\begin{center}
+    \(
+    a=p_1^{h_1}\cdot p_2^{h_2} ...,\cdot p_s^{h_s}\),\hphantom{spacespace}   \( b=p_1^{k_1}\cdot p_2^{k_2}...,\cdot p_s^{k_s}  \) 
+   
+\end{center}
+Ammettendo esponenti \(h_i=0\), è possibile scrivere le fattorizzazioni di due interi diversi con gli stessi 
+identici primi distinti, "costringengo" ad essere presenti nella fattorizzazione anche primi che in 
+realtà non apparirebbero, ma grazie ad esponente nullo diventano \(p_i^0=1\). Date tali fattorizzazioni, 
+si ha che :
+\begin{center}
+    \(MCD(a,b)=p_1^{m_1}\cdot p_2^{m_2}...,\cdot p_s^{m_s}\)
+\end{center}
+\begin{center}
+    \(mcm(a,b)=p_1^{M_1}\cdot p_2^{M_2}...,\cdot p_s^{M_s}\)
+\end{center}
+Dove, per ogni \(i\), tali esponenti sono : \(m_i=\min\{h_i,k_i\}\) e \(M_i=\max\{h_i,k_i\}\).
+\\\textbf{Proposizione} : Esistono \textit{infiniti} numeri primi. \textit{Dimostrazione} : Supponiamo che i 
+numeri primi siano in un numero finito : \(p_1,p_2,p_3...,p_N\). Prendiamo adesso il numero
+ \(a=p_1\cdot p_2\cdot p_3...\cdot p_N+1\). Tale numero è un intero positivo maggiore di \(1\), quindi, per il 
+ teorema fondamentale dell'aritmetica, deve per forza avere una fattorizzazione in numeri primi. Tuttavia, se esso 
+ viene diviso per ogni primo \(p_i\) dà come resto \(1\), questo è assurdo e ci assicura che i numeri primi 
+ sono necessariamente infiniti.\\
+ \textit{Corollario} : \(\forall p\) primo, \(\nexists \sqrt{p}\in \mathbb{Q}\).
 \section{Strutture Algebriche Notevoli}
 Vediamo prima una definizione :
 \begin{quote}
