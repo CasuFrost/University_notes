@@ -468,4 +468,35 @@ con la condizione che le \(i-1\) palline precedenti siano nere.\begin{equation}
     =\mathbb{P}(A_1\cap A_2\cap...,A_{k})=\mathbb{P}(\bigcap_{i=1}^kA_i) 
 \end{equation}
 \subsubsection{Formula di Probabilità Totale}
+Vediamo adesso il caso in cui, voglio che si verifichi un determinato evento, che può avere probabilità 
+diverse a seconda della condizione verificatasi prima.\\ Vediamo un \textit{esempio} : Si lancia una moneta equa, 
+se esce testa, si pesca una pallina da un sacco contenente 2 palline nere e 3 bianche, 
+se esce croce, si pesca una pallina da un sacco contenente 2 palline nere ed una bianca. È chiaro che, l'esito 
+della moneta, condiziona la probabilità che la pallina estratta sia bianca. Se le condizioni che possono 
+influire sulla probabilità dell'evento sono \textit{disgiunte}, in questo caso lo sono perchè, o esce testa, 
+o esce croce, la probabilità sarà uguale a :
+\begin{equation}
+    \mathbb{P}(\text{\{si estrae una bianca\}}) = \mathbb{P}(T)\mathbb{P}(\text{\{esce bianca\}}|T)+\mathbb{P}(C\mathbb{P}(\text{\{esce bianca\}}|C))
+\end{equation}
+
+    In generale, sia \(\Omega, \mathbb{P}\) uno spazio di probabilità, se \(D_1,D_2,D_3...,D_k\) è una partizione 
+    di \(\Omega\), tale che \(\displaystyle\bigcup_{i=1}^kD_i=\Omega\), e sia \(A\subseteq \Omega\) un evento che 
+    segue uno degli eventi \(D_i\), la probabilità di \(A\) vale : \begin{equation}
+        \mathbb{P}(A)=\sum_{i=1}^n\mathbb{P}(D_i)\mathbb{P}(A|D_i)
+    \end{equation}
+
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.6\textwidth ]{images/probTotale.png}
+    }
+\end{figure}
+\subsubsection{Formula di Bayes}
+Questo è il caso analogamente opposto a quello visto precedentemente, sia \(D_1,D_2,D_3...,D_k\)  una partizione 
+di \(\Omega\), e sia \(A\subseteq \Omega\) un evento che 
+segue uno degli eventi \(D_i\), sapendo che si è verificato \(A\), possiamo calcolare la probabilità che si 
+sia verificato un singolo \(D_i\) : 
+\begin{equation}
+    \mathbb{P}(D_i|A)=\dfrac{ \mathbb{P}(D_i)\cdot \mathbb{P}(A|D_i)}{\displaystyle\sum_{j=1}^{k-1}\mathbb{P}(D_j)\cdot \mathbb{P}(A|D_j)}
+\end{equation}
+\textit{Osservazione} : Se \(A,B\) sono eventi disgiutni, allora \(\mathbb{P}(A|B)=\mathbb{P}(A)\).
 \end{document}
