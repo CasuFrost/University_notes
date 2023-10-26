@@ -249,7 +249,7 @@ Vale la proprietà : \begin{center}
     \displaystyle(a+b)^n = \sum_{k=0}^{n}\binom{n}{k}\cdot a^{n-k}\cdot b
 \)\end{center}
 \subsubsection{Caso 4 - Estrazioni non Ordinate con Rimpiazzo}
-Consideriamo il lancio di 2 dadi identici, senza considerare l'ordine. Abbiamo che l'evento elementare 
+\normalsize Consideriamo il lancio di 2 dadi identici, senza considerare l'ordine. Abbiamo che l'evento elementare 
 è la coppia di numeri da 1 a 6 (senza contare l'ordine, quindi consideriamo la classe di equivalenza 
 in cui i due dadi hanno esito in ordine crescente), lo spazio risulta quindi : \(\Omega=\{(\omega_1,\omega_2)|1\le\omega_1\le\omega_2\le 6\}\)
 \\Se i due dadi fossero distinti e l'ordine avesse importanza, i possibili eventi sarebbero \(6^2\), ma in questo caso, 
@@ -276,7 +276,7 @@ Quando si parla quindi di un numero elevato di eventi, il calcolo risulta diffic
 \begin{equation}
     \mathbb{P}(A_1\cup A_2...,\cup A_n)=\sum_{k=1}^n(-1)^{k+1}\cdot\sum_{1<i_1<i_2...,<i_k<n}\mathbb{P}(A_{i_1}\cap A_{i_2}...,\cap A_{i_k})
 \end{equation}
-\newpage\subsection{Il Multinomio}
+\subsection{Il Multinomio}
 Esaminiamo il problema in cui si vogliono distribuire \(n\) oggetti distinti in \(k\) scatole distinte, in modo che 
 ciascuna di esse contenga nell'ordine \(n_1,n_2...,n_k\) oggetti, per cui \(\displaystyle\sum_{i=1}^n n_i =n\). In quanti modi posso 
 effettuare tale suddivisione? Ci sono \(\binom{n}{n_1}\) scelte per la prima scatole, \(\binom{n-n_1}{n_2}\) per la seconda 
@@ -409,7 +409,7 @@ una qualunque sotto-famiglia di tali insiemi, la probabilità di tale intersezio
     
 \end{center}
 Ad esempio, in uno schema di probabilità prodotto, se prendo \(A_1\subset\Omega_1,A_2\subset\Omega_2...,A_n\subset\Omega_n\), 
-risulta che tali eventi sono tutti indipendenti fra loro.\newpage
+risulta che tali eventi sono tutti indipendenti fra loro.
 \subsection{Schema di Bernoulli}
 Apriamo una digressione su un noto schema probabilistico. Vi è un \textit{esperimento binario}\footnote{
     Un esperimento con due esiti (ad esempio il lancio di una moneta)
@@ -438,4 +438,34 @@ essere : \begin{center}
     \(\mathbb{P}(A)=\displaystyle\binom{n}{k}p^k\cdot (1-p)^{n-k}\)
 \end{center}
 Tale formula è detta \textbf{distribuzione binomiale}.
+\subsection{Probabilità Condizionata}
+Vie è una scatola con dentro 3 palline bianche e 2 nere, si fanno 2 estrazioni ordinate 
+senza rimpiazzo. Qual'è la probabilità che, dopo averne pescata una bianca, se ne peschi un'altra bianca?
+Vogliamo sapere la probabilità di un evento \(A\), dando però una condizione, ossia che 
+si sia già causato l'evento \(B\). \begin{quote}\textbf{Definizione Importante} : 
+    Consideriamo uno spazio di probabilità \(\Omega, \mathbb{P}\), e siano \(A,B\subseteq \Omega\), 
+    denominiamo  \(\mathbb{P}(A|B)\) la probabilità che \(A\) si verifichi, con la condizione che 
+    \(B\) si sia già verificato, e vale esattamente \(\mathbb{P}(A|B)=\dfrac{\mathbb{P}(A\cap B)}{\mathbb{P}(A)}\). 
+\end{quote}
+Osservazione : Se la probabilità è uniforme, si ha che  \(\mathbb{P}(A|B)=\dfrac{|A\cap B|}{|A|}\). \\
+\hphantom{}\\\textit{Esempio} : Si dia il caso in cui si lancia 2 volte una moneta, qual'è la probabilità che al secondo lancio esca testa, 
+sapendo che al primo lancio è uscito testa? \(E=\{TT\}\) è 
+l'evento in cui esce entrambe volte testa, ed \(F=\{TT,TC\}\) l'evento corrispondente all'uscita 
+di testa nel primo lancio. Si ha che \(\mathbb{P}(E|F)=\dfrac{\mathbb{P}(E\cap F)}{\mathbb{P}(F)}=\dfrac{\sfrac{1}{4}}{\sfrac{2}{4}}=\dfrac{1}{2}\).
+\subsubsection{Formula di Probabilità Composte}
+Possiamo usare il concetto di probabilità condizionata per esprimere la probabilità di un evento, a seguito 
+di una sequenza di eventi che si condizionano fra loro, si dia il caso che in una scatola vi sono \(b\) 
+palline bianche e \(n\) palline nere, faccio \(k\) estrazioni. Chiamiamo \(A_1=\)\{la prima è nera\}, 
+\(A_2=\)\{la seconda è nera\} fino ad \(A_k=\)\{la k-esima è nera\}. La probabilità che tutte le palline siano 
+nere, sarà uguale alla composizione di tutti questi eventi riguardo la \(i-\)esima estrazione, ma si noti come, 
+l'evento in cui le prime \(i\) palline sono nere, è uguale alla probabilità che la \(i-\)esiama sia nera 
+con la condizione che le \(i-1\) palline precedenti siano nere.\begin{equation}
+    \mathbb{P}(\{\text{tutte nere}\})=\mathbb{P}(A_1)\mathbb{P}(A_2|A_1)\mathbb{P}(A_3|A_1\cap A_2)...\cdot\mathbb{P}(A_k|A_1\cap...,A_{k-1})=
+\end{equation}\begin{equation}
+    =\mathbb{P}(A_1)\dfrac{\mathbb{P}(A_1\cap A_2)}{\mathbb{P}(A_1)}\cdot...\cdot\dfrac{\mathbb{P}(A_1\cap A_2\cap...,A_{k})}{\mathbb{P}(A_1\cap A_2\cap...,A_{k-1})}=\text{ per semplificazione }=
+\end{equation}
+\begin{equation}
+    =\mathbb{P}(A_1\cap A_2\cap...,A_{k})=\mathbb{P}(\bigcap_{i=1}^kA_i) 
+\end{equation}
+\subsubsection{Formula di Probabilità Totale}
 \end{document}
