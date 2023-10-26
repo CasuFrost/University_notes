@@ -822,7 +822,67 @@ si arriva al seguente risultato :\begin{quote}
         Se \(p\) è un numero primo, allora l'anello \(\mathbb{Z}_p\) è un \textit{campo}.
     \end{center}
 \end{quote}
-
+\subsection{Sistemi di Equazioni Congruenziali}
+Osserviamo il seguente \textit{sistema} :\begin{equation}
+    \begin{cases}
+        a_1x\equiv b_1 \text{ (mod }n_1\text{)}\\
+        a_2x\equiv b_2 \text{ (mod }n_2\text{)}\\
+        ...\\ a_sx\equiv b_s \text{ (mod }n_s\text{)}
+    \end{cases}
+\end{equation}
+Si vuole trovare una soluzione intera che sia soluzione di tutte le equazioni del sistema. Il sistema 
+per avere soluzione, deve avere ognuna delle sue equazioni risolvibili, quindi \(\forall i,j, i\ne j \implies MCD(a_i,n_i)|b_i\).
+Prima di vedere la soluzione di tale sistema, si consideri un altro sistema della forma :\begin{equation}
+    \begin{cases}
+        x\equiv c_1 \text{ (mod }r_1\text{)}\\
+        x\equiv c_2 \text{ (mod }r_2\text{)}\\
+        ...\\ x\equiv c_s \text{ (mod }r_s\text{)}
+    \end{cases} i\ne j \implies MCD(r_i,r_j)=1
+\end{equation}
+Dove ogni argomento del modulo, è coprimo con tutti gli altri. Tale sistema si dice di tipo \textit{cinese}. Un sistema 
+di questo tipo ammette soluzione ed è \textbf{unica} in (mod \(r_1\cdot r_2...\cdot r_s)\).
+\\\hphantom{.}\\\textbf{Dimostrazione}(e risoluzione) : Consideriamo il prodotto di tutti gli argomenti 
+dei moduli, ossia \(R=r_1\cdot r_2...\cdot r_s\), e, per ogni \(k\)-esima equazione del sistema, si consideri
+\(R_k=\dfrac{R}{r_k}\). Risulta ovvio che, essendo \(R\) un prodotto di numeri co-primi, \(MCD(R_k,r_k)=1\), 
+quindi ogni congruenza lineare \(R_kx\equiv c_k \text{ (mod }r_k\text{)}\) ammette una soluzione unica (si ricordi 
+che le soluzioni distinte di una congruenza lineare \(ax\equiv b \text{ (mod }n\text{)}\) sono in numero \(MCD(a,n)\)).
+Consideriamo adesso, per ogni \(k\)-esima equazione del sistema, la sua soluzione \(\tilde x_k\), che si trova 
+risolvendo l'equazione diofantea (derivante dall'identità di Bézout) \(R_kt_k + r_kg_k=1\), una volta trovato il coefficente \(t_k\), la soluzione 
+è \(\tilde x_k=t_kc_k\). Una volta trovate le soluzioni di ogni equazione, la soluzione generale del sistema 
+sarà : \begin{center}
+    \(\tilde x=\displaystyle\sum_{i=1}^s\tilde x_i R_i\)
+\end{center}
+Quindi, \(\forall i, \tilde x=c_i \text{ (mod }r_i\text{)}\).\\\hphantom{.}\\
+Torniamo adesso al caso generale, in cui si ha un sistema del tipo :\begin{equation}
+    \begin{cases}
+        a_1x\equiv b_1 \text{ (mod }n_1\text{)}\\
+        a_2x\equiv b_2 \text{ (mod }n_2\text{)}\\
+        ...\\ a_sx\equiv b_s \text{ (mod }n_s\text{)}
+    \end{cases}
+\end{equation}
+Se sono vere alcune supposizioni, ossia:\begin{itemize}
+    \item Ogni equazione del sistema ammette soluzione, \(\forall i,j| i\ne j \implies MCD(a_i,n_i)|b_i\).
+    \item Gli argomenti dei moduli sono tutti co-primi fra loro, \(\forall i,j|i\ne j \implies MCD(n_i,n_j)=1\)
+\end{itemize}
+Possiamo dividere ogni elemento di ogni equazione del sistema per il corrispettivo massimo comun divisore fra \(a_i\) e \(n_i\):
+\begin{equation}
+    d_i=MCD(a_i,n_i)\begin{cases}
+        \frac{a_1}{d_1}x\equiv \frac{b_1}{d_1} \text{ (mod }\frac{n_1}{d_1}\text{)}\\
+        \frac{a_2}{d_2}x\equiv \frac{b_2}{d_2} \text{ (mod }\frac{n_2}{d_2}\text{)}\\
+        ...\\ \frac{a_s}{d_s}x\equiv \frac{b_s}{d_s} \text{ (mod }\frac{n_s}{d_s}\text{)}
+    \end{cases}
+\end{equation}
+Adesso, si ha che \(MCD(\dfrac{a_i}{d_i},\dfrac{n_i}{d_i})=1\), quindi \(\dfrac{a_i}{d_i}\) è \textit{invertibile} 
+in (mod \(\dfrac{n_i}{d_i})\). Per ogni equazione del sistema, moltiplico tutto per l'inverso di \(\dfrac{a_i}{d_i}\), 
+ottenendo \(x\equiv c_i \text{ (mod }\frac{n_i}{d_i}\text{)}\), ottenendo un sistema di tipo cinese, per la quale 
+conosciamo il metodo risolutivo :
+\begin{equation}
+    d_i=MCD(a_i,n_i)\begin{cases}
+       x\equiv c_1 \text{ (mod }\frac{n_1}{d_1}\text{)}\\
+        x\equiv c_2 \text{ (mod }\frac{n_2}{d_2}\text{)}\\
+        ...\\ x\equiv c_s \text{ (mod }\frac{n_s}{d_s}\text{)}
+    \end{cases}
+\end{equation}
 \section{I Numeri Razionali}
 Abbiamo definito i numeri naturali, che servono per la definizione degli interi, che useremo a loro volta per definire 
 i \textbf{numeri razionali}. Prima però, dobbiamo stabilire una \textit{relazione} su \(\mathbb{Z}\times\mathbb{Z}\backslash \{0\}\),
