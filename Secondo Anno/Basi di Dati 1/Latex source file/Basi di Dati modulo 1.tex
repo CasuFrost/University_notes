@@ -1,10 +1,12 @@
 \documentclass[12pt, letterpaper]{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{hyperref}
-\usepackage{xcolor}
+
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage[english]{babel}
+
+\usepackage[table,xcdraw]{xcolor}
 \definecolor{light-gray}{gray}{0.95}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
@@ -1016,7 +1018,7 @@ Quindi l'impiegato di codice \(C3\), ossia \begin{tabular}{|l|l|l|l|}
     \hline
     Bianchi & C3 & 500 & NULL \\ \hline
     \end{tabular} è colui con lo stipendio più alto. 
-\section{Design di un Database}
+\section{Design di un Database}\label{Cap4}
 L'obbiettivo è capire come creare uno schema in maniera corretta, immaginiamo di dover creare 
 una base di dati per memorizzare le informazioni relative agli studenti di un corso di laurea 
 triennale, ed i relativi esami sostenuti.\begin{center}
@@ -1120,4 +1122,160 @@ Passiamo alla definizione di \textbf{chiave}. Un sotto-insieme di attributi \(K\
 Detto in maniera meno formale, non esisteranno due tuple di una relazione con gli stessi valori 
 per le chiavi. Nei linguaggi come \textit{SQL}, fra gli attributi della chiave se ne definisce uno 
 in particolare detto \textbf{chiave primaria},che non può assumere valore \code{NULL}.
+\subsection{Gli Assiomi di Armstrong}
+Dato uno schema \(R\), un insieme di dipendenze funzionali \(F\), ed un istanza legale \(r\), se tale 
+istanza soddisfa una dipendenza si scrive \(r \text{ }SAT \text{ } X\rightarrow Y\), abbiamo poi definito la chiusura 
+di \(F\) come : \begin{center}
+    \( F^+ = \{X\rightarrow Y | \forall r \text{ legale }r\text{ }SAT \text{ } X\rightarrow Y\}\)
+\end{center}
+Se voglio verificare che \(K\) sia una chiave, non mi è possibile eseguire manualmente il controllo su 
+tutto \(F^+\), che abbiamo visto essere di dimensioni esponenziali rispetto ad \(F\), inoltre ci è impossibile 
+controllare ogni istanza, dato che esse sono potenzialmente infinite. Definiamo adesso un nuovo insieme, a partire da 
+\(F\), che ci permette di esaminare lo schema relazionale più facilmente. 
+\\\hphantom{}\\
+    \(F^A\) è un insieme di dipendenze funzionali su \(R\), ottenuto dai seguenti \textit{assiomi di Armstrong} :\begin{itemize}
+        \item Se \(X\rightarrow Y \in F\) allora \(X\rightarrow Y \in F^A\)
+        \item Se \(Y\subseteq X\in R\) allora \(X\rightarrow Y \in F^A\) (\textbf{Riflessività})
+        \item Se \(X\rightarrow Y \in F^A\) allora \(XZ\rightarrow YZ \in F^A\text{ }\forall Z\in R\) (\textbf{Aumento})
+        \item Se \(X\rightarrow Y \in F^A\) e Se \(Y\rightarrow Z \in F^A\) allora Se \(X\rightarrow Z \in F^A\) (\textbf{Transitività})
+    \end{itemize} 
+Vediamo alcune proprietà che seguno dagli assiomi :
+\begin{itemize}
+    \item \(X\rightarrow Y \in F^A\land X\rightarrow Z \in F^A \implies X\rightarrow YZ\in F^A\) (Unione)
+    \item \(X\rightarrow Y \in F^A\land Z\subseteq Y \implies X\rightarrow Z \in F^A\) (Decomposizione)
+    \item \(X\rightarrow Y \in F^A\land WY\rightarrow Z\in F^A \implies XW\rightarrow Z \in F^A\) (Pseudotransitività)
+\end{itemize}
+\textit{Dimostrazioni} delle proprietà : (Unione) Se ho \(X\rightarrow Y\in F^A\), applicando \textit{l'aumento}, utilizzando \(X\), 
+ottengo \(X\rightarrow XY\in F^A\), Avendo poi \(X\rightarrow Z\in F^A\), ed applicando \textit{l'aumento} con \(Y\), si ottiene
+\(XY\rightarrow YZ\in F^A\). Ottengo quindi :\begin{equation}
+    \begin{cases}
+        X\rightarrow XY\in F^A\\
+        XY\rightarrow YZ\in F^A
+    \end{cases}
+    \implies\text{ \begin{tabular}{|c|}\hline per transitività \\ \hline\end{tabular} }\implies  X\rightarrow YZ\in F^A
+\end{equation}
+(Decomposizione) Se \(Z\subseteq Y\), allora per \textit{riflessività}, si ha \(Y\rightarrow Z \in F^A\), dal momento che 
+\(X\rightarrow Y\in F^A\), si ha :\begin{equation}
+    \begin{cases}
+        X\rightarrow Y\in F^A\\
+        Y\rightarrow Z\in F^A
+    \end{cases}
+    \implies\text{ \begin{tabular}{|c|}\hline per transitività \\ \hline\end{tabular} }\implies  X\rightarrow Z\in F^A
+\end{equation} 
+(Pseudotransitività) Se  \(X\rightarrow Y\in F^A\). applicando \textit{l'aumento} con \(W\) si ottiene  \(WX\rightarrow WY\in F^A\),
+e ne consegue che :\begin{equation}
+    \begin{cases}
+        WX\rightarrow WY\in F^A\\
+        WY\rightarrow Z\in F^A
+    \end{cases}
+    \implies\text{ \begin{tabular}{|c|}\hline per transitività \\ \hline\end{tabular} }\implies  WX\rightarrow Z\in F^A
+\end{equation} 
+\textit{Osservazione }: Siano \(A_1,A_2...,A_n\) un insieme di attributi, se \(\forall i,X\rightarrow A_i\in F^A\), per 
+unione, \(X\rightarrow A_1A_2...A_n\in F^A\), analogamente, data tale condizione, per decomposizione : \(\forall i,X\rightarrow A_i\in F^A\), 
+è chiaro che : decomposizione \(\iff\) unione .
+\subsubsection{Chiusura di un Insieme di Attributi}
+Sia \(R\) uno schema relazionale, ed \(F\) l'insieme delle sue dipendenze funzionali. Preso un 
+insieme di attributi \(X\subseteq R\), definiamo come \textbf{la chiusura di }\(X\) su \(F\), che denotiamo 
+con \(X^+_F\), l'insieme di tutti gli attributi \textit{determinati} da \(X\) dopo aver applicato 
+gli assiomi di Armstrong.\begin{center}
+    \(X^+_F = \{A|X\rightarrow A \in F^A\}\)
+\end{center}
+Banalmente, per riflessività, \(X\subseteq X^+_F\).
+\\\hphantom{}\\Vediamo un importante \textit{Lemma} : Sia \(R\) uno schema relazionale, ed \(F\) l'insieme delle sue dipendenze funzionali, 
+vale che : \(X\rightarrow Y \in F^A \iff Y\subseteq X_F^+\). \\
+\textit{Dimostrazione }: Sia \(Y=A_1,A_2...,A_n\) un insieme di attributi, se \(Y\subseteq X^+_F\), allora, 
+per unione, \(\forall i, \text{ }X\rightarrow A_i\in F^A\). D'altro canto, se \(X\rightarrow Y \in F^A\), 
+per decomposizione, \(\forall i, \text{ }X\rightarrow A_i\in F^A\), quindi \(\forall i, \text{ }A_i\in F^A\), 
+ne consegue che \(Y\subseteq X_F^+\).
+\subsection{Teorema Fondamentale : \(F^+=F^A\)}
+Segue uno dei teoremi più importanti del corso :\begin{center}
+    \(F^+=F^A\)
+\end{center}
+\begin{quote}Partendo da \(F\), applicando ricorsivamente gli assiomi di Armstrong, si ottiene la chiusura di \(F\).\end{quote} \subsubsection{Dimostrazione}
+Procederemo col dimostrare tale teorema per doppia inclusione, dimostrando quindi la veridicità di \(F^+\subseteq F^A\) e \(F^A\subseteq F^+\).
+\\\begin{tabular}{|c|}\hline \(F^A\subseteq F^+\) \\ \hline\end{tabular}: Si procede per induzione, come parametro da 
+incrementare, si adopererà il numero di volte in cui applico un determinato assioma di Armstrong. Ossia, dimostreremo che, 
+se una dipendenza è in \(F^+\), è perchè si è applicato \(i\) volte un assioma di Armstrong su \(F\). Si consideri quindi 
+la seguente notazione : \(F^A_i\) è l'insieme delle dipendenze funzionali ottenute applicando \(i\) volte un assioma di Armstrong.
+Ne consegue ovviamente che : \begin{center}
+    \(F^A_0\subseteq F^A_1\subseteq F^A_2\subseteq... F^A_n\subseteq F^A\)\end{center}
+Lo scopo è quindi dimostrare, che applicando tali assiomi un numero di volte finito, si ottiene \(F^+\).\\
+\textbf{Caso Base } (\(i=0\)) : \(F_0^A=F\subseteq F^+\) 
+\\\textbf{Passo Induttivo } : La tesi è, che \(F_i^A\subseteq F^+\implies F_{i+1}^A\subseteq F^+\). Distinguiamo i 3 
+casi di applicazione dei 3 assiomi. \begin{itemize}
+    \item \textit{Caso 1} \(X\rightarrow Y\) è stato ottenuto in \(F^A\) applicando la riflessività su \(Y\subseteq X\). 
+    Se \(r\) è un istanza di \(R\), e \(t_1,t_2\) due tuple tali che \(t_1[X]=t_2[X]\), ovviamente 
+    vale che \(t_1[Y]=t_2[Y]\), quindi \(X\rightarrow Y\in F^+\).
+    \item \textit{Caso 2} \(X\rightarrow Y\) è stato ottenuto in \(F^A\) applicando l'aumento su una dipendenza 
+    funzionale \(V\rightarrow W\in F^A\), che è stato ottenuto applicando gli assiomi \(i-1\) volte. Per 
+    ipotesi induttiva, \(V\rightarrow W\in F^+\), vorrebbe dire che \(X=VZ\) e \(Y=WZ\) per qualche \(Z\subseteq R\).
+    Se \(r\) è un istanza legale, e \(t_1,t_2\) due tuple tali che \(t_1[X]=t_2[X]\), ne consegue 
+    che \(t_1[V]=t_2[V]\) e  \(t_1[Z]=t_2[Z]\), ma per ipotesi induttiva, essendo \(V\rightarrow W\in F^A\), 
+    ne consegue che \(t_1[W]=t_2[W]\), e da ciò ne consegue  \(t_1[Z]=t_2[Z]\), quindi  \(t_1[Y]=t_2[Y]\), ne 
+    consegue 
+    \(X\rightarrow Y\in F^+\).
+    \item \textit{Caso 3} \(X\rightarrow Y\) è stato ottenuto in \(F^A\) applicando la transitività da due 
+    diepndenze \(X\rightarrow Z, Z\rightarrow Y \in F^A\), ottanute ricorsivamente applicando gli assiomi 
+    \(i-1\) volte. Se \(r\) è un istanza legale, e \(t_1,t_2\) due tuple tali che \(t_1[X]=t_2[X]\), 
+    ne consegue che \(t_1[Z]=t_2[Z]\), ma per ipotesi induttiva allora \(t_1[Y]=t_2[Y]\), quindi 
+    \(X\rightarrow Y\in F^+\).
+\end{itemize}
+\begin{tabular}{|c|}\hline \(F^+\subseteq F^A\) \\ \hline\end{tabular}: Procediamo con una dimostrazione per assurdo. 
+Supponiamo che esiste una dipendenza funzionale \(X\rightarrow Y \in F^+\), tale che \(X\rightarrow Y \notin F^A\). Utilizzeremo 
+una particolare istanza \(r\) di \(R\) che ci aiuterà a giungere ad una contraddizione, tale istanza è :\begin{center}
+    \begin{tabular}{|ccc|ccc|}
+        \hline
+        \multicolumn{3}{|c|}{\(X^+_F\)}                                                                                                                                                   & \multicolumn{3}{c|}{\(R- X^+_F\)}                                                                                                     \\ \hline
+        \multicolumn{1}{|c|}{{\color[HTML]{FE0000} A1}}                        & \multicolumn{1}{c|}{{\color[HTML]{FE0000} A2}}                        & {\color[HTML]{FE0000} A3} & \multicolumn{1}{c|}{{\color[HTML]{3531FF} B1}} & \multicolumn{1}{c|}{{\color[HTML]{3531FF} B2}} & {\color[HTML]{3531FF} B3} \\ \hline
+        \rowcolor[HTML]{FD6864} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FD6864}{\color[HTML]{000000} 1}} & \multicolumn{1}{c|}{\cellcolor[HTML]{FD6864}{\color[HTML]{000000} 1}} & {\color[HTML]{000000} 1}  & \multicolumn{1}{c|}{\cellcolor[HTML]{68CBD0}1} & \multicolumn{1}{c|}{\cellcolor[HTML]{68CBD0}1} & \cellcolor[HTML]{68CBD0}1 \\ \hline
+        \rowcolor[HTML]{FD6864} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FD6864}{\color[HTML]{000000} 1}} & \multicolumn{1}{c|}{\cellcolor[HTML]{FD6864}{\color[HTML]{000000} 1}} & {\color[HTML]{000000} 1}  & \multicolumn{1}{c|}{\cellcolor[HTML]{68CBD0}0} & \multicolumn{1}{c|}{\cellcolor[HTML]{68CBD0}0} & \cellcolor[HTML]{68CBD0}0 \\ \hline
+        \end{tabular}
+\end{center}
+Tale istanza ha solamente due tuple, in rosso sono indicati gli attributi che appartengono ad \(X^+_F\), in blu, 
+gli attributi restanti di \(R\) che non appartengono ad \(X^+_F\). Tali due tuple, sono identiche sugli attributi di 
+\(X^+_F\), ma differiscono sui restanti attributi. Dimostriamo adesso due fatti :\begin{itemize}
+    \item \textbf{\(r\) è un istanza legale} : Assumiamo che non lo sia, vuol dire che esiste almeno una dipendenza \(V\rightarrow W\in F\),
+    quindi anche in \(F^A\), che non è soddisfatta da \(r\), vuol dire che vi sono due tuple che sono uguali su \(V\) e 
+    differenti su \(W\), questo implicherebbe che \(V\subseteq X^+_F\) e \(W\cap (R-X^+_F)=\emptyset\), dal momento che 
+    \(V\subseteq X^+_F\), per lemma è vero che \(X\rightarrow V\in F^A\), per assimoa di transitività,  
+    essendo che \(V\rightarrow W\in F\), si ottiene che \(X\rightarrow W\in F^A\), per lemma quindi \(W\subseteq X^+_F\), 
+    ma ciò è una contraddizione, dato che abbiamo detto che  \(W\cap (R-X^+_F)=\emptyset\), quindi \(r\) è legale.
+    \item \textbf{ se \(X\rightarrow Y \in F^+\), è impossibile che \(X\rightarrow Y \notin F^A\)} : Supponiamo che 
+    ciò sia vero, sappiamo che \(r\) è un istanza legale, quindi se le dipendenze in \(F^+\) sono soddisfatte 
+    da ogni istanza legale, allora \(r\) soddisfa \(X\rightarrow Y\). Sappiamo che \(X\subseteq X^+_F\), dato 
+    che su \(r\) ci sono 2 tuple identiche su \(X\), vi devono essere anche su \(Y\), quindi \(Y\subseteq X^+_F\), 
+    per lemma, ne consegue che \(X\rightarrow Y \in F^A\), ma abbiamo detto inizialmente che \(X\rightarrow Y \notin F^A\), 
+    quindi si ha una contraddizione.
+\end{itemize}
+Quindi, è necessariamente vero che  \(X\rightarrow Y \in F^+ \implies X\rightarrow Y \notin F^A\). Quindi \(F^A=F^+\). \(\blacksquare\)
+
+\subsection{La Terza Forma Normale}
+All'inizio di questo paragrafo \ref{Cap4}, si è parlato di alcune caratteristiche che una base di dati deve avere per essere 
+il più possibile "corretta", in modo da evitare la ridondanza o altre anomalie durante le interro gazioni. Formalizziamo 
+l'insieme delle caratteristiche in quella che si chiama \textbf{terza forma normale (3NF)}. Ricordiamo prima una definizione :
+\begin{quote}
+    Una dipendenza \(X\rightarrow A\) è detta \textit{non banale} se \(A\notin X\).
+\end{quote} 
+Definiamo adesso rigorosamente : \begin{quote}
+    Una base di dati è in \textit{Terza Forma Normale} se tutte le dipendenze non banali sono
+     della forma \(K\rightarrow X\), dove si verifica \textit{almeno una} condizione fra :\begin{itemize}
+        \item \(K\) contiene una chiave (è superchiave).
+        \item \(X\) è attributo di una chiave/è contenuto in una chiave.
+    \end{itemize}
+\end{quote}
+Si può verificare che una base di dati sia in 3NF controllando solo le dipendenze non banali ottenute decomponendo \(F\).
+\\\hphantom{}\\\textit{Esempio : } Si consideri la seguente base di dati :\begin{center}
+    \(R=\{A,B,C,D\}\text{ }F=\{A\rightarrow B, B\rightarrow CD\}\)
+\end{center}
+Sappiamo che la chiave è \(A\), infatti si nota che \(A\rightarrow R \in F^+\) (più avanti definiremo come trovare in maniera 
+algoritmica la chiave di uno schema relazionale).
+Controlliamo che \(R\) sia in 3NF, decomponendo \(F\), otteniamo :\begin{itemize}
+    \item \(A\rightarrow B\) (che era già in \(F\))
+    \item \(B\rightarrow C\)
+    \item \(B\rightarrow D\)
+\end{itemize}
+Per queste ultime due, \(B\) non è una superchiave, e sia \(C\) che \(D\) non sono elementi che appartengono ad una chiave, 
+quindi tale schema \textit{non} è in terza forma normale.
 \end{document}
