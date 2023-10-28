@@ -822,6 +822,10 @@ si arriva al seguente risultato :\begin{quote}
         Se \(p\) è un numero primo, allora l'anello \(\mathbb{Z}_p\) è un \textit{campo}.
     \end{center}
 \end{quote}
+\subsubsection{Il Teorema di Eulero}
+Se \(n\ge 2\), \(a\in \mathbb{Z}\) e \(MCD(a,n)=1\), allora :\begin{center}
+    \(a^{\varphi(n)}\equiv 1 \text{ (mod }n\text{)}\)
+\end{center}
 \subsection{Sistemi di Congruenze e Teorema Cinese del Resto}
 Osserviamo il seguente \textit{sistema} :\begin{equation}
     \begin{cases}
@@ -948,7 +952,7 @@ se prendo allora \([x]_{rs}\) ho che \(F([x]_{rs})=([x]_r,[x]_s)=([a]_r,[b]_s)\)
 Essendo per l'ipotesi (3) che la soluzione è unica, \(F\) è anche iniettiva. Inoltre come ulteriore 
 rafforzante per la nostra tesi, si ha che \(|\mathbb{Z}_r\times \mathbb{Z}_s|=|\mathbb{Z}_{rs}|\), 
 Essendo la cardinalità degli insiemi la stessa, se l'applicazione \(F\) è iniettiva, è anche 
-necessariamente suriettiva, quindi biettiva.
+necessariamente suriettiva, quindi biettiva. \(\blacksquare\)
 \\\textit{Conclusione} - Tale teorema enuncia che avvolte la risoluzione di un'equazione congruenziale 
 è equivalente alla risoluzione di un sistema, e viceversa, ad esempio, la soluzione dei due problemi 
 è equivalente :\begin{equation}
@@ -958,6 +962,18 @@ necessariamente suriettiva, quindi biettiva.
         8x\equiv 3 \text{ mod(}11\text{)}
     \end{cases}
 \end{equation}
+\subsection{Piccolo Teorema di Fermat}   \begin{center}        
+Sia \(p\) un numero primo, vale che : \(\forall a\in \mathbb{Z},\text{ }a^p\equiv a \text{ (mod }p\text{)}\)
+\end{center} 
+\textbf{Dimostrazione }: Si dimostra per induzione. \begin{itemize}
+    \item Caso Base \(a=0\) - \(0^p = 0\)
+    \item Passo Induttivo - Per ipotesi, \(a^p\equiv a \text{ (mod }p\text{)}\), prendiamo \(a+1\), si ha 
+    : \begin{equation}
+        (a+1)^p=a^p+1
+    \end{equation}
+    Ma \(a^p\equiv a\) quindi \(a^p+1\equiv a+1 \implies (a+1)^p\equiv a^p+1 \text{ (mod }p\text{)}\). \(\blacksquare\)
+
+\end{itemize}  
 \section{I Numeri Razionali}
 Abbiamo definito i numeri naturali, che servono per la definizione degli interi, che useremo a loro volta per definire 
 i \textbf{numeri razionali}. Prima però, dobbiamo stabilire una \textit{relazione} su \(\mathbb{Z}\times\mathbb{Z}\backslash \{0\}\),
