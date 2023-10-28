@@ -822,7 +822,7 @@ si arriva al seguente risultato :\begin{quote}
         Se \(p\) è un numero primo, allora l'anello \(\mathbb{Z}_p\) è un \textit{campo}.
     \end{center}
 \end{quote}
-\subsection{Sistemi di Equazioni Congruenziali}
+\subsection{Sistemi di Congruenze e Teorema Cinese del Resto}
 Osserviamo il seguente \textit{sistema} :\begin{equation}
     \begin{cases}
         a_1x\equiv b_1 \text{ (mod }n_1\text{)}\\
@@ -839,7 +839,8 @@ Prima di vedere la soluzione di tale sistema, si consideri un altro sistema dell
         ...\\ x\equiv c_s \text{ (mod }r_s\text{)}
     \end{cases} i\ne j \implies MCD(r_i,r_j)=1
 \end{equation}
-Dove ogni argomento del modulo, è coprimo con tutti gli altri. Tale sistema si dice di tipo \textit{cinese}. Un sistema 
+Dove ogni argomento del modulo, è coprimo con tutti gli altri. Tale sistema si dice di tipo \textit{cinese}.
+Il \textit{teorema cinese del resto} enuncia che, un sistema 
 di questo tipo ammette soluzione ed è \textbf{unica} in (mod \(r_1\cdot r_2...\cdot r_s)\).
 \\\hphantom{.}\\\textbf{Dimostrazione}(e risoluzione) : Consideriamo il prodotto di tutti gli argomenti 
 dei moduli, ossia \(R=r_1\cdot r_2...\cdot r_s\), e, per ogni \(k\)-esima equazione del sistema, si consideri
@@ -881,6 +882,80 @@ conosciamo il metodo risolutivo :
        x\equiv c_1 \text{ (mod }\frac{n_1}{d_1}\text{)}\\
         x\equiv c_2 \text{ (mod }\frac{n_2}{d_2}\text{)}\\
         ...\\ x\equiv c_s \text{ (mod }\frac{n_s}{d_s}\text{)}
+    \end{cases}
+\end{equation}
+\subsubsection{Seconda Formulazione del Teorema Cinese del Resto}
+\begin{quote}
+    In questa specifica sezione, si farà riferimento ad argomenti trattati nel capitolo \ref{TeoriaAnelli}, si invita quindi 
+il lettore, a soffermarsi su questa sezione esclusivamente dopo aver trattato il capitolo sulla \textit{Teoria degli Anelli}.
+\end{quote}
+\textbf{Appunto sulla notazione } : con \([a]_n\) si definisce la classe di equivalenza di \(a\) in \(\mathbb{Z}_n\).
+\\\hphantom{}\\Vediamo adesso una definizione differente del teorema cinese del resto, si prenda come esempio un sistema 
+con due sole equazioni :\begin{equation}
+    \begin{cases}
+        x\equiv a\text{ (mod }r)\\
+        x\equiv b\text{ (mod }s)
+    \end{cases}
+    MCD(r,s)=1
+\end{equation}
+Consideriamo adesso \textit{l'applicazione} \(F:\mathbb{Z}_{rs}\rightarrow \mathbb{Z}_r \times \mathbb{Z}_s \) definita 
+nel seguente modo : \begin{equation}
+    [x]_{rs}\rightarrow ([x]_r,[x]_s)
+\end{equation}
+Ossia che ad ogni classe di equivalenza in \(\mathbb{Z}_{rs}\), assegna la coppia delle due classi di equivalenza 
+dello stesso intero, ma rispettivamente  \(\mathbb{Z}_{r}\) e \(\mathbb{Z}_{s}\). \\
+Ebbene, tale applicazione è ben definita, e vale che :\begin{equation}
+    x\equiv x'\text{ (mod }rs) \implies \begin{cases}
+        x\equiv x'\text{ (mod }r)\\x\equiv x'\text{ (mod }s)
+    \end{cases}
+\end{equation}
+Ossia, sia l'equazione a sinistra che il sistema a destra hanno la stessa identica soluzione.
+\begin{center}Tale applicazione \(F\) è un \textbf{isomorfismo} di anelli.\end{center}
+\textbf{Teorema} :\\
+Dato il seguente sistema di tipo cinese :\begin{equation}
+    \begin{cases}
+        x\equiv a\text{ (mod }r)\\
+        x\equiv b\text{ (mod }s)
+    \end{cases}
+    MCD(r,s)=1
+\end{equation}
+e date le seguenti condizioni :
+\begin{itemize}
+    \item (1) L'applicazione \(F:\mathbb{Z}_{rs}\rightarrow \mathbb{Z}_r \times \mathbb{Z}_s \) è biettiva
+    \item (2) \(MCD(r,s)=1\)
+    \item (3) Il sistema ha un'unica soluzione mod(\(r,s\))
+\end{itemize}
+Vale che : \begin{center}\((1)\iff(2)\iff(3)\)\end{center}
+Ossia che se una qualsiasi delle 3 condizioni è vera, anche le altre sono vere, si implicano a vicenda 
+in maniera circolare.
+\\ \textbf{Dimostrazione } :\\ \begin{tabular}{|c|}\hline \((2)\implies(1)\) \\ \hline\end{tabular} - 
+Abbiamo come ipotesi le condizioni (2) e (3), supponiamo per assurdo che \(MCD(r,s)=d>1\), sia 
+\(mcm(r,s)=h\), per il teorema fondamentale dell'aritmetica, \(MCD(r,s)\cdot mcm(r,s) = dh = rs\), 
+quindi \(h=\dfrac{rs}{d}\), è chiaro che \(h\ge1\), e che \(h<rs\), quindi sicuramente \([h]_{rs}\ne [0]_{rs}\).
+d'altra parte però, \(r|h\) e \(s|h\), quindi \([h]_{r}= [0]_{r}\) e \([h]_{s}= [0]_{s}\), ma se consideriamo 
+l'applicazione \(F\),  si ha che : \begin{center}
+    \(\begin{cases}
+        F([0]_{rs})=([0]_r,[0]_s)\\
+        [0]_r = [h]_r \land [0]_s= [h]_s \implies ([0]_r,[0]_s)=([h]_r,[h]_s)=F([h]_{rs})
+    \end{cases}\)
+\end{center}
+Ma abbiamo detto che \([h]_{rs}\ne [0]_{rs}\), quindi \(F\) non può essere iniettiva, ma ciò 
+va contro la tesi iniziale, quindi necessariamente \(MCD(r,s)=1\).
+\\\begin{tabular}{|c|}\hline \((3)\implies(1)\) \\ \hline\end{tabular} - 
+Per ipotesi, \(\exists !x|x\equiv a \text{ mod(}r\text{)}\land x\equiv b \text{ mod(}s\text{)}\), quindi, è anche vero
+che per tale \(x\) vale : \(x\equiv a \text{ mod(}rs\text{)}\land x\equiv b \text{ mod(}rs\text{)}\),
+se prendo allora \([x]_{rs}\) ho che \(F([x]_{rs})=([x]_r,[x]_s)=([a]_r,[b]_s)\), quindi \(F\) è suriettiva. 
+Essendo per l'ipotesi (3) che la soluzione è unica, \(F\) è anche iniettiva. Inoltre come ulteriore 
+rafforzante per la nostra tesi, si ha che \(|\mathbb{Z}_r\times \mathbb{Z}_s|=|\mathbb{Z}_{rs}|\), 
+Essendo la cardinalità degli insiemi la stessa, se l'applicazione \(F\) è iniettiva, è anche 
+necessariamente suriettiva, quindi biettiva.
+\\\textit{Conclusione} - Tale teorema enuncia che avvolte la risoluzione di un'equazione congruenziale 
+è equivalente alla risoluzione di un sistema, e viceversa, ad esempio, la soluzione dei due problemi 
+è equivalente :\begin{equation}
+    8x\equiv 3 \text{ mod(}385\text{)}\iff \begin{cases}
+        8x\equiv 3 \text{ mod(}5\text{)}\\
+        8x\equiv 3 \text{ mod(}7\text{)}\\
+        8x\equiv 3 \text{ mod(}11\text{)}
     \end{cases}
 \end{equation}
 \section{I Numeri Razionali}
@@ -966,7 +1041,7 @@ forma : \((a,b)\equiv a+ib\) , con \(i^2=-1\).
 Ogni equazione algebrica con coefficenti complessi (quindi in particolare reali) di grado \(n\), ammette 
 precisamente \(n\) soluzioni in \(\mathbb{C}\) (contando le moltiplicità). Si dice che \(\mathbb{C}\) è 
 \textbf{algebricamente chiuso}.
-\section{Teoria degli Anelli}
+\section{Elementi di Teoria degli Anelli}\label{TeoriaAnelli}
 \subsection{Isomorfismi e Omomorfismi tra Anelli}
 Abbiamo visto precedentemente la definizione assiomatica di \textit{Anello}, presentiamo ora un altra importante 
 definizione : \newtheorem{deff}{Definizione}
@@ -993,7 +1068,18 @@ definizione:\begin{deff}
     \begin{center}
         \(\varphi(r_1\cdot r_2)=\varphi(r_1)\cdot \varphi(r_2) \text{ }\forall r_1,r_2\in R  \)
     \end{center}
-\end{deff}\subsubsection{Nucleo di un omomorfismo}
+\end{deff}
+Se \(\varphi\) è un isomorfismo di due anelli \((A,+_A,\cdot_A)\) e \((B,+_B,\cdot_B)\), ovviamente 
+l'unità viene mappata nell'unità : \(\varphi(1_A)=1_B\), la dimostrazione è semplice : \begin{center}
+    \(
+      \begin{cases}
+        \varphi(1_A)=\varphi(1_A\cdot_A 1_A)=\varphi(1_A)\cdot_B \varphi(1_A)\\
+        1_B=(\varphi(1_A))^{-1}\cdot_B\varphi(1_A) = (\varphi(1_A))^{-1}\cdot_B\varphi(1_A)\cdot_B\varphi(1_A)
+      \end{cases}  
+      \implies  1_B = 1_B \cdot_B \varphi(1_A) = \varphi(1_A) 
+    \)
+\end{center}   
+\subsubsection{Nucleo di un omomorfismo}
 Inoltre si definisce un \textbf{nucleo} di omomorfismo \(\varphi\) tra \(R\) e \(R'\), il sotto-insieme 
 di \(R\) costituito da tutti gli elementi che hanno come immagine l'elemento neutro rispetto la somma (lo zero) di \(R'\), indicato
 con \(0_{R'}\). Tale nucleo si indica con :
@@ -1018,8 +1104,15 @@ Se un ideale è sia sinistro che destro si dice \textit{bilatero}, e si denota n
 Per come l'abbiamo definito prima, è ovvio che il nucleo di un omomorfismo tra due anelli \(Ker\varphi\) sia un ideale bilatero.
 Ogni anello \(R\) possiede due ideali detti \textit{banali}, ossia \(\{0\}\) e \(R\).\\ \hphantom{.}\\
 \(\{0\}\) è un ideale \(I\) di \(R\) perchè \(\forall a\in R\), essendo 0 l'unico elemento di \(I\), è ovvio che \(a\cdot 0 = 0\cdot a = 0 \in I\).
-
-
+\subsection{Prodotto Diretto di Anelli}
+Siano  \((A,+_A,\cdot_A)\) e \((B,+_B,\cdot_B)\) due anelli commutativi unitari, vale che, il risultato del loro
+prodotto cartesiano, detto \textbf{prodotto diretto di anelli}, ha una \textit{naturale struttura} di anello, e preserva le operazioni in tal modo :\begin{center}
+    Siano \(a,a'\in A\) e \(b,b'\in B\) \\
+    somma : \((a,b)+(a',b')=(a+_A a',b+_B b')\)\\
+    prodotto : \((a,b)\cdot(a',b')=(a\cdot_A a',b\cdot_B b')\)
+\end{center}
+Quindi \((A\times B,+,\cdot)\) è un anello.
+L'elemento neutro è \(0_{A\land B}=(0_A,0_B)\), ossia la coppia dei due elementi neutri rispettivamente per \(A\) e \(B\).
 
 
 
