@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage[english]{babel}
 \usepackage{nicefrac, xfrac}
+\usepackage{epsfig}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \title{Calcolo delle Probabilità}
 \author{Marco Casu}
@@ -341,7 +342,8 @@ Con \(n\) che tende ad infinito si ha :
 \end{equation}
 Quindi la probabilità che in una permutazione non vi siano punti fissi è \textbf{costante}, e 
 vale esattamente \(\dfrac{1}{e}\).
-\section{Spazi di Probabilità Prodotto}
+\section{Spazi di Probabilità Notevoli}
+\subsection{Spazi di Probabilità Prodotto}
 Consideriamo due esperimenti : \begin{itemize}
     \item Lancio una moneta equa 
     \item Viene misurata la temperatura in Brasile (che può variari dai 10 ai 50 gradi)
@@ -412,7 +414,7 @@ una qualunque sotto-famiglia di tali insiemi, la probabilità di tale intersezio
 \end{center}
 Ad esempio, in uno schema di probabilità prodotto, se prendo \(A_1\subset\Omega_1,A_2\subset\Omega_2...,A_n\subset\Omega_n\), 
 risulta che tali eventi sono tutti indipendenti fra loro.
-\subsection{Schema di Bernoulli}
+\subsection{Schema di Bernoulli}\label{schemaBernoulli}
 Apriamo una digressione su un noto schema probabilistico. Vi è un \textit{esperimento binario}\footnote{
     Un esperimento con due esiti (ad esempio il lancio di una moneta)
 } ripetuto \(n\) volte, gli esiti di tale risultato vengono codificati con 0 ed 1, quindi si ha :
@@ -501,4 +503,91 @@ sia verificato un singolo \(D_i\) :
     \mathbb{P}(D_i|A)=\dfrac{ \mathbb{P}(D_i)\cdot \mathbb{P}(A|D_i)}{\displaystyle\sum_{j=1}^{k-1}\mathbb{P}(D_j)\cdot \mathbb{P}(A|D_j)}
 \end{equation}
 \textit{Osservazione} : Se \(A,B\) sono eventi disgiutni, allora \(\mathbb{P}(A|B)=\mathbb{P}(A)\).
-\end{document}
+\\\hphantom{}\\
+Vediamo adesso un esempio facile di applicazione della formula delle probabilità totali, per ricavare 
+il valore di una probabilità appartenente non banale. Si consideri lo schema di Bernoulli \ref{schemaBernoulli},
+su \(n\) lanci, qual'è la probabilità che esca testa, un numero pari di volte? Voglio procedere \textit{ricorsivamente}
+in \(n\), similmente a come si risolvono le equazioni di ricorrenza viste nel corso di \color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Primo%20Anno/Secondo%20Semestre/Introduzione%20agli%20algoritmi/Introduzione_agli_Algoritmi.pdf}{Algoritmi 1}.
+\color{black}\\Definisco \(A_n=\{\text{Su \(n\) lanci, testa esce un numero pari di volte}\}\) e \(p_n=\mathbb{P}(A_n)\). 
+Procedo utilizzando la formula delle probabilità totali, definendo le partizioni : \begin{itemize}
+    \item \(D_1=\{\omega \in \Omega | \omega_1=0\}\) - al primo lancio esce croce, ovviamente \(\mathbb{P}(D_1)=1-p\)
+    \item \(D_2=\{\omega \in \Omega | \omega_1=1\}\) - al primo lancio esce testa, ovviamente \(\mathbb{P}(D_2)=p\)
+\end{itemize}
+Ed ottengo :\begin{equation}
+    p_n= \mathbb{P}(D_1)\mathbb{P}(A_n|D_1)+\mathbb{P}(D_2)\mathbb{P}(A_n|D_2)
+\end{equation}
+Dove \(\mathbb{P}(A_n|D_1)\) rappresenta la probabilità che Su \(n-1\) lanci, testa esce un numero pari di volte, 
+e \(\mathbb{P}(A_n|D_2)\) rappresenta la probabilità che Su \(n-1\) lanci, testa esce un numero dispari di volte. Quindi 
+l'equazione si può riscrivere come : 
+\begin{equation}
+    p_n= (1-p)p_{n-1}+p(1-p_{n-1})
+\end{equation}
+Abbiamo definito una relazione \textit{ricorsiva}, che tramite passaggi algebrici può essere 
+espressa in forma esplicita.
+\subsection{Passeggiata Aleatoria}
+\subsubsection{La Rovina del Giocatore}
+Introduciamo adesso un'altro problema meno banale rispetto a quello appena visto, che richiede sempre l'applicazione 
+della formula delle probabilità totali. Ci sono due giocatori \(A\) e \(B\), che giocano ad un gioco generico, scomemttendo dei soldi. 
+Ogni volta che un giocatore vince, riceve 1 euro dall'altro. \(A\) ha probabilità di vittoria uguale a \(p\), 
+e \(B\) ha probabilità di vittoria uguale a \(1-p\), \(A\) inizia il gioco con un capitali pari ad \(a\) euro, 
+e \(B\) inizia con un capitale pari a \(b\) euro. Giocano senza sosta, finche uno dei due giocatori 
+non si rovina (finisce tutto il capitale). Qual'è la probabilità che \(A\) oppure \(B\) si rovini?
+\subsubsection{Modellizzazione}
+Tale problema ha un interpretazione geometrica ben precisa, e viene modellizzato in uno schema 
+definito come \textit{passeggiata aleatoria}. Si consideri il piano \(\mathbb{Z}^+\times \mathbb{Z}\) : \\\begin{center}
+    
+    \includegraphics[scale=0.65]{images/PasseggiataAleatoriaPiano.eps}
+\end{center}
+l'asse 
+delle ascisse \(t\) rappresenta il tempo, o il numero 
+di giocate fatte, mentre quello delle ordinate \(S\) rappresenta la somma in denaro vinta da \(A\), ci sono poi 
+due asintoti orizzontali nelle posizioni \(S=b\) e \(S=-a\).
+Ad ogni coppia \(t,S\) è associato un valore denominato \(S_n\), che identifica l'istante di gioco, 
+ossia la somma vinta (o persa se in negativo) da \(A\) al tempo \(t=n\). All'avanzare del tempo, ossia 
+delle giocate, la crescita o discesa di \(S_n\) dipende dalle probabilità che \(A\) vinca o no, se 
+\(A\) vince al tempo \(i\), nel tempo \(i+1\), \(S_n\) crescerà di un'unità, altrimenti decrescerà. \begin{itemize}
+    \item \(t=0\implies S_0 = 0\)
+    \item \(t=1 \implies S_1=\begin{cases}
+        +1 \text{ con probabilità }p\\-1  \text{ con probabilità }1-p
+    \end{cases}\)
+    \item \(t=2 \implies S_2=S_1 +\begin{cases}
+        +1 \text{ con probabilità }p\\-1  \text{ con probabilità }1-p
+    \end{cases}\)
+    \item \(...\)
+    \item \(t=n+1\implies S_{n+1} = \displaystyle \sum_{i=1}^{n}S_i +\begin{cases}
+        +1 \text{ con probabilità }p\\-1  \text{ con probabilità }1-p
+    \end{cases}\)
+\end{itemize}
+Quindi nel grafico, \(S_n\) "spostandosi" verso destra, oscillerà avvicinandosi sempre di più o a
+ \(b\) o a \(-a\), con ovvio significato :\begin{itemize}
+    \item \(S_n=b\implies\) il giocatore \(B\) si è rovinato, ha vinto \(A\).
+    \item \(S_n=-a\implies\) il giocatore \(A\) si è rovinato, ha vinto \(B\).
+ \end{itemize}
+ \begin{center}\includegraphics[scale=0.75]{images/PasseggiataRovinata.eps}\end{center}
+ La probabilità che \(A\) si rovini è quindi equivalente alla probabilità che \(S_n\) raggiunga \(-a\), si può 
+ calcolare tale valore utilizzando la formula delle probabilità totali.\\\hphantom{}\\
+  Introduciamo un nuovo parametro, 
+ ossia \(x\), che equivale ad \(S_0\), ossia quanto vale \(S\) all'inizio del gioco, fin'ora, abbiamo 
+ dato per scontato che si partisse sempre da una condizione di parità, dove \(x=0\). Definiamo 
+ quindi \(\alpha(x)\) la probabilità che \(S_n\) raggiunga \(-a\) da un punto di partenza \(x\), e  
+ \(\beta(x)\) la probabilità che \(S_n\) raggiunga \(b\) da un punto di partenza \(x\). Ovviamente 
+ se \(x=0\) siamo nel caso iniziale, ma ad ogni passo, \(x\) incrementerà o decrementerà di \(1\).
+ Definiamo quindi \(S^{(x)}_n\) come la somma vinta da \(A\) nell'istante \(t=n\), dove però \(S^{(x)}_0\ne 0 = x\).
+\\Vediamo come si definisce in questo caso una relazione ricorsiva, utilizzo la formula della 
+probabilità totale :
+\begin{equation}
+    \beta(x)=\mathbb{P}(S_n+=1)\cdot\mathbb{P}(B \text{ si rovina }|S_n+=1)+\mathbb{P}(S_n-=1)\cdot\mathbb{P}(B \text{ si rovina }|S_n-=1)
+\end{equation}
+Ne consegue : \begin{equation}
+    \beta(x)=p\cdot\beta(x+1)+(1-p)\cdot \beta(x-1) \text{ finché }x=-a\lor x=b
+\end{equation}
+Abbiamo quindi definito una relazione ricorsiva :\begin{center}
+    \(
+        \begin{cases}
+            \beta(x)=p\cdot\beta(x+1)+(1-p)\cdot \beta(x-1)\\
+            \beta(b)=1\\\beta(-a)=0
+        \end{cases}
+    \)
+\end{center}
+Sviluppiamo il calcolo per ottenere la formula esplicita :
+ \end{document}
