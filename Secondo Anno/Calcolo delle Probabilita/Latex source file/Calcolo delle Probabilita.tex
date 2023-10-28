@@ -589,5 +589,43 @@ Abbiamo quindi definito una relazione ricorsiva :\begin{center}
         \end{cases}
     \)
 \end{center}
-Sviluppiamo il calcolo per ottenere la formula esplicita :
+Sviluppiamo il calcolo per ottenere la formula esplicita, iniziando a calcolare l'incremento :
+\begin{equation}
+    (p+(1-p))\beta(x)=p\cdot\beta(x+1)+(1-p)\cdot \beta(x-1)\iff p(\beta(x+1)-\beta(x))=(1-p)(\beta(x)-\beta(x-1))
+\end{equation}
+\begin{equation}
+    \iff \beta(x+1)-\beta(x)=\dfrac{1-p}{p}(\beta(x)-\beta(x-1))
+\end{equation}
+Gli incrementi sono quindi \textit{proporzionali} e non lineari (simile alla funzione esponenziale).
+Avendo trovato adesso il valore ad ogni incremento generico, procediamo calcolando l'incremento ad ogni passo :
+\begin{itemize}
+    \item passo 0) \(\beta(-a)=0\)
+    \item passo 1)  \(\beta(-a+1)=\beta(-a+1)-\beta(-a)=\beta(-a+1)-0=\gamma\) 
+\end{itemize}
+Abbiamo definito \(\gamma\) come l'incremento ad ogni passo \begin{itemize}
+    \item passo 2) \(\beta(-a+2) =\beta(-a+1)+\beta(-a+2)-\beta(-a+1)+\dfrac{1-p}{p}\gamma=\gamma+\gamma\dfrac{1-p}{p} \)
+    \item passo 3) \(\beta(-a+3)=\beta(-a+2)+\beta(-a+3)-\beta(-a+2)=\beta(-a+2)+\dfrac{1-p}{p}[\beta(-a+2)-\beta(-a+1)]=\)\\
+    \(\gamma+\gamma\dfrac{1-p}{p}+\gamma(\dfrac{1-p}{p})^2\)
+    \item \dots
+    \item \(\beta(x)=\gamma\Big[1+\dfrac{1-p}{p}+\Big(\dfrac{1-p}{p}\Big)^2+\Big(\dfrac{1-p}{p}\Big)^3...+\Big(\dfrac{1-p}{p}\Big)^{x+a-1}\Big]\)
+\end{itemize}
+Quindi si ha che \begin{equation}
+    \beta(x)=\gamma\cdot \sum_{k=0}^{x+a-1}\Big(\dfrac{1-p}{p}\Big)^k=\gamma\cdot\dfrac{1-\Big(\dfrac{1-p}{p}\Big)^{x+a}}{1-\dfrac{1-p}{p}}
+\end{equation}
+Per trovare \(\gamma\), poniamo :
+\begin{equation}
+    \beta(b)=1=\gamma\cdot\dfrac{1-\Big(\dfrac{1-p}{p}\Big)^{b+a}}{1-\dfrac{1-p}{p}}\implies \gamma =\dfrac{1-\dfrac{1-p}{p}}{1-\Big(\dfrac{1-p}{p}\Big)^{b+a}}
+\end{equation}
+Quindi, in forma esplicita :\begin{equation}
+    \beta(x)=\dfrac{1-\Big(\dfrac{1-p}{p}\Big)^{x+a}}{1-\Big(\dfrac{1-p}{p}\Big)^{b+a}}
+\end{equation}
+\textit{Osservazione }: la probabilità che il gioco non finisca mai è 0, infatti presi i due eventi della rovina 
+di \(A\) e di \(B\), si ha che :\begin{equation}
+    \alpha(a)+\beta(b)=\dfrac{1-\Big(\dfrac{1-p}{p}\Big)^{x+b}}{1-\Big(\dfrac{1-p}{p}\Big)^{b+a}}+\dfrac{1-\Big(\dfrac{1-p}{p}\Big)^{x+a}}{1-\Big(\dfrac{1-p}{p}\Big)^{b+a}}=1
+\end{equation}
+La somma dei due eventi disgiunti è 1, quindi, necessariamente si causerà la rovina di uno dei due giocatori.
+\\\textit{Osservazione }: Se \(p=\dfrac{1}{2}\), si ha :
+\begin{equation}
+    \lim_{p\rightarrow \frac{1}{2}}\beta(x)=\lim_{p\rightarrow \frac{1}{2}}\dfrac{1-\Big(\dfrac{1-p}{p}\Big)^{x+a}}{1-\Big(\dfrac{1-p}{p}\Big)^{b+a}}=\dfrac{a+x}{a+b}
+\end{equation}
  \end{document}
