@@ -423,8 +423,31 @@ un quanto di tempo massimo dedicato ad ogni processo, a seconda delle esigenze :
     \item Un quanto di tempo minore farà si che si eseguiranno più content switch, aumentando la responsività.
     \item Un quanto di tempo maggiore risulterà in meno content switch, minimizzando il tempo perso della CPU, massimizzandone
     il suo utilizzo.
-\subsection{Comunicazione fra processi}
 \end{itemize}
+\subsection{Comunicazione fra processi}
+Due processi possono essere fra loro :  \begin{itemize}
+    \item \textbf{cooperativi} - possono influire o venire influiti da altri processi per operare su computazioni comuni.
+    \item \textbf{indipendenti} - operano in maniera concorrente sul sistema e non si influenzano fra loro.
+\end{itemize}
+Un processo particolarmente complesso può essere scomposto in più processi \textit{cooperativi}, 
+è necessario predispore i processi cooperativi di adeguati canali di comunicazione, ci sono due possibili 
+modi di farli comunicare :\begin{itemize}
+    \item \textbf{Message Passing} - è il metodo più lento, dato che ogni trasferimento avviene tramite
+    una system call, ma è semplice da mettere in atto quindi preferibile se la quantità o la frequenza dei messaggi 
+    non è particolarmente elevata.
+    \item \textbf{Shared Memory} - è più complesso da mettere in atto e non funziona perfettamente quando si lavora 
+    su più computer, non richiede però l'utilizzo delle system call ed è quindi preferibile quando si devono 
+    trasferire grandi quantità di informazioni sullo stesso computer.
+\end{itemize}
+Nel sistema \textit{Shared Memory} viene creato uno spazio di memoria condiviso per due processi differenti, inizialmente 
+tale memoria appartiene al PCB di un solo processo, tramite una system call viene poi resa pubblica e disponibile 
+ad altri processi, che possono fare delle system call per accedere ad essa.
+\\\hphantom{}\\ 
+Nel \textit{Message Passing}, il sistema operativo deve implementare delle specifiche system call adibite 
+all'invio e ricezione dei messaggi, un collegamento va stabilito tra due processi cooperanti. Il processo 
+mittente deve poter identificare il processo destinatario, è possibile creare un canale "uno ad uno" per 
+ogni coppia di processi comunicanti, oppure creare delle "porte" condivise dove più processi possono 
+comunicare, e trasferire informazioni su tali porte che potranno essere lette da ogni processo.
 
 
 
