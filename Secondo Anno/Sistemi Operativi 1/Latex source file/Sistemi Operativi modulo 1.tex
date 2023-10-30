@@ -447,14 +447,73 @@ Nel \textit{Message Passing}, il sistema operativo deve implementare delle speci
 all'invio e ricezione dei messaggi, un collegamento va stabilito tra due processi cooperanti. Il processo 
 mittente deve poter identificare il processo destinatario, è possibile creare un canale "uno ad uno" per 
 ogni coppia di processi comunicanti, oppure creare delle "porte" condivise dove più processi possono 
-comunicare, e trasferire informazioni su tali porte che potranno essere lette da ogni processo.
+comunicare, e trasferire informazioni su tali porte che potranno essere lette da ogni processo. Tali messaggi 
+ovviamente occupano spazio in memoria,
+solitamente vanno in una coda, 
+ci sono 3 diversi modi di gestire la coda ad essi riservata :
+\begin{itemize}
+    \item \textbf{Zero Capacity} - I messaggi non hanno una coda nella quale vengono salvati, quindi il mittente 
+    si blocca e non può inviare altri messaggi finche il destinatario non risponde.
+    \item \textbf{Bounded Capacity} - I messaggi vengono salvati in una coda con una
+     capacità di memoria finita predeterminata, quindi i mittenti potranno inviare messaggi affinché la coda 
+     non sarà piena.
+     \item \textbf{Unbounded Capacity} - La coda ha una capacità (teoricamente )infinita, quindi i mittenti 
+     potranno inviare messaggi senza blocchi.
+\end{itemize} 
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.65\textwidth ]{images/processCommunication.eps}
+    }
+\end{figure}
+\subsection{Algoritmi di Scheduling}
+Vediamo in questo paragrafo quali sono alcuni dei criteri presi in considerazione dagli scheduler per selezionare 
+il prossimo processo dalla coda pronti che andrà in esecuzione. Lo scheduler deve far si che si alternino in continuazione 
+processi CPU-bound e processi che fanno operazioni di I/O, tenendo in considerazione che gli accessi alla memoria 
+richiedono svariati cicli di clock, togliendo tempo al calcolo effettivo.\\
+\hphantom{text}\\Ci sono 4 possibili situazioni in cui interviene lo short term scheduler per prendere un processo 
+dalla coda pronti :\begin{enumerate}
+    \item  Quando un processo passa dallo stato running allo stato waiting (ad esempio quando vi è una system call).
+    \item  Quando un processo passa dallo stato running allo stato ready
+     (quando scade il timer che determina il tempo massimo assegnato ad ogni processo).
+     \item  Quando il processo passa dallo stato waiting allo stato ready
+      ( il processo interrotto perché ha richiesto una risorsa, vede tale risorsa diventare disponibile).
+      \item  Quando viene creato un nuovo processo ed entra nella coda dei processi pronti, oppure quando un processo termina.
+\end{enumerate}
+Si noti come, nei casi 1 e 4, lo scheduler è costretto ad intervenire, in quanto la CPU necessita di un nuovo 
+processo da eseguire, nei casi 2 e 3 invece, l'intervento non è necessario, ed è a discrezione dello scheduler 
+se intervenire o meno.\\Gli scheduler che intervengono esclusivamente quando è necessario, si dicono 
+\textbf{Non-preemptive}, quelli che invece, intervongono anche nei casi 2 e 3, sono detti \textbf{Preemptive}.\\ 
+\hphantom{text}\\Uno scheduler \textit{Preemptive} può essere problematico se agisce in situazioni delicate (Ad esempio, 
+mentre il Kernel sta eseguendo una system call), per questo prima di eseguire un interruzione, l'OS si occupa di 
+accertarsi che una chiamata di sistema sia completata prima di eseguire il blocco (se necessario, si interrompono 
+momentaneamente le interruzioni).\\\hphantom{text}\\
+È importante sapere che il modulo dello scheduler che si occupa specificamente di far eseguire 
+alla CPU il processo selezionato è noto con il nome di \textbf{Dispatcher}, si occupa di fare context switch,
+passare alla user mode, e "saltare" all'indirizzo di memoria dell'ultimo programma caricato.
+\subsubsection{Criteri e Politiche dello Scheduling}
+Introduciamo adesso alcune notazioni e definizioni importanti riguardo il calcolo dei tempi che un processo 
+impiega sulla CPU.\begin{itemize}
+    \item \textbf{Arrival Time} (\(T^{arrival}\)) : Il tempo che impiega un processo per arrivare nella coda pronti.
+    \item \textbf{Completion Time}  (\(T^{completion}\)) : Il tempo che impiega un processo per completare la sua esecuzione.
+    \item \textbf{Burst Time:}  (\(T^{burst}\)) : Il tempo totale nella quale il processo è in esecuzione sulla CPU.
+    \item \textbf{ Turnaround Time} (\(T^{turnaround}\))  : La differenza fra il Completion Time e l'Arrival Time, definita 
+    come \(T^{completion}-T^{arrival}\) .
+    \item \textbf{ Waiting Time} (\(T^{waiting}\)) : La differenza fra il Turnaround Time ed il Burst Time, definita 
+    come \(T^{turnaround}-T^{burst}\) .
+\end{itemize}
+Ci sono diversi criteri da poter prendere in considerazione quando si scrive una algoritmo di scheduling, ed in 
+base a tali criteri, esistono algoritmi migliori di altri, tali criteri sono :\begin{itemize}
+    \item \textbf{Utilizzo della CPU} - Il tempo in cui la CPU è occupata ad eseguire calcoli, idealmente, dovrebbe 
+    essere occupata il 100\(\%\) del tempo, l'obbiettivo è quindi di \textit{massimizzare} tale utilizzo.
+    \item \textbf{Throughput} - Il numero di processi da completare per unità di tempo, l'obbiettivo è quindi di \textit{massimizzare} tale numero.
+    \item \textbf{Tournaround time} - L'obbiettivo è quello di \textit{minimizzare} il tempo impiegato da un processo, 
+    dalla sua selezione da parte dello scheduling fino al completamento (includendo lo Waiting Time).
+    \item \textbf{Waiting time} - L'obbiettivo è quello di \textit{minimizzare} il tempo che un processo 
+    rimane fermo nella CPU in attesa di essere selezionato dallo scheduler.
+    \item \textbf{Response time} - Il tempo che interocorre fra la richiesta di un comando, e la risposta ad esso, l'obbiettivo 
+    è quello di \textit{minimizzare} tale tempo per rendere il sistema più interattivo e responsivo.
 
-
-
-
-
-
-
+\end{itemize}
 
 
 
@@ -467,4 +526,3 @@ comunicare, e trasferire informazioni su tali porte che potranno essere lette da
 
 
 \end{document}
-\color{red} \textbf{Continuare da }: Slide :05-Basics-of-OS-Process-Management.pdf pagina 71
