@@ -634,7 +634,7 @@ un'operazione binaria definita su di esso. Vediamo adesso alcune strutture algeb
 Il \textbf{semigruppo} è un insieme \(S\) dotato di un operazione \(*\) verificante i seguenti punti :
 \begin{itemize}
     \item \textbf{1.1} - \(*\) è \textbf{associativa}, ossia \((s*s')*s''=s*s'*s''\).
-    \item \textbf{1.2} - \(\exists e \in S | e*s=s=s*e \forall s\in S\) dove tale \(e\) è detto \textbf{elemento nullo}.
+    \item \textbf{1.2} - \(\exists e \in S | e*s=s=s*e \forall s\in S\) dove tale \(e\) è detto \textbf{elemento neutro}.
 \end{itemize}
 Se dovesse accadere che \(\forall s,s' \in S | s*s'=s'*s\) si dice che il semigruppo \(S,*\) è anche \textbf{commutativo}.
 \\\textit{Esempio 1 : } Sia \(S=\{f:X\rightarrow X\}\) l'insieme delle funzioni definite su un insieme \(X\), l'operazione
@@ -645,7 +645,7 @@ Il \textbf{gruppo} è un insieme \(S\) dotato di un operazione \(*\) verificante
 condizione aggiunta necessaria :
 \begin{itemize}
     \item \textbf{2.1} - \(*\) è \textbf{associativa}, ossia \((s*s')*s''=s*s'*s''\).
-    \item \textbf{2.2} - \(\exists e \in S | e*s=s=s*e \forall s\in S\) dove tale \(e\) è detto \textbf{elemento nullo}.
+    \item \textbf{2.2} - \(\exists e \in S | e*s=s=s*e \forall s\in S\) dove tale \(e\) è detto \textbf{elemento neutro}.
     \item \textbf{2.3} - \( \forall s\in S \exists s' | s*s'=e=s'*s\) dove \(s'\) è detto \textbf{inverso} di \(s\).
 \end{itemize}
 \textit{Esempio 1 :} \((\mathbb{N},+)\) non è un gruppo, ma \((\mathbb{Z},+)\) si, dato che \(\forall x\in\mathbb{Z} 
@@ -929,7 +929,7 @@ e date le seguenti condizioni :
 \begin{itemize}
     \item (1) L'applicazione \(F:\mathbb{Z}_{rs}\rightarrow \mathbb{Z}_r \times \mathbb{Z}_s \) è biettiva
     \item (2) \(MCD(r,s)=1\)
-    \item (3) Il sistema ha un'unica soluzione mod(\(r,s\))
+    \item (3) Il sistema ha un'unica soluzione mod(\(r\cdot s\))
 \end{itemize}
 Vale che : \begin{center}\((1)\iff(2)\iff(3)\)\end{center}
 Ossia che se una qualsiasi delle 3 condizioni è vera, anche le altre sono vere, si implicano a vicenda 
@@ -964,6 +964,7 @@ necessariamente suriettiva, quindi biettiva. \(\blacksquare\)
         8x\equiv 3 \text{ mod(}11\text{)}
     \end{cases}
 \end{equation}
+
 \subsection{Piccolo Teorema di Fermat}   \begin{center}        
 Sia \(p\) un numero primo, vale che : \(\forall a\in \mathbb{Z},\text{ }a^p\equiv a \text{ (mod }p\text{)}\)
 \end{center} 
@@ -974,7 +975,6 @@ Sia \(p\) un numero primo, vale che : \(\forall a\in \mathbb{Z},\text{ }a^p\equi
         (a+1)^p=a^p+1
     \end{equation}
     Ma \(a^p\equiv a\) quindi \(a^p+1\equiv a+1 \implies (a+1)^p\equiv a^p+1 \text{ (mod }p\text{)}\). \(\blacksquare\)
-
 \end{itemize}  
 \section{I Numeri Razionali}
 Abbiamo definito i numeri naturali, che servono per la definizione degli interi, che useremo a loro volta per definire 
@@ -1064,12 +1064,12 @@ precisamente \(n\) soluzioni in \(\mathbb{C}\) (contando le moltiplicità). Si d
 Abbiamo visto precedentemente la definizione assiomatica di \textit{Anello}, presentiamo ora un altra importante 
 definizione : \newtheorem{deff}{Definizione}
 \begin{deff}
-    Un \textbf{isomorfismo}  \(\varphi\) tra due anelli \(R\) e \(R'\) è una corrispondenza biunivoca tra \(R\) e \(R'\) che 
+    Un \textbf{isomorfismo}  \(\varphi\) tra due anelli \((R,+_R,\cdot_R)\) e \((R',+_{R'},\cdot_{R'})\) è una corrispondenza biunivoca tra \(R\) e \(R'\) che 
     conserva le operazioni, tale che \begin{center}
-        \(\varphi(a+b)=\varphi(a)+ \varphi(b)\text{ } \forall a,b\in R  \)
+        \(\varphi(a+_Rb)=\varphi(a)+_{R'} \varphi(b)\text{ } \forall a,b\in R  \)
     \end{center}
     \begin{center}
-        \(\varphi(a\cdot b)=\varphi(a)\cdot \varphi(b)\text{ } \forall a,b\in R  \)
+        \(\varphi(a\cdot_R b)=\varphi(a)\cdot_{R'} \varphi(b)\text{ } \forall a,b\in R  \)
     \end{center}
 \end{deff}
 Se i due anelli sono \textit{isomorfi}, si scrive \(R\backsimeq  R'\). La relazione di isomorfismo è una relazione 
@@ -1078,13 +1078,13 @@ stesse proprietà, dal punti di vista algebrico sono \textit{indistinguibili}, s
 anelli isomorfi. \\\hphantom{.}\\
 Spesso fra due anelli, esiste un applicazione che ne conservi le operazioni, ma che non è biunivoca. Si da la seguente 
 definizione:\begin{deff}
-    Dati due anelli \(R,+,\cdot\) e \(R',+,\cdot\), si chiama \textbf{omomorfismo} di \(R\) in \(R'\) ogni 
-    corrispondenza \(\varphi\) da \(R\) ad \(R'\) tale che :
+    Dati due anelli \((R,+_R,\cdot_R)\) e \((R',+_{R'},\cdot_{R'})\), si chiama \textbf{omomorfismo} di \(R\) in \(R'\) ogni 
+    corrispondenza (non necessariamente biunivoca) \(\varphi\) da \(R\) ad \(R'\) tale che :
     \begin{center}
-        \(\varphi(r_1+r_2)=\varphi(r_1)+ \varphi(r_2)\text{ } \forall r_1,r_2\in R  \)
+        \(\varphi(r_1+_Rr_2)=\varphi(r_1)+_{R'} \varphi(r_2)\text{ } \forall r_1,r_2\in R  \)
     \end{center}
     \begin{center}
-        \(\varphi(r_1\cdot r_2)=\varphi(r_1)\cdot \varphi(r_2) \text{ }\forall r_1,r_2\in R  \)
+        \(\varphi(r_1\cdot+_R r_2)=\varphi(r_1)\cdot_{R'} \varphi(r_2) \text{ }\forall r_1,r_2\in R  \)
     \end{center}
 \end{deff}
 Se \(\varphi\) è un isomorfismo di due anelli \((A,+_A,\cdot_A)\) e \((B,+_B,\cdot_B)\), ovviamente 
