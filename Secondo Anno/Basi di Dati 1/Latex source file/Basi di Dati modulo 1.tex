@@ -1264,7 +1264,7 @@ Definiamo adesso rigorosamente : \begin{quote}
     Una base di dati è in \textit{Terza Forma Normale} se tutte le dipendenze non banali sono
      della forma \(K\rightarrow X\), dove si verifica \textit{almeno una} condizione fra :\begin{itemize}
         \item \(K\) contiene una chiave (è superchiave).
-        \item \(X\) è attributo di una chiave/è contenuto in una chiave.
+        \item \(X\) è attributo di una chiave/è contenuto in una chiave (è primo).
     \end{itemize}
 \end{quote}
 Si può verificare che una base di dati sia in 3NF controllando solo le dipendenze non banali ottenute decomponendo \(F\).
@@ -1280,4 +1280,87 @@ Controlliamo che \(R\) sia in 3NF, decomponendo \(F\), otteniamo :\begin{itemize
 \end{itemize}
 Per queste ultime due, \(B\) non è una superchiave, e sia \(C\) che \(D\) non sono elementi che appartengono ad una chiave, 
 quindi tale schema \textit{non} è in terza forma normale.
+\subsubsection{Dipendenze Parziali e Transitive}
+Sia \(R\) uno schema relazionale ed \(F\) il suo insieme delle dipendenze funzionali, si ha che :\begin{itemize}
+    \item \(X\rightarrow A\in F^+|A\notin X\) è una \textbf{dipendenza parziale} se \(A\) non è primo ed 
+    \(X\) invece è contenuto nella chiave, si dice che \(A\) \textbf{dipende parzialmente} dalla chiave.
+    \item \(X\rightarrow A\in F^+|A\notin X\) è una \textbf{dipendenza transitiva} se \(A\) non è primo e 
+    per ogni chiave \(K\) su \(R\), si ha che \(X\) non è propriamente contenuto in \(K\) e \(K-X=\emptyset\). Si dice 
+    che \(A\) \textbf{dipende transitivamente} da \(K\)(chiave) se \(K\rightarrow X \in F^+\) e \(X\rightarrow A \in F^+\) dove 
+    \(X\) non è chiave ed \(A\) non è parte della chiave.
+\end{itemize}
+Dato uno schema \(R\),  è in terza forma normale se e solo se  \textbf{non} presenta \textit{Dipendenze Parziali} o \textit{Transitive}
+(analogamente, non presenta attributi che dipendono parzialmente o transitivamente da una chiave).
+\subsubsection{Decomposizione in più Schemi}
+Vogliamo saper creare delle basi di dati che siano in terza forma normale, ossia che, ognuna delle sue relazioni sia 
+in 3NF. Avendo uno schema che viola tale forma, è possibile \textit{decomporlo}, creando più relazioni che a loro 
+volta non violino la 3NF.\begin{quote}
+    \textbf{Attenzione!} non tutte le decomposizioni in 3NF di uno schema che inizialmente non era in 3NF sono necessariamente
+    corrette, esistono diverse scomposizioni in 3NF, ma alcune violano le dipendenze funzionali che vi erano in origine.
+\end{quote}
+Vediamo un \textit{Esempio}, ho un insieme di dipendenze \(F=\{A\rightarrow B,B\rightarrow C\}\), dove \(A\) è la chiave. 
+tale insieme viola la terza forma normale (\(B\rightarrow C\) è una dipendenza transitiva), vediamo due ipotesi di scomposizione :
+\begin{center}
+    (1) \(
+        \begin{cases}
+            R1 = \{A,B\} \text{ con } F=\{A\rightarrow B\}\\
+            R2 = \{B,C\} \text{ con } F=\{B\rightarrow C\}
+        \end{cases}
+    \)
+\end{center}
+\begin{center}
+    (2) \(
+        \begin{cases}
+            R1 = \{A,B\} \text{ con } F=\{A\rightarrow B\}\\
+            R2 = \{A,C\} \text{ con } F=\{A\rightarrow C\}
+        \end{cases}
+    \)
+\end{center}
+Presa una qualsiasi istanza legale della relazione originale, se venisse decomposta in \((1)\) o \((2)\), il \code{JOIN} delle 
+due relazioni scomposte dovrebbe creare una nuova istanza che sia ancora legale come quella originale, ciò non è soddisfatto 
+dalla scomposizione \((2)\), vediamo un esempio :\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{R1}  \\\hline
+        A  & B  \\ \hline
+        a1 & b1 \\ \hline
+        a2 & b2 \\ \hline
+        \end{tabular}\(\Join\)
+        \begin{tabular}{|c|c|}
+            \hline
+            \multicolumn{2}{|c|}{R2}  \\\hline
+            A  & C  \\ \hline
+            a1 & c1 \\ \hline
+            a2 & c2 \\ \hline
+            \end{tabular}
+            \(=\)
+            \begin{tabular}{|c|c|l|}
+                \hline
+                \multicolumn{3}{|c|}{R1\(\Join\)R2}  \\\hline
+                A  & B  & C  \\ \hline
+                a1 & b1 & c1 \\ \hline
+                a2 & b1 & c2 \\ \hline
+                \end{tabular}
+\end{center}
+Anche se sia \(R1\) che \(R2\) sono in 3NF, il risultato del loro \code{JOIN} non soddisfa la dipendenza funzionale \(B\rightarrow C\). 
+\\Si noti come, anche se prendessimo in considerazione la decomposizione \((1)\), essa soddisfa le dipendenze funzionali 
+iniziali, ma non andrebbe comunque bene perché il \code{JOIN} genererebbe delle tuple che non vi erano in origine (perdita di 
+informazioni).\\\hphantom{}\\ In conclusione, la decomposizione di uno schema non in 3NF in più schemi in 3NF deve : \begin{itemize}
+    \item Preservare le dipendenze funzionali dello schema originale. 
+    \item Poter ricostruire lo schema originale tramite un \code{JOIN} con ogni istanza legale senza aggiungere 
+    informazioni aggiuntive.
+\end{itemize}
+\subsubsection{Forma Normale Boyce-Codd}
+La terza forma normale non è la forma normale più restrittiva, ce ne sono altre, inclusa la seguente :\begin{quote}
+    Una relazione è in \textbf{forma normale Boyce-Codd}, se, per ogni singola dipendenza funzionale, 
+    il determinante è una superchiave (o ovviamente, chiave).\begin{center}
+        \(
+            \text{Sia \(K\) la chiave : }\forall A\rightarrow B \in F^+, K\subseteq A 
+        \)
+    \end{center}
+\end{quote}
+Una relazione che è in forma normale Boyce-Codd è anche in terza forma normale, non è vero però il contrario, 
+se una relazione è in terza forma normale, non è necessariamente in forma normale Boyce-Codd. Non è sempre possibile decomporre 
+uno schema in sotto-schemi in forma normale Boyce-Codd, è però sempre possibile farlo in sotto-schemi in terza forma normale, 
+per questo, considereremo quest'ultima durante il corso.
 \end{document}
