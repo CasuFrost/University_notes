@@ -1132,41 +1132,15 @@ prodotto cartesiano, detto \textbf{prodotto diretto di anelli}, ha una \textit{n
 Quindi \((A\times B,+,\cdot)\) è un anello.
 L'elemento neutro è \(0_{A\land B}=(0_A,0_B)\), ossia la coppia dei due elementi neutri rispettivamente per \(A\) e \(B\).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage\hphantom{.}\color{red}Da qui in poi sono BOZZE
-\color{black}
 \section{Teoria dei Gruppi}
-\subsection{Il Gruppo Simmetrico \(S_n\)}
-Sia \(X\) un insieme ,abbiamo chiamato il gruppo di tutte le sue corrispondenze biunivoche
- \(f:X\rightarrow X\) con il simbolo \((S(X),\circ)\), nel caso in cui \(X\) sia finito, con cardinalità 
- \(|X|=n\), si indicherà con \(S_n\), e prende il nome di \textbf{gruppo simmetrico di grado \(n\)}. Tale gruppo 
- non è commutativo, data l'operazione di composizione \(\circ\). È facile notare come ogni elemento \(\sigma\) di 
- \(S_n\) sia una permutazione di \(X=\{1,2,3,4...,n\}\), quindi la cardinalità sarà \(|S_n|=n!\). \\
- Una proprietà importante, è che se \((G,*)\) è un gruppo, esiste una \textit{mappa iniettiva} \(\varphi\) da \((G,*)\) a 
- \((S(G),\circ)\) che \textit{conserva} le operazioni, ossia :
- \begin{center}
-    \(
-        \varphi(a*b) = \varphi(a)\circ\varphi(b)  
-    \)
- \end{center}
+In questo capitolo ci occuperemo di studiare le proprietà dei gruppi, ricordiamo la definizione :
+\((G,*)\) è un gruppo se \(*\) è un operazione binaria tale che : \begin{enumerate}
+    \item \(*\) è associativa.
+    \item \(\exists e|g*e=g=e*g\)
+    \item \(\forall g\in G \text{ } \exists g' | g*g'=e=g'*g\)
+\end{enumerate}
+Abbiamo già visto che l'elemento neutro \(e\) è \textbf{unico} e si identifica con 1 oppure \(1_G\), l'inverso di un 
+elemento \(g\), si denota con \(g^{-1}\).
  \subsection{Omomorfismo tra Gruppi}
  Siano \((G,*)\) e \((G',\cdot)\) due gruppi, un applicazione \(\varphi\) tra \(G\) e \(G'\) si dice \textbf{omomorfismo}
   se :\begin{center}
@@ -1177,4 +1151,61 @@ Sia \(X\) un insieme ,abbiamo chiamato il gruppo di tutte le sue corrispondenze 
 Ossia se \textit{conserva} l'operazione. Prima abbiamo parlato di gruppo simmetrico, esso stabilisce sempre un 
 omomorfismo iniettivo \textit{canonico} \(\varphi : (X,*)\rightarrow (S(X),\circ)\). Se un omomorfismo è anche 
 biunivoco, si dice \textbf{isomorofismo}.
- \end{document}
+\subsection{ Sottogruppi }
+\begin{quote}
+    \textbf{Definizione} : Sia \((G,*)\) un gruppo, e sia \(S\subseteq G\), tale che \(1_G\in S\), diremo che 
+    \(S\) è un \textit{sottogruppo} di \(G\), e scriveremo \(S\le (G,*)\) se l'operazione di \(G\) :
+    \begin{center}
+        \(*:S\times S\rightarrow S\)
+    \end{center}
+    è ben definita su \(S\), e risulta essere chiuso rispetto a \(*\), inoltre \(\forall s\in S\exists s^{-1}\in S\).
+\end{quote}
+\textbf{Proposizione }: In definitiva, \(S\subseteq G\) è un sottogruppo se 
+\begin{itemize}
+    \item  \(\forall s_1,s_2\in S, s_1*s_2\in S\) 
+    \item  \(\forall s\in S,\exists s^{-1}\in S\)
+\end{itemize}  da tali due affermazioni ne consegue che \(1_G\in S\). Detto ciò, 
+possiamo implicare dalle 3 affermazioni precedenti un \textit{criterio}, che, se valido, conferma che \(S\) 
+sia un sottogruppo :\begin{center}
+    {\color{blue}(3)} \(\forall s_1,s_2\in S, s_1*s_2^{-1}\in S\)
+\end{center}
+\textbf{Dimostrazione } : Se \(S\) è un sottogruppo, \(1_G\in S\), quindi \(1_G=s*s^{-1}\in S\), per 
+la  {\color{blue}(3)}, prendendo \(s_1=1_G\) ed \(s_2=s\), si ha che \(1_G*s^{-1}=s^{-1}\in S\), infine, 
+presi \(s_1=a\) ed \(s_2=b^{-1}\), si ha che \(a*(b^{-1})^{-1}=a*b\in S\). Quindi {\color{blue}(3)} è condizione 
+necessaria e sufficente per dimostrare che \(S\) è un sottogruppo di \(G\). \(\blacksquare\)
+\\\hphantom{}\\
+\textbf{Proposizione} : L'immagine di un omomorfismo \(\varphi\), ossia \(Im(\varphi)=\{\varphi(g), \forall g\in G\}\), 
+è un \textit{sottogruppo}.
+\\\textbf{ Dimostrazione } : Siano \(y_1,y_2\in Im(\varphi)\), ciò implica che \(y_1*y_2^{-1}\in Im(\varphi)\),
+per ipotesi, \(\exists g_1,g_2 | y_1=\varphi(g_1)\land y_2=\varphi(g_2)\). Si ha che 
+\(y_1*y_2^{-1}=\varphi(g_1)*\varphi(g_2)^{-1}\), essendo \(\varphi\) un omomorfismo, tale scrittura 
+è equivalente a \(\varphi(g_1)*\varphi(g_2^{-1})=\varphi(g_1*g_2^{-1})\), quindi in 
+definitiva \(y_1*y_2^{-1}=\varphi(g_1*g_2^{-1})\). \(\blacksquare\)
+\begin{center}
+    \textit{Ogni omomorfismo è un sottogruppo.}
+\end{center}
+Ogni gruppo ha sempre due \textit{sottogruppi banali}, ossia il gruppo identità \((1_G,*)\) ed il gruppo stesso.
+\subsubsection{Esempi di Sottogruppi}
+\textbf{Esempio 1} Si consideri il gruppo \((\mathbb{R}\backslash\{0\},\cdot)\) ho che  \((\mathbb{R}^{>0},\cdot)\) è 
+un suo sottogruppo, se prendo due qualsiasi \(a,b\in \mathbb{R}^{>0}\), ho che \(a\cdot b^{-1}\in \mathbb{R}^{>0}\).
+\\\hphantom{}\\
+\textbf{Esempio 2} Si consideri \((\mathbb{Z},+)\), e considero l'insieme \(n\mathbb{Z}=\{nh, h\in\mathbb{Z}\}\), ossia 
+tutti i multipli di \(n\), si ha che \((n\mathbb{Z},+)\) è un sottogruppo di \((\mathbb{Z},+)\), infatti, 
+presi due qualsiasi \(nh_1,nh_2\in n\mathbb{Z}\) ho che \(nh_1+nh_2^{-1}=nh_1-nh_2=n(h_1-h_2)\in n\mathbb{Z}\).
+\\\hphantom{}\\
+\textbf{Esempio 3} Considero il gruppo \((\mathbb{Z}_n,+)\), prendo un intero \(d\) tale che \(d\) divide 
+\(n\), ossia \(n=kd\) per qualche \(k\). Considero adesso l'insieme :\begin{center}
+    \(
+        H_d := \{[d],[2d],[3d],[4d]...,[n-d],[n]\}  
+    \)
+\end{center}
+Tale insieme \(H_d\) rispetto a \(+\) è un sottogruppo di \((\mathbb{Z}_n,+)\), dato che presi due qualsiasi 
+\(a,b\), ho che \([ad]-[bd]=[ad-bd]=[(a-b)d]\in H_d\).
+\subsection{I Sottogruppi di \(\mathbb{Z}\) e \(\mathbb{Z}_n\)}
+In questo paragrafo enunceremo e dimostreremo due proposizioni piuttosto importanti, che descrivono la totalità 
+dei sottogruppi di due gruppi a noi molto noti.\\\hphantom{}\\
+\textbf{Proposizione 1 } : Se \(H\) è un sottogruppo di \((\mathbb{Z},+)\), allora \(\exists n | n\mathbb{Z}=H\).
+\\\textbf{Dimostrazione 1 } : Per ipotesi \(H\le(\mathbb{Z},+)\), quindi \(H\cap\mathbb{N}\ne \emptyset\). Per 
+principio del buon ordinamento, esiste un minimo in \(H\), sia esso \(n\), è vero che \(n\in H\cap\mathbb{N}\).
+
+\end{document}
