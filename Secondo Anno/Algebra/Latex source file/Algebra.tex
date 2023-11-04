@@ -1196,7 +1196,7 @@ presi due qualsiasi \(nh_1,nh_2\in n\mathbb{Z}\) ho che \(nh_1+nh_2^{-1}=nh_1-nh
 \textbf{Esempio 3} Considero il gruppo \((\mathbb{Z}_n,+)\), prendo un intero \(d\) tale che \(d\) divide 
 \(n\), ossia \(n=kd\) per qualche \(k\). Considero adesso l'insieme :\begin{center}
     \(
-        H_d := \{[d],[2d],[3d],[4d]...,[n-d],[n]\}  
+        H_d := \{[d],[2d],[3d],[4d]...,[(k-1)d],[n]\}  
     \)
 \end{center}
 Tale insieme \(H_d\) rispetto a \(+\) è un sottogruppo di \((\mathbb{Z}_n,+)\), dato che presi due qualsiasi 
@@ -1205,7 +1205,152 @@ Tale insieme \(H_d\) rispetto a \(+\) è un sottogruppo di \((\mathbb{Z}_n,+)\),
 In questo paragrafo enunceremo e dimostreremo due proposizioni piuttosto importanti, che descrivono la totalità 
 dei sottogruppi di due gruppi a noi molto noti.\\\hphantom{}\\
 \textbf{Proposizione 1 } : Se \(H\) è un sottogruppo di \((\mathbb{Z},+)\), allora \(\exists n | n\mathbb{Z}=H\).
-\\\textbf{Dimostrazione 1 } : Per ipotesi \(H\le(\mathbb{Z},+)\), quindi \(H\cap\mathbb{N}\ne \emptyset\). Per 
-principio del buon ordinamento, esiste un minimo in \(H\), sia esso \(n\), è vero che \(n\in H\cap\mathbb{N}\).
+\\\textbf{Dimostrazione 1 } : Per ipotesi \(H\le(\mathbb{Z},+)\), quindi \(H\cap\mathbb{N}\ne \emptyset\), perché 
+se \(a\in H\), allora anche \(-a\in H\), quindi \(H\) contiene elementi positivi. Per principio del buon ordinamento, 
+\(H\) ha un minimo (positivo), sia esso \(n\). Siccome \(H\) è un gruppo, ogni multiplo di \(n\) è in \(H\),
+vale a dire che \(n\mathbb{Z}\subset H\).
 
+Affermiamo che ogni elemento di \(H\)
+sia divisibile per \(n\), questo perchè, per qualsiasi \(a\in H\) si ha \(a=qn+r\), ricordando che 
+\(0\le r< n\), ma \(n\) è il minimo positivo, quindi \(r=0\), allora ogni elemento è divisibile 
+per \(n\), ne concludiamo che \(H\subset n\mathbb{Z}\).
+\begin{center}
+    \(
+      \begin{cases}
+        H\subset n\mathbb{Z}\\n\mathbb{Z}\subset H
+      \end{cases}  \implies n\mathbb{Z} = H
+    \) 
+\end{center}\raggedleft \(\blacksquare\)
+\begin{center}
+    \textit{tutti i sottogruppi di \(\mathbb{Z}\) sono del tipo \(n\mathbb{Z}\).}
+\end{center}\raggedright
+\textbf{Proposizione 2 } : Se \(H\) è un sottogruppo di \((\mathbb{Z}_n,+)\), allora \(\exists d \) tale che 
+\(d\) divide \(n\), ossia \(n=kd\), quindi \(H=H_d := \{[d],[2d],[3d],[4d]...,[(k-1)d],[n]\}  \).
+\\\textbf{Dimostrazione 2 } : Consideriamo l'insieme \(H'=\{a\in \mathbb{Z}|[a]\in H\}\), ovviamente, 
+\([0]=[n]\in H\), quindi \(0\in H'\). Anche \(n\in H'\), risulta chiaro che \(H'\ne \emptyset\) ed è un 
+sottogruppo di \(\mathbb{Z}\). Siano \(a,b\in H'\), essendo un sottogruppo, \(a+b^{-1}=a-b\in H'\), 
+ne consegue che \([a-b]\in H\iff a-b\in H'\), sapendo che \(H'\le (\mathbb{Z},+)\), per la 
+\textit{proposizione 1} appena vista, \(\exists d | d\mathbb{Z}=H'\), avendo già visto che \(n\in H'\), sappiamo 
+ora che \(n\) è un multiplo di \(d\), quindi è chiara la struttura dell'insieme \(H'=\{d,2d,3d,4d...,n\}\), avendo 
+detto all'inizio che \(H'=\{a\in \mathbb{Z}|[a]\in H\}\), è ovvio che \(H=H_d\). \(\blacksquare\) 
+\begin{center}
+    \textit{tutti i sottogruppi di \(\mathbb{Z}_n\) sono del tipo \(H_d\).}
+\end{center}
+Ad esempio, i sottogruppi di \((\mathbb{Z}_{12},+)\) sono :\begin{center}
+    \(\{[0]\},\mathbb{Z}_{12},H_2,H_3,H_4,H_6
+        \)
+\end{center}
+Essendo \(n=kd\), la cardinalità di \(H_d\) è \(k\). Se un gruppo ha cardinalità finita, la sua cardinalità 
+identifica il suo \textbf{ordine}. Per i gruppi finiti, è possibile considerare la \textit{tabella moltiplicativa} :\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/TabellaMoltiplicativa.eps}
+\end{center}
+\subsection{Gruppo Ciclico e Classi Laterali}
+\subsubsection{Gruppo Generato}
+Prima di parlare dell'argomento di tale paragrafo, introduciamo una notazione : \begin{center}
+    Sia \((G,*)\) un gruppo, preso \(g\in G\) e \(t\in \mathbb{Z}\), si ha la seguente notazione : \\
+    \(  
+    g^t = \begin{cases}
+        1_G \text{ se }t=0\\
+        g*g*g...*g \text{ per \(t\)-volte se } t>0\\
+        g^{-1}*g^{-1}*g^{-1}...*g^{-1} \text{ per \(t\)-volte se } t<0
+    \end{cases}
+    \)
+\end{center}
+Ne segue : \begin{itemize}
+    \item \(g^s*g^t=g^{s*t}\)
+    \item \(g^{-t}=(g^{-1})^t=(g^t)^{-1}\)
+\end{itemize}
+L'insieme \(\{g^t, t\in \mathbb{Z}\}\) è un sotto-gruppo di \(G\), dato che presi \(g^{t_1}\) e \(g^{t_2}\), 
+si ha che:\begin{center} \(g^{t_1}*(g^{t_2})^{-1}=g^{t_1}*g^{-t_2}=g^{t_1-t_2}\in \{g^t, t\in \mathbb{Z}\}\)\end{center}
+Questo sottogruppo ha simbolo \(\left\langle g\right\rangle \) ed è denominato sottogruppo \textbf{generato} da 
+\(g\).\\\hphantom{}\\
+\textbf{Definizione }: Sia \((G,*)\) un gruppo ed \(H\le (G,*)\), \(H\) è detto sottogruppo \textbf{ciclico} se 
+\(\exists h\in H | H = <h>\), ed in generale, \((G,*)\) è un gruppo \textbf{ciclico} se 
+\(\exists g\in G | G = <g>\), ossia è generato da un suo elemento. Se \((G,*)\) è ciclico, allora 
+è \textbf{commutativo}, dato che \(g^s+g^t=g^{s+t}=g^t+g^s\).\\
+\textit{Esempio }: \((\mathbb{Z},+)\) è un gruppo ciclico perché è generato dal numero \(1\), infatti, 
+\(\mathbb{Z}=\left\langle 1\right\rangle \) (vale anche per \(-1\)), dato che 
+\(\forall k\in \mathbb{Z}\) è vero che \(k=1^k=1+1+1...+1\) \(k\)-volte.\\
+Anche  \((\mathbb{Z}_n,+)\) è ciclico, dato che \(\mathbb{Z}_n=\left\langle [1]\right\rangle\).
+
+\subsubsection{Classi Laterali Destre e Sinistre}
+ Introduciamo adesso quelle che sono le \textit{classi laterali} di un sottogruppo.\\
+ Sia \(H\) un sottogruppo di \((G,*)\), dove \(G\) non è necessariamente finito, l'insieme 
+ \(H\) ha una \textbf{classe laterale sinistra} associata ad ogni \(a\in G\), ed è l'insieme \(aH=\{a*h, h\in H\}\), 
+ analogamente, la \textbf{classe laterale sinistra} associata ad ogni \(a\in G\),  è l'insieme \(Ha=\{h*a, h\in H\}\), 
+ a meno che \((G,*)\) non sia commutativo, \(aH\ne Ha\). \\
+ \textit{Esempio }: consideriamo il gruppo simmetrico \(S_3\), ed il suo sottogruppo \(H=\Bigg\{1,
+ \begin{pmatrix}
+    1 & 2 & 3\\
+    1 & 3 & 2
+    \end{pmatrix}
+    \Bigg\}\), prendo \(a= \begin{pmatrix}
+        1 & 2 & 3\\
+        2 & 3 & 1
+        \end{pmatrix}\), avrò che : \begin{center}
+            \(
+            aH=  \Bigg\{\begin{pmatrix}
+                1 & 2 & 3\\
+                2 & 3 & 1
+                \end{pmatrix},
+            \begin{pmatrix}
+               1 & 2 & 3\\
+               2 & 1 & 3
+               \end{pmatrix}
+               \Bigg\}  
+            \) \hphantom{aaaaa} \(
+            Ha=   \Bigg\{\begin{pmatrix}
+                1 & 2 & 3\\
+                2 & 3 & 1
+                \end{pmatrix},
+            \begin{pmatrix}
+               1 & 2 & 3\\
+               3 & 2 & 1
+               \end{pmatrix}
+               \Bigg\} 
+            \)
+        \end{center}
+Seguono 3 importanti \textbf{proposizioni} : \begin{itemize}
+    \item (1) \(a,b\in G\), \(aH=bH\iff a^{-1}*b\in H\)
+    \item (2) \(a,b\in G\implies aH=bH \) oppure \(aH\cap bH =\emptyset\) 
+    \item (3) \(\forall x \in G \exists a\in G | x\in aH\)
+\end{itemize}
+Osservando le proposizioni (1),(2) e (3), risulta chiaro che, tutte le classi laterali sinistre  
+forniscono una \textit{partizione} di \(G\), che denotiamo con \(\mathcal{L}_S\).\\
+Tale partizione \(\mathcal{L}_S\), definisce anche una relazione di equivalenza : \begin{center}
+    \(a\rho_S b\iff \exists g\in G |a\in gH \land b\in gH\)
+\end{center}
+\textit{Osservazione }:  \(a\rho_S b\iff a^{-1}*b\in H\). 
+\\Esiste la partizione analoga \(\mathcal{L}_D\), con le classi laterali destre, che definisce la relazione :
+\begin{center}
+    \(a\rho_D b\iff a*b^{-1}\in H\)
+\end{center}
+In generale, \(\rho_S\ne \rho_D\).
+Se \(G\) è finito, \textbf{l'indice} di \(H\) in \(G\) è il numero di classi laterali sinistre, che è uguale 
+al numero di classi laterali destre.
+\subsubsection{Teorema di Lagrange}
+Sia \((G,*)\) un gruppo finito, e \(H\) un suo sottogruppo, vale che la cardinalità dell'insieme \(H\) \textit{divide}
+la cardinalità dell'insieme \(G\), l'ordine di \(H\) è un divisore dell'ordine di \(G\).\begin{center}
+    \(|G|=i\cdot|H|\)
+\end{center} 
+\textbf{Dimostrazione }: Sia \(H\) un sottogruppo di \((G,*)\) osserviamo che, esiste una mappa biettiva \(\varphi\) 
+fra \(H\) ed una classe laterale sinistra \(\varphi:H\rightarrow aH\) \(\forall a\), tale mappa è definita 
+come : \(h\rightarrow a*h\), quindi, la cardinalità di \(H\) è uguale alla cardinalità di \(aH\).
+\\Consideriamo adesso \(\{a_1H,a_2H,a_3H...,a_iH\}\), ossia l'insieme di tutte le classi 
+laterali distinte. Essendo che le classi definiscono una partizione, e sono fra loro tutte disgiunte, 
+risulta chiaro che la somma delle loro cardinalità da la cardinalità di \(G\) : \begin{equation}
+    |G|=\sum_{j=1}^i|a_jH|
+\end{equation}
+Inoltre, è anche ovvio che le partizioni ricoprono totalmente \(G\) :
+\begin{equation}
+    G=\bigcup_{j=1}^i (a_jH)
+\end{equation}
+Le classi laterali hanno tutte la stessa cardinalità, quindi se sono in numero \(i\), e vale che, per un 
+qualsiasi \(a\), la cardinalità di \(H\) è uguale alla cardinalità di \(aH\), è vero che \(|G|=i\cdot|H|\). \(\blacksquare\)
+\\\hphantom{}\\
+\textbf{Proposizione }: \(\rho_S=\rho_D \iff aH=Ha\)  \(\forall a\in G\)
+\\\hphantom{}\\
+\textbf{Definizione }: Se \(\rho_S=\rho_D\), allora \(H\) è detto sottogruppo \textbf{normale} e si denota con \(H\unlhd G\).
+\\\hphantom{}\\
+\textbf{Proposizione }: \(H\unlhd G\iff a*h*(a^{-1})\in H \)  \(\forall a\in G\).
 \end{document}
