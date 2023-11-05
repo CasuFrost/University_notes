@@ -725,4 +725,94 @@ Tale quota, è data dal valore atteso :\begin{center}
 \end{center}
 Quindi, deduciamo che per rendere il gioco equo, \(A\) prima di ogni lancio, dovrebbe 
 dare a \(B\) 0.5 euro.
+\\\hphantom{}\\Una possibile rappresentazione "fisica" che si può dare al valore, atteso è la seguente :\\
+Si consideri l'istogramma di una variabile aleatoria, si immagini l'asse delle ascisse come un asse 
+privo di massa che si appoggia su un perno, e i valori dell'immagine della variabile, come delle colonne 
+che hanno massa uguale alla loro probabilità, il valore atteso non è altro che, la posizione in cui si deve trovare 
+il perno per far si che l'asse sia in equilibrio, per l'esempio precedente :\begin{center}
+    \includegraphics[scale=1.5]{images/istogrammaFisico.eps}
+\end{center}
+\subsection{Varianza}
+Introduciamo un altro valore associato alle variabili aleatorie.\\
+La \textbf{varianza} di una variabile aleatoria è una funzione \(\mathbb{V}\) strettamente maggiore di 0, definita nel seguente modo :
+\begin{center}
+    \(
+    \mathbb{V}(X)=\displaystyle\sum_{x\in Im(X)}(x-\mathbb{E}(X))^2\cdot   \Im(\{x\})  
+    \)
+\end{center}
+È lo scarto quadratico medio, ossia, una misura di quanto i valori si discostino 
+quadraticamente rispetto al valore atteso. Una varianza piccola, indica che la variabile 
+aleatoria è \textit{distribuita} vicino il valore medio.\\\hphantom{}\\
+Si consideri l'esempio visto in precedenza : si lancia un dado, ci sono due giocatori \(A\) e \(B\), la variabile aleatoria \(X\) 
+rappresenta la quota in euro vinta da \(A\) in base all'esito del dado (se negativa, è la quota che \(A\) deve pagare 
+a \(B\)).\begin{center}
+    \(
+    X_1=\begin{cases}
+        -1\text{ se }\omega=1,2\\
+        0\text{ se  }\omega=3\\
+        1\text{  se }\omega=4\\
+        2\text{ se  }\omega=5,6
+    \end{cases}    
+    \)
+\end{center}
+In questo caso la varianza rappresenta il rischio che si corre, dato che, se la possibile perdita fosse molto 
+alta, la varianza risulterebbe a sua volta elevata. In questo caso si ha :
+\begin{equation}
+    \mathbb{V}(X_1)=(-1-0.5)^2\cdot \dfrac{2}{6}+(0-0.5)^2\cdot \dfrac{1}{6}+(1-0.5)^2\cdot \dfrac{1}{6}+(2-0.5)^2\cdot \dfrac{2}{6}\simeq1,58
+\end{equation}
+De facto, la varianza non è elevata, in quanto il rischio di perdita, rispetto a quello di vincita, non rappresenta una grande differenza di denaro,
+se dovessi infatti cambiare il denaro perso si avrebbe :
+\begin{center}
+    \(
+    X_2=\begin{cases}
+        -50\text{ se }\omega=1,2\\
+        0\text{ se  }\omega=3\\
+        1\text{  se }\omega=4\\
+        2\text{ se  }\omega=5,6
+    \end{cases}    
+    \)
+\end{center}
+\begin{equation}
+    \mathbb{V}(X_2)=(-50-0.5)^2\cdot \dfrac{2}{6}+(0-0.5)^2\cdot \dfrac{1}{6}+(1-0.5)^2\cdot \dfrac{1}{6}+(2-0.5)^2\cdot \dfrac{2}{6}\simeq850
+\end{equation}
+\subsection{Variabili Aleatorie Note}
+In questo paragrafo vedremo i casi più comuni di variabili aleatorie.
+\subsubsection{Variabile Aleatoria Certa}
+Questo è il caso in cui la variabile aleatoria \(X\) è una funzione costante:\begin{center}
+   \(\exists\tilde x\in \mathbb{R}|X(\omega)=\tilde x \forall \omega\in \Omega\) quindi \(|Im(X)|=1\)
+\end{center}
+Ovviamente, la varianza risulta nulla : \(\mathbb{V}(X)=0\).
+\subsubsection{Variabile Aleatoria di Bernoulli}
+Sia \(p\in[0,1]\) una costante reale, e \(X\) una variabile aleatoria che ha solamente due 
+valori nell'immagine : \(Im(X)=\{a,b\}\), dove \(\Im(\{a\})=p\) e \(\Im(\{b\})=1-p\).
+Dove rispettivamente \(a=1\) e \(b=0\).
+\begin{center}
+    \includegraphics[scale=1]{images/VABernoulli.eps}
+\end{center}
+In questo caso varianza e valore atteso valgono : \begin{equation}
+    \mathbb{E}(X)=0\cdot(1-p)+1\cdot p = p
+\end{equation}\begin{equation}
+    \mathbb{V}(X)=(0-p)^2(1-p)+(1-p)^2p=p(1-p)(p+1-p)=p(1-p)
+\end{equation}
+Se \(p=\dfrac{1}{2}\), la varianza è massima.
+\subsubsection{Variabile Aleatoria Binomiale}
+Considerando lo schema di Bernoulli : \(\Omega=\{0,1\}^n\), dove \(p\) è la probabilità che \(\omega_i\) assuma 
+valore \(1\), la variabile aleatoria binomiale \(X\) conta 
+il numero di \(1\), ossia \(X(\omega)=\displaystyle \sum_{i=1}^n\omega_i\). \\Ad esempio, per \(n=2\) si ha : 
+\begin{center}
+    \(
+    X=\begin{cases}
+        0\text{ se }\omega=00\\
+        1\text{ se  }\omega=01\\
+        1\text{  se }\omega=10\\
+        2\text{ se  }\omega=11
+    \end{cases}    
+    \)
+\end{center}
+Abbiamo già visto in precedenza qual'è la probabilità che il numero di 1 sia \(k\) :\begin{center} 
+    \(\Im(\{k\})=\displaystyle \binom{n}{k}p^k(1-p)^{n-k}\)\end{center}
+    Il valore di attesa vale :
+    \begin{equation}
+        \mathbb{E}(X)=\sum_{k=0}^nk\cdot \Im(\{k\})=\sum_{k=0}^nk\binom{n}{k}p^k(1-p)^{n-k}=n\cdot p
+    \end{equation}
  \end{document}
