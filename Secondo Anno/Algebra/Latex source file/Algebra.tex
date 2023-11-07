@@ -13,7 +13,7 @@
 \author{Marco Casu}
 \date{\vspace{-5ex}}
 \begin{document}
-
+\newcommand{\omo}[1]{\(\varphi\)}
 
 
 \maketitle
@@ -1353,4 +1353,98 @@ qualsiasi \(a\), la cardinalità di \(H\) è uguale alla cardinalità di \(aH\),
 \textbf{Definizione }: Se \(\rho_S=\rho_D\), allora \(H\) è detto sottogruppo \textbf{normale} e si denota con \(H\unlhd G\).
 \\\hphantom{}\\
 \textbf{Proposizione }: \(H\unlhd G\iff a*h*(a^{-1})\in H \)  \(\forall a\in G\).
+\subsubsection{Nucleo di un Omomorfismo}
+Se \(\varphi\) è un omomorfismo, l'insieme \(Ker\varphi=\{g\in G|\varphi(g)=1_G\}\) è detto \textbf{nucleo} di 
+\(\varphi\) ed è un sotto-gruppo di \(G\), è di facile dimostrazione : 
+\begin{equation}
+    \varphi(g_1\cdot g_2^{-1})=\varphi(g_1)\cdot\varphi(g_2^{-1})=\varphi(g_1)\cdot\varphi(g_2)^{-1}
+    =1_G\cdot 1_G = 1_G \in Ker\varphi
+\end{equation}
+\textbf{Proposizione }: \(\varphi\text{ è iniettiva }\iff Ker\varphi=\{1_G\}\).\\
+\textbf{Dimostrazione }: Inizianmo dimostrando 
+\begin{tabular}{|c|}
+    \hline
+    \(\varphi\text{ è iniettiva }\implies Ker\varphi=\{1_G\}\) \\ \hline
+    \end{tabular}
+, 
+L'ipotesi è che \(\varphi\) sia iniettiva, predno un qualsiasi \(g\in Ker\varphi\), ed ho che 
+\(\varphi(g)=1_G=\varphi(1_G)\), ma dato che \(\varphi\) è iniettiva, ciò è vero se e 
+solo se \(g=1_G\), quindi \(Ker\varphi=\{1_G\}\). Adesso 
+dimostriamo \begin{tabular}{|c|}
+    \hline
+    \(Ker\varphi=\{1_G\}\implies \varphi\text{ è iniettiva }\) \\ \hline
+    \end{tabular}, ho che \(\varphi(g)=\varphi(g')\), ed inoltre 
+    \(\varphi(g)\cdot \varphi(g')^{-1}=1_G\), ed essendo che \(\varphi\) è un 
+    omomorfismo, ho  \(\varphi(g\cdot g'^{-1})=1_G\), per ipotesi \(g\cdot g'^{-1}\in Ker\varphi
+    \implies g\cdot g'^{-1}=1_G\implies\) moltiplico per \(g'\implies g=g'\implies \varphi\) è iniettiva. \(\blacksquare\)
+\subsection{Struttura dei Gruppi Ciclici}    
+Abbiamo già dato la definizione di gruppo ciclico, ossia un gruppo \(G\), per cui risulta che,
+preso \(g\in G\), si ha che \(G=\left\langle g\right\rangle\).\\
+\subsubsection{Ordine di \(g\)}
+\textbf{Definizione }: In un gruppo ciclico \(G\) per cui \(G=\left\langle g\right\rangle\),
+sia \(n\) il numero intero \textit{più piccolo} maggiore di \ tale che \(g^n=1\), si dice 
+che \(g\) ha \textbf{ordine} \(n\) e si denota \(o(g)=n\), se tale \(n\) non esiste, allora \(g\) ha ordine infinito.
+\begin{equation}
+    o(g)=\min(n\ge 1|g^n=1)
+\end{equation}
+\textbf{Proposizione }: Se \(G=\left\langle g\right\rangle\) e \(o(g)=n\), allora 
+\(G=\{1,g,g^2,g^3...,g^{n-1}\}\). \\
+È chiaro che, se un l'ordine del generatore è finito, allora il gruppo ha cardinalità finita.
+\\\hphantom{}\\\hphantom{}\\
+Se un gruppo è ciclico, quindi \(G=\left\langle g\right\rangle\), esso è generato 
+o da un elemento di ordine finito, oppure da un elemento di ordine infinito, vediamo nel 
+dettaglio i due casi :\\\hphantom{}\\
+\textbf{Caso 1 }\( o(g)=\infty\) : \(g\) è il generatore del gruppo \(G\), definisco un applicazione 
+\(\varphi : \mathbb{Z}\rightarrow G\) definita come \(\varphi : m \rightarrow g^m\), 
+si ricordi che \(\mathbb{Z}=\left\langle1\right\rangle\), tale applicazione, 
+è un \textit{omomorfismo} : \begin{equation}
+    \varphi(m+n)=g^{m+n}
+\end{equation}
+Risulta essere anche biettiva, è quindi un \textit{isomorfismo}, essendo 
+ovviamente iniettiva, \(Ker\varphi = \{0\}\), ricordando com'è definito 
+il nucleo :
+\begin{center} \(Ker\varphi = \{m\in \mathbb{Z}|\varphi(m)=1_G\}=\{m\in \mathbb{Z}|g^m=1_G\}\)\end{center} Si noti che il più piccolo 
+elemento di tale insieme è proprio \(o(g)\), che però sappiamo per ipotesi 
+essere infinito, quindi l'unico  \(m\in \mathbb{Z}|g^m=1_G\) è 
+esattamente \(m=0\implies Ker\varphi = \{0\}\).\\
+\textit{Osservazione }: Se \(\varphi\) è un isomorfismo, allora stabilisce una 
+corrispondenza biunivoca fra i sottogruppi di \(G\).\\
+Esiste un unico gruppo ciclico infinito (a meno di isomorfismi) ed è \((\mathbb{Z},+)\).
+
+\textbf{Caso 2 }\( o(g)=n\) : \(g\) è il generatore del gruppo \(G\), definisco un applicazione 
+\(\varphi : \mathbb{Z_n}\rightarrow G\) definita come \(\varphi : [m] \rightarrow g^m\), 
+tale \(\varphi\) è ben definita ed è un omomorfismo :\begin{equation}
+    \text{se } [m]\equiv [m']\implies m'=m+nk\implies g^{m'}=g^{m+nk}=g^m*g^{nk}
+    =g^m*({g^n})^k
+\end{equation}
+Si ricordi che \(g^n=1_G\) :
+\begin{equation}
+    g^m*g^{nk}=g^m*1_G^k=g^m \text{ abbiamo dimostrato che }[m]\equiv [m']\implies g^m=g^{m'} 
+\end{equation}
+Inoltre essendo \(G=\{1,g,g^2,g^3...,g^{n-1}\}\), ho che \(\forall k\in \mathbb{Z}, k\rightarrow g^k\), 
+\(\varphi\) è suriettiva. Essendo che \(|G|=|\mathbb{Z}_n|\), \(\varphi\)  è 
+biettiva.\\\hphantom{}\\
+Fatta questa breve disquisizione possiamo enunciare un importante teorema, non prima 
+però di una fondamentale \textit{Osservazione }: 
+Abbiamo visto che, \(H\le (\mathbb{Z},+)\implies \exists n \in \mathbb{Z}|H=n\mathbb{Z}\), e 
+che \(H\le (\mathbb{Z}_n,+)\implies H=H_d=\{[d],[2d]...,[(k-1)d,[0]]\}\) con \(n=dk\).
+Si ricordi che un isomorfismo \(\varphi : G\rightarrow G'\) definisce una corrispondenza
+biunivoca fra i sottogruppi di \(G\) e \(G'\).
+\subsubsection{Teorema di Struttura dei Gruppi Ciclici}
+\begin{enumerate}
+    \item Se \(H\le G =\left\langle g\right\rangle \), allora \(H\) è ciclico.
+    \item  Se \(H\le G =\left\langle g\right\rangle \) e \(|G|=n=o(n)\), allora 
+    \(|H|=kn\) per qualche \(k\) (la cardinalità di \(H\) divide \(n\)).ù
+    \item \(\forall k| n=k\cdot c\) per qualche \(c\) (per ogni \(k\) divisore di \(n\)),
+    \(\exists! H\le G||H|=k\implies H=\left\langle g^{\frac{n}{k}}\right\rangle \) 
+\end{enumerate}
+Se \( G =\left\langle g\right\rangle\) e \(o(g)=n\) allora esiste una corrispondenza 
+biunivoca tra i divisori di \(n\) ed i sottogruppi di \(G\).
+\begin{center}
+    \(\{\text{divisori di \(n\)}\}\rightarrow\text{ sottogruppi di }g\)\\
+    \(k\rightarrow\left\langle g^{\frac{n}{k}}\right\rangle\)
+\end{center}
+Notare che \(|\left\langle g^{\frac{n}{k}}\right\rangle|=k\). Se \(h|k\land k|n\), 
+allora \(\left\langle g^{\frac{n}{h}}\right\rangle\) è un sottogruppo 
+di \(\left\langle g^{\frac{n}{k}}\right\rangle\).
 \end{document}
