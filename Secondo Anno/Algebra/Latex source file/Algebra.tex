@@ -812,7 +812,7 @@ siamo in grado di calcolare la sua funzione di Eulero : \begin{itemize}
     \item \(\varphi(72)=\varphi(2^3\cdot 3^2)=\varphi(2^3)\varphi(3^2)=(2^3-2^2)(3^2-3)=(4)(6)=24\)
     \item \(\varphi(8)=\varphi(2^3)=(2^3-2^2)=4\)
 \end{itemize}
-\subsubsection{Gli Invertibili di \(\mathbb{Z}_n\)}
+\subsubsection{Gli Invertibili di \(\mathbb{Z}_n\)} \label{invZn}
 Ricordiamo che \(\mathbb{Z}_n\) ha la struttura di un anello commutativo con unità\ref{ringDef}, ha quindi un insieme di 
 elementi invertibili. Vogliamo determinare la cardinalità di tale insieme \(\mathcal{U}(\mathbb{Z}_n)\).
 \\\hphantom{.}\\\textbf{Proposizione }: In \(\mathbb{Z}_n\), gli unici elementi \textit{invertibili} sono 
@@ -1060,7 +1060,7 @@ Denoteremo \((a,0)\equiv a\) per ogni \(a\in \mathbb{R}\). Notiamo come qualsias
 come \((a,0)+(0,1)(b,0)\), ossia la somma di un reale con un altro reale moltiplicato per \((0,1)\). Tale numero viene 
 denotato con \(i\), ed è detta \textbf{unità immaginaria}, possiamo quindi rappresentare ogni numero complesso nella seguente 
 forma : \((a,b)\equiv a+ib\) , con \(i^2=-1\).
-\subsection{Teorema Fondamentale dell'Algebra}
+\subsection{Teorema Fondamentale dell'Algebra}\label{tfalgebra}
 Ogni equazione algebrica con coefficenti complessi (quindi in particolare reali) di grado \(n\), ammette 
 precisamente \(n\) soluzioni in \(\mathbb{C}\) (contando le moltiplicità). Si dice che \(\mathbb{C}\) è 
 \textbf{algebricamente chiuso}.
@@ -1518,6 +1518,18 @@ Siccome \(o(c_1\cdot c_2...,\cdot c_j)\) e \(o(c_{j+1})\) sono coprimi, posso ap
 che \(o((c_1\cdot c_2...,\cdot c_j)\cdot o(c_{j+1}))=o(c_1\cdot c_2...,\cdot c_j)\cdot o(c_{j+1})\) come volevasi dimostrare, quindi abbiamo 
 dimostrato l'osservazione 2 e la proposizione. \(\square\)\\
 Applichiamo adesso la proposizione per dimostrare il teorema.\\\hphantom{}\\
-\textbf{Dimostrazione del teorema} :
-
+\textbf{Dimostrazione del teorema} : Vogliamo vedere che \(\exists a\in \mathcal{U}(\Z_n)|o(a)=n-1\). Possiamo prendere 
+un elemento di ordine massimo, dato che \(\mathcal{U}(\Z_n)\) è finito, ogni elemento ha ordine finito, prendiamo 
+allora \(a\in \mathcal{U}\) tale che \(o(a)=m\), dove \(m\) è l'ordine massimo : \(\forall h\in G,o(h)\le m=o(a)\). Chiaramente, 
+\(m\le n-1\), ma a priori non vale l'uguaglianza, notiamo la seguente osservazione :\\\hphantom{}\\
+\textbf{Osservazione 3} : Ogni elemento \(b\in \mathcal{U}(\Z_n)\) ha ordine che divide l'ordine massimo \(m=o(a)\).\\
+\textbf{Dimostrazione dell'osservazione 3} : Si utilizza la \textit{proposizione}, se esistesse \(b\) di ordine 
+che non divide \(m=o(a)\), allora, essendo \(\mathcal{U}(\Z_n)\) commutativo, esisterebbe \(c\in\mathcal{U}(\Z_n)\) di 
+ordine \(o(c)=\mcm(o(a),o(b))>o(a)\) (dato che \(o(b)\) non divide \(o(a)\)). Tuttavia, era stato scelto \(a\) che ha ordine 
+massimo, questo produce una contraddizione e dimostra l'osservazione 3. \(\square\).\\
+Dunque, \(\forall b\in \mathcal{U}(\Z_n), b^m=1\) dove \(m=o(a)\), in altri termini, \(b\in \mathcal{U}(\Z_n)\) non 
+è altro che una soluzione del polinomio \(x^m-1=0\) a coefficenti nel campo \(\Z_n\) (si è usato il termine campo perché 
+\(n\) è primo, come si è visto nel capitolo \ref{invZn}), essendo un campo, per il teorema fondamentale dell'algebra \ref{tfalgebra}, 
+il polinomio \(x^m-1=0\) ha al più \(m\) soluzioni. Ne deduciamo che \(m\ge |\mathcal{U}(\Z_n)|=n-1\), e di 
+conseguenza, che \(m=n-1\). \(\blacksquare\)
 \end{document}
