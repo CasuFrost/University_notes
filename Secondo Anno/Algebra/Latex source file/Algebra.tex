@@ -7,6 +7,11 @@
 \usepackage[english]{babel}
 \usepackage{nicefrac, xfrac}
 \usepackage{tikz}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
+\newcommand{\mcm}{{\text{mcm}}}
 \usetikzlibrary{positioning}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \title{Algebra}
@@ -587,7 +592,7 @@ Un qualsiasi dominio di integrità può presentare elementi primi o irriducibili
 allora \(a\) è irriducibile (primo \(\implies\) irriducibile). non è però vero il contrario, in generale, se un elemento 
 è irriducibile, non è per forza primo (irriducibile \(\nRightarrow \) primo). Nei numeri interi \(\mathbb{Z}\), 
 gli elementi irriducibili sono i numeri primi. 
-\subsubsection{Teorema Fondamentale dell'Aritmetica}
+\subsubsection{Teorema Fondamentale dell'Aritmetica}\label{tfa}
 Se \(n\ge 2\), \(n\in \mathbb{N}\), tale \(n\) è un prodotto di numeri primi (può essere fattorizzato in numeri primi).
 Inoltre, tale fattorizzazione ha scrittura : \begin{center}
     \( n=p_1^{h_1}\cdot p_2^{h_2} \cdot p_3^{h_3} ...,\cdot p_s^{h_s}   \) con \(h_i\ge1\) e \(s\ge 1\)
@@ -1434,7 +1439,7 @@ biunivoca fra i sottogruppi di \(G\) e \(G'\).
 \begin{enumerate}
     \item Se \(H\le G =\left\langle g\right\rangle \), allora \(H\) è ciclico.
     \item  Se \(H\le G =\left\langle g\right\rangle \) e \(|G|=n=o(n)\), allora 
-    \(|H|=kn\) per qualche \(k\) (la cardinalità di \(H\) divide \(n\)).ù
+    l'ordine di \(H\) divide \(n\).
     \item \(\forall k| n=k\cdot c\) per qualche \(c\) (per ogni \(k\) divisore di \(n\)),
     \(\exists! H\le G||H|=k\implies H=\left\langle g^{\frac{n}{k}}\right\rangle \) 
 \end{enumerate}
@@ -1447,4 +1452,72 @@ biunivoca tra i divisori di \(n\) ed i sottogruppi di \(G\).
 Notare che \(|\left\langle g^{\frac{n}{k}}\right\rangle|=k\). Se \(h|k\land k|n\), 
 allora \(\left\langle g^{\frac{n}{h}}\right\rangle\) è un sottogruppo 
 di \(\left\langle g^{\frac{n}{k}}\right\rangle\).
+\subsubsection{Proprietà dell'Ordine}
+\textbf{Proposizione }: In un gruppo \((G,\cdot)\) se \(g^t=1\) (assumendo che \(o(g)<\infty\)),
+allora \(o(g)\) divide \(t\). Ciò è di facile dimostrazione, 
+se \(o(g)\) divide \(t\) si ha \(t=k\cdot o(n)+r\) con \(r<o(g)\), 
+si ha che \(g^t=g^{ko(g)+r}=(g^{o(g)})^k\cdot g^r=1\iff r=0\). \(\blacksquare\)
+\\\hphantom{}\\
+Vediamo una \textbf{proprietà aritmetica} dell'ordine, se \(o(g)<\infty\), allora :
+\begin{center}
+    \(o(g^s)=\displaystyle\dfrac{\mcm(o(g),s)}{s}=d\)
+\end{center}
+Preso un omomorfismo \(\varphi : G\rightarrow G'\), è lecito chiedersi se in qualche 
+modo c'è un collegamento fra \(o(g)\) e \(o(\varphi(g))\). Si vedano le seguenti 
+proposizioni :\\
+\textbf{Proposizione 1} : \(o(\varphi(g))\) divide \(o(g)\).\\
+\textbf{Dimostrazione 1} : \(1=g^{o(g)}\implies \varphi(1)=\varphi(g^{o(g)})\), essendo 
+che \(\varphi\) è un omomorfismo, riscrivo quest'ultimo come \(\varphi(g)^{o(g)}\), si ricordi 
+che per qualsiasi omomorfismo, \(\varphi(1)=1\), quindi \(\varphi(g^{o(g)})=\varphi(g)^{o(g)}=1\),
+per la definizione di ordine, per la definizione di ordine appena vista,  \(o(\varphi(g))|o(g)\). \(\blacksquare\)
+\\\textbf{Proposizione 2} : Se \(\varphi\) è iniettiva, allora \(o(\varphi(g))=o(g)\).\\
+\hphantom{}\\
+\color{red}\hrule
+\color{red} \textbf{Dimostrazione 2} : \color{black} \(G=\{1,g...,g^{o(g)-1}\}\) presenta elementi a coppie distinti, essendo 
+\(\varphi\) iniettiva, anche le loro immagini risultano a coppie distinte, per definizione 
+di ordine, \(o(\varphi(g))\ge o(g)\), necessariamente \(o(\varphi(g))=o(g)\). \(\blacksquare\)
+\color{red} Attenzione ! Questa specifica dimostrazione, l'ho copiata per come l'ho scritta dagli 
+appunti presi in classe, non mi è chiara e credo di essermi perso qualcosa, chiunque disponga di una 
+dimostrazione completa, è pregato di scrivermi in modo tale che io possa aggiornare e correggere 
+questa sezione.\\\hphantom{}\\
+\hrule
+\color{black}
+\Large\textbf{Teorema } : \normalsize Sia \(n\) primo, allora \((\mathcal{U}(\Z_n),\cdot)\simeq (\Z_{n-1},+)\), esiste 
+un \(a\in\mathcal{U}(\Z_n)\) per cui \(o(a)=n-1\).
+\\Per dimostrare tale teorema si necessita di alcune osservazioni e proposizioni :\\\hphantom{}\\ 
+\textbf{Proposizione} : Sia \(G\) un gruppo commutativo, se \(a,b\in G\) di 
+ordine \(o(a)=n\) e \(o(b)=m\), allora esiste \(c\in G\) tale che 
+\(o(c)=\mcm(o(a),o(b))\).\\
+\textbf{Dimostrazione della proposizione} : Consideriamo l'elemendo \(ab\) e calcoliamone l'ordine, 
+osserviamo che \((ab)^{mn}=(a^n)^m\cdot (b^m)^n=1\implies o(ab)\) divide \(mn\), tuttavia, non è 
+detto che \(o(ab)=mn\), infatti, si prenda il caso \(a=x\) e \(b=x^{-1}\), si ha che 
+\(ab=1\), e \(1=o(1)<o(a)=o(b)=n\).\\ In generale, se \((ab)^t=1\), allora 
+\(1=(ab)^t=a^tb^t\implies a^t=b^{-t}\implies o(a)=o(b^{-t})\). Ciò suggerisce la 
+seguente osservazione.\\\hphantom{}\\
+\textbf{Osservazione 1} : Se \(n=o(a)\) e \(m=o(b)\) sono coprimi, allora \(o(ab)=nm=mcm(n,m)\).\\
+\textbf{Dimostrazione dell'osservazione 1} : Per quanto visto sopra, \(a^{o(ab)}=b^{-o(ab)}
+\implies 1=(a^{o(ab)})^n=(b^{-o(ab)})^n =b^{-n \cdot o(ab)}\implies o(b)=m\) divide \(n\cdot o(ab)\)
+, essendo \(m\) ed \(n\) coprimi, necessariamente \(m\) divide \(o(ab)\), analogamente, 
+si ha l'identità \(1=a^{m\cdot o(ab)}\), ed implica che \(n\) divide \(o(ab)\), di conseguenza,
+\(nm\) divide \(o(ab)\), che è ciò che si voleva dimostrare nell'osservazione 1. \(\square\)
+\\Tornando alla proposizione, rimane da considerare il caso in cui \(n,m\) abbiano fattori 
+comuni, ciò si riduce al caso precedente nel seguente modo :\\
+Si fattorizza in primi : \begin{equation}
+    \mcm(n,m)=p_1^{\alpha_1}\cdot p_2^{\alpha_2}...\cdot p_k^{\alpha_k}
+\end{equation} 
+Ogni fattore \(p_i^{\alpha_i}\) o divide \(n\) oppure divide \(m\) (si è visto nel capitolo \ref{tfa}), se 
+\(G\) contiene un elemento \(g\) di ordine \(s\), e \(d\) divide \(s\), allora 
+\(G\) contiene un elemento di ordine \(d\), questo ci permette di costruire per 
+ogni \(j=1,2...,k\) un elemento \(c_j\) per cui \(o(c_j)= p_j^{\alpha_j}\). Consideriamo 
+il prodotto di tutti questi elementi : \(c:=c_1\cdot c_2...,\cdot c_k\), si noti :\\\hphantom{}\\
+\textbf{Osservazione 2} : \(o(c)=p_1^{\alpha_1}\cdot p_2^{\alpha_2}...\cdot p_k^{\alpha_k}=\mcm(n,m)\).\\
+\textbf{Dimostrazione dell'osservazione 2} : Facciamo induzione sul parametro \(k\), ossia il numero di fattori :
+\\ \textit{caso base} : \(o(c_1\cdot c_2...,\cdot c_j)=p_1^{\alpha_1}\cdot p_2^{\alpha_2}...\cdot p_j^{\alpha_j}\)\\
+\textit{ipotesi induttiva} : \(o(c_1\cdot c_2...,\cdot c_{j+1})=p_1^{\alpha_1}\cdot p_2^{\alpha_2}...\cdot p_{j+1}^{\alpha_{j+1}}\)\\
+Siccome \(o(c_1\cdot c_2...,\cdot c_j)\) e \(o(c_{j+1})\) sono coprimi, posso applicare l'\textit{osservazione 1} e trovare 
+che \(o((c_1\cdot c_2...,\cdot c_j)\cdot o(c_{j+1}))=o(c_1\cdot c_2...,\cdot c_j)\cdot o(c_{j+1})\) come volevasi dimostrare, quindi abbiamo 
+dimostrato l'osservazione 2 e la proposizione. \(\square\)\\
+Applichiamo adesso la proposizione per dimostrare il teorema.\\\hphantom{}\\
+\textbf{Dimostrazione del teorema} :
+
 \end{document}
