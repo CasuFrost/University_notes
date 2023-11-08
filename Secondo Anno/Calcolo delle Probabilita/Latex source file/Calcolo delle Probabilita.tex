@@ -7,6 +7,12 @@
 \usepackage[english]{babel}
 \usepackage{nicefrac, xfrac}
 \usepackage{epsfig}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\E}{{\mathbb E}}
+\newcommand{\V}{{\mathbb V}}
+\newcommand{\Prob}{{\mathbb P}}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \title{Calcolo delle Probabilità}
 \author{Marco Casu}
@@ -697,6 +703,7 @@ della variabile aleatoria, denominata \(Im(X)\), mediante la funzione \(\Im\) :
 \end{center}
 Rappresenta la probabilità che \(X\) assuma un certo valore \(x_1\), definisce la \textbf{distribuzione}
 della variabile aleatoria.
+\\\textit{Notazione} :\(\Im(\{x_1\})\) può essere scritto anche come \(\Prob(X=x_1)\)
 \subsection{Valore Atteso}
 Il \textbf{valore atteso} di una variabile aleatoria \(X\) è una funzione \(\mathbb{E}\) definita nel seguente modo :\begin{center}
    \( \mathbb{E}(X)=\displaystyle\sum_{x\in Im(x)}x\cdot \Im(\{x\})\)
@@ -732,6 +739,40 @@ che hanno massa uguale alla loro probabilità, il valore atteso non è altro che
 il perno per far si che l'asse sia in equilibrio, per l'esempio precedente :\begin{center}
     \includegraphics[scale=1.5]{images/istogrammaFisico.eps}
 \end{center}
+\subsubsection{Linearità del Valore Atteso}\label{linE}
+Se \(\Omega\) è un insieme finito, e \(\mathcal{V}\) l'insieme delle sue variabili aleatorie, ossia 
+tutte le funzioni \(X:\Omega\rightarrow\mathbb{R}\), \(\mathcal{V}\) assume una naturale struttura 
+di \textit{spazio vettoriale}.\begin{itemize}
+    \item \(\alpha\in\mathbb{R}\) ed \(X\in\mathcal{V}\) si ha \((\alpha \cdot  X)(\omega)=\alpha\cdot X(\omega)\)\hphantom{text} \(\forall \omega\in\Omega\)
+    \item \(X,Y\in\mathcal{V}\) si ha \((X+Y)(\omega)=X(\omega)+Y(\omega)\)\hphantom{t-ext} \(\forall \omega\in\Omega\)
+\end{itemize}
+Effettivamente, se \(|\Omega|=n\), c'è un isomorfismo canonico fra \(\mathcal{V}\) ed \(\mathbb{R}^n\).\\
+Il valore atteso, definito come \(\mathbb{E}:\mathcal{V}\rightarrow\mathbb{R}\) è un \textbf{applicazione lineare} :
+\begin{equation}\forall \alpha\in\mathbb{R}\text{, }\forall X,Y\in \mathcal{V} :
+    \begin{cases}
+        \mathbb{E}(\alpha \cdot X)=\alpha\cdot \mathbb{E}(X)\\
+        \mathbb{E}(X+Y)=\mathbb{E}(X)+\mathbb{E}(Y)
+    \end{cases}
+\end{equation}
+\textbf{Dimostrazione }: Si consideri la seguente osservazione preliminare :\begin{center}
+    \(
+    \E(X)=\displaystyle\sum_{\omega\in\Omega}X(\omega)\cdot\Prob(\{\omega\})
+    =\sum_{\omega\in\Omega|X(\omega)=x}\Prob(\{\omega\})\cdot\sum_{x\in Im(X)}x=
+    \displaystyle\sum_{x\in Im(x)}x\cdot \Im(\{x\})
+    \)
+\end{center}
+Con la nuova definizione alternativa di valore atteso 
+\(
+    \E(X)=\displaystyle\sum_{\omega\in\Omega}X(\omega)\cdot\Prob(\{\omega\})
+    \)
+Posso dimostrare la linearità di esso :\begin{equation}
+    \E(\alpha X)=\sum_{\omega\in\Omega}(\alpha X)(\omega)\cdot\Prob(\{\omega\})=\sum_{\omega\in\Omega}\alpha\cdot X(\omega)\cdot\Prob(\{\omega\})=\alpha\E(X)
+\end{equation}\begin{equation}
+    \E(X+Y)=\sum_{\omega\in\Omega}(X+Y)(\omega)\cdot\Prob(\{\omega\})=\sum_{\omega\in\Omega}(X(\omega)+Y(\omega))\cdot\Prob(\{\omega\})=\E(X)+\E(Y)
+\end{equation}
+\raggedleft\(\blacksquare\)\\
+\raggedright
+
 \subsection{Varianza}
 Introduciamo un altro valore associato alle variabili aleatorie.\\
 La \textbf{varianza} di una variabile aleatoria è una funzione \(\mathbb{V}\) strettamente maggiore di 0, definita nel seguente modo :
@@ -815,4 +856,93 @@ Abbiamo già visto in precedenza qual'è la probabilità che il numero di 1 sia 
     \begin{equation}
         \mathbb{E}(X)=\sum_{k=0}^nk\cdot \Im(\{k\})=\sum_{k=0}^nk\binom{n}{k}p^k(1-p)^{n-k}=n\cdot p
     \end{equation}
+Possiamo sfruttare la \textit{linearità} del valore atteso \ref{linE} per calcolare il valore atteso 
+della variabile aleatoria binomiale senza calcoli complessi.
+Consideriamo \(X_i\) la variabile aleatoria definita nel seguente modo : \begin{equation}
+    X_i=\begin{cases}
+        1 \text{ se l'}i\text{-esimo lancio ha fatto testa}\\
+        0 \text{ se l'}i\text{-esimo lancio ha fatto croce}\\
+    \end{cases}
+\end{equation}
+Per cui risulta \(\E(X_i)=p\), da qui osservo che :\begin{equation}
+    \E(X)=\sum_{i=1}^n\E(X_i)=\sum_{i=1}^np=n\cdot p
+\end{equation}
+Calcoliamo adesso la varianza della variabile aleatoria di Bernoulli, ma prima facciamo un'osservazione, in generale
+è vero che  :\begin{center}
+    \(\V(X)=\E(X^2)-(\E(X))^2\)
+\end{center}
+Dimostrazione :\begin{center}\(
+    \V(X)=\displaystyle\sum_{x\in Im(X)}(x-\mathbb{E}(X))^2\cdot\Im(\{x\})  =\E(X-\E(X)^2)=\E(X^2-2X\E(X)+\E(X)^2)
+\)\\\(
+    =\E(X^2)-2\E(X\E(X))+\E(\E(X)^2)=\E(X^2)-2\E(X)\E(X)+\E(\E(X)^2)=\E(X^2)-(\E(X))^2\) \(\blacksquare\)
+\end{center}
+Quindi calcoliamo il valore di \(\E(X^2)\) per la variabile aleatoria di bernoulli :
+\begin{equation}
+    \E(X^2)=\sum_{k=0}^nk^2\Prob(X=k)=\sum_{k=1}^nk\dfrac{n!}{(k-1)!(n-k)!}p^k(1-p)^{n-k}
+\end{equation}
+\begin{equation}
+    =\sum_{k=1}^n1\dfrac{n!}{(k-1)!(n-k)!}p^k(1-p)^{n-k}+\sum_{k=2}^{n-1}(k-1)\dfrac{n!}{(k-2)!(n-k)!}p^k(1-p)^{n-k}
+\end{equation}\begin{equation}
+    =np+\sum_{k=2}^n\dfrac{n(n-1)(n-2)!}{(k-2)!(n-k)!}p^k(1-p)^{n-k}
+\end{equation}
+Sostituisco \(h=k-2\) : \begin{equation}
+    np+n(n-1)\sum_{k=2}^n\dfrac{n(n-1)(n-2)!}{(h-2)!(n-h-2)!}p^h(1-p)^{n-h-2}=np+n(n-1)\binom{n-2}{h}p^h(1-p)^{n-h-2}
+\end{equation}
+\begin{equation}
+    =np+n(n-1)p^2
+\end{equation}
+Quindi :\begin{equation}
+    \V(X)=\E(X^2)+(\E(X))^2=np+n(n-1)p^2+(np)^2=np(1-p)
+\end{equation}
+Considerando \begin{equation}
+    X_i=\begin{cases}
+        1 \text{ se l'}i\text{-esimo lancio ha fatto testa}\\
+        0 \text{ se l'}i\text{-esimo lancio ha fatto croce}\\
+    \end{cases}
+\end{equation}
+Si nota che \(\V(X)=\displaystyle\sum_{i=1}^n\V(X_i)\), sembrerebbe quindi che la varianza sia lineare, ma ciò 
+è falso, dato che la varianza presenta uno scarto quadratico. Il fatto è che ciò è vero per la variabile
+aleatoria di bernoulli, perché le diverse \(X_i\) fra loro sono \textit{indipendenti}.
+\subsection{Variabili Aleatorie Indipendenti}
+Siano \(X,Y\in\mathcal{V}\) due variabili aleatorie, se \(\forall x\in Im(X)\) e \(\forall y\in Im(Y)\) vale che :
+\begin{center}
+    \(
+      \Prob(\{X=x\}\cap\{Y=y\})=\Prob(X=x)\cdot\Prob(Y=y)  
+    \)
+\end{center}
+Le due variabili aleatorie si dicono \textbf{indipendenti}.\\\hphantom{}\\
+\textbf{Proposizione} : Se \(X\) ed \(Y\) sono indipendenti, vale la seguente identità :\begin{center}
+    \(\V(X+Y)=\V(X)+\V(Y)\)
+\end{center}
+Detto ciò, risulta chiaro del perché, per \(X=\)\{Variabile Aleatoria di Bernoilli\}, si ha che \(\V(X)=np(1-p)\).
+Vediamo adesso, dimostriamo la \textit{proposizione}.\\\hphantom{}\\
+\textbf{Dimostrazione della proposizione} : Sviluppo la varianza della somma :
+\begin{equation}
+    \V(X+Y)=\E([X+Y-\E(X+Y)]^2)=\E([X-\E(X)+Y-\E(Y)]^2)
+\end{equation}
+\begin{equation}
+    = \E((X-\E(X))^2+(Y-\E(Y))^2+2((X-\E(X))(Y-\E(Y))))
+\end{equation}
+\begin{equation}
+    =\V(X)+\V(Y)+2\E((X-\E(X))(Y-\E(Y)))
+\end{equation}
+Il termine \(2\E((X-\E(X))(Y-\E(Y)))\) è detto \textit{covarianza}, bisogna dimostrare che la covarianza è 
+nulla se \(X\) ed \(Y\) sono indipendenti.\\\hphantom{}\\
+\textbf{Osservazione} : Se la covarianza è nulla, allora \(\E(X\cdot Y)=\E(X)\cdot\E(Y)\), questo perché :\begin{equation}
+    \E((X-\E(X))(Y-\E(Y)))=\E(X)\E(Y)-\E(X)\E(Y)+\E(X)\E(Y)=\E(X\cdot Y)=\E(X)\cdot\E(Y) 
+\end{equation}
+Quindi bisogna dimostrare che, se \(X,Y\) sono indipendenti, \(\E(X\cdot Y)=\E(X)\cdot\E(Y) \).
+\\\textit{Passo finale della dimostrazione} : \begin{equation}
+    \E(X\cdot Y)=\sum_{\omega\in \Omega}X(\omega)Y(\omega)\Prob({\omega})=
+    \sum_{x\in Im(X)}x\cdot\sum_{y\in Im(Y)}y\cdot\sum_{
+        \omega\in\Omega|X(\omega)=x\land Y(\omega)=y
+    }\Prob(\{X=x\}\cap\{Y=y\})
+\end{equation}
+Per indipendenza :  \(
+    \Prob(\{X=x\}\cap\{Y=y\})=\Prob(X=x)\cdot\Prob(Y=y)  
+  \)
+  Riscrivo :
+  \begin{equation}
+    \sum_{x\in Im(X)}x\Prob(X=x)\cdot\sum_{y\in Im(Y)}y\Prob(Y=y)=\E(X)\cdot\E(Y)\text{\hphantom{aaaa}}\blacksquare
+  \end{equation}
  \end{document}
