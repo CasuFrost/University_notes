@@ -12,6 +12,8 @@
 \newcommand{\N}{{\mathbb N}}
 \newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
 \newcommand{\mcm}{{\text{mcm}}}
+\newcommand{\ciclS}{{\left \langle }}
+\newcommand{\ciclE}{{\right \rangle }}
 \usetikzlibrary{positioning}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \title{Algebra}
@@ -1394,7 +1396,7 @@ che \(g\) ha \textbf{ordine} \(n\) e si denota \(o(g)=n\), se tale \(n\) non esi
 \end{equation}
 \textbf{Proposizione }: Se \(G=\left\langle g\right\rangle\) e \(o(g)=n\), allora 
 \(G=\{1,g,g^2,g^3...,g^{n-1}\}\). \\
-È chiaro che, se un l'ordine del generatore è finito, allora il gruppo ha cardinalità finita.
+È chiaro che, l'ordine di un gruppo ciclico, ossia la sua cardinalità, è l'ordine del suo generatore.
 \\\hphantom{}\\\hphantom{}\\
 Se un gruppo è ciclico, quindi \(G=\left\langle g\right\rangle\), esso è generato 
 o da un elemento di ordine finito, oppure da un elemento di ordine infinito, vediamo nel 
@@ -1451,7 +1453,9 @@ biunivoca tra i divisori di \(n\) ed i sottogruppi di \(G\).
 \end{center}
 Notare che \(|\left\langle g^{\frac{n}{k}}\right\rangle|=k\). Se \(h|k\land k|n\), 
 allora \(\left\langle g^{\frac{n}{h}}\right\rangle\) è un sottogruppo 
-di \(\left\langle g^{\frac{n}{k}}\right\rangle\).
+di \(\left\langle g^{\frac{n}{k}}\right\rangle\). Quindi, il teorema di struttura dei gruppi ciclici si 
+ottiene dall'isomorfismo \(\varphi:\Z_n\rightarrow G\). Essendo ogni gruppo ciclico riconducibile a \(\Z_n\), si può 
+dire che, un gruppo ciclico ha tanti sottogruppi quanti sono i divisori di \(n\).
 \subsubsection{Proprietà dell'Ordine}
 \textbf{Proposizione }: In un gruppo \((G,\cdot)\) se \(g^t=1\) (assumendo che \(o(g)<\infty\)),
 allora \(o(g)\) divide \(t\). Ciò è di facile dimostrazione, 
@@ -1532,4 +1536,14 @@ Dunque, \(\forall b\in \mathcal{U}(\Z_n), b^m=1\) dove \(m=o(a)\), in altri term
 \(n\) è primo, come si è visto nel capitolo \ref{invZn}), essendo un campo, per il teorema fondamentale dell'algebra \ref{tfalgebra}, 
 il polinomio \(x^m-1=0\) ha al più \(m\) soluzioni. Ne deduciamo che \(m\ge |\mathcal{U}(\Z_n)|=n-1\), e di 
 conseguenza, che \(m=n-1\). \(\blacksquare\)
+\subsubsection{\textit{Esercizio} : Esempio di Studio dei Sottogruppi}
+Vediamo adesso, un \textit{esempio} di studio dei sottogruppi di un gruppo ciclico, si consideri il gruppo :\begin{center}
+    \(\Z_{12}=\{[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[0],\}\)
+\end{center}
+Quali sono i suoi sottogruppi? Prima dobbiamo chiederci, quali sono i divisori di 12? Sono 
+esattamente : 1,2,3,4,6 ed ovviamente 12. Per il teorema di struttura dei gruppi ciclici, per ogni divisore 
+\(k\) è associato il sottogruppo \(\left\langle g^{\frac{n}{k}}\right\rangle\), quindi avremo i sottogruppi : 
+\begin{itemize}
+    \item \(k=6\implies \left\langle g^{2}\right\rangle\implies \left\langle [2]\right\rangle\)
+\end{itemize}
 \end{document}
