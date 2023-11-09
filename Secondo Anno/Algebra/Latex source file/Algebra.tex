@@ -12,6 +12,8 @@
 \newcommand{\N}{{\mathbb N}}
 \newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
 \newcommand{\mcm}{{\text{mcm}}}
+\newcommand{\MCD}{{\text{MCD}}}
+\newcommand{\norm}{{\unlhd}}
 \newcommand{\ciclS}{{\left \langle }}
 \newcommand{\ciclE}{{\right \rangle }}
 \usetikzlibrary{positioning}
@@ -233,7 +235,7 @@ Se indichiamo con \(B_\alpha\) i sotto-insiemi della partizione \(A_\alpha\) su 
     a\rho b \implies \exists B_\alpha | a,b \in B_\alpha
 \end{equation}
 Una relazione di equivalenza definisce a sua volta delle classi di equivalenza, che definiscono a loro volta delle partizioni.
-\subsection{Relazioni di Ordine Parziale}
+\subsection{Relazioni di Ordine Parziale}\label{ordParz}
 Introduciamo adesso un'altro gruppo di relazioni, ma prima necessitiamo della definizione di \textbf{relazione antisimmetrica} :
 \begin{equation}
     \text{Sia }\rho \text{ una relazione, essa si dice \textbf{antisimmetrica} se è vero che } a\rho b \text{ e } b\rho a \implies a=b 
@@ -783,7 +785,7 @@ Ma tale generalizzazione identifica infinite soluzioni congruenti fra loro, le s
 quindi esattamente \(d=MCD(a,n)\).\\Come accennato precedentemente, per risolvere una congruenza lineare
 \(ax\equiv b\)  (mod \(n)\), basta risolvere  \(ax+ny=b\), trovando : \((x_0+h\cdot \dfrac{n}{MCD(a,n)},y_0+h\cdot \dfrac{a}{MCD(a,n)})\), 
 e considerando la prima coordinata della coppia.
-\subsection{La funzione di Eulero}
+\subsection{La funzione di Eulero}\label{EulerFunc}
 Il \textit{Teorema di Eulero}, enucia che, se \(n\) è un intero positivo, ed \(a\) è co-primo rispetto ad \(n\), allora
 è vero che :
 \begin{center}
@@ -1280,7 +1282,7 @@ Questo sottogruppo ha simbolo \(\left\langle g\right\rangle \) ed è denominato 
 \(\forall k\in \mathbb{Z}\) è vero che \(k=1^k=1+1+1...+1\) \(k\)-volte.\\
 Anche  \((\mathbb{Z}_n,+)\) è ciclico, dato che \(\mathbb{Z}_n=\left\langle [1]\right\rangle\).
 
-\subsubsection{Classi Laterali Destre e Sinistre}
+\subsubsection{Classi Laterali Destre e Sinistre} \label{classiLaterali}
  Introduciamo adesso quelle che sono le \textit{classi laterali} di un sottogruppo.\\
  Sia \(H\) un sottogruppo di \((G,*)\), dove \(G\) non è necessariamente finito, l'insieme 
  \(H\) ha una \textbf{classe laterale sinistra} associata ad ogni \(a\in G\), ed è l'insieme \(aH=\{a*h, h\in H\}\), 
@@ -1535,15 +1537,77 @@ Dunque, \(\forall b\in \mathcal{U}(\Z_n), b^m=1\) dove \(m=o(a)\), in altri term
 è altro che una soluzione del polinomio \(x^m-1=0\) a coefficenti nel campo \(\Z_n\) (si è usato il termine campo perché 
 \(n\) è primo, come si è visto nel capitolo \ref{invZn}), essendo un campo, per il teorema fondamentale dell'algebra \ref{tfalgebra}, 
 il polinomio \(x^m-1=0\) ha al più \(m\) soluzioni. Ne deduciamo che \(m\ge |\mathcal{U}(\Z_n)|=n-1\), e di 
-conseguenza, che \(m=n-1\). \(\blacksquare\)
+conseguenza, che \(m=n-1\). \(\blacksquare\)\\\hphantom{}
+\\Faccio un osservazione, e noto che \(\Z_6=\left\langle [1]\right\rangle=\left\langle [5]\right\rangle\), infatti : \begin{equation}
+    \left\langle [5]\right\rangle=\{[5],[5^2]=[10]\equiv[4],[5^3]=[15]\equiv[3]...,[5^6]=[30]\equiv[0]\}
+\end{equation}
+\textbf{Proposizione} : Se \(G\) è generato da \(g\) ed è di ordine \(n\), allora, \(G\) è anche generato da 
+\(\left\langle g^t\right\rangle\) se \(\MCD(n,t)=1\).\\\hphantom{}\\
+\textbf{Dimostrazione} : \(\left\langle g^t\right\rangle=G\iff o(g^t)=n\iff \MCD(n,t)=1\). \(\blacksquare\)
+Quindi, i generatori di un gruppo ciclico di ordine \(n\), sono precisamente tanti, quanti sono i numeri \textit{coprimi}
+con \(n\) minori di \(n\), che sono precisamente in numero \(\varphi(n)\), dove \(\varphi\) è la funzione di Eulero \ref{EulerFunc}.
 \subsubsection{\textit{Esercizio} : Esempio di Studio dei Sottogruppi}
 Vediamo adesso, un \textit{esempio} di studio dei sottogruppi di un gruppo ciclico, si consideri il gruppo :\begin{center}
     \(\Z_{12}=\{[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[0],\}\)
 \end{center}
 Quali sono i suoi sottogruppi? Prima dobbiamo chiederci, quali sono i divisori di 12? Sono 
 esattamente : 1,2,3,4,6 ed ovviamente 12. Per il teorema di struttura dei gruppi ciclici, per ogni divisore 
-\(k\) è associato il sottogruppo \(\left\langle g^{\frac{n}{k}}\right\rangle\), quindi avremo i sottogruppi : 
+\(k\) è associato il sottogruppo \(\left\langle g^{\frac{n}{k}}\right\rangle\), che in notazione additiva 
+per \(Z_12\) sarebbe \(\left\langle \dfrac{n}{k}\cdot [1]\right\rangle\) quindi avremo i sottogruppi : 
 \begin{itemize}
-    \item \(k=6\implies \left\langle g^{2}\right\rangle\implies \left\langle [2]\right\rangle\)
+    \item \(k=2\implies \left\langle g^{6}\right\rangle\implies \left\langle [6]\right\rangle=\{[6],[12]\equiv[0]\}\)
+    \item \(k=3\implies \left\langle g^{4}\right\rangle\implies \left\langle [4]\right\rangle=\{[4],[8],[12]\equiv[0]\}\)
+    \item \(k=4\implies \left\langle g^{3}\right\rangle\implies \left\langle [3]\right\rangle=\{[3],[6],[9],[12]\equiv[0]\}\)
+    \item \(k=6\implies \left\langle g^{2}\right\rangle\implies \left\langle [2]\right\rangle=\{[2],[4],[8],[10],[12]\equiv[0]\}\)
 \end{itemize}
+Inoltre se \(k|12\) e \(h|k\), allora \(\left\langle [\frac{12}{h}]\right\rangle\) è un sottogruppo 
+di \(\left\langle [\frac{12}{k}]\right\rangle\), ad esempio, \(4|12\) e \(2|4\), quindi 
+\(\left\langle [6]\right\rangle\le\left\langle [3]\right\rangle\). Essere sotto-gruppi stabilisce una relazione 
+di ordine parziale \ref{ordParz}, che può essere rappresentata con il diagramma di \textit{Hasse} : 
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/hasse.eps}
+    }
+\end{figure}
+\subsection{Gruppi Normali}
+Riprendendo la definizione di classi laterali \ref{classiLaterali}, si ricordi che se \(H\) è un sottogruppo
+di \(G\), è detto \textit{normale}, e si denota con \(H\norm G\), se le sue classi laterali destre e sinistre 
+sono equivalenti \begin{center}\(Ha=aH\)\end{center} 
+\textbf{Proposizione }: \(H\norm G\iff \rho_S = \rho_D\) .\\\hphantom{}\\
+\textbf{Proposizione }: \(H\norm G\iff \forall a \in G, ah(a^{-1})\in H\) .\\
+\textbf{Dimostrazione} : \(H\norm G\implies aH=Ha, \forall a\implies \forall h\in H, ah\in Ha \land ha\in aH
+\implies ah=h'a\) per qualche \(h'\in H\) e \(ha=ah''\) per qualche \(h''\in H\), ciò implica : \(ah(a^{-1})
+=h'\in H\), ne segue che \(ah=h'a\implies aH\subseteq Ha\) ed analogamente \( Ha\subseteq aH\). \(\blacksquare\)
+\\\hphantom{}\\ Ricordando che l'indice di \(H\) è il numero delle classi laterali, si ha la seguente :\\\hphantom{}\\
+\textbf{Proposizione }: Se \(H\) è un sottogruppo di indice 2, allora è normale, dato che le sue classi laterali,
+essendo 2 sono : \(G=H\cdot 1\cup H\cdot a\) ed analogamente \(G=\cdot 1\cdot H\cup a\cdot H\), necessariamente, 
+\(G\backslash H=aH=Ha\implies H\norm G\).\\\hphantom{}\\
+\textbf{Proposizione }: Sia \(\varphi : G \rightarrow G'\) un omomorfismo di gruppi, allora il suo nucleo  
+\(Ker\varphi=\{g\in G|\varphi(g)=1_G\}\) è un sottogruppo normale.\\
+\textbf{Dimostrazione} : \(ah(a^{-1})\) con \(H\in Ker\varphi\implies \varphi(h)=1_G\), devo dimostrare che
+\(ah(a^{-1})\in Ker\varphi, \forall h\in Ker\varphi\) e \(\forall a \in G\), ho che : \begin{equation}
+    \varphi(ah(a^{-1}))=\varphi(a)\varphi(h)\varphi(a^{-1})=\varphi(a)\varphi(h)\varphi(a)^{-1}=
+    \varphi(a)1_G\varphi(a)^{-1}=1_G\text{\hphantom{text}}\blacksquare
+\end{equation} 
+\begin{quote}
+    Ogni omomorfismo (quindi \textbf{non} iniettivo), ha almeno un sottogruppo normale, ed esso 
+    è il suo nucleo, ossia \(Ker\varphi\).
+\end{quote}
+\subsection{Gruppo Quozioente per un Sottogruppo Normale}
+Sia \(H\norm G\) un sottogruppo normale, e considero \(\mathcal{L}_S\) (essendo \(H\) normale, è analogo a \(\mathcal{L}_D\)),
+ossia l'insieme delle classi laterali associate ad \(H\) che partizionano \(G\). Su questo insieme, considero 
+un operazione \(* : \mathcal{L}_S\times \mathcal{L}_S\rightarrow \mathcal{L}_S\) 
+definita nel seguente modo : \begin{center}
+    \(Ha*Hb=H(a\cdot b)\)
+\end{center}
+Devo verificare che sia ben definita e che non dipenda dai rappresentanti delle classi di equivalenza, ossia 
+che \(Ha=Ha'\land Hb=Hb'\implies Hab=Ha'b'\).\\
+\textbf{Dimostrazione} : per ipotesi, so che \(a\cdot(a')^{-1}\in H\) e  \(b\cdot(b')^{-1}\in H\), per una 
+proposizione già vista, so che \(ab\cdot (a'b')^{-1}\in H\). chiamo \(a\cdot(a')^{-1}=h_1\) e 
+\(b\cdot(b')^{-1}=h_2\), ho che  \((ab)(a'b')^{-1}=ab(b')^{-1}(a')^{-1}=ah_2(a')^{-1}\), utilizzo l'ipotesi 
+che le classi laterali siano uguali, quindi se   \(ah_2\in aH=Ha\implies\exists h_3\in H|ah_2=h_3a\), quindi 
+tornando all'identità precedente,    \(ah_2(a')^{-1}=h_3a(a')^{-1}=h_3\cdot h_1\in H\). \(\blacksquare\)\\\hphantom{}\\
+L'elelemento neutro dell'operazione \(*\) è \(H\) stesso, e per ogni \(Ha\), il suo inverso è 
+\(Ha^{-1}\), dato che \(Ha*Ha^{-1}=H(a\cdot a^{-1})=H\). \\Tale gruppo è detto \textbf{gruppo quoziente}, 
+e si indica con \(\nicefrac{G}{H}\).            
 \end{document}
