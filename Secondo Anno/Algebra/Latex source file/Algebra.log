@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9.24) (preloaded format=pdflatex 2023.10.3)  10 NOV 2023 13:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9.24) (preloaded format=pdflatex 2023.10.3)  10 NOV 2023 20:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -605,19 +605,37 @@ Package pdftex.def Info: images/Copertina2.png  used on input line 31.
 \c@theorem=\count317
 \c@dimostrazione=\count318
  [6]
-<images/Partizioni.png, id=353, 310.15875pt x 218.31563pt>
-File: images/Partizioni.png Graphic file (type png)
-<use images/Partizioni.png>
-Package pdftex.def Info: images/Partizioni.png  used on input line 217.
-(pdftex.def)             Requested size: 145.11053pt x 102.13864pt.
+Package epstopdf Info: Source file: <images/partition.eps>
+(epstopdf)                    date: 2023-11-10 19:49:07
+(epstopdf)                    size: 45112 bytes
+(epstopdf)             Output file: <images/partition-eps-converted-to.pdf>
+(epstopdf)                    date: 2023-11-10 19:49:31
+(epstopdf)                    size: 5708 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/partition-eps-converted-to.pdf images/partition.eps>
+(epstopdf)             \includegraphics on input line 217.
+Package epstopdf Info: Output file is already uptodate.
+<images/partition-eps-converted-to.pdf, id=353, 155.58125pt x 100.375pt>
+File: images/partition-eps-converted-to.pdf Graphic file (type pdf)
+<use images/partition-eps-converted-to.pdf>
+Package pdftex.def Info: images/partition-eps-converted-to.pdf  used on input line 217.
+(pdftex.def)             Requested size: 169.29684pt x 109.2243pt.
 \c@prop=\count319
- [7 <./images/Partizioni.png>]
-<images/DiagrammaHasse.png, id=366, 553.31718pt x 304.13625pt>
-File: images/DiagrammaHasse.png Graphic file (type png)
-<use images/DiagrammaHasse.png>
-Package pdftex.def Info: images/DiagrammaHasse.png  used on input line 296.
-(pdftex.def)             Requested size: 241.84843pt x 132.93398pt.
- [8 <./images/DiagrammaHasse.png>] [9]
+ [7 <./images/partition-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <images/hassDivisibilità.eps>
+(epstopdf)                    date: 2023-11-10 19:57:31
+(epstopdf)                    size: 50553 bytes
+(epstopdf)             Output file: <images/hassDivisibilità-eps-converted-to.pdf>
+(epstopdf)                    date: 2023-11-10 19:58:00
+(epstopdf)                    size: 7310 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/hassDivisibilità-eps-converted-to.pdf images/hassDivisibilità.eps>
+(epstopdf)             \includegraphics on input line 296.
+Package epstopdf Info: Output file is already uptodate.
+<images/hassDivisibilità-eps-converted-to.pdf, id=378, 314.17375pt x 126.4725pt>
+File: images/hassDivisibilità-eps-converted-to.pdf Graphic file (type pdf)
+<use images/hassDivisibilità-eps-converted-to.pdf>
+Package pdftex.def Info: images/hassDivisibilità-eps-converted-to.pdf  used on input line 296.
+(pdftex.def)             Requested size: 362.77264pt x 146.0424pt.
+ [8 <./images/hassDivisibilità-eps-converted-to.pdf>] [9]
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 386.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
 File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
@@ -704,7 +722,7 @@ Package epstopdf Info: Source file: <images/TabellaMoltiplicativa.eps>
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/TabellaMoltiplicativa-eps-converted-to.pdf images/TabellaMoltiplicativa.eps>
 (epstopdf)             \includegraphics on input line 1254.
 Package epstopdf Info: Output file is already uptodate.
-<images/TabellaMoltiplicativa-eps-converted-to.pdf, id=512, 226.8475pt x 225.84375pt>
+<images/TabellaMoltiplicativa-eps-converted-to.pdf, id=534, 226.8475pt x 225.84375pt>
 File: images/TabellaMoltiplicativa-eps-converted-to.pdf Graphic file (type pdf)
 <use images/TabellaMoltiplicativa-eps-converted-to.pdf>
 Package pdftex.def Info: images/TabellaMoltiplicativa-eps-converted-to.pdf  used on input line 1254.
@@ -724,7 +742,7 @@ Package epstopdf Info: Source file: <images/hasse.eps>
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/hasse-eps-converted-to.pdf images/hasse.eps>
 (epstopdf)             \includegraphics on input line 1569.
 Package epstopdf Info: Output file is already uptodate.
-<images/hasse-eps-converted-to.pdf, id=578, 210.7875pt x 42.1575pt>
+<images/hasse-eps-converted-to.pdf, id=600, 210.7875pt x 42.1575pt>
 File: images/hasse-eps-converted-to.pdf Graphic file (type pdf)
 <use images/hasse-eps-converted-to.pdf>
 Package pdftex.def Info: images/hasse-eps-converted-to.pdf  used on input line 1569.
@@ -744,16 +762,16 @@ Package rerunfilecheck Info: File `Algebra.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  22750 strings out of 475248
- 428402 string characters out of 5757813
+ 428600 string characters out of 5757813
  1937785 words of memory out of 5000000
  43716 multiletter control sequences out of 15000+600000
  576235 words of font info for 109 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,15n,87p,506b,730s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mcasu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Algebra.pdf (37 pages, 1310678 bytes).
+Output written on Algebra.pdf (37 pages, 1279724 bytes).
 PDF statistics:
- 726 PDF objects out of 1000 (max. 8388607)
+ 748 PDF objects out of 1000 (max. 8388607)
  167 named destinations out of 1000 (max. 500000)
  510 words of extra memory for PDF output out of 10000 (max. 10000000)
 
