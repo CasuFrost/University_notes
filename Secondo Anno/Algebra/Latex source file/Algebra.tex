@@ -13,6 +13,8 @@
 \newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
 \newcommand{\mcm}{{\text{mcm}}}
 \newcommand{\MCD}{{\text{MCD}}}
+\newcommand{\aut}{{\text{Aut}}}
+\newcommand{\cen}{{\text{Centro}}}
 \newcommand{\norm}{{\unlhd}}
 \newcommand{\ciclS}{{\left \langle }}
 \newcommand{\ciclE}{{\right \rangle }}
@@ -633,7 +635,7 @@ numeri primi siano in un numero finito : \(p_1,p_2,p_3...,p_N\). Prendiamo adess
 \section{Strutture Algebriche Notevoli}
 Vediamo prima una definizione :
 \begin{quote}
-    Sia \(X\) un insieme, un \textbf{operazione binaria} in \(X\) è un \textit{aapplicazione} 
+    Sia \(X\) un insieme, un \textbf{operazione binaria} in \(X\) è un \textit{applicazione} 
     \(* : X\times X \rightarrow X\), ossia che ad ogni elemento del prodotto cartesiano \(X\times X\) associa
     un elemento di \(X\).
 \end{quote}
@@ -1498,7 +1500,7 @@ ordine \(o(a)=n\) e \(o(b)=m\), allora esiste \(c\in G\) tale che
 osserviamo che \((ab)^{mn}=(a^n)^m\cdot (b^m)^n=1\implies o(ab)\) divide \(mn\), tuttavia, non è 
 detto che \(o(ab)=mn\), infatti, si prenda il caso \(a=x\) e \(b=x^{-1}\), si ha che 
 \(ab=1\), e \(1=o(1)<o(a)=o(b)=n\).\\ In generale, se \((ab)^t=1\), allora 
-\(1=(ab)^t=a^tb^t\implies a^t=b^{-t}\implies o(a)=o(b^{-t})\). Ciò suggerisce la 
+\(1=(ab)^t=a^tb^t\implies a^t=b^{-t}\implies o(a^t)=o(b^{-t})\). Ciò suggerisce la 
 seguente osservazione.\\\hphantom{}\\
 \textbf{Osservazione 1} : Se \(n=o(a)\) e \(m=o(b)\) sono coprimi, allora \(o(ab)=nm=mcm(n,m)\).\\
 \textbf{Dimostrazione dell'osservazione 1} : Per quanto visto sopra, \(a^{o(ab)}=b^{-o(ab)}
@@ -1593,7 +1595,54 @@ essendo 2 sono : \(G=H\cdot 1\cup H\cdot a\) ed analogamente \(G=\cdot 1\cdot H\
     Ogni omomorfismo (quindi \textbf{non} iniettivo), ha almeno un sottogruppo normale, ed esso 
     è il suo nucleo, ossia \(Ker\varphi\).
 \end{quote}
-\subsection{Gruppo Quozioente per un Sottogruppo Normale}
+\textbf{Proposizione }: Sia \(\varphi : A\rightarrow B\) un omomorfismo, allora \(|Ker\varphi|=\dfrac{|A|}{|B|}\).
+\subsection{Il Gruppo degli Automorfismi} \label{automorfismi}
+Sia \(G\) un gruppo, allora \(\aut(G)\), detto gruppo degli \textit{automorfismi}, è definito nel seguente modo :
+\begin{center}\( \aut(G)=\{\varphi : G\rightarrow G \text{ isomorfi }\} \)\end{center}
+Ossia il gruppo di tutti gli isomorfismi di \(G\) con se stesso, dove su esso è definita l'operazione di 
+composizione.\\\hphantom{}\\
+\subsubsection{Automorfismi Interni}
+Adesso, per ogni \(x\in G\), definisco una funzione \(\gamma_x : G\rightarrow G\) definita : \(\gamma_x(g)=xgx^{-1}\), 
+tale \(\gamma_x\) è un omomorfismo : \(\gamma_x(ab)=xabx^{-1}=xax^{-1}xbx^{-1}=\gamma_x(a)\gamma_x(b)\), inoltre, tale funzione 
+è \textit{invertibile} : \((\gamma_x)^{-1}=\gamma_{x^{-1}}\). Prendo \(a\in G\) e noto che : \begin{equation}
+a=x^{-1}xax^{-1}x=x^{-1}\gamma_x(a)x=\gamma_{x^{-1}}(\gamma_x(a))
+\end{equation}
+\(\gamma_x\) è biettiva, è quindi un isomorfismo, allora \(\forall x\in G, \gamma_x \in \aut(G)\). Osservo 
+come si comporta l'operazione di composizione : \(\gamma_x(\gamma_y(a))=\gamma_x(yay^{-1})=xyay^{-1}x^{-1}=\gamma_{xy}(a)\), ne deduche che :
+\begin{center}
+    \(\gamma_x\circ \gamma_y = \gamma_{xy}\)
+\end{center}
+Ciò mi suggerisce di considerare la mappa \(\gamma : G\rightarrow \aut(G)\) definita : \(\gamma(x)=\gamma_x\). Tale 
+mappa è un omomorfismo, in generale, non si sa hanno informazioni sulla suriettività o inieittività di \(\gamma\). 
+\subsubsection{Centro del Gruppo}
+Ricordando la funzione \(\gamma\), definisco adesso un altro insieme :\begin{center}
+    \(
+    \cen(G)=Ker\gamma = \{x\in G|\gamma_x = e \text{ (elemento neutro) }\}=\{x\in G|xax^{-1}=a\}    
+    \)
+\end{center}
+Tale gruppo \(\cen(G)\), che sarebbe il nucleo dell'omomorfismo \(\gamma\),
+contiene tutti gli elementi di \(G\) che \textbf{commutano}, ed è detto \textit{centro} del 
+gruppo.\\\hphantom{}\\        
+\textbf{Osservazione }: Se \(G\) è commutativo, allora \(G=\cen(G)\).
+\subsubsection{Gli Automorfismi di \(\Z_n\)}
+Dopo aver definito il gruppo degli automorfismi \ref{automorfismi}, è interessante trovare quali sono tutti gli 
+automorfismi del gruppo \((\Z_n,+)\), che equivale a trovare tutti gli automorfismi per qualsiasi gruppo 
+ciclico finito, prendiamo un qualsiasi automorfismo \(\varphi\), e notiamo una cosa :\\\hphantom{}\\      
+\textbf{Osservazione} : Essendo che un automorfismo (quindi isomorfismo) deve preservare 
+l'unità : \(\varphi(1)=1\), gli automorfismi di \(\Z_n\) dipendono totalmente da \(\varphi(1)\), avrò
+che : \(\varphi(n)=n\varphi(1)\).
+\\\hphantom{}\\      
+\textbf{Osservazione} : Se \(1\) genera \(\Z_n\), necessariamente anche \(\varphi(1)\) genera \(\Z_n\), 
+essendo che \(\mathcal{U}(\Z_n)\) contiene i generatori, \(\varphi(1)\in \mathcal{U}(\Z_n)\). \\\hphantom{}\\  
+Da qui, essendo che \(\varphi\in\aut(\Z_n)\), so che gli automorfismi saranno del tipo \(\varphi(n)=na\) dove 
+\(a\in\mathcal{U}(\Z_n)\). Considero adesso un'applicazione \(\psi_a : \Z_n\rightarrow \Z_n\) definita : 
+\(\psi_a(k)=ak\), noto che \(\psi_a\) è un omomorfismo : \begin{equation}
+    \psi_a(k+h)=(k+h)a=ka+ha=\psi_a(k)+\psi_a(h)
+\end{equation}
+Inoltre, \(\psi_a\) è iniettiva : \(\psi_a(k)=0\iff ka=0 \iff k=0\) ed essendo \(a\) invertibile, noto che 
+\(\psi_a\) è invertibile. \textit{Conclusione :} \(\psi_a\) è un automorfismo, e tramite al corrispondenza 
+\(\psi_a\rightarrow a\) so che \(\aut(\Z_n)\) è isomorfo a \(\mathcal{U}(\Z_n)\).
+\subsection{Gruppo Quozioente per un Sottogruppo Normale}\label{gqsn}
 Sia \(H\norm G\) un sottogruppo normale, e considero \(\mathcal{L}_S\) (essendo \(H\) normale, è analogo a \(\mathcal{L}_D\)),
 ossia l'insieme delle classi laterali associate ad \(H\) che partizionano \(G\). Su questo insieme, considero 
 un operazione \(* : \mathcal{L}_S\times \mathcal{L}_S\rightarrow \mathcal{L}_S\) 
@@ -1609,5 +1658,49 @@ che le classi laterali siano uguali, quindi se   \(ah_2\in aH=Ha\implies\exists 
 tornando all'identità precedente,    \(ah_2(a')^{-1}=h_3a(a')^{-1}=h_3\cdot h_1\in H\). \(\blacksquare\)\\\hphantom{}\\
 L'elelemento neutro dell'operazione \(*\) è \(H\) stesso, e per ogni \(Ha\), il suo inverso è 
 \(Ha^{-1}\), dato che \(Ha*Ha^{-1}=H(a\cdot a^{-1})=H\). \\Tale gruppo è detto \textbf{gruppo quoziente}, 
-e si indica con \(\nicefrac{G}{H}\).            
+e si indica con \(\nicefrac{G}{H}\), è equivalente al gruppo delle classi di equivalenza della relazione \(\rho_D\) o \(\rho_S\).
+\\\hphantom{}\\
+Definiamo adesso un applicazione \(\pi : G\rightarrow \nicefrac{G}{H}\) detta \textbf{proiezione canonica} di
+\(G\) sul quoziente \(\nicefrac{G}{H}\) , definita nel seguente modo :\begin{center}
+    \(\pi(a)=Ha,\text{\hphantom{a }}\forall a\in G\)
+\end{center}
+Tale applicazione è un omomorfismo : \begin{equation}
+    \pi(ab)=Hab=Ha*Hb=\pi(a)\pi(b)
+\end{equation}
+Risulta essere anche suriettiva. 
+\subsubsection{gruppo quoziente per una relazione compatibile}   
+\textbf{Definizione }: (Per l'osservazione seguente, si necessita di tale 
+definizione) Sia \((G,\cdot)\) un gruppo, e \(\rho\) una relazione di equivalenza su \(G\), si dice che la relazione 
+è \textit{compatibile} con l'operazione in \(G\) se : \begin{center}\(
+    a\rho a'\land b\rho b'\implies a\cdot b\rho a'\cdot b'
+\)\end{center}   
+Se consideriamo \(\nicefrac{G}{\rho}\) l'insieme delle classi di equivalenza con l'operazione binaria :\begin{center}
+    \([a]*[b]:=[a\cdot b]\)
+\end{center}  
+La condizione di \textit{compatibilità} di \(\rho\) implica che tale operazione \(*\) sia 
+ben posta, vi è presente un inverso per ogni elemento ed un elemento neutro, . \((\nicefrac{G}{\rho},*)\) 
+è un gruppo, ed è detto \textit{gruppo quoziente per una relazione compatibile}.
+\\\hphantom{}\\\textbf{Osservazione }: Il gruppo quoziente per un sottogruppo normale \((\nicefrac{G}{H},*)\) definito all'inizio di 
+questo capitolo \ref{gqsn}, è un gruppo quoziente per una relazione compatibile, dato che è esso equivalente 
+a \(\nicefrac{G}{\rho_D}\) dove \(\rho_D\) è una relazione compatibile con l'operazione : \begin{center}
+    \(a\rho_D b\land a'\rho_D b'\implies (ab)\rho_D (a'b')\)
+\end{center}
+Si ricordi che le classi di equivalenza di \(\rho_D\) sono proprio le classi laterali destre (equivalenti 
+a quelle sinistre in quanto il gruppo è normale) che definiscono una partizione di \(G\). Inoltre, che \(\rho_D\) e \(\rho_S\)
+siano identiche, è condizione 
+necessaria per far si che \(\rho_D\) o \(\rho_S\)  siano compatibili.
+\subsection{Teoremi di Isomorfismo}
+I teoremi di isomorfismo sono 3, vediamone il primo :
+ \subsubsection{Teorema 1 (Teorema fondamentale di omomorfismo tra gruppi)}
+ Sia \(f:G\rightarrow G'\) un omomorfismo di gruppi, sappiamo che il suo 
+ nucleo \(Kerf\) è un sottogruppo normale di \(G\), quindi possiamo considerare il gruppo quoziente 
+ per un sottogruppo normale : \(\nicefrac{G}{Kerf}\), composto dalle classi laterali di \(Kerf\).\\\hphantom{}\\
+ Ricordando che \(\pi\) è la proiezione canonica, tale omomorfismo 
+ \(f\) induce un \textbf{unico isomorfismo} \(F:\nicefrac{G}{Kerf}\rightarrow Im(f)\), 
+ tale che \(f=\pi \circ F\).
+ \begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.45\textwidth ]{images/TeoremaIsomorfismo.eps}
+    }
+\end{figure}
 \end{document}
