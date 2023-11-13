@@ -10,9 +10,13 @@
 \newcommand{\Z}{{\mathbb Z}}
 \newcommand{\R}{{\mathbb R}}
 \newcommand{\N}{{\mathbb N}}
+\newcommand{\Sn}{{\mathcal S_n}}
 \newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
 \newcommand{\mcm}{{\text{mcm}}}
+\newcommand{\spaz}{{\text{\hphantom{aa}}}}
 \newcommand{\MCD}{{\text{MCD}}}
+\newcommand{\supp}{{\text{Supp}}}
+\newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\aut}{{\text{Aut}}}
 \newcommand{\cen}{{\text{Centro}}}
 \newcommand{\norm}{{\unlhd}}
@@ -673,7 +677,7 @@ le funzioni biettive su \(X\), con l'operazione \(\circ\) di composizione, è un
     \end{cases}
     \implies \tilde{e}=e \textbf{ L'elemento neutro è unico.}
 \end{equation}
-\subsubsection{Il Gruppo Simmetrico \(S_n\)}
+\subsubsection{Il Gruppo Simmetrico \(S_n\)}\label{Sim1}
 Sia \(X\) un insieme ,abbiamo chiamato il gruppo di tutte le sue corrispondenze biunivoche
  \(f:X\rightarrow X\) con il simbolo \((S(X),\circ)\), nel caso in cui \(X\) sia finito, con cardinalità 
  \(|X|=n\), si indicherà con \(S_n\), e prende il nome di \textbf{gruppo simmetrico di grado \(n\)}. Tale gruppo 
@@ -1703,6 +1707,170 @@ I teoremi di isomorfismo sono 3, vediamone il primo :
     \includegraphics[width=0.45\textwidth ]{images/TeoremaIsomorfismo.eps}
     }
 \end{figure}
+\\Risulta che \(F(aKerf)=f(a),\text{ }\forall a\in G\), Inoltre,
+tale \(F\) mantiene le operazioni :\begin{center} \(F(aKerf*bKerf)=F(abKerf)=f(ab)=f(a)f(b)=F(aKerf)F(bKerf)\)\end{center}
+\subsection{Gruppi Simmetrici}
+\subsubsection{Definizioe, Trasposizioni e \(k\)-cicli}
+Riprendiamo la definizione di gruppo simmetrico che abbiamo già dato nel capitolo \ref{Sim1}, limitandola 
+però agli insiemi finiti. Denotiamo con \(\Sn\), il gruppo di cui gli elementi sono 
+tutte le mappe biunivoche \(\{1,2,3\dots,n\}\rightarrow\{1,2,3\dots,n\} \), denominato \textit{gruppo simmetrico}, 
+tali elementi (ossia le bigezioni) sono detti \textit{permutazioni}, e l'operazione definita su tale gruppo 
+è quella di composizione. Ci sono diversi modi di denotare una permutazione di \(\Sn\) : \begin{equation}
+    \sigma=\begin{pmatrix}
+        1 & 2 & \dots&n\\
+        \sigma(1) & \sigma(2) & \dots&\sigma(n)
+        \end{pmatrix}
+\end{equation}
+Oppure con un grafo :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/gruppoSim.eps}
+    }
+\end{figure}\\
+L'ordine (la cardinalità) di un gruppo simmetrico \(\Sn\), è \(n!\).\acc
+\textbf{Definizione }: Il \textit{supporto} di una permutazione, sono gli indici degli elementi  
+che sono punti \textit{non fissati}, ossia : \begin{center}\(\supp(\sigma)=\{j\in\sigma | \sigma(j)\ne j\}\)\end{center}
+Risulta chiaro che la restrizione di \(\sigma\) al di fuori del supporto, sia la funzione identità, \(\sigma\backslash\supp(\sigma)=\text{Id}\).\acc
+\textbf{Osservazione }: Siano \(\sigma\) e \(\tau \) due permutazioni, \(\supp(\sigma)\cap\supp(\tau)=\emptyset\iff \tau\circ\sigma = \sigma \circ \tau\), se 
+i supporti delle due permutazioni sono disgiunti, esse, commutano. In generale però, l'operazione di composizione 
+in \(\Sn\) non è commutativa.\acc
+Vediamo alcuni esempi di permutazioni note : \acc 
+Le \textbf{trasposizioni} sono particolari permutazioni che si denotano con \((i\spaz{ }j)\), ed identificano una 
+permutazione del tipo :\begin{equation}
+    (i\spaz{ }j)=\begin{pmatrix}
+        1 & 2 & \dots&i&j&n\\
+        1 & 2 & \dots&j&i&n
+        \end{pmatrix}
+\end{equation}
+Ossia che esclusi due valori \(i,j\) per cui \(\sigma(i)=j\) e \(\sigma(j)=i\), la bigezion è la funzione identità, 
+si ha quindi che \(\supp(\sigma)=\begin{pmatrix}i&j\\j&i\end{pmatrix}\).\acc 
+Generalzizziamo adesso l'idea di trasposizione, introducendo una permutazione detta \(k\)\textbf{-ciclo}, 
+si identifica con \((j_1\spaz j_2\spaz...\spaz j_k)\), dove tali \(k\) elementi ( si dice che \(k\) è la \textit{lunghezza} del ciclo ) sono il supporto di \(\sigma\),
+(i restanti sono punti fissi), ed è definita in tal modo :\begin{equation}
+    \sigma(j_1)=j_2\spaz\sigma(j_2)=j_3\spaz\sigma(j_3)=j_4\spaz\dots\spaz\sigma(j_{k-1})=j_k\spaz \sigma(j_k)=j_1
+\end{equation}
+Ovviamente si ha che \(\supp(\sigma)=\begin{pmatrix}j_1&j_2&\dots&j_{k-1}&j_k\\j_2&j_3&\dots&j_k&1\end{pmatrix}\), in rappresentazione 
+con grafo risulta una cosa del tipo :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.6\textwidth ]{images/kciclo.eps}
+    }
+\end{figure}\\
+\subsubsection{Scomposizione in \(k\)-cicli}
+Sappiamo che per il teorema fondamentale dell'aritmetica \ref{tfa}, un numero intero è fattorizzabile in 
+un prodotto di numeri primi distinti, in simil-maniera, una qualsiasi permutazione è scomponibile in 
+un \textbf{unico prodotto} (con prodotto, in questo caso si intende l'operazione di composizione) di 
+\(k\)-cicli a supporto disgiunto : \begin{center}
+    \(
+    \sigma = \sigma_1\circ\sigma_2\circ\sigma_3...,\sigma_k \spaz   \forall i,j\le k,\spaz\supp(\sigma_j)\cap\supp(\sigma_i)=\emptyset 
+    \)
+\end{center}
+Daremo una dimostrazione con un esempio, consideriamo la permutazione : \begin{equation}
+    \sigma=\begin{pmatrix}
+        1 & 2 & 3&4&5&6\\
+        3 & 6 & 5&4&1&2
+        \end{pmatrix}
+\end{equation}
+Parto dall'elemento \(1\) e noto che, \(\sigma(1)=3\), vedo allora dove viene mappato \(3\) e continuo, 
+\(\sigma(3)=5\), e poi \(\sigma(5)=1\), ma \(1\) è l'elemento da cui siamo partiti, abbiamo quindi individuato 
+il primo \(3\)-ciclo, procedo iniziando da un nuovo elemento, prendo \(2\) e noto che \(\sigma(2)=6\) e che 
+\(\sigma(6)=2\), ho quindi ottenuto un altro \(2\)-ciclo, rimane esclusivamente l'elemento 4 che è un punto fisso, posso 
+quindi scrivere la nostra permutazione iniziale come :\begin{equation}
+    \sigma=(1\spaz3\spaz5)(2\spaz6) \text{ come convenzione, posso omettere i punti fissi }
+\end{equation}
+Adesso è una domanda lecita chiedersi, quale sia il rapporto fra l'ordine di una permutazione e 
+l'ordine dei suoi \(k\)-cicli che la compongono. \acc 
+\textbf{Proposizione }: L'ordine di una permutazione \(\sigma\in\Sn\) è uguale al 
+minimo comune multiplo delle lunghezze dei cicli che la compongono.\begin{center}
+   \( 
+        \sigma=(i^{1}_1\spaz i^{1}_2 \dots i^{1}_{d_1})(i^{2}_1\spaz i^{2}_2 \dots i^{2}_{d_2})\dots(i^{k}_1\spaz i^{k}_2 \dots i^{k}_{d_k})
+    \implies o(\sigma)=\mcm(d_1,d_2\dots,d_k)\)
+\end{center}
+\textbf{Dimostrazione} : Denotiamo \(M=\mcm(d_1,d_2\dots,d_k)\), e vogliamo dimostrare che 
+\(o(\sigma)=N=M\), infatti, denotando con \(\gamma_i\) ogni singolo \(k\)-ciclo che compone \(\sigma\), ho : \begin{equation}
+    \sigma^{M}=(\gamma_1\gamma_2\dots\gamma_k)^{M}=\text{ essendo i cicli disgiunti }=\gamma_1^M\gamma_2^M\dots\gamma_k^M=\text{Identità}
+\end{equation}
+Quindi \(N\) divide \(M\), inoltre (Denotando l'identità con id) :\begin{equation}
+    \text{id}=\sigma^N=\gamma_1^N\gamma_2^N\dots\gamma_k^N=\text{id}\cdot \text{id}\cdot \text{id}\dots \text{id}
+\end{equation}
+Allora l'ordine di ogni ciclo divide \(N\), da cui \(M\) divide \(N\), ne consegue che \(M=N\). \(\blacksquare\)
+\subsubsection{Classi Coniugate in \(\Sn\)}
+In \(\Sn\) risulta particolarmente facile stabilire una relazione di \textit{coniugio}, che definisce appunto delle 
+classi di equivalenza di elemente \textit{coniugati} fra loro, definiamo tale relazione : \begin{center}
+    \(\sigma\rho\sigma'\iff\sigma=\tau\sigma'\tau^{-1}\) per qualche \(\tau\in\Sn\)
+\end{center}
+Se sono in relazione, si dice che la permutazione  \(\sigma\) è \textit{coniugata} 
+alla permutazione \(\sigma'\), ad esempio : \begin{center}
+    \(\sigma = (1\spaz 3\spaz 4)\) \hphantom{tex}e\hphantom{tex} \(\sigma' = (3\spaz 2\spaz 5)\)
+\end{center}
+Sono coniugate perché esiste \(\tau=(1\spaz3\spaz2)(4\spaz5)\) tale che \(\sigma'=\tau\sigma\tau^{-1}\) :\begin{equation}
+    (3\spaz2\spaz5)=(1\spaz3\spaz2)(4\spaz 5)\circ(1\spaz3\spaz4)\circ(1\spaz2\spaz3)(4\spaz 5)
+\end{equation}
+Non è stato chiaro però capire come selezionare questa \(\tau\in\Sn\), notiamo cosa succede 
+ad una permutazione se applichiamo l'operazione per stabilire se è coniuga ad un altra :
+\begin{center}
+    Prendo \(\tau\sigma\tau^{-1}\) e so che \(\sigma=(\sigma_1\sigma_2\dots \sigma_k)\) dove ogni \(\sigma_i\) sarebbe 
+    il \(k\)-ciclo che compone \(\sigma\), ho \acc
+    \(\tau\sigma\tau^{-1}=\tau(\sigma_1\sigma_2\dots \sigma_k)\tau^{-1}\) se fra ogni \(\sigma_i,\sigma_{i+1}\) aggiungo \(1=\tau^{-1}\tau\)
+    ottengo :\acc
+    \(\tau(\sigma_1\sigma_2\dots \sigma_k)\tau^{-1}=\tau\sigma_1\tau^{-1}\tau\sigma_2\tau^{-1}\dots\tau\sigma_k\tau^{-1}\)
+\end{center}
+Vediamo adesso come si comporta su ogni \(i\)-esimo \(k\)-ciclo la composizione \(\tau\sigma_i\tau^{-1}\), siano 
+\(a\) e \(b\) due interi \textit{consecutivi} di un qualunque \(\sigma_i\), ossia \(\sigma_i=(i_1\spaz i_2\dots a\spaz b\dots i_d)\), 
+essendo un ciclo, ed essendo \(a\) e \(b\) consecutivi nella scrittura, ciò significa che \(\sigma_i(a)=b\). Poniamo 
+adesso \(\tau(a)=s\) e \(\tau(b)=t\), noto che :\begin{center}
+    \(
+    \tau\sigma_i\tau^{-1}(s) =\tau\sigma_i(a)=\tau(b)=t   
+    \)
+\end{center}
+Se nella scrittura ciclica di \(\sigma_i \), \(b\) è il successivo di \(a\), allora 
+\(\tau(b)\) è il successivo di \(\tau(a)\) nella scrittura ciclica di \(\tau\sigma_i\tau^{-1}\), tale \textbf{risultato 
+è fondamentale}, notiamo ad esempio come : 
+\begin{equation}
+    \sigma = (a\spaz b\spaz c\spaz d)(e\spaz f\spaz g)(h\spaz i)
+\end{equation}
+\begin{equation}
+    \tau\sigma\tau^{-1} = (\tau(a)\spaz \tau(b)\spaz \tau(c)\spaz \tau(d))(\tau(e)\spaz \tau(f)\spaz \tau(g))(\tau(h)\spaz \tau(i))
+\end{equation}
+Questo ci dice che, se \(\sigma'=\tau\sigma\tau^{-1}\), allora sicuramente \(\sigma\) e 
+\(\sigma'\) hanno la stessa \textit{struttura ciclica}, ciò vuol dire che, la loro 
+scomposizione in \(k\)-cicli, condivide lo stesso numero di fattori, e tali fattori hanno la stessa lunghezza. \\
+Spiegandolo in una maniera diversa, assegnamo ad ogni permutazione una tupla definita nel tal modo :
+\begin{center}
+    Sia \(\sigma\) una permutazione, la cui scomposizione in \(k\)-cicli è uguale a : \\ 
+    \(\sigma=(i^1_1\spaz i^1_2\dots\spaz i^1_{d_1})(i^2_1\spaz i^2_2\dots\spaz i^2_{d_2})\dots(i^k_1\spaz i^k_2...\spaz i^k_{d_k})\)
+\end{center}
+Il primo \(k\)-ciclo ha lunghezza \(d_1\), il secondo \(k\)-ciclo ha lunghezza \(d_2\), fino al \(k\)-esimo 
+\(k\)-ciclo che ha lunghezza \(d_k\), la nostra tupla, è formata da queste lunghezze, ordinate in maniera 
+crescende, quindi la tupla (formata da \(k\) lettere) assegnata a \(\sigma\) sarà :\begin{center}
+    \(Tupla(\sigma)=d_1\le d_2\dots\le d_k\)
+\end{center}
+\begin{quote}
+    
+    Se due permutazioni hanno tupla identica, condividono la stessa struttura ciclica.
+\end{quote}
+\textit{Esempio} : la permutazione \(\sigma=(a\spaz b\spaz c)(d\spaz e)\) avrà tupla : \(Tupla(\sigma)=2\le3\).\\
+Un altra permutazione \(\sigma'=(i\spaz j)(f\spaz g\spaz h)\) avrà semptre tupla : \(Tupla(\sigma')=2\le3\).\\
+La permutazione \(\sigma''=(l\spaz m\spaz n\spaz o)\) avrà tupla : \(Tupla(\sigma'')=4\).\\
+Essendo che \(Tupla(\sigma)=Tupla(\sigma')\), tali permutazioni hanno la stessa struttura ciclica.
+\acc
+ Abbiamo dimostrato come, se \(\sigma\) è una permutazione, ed è coniugata a 
+ \(\sigma'\) ossia \(\sigma=\tau\sigma'\tau^{-1}\)
+ per qualche \(\tau\in\Sn\), allora \(\sigma\) e \(\sigma'\) condividono la stessa struttura ciclica, e gli interi 
+ che compongono la scrittura ciclica di \(\sigma\), si ottengono applicando \(\tau\) agli interi 
+ che compongono la scrittura ciclica di \(\sigma'\). \(\blacksquare\)\acc 
+ \textbf{Proposizione} : Se \(\sigma\) e \(\sigma'\) sono due permutazioni si \(\Sn\) che condividono 
+ la stessa struttura ciclica, allora sono coniugate.\acc 
+ \textbf{Dimostrazione }: 
+
+
+
+
+
+
+
+
+
 
 \newpage\
 \section{Esercizi}
@@ -1754,4 +1922,5 @@ E definisco il suo nucleo \begin{equation}
 \end{equation} 
 Noto che per il teorema fondamentale di omomorfismo di gruppi, esiste un \textbf{unico isomorfismo} \(F:\nicefrac{G}{Ker\varphi}\rightarrow \R\backslash\{0\}\) 
 tale che \(\varphi=\pi\circ F\), essendo  \(Ker\varphi = T\), so che \(\nicefrac{G}{T}\) è isomorfo a \(\R\backslash\{0\}\).
+
 \end{document}
