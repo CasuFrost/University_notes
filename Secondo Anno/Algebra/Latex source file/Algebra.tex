@@ -1703,4 +1703,55 @@ I teoremi di isomorfismo sono 3, vediamone il primo :
     \includegraphics[width=0.45\textwidth ]{images/TeoremaIsomorfismo.eps}
     }
 \end{figure}
+
+\newpage\
+\section{Esercizi}
+\textbf{Foglio 7 esercizio 2}\\\hphantom{}\\
+Voglio prima di tutto dimostrare che \(G\) sia un sottogruppo, prima però serve un osservazione : Se 
+\(G\) è un gruppo ogni elemento \(ax+c\in G\) ha un inverso, ed esso è : \((ax+c)^{-1}=\dfrac{x-c}{a}\).\\
+Verifico che \(G\) sia un sottogruppo di tutte le bigezioni in \(\R\) :\begin{equation}
+    (a'x+c')\circ(a''x+c'')^{-1}= (a'x+c')\circ(\dfrac{x-c''}{a''})=a'(\dfrac{x-c''}{a''})+c'=\dfrac{a'x-c''a'}{a''}+c
+\end{equation}
+\begin{equation}
+    =(\dfrac{a'x}{a''}-\dfrac{a'c''}{a''})+c'=(x\dfrac{a'}{a''}-\dfrac{a'c''}{a''})+c'=x(\dfrac{a'}{a''}-\dfrac{a'c''}{a''})+c'\in G 
+\end{equation}
+quindi \(G\) è un sottogruppo, e dimostro che non è commutativo : 
+\begin{equation}
+    \begin{cases}
+        (a'x+c')\circ(a''x+c'')=a'(a''x+c'')+c'\\
+        (a''x+c'')\circ(a'x+c')=a''(a'x+c')+c''
+    \end{cases}\implies (a'x+c')\circ(a''x+c'')\ne( a''x+c'')\circ(a'x+c')
+\end{equation}
+Considero adesso un sottogruppo particolare di \(G\), ossia \(T=\{f_{1,c},c\in\R\}=\{x+c, c\in \R\}\), dimostro che 
+è un sottogruppo : \begin{equation}
+    (x+c')\circ(x+c'')^{-1}= (x+c')\circ(x-c'')=(x-c'')+c'=x+(c'-c'')\in T
+\end{equation}
+Inoltre definisco le classi laterali sinistre di \(T\), ossia : 
+\(gT=\{g\circ t, g\in G, t\in T\}\) che sono tutte le funzioni del tipo : \begin{equation}
+    g=ax+c\implies gT=\{(ax+c)\circ (x+c'),(ax+c)\circ (x+c''),(ax+c)\circ (x+c''')...\}
+\end{equation}
+Le classi laterali destre di \(T\), ossia : 
+\(Tg=\{t\circ g, g\in G, t\in T\}\) che sono tutte le funzioni del tipo : \begin{equation}
+    g=ax+c\implies gT=\{(x+c')\circ(ax+c) ,(x+c'')\circ(ax+c),(x+c''')\circ(ax+c)...\}
+\end{equation}
+Adesso noto che :\begin{equation}
+    \begin{cases}
+        (x+c')\circ (ax+c)=ax+c+c'
+        \\(ax+c)\circ (x+c')=ax+c+ac'
+    \end{cases}
+\end{equation}
+(\color{red}dimostrazione omessa\color{black})Noto che le classi laterali destre e sinistre sono le stesse, quindi 
+\(T\) è un sottogruppo normale, e posso definire il gruppo di tutte le classi laterali, ossia il gruppo 
+quoziente \(\nicefrac{G}{T}\), con l'operazione \(gT*hT=(g\circ h)T\).
+\\Adesso, definisco un'applicazione suriettiva \(\varphi : G\rightarrow \R\backslash\{0\}\), tale che : \begin{equation}
+    \varphi(ax+c)=a
+\end{equation}
+E definisco il suo nucleo \begin{equation}
+    Ker\varphi = \{ax+c|\varphi(ax+c)=1\iff a=1\}=\{x+c, c\in \R\}
+\end{equation}
+\textbf{Osservazione fondamentale} : Noto che \(Ker\varphi = T\)! Definisco \(\pi\) la proiezione canonica :\begin{equation}
+    \pi(ax+c)=(ax+c)T
+\end{equation} 
+Noto che per il teorema fondamentale di omomorfismo di gruppi, esiste un \textbf{unico isomorfismo} \(F:\nicefrac{G}{Ker\varphi}\rightarrow \R\backslash\{0\}\) 
+tale che \(\varphi=\pi\circ F\), essendo  \(Ker\varphi = T\), so che \(\nicefrac{G}{T}\) è isomorfo a \(\R\backslash\{0\}\).
 \end{document}
