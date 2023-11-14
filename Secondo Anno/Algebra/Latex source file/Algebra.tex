@@ -11,6 +11,7 @@
 \newcommand{\R}{{\mathbb R}}
 \newcommand{\N}{{\mathbb N}}
 \newcommand{\Sn}{{\mathcal S_n}}
+\newcommand{\An}{{\mathcal A_n}}
 \newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
 \newcommand{\mcm}{{\text{mcm}}}
 \newcommand{\spaz}{{\text{\hphantom{aa}}}}
@@ -1904,12 +1905,60 @@ Ho che :\begin{equation}
 La relazione di essere coniugati è una relazione di equivalenza che stabilisce quindi delle \textit{classi coniugate}, 
 che sono tante quante le diverse possibili strutture cicliche.
 \subsubsection{Decomposizione in Trasposizioni}
+Abbiamo già visto come ogni permutazione è un prodotto di \(k\)-cicli, facciamo adesso un osservazione, si consideri 
+il \(4\)-ciclo \(\sigma=(1\spaz2\spaz3\spaz4)\), noto adesso che posso riscrivere tale ciclo come 
+prodotto di \textit{trasposizioni}, de facto : \begin{equation}
+    \sigma=(1\spaz2\spaz3\spaz4)=(1\spaz4)(1\spaz3)(1\spaz2)
+\end{equation}
+Infatti : \begin{equation}
+    (1\spaz4)\circ(1\spaz3)(1\spaz2)=\begin{pmatrix}
+        1 & 2 & 3&4\\
+        3 & 2 & 4&1
+        \end{pmatrix}\circ(1\spaz2)=\begin{pmatrix}
+            1 & 2 & 3&4\\
+            2 & 3 & 4&1
+            \end{pmatrix}=(1\spaz2\spaz3\spaz4)
+\end{equation}
+In generale, ogni \(k\)-ciclo può essere scritto come prodotto di trasposizioni, nel seguente modo :
+\begin{center}
+    \(
+    (1\spaz2\spaz3\dots, n)= (1\spaz n)(1\spaz n-1)  (1\spaz n-2)\dots (1\spaz3)(1\spaz 2) 
+    \)
+\end{center}
+Tale scrittura come prodotto di trasposizioni, \textbf{non} è unica, tutta via, una permutazione, avrà diverse 
+fattorizzazioni in trasposizioni, ma la parità o disparità del numero dei fattori sarà ben definita, e non dipenderà 
+dalla fattorizzazione scelta. \\ La permutazione \(\sigma=(1\spaz2\spaz3\spaz4)\)
+vista nell'esempio precedente, aveva scomposizione \((1\spaz4)(1\spaz3)(1\spaz2)\), quindi è prodotto di un numero dispari 
+di trasposizioni, quindi ogni singola fattorizzazione di \(\sigma\), avrà un numero dispari di fattori.\acc 
+\textbf{Definizione} : Una permutazione si dice \textit{pari}, se il numero di fattori della scomposizione 
+in trasposizioni che la compone è pari, analogamente, si dice \textit{dispari}, se il numero di fattori della scomposizione 
+in trasposizioni che la compone è dispari.\acc 
+\textbf{Osservazione} : Il prodotto (composizione) di due permutazioni pari sarà una permutazione  pari, il prodotto di due 
+permutazioni dispari sarà una permutazione  pari, il prodotto di una permutazione pari per una dispari sarà una permutazione  
+dispari.
+\begin{center}
+    \(\text{Pari }\circ\text{ Pari}=\text{ Pari}\)\hphantom{aaaaaaa}
+    \(\text{Dispari }\circ\text{ Dispari}=\text{ Pari}\)\hphantom{aaaaaaa}
+    \(\text{Pari }\circ\text{ Dispari}=\text{ Dispari}\)
+\end{center}
+\textbf{Osservazione} : I \(k\)-cicli di lunghezzi pari sono permutazioni dispari, ed i \(k\)-cicli di 
+lunghezza dispari sono permutazioni pari.\acc
 
-
-
-
-
-
+Possiamo adesso definire un sottogruppo di \(\Sn\), ossia il \textbf{sottogruppo alterno}, definito in tal modo :
+\begin{center}
+    \(
+    \An = \{\sigma\in\Sn|\sigma\text{ è una permutazione pari}\}    
+    \)
+\end{center}
+Ossia il gruppo formato da tutte e sole le permutazioni pari. Sappiamo che è un sottogruppo, perché 
+il prodotto di due permutazioni pari, è ancora una permutazione pari. Inoltre, tale sottogruppo ha indice 
+2, è quindi un gruppo normale.\begin{center}
+    \(\An \norm \Sn\)
+\end{center}
+A meno che di casi eccezionali in cui \(n\) è molto piccolo, solitamente il gruppo \(\Sn\) ha  
+\(\An\) come unico gruppo normale. Essendo le trasposizioni delle permutazioni dispari, \(\An\) 
+non contiene trasposizioni.\acc 
+\textbf{Proposizione }: L'ordine del sottogruppo alterno \(\An\) di \(\Sn\) è \(\dfrac{n!}{2}\).
 
 
 
