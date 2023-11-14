@@ -1860,8 +1860,51 @@ Essendo che \(Tupla(\sigma)=Tupla(\sigma')\), tali permutazioni hanno la stessa 
  che compongono la scrittura ciclica di \(\sigma\), si ottengono applicando \(\tau\) agli interi 
  che compongono la scrittura ciclica di \(\sigma'\). \(\blacksquare\)\acc 
  \textbf{Proposizione} : Se \(\sigma\) e \(\sigma'\) sono due permutazioni si \(\Sn\) che condividono 
- la stessa struttura ciclica, allora sono coniugate.\acc 
- \textbf{Dimostrazione }: 
+ la stessa struttura ciclica, allora sono coniugate, \(Tupla(\sigma)=Tupla(\sigma')\implies\exists\tau \in \Sn|\sigma' = \tau\sigma\tau^{-1}\)\acc 
+ \textbf{Dimostrazione }: Diciamo quindi che \(\sigma\) e \(\sigma'\) hanno la stessa struttura ciclica :\begin{center}
+    \(
+    \sigma=(a\spaz b\spaz c)(d\spaz e) 
+    \)\\\(\sigma'=(a'\spaz b'\spaz c')(d'\spaz e') \)
+ \end{center}
+ Va provato che \(\sigma' = \tau\sigma\tau^{-1}\), tale \(\tau\) è una permutazione del tipo : \begin{equation}
+    \tau=\begin{pmatrix}
+        a & b & c&d&e\\
+        a'  & b' & c'&d'&e'
+        \end{pmatrix}
+ \end{equation}
+ Che su gli elementi \(a,b,c,d,e\) si comporta come descritto, e sugli altri si comporta 
+ come vuole (compatibilmente col fatto che deve essere una permutazione). \(\blacksquare\)\acc 
+ Abbiamo adesso un metodo rapido per trovare una coniugata di una permutazione, vediamo un \textit{esempio} : 
+ Si consideri il gruppo simmetrico \(\mathcal{S}_7\), e le due permutazioni : \begin{equation}
+    \sigma = (1\spaz5)(2\spaz3\spaz4)\text{\hphantom{text}}\sigma' = (3\spaz1\spaz7)(5\spaz2)
+ \end{equation}
+ Condividendo la stessa struttura ciclica sono coniugate, vogliamo quindi trovare \(\tau\) tale che 
+ \(\sigma' = \tau\sigma\tau^{-1}\), la \(\tau\) in questione dovrà comportarsi nel seguente modo :
+ \begin{equation}
+    3=\tau(1),\spaz1=\tau(3),\spaz7=\tau(5),\spaz5=\tau(2),\spaz2=\tau(7)
+ \end{equation}
+\(\tau\) dovrà mappare correttamente gli elementi 1,3,5,2,7, non è importante dove vengano 
+mappati gli elementi 4 e 6, difatto, entrambe le seguenti permutazioni sono corrette : \begin{center}
+    \(\tau=\begin{pmatrix}
+        1 & 2 & 3&4&5&6&7\\
+        3 & 5 & 1&4&7&6&2
+        \end{pmatrix}\)\hphantom{aaaa}
+        \(\tilde\tau=\begin{pmatrix}
+            1 & 2 & 3&4&5&6&7\\
+            3 & 5 & 1&6&7&4&2
+            \end{pmatrix}\)
+\end{center} 
+E risulta che  \(\sigma' = \tau\sigma\tau^{-1}=\tilde\tau\sigma\tilde\tau^{-1}\).\acc 
+La relazione di essere coniugati è una relazione di equivalenza che stabilisce quindi delle \textit{classi coniugate}, 
+che sono tante quante le diverse possibili strutture cicliche.
+
+
+
+
+
+
+
+
 
 
 
