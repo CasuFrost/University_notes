@@ -1710,7 +1710,7 @@ I teoremi di isomorfismo sono 3, vediamone il primo :
 \\Risulta che \(F(aKerf)=f(a),\text{ }\forall a\in G\), Inoltre,
 tale \(F\) mantiene le operazioni :\begin{center} \(F(aKerf*bKerf)=F(abKerf)=f(ab)=f(a)f(b)=F(aKerf)F(bKerf)\)\end{center}
 \subsection{Gruppi Simmetrici}
-\subsubsection{Definizioe, Trasposizioni e \(k\)-cicli}
+\subsubsection{Definizione, Trasposizioni e \(k\)-cicli}
 Riprendiamo la definizione di gruppo simmetrico che abbiamo già dato nel capitolo \ref{Sim1}, limitandola 
 però agli insiemi finiti. Denotiamo con \(\Sn\), il gruppo di cui gli elementi sono 
 tutte le mappe biunivoche \(\{1,2,3\dots,n\}\rightarrow\{1,2,3\dots,n\} \), denominato \textit{gruppo simmetrico}, 
@@ -1742,7 +1742,7 @@ permutazione del tipo :\begin{equation}
         1 & 2 & \dots&j&i&n
         \end{pmatrix}
 \end{equation}
-Ossia che esclusi due valori \(i,j\) per cui \(\sigma(i)=j\) e \(\sigma(j)=i\), la bigezion è la funzione identità, 
+Ossia che esclusi due valori \(i,j\) per cui \(\sigma(i)=j\) e \(\sigma(j)=i\), la bigezione è la funzione identità, 
 si ha quindi che \(\supp(\sigma)=\begin{pmatrix}i&j\\j&i\end{pmatrix}\).\acc 
 Generalzizziamo adesso l'idea di trasposizione, introducendo una permutazione detta \(k\)\textbf{-ciclo}, 
 si identifica con \((j_1\spaz j_2\spaz...\spaz j_k)\), dove tali \(k\) elementi ( si dice che \(k\) è la \textit{lunghezza} del ciclo ) sono il supporto di \(\sigma\),
@@ -1895,9 +1895,15 @@ mappati gli elementi 4 e 6, difatto, entrambe le seguenti permutazioni sono corr
             \end{pmatrix}\)
 \end{center} 
 E risulta che  \(\sigma' = \tau\sigma\tau^{-1}=\tilde\tau\sigma\tilde\tau^{-1}\).\acc 
+Vediamo un'altro \textit{esempio}, ho le due permutazioni : \begin{equation}
+    \sigma = (2\spaz6)(1\spaz3\spaz5)\text{\hphantom{text}}\tau = (1\spaz2\spaz3\spaz4\spaz5\spaz6)
+\end{equation}
+Ho che :\begin{equation}
+    \tau\sigma \tau^{-1} =(\tau(2)\spaz\tau(6))(\tau(1)\spaz\tau(3)\spaz\tau(5))=(3\spaz 1)(2\spaz4\spaz6)
+\end{equation}
 La relazione di essere coniugati è una relazione di equivalenza che stabilisce quindi delle \textit{classi coniugate}, 
 che sono tante quante le diverse possibili strutture cicliche.
-
+\subsubsection{Decomposizione in Trasposizioni}
 
 
 
