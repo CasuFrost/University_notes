@@ -12,6 +12,7 @@
 \newcommand{\N}{{\mathbb N}}
 \newcommand{\E}{{\mathbb E}}
 \newcommand{\V}{{\mathbb V}}
+\newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\Prob}{{\mathbb P}}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \title{Calcolo delle Probabilità}
@@ -926,7 +927,7 @@ Vediamo adesso, dimostriamo la \textit{proposizione}.\\\hphantom{}\\
 \begin{equation}
     =\V(X)+\V(Y)+2\E((X-\E(X))(Y-\E(Y)))
 \end{equation}
-Il termine \(2\E((X-\E(X))(Y-\E(Y)))\) è detto \textit{covarianza}, bisogna dimostrare che la covarianza è 
+Il termine \(\E((X-\E(X))(Y-\E(Y)))\) è detto \textit{covarianza}, bisogna dimostrare che la covarianza è 
 nulla se \(X\) ed \(Y\) sono indipendenti.\\\hphantom{}\\
 \textbf{Osservazione} : Se la covarianza è nulla, allora \(\E(X\cdot Y)=\E(X)\cdot\E(Y)\), questo perché :\begin{equation}
     \E((X-\E(X))(Y-\E(Y)))=\E(X)\E(Y)-\E(X)\E(Y)+\E(X)\E(Y)=\E(X\cdot Y)=\E(X)\cdot\E(Y) 
@@ -945,4 +946,31 @@ Per indipendenza :  \(
   \begin{equation}
     \sum_{x\in Im(X)}x\Prob(X=x)\cdot\sum_{y\in Im(Y)}y\Prob(Y=y)=\E(X)\cdot\E(Y)\text{\hphantom{aaaa}}\blacksquare
   \end{equation}
- \end{document}
+  \subsubsection{La Covarianza}
+  Diamo adesso una definizione ed un significato intrenseco alla \textbf{covarianza}
+citata in precedenza. La covarianza è un valore associato a due variabili 
+aleatorie ed è definita in tal modo :\begin{center}
+    \(
+    \text{Cov}(X,Y)=(X-\E(X))(Y-\E(Y))    
+    \)
+\end{center}
+Euristicamente parlando, la covarianza misura la relazione di dipendenza di 
+due variabili aleatorie, può essere positiva o negativa, se 
+\(\text{Cov}(X,Y)\) è particolarmente grande, ciò significa che, 
+sapere che \(X\) sia grande rende più probabile il fatto che \(Y\) 
+sia grande, in generale la covarianza è limitata : \(|\text{Cov}(X,Y)|\le\sqrt{\V(X)}\cdot\sqrt{\V(Y)}\).
+\acc 
+\textit{Esempio} : Eseguo una misurazione su un circuito, \(X\) rappresenta 
+la differenza di potenziale, ed \(Y\) l'intensità di corrente, la misurazione, avviene 
+con una precisione tale, da poter osservare gli effetti aleatori, dovuti a fattori 
+da noi non controllabili, per cui, nonostante la differenza di potenziale sia costante, 
+diverse misurazioni differiscono nei valori decimali. Eseguo precisamente 
+\(n\) misurazioni, e rappresento su un piano cartesiano il risultato, 
+in cui \(\E(X)\) è l'asse delle ascisse, ed \(\E(Y)\) quello 
+delle ordinate.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.75\textwidth ]{images/cov.eps}
+    }
+\end{figure}
+\end{document}
