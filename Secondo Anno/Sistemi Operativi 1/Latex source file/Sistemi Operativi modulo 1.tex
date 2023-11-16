@@ -11,6 +11,7 @@
 \usepackage{wrapfig}
 \usepackage{float}
 \usepackage{listings}
+\newcommand{\acc}{\\\hphantom{}\\}
 \title{Sistemi Operativi 1}
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -512,17 +513,135 @@ base a tali criteri, esistono algoritmi migliori di altri, tali criteri sono :\b
     rimane fermo nella CPU in attesa di essere selezionato dallo scheduler.
     \item \textbf{Response time} - Il tempo che interocorre fra la richiesta di un comando, e la risposta ad esso, l'obbiettivo 
     è quello di \textit{minimizzare} tale tempo per rendere il sistema più interattivo e responsivo.
-
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
+Idealmente sarebbe ottimo scegliere un algoritmo di scheduling che soddisfa 
+tutte le richieste appena elencate, ovviamente in una situazione reale, la 
+massimizzazione di certi criteri porta svantaggio agli altri, rientra 
+quindi il concetto di \textit{trade-off}, sceglieremo quindi un certo 
+algoritmo di scheduling in grado di soddisfare solo un certo tipo di 
+politiche.\begin{itemize}
+    \item Minimizzare il response time medio fa si che l'utente 
+    riceva l'output il più rapidamente possibile, minimizzare il tempo massimo 
+    di response time invece, previene dagli scenari in cui un processo 
+    ha un response time molto più altro rispetto agli altri, minimizzare 
+    la varianza invece, rende il response time dei processi più "predicibile" 
+    dall'utente, queste politche son tipiche dei \textbf{sistemi interattivi}.
+    \item Massimizzare il throughput si traduce in un utilizzo più efficente 
+    delle risorse di sistema, e minimizzare lo waiting time da ad ogni processo 
+    la stessa quantità di tempo da spendere sulla CPU (di contro, potrebbe 
+    aumentare la media del response time), queste politiche son tipiche 
+    dei \text{sistemi batch}\footnote{
+        tipo di sistema in cui i processi vengono eseguiti  in gruppi o lotti. Invece di eseguire ogni processo in modo interattivo e immediato, un batch system raccoglie una serie di processi o comandi e li esegue in sequenza, senza richiedere l’interazione dell’utente durante l’esecuzione.
+    }.
+\end{itemize}
+Vediamo adesso il funzionamento generale di alcuni algoritmi di scheduling noti,
+i quali possono essere preemptive oppure non-preemptive.
+\subsubsection{First Come First Served (FCFS)}
+Tale algoritmo funziona, ed è implementato come una coda 
+\textit{First-In-First-Out}, è quindi molto semplice, in quanto manda 
+in esecuzione i processi in ordine di arrivo, lo scheduler entra in funzione 
+solamente quando un processo in esecuzione fa una richiesta 
+di I/O (oppure termina la sua esecuzione).\acc I processi non sono limitati 
+da un tempo massimo quindi possono rimanere in esecuzione sulla CPU 
+per un tempo indeterminato, è quindi uno scheduler \textit{non-preemptive}. 
+\begin{itemize}
+    \item \textbf{Pro} - Risulta molto semplice da implementare.
+    \item \textbf{Contro} - Il tempo di attesa (waiting time) è molto 
+    variabile. Vi è poca alternanza di processi I/O-bound e processi 
+    CPU-bound dato che un processo che fa richiesta di I/O potrebbe trovarsi 
+    dopo (e quindi attendere la terminazione) di un processo che 
+    impiegherà molto tempo sulla CPU.
+\end{itemize}
+\subsubsection{Round-Robin (RR)}
+È un algoritmo simile al FCFS, solo che impone un limite di tempo 
+(detto quanto temporale) ai processi che impiegano troppo tempo 
+sulla CPU. Quando un job viene assegnato alla CPU, parte un timer 
+(implementato a livello hardware). \acc Se il processo termina prima della scadenza 
+del timer, lo scheduler manda in esecuzione il prossimo come un semplice 
+FCFS, se invece il timer scade durante l'esecuzione del processo, 
+lo scheduler interviene dando in esecuzione alla CPU il prossimo processo, quello 
+interrotto invece verrà re-inserito in fondo alla coda, è quindi un sistema 
+\textit{preemptive}.\acc Come implicato, i processi pronti sono gestiti 
+in una coda circolare, è uno scheduler equo in quanto garantisce a tutti 
+i processi lo stesso tempo di esecuzione sulla CPU. Le performance di questo 
+algoritmo sono sensibili alla durata del quanto temporale scelto, se il tempo 
+del quanto è molto grande, l'algoritmo si comporterà come un FCFS, 
+se troppo piccolo, verranno fatti troppi context switch.
+\subsubsection{Shortest-Job-First (SJB)}
+L'idea, è di dare la priorità ai processi che hanno il 
+"carico di lavoro stimato" più grande sulla CPU, con carico di lavoro, si 
+intende il tempo che impiegheranno in esecuzione, prima della prossima 
+richiesta di I/O o della terminazione stessa.\begin{itemize}
+    \item \textbf{Pro} - È ottimale quando l'obbiettivo è quello di 
+    minimizzare il tempo di attesa.
+    \item \textbf{Contro} - È quasi impossibile sapere con precisione 
+    quale sia il prossimo processo con il minor carico di lavoro da eseguire.
+    Inoltre, vi è il rischio che i processi con un carico di lavoro 
+    elevato entrino nella condizione di \textit{starving}\footnote{
+        Restano nella coda senza mai essere selezionati dallo scheduler, 
+        in quanto hanno bassa proprità di essere selezionati.
+    }.
+\end{itemize}
+Come si può però "predirre" il tempo che un processo impiegherà sulla 
+CPU? L'idea, è quella di basarsi sui tempi di esecuzione dei processi 
+precedenti, tramite una tecnica nota come \textbf{exponential smoothing}.\begin{center}
+    \(x_t=\) Tempo attuale sulla CPU del \(t\)-esimo processo (valore noto). 
+    \\\(s_t=\)  Tempo stimato sulla CPU del \(t\)-esimo processo (valore noto).
+    \\Dati \(x_t\) e \(s_t\), vogliamo stimare il tempo di attesa del prossimo processo, 
+    ossia \(s_{t+1}\). \\
+    Sia \(\alpha\) un coefficente reale : \(\alpha\in [0,1]\), la predizione sarà :\\
+\(s_{t+1}=\alpha\cdot x_t+(1-\alpha)\cdot s_t\)
+\end{center}
+Facciamo alcune osservazioni :\acc
+    \(\alpha=0\implies s_{t+1}=s_t\implies\) Si ignora il tempo misurato del processo 
+    precedente. e si assume un tempo di lavoro costante per tutti i processi.\acc 
+    \(\alpha=1\implies s_{t+1}=x_t\implies\) Si assume che il tempo di lavoro 
+    del prossimo processo sia lo stesso del processo precedente.\acc 
+Solitamente, si decide che \(\alpha=\dfrac{1}{2}\). Tale algoritmo può essere implementato 
+sia in maniera \textit{preemptive} che \textit{non-preemptive} : \begin{itemize}
+    \item Una volta che un processo viene assegnato, rimane sulla CPU fino alla prossima 
+    interruzione (o terminazione).
+    \item Quando un nuovo processo arriva nella coda pronti, si controlla se 
+    esso ha un tempo di lavoro stimato maggiore del processo in esecuzione, se si, 
+    viene eseguito lo switch.
+\end{itemize}
+\subsubsection{Priority Scheduling} 
+È il caso generale del SJF, in cui ad ogni job viene assegnato un 
+grado di priorità in base a certi parametri, e lo scheduler 
+prediligerà i processi con la priorità più alta (nel caso del SJF, 
+più il carico di lavoro è basso, più il processo è prioritario). Il livello 
+di priorità non è altro che un valore intero, mantenuto in un 
+certo range (usualmente, più il numero è basso più la priorità 
+è alta).\acc Le politiche possono essere assegnate :\begin{itemize}
+    \item \textbf{Internamente} - Il grado di priorità è assegnato 
+    dal sistema operativo considerando politiche e criteri interni come il tempo di lavoro 
+    sulla CPU, l'alternanza fra richieste di I/O ed esecuzione ecc..
+    \item \textbf{Esternamente} - Il grado di priorità è assegnato dall'utente 
+    basandosi su criteri totalemente arbitrari in base all'importanza 
+    del processo.
+\end{itemize}
+Come visto prima, tale algoritmo può essere implementato 
+sia in maniera \textit{preemptive} che \textit{non-preemptive}.\acc
+Si è accennato precedentemente della \textbf{starvation}, ossia della condizione 
+in cui un processo con bassa priorità, rischia di non essere mai selezionato in 
+quanto surclassato da processi sempre con gradi di priorità superiori. La 
+soluzione più ovvia risulta essere quella denominata con \textbf{aging}, ossia, 
+l'operazione di aumentare il grado di priorità di un processo nel tempo, in modo che,
+anche i processi poco prioritari, con l'andare avanti nel tempo verranno prima o poi 
+schedulati.
+\subsubsection{Multi-Level-Queue (MLQ)}
+L'insieme dei processi viene diviso in partizioni, in base alla categoria 
+di ogni processo (ad esempio, una categoria per i processi grafici, una per i processi 
+ correlati all'audio, ecc..), e si applicano algoritmi diversi di scheduling 
+ su ogni categoria. \acc Un esempio è l'applicazione della \textbf{Strict Priority}, 
+ in cui i processi vengono divisi in diverse code in base ad un grado di priorità 
+ deciso, e poi ogni singola coda avrà il proprio algoritmo di scheduling, ad esempio, 
+ il RR, dove ogni coda ha un quanto temporale diverso dalle altre.
+  \acc \textbf{Attenzione} : Nessun processo può passare da una coda ad un altra.
+  \begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/strictPriority.png}
+    }
+\end{figure}\\
+\color{red}\textbf{note }: ridisegnare questo grafico su IPE\color{black}
 \end{document}
