@@ -12,6 +12,7 @@
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 \newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
 \newcommand{\acc}{\\\hphantom{}\\}
+\newcommand{\dete}{{\rightarrow}}
 \title{Basi di Dati 1}
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -355,7 +356,7 @@ che la identifichi e distingua dalle altre tuple (che quindi non sia mai duplica
 Vediamo una definizione più formale.
 \begin{theorem}
     \hphantom{.}\\\textbf{ Punto 1 }- Per ogni istanza della relazione \(R\), non esistono due tuple \(t_1,t_2\) che hanno gli stessi valori
-    per tutti i singoli attributi, preso un insieme di attribtui \(X\), vale sempre \(t_1[X]\ne t_2[X]\).
+    per tutti i singoli attributi, preso un insieme di attributi \(X\), vale sempre \(t_1[X]\ne t_2[X]\).
     \begin{equation}
         \text{sia }X\in R(A_1,A_2...,A_k) | \forall t_1,t_2 \in r \text{ se }t_1[X]=t_2[X] \implies t_1=t_2
     \end{equation}
@@ -1065,7 +1066,7 @@ nessuno risulterà inesistente. È corretto suddividere tale relazione in 3 dive
         02  & 10 & ... & 26  \\ \hline
         \end{tabular}
 \end{center}
-\subsection{Definizioni Formali}
+\subsection{Definizioni Formali}\label{Def}
 Uno \textbf{schema relazionale}, che si denota con \(R\) è un insieme di attributi del tipo:\begin{center}
     \(R=\{A_1,A_2,A_3...,A_k\}\)
 \end{center}
@@ -1370,14 +1371,14 @@ Nel capitolo precedente \ref{Xclosure} abbiamo dato la definizione dell'insieme 
 (Un insieme di attributi dello schema relazionale), l'insieme contenente tutti gli attributi \(A\) tali che \(X\rightarrow A\in F^A\).
 Vedremo adesso un \textit{algoritmo} in grado di calcolare, a partire da un attributi, la sua chiusura, ciò risulterà 
 utile anche in funzione di stabilire quali sono le chiavi di una relazione.
-\subsubsection{L'Algoritmo}
+\subsubsection{L'Algoritmo}\label{alg}
 \code{Input} : Lo schema \(R\), l'insieme delle dipendenze funzionali \(F\), ed \(X\subseteq R\).\\
 \code{Output} : Denotato con \(Z_f\), sarà la chiusura di \(X\).\\\hphantom{}\\
 
 \hphantom{ident}\codee{begin}\{\\
 \hphantom{ident}\hphantom{ident}\(Z=X\)\\
 \hphantom{ident}\hphantom{ident}\(S=\{A|\exists Y\rightarrow V\in F,Y\subseteq Z\land A\in V\}\)\\
-\hphantom{ident}\hphantom{ident}\codee{while }\(S\notin Z\) \{\\
+\hphantom{ident}\hphantom{ident}\codee{while }\(S \nsubseteq  Z\) \{\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\(Z=X\)\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\(S=\{A|\exists Y\rightarrow V\in F,Y\subseteq Z\land A\in V\}\)\\
 \hphantom{ident}\hphantom{ident}\}\\
@@ -1419,6 +1420,72 @@ Utilizzo l'ipotesi che \(Z_i\subseteq X^+\), quindi se \(Y\subseteq Z_i\implies 
         \(t_2\) & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{1} & \(\dots\) & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{\(\dots\)} & 0 \\ \cline{2-9} 
         \end{tabular}
  \end{center}
-Dimostreremo che \(r\) sia legale, prendo una qualsiasi dipendenza funzionale \(Y\rightarrow V\in F\), supponiamo che 
-\(t_1[Y]=t_2[Y]\)
+Dimostreremo che \(r\) sia legale, prendo una qualsiasi dipendenza funzionale \(Y\rightarrow V\in F\), 
+\(t_1[Y]=t_2[Y]\), so per certo che \(Y\subseteq Z_f\), dato che, per come è strutturata l'istanza, non ci può 
+essere un attributo in \(Z_f\) che determina un attributo in \(R-Z_f\) (Ciò è corretto in quanto, se un attributo fosse determinato 
+da un elemento in \(Z_f\) (che sarebbe la chiusura di \(X\)), ciò significherebbe che tale attributo è determinato da \(X\), quindi 
+dovrebbe esso stesso essere in \(Z_f\)), quindi anche \(t_1[V]=t_2[V]\), ed \(r\) è legale.\\ 
+Sia \(A\in X^+\) un qualsiasi attributo della chiusura di \(X\), allora \(X\rightarrow A\in F^A\), ed \(r\) soddisfa tale 
+dipendenza, sappiamo che \(X=Z_0\subset Z_f\implies t_1[X]=t_2[X]\implies t_1[A]=t_2[A]\implies A\in Z_f\). \begin{center}
+    \(
+    \begin{cases}
+        Z_f\subseteq X^+\\X^+\subseteq Z_f
+    \end{cases} \implies  Z_f= X^+  
+    \) \hphantom{text}\(\blacksquare\)
+\end{center}
+\textit{Esempio} : Si consideri il seguente schema relazionale : \(R=(A,B,C,D,E,H)\) con il seguente insieme 
+di dipendenze funzionali : \(F=(AB\rightarrow CD,EH\rightarrow D,D \rightarrow H)\), si calcoli \(AB^+\).\begin{itemize}
+    \item iterazione 0 - \(Z_0=\{AB\}\), \(S_0=\{CD\}\), noto che \(S_0\nsubseteq Z_0\), quindi continuo.
+    \item iterazione 1 - \(Z_1=\{AB,CD\}\), \(S_1=\{CD,H\}\), noto che \(S_1\nsubseteq Z_1\), quindi continuo.
+    \item iterazione 2 - \(Z_2=\{AB,CD,H\}\), \(S_2=\{CD,H\}\), noto che \(S_2 \subseteq Z_2\), quindi mi fermo.\\
+\end{itemize}
+\code{Output} : \(Z_2=Z_f=AB^+=\{AB,CD,H\}\)
+\subsubsection{La Ricerca delle Chiavi}
+Sappiamo che, se un insieme di attributi \(X\) determina tutto lo schema relazionale \(R\), allora tale insieme 
+è una \textit{chiave}. Se volessimo capire quali sono le chiavi di uno schema, potremmo quindi calcolare la chiusura di tutti 
+i possibili sotto-insiemi di \(R\), e compararli ad \(R\) stesso per vedere se sono equivalenti.\begin{center}
+    \(\forall X\in \mathcal{P}(R)\) : \codee{ if (Algoritmo(}\(X\)\code{)==}\(R\)\codee{) \{ return Algoritmo(}\(X\)\codee{) \}} 
+\end{center} Sappiamo però che, tutti i 
+sotto insiemi di \(R\), sono in numero \(2^{|R|}\), e per ognuno di questi si dovrà eseguire l'algoritmo per calcolarne 
+la chiusura \ref{alg}, è chiaro che questo tipo di problema, necessiti di un calcolo di una complessità \textit{non polinomiale}, 
+è quindi, per quanto corretto, impensabile di poter trovare la chiave di una relazione usando la "forza bruta".
+\acc\textbf{Osservazione} : Se un insieme di attributi non compare mai come determinato in \(F\), allora è parte della chiave. 
+Con tale osservazione, si è può ridurre in maniera notevole il numero di attributi candidati ad essere chiave. \acc
+\textit{Esempio} : \(R=(A,B,C,D,E,H)\)\hphantom{  } \(F=(AB\dete CD,C\dete E,AB\dete E,ABC\dete D)\) Si vuole trovare la chiave 
+di tale schema relazionale. Si facciano due osservazioni, l'attributi \(H\), non compare in nessuna dipendenza funzionale, 
+inoltre, gli attributi \(A\) e \(B\), non compaiono mai come determinati in \(F\), ma solo come determinanti. Si consideri quindi 
+la chiusura di \(ABH\). \codee{Algoritmo(}\(ABH\)\codee{)}=\(ABH^+=(A,B,H,C,D,E)=R\), quindi, per definizione \ref{Def} , se non esiste 
+nessun sottoinsieme di \(ABH\) che determina \(R\), tale \(ABH\) è chiave. Ci si rende conto dopo pochi calcoli che \(ABH\) è chiave.\acc
+
+\textbf{Osservazione} : Gli attributi che compaiono esclusivamente come determinati, non sono chiavi. È consigliabile, iniziare a controllare 
+le chiusure dei sottoinsiemi di cardinalità più alta, se essi non determinano \(R\), non c'è bisogno di controllarne i 
+sotto insiemi
+\acc\textit{Remark }: Durante la prova d'esame, è necessario giustificare tutti i passaggi e le considerazioni che portano il candidato 
+ad escludere un certo insieme di attributi durante la ricerca della chiave.\acc 
+\textbf{Osservazione} : Le chiavi di uno schema relazionale possono essere molteplici, è quindi opportuno cominciare 
+controllando tutti gli attributi che non compaiono mai come determinati. Se la chiusura di un insieme \(X\) è uguale ad 
+\(R\), bisogna verificare che non lo siano anche i suoi sottoinsiemi.\acc
+\textit{Esempio} : \(R=(A,B,C,D,E,G,H)\)\hphantom{  } \(F=(AB\dete D,G\dete A,G\dete B,H\dete E,H\dete G,D\dete H)\) 
+Si vogliono trovare le 4 chiavi. Si cominci dagli attributi che determinano altri ma non sono determinati da nessuno, i 
+candidati sono \(AB,G,D\) e \(H\). Noto che \(C\) non compare mai in nessuna dipendenza funzionale, quindi sarà 
+parte di tutti le chiavi. Comincio allora con \(ABC\), trovo che \codee{Algoritmo(}\(ABC\)\codee{)}=\(R\), controllo poi 
+i sottoinsiemi e vedo che \codee{Algoritmo(}\(AC\)\codee{)}=\((AB, BC^+)\) e che \(BC^+=(BC)\), quindi \(ABC\) è una chiave. 
+Ne rimangono 3, gli altri 3 candidati erano \(G,D\) e \(H\), utilizzo l'algoritmo e trovo che \(GC^+=DC^+=HC^+=R\), sono quindi 
+tutte e 3 le chiavi, senza necessità di controllare i sottoinsiemi (dato che \(C\) da sola non può essere chiave, ma deve 
+essere contenuto in ogni chiave).\acc 
+Dato uno schema \(R\), se viene trovata una chiave, spesso ci si chiede se tale chiave sia l'unica, è quindi opportuno 
+fare un \textbf{test di unicità}, dato che, per controllare se uno schema sia in terza forma normale, necessitiamo di sapere quali 
+siano tutte le chiavi. \acc 
+Esiste un modo semplice per determinare se la chiave di uno schema \(R\) è unica :\begin{center}
+    Sia \(X=\displaystyle\bigcap_{V\rightarrow W\in F}R-(W-V)\)
+\end{center}
+Una volta aver trovato tale \(X\), se \(X^+=R\), allora \(X\) è l'unica chiave di \(R\), altrimenti, esistono più chiavi, 
+ed \(X\) non è una superchiave di \(R\).\acc 
+\textit{Esempio} : \(R=(A,B,C,D,E)\)\hphantom{  } \(F=(AB\dete C,AC\dete B,D\dete E)\), voglio capire se la chiave sia unica, 
+applico quindi il calcolo appena visto :\begin{center}
+    
+    \(X=(ABCDE-(C-AB)\cap ABCDE-(B-AC)\cap ABCDE-(E-D))=\)\\
+    \(=(ABCDE-C\cap ABCDE-B\cap ABCDE-E)=(ABDE\cap ACDE\cap ABCD)=AD\)\\
+    calcolo \(X^+=AD^+=AD\ne R\), quindi ci sono più chiavi.
+\end{center}
 \end{document}
