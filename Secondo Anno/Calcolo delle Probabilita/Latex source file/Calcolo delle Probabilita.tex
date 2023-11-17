@@ -14,6 +14,7 @@
 \newcommand{\V}{{\mathbb V}}
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\Prob}{{\mathbb P}}
+\newcommand{\pspace}{\((\Omega,\Prob)\)}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \title{Calcolo delle Probabilità}
 \author{Marco Casu}
@@ -972,5 +973,159 @@ delle ordinate.
     \centering{
     \includegraphics[width=0.75\textwidth ]{images/cov.eps}
     }
-\end{figure}
+\end{figure}\\
+Se la covarianza fra due variabili aleatorie è prossima allo zero, ciò può indicare che esse sono 
+indipendenti.\acc 
+Vediamo il caso generale di variabili aleatorie indipendenti : siano \((\Omega,\Prob)\) uno schema
+probabilistico, su cui sono dedinite le variabili aleatorie \(X_1,X_2\dots,X_n\), diremo che esse 
+sono indipendenti se, preso un qualsiasi punto delle loro immagini : 
+\(x_1\in Im(X_1)\dots,x_n\in Im(X_n)\), si ha che :\begin{center}
+    \(
+        \Prob(X_1=x_1,X_2=x_2\dots,X_n=x_n)=\Prob(X_1=x_1)\cdot \Prob(X_2=x_2)\dots,\cdot\Prob(X_n=x_n)
+    \)
+\end{center}
+Ciò di per se, implica l'indipendenza di una qualsiasi sotto-famiglia di variabili aleatorie. Un tipico esempio 
+da considerare è lo schema di Bernoulli, dove si ha che \begin{center}\(X_i=\begin{cases}
+    1 \text{ se il lancio }i\text{ ha fatto testa}\\ 0 \text{ se il lancio }i\text{ ha fatto croce}
+\end{cases}\)\end{center}
+con \(i=1,2\dots,n\) lanci. So che \(X_1,X_2\dots,X_n\) sono variabili aleatorie indipendenti, quindi 
+\(\V(X)=\displaystyle\sum _{i=1}^n\V(X_i)=n\cdot p\cdot (1-p)\).
+\subsection{Variabile Aleatoria Geometrica}
+La variabile aleatoria geometrica si comporta in modo simile alla variabile aleatoria binomiale, sia ha uno 
+spazio di probabilità del tipo \(\Omega=\{0,1\}^{\N}\), che significa una parola lunga infinite cifre che possono 
+essere 0 oppure 1, la variabile aleatoria \(X\) restituisce l'\(i\)-esima cifra in cui per la prima 
+volta compare \(1\), definita \(X=\text{Inf}(i|\omega_i=0)\), l'immagine di \(X\) è quindi l'insieme dei 
+numeri naturali. La distribuzione di tale variabile aleatoria è definita nel seguente modo : \begin{center}
+    \(\Prob(X=k)=(1-p)^{k-1}\cdot p\)
+\end{center}
+Si chiama variabile aleatoria geometrica perché, con l'andare avanti dei lanci, tendendo ad infinito, la 
+probabilità che la prima testa esca al \(k\)-esimo lancio tende a zero. \begin{center}
+    \(\displaystyle\lim_{k\rightarrow+\infty}(1-p)^{k-1}\cdot p=0\)\end{center}
+    Calcoliamo quindi la probabilità che testa, prima o poi esca : \begin{equation}
+        \Prob(\{\text{ prima o poi esce testa }\})=\Prob(\bigcup^{+\infty}_{k=1}\{X=k\})=\sum^{+\infty}_{k=1}
+        (1-p)^{k-1}p=p\cdot\dfrac{1}{1-(1-p)}=1
+    \end{equation}
+    Questo significa che, con l'andare avanti dei lanci, sicuramente prima o poi 
+    uscirà testa.\acc 
+    Il valore atteso è definito in tal modo : \(\E(X)=\dfrac{1}{p}\).\acc
+    \textbf{Dimostrazione }:
+    \begin{center}
+        \(
+        \E(X)=\displaystyle\sum_{k=1}^{+\infty}k\cdot\Prob(X=k) =\sum_{k=1}^{+\infty} k\cdot (1-p)^{k-1}\cdot p  
+        =p\cdot \sum_{k=1}^{+\infty} k\cdot (1-p)^{k-1}
+        \)\\ chiamo \(q=1-p\) ed ottengo : \(\displaystyle p\cdot \sum_{k=1}^{+\infty} k\cdot q^{k-1}\)\\
+        A questo punto, ho \(k\cdot q^{k-1}\) che è la derivata di \(q^k\), quindi riscrivo : \\\(
+            \displaystyle p\cdot \sum_{k=1}^{+\infty} \dfrac{d}{dq}(q^k)=p\cdot \dfrac{d}{dq}\Big(\sum_{k=1}^{+\infty}q^k\Big)
+        =p\cdot \dfrac{d}{dq}\Big( \dfrac{1}{1-q}  \Big)=p\cdot\dfrac{1}{(1-q)^2}=p\cdot\dfrac{1}{(1-(1-p))^2}=\dfrac{1}{p}\)
+     \(\blacksquare\)\end{center}
+\subsubsection{Perdita di Memoria per la Variabile Aleatoria Geometrica}
+Nella variabile aleatoria geometrica, introduciamo la \textbf{funzione di sopravvivenza}, denotata e definita 
+nel modo seguente :\begin{center}
+    \(
+    G(n)=\Prob(\{ \text{Non è uscito testa nei primi \(n\) lanci} \}) = \Prob(X>n)  = (1-p)^n 
+    \)
+\end{center}
+\textbf{Dimostrazione }:
+\begin{equation}
+    \Prob(X>n) =\sum_{k=n+1}^\infty\Prob(X=k)=\sum_{k=n+1}^\infty p(1-p)^{k-1} \text{\hphantom{aa} chiamo }h=k-n-1\implies 
+\end{equation}\begin{equation}
+    \implies p\cdot \sum_{h=0}^\infty (1-p)^{n+h}=(1-p)^n\cdot \sum_{h=0}^\infty (1-p)^h = (1-p)^n\text{\hphantom{text}}\blacksquare
+\end{equation}
+Introduciamo adesso nella variabile aleatoria geometrica una condizione, ossia,
+so che per i primi \(n\) lanci, non è uscita testa, vogliamo sapere qual'è la probabilità che 
+esca testa nei prossimi \(l\) lanci : \begin{center}
+    \(
+    \Prob(X=n+l|X>n)    
+    \)
+\end{center}
+Ma in questo modello, il lancio di una moneta non influisce in alcun modo gli esiti futuri, quindi 
+sapere che testa non è uscita, non influenza in nessun modo la probabilità che esca prossimamente :\begin{center}
+    \(
+        \Prob(X=n+l|X>n)=\Prob(X=l)    
+    \)
+\end{center}
+\textbf{Dimostrazione }: \begin{equation}
+    \Prob(X=n+l|X>n)=\dfrac{\Prob(X=n+l, X>n)}{\Prob(X>n)}
+\end{equation}
+So che \(l\) è maggiore di zero, quindi l'evento in cui \(X=n+l\), contiene anche l'evento in cui 
+\(X>n\), quindi l'intersezione di questi due ultimi è uguale al primo.\begin{equation}
+    \dfrac{\Prob(X=n+l, X>n)}{\Prob(X>n)}=\dfrac{\Prob(X=n+l)}{\Prob(X>n)}=\dfrac{\Prob(X=n+l)}{G(n)}=
+\end{equation}\begin{equation}
+    =\dfrac{(1-p)^{n+l-1}p}{(1-p)^n}=\dfrac{(1-p)^{n}\cdot (1-p)^{l-1}\cdot p}{(1-p)^n}= (1-p)^{l-1}\cdot p=\Prob(X=l)\text{\hphantom{text}}\blacksquare
+\end{equation}
+\subsubsection{Variabile Aleatoria Binomiale Negativa}
+Adesso, si dia il caso che sia uscita testa, e che si continui a lanciare la moneta, voglio sapere la probabilità che 
+esca testa nuovamente. Se \(X\) era la nostra variabile aleatoria geometrica,
+definisco una nuova variabile aleatoria : \(X^{(2)}=\{\text{ Lancio in cui è uscito testa la seconda volta }\}=\text{Inf}(i|\omega_i = 1 \land i>X)\), 
+sicuramente, ciò non può che avvenire dal secondo lancio : \(Im(X^{(2)})\ge 2\), 
+La distribuzione di tale variabile aleatoria è definita nel seguente modo : \begin{center}
+    \(\Prob(X^{(2)}=k)=(k-1)p^2(1-p)^{k-2}\)
+\end{center}
+Calcoliamoci adesso il valore atteso, sfruttando la linearità di esso, infatti, definisco una nuova 
+variabile aleatoria \(\tilde X\), il cui valore è uguale al numero di lanci fra la prima e la seconda testa :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.5\textwidth ]{images/x2.eps}
+    }
+\end{figure}\\
+Risulta chiaro che, \(\tilde X\) sia una variabile aleatoria geometrica, e che la nuova variabile \(X^{(2)}\), sia 
+la somma di \(\tilde X\) ed \(X\), quindi, per linearità : \begin{center}
+    \(
+    \E(X^{(2)})=\E(X+\tilde X)=\E(X)+\E(\tilde X)=\dfrac{1}{p}+\dfrac{1}{p} =\dfrac{2}{p}     
+    \)
+\end{center}
+Verifico adesso che \(X\) ed \(\tilde X\) siano indipendenti : \begin{equation}
+    \Prob(X=k,\tilde X=h)=\Prob(\{\omega_i\in \Omega | \omega_1\dots \omega_{k-1}=0\land \omega_k = 1\land 
+    \omega_{k+1}\dots \omega_{k+h-1}=0\land \omega_{k+h}=1\})
+\end{equation}
+Essendo tutti i lanci indipendenti fra loro : \begin{equation}
+    =(1-p)^{k-1}\cdot p \cdot (1-p)^{h-1}\cdot p = \Prob(X=k)\cdot \Prob(\tilde X=h)\text{\hphantom{text}}\blacksquare
+\end{equation}
+Calcolando la varianza, ho che \(\V(X^{(2)})=\V(X+\tilde X)\), avendo verificato che sono indipendenti, posso dire che 
+\(\V(X+\tilde X)=\V(X)+\V(\tilde X)\).\acc
+Sappiamo già che  \(\Prob(X^{(2)}=k)=(k-1)p^2(1-p)^{k-2}\), vogliamo però calcolarlo sapendo che è la somma 
+di 2 variabili aleatorie geometriche \(X\) e \(\tilde X\). Vediamo però un caso generale : \acc 
+Siano \(X\) ed \(Y\) due variabili aleatorie su uno spazio \pspace, definisco una nuova variabile 
+aleatoria \(Z=X+Y\). In generale, calcolare la distribuzione di \(Z\), è difficile, a meno che non ci sia 
+il presupposto che \(X\) ed \(Y\) siano \textit{indipendenti}.\acc Calcoliamo quindi \(\Prob(Z=z)\), parto prima 
+dal calcolarmi \(\Prob(Z=z, X=x)\), ho che \begin{equation}
+    \sum_{x\in Im(X)}\Prob(Z=z,X=x)= \sum_{x\in Im(X)}\Prob(x+Y=z,X=x)=\sum_{x\in Im(X)}\Prob(Y=z-x,X=x)\forall z\in Im(Z)
+\end{equation}
+Ritornando quindi al nostro esempio dei lanci di moneta : \begin{equation}
+    \Prob(X^{(2)}=k) = \sum_{h=1}^\infty\Prob(X=h)\Prob(\tilde X=k-h)=\sum_{h=1}^\infty(1-p)^{h-1}p(1-p)^{k-h-1}p
+\end{equation}
+Ma tale somma non può andare fino all'infinito, ma fino a \(k-1\), dato che, se \(k=h\implies\Prob(\tilde X=k-h)=\Prob(\tilde X=0)=0\) ! Allora ho : 
+\begin{equation}
+    \sum_{h=1}^{k-1}(1-p)^{h-1}p(1-p)^{k-h-1}p=(k-1)(1-p)^{k-2}\cdot p^2\text{\hphantom{text}}\blacksquare
+\end{equation}
+Generalizziamo adesso la variabile \(X^{(2)}\), e definiamo \(X^{(h)}\) come la variabile aleatoria che assume valore 
+uguale all'indice del lancio \(h\)-esimo in cui è uscito \(1\), essa è denominata \textbf{variabile aleatoria 
+negativa}.\begin{center}
+    \(X^{(h)}=\text{Inf}(\{i|i>X^{(h-1)}\land \omega_i=1\})\)
+\end{center} 
+La sua distribuzione vale : \begin{center}\(
+    \Prob(X^{(h)}=k)=\Prob(\{\text{Ci sono state \(h-1\) teste nei primi \(k-1\) lanci, e al \(k\)-esimo lancio è uscita testa }\})
+\)\\
+\(
+=\Prob(\{\omega\in \Omega | \sum_{i=1}^{k-1}\omega_i=h-1\land \omega_k=1\})=\displaystyle\binom{k-1}{h-1}\cdot p^{h-1} \cdot (1-p)^{k-h}\cdot p    
+\)
+\end{center}
+Il suo valore atteso è calcolabile sfruttando la linearità di esso : \begin{equation}
+    \E(X^{(h)})=\sum_{i=0}^h\E(X^{(i)})=\sum_{i=0}^h\dfrac{1}{p}=\dfrac{h}{p}
+\end{equation}
+\subsubsection{Il Problema della Macchina da Scrivere}
+Introduciamo un concetto : \begin{quote}
+    Se un qualche evento può succedere, prima o poi succederà.
+\end{quote}
+Si consideri il seguente scenario, vi è una scimmia che preme a caso dei tasti su una macchina da scrivere, 
+la probabilità di un tasto rispetto ad un altro, non è necessariamente la stessa (magari la scimmia tende a premere 
+più frquentemente i tasti centrali), ma la probabilità che ogni singolo tasto venga premuto è sempre 
+maggiore di zero.\acc La scimmia quindi, che è immortale ed instancabile, premendo tasti all'infinito, genera 
+una sequenza infinita di caratteri, il cui dominio di ogni carattere è l'alfabeto italiano \(a,b,c\dots,z\) con aggiunta 
+di spazi e virgole, chiamiamo tale dominio \(\mathcal{A}\). La \textit{Divina Commedia} di \textit{Dante}, non è altro che una sequenza di 
+\(k\) caratteri (precisamente, \(k\simeq 0.5\cdot10^6\)), se quindi lo spazio degli eventi 
+è \(\mathcal{A}^{\N}\), ossia le sequenze di un numero di caratteri indeterminato generate dalla scimmia, sia \(D\) l'evento, in cui la scimmia, prima o poi (ad un istante 
+temporale indeterminato) scrive la \textit{Divina Commedia} nella sua interezza, premendo tasti a caso.\acc 
+Vedremo che \(\Prob(D)=1\), ossia, che con lo scorrere del tempo, esisterà un istante temporale, in cui 
+la scimmia scriverà l'intera \textit{Divina Commedia}.
 \end{document}
