@@ -2223,6 +2223,154 @@ riga \(1\) (dalla quale si è selezionato il pivot), ed ottengo la riga : \(\beg
     -2
 \end{bmatrix}\), adesso, sommo questa riga alla riga numero 3, la nuova matrice ottenuta (equivalente per 
 il lemma fondamentale) è :
+\begin{center}\(
+    A=\begin{bmatrix}
+        1&3&1&-1\\
+        0&0&1&4\\
+        0&-5&3&4\\
+        0&1&-1&-1
+    \end{bmatrix}\bar b = \begin{bmatrix}
+        1\\
+        -2\\
+        -2\\
+        2
+    \end{bmatrix}
+\)\end{center}
+Scambio l'ordine di alcune righe ed ottengo : 
+\begin{center}\(
+    A=\begin{bmatrix}
+        1&3&1&-1\\
+        0&-5&3&4\\
+        0&0&1&4\\
+        0&1&-1&-1
+    \end{bmatrix}\bar b = \begin{bmatrix}
+        1\\
+        -2\\
+        -2\\
+        2
+    \end{bmatrix}
+\)\end{center}
+Adesso, la riga 1, ha 1 elemento diverso da zero, procedo con il prossimo passo.\acc 
+\textbf{Passo 2} : Prendo dalla seconda colonna un coefficente diverso da 0, seleziono come 
+pivot : \(p_2=a_{2_2}=-5\). Considero \(h_4 = -\dfrac{a_{4_1}}{p_2}=-\dfrac{1}{(-5)}=\dfrac{1}{5}\),  moltiplico tale valore per la 
+riga \(2\) (dalla quale si è selezionato il pivot), ed ottengo la riga : \(\begin{bmatrix}
+    0&-1&\nicefrac{3}{5}&\nicefrac{4}{5}
+\end{bmatrix}\begin{bmatrix}
+    -\nicefrac{2}{5}
+\end{bmatrix}\)
+adesso, sommo questa riga alla riga numero 4, la nuova matrice ottenuta (equivalente per 
+il lemma fondamentale) è :
+\begin{center}\(
+    A=\begin{bmatrix}
+        1&3&1&-1\\
+        0&-5&3&4\\
+        0&0&1&4\\
+        0&0&-\nicefrac{2}{5}&-\nicefrac{1}{5}
+    \end{bmatrix}\bar b = \begin{bmatrix}
+        1\\
+        -2\\
+        -2\\
+        \nicefrac{8}{5}
+    \end{bmatrix}
+\)\end{center}
+Adesso, la riga 2, ha 2 elementi diverso da zero, procedo con il prossimo passo.\acc 
+\textbf{Passo 3} :
+Prendo dalla terza colonna un coefficente diverso da 0, seleziono come 
+pivot : \(p_3=a_{3_3}=1\).
+Considero \(h_3 = -\dfrac{a_{3_4}}{p_3}=-\dfrac{(-\nicefrac{2}{5})}{1}=\dfrac{2}{5}\),  moltiplico tale valore per la 
+riga \(3\) (dalla quale si è selezionato il pivot), ed ottengo la riga : \(\begin{bmatrix}
+    0&0&\nicefrac{2}{5}&\nicefrac{8}{5}
+\end{bmatrix}\begin{bmatrix}
+    -\nicefrac{4}{5}
+\end{bmatrix}\)
+adesso, sommo questa riga alla riga numero 4, la nuova matrice ottenuta (equivalente per 
+il lemma fondamentale) è :
+\begin{center}\(
+    A=\begin{bmatrix}
+        1&3&1&-1\\
+        0&-5&3&4\\
+        0&0&1&4\\
+        0&0&0&\nicefrac{7}{5}
+    \end{bmatrix}\bar b = \begin{bmatrix}
+        1\\
+        -2\\
+        -2\\
+        \nicefrac{4}{5}
+    \end{bmatrix}
+\)\end{center}
+Qui mi fermo. Per il lemma fondamentale, questa nuova matrice, è associata ad un sistema che è equivalente a quello 
+iniziale. Il nuovo sistema triangolare è : 
+\begin{equation}
+    \begin{cases}
+        x+3y+z-2=1\\ 
+        -5y+3z+4w=-2 \\
+        z+4w = -2\\  
+        \dfrac{7}{5}w=\dfrac{4}{5}
+    \end{cases}
+\end{equation}
+Posso risolverlo facilmente partendo dall'ultima equazione : \begin{equation}
+    \begin{cases}
+        x+3y+z-w=1\\ 
+        -5y+3z+4w=-2 \\
+        z+4w = -2\\  
+        w=\nicefrac{4}{7}
+    \end{cases}\implies
+    \begin{cases}
+        x+3y+z-w=1\\ 
+        -5y+3z+4w=-2 \\
+        z+\nicefrac{16}{7} = -2\\  
+        w=\nicefrac{4}{7}
+    \end{cases}\implies 
+    \begin{cases}
+        x+3y+z-w=1\\ 
+        -5y+3z+4w=-2 \\
+        z=-\nicefrac{30}{7}\\  
+        w=\nicefrac{4}{7}
+    \end{cases}
+\end{equation}\begin{equation}
+    \begin{cases}
+        x+3y+z-w=1\\ 
+        -5y+3(-\nicefrac{30}{7})+4(\nicefrac{4}{7})=-2 \\
+        z=-\nicefrac{30}{7}\\  
+        w=\nicefrac{4}{7}
+    \end{cases}\implies
+    \begin{cases}
+        x+3y+z-w=1\\ 
+        y=-\nicefrac{12}{7} \\
+        z=-\nicefrac{30}{7}\\  
+        w=\nicefrac{4}{7}
+    \end{cases}\implies\end{equation} \begin{equation} \begin{cases}
+        x+3(-\nicefrac{12}{7})+(-\nicefrac{30}{7})-(\nicefrac{4}{7})=1\\ 
+        y=-\nicefrac{12}{7} \\
+        z=-\nicefrac{30}{7}\\  
+        w=\nicefrac{4}{7}
+    \end{cases}\implies\begin{cases}
+        x=11\\ 
+        y=-\nicefrac{12}{7} \\
+        z=-\nicefrac{30}{7}\\  
+        w=\nicefrac{4}{7}\end{cases}
+\end{equation}
+Quindi, la soluzione è \(\bar x = \begin{bmatrix}11\\\nicefrac{12}{7}\\-\nicefrac{30}{7}\\\nicefrac{4}{7}\end{bmatrix}\).
+\subsubsection{Teorema dei Sistemi Triangolari}
+Sia \(T\bar x = \bar c\) un sistema triangolare \(n\times n\), tale sistema ammette soluzione \textbf{unica}
+se e solo se, \(\forall i \in \{1,2\dots n\},\) \(t_{i_i}\ne 0\), ossia, se la diagonale principale non ha 
+valori nulli. Differentemente, se \(\exists j \in \{1,2\dots n\}|t_{j_j}=0\), allora il sistema, o non ammette 
+soluzione, o ne ammette infinite.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
