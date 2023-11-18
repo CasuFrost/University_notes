@@ -5,7 +5,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage[english]{babel}
-
+\usepackage{mathtools}
 \usepackage[table,xcdraw]{xcolor}
 \definecolor{light-gray}{gray}{0.95}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
@@ -13,6 +13,7 @@
 \newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\dete}{{\rightarrow}}
+\newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \title{Basi di Dati 1}
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -480,7 +481,7 @@ degli operatori che lavorano sulle istanze delle nostre relazioni, vi sono 4 tip
     \item Operatore di rinomina
 \end{itemize}
 Vediamo nel dettaglio tutti gli operatori che abbiamo a disposizione :
-\subsubsection{Proiezione}
+\subsubsection{Proiezione}\label{proiezione}
 L'operatore di proiezione, indicato con \(\pi\), esegue un \textit{taglio verticale} su una 
 tabella, selezionando un sotto-insieme degli attributi, creando una tabella come quella iniziale, 
 ma con esclusivamente le istanze degli attributi selezionati.\begin{center}
@@ -1127,7 +1128,7 @@ Passiamo alla definizione di \textbf{chiave}. Un sotto-insieme di attributi \(K\
 Detto in maniera meno formale, non esisteranno due tuple di una relazione con gli stessi valori 
 per le chiavi. Nei linguaggi come \textit{SQL}, fra gli attributi della chiave se ne definisce uno 
 in particolare detto \textbf{chiave primaria},che non può assumere valore \code{NULL}.
-\subsection{Gli Assiomi di Armstrong}
+\subsection{Gli Assiomi di Armstrong}\label{armstrong}
 Dato uno schema \(R\), un insieme di dipendenze funzionali \(F\), ed un istanza legale \(r\), se tale 
 istanza soddisfa una dipendenza si scrive \(r \text{ }SAT \text{ } X\rightarrow Y\), abbiamo poi definito la chiusura 
 di \(F\) come : \begin{center}
@@ -1294,7 +1295,7 @@ Sia \(R\) uno schema relazionale ed \(F\) il suo insieme delle dipendenze funzio
 \end{itemize}
 Dato uno schema \(R\),  è in terza forma normale se e solo se  \textbf{non} presenta \textit{Dipendenze Parziali} o \textit{Transitive}
 (analogamente, non presenta attributi che dipendono parzialmente o transitivamente da una chiave).
-\subsubsection{Decomposizione in più Schemi}
+\subsubsection{Decomposizione in più Schemi}\label{Decomposizione}
 Vogliamo saper creare delle basi di dati che siano in terza forma normale, ossia che, ognuna delle sue relazioni sia 
 in 3NF. Avendo uno schema che viola tale forma, è possibile \textit{decomporlo}, creando più relazioni che a loro 
 volta non violino la 3NF.\begin{quote}
@@ -1371,7 +1372,7 @@ Nel capitolo precedente \ref{Xclosure} abbiamo dato la definizione dell'insieme 
 (Un insieme di attributi dello schema relazionale), l'insieme contenente tutti gli attributi \(A\) tali che \(X\rightarrow A\in F^A\).
 Vedremo adesso un \textit{algoritmo} in grado di calcolare, a partire da un attributi, la sua chiusura, ciò risulterà 
 utile anche in funzione di stabilire quali sono le chiavi di una relazione.
-\subsubsection{L'Algoritmo}\label{alg}
+\subsubsection{L'Algoritmo  (\codee{Compute }\(X^+_F\)\codee{ from }\(F\))}\label{alg}
 \code{Input} : Lo schema \(R\), l'insieme delle dipendenze funzionali \(F\), ed \(X\subseteq R\).\\
 \code{Output} : Denotato con \(Z_f\), sarà la chiusura di \(X\).\\\hphantom{}\\
 
@@ -1488,4 +1489,117 @@ applico quindi il calcolo appena visto :\begin{center}
     \(=(ABCDE-C\cap ABCDE-B\cap ABCDE-E)=(ABDE\cap ACDE\cap ABCD)=AD\)\\
     calcolo \(X^+=AD^+=AD\ne R\), quindi ci sono più chiavi.
 \end{center}
+\subsection{Preservare le Dipendenze Funzionali}
+Nel capitolo \ref{Decomposizione} abbiamo visto come, uno schema che non è in terza forma normale, può essere "decomposto" in più 
+schemi, che non comrpomettano l'integrità della base di dati, ma che in più, rispettino la 3NF. Una decomposizione di \(R\), è una 
+famiglia di insiemi \(R_1,R_2\dots,R_n\) tali che \(\displaystyle\bigcup_{i=1}^nR_i=R\) (la decomposizione impone che i 
+diversi sotto-schemi non siano disgiunti, non deve essere una partizione).\acc Una volta decomposto uno schema, ad ogni 
+sotto-schema sarà assegnato un nuovo insieme di dipendenze funzionali. Decomporre una tabella (e la sua istanza), equivale 
+ad eseguire una proiezione \ref{proiezione}, diamo un importante definizione.\acc 
+\textbf{Definizione }: Due insiemi di dipendenze funzionali \(F\) e \(G\), si dicono \textit{equivalenti}, e si 
+denota \(F\equiv G\), se la loro chiusura è identica, quindi, determinano lo stesso insieme di istanze legali.\begin{center}
+    \(F\equiv G\iff F^+=G^+\)
+\end{center} 
+Quando si decompone uno schema, occorre verificare che le dipendenze funzionali siano preservate, quindi, che il nuovo insieme 
+di dipendenze sia equivalente a quello originale. Ovviamente, \(F^+\) ed \(G^+\) sono troppo grandi, e controllarli nella loro 
+interezza richiederebbe un tempo non polinomiale, risulta utile però il seguente lemma.\acc 
+\textbf{Lemma }: Sia \(R\) uno schema, ed \(F\) e \(G\) due insiemi di dipendenze funzionali, vale che :\begin{center}
+    \(F^+\subseteq G^+\iff F\subseteq G^+\)
+\end{center}
+\textbf{Dimostrazione} : Se la prima implicazione è scontata, la seconda, ossia \(F\subseteq G^+\implies F^+\subseteq G^+\), risulta meno banale ed 
+assai efficace. L'ipotesi, è che \(F\subseteq G^+\), sia \(f=X\rightarrow Y\) una qualsiasi dipendenza funzionale in \(F^+\). 
+So che \(F^+=F^A\), quindi, se \(f\) è in \(F^A\), ciò vuol dire, che esiste un insieme di dipendenze funzionali 
+\(\{f_1,f_2\dots,f_n\}\subseteq F\), tale che, applicando gli assiomi di Armstrong \ref{armstrong} su di esse, si ottiene \(f\).\begin{center}
+    \(\{f_1,f_2\dots,f_n\}\xrightarrow[\text{}]{\text{Armstrong}}f\)
+\end{center}
+L'ipotesi però, è che \(F\subseteq G^+\), ma \(G^+=G^A\), quindi \(F\subseteq G^A\), questo vuol dire che, se un elemento è 
+in \(G^A\), esiste un insieme di dipendenze funzionali, tali che applicando gli assiomi di Armstrong su di esse, si ottiene 
+quell'elemento. Si osservi che, \(\{f_1,f_2\dots,f_n\}\subseteq F \subseteq G^A\), quindi, \(\forall f_i\in \{f_1,f_2\dots,f_n\}
+, \exists \{g_1^i,g_2^i\dots,g_k^i\}\subseteq G \) tale che \( \{g_1^i,g_2^i\dots,g_k^i\}\xrightarrow[\text{}]{\text{Armstrong}}f_i\).
+\begin{center}
+    \(\begin{matrix}
+        \{g_1^1,g_2^1\dots,g_k^1\}&\xrightarrow[\text{}]{\text{Armstrong}}\\\dots\\\dots\\
+        \{g_1^n,g_2^n\dots,g_k^n\}&\xrightarrow[\text{}]{\text{Armstrong}}
+    \end{matrix}\begin{Bmatrix}
+        f_1\\.\\.\\f_n
+        \end{Bmatrix}\xrightarrow[\text{}]{\text{Armstrong}}f\in F^+\)
+\end{center}
+Questo significa che, applicando gli assiomi di armstrong a partire da elemen ti in \(G\), ottengo degli elementi 
+in \(F^+\), ma se \(F\subseteq G^+\), so che ogni elemento di \(F^+\) si ottiene applicando gli assiomi 
+su \(F\), ed \(F\) si ottiene applicando gli assiomi su \(G\), quindi \(F^+\subseteq G^+\). \(\blacksquare\)\acc 
+Dato tale lemma, si giunge alla \textbf{conclusione fondamentale} che : \begin{center}
+    \(F\equiv G\iff F\subseteq G^+\land G\subseteq F^+\)
+\end{center}
+Adesso che sappiamo come controllare l'equivalenza di due dipendenze funzionali, possiamo enunciare il metodo con cui, si controlla 
+se una scomposizione, preserva l'insieme delle dipendenze funzionali.\subsubsection{Controllo dell'Unione}
+Sia \(R\) uno schema relazionale, \(F\) l'insieme delle dipendenze funzionali, e \(\rho=\{R_1,R_2\dots,R_n\}\) una sua decomposizione.
+Definiamo per ogni elemento di \(\rho\), un insieme di dipendenze funzionali correlato ad \(F\), definito in tal modo : \begin{center}
+    \(\pi_{R_i}(F)=\{X\rightarrow Y\in F^+|\{X,Y\}\subseteq R_i\}\)
+\end{center}
+Quindi, per ogni sotto-schema, è associato l'insieme \(\pi_{R_i}(F)\), che contiene le dipendenze funzionali che sono in \(F^+\), se come determinante e 
+determinato appaiono esclusivamente elementi che siano in tale sotto-schema.\acc Diremo che, 
+la decomposizione \(\rho\) \textbf{preserva le dipendenze funzionali} in \(F\), se e solo se :\begin{center}
+     \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\equiv F\)
+\end{center}
+Per controllare che \(G\equiv F\), devo controllare solamente che \(F\subseteq G^+\), non è necessario controllare 
+che \(G\subseteq F^+\), dato che, per come è definito \(G\), è l'unione sottoinsiemi di
+\(F^+\), quindi, che \(G\) sia contenuto nella chiusura di \(F\) è ovvio. Per controllare che \(F\subseteq G^+\), bisogna prendere 
+una qualsiasi dipendenza \(X\rightarrow Y \in F\), e controllare che sia in \(G^+\).\acc 
+\textbf{Osservazione }: Se \(X\rightarrow Y \in G^+\), allora \(Y\subseteq X^+_G\), è quindi necessario controllare 
+ogni dipendenza di \(F\), calcolare la chiusura del determinante rispetto a \(G\), e controllare che il determinato sia 
+in tale chiusura, se per uno solo di questi, non vale ciò, allora \(F\) non è equivalente a \(G\).
+\acc\textbf{Problema }: L'osservazione appena fatta, enuncia che ci basta controllare la chiusura di un insieme di attributi 
+rispetto a \(G\) per verificare l'equivalenza, il problema, è che \(G\) deriva da \(F^+\), quindi è troppo grande per 
+essere calcolato esplicitamente, e non può essere applicato l'algoritmo visto nel capitolo \ref{alg}. Vedremo quindi, un nuovo algoritmo, 
+capace di calcolare la chiusura di un insieme di attributi \(X\) rispetto a \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\) partendo da \(F\).
+\subsubsection{L'Algoritmo (\codee{Compute }\(X^+_G\)\codee{ from }\(F\))}
+\code{Input} : Lo schema \(R\), l'insieme delle dipendenze funzionali \(F\), una decomposizione \(
+    \rho = \{R_1,R_2\dots,R_k\}\) ed \(X\subseteq R\).\\
+\code{Output} : Denotato con \(Z_f\), sarà la chiusura di \(X\) rispetto a \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\).\\\hphantom{}\\
+\hphantom{ident}\codee{begin}\{\\
+\hphantom{ident}\hphantom{ident}\(Z=X\)\\
+\hphantom{ident}\hphantom{ident}\(S=\emptyset\)\\
+\hphantom{ident}\hphantom{ident}\codee{for } \(i=1\) \codee{ to }\(k\)\{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\(S=S\cup (Z\cap R_i)^+_F\cap R_i\)\\
+\hphantom{ident}\hphantom{ident} \}\\
+\hphantom{ident}\hphantom{ident}\codee{while }\(S \nsubseteq  Z\) \{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\(Z=Z\cup S\)\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{for } \(i=1\) \codee{ to }\(k\)\{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\(S=S\cup (Z\cap R_i)^+_F\cap R_i\)\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident} \}\\
+\hphantom{ident}\hphantom{ident} \}\\
+\hphantom{ident}\hphantom{ident} \codee{return }\(Z\)\\
+\hphantom{ident}\}\acc 
+\textbf{Teorema }: L'algoritmo calcola correttamente la chiusura di \(X\) rispetto a \(G\), ossia \(Z_f=X^+_G\).\acc 
+\textbf{Dimostrazione }: Si procede per doppia inclusione, partendo col dimostrare \boxedMath{\(Z_f\subseteq X_G^+\)}  Si dimostra 
+per induzione, \textit{Caso Base }: \(Z_0=X\subseteq X_G^+\). \textit{Passo induttivo }: L'ipotesi è che, \(Z_i\subseteq X_G^+\), voglio dimostrare 
+che se ciò è vero, è vero anche che  \(Z_{i+1}\subseteq X_G^+\). Considero un qualsiasi \(A\in Z_{i+1}\), per come è 
+definito \(Z_{i+1}\), ciò significa che \(A\in Z_i\) oppure \(A\in S_i\). Il primo caso dimostra di per se la tesi, si consideri quindi 
+il caso in cui \(A\in S_i\). Ricordo che \(S_i=\bigcup_{j=1}^k(Z_i\cap R_j)_F^+\cap R_j\), allora, \(\exists j\in\{1,2\dots,k\}|
+A\in (Z_i\cap R_j)_F^+\cap R_j\), ciò implica che \(A\in R_j\land A\in(Z_i\cap R_j)^+_F\), ma questo'ultimo implicherebbe che 
+\(Z_i\cap R_j\rightarrow A\in F^A\). So che \(Z_i\cap R_j\subseteq R_j\), e che  \(A\in R_j\), allora   
+\(Z_i\cap R_j\rightarrow A\in \pi_{R_j}(F)\subseteq G\), ma ricordiamoci che per ipotesi \(Z_i\subseteq X_G^+\), allora, anche il suo 
+sotto insieme \(Z_i\cap R_j\) è contenuto in \(X_G^+\), ciò implica che \(X\rightarrow (Z_i\cap R_j) \in G^A\), per transitività, 
+ho che \(X\rightarrow A\in G^A\implies A\in X_G^+\) come volevasi dimostrare. Adesso rimane da dimostrare che \boxedMath{\(X_G^+\subseteq Z_f\)}  
+Sappiamo che \(X\subseteq Z_f\), posso fare un osservazione : Se \(X\subseteq Z_f\), allora sicuramente 
+\(X^+_G\subseteq (Z_f)_G^+\), fatta tale osservazione, mi basta dimostrare che \(Z_f=(Z_f)_G^+\). Anche se calcolare \(G\) 
+richiede tempo esponenziale, questa è una dimostrazione, quindi si può assumere di conoscere \(G\). Applichiamo il normale 
+algoritmo \codee{Compute }\(X^+_F\)\codee{ from }\(F\) visto nel paragrafo \ref{alg} per calcolare la chiusura di \(Z_f\), applicando 
+tale algoritmo, si ricostruisce iterativamente \(S\), si ha la prima riga di codice definita in tal modo \(S'=\{A|\exists Y\rightarrow V\in G,Y\subseteq Z_f\land A\in V\}\)
+Si ricordi che \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\), 
+ciò vuol dire che \(\exists j \in \{1,2\dots,k\}|Y\rightarrow V\in \pi_{R_j}(F)\), 
+Se \(A\in V\), allora \(A\in R_j\), e \(Y\rightarrow V\in F^+\), dato che \(G\subseteq F^+\). Noto che :\(\begin{cases}
+    Y\rightarrow V\in F^+\\
+    A\in V
+\end{cases}\implies A\in Y_F^+\).
+Ricordando la definizione di \(\pi_{R_j}(F)\), so che, se \(A\in V\) e \(Y\rightarrow V\in \pi_{R_j}(F)\), allora 
+sicuramente \(A\in R_j\). A questo punto : \(\begin{cases}
+    A\in R_j\\ 
+    A\in Y_F^+\text{ e }Y\in Z_f \implies A\in (Z_f)^+_F
+\end{cases}\implies A\in(Z_f\cap R_j)^+_F\cap R_j\subseteq S_f\implies A\in S_f\) ma \(S_f\in Z_f\) quindi 
+\(A\in Z_f\). Questo, vuol dire che, all'inizio, in \(S\) vengono inseriti solo elementi che sono già 
+in \(Z_f\), quindi (si guardi l'algoritmo), essendo che \(S\subseteq Z_f\), non viene eseguito il \codee{while}, e l'algoritmo 
+termina, dando in output lo stesso elemento che è stato preso in input, ciò, significa che la chiusura dell'elemento 
+è uguale all'elemento stesso, e quindi \(Z_f=(Z_f)^+_G\). Avendo iniziato il discorso dicendo che \(X^+_G\subseteq (Z_f)_G^+\), 
+ne concludiamo che  \(X_G^+\subseteq Z_f\). \(\blacksquare\)
 \end{document}
