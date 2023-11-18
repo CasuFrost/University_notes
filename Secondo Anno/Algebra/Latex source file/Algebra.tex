@@ -2355,8 +2355,47 @@ Quindi, la soluzione è \(\bar x = \begin{bmatrix}11\\\nicefrac{12}{7}\\-\nicefr
 Sia \(T\bar x = \bar c\) un sistema triangolare \(n\times n\), tale sistema ammette soluzione \textbf{unica}
 se e solo se, \(\forall i \in \{1,2\dots n\},\) \(t_{i_i}\ne 0\), ossia, se la diagonale principale non ha 
 valori nulli. Differentemente, se \(\exists j \in \{1,2\dots n\}|t_{j_j}=0\), allora il sistema, o non ammette 
-soluzione, o ne ammette infinite.
-
+soluzione, o ne ammette infinite.\acc 
+A questo punto, come si fa a capire se un sistema ammette o non ammette soluzione? Come si tratta un sistema in cui 
+il numero delle incognite è diverso dal numero delle equazioni? Per tutto ciò, occorre introdurre una nuova 
+struttura algebrica.
+\section{Spazio Vettoriale sul Campo dei Reali}
+Lo spazio vettoriale, è una struttura del tipo \((V,+,\bar o,\cdot)\) definita su un campo (nel nostro caso, \(\R\)). 
+\(\bar o\) è l'elemento neutro, e tale struttura segue i seguenti assiomi : \begin{enumerate}
+    \item \((V,+)\) è un gruppo commutativo, dove \(+\) è un operazione binaria : \begin{center}
+        \(+:V\times V\rightarrow V\) tale che \((\bar v, \bar w)\rightarrow \bar v +\bar w\)
+    \end{center}
+    \item Esiste un operazione esterna \(\cdot\) : \begin{center}
+        \(\cdot:\R\times V\rightarrow V\) tale che \((\alpha, \bar v)\rightarrow \alpha\bar v \)
+    \end{center}  \(\forall \bar v,\bar w \in V\) e \(\forall \lambda,\mu\in\R\), valgono le seguenti regole : \begin{itemize}
+        \item (i) \(\lambda\cdot(\bar v+\bar w)=\lambda\bar v+\lambda \bar w\) \hphantom{aa}tale operazione si chiama \textit{prodotto per uno scalare}
+        \item (ii) \(1\cdot \bar v=\bar v\)
+        \item (iii) \((\lambda+\mu)\cdot\bar v=\lambda\bar v +\mu\bar v\)
+        \item (iiii) \((\lambda\mu)\cdot \bar v = \lambda \cdot (\mu\cdot\bar v)\)
+    \end{itemize}
+\end{enumerate}
+Vediamo due esempi di noti spazi vettoriali : \begin{itemize}
+    \item \((\R^n,+,\bar 0,\cdot)\) è uno spazio vettoriale, con 
+    elemento neutro, somma, prodotto scalare ed inverso definiti in tal modo :
+\begin{center}
+    \(\bar 0 := \begin{bmatrix}
+        0\\0\\.\\.\\0
+    \end{bmatrix}\)\hphantom{text}
+    \(\bar x + \bar y := \begin{bmatrix}
+        x_1+y_1\\x_2+y_2\\.\\.\\x_n+y_n
+    \end{bmatrix}\)\hphantom{text}\(\lambda\cdot \bar x := \begin{bmatrix}
+        \lambda x_1\\\lambda x_2\\.\\.\\\lambda x_n
+    \end{bmatrix}\)\hphantom{text}\((\bar x)^{-1}=\begin{bmatrix}
+        -x_1\\- x_2\\.\\.\\- x_n
+    \end{bmatrix}\)
+\end{center}
+\item L'insieme \(V\) delle funzioni continue su \(\R\) è uno spazio vettoriale, con 
+elemento neutro, somma, prodotto scalare ed inverso definiti in tal modo :
+\begin{center}
+    \(f_0 := f(x)=0\)\hphantom{txt}\((f+g)(x):=f(x)+g(x)\)\hphantom{txt}\((\lambda f)(x):=\lambda\cdot f(x)\)
+\hphantom{tet}\((f(x)^{-1}):=-f(x)\)
+\end{center}
+\end{itemize}
 
 
 
