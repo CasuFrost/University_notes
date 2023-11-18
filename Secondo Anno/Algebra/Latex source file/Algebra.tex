@@ -1960,8 +1960,222 @@ A meno che di casi eccezionali in cui \(n\) è molto piccolo, solitamente il gru
 non contiene trasposizioni.\acc 
 \textbf{Proposizione }: L'ordine del sottogruppo alterno \(\An\) di \(\Sn\) è \(\dfrac{n!}{2}\).
 
+\newpage
 
-
+\begin{center}
+    \Huge \textbf{Algebra Lineare}
+\end{center}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.75\textwidth ]{images/copLin.png}
+    }
+\end{figure}
+\newpage 
+\section{Sistemi di Equazioni Lineari}
+Si consideri il seguente sistema di \(n\) equazioni a coefficenti reali, con \(n\) incognite :\begin{center}
+    \(\begin{cases}
+        a_{1_1}x_1+a_{1_2}x_2\dots a_{1_n}x_n=b_1\\
+        a_{2_1}x_1+a_{2_2}x_2\dots a_{2_n}x_n=b_2\\\dots\\
+        a_{n_1}x_1+a_{n_2}x_2\dots a_{n_n}x_n=b_n
+    \end{cases}\)
+\end{center}
+Vogliamo chiederci, se tale sistema ammette soluzioni reali, e se ne ammette, quante? Ad un sistema lineare, 
+è possibile associare una matrice.\acc 
+\textbf{Definizione }: Una \textit{matrice} \(n\times m\) a coefficenti in un campo (in questo caso, \(\R\)), è 
+una tabella di \(n\) righe ed \(m\) colonne, composta da numeri, si denota nella seguente forma : \begin{center}
+    \(A=\begin{bmatrix}
+        a_{1_1}&a_{1_2}&.&a_{1_j}&.& a_{1_n}\\
+        a_{2_1}&a_{2_2}& .&a_{2_j}&.&a_{2_n}\\
+        .&& &.&&.\\
+        a_{i_1}&.& .&a_{ i_j}&.&a_{ i_n}\\
+        .&& &.&&.\\
+        a_{n_1}&a_{n_2}&.&a_{n_j}&.& a_{n_n}\\
+    \end{bmatrix}\)
+\end{center}
+Vi sono due indici, e l'elemento \(a_{ i_j}\) è quel numero che si trova all'\(i\)-esima riga ed 
+alla \(j\)-esima colonna. Una matrice può anche avere 1 colonna ed \(n\) righe, la chiamiamo \textit{ennupla},
+ed è denotata nel seguente modo :\begin{center}
+    \(\bar b=\begin{bmatrix}
+        b_1\\b_2\\.\\.\\b_n
+    \end{bmatrix}\)
+\end{center} 
+Un sistema di equazioni lineari quindi, può essere rappresentato con le matrici, dove ad ogni posizione di 
+cordinata \(i,j\), si associa il coefficente reale nella \(i\)-esima equazione che è moltiplicato 
+alla \(j\)-esima incognita, tale matrice poi, si moltiplica alla ennupla delle incognite, e tale prodotta è identità 
+della ennupla dei termini noti :\begin{center}
+    \(\begin{bmatrix}
+        a_{1_1}&a_{1_2}&.&a_{1_j}&.& a_{1_n}\\
+        a_{2_1}&a_{2_2}& .&a_{2_j}&.&a_{2_n}\\
+        .&& &.&&.\\
+        a_{i_1}&.& .&a_{ i_j}&.&a_{ i_n}\\
+        .&& &.&&.\\
+        a_{n_1}&a_{n_2}&.&a_{n_j}&.& a_{n_n}\\
+    \end{bmatrix}\cdot 
+    \begin{bmatrix}
+        x_1\\x_2\\.\\.\\.\\x_n
+    \end{bmatrix}= \begin{bmatrix}
+        b_1\\b_2\\.\\.\\.\\b_n
+    \end{bmatrix}\)
+\end{center}
+Quindi, si può scrivere tale sistema : \begin{center}
+    \(A\bar x=\bar b\)
+\end{center}
+\textit{Esempio} : Il seguente sistema di equazioni lineari si rappresenta in forma di matrici : 
+\begin{center}
+    \(\begin{cases}
+        3x_1+2x_2+3x_3=0\\
+        2x_1-x_3=2\\
+        x_1+x_3=4
+    \end{cases}\text{\hphantom{aa} si riscrive \hphantom{aa}} \begin{bmatrix}
+        3&2&1\\
+        2&0&-1\\
+        1&0&1
+    \end{bmatrix}\begin{bmatrix}
+        x_1\\x_2\\x_3
+    \end{bmatrix}=\begin{bmatrix}
+        0\\2\\4
+    \end{bmatrix}\)
+\end{center}
+\subsection{Metodo di Gauss}
+Esiste un semplice metodo per trovare la soluzione (o soluzioni) di un sistema di equazioni lineari, in questo 
+paragrafo, ci ristringeremo al caso in cui il numero di equazioni è uguale al numero di incognite. Diamo prima un importante definizione.
+\acc\textbf{Definizione di Sistemi Equivalenti}: Siano \(A\bar x = \bar b\) e \(A'\bar x = \bar b'\) due sistemi di equazioni 
+lineari, e sia \(\Sigma = \{\bar x\in \R^n | A\bar x = \bar b\}\) l'insieme delle soluzioni del primo sistema, e
+\(\Sigma' = \{\bar x\in \R^n | A'\bar x = \bar b'\}\) l'insieme delle soluzioni del secondo sistema. Se \(\Sigma=\Sigma'\), 
+ossia se i due sistemi distinti ammettono le stesse soluzioni, allora, si dicono \textit{equivalenti}.\acc 
+Prima di considerare il metodo per trovare le soluzioni di un sistema, si necessita ancora di un fondamentale lemma.\acc 
+\textbf{Lemma Fondamentale} : Sia \(A\bar x = \bar b\) un sistema di equazioni lineari \(n\times n\), e siano\begin{center} 
+\(\star : \alpha_1x_1\dots+\alpha_nx_n=\beta\) \hphantom{aa}ed\hphantom{aa} \(\star\star : \alpha'_1x_1\dots+\alpha'_nx_n=\beta'\)\end{center} due equazioni 
+del sistema, Si consideri l'equazione\begin{center}  \(\tilde{\star\star} : h(\alpha_1x_1\dots+\alpha_nx_n)
++k(\alpha'_1x_1\dots+\alpha'_nx_n)=h\beta+k\beta'\)\end{center} dove \(k\) ed \(h\) sono due 
+coefficenti reali, con \(k\ne 0\). Sia \(\tilde A\bar x = \tilde{\bar b}\) un nuovo sistema identico al primo, con la sola 
+differenza che, al posto dell'equazione \(\star\star\), vi è l'equazione \(\tilde{\star\star}\), allora, 
+\(\tilde A\bar x = \tilde{\bar b}\) e \(A\bar x = \bar b\) sono equivalenti. \acc
+\textbf{Dimostrazione }: Abbiamo \(\star\) e \(\star\star\), due equazioni del sistema, che ha 
+soluzioni \(\Sigma\), sia \(\bar y\in\Sigma\), quindi \(\bar y\) soddisfa \(\star\) e \(\star\star\), quindi : 
+\begin{equation}
+    \alpha_1y_1\dots+\alpha_ny_n-\beta = 0 \text{\hphantom{aaaa}e\hphantom{aaaa}} \alpha'_1y_1\dots+\alpha'_ny_n-\beta' = 0
+\end{equation}
+Ne segue che, considerando due coefficenti reali \(h\) e \(k\ne 0\) :\begin{equation}
+    h(\alpha_1y_1\dots+\alpha_ny_n-\beta)+k(\alpha'_1y_1\dots+\alpha'_ny_n-\beta')=0
+\end{equation}
+Questo, significa che \(\bar y\) soddisfa la nuova equazione : \begin{equation}
+    \tilde{\star\star} : h(\alpha_1x_1\dots+\alpha_nx_n)+k(\alpha'_1x_1\dots+\alpha'_nx_n)=h\beta+k\beta'
+\end{equation}
+Ciò vuol dire che, se consideriamo un nuovo sistema \(\tilde A\bar x = \tilde{\bar b}\) identico al primo, ma dove 
+al posto di \(\star\star\) compare \(\tilde{\star\star}\), dove \(\tilde\Sigma\) sono le soluzioni di questo nuovo 
+sistema, essendo che, una qualsiasi soluzione del sistema 
+iniziale  soddisfa anche \(\tilde A\bar x = \tilde{\bar b}\), possiamo dire che \(\Sigma\subseteq\tilde\Sigma\).\\
+Si consideri adesso una qualsiasi soluzione di \(\tilde A\bar x = \tilde{\bar b}\), ossia \(\bar z \in \tilde\Sigma\), vale 
+che \(\bar z\), soddisfa \(\star\), dato che \(\star\) è presente anche in \(\tilde A\bar x = \tilde{\bar b}\), questo 
+significa che : \begin{equation}
+    \text{\color{blue}\textbf{!}\color{black} }\alpha_1z_1\dots+\alpha_nz_n-\beta=0
+\end{equation}
+Adesso, prendo l'equazione \(\tilde{\star\star}\) in \(\tilde A\bar x = \tilde{\bar b}\) e sostituisco l'incognita con \(\bar z\):
+\begin{equation}
+    h(\alpha_1z_1\dots+\alpha_nz_n)+k(\alpha'_1z_1\dots+\alpha'_nz_n)=h\beta+k\beta'\implies
+\end{equation}
+\begin{equation}
+    h(\alpha_1z_1\dots+\alpha_nz_n-\beta)+k(\alpha'_1z_1\dots+\alpha'_nz_n-\beta')=0
+\end{equation}
+Ma per \color{blue}\textbf{! }\color{black} ottengo : 
+\begin{equation}
+    h(0)+k(\alpha'_1z_1\dots+\alpha'_nz_n-\beta')=0\implies \alpha'_1z_1\dots+\alpha'_nz_n=\beta'
+\end{equation}
+Questo significa che una qualsiasi \(\bar z\in \tilde\Sigma\) soddisfa anche \(\star\star\), ossia equazione del primo sistema, 
+ne consegue che \(\tilde\Sigma\subseteq\Sigma\implies \Sigma=\tilde\Sigma\). \(\blacksquare\)\acc
+Adesso che conosciamo il lemma, voglia utilizzarlo per trasformare il nostro sistema, in un sistema risolvibile 
+facilmente, necessitiamo prima di tutto di una definizione. \acc 
+\textbf{Definizione di Matrice Triangolare }: Una matrice quadrata \(n\times n\) si dice \textit{triangolare 
+superiore} se, \(i>j\implies a_{i_j}=0\), graficamente, sotto la diagonale principale (composta da tutti gli 
+elementi \(a_{i_j}\) per cui \(i=j\)), tutti gli elementi sono uguali a 0, sopra la diagonali principale invece 
+i valori possono essere diversi da 0.\begin{center}
+     \textit{Esempio} :\(
+     \begin{bmatrix}
+        1&4&5&7&1\\
+        0&2&5&6&9\\
+        0&0&1&9&4\\
+        0&0&0&4&5\\
+        0&0&0&0&7
+     \end{bmatrix}   
+     \)
+\end{center}
+Analogamente, si dice \textit{triangolare 
+inferiore} se, \(i<j\implies a_{i_j}=0\), graficamente, sopra la diagonale principale, tutti gli elementi sono uguali a 0, sotto la diagonali principale invece 
+i valori possono essere diversi da 0.\begin{center}
+    \textit{Esempio} :\(
+        \begin{bmatrix}
+           1&0&0&0&0\\
+           4&2&0&0&0\\
+           5&6&1&0&0\\
+           1&2&6&4&0\\
+           8&7&3&2&7
+        \end{bmatrix}   
+        \)
+\end{center}
+Un sistema di equazioni lineari si dice triangolare se la matrice ad esso associata è triangolare, un sistema 
+di questo tipo, risulta estremamente facile da risolvere, in quanto è possibile partire dall'equazione 
+con una sola incognita, risolverla, e procedere "dal basso verso l'alto" per sostituzione. Un esempio di sistema triangolare :
+\begin{center}
+     \(\begin{cases}
+        t_{1_1}x_1+t_{1_2}x_2+t_{1_3}x_3+t_{1_4}x_4=b_1\\ 
+        \text{\hphantom{aaaaaa.}}t_{2_2}x_2+t_{2_3}x_3+t_{2_4}x_4=b_2\\
+        \text{\hphantom{aaaaaa.aaaaaa.}}t_{3_3}x_3+t_{3_4}x_4=b_3\\
+        \text{\hphantom{aaaaaa.aaaaaa.aaaaaa.}}t_{4_4}x_4=b_4
+    \end{cases}\) Ha matrice associata :\hphantom{aa} \(\begin{bmatrix}
+        t_{1_1}&t_{1_2}&t_{1_3}&t_{1_4}\\
+        0&t_{2_2}&t_{2_3}&t_{2_4}\\
+        0&0& t_{3_3}& t_{3_4}\\
+        0&0&0&t_{4_4}\\
+        
+     \end{bmatrix} \)
+\end{center}
+Ritorniamo adesso al metodo di risoluzione di un sistema di equazioni lineari, utilizzando le nozioni appena 
+affrontate.\subsubsection{Teorema di Gauss}
+Ogni sistema di \(n\) equazioni lineari ad \(n\) incognite è equivalente ad un sistema triangolare.\acc 
+Tale teorema è di fondamentale importanza, de facto, il metodo di gauss consiste nell'applicare più volte 
+in maniera iterativa il \textbf{lemma fondamentale} ad un sistema per trasformarlo in un sistema triangolare che 
+ha le stesse soluzioni del sistema originale. \acc 
+\textbf{Osservazione }: Ovviamente, le equazioni di un sistema lineare possono scambiarsi di ordine, il sistema 
+rimane lo stesso, con le stesse soluzioni.\acc 
+Vediamo adesso il \textbf{metodo di risoluzione}, esso, su un sistema che ha una matrice \(n\times n\) associata, sarà composto da \(n-1\)
+ passaggi (o step), ogni \(i\)-esimo passaggio, avrà come scopo, quello di trasformare la \(i\)-esima colonna, 
+ facendo si che tale colonna, abbia \(i\) elementi diversi da \(0\), ed i 
+ restanti \(n-i\) elementi, uguali a 0. Si consideri il seguente esempio \begin{center}
+    Se la matrice è 
+    \(\begin{bmatrix}
+       a_{1_1}&a_{1_2}&a_{1_3}\\
+       a_{2_1}&a_{2_2}&a_{2_3}\\
+       a_{3_1}&a_{3_2}&a_{3_3}
+   \end{bmatrix}\)
+ \end{center}
+ \begin{itemize}
+    \item il \textit{Passo 1} ha come obbiettivo di avere come prima colonna : \(\begin{bmatrix}
+        a_{1_1}\\
+        0\\
+        0
+    \end{bmatrix}\)
+    \item il \textit{Passo 2} ha come obbiettivo di avere come prima colonna : \(\begin{bmatrix}
+        a_{1_2}\\
+        a_{2_2}\\
+        0
+    \end{bmatrix}\)
+ \end{itemize}
+Una volta completati questi due passi, la matrice è diventata triangolare. Ci rimane da capire come operare 
+su ogni singolo passo, per far si che l'obbiettivo sia portato a termine.\acc 
+\textbf{Operare ad Ogni Passo} : Sia l'\(i\)-esimo passo, dobbiamo quindi operare sull'\(i\)-esima colonna 
+e trasformare \(n-i\) elementi in modo che siano uguali a zero. Prima di tutto, si seleziona un qualsiasi
+elemento dalla colonna, diverso da zero, detto \textit{pivot}, che denomineremo \(p_i\).
+A questo punto, abbiamo il pivot, che sarebbe l'elemento \(a_{k_i}\), con \(k={1,2\dots, n}\) (può essere un 
+quasiasi elemento dell'\(i\)-esima colonna, a patto che sia diverso da zero). Adesso, in quella colonna, 
+ci sta un elemento che è il pivot, poi ci sono \(i\) elementi che dovranno preservare il loro valore, 
+ed \(n-i\) elementi che dovranno diventare 0, ci concentreremo su questi ultimi, si dia il caso, che 
+questi \(n-i\) elementi, sono del tipo \(a_{l_i}\) con \(l=\{i+1,i+2\dots,n\}\), per ognuno di questi 
+elementi, si considera un nuovo valore, ossia \(h_l=\dfrac{a_{l_i}}{p_i}\), e si somma, tutta la 
+\(l\)-esima riga con \(h_l\), facendo così, con tutti gli elementi \(a_{{i+1}_i},a_{{i+2}_i}\dots,a_{{n}_i}\) 
+diventeranno uguali a 0.\acc 
+Attenzione, per quanto la spiegazione generale di questo algoritmo sembri contorta, in realtà è sufficentemente 
+intuitiva, in quanto
 
 
 
@@ -2020,5 +2234,4 @@ E definisco il suo nucleo \begin{equation}
 \end{equation} 
 Noto che per il teorema fondamentale di omomorfismo di gruppi, esiste un \textbf{unico isomorfismo} \(F:\nicefrac{G}{Ker\varphi}\rightarrow \R\backslash\{0\}\) 
 tale che \(\varphi=\pi\circ F\), essendo  \(Ker\varphi = T\), so che \(\nicefrac{G}{T}\) è isomorfo a \(\R\backslash\{0\}\).
-
 \end{document}
