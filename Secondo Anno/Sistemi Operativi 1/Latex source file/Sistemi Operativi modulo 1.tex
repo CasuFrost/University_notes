@@ -643,4 +643,86 @@ di ogni processo (ad esempio, una categoria per i processi grafici, una per i pr
     \includegraphics[width=0.8\textwidth ]{images/expSmoothing.eps}
     }
 \end{figure}\\
+\subsubsection{Multi-Level-Feedback-Queue (MLFQ)}
+L'idea è simile alla normale MLQ, solo che in questo caso, i processi possono \textit{muoversi fra 
+le diverse code}. Ciò può essere necessario in diverse situazioni, per rendere lo scheduling più 
+adattivo, ad esempio : \begin{itemize}
+    \item Un processo cambia le sue caratteristiche, alternandosi nell'essere un CPU-Bound ed un processo che 
+    fa molte richieste di I/O.
+    \item Un processo può rimanere in attesa troppo tempo, quindi l'aging interviene spostandolo in una coda con 
+    priorità maggiore.
+\end{itemize}
+Di default, i processi vengono tutti inizializzati nella coda con priorità più alta, che ha a sua volta il 
+quanto temporale più corto. Se il tempo a disposizione scade, vengono spostati nella coda successiva, di un grado 
+di priorità inferiore, e così via. \acc Se il quanto temporale di un processo invece non lo blocca (ad esempio, il processo 
+si interrompe con richieste di I/O sempre prima che il suo tempo a disposizione scada), allora viene spostato 
+nella coda superiore, con priorità più alta. I processi che richiedono molto calcolo e tempo sulla CPU, cadranno rapidamente 
+nelle code più "basse" con meno priorità, differentemente, i processi che fanno molte richieste di I/O 
+rimarranno nelle code più "alte".\acc 
+Uno scheduling MLFQ è estremamente flessibile, ma anche molto complesso da implementare, bisogna gestire svariati 
+parametri, quali : \begin{enumerate}
+    \item Il numero delle code.
+    \item L'algoritmo di scheduling per ogni coda. 
+    \item Le politiche adoperate per spostare i processi fra le code. 
+    \item Il metodo utilizzato per determinare in quale coda un processo dovrebbe essere inizializzato.
+\end{enumerate}
+Questo algoritmo, si comporta in maniera simile al SJF in termini di tempo di attesa, in quanto cerca di privilegiare i 
+processi corti, potrebbe quindi essere poco equo.
+\subsubsection{Lottery Scheduling} 
+Esiste un tipo di scheduling inusuale basato sulla casualità. Ad ogni processo, viene assegnato un certo 
+numero di "ticket". Ad ogni intervallo di tempo, si estrae \textbf{casualmente} (con probabilità uniforme) un 
+numero. Il processo in possesso del ticket con il numero estratto, verrà schedulato. Con l'andare avanti del tempo, 
+per la \textit{legge dei grandi numeri}, prima o poi ogni processo verrà schedulato. \acc 
+Risulta opportuno dare più ticket ai processi più corti, in modo che possano essere schedulati 
+più frequentemente (simulando il SJF). Per evitare la starvation, si assegna ad ogni processo 
+alemeno un ticket. Inoltre, aggiungere o rimuovere processi dalla code, condiziona in maniera proporzionale 
+la probabilità di essere selezionati di tutti gli altri processi. Questo tipo di scheduling quindi, \textbf{non è 
+deterministico}, e si basa sulla \textit{randomness}.\begin{center}
+    \(m_i:=\)  numero di ticket assegnati al processi \(i\)\\\(N:=\) numero dei processi \\\(M=\displaystyle\sum_{i=1}^N:=\) numero totale dei ticket\\
+\(\mathbb{P}(i)=\dfrac{m_i}{M}:=\) probabilità che il processo \(i\) venga schedulato.
+\end{center}
+\section{I Threads}
+\subsection{Definizione e Motivazioni}
+Fino ad ora, abbiamo sempre trattato ogni processo come un entità singola (ossia, \textit{single-threaded}), ma 
+i sistemi operativi moderni sono per la maggiorparte orientati alla gestione dei processi \textit{multi-threaded}.\acc 
+Un \textbf{thread}, è l'unità più piccola schedulabile sulla CPU, è composto da un program counter, uno stack, un insieme 
+di registri dedicati ed un thread ID. I processi, sono composti da più thread, che risultano essere più unità di controllo.
+Diversi thread di un singolo processo, hanno differenti PC, stack e registri, ma condividono lo stesso codice e la 
+stessa quantità di memoria dedicata. \begin{itemize}
+    \item Un \textbf{processo} definisce uno spazio di indirizzamento, il codice, e le risorse.
+    \item Un \textbf{thread} definisce una singola sequenza/flusso di esecuzione all'interno di un processo.
+\end{itemize}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.73\textwidth ]{images/threads.eps}
+    }
+\end{figure}Un thread ovviamente non esiste "singolarmente", ma è sempre parte di un processo. "Vivendo" nello stesso codice e 
+nella stessa memoria, la cooperazione fra più thread di un processo risulta facile e non necessita di chiamate di sistema.\acc 
+Quando un processo deve svolgere più compiti è oppurtuno suddividerlo in diversi thread, soprattutto quando un particolare 
+compito potrebbe interrompersi, se esso viene programmato come thread singolo, la sua interruzione non causerà 
+l'interruzione dell'intero processo.\acc 
+Teoricamente, ogni compito di un processo potrebbe essere implementato come un nuovo processo single-threaded, ma non 
+risulta essere la migliore opzione, in quanto la comunicazione fra thread di uno stesso processo è più rapida, ed i context-switch 
+lo sono altrettanto. L'utilizzo dei thread, porta \textbf{4 benefici principali} : \begin{enumerate}
+    \item \textbf{Responsività} - Un thread provvede ad essere rapido e responsivo, in quanto non viene interrotto, se il resto 
+    dei thread del suo stesso processo sono bloccati o rallentati da computazione intensa.
+    \item \textbf{Condivisione delle risorse} - Diversi thread condividono lo stesso codice e spazio di indirizzamento.
+    \item \textbf{Convenienza} - Creare e gestire diversi thread è più rapido rispetto ad eseguire le stesse operazioni ma con 
+    processi differenti. 
+    \item \textbf{Scalabilità} - Nei sistemi a più processori, un singolo processo può vedere diversi thread venire 
+    eseguiti contemporaneamente sui diversi processori.
+\end{enumerate}
+Spesso, le architetture moderne, prevedono diversi \textit{core}, ossia, più CPU sono disponibili al calcolo, 
+permettendo il vero parallelismo. Ci sono due modi differenti per "parallelizzare" il carico di lavoro :\begin{itemize}
+    \item \textbf{Parallelismo dei dati} - Si divide la porzione di dati su cui lavorare in diversi core, gestiti 
+    da diversi thread, e si performa l'operazione su entrambe le porzioni di dati.
+    \item \textbf{Parallelismo delle operazioni} - Si divide il compito da svolgere in diverse operazaioni che verranno 
+    eseguite simultaneamente su diversi core.
+\end{itemize}
+Esistono diversi problemi complessi che svolgono sia operazioni intensive di I/O, che calcoli 
+intensi sulla CPU. La suddivisione in thread può risultare utile anche in architetture a single-core. Dividendo le operazioni 
+I/O e di calcolo, è possibile eseguirle nel solito pseudo parallelismo alla quale siamo abituati, senza che 
+il calcolo intensivo blocchi le richieste di I/O e viceversa. \acc Anche se suddividere in thread un operazione 
+puramente CPU-bound può essere contro producente, ciò risulta comunque più efficace in quanto elimina il tempo di attesa 
+che il processo dovrebbe attendere nel mentre che una richiesta di I/O non è stata ancora completata.
 \end{document}
