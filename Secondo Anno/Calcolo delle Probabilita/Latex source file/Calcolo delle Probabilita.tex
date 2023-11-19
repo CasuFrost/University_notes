@@ -838,7 +838,7 @@ In questo caso varianza e valore atteso valgono : \begin{equation}
     \mathbb{V}(X)=(0-p)^2(1-p)+(1-p)^2p=p(1-p)(p+1-p)=p(1-p)
 \end{equation}
 Se \(p=\dfrac{1}{2}\), la varianza è massima.
-\subsubsection{Variabile Aleatoria Binomiale}
+\subsubsection{Variabile Aleatoria Binomiale}\label{valBin}
 Considerando lo schema di Bernoulli : \(\Omega=\{0,1\}^n\), dove \(p\) è la probabilità che \(\omega_i\) assuma 
 valore \(1\), la variabile aleatoria binomiale \(X\) conta 
 il numero di \(1\), ossia \(X(\omega)=\displaystyle \sum_{i=1}^n\omega_i\). \\Ad esempio, per \(n=2\) si ha : 
@@ -1113,7 +1113,7 @@ La sua distribuzione vale : \begin{center}\(
 Il suo valore atteso è calcolabile sfruttando la linearità di esso : \begin{equation}
     \E(X^{(h)})=\sum_{i=0}^h\E(X^{(i)})=\sum_{i=0}^h\dfrac{1}{p}=\dfrac{h}{p}
 \end{equation}
-\subsubsection{Il Problema della Macchina da Scrivere}
+\subsubsection{Il Problema della Macchina da Scrivere}\subsubsection{Ipotesi Modellistica}
 Introduciamo un concetto : \begin{quote}
     Se un qualche evento può succedere, prima o poi succederà.
 \end{quote}
@@ -1128,4 +1128,56 @@ di spazi e virgole, chiamiamo tale dominio \(\mathcal{A}\). La \textit{Divina Co
 temporale indeterminato) scrive la \textit{Divina Commedia} nella sua interezza, premendo tasti a caso.\acc 
 Vedremo che \(\Prob(D)=1\), ossia, che con lo scorrere del tempo, esisterà un istante temporale, in cui 
 la scimmia scriverà l'intera \textit{Divina Commedia}.
+\subsection{Variabile Aleatoria di Poisson}
+\subsubsection{Ipotesi Modellistica}
+Introduciamo una nuova variabile aleatoria, con una piccola digressione modellistica. Si dia il caso 
+che un'azienda voglia calcolare la probabilità, in un lasso di tempo determinato (in questo caso sarà unitario, ossia di 
+1 secondo), di arrivo dei suoi clienti in un'ipotetica coda. Sia \(\lambda\) il tasso degli arrivi, 
+ossia, in un unità di tempo, la probabilità che arrivi un cliente è \(\lambda\). Si divide l'intervallo di tempo 
+in \(n\) diversi intervalli di uguale dimensione, e la probabilità che ad ogni intervallo 
+arrivi un cliente è di \(\dfrac{\lambda}{n}\).\acc  Tale problema è descrivibile con una \textit{variabile 
+aleatoria binomial}e \ref{valBin}, di parametro \(\dfrac{\lambda}{n}\), dove \(n\) è il "numero di lanci", che in 
+questo caso rappresenta gli istanti di tempo, in cui può arrivare un cliente.\acc 
+A questo punto l'azienda, vuole essere più precisa, e rendere gli intervalli di tempo ancora più piccoli, aumentando quindi 
+il valore di \(n\). L'azienda, vuole calcolare la probabilità che arrivi un cliente, in un \textbf{istante infinitesimale} 
+di tempo. 
+\subsubsection{Definizione}
+Sia \(\lambda\in (0,+\infty)\), e sia \(X^{(n)}\) una variabile aleatoria binomiale di parametro \(\dfrac{\lambda}{n}\), 
+la \textbf{variabile aleatoria di Poisson}, è tale variabile binomiale, con il presupposto che \(n\) tenda all'infinito.\begin{center}
+    \( \displaystyle\lim_{n\rightarrow+\infty} X^{(n)} \)
+\end{center}
+La distribuzione della variabile aleatoria di Poisson vale esattamente:\begin{center} \(\lim_{n\rightarrow+\infty}\Prob(X^{(n)}=k)=\dfrac{\lambda^k}{k!}e^{-\lambda}\)
+\end{center}
+\textbf{Dimostrazione }: \begin{equation}
+    \Prob(X^{(n)}=k)=\binom{n}{k}(\dfrac{\lambda}{n})^n\cdot(1-\dfrac{\lambda}{n})^{n-k}=\dfrac{1}{k!}
+    \dfrac{n(n-1)\dots (n-k+1)}{n^k}\lambda^k(1-\dfrac{\lambda}{n})^{n-k}
+\end{equation}\begin{equation}
+    =\dfrac{\lambda^k}{k!}\dfrac{n}{n}\dfrac{n}{n-1}\cdots \dfrac{n-k+1}{n}\cdot\dfrac{(1-\dfrac{\lambda}{n})^n}{(1-\dfrac{\lambda}{n})^k}
+\end{equation}
+Adesso faccio il limite di \(n\) che tende ad infinito :\begin{equation}
+    \lim_{n\rightarrow+\infty}\dfrac{\lambda^k}{k!}\dfrac{n}{n}\dfrac{n}{n-1}\cdots \dfrac{n-k+1}{n}\cdot\dfrac{(1-\dfrac{\lambda}{n})^n}{(1-\dfrac{\lambda}{n})^k}=
+    \dfrac{\lambda^k}{k!}\lim_{n\rightarrow+\infty}\dfrac{n}{n}\dfrac{n}{n-1}\cdots \dfrac{n-k+1}{n}\cdot\dfrac{(1-\dfrac{\lambda}{n})^n}{(1-\dfrac{\lambda}{n})^k}
+\end{equation}\begin{equation}
+    \dfrac{\lambda^k}{k!}\lim_{n\rightarrow+\infty}1\cdot 1\cdots 1 \cdot \dfrac{(1-\dfrac{\lambda}{n})^n}{(1-0)^k}=\dfrac{\lambda^k}{k!}\lim_{n\rightarrow+\infty}(1-\dfrac{\lambda}{n})^n=\dfrac{\lambda^k}{k!}e^{-\lambda}\text{\hphantom{text}}\blacksquare
+\end{equation}
+La variabile di Poisson quindi, ha come parametro un tasso di arrivi \(\lambda\), e misura la probabilità 
+che in un istante di tempo infinitesimale arrivi un cliente in coda.\begin{equation}
+    \sum_{k=0}^\infty\dfrac{\lambda^k}{k!}e^{-\lambda}=e^{-\lambda}\sum_{k=0}^\infty\dfrac{\lambda^k}{k!}=e^{-\lambda}e^{\lambda}=1
+\end{equation}
+Ovviamente, il \textit{valore atteso}, sarà proprio  \(E(X^{(n)})=\lambda\) : \begin{equation}
+    \E(X^{(n)})=\sum_{k=0}^\infty k\Prob(X^{(n)}=k)=\sum_{k=1}^\infty k\dfrac{\lambda^k}{k!}e^{-\lambda}=e^{-\lambda}\sum_{k=1}^\infty k\dfrac{1}{k\cdot(k-1)!}\lambda^k
+=\end{equation}\begin{equation}
+    e^{-\lambda}\sum_{k=1}^\infty \dfrac{1}{\cdot(k-1)!}\lambda^k \text{ sotituisco }h=k-1\implies e^{-\lambda}\sum_{h=0}^\infty\lambda\cdot\dfrac{\lambda^h}{h!}=
+    e^{-\lambda}\lambda\sum_{h=0}^\infty\dfrac{\lambda^h}{h!}=e^{-\lambda}\lambda e^{\lambda}=\lambda
+\end{equation}
+La \textit{varianza} vale \(\V(X^{(n)})=\lambda\).
+\subsubsection{Somma di due Variabili di Poisson}
+Siano \(X_1\) ed \(X_2\) due variabili aleatorie di Poisson, indipendenti fra loro, di parametro \(\lambda_1\) e \(\lambda_2\),
+ne voglio calcolare la somma, ossia \(X=X_1+X_2\), si avrà che : \begin{equation}
+    \Prob(X=k)=\sum_{h=0}^{+\infty}\Prob(X_1=h)\Prob(X_2=k-h)=\sum_{h=0}^{+\infty}\dfrac{\lambda_1^h}{h!}e^{-\lambda_1}\dfrac{\lambda_2^{h-k}}{{h-k}!}e^{-\lambda_2}=
+\end{equation}
+\begin{equation}
+    =e^{-(\lambda_1+\lambda_2)}\dfrac{1}{k!}\sum_{h=0}^{+\infty}\binom{k}{h}\lambda_1^k\lambda_2^{k-h}=e^{-(\lambda_1+\lambda_2)}\cdot\dfrac{(\lambda_1+\lambda_2)^k}{k!}
+\end{equation}
+Ne concludiamo che la somma di due variabili aleatorie di Poisson, è ancora una variabile aleatoria di Poisson.
 \end{document}
