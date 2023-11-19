@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \definecolor{light-gray}{gray}{0.95}
+\definecolor{sap}{RGB}{130, 36, 51}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -725,4 +726,70 @@ I/O e di calcolo, è possibile eseguirle nel solito pseudo parallelismo alla qua
 il calcolo intensivo blocchi le richieste di I/O e viceversa. \acc Anche se suddividere in thread un operazione 
 puramente CPU-bound può essere contro producente, ciò risulta comunque più efficace in quanto elimina il tempo di attesa 
 che il processo dovrebbe attendere nel mentre che una richiesta di I/O non è stata ancora completata.
+\subsection{User e Kernel Thread}
+La gestione dei thread può avvenire :\begin{itemize}
+    \item A livello del Kernel, che gestisce i così detti \textbf{Kernel thread}.
+    \item A livello utente, gestiti nello spazio utente da delle \textbf{thread library}, senza la necessità che intervenga l'OS.
+\end{itemize} 
+Un \textbf{Kernel thread} è la più piccola unità schedulabile dall'OS, e quest'ultimo è responsabile di gestirli, ad 
+ogni processo è associato un \textit{Process Control Block} (PCB), e ad ogni thread un \textit{Thread Control Block} (TCB). 
+Il sistema operativo mette a disposizione dell'utente una serie di chiamate di sistema per creare e gestire i thread.\begin{itemize}
+    \item \textbf{Pro} : Il kernel ha piena conoscenza di questi thread, lo scheduler quindi, sapendo quanti thread sono associati 
+    ad un processo, può riservargli più tempo sulla CPU. Sono ottimi nelle applicazioni che prevedono svariate interruzioni 
+    ed eseguire lo switch fra i thread risulta più rapide che eseguire lo switch fra processi. 
+    \item \textbf{Contro} : La complessità del Kernel aumenta significativamente, inoltre, invocare troppe 
+    volte il kernel per 
+    la gestione di questi thread è inefficente. Anche se il context-switch è più rapido, richiede sempre l'avvento del 
+    kernel.
+\end{itemize}
+Gli \textbf{user thread} sono gestiti totalmente durante l'esecuzione da delle librerie a livello utente. Il Kernel, non 
+sa dell'esistenza di questi thread, e li tratta/vede come se fossero dei processi a single-thread. Idealmente, le operazioni fra 
+thread di uno stesso processo dovrebbero essere rapide come delle chiamate di funzione.\begin{itemize}
+    \item \textbf{Pro} : Molto veloci e leggeri, e le politiche di scheduling sono flessibili. Possono essere 
+    implementati in sistemi che non supportano nativamente il multi-threading, e non richiedono chiamate di sistema, ma 
+    solo chiamate di funzione, non avvengono dei veri content-switch. 
+    \item \textbf{Contro} : Non avviene una vera concorrenza fra i vari thread, e le possibili decisioni che può 
+    prendere lo scheduler sono limitate, il Kernel non sa nulla di essi, quindi potrebbe far competere per un quanto 
+    di tempo un processo con 100 thread con uno disposto di un singolo thread, richiede delle chiamate di sistema non 
+    bloccanti, d'altro canto gli altri thread del processo devono comunque attendere.
+\end{itemize}
+\subsubsection{Modelli di Multi-Threading}
+Quando si vuole implementare un sistema multi-threading, bisogna decidere come gli user thread verranno 
+"mappati" ai Kernel thread, per essere schedulati sulla CPU, vi sono diversi modi.\acc
+\textbf{Many-to-One} : Più user thread vengono mappati in un solo Kernel thread, quindi il processo, vedrà i suoi 
+thread venire eseguiti uno alla volta, dato che un solo kernel thread schedulato sulla CPU vi è associato, quindi non 
+possono essere suddivisi su diversi core, dato che su ogni core può lavorare un solo kernel thread. Una chiamata di sistema 
+può bloccare l'intero processo, anche se i thread potrebbero idealmente continuare.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.61\textwidth ]{images/manyToOne.eps}
+    }
+\end{figure}
+\\\textbf{One-to-One} : 
+Ogni singolo user thread viene mappato su un Kernel thread, non vi sono più limitazioni sulle 
+chiamate bloccanti e si può dividere un processo su più CPU. Gestire però un sistema di questo tipo può 
+è più complesso e può rallentare l'esecuzione, molte implementazioni di questo tipo, prevedono delle 
+restrizioni sul numero di thread che possono coesistere simultaneamente.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.3\textwidth ]{images/OneToOne.eps}
+    }
+\end{figure}
+\\\textbf{Many-to-Many} : 
+Un qualsiasi numero di user thread può essere mappato in un qualsiasi numero di Kernel thread, l'utente non ha 
+alcun tipo di restrizione sul numero di thread che possono essere creati, i processi possono essere divisi 
+su più CPU e le chiamate bloccanti non interrompono l'intero processo.\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.3\textwidth ]{images/manyToMany.eps}
+    }
+\end{figure}
+\\\textbf{Two-Level} : È una variante del modello \textit{Many-to-Many}, in cui un singolo user thread, ha la 
+possibilità di essere mappato su un singolo Kernel thread, ciò aumenta la flessibilità delle politiche di scheduling.\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.3\textwidth ]{images/TwoLevel.eps}
+    }
+\end{figure}
+\subsubsection{Le Librerie per la Gestione dei Thread}
+Esistono delle librerie che forniscono all'utente delle API per creare e gestire i thread, e ci sono due 
+ modi principali per implementarle.
 \end{document}
