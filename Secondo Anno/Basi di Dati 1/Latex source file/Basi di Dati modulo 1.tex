@@ -8,6 +8,7 @@
 \usepackage{mathtools}
 \usepackage[table,xcdraw]{xcolor}
 \definecolor{light-gray}{gray}{0.95}
+\definecolor{sap}{RGB}{130, 36, 51}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 \newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
@@ -1372,7 +1373,7 @@ Nel capitolo precedente \ref{Xclosure} abbiamo dato la definizione dell'insieme 
 (Un insieme di attributi dello schema relazionale), l'insieme contenente tutti gli attributi \(A\) tali che \(X\rightarrow A\in F^A\).
 Vedremo adesso un \textit{algoritmo} in grado di calcolare, a partire da un attributi, la sua chiusura, ciò risulterà 
 utile anche in funzione di stabilire quali sono le chiavi di una relazione.
-\subsubsection{L'Algoritmo  (\codee{Compute }\(X^+_F\)\codee{ from }\(F\))}\label{alg}
+\subsubsection{L'Algoritmo  1 (\codee{Compute }\(X^+_F\)\codee{ from }\(F\))}\label{alg}
 \code{Input} : Lo schema \(R\), l'insieme delle dipendenze funzionali \(F\), ed \(X\subseteq R\).\\
 \code{Output} : Denotato con \(Z_f\), sarà la chiusura di \(X\).\\\hphantom{}\\
 
@@ -1552,20 +1553,20 @@ in tale chiusura, se per uno solo di questi, non vale ciò, allora \(F\) non è 
 rispetto a \(G\) per verificare l'equivalenza, il problema, è che \(G\) deriva da \(F^+\), quindi è troppo grande per 
 essere calcolato esplicitamente, e non può essere applicato l'algoritmo visto nel capitolo \ref{alg}. Vedremo quindi, un nuovo algoritmo, 
 capace di calcolare la chiusura di un insieme di attributi \(X\) rispetto a \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\) partendo da \(F\).
-\subsubsection{L'Algoritmo (\codee{Compute }\(X^+_G\)\codee{ from }\(F\))}
+\subsubsection{L'Algoritmo 2 (\codee{Compute }\(X^+_G\)\codee{ from }\(F\))} \label{alg2}
 \code{Input} : Lo schema \(R\), l'insieme delle dipendenze funzionali \(F\), una decomposizione \(
     \rho = \{R_1,R_2\dots,R_k\}\) ed \(X\subseteq R\).\\
 \code{Output} : Denotato con \(Z_f\), sarà la chiusura di \(X\) rispetto a \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\).\\\hphantom{}\\
 \hphantom{ident}\codee{begin}\{\\
 \hphantom{ident}\hphantom{ident}\(Z=X\)\\
-\hphantom{ident}\hphantom{ident}\(S=\emptyset\)\\
+\hphantom{ident}\hphantom{ident}\(S'=\emptyset\)\\
 \hphantom{ident}\hphantom{ident}\codee{for } \(i=1\) \codee{ to }\(k\)\{\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\(S=S\cup (Z\cap R_i)^+_F\cap R_i\)\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\(S'=S'\cup (Z\cap R_i)^+_F\cap R_i\)\\
 \hphantom{ident}\hphantom{ident} \}\\
-\hphantom{ident}\hphantom{ident}\codee{while }\(S \nsubseteq  Z\) \{\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\(Z=Z\cup S\)\\
+\hphantom{ident}\hphantom{ident}\codee{while }\(S' \nsubseteq  Z\) \{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\(Z=Z\cup S'\)\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{for } \(i=1\) \codee{ to }\(k\)\{\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\(S=S\cup (Z\cap R_i)^+_F\cap R_i\)\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\(S'=S'\cup (Z\cap R_i)^+_F\cap R_i\)\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident} \}\\
 \hphantom{ident}\hphantom{ident} \}\\
 \hphantom{ident}\hphantom{ident} \codee{return }\(Z\)\\
@@ -1574,32 +1575,128 @@ capace di calcolare la chiusura di un insieme di attributi \(X\) rispetto a \(G=
 \textbf{Dimostrazione }: Si procede per doppia inclusione, partendo col dimostrare \boxedMath{\(Z_f\subseteq X_G^+\)}  Si dimostra 
 per induzione, \textit{Caso Base }: \(Z_0=X\subseteq X_G^+\). \textit{Passo induttivo }: L'ipotesi è che, \(Z_i\subseteq X_G^+\), voglio dimostrare 
 che se ciò è vero, è vero anche che  \(Z_{i+1}\subseteq X_G^+\). Considero un qualsiasi \(A\in Z_{i+1}\), per come è 
-definito \(Z_{i+1}\), ciò significa che \(A\in Z_i\) oppure \(A\in S_i\). Il primo caso dimostra di per se la tesi, si consideri quindi 
-il caso in cui \(A\in S_i\). Ricordo che \(S_i=\bigcup_{j=1}^k(Z_i\cap R_j)_F^+\cap R_j\), allora, \(\exists j\in\{1,2\dots,k\}|
+definito \(Z_{i+1}\), ciò significa che \(A\in Z_i\) oppure \(A\in S'_i\). Il primo caso dimostra di per se la tesi, si consideri quindi 
+il caso in cui \(A\in S'_i\). Ricordo che \(S'_i=\bigcup_{j=1}^k(Z_i\cap R_j)_F^+\cap R_j\), allora, \(\exists j\in\{1,2\dots,k\}|
 A\in (Z_i\cap R_j)_F^+\cap R_j\), ciò implica che \(A\in R_j\land A\in(Z_i\cap R_j)^+_F\), ma questo'ultimo implicherebbe che 
 \(Z_i\cap R_j\rightarrow A\in F^A\). So che \(Z_i\cap R_j\subseteq R_j\), e che  \(A\in R_j\), allora   
 \(Z_i\cap R_j\rightarrow A\in \pi_{R_j}(F)\subseteq G\), ma ricordiamoci che per ipotesi \(Z_i\subseteq X_G^+\), allora, anche il suo 
 sotto insieme \(Z_i\cap R_j\) è contenuto in \(X_G^+\), ciò implica che \(X\rightarrow (Z_i\cap R_j) \in G^A\), per transitività, 
-ho che \(X\rightarrow A\in G^A\implies A\in X_G^+\) come volevasi dimostrare. Adesso rimane da dimostrare che \boxedMath{\(X_G^+\subseteq Z_f\)}  
-Sappiamo che \(X\subseteq Z_f\), posso fare un osservazione : Se \(X\subseteq Z_f\), allora sicuramente 
-\(X^+_G\subseteq (Z_f)_G^+\), fatta tale osservazione, mi basta dimostrare che \(Z_f=(Z_f)_G^+\). Anche se calcolare \(G\) 
-richiede tempo esponenziale, questa è una dimostrazione, quindi si può assumere di conoscere \(G\). Applichiamo il normale 
-algoritmo \codee{Compute }\(X^+_F\)\codee{ from }\(F\) visto nel paragrafo \ref{alg} per calcolare la chiusura di \(Z_f\), applicando 
-tale algoritmo, si ricostruisce iterativamente \(S\), si ha la prima riga di codice definita in tal modo \(S'=\{A|\exists Y\rightarrow V\in G,Y\subseteq Z_f\land A\in V\}\)
-Si ricordi che \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\), 
-ciò vuol dire che \(\exists j \in \{1,2\dots,k\}|Y\rightarrow V\in \pi_{R_j}(F)\), 
-Se \(A\in V\), allora \(A\in R_j\), e \(Y\rightarrow V\in F^+\), dato che \(G\subseteq F^+\). Noto che :\(\begin{cases}
-    Y\rightarrow V\in F^+\\
-    A\in V
-\end{cases}\implies A\in Y_F^+\).
-Ricordando la definizione di \(\pi_{R_j}(F)\), so che, se \(A\in V\) e \(Y\rightarrow V\in \pi_{R_j}(F)\), allora 
-sicuramente \(A\in R_j\). A questo punto : \(\begin{cases}
-    A\in R_j\\ 
-    A\in Y_F^+\text{ e }Y\in Z_f \implies A\in (Z_f)^+_F
-\end{cases}\implies A\in(Z_f\cap R_j)^+_F\cap R_j\subseteq S_f\implies A\in S_f\) ma \(S_f\in Z_f\) quindi 
-\(A\in Z_f\). Questo, vuol dire che, all'inizio, in \(S\) vengono inseriti solo elementi che sono già 
-in \(Z_f\), quindi (si guardi l'algoritmo), essendo che \(S\subseteq Z_f\), non viene eseguito il \codee{while}, e l'algoritmo 
-termina, dando in output lo stesso elemento che è stato preso in input, ciò, significa che la chiusura dell'elemento 
-è uguale all'elemento stesso, e quindi \(Z_f=(Z_f)^+_G\). Avendo iniziato il discorso dicendo che \(X^+_G\subseteq (Z_f)_G^+\), 
-ne concludiamo che  \(X_G^+\subseteq Z_f\). \(\blacksquare\)
+ho che \(X\rightarrow A\in G^A\implies A\in X_G^+\) come volevasi dimostrare. Adesso rimane da dimostrare che \boxedMath{\(X_G^+\subseteq Z_f\)}
+Tale dimostrazione risulta più ostica e richiede più ragionamento, si invita il lettore ad essere particolarmente attento. Prima 
+di tutto, occorre un osservazione  :\acc 
+\textbf{Osservazione Fondamentale} : Siano \(A\) e \(B\) due insiemi di attributi ed \(F\) un insieme di 
+dipendenze funzionali su di essi. se \(A\subseteq B\), allora sicuramente \(A^+_F\subseteq B^+_F\).\acc 
+Tornando a noi, vogliamo dimostrare che \(X_G^+\subseteq Z_f\), ma per come è stato costruito \(Z_f\), sappiamo 
+sicuramente che \(X\subseteq Z_f\), allora, per l'osservazione, sicuramente \(X_G^+\subseteq (Z_f)_G^+\). Se riuscissimo 
+a dimostrare che \(Z_f=(Z_f)_G^+\), vuol dire che avremmo dimostrato che \(X_G^+\subseteq Z_f\).
+Dimostriamo quindi che \(Z_f=(Z_f)_G^+\), possiamo utilizzare l'algoritmo \ref{alg}, che calcola la chiusura 
+di un insieme di attributi rispetto un insieme di dipendenze funzionali, quindi passiamo come input \(Z_f\) e ne calcoliamo 
+la chiusura rispetto a \(G\), se l'output dell'algoritmo sarà uguale all'input, allora sarà dimostrato.\begin{quote}
+    Durante il corso di questa dimostrazione, si osservi l'algoritmo  \ref{alg}.
+\end{quote}
+Notiamo che, nella seconda riga dell'algoritmo, si inizia costruendo un insieme \(S\) definito in tal modo : \begin{equation}
+    S=\{A|\exists Y\rightarrow V\in G,Y\subseteq Z_f\land A\in V\}
+\end{equation}
+Prendiamo quindi \(A\), che è un qualsiasi elemento dell'insieme \(S\) costruito nella seconda riga di codice. Notiamo che 
+\(A\in V\), ed \(Y\rightarrow V\in G\), per la regola di decomposizione, possiamo affermare che \(Y\rightarrow A\in G\), adesso, ricordiamo 
+come è stato costruito \(G\) :\begin{center}
+    
+    \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\equiv F\)
+\end{center} 
+\(G\) è l'unione delle dipendenze funzionali nelle proiezioni, quindi, \(Y\rightarrow A\) appartiene ad una delle proiezioni : \begin{center}
+    \(\exists j\in\{1,2\dots,n\}|Y\rightarrow A\in \pi_{R_j}(F)\)
+\end{center}
+
+
+ma una proiezione, è definita in tal modo : \begin{center}
+    \(\pi_{R_i}(F)=\{X\rightarrow Y\in F^+|\{X,Y\}\subseteq R_i\}\)
+\end{center}
+Quindi, se \(Y\rightarrow A\in \pi_{R_j}(F)\), allora \(Y\in R_j\) e \(A\in R_j\).\begin{center}
+    \color{sap}\textbf{Passo cruciale 1!} \color{black}\(A\in R_j\)
+\end{center}
+Abbiamo quindi visto che \(Y\rightarrow A\in \pi_{R_j}(F)\), ma le dipendenze delle proiezioni, derivano tutte da \(F^+\), 
+quindi possiamo sicuramente dire che \(Y\rightarrow A\in F^+=F^A\), ma per ipotesi (Ricordando come è stato costruito \(S\)), 
+sappiamo che \(Y\subseteq Z_f\), quindi : \begin{equation}
+    \begin{cases}
+        Y\subseteq Z_f\\Y\rightarrow A\in F^A
+    \end{cases}\implies Z_f\rightarrow A\in F^A \implies A\in (Z_f)^+_F
+\end{equation}
+\begin{center}
+    \color{sap}\textbf{Passo cruciale 2!} \color{black}\(A\in (Z_f)^+_F\)
+\end{center}
+\color{red} Passaggio mancante! Dimostrare che \color{black}\(A\in(Z_f\cap R_j)_F^+\)\acc
+A questo punto vedo che : \begin{equation}
+    \begin{cases}
+        A\in(Z_f\cap R_j)_F^+\\A\in R_j
+    \end{cases}\implies  A\in(Z_f\cap R_j)_F^+\cap R_j
+\end{equation}
+Adesso, noi sappiamo che \( A\in(Z_f\cap R_j)_F^+\cap R_j\), si osservi ora, il secondo algoritmo \ref{alg2}, quello che è 
+stato usato per costruire il nostro \(Z_f\). Si noti che, ad ogni passo iterativo di quell'algoritmo, \(Z_f\) viene ricostruito, 
+a partire da un altro insieme \(S'\), definito nel seguente modo : \begin{equation}
+    (Z\cap R_i)^+_F\cap R_i\text{ osservazione : tale }Z\text{ è contenuto nel nostro }Z_f
+\end{equation}
+Abbiamo detto però, che \( A\in(Z_f\cap R_j)_F^+\cap R_j\), quindi, tale \(A\), sarà in \(S'\) ad un certo passo iterativo 
+del secondo algoritmo \ref{alg2}! Essendo che \(Z_f\) è l'unione di tutti gli insiemi 
+\(S'\) ricostruiti iteramente nel secondo algoritmo \ref{alg2}, ciò, significa che \(A\in Z_f\). \acc In \textit{conclusione}, 
+abbiamo dimostrato che, eseguendo il primo algoritmo \ref{alg} su \(Z_f\), alla seconda riga di codice viene costruito un insieme \(S\), 
+i quali elementi sono già  tutti in \(Z_f\), questo significa, che l'algoritmo \textbf{non} eseguirà il \code{while}, che richiede 
+come condizione che   \(S \nsubseteq  Z_f\), terminando immediatamente, e restituendo come output, lo stesso \(Z_f\) dato in input. Essendo 
+che quello l'algoritmo calcola la chiusura di un insieme di attributi, in conclusione, possiamo affermare che, la chiusura di \(Z_f\), 
+rispetto a \(G\), è identica a \(Z_f\) : \(Z_f=(Z_f)_G^+\).\acc 
+Ricostruendo il tutto a partire dall'inizio, si ha che : 
+\begin{center}
+    \(
+    \begin{cases}
+        X\subseteq Z_f \implies X^+_G\subseteq (Z_f)_G^+\\ 
+        Z_f=(Z_f)_G^+\\  Z_f\subseteq  X^+_G \text{ (dimostrato)}
+    \end{cases}   \implies 
+    \begin{cases}
+        X^+_G\subseteq Z_f\\  Z_f\subseteq  X^+_G
+    \end{cases}\implies  Z_f =  X^+_G
+    \)\hphantom{text}\(\blacksquare\)
+\end{center}
+\subsubsection{Sommario del Procedimento Completo}
+Ricapitoliamo adesso ciò che è necessario per controllare se una decomposizione preserva l'insieme delle dipendenze funzionali. Siano : \begin{itemize}
+    \item \(R:=\) Schema Relazionale
+    \item \(\rho=(R_1,R_2\dots,R_n):=\) Decomposizione di \(R\)
+    \item \(F:=\) Dipendenze funzionali su \(R\)
+\end{itemize}
+Come prima cosa si costruisce un nuovo insieme : \begin{center}
+    \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\)
+\end{center}
+Bisogna controllare che \(G\equiv F\), per fare ciò, abbiamo osservato, e dimostrato, che è necessario controllare che \(F\subseteq G^+\). 
+\textbf{Osservazione }: Abbiamo visto che, per controllare che \(F\subseteq G^+\), basta 
+selezionare ogni \(X\rightarrow Y \in F\), calcolare \(X_G^+\) (con il secondo algoritmo \ref{alg2}), e controllare che 
+\(Y\in X_G^+\), ciò deve valere per ogni dipendenza di \(F\). Detto ciò, possiamo riassumere il tutto con un ultimo algoritmo.
+\subsubsection{L'Algoritmo 3 (\codee{Check if }\(F\subseteq G^+\))} \label{alg3}
+\code{Input} : Lo schema \(R\), due insiemi di dipendenze funzionali \(F\) e \(G\) su \(R\).\\
+\code{Output} : Un valore booleano \code{success}, esso varrà \code{true} se \(F\subseteq G^+\), altrimenti \code{false}.\acc
+Chiameremo \code{Compute \(X_G^+\)} il secondo algoritmo \ref{alg2}, dove \(X\) è l'insieme di attributi in Input, e \(G\) l'insieme 
+di dipendenze funzionali sul quale calcolare la chiusura.\newpage
+\hphantom{ident}\codee{begin}\{\\
+\hphantom{ident}\hphantom{ident}\codee{success=true}\\
+\hphantom{ident}\hphantom{ident}\codee{for each }\(X\rightarrow Y\in F\)\{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\(T=\) \codee{Compute \(X_G^+\)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if \(Y\nsubseteq T\)} \{ \\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{success=false}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{break}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\}\\
+\hphantom{ident}\hphantom{ident}\}\\
+\hphantom{ident}\hphantom{ident}\codee{return success}\\
+\hphantom{ident}\}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
