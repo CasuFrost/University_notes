@@ -19,6 +19,7 @@
 \newcommand{\supp}{{\text{Supp}}}
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\aut}{{\text{Aut}}}
+\newcommand{\Span}{{\text{Span}}}
 \newcommand{\cen}{{\text{Centro}}}
 \newcommand{\norm}{{\unlhd}}
 \newcommand{\ciclS}{{\left \langle }}
@@ -1167,7 +1168,7 @@ elemento \(g\), si denota con \(g^{-1}\).
 Ossia se \textit{conserva} l'operazione. Prima abbiamo parlato di gruppo simmetrico, esso stabilisce sempre un 
 omomorfismo iniettivo \textit{canonico} \(\varphi : (X,*)\rightarrow (S(X),\circ)\). Se un omomorfismo è anche 
 biunivoco, si dice \textbf{isomorofismo}.
-\subsection{ Sottogruppi }
+\subsection{ Sottogruppi }\label{sottogruppi}
 \begin{quote}
     \textbf{Definizione} : Sia \((G,*)\) un gruppo, e sia \(S\subseteq G\), tale che \(1_G\in S\), diremo che 
     \(S\) è un \textit{sottogruppo} di \(G\), e scriveremo \(S\le (G,*)\) se l'operazione di \(G\) :
@@ -2396,73 +2397,164 @@ elemento neutro, somma, prodotto scalare ed inverso definiti in tal modo :
 \hphantom{tet}\((f(x)^{-1}):=-f(x)\)
 \end{center}
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage\
-\section{Esercizi}
-\textbf{Foglio 7 esercizio 2}\\\hphantom{}\\
-Voglio prima di tutto dimostrare che \(G\) sia un sottogruppo, prima però serve un osservazione : Se 
-\(G\) è un gruppo ogni elemento \(ax+c\in G\) ha un inverso, ed esso è : \((ax+c)^{-1}=\dfrac{x-c}{a}\).\\
-Verifico che \(G\) sia un sottogruppo di tutte le bigezioni in \(\R\) :\begin{equation}
-    (a'x+c')\circ(a''x+c'')^{-1}= (a'x+c')\circ(\dfrac{x-c''}{a''})=a'(\dfrac{x-c''}{a''})+c'=\dfrac{a'x-c''a'}{a''}+c
-\end{equation}
-\begin{equation}
-    =(\dfrac{a'x}{a''}-\dfrac{a'c''}{a''})+c'=(x\dfrac{a'}{a''}-\dfrac{a'c''}{a''})+c'=x(\dfrac{a'}{a''}-\dfrac{a'c''}{a''})+c'\in G 
-\end{equation}
-quindi \(G\) è un sottogruppo, e dimostro che non è commutativo : 
-\begin{equation}
+\subsubsection{Lo Spazio dei Vettori sul Piano Euclideo}
+Vediamo adesso uno dei più noti spazi vettoriali, che viene introdotto ad ogni studente sin dalle scuole 
+superiori, si consideri il \textit{piano della geometria euclidea} \(\R\times \R\), e si fissi un 
+punto \(O\). Consideriamo adesso l'insieme \(V=\{\text{segmenti orientati centrati in } O\}\), ossia l'insieme 
+dei vettori applicati in \(O\), che denoteremo \(\vec{OA}\), dove \(A\) è un qualsiasi punto nel piano. L'elemento neutro di tale insieme, è il vettore 
+che va da \(O\) in \(O\), ossia \(\vec{OO}\).
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.75\textwidth ]{images/vector.eps}
+    }
+\end{figure}\acc
+Introduciamo adesso un operazione in \(V\), detta somma di due vettori \(+ : V\times V \rightarrow V\), 
+tale che  \(\vec{OA}+\vec{OB}=\vec{OC}\), dove \(\vec{OC}\), è il segmento che va da \(O\) fino al quarto 
+vertice del parallelogramma indicato da \(\vec{OA}\) e \(\vec{OB}\), tale vertice, è indicato, 
+dal vettore centrato in \(A\), della stessa lunghezza, verso e direzione di \(\vec{OB}\).\hphantom{}\acc
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.75\textwidth ]{images/vector2.eps}
+    }
+\end{figure}
+\textbf{Proposizione }: Con l'operazione di somma, ed elemento neutro \(\vec{OO}\), tale \(V\) è un 
+gruppo commutativo.\acc 
+L'inverso di un vettore \(\vec{OA}\), ha la stessa lunghezza del vettore \(\vec{OA}\), 
+ma ha direzione opposta.\acc
+Introduco adesso una nuova operazione, \(\cdot : \R\times V \in V\), detta \textbf{prodotto scalare}, 
+tale che \((\lambda,\vec{OA})\rightarrow \lambda\cdot\vec{OA}\), il vettore \(\lambda\vec{OA}\) : \begin{itemize}
+    \item Se \(\lambda\ge 0\), ha stessa direzione e verso del vettore \(\vec{OA}\), ma la sua lunghezza, è uguale 
+    a \(\lambda \cdot (\text{lunghezza di }\vec{OA})\).
+    \item Se \(\lambda<0\), per il vettore \(\lambda\vec{OA}\), considero \(-(|\lambda|\vec{OA})\), il vettore 
+    di lunghezza \(|\lambda| \cdot (\text{lunghezza di }\vec{OA})\) centrato in \(O\), nella direzione 
+    opposta di \(\vec{OA}\).
+\end{itemize}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.75\textwidth ]{images/vector3.eps}
+    }
+\end{figure}
+\textbf{Proposizione }: Con le operazioni di somma e prodotto vettoriale, \(V\) è uno spazio 
+vettoriale su \(\R\), denotato \(V_O^2\). Analogamente, esiste anche \(V_O^3\), dove i vettori sono 
+posizionati nello spazio tri-dimensionale.
+\subsection{Sottospazi Vettoriali}
+Sia \(V\) uno spazio vettoriale sul campo \(\mathbb{R}\) (ma ciò vale per qualsiasi campo), e sia \(W\) un sottoinsieme di \(V\). Diremo che \(W\) è un \textit{sottospazio 
+vettoriale} di \(V\), e denoteremo \(W\le V\) se : \begin{enumerate}
+    \item \(\forall \bar w, \bar w' \in W,\) \(\bar w+\bar w' \in W\)
+    \item \(\forall \bar w \in W, \forall \lambda \in \mathbb{R}\), \(\lambda\bar w \in W\)
+\end{enumerate}
+\textbf{Osservazione} : \(\forall \bar w \in W,\) \(-\bar w \in W\), \((W,+)\) è un sottogruppo di \((V,+)\).\acc 
+Per stabilire se \(W\) sia un sottogruppo, possiamo utilizzare il criterio {\color{blue}(3)} visto 
+nel capitolo \ref{sottogruppi}, prendere due qualsiasi \(\bar w,\bar w'\in W\), e controllare che 
+\(\bar w + (\bar w')^{-1}=\bar w + (-1)\bar w' \in W\).\acc 
+Ad \textit{esempio}, su \(V_O^3\), tutti i vettori che "poggiano" su un piano, rappresentano un 
+sottospazio, nell'immagine sotto-stante, presi due qualsiasi i vettori sul piano \(f(x,y)=0\) (ossia, tutti i vettori 
+che hanno la terza coordinata nulla), le operazioni 
+di somma e prodotto su di essi, restituiranno sempre un vettore che poggia sullo stesso piano.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/sottospazio.png}
+    }
+\end{figure}
+\acc Torniamo adesso ai \textit{sistemi lineari}, e consideriamo \(A\), la matrice \(m\times n\) associata 
+ad un sistema a coefficenti reali nel campo \(\R\), si ricordi, che posso rappresentare un 
+sistema con la notazione \(A\bar x = \bar b\). Considero un sistema \textbf{omogeneo}, ossia, dove 
+tutti i termini noti sono nulli, della forma \(A\bar x = \bar 0\), sia allora 
+\(\Sigma_0=\{\bar y \in \R^n| A\bar y = \bar0\}\), ossia l'insieme di tutte le soluzioni di un certo sistema 
+omogeneo.\acc \textbf{Proposizione} : \(\Sigma_0\) è un sottospazio vettoriale di \(\R^n\).\acc 
+\textbf{Dimostrazione }: Mostriamo i due punti necessari per la verifica in ordine.\\  \textbf{(1) }: Siano 
+\(\bar y\) e \(\bar y'\) due soluzioni del sistema  \(A\bar x = \bar 0\), si ha che : \begin{equation}
     \begin{cases}
-        (a'x+c')\circ(a''x+c'')=a'(a''x+c'')+c'\\
-        (a''x+c'')\circ(a'x+c')=a''(a'x+c')+c''
-    \end{cases}\implies (a'x+c')\circ(a''x+c'')\ne( a''x+c'')\circ(a'x+c')
-\end{equation}
-Considero adesso un sottogruppo particolare di \(G\), ossia \(T=\{f_{1,c},c\in\R\}=\{x+c, c\in \R\}\), dimostro che 
-è un sottogruppo : \begin{equation}
-    (x+c')\circ(x+c'')^{-1}= (x+c')\circ(x-c'')=(x-c'')+c'=x+(c'-c'')\in T
-\end{equation}
-Inoltre definisco le classi laterali sinistre di \(T\), ossia : 
-\(gT=\{g\circ t, g\in G, t\in T\}\) che sono tutte le funzioni del tipo : \begin{equation}
-    g=ax+c\implies gT=\{(ax+c)\circ (x+c'),(ax+c)\circ (x+c''),(ax+c)\circ (x+c''')...\}
-\end{equation}
-Le classi laterali destre di \(T\), ossia : 
-\(Tg=\{t\circ g, g\in G, t\in T\}\) che sono tutte le funzioni del tipo : \begin{equation}
-    g=ax+c\implies gT=\{(x+c')\circ(ax+c) ,(x+c'')\circ(ax+c),(x+c''')\circ(ax+c)...\}
-\end{equation}
-Adesso noto che :\begin{equation}
-    \begin{cases}
-        (x+c')\circ (ax+c)=ax+c+c'
-        \\(ax+c)\circ (x+c')=ax+c+ac'
+        a_{1_1}y_1+a_{1_2}y_2\dots+a_{1_n}y_n=0\\
+        a_{2_1}y_1+a_{2_2}y_2\dots+a_{2_n}y_n=0\\\dots\\ 
+        a_{n_1}y_1+a_{n_2}y_2\dots+a_{n_n}y_n=0
+    \end{cases}\text{\hphantom{aaaa}}\begin{cases}
+        a_{1_1}y'_1+a_{1_2}y'_2\dots+a_{1_n}y'_n=0\\
+        a_{2_1}y'_1+a_{2_2}y'_2\dots+a_{2_n}y'_n=0\\\dots\\ 
+        a_{n_1}y'_1+a_{n_2}y'_2\dots+a_{n_n}y'_n=0
     \end{cases}
 \end{equation}
-(\color{red}dimostrazione omessa\color{black})Noto che le classi laterali destre e sinistre sono le stesse, quindi 
-\(T\) è un sottogruppo normale, e posso definire il gruppo di tutte le classi laterali, ossia il gruppo 
-quoziente \(\nicefrac{G}{T}\), con l'operazione \(gT*hT=(g\circ h)T\).
-\\Adesso, definisco un'applicazione suriettiva \(\varphi : G\rightarrow \R\backslash\{0\}\), tale che : \begin{equation}
-    \varphi(ax+c)=a
+Risulta ovvio che : \begin{equation}
+    \begin{cases}
+        (a_{1_1}y_1+a_{1_2}y_2\dots+a_{1_n}y_n)+(a_{1_1}y'_1+a_{1_2}y'_2\dots+a_{1_n}y'_n)=0\\
+        (a_{2_1}y_1+a_{2_2}y_2\dots+a_{2_n}y_n)+(a_{2_1}y'_1+a_{2_2}y'_2\dots+a_{2_n}y'_n)=0\\\dots\\ 
+        (a_{n_1}y_1+a_{n_2}y_2\dots+a_{n_n}y_n)+(a_{n_1}y'_1+a_{n_2}y'_2\dots+a_{n_n}y'_n)=0
+    \end{cases}
 \end{equation}
-E definisco il suo nucleo \begin{equation}
-    Ker\varphi = \{ax+c|\varphi(ax+c)=1\iff a=1\}=\{x+c, c\in \R\}
+Ricordando che \(\bar y\) e \(\bar y'\) non sono incognite ma soluzioni, nel sistema abbiamo esclusivamente 
+numeri reali, possiamo quindi applicare la proprietà distributiva in tal modo : \begin{equation}
+    \begin{cases}
+        a_{1_1}(y_1+y'_1)+a_{1_2}(y_2+y'_2)\dots+a_{1_n}(y_n+y'_n)=0\\
+        a_{2_1}(y_1+y'_1)+a_{2_2}(y_2+y'_2)\dots+a_{2_n}(y_n+y'_n)=0\\\dots\\ 
+        a_{n_1}(y_1+y'_1)+a_{n_2}(y_2+y'_2)\dots+a_{n_n}(y_n+y'_n)=0
+    \end{cases}
 \end{equation}
-\textbf{Osservazione fondamentale} : Noto che \(Ker\varphi = T\)! Definisco \(\pi\) la proiezione canonica :\begin{equation}
-    \pi(ax+c)=(ax+c)T
-\end{equation} 
-Noto che per il teorema fondamentale di omomorfismo di gruppi, esiste un \textbf{unico isomorfismo} \(F:\nicefrac{G}{Ker\varphi}\rightarrow \R\backslash\{0\}\) 
-tale che \(\varphi=\pi\circ F\), essendo  \(Ker\varphi = T\), so che \(\nicefrac{G}{T}\) è isomorfo a \(\R\backslash\{0\}\).
+Ne concludiamo che \(\bar y +\bar y' \in \Sigma_0\).\\ 
+\textbf{(2) }: 
+Sia \(\bar y\) una soluzione di \(A\bar x = \bar 0\), e \(\lambda\) un qualsiasi numero reale, sappiamo che :\begin{equation}
+    \begin{cases}
+        a_{1_1}y_1+a_{1_2}y_2\dots+a_{1_n}y_n=0\\
+        a_{2_1}y_1+a_{2_2}y_2\dots+a_{2_n}y_n=0\\\dots\\ 
+        a_{n_1}y_1+a_{n_2}y_2\dots+a_{n_n}y_n=0
+    \end{cases}
+\end{equation}
+Moltiplichiamo da entrambi i lati di ogni equazione, il numero reale \(\lambda\), ottenendo : \begin{equation}
+    \begin{cases}
+        \lambda\cdot(a_{1_1}y_1+a_{1_2}y_2\dots+a_{1_n}y_n)=\lambda\cdot0\\
+        \lambda\cdot(a_{2_1}y_1+a_{2_2}y_2\dots+a_{2_n}y_n)=\lambda\cdot0\\\dots\\ 
+        \lambda\cdot(a_{n_1}y_1+a_{n_2}y_2\dots+a_{n_n}y_n)=\lambda\cdot0
+    \end{cases}\implies \begin{cases}
+        \lambda\cdot(a_{1_1}y_1+a_{1_2}y_2\dots+a_{1_n}y_n)=0\\
+        \lambda\cdot(a_{2_1}y_1+a_{2_2}y_2\dots+a_{2_n}y_n)=0\\\dots\\ 
+        \lambda\cdot(a_{n_1}y_1+a_{n_2}y_2\dots+a_{n_n}y_n)=0
+    \end{cases}
+\end{equation}
+Applicando la proprietà distributiva dei numeri reali ottengo : \begin{equation}
+    \begin{cases}
+        \lambda\cdot a_{1_1}y_1+ \lambda\cdot a_{1_2}y_2\dots+ \lambda\cdot a_{1_n}y_n=0\\
+        \lambda\cdot a_{2_1}y_1+ \lambda\cdot a_{2_2}y_2\dots+ \lambda\cdot a_{2_n}y_n=0\\\dots\\ 
+        \lambda\cdot a_{n_1}y_1+ \lambda\cdot a_{n_2}y_2\dots+ \lambda\cdot a_{n_n}y_n=0
+    \end{cases}
+\end{equation}
+Applicando la proprietà associativa dei numeri reali ottengo : 
+\begin{equation}
+    \begin{cases}
+        a_{1_1}(y_1\cdot \lambda)+a_{1_2}(y_2\cdot \lambda)\dots+a_{1_n}(y_n\cdot \lambda)=0\\
+        a_{2_1}(y_1\cdot \lambda)+a_{2_2}(y_2\cdot \lambda)\dots+a_{2_n}(y_n\cdot \lambda)=0\\\dots\\ 
+        a_{n_1}(y_1\cdot \lambda)+a_{n_2}(y_2\cdot \lambda)\dots+a_{n_n}(y_n\cdot \lambda)=0
+    \end{cases}
+\end{equation}
+Ne concludo che, se \(\bar y\) è soluzione, anche \(\lambda \bar y\) è soluzione del sistema. La verifica 
+dei punti \textbf{(1)} e \textbf{(2)}, è necessaria per constatare che \(\Sigma_0\) è un sottospazio vettoriale. \(\blacksquare\)
+\acc \textbf{Osservazione}, l'insieme di tutte le soluzioni di un sistema \(A\bar x = \bar b\), dove 
+\(\bar b \ne \bar 0\), definito \(\Sigma = \{\bar y | A\bar y = \bar b\}\), non è un sottospazio vettoriale, in 
+quanto non contiene l'elemento neutro \(\bar 0\).
+\subsection{Combinazioni Lineari}
+Sia \(V\) uno spazio vettoriale, e \(\bar v_1,\bar v_2\dots, \bar v_k\) un insieme di vettori in \(V\). 
+Una \textit{combinazione lineare di }\(V\), è il vettore \begin{center}
+    \(\alpha_1\cdot\bar v_1+\alpha_2\cdot\bar v_2\dots+ \alpha_k\cdot\bar v_k\)
+\end{center}
+Dove \(\alpha_1,\alpha_2\dots,\alpha_k\), è un qualsiasi insieme di coefficenti reali.\acc \textit{Esempio} : 
+In \(V_O^2\), si considerino i vettori \(\vec{OA},\vec{OB},\vec{OC}\) : \begin{itemize}
+    \item \(\vec{OA}+\vec{OB}+\vec{OC}\) è una combinazione lineare dei 3 vettori.
+    \item \(4\vec{OA}-2\vec{OB}+\dfrac{1}{2}\vec{OC}\) è una combinazione lineare dei 3 vettori.
+    \item \(-\vec{OA}+\pi\cdot \vec{OB}+(1.012031\cdot 10^9)\vec{OC}\) è una combinazione lineare dei 3 vettori.
+\end{itemize}
+\textbf{Definizione di Span} : Preso un insieme di vettori \(\{\bar v_1,\bar v_2\dots, \bar v_k\}\) di 
+uno spazio vettoriale \(V\), definiamo il loro \textit{Span}, l'insieme di tutte le loro possibili combinazioni lineari.
+\begin{center}
+    \(\Span(\bar v_1,\bar v_2\dots, \bar v_k)=\{\alpha_1\cdot\bar v_1+\alpha_2\cdot\bar v_2\dots+ \alpha_k\cdot\bar v_k|\alpha_j\in \R\}\)
+\end{center}
+\textbf{Osservazione} : Uno Span è un sottospazio.\acc 
+\textbf{Osservazione} : Lo Span di un certo insieme \(W\), è uguale allo Span di \(W\cup \{\bar a,\bar b\dots, \bar n\}\), se 
+\(\{\bar a,\bar b\dots, \bar n\}\subseteq \Span(W)\), ciò vuol dire che, lo Span 
+di un insieme di elementi, è uguale allo Span dell'unione dell'insieme originale di elementi con nuovi 
+elementi che sono già nello Span degli elementi originali (rileggere lentamente).\begin{center}
+    \(
+    \Span(\bar v_1,\bar v_2\dots, \bar v_k)= \Span(\bar v_1,\bar v_2\dots, \bar v_k,\alpha_1\bar v_1,\alpha_2\bar v_2\dots, \alpha_k\bar v_k)
+    \)
+\end{center}
+\textbf{Proposizione }: Il sistema lineare \(A\bar x = \bar b\), con matrice associata \(A\in M_{mn}(\R)\), dove 
+\(M_{mn}(\R)\) è l'insieme delle matrici con \(m\) righe ed \(n\) colonne a coefficenti reali, ammette 
+soluzione se e solo se \(\bar b \in \Span(A^1,A^2\dots, A^n)\), dove \(A^j\) è la \(j\)-esima colonna di \(A\). 
 \end{document}
