@@ -791,5 +791,56 @@ possibilità di essere mappato su un singolo Kernel thread, ciò aumenta la fles
 \end{figure}
 \subsubsection{Le Librerie per la Gestione dei Thread}
 Esistono delle librerie che forniscono all'utente delle API per creare e gestire i thread, e ci sono due 
- modi principali per implementarle.
+ modi principali per implementarle.\begin{itemize}
+    \item Con delle funzioni interamente definite da delle API all'interno dello 
+    spazio utente.
+    \item Implementate nel Kernel, con delle system call (è necessario 
+    che il Kernel supporti la programmazione multi-thread).
+ \end{itemize}
+ Vediamo come funziona una delle thread library più in uso tutt'oggi, 
+ ossia la \textit{Java Thread Library}. I thread, in questa libreria, son 
+ detti \textit{Java thread}, e possono essere creati in due modi, estendendo 
+ la classe \code{Thread}, oppure implementando l'interfaccia 
+ \code{Runnable}, per entrambe le soluzioni, è richiesto che l'utente 
+ esegua l'override del metodo \code{run()}. Essendo che ogni classe 
+ può estendere solo una classe, è prefiribile implementare l'interfaccia 
+ \code{Runnable}.
+\subsubsection{Thread Pools}
+Nell'esempio della Java Thread Library, abbiamo visto come, gestire una certa richiesta 
+creando più thread, piùttosto che più processi, è più efficente. Nonostante ciò, 
+possono occorrere dei problemi, il numero dei possibili thread coesistenti 
+non è limitato, e può diventare pesante creare troppi thread se ci sono 
+troppe richieste.\acc 
+Vediamo cos'è una \textit{thread pool}, quando un processo viene creato, 
+si genera un numero definito di thread, tali thread sono "vuoti", e vengono messi 
+in attesa che arrivi una richiesta da svolgere. Quando occorre una richiesta, uno dei thread 
+dalla pool verrà selezionato ed adoperato a dovere, una volta terminata tale richiesta, 
+il thread sarà di nuovo in attesa, disponibile per essere selezionato. Se non ci sono 
+thread disponibili,  la richiesta dovrà attendere.\acc 
+L'utilizzo delle thread pool porta svariati benefici : \begin{itemize}
+    \item Assegnare una richiesta ad un thread già esistente, è più 
+    efficente piuttosto che crearne uno ogni volta.
+    \item la pool, limita il possibile numero di thread che possono 
+    esistere contemporaneamente.
+    \item Separare il compito da svolgere, dal meccanismo che si occupa di 
+    eseguirlo, permette di usare differenti strategie per eseguire un compito(
+        ad \textit{esempio}, potremmo far si che un'operazione venga 
+        eseguita dopo un certo delay temporale definito, oppure 
+        periodicamente).
+\end{itemize}
+Che succede su viene eseguito un \code{fork()} su un thread? Viene duplicato 
+esclusivamente il thread o l'intero processo? Tale decisione, dipende dalle 
+specifiche del sistema operativo, se il nuovo processo chiama immediatamente 
+un \code{exec()}, non c'è bisogno di copiare tutti i thread associati a quel 
+processo. Molte versioni di UNIX, implementando differenti tipi della chiamata
+\code{fork()} a seconda della situazione.\acc 
+Se un processo multi-thread riceve un segnale, quale dei thread associati dovrà 
+riceverlo? Ci sono 4 possibili modi di gestire i segnali : \begin{enumerate}
+    \item Inviare il segnale allo specifico thread che lo richiede. 
+    \item Inviare il segnale a tutti i thread del processo.
+    \item Inviare il segnale ad un certo gruppo di thread.
+    \item Definire un thread specifico, che avrà lo scopo di 
+    ricevere e gestire tutti i segnali.
+\end{enumerate}
+
 \end{document}
