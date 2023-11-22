@@ -1604,27 +1604,23 @@ come è stato costruito \(G\) :\begin{center}
     \(G=\displaystyle\bigcup^n_{i=1}\pi_{R_i}(F)\equiv F\)
 \end{center} 
 \(G\) è l'unione delle dipendenze funzionali nelle proiezioni, quindi, \(Y\rightarrow A\) appartiene ad una delle proiezioni : \begin{center}
-    \(\exists j\in\{1,2\dots,n\}|Y\rightarrow A\in \pi_{R_j}(F)\)
+    \(\exists j\in\{1,2\dots,n\}|Y\rightarrow V\in \pi_{R_j}(F)\)
 \end{center}
 
 
 ma una proiezione, è definita in tal modo : \begin{center}
     \(\pi_{R_i}(F)=\{X\rightarrow Y\in F^+|\{X,Y\}\subseteq R_i\}\)
 \end{center}
-Quindi, se \(Y\rightarrow A\in \pi_{R_j}(F)\), allora \(Y\in R_j\) e \(A\in R_j\).\begin{center}
+Quindi, se \(Y\rightarrow V\in \pi_{R_j}(F)\), allora \(Y\in R_j\) e \(V\in R_j\implies A\in R_j\).\begin{center}
     \color{sap}\textbf{Passo cruciale 1!} \color{black}\(A\in R_j\)
 \end{center}
-Abbiamo quindi visto che \(Y\rightarrow A\in \pi_{R_j}(F)\), ma le dipendenze delle proiezioni, derivano tutte da \(F^+\), 
-quindi possiamo sicuramente dire che \(Y\rightarrow A\in F^+=F^A\), ma per ipotesi (Ricordando come è stato costruito \(S\)), 
-sappiamo che \(Y\subseteq Z_f\), quindi : \begin{equation}
-    \begin{cases}
-        Y\subseteq Z_f\\Y\rightarrow A\in F^A
-    \end{cases}\implies Z_f\rightarrow A\in F^A \implies A\in (Z_f)^+_F
-\end{equation}
+Abbiamo quindi visto che \(Y\rightarrow V\in \pi_{R_j}(F)\), quindi \(Y\subseteq R_j\). Sapendo che \(Y\subseteq Z_f\), possiamo 
+dire che \(Y\subseteq R_j\cap Z_f\), ma \(R_j\cap Z_f\subseteq (R_j\cap Z_f)_F^+\), quindi \(Y\subseteq (R_j\cap Z_f)_F^+\), ne consegue 
+che \(R_j\cap Z_f\rightarrow Y\in F^+\), essendo che \(Y\rightarrow V\in F^+\), per transitività si ha \(R_j\cap Z_f\rightarrow V\in F^+\), 
+ed essendo che \(A\in V\), per decomposizione ho che \(R_j\cap Z_f\rightarrow A\in F^+\implies A\in (R_j\cap Z_f)_F^+\).
 \begin{center}
-    \color{sap}\textbf{Passo cruciale 2!} \color{black}\(A\in (Z_f)^+_F\)
+    \color{sap}\textbf{Passo cruciale 2!} \color{black}\(A\in (R_j\cap Z_f)_F^+\)
 \end{center}
-\color{red} Passaggio mancante! Dimostrare che \color{black}\(A\in(Z_f\cap R_j)_F^+\)\acc
 A questo punto vedo che : \begin{equation}
     \begin{cases}
         A\in(Z_f\cap R_j)_F^+\\A\in R_j
