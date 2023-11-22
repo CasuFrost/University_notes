@@ -1180,6 +1180,49 @@ ne voglio calcolare la somma, ossia \(X=X_1+X_2\), si avrà che : \begin{equatio
     =e^{-(\lambda_1+\lambda_2)}\dfrac{1}{k!}\sum_{h=0}^{+\infty}\binom{k}{h}\lambda_1^k\lambda_2^{k-h}=e^{-(\lambda_1+\lambda_2)}\cdot\dfrac{(\lambda_1+\lambda_2)^k}{k!}
 \end{equation}
 Ne concludiamo che la somma di due variabili aleatorie di Poisson, è ancora una variabile aleatoria di Poisson.
+\subsection{Vincita Media in un Gioco Equo}
+In questo capitolo, dimostreremo che, se un gioco è equo, la vincita media, a prescindere dalla strategia 
+adottata nel gioco, sarà sempre 0.\acc 
+Si consideri il gioco della roulette, dove non vi è lo zero, quindi la pallina può finire esclusivamente sul 
+rosso o sul nero, rendendo il gioco equo. \acc 
+Si adotta una certa strategia, al primo turno, si gioca 1 euro, in caso di vittoria, prendo il raddoppio e finisco, 
+in caso di sconfitta, gioco la quota giocata precedentemente ma raddoppiata, gioco per \(n\) turni, è chiaro che, 
+se dovessi vincere, la somma vinta sarà sempre di 1 euro, se dovessi perdere invece, perderei 
+\(2^n-1\) euro. Definisco quindi la variabile aleatoria \(V\) che rappresenta la vincita, si ricordi che ad 
+ogni turno, la probabilità di vincere o perdere è di \(\nicefrac{1}{2}\).\begin{center}
+    \(V=\begin{cases}
+        1 \text{ con probabilità } 1-\dfrac{1}{2^n}\\
+        -(2^n-1) \text{ con probabilità } \dfrac{1}{2^n}
+    \end{cases}\)
+\end{center}
+La probabilità di vittoria, è molto alta, e la quota vinta è bassa, la probabilità di sconfitta è bassissima, 
+ma nel caso, si perderebbe una sommma esponenziale di denaro rispetto ai lanci fatti. Calcoliamo il 
+valore atteso di \(V\), che rappresenta la vincita media : \begin{equation}
+    \E(V)=(1-\dfrac{1}{2^n})-(2^n-1)\cdot\dfrac{1}{2^n}=0
+\end{equation}
+Vedremo adesso che, qualunque sia la strategia adottata, la vincita media sarà sempre zero.\acc 
+Introduco \(X^{(i)}\), che restituisce \(1\) se all'\(i\)-esimo turno è uscito rosso, altrimenti 0, è ovvio che 
+\(\forall i,j\in\{1,2\dots,n\}\) \(X^{(i)}\) e \(X^{(j)}\) sono indipendenti. Generalizziamo l'idea di 
+strategia adottata. Al primo turno, punto sul rosso una quantità \(f_0\), se \(f_0<0\), vuol 
+dire che sto puntando sul nero una quantità \(|f_0|\). \acc Chiamo \(V_1\) la vincita al primot turno, 
+ed è ovvio che varrà \(V_1=f_0\cdot X^{(1)}\)\acc
+
+Al secondo turno, la quota da scommettere, 
+sarà influenzata dal risultato, sarà quindi una funzione di parametro \(X^{(1)}\), ossia \(f_1(X^{(1)})\), 
+la prossima vincita sarà \(V_2=V_1+f_1(X_1)\cdot X_2\).\acc 
+Ad ogni \(k\)-esimo turno, vi sarà una funzione \(f_k(X_1,X_2\dots,X_{k-1})\), che deciderà la somma da 
+puntare in base ai risultati dei turni precedenti, su \(n\) turni, si avrà che : \begin{center}
+    \(V_n=\displaystyle\sum_{i=1}^n f_{i-1}(X_1\dots,X_{i-1})\cdot X_i\)
+\end{center}
+L'insieme di queste funzioni \(f_i\) arbitrarie, stabilisce una strategia di gioco. Possiamo calcolare il valore 
+atteso per linearità :
+\begin{equation}
+    \E(V_n)=\sum_{i=1}^n\E(f_{i-1}(X_1\dots,X_{i-1})\cdot X_i)=\text{ per indipendenza }=\sum_{i=1}^n\E(f_{i-1}(X_1\dots,X_{i-1}))\cdot \E(X_i)
+\end{equation}
+Ma per ogni \(i\in\{1,2\dots,n\}\), si ha che  \(\E(X_i)=0\), ne consegue che \begin{equation}
+    \sum_{i=1}^n\E(f_{i-1}(X_1\dots,X_{i-1}))\cdot \E(X_i)=\sum_{i=1}^n\E(f_{i-1}(X_1\dots,X_{i-1}))\cdot 0 =\sum_{i=1}^n0= 0\text{\hphantom{text}}\blacksquare
+\end{equation} 
+
 \subsection{Legge dei Grandi Numeri}
 Prima di enunciare il teorema della \textit{legge dei grandi numeri}, si consideri il seguente esempio, vi è 
 una variabile aleatoria binomiale, che denoteremo \(S_n\), si effettuano \(n\) lanci ed ha parametro \(p\), vogliamo 
