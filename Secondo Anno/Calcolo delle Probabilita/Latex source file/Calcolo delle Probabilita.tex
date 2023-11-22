@@ -1180,4 +1180,21 @@ ne voglio calcolare la somma, ossia \(X=X_1+X_2\), si avrà che : \begin{equatio
     =e^{-(\lambda_1+\lambda_2)}\dfrac{1}{k!}\sum_{h=0}^{+\infty}\binom{k}{h}\lambda_1^k\lambda_2^{k-h}=e^{-(\lambda_1+\lambda_2)}\cdot\dfrac{(\lambda_1+\lambda_2)^k}{k!}
 \end{equation}
 Ne concludiamo che la somma di due variabili aleatorie di Poisson, è ancora una variabile aleatoria di Poisson.
+\subsection{Legge dei Grandi Numeri}
+Prima di enunciare il teorema della \textit{legge dei grandi numeri}, si consideri il seguente esempio, vi è 
+una variabile aleatoria binomiale, che denoteremo \(S_n\), si effettuano \(n\) lanci ed ha parametro \(p\), vogliamo 
+vedere cosa succede, se il numero di lanci \(n\), tende all'infinito (da non confondere con la variabile 
+aleatoria di Poisson, dato che il parametro in questo caso resta fissato).\acc 
+Piuttosto che considerare \(S_n\), considero \(\dfrac{S_n}{n}\), si avrà che :\begin{center}
+    \(\displaystyle\lim_{n\rightarrow +\infty}\Prob(\dfrac{S_n}{n}=\dfrac{k}{n})=0\)
+\end{center}
+La probabilità che la variabile aleatoria assuma uno specifico valore, con l'aumentare dei lanci verso l'infinito 
+tende a 0. Si consideri però ora il valore atteso \(\E(\dfrac{S_n}{n})\), che è uguale a \(p\) (il valore 
+atteso della variabile aleatoria binomiale è \(np\)), vedremo che, in un intorno di 
+ampiezza \(2\delta\) del valore atteso, la probabilità che \(S_n\) assuma valore contenuto in quell'intorno, 
+sarà certa.\begin{center}
+    \(\displaystyle\lim_{n\rightarrow +\infty}\Prob(p-\delta\le\dfrac{S_n}{n}<p+\delta)=1\)
+\end{center}
+Graficamente, nell'istogramma, se il numero di lanci tende all'infinito, le stanghette al di fuori di un 
+intorno del valore atteso tenderanno a diventare sempre più piccole, tendendo a 0.
 \end{document}
