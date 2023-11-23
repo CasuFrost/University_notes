@@ -2630,8 +2630,30 @@ Tali vettori, si dicono \textbf{linearmente indipendenti} se ogni combinazione l
  il caso che \(\alpha_1\ne 0\), allora \(v_1 = -\dfrac{\alpha_2}{\alpha_1}\bar v_2\). Dimostriamo ora il 
  secondo verso dell'implicazione, se \(\bar v_1 = \alpha \bar v_2\) per qualche \(\alpha\), allora 
  \(\bar v_1-\alpha \bar v_2=\bar 0\), ed il coefficente di \(\bar v_1\) è diverso da 0. \(\blacksquare\)
- \subsubsection{Esempio Geometrici}
+ \subsubsection{Esempi Geometrici}
  Si consideri lo spazio vettoriale \(V_0^2\) visto nel capitolo \ref{v2O}, abbiamo visto che due vettori 
  sono linearmente indipendenti, se e solo se non sono proporzionali, geometricamente parlando, sul piano, 
- due vettori sono linearmente indipendenti se non giaciono sulla stessa retta.
+ due vettori sono linearmente indipendenti se non giaciono sulla stessa retta.\\\hphantom{}\\
+ \begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/linDIp.eps}
+    }
+\end{figure}
+Consideriamo adesso 3 vettori sul piano :
+\begin{figure}[h]
+   \centering{
+   \includegraphics[width=0.4\textwidth ]{images/combLin.eps}
+   }
+\end{figure}
+Notiamo che la somma di \(\bar v_1+\bar v_2 \ne \bar v_3\), ma \(\exists \alpha_1,\alpha_2\in \R|\bar \alpha_1v_1+\bar \alpha_2v_2 = \bar v_3\), allungando 
+o restringendo i due vettori, possiamo formare i due lati, del parallelogramma di diagonale \(\bar v_3\) :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.4\textwidth ]{images/combLin2.eps}
+    }
+ \end{figure}
+\\Questo vuol dire che, \(\bar v_3\) è risultato di una combinazione lineare di  \(\bar v_1,\bar v_2 \), 
+per l'osservazione 2, sono linearmente dipendenti, ne segue la seguente proposizione :
+ \acc\textbf{Proposizione }: Siano \(\bar v_1,\bar v_2,\bar v_3\) 3 vettori, se \(\bar v_1\) e \(\bar v_2\)
+sono linearmente indipendenti, allora \(\bar v_1,\bar v_2,\bar v_3\) sono linearmente dipendenti.
 \end{document}
