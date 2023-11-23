@@ -2397,7 +2397,7 @@ elemento neutro, somma, prodotto scalare ed inverso definiti in tal modo :
 \hphantom{tet}\((f(x)^{-1}):=-f(x)\)
 \end{center}
 \end{itemize}
-\subsubsection{Lo Spazio dei Vettori sul Piano Euclideo}
+\subsubsection{Lo Spazio dei Vettori sul Piano Euclideo}\label{v2O}
 Vediamo adesso uno dei più noti spazi vettoriali, che viene introdotto ad ogni studente sin dalle scuole 
 superiori, si consideri il \textit{piano della geometria euclidea} \(\R\times \R\), e si fissi un 
 punto \(O\). Consideriamo adesso l'insieme \(V=\{\text{segmenti orientati centrati in } O\}\), ossia l'insieme 
@@ -2557,4 +2557,81 @@ elementi che sono già nello Span degli elementi originali (rileggere lentamente
 \textbf{Proposizione }: Il sistema lineare \(A\bar x = \bar b\), con matrice associata \(A\in M_{mn}(\R)\), dove 
 \(M_{mn}(\R)\) è l'insieme delle matrici con \(m\) righe ed \(n\) colonne a coefficenti reali, ammette 
 soluzione se e solo se \(\bar b \in \Span(A^1,A^2\dots, A^n)\), dove \(A^j\) è la \(j\)-esima colonna di \(A\). 
+\subsection{Indipendenza Lineare}
+Siano \(\bar v_1,\bar v_2\dots,\bar v_k\) \(k\) vettori di uno spazio vettoriale \(V\).
+Tali vettori, si dicono \textbf{linearmente indipendenti} se ogni combinazione lineare
+ dei \(k\) vettori, uguale al vettore nullo : \(\alpha_1\bar v_1+\alpha_2\bar v_2\dots+\alpha_k\bar v_k=\bar 0\),
+ ha tutti i coefficenti nulli : \(\alpha_1=\alpha_2\dots=\alpha_k=0\). Analogamente, se esiste 
+ un insieme di coefficenti reali \(\alpha_1,\alpha_2\dots,\alpha_k\) \textit{non tutti nulli} tali 
+ che \(\alpha_1\bar v_1+\alpha_2\bar v_2\dots+\alpha_k\bar v_k=\bar 0\), allora, i vettori si dicono 
+ \textbf{linearmente dipendenti}.\acc 
+ \textit{Esempio :} In \(\R^n\), i vettori : \begin{center}
+    \(\bar e_1 = \begin{bmatrix}
+        1\\.\\.\\0
+    \end{bmatrix}\) 
+    \(\bar e_2 = \begin{bmatrix}
+        0\\1\\.\\0
+    \end{bmatrix}\)\dots
+    \(\bar e_k = \begin{bmatrix}
+        0\\.\\.\\1
+    \end{bmatrix}\)
+ \end{center}
+ Sono linearmente indipendenti, in quanto una loro combinazione lineare diventa : \begin{center}
+    \(
+    \alpha_1 \begin{bmatrix}
+        1\\.\\.\\0
+    \end{bmatrix}+    
+    \)\dots+\( \alpha_k\begin{bmatrix}
+        0\\.\\.\\1
+    \end{bmatrix}= \begin{bmatrix}
+        \alpha_1\\.\\.\\0
+    \end{bmatrix}+    
+    \)\dots+\( \begin{bmatrix}
+        0\\.\\.\\\alpha_k
+    \end{bmatrix}=0\iff \alpha_1,\alpha_2\dots,\alpha_k=0\)
+ \end{center}
+ \textbf{Osservazione 1} : Se in \(\bar v_1,\bar v_2\dots,\bar v_k\), vi è anche il 
+ vettore nullo \(\bar 0\), allora i vettori sono linearmente dipendenti.\acc 
+ \textbf{Dimostrazione Oss. 1} : Per ipotesi \(\exists j | \bar v_j = \bar 0\), si consideri la seguente 
+ combinazione lineare: \(0\cdot\bar v_1+0\cdot\bar v_2\dots 0\cdot\bar v_{j-1}+1\bar v_j + 0\cdot\bar v_{j+1}\dots +  0\cdot\bar v_{k}=\bar 0\), nonostante 
+ il coefficente di \(\bar v_j\) sia diverso da 0, la combinazione lineare è ugualmente nulla, in quanto \(\alpha \cdot \bar 0=\bar 0\), quindi i 
+ vettori sono linearmente dipendenti. \(\blacksquare\) \acc
+ \textbf{Osservazione 2} : I vettori \(\bar v_1,\bar v_2\dots,\bar v_k\) sono linearmente dipendenti, 
+ se e solo se, uno di essi è combinazione lineare degli altri.\begin{center}
+    \(\bar v_1,\bar v_2\dots,\bar v_k\text{ sono lin. dipendenti }\iff \exists j\in \{1,2\dots,k\}|\bar v_j \in \Span(\{\bar v_1,\bar v_2\dots,\bar v_k\}\backslash \{\bar v_j\})\)
+ \end{center} 
+ \textbf{Dimostrazione Oss. 2} : Iniziamo dimostrando il primo verso dell'implicazione, per ipotesi, 
+ i vettori \(\bar v_1,\bar v_2\dots,\bar v_k\) sono linearmente dipendenti, prendo una loro combinazione 
+ lineare uguale al vettore nullo, dove vi è un coefficente \(\alpha_l\) diverso da zero, ho che :
+ \begin{equation}
+    \alpha_1\bar v_1+\alpha_2\bar v_2\dots +\alpha_{l-1}\bar v_{l-1}+\alpha_l\bar v_{l}+\alpha_{l+1}\bar v_{l+1}\dots+\alpha_k\bar v_{k}=\bar 0
+ \end{equation}
+ \begin{equation}
+    \alpha_l\bar v_{l}=-\alpha_1\bar v_1-\alpha_2\bar v_2\dots -\alpha_{l-1}\bar v_{l-1}-\alpha_{l+1}\bar v_{l+1}\dots-\alpha_k\bar v_{k}
+ \end{equation}
+ Essendo \(\alpha_l\ne 0\), posso dividere tutto per \(\alpha_l\) : 
+ \begin{equation}
+    \bar v_{l}=-\dfrac{\alpha_1}{\alpha_l}\bar v_1-\dfrac{\alpha_2}{\alpha_l}\bar v_2\dots -\dfrac{\alpha_{l-1}}{\alpha_l}\bar v_{l-1}-\dfrac{\alpha_{l+1}}{\alpha_l}\bar v_{l+1}\dots-\dfrac{\alpha_{k}}{\alpha_l}\bar v_{k}
+ \end{equation}
+ Scritto in questa forma, risulta chiaro che \(\bar v_l\) è risultato di una combinazione lineare degli altri vettori. 
+ Dimostriamo adesso il secondo verso dell'implicazione, l'ipotesi è che un vettore \(\bar v_i\) sia 
+ combinazione lineare degli altri : \begin{center}
+    \(\bar v_i = \beta_1\bar v_1+\beta_2\bar v_2\dots+\beta_k\bar v_k\)
+ \end{center}
+ Adesso, sommo ad entrambi i membri il termine \(-(\bar v_i)\), ed ottengo : \begin{center}
+    \( \beta_1\bar v_1+\beta_2\bar v_2\dots+\beta_k\bar v_k - \bar v_i = \bar 0\)
+ \end{center}
+ Adesso, il coefficente di \(\bar v_i\) è \(-1\), ma il risultato della combinazione lineare è il 
+ vettore nullo, quindi sono linearmente dipendenti. \(\blacksquare\)\acc 
+ \textbf{Osservazione 3} : Presi due vettori \(\bar v_1\) e \(\bar v_2\), essi sono linearmente dipendenti, 
+ se e solo se \(\exists \alpha \ne 0 |\bar v_1 = \alpha\cdot \bar v_2\) (sono proporzionali).\acc 
+ \textbf{Dimostrazione Oss. 3} :  Iniziamo dimostrando il primo verso dell'implicazione, per ipotesi, 
+ \(\bar v_1\) e \(\bar v_2\) sono linearmente dipendenti : \(\alpha_1\bar v_1+\alpha_2\bar v_2=\bar 0\), si dia 
+ il caso che \(\alpha_1\ne 0\), allora \(v_1 = -\dfrac{\alpha_2}{\alpha_1}\bar v_2\). Dimostriamo ora il 
+ secondo verso dell'implicazione, se \(\bar v_1 = \alpha \bar v_2\) per qualche \(\alpha\), allora 
+ \(\bar v_1-\alpha \bar v_2=\bar 0\), ed il coefficente di \(\bar v_1\) è diverso da 0. \(\blacksquare\)
+ \subsubsection{Esempio Geometrici}
+ Si consideri lo spazio vettoriale \(V_0^2\) visto nel capitolo \ref{v2O}, abbiamo visto che due vettori 
+ sono linearmente indipendenti, se e solo se non sono proporzionali, geometricamente parlando, sul piano, 
+ due vettori sono linearmente indipendenti se non giaciono sulla stessa retta.
 \end{document}
