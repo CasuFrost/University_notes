@@ -14,6 +14,7 @@
 \newcommand{\An}{{\mathcal A_n}}
 \newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
 \newcommand{\mcm}{{\text{mcm}}}
+\newcommand{\ve}{{\bar v}}
 \newcommand{\spaz}{{\text{\hphantom{aa}}}}
 \newcommand{\MCD}{{\text{MCD}}}
 \newcommand{\supp}{{\text{Supp}}}
@@ -2639,7 +2640,7 @@ Tali vettori, si dicono \textbf{linearmente indipendenti} se ogni combinazione l
     \includegraphics[width=0.8\textwidth ]{images/linDIp.eps}
     }
 \end{figure}
-Consideriamo adesso 3 vettori sul piano :
+Consideriamo adesso 3 vettori sul piano :\\
 \begin{figure}[h]
    \centering{
    \includegraphics[width=0.4\textwidth ]{images/combLin.eps}
@@ -2655,5 +2656,50 @@ o restringendo i due vettori, possiamo formare i due lati, del parallelogramma d
 \\Questo vuol dire che, \(\bar v_3\) è risultato di una combinazione lineare di  \(\bar v_1,\bar v_2 \), 
 per l'osservazione 2, sono linearmente dipendenti, ne segue la seguente proposizione :
  \acc\textbf{Proposizione }: Siano \(\bar v_1,\bar v_2,\bar v_3\) 3 vettori, se \(\bar v_1\) e \(\bar v_2\)
-sono linearmente indipendenti, allora \(\bar v_1,\bar v_2,\bar v_3\) sono linearmente dipendenti.
+sono linearmente indipendenti, allora \(\bar v_1,\bar v_2,\bar v_3\) sono linearmente dipendenti.\acc 
+\textbf{Osservazione }: Si considerino i \(k\) vettori dello spazio   \(W=\{\bar v_1,\bar v_2\dots,\bar v_k\}\),
+ se in \(W\) vi sono \(j\) vettori (con \(j<k\)) linearmente dipendenti, allora, anche i vettori 
+ \(W=\{\bar v_1,\bar v_2\dots,\bar v_k\}\) sono linearmente dipendenti.\acc
+ \textbf{Dimostrazione} : Supponiamo che \(\bar v_1,\bar v_2\dots,\bar v_j\) siano \(j\) 
+ linearmente dipendenti, ne segue che \(\alpha_1\bar v_1+\dots+\alpha_j\bar v_j=\bar 0\), con i coefficenti 
+ non tutti nulli. Consideriamo adesso \(\bar v_{j+1},\bar v_{j+2}\dots,\bar v_{k}\), e sommiamoli alla combinazione 
+ lineare, moltiplicati a dei coefficenti nulli, del tipo : \begin{center}
+    \(\alpha_1\bar v_1+\dots+\alpha_j\bar v_j+0\cdot\bar v_{j+1}+0\cdot\bar v_{j+2}\dots+0\cdot\bar v_{k}=\bar 0\)
+ \end{center}
+ Ma questa, è pure sempre una combinazione lineare nulla con coefficenti non tutti nulli, quindi, 
+ i vettori \(\bar v_1,\bar v_2\dots,\bar v_j,\bar v_{j+1},\bar v_{j+2}\dots,\bar v_k\) sono linearmente 
+ dipendenti. \(\blacksquare\)\acc 
+ \textbf{Osservazione }: Se in \(\ve_1,\ve_2\dots,\ve_k\) ci sono due vettori identici, allora 
+ \(\ve_1,\ve_2\dots,\ve_k\) sono linerarmente dipendenti.
+ \subsection{Base di uno Spazio Vettoriale}
+Sia \(V\) uno spazio vettoriale, allora, una collezione finita 
+di vettori \(\mathcal{B}=\{\ve_1,\ve_2\dots,\ve_k\}\) si dice \textit{base} per \(V\) se:\begin{itemize}
+    \item \(\ve_1,\ve_2\dots,\ve_k\) sono linearmente indipendenti.
+    \item \(V=\Span(\ve_1,\ve_2\dots,\ve_k)\)
+\end{itemize}
+\textit{Esempio }: In \(V_O^2\), qualsiasi coppia di vettori non proporzionali è una base.\acc
+\textbf{Osservazione }: Se \(\mathcal{B}\) è una base, è un massimale di vettori 
+linearmente indipendenti in \(V\).\acc 
+In questo corso ci occuperemo di spazi vettoriali \textbf{finitamente generati}, ossia, che hanno 
+base di cardinalità finita. Tutte le basi di uno spazio \(V\) hanno la stessa cardinalità (lo vedremo in uno 
+dei teoremi che seguono), e tale cardinalità è detta \textbf{dimensione} dello spazio vettoriale, ad esempio, 
+\(\R^n\) ha dimensione \(n\), invece \(V_O^2\) ha dimensione 2.\acc 
+\textbf{Teorema 1} : Se \(V\) è uno spazio vettoriale finitamente generato, allora ha una base.\acc
+\textbf{Teorema del Completamento} : Sia \(\mathcal{B}=\{\ve_1,\ve_2\dots,\ve_n\}\) \(n\) vettori che 
+costituiscono una base di \(V\),
+e siano \(\{\bar w_1,\bar w_2\dots,\bar w_k\}\) \(k\) vettori di \(V\) linearmente indipendenti, con 
+\(k\le n\). Allora, esistono esattamente \(n-k\) vettori in \(\mathcal{B}\), tali che, se aggiunti all'insieme 
+\(\{\bar w_1,\bar w_2\dots,\bar w_k\}\), esso costituirà una base di \(V\).\acc 
+\textbf{Corollario }: Se \(V\) è uno spazio vettoriale finitamente generato, e \(\mathcal{B}\) e  
+\(\mathcal{B}'\) sono due basi di \(V\), allora \(|\mathcal{B} |=|\mathcal{B}'|\).\acc 
+\textbf{Dimostrazione Corollario} : Siano \(\mathcal{B}=\{\ve_1,\ve_2\dots,\ve_n\}\) e  
+\(\mathcal{B}'=\{\ve'_1,\ve'_2\dots,\ve'_m\}\) due basi di \(V\), se \(n>m\), posso trovare 
+\(n-m\) vettori in \(\mathcal{B}'\) in modo tale che \(\{\ve_1,\ve_2\dots,\ve_n,\ve'_i\dots,\ve'_{i_{n-m}}\}\)
+sia una base, ma questo va in contraddizione con il fatto che una base, dovrebbe essere 
+un massimale di vettori linearmente indipendenti, quindi è impossibile che \(n>m\), può essere che 
+\(n\ge m\). Analogamente, se \(n<m\), posso trovare 
+\(m-n\) vettori in \(\mathcal{B}\) in modo tale che \(\{\ve'_1,\ve'_2\dots,\ve'_n,\ve_i\dots,\ve_{i_{n-m}}\}\)
+sia una base, ma questo va in contraddizione con il fatto che una base, dovrebbe essere 
+un massimale di vettori linearmente indipendenti, quindi è impossibile che \(n<m\), può essere che 
+\(n\le m\). Ne concludiamo che \(n=m\). \(\blacksquare\)
 \end{document}
