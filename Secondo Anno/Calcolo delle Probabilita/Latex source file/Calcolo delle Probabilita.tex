@@ -1,12 +1,13 @@
 \documentclass[12pt, letterpaper]{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{hyperref}
-\usepackage{xcolor}
+
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage[english]{babel}
 \usepackage{nicefrac, xfrac}
 \usepackage{epsfig}
+\usepackage[table,xcdraw]{xcolor}
 \newcommand{\Z}{{\mathbb Z}}
 \newcommand{\R}{{\mathbb R}}
 \newcommand{\N}{{\mathbb N}}
@@ -1319,4 +1320,87 @@ Essendo questo il complementare di  \(\Prob(|\dfrac{S_n}{n}-\E(\dfrac{S_n}{n})|<
 \begin{center}
     \(\Prob(|\dfrac{S_n}{n}-\E(\dfrac{S_n}{n})|<\delta)=0\)\hphantom{aaaa}\(\blacksquare\)
 \end{center}
+\newpage\subsection{Distribuzione Congiunta di Variabili Aleatorie}
+Siano \(X\) ed \(Y\) due variabili aleatorie, si vuole guardare alla distribuzione di esse in maniera 
+congiunta, ad ogni evento, sarà quindi associato il risultato delle due variabili, che sarà ovviamente 
+un punto su \(\R^2\) :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/varCongiunte.eps}
+    }
+\end{figure}\acc
+\textit{Esempio }: Si vuole lanciare un dado equo, sappiamo che \(\Omega=\{1,2,3,4,5,6\}\) e che la 
+probabilità è uniforme. Considero due variabili aleatorie, la cui immagine rappresenta la somma in 
+denaro vinta (o persa, se negativa) in base all'esito del dado : \begin{center}
+    \(
+    X=\begin{cases}
+        -1\text{ se }\omega =1,2\\ 
+        0\text{ se }\omega =3,4\\ 
+        1\text{ se }\omega =5,6
+    \end{cases}    
+    \)\hphantom{text}\( Y=\begin{cases}
+        -2\text{ se }\omega =1,2,3\\ 
+        2\text{ se }\omega =4,5,6
+    \end{cases}    
+    \)
+\end{center}
+Posso considerare la probabilità congiunta, ossia la probabilità che \(X\) assuma un certo valore, 
+ed \(Y\) ne assuma un altro, rappresento una tabella, in cui sulle righe considero l'immagine di \(X\) 
+e sulle colonne l'immagine di \(Y\), tale tabella sarà riempita con le rispettiva probabilità : \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \rowcolor[HTML]{FD6864} 
+        \cellcolor[HTML]{C0C0C0}\(\text{}^{\text{ }X}_Y\) & -1  & 0   & 1   \\ \hline
+        \cellcolor[HTML]{9698ED}-2 & \(\nicefrac{2}{6}\) & \(\nicefrac{1}{6}\) & 0   \\ \hline
+        \cellcolor[HTML]{9698ED}2  & 0   & \(\nicefrac{1}{6}\) & \(\nicefrac{2}{6}\) \\ \hline
+        \end{tabular}
+\end{center}
+Si noti come, ovviamente, possono esserci degli esiti congiunti che hanno probabilità 0, se 
+il dado da come esito \(1\), la variabile \(X\) non può essere uguale ad \(1\) se la variabile 
+\(Y\) è uguale a \(-2\), in quanto quest'ultima, restringe i possibili esiti del dado a 1,2 o 3, e per
+questi esiti, la variabile \(X\) non può valere 1.\acc  
+\textbf{Definizione} : La distribuzione congiunta delle variabili aleatorie \(X\) ed \(Y\) è data da : \begin{center}
+    \(
+    \Prob(X=x,Y=y)=\Prob(\{\omega\in \Omega | X(\omega)=x\land Y(\omega)=y\})    
+    \)
+\end{center}
+\textbf{Osservazione} : Da una distribuzione congiunta è possibile ricavare le distribuzioni delle variabili 
+che la compongono, ed esse sono dette \textit{distribuzioni marginali}, dalla tabella, 
+sommando tutti i valori di una riga, è possibile ottenere la distribuzione di \(Y\), e sommando una 
+colonna di \(X\) : \begin{center}
+    \begin{tabular}{lccclll}
+        \cline{1-4}
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{C0C0C0}kk} & \multicolumn{1}{c|}{\cellcolor[HTML]{FD6864}-1} & \multicolumn{1}{c|}{\cellcolor[HTML]{FD6864}0} & \multicolumn{1}{c|}{\cellcolor[HTML]{FD6864}1} &  &                       &                          \\ \cline{1-4} \cline{7-7} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{9698ED}-2} & \multicolumn{1}{c|}{\(\nicefrac{2}{6}\)}                        & \multicolumn{1}{c|}{\(\nicefrac{1}{6}\)}                       & \multicolumn{1}{c|}{0}                         &  & \multicolumn{1}{l|}{\(\nicefrac{2}{6}+\nicefrac{1}{6}=\)} & \multicolumn{1}{c|}{\(\nicefrac{3}{6}\)} \\ \cline{1-4} \cline{7-7} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{9698ED}2}  & \multicolumn{1}{c|}{0}                          & \multicolumn{1}{c|}{\(\nicefrac{1}{6}\)}                       & \multicolumn{1}{c|}{\(\nicefrac{2}{6}\)}                       &  & \multicolumn{1}{l|}{\(\nicefrac{2}{6}+\nicefrac{1}{6}=\)} & \multicolumn{1}{c|}{\(\nicefrac{3}{6}\)} \\ \cline{1-4} \cline{7-7} 
+                                                         & \multicolumn{1}{l}{\(\nicefrac{2}{6}+\)}                            & \multicolumn{1}{l}{\(\nicefrac{1}{6}+\)}                           & \multicolumn{1}{l}{\(\nicefrac{2}{6}+\)}                           &  &                       &                          \\
+                                                         & \multicolumn{1}{l}{\(0=\)}                            & \multicolumn{1}{l}{\(\nicefrac{1}{6}=\)}                           & \multicolumn{1}{l}{\(0=\)}                           &  &                       &                          \\ \cline{2-4}
+        \multicolumn{1}{l|}{}                            & \multicolumn{1}{c|}{\(\nicefrac{2}{6}\)}                        & \multicolumn{1}{c|}{\(\nicefrac{2}{6}\)}                       & \multicolumn{1}{c|}{\(\nicefrac{2}{6}\)}                       &  &                       &                          \\ \cline{2-4}
+        \end{tabular}
+\end{center}
+Si ha logicamente che : \begin{center}
+    \(\Prob(X=x_0)=\displaystyle\sum_{y\in Im(Y)}\Prob(X=x_0,Y=y)\)\hphantom{aaaa}
+    \(\Prob(Y=y_0)=\displaystyle\sum_{x\in Im(X)}\Prob(X=x,Y=y_0)\)
+\end{center}
+Se la probabilità congiunta è uguale al prodotto delle distribuzioni marginali, allora \(X\) ed \(Y\) 
+sono indipendenti. \acc L'esito di una variabile aleatoria, può ovviamente influenzare la probabilità che un altra 
+variabile aleatoria dia un certo risultato, considerando l'esempio precedente, sapere che la variabile 
+\(Y\) ha assundo valore uguale a 2, rende nulla la probabilità che \(X\) possa assumere valore \(-1\). 
+In generale :\begin{center}
+    \(\Prob(Y=y|X=x)=\dfrac{\Prob(X=x,Y=y)}{\Prob(X=x)}\)
+\end{center}
+\subsection{Variabile Aleatoria Multinomiale}
+Vediamo subito un esempio di variabili aleatorie congiunte, introducendo una nuova variabile 
+aleatoria, ossia quella \textit{multinomiale} : Vi è un eseprimento non binario, che 
+ha \(k\) possibili esiti, ossia \(\{1,2,3\dots,k\}\), ogni esito \(i\), ha probabilità \(p_i\), dove 
+ovviamente \(\displaystyle\sum_{i=1}^kp_i=1\). Tale esperimento, viene ripetuto \(n\) volte. Stabilisco 
+adesso delle nuove variabili aleatorie, \(\forall i\), ho che \(X_i=\) numero di volte che l'esperimento 
+da esito \(i\). La congiunzione di queste variabili aleatorie, sarà appunto la nostra variabile multinomiale : \begin{center}
+    \((X_1,X_2\dots,X_k)\sim\)Mult\((n,k,\{p_1,p_2\dots,p_k\})\)
+\end{center} 
+Ricordando che \(k\) è il numero di possibili esiti, \(n\) il numero di volte in cui si prova l'esperimento, e 
+\(\{p_1,p_2\dots,p_k\}\) le rispettive probabilità per ogni esito. Si avrà distribuzione : \begin{center}
+    \(\Prob(X_1=n_1,X_2=n_2\dots,X_k=n_k)=\dfrac{n!}{n_1!n_2!\dots\cdot n_k!} p_1^{n_1} p_2^{n_2}...\cdot p_k^{n_k}\)
+\end{center}
+Con ovviamente \(\displaystyle \sum_{i=1}^kn_i=n\).
 \end{document}
