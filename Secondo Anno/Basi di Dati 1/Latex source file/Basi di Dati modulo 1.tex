@@ -1757,4 +1757,28 @@ solo \(a\). Ho che :\begin{center}
     \(t_a\in\{t_1^f[R_1]\}\Join\{t_2^f[R_2]\}\dots \Join\{t_k^f[R_k]\}\subseteq m_\rho(r^f)\)
 \end{center}
 Ma per ipotesi, \(m_\rho(r)=r\), quindi la tupla con tutte \(a\) è contenuta nell'istanza finale \(r^f\). \(\blacksquare\)
+\subsubsection{Copertura Minimale}
+Dato uno schema, è sempre possibile trovare una buona decomposizione, che sia in 3NF, preservi l'insieme di dipendenze funzionali,
+ed abbia un \codee{JOIN} senza perdita. Una buona decomposizione per uno schema, non è unica, ce ne sono molteplici, vedremo poi un 
+algoritmo, che sarà in grado di calcolarle tutte, restituendone una.\acc 
+\textbf{Definizione di copertura minimale} : Dato un insieme di dipendenze funzionali \(F\) su uno 
+schema \(R\), si dice copertura minimale di \(F\), un insieme di dipendenze funzionali \(G\) equivalente ad \(F\), con le 
+seguenti proprietà : \begin{enumerate}
+    \item \(\forall X\rightarrow Y \in G\), \(Y\) è un attributo singolo.
+    \item \(\forall X\rightarrow A \in G\), non esiste un sottoinsieme \(X'\subset X|G\equiv G-\{X\rightarrow A\}\cup \{X'\rightarrow A\}\), 
+    ciò minimizza i determinanti.
+    \item Non esista alcuna dipendenza \(X\rightarrow A \in G|G\equiv G-\{X\rightarrow A\}\), quindi ogni dipendenza in \(G\) è 
+    necessaria e non ci sono ridondanze.
+\end{enumerate}
+Un insieme \(F\) ha più coperture minimali, e ad ognuna di esse è associata una buona decomposizione.\acc 
+\textbf{Calcolo per la Copertura Minimale} \\ 
+Si può trovare una copertura minimale di un insieme \(F\) seguendo 3 fasi :\begin{enumerate}
+    \item \textit{Fase 1} : Si minimizzano tutti i determinati tramite la decomposizione, ad esempio, \(X\rightarrow AB\) diventa 
+    \(X\rightarrow A,X\rightarrow B\).
+    \item \textit{Fase 2} : Per ogni dipendenza \(X\rightarrow A\in F\), controllo tutti i sottoinsiemi \(X'\subset X\), e 
+    verifico che \(X'\rightarrow A\in F^+\), se ciò è vero, posso sostituire \(X\rightarrow A\) con 
+    \(X'\rightarrow A\), controllando poi i sottoinsiemi di \(X'\).
+    \item  Per ogni dipendenza \(X\rightarrow A\in F\), controllo che \(X\rightarrow A \in (F\backslash\{X\rightarrow A\})^+\), 
+    se si, allora è ridondante, e può essere eliminata.
+\end{enumerate}
 \end{document}
