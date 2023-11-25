@@ -2038,6 +2038,28 @@ Quindi, si può scrivere tale sistema : \begin{center}
         0\\2\\4
     \end{bmatrix}\)
 \end{center}
+\textbf{Definizione }: Sia \(A\) una matrice, esiste una funzione \(\text{tr} : M_{n\times n}\rightarrow \R\),
+detta \textbf{traccia di una matrice}, che 
+ad ogni matrice associa la somma degli elementi sulla sua diagonale : \begin{center}
+    tr(\(A)=a_{1_1}+a_{2_2}+a_{3_3}\dots+a_{n_n}\)
+\end{center}
+\textbf{Definizione} : Una matrice quadrata \(n\times n\) si dice \textbf{simmetrica} se, 
+\(\forall i,j\in \{1,2\dots,n\}\) si ha che \(a_{i_j}=a_{j_i}\). Ad esempio, siano \(a,b,c\in \R\), una 
+qualsiasi matrice simmetrica \(2\times 2\) è della forma :\begin{center}\(
+    a\cdot \begin{bmatrix}
+        1&0\\
+        0&0 
+    \end{bmatrix}+b\cdot   \begin{bmatrix}
+        0&0\\
+        0&1 
+    \end{bmatrix} +c\cdot\begin{bmatrix}
+        0&1\\
+        1&0 
+    \end{bmatrix}=\begin{bmatrix}
+        a&c\\
+        c&b 
+    \end{bmatrix}
+\)\end{center}
 \subsection{Metodo di Gauss}
 Esiste un semplice metodo per trovare la soluzione (o soluzioni) di un sistema di equazioni lineari, in questo 
 paragrafo, ci ristringeremo al caso in cui il numero di equazioni è uguale al numero di incognite. Diamo prima un importante definizione.
@@ -2701,5 +2723,74 @@ un massimale di vettori linearmente indipendenti, quindi è impossibile che \(n>
 \(m-n\) vettori in \(\mathcal{B}\) in modo tale che \(\{\ve'_1,\ve'_2\dots,\ve'_n,\ve_i\dots,\ve_{i_{n-m}}\}\)
 sia una base, ma questo va in contraddizione con il fatto che una base, dovrebbe essere 
 un massimale di vettori linearmente indipendenti, quindi è impossibile che \(n<m\), può essere che 
-\(n\le m\). Ne concludiamo che \(n=m\). \(\blacksquare\)
+\(n\le m\). Ne concludiamo che \(n=m\). \(\blacksquare\)\acc 
+Un esempio di spazio vettoriale di \textit{dimensione infinita}, quindi che non è 
+finitamente generato, è lo spazio \(V=\R[x]\) dei polinomi a coefficenti reali ad una variabile, alcuni esempi : \begin{center}
+    \(x^2\)\hphantom{text}\(x+1\)\hphantom{text}\(4x^3-2x+6\)\hphantom{text}
+\end{center}
+Non esiste nessun insieme finito che può generare qualsiasi polinomio, in quando, un qualsiasi 
+polinomio di grado \(n\), richiede almeno un elemento nell'insieme dei generatori di grado \(n\), 
+essendo che un polinomio può assumere qualsiasi grado, l'insieme dei generatori 
+sarà infinito (ma numerabile).\acc 
+\textbf{Proposizione }: Se \(V\) è uno spazio vettoriale su un campo \(\mathbb{K}\), finitamente 
+generato, allora la mappa : \begin{center}
+    \(\phi_B : \mathbb{K}^n\rightarrow V\) tale che \(\phi_B(a_1,a_2\dots,a_n)=a_1\ve_1+a_2\ve_2\dots+a_n\ve_n\)
+\end{center}
+È un  \textit{isomorfismo} di spazi vettoriali.\acc 
+\textbf{Dimostrazione }: La suriettività deriva dal fatto che ogni elemento di \(V\) può essere scritto 
+come combinazione lineare \(a_1\ve_1+a_2\ve_2\dots+a_n\ve_n\). Inoltre tale mappa mantiene le operazioni : \begin{equation}
+    \phi_B(a_1,a_2\dots,a_n+b_1,b_2\dots,b_n)=(a_1+b_1)\ve_1+(a_2+b_2)\ve_2\dots+(a_n+b_n)\ve_n
+\end{equation}\begin{equation}
+    =(a_1\ve_1+a_2\ve_2\dots+a_n\ve_n)+(b_1\ve_1+b_2\ve_2\dots+b_n\ve_n)=\phi_B(a_1,a_2\dots,a_n)+\phi_B(b_1,b_2\dots,b_n)
+\end{equation}
+Anche sul prodotto per uno scalare : \begin{equation}
+    \phi_B(\lambda\cdot(a_1,a_2\dots,a_n))=\lambda a_1\ve_1+\lambda a_2\ve_2\dots+\lambda a_n\ve_n=\lambda\phi_B(a_1,a_2\dots,a_n)
+\end{equation}
+Essendo che la base di \(V\) è composta da vettori linearmente indipendenti, è anche iniettiva. \(\blacksquare\)
+\subsubsection{Criteri per la Ricerca di una Base}
+Presi \(k\) elementi di uno spazio vettoriale \(V\), dove \(k\) è la 
+dimensione dello spazio vettoriale, se questi sono generatori, oppure indipendenti, 
+allora costituiscono una base di \(V\).\acc 
+\textbf{Notazione }: La dimensione di uno spazio vettoriale \(V\), sarà denotata \(\dim(V)\).
+\acc
+\textbf{Proposizione }: Sia \(V\) uno spazio vettoriale finitamente 
+generato sul campo \(\mathbb{K}\), e sia \(W\) un suo 
+sottospazio vettoriale, allora : \begin{enumerate}
+    \item \(W\) ha una dimensione finita ed è finitamente generato. 
+    \item Se \(W\ne V\) allora \(\dim(W)<\dim(V)\), altrimenti \(\dim(W)=\dim(V)\).
+\end{enumerate}
+\textbf{Dimostrazione} : Si consideri \(\bar w_1\in W\) un qualsiasi elemento di \(W\), ci sono due 
+possibilità, o \(\bar w_1\) genera \(W\) (e quindi si dimostra che \(W\) è finitamente 
+generato), oppure, \(\exists \bar w_2 \in W\backslash\Span(\bar w_1)\). tale \(\bar w_2\), è linearmente 
+indipendente da \(\bar w_1\), ci sono due possibilità, o \(\bar w_1,\bar w_2\) generano \(W\) (e quindi si dimostra che \(W\) è finitamente 
+generato), oppure, \(\exists \bar w_3 \in W\backslash\Span(\bar w_1,\bar w_2)\), e quest'ultimo è linearmente 
+indipendente da \(\bar w_1,\bar w_2\). Si continua in maniera iterativa il procedimento, che ovviamente 
+non può continuare all'infinito, in quanto al più si trovera un insieme \(\bar w_1,\bar w_2\dots,\bar w_n\) che 
+genera tutto \(V\). \(\blacksquare\) \acc 
+L'insieme della matrici simmetriche \(n\times n\), che denoteremo \(S_n\), rappresenta un sottospazio vettoriale 
+dell'insieme delle matrici \(M_{n\times n}\), stessa cosa per le matrici antisimmetriche \(A_n\), ossia 
+per cui (\(\forall i,j\), si ha che \(a_{i_j}=-a_{j_i}\)). 
+\acc Ci chiediamo adesso quale sia sia la dimensione di \(S_n\). Denotiamo con \(E_{i_j}\) la matrice che 
+ha 0 in tutte le posizioni, esclusa la posizione \(i,j\) in cui ha 1. La collezione di tutte le 
+matrici \(E_{i_j}\) \(\forall i,j\) costituisce una base di \(M_{n\times n}\). Le matrici simmetriche 
+possono essere scritte nella forma : \begin{equation}
+    a_{1_1}E_{1_1}+a_{2_2}E_{2_2}\dots+a_{n_n}E_{n_n}+\sum_{i\le1<j\le n}a_{i_j}(E_{i_j}+E_{j_i})
+\end{equation}
+E questi elementi costituiscono la base di \(S_n\), che ha dimensione \(\dfrac{n\cdot(n+1)}{2}\). Analogamente, 
+le matrici antisimmetriche hanno dimensione  \(\dfrac{n\cdot(n-1)}{2}\), si noti che : \begin{equation}
+    \dim(S_n)+\dim(A_n)=\dfrac{n\cdot(n+1)}{2}+\dfrac{n\cdot(n-1)}{2}=n^2=\dim(M_{n\times n})
+\end{equation}
+Non è una coincidenza, in quanto ogni matrice \(n\times n\) si scrive in modo unico come somma di una 
+matrice simmetrica per una antisimmetrica.\acc 
+\textbf{Definizione }: La \textit{matrice trasposta} di una matrice \(A\), indicata con \(\text{\hphantom{a}}^tA\), è 
+la matrice che, in ogni posizione \(i,j\), ha l'elemento \(a_{j_i}\in A\). Sia \(A\) una qualsiasi matrice, 
+si ha che : \(\dfrac{A+\text{\hphantom{a}}^tA}{2}\) è una matrice simmetrica e \(\dfrac{A-\text{\hphantom{a}}^tA}{2}\)
+è una matrice antisimmetrica.\acc  
+\textbf{Proposizione} : Ogni matrice \(A\), può essere scritta nella forma \(\dfrac{A+\text{\hphantom{a}}^tA}{2}+\dfrac{A-\text{\hphantom{a}}^tA}{2}\), e 
+tale scrittura è \textit{unica}.\acc 
+\textbf{Dimostrazione (unicità)} : Sia \(A\) una matrice non nulla, poniamo che possa essere 
+scritta come somma di matrice simmetrica per antisimmetrica in due modi : \(A=S+T\) e \(A=S'+T'\), con 
+\(S,S'\) simmetriche e \(T,T'\) antisimmetriche. Si ha che \(A=S+T=S'+T'\implies S-S'=T-T'\), questo significherebbe 
+che tale matrice è sia simmetrica  che antisimmetrica, e l'unica matriche con tali caratteristiche è la 
+matrice nulla, quindi \(S-S'=T-T'=\bar 0 \implies S=S'\land T=T'\). \(\blacksquare\)  
 \end{document}
