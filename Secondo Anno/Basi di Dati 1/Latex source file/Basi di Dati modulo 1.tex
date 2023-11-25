@@ -1680,14 +1680,40 @@ di dipendenze funzionali sul quale calcolare la chiusura.\newpage
 \hphantom{ident}\hphantom{ident}\}\\
 \hphantom{ident}\hphantom{ident}\codee{return success}\\
 \hphantom{ident}\}
+\subsection{Join Senza Perdita}
+Nel capitolo \ref{Decomposizione}, abbiamo visto come una decomposizione che soffisfi la terza forma normale, non è comunque 
+una buona decomposizione se, eseguendo un \codee{JOIN} su un istanza legale, si generano tuple che non erano presenti nell'istanza 
+originale prima della decomposizione.\acc Vogliamo quindi creare una decomposizione che ci permetta di non perdere informazioni, 
+ossia che ci permetta di ottenere un cosiddetto \codee{JOIN} senza perdita. Sia \(r\) un istanza \textit{legale} di uno schema 
+\(R\), e \(\rho=\{R_1,R_2\dots,R_k\}\) una decomposizione di \(R\), è definita la seguente istanza : \begin{center}
+    \(m_\rho(r)=\pi_{R_1}(r)\Join \pi_{R_2}(r)\dots\Join\pi_{R_k}(r)\)
+\end{center}
+Si ha un \codee{JOIN} senza perdita se e solo se, \textit{per ogni} istanza legale \(r\) di \(R\), vale che \(m_\rho(r)=r\).\acc 
+\textbf{Teorema} : Sono vere le seguenti proprietà :\begin{enumerate}
+    \item \(r\subseteq m_\rho(r)\) 
+    \item \(\pi_{R_i}(m_\rho(r))=\pi_{R_i}(r)\)
+    \item \(m_\rho(m_\rho(r))=m_\rho(r)\)
+\end{enumerate}
+\textbf{Dimostrazione }: \boxedMath{1} Sia \(t\) una tupla di \(r\), Se \(t\subset r\) allora \(t[R_i]\in \pi_{R_i}(r)\), si ha 
+che : \(t\in \{t[R_1]\}\Join\{t[R_2]\}\dots\Join\{t[R_k]\}\), ma \(\forall i\in \{1,2\dots,k\}\) si ha che \(\{t[R_i]\}\subseteq\pi_{R_k}(r)\), quindi : \begin{center}
+    \(t\in \{t[R_1]\}\Join\{t[R_2]\}\dots\Join\{t[R_k]\}\subseteq \pi_{R_1}(r)\Join\pi_{R_2}(r)\dots\Join\pi_{R_k}(r)=m_\rho(r)\implies r\subseteq m_\rho(r)\) \(\square\)
+ \end{center}
+\boxedMath{2} Dimostro per doppia inclusione, dalla proprietà 1, deriva \(\pi_{R_i}(r)\subseteq\pi_{R_i}(m_\rho(r))\), bisogna 
+ora dimostrare \(\pi_{R_i}(m_\rho(r))\subseteq\pi_{R_i}(r)\). Si consideri una tupla \(t^i\in\pi_{R_i}(r)\), allora 
+\(\exists t\in m_\rho(r)|t[R_i]=t^i\implies t_1,t_2\dots,t_k\in r |\forall j\in \{1,2\dots,k\}t_j[R_j]=t[R_j]
+\implies t^i=t[R_i]=t_i[R_i]\in \pi_{R_i}(r)\implies \pi_{R_i}(m_\rho(r))\subseteq\pi_{R_i}(r)\implies \pi_{R_i}(m_\rho(r))=\pi_{R_i}(r)\). \(\square\)\\
+\boxedMath{3} So che : \begin{center}
+    \(m_\rho(m_\rho(r))=\pi_{R_1}(m_\rho(r))\Join \pi_{R_2}(m_\rho(r))\dots\Join\pi_{R_k}(m_\rho(r))\)
+\end{center}
+Ma per la proprietà 2 si ha che \(\pi_{R_i}(m_\rho(r))=\pi_{R_i}(r)\), quindi :\begin{center}
+    \(m_\rho(m_\rho(r))=\pi_{R_1}(r)\Join \pi_{R_2}(r)\dots\Join\pi_{R_k}(r)=m_\rho(r)\) \(\square\)
+\end{center}
+Le proprietà 1,2 e 3 sono state dimostrate. \(\blacksquare\)\acc 
 
-
-
-
-
-
-
-
+Per verificare che \(\rho\) abbia un \codee{JOIN} senza perdita, non possiamo controllare ogni istanza \(r\) dato che sono 
+potenzialmente infinite, esiste però un algoritmo adatto a tale compito, che utilizza 
+l'insieme di dipendenze funzionali \(F\).
+\subsubsection{L'Algoritmo per la Decomposizione}
 
 
 
