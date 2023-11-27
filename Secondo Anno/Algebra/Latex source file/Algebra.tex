@@ -2793,4 +2793,71 @@ scritta come somma di matrice simmetrica per antisimmetrica in due modi : \(A=S+
 \(S,S'\) simmetriche e \(T,T'\) antisimmetriche. Si ha che \(A=S+T=S'+T'\implies S-S'=T-T'\), questo significherebbe 
 che tale matrice è sia simmetrica  che antisimmetrica, e l'unica matriche con tali caratteristiche è la 
 matrice nulla, quindi \(S-S'=T-T'=\bar 0 \implies S=S'\land T=T'\). \(\blacksquare\)  
+\subsection{Intersezione e Somma di Sottospazi}
+Siano \(W\le V\) e \(U\le V\) due sottospazi dello spazio \(V\), è possibile considerare l'intersezione 
+in senso insiemistico, ossia \(U\cap W\), ebbene, anche questo è ancora un sottospazio vettoriale 
+di \(V\).\begin{equation}
+    \begin{cases}
+        \bar z_1,\bar z_2 \in W\\
+        \bar z_1,\bar z_2 \in U\\
+        \lambda_1,\lambda_2 \in \R 
+    \end{cases}\implies\begin{cases}
+        \lambda_1\bar z_1+\lambda_2\bar z_2 \in W\\
+        \lambda_1\bar z_1+\lambda_2\bar z_2  \in U
+    \end{cases}\implies \lambda_1\bar z_1+\lambda_2\bar z_2  \in U\cap W
+\end{equation}\newpage
+Differentemente, l'unione insiemistica, non rappresenta necessariamente un sottospazio, si consideri il 
+seguente esempio in \(V_O^2\), dove i sottospazi (ossia l'insieme dei vettori sulle rette) \(W\) ed \(U\), 
+contengono rispettivamente \(\bar u_1\) e \(\bar w_1\), la quale somma, si trova al di fuori di \(U\cup W\). 
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.5\textwidth ]{images/27-11-2023/sum-not-union.eps}
+    }\end{figure}\\ 
+Esiste però, un altro tipo di spazio vettoriale derivante da due sottospazi, ed è il 
+\textbf{sottospazio somma}, siano  \(W\le V\) e \(U\le V\) due sottospazi dello spazio \(V\), 
+tali che \(U=\{\lambda\bar u, \lambda \in \R\}\) e \(W=\{\lambda\bar w, \lambda \in \R\}\),
+si ha \(W+U=\{\lambda_1\bar u + \lambda_2\bar w | \bar u \in U, \bar w \in W,\lambda_1,\lambda_2 \in \R\}\), 
+si può pensare come lo spazio generato dall'insieme dei generatori di \(U\) e di \(W\), ovviamente, i vettori 
+\(\bar u\) e \(\bar w\) presi in considerazione sono linearmente indipendenti.\acc Si consideri il seguente 
+esempio in \(V^3_O\), dove la somma di due sottospazi definiti da due rette, rispettivamente 
+\(W\) ed \(U\), generano un piano.\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/27-11-2023/SommaDiSottospazi.eps}
+    }\end{figure}\\
+Se \(\{\bar u_1,\bar u_2\dots,\bar u_k\}\) è una base per \(U\), e 
+\(\{\bar w_1,\bar w_2\dots,\bar w_n\}\) è una base per \(W\), è chiaro che 
+\(\{\bar w_1,\bar w_2\dots,\bar w_n,\bar u_1,\bar u_2\dots,\bar u_k\}\) sia un insieme 
+di generatori per \(W+U\), non è detto però, che tale insieme risulti una base. Si consideri 
+di fatto il seguente esempio in \(V_O^3\) :
+\begin{figure}[h]
+\centering{
+\includegraphics[width=0.49\textwidth ]{images/27-11-2023/2planes.eps}
+}\end{figure}
+\\Si hanno il sottospazio \(W\) rappresentato dal piano azzurro, ed il sottospazio \(U\) rappresentato 
+dal piano verde, con le rispettive basi \(\{\bar w_1,\bar w_2\}\) per \(W\) e 
+\(\{\bar u_1,\bar u_2\}\) per \(U\). La somma di 
+tale sottospazi, ossia lo spazio \(U+W\) che ha generatori \(\{\bar w_1,\bar w_2,\bar u_1,\bar u_2\}\), 
+è uguale a \(V_O^3\), eppure  \(\{\bar w_1,\bar w_2,\bar u_1,\bar u_2\}\) non rappresentano una base 
+per esso, in quanto sappiamo che una base di \(V_O^3\) è composta da 3 elementi. La spiegazione formale è 
+data dalla seguente formula.
+\subsubsection{Formula di Grassmann}
+Siano \(U,W\) due sottospazi di \(V\), vale il seguente enunciato : \begin{center}
+    \(\dim(U\cap W)+\dim(U+W)=\dim(U)+\dim(W)\)
+\end{center}
+L'unione delle due basi, da la base della somma, se e solo se, l'intersezione dei due 
+sottospazi è nulla, generante quindi uno spazio di dimensione 0.\acc 
+Difatti, nell'esempio precedente, l'intersezione dei due piani, rappresentato dalla retta rossa, 
+è essa stessa un sottospazio di dimensione \(1\), essendo una retta, di fatto, considerando 
+sempre tale esempio, la formula dava l'identità : \begin{equation}
+    \dim(U\cap W)+\dim(U+W)=\dim(U)+\dim(W)\implies 1+3=2+2
+\end{equation}
+Ad esempio, consideriamo in \(V_O^3\), due sottospazi \(W\) ed \(U\). \(W\), è una retta, con base 
+\(\{\bar w_1\}\), ed \(U\) un piano, con base \(\{\bar u_1,\bar u_2\}\). La retta \(W\), passa 
+per il piano intersecandolo in un punto, l'intersezione, avrà quindi dimensione zero, de facto, per 
+la formula di Grassmann, l'unione fra la base di \(W\) e la base di \(U\), forniranno una base 
+per \(U+W\), che sarebbe tutto \(V_O^3\).
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.6\textwidth ]{images/27-11-2023/grassman.eps}
+    }\end{figure}
 \end{document}
