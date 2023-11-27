@@ -842,5 +842,206 @@ riceverlo? Ci sono 4 possibili modi di gestire i segnali : \begin{enumerate}
     \item Definire un thread specifico, che avrà lo scopo di 
     ricevere e gestire tutti i segnali.
 \end{enumerate}
+I thread competono per essere schedulati sulla CPU in diversi modi, un modo, detto \textbf{process contention scope (PCS)}, 
+prevede la concorrenza fra diversi thread dello \textit{stesso processo}, nei sistemi che implementano i modelli 
+many-to-one e many-to-many. Nei sistemi one-to-one, occorre il \textbf{system contention scope (SCS)}, lo scheduler di sistema, 
+schedula i kernel thread per essere eseguiti su una, o più CPU. \acc 
+Molte implementazioni prevedono un interfaccia virtuale posta fra gli user thread ed i kernel thread, il numero 
+di kernel thread potrebbe variare dinamicamente, essi saranno schedulati sui processori fisici.\acc 
+Le librerie dei thread a livello utente, si occupano anche di schedulare gli user thread nei kernel thread, tali metodi di 
+scheduling possono essere cooperativi o preemptive. Nei sistemi \textbf{cooperativi} gli user thread sono mappati sul kernel 
+thread affinché non daranno \textit{volontariamente} il controllo del thread al kernel. In quelli 
+\textbf{preemptive} è previsto un timer, in maniera simile agli scheduler preemptive dei processi, che una volta scaduto 
+lo user thread lascierà libero il kernel thread.
 
+\subsection{Sincronizzazione dei Thread e Processi}
+Abbiamo già accennato al fatto che diversi processo/thread possono cooperare, il problema sorge quando uno di essi, deve 
+eseguire una regione \textit{critica} di codice, che richiede l'esecuzione in maniera atomica, è quindi necessario 
+implementare delle metodologie \textbf{primitive} di sincronizzazione.\acc 
+Un processo/thread, prima di entrare in una sezione critica di codice, deve assicurarsi un 
+\textbf{lock}, in modo da far attendere tutti gli altri processi nel mentre che esegue tale sezione (il problema tipico da 
+evitare, è l'accesso da parte di due differenti processi alla stessa sezione di memoria, rischiando di perdere informazioni), 
+i meccanismi di sincronizzazione quindi si basano sull'attesa dei processo/thread, ogni soluzione di 
+sincronizzazione deve garantire 3 proprietà : \begin{itemize}
+    \item \textbf{Esclusività} - Un solo processo/thread alla volta può eseguire la sua sezione critica.
+    \item \textbf{Vivibilità} - Se nessun processo/thread è nella sezione critica, ed un altro o più processi vogliono eseguire la propria, 
+    allora devono tutti avere la possibilità di poterla eseguire 
+    \item \textbf{Attesa Limitata} - Prima o poi un processo che richiede di eseguire la sezione criticà, otterrà il permesso, 
+     e vi è un limite al numero di altri processi che possono precederlo.
+\end{itemize}
+Si necessita di appositi strumenti forniti dai linguaggi di programmazione da utilizzare come 
+blocchi di codice da eseguire atomicamente per la sincronizzazione. Tali strumenti sono : \begin{itemize}
+    \item \textbf{Lock} - Un solo processo per volta può richiedere una lock, eseguire la sua sezione critica 
+    indisturbatamente, per poi rilasciarla. 
+    \item \textbf{Semafori} - Una generalizzazione delle lock. 
+    \item \textbf{Monitor} - Per connettere i dati condivisi alle primitive di sincronizzazione.
+\end{itemize}
+Tali metodi richiedono l'intervento del sistema operativo. 
+\subsubsection{Lock}
+Una lock fornisce l'esclusività dei dati condivisa tramite due primitive atomiche : \begin{itemize}
+    \item \code{Lock.acquire()} - Attende che il lock sia libero, per poi acquisirlo.
+    \item \code{Lock.release()} - Rilascia il lock, attivando un qualsiasi thread che è in attesa dopo aver richiesto 
+    l'acquisizione.
+\end{itemize}
+Bisogna sempre acquisire un lock prima di accedere ai dati condivisi, e rilasciarlo sempre e solo dopo averli utilizzati 
+ed eventualmente modificati, all'avvio del sistema, il lock deve essere libero. Un solo processo alla volta acquisice il lock, 
+gli altri dovranno aspettare. Implementare delle primitive di sincronizzazione richiede il supporto hardware 
+a basso livello.\acc 
+Ci si preoccupa della sincronizzazione perché un context switch nei sistemi preemptive può avvenire 
+inaspettatamente in qualsiasi momento, vogliamo far si che lo scheduler non prevenga nel controllo della CPU nel mentre 
+che un processo ha acquisito una lock, nei sistemi a singola CPU, possiamo impedire che lo scheduler prevenga, 
+\textbf{forzando i thread} a non fare richieste di I/O durante le sezioni critiche, e 
+\textbf{disabilitando le interruzioni}, bisogna prevedere tutti i possibili casi in cui il thread possa perdere 
+il controllo della CPU, volontariamente o involontariamente.\acc 
+In quanto è necessario l'intervento dell'OS, vogliamo che i metodi \code{acquire()} e \code{release()} 
+siano implementati tramite system call.\acc 
+Si richiede l'implementazione di un istruzione atomica \textbf{read-modify-write}, che in un "singolo colpo" legga un valore 
+dalla memoria in un registro, e scriva un nuovo valore. In un sistema a singolo processore possiamo direttamente implementare 
+una nuova istruzione a livello macchina, nei sistemi multi-core invece, il processore che esegue tale istruzione, deve 
+essere in grado di cancellare ogni copia di tale valore, da modificare, che gli altri processori potrebbero avere nella cache.
+\acc Disabilitare le interruzioni può comportare diversi problemi, prima di tutto, richiede ogni volta l'intervento 
+del kernel, inoltre non è flessibile nelle architetture multi-core.  I problemi dovuti invece dalle istruzioni atomiche, 
+comportano l'attesa degli altri processi, inoltre non c'è una coda dove i thread possono attendere che il lock sia 
+rilasciato, quindi pecca di equità. \acc Abbiamo visto come i lock permettono la protezione durante l'esecuzione 
+di sezioni critiche, vediamo adesso delle primitive di sincronizzazione di più alto livello, destinate 
+a casistiche più generali. 
+\subsubsection{Semafori}
+È un'altra struttura dati che fornisce l'accesso esclusivo alle sezioni critiche, è una generalizzazione dei lock 
+creata da \textit{Dijkstra} nel 1965. Si utilizzano delle variabili (intere) per supportare 2 
+istruzioni atomiche :\begin{itemize}
+    \item \code{wait()} / \code{P()} - decrementa, interrompe finchè il semaforo è libero. 
+    \item \code{signal()} / \code{V()} - incrementa, permette ad altri thread di entrare. 
+\end{itemize}
+Ad ogni semaforo è associata una coda di processi in attesa, se un thread chiama la funzione \code{wait()}, se il semaforo 
+è aperto, il thread continua, altrimenti si blocca nella coda. La funzione \code{signal()} apre il semaforo, se un 
+thread sta attendendo nella coda verrà sbloccato, se nessun thread è in attesa nella coda, il segnale resterà libero 
+per il prossimo thread che entrerà. \acc 
+Ci sono due tipi di semafori, i \textbf{semafori binari} garantiscono l'esclusività di accesso alle risorse, ad essi 
+è associata una variabile intera che può valere 0 o 1, vengono inizializzati liberi, con la variabile ad 1. I 
+\textbf{counting semaphore}, servono a gestire più risorse condivise, sono inizializzati con il numero delle risorse, ed 
+un processo può accedere ad una risorsa affinché essa è disponibile.\acc 
+Abbiamo detto che se un processo richiede una \code{wait()}, se il semaforo è libero eseguirà la sezione critica, altrimenti 
+entrerà nella coda di attesa. D'altro canto, \code{signal()}, libererà dalla coda uno dei processi in attesa di 
+eseguire la sezione critica.\acc 
+Abbiamo quindi visto che i semafori hanno 3 scopi principali : \begin{itemize}
+    \item Garantire l'esclusività come fanno le lock.
+    \item Controllare l'accesso a più aree di memoria condivisa. 
+    \item Rinforzare le costrizioni dello scheduling per eseguire i thread secondo uno specifico ordine.
+\end{itemize}
+I semafori però hanno vari problemi, sono essenzialmente, delle variabili globali condivise, la loro correttezza dipende 
+dalle abilità del programmatore, da soli hanno più scopi, e non è immediato capire il significato del waiting\slash signaling.
+Per questo si utilizzano primitive di più alto livello.
+\subsubsection{Monitor}
+Un monitor, è un costrutto, un paradigma di programmazione, utilizzato per il controllo degli accessi alle aree di 
+memoria condivise. Similmente a \textit{Java} e \textit{C++}, delle classi impersonificano i dati, le operazioni e la 
+sincronizzazione, il codice della sincronizzazione è aggiunto dal compilatore. \acc 
+Un monitor, definisce una lock, e delle \textit{variabili di condizione}, per gestire l'accesso concorrente alla memoria, 
+utilizzano i lock per assicurarsi che un solo thread alla volta sia attivo nel monitor. Si può trasformare una classe 
+di \textit{Java} in un monitore settando tutti i dati a \code{private}, e facendo si che tutti i 
+metodi siano sincronizzati, nel senso che sono soggetti ad esclusività.
+Si veda l'\textbf{esempio 1.0}.\acc 
+In tale esempio, il metodo \code{remove()} dovrebbe attendere che qualcosa sia disponibile nella coda, 
+intuitivamente, il thread dovrebbe eseguire uno \code{sleep()} dentro la sezione critica, facendo ciò, 
+starà occupando il lock, bloccando tutti gli alri thread dall'accedere alla coda, per aggiungere \code{item} e svegliare 
+il thread che sta dormendo, si rischia una situazione di stallo che verrà vista in seguito, detta \textbf{deadlock}.
+ Una soluzione a ciò, sono le \textit{variabili di condizione}, per far si che un thread possa 
+ eseguire uno \code{sleep} in una sezione critica, ed ogni lock mantenuto da un thread, viene atomicamente liberato prima 
+ che esso possa entrare nella condizione dormiente. Ogni variabile di condizione supporta 3 operazioni :\begin{itemize}
+    \item \textbf{wait} - rilascia la lock ed esegue lo \code{sleep()} atomicamente. 
+    \item \textbf{signal} - Sveglia un thread in attesa (se ce ne sono). 
+    \item \textbf{broadcast} - Sveglia tutti i thread in attesa.
+ \end{itemize}
+ Un thread deve per forza occupare una lock nel mentre che esegue un'operazione della variabile di condizione. 
+\acc \textbf{Esempio 1.0} :
+\begin{lstlisting}[language=Java]
+class Queue {
+    ...
+    private ArrayList<Item> data;
+    ...
+    public void synchronized add(Item i) {
+        data.add(i);
+    }
+    public Item synchronized remove() {
+        if (!data.isEmpty()) {
+            Item i = data.remove(0);
+            return i;
+        }
+    }
+}
+    
+\end{lstlisting}
+\subsection{I Deadlock}
+Una legge del Kansas del 1900 recita : \begin{quote}
+    “Quando due treni si avvicinano a un incrocio, entrambi devono fermarsi completamente e
+     nessuno dei due deve ripartire finché l’altro non se ne è andato.”
+\end{quote}
+Un \textit{deadlock}, è una condizione di stallo, in cui due o più thread sono bloccati, in attesa di un 
+evento che può essere generato esclusivamente dagli stessi thread. Esso può accadere quanto più thread competono 
+per accedere ad un numero finito di risorse, esistono algoritmi di \textbf{deadlock detection}, per trovare delle 
+istanze di deadlock da risolvere, è necessario in primis, scrivere del codice che sia libero dalla possibilità di 
+avvento dei deadlock. \acc Un deadlock può accadere se le 4 condizioni seguenti avvengono contemporaneamente : \begin{enumerate}
+    \item Un thread sta occupando una risorsa non condivisibile, in esclusività.
+    \item Almeno un thread che sta occupando una risorsa non condivisibile, è in attesa che un altra risorsa (occupata 
+    da un altro thread) diventi disponibile.
+    \item Un thread può rilasciare una risorsa solo volontariamente, quindi non vi è un sistema preemptive. 
+    \item Si è in una situazione di attesa circolare, in cui ci sono dei thread in attesa : \(t_1,t_2\dots,t_n\), dove 
+    il thread \(t_i\) sta aspettando il thread \(t_{(i+1)\mod n}\).
+\end{enumerate}
+\subsubsection{Rilevamento dei Deadlock}
+Definiamo un \textbf{grafo di allocazione} \(G=(V,E)\), dove \(V\) è l'insieme dei vertici rappresentanti 
+le risorse ed i thread, \(E\) è l'insieme degli archi fra  risorse e thread. Gli archi possono essere di 2 tipi, 
+gli \textbf{archi di richiesta} vanno dai thread alle risorse ed indicano che quel thread ha richiesto quella risorsa, 
+senza averla ancora acquisita, gli \textbf{archi di assegnamento} vanno da una risorsa ad un thread, ed indicano che 
+quella risorsa è stata allocata a quel thread.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.45\textwidth ]{images/grafo.eps}
+    }
+\end{figure}
+\\Se il grafo non ha cicli, nessun deadlock occorrerà mai. Nel grafo esplicativo, il thread \(t_4\) sta attendendo 
+che \(r_3\) sia libera, ma sarà liberà solo quando \(t_2\) avrà \(r_1\), che sarà libera solo quando \(t_3\) avrà 
+\(r_2\), che si libererà solo quando \(t_4\) avrà \(r_3\)! Bisogna analizzare il grafo delle risorse 
+allocate (RAG) per trovare cicli, ed eventualmente, romperli, o eliminando tutti i thread del ciclo, oppure eliminando 
+i thread uno per volta, forzandoli a rilasciare le risorse. \acc 
+Rilevare i cicli in un grafo è un operazione costosa, ci sono algoritmi basati sulla \textbf{depth-first-search (DFS)}, 
+che impiegano tempo \(O(|V|+|E|)\sim O(|V|^2)\), in quanto \(|E|=O(|V|^2)\) nei grafi densi.
+\acc Quando dovremmo eseguire tale algoritmo? \begin{itemize}
+    \item Prima di dare una risorsa, ma così ogni volta che si esegue tale operazione, si sprecherà tempo \(O(|V|^2)\).
+    \item Quando una richiesta non può essere soddisfatta, ma così ogni richiesta fallita sprecherà tempo \(O(|V|^2)\).
+    \item Quando la CPU è in uno stato in cui non ha molti calcoli da fare ed è particolarmente libera.
+\end{itemize}  
+Parliamo innanzitutto di prevenzione dei deadlock, bisogna fare in modo che almeno una delle 4 condizioni
+precedentemente elencate non sia in corso. Ogni thread fornisce informazioni sul numero massimo di risorse che potrebbe 
+richiedere : \begin{center}
+    \(m_i\) = numero massimo di risorse che il thread \(i\) può richiedere\\
+    \(c_i\) = numero di risorse correnti sul quale il thread \(i\) sta operando.\\ 
+    \(C=\displaystyle \sum_{i=1}^nc_i\) = numero totale di risorse correnti allocate.\\ 
+    \(R\) = numero massimo di possibili risorse allocabili.
+\end{center}
+Una sequenza di thread è in uno \textbf{stato sicuro} se : \begin{center}
+    \(m_i-c_i\le R-C+\displaystyle\sum_{j=1}^{i-1}c_j\)
+\end{center}
+Dove :\begin{center}
+    \(m_i-c_i\) = numero di risorse che il thread \(t_i\) potrebbe richiedere.\\ 
+    \(R-C\) = numero di risorse disponibili \\
+    \(\displaystyle\sum_{j=1}^{i-1}c_j\) = risorse correnti allocate a tutti i thread dal primo fino al \(i-1\)-esimo.
+\end{center}
+Uno stato \textit{non sicuro} non implica necessariamente la presenza di un deadlock. Una buona tattica è di garantire 
+ad un thread, l'accesso ad una risorsa se e solo se la sequenza si troverebbe comunque in uno stato sicuro. Questa 
+politica garantisce la non-esistenza di condizioni di attese circolari.
+\subsubsection{Esetensione del RAG}
+Possiamo pensare ad un nuovo tipo di grafo, considerando un nuovo tipo di arco, ossia un \textbf{arco di reclamo}, rappresentato graficamente con una freccia puntinata, ed indica che il 
+thread potrebbe in futuro richiedere quella risorsa. Soddisfare una richiesta quindi, significa 
+trasformare un \textit{arco di assegnamento} in un \textit{arco di reclamo}. \acc In questo nuovo 
+grafo, un ciclo indica uno stato non sicuro, impedendo ad una risorsa di essere allocata ad un thread, in altra parole, 
+se un thread fa una richiesta, l'arco di reclamo verrà trasformato in un arco di richiesta, e tale thread 
+attenderà, questa soluzione non funziona se vi sono più istanze della stessa risorsa.\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.45\textwidth ]{images/grafo2.eps}
+    }
+\end{figure}
+\\ Se dessimo a \(t_4\) la risorsa \(r_2\), staremmo introducendo un possibile ciclo, entrando in uno 
+stato non sicuro. Se a \(t_3\) dessimo \(r_2\), non staremmo introducendo nessun ciclo, restando quindi 
+in uno stato sicuro.
+\subsubsection{L'algoritmo del Banchiere}
 \end{document}
