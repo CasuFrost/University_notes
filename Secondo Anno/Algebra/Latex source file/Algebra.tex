@@ -2476,7 +2476,7 @@ che hanno la terza coordinata nulla), le operazioni
 di somma e prodotto su di essi, restituiranno sempre un vettore che poggia sullo stesso piano.
 \begin{figure}[h]
     \centering{
-    \includegraphics[width=0.8\textwidth ]{images/sottospazio.png}
+    \includegraphics[width=0.5\textwidth ]{images/3dplane.eps}
     }
 \end{figure}
 \acc Torniamo adesso ai \textit{sistemi lineari}, e consideriamo \(A\), la matrice \(m\times n\) associata 
@@ -2845,7 +2845,7 @@ Siano \(U,W\) due sottospazi di \(V\), vale il seguente enunciato : \begin{cente
     \(\dim(U\cap W)+\dim(U+W)=\dim(U)+\dim(W)\)
 \end{center}
 L'unione delle due basi, da la base della somma, se e solo se, l'intersezione dei due 
-sottospazi è nulla, generante quindi uno spazio di dimensione 0.\acc 
+sottospazi ha solamente il vettore nullo, generante quindi uno spazio di dimensione 0.\acc 
 Difatti, nell'esempio precedente, l'intersezione dei due piani, rappresentato dalla retta rossa, 
 è essa stessa un sottospazio di dimensione \(1\), essendo una retta, di fatto, considerando 
 sempre tale esempio, la formula dava l'identità : \begin{equation}
@@ -2860,4 +2860,20 @@ per \(U+W\), che sarebbe tutto \(V_O^3\).
     \centering{
     \includegraphics[width=0.6\textwidth ]{images/27-11-2023/grassman.eps}
     }\end{figure}
+\\\textbf{Definizione} : Siano \(U\) e \(W\) due sottospazi di \(V\), diremo che la 
+somma dei due è \textit{diretta}, e scriveremo \(U\oplus W\), se \(U\cap W = \{\bar 0\}\), ne consegue 
+che \(\dim(U\oplus W)=\dim(U)+\dim(W)\).\acc
+\textbf{Definizione} : Sia \(U\) un sottospazio di \(V\), diremo che il sottospazio 
+\(W\) di \(V\), è il \textit{supplementare} di \(U\) in \(V\), se \(V=U\oplus W\). Nell'esempio precedente, 
+si ha che \(U\oplus W=V_O^3\), quindi sono fra loro supplementari.\acc 
+\textbf{Proposizione :} Dato un sottospazio, esiste sempre un complementare.\acc 
+\textbf{Dimostrazione :} Sia \(U\) un sottospazio di \(V\), la base di \(U\) è 
+\(\mathcal{B}_U=\{\bar u_1,\bar u_2\dots,\bar u_k\}\), e la base di \(V\) è 
+\(\mathcal{B}_V=\{\bar v_1,\bar v_2\dots,\bar v_n\}\), per il teorema del completamento, 
+esiste un insieme di vettori linearmente indipendenti, sia fra loro, che con \(\mathcal{B}_U\), 
+che sono in numero \(n-k\), che se aggiunti a \(\mathcal{B}_U\) forniscono una base per \(V\). Per 
+definizione, tale insieme risulta essere la base del supplementare di \(V\), garantendone quindi 
+l'esistenza. \(\blacksquare\)
+\section{Applicazioni Lineari}
+
 \end{document}
