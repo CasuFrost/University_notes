@@ -1403,4 +1403,72 @@ Ricordando che \(k\) è il numero di possibili esiti, \(n\) il numero di volte i
     \(\Prob(X_1=n_1,X_2=n_2\dots,X_k=n_k)=\dfrac{n!}{n_1!n_2!\dots\cdot n_k!} p_1^{n_1} p_2^{n_2}...\cdot p_k^{n_k}\)
 \end{center}
 Con ovviamente \(\displaystyle \sum_{i=1}^kn_i=n\).
+\subsection{Variabili Aleatorie Continue}
+Fino a questo punto del corso, ci siamo occupati esclusivamente di variabili aleatorie, che avessero immagine 
+in un sottoinsieme \textit{numerabile} dei numeri reali. Vi sono situazioni, in cui una variabile aleatoria 
+ha immagine \textbf{continua}, con cardinalità non numerabile. In questi casi, non avrà più senso chiedersi quale sia 
+la probabilità che la variabile aleatoria assuma un certo valore, perché sarà sempre nulla. 
+\begin{center}
+    \(\Prob(X=c)=0\), \(\forall c\in Im(X)\)
+\end{center}
+La domanda da porci sarà quindi, la probabilità che la variabile aleatoria, risulti in un certo 
+intervallo : \begin{center}
+    \(\Prob(X\in[x,x+\delta x])=f_X(x)\cdot \delta x+o(\delta x)\)
+\end{center}
+La funzione \(f_X\), è dettà \textbf{densità di probabilità}, e rappresenta esattamente il grafico 
+sul piano cartesiano, dei valori che può assumere \(X\), con le rispettive probabilità (la versione 
+continua dell'istogramma). Quindi tale funzione descrive la distribuzione, si ha ovviamente che \(f_X>0\).\acc 
+La probabilità che una variabile aleatoria continua rientri in un certo intervallo, sarà uguale alla \textit{somma 
+nel continuo} delle probabilità dei valori all'interno dell'intervallo. Dato che si parla di somma nel continuo, 
+sarà essa uguale all'integrale definito nell'intervallo, della funzione densità. Geometricamente 
+parlando, la probabilità sarà quindi 
+uguale all'area sottesa dalla curva \(f_X\) :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/vaContinua.eps}
+    }
+\end{figure}
+
+Ovviamente, la somma di tutte le probabilità di ogni evento, ossia l'evento certo, deve essere uguale 
+ad 1, si avrà quindi che :\begin{center}
+    \(\displaystyle\int_{-\infty}^{+\infty}f_X(x)dx=1\)
+\end{center}
+Il valore atteso sarà : \begin{center}
+    \(\E(X)=\displaystyle\int_{-\infty}^{+\infty}x\cdot f_X(x)dx\)
+\end{center}
+La varianza sarà sempre \(\V(X)=\E(X^2)+[E(X)]^2\), calcoliamoci \(\E(X^2)\) : \begin{equation}
+    \E(X^2)=\displaystyle\int_{-\infty}^{+\infty}x^2\cdot f_X(x)dx
+\end{equation}
+\textit{Esempio} : Sia \(X\) una variabile aleatoria continua uniforme nell'intervallo \([0,1]\), si può 
+immaginare praticamente come un generatore di numeri casuali, la funzione di densità sarà 
+definita in tal modo : \begin{center}
+    \(f_X(x)=\begin{cases}
+        0 \text{ se }x<0\\
+        1 \text{ se }0\le x\le 1\\
+        0 \text{ se }x>1
+        \end{cases}\)
+\end{center}
+Ed avrà grafico:\\
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.5\textwidth ]{images/unCont.eps}
+    }
+\end{figure}
+
+Siano \(a<b\), si avrà che : \begin{center}
+    \(\Prob(a\le x\le b)=\displaystyle\int_a^bf_X(x)dx=\displaystyle\int_a^b1dx=\begin{vmatrix}
+        x
+    \end{vmatrix}_a^b=b-a\)
+\end{center}
+Con seguente valore atteso : \begin{equation}
+    \E(X)=\displaystyle\int_{-\infty}^{+\infty}x\cdot f_X(x)dx=
+    \displaystyle\int_{-\infty}^{0}x\cdot 0dx+
+    \displaystyle\int_{0}^{1}x\cdot 1dx+
+    \displaystyle\int_{0}^{+\infty}x\cdot 0dx=\begin{vmatrix}
+        \dfrac{x^2}{2}
+    \end{vmatrix}_0^1=\dfrac{1}{2}
+\end{equation}
+E varianza : \begin{equation}
+    \V(X)=\int_{-\infty}^{+\infty}x^2dx+\Big[ \int_{-\infty}^{+\infty}xdx \Big]^2=\dfrac{1}{3}-\dfrac{1}{4}=\dfrac{1}{12}
+\end{equation}
 \end{document}
