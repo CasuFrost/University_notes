@@ -1471,4 +1471,55 @@ Con seguente valore atteso : \begin{equation}
 E varianza : \begin{equation}
     \V(X)=\int_{-\infty}^{+\infty}x^2dx+\Big[ \int_{-\infty}^{+\infty}xdx \Big]^2=\dfrac{1}{3}-\dfrac{1}{4}=\dfrac{1}{12}
 \end{equation}
+Siano \(X\) ed \(Y\) due variabili aleatorie continue \textit{indipendenti}, con rispettive 
+funzioni densità \(f_X\) ed \(f_Y\), allora, la variabile \(Z=X+Y\), avrà densità \(f_Z(z)=
+\displaystyle\int_{-\infty}^{+\infty}f_X(x)f_Y(z-x)dx\).\acc 
+\subsubsection{Distribuzione di Variabili Aleatorie Continue}
+Introduciamo adesso, la funzione \textit{distribuzione} \(F_X:\R\rightarrow[0,1]\), per una variabile aleatoria  continua \(X\), 
+definita in tal modo : \begin{center}
+    \(F_X(x):=\Prob(X\le x)\)
+\end{center}
+Tale funzione è \textit{crescente}, si ha che :\begin{center}
+    \(F_X(-\infty)=\displaystyle\lim_{x\rightarrow -\infty}F_X(x)=0\)\hphantom{text}
+    \(F_X(+\infty)=\displaystyle\lim_{x\rightarrow +\infty}F_X(x)=1\)
+\end{center}
+La funzione distribuzione, è una \textbf{primitiva} della densità :\begin{center}
+    \(F_X(x):=\Prob(X\le x)=\Prob(X\in(-\infty,x])=\displaystyle\int_{-\infty}^x f_X(y)dy\)
+\end{center}\begin{center}
+    \(\dfrac{d}{dx}F_X(x)=f_X(x)\)
+\end{center}
+Siano \(X,Y\) due variabili aleatorie continue ed indipendenti, con rispettive 
+funzioni densità \(f_X\) ed \(f_Y\), definiamo \(Z=\max(X,Y)\), calcoliamo la distribuzione :
+\begin{equation}
+    F_Z(z)=\Prob(Z\le z)=\Prob(\max(X,Y)<z)=\Prob(X\le z, Y\le z) 
+\end{equation} Per indipendenza ho :\begin{equation}
+    \Prob(X\le z)\Prob( Y\le z) =F_X(z)F_Y(z)
+\end{equation}
+Vediamo adesso la distribuzione della variabile aleatoria continua uniforme nell’intervallo \([0, 1]\) :\begin{equation}
+    F_X(x)=\Prob(X\le x)=\int_{-\infty}^x f_X(y)dy=\begin{cases}
+        0\text{ se }x<0\\
+        \int_0^x 1dy\text{ se }0\le x\le 1\\
+        1\text{ se }x>1\\
+    \end{cases}=\begin{cases}
+        0\text{ se }x<0\\
+        x\text{ se }0\le x\le 1\\
+        1\text{ se }x>1\\
+    \end{cases}
+\end{equation}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=1\textwidth ]{images/distCont.eps}
+    }
+\end{figure}
+
+\textbf{Variabile Aleatoria Composta} :
+Sia \(X\) una variabile aleatoria continua ed indipendente con densità \(f_X\), e sia 
+\(\phi:\R\rightarrow\R\) una funzione crescente. Introduco una nuova variabile 
+aleatoria \(Y=\phi(X)\), e mi chiedo quale sia la sua densità. Inizio calcolando 
+la probabilità che \(Y\) rientri in un qualsiasi intervallo : \begin{equation}
+    \Prob(Y\in[y,y+\delta y])=\Prob(\phi(X)\in[y,y+\delta y])
+\end{equation} 
+Essendo \(\phi\) monotona crescente, riscrivo : \begin{equation}
+    \Prob(x\in[\phi^{-1}(Y),\phi^{-1}(Y)+\delta y] )=f_X(\phi^{-1}(Y))\dfrac{1}{\phi(\phi^{-1}(Y))}\delta y=f_Y
+\end{equation}
 \end{document}
