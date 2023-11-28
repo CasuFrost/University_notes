@@ -1044,4 +1044,56 @@ attenderà, questa soluzione non funziona se vi sono più istanze della stessa r
 stato non sicuro. Se a \(t_3\) dessimo \(r_2\), non staremmo introducendo nessun ciclo, restando quindi 
 in uno stato sicuro.
 \subsubsection{L'algoritmo del Banchiere}
+Vediamo adesso uno dei più noti, se non il più noto, algoritmo di rilevamento di stati unsafe. L'algoritmo del banchiere, 
+gestisce anche i casi in cui vi sono più istanze della stessa risorsa, "costringe" i thread a fornire informazioni 
+su quali risorse potrebbero richiedere, si occupa di allocare risorse, se e soltanto se, tale allocazione 
+lascierà il sistema in uno stato safe.\acc 
+Vediamo da cosa è composta la struttura dati sulla quale l'algoritmo opera : \begin{itemize}
+    \item \code{n} = un valore intero rappresentante il numero dei thread.
+    \item \code{m} = un valore intero rappresentante il numero delle risorse (escluse istanze).
+    \item \code{available[m]} = un vettore di lunghezza \(m\), che rappresenta quante istanze vi sono di una specifica 
+    risorse. Il \(j\)-esimo elemento, conterrà il numero di istanze che la \(j\)-esima risorsa ha. 
+    \item \code{max[m][n]} = una matrice \(n\times m\), in cui, l'elemento \((i,j)\) rappresenta 
+    il numero di risorse del tipo \(j\), che il thread \(i\)-esimo potrebbe richiedere. 
+    \item \code{allocation[m][n]} = una matrice \(n\times m\), dove l'elemento \(i,j\) rappresenta il numero di 
+    risorse di tipo \(j\) allocate all'\(i\)-esimo thread.
+    \item \code{need[m][n]} = una matrice \(n\times m\), dove l'elemento \(i,j\) rappresenta il numero di 
+    risorse di tipo \(j\), che il thread \(i\)-esimo potrebbe richiedere ulteriormente per completare la sua 
+    esecuzione.
+\end{itemize}
+L'algoritmo performa due operazioni : \begin{itemize}
+    \item \code{isSafeState} - Dato lo stato corrente, controlla se esso è sicuro. 
+    \item \code{requestResource} - Dato un thread, richiedente una certa risorsa, controlla se tale richiesta 
+    può essere compiaciuta.
+\end{itemize}
+La richiesta sarà compiaciuta se porterà ad uno stato sicuro, quindi la seconda operazione, utilizzerà l'output 
+della prima per decidere se operare o no. Vediamo il suo funzionamento diviso nelle due operazioni :\acc 
+\code{isSafeState()} \begin{enumerate}
+    \item Si inizializzano due vettori di rispettive lunghezze \(m\) ed \(n\), il vettore \code{work}, inizializzato 
+    identico ad \code{available}, ed il vettore booleano \code{finish}, con tutti gli elementi inizializzati a \code{false}, se 
+    l'elemento \(i\)-esimo sarà uguale a \code{true}, ciò vorra dire che tale thread avrà finito la sua esecuzione.
+    \item Si ricerca un certo elemento di indice \(i\) tale che, \code{finish[i]=false \(\land\) need[i]\(\le\) work}, se 
+    non esiste tale \(i\), allora si salta allo step 4.
+    \item Una volta trovato l'elemento \(i\) che soddisfa il punto 2, si esegue rispettivamente : \begin{enumerate}
+        \item \code{work=work+allocation[i];}
+        \item \code{finish[i]=true}
+    \end{enumerate}
+    \item Se ogni elemento di \code{finish} è uguale a \code{true}, allora il sistema è in uno stato sicuro.
+\end{enumerate}
+\code{requestResource()} \\
+Riceve in input un indice \(i\) rappresentante un thread ed un vettore \(m\) dimensionali delle richieste del vettore.
+\begin{enumerate}
+    \item Se \code{request\(>\)need[i]}, genera un errore in quanto quel thread sta provando a richiedere più risorse 
+    di quante ne abbia reclamate, altrimenti, si vada allo step 2. 
+    \item Se \code{request\(>\)available}, il thread dovrà attendere affinché la risorsa torni disponibile, altrimenti 
+    si vada allo step 3. 
+    \item Anche se la risorsa è disponbile, si controlla che il possibile nuovo stato sia ancora sicuro, simulando le 
+    operazioni : \begin{enumerate}
+        \item \code{available=available-request}
+        \item \code{allocation[i]=allocation[i]+request}
+        \item \code{need[i]= need[i]-request}
+    \end{enumerate}
+    Dopo tali operazioni, si controlla \code{isSafeState()}, se no, tali operazioni verranno annullate, altrimenti, 
+    verranno convalidate.
+\end{enumerate}
 \end{document}

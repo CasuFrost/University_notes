@@ -1150,7 +1150,7 @@ prodotto cartesiano, detto \textbf{prodotto diretto di anelli}, ha una \textit{n
 Quindi \((A\times B,+,\cdot)\) è un anello.
 L'elemento neutro è \(0_{A\land B}=(0_A,0_B)\), ossia la coppia dei due elementi neutri rispettivamente per \(A\) e \(B\).
 
-\section{Teoria dei Gruppi}
+\section{Teoria dei Gruppi}\label{teoGruppi}
 In questo capitolo ci occuperemo di studiare le proprietà dei gruppi, ricordiamo la definizione :
 \((G,*)\) è un gruppo se \(*\) è un operazione binaria tale che : \begin{enumerate}
     \item \(*\) è associativa.
@@ -2875,5 +2875,101 @@ che sono in numero \(n-k\), che se aggiunti a \(\mathcal{B}_U\) forniscono una b
 definizione, tale insieme risulta essere la base del supplementare di \(V\), garantendone quindi 
 l'esistenza. \(\blacksquare\)
 \section{Applicazioni Lineari}
-
+Nel capitolo \ref{teoGruppi} si è parlato di omomorfismi fra gruppi, vediamo adesso il corrispettivo 
+per gli spazi vettoriali.\acc 
+Siano \((V,+_V,\cdot_V)\) e  \((W+_W,\cdot_W)\) due spazi vettoriali su un campo \(\mathbb{K}\), e sia \(T:V\rightarrow W\) un'applicazione fra di essi.
+Tale applicazione è detta \textbf{lineare} se, conserva le operazioni : \begin{center}
+    \(\begin{matrix}T(\ve_1+_V\ve_2)=T(\ve_1)+_W T(\ve_2)\\
+        T(\lambda \cdot_V \ve_1)=\lambda \cdot_W T(\ve_1)
+    \end{matrix}\text{\hphantom{aaaa}} \ve_1,\ve_2\in V,\text{\hphantom{aa}} \lambda \in \mathbb{K}\)
+\end{center}
+\textit{Esempio fondamentale} : Si fissi una matrice \(A\in M_{m\times n}(\R)\), e considero la seguente 
+applicazione \(L_A : \R^n\rightarrow \R^m\), tale che : \begin{center}
+    \(
+    L_A\Bigg(\begin{bmatrix}
+        x_1\\x_2\\.\\x_n
+    \end{bmatrix}\Bigg)  =\begin{bmatrix}
+        a_{1_1}x_1+a_{1_2}x_2\dots+a_{1_n}x_n\\
+        a_{2_1}x_1+a_{2_2}x_2\dots+a_{2_n}x_n\\\dots \\
+        a_{m_1}x_1+a_{m_2}x_2\dots+a_{m_n}x_n
+    \end{bmatrix} \equiv x_1 \begin{bmatrix}
+        a_{1_1}\\ a_{2_1}\\.\\a_{m_1}
+    \end{bmatrix} +x_2 \begin{bmatrix}
+        a_{1_2}\\ a_{2_2}\\.\\a_{m_2}
+    \end{bmatrix} \dots +x_n \begin{bmatrix}
+        a_{1_n}\\ a_{2_n}\\.\\a_{m_n}
+    \end{bmatrix} 
+    \)
+\end{center}
+Dove \(a_{i_j}\) è il coefficente reale alla posizione \((i,j)\) della matrice \(A\).  Tale applicazione, risulta 
+essere \textit{lineare}, data la seguente verifica : \begin{equation}
+    L_A\Bigg(\begin{bmatrix}
+        x_1\\x_2\\.\\x_n
+    \end{bmatrix}+\begin{bmatrix}
+        x'_1\\x'_2\\.\\x'_n
+    \end{bmatrix}\Bigg) = 
+    \begin{bmatrix}
+        a_{1_1}(x_1+x'_1)+a_{1_2}(x_2+x'_2)\dots+a_{1_n}(x_n+x'_n)\\
+        a_{2_1}(x_1+x'_1)+a_{2_2}(x_2+x'_2)\dots+a_{2_n}(x_n+x'_n)\\\dots \\
+        a_{m_1}(x_1+x'_1)+a_{m_2}(x_2+x'_2)\dots+a_{m_n}(x_n+x'_n)
+    \end{bmatrix} 
+\end{equation}
+Essendo nel campo \(\R\), posso applicare le proprietà di campo : \begin{equation}
+    =\begin{bmatrix}
+        a_{1_1}x_1+a_{1_1}x'_1+a_{1_2}x_2+a_{1_2}x'_2\dots+a_{1_n}x_n+a_{1_n}x'_n\\
+        a_{2_1}x_1+a_{2_1}x'_1+a_{2_2}x_2+a_{2_2}x'_2\dots+a_{2_n}x_n+a_{2_n}x'_n\\\dots \\
+        a_{m_1}x_1+a_{m_1}x'_1+a_{m_2}x_2+a_{m_2}x'_2\dots+a_{m_n}x_n+a_{m_n}x'_n
+    \end{bmatrix}=\end{equation}\begin{equation}=\begin{bmatrix}
+        a_{1_1}x_1+a_{1_2}x_2\dots+a_{1_n}x_n\\
+        a_{2_1}x_1+a_{2_2}x_2\dots+a_{2_n}x_n\\\dots \\
+        a_{m_1}x_1+a_{m_2}x_2\dots+a_{m_n}x_n
+    \end{bmatrix}+\begin{bmatrix}
+        a_{1_1}x'_1+a_{1_2}x'_2\dots+a_{1_n}x'_n\\
+        a_{2_1}x'_1+a_{2_2}x'_2\dots+a_{2_n}x'_n\\\dots \\
+        a_{m_1}x'_1+a_{m_2}x'_2\dots+a_{m_n}x'_n
+    \end{bmatrix}=L_A\Bigg(\begin{bmatrix}
+        x_1\\x_2\\.\\x_n
+    \end{bmatrix}\Bigg)+L_A\Bigg(\begin{bmatrix}
+        x'_1\\x'_2\\.\\x'_n
+    \end{bmatrix}\Bigg)
+\end{equation}
+Analogamente, si verifica che \(L_A\Bigg(\lambda \begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}\Bigg)=\lambda L_A\Bigg( \begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}\Bigg)\).\acc 
+\textbf{Proprietà }: Se \(T:V\rightarrow W\) è un applicazione lineare, allora \(T(\bar 0_V)=\bar 0_W\). La verifica risulta 
+semplice, di fatto \(T(\bar 0_V)=T(0\cdot \bar 0_V)=0\cdot T(\bar 0_V) = \bar 0_W\).\acc 
+Consideriamo adesso un altra importante applicazione lineare nota, sia \(V\) uno spazio vettoriale di dimension \(n\)
+ sul campo \(\R\) (o qualsiasi altro campo), \(V\) ha base \(\mathcal{B}=\{\bar b_1\dots,\bar b_n\}\). Esiste un applicazione 
+ lineare \(F_{\mathcal{B}} : V \rightarrow \R^n\), che associa ad un vettore \(\bar v\), le sue coordinate, ossia i coefficenti della combinazione lineare che ha 
+ come risultato proprio \(\bar v\). \begin{center}
+    \(F_{\mathcal{B}}(\bar v)=\begin{bmatrix}
+        \alpha_1\\\alpha_2\\.\\\alpha_n
+    \end{bmatrix}\)\hphantom{text} tale che \hphantom{text}\(\bar v = \alpha_1\bar b_1+ \alpha_2\bar b_2\dots +\alpha_n\bar b_n\)
+ \end{center}
+ Si ha infatti che le coordinate del vettore \(\bar v + \bar v'\), sono le coordinate del vettore \(\bar v\) sommate alle 
+ coordinate del vettore \(\bar v'\).\acc 
+ Vediamo adesso un esempio di applicazione \textit{non} lineare, ossia \(T:\R^2\rightarrow \R^2\) tale che : \(T((x_1,x_2))=(x_1^2+x_2^2,x_1^2-x_2^2)\). 
+ Tale applicazione non conserva le operazioni, infatti : \begin{eqnarray}
+    T((1,1)+(-1,-1))=T((0,0))=(0,0)\ne (2,0)=T((1,1))+T((-1,-1))
+ \end{eqnarray}
+ Non è lineare perché vi sono i quadrati, le applicazioni lineari infatti sono molto particolari, nel corso di 
+ \textit{Analisi}, sono state trattate funzioni, per la maggiorparte non lineari, le uniche funzioni 
+ di una variabile reale lineari, son quelle del tipo \(f(x)=c\cdot x\), dove \(c\) è una costante. 
+ \begin{figure}[h]
+    \centering{
+    \includegraphics[width=1\textwidth ]{images/funLin.eps}
+    }\end{figure}\\
+\textbf{Proposizione }: Si consideri la trasformazione lineare vista in precedenza \(L_A:\R^n\rightarrow R^m\), si ha 
+che \(L_A=L_B\iff A=B\).\acc 
+Data un'applicazione lineare, esistono due \textbf{noti sottospazi}, sia \(T:V\rightarrow W\), si ha che : \begin{enumerate}
+    \item \(Im(T)=\{T(\bar v)|\bar v\in V\}\) è un sottospazio di \(W\).
+    \item \(KerT=\{\ve | T(\ve)= \bar 0_W\}\) è un sottospazio di \(V\).
+\end{enumerate}
+\textbf{Dimostrazione }: (1) - Siano \(\bar y_1,\bar y_2 \in Im(T)\), quindi \(\bar y_1=T(\ve_1)\) e \(\bar y_2=T(\ve_2)\), 
+ho che \(\bar y_1 +\bar y_2 = T(\ve_1)+T(\ve_2)=\)per linearità\(=T(\ve_1+\ve_2)\in Im(T)\), inoltre, \(\lambda\bar y_1=
+\lambda T(\ve_1)=\)per linearità\(=T(\lambda\ve_1)\in Im(T)\). \\(2) - Siano \(\ve_1,\ve_2\in KerT\), allora 
+\(T(\ve_1+\ve_2)=T(\ve_1)+T(\ve_2)=0_W+0_W=0_W\implies \ve_1+\ve_2\in KerT\), analogamente, \(T(\lambda \ve_1)=\lambda T(\ve_1)
+=\lambda 0_W=0_W\implies \lambda \ve_1 \in KerT\). \(\blacksquare\)
 \end{document}
