@@ -1,7 +1,7 @@
 \documentclass[12pt, letterpaper]{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{hyperref}
-\usepackage{xcolor}
+\usepackage[table,xcdraw]{xcolor}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage[english]{babel}
@@ -26,6 +26,7 @@
 \newcommand{\norm}{{\unlhd}}
 \newcommand{\ciclS}{{\left \langle }}
 \newcommand{\ciclE}{{\right \rangle }}
+\newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \usetikzlibrary{positioning}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \title{Algebra}
@@ -2553,7 +2554,7 @@ dei punti \textbf{(1)} e \textbf{(2)}, è necessaria per constatare che \(\Sigma
 \acc \textbf{Osservazione}, l'insieme di tutte le soluzioni di un sistema \(A\bar x = \bar b\), dove 
 \(\bar b \ne \bar 0\), definito \(\Sigma = \{\bar y | A\bar y = \bar b\}\), non è un sottospazio vettoriale, in 
 quanto non contiene l'elemento neutro \(\bar 0\).
-\subsection{Combinazioni Lineari}
+\subsection{Combinazioni Lineari}\label{combLin}
 Sia \(V\) uno spazio vettoriale, e \(\bar v_1,\bar v_2\dots, \bar v_k\) un insieme di vettori in \(V\). 
 Una \textit{combinazione lineare di }\(V\), è il vettore \begin{center}
     \(\alpha_1\cdot\bar v_1+\alpha_2\cdot\bar v_2\dots+ \alpha_k\cdot\bar v_k\)
@@ -2578,7 +2579,7 @@ elementi che sono già nello Span degli elementi originali (rileggere lentamente
     \Span(\bar v_1,\bar v_2\dots, \bar v_k)= \Span(\bar v_1,\bar v_2\dots, \bar v_k,\alpha_1\bar v_1,\alpha_2\bar v_2\dots, \alpha_k\bar v_k)
     \)
 \end{center}
-\textbf{Proposizione }: Il sistema lineare \(A\bar x = \bar b\), con matrice associata \(A\in M_{mn}(\R)\), dove 
+\textbf{Proposizione }: Il sistema lineare \(A\bar x = \bar b\), con matrice associata \(A\in M_{m\times n}(\R)\), dove 
 \(M_{mn}(\R)\) è l'insieme delle matrici con \(m\) righe ed \(n\) colonne a coefficenti reali, ammette 
 soluzione se e solo se \(\bar b \in \Span(A^1,A^2\dots, A^n)\), dove \(A^j\) è la \(j\)-esima colonna di \(A\). 
 \subsection{Indipendenza Lineare}
@@ -2783,11 +2784,11 @@ le matrici antisimmetriche hanno dimensione  \(\dfrac{n\cdot(n-1)}{2}\), si noti
 \end{equation}
 Non è una coincidenza, in quanto ogni matrice \(n\times n\) si scrive in modo unico come somma di una 
 matrice simmetrica per una antisimmetrica.\acc 
-\textbf{Definizione }: La \textit{matrice trasposta} di una matrice \(A\), indicata con \(\text{\hphantom{a}}^tA\), è 
+\textbf{Definizione }: La \textit{matrice trasposta} di una matrice \(A\), indicata con \(\text{\hphantom{}}^tA\), è 
 la matrice che, in ogni posizione \(i,j\), ha l'elemento \(a_{j_i}\in A\). Sia \(A\) una qualsiasi matrice, 
-si ha che : \(\dfrac{A+\text{\hphantom{a}}^tA}{2}\) è una matrice simmetrica e \(\dfrac{A-\text{\hphantom{a}}^tA}{2}\)
+si ha che : \(\dfrac{A+\text{\hphantom{}}^tA}{2}\) è una matrice simmetrica e \(\dfrac{A-\text{\hphantom{}}^tA}{2}\)
 è una matrice antisimmetrica.\acc  
-\textbf{Proposizione} : Ogni matrice \(A\), può essere scritta nella forma \(\dfrac{A+\text{\hphantom{a}}^tA}{2}+\dfrac{A-\text{\hphantom{a}}^tA}{2}\), e 
+\textbf{Proposizione} : Ogni matrice \(A\), può essere scritta nella forma \(\dfrac{A+\text{\hphantom{}}^tA}{2}+\dfrac{A-\text{\hphantom{}}^tA}{2}\), e 
 tale scrittura è \textit{unica}.\acc 
 \textbf{Dimostrazione (unicità)} : Sia \(A\) una matrice non nulla, poniamo che possa essere 
 scritta come somma di matrice simmetrica per antisimmetrica in due modi : \(A=S+T\) e \(A=S'+T'\), con 
@@ -3039,4 +3040,37 @@ Si ha che \(\rg(T)\le \dim(W)\) e \(\rg(T)\le\dim(V)\).\acc
     \item  \(T\) è suriettiva se e solo se \(\rg(T)=\dim(W)\).
     \item Se  \(\dim(V)=\dim(W)\), allora \(T\) è biettiva.
 \end{enumerate}
+Prima di enunciare un altro importante teorema, è necessario introdurre il concetto seguente.\acc 
+\textbf{Proposizione} : Sia \(\Sigma\subset \R^n\) l'insieme delle soluzioni del sistema \(A\bar x = \bar b\), 
+con \(A\in M_{n\times n}(\R)\). Sia \(\Sigma_0\), l'insieme delle soluzioni del sistema omogeneo associato \(A\bar x = \bar 0\).
+Sia \(\tilde x\in \Sigma\) una soluzione particolare del sistema, si ha che \(\Sigma=\tilde x +\Sigma_0\).\acc 
+\textbf{Dimostrazione} : \boxedMath{\(\tilde x +\Sigma_0\subseteq \Sigma\)} Considero \(\bar w\in \tilde x +\Sigma_0\implies
+\bar w = \tilde x +\bar y\) con \(\bar y\in \Sigma_0\), ciò implica che \(L_A(\bar w)=L_A(\tilde x +\bar y)\), ma per linearità 
+ho \(L_A(\bar w)=L_A(\tilde x) +L_A(\bar y)\), ma essendo \(\bar y\) soluzione del sistema omogeneo, ho che \(L_A(\bar y)=0\),
+quindi \(L_A(\bar w)=L_A(\tilde x)\implies \bar w\in \Sigma\).\\
+\boxedMath{\(\Sigma\subseteq \tilde x +\Sigma_0\)} Considero un qualsiasi \(\bar z\in \Sigma\), vuol dire che 
+\(L_A(\bar z)=\bar b\), adesso, riscrivo \(\bar z=\tilde x +(\bar z - \tilde x)\), dove \(\tilde x\) è una soluzione 
+particolare di \(\Sigma\). A questo punto, mi basta dimostrare che \((\bar z - \tilde x)\in \Sigma_0\), considero 
+\(L_A(\bar z-\tilde x)\), per linearità ho \(L_A(\bar z)-L_A(\tilde x)\), ma essendo entrambe soluzioni del sistema, 
+ne risulta che \(L_A(\bar z)-L_A(\tilde x)=\bar b-\bar b=\bar 0\), ma \(\bar 0\) è sicuramente soluzione del 
+sistema omogeneo associato, quindi \(\bar z - \tilde x\in \Sigma_0\implies \bar z \in \tilde x+ \Sigma_0\). \(\blacksquare\)
+\subsubsection{Teorema di Rouché-Capelli}
+Sia \(A\bar x=\bar b\) un sistema lineare quadrato, tale che \(A\in M_{n\times n}(\R)\), e sia \(A|\bar b\), la matrice 
+ottenuta, aggiungendo alla matrice \(A\), una nuova colonna, ossia \(\bar b\), ne segue che :\begin{enumerate}
+    \item \(A\bar x=\bar b\) ammette soluzione se e soltanto se \(\rg(A)=\rg(A|\bar b)\).
+    \item Esiste un unica soluzione se e soltanto se \(\rg(A)=n\).
+\end{enumerate}
+\textbf{Dimostrazione} : (1) - Abbiamo visto nel capitolo \ref{combLin}, che il sistema \(A\bar x=\bar b\) ammette 
+soluzione se e solo se \(\bar b \in \Span(A^1,A^2\dots, A^n)\), dove \(A^j\) è la \(j\)-esima colonna di \(A\), questo vuol dire 
+che, essendo \(\bar b\) combinazione lineare delle colonne, vale che \(\Span(A^1,A^2\dots, A^n)=\Span(A^1,A^2\dots, A^n,\bar b)\), ma 
+lo span delle colonne, per il corollario vista in precedenza, è l'immagine di \(L_A\), si ha quindi che 
+\(\dim(Im(L_A))=\dim(Im(L_{A|\bar b}))\implies \rg(A)=\rg(A|\bar b)\).\\ 
+(2) - Il sistema, ha un unica soluzione, se e solo se, l'unica soluzione del sistema omogeneo associato è \(\bar 0\), 
+questo implicherebbe che \(KerL_A=\{\bar 0\}\implies \dim(KerL_A)=0\), per il teorema della dmensione, so che 
+\(\dim(\R^n)=\dim(Im(L_A))+\dim(KerL_A)\), ma ho che :\begin{center}\(
+    \begin{cases}
+        \dim(\R^n)=n\\\dim(KerL_A)=0
+    \end{cases}\implies \dim(Im(L_A))=\rg(L_A)=\rg(A)=n
+\)\hphantom{text} \(\blacksquare\)\end{center} 
+\textbf{Teorema }: Sia \(A\) una matrice, vale che \(\rg(A)=\rg(\text{\hphantom{}}^tA)\).
 \end{document}
