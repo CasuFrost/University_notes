@@ -1190,7 +1190,11 @@ La MMU ha due registri a disposizione, che sono poi correlati ad ogni processo, 
 di partenza associato ad un processo, mentre \code{limit}, lo spazio che occupa, ogni processo avrà quindi 
 ad esso associata un range di memoria [\code{base},\code{base+limit}]. Quando un processo vuole utilizzare 
 un indirizzo, si controlla se tale indirizzo rientra in questo range, garantendo così protezione.
-\acc \color{red}Aggiungere immagine alla slide 121\color{black}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/MMU.eps}
+    }
+\end{figure}\\
 \begin{itemize}
     \item \textbf{Pro} : Fornisce protezione degli spazi di memoria, l'OS può spostare i processi durante l'esecuzione, ed 
     essi possono crescere dinamicamente, l'implementazione della MMU è semplice.
