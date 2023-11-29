@@ -1190,4 +1190,14 @@ La MMU ha due registri a disposizione, che sono poi correlati ad ogni processo, 
 di partenza associato ad un processo, mentre \code{limit}, lo spazio che occupa, ogni processo avrà quindi 
 ad esso associata un range di memoria [\code{base},\code{base+limit}]. Quando un processo vuole utilizzare 
 un indirizzo, si controlla se tale indirizzo rientra in questo range, garantendo così protezione.
+\acc \color{red}Aggiungere immagine alla slide 121\color{black}
+\begin{itemize}
+    \item \textbf{Pro} : Fornisce protezione degli spazi di memoria, l'OS può spostare i processi durante l'esecuzione, ed 
+    essi possono crescere dinamicamente, l'implementazione della MMU è semplice.
+    \item \textbf{Contro} : I processi continuano a dover essere allocati in maniera contigua, con possibile spreco 
+    di memoria, il numero di processi che possono coesistere è limitato dallo spazio della RAM, ed i programmi 
+    non possono condividere lo stesso indirizzo di memoria per comunicare.
+\end{itemize}
+La condivisione, la trasparenza e la protezione sono garantiti, l'unico problema da risolvere rimane l'efficienza, in quanto 
+spostare un processo può risultare lento.
 \end{document}
