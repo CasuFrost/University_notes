@@ -121,7 +121,7 @@ salvando i valori contenuti nei registri e l'ultima istruzione da eseguire in mo
 \textit{ripristinare} correttamente, per cui il tempo limitato dal sistema secondo il time sharing non deve 
 essere troppo piccolo altrimenti si rischia di fare content switch troppe volte rispetto agli effettivi 
 calcoli da eseguire.
-\section{Architettura Necessaria per i Servizi dell'OS}\subsection{User e Kernel Mode}
+\section{Architettura Necessaria per i Servizi dell'OS}\subsection{User e Kernel Mode}\label{user kernel}
 Per mantenere un certo livello di sicurezza, all'interno dell'OS è possibile eseguire istruzioni in due 
 modalità differenti, \textbf{user mode} e \textbf{kernel mode}. Alcune istruzioni sono più
 \textit{sensibili}, se spostare il contenuto da un registro ad un altro (MOV) può essere fatto senza 
@@ -1184,5 +1184,10 @@ i processi in memoria, quindi \(D\) non potrà essere allocato.
 \subsubsection{Rilocazione Dinamica}
 Tale rilocazione garantisce la protezione, richiede però il supporto hardware della MMU. 
 Si adotta un modello di  \textit{execution time binding}, la MMU traduce dinamicamente ogni indirizzo 
-logico/virtuale generato dal processo nel corrispettivo indirizzo fisico. 
+logico/virtuale generato dal processo nel corrispettivo indirizzo fisico. \acc 
+La MMU ha due registri a disposizione, che sono poi correlati ad ogni processo, essi sono i registri 
+\code{base} e \code{limit}, già accennati nel capitolo \ref{user kernel}. \code{base} , contiene l'indirizzo fisico 
+di partenza associato ad un processo, mentre \code{limit}, lo spazio che occupa, ogni processo avrà quindi 
+ad esso associata un range di memoria [\code{base},\code{base+limit}]. Quando un processo vuole utilizzare 
+un indirizzo, si controlla se tale indirizzo rientra in questo range, garantendo così protezione.
 \end{document}
