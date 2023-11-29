@@ -235,7 +235,7 @@ indirizzi virtuali, che sono salvati sia in memoria che su disco, essi vengono m
 \textbf{page table}, e si utilizza anche una cache chiamata \textbf{TLB} (Translation Look-aside Buffer), che salva 
 i recenti "indirizzamenti" per potervi accedere più rapidamente. L'OS deve considerare quali pagine sono 
 salvate sul disco, e quali sulla memoria principale.
-\section{Design ed Implementazione di un Sistema Operativo}
+\subsection{Design di Noti Modelli di Sistema Operativo}
 La struttura interna di un sistema operativo può variare largamente in base alle necessità di utilizzo 
 di tale sistema, è necessario separare quelle che sono le \textbf{politiche} del sistema 
 (Le funzioni che deve svolgere) dal suo \textbf{meccanismo} (La possibile implementazione di tali funzioni).
@@ -1066,7 +1066,12 @@ L'algoritmo performa due operazioni : \begin{itemize}
     \item \code{requestResource} - Dato un thread, richiedente una certa risorsa, controlla se tale richiesta 
     può essere compiaciuta.
 \end{itemize}
-La richiesta sarà compiaciuta se porterà ad uno stato sicuro, quindi la seconda operazione, utilizzerà l'output 
+\textit{Apputno sulla Notazione }: In seguito verrà fatto riferimento a righe di codice, seguiranno le seguenti notazioni, se 
+\code{a} e \code{b} sono due vettori, allora \code{a+b} indicherà che ad ogni elemento \(i\)-esimo di \code{a} aggiungo 
+l'elemento \(i\)-esimo di \code{b}. \code{a+5} indicherà che ad ogni elemento di \code{a} aggiungo \code{5}.
+\code{a<b}, o qualsiasi altra operazione di comparazione, risulterà vera se ogni \(i\)-esimo elemento di \code{a} sarà 
+minore ad ogni \(i\)-esimo elemento di \code{b}.
+\acc La richiesta sarà compiaciuta se porterà ad uno stato sicuro, quindi la seconda operazione, utilizzerà l'output 
 della prima per decidere se operare o no. Vediamo il suo funzionamento diviso nelle due operazioni :\acc 
 \code{isSafeState()} \begin{enumerate}
     \item Si inizializzano due vettori di rispettive lunghezze \(m\) ed \(n\), il vettore \code{work}, inizializzato 
@@ -1096,4 +1101,88 @@ Riceve in input un indice \(i\) rappresentante un thread ed un vettore \(m\) dim
     Dopo tali operazioni, si controlla \code{isSafeState()}, se no, tali operazioni verranno annullate, altrimenti, 
     verranno convalidate.
 \end{enumerate}
+\section{La Memoria}
+Durante l'introduzione del corso, si è già fatto riferimento a quanto la gestione memoria risulti di cruciale 
+importanza per quanto riguarda l'efficienza di un sistema operativo. Un buon OS, deve massimizzare l'utilizzo della 
+memoria, e garantire sicurezza ed isolamento di essa fra i deiversi processi che la co-abitano (un processo, non 
+dovrebbe essere in grado di accedere ad indirizzi di memoria riservati ad altri processi, a meno che essi non lavorino 
+su una zona condivisa).\acc 
+Il supporto fisico della memoria è, ovviamente finito, esiste un meccanismo di astrazione, implementato 
+dall'OS, noto come \textit{memoria virtuale}, che permette al programmatore di avere l'illusione che la memoria 
+disponibile sia \textit{infinita}, senza che esso debba preoccuparsi di gestire gli indirizzi e preoccuparsi di 
+allocare i processi.\acc 
+Quando si scrive del codice con un linguaggio di programmazione di alto livello come il \textit{C}, si utilizzano 
+costrutti e simboli, come \code{+}, \code{if}, e si definiscono variabili, ad esempio \code{int x = 1}, tali variabili, 
+risiederanno sulla memoria principale, come le istruzioni del codice, ma sarà l'OS a decidere in che indirizzo specifico saranno allocate, non il 
+programmatore.
+
+Tale traduzione degli indirizzi sarà opera di un insieme di strumenti forniti dall'OS, come il compilatore, l'assembler 
+ed il linker, sarà l'OS ad occuparsi di caricare il programma, dal disco alla memoria principale.\acc 
+Quando un programma viene compilato però, gli indirizzi alla quale farà riferimento, sono \textbf{logici/virtuali}, ossia 
+non sono i reali indirizzi fisici/reali alla quale risponde la \textit{RAM}, gli indirizzi logici a disposizione sono in numero di gran 
+lunga superiore a quelli reali, verrà eseguita poi, un operazione di traduzione fra indirizzi virtuali ad indirizzi fisici.
+\subsection{Address Binding}
+L'operazione di traduzione è nota con il nome di \textit{address binding}, ed essa può avvenire in diversi momenti
+prima dell'esecuzione del codice.\begin{itemize}
+    \item \textbf{compile time} - Quando il programma viene compilato, gli indirizzi ad esso riservati saranno direttamente 
+    quelli fisici, tale codice sarà \textit{assoluto}, e non vi sarà intervento dell'OS, gli indirizzi logici saranno 
+    identici a quelli reali. Per cambiare gli indirizzi, il programma va ricompilato.
+    \item \textbf{load time} - L'indirizzo di partenza \(k\) di un programma, non viene generato al momento della compilazione, 
+    bensì, saranno generati degli indirizzi che fanno riferimento all'offset \(k\). (Ad esempio, si dia il caso 
+    che a 3 variabili del programma vengano assegnati gli indirizzi 1,5 e 7. Al momento del caricamento, 
+    verrà generato un indirizzo \(k\), e tali variabili verranno allocate negli indirizzi \(1+k\),\(5+k\) e \(7+k\)).
+     Tale codice è detto \textit{staticamente 
+    rilocabile}, una volta caricato il programma in memoria, l'OS determinerà l'indirizzo fisico di partenza \(k\). 
+    Per cambiare gli indirizzi, il programma va ricaricato in memoria.
+    \item \textbf{execution time} - Il compilatore, genera un codice \textit{dinamicamente 
+    rilocabile}, con degli indirizzi totalmente virtuali, il programma potrà "muoversi" nella memoria principale
+    durante la sua esecuzione. Il sistema operativo esegue il mapping dinamico fra indirizzi virtuali e fisici 
+    tramite un unità hardware nota come  \textit{Memory Managment Unit} (MMU). Risulta essere la soluzione più 
+    flessibile adottata dalla maggiorparte dei sistemi operativi moderni.
+\end{itemize}
+Se ci trovassimo in un ambiente uniprogrammato, non dovremmo preoccuparci di riallocare la memoria, in quanto vi sarà 
+un singolo processo in memoria alla quale è riservato uno spazio contiguo (escludendo lo spazio dedicato all'OS).\acc 
+Differisce però dal caso reale, in cui la maggiorparte dei sistemi sono multiprogrammati, ed i programmi devono condividere 
+la memoria. Ci si pongono 3 principali obbiettivi nella gestione della memoria in un ambiente multiprogrammato : \begin{enumerate}
+    \item \textbf{Condivisione e Trasparenza} - Più processi condividono la stessa area di memoria, ma non devono 
+    "porsi" tale problema, ne tanto meno preoccuparsi degli indirizzi fisici nella quale sono allocati, devono essere eseguiti 
+    in maniera trasparente, lasciando il compito della gestione all'OS.
+    \item \textbf{Protezione e Sicurezza} - Diversi processi non devono essere in grado di corrompere aree di memoria dedicate 
+    ad altri processi o al sistma operativo, e non devono essere in grado di leggere dati destinati ad altri processi.
+    \item \textbf{Efficienza} - Le performance della CPU e della memoria non devono essere intaccate dalla condivisione dei processi. 
+\end{enumerate}
+\subsubsection{Rilocazione Statica}
+Vediamo un idea iniziale di rilocazione statica, si assuma che il sistema operativo, sia allocato nella parte superiore 
+della memoria, e che gli indirizzi generati da ogni processo utenti vadano da 0, fino a \(TOT-OSMEM-1\), dove \(TOT\)= Dimensioni 
+totali della memoria, e \\ \(OSMEM\)= Memoria destinata all'OS. I processi vengono allocati nel primo segmento contiguo di memoria 
+disponibile. È garantita la condivisione e la trasparenza, dato che i processi possono essere allocati in qualsiasi 
+zona della memoria, senza preouccuparsene.\acc 
+Si adotta un modello di  \textit{load time binding}, l'OS decide l'indirizzo di partenza di un processo 
+nel momento in cui viene caricato in memoria. \begin{itemize}
+    \item \textbf{Pro} : Non è necessario alcun supporto hardware aggiuntivo.
+    \item \textbf{Contro} : Non vi è protezione, ed un processo può corrompere la memoria di altri processi, gli indirizzi 
+    per i processi sono contigui, quindi un processo non può essere "frammentato" fra diversi processi. Una volta allocato un 
+    processo, esso non potrà essere spostato dall'OS.
+\end{itemize}
+Vediamo un esempio che renda chiari i contro appena elencati, si consideri la seguente memoria, dove sono caricati 
+i processi \(A\) e \(B\) (ed ovviamente, l'OS), ed è in procinto di essere caricato un processo \(C\) :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.3\textwidth ]{images/static1.eps}
+    }
+\end{figure}\\
+Il processo \(C\) viene caricato, ma il processo \(B\) termina, lasciando quindi uno spazio di memoria libero :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.75\textwidth ]{images/static2.eps}
+    }
+\end{figure}\\
+Il problema è il seguente, deve essere allocato un nuovo processo \(D\), esso però, può essere allocato esclusivamente 
+in uno spazio contiguo, sebbene la memoria libera disponibile è necessaria per allocare \(D\), essa non è 
+contigua, e \(D\) non può essere frammentato fra OS-\(C\) e \(C\)-\(A\). Inoltre, tale sistema non è in grado di spostare 
+i processi in memoria, quindi \(D\) non potrà essere allocato.
+\subsubsection{Rilocazione Dinamica}
+Tale rilocazione garantisce la protezione, richiede però il supporto hardware della MMU. 
+Si adotta un modello di  \textit{execution time binding}, la MMU traduce dinamicamente ogni indirizzo 
+logico/virtuale generato dal processo nel corrispettivo indirizzo fisico. 
 \end{document}
