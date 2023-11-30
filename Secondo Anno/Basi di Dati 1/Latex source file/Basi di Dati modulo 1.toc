@@ -1,44 +1,46 @@
 \babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Introduzione}{3}{section.1}%
-\contentsline {section}{\numberline {2}Il Modello Relazionale}{5}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Notazione con Indice}{5}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Rappresentazione come Funzioni}{6}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Integrità dei Dati}{7}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Le Chiavi}{8}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}La Chiave Esterna}{9}{subsubsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.5}Le Dipendenze Funzionali}{9}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Algebra relazionale}{10}{section.3}%
-\contentsline {subsubsection}{\numberline {3.0.1}Proiezione}{10}{subsubsection.3.0.1}%
-\contentsline {subsubsection}{\numberline {3.0.2}Selezione}{10}{subsubsection.3.0.2}%
-\contentsline {subsubsection}{\numberline {3.0.3}Unione}{11}{subsubsection.3.0.3}%
-\contentsline {subsubsection}{\numberline {3.0.4}Differenza}{11}{subsubsection.3.0.4}%
-\contentsline {subsubsection}{\numberline {3.0.5}Intersezione}{12}{subsubsection.3.0.5}%
-\contentsline {subsubsection}{\numberline {3.0.6}Prodotto Cartesiano}{12}{subsubsection.3.0.6}%
-\contentsline {subsubsection}{\numberline {3.0.7}Join}{13}{subsubsection.3.0.7}%
-\contentsline {subsubsection}{\numberline {3.0.8}\(\Theta \)-Join}{13}{subsubsection.3.0.8}%
-\contentsline {subsubsection}{\numberline {3.0.9}Condizioni Negative}{13}{subsubsection.3.0.9}%
-\contentsline {subsection}{\numberline {3.1}Quantificazione Universale}{14}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Esempi di Esercizi}{14}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Esempio 1}{14}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Esempio 2}{15}{subsubsection.3.2.2}%
-\contentsline {section}{\numberline {4}Design di un Database}{16}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Definizioni Formali}{17}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Gli Assiomi di Armstrong}{18}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Chiusura di un Insieme di Attributi}{19}{subsubsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.3}Teorema Fondamentale : \(F^+=F^A\)}{19}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Dimostrazione}{19}{subsubsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.4}La Terza Forma Normale}{21}{subsection.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.1}Dipendenze Parziali e Transitive}{21}{subsubsection.4.4.1}%
-\contentsline {subsubsection}{\numberline {4.4.2}Decomposizione in più Schemi}{22}{subsubsection.4.4.2}%
-\contentsline {subsubsection}{\numberline {4.4.3}Forma Normale Boyce-Codd}{22}{subsubsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.5}Calcolo per la Chiusura di \(X\)}{23}{subsection.4.5}%
-\contentsline {subsubsection}{\numberline {4.5.1}L'Algoritmo 1 (\colorbox {white}{\texttt {Compute }}\(X^+_F\)\colorbox {white}{\texttt { from }}\(F\))}{23}{subsubsection.4.5.1}%
-\contentsline {subsubsection}{\numberline {4.5.2}La Ricerca delle Chiavi}{25}{subsubsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.6}Preservare le Dipendenze Funzionali}{26}{subsection.4.6}%
-\contentsline {subsubsection}{\numberline {4.6.1}Controllo dell'Unione}{27}{subsubsection.4.6.1}%
-\contentsline {subsubsection}{\numberline {4.6.2}L'Algoritmo 2 (\colorbox {white}{\texttt {Compute }}\(X^+_G\)\colorbox {white}{\texttt { from }}\(F\))}{28}{subsubsection.4.6.2}%
-\contentsline {subsubsection}{\numberline {4.6.3}Sommario del Procedimento Completo}{30}{subsubsection.4.6.3}%
-\contentsline {subsubsection}{\numberline {4.6.4}L'Algoritmo 3 (\colorbox {white}{\texttt {Check if }}\(F\subseteq G^+\))}{30}{subsubsection.4.6.4}%
-\contentsline {subsection}{\numberline {4.7}Join Senza Perdita}{31}{subsection.4.7}%
-\contentsline {subsubsection}{\numberline {4.7.1}L'Algoritmo per il loseless JOIN (\colorbox {white}{\texttt {check if }}\(\rho \)\colorbox {white}{\texttt { has a loseless JOIN }})}{32}{subsubsection.4.7.1}%
-\contentsline {subsubsection}{\numberline {4.7.2}Copertura Minimale}{33}{subsubsection.4.7.2}%
+\contentsline {section}{\numberline {1}Introduzione}{4}{section.1}%
+\contentsline {section}{\numberline {2}Il Modello Relazionale}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Notazione con Indice}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Rappresentazione come Funzioni}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Integrità dei Dati}{8}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Le Chiavi}{9}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}La Chiave Esterna}{10}{subsubsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.5}Le Dipendenze Funzionali}{10}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Algebra relazionale}{11}{section.3}%
+\contentsline {subsubsection}{\numberline {3.0.1}Proiezione}{11}{subsubsection.3.0.1}%
+\contentsline {subsubsection}{\numberline {3.0.2}Selezione}{11}{subsubsection.3.0.2}%
+\contentsline {subsubsection}{\numberline {3.0.3}Unione}{12}{subsubsection.3.0.3}%
+\contentsline {subsubsection}{\numberline {3.0.4}Differenza}{12}{subsubsection.3.0.4}%
+\contentsline {subsubsection}{\numberline {3.0.5}Intersezione}{13}{subsubsection.3.0.5}%
+\contentsline {subsubsection}{\numberline {3.0.6}Prodotto Cartesiano}{13}{subsubsection.3.0.6}%
+\contentsline {subsubsection}{\numberline {3.0.7}Join}{14}{subsubsection.3.0.7}%
+\contentsline {subsubsection}{\numberline {3.0.8}\(\Theta \)-Join}{14}{subsubsection.3.0.8}%
+\contentsline {subsubsection}{\numberline {3.0.9}Condizioni Negative}{14}{subsubsection.3.0.9}%
+\contentsline {subsection}{\numberline {3.1}Quantificazione Universale}{15}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Esempi di Esercizi}{15}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Esempio 1}{15}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Esempio 2}{16}{subsubsection.3.2.2}%
+\contentsline {section}{\numberline {4}Design di un Database}{17}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Definizioni Formali}{18}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Gli Assiomi di Armstrong}{19}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Chiusura di un Insieme di Attributi}{20}{subsubsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.3}Teorema Fondamentale : \(F^+=F^A\)}{20}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Dimostrazione}{20}{subsubsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.4}La Terza Forma Normale}{22}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Dipendenze Parziali e Transitive}{22}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Decomposizione in più Schemi}{23}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Forma Normale Boyce-Codd}{23}{subsubsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.5}Calcolo per la Chiusura di \(X\)}{24}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {4.5.1}L'Algoritmo 1 (\colorbox {white}{\texttt {Compute }}\(X^+_F\)\colorbox {white}{\texttt { from }}\(F\))}{24}{subsubsection.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.5.2}La Ricerca delle Chiavi}{26}{subsubsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.6}Preservare le Dipendenze Funzionali}{27}{subsection.4.6}%
+\contentsline {subsubsection}{\numberline {4.6.1}Controllo dell'Unione}{28}{subsubsection.4.6.1}%
+\contentsline {subsubsection}{\numberline {4.6.2}L'Algoritmo 2 (\colorbox {white}{\texttt {Compute }}\(X^+_G\)\colorbox {white}{\texttt { from }}\(F\))}{29}{subsubsection.4.6.2}%
+\contentsline {subsubsection}{\numberline {4.6.3}Sommario del Procedimento Completo}{31}{subsubsection.4.6.3}%
+\contentsline {subsubsection}{\numberline {4.6.4}L'Algoritmo 3 (\colorbox {white}{\texttt {Check if }}\(F\subseteq G^+\))}{31}{subsubsection.4.6.4}%
+\contentsline {subsection}{\numberline {4.7}Join Senza Perdita}{32}{subsection.4.7}%
+\contentsline {subsubsection}{\numberline {4.7.1}L'Algoritmo per il loseless JOIN (\colorbox {white}{\texttt {check if }}\(\rho \)\colorbox {white}{\texttt { has a loseless JOIN }})}{33}{subsubsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.8}Trovare una Buona Decomposizione}{34}{subsection.4.8}%
+\contentsline {subsubsection}{\numberline {4.8.1}Copertura Minimale}{34}{subsubsection.4.8.1}%
+\contentsline {subsubsection}{\numberline {4.8.2}L'Algoritmo per la decomposizione (\colorbox {white}{\texttt {find }}\(\rho \))}{34}{subsubsection.4.8.2}%

@@ -9,6 +9,7 @@
 \usepackage[table,xcdraw]{xcolor}
 \definecolor{light-gray}{gray}{0.95}
 \definecolor{sap}{RGB}{130, 36, 51}
+\definecolor{lg}{RGB}{102, 161, 95}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 \newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
@@ -1532,7 +1533,7 @@ Dato tale lemma, si giunge alla \textbf{conclusione fondamentale} che : \begin{c
     \(F\equiv G\iff F\subseteq G^+\land G\subseteq F^+\)
 \end{center}
 Adesso che sappiamo come controllare l'equivalenza di due dipendenze funzionali, possiamo enunciare il metodo con cui, si controlla 
-se una scomposizione, preserva l'insieme delle dipendenze funzionali.\subsubsection{Controllo dell'Unione}
+se una scomposizione, preserva l'insieme delle dipendenze funzionali.\subsubsection{Controllo dell'Unione}\label{CheckUnion}
 Sia \(R\) uno schema relazionale, \(F\) l'insieme delle dipendenze funzionali, e \(\rho=\{R_1,R_2\dots,R_n\}\) una sua decomposizione.
 Definiamo per ogni elemento di \(\rho\), un insieme di dipendenze funzionali correlato ad \(F\), definito in tal modo : \begin{center}
     \(\pi_{R_i}(F)=\{X\rightarrow Y\in F^+|\{X,Y\}\subseteq R_i\}\)
@@ -1757,6 +1758,7 @@ solo \(a\). Ho che :\begin{center}
     \(t_a\in\{t_1^f[R_1]\}\Join\{t_2^f[R_2]\}\dots \Join\{t_k^f[R_k]\}\subseteq m_\rho(r^f)\)
 \end{center}
 Ma per ipotesi, \(m_\rho(r)=r\), quindi la tupla con tutte \(a\) è contenuta nell'istanza finale \(r^f\). \(\blacksquare\)
+\subsection{Trovare una Buona Decomposizione}
 \subsubsection{Copertura Minimale}
 Dato uno schema, è sempre possibile trovare una buona decomposizione, che sia in 3NF, preservi l'insieme di dipendenze funzionali,
 ed abbia un \codee{JOIN} senza perdita. Una buona decomposizione per uno schema, non è unica, ce ne sono molteplici, vedremo poi un 
@@ -1779,6 +1781,57 @@ Si può trovare una copertura minimale di un insieme \(F\) seguendo 3 fasi :\beg
     verifico che \(X'\rightarrow A\in F^+\), se ciò è vero, posso sostituire \(X\rightarrow A\) con 
     \(X'\rightarrow A\), controllando poi i sottoinsiemi di \(X'\).
     \item  Per ogni dipendenza \(X\rightarrow A\in F\), controllo che \(X\rightarrow A \in (F\backslash\{X\rightarrow A\})^+\), 
-    se si, allora è ridondante, e può essere eliminata.
+    se si, allora è ridondante, e può essere eliminata, basta controllare.
 \end{enumerate}
+Le operazioni fatte su \(F\) per trovare la copertura minimale, fan si che non si modifichi la sua chiusura.
+\subsubsection{L'Algoritmo per la decomposizione (\codee{find }\(\rho\))}
+Vediamo adesso l'algoritmo in  grado di computare una decomposizione, partendo dalla chiusura minimale.\acc 
+Piuttosto che una buona decomposizione nella sua totalità, l'algoritmo troverà prima una decomposizione che preservi 
+\(F\) ed abbia tutti i sottoschemi in terza forma normale, ma che non abbia necessariamente un \codee{JOIN} senza perdita.\\
+\code{Input} : Lo schema \(R\), un insiemi di dipendenze funzionali \(F\) che sia una copertura minimale.\\
+\code{Output} : Una decomposizione \(\rho\) di \(R\) che preservi \(F\) e sia in 3NF.\acc
+\hphantom{ident}\codee{begin}\{\\
+\hphantom{ident}\hphantom{ident}\(S=\emptyset\)\\
+\hphantom{ident}\hphantom{ident}\(\rho=\emptyset\)\\ 
+\hphantom{ident}\hphantom{ident}\codee{for each}  \(A\in R| \forall X\rightarrow Y\in F, A\nsubseteq X\land A\ne Y\) \{
+\color{lg}\textit{// A non è in nessuna dip. funz.}\color{black} \\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\(S=S\cup A\)\\
+\hphantom{ident}\hphantom{ident}\}\\
+\hphantom{ident}\hphantom{ident}\codee{if }\(S\ne \emptyset\)\{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident} \(R=R-S\)\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident} \(\rho=\rho\cup\{S\}\)\\
+\hphantom{ident}\hphantom{ident}\}\\
+\hphantom{ident}\hphantom{ident}\codee{if }\(\exists X\rightarrow A\in F|X\cup A==R\)\{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident} \(\rho=\rho\cup\{R\}\)\\
+\hphantom{ident}\hphantom{ident}\}\codee{else }\{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{for each }\(X\rightarrow A\in F\)\{\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\(\rho=\rho\cup\{XA\}\)\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\}\\
+\hphantom{ident}\hphantom{ident} \codee{return }\(\rho\)\\
+\hphantom{ident}\}\acc 
+\textbf{Teorema} : La decomposizione \(\rho\) restituita dall'algoritmo, è in terza forma normale, e preserva l'insieme 
+di dipendenze funzionali \(F\).\acc 
+\textbf{Dimostrazione} : \boxedMath{\(\rho\) preserva \(F\)} Si considerino le proiezioni di \(F\) sugli schemi 
+già viste nel capitolo \ref{CheckUnion}, ossia \(G=\displaystyle\bigcup^k_{i=1}\pi_{R_i}(F)\), dato che per ogni dipendenza 
+funzionale \(X\rightarrow A\in F\) abbiamo che \(XA\in\rho\) (è uno dei sottoschemi), abbiamo che questa dipendenza di \(F\) 
+sarà anche in \(G\), e per definizione sappiamo che \(F\equiv G\).\\\boxedMath{\(\rho\) è in 3NF} Bisogna suddividere la dimostrazione in 3 casi :\begin{enumerate}
+    \item \(S\in \rho\) - ogni attributo in \(S\) è parte della chiave, quindi \(\rho\) rispetta la 3NF.
+    \item \(R\in \rho\) - C'è una dipendenza funzionale che coinvolge tutto \(R\), è una dipendenza 
+    del tipo \(\{R-A\}\rightarrow A\), dove non vi è un sottoinsieme proprio di \(\{R-A\}\) che determini \(A\). Una chiave, 
+    è quindi \(\{R-A\}\). Sia \(Y\rightarrow B\) una qualsiasi altra dipendenza funzionale in \(F\), si ha che :\begin{enumerate}
+        \item \(B=A\) - Allora \(Y=\{R-A\}\) è chiave e lo schema è in 3NF.
+        \item \(B\ne A\) Allora \(B\in \{R-A\}\), è quindi un attributo primo e lo schema è in 3NF.
+    \end{enumerate}
+    \item \(XA\in \rho\) - Essendo \(F\) una copertura minimale, non esiste \(X'\rightarrow A\in F|X'\subset X\), quindi 
+    \(X\) è una chiave di \(XA\). Sia \(Y\rightarrow B\) una qualsiasi altra dipendenza funzionale in \(F\), tale che 
+    \(YB\subseteq XA\), se \(B=A\), essendo \(F\) copertura minimale, \(Y=X\), ed \(Y\) è superchiave. Se \(B\ne A\), allora 
+    \(B\in X\), quindi è primo, e lo schema è in 3NF.
+\end{enumerate}
+Può succedere che si verifichino i casi 1,2 - 1,3 - 3. In ogni situazione, lo schema è in 3NF. \(\blacksquare\)\acc
+Una volta calcolato il risultato, rimane solamente da capire se \(rho\) ha un \codee{JOIN} senza perdita.\acc 
+\textbf{Proposizione }: Sia \(\rho\) l'output dell'algoritmo per la decomposizione, se in \(\rho\) è presente un sottoschema 
+che contiene una chiave di \(R\), allora \(\rho\) ha un  \codee{JOIN} senza perdita.\acc 
+In caso non dovesse esserci, sarebbe necessario aggiungere una chiave di \(R\) come sottoschema a \(\rho\) dopo aver 
+utilizzato l'algoritmo, e si otterrebbe una buona decomposizione, che preveda 
+un \codee{JOIN} senza perdita, preservi \(F\) e sia in terza forma normale.
 \end{document}
