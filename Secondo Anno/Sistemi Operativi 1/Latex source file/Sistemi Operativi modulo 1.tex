@@ -1266,5 +1266,15 @@ La \textbf{PageTable} è una tabella associativa contenuta nello spazio di memor
 di associare ad ogni pagina logica, una pagina fisica.\acc 
 Ogni processo necessita della sua personale page table, dato che diversi processi,
 condividono gli stessi indici di pagina logica.\acc 
-Non è necessario caricare l'intero processo in memoria, è possibile caricare solo alcune delle sue pagine
+Non è necessario caricare l'intero processo in memoria, è possibile caricare solo alcune delle sue pagine, in quanto 
+il \textbf{principio di località spazio temporale}, enuncia che, un processo in un intervallo temporale 
+ristretto, tende ad eseguire accessi in porzioni di memoria vicine fra loro. Se il processo dovesse fare richiesta 
+di una pagina non presente sulla RAM (\textit{page fault}), tale pagina sarà presa dal supporto secondario e caricata 
+in memoria.\acc 
+Un problema che sorge quando si tratta una page table, è che ogni qual volta che un processo deve accedere in memoria, deve 
+prima consultare appunto la tabella associative (che si trova nella porzione di memoria dell'OS), per poi consultare 
+l'effettivo indirizzo, quindi, per accedere ad un indirizzo ogni volta sono richiesti 2 accessi in memoria, rendendo il tutto 
+meno efficiente. Si può sopperire tale problema 
+con l’aggiunta di una nuova memoria più rapida, che memorizza al suo interno una porzione 
+delle pagine indicate dalla tabella, detta \textit{cache}.
 \end{document}
