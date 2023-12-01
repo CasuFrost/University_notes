@@ -618,7 +618,7 @@ certo range (usualmente, più il numero è basso più la priorità
     dal sistema operativo considerando politiche e criteri interni come il tempo di lavoro 
     sulla CPU, l'alternanza fra richieste di I/O ed esecuzione ecc..
     \item \textbf{Esternamente} - Il grado di priorità è assegnato dall'utente 
-    basandosi su criteri totalemente arbitrari in base all'importanza 
+    basandosi su criteri totalmente arbitrari in base all'importanza 
     del processo.
 \end{itemize}
 Come visto prima, tale algoritmo può essere implementato 
@@ -739,7 +739,7 @@ Il sistema operativo mette a disposizione dell'utente una serie di chiamate di s
     ed eseguire lo switch fra i thread risulta più rapide che eseguire lo switch fra processi. 
     \item \textbf{Contro} : La complessità del Kernel aumenta significativamente, inoltre, invocare troppe 
     volte il kernel per 
-    la gestione di questi thread è inefficente. Anche se il context-switch è più rapido, richiede sempre l'avvento del 
+    la gestione di questi thread è inefficiente. Anche se il context-switch è più rapido, richiede sempre l'avvento del 
     kernel.
 \end{itemize}
 Gli \textbf{user thread} sono gestiti totalmente durante l'esecuzione da delle librerie a livello utente. Il Kernel, non 
@@ -1203,5 +1203,68 @@ un indirizzo, si controlla se tale indirizzo rientra in questo range, garantendo
     non possono condividere lo stesso indirizzo di memoria per comunicare.
 \end{itemize}
 La condivisione, la trasparenza e la protezione sono garantiti, l'unico problema da risolvere rimane l'efficienza, in quanto 
-spostare un processo può risultare lento.
+spostare un processo può risultare lento.\acc 
+\subsection{Politiche di Allocazione}
+Siamo nell'ipotesi in cui i processi devono essere allocati in zone contigue di memoria, come già visto, questo 
+crea inevitabili "buchi" fra processi, che potrebbero esser causa di memoria sprecata, tale fenomeno, è detto \textit{frammentazione 
+esterna}, ed esistono diverse politiche, consistenti nel trovare tali "buchi" adatti per l'allocazione dei processi.\acc
+La situazione è la seguente, ci sono diversi processi allocati in memoria, in zone contigue ma non consecutive, vi sono quindi 
+diverse zone contigue (buchi) fra i vari processi, di diverse capienze. Un processo richiede di essere allocato, 
+ed il sistema, deve decidere in quale buco allocare il processo.\acc 
+\textbf{First Fit }- Quando un processo richiede di essere allocato, esso verrà inserito nel primo spazio di memoria 
+contigua sufficientemente grande, da permettere al processo di entrare.\acc
+\textbf{Best Fit} -  Quando un processo richiede di essere allocato, esso verrà inserito, nel blocco 
+più piccolo appartenente all'insieme dei blocchi che hanno capienza sufficiente per contenerlo. Questo però, può 
+comportare un problema, supponiamo che, lo spazio di memoria selezionato sia di poco più 
+grande dello spazio richiesto dal processo stesso, verrà lasciato libero uno spazio contiguo, talmente piccolo, 
+da rendere inefficiente considerarlo nella lista dei buchi disponibile, in quanto, esso sarà parte della ricerca quando 
+un processo vorrà essere allocato, ma non verrà mai selezionato in quanto troppo piccolo, è quindi conveniente 
+allocare l'intero spazio al processo, anche quella piccola porzione non necessaria, che andrà sprecata, tale problema 
+è noto come \textit{frammentazione interna}.\acc 
+\textbf{Worst Fit} - Quando un processo richiede di essere allocato, esso verrà inserito, nello spazio 
+più grande disponibile, lasciando ciò che avanza (che si prevede essere sufficientemente grande), libero e disponibile per altre richieste.\acc 
+Tali 3 politiche non sopperiscono al problema della frammentazione, è possibile però, spostare i processi all'interno 
+della memoria in modo da unire gli spazi contigui rimasti, tale soluzione è detta \textbf{deframmentazione}, ma spostare 
+fisicamente interi processi all'interno della memoria è lento ed inefficiente.
+\subsubsection{Swapping}
+Sappiamo che, nonostante più processi siano caricati in RAM, solamente uno alla volta è in esecuzione 
+sulla CPU. Se un processo dovesse sospendersi per una richiesta di I/O, esso resterebbe comunque in memoria, occupando 
+dello spazio, sarebbe efficiente considerare un sistema, in cui i processi sospesi, liberino temporaneamente la memoria, 
+facendo coesistere più processi ed aumentando il grado di multiprogrammazione, e sopperire parzialmente alla frammentazione.\acc 
+Lo \textit{swapping}, prevede che un processo interrotto sia spostato momentaneamente su un supporto secondario, come il 
+disco fisso, quando esso potrà tornare operativo (ad esempio, una risorsa di cui era in attesa torna disponibile), verrà 
+eseguito lo swap con un altro processo, ricordando sempre che tale operazione è costosa e richiede del tempo considerevole.
+\begin{quote}
+    \color{gray} Un processo di 10MB deve essere \textit{swappato} sul disco fisso, che ha una velocità 
+    di trasferimento di 40MB/\(sec\), tale operazione impiegherà ben 250\(ms\), inoltre, lo swap-in di un processo, 
+    comporta anche lo swap-out di un altro, aumentando ancora di più il tempo impiegato. 
+\end{quote}
+\subsubsection{Paging}
+La deframmentazione è un operazione costosa e necessaria, ma tutto ciò va considerato dal momento in cui si convive 
+con il vincolo che i processi debbano essere allocati in spazi contigui. Si introduce una tecnica detta \textit{paging}, essa 
+permette ai processi di venire allocati anche in maniera discontigua.\acc 
+Lo spazio degli indirizzi logici dei processi, viene suddiviso in blocchi di dimensione fissa, detti 
+\textbf{pagine}, lo spazio di un processo, sarà allocato su pagine contigue, ma esse, verranno 
+\textit{mappate} su dei blocchi fisici non-contigui sulla memoria effettiva, detti \textbf{frame}, o anche 
+pagine fisiche. Questo elimina totalmente la frammentazione esterna, ma non quella interna, in quanto un processo può 
+avere una sua parte allocata in una pagina che non viene totalmente riempita.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/paging2.eps}
+    }
+\end{figure}\\
+Un processo genera sempre indirizzi logici contigui, e non deve "preoccuparsi"
+ dell’allocazione, sarà compito dell’OS mapparli (trasparenza).
+È necessaria un unità che si occupi di eseguire tale mapping delle pagine da logiche a fisiche, Dall’indirizzo logico generato dalla CPU, si ricava l’indirizzo della pagina logica,
+e da essa, si ricollega all'indirizzo della pagina fisica.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/pageTable.eps}
+    }
+\end{figure}\\
+La \textbf{PageTable} è una tabella associativa contenuta nello spazio di memoria del sistema operativo, che si occupa 
+di associare ad ogni pagina logica, una pagina fisica.\acc 
+Ogni processo necessita della sua personale page table, dato che diversi processi,
+condividono gli stessi indici di pagina logica.\acc 
+Non è necessario caricare l'intero processo in memoria, è possibile caricare solo alcune delle sue pagine
 \end{document}
