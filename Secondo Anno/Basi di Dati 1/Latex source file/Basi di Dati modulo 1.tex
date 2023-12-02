@@ -1026,7 +1026,7 @@ Quindi l'impiegato di codice \(C3\), ossia \begin{tabular}{|l|l|l|l|}
     \hline
     Bianchi & C3 & 500 & NULL \\ \hline
     \end{tabular} è colui con lo stipendio più alto. 
-\section{Design di un Database}\label{Cap4}
+\section{Teoria della Normalizzazione}\label{Cap4}
 L'obbiettivo è capire come creare uno schema in maniera corretta, immaginiamo di dover creare 
 una base di dati per memorizzare le informazioni relative agli studenti di un corso di laurea 
 triennale, ed i relativi esami sostenuti.\begin{center}
@@ -1834,4 +1834,99 @@ che contiene una chiave di \(R\), allora \(\rho\) ha un  \codee{JOIN} senza perd
 In caso non dovesse esserci, sarebbe necessario aggiungere una chiave di \(R\) come sottoschema a \(\rho\) dopo aver 
 utilizzato l'algoritmo, e si otterrebbe una buona decomposizione, che preveda 
 un \codee{JOIN} senza perdita, preservi \(F\) e sia in terza forma normale.
+\section{Organizzazione Fisica}\label{orgFisica}
+\subsection{Specifiche Fisiche del Disco}
+Un DataBase Managment System è implementato su un supporto fisico, che richiede un unità di gestione della memoria, ed un 
+unità di gestione dell'accesso concorrenziale ai dati da parte di diversi utenti. I dati sono contenuti in delle memorie, 
+tutt'oggi, nonostante possa sembrare obsoleto, la maggiorparte dei database utilizzano ancora degli hard disk piuttosto che 
+dei dischi a stato solido. Vediamo nel dettaglio il funzionamento di un hard disk, ed i tempi di delay fisici ad esso correlati, 
+per poi implementare dei sistemi di ricerca e scrittura che sfruttino al meglio i tempi del supporto fisico.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/Disk.eps}
+    }
+\end{figure}\\
+Vi è un perno che rotea, sulla quale poggiano dei dischi, essi sono divisi in settori (cerchi 
+concentrici) contenenti dei blocchi di memoria di dimensione fissa. Vi è un \textit{attuatore}, che si muove avanti ed indietro, 
+composto da bracci che contengono a loro volta delle testine. L'attuatore, muovendosi avanti ed indietro seleziona il settore del 
+disco da leggere, il perno, roteando, selezionerà il blocco di memoria che la testina posta sul braccio (di dimensioni 
+identiche al blocco) leggerà.\acc 
+Leggere un blocco di memoria richiederà quindi 3 diversi intervalli di tempo :\begin{enumerate}
+    \item \textbf{seek time }- Il tempo di movimento dell'attuatore in cui posiziona la testina sul giusto settore.
+    \item \textbf{rotation delay} - Il tempo di rotazione del disco per far selezionare alla testina il blocco corretto.
+    \item \textbf{transfer time} - Il tempo impiegato dalla testina per leggere il blocco, dipende dalle dimensioni di esso, 
+    e dalla densità delle particelle magnetiche.
+\end{enumerate}
+Il tempo totale per leggere un dato, detto \textbf{service time}, è la somma di questi 3 delay elencati.\acc 
+Si può organizzare un DBSM in modo che gli accessi alla memoria siano sequenziali oppure randomici, ciò conferisce una 
+notevole distinzione in termini di tempi, gli accessi sequenziali, prevedono che il disco debba solo roteare, in quanto 
+i dati sono organizzati in blocchi consecutivi. Se l'accesso fosse randomico, ogni lettura richiederebbe che l'attuatore 
+si riposizioni nel settore esatto.\begin{center}
+    seek time:= \(seek\)\hphantom{aa}rotation delay:= \(rot\)\hphantom{aa}dimensione dei blocchi:= \(BL\)\hphantom{aa} transfer time:= \(TR\)
+    \\ tempo stimato di lettura/scrittura con accessi randomici = \(T_{rba}\)\\  tempo stimato di lettura/scrittura con accessi sequenziali = \(T_{sba}\)\acc
+    \(T_{rba}=seek+\dfrac{rot}{2}+\dfrac{BL}{TR}\)\hphantom{aaaaaaaa}\(T_{sba}=\dfrac{rot}{2}+\dfrac{BL}{TR}\)
+\end{center}
+Ad esempio : 
+\begin{center}
+    \begin{tabular}{cc}
+        \rowcolor[HTML]{C0C0C0} 
+        seek time medio                     & 8.9 \(ms\)                  \\
+        \rowcolor[HTML]{EFEFEF} 
+        velocità di rotazione               & 7200 rotazioni al minuto    \\
+        \rowcolor[HTML]{C0C0C0} 
+        velocità di trasferimtento (\(TR\)) & 150 \(MegaByte\) al secondo \\
+        \rowcolor[HTML]{EFEFEF} 
+        dimensioni del blocco (\(BL\))      & 4096 (bytes)               
+        \end{tabular}
+     
+\end{center}
+\(ROT=\dfrac{60\cdot 1000}{7200}=8.33ms\)\\
+\(\dfrac{ROT}{2}=4.167ms\)\\
+\(T_{rba}=8.9+4.167+0.026 = 13.093 ms\)\\ 
+\(T_{sba}=4.167+0.026 = 4.193 ms\)
+\subsection{Modelli di Organizzazione}
+Bisogna adesso tradurre il modello logico in un modello fisico e considerare diversi tipi di organizzazione. Una base di dati, 
+consiste in un insieme di file, è quindi un insieme dei blocchi prima citati (solitamente, di 4\(KB\)), dentro i blocchi vi sono 
+i \textit{record}, che non sono altro che le tuple/righe viste nei capitoli precedenti (un record però, può anche contenere dei 
+puntatori), un record, consiste in una serie di \textit{campi}, ossia gli attributi della tupla. Vediamo adesso, alcuni dei diversi modelli 
+di organizzazione.
+\subsubsection{Heap File Organization}
+È il modello più semplice di organizzazione, ogni nuovo record, viene inserito alla fine del file, e non vi sono relazioni 
+fra gli attributi del record e la loro posizione fisica, l'unico modo per cercare un file, è fare una \textit{ricerca 
+lineare}, scorrendo eventualmente, tutti i blocchi. Su un file contenente \(n\) blocchi, in media, si dovranno scorrere 
+\(dfrac{n}{2}\) blocchi prima di trovare quello ricercato. I blocchi, vengono sempre cercati ed identificati tramite il campo 
+della loro chiave primaria, detta anche \textit{chiave di ricerca}. La ricerca in questo modello ha costo computazionale \(O(n)\).
+\subsubsection{Sequential File Organization}
+I record vengono ordinati in base all'ordine (crescente o decrescente) della loro chiave di ricerca, permettendo 
+l'accesso sequenziale alla memoria se si ricercano i file in maniera lineare.\\ Essendo le chiavi di ricerca ordinate, piùttosto 
+che ricercare in maniera lineare, è possibile eseguire una ricerca binaria tramite accessi randomici, permettendo di 
+abbassare il costo computazionale a \(O(\log_2(n))\).\acc \textit{Esempio} : Supponiamo di dover ricercare un blocco. Vi sono 
+1500 blocchi, è possibile fare ricerca lineare con accessi sequenziali o ricerca binaria con accessi randomici : \begin{center}
+    \(\dfrac{1500}{2}\cdot T_{sba}=750\cdot T_{sba}\)\\\(\log_2(1500)\cdot T_{rba}\simeq 11\cdot T_{rba}\)
+\end{center}
+La ricerca binaria risulta molto più efficiente. Il problema di questa organizzazione, è l'inserimento di nuovi record, in quanto 
+richiede lo spostamento e la riorganizzazione di tutti i record in modo da mantenere l'ordine delle chiavi, risulta quindi estremamente 
+più lento aggiornare la base di dati, piuttosto che nel modello Heap File.
+\subsubsection{Random File Organization (Hashing)}
+Vi è una relazione diretta fra la chiave di ricerca di un record e la sua posizione fisica, un record può 
+essere acceduto con uno o pochi accessi. Si utilizza una funzione \textit{hash}, che definisce una mappa 
+che mette in relazione le chiavi di ricerca con gli indirizzi fisici in memoria. \acc La funzione hash, non garantisce 
+una mappa biunivoca fra chiavi ed indirizzi, diverse chiavi di ricerca potrebbero essere mappate sullo stesso 
+indirizzo (collisione), che in questo caso chiameremo \textit{bucket}, quindi, soprattutto se vi sono parecchi record memorizzati, sarà 
+più probabile che in ogni bucket rientreranno più record. L'algoritmo di hashing, deve garantire una distribuzione uniforme.\acc 
+Alcuni dei più popolari algoritmi di hashing, prevedono l'utilizzo della divisione con resto, dove ad ogni chiave di ricerca, 
+si assegna l'indirizzo uguale alla chiave modulo ad un numero (solitamente primo), leggermente maggiore al numero di indirizzi 
+disponibili.\begin{center}
+    \(\text{Address}(Key_i)= Key_i \mod M \)
+\end{center}
+I record che finiranno negli stessi bucket, saranno per definizione della funzione hash, vicini fra loro, si accedere in 
+maniera randomica al bucket, per poi ricercare in maniera lineare con accessi sequenziali, il record corretto che si trova 
+in quel bucket. La dimensione fissa dei bucket è arbitraria, dei bucket di dimensione maggiore, implicano una minore probabilità 
+di collisione, ma i bucket che contengono più record saranno più fitti, e bisognerà impiegare più tempo nella ricerca. 
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/chiaveMod10.eps}
+    }
+\end{figure}
+\subsubsection{Indexed Sequential File Organization}
 \end{document}
