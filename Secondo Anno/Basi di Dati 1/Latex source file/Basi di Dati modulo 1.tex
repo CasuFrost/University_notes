@@ -1929,4 +1929,38 @@ di collisione, ma i bucket che contengono più record saranno più fitti, e biso
     }
 \end{figure}
 \subsubsection{Indexed Sequential File Organization}
+L'organizzazione di tipo Random è efficiente nel cercare record individuale in base alla chiave di ricerca, l'organizzazione 
+sequenziale è efficiente nel ricercare più record ordinati fra loro, questo tipo di organizzazione Indexed Sequential, riconosce
+entrambi i concetti, combina i fila organizzati in maniera sequenziale con più \textit{indici}.\acc 
+I file sono divisi in intervalli o partizioni, ogni intervallo è rappresentato da una \textit{index entry}, 
+che contiene la chiave di ricerca del primo record nell'intervalo, ed il puntatore alla posizione fisica del primo record 
+dell'intervallo. Il puntatore, può puntare ad un blocco, o ad un record (combinazione dell'indirizzo del blocco + codice identificativo 
+del record). Gli indici sono sequenziali, e sono ordinati in base alla chiave di ricerca contenuta nell'entry.\acc 
+La lista degli indici può essere organizzata in due modi : \begin{itemize}
+    \item \textbf{Indici densi} - Vi è una index entry per ogni possibile chiave di ricerca. 
+    \item \textbf{indici sparsi} - Vi sono index entry, solo per alcuni record, più record son divisi in gruppi, e gli indici 
+    si riferiscono quindi a diversi gruppi.
+\end{itemize}
+Ogni intervallo corrisponde ad un blocco di memoria sul disco. La ricerca di un record può avvenire sia in maniera lineare, binaria, 
+oppure basata sugli indici :\\
+\(n\) = numero dei blocchi,  \(ni\) = numero di blocchi per indice, si ha che \(ni<n\). 
+\begin{center}
+
+    \begin{tabular}{cc}
+        \rowcolor[HTML]{C0C0C0} 
+        Ricerca lineare                    & \(O(n)\)                  \\
+        \rowcolor[HTML]{EFEFEF} 
+       Ricerca binaria               & \(O(\log_2(n))\)       \\
+        \rowcolor[HTML]{C0C0C0} 
+        Ricerca sugli indici (\(TR\)) & \(O(\log_2(ni))\) 
+                  
+        \end{tabular}
+     
+\end{center}
+\newpage Esempio di index sparsi :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/sparseIndex.eps}
+    }
+\end{figure}
 \end{document}
