@@ -3035,6 +3035,25 @@ La somma delle dimensioni dell'immagine e del nucleo, è uguale alla dimensione 
         \item Denotiamo \(\rg(A)=\rg(L_A)=\dim(Im(L_A))\). Il \textbf{rango di una matrice} è il rango dell'applicazione ad essa associata.
     \end{itemize}
 Si ha che \(\rg(T)\le \dim(W)\) e \(\rg(T)\le\dim(V)\).\acc 
+\textbf{Dimostrazione }: 
+Sia \(\dim(V)=n\), si consideri il sottospazio \(KerT\le V\), che ha base \(\{\ve_1\dots,\ve_r\}\), per il teorema del completamento, posso aggiungere 
+\(n-r\) vettori \(\{\ve_{r+1}\dots,\ve_n\}\), tale che \(\{\ve_1\dots,\ve_r,\ve_{r+1}\dots,\ve_n\}\) costituiscano una base 
+di \(V\). Considero l'immagine dei vettori aggiunti, ossia, gli \(n-r\) vettori : \(\{T(\ve_{r+1})=\bar w_1\dots,T(\ve_n)=\bar w_{n-r}\}\),
+mi basta dimostrare adesso, che \(\bar w_1\dots,\bar w_{n-r}\) siano una base per \(Im(T)\). So che \(Im(T)=\{T(\ve)|\ve\in V\}=
+\{T(\alpha_1\ve_1\dots +\alpha_r\ve_r+\beta_1\ve_{r+1}\dots+\beta_{n-r}\ve_n)|\alpha_i,\beta_j\in\R\}\), dato che 
+un qualsiasi vettore \(\ve\) è combinazione lineare dei vettori  \(\{\ve_1\dots,\ve_r,\ve_{r+1}\dots,\ve_n\}\). Ora applico la linearità
+di \(T\), ed ho che \(Im(T)=\{\alpha_1T(\ve_1)\dots+\alpha_rT(\ve_r)+\beta_1T(\ve_{r+1})\dots\beta_{n-r}T(\ve_n)|\alpha_i,\beta_j\in\R\}\), ma 
+ricordando che i vettori  \(\{\ve_1\dots,\ve_r\}\) fanno parte del nucleo, ne consegue che : 
+\(Im(T)=\{\beta_1T(\ve_{r+1})\dots\beta_{n-r}T(\ve_n)|\beta_j\in\R\}=\Span(T(\ve_{r+1}),T(\ve_{r+2})\dots,T(\ve_{r+n}))=
+\Span(\bar w_1\dots,\bar w_{n-r})\), quindi tali elementi generano \(Im(T)\), dimostro ora che sono indipendenti : \begin{equation}
+    \gamma_1\bar w_1\dots +\gamma_{n-r}\bar w_{n-r}=\bar0\implies\gamma_1T(\ve_{r+1})\dots+\gamma_{n-r}T(\ve_{n-r})=\bar0
+\end{equation}\begin{equation}\implies T(\gamma_1\ve_{r+1}\dots+\gamma_{n-r}\ve_{n-r})=\bar 0 \implies \gamma_1\ve_{r+1}\dots+\gamma_{n-r}\ve_{n-r}\in KerT 
+\end{equation}\begin{equation} \implies \gamma_1\ve_{r+1}\dots+\gamma_{n-r}\ve_{n-r}=\delta_1 \ve_1\dots +\delta_r\ve_r\implies 
+    \delta_1 \ve_1\dots +\delta_r\ve_r +(- \gamma_1)\ve_{r+1}\dots+(-\gamma_{n-r})\ve_{n-r}=\bar 0 
+\end{equation}\begin{equation}\implies \delta_1=\dots = \delta_r=-\gamma_{r+1}=\dots=-\gamma_{n-r}=0 \implies \gamma_{r+1}=\dots=\gamma_{n-r}=0
+\end{equation}
+Quindi, i vettori \(\bar w_1\dots,\bar w_{n-r}\) sono linearmente indipendenti, e costituiscono una base per 
+ò'immagine di \(T\). \(\blacksquare\)\acc
 \textbf{Corollario} : Sia \(T:V\rightarrow W\) un applicazione lineare :\begin{enumerate}
     \item  \(T\) è iniettiva se e solo se \(\rg(T)=\dim(V)\).
     \item  \(T\) è suriettiva se e solo se \(\rg(T)=\dim(W)\).
@@ -3072,5 +3091,27 @@ questo implicherebbe che \(KerL_A=\{\bar 0\}\implies \dim(KerL_A)=0\), per il te
         \dim(\R^n)=n\\\dim(KerL_A)=0
     \end{cases}\implies \dim(Im(L_A))=\rg(L_A)=\rg(A)=n
 \)\hphantom{text} \(\blacksquare\)\end{center} 
-\textbf{Teorema }: Sia \(A\) una matrice, vale che \(\rg(A)=\rg(\text{\hphantom{}}^tA)\).
+\textbf{Teorema }: Sia \(A\) una matrice, vale che \(\rg(A)=\rg(\text{\hphantom{}}^tA)\).\acc 
+\textbf{Definizione }: Una matrice rettangolare \(m\times n\), è detta \textbf{a scala} se è della 
+seguente forma :  \\
+\color{red} disegnare matrice \color{black}\\
+Gli elementi \(p_1,p_2\dots p_r\) son detti \textit{pivot}, ed identificanto le colonne \(S^{j_1},S^{j_2}\dots,S^{j_r}\).\acc 
+\textbf{Proposizione} : \(Im(L_S)=Im(S)=\Span(\bar e_1\dots,\bar e_r)\), ricordando che \(\bar e_1\dots,\bar e_n\) sono i 
+vettori della base canonica di \(\R^n\). Si ha che \(\rg(S)=r\) e che la base dell'immagine di \(S\) è \(\{S^{j_1},S^{j_2}\dots,S^{j_r}\}\).\acc 
+\textbf{Dimostrazione} : Risulta chiaro che \(\Span(S^1\dots,S^n)\subseteq \Span(\bar e_1\dots,\bar e_n)\), dimostro che 
+i vettori, ossia le colonne \(S^{j_1},S^{j_2}\dots,S^{j_r}\) sono linearmente indipendenti. Per fare ciò, è necessario trovare tutte 
+le soluzioni del sistema  \(\alpha_1S^{j_1}+\alpha_2S^{j_2}\dots+\alpha_r^{j_r}=\bar 0\), sicuramente \(\bar 0\) è una soluzione, 
+ma si noti che questo sistema, è triangolare, quindi ha una sola soluzione, che è appunto il vettore nullo, ne consegue che 
+\(S^{j_1},S^{j_2}\dots,S^{j_r}\) sono linearmente indipendenti. \(\blacksquare\)\acc 
+\textbf{Corollario} : Sia \(S\bar x=\bar c\) un sistema, dove \(S\) è una matrice a scala, tale sistema ha soluzione 
+se e solo se \(\bar c \in Im(S)\iff \bar c \in \Span(\bar e_1\dots,\bar e_r)\iff c_{r+1}=c_{r+2}\dots = c_m=0\).
+Se il sistema ammette soluzione, allora, l'insieme delle soluzioni sarà uguale all'insieme delle soluzioni 
+del sistema omogeneo associato \(S\bar x=\bar0\), più una soluzione particolare, e si avrà che \(\dim(KerS)=n-r\).\acc 
+\textbf{Teorema} : Sia \(A\in M_{m\times n}(\R)\), e sia \(A\bar x = \bar b\) un sistema. Tale sistema, può essere ridotto 
+ad un sistema equivalente a scala \(S\bar x = \bar c\) tramite il metodo di Gauss, e ne segue che : \begin{enumerate}
+    \item \(KerA=KerS\) 
+    \item \(\rg(A)=n-\dim(KerA)=n-\dim(KerS)=\rg(S)\) 
+    \item Se \(S^{j_1},S^{j_2}\dots,S^{j_r}\) sono le colonne contenenti i pivot di \(S\), allora 
+    \(A^{j_1},A^{j_2}\dots,A^{j_r}\) costituiscono una base di \(Im(A)\).
+\end{enumerate}
 \end{document}
