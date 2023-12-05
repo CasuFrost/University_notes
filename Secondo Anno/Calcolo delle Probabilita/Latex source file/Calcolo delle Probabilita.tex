@@ -1522,4 +1522,109 @@ la probabilità che \(Y\) rientri in un qualsiasi intervallo : \begin{equation}
 Essendo \(\phi\) monotona crescente, riscrivo : \begin{equation}
     \Prob(x\in[\phi^{-1}(Y),\phi^{-1}(Y)+\delta y] )=f_X(\phi^{-1}(Y))\dfrac{1}{\phi(\phi^{-1}(Y))}\delta y=f_Y
 \end{equation}
+\subsection{Variabile Aleatoria Gaussiana}
+Per i processi di misurazione, è nota la teoria degli errori; Quando si misura l'intensità di corrente 
+passante per un punto in un circuito, si legge un valore reale, soggetto a fluttuazioni totalmente 
+aleatorie, dovute dall'inaccuratezza dello strumnento di misura, causante errori casuali, non sistematici.\\ 
+
+Supponiamo di misurare un milione di volte tale corrente, e di disegnarne 
+l'istogramma, esso, avrà la seguente forma : \begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.5\textwidth ]{images/Gaussiana.eps}
+    }
+\end{figure}
+\\\(\mu\) è il valore "teorico" che dovrebbe assumere la misurazione (nell'esempio dell'intensità di corrente, 
+sarebbe quello dato dalle leggi di \textit{Ohm}), \(\sigma\) invece, è l'ampiezza della fluttuazione.\acc 
+Questo comportamente è descritto dalla variabile aleatoria \textit{Gaussiana} o \textit{Normale}, definita 
+con il simbolo \(X\sim \mathcal{N}(\mu,\sigma^2)\), che accetta appunto i due parametri appena presentati (l'ampiezza della 
+fluttuazione è sempre positiva, quindi si scrive al quadrato).
+Il grafico visto precedentemente non è altro che la densità di probabilitò, definito in tal modo : 
+$$f_X(x)=\dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\dfrac{1}{2}\dfrac{(x-\mu)^2}{\sigma^2}}$$
+Essendo una densità, si avrà che l'area sottesa al grafico è proprio 1 : 
+\begin{equation}
+    \int_{-\infty}^{+\infty}\dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\dfrac{1}{2}\dfrac{(x-\mu)^2}{\sigma^2}}dx 
+    =\begin{bmatrix}
+        z=\dfrac{x-\mu}{\sigma}\\ dz=\dfrac{dx}{\sigma}
+    \end{bmatrix}=
+    \int_{-\infty}^{+\infty}\dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}dz=1
+\end{equation}
+Gauss, calcolò che tale integrale è proprio uguale ad 1 (la dimostrazione non verrà presentata
+ in questo corso).\acc 
+ Segue il calcolo del valore atteso : \begin{equation}
+    \E(X)=x\cdot\int_{-\infty}^{+\infty}\dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\dfrac{1}{2}\dfrac{(x-\mu)^2}{\sigma^2}}dx
+    =\begin{bmatrix}
+        z=\dfrac{x-\mu}{\sigma}\\ dz=\dfrac{dx}{\sigma}
+    \end{bmatrix}=
+    \int_{-\infty}^{+\infty}(\mu+\sigma z)\cdot \dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}dz
+\end{equation}\begin{equation}
+    =\mu\int_{-\infty}^{+\infty}\dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}dz+
+    \sigma \int_{-\infty}^{+\infty}z\cdot \dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}dz
+\end{equation}
+Il primo termine, è proprio la densità di probabilità, che vale 1, il secondo termine, è l'integrale 
+di una funzione dispari, sappiamo quindi valere 0 : \begin{equation}
+    \E(X)=\mu\cdot 1 +\sigma \cdot 0 = \mu 
+\end{equation}
+Segue il calcolo della varianza :\begin{equation}
+    \V(X)=\int_{-\infty}^{+\infty}(x-\mu)^2\dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\dfrac{1}{2}\dfrac{(x-\mu)^2}{\sigma^2}}dx 
+    =\begin{bmatrix}
+        z=\dfrac{x-\mu}{\sigma}\\ dz=\dfrac{dx}{\sigma}
+    \end{bmatrix}=
+    \int_{-\infty}^{+\infty}\sigma^2z^2 \dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}dz
+\end{equation}\begin{equation}
+    =\sigma^2\int_{-\infty}^{+\infty}z*z \dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}dz
+\end{equation}
+OSSERVAZIONE FONDAMENTALE : \(\displaystyle\dfrac{d}{dz}(\dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}})=-z\cdot \dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}\), posso quindi 
+integrare per parti : 
+\begin{equation}
+    =\sigma^2\Bigg[-z\dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}\Bigg |_{-\infty}^{+\infty}
+    +\int_{-\infty}^{+\infty}\dfrac{d}{dz}z\cdot \dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{z^2}{2}}dz\Bigg]=\sigma^2(0+1)=\sigma^2
+\end{equation}
+\subsubsection{Standardizzazione}
+Una qualsiasi variabile aleatoria Gaussiana può essere "standardizzata" in modo che i suoi 
+parametri risultino 0 per il valore teorico, ed 1 per l'ampiezza, sia \(X\sim \mathcal{N}(\mu,\sigma^2)\), 
+considero una nuova variabile aleatoria \(Z:=\dfrac{X-\mu}{\sigma}\), ossia, misuro \(X\) a partire 
+dalla media in unità \(\sigma\), si avrà che \(Z\sim \mathcal{N}(0,1)\).\acc Si può dimostrare che, 
+l'integrale su tutta la retta reale della densità, è uguale ad 1, ma non esiste un modo esplicito 
+per calcolare analiticamente l'integrale definito della funzione di densità, in quanto non è 
+possibile trovare una sua primitiva, sia \(c\) una costante,
+ed  \(X\sim \mathcal{N}(\mu,\sigma^2)\), non è possibile calcolare \(\Prob(X<c)\).
+Tramite il calcolo numerico, si può approssimare in maniera molto precisa però l'integrale definito, di fatto, 
+esiste una tabella, che stila i valori di tale integrale, con una precisione di 4 cifre decimali. Sia 
+\(\phi\) una funzione integrale definita nel seguente modo :\begin{figure}[h]
+    \centering{
+    \includegraphics[width=1\textwidth ]{images/Gaussiana2.eps}
+    }
+\end{figure}
+\\
+La tabella ha sulle ascisse e sulle ordinate dei valori reali, ed alla posizione \((i,j)\), è riportato 
+il valore della funzione \(\phi\) della somma dei numeri reali alle posizioni \(i\) e \(j\) :
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        \(z\) & 0.00   & \cellcolor[HTML]{FFFFFF}0.01 & 0.02   & \(\dots\) & 0.04                           & \(\dots\) & 0.09   \\ \hline
+        0.0   & 0.5    & 0.5040                       & 0.5080 & \(*\)     & \(*\)                          & \(*\)     & \(*\)  \\ \hline
+        0.1   & 0.5398 & 0.5438                       & 0.5478 & \(*\)     & \(*\)                          & \(*\)     & \(*\)  \\ \hline
+        0.2   & \(*\)  & \(*\)                        & \(*\)  & \(*\)     & \(*\)                          & \(*\)     & \(*\)  \\ \hline
+        .     & \(*\)  & \(*\)                        & \(*\)  & \(*\)     & \(*\)                          & \(*\)     & \(*\)  \\ \hline
+        1.3   & \(*\)  & \(*\)                        & \(*\)  & \(*\)     & \cellcolor[HTML]{FFCCC9}0.9099 & \(*\)     & \(*\)  \\ \hline
+        .     & \(*\)  & \(*\)                        & \(*\)  & \(*\)     & \(*\)                          & \(*\)     & \(*\)  \\ \hline
+        3.4   & \(*\)  & \(*\)                        & \(*\)  & \(*\)     & \(*\)                          & \(*\)     & 0.9998 \\ \hline
+        \end{tabular}
+\end{center}
+Nell'esempio riportato, \(\phi(1.34)=\displaystyle\int_{-\infty}^{1.34} \dfrac{1}{\sqrt{2\pi}}\cdot e^{-\dfrac{x^2}{2}}dx=0.9998\) .\acc 
+\textit{Esempio} : Sia \(X\sim \mathcal{N}(-1,4)\), si calcoli \(\Prob(X>0)\). Definisco \(Z=\dfrac{X-(-1)}{\sqrt{4}}
+=\dfrac{X+1}{2}\implies X=2Z-1\). Ho che \(\Prob(X>0)=\Prob(2Z+1>0)=\Prob(Z>-\dfrac{1}{2})\) che 
+per simmetria della densità di probabilità è uguale a \(\Prob(Z<\dfrac{1}{2})=0.6915\) consultando la tavola.
+\subsubsection{Teorema del Limite Centrale}
+Siano \(n\) variabili aleatorie indipendenti : \(X_1,X_2\dots,X_n\) identicamente distribuite, 
+con \(\E(X_1)=\mu\) e \(\V(X_i)=\sigma^2\), considero la loro somma, ossia \(S_n=\displaystyle
+\sum_{i=1}^2X_i\), abbiamo già visto nel teorema della legge dei grandi numeri 
+che \(\E(S_n)=n\mu\) e \(\V(S_n)=n\sigma^2\). Considero ora una nuova variabile : \(\dfrac{S_n-n\mu}{\sqrt{n}\sigma}=
+\dfrac{S_n-\E(S_n)}{\sqrt{\V(S_n)}}\). Se \(n\) tende ad infinito, tale variabile aleatoria tenderà 
+a diventare la variabile aleatoria Gaussiana normalizzata : 
+$$\lim_{n\rightarrow +\infty}\dfrac{S_n-\E(S_n)}{\sqrt{\V(S_n)}}=Z\sim\mathcal{N}(0,1)$$
+$$\lim_{n\rightarrow +\infty}\Prob(a\le \dfrac{S_n-\E(S_n)}{\sqrt{\V(S_n)}}\le b)=\Prob(a\le Z\le b)=\phi(-a)\cdot \phi(b)$$
+Tale teorema, estende ciò che diceva la legge dei grandi numeri, quando \(n\) tende ad infinito, 
+la somma di tali variabili aleatorie, in un intorno del valore atteso, convergerà perfettamente 
+alla funzione di densità della variabile aleatoria Gaussiana.
 \end{document}
