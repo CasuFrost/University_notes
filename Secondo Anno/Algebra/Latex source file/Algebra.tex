@@ -3116,4 +3116,81 @@ ad un sistema equivalente a scala \(S\bar x = \bar c\) tramite il metodo di Gaus
     \item Se \(S^{j_1},S^{j_2}\dots,S^{j_r}\) sono le colonne contenenti i pivot di \(S\), allora 
     \(A^{j_1},A^{j_2}\dots,A^{j_r}\) costituiscono una base di \(Im(A)\).
 \end{enumerate}
+Quali sono le conclusioni di tale teorema? Abbiamo iniziato il capitolo sull'algebra lineare parlando di sistemi 
+quadrati di equazioni lineari, abbiamo poi trattato la teoria degli spazi vettoriale per poter trovare una formula chiusa volta 
+alla risoluzione di sistemi rettangolari.\acc 
+Se ho un insieme di vettori \(\bar w_1,\bar w_2\dots,\bar w_l\), come trovo una base per \(\Span(\bar w_1,\bar w_2\dots,\bar w_l)\)?
+Per ciò che abbiamo visto dal teorema, formiamo la matrice ; $$D=\begin{bmatrix}
+    \hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}\\
+    \bar w_1&\bar w_2&\dots&\bar w_l\\
+    \hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}
+\end{bmatrix}$$ Applico il metodo di Gauss per ottenere una matrice a scala \(S\) equivalente, essa ha i pivot 
+nelle colonne \(S^{j_1},S^{j_2}\dots,S^{j_r}\), allora, per il teorema visto prima, so che la base 
+per \(\Span(\bar w_1,\bar w_2\dots,\bar w_l)\) è \(\bar w_{j_1},\bar w_{j_2}\dots,\bar w_{j_r}\).\acc 
+\subsubsection{Ricerca del Completamento}
+Si è parlato poi di teorema del completamento, siano \(\ve_1,\ve_2\dots,\ve_k\), esattamente \(k\) vettori in \(\R^n\), con 
+\(n>k\), so che esistono \(n-k\) vettori, che uniti a questi formano una base per \(\R^n\), ma come si trovano? 
+Come prima cosa, considero i vettori della base canonica \(\bar e_1,\bar e_2\dots,\bar e_n\), e formo la matrice 
+$$D=\begin{bmatrix}
+    \hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}\\
+    \bar v_1&\bar v_2&\dots&\bar v_k&\bar e_1&\bar e_2&\dots&\bar e_n\\
+    \hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}
+\end{bmatrix}$$
+Applico il metodo di Gauss ed ottengo una matrice a scala \(S\), che ha lo stesso numero di colonne di \(D\), ossia \(n+k\).
+Siano \(S^{j_1},S^{j_2}\dots,S^{j_n}\) le colonne di \(S\) dove son contenuti i pivot, e sono in numero \(n\).
+In queste \(n\) colonne, sappiamo già che le prime \(k\), sono linearmente indipendenti, in quanto la matrice \(D\) aveva 
+le prime \(k\) colonne formate da vettori linearmente indipendenti. Le restanti colonne conteneti i pivot sono 
+\(S^{j_{k+1}},S^{j_{k+2}}\dots,S^{j_{r}}\), allora, le colonne \(D^{j_{k+1}},D^{j_{k+2}}\dots,D^{j_{r}}\) son quelle 
+conteneti il completamento.
+\subsection{Equazioni Parametriche e Cartesiane}
+ Abbiamo due modi per definire un sottospazio \(W\) di \(\R^n\) : \begin{itemize}
+    \item \textbf{Con un equazione parametrica} : \(W=\Span(\bar w_1,\bar w_2\dots,\bar w_k)\).
+    \item \textbf{Con delle equazioni cartesiane} :\(W=\{\bar x \in \R^n|A\bar x=\bar 0\}\) dove \(A\) è una matrice con \(n\) colonne ed \(n-k\) righe. Definendo il 
+    sottospazio in questo 
+    modo, si ha che \(W=KerA\).
+ \end{itemize}
+ Ad esempio, posso rappresentare un piano in \( \R^3\) come Span di 2 vettori, oppure come nucleo di una matrice 
+di 3 colonne ed 1 riga.\acc Come posso passare da un tipo di base all'altro? Vediamolo con un esempio.\acc 
+\boxedMath{Cartesiane\(\rightarrow\)Parametriche} Ho lo spazio \(W=\{\bar x \in \R^n|A\bar x=\bar 0\}\), posso considerare 
+la matrice \(A\), ridurla a scala per trovare \(S\), ed avere che \(Ker(S)=Ker(A)=W\).\\ \textit{Esempio }: 
+Ho \(W=\{\bar x \in \R^3|\begin{bmatrix}1&-1&3\end{bmatrix}\bar x=\bar 0\}\), ho che la matrice 
+\(\begin{bmatrix}1&-1&3\end{bmatrix}\) è già a scala, quindi procedo nel trovare la soluzione : Il pivot è \(a_{1_1}\),
+considero $$\begin{cases}
+    x_1=x_2-3x_3\\x_2=t_1\\x_3=t_2
+\end{cases}\implies \begin{cases}
+    x_1=t_1-3t_2\\x_2=t_1\\x_3=t_2
+\end{cases}\implies W=t_1\begin{bmatrix}
+    1\\1\\0
+\end{bmatrix}+t_2\begin{bmatrix}
+    -3\\0\\1
+\end{bmatrix}, t_1,t_2\in R$$
+Ho quindi trovato i due vettori della base di \(W\).\acc 
+\boxedMath{Parametriche\(\rightarrow\)Cartesiane} Ho \(W=\Span(\bar w_1,\bar w_2\dots,\bar w_k)\le \R^n\), so che 
+\(\bar x \in W\iff \bar x = t_1\bar w_1+\dots + t_k\bar w_k\) per qualche \(t_1,t_2\dots,t_k\), se il sistema 
+\(\begin{bmatrix}
+    \hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}\\
+    \bar w_1&\bar w_2&\dots&\bar w_k\\
+    \hphantom{}&\hphantom{}&\hphantom{}&\hphantom{}
+\end{bmatrix}\begin{bmatrix}
+    \bar x_1\\.\\\bar x_n
+\end{bmatrix}\) ha soluzione, lo riduco con Gauss ottenendo un sistema a scala e ne impongo la compatibilità. \\ 
+\textit{Esempio }: Ho \(W=\Span(\begin{bmatrix}
+1\\1\\0
+\end{bmatrix},\begin{bmatrix}
+    -3\\0\\1
+\end{bmatrix})\), considero \(
+\begin{bmatrix}
+    1&-3\\1&0\\0&1
+\end{bmatrix}\begin{bmatrix}
+    x_1\\x_2\\x_3
+\end{bmatrix}    
+\) e lo riduco a scala ottenendo : \(
+    \begin{bmatrix}
+        1&-3\\0&1\\0&0
+    \end{bmatrix}\begin{bmatrix}
+        x_1\\\nicefrac{x_2}{2}-\nicefrac{x_3}{3}\\x_3-\nicefrac{x_2}{3}+\nicefrac{x_1}{3}
+    \end{bmatrix}    
+    \)
+    Che è compatibile se e solo se \(x_3-\nicefrac{x_2}{3}+\nicefrac{x_1}{3}=0\iff x_1-x_2+3x_3=0\), che è appunto l'equazione 
+    cartesiana ricercata.
 \end{document}
