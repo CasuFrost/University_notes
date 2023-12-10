@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
 \usepackage{mathtools}
 \usepackage[table,xcdraw]{xcolor}
 \definecolor{light-gray}{gray}{0.95}
@@ -1963,4 +1964,54 @@ oppure basata sugli indici :\\
     \includegraphics[width=0.8\textwidth ]{images/sparseIndex.eps}
     }
 \end{figure}
+\subsubsection{Tree-Structured Index}
+Sappiamo che un albero è un tipo di grafo privo di cicli, con un nodo radice ed i vari nodi che si sviluppano in una 
+gerarchia "parentale" fino a giungere alle foglie. Chiamiamo un albero \textit{bilanciato} o \textit{B-Tree}, se tutti i suoi nodi fogli 
+si trovano allo stesso livello, ci occuperemo di considerare un organizzazione dei record che si rifà al concetto 
+di albero \(m\)-ario bilanciato, implementato fisicamente con nodi e puntatori.\acc 
+Un albero \(m\)-ario, è una generalizzazione degli alberi binari, che ci permette di ordinare in un certo modo i nostri
+ record in base alle chiavi, per poter eseguire una ricerca \(m\)-aria, decisamente più efficiente della ricerca binaria.\acc 
+ Ogni nodo, contiene \(n-1\) chiavi ed \(n\) puntatori, son ordinati in memoria in modo da alternarsi, vi è prima un puntatore, 
+e poi una chiave, fino all'ultimo elemento che è un puntatore. Ogni puntatore è associato alla chiave che lo segue, e le 
+chiavi sono ordinate in maniera crescente.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/node.eps}
+    }
+\end{figure}\\
+Ogni nodo quindi, ha \(n\) puntatori, che faranno riferimento agli altri nodi. \acc L'ordinamento è strutturato nel modo 
+seguente : Ogni chiave all'interno di un nodo, è sempre maggiore della chiave alla sua sinistra, son quindi ordinate 
+in maniera crescente \(K_i<K_{i+1}\), ogni puntatore \(P_i\) associato alla chiave \(K_i\), punta ad un nodo, in cui 
+tutte le chiavi sono minori della chiave \(K_i\), garantendo quindi un ordinamento in tutto l'albero. Il puntatore 
+alla fine del nodo, seguente alla chiave \(K_{n-1}\), che non è associato a nessuna chiave, punterà ad un nodo, in cui la prima chiave è maggiore 
+della chiave \(K_{n-1}\), quindi per transitività, di tutte le altre chiavi del nodo "puntante". Si veda il seguente esempio :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.9\textwidth ]{images/node2.eps}
+    }
+\end{figure}\\
+Ogni nodo, equivale ad un blocco di memoria, quindi chiameremo \(m\) il numero massimo di puntatori che può 
+avere ogni nodo, che è dato appunto dalle dimensioni fisiche del blocco, \(m\) è detta la \textit{larghezza} 
+dell'albero. Per garantire l'efficienza nella ricerca, si vogliono imporre delle restrizioni per far si che 
+l'albero sia sempre bilanciato.\begin{enumerate}
+    \item Ogni nodo deve avere al massimo \(m\) figli.
+    \item Ogni nodo (escluse foglie e radice) deve avere al minimo \(\nicefrac{m}{2}\) figli (ogni nodo deve essere 
+    riempito almeno fino a metà).
+    \item Il nodo radice deve avere almeno 2 figli.
+    \item Tutte le foglie sono allo stesso livello.
+\end{enumerate}
+Nella rappresentazione precedente, è stato omesso che ogni nodo contiene per ogni chiave, un ulteriore puntatore ai 
+dati del record identificato da quella chiave, essi son però immagazinati da un altra parte, e non all'interno dell'albero.\acc 
+La ricerca avviene in maniera ricorsiva partendo dalla radice, ricercando la chiave desiderata. Se essa non è 
+nel nodo corrente, si cercherà nel nodo selezionato dal puntatore associato alla chiave minore del nodo, più grande del valore ricercato. 
+Se il valore ricercato è maggiore a tutte le chiavi del nodo, si andrà a cercare nel nodo selezionato dal puntatore finale più a destra.\acc 
+La ricerca sarà molto efficiente, nel caso peggiore si controllano tanti nodi quanto è l'altezza dell'albero.
+\begin{center}
+    \(N\) = Numero di nodi nell'albero\\ \(m\) = numero massimo di figli che un nodo può avere\\
+    \(d=\nicefrac{m}{2}\) =  numero minimo di figli che un nodo può avere
+\end{center}
+\begin{itemize}
+    \item Caso migliore (altezza minimale) : \(h_{min}=\log_m(N+1)-1\)
+    \item Caso peggiore (altezza massimale) : \(h_{max}=\log_d(\dfrac{N+1}{2})\)
+\end{itemize}
 \end{document}
