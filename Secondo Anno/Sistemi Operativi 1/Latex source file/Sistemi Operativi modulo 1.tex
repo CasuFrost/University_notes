@@ -1239,7 +1239,7 @@ eseguito lo swap con un altro processo, ricordando sempre che tale operazione è
     di trasferimento di 40MB/\(sec\), tale operazione impiegherà ben 250\(ms\), inoltre, lo swap-in di un processo, 
     comporta anche lo swap-out di un altro, aumentando ancora di più il tempo impiegato. 
 \end{quote}
-\subsubsection{Paging}
+\subsection{Paging}
 La deframmentazione è un operazione costosa e necessaria, ma tutto ciò va considerato dal momento in cui si convive 
 con il vincolo che i processi debbano essere allocati in spazi contigui. Si introduce una tecnica detta \textit{paging}, essa 
 permette ai processi di venire allocati anche in maniera discontigua.\acc 
@@ -1277,4 +1277,56 @@ l'effettivo indirizzo, quindi, per accedere ad un indirizzo ogni volta sono rich
 meno efficiente. Si può sopperire tale problema 
 con l’aggiunta di una nuova memoria più rapida, che memorizza al suo interno una porzione 
 delle pagine indicate dalla tabella, detta \textit{cache}.
+\subsubsection{Implementazione}
+Il sistema operativo ha il compito di tradurre gli indirizzi in maniera efficiente. L'indirizzo logico generato 
+dalla CPU, è composto da un indirizzo di pagina e da un offset relativo all'inizio della pagina indicata. La traduzione 
+avverrà da pagina logica a frame fisico, l'offset rimarrà invariato e valido in quanto le dimensioni di pagine logiche 
+e fisiche sono identiche. 
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.9\textwidth ]{images/pagingTranslate.eps}
+    }
+\end{figure}\\
+Ogni processo vede il suo spazio di memoria in maniera contigua, e non deve preouccparsi della memoria degli altri processi,
+sarà il sistema operativo ad occuparsi di mantenere aggiornata la page table, ciò garantisce un alto 
+grado di trasparenza.\acc 
+La MMU per tradurre un indirizzo, deve quindi recuperare il numero di pagina e l'offset dell'indirizzo fisico, ed
+usare il numero di pagina per accedere alla page table. Il numero dell'indice 
+di pagina è dato dall'indirizzo logico, diviso le dimensioni di ogni pagina, l'offset invece 
+dall'indirizzo logico modulo le dimensioni di ogni pagina. \acc Per ogni accesso in memoria occorre 
+quindi fare un modulo ed una divisione, ma è possibile rendere più efficiente tale operazione, facendo si che 
+le dimensioni delle pagine siano sempre una potenza di 2, in questo modo, se un indirizzo è composto da \(m\) bit,
+possiamo generare \(2^m-1\) indirizzi, se le dimensioni di ogni pagina sono \(2^n\), con \(m>n\), avremo che il numero di 
+pagina sarà dato dagli \(m-n\) bit più significativi, ed i restanti son dedicati all'offset.\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.4\textwidth ]{images/ind.eps}
+    }
+\end{figure}\\
+\subsubsection{Translation Look-aside Buffer }
+Abbiamo già accennato al fatto che ogni accesso in memoria costa una accesso extra in spazio kernel per la 
+consultazione della page table. Abbiamo anche accennato al fatto che un processo tende, in un istante 
+temporale, ad accedere ad indirizzi di memoria vicini fra loro, arrivando alla conclusione che è necessario caricare 
+in memoria solo un numero limitato della pagine totali di un processo.\acc È possibile 
+implementare via hardware una memoria \textit{cache} detta \textbf{TLB}, che memorizzerà le pagine utilizzate 
+dai processi, senza la necessità di dover accedere alla memoria. Gestendo bene la cache, sarà possibile rendere poco 
+frequente, la richiesta non soddisfatta di una pagina, denominata \textit{miss della cache} (si richiede una pagina 
+nella TLB ma non è presente). Una TLB tipicamente contiene dagli 8 ai 2048 indirizzi, può essere anche molto piccola 
+ed esistono cache di diverso livello, è una memoria associativa che contiene il mapping dei rispettivi frame. \acc 
+Ora quando si richiede un indirizzo, esso verrà prima controllato nella TLB, se assente. si causerà un miss, e sarà 
+necessario accedere alla page table. Per sfruttare al meglio il principio di località spazio temporale, quando 
+si verifica un miss di una certa pagina, essa verrà \textbf{inserita nella cache}, dato che è probabile che quella pagina 
+verrà richiesta nuovamente negli istanti successivi. Se la TLB è piena, si possono adottare diverse politiche di rimpiazzo, 
+ad esempio, è possibile eliminare dalla cache la pagina utilizzata meno di recente.\acc
+Essendo che ogni processo ha la sua page table, anche la TLB dovrà memorizzare uno stato di pagine per ogni processo, 
+cosa fare quindi se più processi son caricati in memoria e concorrono? Vi sono due possibili approcci :\begin{itemize}
+    \item \textbf{Basico} - Ad ogni context switch, si svuota totalmente la TLB.
+    \item \textbf{Complesso (a)} - Si salva lo stato della TLB nel PCB di ogni processo, ad ogni 
+    context switch, si ripristina lo stato della cache.
+    \item \textbf{Complesso (b)} - Si estende la TLB aggiungendo ad ogni mapping anche l'Id di ogni processo, 
+    in modo tale da poter far coesistere pagine di diversi processi nello stesso momento in cache.
+\end{itemize}
+La TLB potrebbe anche essere implementata con dei bit aggiuntivi per ogni entry che diano ulteriori informazioni, ad esempio, 
+due bit per classificare se una entry è in lettura, scrittura o entrambe. La \textbf{condivisione} di uno spazio di memoria 
+fra due processi avviene in maniera semplice, assegnando a due pagine logiche di due processi diversi, lo stesso mapping 
+in un unico frame fisico.
 \end{document}
