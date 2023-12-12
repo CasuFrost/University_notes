@@ -22,6 +22,7 @@
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\aut}{{\text{Aut}}}
 \newcommand{\Span}{{\text{Span}}}
+\newcommand{\End}{{\text{End}}}
 \newcommand{\cen}{{\text{Centro}}}
 \newcommand{\norm}{{\unlhd}}
 \newcommand{\ciclS}{{\left \langle }}
@@ -3025,7 +3026,7 @@ Per il corollario precedente, so che \(Im(L_A)=\Span(
 A questo punto, ho trovato le basi di immagine e nucleo, e so che hanno rispettivamente 
 dimensione 2 e 1. L'applicazione lineare \(L_A\), ha come insieme di partenza \(\R^3\), che ha dimensione 3, ci si rende 
 quindi conto di un importante correlazione.
-\subsubsection{Teorema della Dimensione}
+\subsubsection{Teorema della Dimensione}\label{teoDim}
 Sia \(T:V\rightarrow W\) un applicazione lineare, vale che :\begin{center}
     \(\dim(V)=\dim(Im(T))+\dim(KerT)\)
 \end{center}
@@ -3193,4 +3194,188 @@ Ho quindi trovato i due vettori della base di \(W\).\acc
     \)
     Che è compatibile se e solo se \(x_3-\nicefrac{x_2}{3}+\nicefrac{x_1}{3}=0\iff x_1-x_2+3x_3=0\), che è appunto l'equazione 
     cartesiana ricercata.
+\subsection{Correlazione fra Mappe Lineari e Matrici}
+Una matrice, non è altro che un applicazione lineare \(f:\R^n\rightarrow \R^m\). Cercheremo in questo capitolo di costruire un
+dizionario tra mappe lineari e matrici. Prima però è necessario considerare alcuni aspetti teorici.
+\subsubsection{Omomorfismi ed Endomorfismi Lineari}
+Siano \(V\) e \(W\) due spazi vettoriali, definiamo un insieme \(\hom(V,W)=\{f:V\rightarrow W| f \text{ è lineare}\}\), 
+ossia l'insieme di tutte le applicazioni lineari da \(V\) a \(W\). Tale insieme è detto spazio degli \textit{omomorfismi 
+lineari}, e come si può intuire dal nome, ha una naturale struttura di spazio vettoriale, con le seguenti operazioni :
+$$f,g\in\hom(V,W),\text{\hphantom{text}}(f+g)(x)=f(x)+g(x)$$$$(\lambda\cdot f)(x)=\lambda\cdot f(x)$$
+\textbf{Proposizione} : Se \(f:V\rightarrow W\) è un applicazione lineare \textit{biunivoca}, lo è anche la sua inversa.\acc 
+\textbf{Dimostrazione} : Essendo \(f\) biunivoca esistono unici \(a,b\in V|f(a)=x\land f(b)=y\implies 
+f^{-1}(x+y)=f^{-1}(f(a)+f(b))\) ma \(f\) è lineare \(\implies f^{-1}(f(a+b))=a+b=f^{-1}(a)+f^{-1}(b)\). \(\blacksquare\)\acc 
+Inoltre la mappe lineari prevedono anche un operazione di \textbf{composizione}, se \(f\) e \(g\) sono due mappe 
+lineari, allora anche \(g\circ f\) è lineare.$$g(f(x+y))=g(f(x)+f(y))=g(f(x))+g(f(y))$$
+$$g((f(\lambda x)))=g(\lambda f(x))=\lambda g(f(x))$$
+Quindi definiamo una nuova operazione \((f,g)\rightarrow g\circ f\), che ad ogni coppia di mappe lineare, associa la loro 
+composizione, ne seguono le seguenti proprietà :\begin{enumerate}
+    \item \((f+f')\circ g=f\circ g+f'\circ g\)
+    \item \((\lambda f)\circ g = \lambda(f\circ g)\)
+    \item \(f\circ (g+g')=f\circ g+f\circ g'\)
+    \item \(f\circ (\lambda g)=\lambda(f\circ g)\)
+\end{enumerate}
+Verifica della la proprietà 1. $$((f+f')\circ g)(x)=(f+f')(g(x))=f(g(x))+f'(g(x))=(f\circ g)(x)+(f'\circ g)(x)
+=(f\circ g+g'\circ g)(x)$$
+Consideriamo adesso un caso particolare degli omomorfismi lineari, ossia quelli delle mappe 
+da \(V\) in \(V\) : \(\hom(V,V)\), si denota con \(\End(V)\) ed è detto insieme degli \textbf{endomorfismi lineari}. Anche 
+esso è ovviamente uno spazio vettoriale, ma con l'aggiunta dell'operazione di composizione, tenendo conto 
+delle proprietà appena esposte, esso assume 
+una struttura di \textit{anello unitario non commutativo} \ref{ringDef}. L'unità, è la mappa identità, denotata 
+ \(Id\).\acc 
+ Sorge naturali porsi il quesito, di quali siano gli elementi \textit{invertibili} di \(\End(V)\), diamo prima una definizione.\acc 
+ \textbf{Definizione} : Un omomorfismo lineare biunivoco, è detto \textit{isomorfismo}.\acc 
+ In una proposizione precedente abbiamo enunciato e dimostrato che, un omomorfismo lineare biunivoco, che ora chiameremo 
+ isomorfismo lineare, vede la sua funzione inversa essere ancora lineare. Ciò, fa giungere alla naturale conclusione che, 
+ se \(\End(V)\) è l'anello degli omomorfismi lineari, i suoi invertibili sono proprio gli isomorfismi.
+ $$\mathcal{U}(\End(V))=\{f:V\rightarrow V| f\text{ Isomorfismo}\}$$
+ Tornando allo spazio \(\hom(V,W)\), fino ad'ora, non si è parlato di correlazione fra le dimensioni di quest'ultimo 
+ e quelle di \(V\) e \(W\). Vedremo che se questi due spazi hanno dimensione finita, allora 
+ anche \(\hom(V,W)\) avrà dimensione finita. So che un applicazione lineare è completamente determinata 
+ dalle immagini che ha sui generatori dello spazio di partenza, di fatto, siano 
+ \(\ve_1,\ve_2\dots,\ve_k\) una base di \(V\), tale che \(\dim(V)=k\), l'applicazione \(\phi:\hom(V,W)\rightarrow W\times W\dots \times W\) che associa 
+ ad ogni mappa lineare le immagini che ha sulla base, è biettiva.$$\phi(f)=f(\ve_1),f(\ve_2)\dots,f(\ve_k)$$
+ Ne deduciamo che \(\dim(\hom(V,W))\le\dim(W\times W\dots\times W)\le k\cdot \dim(W)\). Ne segue che 
+ $$\dim(\hom(V,W))=\dim(V)\cdot \dim(W)$$\acc 
+ \textbf{Lemma} : Per il teorema della dimensione \ref{teoDim}, sappiamo che \(f\) è un isomorfismo se e solo se \(f\) è iniettiva 
+ (quindi \(Kerf=\{\bar 0\}\)) se e solo se \(f\) è suriettiva (quindi \(Im(f)=W\)) se e solo se \(\dim(W)=\dim(V)\).\acc 
+ Ciò si ricollega al fatto che, essendo che \(\End(V)\) è un anello, ha elementi invertibili, ossia ha isomorfismi, e ciò 
+ è possibili perché \(\End(V)=\hom(V,V)\implies \dim(V)=\dim(V)\).
+ \subsubsection{Dizionario Mappe-Matrici}
+Abbiamo parlato di spazio degli omomorfismi lineari, consideriamo adesso \(\hom(\R^n,\R^m)\), ossia l'insieme 
+delle applicazioni lineari \(f:\R^n\rightarrow \R^m\). Sappiamo che un applicazione lineare è determinata da come si comporta 
+sui generatori, consideriamo quindi la base canonica : $$
+f\Big(\begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}\Big)=f\Big(x_1\bar e_1+x_2\bar e_2\dots+x_n\bar e_n\Big)
+=f\Big(\begin{bmatrix}
+    x_1\\0\\.\\0
+\end{bmatrix}+\begin{bmatrix}
+    0\\x_2\\.\\0
+\end{bmatrix}\dots +\begin{bmatrix}
+    0\\0\\.\\x_n
+\end{bmatrix}\Big)
+=\begin{bmatrix}             
+    \hphantom{}&\hphantom{}&\hphantom{}\\
+    f(\bar e_1)&\dots&f(\bar e_n)\\
+    \hphantom{}&\hphantom{}&\hphantom{}
+\end{bmatrix}\cdot \begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}$$
+Quindi, \(f(\bar x)\) equivale a moltiplicare il vettore \(\bar x\) per la matrice, le quali colonne 
+sono le immagini di \(f\) sui vettori della base canonica dello spazio di partenza. Si nota subito come 
+tale matrice, abbia un numero di colonne pari alla dimensione dello spazio di partenza \(\R^n\), ed un numero 
+di righe pari alla dimensione dello spazio di arrivo \(\R^m\). \acc Possiamo quindi vedere 
+\(\hom(\R^n,\R^m)\) come lo spazio delle matrici \(M_{m\times n}(\R)\). L'operazione di somma fra due 
+applicazioni lineari, diventa la somma fra due matrici, che equivale semplicemente a sommare le due matrici 
+componente per componente : \((A+B)_{i_j}=A_{i_j}+B_{i_j}\).\acc 
+Moltiplicare una matrice \(A\) per un vettore \(\bar x\), da come risultato un vettore \(\bar y\), dove ogni coordinata \(y_j\) è equivalente 
+al prodotto fra la riga \(A_j\) e \(\bar x\). \acc 
+\textit{Esempio :}\begin{equation}
+    \begin{bmatrix}
+    1&2&3\\4&5&6\\7&8&9    
+    \end{bmatrix}\cdot\begin{bmatrix}
+        1\\1\\1
+    \end{bmatrix}=\begin{bmatrix}
+        v_1\\v_2\\v_3
+    \end{bmatrix}
+\end{equation}
+Dove \begin{equation}
+    v_1 = [1\spaz2\spaz 3]\cdot \begin{bmatrix}
+        1\\1\\1
+    \end{bmatrix}=6 \spaz v_2 = [4\spaz 5\spaz 6]\cdot \begin{bmatrix}
+        1\\1\\1
+    \end{bmatrix}=15\spaz v_3 = [7 \spaz8 \spaz9]\cdot \begin{bmatrix}
+        1\\1\\1
+    \end{bmatrix}=24
+\end{equation}
+Il risultato di tale prodotto è quindi \(\begin{bmatrix}6\\15\\24\end{bmatrix}\). Conoscendo ora come si comporta un 
+applicazione \(f\) sui generatori dello spazio di partenza, possiamo definirne la matrice associata, che verrà indicata 
+con \(A_f\) (si ricordi che \(\bar e_i\) sono i vettori della base canonica).
+$$\hom(\R^n,\R^m)\rightarrow M_{m\times n}(\R)\text{ tale che }f\rightarrow\begin{bmatrix}             
+    \hphantom{}&\hphantom{}&\hphantom{}\\
+    f(\bar e_1)&\dots&f(\bar e_n)\\
+    \hphantom{}&\hphantom{}&\hphantom{}
+\end{bmatrix}=A_f$$
+E data una matrice \(A\) posso definire la sua conseguente applicazione lineare, denotata \(f_A\) :
+$$
+f_A\Big(\begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}\Big)=A\cdot \begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}=x_1A^1+x_2A^2\dots x_nA^n
+$$
+In precedenza, abbiamo denotat quest'applicazione \(L_A\).
+\subsubsection{Prodotto tra Matrici}
+In questo capitolo, prima di parlare di correlazione diretta tra matrici ed applicazioni lineari, abbiamo astratto il concetto 
+parlando dello spazio \(\hom(V,W)\), definendo delle operazioni di somma e prodotto, e dimostrandone la linearità.\acc Abbiamo visto 
+come \(M_{m\times n}(\R)\) è uno spazio vettoriale del tipo \(\hom(\R^n,\R^m)\), in quanto rappresenta delle applicazioni 
+lineari. Sappiamo però, che esiste fra le applicazioni un operazione di composizione, se le matrici sono applicazioni, vuol 
+dire che \textbf{deve esistere un operazione fra due matrici, che ne associa la matrice rappresentate l'applicazione composta}, 
+tale operazione, è detta prodotto fra matrici.\acc 
+Prima di presentare il prodotto fra matrici, proviamo a "srotolarne" la definizione, con un procedimento simile a quello 
+adoperato per mostrare il prodotto matrice per vettore. Se la composizione fra due applicazioni è un applicazione, il 
+prodotto fra matrici risulterà in una nuova matrice :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.3\textwidth ]{images/comp.eps}
+    }\end{figure}\\
+La matrice risultante sarà un applicazione da \(\R^n\) ad \(\R^p\), avrà quindi \(p\) righe ed \(n\) colonne. Applichiamo la 
+definizione, siano \(f:\R^n\rightarrow \R^m\) e  \(g:\R^m\rightarrow \R^p\) : 
+$$
+(g\circ f)\Big(\begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}\Big)=\begin{bmatrix}             
+    \hphantom{}&\hphantom{}&\hphantom{}\\
+    g(f(\bar e_1))&\dots&g(f(\bar e_n))\\
+    \hphantom{}&\hphantom{}&\hphantom{}
+\end{bmatrix}\cdot \begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}=
+$$
+Denotiamo con \(\bar u_i\) i vettori della base canonica di \(\R^m\), ho che :$$
+g(f(\bar e_j))=\begin{bmatrix}             
+    \hphantom{}&\hphantom{}&\hphantom{}\\
+    g(\bar u_1)&\dots&g(\bar u_m)\\
+    \hphantom{}&\hphantom{}&\hphantom{}
+\end{bmatrix}\cdot \begin{bmatrix}
+    \hphantom{}\\f(\bar e_j)\\ \hphantom{}
+\end{bmatrix}\text{ (prodotto matrice-vettore)}
+$$
+Ne consegue che :$$
+\implies (g\circ f)\Big(\begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}\Big)=\begin{bmatrix}             
+    \hphantom{}&\hphantom{}&\hphantom{}\\
+    
+    \begin{bmatrix}             
+        \hphantom{}&\hphantom{}&\hphantom{}\\
+        g(\bar u_1)&\dots&g(\bar u_m)\\
+        \hphantom{}&\hphantom{}&\hphantom{}
+    \end{bmatrix}\cdot \begin{bmatrix}
+        \hphantom{}\\f(\bar e_1)\\ \hphantom{}
+    \end{bmatrix}
+    &\dots&
+    \begin{bmatrix}             
+        \hphantom{}&\hphantom{}&\hphantom{}\\
+        g(\bar u_1)&\dots&g(\bar u_m)\\
+        \hphantom{}&\hphantom{}&\hphantom{}
+    \end{bmatrix}\cdot \begin{bmatrix}
+        \hphantom{}\\f(\bar e_n)\\ \hphantom{}
+    \end{bmatrix}\\
+    \hphantom{}&\hphantom{}&\hphantom{}
+\end{bmatrix}\cdot \begin{bmatrix}
+    x_1\\x_2\\.\\x_n
+\end{bmatrix}
+$$
+È quindi in questo modo definito il prodotto fra due matrici, che da come risultato una nuova matrice rappresentate 
+la composizione di applicazioni.$$\hom(\R^n,\R^m)\times \hom(\R^m,\R^p)\rightarrow \hom(\R^n,\R^p)$$ 
+$$(f,g)\rightarrow g\circ f$$
+$$M_{m\times n}(\R)\times M_{p\times m}(\R)\rightarrow M_{p \times n}(\R)$$
+Ma come si calcola in maniera iterativa ed algoritmica il prodotto fra matrici? Siano \(A\in M_{m\times n}(\R)\)
+e \(B\in  M_{p\times m}(\R)\), sapremo che \(A\cdot B \in M_{p \times n}(\R)\), precisamente, ogni elemento 
+di \(A\cdot B\) sarà definito nel seguente modo :$$(A\cdot B)_{i_j}=B_i\cdot A^j$$
+Ossia l'elemento alla \(i\)-esima riga e \(j\)-esima colonna di \(A\cdot B\) sarà uguale al prodotto fra l'\(i\)-esima riga 
+di \(B\) e la \(j\)-esima colonna di \(A\).\acc 
+\textit{Esempio} : 
 \end{document}
