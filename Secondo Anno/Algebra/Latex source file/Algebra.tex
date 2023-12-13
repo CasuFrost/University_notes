@@ -3204,7 +3204,7 @@ lineari}, e come si può intuire dal nome, ha una naturale struttura di spazio v
 $$f,g\in\hom(V,W),\text{\hphantom{text}}(f+g)(x)=f(x)+g(x)$$$$(\lambda\cdot f)(x)=\lambda\cdot f(x)$$
 \textbf{Proposizione} : Se \(f:V\rightarrow W\) è un applicazione lineare \textit{biunivoca}, lo è anche la sua inversa.\acc 
 \textbf{Dimostrazione} : Essendo \(f\) biunivoca esistono unici \(a,b\in V|f(a)=x\land f(b)=y\implies 
-f^{-1}(x+y)=f^{-1}(f(a)+f(b))\) ma \(f\) è lineare \(\implies f^{-1}(f(a+b))=a+b=f^{-1}(a)+f^{-1}(b)\). \(\blacksquare\)\acc 
+f^{-1}(x+y)=f^{-1}(f(a)+f(b))\) ma \(f\) è lineare \(\implies f^{-1}(f(a+b))=a+b=f^{-1}(x)+f^{-1}(y)\). \(\blacksquare\)\acc 
 Inoltre la mappe lineari prevedono anche un operazione di \textbf{composizione}, se \(f\) e \(g\) sono due mappe 
 lineari, allora anche \(g\circ f\) è lineare.$$g(f(x+y))=g(f(x)+f(y))=g(f(x))+g(f(y))$$
 $$g((f(\lambda x)))=g(\lambda f(x))=\lambda g(f(x))$$
@@ -3378,4 +3378,62 @@ di \(A\cdot B\) sarà definito nel seguente modo :$$(A\cdot B)_{i_j}=B_i\cdot A^
 Ossia l'elemento alla \(i\)-esima riga e \(j\)-esima colonna di \(A\cdot B\) sarà uguale al prodotto fra l'\(i\)-esima riga 
 di \(B\) e la \(j\)-esima colonna di \(A\).\acc 
 \textit{Esempio} : 
+\begin{equation}
+    \begin{bmatrix}
+        0&1\\1&0\\2&2
+    \end{bmatrix}\cdot \begin{bmatrix}
+        1&1\\0&1
+    \end{bmatrix}=\begin{bmatrix}
+        \begin{bmatrix}
+            0&1\\1&0\\2&2
+        \end{bmatrix}\cdot \begin{bmatrix}
+            1\\0
+    \end{bmatrix}\hphantom{text}
+    \begin{bmatrix}
+        0&1\\1&0\\2&2
+    \end{bmatrix}\cdot \begin{bmatrix}
+        1\\1
+    \end{bmatrix}
+\end{bmatrix}=\begin{bmatrix}
+    0&1\\1&1\\2&4
+\end{bmatrix}
+\end{equation}
+Per le matrici, valgono le stesse proprietà viste per il caso generale, siano \(A,B,C\in M_{m\times n}(\R)\) : \begin{enumerate}
+    \item \((A\cdot B)\cdot C=A\cdot(B\cdot C)\)
+    \item \(A\cdot(B+C)=A\cdot B+A\cdot C\)
+    \item \(B\cdot(A+C)=B\cdot A+B\cdot C\)
+    \item \((\lambda A)\cdot B =A\cdot(\lambda B)=\lambda(A\cdot B)\)
+    \item \(A\cdot Id=A=Id\cdot A\)
+    \item \(A\cdot 0=0\) dove \(0\) è la matrice con tutti zeri.
+    \item \(\text{\hphantom{}}^t(A\cdot B)=\text{\hphantom{}}^tA+\text{\hphantom{}}^tB\)
+\end{enumerate}
+La matrice identità \(Id\), è la matrice che ha tutti 1 sulla diagonale principale, e 0 altrove : \(i\ne j\implies (Id)_{i_j}=0
+\land i= j\implies (Id)_{i_j}=1\).\acc 
+Abbiamo parlato di elementi invertibili nell'anello degli omomorfismi lineari, affermando che essi sono gli isomorfismi,
+riguardo le matrici quadrate si ha il seguente.\acc 
+\textbf{Lemma} : Una matrice quadrata \(A\in M_{n\times n}(\R)\), che identificherebbe l'anello degli 
+endomorfismi \(\End(\R^n)\), è invertibile \textit{se e solo se} le colonne di \(A\) sono linearmente indipendenti (\(Kerf_A=\{\bar 0\}\)), 
+ossia, le colonne di \(A\) sono un insieme di generatori per \(\R^n\).\acc 
+Ma come si calcola l'inversa di una matrice? Per il caso \(2\times 2\), essite una formula chiusa :
+$$
+\begin{bmatrix}
+    a&b\\c&d
+\end{bmatrix}^{-1}=\dfrac{1}{ad-bc}\begin{bmatrix}
+    d&-b\\-c&a
+\end{bmatrix}
+$$
+\textit{Verifica} : 
+$$
+\begin{bmatrix}
+    a&b\\c&d
+\end{bmatrix}\cdot \dfrac{1}{ad-bc}\begin{bmatrix}
+    d&-b\\-c&a
+\end{bmatrix}=\dfrac{1}{ad-bc}\begin{bmatrix}
+    da-bc&0\\0&ad-bc
+\end{bmatrix}=\dfrac{ad-bc}{ad-bc}\begin{bmatrix}
+    1&0\\0&1
+\end{bmatrix}=\begin{bmatrix}
+    1&0\\0&1
+\end{bmatrix}=Id
+$$
 \end{document}
