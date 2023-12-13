@@ -12,6 +12,8 @@
 \newcommand{\N}{{\mathbb N}}
 \newcommand{\Sn}{{\mathcal S_n}}
 \newcommand{\An}{{\mathcal A_n}}
+\newcommand{\E}{{\mathcal E}}
+\newcommand{\B}{{\mathcal B}}
 \newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
 \newcommand{\mcm}{{\text{mcm}}}
 \newcommand{\rg}{{\text{rg}}}
@@ -1715,7 +1717,7 @@ I teoremi di isomorfismo sono 3, vediamone il primo :
 \end{figure}
 \\Risulta che \(F(aKerf)=f(a),\text{ }\forall a\in G\), Inoltre,
 tale \(F\) mantiene le operazioni :\begin{center} \(F(aKerf*bKerf)=F(abKerf)=f(ab)=f(a)f(b)=F(aKerf)F(bKerf)\)\end{center}
-\subsection{Gruppi Simmetrici}
+\subsection{Gruppi Simmetrici}\label{gruppSim}
 \subsubsection{Definizione, Trasposizioni e \(k\)-cicli}
 Riprendiamo la definizione di gruppo simmetrico che abbiamo già dato nel capitolo \ref{Sim1}, limitandola 
 però agli insiemi finiti. Denotiamo con \(\Sn\), il gruppo di cui gli elementi sono 
@@ -2063,7 +2065,7 @@ qualsiasi matrice simmetrica \(2\times 2\) è della forma :\begin{center}\(
         c&b 
     \end{bmatrix}
 \)\end{center}
-\subsection{Metodo di Gauss}
+\subsection{Metodo di Gauss}\label{metGauss}
 Esiste un semplice metodo per trovare la soluzione (o soluzioni) di un sistema di equazioni lineari, in questo 
 paragrafo, ci ristringeremo al caso in cui il numero di equazioni è uguale al numero di incognite. Diamo prima un importante definizione.
 \acc\textbf{Definizione di Sistemi Equivalenti}: Siano \(A\bar x = \bar b\) e \(A'\bar x = \bar b'\) due sistemi di equazioni 
@@ -3436,4 +3438,165 @@ $$
     1&0\\0&1
 \end{bmatrix}=Id
 $$
+\subsection{Determinante di una Matrice Quadrata}\label{det}
+Sia \(M_{n\times n}(\R)\) lo spazio vettoriale delle matrici 
+\(n\times n\) sul campo \(\R\) (o qualsiasi altro campo), il \textbf{determinante} è un applicazione :
+$$\det:M_{n\times n}(\R)\rightarrow\R$$
+Definito in tal modo, sia \(A\in M_{n\times n}(\R)\) :$$\det(A):=
+\sum_{p\in \Sn}(-1)^{\sigma(p)}\prod_{k=1}^{n} a_{k_{p(k)}}=
+\sum_{p\in \Sn}(-1)^{\sigma(p)}a_{1_{p(1)}}\cdot
+a_{2_{p(2)}}\dots \cdot a_{n_{p(n)}}$$
+Dove \(\sigma(p)\), è la funzione che associa ad ogni permutazione \(p\), il numero di trasposizioni 
+che compongono \(p\), e \(a_{i_j}\) è l'elemento all'\(i\)-esima riga e \(j\)-esima 
+colonna di \(A\). È consigliato ripassare il capitolo sui gruppi simmetrici \ref{gruppSim}.  \acc 
+Vediamo un esempio, con le formule per calcolare il determinante di matrici \(2\times 2\) e \(3\times 3\):$$
+    \textbf{Caso }2\times2\spaz:\spaz A=\begin{bmatrix}
+        a_{1_1}&a_{1_2}\\a_{2_1}&a_{2_2}
+    \end{bmatrix},\spaz\mathcal{S}_2=\{Id,(1\spaz2)\}\implies \det(A)=a_{1_1}a_{2_2}-a_{1_2}a_{2_1} 
+$$
+$$\textbf{Caso }3\times3\spaz:\spaz
+A=\begin{bmatrix}
+    a_{1_1}&a_{1_2}&a_{1_3}
+    \\a_{2_1}&a_{2_2}&a_{2_3}\\
+    a_{3_1}&a_{3_2}&a_{3_3}
+\end{bmatrix},\spaz\mathcal{S}_3=\{Id,(1\spaz2),(1\spaz3),(2\spaz3),(1\spaz2\spaz3),(1\spaz3\spaz2)\}
+$$$$
+\implies \det(A)=a_{1_1}a_{2_2}a_{3_3} - a_{1_1}a_{2_3}a_{3_2} +a_{1_2}a_{2_3}a_{3_1}-a_{1_2}a_{2_1}a_{3_3}+
+a_{1_3}a_{2_1}a_{3_2}-a_{1_3}a_{2_2}a_{3_1}
+$$
+Vediamo le 4 \textbf{proprietà fondamentali} che caratterizzano il determinante. Si pensi al determinante di una matrice \(A
+\in M_{n\times n}(\R)\), come una funzione che ha come parametri le righe di \(A\) : \(\det(A)=\det(A_1,A_2\dots,A_n)\).\begin{enumerate}
+    \item \(\exists i\ne j\in \{1,2\dots,n\}|A_i=A_j\implies\det(A_1,A_2\dots,A_n)=0\) Se una matrice ha 2 righe identiche, 
+    il suo determinante è lo zero.
+    \item \(\det(A_1,A_2\dots,\lambda \cdot A_i\dots,A_n)=\lambda \cdot\det(A_1,A_2\dots, A_i\dots,A_n)\) \(\forall \lambda \in \R\).
+    \item \(\det(A_1,A_2\dots, \ve_1+\ve_2\dots,A_n)=\det(A_1,A_2\dots, \ve_1\dots,A_n)+\det(A_1,A_2\dots, \ve_2\dots,A_n)\) 
+    dove \(\ve_1,\ve_2\) sono elementi di \(\R^n\), ricordando che le righe di una matrice \(n\times n\) sono elementi di \(\R^n\).
+    \item \(\det(Id)=1\) il determinante della matrice identità è 1. 
+\end{enumerate}
+Da queste, seguono altre 4 ulteriori proprietà :\begin{itemize}
+    \item (i) - \(\det(A_1,A_2\dots,\bar 0\dots,A_n)=0\) Se in \(A\) vi è una riga di tutti zeri, il suo determinate è zero.
+    \item (ii) - \(\det(A_1,A_2\dots, A_i\dots,A_j\dots,A_n)=\det(A_1,A_2\dots, A_i+\lambda\cdot A_j\dots,A_j\dots,A_n)\) questo 
+    rimanda al lemma fondamentale sulla quale si basa il metodo di Gauss \ref{metGauss}.
+    \item (iii) - \(\det(A_1,A_2\dots, A_i\dots,A_j\dots,A_n)=(-1)\cdot\det(A_1,A_2\dots, A_j\dots,A_i\dots,A_n)\)
+    \item (iv) - Se \(A\) è una matrice, ed \(S\) è una matrice triangolare ottenuta riducendo \(A\) con il metodo 
+    di Gauss, dalle (ii) e (iii) ne segue che \(\det(A)=(-1)^k\det(S)\), dove \(k\) è il numero di scambi di righe 
+    applicati durante il metodo di Gauss.
+\end{itemize}
+Quest'ultima proprietà ci garantisce che per calcolare il determinante di una matrice, è possibile ridurla ad una 
+matrice triangolare, e calcolarne il determinante, che vedremo essere molto meno laborioso.
+\subsubsection{Calcolo del Determinante}
+\textbf{Teorema (unicità del determinante)} : Sia \(\tilde\det:M_{n\times n}(\R)\rightarrow \R\) una funzione che gode delle 
+proprietà 1,2,3 e 4 prima elencate, allora \(\tilde \det =\det \). La funzione determinante è unica.\acc
+Vogliamo adesso introdurre un metodo volto al calcolo del determinante, ma prima è necessaria la seguente informazione.\acc 
+\textbf{Definizione }: Sia \(A\) una matrice \(n\times n\), e sia \(a_{i_j}\) l'elemento all'\(i\)-esima riga e \(j\)-esima 
+colonna di \(A\), definiamo il \textit{complemento algebrico} di \(a_{i_j}\), e denotiamo \(A_{(i,j)}\),
+ la matrice \((n-1)\times(n-1)\) ottenuta 
+rimuovendo da \(A\) la \(i\)-esima riga e la \(j\)-esima colonna, ad esempio :
+\begin{center}
+    \(A=\begin{bmatrix}
+        1&3&1\\4&7&2\\2&9&0
+    \end{bmatrix}\)\hphantom{aaaaa} \(A_{(2,2)}=\begin{bmatrix}
+        1&1\\2&0
+    \end{bmatrix}\)
+\end{center}
+\textbf{Teorema (Sviluppo di Laplace)} : Sia \(A\in M_{n\times n}(\R)\) e \(i\in\{1,2\dots,n\}\), si ha che :
+$$
+\det(A)=\sum_{k=1}^n(-1)^{i+k}\cdot a_{i_k}\cdot\det(A_{(i,k)})
+$$
+Scritto in forma estesa : 
+$$
+\det(A)=(-1)^{i+1}\cdot a_{i_1}\cdot\det(A_{(i,1)})+(-1)^{i+2}\cdot a_{i_2}\cdot\det(A_{(i,2)})
+\dots +(-1)^{i+n}\cdot a_{i_n}\cdot\det(A_{(i,n)})
+$$
+Questo teorema risulta estremamente efficiente in quanto \(i\) può essere un qualsiasi numero da 1 ad \(n\), ciò significa 
+che si può sviluppare la formula a partire da qualsiasi riga della matrice, ma il risultato sarà sempre lo stesso. Tale 
+sviluppo, si può applicare anche ad una qualsiasi colonna, de facto, sia \(l\in\{1,2\dots,n\}\), si ha che :
+$$
+\det(A)=\sum_{k=1}^n(-1)^{l+k}\cdot a_{k_l}\cdot\det(A_{(k,l)})
+$$
+Può risultare poco chiaro, per questo vediamo un \textit{esempio} di applicazione : \begin{equation}
+    A=\begin{bmatrix}
+        0&1&0&0\\
+        0&0&-1&3\\
+        2&1&1&4\\
+        0&2&3&-1
+    \end{bmatrix}
+\end{equation}
+Decido di selezionare la prima riga per lo sviluppo, avrò quindi \(i=1\) : \begin{center}\(
+    \det(A)=(-1)^{1+1}\cdot 0 \cdot \det\Big(\begin{bmatrix}0&-1&3\\1&1&4\\2&3&-1\end{bmatrix}\Big)+
+    (-1)^{1+2}\cdot 1 \cdot \det\Big(\begin{bmatrix}0&-1&3\\2&1&4\\0&3&-1\end{bmatrix}\Big)+\)\\\(
+    (-1)^{1+3}\cdot 0 \cdot \det\Big(\begin{bmatrix}0&0&3\\2&1&4\\0&2&-1\end{bmatrix}\Big)+
+    (-1)^{1+4}\cdot 0 \cdot \det\Big(\begin{bmatrix}0&0&-1\\2&1&1\\0&2&3\end{bmatrix}\Big)\)
+\end{center}
+Attenzione, avrò per lo sviluppo 4 termini, ognuno di essi, avrà moltiplicato un elemento 
+sulla \(i\)-esima riga, che in questo caso è zero, ciò suggerisce, che conviene selezionare 
+una riga (o eventualmente una colonna) che contenga il maggior numero di zeri, in modo da 
+annullare più termini possibili, di fatti si noti come nell'equazione appena scritta, rimane un solo termine :\begin{eqnarray}
+    \det(A)=(-1)^{3}\cdot 1 \cdot \det\Big(\begin{bmatrix}0&-1&3\\2&1&4\\0&3&-1\end{bmatrix}\Big)
+\end{eqnarray}
+A questo punto, per calcolare il determinante della matrice \(3\times 3\) rimasta, è possibile applicare nuovamente lo 
+sviluppo (selezionando la colonna 1, in quanto con maggior numero di zeri), oppure applicando la formula esplicita del 
+determinante per una  matrice \(3\times 3\) vista ad inizio capitolo \ref{det}.\acc 
+Nonostante lo sviluppo di Laplace sia un metodo chiaro, risulta essere molto laborioso, in quanto si devono sviluppare 
+più equazioni, e per matrici molto grandi, risulta richiedere troppo tempo. Qui entra in gioco un importante nozione.\acc 
+\textbf{Proposizione (fondamentale)} : Sia \(S\) una \textit{matrice triangolare} superiore \(n\times n\), e \(\alpha_{i_j}\) l'elemento all'\(i\)-esima riga e \(j\)-esima 
+colonna di \(S\), si ha che :$$\det(S)=\prod_{k=1}^n\alpha_{k_k}$$
+Ossia, il determinante di una matrice triangolare superiore, non è altro che il prodotto di tutti gli 
+elementi sulla diagonale principale. Ciò, fornisce un perfetto metodo di calcolo per il determinante, ricordando 
+la proprietà (iv) vista in precedenza, che annuncia che \(\det(A)=(-1)^k\det(S)\), si ha il seguente procedimento :\acc
+Si vuole calcolare il determinante di \(A\in M_{n\times n}(\R)\) :
+\begin{enumerate}
+    \item Si applica il metodo di Gauss ad \(A\), tenendo in conto il numero di scambi di righe che si fanno, che denominiamo 
+    \(k\), ottenendo quindi una matrice \(S\) triangolare equivalente alla matrice \(A\).
+    \item Sia \(d=p_1\cdot p_2\dots p_n\) il prodotto degli elementi sulla diagonale principale di \(S\).
+    \item Si ha che \(\det(A)=(-1)^k\cdot d\).
+\end{enumerate}
+\textbf{Corollario} : Sia \(A\) una matrice quadrata \(n\times n\), essa è \textit{non singolare} (ossia vale che \(\rg(A)=n\)) se 
+e soltanto se \(\det (A)\ne0\), in particolare, ne segue che \(KerA\ne\{\bar 0\}\) se e soltanto se \(\det(A)=0\), ricordando 
+il teorema della dimensione, si ha che \(\dim(KerA)>0\iff \rg(A)<n\), ne consegue che : \begin{center}\textit{\(A\) è invertibile se e solo 
+se \(\det(A)=0\)}.\end{center}
+\textbf{Teorema di Binet} : Siano \(A,B\in M_{n\times n}(\R)\), si ha che : $$\det(A\cdot B)=\det(A)\cdot\det(B)$$
+Per dimostrarlo, è necessario dimostrare che l'applicazione \(\tilde d(A)=\dfrac{\det(A\cdot B)}{\det(B)}\) gode 
+delle proprietà del determinante.
+\section{Autovalori, Autovettori e Diagonalizzabilità}
+Consideriamo dua spazi vettoriali \(V\) e \(W\), con \(\dim(V)=n\) e \(\dim(W)=m\), e sia \(T:V\rightarrow W\) 
+un applicazione lineare. Fissiamo : $$
+\mathcal{B}=\{\bar b_1,\bar b_2\dots,\bar b_n\}\spaz
+\mathcal{E}=\{\bar \varepsilon_1,\bar \varepsilon_2\dots,\bar \varepsilon_n\}
+$$
+Dove \(\mathcal{B}\) costituisce una base per \(V\) e \(\mathcal{E}\) costituisce una base per \(W\). Sorge spontaneo il 
+seguente quesito : Se \(\ve \in V\) ha coordinate \(\bar x\) nella base \(\mathcal{B}\), allora, \(T(\ve)\) che 
+coordinate ha nella base \(\mathcal{E}\)? Definiamo una matrice associata a \(T\) con questa scelta 
+di basi, denotata con \(M_{\E,\B}(T)\), che sarà la diretta risposta al quesito posto.\acc 
+Siano \(\bar x\) le coordinate di \(\bar v\) in \(\B\), ne consegue che :$$
+\bar v=x_1\bar b_1+x_2\bar b_2\dots+x_n\bar b_n
+$$Consideriamo \(T(\bar v)\), che ha coordinate \(\bar y\) in \(\E\), si avrà che : $$
+T(\ve)=T(x_1\bar b_1+x_2\bar b_2\dots+x_n\bar b_n)=\textbf{ per linearità }=x_1T(\bar b_1)+x_2T(\bar b_2)\dots + x_nT(\bar b_n)
+$$
+Sappiamo che \(T(\bar b_i)\) è un elemento di \(W\), sarà quindi 
+ \(T(\bar b_i)=a_{1_i}\bar\varepsilon_1+a_{2_i}\bar\varepsilon_2\dots +a_{m_i}\bar\varepsilon_m\), ne segue :$$
+T(\ve)=x_1(a_{1_1}\bar\varepsilon_1+a_{2_1}\bar\varepsilon_2\dots +a_{m_1}\bar\varepsilon_m)+
+x_1(a_{1_2}\bar\varepsilon_1+a_{2_2}\bar\varepsilon_2\dots +a_{m_2}\bar\varepsilon_m)\dots+
+x_n(a_{1_n}\bar\varepsilon_1+a_{2_n}\bar\varepsilon_2\dots +a_{m_n}\bar\varepsilon_m)
+ $$$$
+ =(a_{1_1}x_1+\dots a_{1_n}x_n)\bar\varepsilon_1+\dots +(a_{m_1}x_1+\dots a_{m_n}x_n)\bar\varepsilon_m=
+ y_1\bar\varepsilon_1+\dots+y_m\bar\varepsilon_m=T(\bar v)
+ $$
+ Ma da questo, risulta chiaro che : $$
+ \bar y=\begin{bmatrix}y_1\\y_2\\.\\y_m\end{bmatrix}=
+ \begin{bmatrix}a_{1_1}x_1+\dots +a_{1_n}x_n\\a_{2_1}x_1+\dots +a_{2_n}x_n\\.\\a_{m_1}x_1+\dots+ a_{m_n}x_n\end{bmatrix}
+ $$
+ Quest'ultimo elemento è proprio il prodotto di una matrice per il vettore delle coordinate di \(\ve\) in \(\B\), 
+ questa matrice ha le seguenti componenti : $$
+ M_{\E,\B}(T)=\begin{bmatrix}
+    a_{1_1}&a_{1_2}&\dots&a_{1_n}\\
+    a_{2_1}&a_{2_2}&\dots&a_{2_n}\\
+    .&.&&.\\.&.&&.\\
+    a_{m_1}&a_{m_2}&\dots&a_{m_n}
+ \end{bmatrix}
+ $$
+ Ricordando che gli elementi \(a_{i_j}\) sono le coordinate degli elementi immagine della base \(\B\) di \(V\).
+ Abbiamo denotato tale matrice \(M_{\E,\B}(T)\), e vale la seguente proposizione.\acc
+ \textbf{Proposizione} : Siano \(\bar x\) le coordinate di \(\ve\) in \(\B\), allora le coordinate di 
+ \(T(\ve)\) in \(\E\) sono il prodotto matrice per vettore \(\bar x\cdot M_{\E,\B}(T)\).
 \end{document}
