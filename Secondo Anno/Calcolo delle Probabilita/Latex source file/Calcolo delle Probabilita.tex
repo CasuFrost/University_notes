@@ -15,6 +15,7 @@
 \newcommand{\V}{{\mathbb V}}
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\Prob}{{\mathbb P}}
+\newcommand{\spaz}{{\text{\hphantom{aa}}}}
 \newcommand{\pspace}{\((\Omega,\Prob)\)}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \title{Calcolo delle Probabilità}
@@ -1627,4 +1628,53 @@ $$\lim_{n\rightarrow +\infty}\Prob(a\le \dfrac{S_n-\E(S_n)}{\sqrt{\V(S_n)}}\le b
 Tale teorema, estende ciò che diceva la legge dei grandi numeri, quando \(n\) tende ad infinito, 
 la somma di tali variabili aleatorie, in un intorno del valore atteso, convergerà perfettamente 
 alla funzione di densità della variabile aleatoria Gaussiana.
+\subsubsection{Verifica dell'Equità di una Moneta}
+Vediamo un caso di applicazione del teorema del limite centrale. Vi è una 
+moneta \textit{presunta equa}, bisogna effettuare un test statistico, per decretare se essa, è effettivamente 
+equa oppure no. Si effettuano 10000 lanci, e si osserva l'esito dell'esperimento. L'esito, vede 
+la moneta aver fatto testa per 5500 volte, e croce per 4500 volte.\acc  In base a questo dato, vogliamo 
+dare un decreto sull'equità, ci chiediamo se questa \textbf{fluttuazione} sia compatibile con il 
+fatto che la moneta sia equa. \(S_n\) è la variabile aleatoria binomiale che restituisce il numero di teste 
+nel lancio di una moneta equa, vogliamo calcolare \(\Prob(|S_n-\E(S_n)|\ge 500)=\Prob(|S_n-5000|\ge 500)\).
+Se la probabilità di tale evento è troppo piccola, esso sarà un chiaro segnale che la moneta non sia equa.\acc
+Utilizziamo la disuguaglianza di Chebysnev, che ricordiamo affermare che $$
+\Prob(|X-\E(X)|\ge\lambda)\le \dfrac{1}{\lambda^2}\cdot \V(X)  $$
+Ho quindi che :$$
+\Prob(|S_n-5000|\ge 500) \le \dfrac{1}{500^2}\cdot \V(S_n) \dfrac{1}{500^2}\cdot 10^4\dfrac{1}{4}=\dfrac{1}{100}$$
+So che la probabilità che escano 5500 teste, è minore di un centesimo, ma questo dato, non è abbastanza preciso, ci serve 
+un approssimazione più specifica. Possiamo calcolare analiticamente questa probabilità, facendo tendere 
+il numero di lanci verso infinito, come prima cosa noto che :$$
+\Prob(|S_n-\E(S_n)|\ge 500)=\Prob(\dfrac{|S_n-\E(S_n)|}{\sqrt{\V(S_n)}}\ge \dfrac{500}{\sqrt{\V(S_n)}})$$
+Considero quindi la nuova variabile aleatoria \(Z=\dfrac{|S_n-\E(S_n)|}{\sqrt{\V(S_n)}}\), e so che 
+se, per il teorema del limite centrale, se \(n\rightarrow +\infty\), allora \(Z\) tenderà ad essere 
+una variabile aleatoria Gaussiana \(\mathcal{N}(0,1)\). A questo punto, avrò che :
+$$\lim_{n\rightarrow +\infty}\Prob(|S_n-\E(S_n)|\ge 500)=\Prob(|Z|\ge 10)$$
+Conosciamo i valori della probabilità che una variabile Gaussiana rientri in un certo intervallo, 
+e consultando la tavola, vedremo che \(\Prob(|Z|\ge 10)\simeq e^{-100}\). È un risultato totalmente 
+irrisorio, e possiamo affermare con certezza che la moneta \textit{non} sia equa.
+\subsection{Simulazione di Variabili Aleatorie}
+Sia in matematica pura che nelle applicazioni, risulta estremamente utili poter simulare una variabile 
+aleatoria.\acc Consideriamo \(X\) la variabile aleatoria di Bernoulli di parametro \(p\), voglio 
+simulare tale variabile, utilizzando il generatore di numeri casuali, ossia la variabile aleatoria 
+uniforme \(U\) nell'intervallo reale \([0,1]\). In questa variabile, abbiamo tutta l'\textit{aleatorietà}
+necessaria per simulare \(X\), infatti, \(X\) può essere definita come : $$X=\begin{cases}
+    0\spaz\text{ se }\spaz 0\le U\le(1-p)\\
+    1\spaz\text{ se }\spaz (1-p)<U\le p
+\end{cases}\sim \text{V.A. di Bernoulli di parametro }p$$
+\textbf{Lemma} :Sia \(X\) una qualsiasi variabile aleatoria arbitraria, allora 
+esiste un applicazione \(\phi_X:[0,1]\rightarrow\R\) tale che \(X\sim\phi_X(U)\), dove \(U\) è la variabile aleatoria 
+uniforme nell'intervallo  reale \([0,1]\). 
+Il lemma, afferma che una qualsiasi variabile aleatoria può essere simulata con una variabile aleatoria uniforme. Bisogna 
+adesso capire, come trovare questa funzione \(\phi_X\).\acc 
+\textbf{Osservazione} : La funzione \(\phi_X\) è costruita esplicitamente a partire dalla variabile \(X\) da simulare. Essa 
+sarà la funzione inversa della distribuzione di \(X\).\acc 
+Sia \(X\) una variabile aleatoria arbitraria continua, e sia \(f_X\) la sua densità, sempre positiva. La funzione 
+distribuzione \(F_X\), sappiamo essere \(\int_{-\infty}^xf_X(t)dt\), essendo la sua derivata 
+sempre positiva, possiamo affermare che \(F_X\) sia una funzione monotona crescente, quindi \textit{biettiva}.$$
+F_X:(-\infty,+\infty)\rightarrow [0,1]\spaz\text{ pongo }\spaz\phi_X=F_X^{-1}\implies\phi_X(U)=X $$\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.5\textwidth ]{images/phi.eps}
+    }
+\end{figure}
+\newpage\textbf{Dimostrazione }:
 \end{document}
