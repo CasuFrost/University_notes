@@ -1676,5 +1676,11 @@ F_X:(-\infty,+\infty)\rightarrow [0,1]\spaz\text{ pongo }\spaz\phi_X=F_X^{-1}\im
     \includegraphics[width=0.5\textwidth ]{images/phi.eps}
     }
 \end{figure}
-\newpage\textbf{Dimostrazione }:
+\newpage\textbf{Dimostrazione }: Basta verificare che la funzione di distribuzione di \(\phi_X(U)\) sia uguale a quella 
+di \(X\), ossia \(F_X\).$$
+    \forall x\in \R\spaz\Prob(\phi(X)\le x)=\Prob(F_X^{-1}(U)\le x)=\text{ essendo }F_X\text{ monotona crescente }=\Prob(U\le F_X(x))
+$$
+$$
+\Prob(U\le F_X(x))=F_X(x)
+$$
 \end{document}
