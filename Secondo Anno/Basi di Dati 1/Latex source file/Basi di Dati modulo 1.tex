@@ -2116,7 +2116,7 @@ varie transazioni fanno un lock, segue un ordine identico a quello di uno schedu
 costruire un metodo algoritmico per testare la serializzabilità di uno schedule.
 \subsubsection{Grafo di Serializzazione}
 Dato uno schedule \(S\) di \(n\) transazioni, costruiamo un grafo \(G\) nel seguente modo : \begin{itemize}
-    \item I nodi di \(G\) sono le transazioni \(T_1,T_2\dots,T_n\) dello schedule \(S\).
+    \item I nodi di \(G\) sono le transazioni \(T_1,T_2\dots,T_n\) della schedule \(S\).
     \item Ci sarà un arco \(T_i\rightarrow_X T_j\) con etichetta \(X\) se la transazione \(T_i\) esegue un unlock sull'item 
      \(X\), e la transazione \(T_j\) esegue il successivo lock su \(X\).
 \end{itemize}
@@ -2189,8 +2189,8 @@ La concorrenza è maggiore in quanto più transazioni adesso possono accedere co
 La definizione di serializzabilità rimane invariata.
 \subsubsection{Nuovo Grafo di Serializzazione}
 In questo nuovo modello, il grafo \(G\) viene costruito in tal modo : \begin{itemize}
-    \item I nodi di \(G\) sono le transazioni \(T_1,T_2\dots,T_n\) dello schedule \(S\).
-    \item Ci sarà un arco \(T_i\rightarrow_X T_j\) con etichetta \(X\) in \(S\) se si verifica una delle due seguenti : \begin{itemize}
+    \item I nodi di \(G\) sono le transazioni \(T_1,T_2\dots,T_n\) della schedule \(S\).
+    \item Ci sarà un arco \(T_i\rightarrow_X T_j\) con etichetta \(X\) se in \(S\) se si verifica una delle due seguenti : \begin{itemize}
         \item \(T_i\) esegue un \code{rlock(X)} o \code{wlock(X)} e \(T_j\) è la transazione che esegue 
         la successiva \code{wlock(X)}.
         \item \(T_i\) esegue un \code{wlock(X)}, e \(T_j\) esegue la successiva \code{rlock(X)} prima che un altra transazione 
@@ -2208,4 +2208,61 @@ a due fasi implica ancora la serializzabilità di uno schedule.
     \includegraphics[width=0.75\textwidth ]{images/grafoNuovo.eps}
     }
 \end{figure}
+\subsection{Deadlock e Livelock}
+L'introduzione dei meccanismi di sincronizzazione come i lock è necessaria per poter stabilire dei protocolli, volti 
+a gestire in maniera corretta l'accesso concorrente su uno stesso item, nonostante essi prevengano gli errori tipici 
+precedentemente elencati, possono comportare ulteriori errori, dovuti proprio alla loro
+ natura intrinseca di "bloccare" le risorse. 
+ \subsubsection{Stallo delle Transazioni e Grafo di Attesa}
+ Con il termine \textbf{deadlock}, si definisce una situazione di \textit{stallo} in cui possono ricadere le transazioni, che 
+ comporta il blocco totale dell'esecuzione di una schedule. Si è in una situazione di deadlock quando, ogni transazione 
+ di una schedule in esecuzione è in attesa di un item per cui un altra transazione mantiene la lock. \acc Se ogni transazione 
+ è in attesa di un item per rilasciare il proprio, lo stallo sarà definitivo e l'esecuzione sarà interrotta. Esistono sia 
+ dei meccanisimi di \textit{risoluzione} di deadlock che di \textit{prevenzione}, è possibile sviluppare un metodo che verifichi 
+ la presenza o no di un deadlock in una schedule.
+\acc
+ Si costruisce il cosiddetto \textit{grafo di attesa} \(G_A\) per una schedule \(S\), definito nel seguente modo :\begin{itemize}
+    \item I nodi di \(G_A\) sono le transazioni \(T_1,T_2\dots,T_n\) della schedule \(S\). 
+    \item Ci sarà un arco \(T_i\rightarrow T_j\) se la transazione \(T_i\) è in attesa di ottenere un lock su un item 
+    bloccato e mantenuto da \(T_j\).
+ \end{itemize}
+ Dalla definizione del grafo, è intuibile come la presenza di un ciclo è segnale che si è in una situazione di deadlock.
+ Per ovviare a tale problema, per una delle transazioni presente nello stallo deve avvenire un \textbf{roll-back} (si approfondirà 
+ in seguito), 
+ ossia un operazione che prevede l'interruzione della transazione, il ripristino dei suoi effetti sulla base di dati, 
+ ed il rilascio di tutti i lock da essa mantenuti.\acc 
+ Piuttosto che prevenire un deadlock, è più opportuno considerare degli approcci \textit{preventivi}, uno di questi, 
+ prevede l'ordinamento degli item disponibili alla lettura/scrittura, per poi imporre alle transazioni di 
+ richiedere i lock su tali item seguendo l'ordine stabilito. Tale protocollo impedisce la creazione di cicli nel 
+ grafo di attesa.
+\subsubsection{Situazione di Starvation}
+Indichiamo con \textbf{livelock}, la condizione in cui può ricadere una transazione, in cui essa attende 
+indefinitamente il permesso di accesso ad un item senza che esso venga mai rilasciato, entrando in una 
+cosiddetta condizione di starvation.\acc Tale problema può essere facilmente 
+risolto, implementando la coda di attesa delle transazioni per una lock con una politica \textit{First-In-First-Out}, oppure 
+adoperando una \textit{coda prioritaria}, aumentando il grado di priorità di una transazione in base al tempo trascorso 
+nella coda, facendo ciò, tutte le transazioni prima o poi potranno acquisire la lock richiesta.
+\subsection{Roll-back e Punti di Commit}
+Abbiamo accennato già all'operazione di \textit{abort} di una transazione, essa può avvenire in diversi casi : \begin{enumerate}
+    \item La transazione esegue un operazione non corretta (ad esempio, divisione per zero).
+    \item Viene rilevato un deadlock. 
+    \item Si verifica un malfunzionamento hardware o software.
+\end{enumerate}
+Possiamo considerare i cosiddetti \textit{punti di commit}, un protocollo volto alla prevenzione, essi prevengono il causarsi 
+delle situazioni (1) e (2), in modo che non ci sia bisogno di eseguire roll-back.   \acc Definiamo con punto di commit, un 
+punto in cui una transazione ha ottenuto tutti i lock che gli sono necessari, ed ha effettuato i calcoli in locale.
+Ridefiniamo quindi con \textbf{dati sporchi}, i dati scritti da una transazione sulla base di dati prima che essa abbia 
+raggiunto un punto di commit.\acc 
+Un roll-back può essere costoso da applicare, in quanto abortendo una transazione \(T\), bisogna ripristinare la base di dati 
+nello stato in cui era prima che \(T\) operasse, e bisogna annullare gli effetti delle transazioni che hanno 
+utilizzato i dati "sporcati" da \(T\), creando un cossiddetto \textit{effetto a cascata}.
+\subsubsection{protocollo a due fasi stretto}
+Per ovviare al problema dei dati sporchi occorre considerare delle regole più restrittive rispetto a quelle 
+del protocollo a due fasi, introduciamo il \textbf{protocollo a due fasi stretto}, una transazione soddisfa tale 
+protocollo se :\begin{itemize}
+    \item Non scrive sulla base di dati fino a quando non ha
+    raggiunto il suo punto di commit.
+    \item Non rilascia un lock finchè non ha finito di scrivere sulla
+    base di dati.
+\end{itemize}
 \end{document}
