@@ -2013,5 +2013,199 @@ La ricerca sarà molto efficiente, nel caso peggiore si controllano tanti nodi q
 \begin{itemize}
     \item Caso migliore (altezza minimale) : \(h_{min}=\log_m(N+1)-1\)
     \item Caso peggiore (altezza massimale) : \(h_{max}=\log_d(\dfrac{N+1}{2})\)
+\end{itemize}\newpage
+\section{Controllo della Concorrenza}
+Nel DBSM, più utenti possono accedere allo stesso file, sappiamo che la CPU esegue un solo processo alla volta, quindi 
+più utente che faranno richiesta nello stesso momento saranno gestiti in maniera concorrente, ciò può essere radice di 
+svariati problemi, è quindi necessario che l'accesso concorrenziale sia controllato.\subsection{Schedule e Transazioni}
+Una \textbf{transazione} è una sequenza di istruzioni ordinate da eseguire in maniera atomica, ciò vuol 
+dire che le istruzioni non possono essere eseguite in modo parziale, o si completa l'intera transazione, o essa non viene 
+eseguita.\acc 
+Le transazioni devono essere:\begin{itemize} \item \textbf{Consistenti}, ossia devono avvenire su un istanza legale della base di dati, e dopo essere 
+operate, la base di dati deve trovarsi ancora in uno stato legale.\item  \textbf{Isolate} ed 
+indipendenti dalle altre transazioni. \item \textbf{Durabili}, nel senso che gli effetti di esse  devono essere 
+tangibili e non devono andare persi.\end{itemize} 
+Definiamo con il nome di \textbf{Schedule}, un certo insieme \(T\) di transazioni, le cui singole istruzioni sono ordinate
+in un certo modo, con il vincolo che, esse mantengano l'ordinamento per singola istruzione. Ad esempio, uno schedule 
+delle due transazioni \(T_1\) e \(T_2\) può vedere le istruzioni di esse ordinate in un qualsiasi modo, a patto che 
+le istruzioni di \(T_1\) e \(T_2\) siano ordinate fra loro rispetto l'ordinamento originale.$$T_1 = \{o_1,o_2,o_3,o_4\}$$
+$$T_2=\{i_1,i_2,i_3,i_4\}$$$$schedule(T_1,T_2)=\{o_1,i_1,i_2,o_2,i_3,o_3,i_4,o_4\} \text{ valido}$$
+$$schedule(T_1,T_2)=\{o_1,i_2,i_3,o_2,i_1,o_3,i_4,o_4\} \text{ non valido}$$
+Gli schedule \textbf{seriali} sono ottenuti \textit{permutando} le transazioni, senza interfogliarle fra loro. Un insieme 
+di \(n\) transazioni può comporre \(n!\) schedule seriali, ad esempio, i due possibili schedule seriali delle transazioni 
+\(T_1\) e \(T_2\) sono : 
+$$schedule(T_1,T_2)=\{i_1,i_2,i_3,i_4,o_1,o_2,o_3,o_4\}$$
+$$schedule(T_1,T_2)=\{o_1,o_2,o_3,o_4,i_1,i_2,i_3,i_4\}$$
+Gli schedule seriali sono importanti quando si parlerà di definire un corretto interfogliamento fra transazioni. Si noti come 
+uno schedule seriale, non vede una vera e propria concorrenza, dato che le transazioni sono semplicemente eseguite in maniera sequenziale. 
+Lo scopo principale sarà definire degli interfogliamenti fra transazioni di uno schedule, in modo che abbiano gli stessi 
+effetti di un possibile schedule seriale.
+\subsubsection{Errori sui Dati}
+Quando si interfogliano più transazioni in uno schedule, è possibile che esse leggano o scrivano sullo stesso 
+dato/ sulla stessa istanza, vediamo quali sono i 3 tipi di errori che possono causarsi da uno schedule non corretto. \acc
+Considereremo diversi schedule basati sulle  seguenti transazioni \(T_1\) e \(T_2\) e \(T_2'\):
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.65\textwidth ]{images/errori.eps}
+    }
+\end{figure}\\
+Siamo portati a dire che questi tre schedule sono \textbf{non corretti}, perchè gli effetti che hanno sulla base di dati, 
+non sono equivalenti agli effetti che avrebbe uno schedule seriale. Voglio assicurarmi che uno schedule interfogliato sia 
+equivalente ad uno schedule seriale, se ciò è vero, diremo che lo schedule è \textbf{serializzabile}.\acc Come possiamo però 
+definire due schedule equivalenti o meno? È necessaria una definizione :
+Diremo che due valori (ossia gli attributi modificati dalle transazioni) sono \textbf{uguali}, se e solo se sono il risultato 
+della stessa sequenza di operazioni.\acc 
+Diremo che due schedule di un insieme di transazioni sono \textbf{equivalenti}, se e solo se, per ogni dato da essi 
+modificato, producono valori \textit{uguali}. Definiremo quindi uno schedule \textit{corretto} o \textit{serializzabile}, se 
+esso è equivalente ad uno qualsiasi degli schedule seriali.
+\subsection{Protocolli e Lock a 2 Stati}
+Piuttosto che controllare se un certo schedule sia serializzabile (in quanto risulta essere un operazione dispendiosa), è 
+possibile introdurre dei protocolli per anticipare la possibile creazione di schedule non corretti. Creeremo gli schedule 
+seguendo dei protocolli che garantiscano la serializzabilità.\acc Definiamo con \textbf{item}, l'unità 
+il cui accesso concorrente è controllato. Negli esempi precedenti, le transazioni operavano su attributi come \(X\) o \(Y\), 
+le transazioni adesso opereranno sugli item, la cui dimensione è variabile, possono essere singoli attributi, tuple o anche 
+l'intera base di dati. Le dimensioni degli item sono definite in base all'uso. Se le dimensioni sono grandi, la gestione della 
+concorrenza è più efficiente, una dimensione piccola invece aumenta il livello di concorrenza, appesantendo però il carico 
+computazionale sul sistema.
+\subsubsection{Definizione di Lock}
+Il significato euristico di una \textbf{lock}, è quello di essere un \textit{privilegio} di accesso ad un singolo 
+\textit{item} X. L'implementazione avviene tramite una variabile booleana, è quindi necessario un singolo bit. Ad un certo 
+item X, è associata una lock, che può appunto assumere 2 stati, lo stato \textit{locked} (bloccato) ed 
+\textit{unlocked} (disponibile).\acc 
+Quando una transazione vuole fare un operazione su un certo item X, dovrà richiederne la lock, se essa è disponibile, 
+la transazione bloccherà l'item X, rendendolo locked, in modo tale che le altre transazioni non possano accedervi, de facto, 
+se una transazione vuol accedere ad un item locked, dovrà attendere che la transazione che ha in uso quell'item lo rilasci.\acc 
+Utilizzando le lock, evitiamo che due transazioni agiscano contemporaneamente sullo stesso dato cercando di modificarlo,
+le transazioni hanno ha disposizione le funzioni \code{lock(X)} e \code{unlock(X)}, ogni volta che una transazione 
+vuole leggere o scrivere su un item, ne deve richiedere l'accesso con il metodo \code{lock}, per poi rilasciarlo con il metodo \code{unlock} dopo 
+che ha terminato con l'utilizzo.\acc 
+Definiremo uno schedule \textbf{legale}, se ogni sua transazione effettua un lock prima di leggere/scrivere su un item,
+per poi rilasciare ogni lock ottenuto. L'utilizzo di tale protocollo \textit{risolve} totalmente il problema dell'aggiornamento 
+perso. \acc 
+Definiamo adesso il template nella quale rientrerà ogni transazione. Una transazione generica, non fa altro che 
+leggere, operare, ed eventualmente scrivere su un certo insieme di item. Abbiamo detto che una transazione appartenente 
+ad uno schedule legale deve chiedere la lock di un item prima di operarci sopra, e rilasciarla dopo aver terminato.
+Approssimiamo quindi ogni transazione ad un insieme di coppie \code{lock}-\code{unlock}, che lavorano su un item. Ad ogni coppia 
+sarà quindi associata in modo univoco una funzione \(f_i\), che avrà come parametri, tutti gli item letti (quindi sulla quale 
+si è richiesto un lock) dalla transazione in precedenza.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.35\textwidth ]{images/template.eps}
+    }
+\end{figure}\\
+Utilizzeremo questo template per dire che due schedule sono equivalenti se le funzioni che danno i valori 
+finali per ciascun item sono uguali. Vediamo un esempio, consideriamo le due transazioni :\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/transTem.eps}
+    }
+\end{figure}\\
+Consideriamo ora il seguente schedule, \(X_0\) è il valore iniziale di X ed \(Y_0\) è il 
+valore iniziale di Y. Si hanno le relative formule per i valori finali di X ed Y :
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.4\textwidth ]{images/TransFuncexample.eps}
+    }
+\end{figure}\\
+In questo schedule, il valore finale di X è prodotto dalla formula \(f_4(f_1(X_0),Y_0) \), ed il valore finale di 
+Y è prodotto dalla formula \(f_2(X_0,f_3(Y_0)) \). Questo schedule sarà quindi serializzabile e corretto se e solo se 
+esiste uno schedule seriale equivalente, ossia, le cui formule finali per X ed Y sono identiche a queste due appena presentate. Con 
+una breve verifica, si nota che le formule per X ed Y prodotte dai due schedule seriali sono differenti, questo schedule è 
+quindi non corretto. Basta che le formule siano diverse per un solo item per concludere che gli schedule non sono equivalenti.\acc 
+Detto ciò, possiamo affermare che uno schedule è equivalente ad uno schedule seriale se, per ogni item in cui le 
+varie transazioni fanno un lock, segue un ordine identico a quello di uno schedule seriale. È possibile, fatte tali premesse, 
+costruire un metodo algoritmico per testare la serializzabilità di uno schedule.
+\subsubsection{Grafo di Serializzazione}
+Dato uno schedule \(S\) di \(n\) transazioni, costruiamo un grafo \(G\) nel seguente modo : \begin{itemize}
+    \item I nodi di \(G\) sono le transazioni \(T_1,T_2\dots,T_n\) dello schedule \(S\).
+    \item Ci sarà un arco \(T_i\rightarrow_X T_j\) con etichetta \(X\) se la transazione \(T_i\) esegue un unlock sull'item 
+     \(X\), e la transazione \(T_j\) esegue il successivo lock su \(X\).
 \end{itemize}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/grafoSer.eps}
+    }
+\end{figure}
+\textbf{Teorema} : Se il grafo \(G\) associato allo schedule \(S\) ha un ciclo, allora \(S\) \textit{non} è 
+serializzabile. Se \(G\) non ha un ciclo, applicando \textit{l'ordinamento topologico} su \(G\), si ottiene lo schedule 
+seriale \(S'\) equivalente ad \(S\). Uno schedule è serializzabile se e solo se il suo grafo di serializzazione è 
+aciclico.\acc
+Il cosiddetto \textbf{ordinamento topologico}, è un operazione ricorsiva da fare su un grafo aciclico, nel quale si rimuove un 
+nodo che non ha archi entranti, insieme ai suoi archi nascenti. Un grafo può ammettere più ordinamenti topologici.\acc 
+\subsubsection{Protocollo a Due Fasi}
+Diciamo che una transazione è \textit{a due fasi} se prima effettua tutte le operazioni di lock, poi tutte le operazioni 
+di unlock. Il \textit{protocollo a due fasi} impone a tutte le transazioni di uno schedule di essere, appunto, a due fasi.\acc 
+\textbf{Teorema} : Se ogni transazione di uno schedule \(S\) è a due fasi, allora \(S\) è serializzabile.\acc 
+\textbf{Dimostrazione} : Poniamo per assurdo che \(S\) abbia solo transizioni a due fasi e che non sia serializzabile. Quest'ultima 
+condizione implicherebbe che nel grafo c'è un ciclo. Ciò implica che c'è una transizione \(T_j\) che esegue un operazione di 
+unlock su un attributo (ha un arco uscente), ma poi ri-esegue un operazione di lock su un altro attributo (arco entrante), dopo 
+che un altra transazione vi ha eseguito un operazione di unlock, ciò va in contraddizione con l'ipotesi 
+che ogni transazione di \(S\) sia a due fasi. \(\blacksquare\)\acc 
+In conclusione, possiamo dire che se tutte le transazioni di uno schedule sono a due fasi esso è sicuramente serializzabile, 
+possono però esistere schedule che non hanno le transazioni a due fasi, che siano comunque serializzabili.\\
+\subsection{Lock a 3 Stati}
+Possiamo aumentare il grado di concorrenza facendo alcune considerazioni. Ora come ora, il privilegio di accesso per un item 
+viene richiesto senza considerare quali operazioni faremo su quell'item. Una transazione, può voler 
+accedere ad un item in sola lettura, senza necessariamente modificarlo, introduciamo quindi un nuovo tipo di lock, detto 
+\textit{a 3 stati}, in cui un certo item può essere \textit{wlocked} (locked in scrittura), \textit{rlocked} (locked in lettura), o unlocked.
+\acc Le transazioni hanno a disposizione ora, al posto del metodo \code{lock}, i metodi \code{rlock} e \code{wlock}.  Il metodo 
+\code{rlock(X)} viene richiesto quando si ha intenzione di leggere ma non modificare l'item X, in questo modo, tutte le altre 
+transazioni, potranno accedere ad X per leggerlo, ma \textit{non} per modificarlo. Il metodo \code{wlock(X)} viene richiesto 
+da una transazione che vuole modificare X, se un item è in questa modalità, le altre transazioni non potranno accedervi 
+ne in lettura ne in scrittura. Entrambi gli stati vengono rilasciati con il metodo \code{unlock(X)}.\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{C0C0C0} 
+        Valore lock su X & T richiede un : & Risultato                                                                                       \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        unlocked         & \code{rlock(X)}               & \begin{tabular}[c]{@{}c@{}}T ottiene il lock in lettura ed X \\ diventa rlocked.\end{tabular}   \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        rlocked          & \code{rlock(X)}               & T ottiene il lock in lettura                                                                    \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        wlocked          & \code{rlock(X)}               & T attende il rilascio                                                                           \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        unlocked         & \code{wlock(X)}               & \begin{tabular}[c]{@{}c@{}}T ottiene il lock in scrittura ed X \\ diventa wlocked.\end{tabular} \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        rlocked          & \code{wlock(X)}               & T ottiene il lock in lettura                                                                    \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        wlocked          & \code{wlock(X)}               & T ottiene il lock in lettura                                                                    \\ \hline
+        \end{tabular}
+\end{center}
+La concorrenza è maggiore in quanto più transazioni adesso possono accedere contemporaneamente in lettura ad un item.
+ Adesso il template di uno schedule è quello di una sequenza di operazione \code{rlock}, \code{wlock} e \code{unlock}. 
+\begin{itemize}
+    \item Sia un \code{rlock(X)} che un \code{wlock(X)} implicano la lettura di X.
+    \item Ogni \code{unlock(X)} associato ad una \code{wlock(X)} implica la scrittura di X.
+\end{itemize}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.9\textwidth ]{images/3stati.eps}
+    }
+\end{figure}
+\newpage Dato il nuovo modello, due schedule si dicono \textbf{equivalenti} se :
+\begin{itemize}
+    \item Producono lo stesso valore finale per ogni item su cui viene effettuato un \code{wlock}.
+    \item Ogni operazione \code{rlock(X)} legge lo stesso valore di X nei due schedule.
+\end{itemize}
+La definizione di serializzabilità rimane invariata.
+\subsubsection{Nuovo Grafo di Serializzazione}
+In questo nuovo modello, il grafo \(G\) viene costruito in tal modo : \begin{itemize}
+    \item I nodi di \(G\) sono le transazioni \(T_1,T_2\dots,T_n\) dello schedule \(S\).
+    \item Ci sarà un arco \(T_i\rightarrow_X T_j\) con etichetta \(X\) in \(S\) se si verifica una delle due seguenti : \begin{itemize}
+        \item \(T_i\) esegue un \code{rlock(X)} o \code{wlock(X)} e \(T_j\) è la transazione che esegue 
+        la successiva \code{wlock(X)}.
+        \item \(T_i\) esegue un \code{wlock(X)}, e \(T_j\) esegue la successiva \code{rlock(X)} prima che un altra transazione 
+        esegua una \code{wlock(X)}.
+    \end{itemize}
+\end{itemize}
+Dato il nuovo grafo, vale comunque il teorema visto nel caso del lock a due fasi, per cui uno schedule è serializzabile se e solo se il suo grafo di serializzazione è 
+aciclico. 
+\acc
+La definizione di transazione a due fasi rimane simile, è verificata se una transazione se
+nessuna operazione di lock (rlock o wlock) segue una operazione di unlock. La presenza di sole  transazioni 
+a due fasi implica ancora la serializzabilità di uno schedule.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.75\textwidth ]{images/grafoNuovo.eps}
+    }
+\end{figure}
 \end{document}
