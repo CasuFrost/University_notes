@@ -1681,6 +1681,52 @@ di \(X\), ossia \(F_X\).$$
     \forall x\in \R\spaz\Prob(\phi(X)\le x)=\Prob(F_X^{-1}(U)\le x)=\text{ essendo }F_X\text{ monotona crescente }=\Prob(U\le F_X(x))
 $$
 $$
-\Prob(U\le F_X(x))=F_X(x)
+\Prob(U\le F_X(x))=F_X(x)\spaz \blacksquare
 $$
+\section{Argomenti Extra}
+\subsection{Catene di Markov}\label {markov}
+Supponiamo di voler rappresentare un generico \textit{sistema}, che può trovarsi in differenti stati nel tempo. Il sistema, 
+si trova ad un certo stato \(i\) al tempo \(n\). Possiamo rappresentare lo stato del sistema come una variabile 
+aleatoria, \(X_n=i\) significa che il sistema al tempo \(n\) è nello stato \(i\), il tempo è discreto, quindi possiamo 
+descrivere l'andamento del sistema nel tempo con una successione di variabili aleatorie.
+$$X_0,X_1,X_2\dots,X_n$$
+I possibili stati che può assumere il sistema sono ben definiti in un insieme \(\{0,1,2\dots,M\}\). Con lo scorrere 
+del tempo, il sistema cambia da uno stato ad un'altro di quelli disponibili con una certa probabilità.\acc 
+Diremo che \(P_{i_j}\), è la probabilità che ha il sistema, di passare allo stato \(j\) considerando che si trova nello 
+stato \(i\), e considerando lo storico degli stati precedenti.
+$$P_{i_j}=\Prob(X_{n+1}=j|X_n=i\land  X_{n-1}=i_{n-1}\land X_{n-2}=i_{n-2}\dots \land X_0=i_0 )$$
+Risulta naturale rappresentare tale sistema, che chiameremo \textit{catena di Markov}, con un grafo, 
+in cui i nodi sono i possibili stati, ed ogni nodo \(i\) ha un arco che lo collega con tutti gli altri noti, etichettato 
+da un numero rapprestante la probabilità che si passi dallo stato \(i\) allo stato indicato dall'arco.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.5\textwidth ]{images/markovGraph.eps}
+    }
+\end{figure}\\
+Da come si può notare, risulta ovvio che la somma di tutte le probabilità che ha uno stato di passare agli altri possibili 
+stati deve essere 1: $$\forall i\in \{0,1\dots,M\}\spaz \sum_{j=0}^MP_{i_j}=1$$
+Risulta altrettanto più naturalle, disporre le probabilità che ogni stato ha di passare ad un altro nell'istante temporale 
+successivo, in una matrice quadrata \(M\times M\) :
+$$\begin{bmatrix}
+    P_{0_0}& P_{0_1}& P_{0_2}&\dots&P_{0_M}\\
+    P_{1_0}& P_{1_1}& P_{1_2}&\dots&P_{1_M}\\
+    P_{2_0}& P_{2_1}& P_{2_2}&\dots&P_{2_M}\\
+    \vdots &\vdots &\vdots &&\vdots \\
+    P_{M_0}& P_{M_1}& P_{M_2}&\dots&P_{M_M}\\
+\end{bmatrix}$$
+Conoscere i valori di tale matrice, è necessario per poter calcolare tutte le probabilità relative alla catena di Markov 
+, ad esempio la probabilità che il sistema abbia seguito un certo sviluppo nel tempo. De facto, si ha che : 
+$$\Prob(X_n=i_n\land X_{n-1}=i_{n-1}\dots,X_{1}=i_1\land X_0=i_0)=P_{{i_{n-1}}_{i_{n}}}\cdot P_{{i_{n-2}}_{i_{n-1}}}
+\dots P_{{i_{1}}_{2}}\cdot P_{{i_{0}}_{1}}\cdot \Prob(X_0=i_0)$$
+\textit{Esempio} : Si consideri il sistema rappresentato dal grafo mostrato ad inizio capitolo \ref{markov}, si considerano 
+3 intervalli di tempo. Qual'è la probabilità \(p\) che, partendo dallo stato 1 : \begin{itemize}
+    \item Al primo intervallo di tempo si passa dallo stato 1 allo stato 2
+    \item Al secondo intervallo di tempo si passa dallo stato 2 allo stato 1
+    \item Al terzo intervallo di tempo si passa dallo stato 1 allo stato 3
+\end{itemize}
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=1.1\textwidth ]{images/markovWx.eps}
+    }
+\end{figure}
 \end{document}
