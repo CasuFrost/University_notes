@@ -1707,7 +1707,7 @@ Da come si può notare, risulta ovvio che la somma di tutte le probabilità che 
 stati deve essere 1: $$\forall i\in \{0,1\dots,M\}\spaz \sum_{j=0}^MP_{i_j}=1$$
 Risulta altrettanto più naturale, disporre le probabilità che ogni stato ha di passare ad un altro nell'istante temporale 
 successivo, in una matrice quadrata \(M\times M\) :
-$$\begin{bmatrix}
+$$P=\begin{bmatrix}
     P_{0_0}& P_{0_1}& P_{0_2}&\dots&P_{0_M}\\
     P_{1_0}& P_{1_1}& P_{1_2}&\dots&P_{1_M}\\
     P_{2_0}& P_{2_1}& P_{2_2}&\dots&P_{2_M}\\
@@ -1718,6 +1718,11 @@ Conoscere i valori di tale matrice, è necessario per poter calcolare tutte le p
 , ad esempio la probabilità che il sistema abbia seguito un certo sviluppo nel tempo. De facto, si ha che : 
 $$\Prob(X_n=i_n\land X_{n-1}=i_{n-1}\dots,X_{1}=i_1\land X_0=i_0)=P_{{i_{n-1}}_{i_{n}}}\cdot P_{{i_{n-2}}_{i_{n-1}}}
 \dots P_{{i_{1}}_{2}}\cdot P_{{i_{0}}_{1}}\cdot \Prob(X_0=i_0)$$
+Si è scritto esplicitamente il termine \(\Prob(X_0=i_0)\), dato che all'istante di tempo zero, non si è chiaro 
+da quale stato/nodo partire, definiremo quindi una funzione \(\mu:\{0,1\dots,M\}\rightarrow[0,1]\), che dato uno stato/nodo, 
+ne restituisce la probabilità che al tempo iniziale 0, ci si trovi in quello stato/nodo. Per convenzione, se ci sono 
+\(M\) stati/nodi, si considera la probabilità uniforme, quindi \(\forall i \in \{0,1\dots,M\}\spaz \mu(i)=\dfrac{1}{M}\).
+\acc
 \textit{Esempio} : Si consideri il sistema rappresentato dal grafo mostrato ad inizio capitolo \ref{markov}, si considerano 
 3 intervalli di tempo. Qual'è la probabilità \(p\) che, partendo dallo stato 1 : \begin{itemize}
     \item Al primo intervallo di tempo si passa dallo stato 1 allo stato 2
@@ -1729,4 +1734,114 @@ $$\Prob(X_n=i_n\land X_{n-1}=i_{n-1}\dots,X_{1}=i_1\land X_0=i_0)=P_{{i_{n-1}}_{
     \includegraphics[width=1.1\textwidth ]{images/markovWx.eps}
     }
 \end{figure}
+\subsubsection{Prossime Transazioni}
+Consideriamo adesso un altro scenario, in cui siamo nello stato \(i\), e vogliamo calcolare le probabilità che 
+si passi allo stato \(j\) fra due istanti temporali successivi, si denota nel seguente modo :
+$$P^{(2)}_{i_j}=\Prob(X_{m+2}=j|X_m=i)$$
+Possiamo definire questaq probabilità in maniera euristica nel seguente modo, si inizia dallo stato \(i\), e si calcolano 
+tutti i possibili "cammini" in 2 istanti temporali, e se ne sommano le probabilità di quelli che giungono nello 
+stato \(j\).
+$$\sum_{k=0}^M\Prob(X_2=j\land X_1=k\land X_0=i)$$
+Sviluppando tale sommatoria si noterà che : 
+$$=\sum_{k=0}^M\Prob(X_2=j| X_1=k\land X_0=i)\cdot \Prob(X_1=k|X_0=i)=\sum_{k=0}^MP_{k_j}P_{i_k}$$
+Tale valore, non è altro che il valore che si troverebbe nella posizione \((i,j)\) nella matrice 
+data dal prodotto della matrice originale \(P\) con se stessa : $$
+\begin{bmatrix}
+    P_{0_0}& P_{0_1}& P_{0_2}&\dots&P_{0_M}\\
+    P_{1_0}& P_{1_1}& P_{1_2}&\dots&P_{1_M}\\
+    P_{2_0}& P_{2_1}& P_{2_2}&\dots&P_{2_M}\\
+    \vdots &\vdots &\vdots &&\vdots \\
+    P_{M_0}& P_{M_1}& P_{M_2}&\dots&P_{M_M}\\
+\end{bmatrix}\cdot \begin{bmatrix}
+    P_{0_0}& P_{0_1}& P_{0_2}&\dots&P_{0_M}\\
+    P_{1_0}& P_{1_1}& P_{1_2}&\dots&P_{1_M}\\
+    P_{2_0}& P_{2_1}& P_{2_2}&\dots&P_{2_M}\\
+    \vdots &\vdots &\vdots &&\vdots \\
+    P_{M_0}& P_{M_1}& P_{M_2}&\dots&P_{M_M}\\
+\end{bmatrix} = P^{(2)}\implies P^{(2)}_{i_j}=\sum_{k=0}^MP_{k_j}P_{i_k}
+    $$
+Possiamo quindi \textit{generalizzare} tale concetto, dicendo che la probabilità che si passi dallo 
+stato \(i\) allo stato \(j\) in \(n\) passi, è il valore nella posizione \((i,j)\) nella matrice 
+\(P^{(n)}\), ossia il risultato del prodotto della matrice \(P\) con se stessa \(n\) volte.\acc 
+\textit{Esempio} : Si consideri il seguente sistema a due stati :\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/MarkovExample.eps}
+    }
+\end{figure}
+Voglio calcolare la probabilità che all'istante temporale 2, ci si trovi nello stato 1, considerando che si inizia 
+nello stato 0. Modellizzo il problema, impostando a zero la probabilità che ci si trovi nello stato 1 all'inizio. 
+Avrò che : 
+$$\Prob(X_2=1|X_0=0)=P^{(2)}_{1_0}=P_{1_0}P_{0_0}+P_{1_1}P_{1_0}=0.5\cdot 0.5+1\cdot 0.5 = \dfrac{3}{4}$$
+Possiamo generalizzare anche lo stato iniziale, calcolandoci la probabilità che ad un certo istante 
+temporale \(n\), ci si trovi in uno stato \(j\), bisogna considerare la somma di tutte le possibili 
+"evoluzioni" della catena, che finiscono con il trovarsi nello stato \(j\) al tempo \(n\).
+$$\sum_{k=0}^M \mu(k)\cdot P^{(n)}_{j_k}$$
+Possiamo rappresentare in maniera naturale, un \textit{vettore} di \(M\) coordinate contenete 
+le probabilità che in \(n\) istanti temporali il sistema si trovi in un determinato stato 
+fra gli \(\{0,1\dots,M\}\) disponibili, 
+come prima cosa definiamo il vettore : $$\mu=\begin{bmatrix}
+    \mu(0)&\mu(1)&\mu(2)&\dots&\mu(M)
+\end{bmatrix}$$
+Contenente le probabilità che ha il sistema di iniziare in ognuno degli stati, consideriamo poi la matrice 
+delle probabilità \(P\) moltiplicata per se stessa \(n\) volte.
+$$P^{(n)}=
+\begin{bmatrix}
+    P_{0_0}& P_{0_1}&\dots&P_{0_M}\\
+    P_{1_0}& P_{1_1}&\dots&P_{1_M}\\
+    \vdots &\vdots &&\vdots \\
+    P_{M_0}& P_{M_1}&\dots&P_{M_M}\\
+\end{bmatrix}\cdot 
+\begin{bmatrix}
+    P_{0_0}& P_{0_1}&\dots&P_{0_M}\\
+    P_{1_0}& P_{1_1}&\dots&P_{1_M}\\
+    \vdots &\vdots &&\vdots \\
+    P_{M_0}& P_{M_1}&\dots&P_{M_M}\\
+\end{bmatrix}\dots \text{ n volte }\cdot \begin{bmatrix}
+    P_{0_0}& P_{0_1}&\dots&P_{0_M}\\
+    P_{1_0}& P_{1_1}&\dots&P_{1_M}\\
+    \vdots &\vdots &&\vdots \\
+    P_{M_0}& P_{M_1}&\dots&P_{M_M}\\
+\end{bmatrix} 
+$$
+Considereremo il vettore risultante dal prodotto riga per colonna : $$\mu_n = \mu \cdot P^{(n)}$$
+Tale vettore, alla coordinata \(i\), contiene la probabilità che ha il sistema di trovarsi nello stato \(i\) 
+all'\(n\)-esimo istante temporale.\acc 
+Consideriamo \textit{l'esempio} del sistema precedente a due stati, considero la matrice \(P^{(2)}\), dove 
+la posizione \(i,j\) indica la probabilità che ha il sistema di passare di passare dallo stato 
+\(i\) allo stato \(j\) in 2 istanti : $$
+P^{(2)}=\begin{bmatrix}
+    0.5&0.5\\
+    0&1
+    \end{bmatrix}\cdot \begin{bmatrix}
+        0.5&0.5\\
+        0&1
+        \end{bmatrix}=\begin{bmatrix}
+            \nicefrac{1}{4}&\nicefrac{3}{4}\\
+            0&1
+            \end{bmatrix}
+$$
+Questa volta, considero : 
+$$\begin{cases}
+    \mu(0)=\alpha \\
+    \mu(1)=\beta
+\end{cases}\implies \mu=\begin{bmatrix}
+    \alpha&\beta
+\end{bmatrix}$$
+Ottengo il vettore contenete le probabilità che all'istante \(n\) il sistema si trovi in uno dei due stati : 
+$$
+\mu_n=\begin{bmatrix}
+\alpha&\beta
+\end{bmatrix} \cdot \begin{bmatrix}
+    \nicefrac{1}{4}&\nicefrac{3}{4}\\
+    0&1
+    \end{bmatrix}=\begin{bmatrix}
+        \nicefrac{1}{4}\cdot\alpha +\nicefrac{3}{4}\cdot\beta \\
+        0\cdot \alpha + 1\cdot \beta 
+        \end{bmatrix}=\begin{bmatrix}
+            \dfrac{\alpha}{4}+\beta\dfrac{3}{4}\\ \beta
+            \end{bmatrix}
+$$
+Ho quindi che, la probabilità di trovarsi nello stato 0 al secondo istante temporale 
+è di \(\dfrac{\alpha}{4}+\beta\dfrac{3}{4}\), la probabilità di trovarsi nello stato 
+1 è \(\beta\).
 \end{document}
