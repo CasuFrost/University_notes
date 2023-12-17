@@ -1696,7 +1696,7 @@ Diremo che \(P_{i_j}\), è la probabilità che ha il sistema, di passare allo st
 stato \(i\), e considerando lo storico degli stati precedenti.
 $$P_{i_j}=\Prob(X_{n+1}=j|X_n=i\land  X_{n-1}=i_{n-1}\land X_{n-2}=i_{n-2}\dots \land X_0=i_0 )$$
 Risulta naturale rappresentare tale sistema, che chiameremo \textit{catena di Markov}, con un grafo, 
-in cui i nodi sono i possibili stati, ed ogni nodo \(i\) ha un arco che lo collega con tutti gli altri noti, etichettato 
+in cui i nodi sono i possibili stati, ed ogni nodo \(i\) ha un arco che lo collega con tutti gli altri nodi, etichettato 
 da un numero rapprestante la probabilità che si passi dallo stato \(i\) allo stato indicato dall'arco.
 \begin{figure}[h]
     \centering{
@@ -1705,7 +1705,7 @@ da un numero rapprestante la probabilità che si passi dallo stato \(i\) allo st
 \end{figure}\\
 Da come si può notare, risulta ovvio che la somma di tutte le probabilità che ha uno stato di passare agli altri possibili 
 stati deve essere 1: $$\forall i\in \{0,1\dots,M\}\spaz \sum_{j=0}^MP_{i_j}=1$$
-Risulta altrettanto più naturalle, disporre le probabilità che ogni stato ha di passare ad un altro nell'istante temporale 
+Risulta altrettanto più naturale, disporre le probabilità che ogni stato ha di passare ad un altro nell'istante temporale 
 successivo, in una matrice quadrata \(M\times M\) :
 $$\begin{bmatrix}
     P_{0_0}& P_{0_1}& P_{0_2}&\dots&P_{0_M}\\
