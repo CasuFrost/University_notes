@@ -3558,7 +3558,7 @@ se \(\det(A)=0\)}.\end{center}
 \textbf{Teorema di Binet} : Siano \(A,B\in M_{n\times n}(\R)\), si ha che : $$\det(A\cdot B)=\det(A)\cdot\det(B)$$
 Per dimostrarlo, è necessario dimostrare che l'applicazione \(\tilde d(A)=\dfrac{\det(A\cdot B)}{\det(B)}\) gode 
 delle proprietà del determinante.
-\section{Autovalori, Autovettori e Diagonalizzabilità}
+\subsection{Matrice Associata ad un'Applicazione Lineare}
 Consideriamo dua spazi vettoriali \(V\) e \(W\), con \(\dim(V)=n\) e \(\dim(W)=m\), e sia \(T:V\rightarrow W\) 
 un applicazione lineare. Fissiamo : $$
 \mathcal{B}=\{\bar b_1,\bar b_2\dots,\bar b_n\}\spaz
@@ -3599,4 +3599,37 @@ x_n(a_{1_n}\bar\varepsilon_1+a_{2_n}\bar\varepsilon_2\dots +a_{m_n}\bar\varepsil
  Abbiamo denotato tale matrice \(M_{\E,\B}(T)\), e vale la seguente proposizione.\acc
  \textbf{Proposizione} : Siano \(\bar x\) le coordinate di \(\ve\) in \(\B\), allora le coordinate di 
  \(T(\ve)\) in \(\E\) sono il prodotto matrice per vettore \(\bar x\cdot M_{\E,\B}(T)\).
-\end{document}
+ \acc 
+ \textbf{Proposizione} : Siano \(V,W,U\) 3 spazi vettoriali, con rispettive basi \(\B,\E,\mathcal{F}\), consideriamo le due 
+ applicazioni \(T:V\rightarrow W\) e \(S:W\rightarrow U\), considero l'applicazione composta \(S\circ T:V\rightarrow U\), 
+ ho che la matrice associata a tale applicazione, è il prodotto fra le matrici associate alle due applicazioni \(T\) ed \(S\).
+ $$M_{\mathcal{F},\B}(S\circ T)=M_{\mathcal{F},\E}(S)\cdot M_{\E,\B}(T)$$
+ \textbf{Dimostrazione} : Sia \(\bar x\) il vettore delle cordinate in \(V\) associato alla 
+ base \(\B\), ed \(\bar y\) il vettore delle cordinate in \(W\) associato alla 
+ base \(\E\), so che \(\bar y = M_{\E,\B}(T)\cdot \bar x\). Sia \(\bar z\) il vettore delle cordinate in \(U\) associato alla 
+ base \(\mathcal{F}\), ho che \(\bar z = M_{\mathcal{F},\E}(S)\cdot \bar y\). So che 
+ \(\bar z = M_{\mathcal{F},\B}(S\circ T)\cdot \bar x\) ma \(\bar z = M_{\mathcal{F},\E}(S)\cdot M_{\E,\B}(T)\cdot \bar x\). \(\blacksquare\)
+\subsubsection{Cambiamento di Base}
+Considero adesso un \textit{isomorfismo} \(\varphi:V\rightarrow W\), sappiamo che esiste l'applicazione inversa \(\varphi^{-1}
+:W\rightarrow V\) e che \(\varphi\circ \varphi^{-1}=Id_W\) e \(\varphi^{-1}\circ \varphi=Id_V\). Considero 
+\(\B\) la base di \(V\) e \(\E\) la base di \(W\). Ho la matrice associata all'identità in \(V\) : \(M_{\B,\B}(Id_V)\) che è 
+per l'appunto identica ad \(M_{\B,\B}(\varphi^{-1}\circ \varphi)\), a questo punto applico la proposizione appena vista : 
+$$M_{\B,\B}(\varphi^{-1}\circ \varphi)=M_{\B,\E}(\varphi^{-1})\cdot M_{\E,\B}(\varphi)$$
+Sappiamo che la matrice identità è della seguente forma : $$\begin{bmatrix}
+    1&0&0&\dots&0\\
+    0&1&0&\dots&0\\
+    0&0&1&\dots&0\\
+    \vdots&\vdots&\vdots&&\vdots\\
+    0&0&0&\dots&1\\
+\end{bmatrix}$$
+Ossia, ha la diagonale principale composta da tutti 1, ed il resto composto da tutti zeri. L'applicazione identità \(Id_V\) 
+è definita da \(V\) in \(V\), supponiamo, di considerare appunto tale applicazione, ma considerando due basi diverse per lo stesso 
+spazio \(V\). Voglio quindi definire la matrice associata all'applicazione identità, considerando come base di partenza 
+\(\B\) e come base di arrivo \(\B'\), ossia \(M_{\B',\B}(Id_V)\), l'applicazione identità, è un isomorfismo ed è \textit{invertibile}, 
+esiste quindi una matrice inversa, che è appunto sempre la matrice identità :
+$$(M_{\B',\B}(Id_V))^{-1}=M_{\B,\B'}(Id_V)$$
+Quindi, sia \(\bar x\) il vettore delle coordinate in \(V\) associato alla base \(\B\) e 
+\(\bar x'\) il vettore delle coordinate in \(V\) associato alla base \(\B'\), si ha che :$$
+\bar x' = M_{\B',\B}(Id_V)\cdot \bar x\spaz\spaz\spaz\spaz\spaz\spaz\bar x = M_{\B,\B'}(Id_V)\cdot \bar x'
+$$
+ \end{document}
