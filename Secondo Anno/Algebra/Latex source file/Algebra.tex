@@ -7,6 +7,7 @@
 \usepackage[english]{babel}
 \usepackage{nicefrac, xfrac}
 \usepackage{tikz}
+\newcommand{\K}{{\mathbb K}}
 \newcommand{\Z}{{\mathbb Z}}
 \newcommand{\R}{{\mathbb R}}
 \newcommand{\N}{{\mathbb N}}
@@ -3632,4 +3633,116 @@ Quindi, sia \(\bar x\) il vettore delle coordinate in \(V\) associato alla base 
 \(\bar x'\) il vettore delle coordinate in \(V\) associato alla base \(\B'\), si ha che :$$
 \bar x' = M_{\B',\B}(Id_V)\cdot \bar x\spaz\spaz\spaz\spaz\spaz\spaz\bar x = M_{\B,\B'}(Id_V)\cdot \bar x'
 $$
- \end{document}
+Tali matrici sono dette del \textbf{cambiamento di base}, e fornisce informazioni sulla correlazione 
+fra le coordinate. Ricordando che \(M_{\B',\B}(Id_V)\) è la matrice che ha come \(j\)-esima colonna le coordinate 
+\(Id_V(\bar b_j)=\bar b_j\), dove \(\bar b_j \in \B\).\acc 
+\textbf{Definizione} : Due matrici \(A\) e \(A'\) si dicono \textbf{simili} se esiste una matrice \(C\) invertibile tale
+che \(A'=C^{-1}\cdot A\cdot C\).\acc 
+\textbf{Proposizione} : Consideriamo adesso un \textit{endomorfismo} \(T:V\rightarrow V\), fisso due basi per \(V\), ossia \(\B\) e \(\B'\), 
+e considero due matrici associate : \(M_{\B,\B}(T)\) e \(M_{\B',\B'}(T)\). Si ha che :
+$$M_{\B',\B'}(T)=M_{\B',\B'}(Id_V\circ T\circ Id_V)=\text{ applico la proposizione precedente }$$$$=
+M_{\B',\B}(Id_V)\cdot M_{\B,\B}(T)\cdot M_{\B,\B'}(Id_V)$$
+Ma ho visto prima che \(M_{\B',\B}(Id_V)=(M_{\B,\B'}(Id_V))^{-1}\)$$
+\implies M_{\B',\B'}(T)= (M_{\B,\B'}(Id_V))^{-1}\cdot M_{\B,\B}(T)\cdot M_{\B,\B'}(Id_V)$$
+Quindi \( M_{\B',\B'}(T)\) e \( M_{\B,\B}(T)\) sono due matrici \textit{simili}.
+\section{Autovalori, Autovettori e Diagonalizzabilità}
+Sia \(V\) uno spazio vettoriale sul campo \(\mathbb{K}\), e sia \(T:V\rightarrow V\) un applicazione lineare, 
+diremo che \(\ve\ne \bar 0\) è un \textbf{autovettore} \textit{associato} all'\textbf{autovalore} \(\lambda\in \mathbb{K}\) se : 
+$$T(\bar v)= \lambda \cdot \ve$$
+Ossia, se \(T\) trasforma \(\bar v\) in un suo multiplo. Se \(\bar v\) è un autovettore, anche \(\alpha\cdot \ve\) lo è, 
+con \(\alpha\) un qualsiasi elemento del campo \(\mathbb{K}\). Ciò è di facile verifica :
+\(T(\alpha \bar v)=\alpha T(\ve)=\alpha \lambda \ve = \lambda \cdot (\alpha \ve)\).\acc 
+L'\textbf{autospazio} associato a \(\lambda\in \mathbb{K}\), è l'insieme degli autovettori che hanno \(\lambda\) come 
+autovalore, ossia : $$V_\lambda = \{\bar 0\}\cup \{\text{autovettori associati a }\lambda\}=\{\bar v\in V|T(\ve)=\lambda\ve\}
+=\{\ve\in V|T(\bar v)-\lambda \ve=\bar 0\}$$
+Consideriamo l'applicazione \(T-\lambda Id_V\) e si noti come :$$ V_\lambda  =
+\{\ve \in V |(T-\lambda Id_V)(\ve)=\bar 0\}=Ker(T-\lambda Id_V)$$
+Ne concludiamo che l'autospazio associato ad un autovalore è un nucleo di un applicazione, è quindi un \textit{sottospazio}.
+\subsection{Diagonalizzabilità di un Applicazione}
+Consideriamo sempre lo spazio vettoriale \(V\) sul campo \(\K\), sia \(\B=\{\ve_1,\ve_2\dots,\ve_n\}\) la base di 
+\(V\), e supponiamo che tutti i vettori della base siano \textit{autovettori}. Ossia che :\begin{eqnarray}
+    T(\ve_1)=\lambda_1\ve_1\\T(\ve_2)=\lambda_2\ve_2\\\vdots\\T(\ve_n)=\lambda_n\ve_n
+\end{eqnarray}
+Gli autovalori associati agli autovettori della base sono quindi \(\lambda_1,\lambda_2\dots,\lambda_n\).
+Considero adesso la matrice associata a \(T\) nella base \(\B\), ossia \(M_{\B,\B}(T)\), si ricordi che tale 
+matrice, ha come \(j\)-esima colonna le coordinate di \(\bar v_j\) in \(\B\). Tali coordinate sono : 
+\begin{eqnarray}
+    T(\ve_1)=\lambda_1\ve_1+0\cdot \ve_2\dots +0\cdot \ve_n\\
+    T(\ve_2)=0\cdot \ve_1+\lambda_2\ve_2\dots +0\cdot \ve_n\\\vdots
+    \\T(\ve_n)=0\cdot \ve_1+0\cdot \ve_2\dots +\lambda_n\ve_n
+\end{eqnarray}
+Risulta chiaro che :
+$$M_{\B,\B}(T)=\begin{bmatrix}
+    \lambda_1&0&0&\dots&0\\
+    0&\lambda_2&0&\dots&0\\
+    0&0&\lambda_3&\dots&0\\
+    \vdots&\vdots&\vdots&&\vdots\\
+    0&0&0&\dots&\lambda_n\\
+\end{bmatrix}$$
+Tale matrice è detta \textit{diagonale}, un applicazione \(T\) è quindi detta \textbf{diagonalizzabile} se ammette una 
+matrice associata diagonale, ossia se ammette una base costituita da autovettori. Ci interessa capire se un applicazione 
+è diagonalizzabile, dato che la matrice associata diagonale è particolarmente semplice da studiare. È chiaro che non tutte 
+le applicazioni sono diagonalizzabili, ne vedremo in seguito un esempio.\acc 
+\subsubsection{Polinomio Caratteristico}
+Vogliamo adesso capire se un certo numero dato è o non è un autovalore. Sappiamo che \(\lambda\) è un autovalore 
+se e solo se esiste un autovettore associato, quindi se l'autospazio \(V_\lambda\ne\{\bar 0\}\), ciò è equivalente 
+a dire che il nucleo \(Ker(T-\lambda Id_V)\ne \{\bar 0\}\). Data una base \(\B=\{\bar b_1,\bar b_2\dots,\bar b_n\}\), so che l'applicazione \(T-\lambda Id_V\) 
+ha una matrice associata \(M_{\B,\B}(T)\) che per semplicità denomineremo \(A\). Quindi 
+\(T\) è diagonalizzabile se \(Ker(A-\lambda I_n)\ne \bar 0\), dove \(I_n\) è la matrice identità \(n\times n\), che sarebbe 
+la matrice associata all'applicazione \(Id_V\). In conclusione :
+$$Ker(A-\lambda I_n)\ne \{\bar 0\}\iff \det(A-\lambda I_n)=0$$
+Per capire se \(\lambda\) è un autovalore, bisogna ricavarsi quindi \(\det(A-\lambda I_n)\), denotato \(P_T(\lambda)\) 
+e detto \textbf{polinomio caratteristico}, se \(\lambda\) è una radice di tale polinomio e soddisfa l'identità 
+\(P_T(\lambda)=0\), allora è un autovalore.\acc 
+\textbf{Proposizione} : Il polinomio caratteristico dipende esclusivamente da un applicazione \(T:V\rightarrow V\) e non 
+dalla scelta della base per \(V\).\acc 
+\textbf{Dimostrazione} : Sia \(T:V\rightarrow V\) un applicazione, \(\B\) la base di \(V\) e \(P_T(\lambda)=\det(A-\lambda I_n)\) 
+il polinomio caratteristico. Consideriamo ora un altra base di \(V\), ossia \(\B'\), e sia 
+\(A'=M_{\B',\B'}(T)\) la matrice associata a \(T\) con tale base. Considero quindi il polinomio 
+caratteristico \(\det(A'-\lambda I_n)\). So che \(A\) ed \(A'\), essendo matrici associate alla stessa applicazione ma con 
+diversa scelta di basi, sono \textit{simili}, quindi \(\exists C|A'=C^{-1}AC\), e tale \(C\) è la matrice 
+del cambiamento di base. Ne consegue che : 
+$$\det(A'-\lambda I_n)=\det(C^{-1}AC-\lambda I_n)=\det(C^{-1}(A-\lambda I_n)C)$$
+Per il teorema di Binet so che :
+$$\det(C^{-1}(A-\lambda I_n)C)=\det(C^{-1})\cdot\det(A-\lambda I_n)\cdot\det(C)=$$
+$$\dfrac{1}{\det(C)}\cdot\det(A-\lambda I_n)\cdot\det(C)=\det(A-\lambda I_n)\spaz\spaz \blacksquare$$
+Vediamo un \textit{esempio} di applicazione non diagonalizzabile, si consideri \(R_{\nicefrac{\pi}{2}}:\R^2\rightarrow\R^2\), ossia 
+l'applicazione che associa ad un punto sul piano cartesiano, il suo corrispettivo ruotato di \(90^\circ\).\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.65\textwidth ]{images/rot.eps}
+    }\end{figure}\\
+Considero come base i vettori della base canonica, ossia \(\B=\{\begin{bmatrix}0\\1\end{bmatrix},\begin{bmatrix}1\\0\end{bmatrix}\}\),
+Ho che $$
+\begin{cases}
+    R_{\nicefrac{\pi}{2}}\Big(\begin{bmatrix}1\\0\end{bmatrix}\Big)=\begin{bmatrix}0\\1\end{bmatrix}=0\cdot\begin{bmatrix}1\\0\end{bmatrix}+1\cdot \begin{bmatrix}0\\1\end{bmatrix}\\
+    \\R_{\nicefrac{\pi}{2}}\Big(\begin{bmatrix}0\\1\end{bmatrix}\Big)=\begin{bmatrix}-1\\0\end{bmatrix}=-1\cdot\begin{bmatrix}1\\0\end{bmatrix}+0\cdot \begin{bmatrix}0\\1\end{bmatrix}
+\end{cases}\implies M_{\B,\B}(R_{\nicefrac{\pi}{2}})=\begin{bmatrix}
+    0&-1\\1&0
+\end{bmatrix}
+$$
+Calcolo il polinomio caratteristico : $$
+P_{R_{\nicefrac{\pi}{2}}}(\lambda)=\det(\begin{bmatrix}0&-1\\1&0\end{bmatrix}-\lambda \begin{bmatrix}1&0\\0&1\end{bmatrix})=\det(\begin{bmatrix}-\lambda&1\\1&-\lambda\end{bmatrix})=\lambda^2+1
+$$
+\(R_{\nicefrac{\pi}{2}}\) non è diagonalizzabile perché non esistono autovalori, in quanto non esiste nessun \(\lambda\in\R\)
+tale che \(\lambda^2+1=0\). Questa, è anche una chiara dimostrazione di come l'esistenza degli autovalori, dipenda dal campo 
+sulla quale è basato lo spazio vettoriale, infatti, \(\lambda^2+1=0\) non ammette soluzioni in \(\R\), ma ammette 
+soluzioni in \(\mathbb{C}\).\acc 
+\subsubsection{Molteplicità e Criterio di Diagonalizzabilità}
+È necessario introdurre 2 concetti fondamentali :\acc 
+\textbf{Definizione} : Sia \(P(\lambda)\) un polinomio caratteristico e \(\lambda_0\) un'autovalore radice di tale polinomio. 
+Esiste \(h\ge 1\in\N\) tale che \(P(\lambda)=(\lambda-\lambda_0)\cdot f(\lambda)\), dove \(f\) è una funzione 
+tale che \(f(\lambda_0)\ne0\). Tale numero naturale \(h\) è detto \textit{molteplicità algebrica} di \(\lambda_0\), ed 
+è denotato \(m(\lambda_0)\). Differentemente, 
+\(\dim(Ker(T-\lambda_0Id_V))\) è detta \textit{molteplicità geometrica} di \(\lambda_0\).\acc 
+\textbf{Teorema (Criterio)} : Sia \(V\) uno spazio vettoriale sul 
+campo \(\K\), e sia \(T:V\rightarrow V\) un applicazione lineare, con \(\dim(V)=n\), le seguenti sono equivalenti :\begin{itemize}
+    \item \(T\) è diagonalizzabile.
+    \item Esiste una base di \(V\) costituita da autovettori per \(T\).
+    \item  per ogni 
+    autovalore, si ha che la sua molteplicità algebrica è identica alla molteplicità geometrica.
+    \item Siano \(\lambda_1,\lambda_2\dots,\lambda_k\) gli autovalori \textit{distinti}, si ha che :
+    $$\sum_{i=0}^k\lambda_i=\dim(V)=n$$ Ossia che la somma delle molteplicità algebriche dei suoi autovalori è 
+    \(n\).
+    
+\end{itemize}
+\end{document}
