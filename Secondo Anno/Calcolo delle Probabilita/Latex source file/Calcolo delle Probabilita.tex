@@ -1844,4 +1844,70 @@ $$
 Ho quindi che, la probabilità di trovarsi nello stato 0 al secondo istante temporale 
 è di \(\dfrac{\alpha}{4}+\beta\dfrac{3}{4}\), la probabilità di trovarsi nello stato 
 1 è \(\beta\).
+\subsubsection{Probabilità Stazionaria}
+Abbiamo definito \(\mu_n = \mu \cdot P^{(n)}\) come il vettore che 
+alla coordinata \(i\), contiene la probabilità che ha il sistema di trovarsi nello stato \(i\)
+all'\(n\)-esimo istante temporale.\acc Ci chiediamo se esista un certo \(\mu\) per la quale vale 
+che \(\mu\cdot P^{(n)}=\mu\), ad esempio, l'entrata \(i\) di \(\mu\) è la probabilità che ha il sistema di trovarsi nello 
+stato \(i\) al tempo \(n\), dopo averlo moltiplicato a \(P^{(n)}\), tale \(\mu\) rimane \textit{invariata}, si dice 
+che \(\mu\) è una probabilità \textbf{stazionaria (o invariante)}, è un \textit{autovettore} di \(P\) con 
+\textit{autovalore} 1, e per convenzione lo denoteremo \(\pi\).\acc 
+Prendiamo in esempio il seguente grafo : \begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.4\textwidth ]{images/graOmogeneo.eps}
+    }
+\end{figure}
+Risulta ovvio che ovunque ci si trovi, la probabilità di raggiungere un qualsiasi nodo è identica, il grafo è 
+omogeneo e la probabilità è stazionaria. Consideriamo un esempio più generale, vi è un sistema con 2 stati, 
+la matrice delle probabilità è \(\begin{bmatrix}1-\alpha&\alpha\\\beta&1-\beta\end{bmatrix}\), vogliamo capire 
+se esiste un vettore di probabilità stazionario \(\pi\). Dobbiamo quindi trovare \(\pi\) tale che 
+\(\pi\cdot P =\pi\), abbiamo \(\pi = \begin{bmatrix}
+    p&q
+\end{bmatrix}\), risolviamo quindi il sistema lineare : 
+$$\begin{bmatrix}p&q\end{bmatrix}=\begin{bmatrix}p&q\end{bmatrix}\cdot\begin{bmatrix}1-\alpha&\alpha\\\beta&1-\beta\end{bmatrix}=
+\begin{bmatrix}p&q\end{bmatrix}=\begin{bmatrix}p-p\alpha+q\beta&p\alpha+q-q\beta\end{bmatrix}$$
+$$\begin{cases}
+    p=p-p\alpha+q\beta\\ 
+    q=p\alpha+q-q\beta\\
+    p+q=1
+\end{cases}$$
+La matrice delle probabilità è \textit{omogenea}, ci renderemo presto conto che se il sistema ammette soluzione, essa 
+è unica, de facto, data una certa condizione, una catena di Markov ha un \textit{unico} vettore probabilità 
+stazionario \(\pi\), a meno di casi "degeneri", si avrà che :
+$$\lim_{n\rightarrow +\infty}\mu_n=\lim_{n\rightarrow +\infty}\mu\cdot P^{(n)}=\pi$$
+\textbf{Definizione} : Una matrice delle transizioni \(P\) è detta \textbf{ergodica} se :$$
+\exists n\in \N|P^{(n)}_{i_j}>0\spaz\forall i,j\in \{0,1\dots,M\}$$
+Euristicamente, ciò indica che è possibile andare da un qualsiasi stato/nodo ad un altro in un numero finito di passi 
+con probabilità strettamente positiva, dato che ogni entrata della matrice ha un numero strettamente positivo.\acc 
+\textbf{Teorema (Ergodico)} : Se \(P\) è una matrice delle transizioni \textit{ergodica}, allora : \begin{itemize}
+    \item Esiste un unico vettore delle probabilità stazionario \(\pi\).
+    \item \(\displaystyle\lim_{n\rightarrow +\infty}\mu\cdot P^{(n)}=\pi\).
+\end{itemize}
+Quindi per trovare la probabilità stazionaria bisogna risolvere il sistema \(\pi=\pi\cdot P\), ma ciò può risultare 
+estremamente inefficente quando il numero degli stati/nodi diventa alto, vi è un caso particolare nella quale è 
+possibile trovare facilmente una soluzione esplicita.
+\subsubsection{Bilancio Dettagliato}
+Sia \(V=\{0,1\dots,M\}\) l'insieme degli stati/nodi della catena di Markov e \(P\) la matrice delle transizioni, 
+sappiamo che se esiste un vettore di probabilità stazionario \(\pi\), esso è unico. Considero il grafo degli 
+stati e fisso l'attenzione su un punto \(i\in V\).\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.33\textwidth ]{images/att.eps}
+    }
+\end{figure}
+Il nodo \(i\) ha degli archi uscenti e degli archi entrati, che lo collegano ad altri generici nodi \(j\). Avremo quindi 
+che la somma di tutte le probabilità "uscenti" dal nodo \(i\) è \(\displaystyle \sum_{j\in V}P_{i_j}\) e che 
+la somma di tutte le probabilità "entranti" nel nodo \(i\) è \(\displaystyle \sum_{j\in V}P_{j_i}\),  ho un certo vettore 
+di probabilità \(\pi\), e definisco  : \begin{eqnarray}
+    \textbf{Flusso entrante in }i \spaz:=\sum_{j\in V}\pi_iP_{i_j}\\
+    \textbf{Flusso uscente da }i \spaz:=\sum_{j\in V}\pi_jP_{j_i}
+\end{eqnarray}
+Si impone quindi che gli archi siano simmetrici, si dice che il vettore \(\pi\) \textbf{soddisfa il bilancio 
+dettagliato} se ogni nodo ha flusso entrante \textit{identico} al flusso uscente :
+$$\forall i\in V\spaz \sum_{j\in V}\pi_iP_{i_j}=\sum_{j\in V}\pi_jP_{j_i}$$
+Ne consegue anche che : $$
+\forall i\in V\spaz \pi_i=\sum_{j\in V}\pi_iP_{i_j}=\sum_{j\in V}\pi_jP_{j_i}
+$$
+Se il vettore \(\pi\) soddisfa il bilancio dettagliato, allora \(\pi\) è il vettore di probabilità stazionario. Non è però 
+detto il contrario.
+\subsubsection{Montecarlo Markov Chain}
 \end{document}
