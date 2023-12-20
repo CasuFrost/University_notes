@@ -3730,9 +3730,9 @@ soluzioni in \(\mathbb{C}\).\acc
 \subsubsection{Molteplicità e Criterio di Diagonalizzabilità}
 È necessario introdurre 2 concetti fondamentali :\acc 
 \textbf{Definizione} : Sia \(P(\lambda)\) un polinomio caratteristico e \(\lambda_0\) un'autovalore radice di tale polinomio. 
-Esiste \(h\ge 1\in\N\) tale che \(P(\lambda)=(\lambda-\lambda_0)\cdot f(\lambda)\), dove \(f\) è una funzione 
+Esiste \(h\ge 1\in\N\) tale che \(P(\lambda)=(\lambda-\lambda_0)^h\cdot f(\lambda)\), dove \(f\) è una funzione 
 tale che \(f(\lambda_0)\ne0\). Tale numero naturale \(h\) è detto \textit{molteplicità algebrica} di \(\lambda_0\), ed 
-è denotato \(m(\lambda_0)\). Differentemente, 
+è denotato molt\((\lambda_0)\). Differentemente, 
 \(\dim(Ker(T-\lambda_0Id_V))\) è detta \textit{molteplicità geometrica} di \(\lambda_0\).\acc 
 \textbf{Teorema (Criterio)} : Sia \(V\) uno spazio vettoriale sul 
 campo \(\K\), e sia \(T:V\rightarrow V\) un applicazione lineare, con \(\dim(V)=n\), le seguenti sono equivalenti :\begin{itemize}
@@ -3741,7 +3741,7 @@ campo \(\K\), e sia \(T:V\rightarrow V\) un applicazione lineare, con \(\dim(V)=
     \item  per ogni 
     autovalore, si ha che la sua molteplicità algebrica è identica alla molteplicità geometrica.
     \item Siano \(\lambda_1,\lambda_2\dots,\lambda_k\) gli autovalori \textit{distinti}, si ha che :
-    $$\sum_{i=0}^k\lambda_i=\dim(V)=n$$ Ossia che la somma delle molteplicità algebriche dei suoi autovalori è 
+    $$\sum_{i=0}^k\text{molt}(\lambda_i)=\dim(V)=n$$ Ossia che la somma delle molteplicità algebriche dei suoi autovalori è 
     \(n\).
     
 \end{itemize}
