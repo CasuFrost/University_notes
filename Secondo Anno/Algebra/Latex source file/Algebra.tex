@@ -3735,14 +3735,77 @@ tale che \(f(\lambda_0)\ne0\). Tale numero naturale \(h\) è detto \textit{molte
 è denotato molt\((\lambda_0)\). Differentemente, 
 \(\dim(Ker(T-\lambda_0Id_V))\) è detta \textit{molteplicità geometrica} di \(\lambda_0\).\acc 
 \textbf{Teorema (Criterio)} : Sia \(V\) uno spazio vettoriale sul 
-campo \(\K\), e sia \(T:V\rightarrow V\) un applicazione lineare, con \(\dim(V)=n\), le seguenti sono equivalenti :\begin{itemize}
+campo \(\K\), sia \(T:V\rightarrow V\) un applicazione lineare, e siano 
+\(\lambda_1,\lambda_2\dots,\lambda_k\) gli autovalori distinti per \(T\),  le seguenti sono equivalenti :\begin{enumerate}
     \item \(T\) è diagonalizzabile.
-    \item Esiste una base di \(V\) costituita da autovettori per \(T\).
-    \item  per ogni 
-    autovalore, si ha che la sua molteplicità algebrica è identica alla molteplicità geometrica.
-    \item Siano \(\lambda_1,\lambda_2\dots,\lambda_k\) gli autovalori \textit{distinti}, si ha che :
-    $$\sum_{i=0}^k\text{molt}(\lambda_i)=\dim(V)=n$$ Ossia che la somma delle molteplicità algebriche dei suoi autovalori è 
-    \(n\).
-    
-\end{itemize}
+    \item \(\forall j \in \{1,2\dots,k\}\), si ha che molt\((\lambda_j)=\dim(V_{\lambda_j})\), ricordando che 
+    la dimensione dell'autospazio associato a \(\lambda_j\), è detta la sua molteplicità geometrica.
+    \item \(\displaystyle\sum_{j=1}^k\dim(V_{\lambda_j})=\dim(V)\)
+\end{enumerate}
+\textbf{Dimostrazione} : \boxedMath{(1)\(\implies\)(2)} Sappiamo che \(T\) è diagonalizzabile se esiste una base \(\B\) 
+di \(V\) composta da autovettori di \(T\), ne consegue che la matrice associata a \(T\) con tale base,
+ossia \(M_{\B,\B}(T)\), è una matrice 
+diagonale, con appunto, gli autovalori sulla diagonale, ed ha il polinomio caratteristico 
+della forma \((\lambda_1-\lambda)^{\text{molt}(\lambda_1)}+(\lambda_2-\lambda)^{\text{molt}(\lambda_2)}
+\dots +(\lambda_k-\lambda)^{\text{molt}(\lambda_k)}\), si ha che il numero di ingressi 
+sulla diagonale per cui \(\lambda_j=\text{molt}(\lambda_j)\), equivale a \(\dim(Ker(M_{\B,\B}(T)))\).\\
+\boxedMath{(2)\(\implies\)(3)} Si ha che il polinomio caratteristico ha grado \(\dim(V)=\text{molt}(\lambda_1)
++\text{molt}(\lambda_2)\dots+\text{molt}(\lambda_k)\), dato che per ipotesi 
+\(\forall j \in \{1,2\dots,k\}\), si ha che molt\((\lambda_j)=\dim(V_{\lambda_j})\), ne consegue che 
+la somma delle moltiplicità geometriche è uguale alla dimensione di \(V\). \boxedMath{(3)\(\implies\)(1)} 
+Si ha che gli autospazi associati ad autovalori distinti sono in somma diretta (proposizione che vedremo in 
+seguito), ne segue che \(\dim(V)=\dim(V_{\lambda_1})+\dim(V_{\lambda_2})\dots+\dim(V_{\lambda_k})\), sia 
+allora \(\B_j\) una base per \(V_{\lambda_j}\), si ha che i vettori delle base dei diversi autospazi sono tutti 
+linearmente indipendenti fra loro, e sono in numero uguale alla dimensione di \(V\), si ha quindi che 
+\(V=\Span(\B_1\cup \B_2\dots \cup \B_k)\), ne segue che \(V\) ammette una base di autovettori di \(T\), quindi 
+\(T\) è diagonalizzabile. \(\blacksquare\)\acc 
+\textbf{Lemma} : Sia \(V\) uno spazio vettoriale di dimensione \(n\) sul campo \(\K\)  e sia \(\varphi:V\rightarrow V\) un endomorfismo 
+lineare. Supponiamo che \(\lambda_1,\lambda_2\dots,\lambda_k\) siano gli autovalori di \(\varphi\), si ha che i 
+relativi autospazi \(V_{\lambda_1},V_{\lambda_2}\dots ,V_{\lambda_k}\) sono in posizione di \textit{somma diretta}, e che 
+gli autovettori che costituiscono le basi dei diversi autospazi sono tutti linearmente indipendenti fra loro.\acc
+\textbf{Dimostrazione} : Si procede per induzione su \(k\) numero di autovettori.\\
+Caso base (\(k=1\)) - Un solo vettore non nullo è ovviamente linearmente indipendente.\\
+Ipotesi induttiva - Supponiamo sia vero per \(k-1\) vettori.\\
+Passo induttivo - Consideriamo \(\ve_1,\ve_2\dots,\ve_k\) autovettori associati ad autovalori distinti, consideriamo una combinazione
+lineare uguale al vettore nullo :$$\alpha_1\ve_1+\alpha_2\ve_2\dots+\alpha_k\ve_k=\bar 0$$
+Ne segue che : 
+$$\alpha_k\ve_k=-(\alpha_1\ve_1+\alpha_2\ve_2\dots+\alpha_{k-1}\ve_{k-1})$$
+Essendo \(\varphi\) lineare, sappiamo che mappa il vettore nullo nel vettore nullo, quindi : 
+$$\varphi(\alpha_1\ve_1+\alpha_2\ve_2\dots+\alpha_k\ve_k)=\bar 0\implies \alpha_1\varphi(\ve_1)+\alpha_2\varphi(\ve_2)\dots 
++\alpha_k\varphi(\ve_k)=\bar 0$$
+Ma, essendo \(\ve_1,\ve_2\dots,\ve_k\) autovettori si ha che : 
+$$\alpha_1\lambda_1\ve_1+\alpha_2\varphi\lambda_2\ve_2\dots +\alpha_k\lambda_k\ve_k=\bar 0$$
+Ricordando che \(\alpha_k\ve_k=-(\alpha_1\ve_1+\alpha_2\ve_2\dots+\alpha_{k-1}\ve_{k-1})\), riscrivo : 
+$$\alpha_1\lambda_1\ve_1+\alpha_2\varphi\lambda_2\ve_2\dots +\lambda_k(-\alpha_1\ve_1-\alpha_2\ve_2\dots-\alpha_{k-1}\ve_{k-1})=\bar 0$$
+Riorganizzo i termini nel seguente modo : 
+$$\alpha_1(\lambda_1-\lambda_k)\ve_1+\alpha_1(\lambda_2-\lambda_k)\ve_2\dots+\alpha_{k-1}(\lambda_{k-1}-\lambda_k)\ve_{k-1}=\bar 0$$
+A questo punto però, si applica l'ipotesi induttiva, sappiamo già che i \(k-1\) autovettori sono linearmente indipendenti, 
+quindi i coefficenti \(\alpha_1,\alpha_2\dots,\alpha-{k-1}\) sono nulli, inoltre sappiamo che, 
+\(\forall j\in\{1,2\dots,k\}\) si ha che \((\lambda_j-\lambda_k)\ne 0\) in quanto questi sono autovalori. Ne consegue che 
+la combinazione lineare iniziale  \(\alpha_1\ve_1+\alpha_2\ve_2\dots+\alpha_k\ve_k\) è uguale al vettore nullo se 
+tutti i coefficienti sono nulli, quindi i \(k\) autovettori sono linearmente indipendenti. \(\blacksquare\)\acc 
+\textbf{Teorema Spettrale} : Se \(A\) è una matrice simmetrica, ossia \(A=\text{\hphantom{}}^tA\), allora 
+l'applicazione associata \(L_A\) è diagonalizzabile.\acc 
+\textbf{Lemma} : Sia \(V\) uno spazio vettoriale di dimensione \(n\) sul campo \(\K\)  e sia \(\varphi:V\rightarrow V\) un endomorfismo 
+lineare, se \(\varphi\) ha \(n\) autovalori distinti, allora è diagonalizzabile.\acc 
+\textbf{Proposizione} : Sia \(\lambda\) un autovalore, si ha che :
+$$\text{ molteplicità algebrica di }\lambda\ge \text{ molteplicità geometrica di }\lambda$$ 
+\textbf{Dimostrazione} : Sia \(\lambda_0\) un autovalore dell'endomorfismo \(T\) di uno spazio vettoriale \(V\) sul campo 
+\(\K\), siano \(\B=\{\ve_1,\ve_2\dots,\ve_h\}\) una base per l'autospazio \(V_{\lambda_0}\) associato a \(\lambda_0\). 
+Sia \(F\) un completamento di \(V_{\lambda_0}\), e sia \(\mathcal{D}=\{\ve_{h+1},\ve_{h+2}\dots,\ve_n\}\) una base per \(F\).
+Consideriamo quindi la base per \(V\), data da \(\E=\mathcal{D}\cup \B=\{\ve_1,\ve_2\dots,\ve_h+\ve_{h+1},\ve_{h+2}\dots,\ve_n\}\), 
+e consideriamo la matrice associata a \(T\) nella base \(\E\), essa sarà divisa in 4 quadranti ed avrà la seguente 
+forma : $$M_{\E,\E}(T)=
+\begin{bmatrix}
+    \lambda_0\cdot Id&|  &X\\
+    ---&---&---\\
+    0&|&Y
+\end{bmatrix}
+$$
+Dove \(X\) ed \(Y\) sono due matrici. Il polinomio caratteristico di tale applicazione su questa base sarà dato da
+$$P_{\lambda_0}(T)=\det(M_{\E,\E}(T)-\lambda_0 \cdot Id)=(\lambda_0-\lambda)^h \cdot p(\lambda)$$
+Dove \(p(\lambda)\) è un altro polinomio in funzione di \(\lambda\). Si noti come tale polinomio 
+comprende il termine \((\lambda_0-\lambda)^h\), dove \(h\) era la dimensione dell'autospazio associato 
+a \(\lambda_0\). Ne segue che la molteplicità algebrica è sempre maggiore o ugale alla 
+molteplicità geometrica. \(\blacksquare\)
 \end{document}
