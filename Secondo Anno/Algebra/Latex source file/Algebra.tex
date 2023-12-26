@@ -1157,7 +1157,7 @@ Quindi \((A\times B,+,\cdot)\) è un anello.
 L'elemento neutro è \(0_{A\land B}=(0_A,0_B)\), ossia la coppia dei due elementi neutri rispettivamente per \(A\) e \(B\).
 
 \section{Teoria dei Gruppi}\label{teoGruppi}
-In questo capitolo ci occuperemo di studiare le proprietà dei gruppi, ricordiamo la definizione :
+In questo capitolo ci occuperemo di studiare le proprietà dei gruppi, ricordiamo la definizione,
 \((G,*)\) è un gruppo se \(*\) è un operazione binaria tale che : \begin{enumerate}
     \item \(*\) è associativa.
     \item \(\exists e|g*e=g=e*g\)
@@ -1199,8 +1199,8 @@ presi \(s_1=a\) ed \(s_2=b^{-1}\), si ha che \(a*(b^{-1})^{-1}=a*b\in S\). Quind
 necessaria e sufficente per dimostrare che \(S\) è un sottogruppo di \(G\). \(\blacksquare\)
 \\\hphantom{}\\
 \textbf{Proposizione} : L'immagine di un omomorfismo \(\varphi\), ossia \(Im(\varphi)=\{\varphi(g), \forall g\in G\}\), 
-è un \textit{sottogruppo}.
-\\\textbf{ Dimostrazione } : Siano \(y_1,y_2\in Im(\varphi)\), ciò implica che \(y_1*y_2^{-1}\in Im(\varphi)\),
+è un \textit{sottogruppo}.\\
+\textbf{Dimostrazione } : Siano \(y_1,y_2\in Im(\varphi)\), ciò implica che \(y_1*y_2^{-1}\in Im(\varphi)\),
 per ipotesi, \(\exists g_1,g_2 | y_1=\varphi(g_1)\land y_2=\varphi(g_2)\). Si ha che 
 \(y_1*y_2^{-1}=\varphi(g_1)*\varphi(g_2)^{-1}\), essendo \(\varphi\) un omomorfismo, tale scrittura 
 è equivalente a \(\varphi(g_1)*\varphi(g_2^{-1})=\varphi(g_1*g_2^{-1})\), quindi in 
@@ -1344,10 +1344,10 @@ forniscono una \textit{partizione} di \(G\), che denotiamo con \(\mathcal{L}_S\)
 Tale partizione \(\mathcal{L}_S\), definisce anche una relazione di equivalenza : \begin{center}
     \(a\rho_S b\iff \exists g\in G |a\in gH \land b\in gH\)
 \end{center}
-\textit{Osservazione }:  \(a\rho_S b\iff a^{-1}*b\in H\). 
+\textit{Osservazione }:  \(a\rho_S b\iff a^{-1}*b\in gH\). 
 \\Esiste la partizione analoga \(\mathcal{L}_D\), con le classi laterali destre, che definisce la relazione :
 \begin{center}
-    \(a\rho_D b\iff a*b^{-1}\in H\)
+    \(a\rho_D b\iff a*b^{-1}\in Hg\)
 \end{center}
 In generale, \(\rho_S\ne \rho_D\).
 Se \(G\) è finito, \textbf{l'indice} di \(H\) in \(G\) è il numero di classi laterali sinistre, che è uguale 
@@ -1391,7 +1391,7 @@ Se \(\varphi\) è un omomorfismo, l'insieme \(Ker\varphi=\{g\in G|\varphi(g)=1_G
     \(\varphi\text{ è iniettiva }\implies Ker\varphi=\{1_G\}\) \\ \hline
     \end{tabular}
 , 
-L'ipotesi è che \(\varphi\) sia iniettiva, predno un qualsiasi \(g\in Ker\varphi\), ed ho che 
+L'ipotesi è che \(\varphi\) sia iniettiva, prendo un qualsiasi \(g\in Ker\varphi\), ed ho che 
 \(\varphi(g)=1_G=\varphi(1_G)\), ma dato che \(\varphi\) è iniettiva, ciò è vero se e 
 solo se \(g=1_G\), quindi \(Ker\varphi=\{1_G\}\). Adesso 
 dimostriamo \begin{tabular}{|c|}
@@ -1406,7 +1406,7 @@ Abbiamo già dato la definizione di gruppo ciclico, ossia un gruppo \(G\), per c
 preso \(g\in G\), si ha che \(G=\left\langle g\right\rangle\).\\
 \subsubsection{Ordine di \(g\)}
 \textbf{Definizione }: In un gruppo ciclico \(G\) per cui \(G=\left\langle g\right\rangle\),
-sia \(n\) il numero intero \textit{più piccolo}  tale che \(g^n=1\), si dice 
+sia \(n\) il numero naturale \textit{più piccolo}  tale che \(g^n=1\), si dice 
 che \(g\) ha \textbf{ordine} \(n\) e si denota \(o(g)=n\), se tale \(n\) non esiste, allora \(g\) ha ordine infinito.
 \begin{equation}
     o(g)=\min(n\ge 1|g^n=1)
@@ -1595,7 +1595,7 @@ sono equivalenti \begin{center}\(Ha=aH\)\end{center}
 =h'\in H\), ne segue che \(ah=h'a\implies aH\subseteq Ha\) ed analogamente \( Ha\subseteq aH\). \(\blacksquare\)
 \\\hphantom{}\\ Ricordando che l'indice di \(H\) è il numero delle classi laterali, si ha la seguente :\\\hphantom{}\\
 \textbf{Proposizione }: Se \(H\) è un sottogruppo di indice 2, allora è normale, dato che le sue classi laterali,
-essendo 2 sono : \(G=H\cdot 1\cup H\cdot a\) ed analogamente \(G=\cdot 1\cdot H\cup a\cdot H\), necessariamente, 
+essendo 2 sono : \(G=H\cdot 1\cup H\cdot a\) ed analogamente \(G= 1\cdot H\cup a\cdot H\), necessariamente, 
 \(G\backslash H=aH=Ha\implies H\norm G\).\\\hphantom{}\\
 \textbf{Proposizione }: Sia \(\varphi : G \rightarrow G'\) un omomorfismo di gruppi, allora il suo nucleo  
 \(Ker\varphi=\{g\in G|\varphi(g)=1_G\}\) è un sottogruppo normale.\\
@@ -1611,7 +1611,7 @@ essendo 2 sono : \(G=H\cdot 1\cup H\cdot a\) ed analogamente \(G=\cdot 1\cdot H\
 \textbf{Proposizione }: Sia \(\varphi : A\rightarrow B\) un omomorfismo, allora \(|Ker\varphi|=\dfrac{|A|}{|B|}\).
 \subsection{Il Gruppo degli Automorfismi} \label{automorfismi}
 Sia \(G\) un gruppo, allora \(\aut(G)\), detto gruppo degli \textit{automorfismi}, è definito nel seguente modo :
-\begin{center}\( \aut(G)=\{\varphi : G\rightarrow G \text{ isomorfi }\} \)\end{center}
+\begin{center}\( \aut(G)=\{\varphi : G\rightarrow G \text{ isomorfismo }\} \)\end{center}
 Ossia il gruppo di tutti gli isomorfismi di \(G\) con se stesso, dove su esso è definita l'operazione di 
 composizione.\\\hphantom{}\\
 \subsubsection{Automorfismi Interni}
@@ -1710,7 +1710,7 @@ I teoremi di isomorfismo sono 3, vediamone il primo :
  per un sottogruppo normale : \(\nicefrac{G}{Kerf}\), composto dalle classi laterali di \(Kerf\).\\\hphantom{}\\
  Ricordando che \(\pi\) è la proiezione canonica, tale omomorfismo 
  \(f\) induce un \textbf{unico isomorfismo} \(F:\nicefrac{G}{Kerf}\rightarrow Im(f)\), 
- tale che \(f=\pi \circ F\).
+ tale che \(f=F \circ\pi\).
  \begin{figure}[h]
     \centering{
     \includegraphics[width=0.45\textwidth ]{images/TeoremaIsomorfismo.eps}
