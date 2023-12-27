@@ -341,7 +341,7 @@ e dato ogni elemento \(n\in \mathbb{N}\), l'elemento \(\sigma(n)\) si dice \text
      allora risulta ovvio che \(\sigma(k)=\sigma(\sigma(k')) \in U \implies U = \mathbb{N} \).
 \end{itemize}
 \subsubsection{Definizione Formale}
-Dati tali assiomi adesso procesiamo nel riconnetterci con l'insieme dei numeri naturali da noi conosciuti,
+Dati tali assiomi adesso procediamo nel riconnetterci con l'insieme dei numeri naturali da noi conosciuti,
 enunciandone le proprietà elementari secondo la terna di Peano.\\
 Sia \((\mathbb{N} ,\sigma ,0)\) una terna di Peano, presi \(n,m \in \mathbb{N}\), dirò che \(n\le m \iff m = \sigma(\sigma(\sigma(...n)))\),
 ossia che \(n\) è minore o uguale di \(m\) se \(m\) è uguale a \(\sigma\) applicato su \(n\) un certo numero di volte. 
@@ -387,7 +387,7 @@ ed  una coppia \((a,0)\) è in relazione con tutte le coppie \(n,m\), per cui \(
 \begin{center}
     \((5,6)\sim (0,1)\iff 5+1 = 6+0 \)\\\((8,2)\sim (6,0)\iff 8+0 = 2+6\)
 \end{center}
-Si nota facilmente come tale relazaione sia di equivalenza, possiamo quindi definire delle classi di equivalenza
+Si nota facilmente come tale relazione sia di equivalenza, possiamo quindi definire delle classi di equivalenza
 che ripartiscono l'insieme \(\mathbb{N}\times\mathbb{N}\) in classi \([(n,m)]\). Scegliamo come \textit{rappresentanti}
 delle classi di equivalenza gli elementi che prevedono uno dei due elementi uguale a \textit{zero}, ogni classe sarà 
 rappresentabile con uno dei seguenti rappresentanti distinti :
@@ -473,7 +473,7 @@ che \(r\in S\), poniamo per assurdo che \(r\ge |b|\), quindi \(r-b\ge 0\).
 Dato che prima si è scritto \( r= a-bq\), ora abbiamo  \( r-b= a-bq-b\), che possiamo riscrivere come 
 \(a-b(q+1)\), che rientra nella forma \(a-bx\) definita inizialmente nell'insieme \(S\). Ciò vuol dire che 
 \(r-b\in  S\), ovviamente \(r>r-b\), ma \(r\) è il minimo di \(S\) quindi è \textbf{assurdo} che \(r-b\) sia 
-in \(S\), per questo \(r<|b|\).\\\hphantom{.}\\
+in \(S\), per questo \(r<|b|\). \(\blacksquare\)\\\hphantom{.}\\
 \textbf{Definizione }: presi \(a,b\in\mathbb{Z}\) si dice che \(a\) \textit{divide} \(b\), e si scrive 
 \(a|b\), se esiste \(c\in\mathbb{Z}\) tale che \(b=ac\).\\
 Osservazioni :\begin{itemize}
@@ -607,7 +607,7 @@ Un intero \(p\ge 2\) è detto \textit{primo} se i suoi divisori sono esclusivame
  \begin{quote}
     Un elemento \(p\) di un anello \ref{ringDef} \((\mathbb{Z},+,\cdot)\) è detto \textbf{irriducibile} se:\begin{center} \(p=xy, x\notin \mathcal{U}(\mathbb{Z})\implies y\in \mathcal{U}(\mathbb{Z})\) 
     \end{center}\end{quote}
-Un qualsiasi dominio di integrità può presentare elementi primi o irriducibili, se \(a\in A,+,\cdot)\) è primo, 
+Un qualsiasi dominio di integrità può presentare elementi primi o irriducibili, se \(a\in (A,+,\cdot)\) è primo, 
 allora \(a\) è irriducibile (primo \(\implies\) irriducibile). non è però vero il contrario, in generale, se un elemento 
 è irriducibile, non è per forza primo (irriducibile \(\nRightarrow \) primo). Nei numeri interi \(\mathbb{Z}\), 
 gli elementi irriducibili sono i numeri primi. 
@@ -1716,8 +1716,13 @@ I teoremi di isomorfismo sono 3, vediamone il primo :
     \includegraphics[width=0.45\textwidth ]{images/TeoremaIsomorfismo.eps}
     }
 \end{figure}
-\\Risulta che \(F(aKerf)=f(a),\text{ }\forall a\in G\), Inoltre,
-tale \(F\) mantiene le operazioni :\begin{center} \(F(aKerf*bKerf)=F(abKerf)=f(ab)=f(a)f(b)=F(aKerf)F(bKerf)\)\end{center}
+\\\textbf{Dimostrazione} : Definiamo un applicazione \(F\) in tal modo : \(F(aKerf):=f(a)\spaz\forall a\in G\).
+Tale applicazione è ben posta, dato che, se \(aKerf=bKerf\iff ab^{-1}\in Kerf\iff f(ab^{-1})=1_{G'}\iff f(a)f(b^{-1})=1_{G'}
+\iff f(a)f(b)^{-1}=1_{G'} \iff f(a)=f(b)\), dimostrando anche l'inieittività di \(F\). Risulta che 
+tale \(F\) mantiene le operazioni :$$F(aKerf*bKerf)=F(abKerf)=f(ab)=f(a)f(b)=F(aKerf)F(bKerf)$$
+Essendo che, qualsiasi elemento dell'immagine di \(f\) sarà del tipo \(f(g)\) per qualche \(g\in G\), tale \(f(g)\) 
+sarà mappato da \(F\) da un elemento di \(gKerf\), quindi \(F\) è suriettiva, essendo anche iniettiva, risulta 
+biettiva. Essendo \(F\) un omomorfismo biettivo, esso è un isomorfismo. \(\blacksquare\)
 \subsection{Gruppi Simmetrici}\label{gruppSim}
 \subsubsection{Definizione, Trasposizioni e \(k\)-cicli}
 Riprendiamo la definizione di gruppo simmetrico che abbiamo già dato nel capitolo \ref{Sim1}, limitandola 
