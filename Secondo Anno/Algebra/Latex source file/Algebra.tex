@@ -1747,8 +1747,8 @@ Vediamo alcuni esempi di permutazioni note : \acc
 Le \textbf{trasposizioni} sono particolari permutazioni che si denotano con \((i\spaz{ }j)\), ed identificano una 
 permutazione del tipo :\begin{equation}
     (i\spaz{ }j)=\begin{pmatrix}
-        1 & 2 & \dots&i&j&n\\
-        1 & 2 & \dots&j&i&n
+        1 & 2 & \dots&i&j&\dots&n\\
+        1 & 2 & \dots&j&i&\dots&n
         \end{pmatrix}
 \end{equation}
 Ossia che esclusi due valori \(i,j\) per cui \(\sigma(i)=j\) e \(\sigma(j)=i\), la bigezione è la funzione identità, 
@@ -1758,7 +1758,7 @@ si identifica con \((j_1\spaz j_2\spaz...\spaz j_k)\), dove tali \(k\) elementi 
 (i restanti sono punti fissi), ed è definita in tal modo :\begin{equation}
     \sigma(j_1)=j_2\spaz\sigma(j_2)=j_3\spaz\sigma(j_3)=j_4\spaz\dots\spaz\sigma(j_{k-1})=j_k\spaz \sigma(j_k)=j_1
 \end{equation}
-Ovviamente si ha che \(\supp(\sigma)=\begin{pmatrix}j_1&j_2&\dots&j_{k-1}&j_k\\j_2&j_3&\dots&j_k&1\end{pmatrix}\), in rappresentazione 
+Ovviamente si ha che \(\supp(\sigma)=\begin{pmatrix}j_1&j_2&\dots&j_{k-1}&j_k\\j_2&j_3&\dots&j_k&j_1\end{pmatrix}\), in rappresentazione 
 con grafo risulta una cosa del tipo :
 \begin{figure}[h]
     \centering{
@@ -1805,7 +1805,7 @@ Quindi \(N\) divide \(M\), inoltre (Denotando l'identità con id) :\begin{equati
 Allora l'ordine di ogni ciclo divide \(N\), da cui \(M\) divide \(N\), ne consegue che \(M=N\). \(\blacksquare\)
 \subsubsection{Classi Coniugate in \(\Sn\)}
 In \(\Sn\) risulta particolarmente facile stabilire una relazione di \textit{coniugio}, che definisce appunto delle 
-classi di equivalenza di elemente \textit{coniugati} fra loro, definiamo tale relazione : \begin{center}
+classi di equivalenza di elementi \textit{coniugati} fra loro, definiamo tale relazione : \begin{center}
     \(\sigma\rho\sigma'\iff\sigma=\tau\sigma'\tau^{-1}\) per qualche \(\tau\in\Sn\)
 \end{center}
 Se sono in relazione, si dice che la permutazione  \(\sigma\) è \textit{coniugata} 
