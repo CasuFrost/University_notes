@@ -1503,13 +1503,14 @@ dimostrazione completa, è pregato di scrivermi in modo tale che io possa aggior
 questa sezione.\\\hphantom{}\\
 \hrule
 \color{black}
-\Large\textbf{Teorema } : \normalsize Sia \(n\) primo, allora \((\mathcal{U}(\Z_n),\cdot)\simeq (\Z_{n-1},+)\), esiste 
+\Large\textbf{Teorema } : \normalsize Sia \(n\) primo, allora \((\mathcal{U}(\Z_n),\cdot)\) è isomorfo a \( (\Z_{n-1},+)\),
+ossia, esiste 
 un \(a\in\mathcal{U}(\Z_n)\) per cui \(o(a)=n-1\).
 \\Per dimostrare tale teorema si necessita di alcune osservazioni e proposizioni :\\\hphantom{}\\ 
 \textbf{Proposizione} : Sia \(G\) un gruppo commutativo, se \(a,b\in G\) di 
 ordine \(o(a)=n\) e \(o(b)=m\), allora esiste \(c\in G\) tale che 
 \(o(c)=\mcm(o(a),o(b))\).\\
-\textbf{Dimostrazione della proposizione} : Consideriamo l'elemendo \(ab\) e calcoliamone l'ordine, 
+\textbf{Dimostrazione della proposizione} : Consideriamo l'elemento \(ab\) e calcoliamone l'ordine, 
 osserviamo che \((ab)^{mn}=(a^n)^m\cdot (b^m)^n=1\implies o(ab)\) divide \(mn\), tuttavia, non è 
 detto che \(o(ab)=mn\), infatti, si prenda il caso \(a=x\) e \(b=x^{-1}\), si ha che 
 \(ab=1\), e \(1=o(1)<o(a)=o(b)=n\).\\ In generale, se \((ab)^t=1\), allora 
@@ -1541,7 +1542,7 @@ dimostrato l'osservazione 2 e la proposizione. \(\square\)\\
 Applichiamo adesso la proposizione per dimostrare il teorema.\\\hphantom{}\\
 \textbf{Dimostrazione del teorema} : Vogliamo vedere che \(\exists a\in \mathcal{U}(\Z_n)|o(a)=n-1\). Possiamo prendere 
 un elemento di ordine massimo, dato che \(\mathcal{U}(\Z_n)\) è finito, ogni elemento ha ordine finito, prendiamo 
-allora \(a\in \mathcal{U}\) tale che \(o(a)=m\), dove \(m\) è l'ordine massimo : \(\forall h\in G,o(h)\le m=o(a)\). Chiaramente, 
+allora \(a\in \mathcal{U}(\Z_n)\) tale che \(o(a)=m\), dove \(m\) è l'ordine massimo : \(\forall h\in G,o(h)\le m=o(a)\). Chiaramente, 
 \(m\le n-1\), ma a priori non vale l'uguaglianza, notiamo la seguente osservazione :\\\hphantom{}\\
 \textbf{Osservazione 3} : Ogni elemento \(b\in \mathcal{U}(\Z_n)\) ha ordine che divide l'ordine massimo \(m=o(a)\).\\
 \textbf{Dimostrazione dell'osservazione 3} : Si utilizza la \textit{proposizione}, se esistesse \(b\) di ordine 
@@ -1568,12 +1569,12 @@ Vediamo adesso, un \textit{esempio} di studio dei sottogruppi di un gruppo cicli
 Quali sono i suoi sottogruppi? Prima dobbiamo chiederci, quali sono i divisori di 12? Sono 
 esattamente : 1,2,3,4,6 ed ovviamente 12. Per il teorema di struttura dei gruppi ciclici, per ogni divisore 
 \(k\) è associato il sottogruppo \(\left\langle g^{\frac{n}{k}}\right\rangle\), che in notazione additiva 
-per \(Z_12\) sarebbe \(\left\langle \dfrac{n}{k}\cdot [1]\right\rangle\) quindi avremo i sottogruppi : 
+per \(\Z_{12}\) sarebbe \(\left\langle \dfrac{n}{k}\cdot [1]\right\rangle\) quindi avremo i sottogruppi : 
 \begin{itemize}
-    \item \(k=2\implies \left\langle g^{6}\right\rangle\implies \left\langle [6]\right\rangle=\{[6],[12]\equiv[0]\}\)
-    \item \(k=3\implies \left\langle g^{4}\right\rangle\implies \left\langle [4]\right\rangle=\{[4],[8],[12]\equiv[0]\}\)
-    \item \(k=4\implies \left\langle g^{3}\right\rangle\implies \left\langle [3]\right\rangle=\{[3],[6],[9],[12]\equiv[0]\}\)
-    \item \(k=6\implies \left\langle g^{2}\right\rangle\implies \left\langle [2]\right\rangle=\{[2],[4],[8],[10],[12]\equiv[0]\}\)
+    \item \(k=2\implies\left\langle g^{\nicefrac{12}{2}}\right\rangle\implies \left\langle g^{6}\right\rangle\implies \left\langle [6]\right\rangle=\{[6],[12]\equiv[0]\}\)
+    \item \(k=3\implies\left\langle g^{\nicefrac{12}{3}}\right\rangle\implies \left\langle g^{4}\right\rangle\implies \left\langle [4]\right\rangle=\{[4],[8],[12]\equiv[0]\}\)
+    \item \(k=4\implies\left\langle g^{\nicefrac{12}{4}}\right\rangle\implies \left\langle g^{3}\right\rangle\implies \left\langle [3]\right\rangle=\{[3],[6],[9],[12]\equiv[0]\}\)
+    \item \(k=6\implies\left\langle g^{\nicefrac{12}{6}}\right\rangle\implies \left\langle g^{2}\right\rangle\implies \left\langle [2]\right\rangle=\{[2],[4],[8],[10],[12]\equiv[0]\}\)
 \end{itemize}
 Inoltre se \(k|12\) e \(h|k\), allora \(\left\langle [\frac{12}{h}]\right\rangle\) è un sottogruppo 
 di \(\left\langle [\frac{12}{k}]\right\rangle\), ad esempio, \(4|12\) e \(2|4\), quindi 
@@ -2118,7 +2119,7 @@ Ma per \color{blue}\textbf{! }\color{black} ottengo :
 \end{equation}
 Questo significa che una qualsiasi \(\bar z\in \tilde\Sigma\) soddisfa anche \(\star\star\), ossia equazione del primo sistema, 
 ne consegue che \(\tilde\Sigma\subseteq\Sigma\implies \Sigma=\tilde\Sigma\). \(\blacksquare\)\acc
-Adesso che conosciamo il lemma, voglia utilizzarlo per trasformare il nostro sistema, in un sistema risolvibile 
+Adesso che conosciamo il lemma, vogliamo utilizzarlo per trasformare il nostro sistema, in un sistema risolvibile 
 facilmente, necessitiamo prima di tutto di una definizione. \acc 
 \textbf{Definizione di Matrice Triangolare }: Una matrice quadrata \(n\times n\) si dice \textit{triangolare 
 superiore} se, \(i>j\implies a_{i_j}=0\), graficamente, sotto la diagonale principale (composta da tutti gli 
@@ -2214,7 +2215,7 @@ intuitiva, un esempio di applicazione sarà necessario per rendere l'idea.
 \subsubsection{Esempio di Applicazione del Metodo di Gauss}
 Si considera il seguente sistema con matrice associata : \begin{equation}
     \begin{cases}
-        x+37+z-w=1\\
+        x+3+z-w=1\\
         3x+9+4z+w=1\\
         2x+y+5z+2w=0\\
         y-z-w=2
@@ -2567,7 +2568,7 @@ Sia \(V\) uno spazio vettoriale, e \(\bar v_1,\bar v_2\dots, \bar v_k\) un insie
 Una \textit{combinazione lineare di }\(V\), è il vettore \begin{center}
     \(\alpha_1\cdot\bar v_1+\alpha_2\cdot\bar v_2\dots+ \alpha_k\cdot\bar v_k\)
 \end{center}
-Dove \(\alpha_1,\alpha_2\dots,\alpha_k\), è un qualsiasi insieme di coefficenti reali.\acc \textit{Esempio} : 
+Dove \(\alpha_1,\alpha_2\dots,\alpha_k\), è un qualsiasi insieme di coefficenti nel campo.\acc \textit{Esempio} : 
 In \(V_O^2\), si considerino i vettori \(\vec{OA},\vec{OB},\vec{OC}\) : \begin{itemize}
     \item \(\vec{OA}+\vec{OB}+\vec{OC}\) è una combinazione lineare dei 3 vettori.
     \item \(4\vec{OA}-2\vec{OB}+\dfrac{1}{2}\vec{OC}\) è una combinazione lineare dei 3 vettori.
