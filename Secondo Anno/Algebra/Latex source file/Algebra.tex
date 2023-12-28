@@ -1400,7 +1400,7 @@ dimostriamo \begin{tabular}{|c|}
     \end{tabular}, ho che \(\varphi(g)=\varphi(g')\), ed inoltre 
     \(\varphi(g)\cdot \varphi(g')^{-1}=1_G\), ed essendo che \(\varphi\) è un 
     omomorfismo, ho  \(\varphi(g\cdot g'^{-1})=1_G\), per ipotesi \(g\cdot g'^{-1}\in Ker\varphi
-    \implies g\cdot g'^{-1}=1_G\implies\) moltiplico per \(g'\implies g=g'\implies \varphi\) è iniettiva. \(\blacksquare\)
+    \implies g\cdot g'^{-1}=1_G\implies\) per unicità inverso \(\implies g=g'\implies \varphi\) è iniettiva. \(\blacksquare\)
 \subsection{Struttura dei Gruppi Ciclici}    
 Abbiamo già dato la definizione di gruppo ciclico, ossia un gruppo \(G\), per cui risulta che,
 preso \(g\in G\), si ha che \(G=\left\langle g\right\rangle\).\\
@@ -1459,7 +1459,7 @@ biunivoca fra i sottogruppi di \(G\) e \(G'\).
     \item Se \(H\le G =\left\langle g\right\rangle \), allora \(H\) è ciclico.
     \item  Se \(H\le G =\left\langle g\right\rangle \) e \(|G|=n=o(g)\), allora 
     l'ordine di \(H\) divide \(n\).
-    \item \(\forall k| n=k\cdot c\) per qualche \(c\) (per ogni \(k\) divisore di \(n\)),
+    \item \(\forall k\text{ tale che } n=k\cdot c\) per qualche \(c\) (per ogni \(k\) divisore di \(n\)),
     \(\exists! H\le G\text{ tale che }|H|=k\implies H=\left\langle g^{\frac{n}{k}}\right\rangle \) 
 \end{enumerate}
 Se \( G =\left\langle g\right\rangle\) e \(o(g)=n\) allora esiste una corrispondenza 
@@ -1477,7 +1477,7 @@ dire che, un gruppo ciclico ha tanti sottogruppi quanti sono i divisori di \(n\)
 \textbf{Proposizione }: In un gruppo \((G,\cdot)\) se \(g^t=1\) (assumendo che \(o(g)<\infty\)),
 allora \(o(g)\) divide \(t\). Ciò è di facile dimostrazione, 
 se \(o(g)\) divide \(t\) si ha \(t=k\cdot o(g)+r\) con \(r<o(g)\), 
-si ha che \(g^t=g^{ko(g)+r}=(g^{o(g)})^k\cdot g^r=1\iff r=0\). \(\blacksquare\)
+si ha che \(g^t=g^{ko(g)+r}=(g^{o(g)})^k\cdot g^r=g^r=1\iff r=0\). \(\blacksquare\)
 \\\hphantom{}\\
 Vediamo una \textbf{proprietà aritmetica} dell'ordine, se \(o(g)<\infty\), allora :
 \begin{center}
