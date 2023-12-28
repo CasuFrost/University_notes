@@ -1642,19 +1642,18 @@ Dopo aver definito il gruppo degli automorfismi \ref{automorfismi}, è interessa
 automorfismi del gruppo \((\Z_n,+)\), che equivale a trovare tutti gli automorfismi per qualsiasi gruppo 
 ciclico finito, prendiamo un qualsiasi automorfismo \(\varphi\), e notiamo una cosa :\\\hphantom{}\\      
 \textbf{Osservazione} : Essendo che un automorfismo (quindi isomorfismo) deve preservare 
-l'unità : \(\varphi(1)=1\), gli automorfismi di \(\Z_n\) dipendono totalmente da \(\varphi(1)\), avrò
-che : \(\varphi(n)=n\varphi(1)\).
-\\\hphantom{}\\      
-\textbf{Osservazione} : Se \(1\) genera \(\Z_n\), necessariamente anche \(\varphi(1)\) genera \(\Z_n\), 
-essendo che \(\mathcal{U}(\Z_n)\) contiene i generatori, \(\varphi(1)\in \mathcal{U}(\Z_n)\). \\\hphantom{}\\  
-Da qui, essendo che \(\varphi\in\aut(\Z_n)\), so che gli automorfismi saranno del tipo \(\varphi(n)=na\) dove 
-\(a\in\mathcal{U}(\Z_n)\). Considero adesso un'applicazione \(\psi_a : \Z_n\rightarrow \Z_n\) definita : 
-\(\psi_a(k)=ak\), noto che \(\psi_a\) è un omomorfismo : \begin{equation}
-    \psi_a(k+h)=(k+h)a=ka+ha=\psi_a(k)+\psi_a(h)
-\end{equation}
-Inoltre, \(\psi_a\) è iniettiva : \(\psi_a(k)=0\iff ka=0 \iff k=0\) ed essendo \(a\) invertibile, noto che 
-\(\psi_a\) è invertibile. \textit{Conclusione :} \(\psi_a\) è un automorfismo, e tramite al corrispondenza 
-\(\psi_a\rightarrow a\) so che \(\aut(\Z_n)\) è isomorfo a \(\mathcal{U}(\Z_n)\).
+l'unità, gli automorfismi di \(\Z_n\) dipendono totalmente da \(\varphi(1)\), quindi 1 dovrà essere 
+mappato in uno degli elementi di \(\Z_n\) che lo genera, sappiamo che gli elementi che possono 
+fungere da unità in \(\Z_n\) sono tutti gli \(a\in\mathcal{U}(\Z_n)\).
+\acc    
+A questo punto so che un automorfismo \(\varphi_a\) sarà del tipo \(\varphi_a(k)=a\cdot k\) dove \(a\) sarebbe 
+l'immagine dell'unità. Noto che \(\varphi_a(\varphi_b(k))=\varphi_a(bk)=abk\implies \varphi_a\circ \varphi_b=\varphi_{ab}\).\acc 
+Considero la mappa \(\phi:Aut(\Z_n)\rightarrow\mathcal{U}(\Z_n)\) tale che \(\phi(\varphi_a)=a\). Tale mappa è 
+suriettiva, in quanto per ogni \(a\in \mathcal{U}(\Z_n)\) esiste \(\varphi_a\) tale che \(\phi(\varphi_a)=a\). Essendo 
+la cardinalità dei due insiemi identica, tale mappa è biettiva.\acc 
+Noto che la mappa \(\phi\) conserva le operazioni : \(\phi(\varphi_a\circ \varphi_b)=\phi(\varphi_{ab})=a\cdot b=
+\phi(\varphi_a)\cdot\phi(\varphi_b)\). Essendo un omomorfismo biettivo, ne segue che \(Aut(\Z_n)\) è \textbf{isomorfo} a 
+\(\mathcal{U}(\Z_n)\).
 \subsection{Gruppo Quozioente per un Sottogruppo Normale}\label{gqsn}
 Sia \(H\norm G\) un sottogruppo normale, e considero \(\mathcal{L}_S\) (essendo \(H\) normale, è analogo a \(\mathcal{L}_D\)),
 ossia l'insieme delle classi laterali associate ad \(H\) che partizionano \(G\). Su questo insieme, considero 
