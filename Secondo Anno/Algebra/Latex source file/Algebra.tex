@@ -991,7 +991,7 @@ necessariamente suriettiva, quindi biettiva. \(\blacksquare\)
     \end{cases}
 \end{equation}
 
-\subsection{Piccolo Teorema di Fermat}   \begin{center}        
+\subsection{Piccolo Teorema di Fermat}\label{Fermat}   \begin{center}        
 Sia \(p\) un numero primo, vale che : \(\forall a\in \mathbb{Z},\text{ }a^p\equiv a \text{ (mod }p\text{)}\)
 \end{center} 
 \textbf{Dimostrazione }: Si dimostra per induzione. \begin{itemize}
@@ -3825,7 +3825,7 @@ Vogliamo dimostrare che \(a^{\varphi(n)}=1 \mod n\), prima di ciò, faccio un :\
 $$a^{\varphi(p^k)}=1 \mod p^k$$
 \textit{Dimostrazione Osservazione cruciale} : Procediamo per induzione su \(k\).\begin{itemize}
     \item  \code{Caso base} \(k=1\) : \(a^\varphi(p)=1 \mod p\iff a^{p-1}=1\mod p\) e ciò è verificato in quanto è il caso del piccolo 
-    teorema di Fermat.
+    teorema di Fermat \ref{Fermat} .
     \item \code{Ipotesi induttiva} : \(a^{\varphi(p^k)}=1 \mod p^k\), che è equivalente a dire che  \(a^{\varphi(p^k)}=1+p^k\cdot t\) per qualche \(t\in\Z\).
     \item\code{Passo induttivo} : Come prima cosa, mi rendo conto che : 
     $$\varphi(p^{k+1})=p^{k+1}-p^k=p(p^k-p^{k-1})=p\cdot\varphi(p^k)$$
@@ -3850,4 +3850,25 @@ $$(a^{\varphi(p_i^{h_i})})^{\dfrac{\varphi(n)}{\varphi(p_i^{h_i})}}=1^{\dfrac{\v
     a^{\varphi(n)}=1 \mod p_s^{h_s}
  \end{cases}\implies  a^{\varphi(n)}=1 \mod (p_1^{h_1}\cdot p_2^{h_2}\dots p_s^{h_s})=a^{\varphi(n)}=1 \mod n\spaz\blacksquare$$
 \subsubsection{Chiarimento sugli Ordini dei Gruppi}
+Sia \(G\) un gruppo, sia \(e\) l'elemento neutro di \(G\) e sia \(g\in G\) un suo elemento. Consideriamo l'insieme 
+\(O=\{n\in\N|g^n=e\}\), l'\textbf{ordine} di \(g\) sarà \(\min(O)\), ossia il numero naturale \(n\) più piccolo, per 
+cui \(g^n=e\). Ovviamente, non si considera lo zero. Diversamente, l'ordine di un gruppo, rappresenta la sua cardinalità. Se 
+non esiste nessun \(n\in\N\) per cui \(g^n=e\), allora \(g\) ha ordine infinito.
+\begin{itemize}
+    \item ordine di \(g\in G:=\min(\{n\in\N|g^n=e\})\) 
+    \item ordine di \(G := |G|\)
+\end{itemize}
+Sia adesso \(G\) un gruppo \textbf{ciclico}, generato da \(g\), ossia \(G=\left\langle g\right\rangle \), allora si avrà 
+che l'ordine di \(G\), ossia la sua cardinalità, sarà identica all'ordine del generatore \(g\). Diversamente, se un gruppo 
+è finito ma non ciclico, la sua cardinalità non sarà correlata all'ordine di nessun elemento.\begin{center}
+    Tutti i gruppi ciclici finiti sono \textit{isomorfi} a \(\Z_n\)
+\end{center}
+\(\Z_n\) non ha un solo generatore, bensì, si ha che tutti gli elementi invertibili di \(\Z_n\) sono generatori, ossia, tutti 
+i numeri co-primi con \(n\), ed ovviamente hanno tutti lo stesso ordine, che sarebbe la cardinalità di \(\Z_n\).\acc 
+\textit{Esempio} : Si consideri il gruppo \((\Z_6,+)\) di elemento neutro \(0\), si noti come : 
+$$\Z_6=\{[1],[2],[3],[4],[5],[6]\equiv [0]\}$$
+$$\mathcal{U}(\Z_6)=\{[1],[5]\}$$
+Si ricordi che siamo in notazione additiva! \(g^k:=g+g+g\dots +g \) \(k\)-volte.
+$$\left\langle2\right\rangle=\{1^1=[1],1^2=[2],1^3=[3],1^4=[4],1^5=[5],1^\textbf{6}=6=[0]\} $$
+$$\left\langle5\right\rangle=\{5^1=[5],5^2=10=[4],5^3=15=[3],5^4=20=[2],5^5=25=[1],5^\textbf{6}=30=6=[0]\}$$
  \end{document}
