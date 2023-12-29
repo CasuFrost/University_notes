@@ -1303,8 +1303,8 @@ Anche  \((\mathbb{Z}_n,+)\) è ciclico, dato che \(\mathbb{Z}_n=\left\langle [1]
  Introduciamo adesso quelle che sono le \textit{classi laterali} di un sottogruppo.\\
  Sia \(H\) un sottogruppo di \((G,*)\), dove \(G\) non è necessariamente finito, l'insieme 
  \(H\) ha una \textbf{classe laterale sinistra} associata ad ogni \(a\in G\), ed è l'insieme \(aH=\{a*h, h\in H\}\), 
- analogamente, la \textbf{classe laterale destra} associata ad ogni \(a\in G\),  è l'insieme \(Ha=\{h*a, h\in H\}\), 
- a meno che \((G,*)\) non sia commutativo, \(aH\ne Ha\). \\
+ analogamente, la \textbf{classe laterale destra} associata ad ogni \(a\in G\),  è l'insieme \(Ha=\{h*a, h\in H\}\). 
+ Se \((G,*)\) è commutativo, allora \(aH= Ha\), altrimenti, non è generalmente vero. \\
  \textit{Esempio }: consideriamo il gruppo simmetrico \(S_3\), ed il suo sottogruppo \(H=\Bigg\{1,
  \begin{pmatrix}
     1 & 2 & 3\\
@@ -1378,7 +1378,7 @@ qualsiasi \(a\), la cardinalità di \(H\) è uguale alla cardinalità di \(aH\),
 \\\hphantom{}\\
 \textbf{Definizione }: Se \(\rho_S=\rho_D\), allora \(H\) è detto sottogruppo \textbf{normale} e si denota con \(H\unlhd G\).
 \\\hphantom{}\\
-\textbf{Proposizione }: \(H\unlhd G\iff a*h*(a^{-1})\in H \)  \(\forall a\in G\).
+\textbf{Proposizione \color{red}(Criterio importante)\color{black}}: Sia \(h\in H\), \(\spaz H\unlhd G\iff a*h*(a^{-1})\in H \)  \(\forall a\in G\).
 \subsubsection{Nucleo di un Omomorfismo}
 Se \(\varphi\) è un omomorfismo, l'insieme \(Ker\varphi=\{g\in G|\varphi(g)=1_G\}\) è detto \textbf{nucleo} di 
 \(\varphi\) ed è un sotto-gruppo di \(G\), è di facile dimostrazione : 
