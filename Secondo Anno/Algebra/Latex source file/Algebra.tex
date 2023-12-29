@@ -7,6 +7,8 @@
 \usepackage[english]{babel}
 \usepackage{nicefrac, xfrac}
 \usepackage{tikz}
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 \newcommand{\K}{{\mathbb K}}
 \newcommand{\Z}{{\mathbb Z}}
 \newcommand{\R}{{\mathbb R}}
@@ -807,7 +809,7 @@ Il \textit{Teorema di Eulero}, enucia che, se \(n\) è un intero positivo, ed \(
     \(a^{\varphi(n)}\equiv 1\) (mod \(n)\)
 \end{center} 
 Dove \(\varphi\) è la \textbf{funzione di Eulero}, che associa ad ogni \(n\), il numero di tutti gli interi 
-positivi minori di \(n\), che sono co-primi con \(n\). Ad \textit{esempio} :\begin{itemize}
+positivi minori di \(n\), che sono co-primi con \(n\) (dimostrazione \ref{dimTeoEulero} ). Ad \textit{esempio} :\begin{itemize}
     \item \(\varphi(20)=8\) perchè i co-primi con 20 minori di esso sono : \(1,3,7,9,11,13,17,19\).
     \item \(\varphi(6)=2\) perchè i co-primi con 6 minori di esso sono : \(1,5\).
 \end{itemize}
@@ -3812,5 +3814,40 @@ $$P_{\lambda_0}(T)=\det(M_{\E,\E}(T)-\lambda_0 \cdot Id)=(\lambda_0-\lambda)^h \
 Dove \(p(\lambda)\) è un altro polinomio in funzione di \(\lambda\). Si noti come tale polinomio 
 comprende il termine \((\lambda_0-\lambda)^h\), dove \(h\) era la dimensione dell'autospazio associato 
 a \(\lambda_0\). Ne segue che la molteplicità algebrica è sempre maggiore o ugale alla 
-molteplicità geometrica. \(\blacksquare\)
-\end{document}
+molteplicità geometrica. \(\blacksquare\)\newpage 
+\section{Complementi}
+\textit{Perché questa sezione?} - Ci sono delle cose che durante il corso delle lezioni mi son perso, non ho voglia di 
+aggiungerle agli appunti già scritti, potrei farlo in un futuro prossimo ma adesso non lo farò.
+\subsection{Sulla Teoria dei Gruppi e le Strutture Algebriche}
+\subsubsection{Dimostrazione Teorema di Eulero} \label{dimTeoEulero} 
+Vogliamo dimostrare che \(a^{\varphi(n)}=1 \mod n\), prima di ciò, faccio un :\\
+\textbf{Osservazione cruciale} : Se \(p\) è un numero primo che non divide \(a\), allora : 
+$$a^{\varphi(p^k)}=1 \mod p^k$$
+\textit{Dimostrazione Osservazione cruciale} : Procediamo per induzione su \(k\).\begin{itemize}
+    \item  \code{Caso base} \(k=1\) : \(a^\varphi(p)=1 \mod p\iff a^{p-1}=1\mod p\) e ciò è verificato in quanto è il caso del piccolo 
+    teorema di Fermat.
+    \item \code{Ipotesi induttiva} : \(a^{\varphi(p^k)}=1 \mod p^k\), che è equivalente a dire che  \(a^{\varphi(p^k)}=1+p^k\cdot t\) per qualche \(t\in\Z\).
+    \item\code{Passo induttivo} : Come prima cosa, mi rendo conto che : 
+    $$\varphi(p^{k+1})=p^{k+1}-p^k=p(p^k-p^{k-1})=p\cdot\varphi(p^k)$$
+    Quindi : 
+    $$a^{\varphi(p^{k+1})}=a^{p\cdot\varphi(p^k)}=(a^{\varphi(p^k)})^p=\text{ ipotesi }=(1+p^k\cdot t)^p$$
+    Sviluppo il binomio : 
+    $$(1+p^k\cdot t)^p=\sum_{i=0}^p\binom{p}{i}(p^k\cdot t)^i=(1+p^k\cdot t)^p=\binom{p}{0}(p^k\cdot t)^0+\sum_{i=1}^p\binom{p}{i}(p^k\cdot t)^i$$
+    $$\binom{p}{0}(p^k\cdot t)^0+\sum_{i=1}^p\binom{p}{i}(p^k\cdot t)^i=1+\sum_{i=1}^p\binom{p}{i}(p^k\cdot t)^i$$
+    Vogliamo capire quanto fa questo risultato \(\mod p^{k+1}\), osservo che \(p^k\cdot t =0 \mod p^{k+1}\), quindi : 
+    $$1+\sum_{i=1}^p\binom{p}{i}(p^k\cdot t)^i\mod p^{k+1}\implies 1+\sum_{i=1}^p\binom{p}{i}(0)^i\mod p^{k+1}=1+0=1 \spaz \blacksquare$$
+\end{itemize}
+ Ora che ho dimostrato l'osservazione posso procedere con \(a^{\varphi(n)}=1 \mod n\), considero la fattorizzazione in primi 
+ di \(n\), ossia \(n=p_1^{h_1}\cdot p_2^{h_2}\dots p_s^{h_s}\), quindi \(\varphi(n)=\varphi(p_1^{h_1}\cdot p_2^{h_2}\dots p_s^{h_s})\), 
+ ma so che \(\varphi\) è una funzione \textit{moltiplicativa}, quindi \(\dfrac{\varphi(n)}{\varphi(p_i^{h_i})}\in \Z\spaz \forall i\).
+A questo punto, considero \(a^{\varphi(p_i^{h_i})}=1\mod p_i^{h_i}\), per l'osservazione cruciale so che è uguale ad 1. Elevo ad 
+entrambi i membri \(\dfrac{\varphi(n)}{\varphi(p_i^{h_i})}\) ed ottengo : 
+$$(a^{\varphi(p_i^{h_i})})^{\dfrac{\varphi(n)}{\varphi(p_i^{h_i})}}=1^{\dfrac{\varphi(n)}{\varphi(p_i^{h_i})}}\mod p_i^{h_i}\implies
+ a^{\dfrac{\varphi(p_i^{h_i})\varphi(n)}{\varphi(p_i^{h_i})}}=1 \mod p_i^{h_i}\implies a^{\varphi(n)}=1 \mod p_i^{h_i}$$
+ Ma allora, per il teorema cinese , ho che : $$\begin{cases}
+    a^{\varphi(n)}=1 \mod p_1^{h_1}\\
+    a^{\varphi(n)}=1 \mod p_2^{h_2}\\\vdots \\ 
+    a^{\varphi(n)}=1 \mod p_s^{h_s}
+ \end{cases}\implies  a^{\varphi(n)}=1 \mod (p_1^{h_1}\cdot p_2^{h_2}\dots p_s^{h_s})=a^{\varphi(n)}=1 \mod n\spaz\blacksquare$$
+\subsubsection{Chiarimento sugli Ordini dei Gruppi}
+ \end{document}
