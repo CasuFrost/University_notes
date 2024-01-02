@@ -2752,7 +2752,7 @@ generato, allora la mappa : \begin{center}
 È un  \textit{isomorfismo} di spazi vettoriali.\acc 
 \textbf{Dimostrazione }: La suriettività deriva dal fatto che ogni elemento di \(V\) può essere scritto 
 come combinazione lineare \(a_1\ve_1+a_2\ve_2\dots+a_n\ve_n\). Inoltre tale mappa mantiene le operazioni : \begin{equation}
-    \phi_B(a_1,a_2\dots,a_n+b_1,b_2\dots,b_n)=(a_1+b_1)\ve_1+(a_2+b_2)\ve_2\dots+(a_n+b_n)\ve_n
+    \phi_B((a_1,a_2\dots,a_n)+(b_1,b_2\dots,b_n))=(a_1+b_1)\ve_1+(a_2+b_2)\ve_2\dots+(a_n+b_n)\ve_n
 \end{equation}\begin{equation}
     =(a_1\ve_1+a_2\ve_2\dots+a_n\ve_n)+(b_1\ve_1+b_2\ve_2\dots+b_n\ve_n)=\phi_B(a_1,a_2\dots,a_n)+\phi_B(b_1,b_2\dots,b_n)
 \end{equation}
@@ -2762,7 +2762,7 @@ Anche sul prodotto per uno scalare : \begin{equation}
 Essendo che la base di \(V\) è composta da vettori linearmente indipendenti, è anche iniettiva. \(\blacksquare\)
 \subsubsection{Criteri per la Ricerca di una Base}
 Presi \(k\) elementi di uno spazio vettoriale \(V\), dove \(k\) è la 
-dimensione dello spazio vettoriale, se questi sono generatori, oppure indipendenti, 
+dimensione dello spazio, se questi sono generatori, oppure linearmente indipendenti, 
 allora costituiscono una base di \(V\).\acc 
 \textbf{Notazione }: La dimensione di uno spazio vettoriale \(V\), sarà denotata \(\dim(V)\).
 \acc
@@ -2990,7 +2990,7 @@ ho che \(\bar y_1 +\bar y_2 = T(\ve_1)+T(\ve_2)=\)per linearità\(=T(\ve_1+\ve_2
 \textbf{Proposizione} : Un applicazione lineare \(T:V\rightarrow W\) è iniettiva se e solo se \(KerT=\{\bar 0_V\}\).\acc 
 \textbf{Dimostrazione }: Dimostriamo il primo verso dell'implicazione, l'ipotesi è che l'applicazione sia iniettiva. 
 Per definizione, \(\bar v\in KerT\implies T(\bar v)=\bar 0_W\), ma sicuramente, per definizione di applicazione 
-lineare, \(T(\bar 0_V)=V\), si ha che \(T(\ve)=T(\bar 0_V)\), essendo però \(T\) iniettiva, \(\ve=\bar 0_V\). 
+lineare, \(T(\bar 0_V)=\bar 0_W\), si ha che \(T(\ve)=T(\bar 0_V)\), essendo però \(T\) iniettiva, \(\ve=\bar 0_V\). 
 Dimostriamo l'altro verso, supponendo che \(KerT=\{\bar 0_V\}\). Siano \(\ve_1,\ve_2\in V\), so che \(T(\ve_1)=T(\ve_2)\iff 
 T(\ve_1)-T(\ve_2)=\bar0_W\iff T(\ve_1-\ve_2)=\bar 0_W\), ma allora, per ipotesi  \(\ve_1-\ve_2=\bar 0_V\implies \ve_1=\ve_2
 \implies T\) è iniettiva. \(\blacksquare\)\acc
@@ -3064,7 +3064,7 @@ ricordando che i vettori  \(\{\ve_1\dots,\ve_r\}\) fanno parte del nucleo, ne co
 \end{equation}\begin{equation}\implies \delta_1=\dots = \delta_r=-\gamma_{r+1}=\dots=-\gamma_{n-r}=0 \implies \gamma_{r+1}=\dots=\gamma_{n-r}=0
 \end{equation}
 Quindi, i vettori \(\bar w_1\dots,\bar w_{n-r}\) sono linearmente indipendenti, e costituiscono una base per 
-ò'immagine di \(T\). \(\blacksquare\)\acc
+l'immagine di \(T\). \(\blacksquare\)\acc
 \textbf{Corollario} : Sia \(T:V\rightarrow W\) un applicazione lineare :\begin{enumerate}
     \item  \(T\) è iniettiva se e solo se \(\rg(T)=\dim(V)\).
     \item  \(T\) è suriettiva se e solo se \(\rg(T)=\dim(W)\).
@@ -3096,7 +3096,7 @@ che, essendo \(\bar b\) combinazione lineare delle colonne, vale che \(\Span(A^1
 lo span delle colonne, per il corollario vista in precedenza, è l'immagine di \(L_A\), si ha quindi che 
 \(\dim(Im(L_A))=\dim(Im(L_{A|\bar b}))\implies \rg(A)=\rg(A|\bar b)\).\\ 
 (2) - Il sistema, ha un unica soluzione, se e solo se, l'unica soluzione del sistema omogeneo associato è \(\bar 0\), 
-questo implicherebbe che \(KerL_A=\{\bar 0\}\implies \dim(KerL_A)=0\), per il teorema della dmensione, so che 
+questo implicherebbe che \(KerL_A=\{\bar 0\}\implies \dim(KerL_A)=0\), per il teorema della dimensione, so che 
 \(\dim(\R^n)=\dim(Im(L_A))+\dim(KerL_A)\), ma ho che :\begin{center}\(
     \begin{cases}
         \dim(\R^n)=n\\\dim(KerL_A)=0
