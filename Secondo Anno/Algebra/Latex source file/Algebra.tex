@@ -2457,7 +2457,7 @@ dal vettore centrato in \(A\), della stessa lunghezza, verso e direzione di \(\v
 gruppo commutativo.\acc 
 L'inverso di un vettore \(\vec{OA}\), ha la stessa lunghezza del vettore \(\vec{OA}\), 
 ma ha direzione opposta.\acc
-Introduco adesso una nuova operazione, \(\cdot : \R\times V \in V\), detta \textbf{prodotto scalare}, 
+Introduco adesso una nuova operazione, \(\cdot : \R\times V \in V\), detta \textbf{prodotto per uno scalare}, 
 tale che \((\lambda,\vec{OA})\rightarrow \lambda\cdot\vec{OA}\), il vettore \(\lambda\vec{OA}\) : \begin{itemize}
     \item Se \(\lambda\ge 0\), ha stessa direzione e verso del vettore \(\vec{OA}\), ma la sua lunghezza, è uguale 
     a \(\lambda \cdot (\text{lunghezza di }\vec{OA})\).
@@ -2467,7 +2467,7 @@ tale che \((\lambda,\vec{OA})\rightarrow \lambda\cdot\vec{OA}\), il vettore \(\l
 \end{itemize}
 \begin{figure}[h]
     \centering{
-    \includegraphics[width=0.75\textwidth ]{images/vector3.eps}
+    \includegraphics[width=0.5\textwidth ]{images/vector3.eps}
     }
 \end{figure}
 \textbf{Proposizione }: Con le operazioni di somma e prodotto vettoriale, \(V\) è uno spazio 
@@ -2552,7 +2552,7 @@ Applicando la proprietà distributiva dei numeri reali ottengo : \begin{equation
         \lambda\cdot a_{n_1}y_1+ \lambda\cdot a_{n_2}y_2\dots+ \lambda\cdot a_{n_n}y_n=0
     \end{cases}
 \end{equation}
-Applicando la proprietà associativa dei numeri reali ottengo : 
+Applicando la proprietà associativa e distributiva dei numeri reali ottengo : 
 \begin{equation}
     \begin{cases}
         a_{1_1}(y_1\cdot \lambda)+a_{1_2}(y_2\cdot \lambda)\dots+a_{1_n}(y_n\cdot \lambda)=0\\
@@ -2587,7 +2587,7 @@ uno spazio vettoriale \(V\), definiamo il loro \textit{Span}, l'insieme di tutte
 di un insieme di elementi, è uguale allo Span dell'unione dell'insieme originale di elementi con nuovi 
 elementi che sono già nello Span degli elementi originali (rileggere lentamente).\begin{center}
     \(
-    \Span(\bar v_1,\bar v_2\dots, \bar v_k)= \Span(\bar v_1,\bar v_2\dots, \bar v_k,\alpha_1\bar v_1,\alpha_2\bar v_2\dots, \alpha_k\bar v_k)
+    \Span(\bar v_1,\bar v_2\dots, \bar v_k)= \Span(\bar v_1,\bar v_2\dots, \bar v_k,\alpha_1\bar v_1+\alpha_2\bar v_2\dots+ \alpha_k\bar v_k)
     \)
 \end{center}
 \textbf{Proposizione }: Il sistema lineare \(A\bar x = \bar b\), con matrice associata \(A\in M_{m\times n}(\R)\), dove 
@@ -2690,7 +2690,7 @@ o restringendo i due vettori, possiamo formare i due lati, del parallelogramma d
  \end{figure}
 \\Questo vuol dire che, \(\bar v_3\) è risultato di una combinazione lineare di  \(\bar v_1,\bar v_2 \), 
 per l'osservazione 2, sono linearmente dipendenti, ne segue la seguente proposizione :
- \acc\textbf{Proposizione }: Siano \(\bar v_1,\bar v_2,\bar v_3\) 3 vettori, se \(\bar v_1\) e \(\bar v_2\)
+ \acc\textbf{Proposizione }: Siano \(\bar v_1,\bar v_2,\bar v_3\) 3 vettori in \(V_0^2\), se \(\bar v_1\) e \(\bar v_2\)
 sono linearmente indipendenti, allora \(\bar v_1,\bar v_2,\bar v_3\) sono linearmente dipendenti.\acc 
 \textbf{Osservazione }: Si considerino i \(k\) vettori dello spazio   \(W=\{\bar v_1,\bar v_2\dots,\bar v_k\}\),
  se in \(W\) vi sono \(j\) vettori (con \(j<k\)) linearmente dipendenti, allora, anche i vettori 
@@ -2741,7 +2741,7 @@ Un esempio di spazio vettoriale di \textit{dimensione infinita}, quindi che non 
 finitamente generato, è lo spazio \(V=\R[x]\) dei polinomi a coefficenti reali ad una variabile, alcuni esempi : \begin{center}
     \(x^2\)\hphantom{text}\(x+1\)\hphantom{text}\(4x^3-2x+6\)\hphantom{text}
 \end{center}
-Non esiste nessun insieme finito che può generare qualsiasi polinomio, in quando, un qualsiasi 
+Non esiste nessun insieme finito che può generare qualsiasi polinomio, in quanto, un qualsiasi 
 polinomio di grado \(n\), richiede almeno un elemento nell'insieme dei generatori di grado \(n\), 
 essendo che un polinomio può assumere qualsiasi grado, l'insieme dei generatori 
 sarà infinito (ma numerabile).\acc 
