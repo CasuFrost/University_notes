@@ -3902,5 +3902,45 @@ Procediamo con la dimostrazione. \begin{enumerate}
 \end{enumerate}
 \raggedleft\(\blacksquare\)\\
 \raggedright
+\subsubsection{Dimostrazione del Teorema Cinese del Resto}
+Riguardo il seguente sistema :
+$$\begin{cases}
+    x=c_1 \mod r_1\\
+    x=c_2 \mod r_2\\
+    \dots\\ x=c_s \mod r_s
+\end{cases}$$
+Considero un numero \(R=r_1\cdot r_2\dots r_s\), considero poi per ogni \(k-esima\) equazione, 
+il numero \(R_k=\nicefrac{R}{r_k}\), essendo che i valori \(r_1,r_2\dots,r_s\) sono co-primi fra loro, 
+si avrà che \(R_k\) e \(r_k\) sono co-primi, ossia \(MCD(R_k,r_k)=1\). \\
+Ricordando che le soluzioni di un equazione congruenziale \(ax=b \mod n\) sono in numero \(MCD(a,n)\), si avrà 
+che l'equazione $$R_kx=c_k \mod r_k$$
+ammette un unica soluzione \(\mod r_k\). Denotiamo tale soluzione \(\bar x_k\), quindi si ha 
+la seguente identità, per ogni equazione, \(\bar x_k \cdot R_k = c_k \mod r_k\). Tornando al sistema quindi, abbiamo 
+trovato una soluzione diversa per ogni equazione, ossia \(\bar x_k \cdot R_k\). Si avrò quindi che 
+$$\begin{cases}
+    x=c_1 \mod r_1\spaz \text{ ha soluzione }\bar x_1R_1\\
+    x=c_2 \mod r_2\spaz \text{ ha soluzione }\bar x_2R_2\\
+    \dots\\ x=c_s \mod r_s\spaz \text{ ha soluzione }\bar x_sR_s
+\end{cases}$$
+Facciamo però un \textbf{osservazione cruciale}, sappiamo che \(R_k=\nicefrac{R}{r_k}\), ossia : \\
+ \(\dfrac{r_1\cdot r_2\dots r_{k-1},r_{k+1}\dots r_s}{r_k}\), ma ciò significa che, \(R_k\), è multiplo di tutti gli argomenti 
+ dei moduli del sistema tranne che di \(r_k\). Ciò significa che \(R_i=0 \mod r_k\spaz \forall i\ne k\). Consideriamo quindi 
+ la seguente soluzione per il sistema \(\bar x=\bar x_1R_1+\bar x_2R_2\dots\bar x_sR_s\): 
+ $$\begin{cases}
+    x_1R_1+\bar x_2R_2\dots\bar x_sR_s=c_1 \mod r_1\\
+    x_1R_1+\bar x_2R_2\dots\bar x_sR_s=c_2 \mod r_2\\
+    \dots\\
+    x_1R_1+\bar x_2R_2\dots\bar x_sR_s=c_k \mod r_k
+    \\\dots\\x_1R_1+\bar x_2R_2\dots\bar x_sR_s=c_s \mod r_s
+\end{cases}$$
+Ma per l'osservazione cruciale riguardo l'annullamento dei termini, ciò diventa : 
+$$\begin{cases}
+    x_1R_1=c_1 \mod r_1\\
+    \bar x_2R_2=c_2 \mod r_2\\
+    \dots\\
+    x_kR_k=c_k \mod r_k
+    \\\dots\\\bar x_sR_s=c_s \mod r_s
+\end{cases}$$E sappiamo che queste sono soluzioni del sistema, ne deduciamo che \(\bar x=\bar x_1R_1+\bar x_2R_2\dots\bar x_sR_s\)
+risolve il sistema, è quindi una soluzione (unica). \(\blacksquare\)
 
  \end{document}

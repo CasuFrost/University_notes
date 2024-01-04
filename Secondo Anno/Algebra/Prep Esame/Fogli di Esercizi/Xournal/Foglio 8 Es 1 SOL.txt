@@ -1,0 +1,5 @@
+### Idea di soluzione
+Come prima cosa, caratterizziamo gli omomorfismi da $\mathbb{Z}_8\rightarrow\mathbb{Z}_8$, sappiamo che un omomorfismo deve mappare l'elemento neutro nell'elemento neutro, quindi i diversi omomorfismi di $f:\mathbb{Z}_8\rightarrow\mathbb{Z}_8$ potranno mappare $[1]$ in uno dei diversi elementi che fungono da unità in  $\mathbb{Z}_8$, ossia : $\mathcal{U}(\mathbb{Z}_8)=\{[1],[3],[5],[7]\}$\
+D'altronde questi sono anche isomorfismi, e sappiamo già che $Aut(\mathbb{Z}_8)$ è isomorfo a $\mathcal{U}(\mathbb{Z}_8)$.
+Prendiamo una qualsiasi applicazione $f\in Aut(\mathbb{Z}_8)$, il suo nucleo, contiene gli elementi mappati nell'unità, abbiamo già detto 
+che una qualsiasi applicazione mappa $[1]$ nell'unità, quindi, $\forall f\in Aut(\mathbb{Z}_8)$ si ha che $Kerf=${[1]}. Quindi suppongo (se non ho fatto errori stupidi di logica) che tutti i gruppi quoziente $\mathbb{Z}_8/Kerf$ sia identici, a prescindere da $f$.
