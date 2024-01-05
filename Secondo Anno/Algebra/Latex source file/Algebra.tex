@@ -3942,5 +3942,21 @@ $$\begin{cases}
     \\\dots\\\bar x_sR_s=c_s \mod r_s
 \end{cases}$$E sappiamo che queste sono soluzioni del sistema, ne deduciamo che \(\bar x=\bar x_1R_1+\bar x_2R_2\dots\bar x_sR_s\)
 risolve il sistema, è quindi una soluzione (unica). \(\blacksquare\)
-
+\subsection{Sull'Algebra Lineare}
+\subsubsection{Teorema Fondamentale per i Sistemi Lineari}
+Sia \(A\bar x = \bar b\) un sistema e \(S\bar x = \bar c\) una sua riduzione a scala  :\begin{enumerate}
+    \item Le soluzione di \(A\bar x = \bar b\) sono le stesse di \(S\bar x = \bar c\).
+    \item \(KerA=KerS\)
+    \item Le immagine in generale non sono identiche ma \(\rg(A)=\rg(S)\)
+    \item Le colonne di \(S\) con i pivot sono le colonne corrispondenti in \(A\) linearmente indipendenti, che 
+    generano quindi \(Im(A)\).
+\end{enumerate}
+\textbf{Dimostrazione} : La \((1)\) e la \((2)\) seguono dal fatto che i due sistemi sono equivalenti in quanto si 
+applica il metodo di Gauss. La \((3)\) è vera perché $$\rg(A)=\dim(V)-\dim(KerA)=\dim(V)-\dim(KerS)=\rg(S)$$.
+(4) Bisogna dimostrare che le colonne in \(A\), ossia \(A^{j_1},A^{j_2}\dots,A^{j_r}\), date dai pivot di \(S\) sono
+ linearmente indipendenti, quindi che il sistema \(x_1A^{j_1}+x_2A^{j_2}\dots+x_rA^{j_r}=\bar 0\) ha come unica soluzione 
+ \(\bar 0\). Riducendo a scala questo nuovo sistema per dimostrarne l'indipendenza, otterremo un sistema 
+ del tipo  \(x_1S^{j_1}+x_2S^{j_2}\dots+x_rS^{j_r}=\bar 0\) con le colonne di \(S\) contenenti i pivot, ma sappiamo che 
+ le colonne con i pivot di \(S\) sono linearmente indipendenti, quindi l'unica soluzione è \(\bar 0\) e le colonne originali 
+ in \(A\) sono linearmente indipendenti. \(\blacksquare\)
  \end{document}
