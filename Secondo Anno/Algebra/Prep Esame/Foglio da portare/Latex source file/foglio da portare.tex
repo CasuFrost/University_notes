@@ -1,0 +1,73 @@
+\documentclass[1pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{tikz}
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\K}{{\mathbb K}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\Sn}{{\mathcal S_n}}
+\newcommand{\An}{{\mathcal A_n}}
+\newcommand{\E}{{\mathcal E}}
+\newcommand{\B}{{\mathcal B}}
+\newcommand{\dimo}{{\text{\textbf{Dimostrazione }:}}}
+\newcommand{\mcm}{{\text{mcm}}}
+\newcommand{\rg}{{\text{rg}}}
+\newcommand{\ve}{{\bar v}}
+\newcommand{\spaz}{{\text{\hphantom{aa}}}}
+\newcommand{\MCD}{{\text{MCD}}}
+\newcommand{\supp}{{\text{Supp}}}
+\newcommand{\acc}{\\\hphantom{}\\}
+\newcommand{\aut}{{\text{Aut}}}
+\newcommand{\Span}{{\text{Span}}}
+\newcommand{\End}{{\text{End}}}
+\newcommand{\cen}{{\text{Centro}}}
+\newcommand{\norm}{{\unlhd}}
+\newcommand{\ciclS}{{\left \langle }}
+\newcommand{\ciclE}{{\right \rangle }}
+\newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
+\usetikzlibrary{positioning}
+
+\usepackage[paper=a4paper,left=0.3mm,right=0.3mm,bottom=0.3mm,top=0.3mm]{geometry}
+\title{Algebra}
+\author{Marco Casu}
+\date{\vspace{-5ex}}
+\begin{document}
+\newcommand{\omo}[1]{\(\varphi\)}
+
+
+\(\bullet\) Sviluppo di laplace : \(\det(A)=\displaystyle\sum_{k=1}^n(-1)^{i+k}a_{i_k}\det(A_{(i,k)})\). \(A_{(i,k)}\) è la matrice \(A\) senza la riga \(i\) e la colonna \(j\). \fdot Sia \(S\in M_{n,m}\) una matrice a 
+scala di \(n\) righe ed \(m\) colonne, di rango \(r\), il sistema \(S\bar x=\bar b\) ha soluzione se e solo se le ultime \(m-r\) coordinate di \(\bar c\) sono 0, ed lo spazio delle soluzioni di \(S\bar x = \bar 0\) ha 
+dimensione \(n-r\). \fdot La matrice associata a T (applic. lineare) con scelta di basi \(\B=\{b_1\dots,b_n\}\) ed \(\E=\{e_1\dots,e_m\}\) e la matrice che ha come j-ma colonna le coordinate di \(T(b_j)\) 
+nella base \(\E\), ed è una matrice di di \(m\) righe e \(n\) colonne. \fdot Due matrici \(A,B\) sono \textbf{simili} se  \(\exists C|A=C^{-1}BC\). Se \(M_{\B,\B}\) è una matrice associata ad un'applicazione, 
+nelle basi \(\B\) in partenza e \(\B\) in arrivo, allora è \textit{simile} alla matrice \(M_{\E,\E}\), mi basta trovare \(M_{\E,\B}\) e si ha che \(M_{\B,\B}=M_{\E,\B}^{-1}\cdot M_{\E,\E}\cdot M_{\E,\B}\).
+\fdot \textbf{Risoluzione equazione diofantea} : si ha \(ax + by = c\) (1)  Bisogna prima verificare che l’equazione sia risolvibile, si calcoli quindi
+\(MCD(a, b) = d\), se esso divide c, l’equazione ammette soluzione. (2)Usare l’algoritmo euclideo per trovare un’identità di Bèzout per \(d\), esprimendolo
+nella forma \(d = ax_0 + by_0\), utilizzeremo proprio tali coefficenti \((x_0, y_0)\). (3) Considero \((\tilde x,\tilde y)=(\frac{c}{d}\cdot x_0,\frac{c}{d}\cdot y_0)\) (4) Le soluzioni saranno 
+\((\tilde x+k\cdot \frac{b}{d},\tilde y -k\cdot \nicefrac{a}{d} )\).\fdot Siano \(a=p_1^{h_1}p_2^{h_2}\dots p_s^{h_s}\) e \(b==p_1^{k_1}p_2^{k_2}\dots p_s^{k_s}\), allora 
+\(MCD(a,b)=p_1^{m_1}p_2^{m_2}\dots p_s^{m_s}\) e \(mcm(a,b)=p_1^{M_1}p_2^{M_2}\dots p_s^{M_s}\) con \(m=\min(h_i,k_i)\) e \(M=\max(h_i,k_i)\). \fdot \textbf{Proprietà anello} : (1) \(a\cdot(-b)=-(ab)=(-a)\cdot b\)
+ (2) \((-a)\cdot (-b) = ab\) (3) \(a\cdot(b-c)=(a\cdot b)-(a\cdot c)\). \textbf{Costruzione di \(\Z_n\)} : Considero la relazione \(a\sim b\iff a-b\) è divisbile per \(n\). L'insieme \(\Z_n:=\nicefrac{\Z}{\sim}\) 
+ è l'insieme delle classi di equivalenza. \fdot Una \textbf{congruenza lineare} del tipo \(ax=b\mod n\) è equivalente al risolvere l'eq. diofantea \(ax+ny=b\). Un'eq. congruenziale ammette soluzione se e solo 
+ se \(MCD(a,n)\) divide \(b\). La \textbf{funzione di Eulero} associa ad \(a\) il numero degli elementi coprimi con \(a\) minori di \(a\). Se \(p\) è primo, allora \(\varphi(p^h)=p^h-p^{h-1}\). Teo di Eulero : Se 
+ \(MCD(a,n)=1\) allora \(a^{\varphi(n)}=1\mod n\). Picc. Teo di Fermat : Se \(p\) è primo \(\forall a\spaz a^p=a\mod p\). \fdot \textbf{Costruzione} di \(\Z\) : si considera \(\N\times \N\) e la relazione 
+ \((n,m)\sim(n',m')\iff n+m'=m+n'\) Si ha che \(\Z=\nicefrac{\N\times \N}{\sim}\). il prodotto : \([(n,m)]\cdot[(n',m')]=[(nn'+mm',nm'+n'm)]\). Ogni \(a,b\ne0\in \Z \) esistono unici \(q,r\) tali che 
+ \(a=bq+r\) con \(0\le r<|b|\). \fdot \textbf{Teo. cinese} un sistema cinese  ha gli argomenti dei moduli co-primi fra loro e l'incognita ha come coefficiente 1 (\(x=c_k \mod r_k)\). Siano \(r_1,r_2\dots r_s\) gli argomenti dei moduli, 
+ sia \(R=r_1\cdot...r_s\) ed \(R_k=\frac{R}{r_k}\). Sia \(t_k\) la sol di \(R_kt_k+r_kg_k=1\), e \(\bar x_k=c_kt_k\). L'unica soluzione del sistema è \(\displaystyle\sum_{i=1}^s\bar x_iR_i\). \fdot Un equazione 
+ in un sistema cinese \(x=c \mod rs\), se \(MCD(r,s)=1\) diventa due equazioni \(\begin{cases}
+    x=c\mod r\\x=c\mod s
+ \end{cases}\).
+ \fdot \textbf{Costruzione} di \(\mathbb{Q}\) : Si considera \(\Z\times \Z\backslash \{0\}\) con la relazione \((a,b)\sim(c,d)\iff ad=bc\). \(\mathbb{Q}=\nicefrac{\Z\times \Z\backslash \{0\}}{\sim}\). Il prodotto è banale 
+ si moltiplicano le coordinate, somma : \([(a,b)]+[(c,d)]=[(ad+bc,bd)]\). \fdot \color{red}Criterio sottogruppo normale \color{black}\(H\norm G\iff a*h*(a^{-1})\in H \forall a\in G\) \fdot sugli \textbf{ordini},
+ si ha che \(o(g^s)=\dfrac{mcm(o(g),s)}{s}\). \fdot sia \(\varphi\) un omomorfismo : \(o(\varphi(g)) \) divide \(o(g)\), se è iniettivo  \(o(\varphi(g))=o(g)\).
+
+
+
+ \end{document}
