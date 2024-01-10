@@ -1262,7 +1262,7 @@ Quindi, è necessariamente vero che  \(X\rightarrow Y \in F^+ \implies X\rightar
 
 \subsection{La Terza Forma Normale}
 All'inizio di questo paragrafo \ref{Cap4}, si è parlato di alcune caratteristiche che una base di dati deve avere per essere 
-il più possibile "corretta", in modo da evitare la ridondanza o altre anomalie durante le interro gazioni. Formalizziamo 
+il più possibile "corretta", in modo da evitare la ridondanza o altre anomalie durante le interrogazioni. Formalizziamo 
 l'insieme delle caratteristiche in quella che si chiama \textbf{terza forma normale (3NF)}. Ricordiamo prima una definizione :
 \begin{quote}
     Una dipendenza \(X\rightarrow A\) è detta \textit{non banale} se \(A\notin X\).
@@ -1383,7 +1383,7 @@ utile anche in funzione di stabilire quali sono le chiavi di una relazione.
 \hphantom{ident}\hphantom{ident}\(Z=X\)\\
 \hphantom{ident}\hphantom{ident}\(S=\{A|\exists Y\rightarrow V\in F,Y\subseteq Z\land A\in V\}\)\\
 \hphantom{ident}\hphantom{ident}\codee{while }\(S \nsubseteq  Z\) \{\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\(Z=X\)\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\(Z=Z\cup S\)\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\(S=\{A|\exists Y\rightarrow V\in F,Y\subseteq Z\land A\in V\}\)\\
 \hphantom{ident}\hphantom{ident}\}\\
 \hphantom{ident}\codee{return} \(Z\)\\\hphantom{ident}\}\\\hphantom{}\\
@@ -1397,7 +1397,7 @@ o per transitività, si può immaginare un albero di "determinanza" che ad ogni 
 Denoteremo con \(Z_0,Z_1,Z_2\dots,Z_n\) la sequenza dei valori che assume \(Z\), dove \(Z_i\) è il valore 
 di \(Z\) all'\(i\)-esima iterazione, stessa cosa per la variabile \(S\) con la sequenza \(S_0,S_1,S_2\dots,S_n\). L'algoritmo 
 termina quando \(S\) sarà incluso in \(Z\), finché l'algoritmo continuerà l'esecuzione, è chiaro che 
-\(Z\cup S\ne Z\). Per ogni iterazione, sarà vero che \(Z_{i+1}=Z_i\cup S_i\), ciò impkica ovviamente che 
+\(Z\cup S\ne Z\). Per ogni iterazione, sarà vero che \(Z_{i+1}=Z_i\cup S_i\), ciò implica ovviamente che 
 \(Z_0\subset Z_1\subset Z_2\dots\subset Z_n\), quindi la sequenza dei valori di \(Z\), è strettamente crescente ad ogni iterazione, 
 ed è ovviamente "limitata" da \(R\), è ovvio che \(\exists f<\infty|Z_f=Z_{f+1}\implies S_f\subset Z_f\implies \) l'algoritmo, 
 ad un certo punto termina. Abbiamo quindi denotato con \(Z_f\) il valore che assume \(Z\) al termine dell'algoritmo.\acc 
@@ -1456,7 +1456,7 @@ la chiusura \ref{alg}, è chiaro che questo tipo di problema, necessiti di un ca
 \acc\textbf{Osservazione} : Se un insieme di attributi non compare mai come determinato in \(F\), allora è parte della chiave. 
 Con tale osservazione, si è può ridurre in maniera notevole il numero di attributi candidati ad essere chiave. \acc
 \textit{Esempio} : \(R=(A,B,C,D,E,H)\)\hphantom{  } \(F=(AB\dete CD,C\dete E,AB\dete E,ABC\dete D)\) Si vuole trovare la chiave 
-di tale schema relazionale. Si facciano due osservazioni, l'attributi \(H\), non compare in nessuna dipendenza funzionale, 
+di tale schema relazionale. Si facciano due osservazioni, l'attributo \(H\), non compare in nessuna dipendenza funzionale, 
 inoltre, gli attributi \(A\) e \(B\), non compaiono mai come determinati in \(F\), ma solo come determinanti. Si consideri quindi 
 la chiusura di \(ABH\). \codee{Algoritmo(}\(ABH\)\codee{)}=\(ABH^+=(A,B,H,C,D,E)=R\), quindi, per definizione \ref{Def} , se non esiste 
 nessun sottoinsieme di \(ABH\) che determina \(R\), tale \(ABH\) è chiave. Ci si rende conto dopo pochi calcoli che \(ABH\) è chiave.\acc
@@ -1472,7 +1472,7 @@ controllando tutti gli attributi che non compaiono mai come determinati. Se la c
 \textit{Esempio} : \(R=(A,B,C,D,E,G,H)\)\hphantom{  } \(F=(AB\dete D,G\dete A,G\dete B,H\dete E,H\dete G,D\dete H)\) 
 Si vogliono trovare le 4 chiavi. Si cominci dagli attributi che determinano altri ma non sono determinati da nessuno, i 
 candidati sono \(AB,G,D\) e \(H\). Noto che \(C\) non compare mai in nessuna dipendenza funzionale, quindi sarà 
-parte di tutti le chiavi. Comincio allora con \(ABC\), trovo che \codee{Algoritmo(}\(ABC\)\codee{)}=\(R\), controllo poi 
+parte di tutte le chiavi. Comincio allora con \(ABC\), trovo che \codee{Algoritmo(}\(ABC\)\codee{)}=\(R\), controllo poi 
 i sottoinsiemi e vedo che \codee{Algoritmo(}\(AC\)\codee{)}=\((AB, BC^+)\) e che \(BC^+=(BC)\), quindi \(ABC\) è una chiave. 
 Ne rimangono 3, gli altri 3 candidati erano \(G,D\) e \(H\), utilizzo l'algoritmo e trovo che \(GC^+=DC^+=HC^+=R\), sono quindi 
 tutte e 3 le chiavi, senza necessità di controllare i sottoinsiemi (dato che \(C\) da sola non può essere chiave, ma deve 
