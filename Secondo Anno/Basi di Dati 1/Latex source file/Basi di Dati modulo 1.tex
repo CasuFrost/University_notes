@@ -227,7 +227,7 @@ un oggetto della base di dati con la seguente notazione :
 Qui \(R\) è una relazione dello schema, quindi uno schema di basi di dati non è altro che un 
 insieme di relazioni \((R_1,R_2,R_3...,R_k)\) (invarianti nel tempo) per le quali, ognuna di esse possiede un istanza (variante nel tempo).
 Da qui in poi, utilizzeremo \(R\) per denominare le relazioni, ed \(r\) per le loro istanze.\\
-Riprendendo la notazione con indice vista in precedenza \ref{notConInd}, si pò utilizzare puttosto
+Riprendendo la notazione con indice vista in precedenza \ref{notConInd}, si può utilizzare puttosto
 che un indice intero, l'intestazione dell'attributo per il quale si voglia leggere l'istanza.\\
 \centering
 \hphantom{.}\\
@@ -251,7 +251,7 @@ che un indice intero, l'intestazione dell'attributo per il quale si voglia legge
  con sottoinsiemi di attributi, ossia \(t_1[\)Regione,Popolazione\(]\)=("\textit{Lazio}",\(3000000\)). Non è importante
  l'ordine degli attributi come argomenti, come "risultato" riceviamo una sotto-tupla della tupla \(t_1\), detta \textit{restrizione}.
 Abbiamo visto come le istanze delle tabelle non sono altro che insiemi di tuple, esistono tante possibili istanze quanto la cardinalità
-del prodotto delle cardinalità dei domini.\\
+del prodotto cartesiano dei domini.\\
 Può succedere in certi casi, che nell'istanza di una relazione, sia presente una riga in cui un attributo è \textbf{sconosciuto},
 per rappresentare tale campo nelle basi di dati, si utilizzi il valore polimorfico\footnote{Appartente a tutti i domini} \(NULL\), utilizzato
 per riempire gli spazi vuoti, ad esempio in una tabella contente i dati degli utenti iscritti ad un sito, è possibile che alcuni utenti abbiano
@@ -360,7 +360,7 @@ che la identifichi e distingua dalle altre tuple (che quindi non sia mai duplica
 Vediamo una definizione più formale.
 \begin{theorem}
     \hphantom{.}\\\textbf{ Punto 1 }- Per ogni istanza della relazione \(R\), non esistono due tuple \(t_1,t_2\) che hanno gli stessi valori
-    per tutti i singoli attributi, preso un insieme di attributi \(X\), vale sempre \(t_1[X]\ne t_2[X]\).
+    per tutti i singoli attributi, preso un insieme di attributi \(X\) che funge da chiave, vale sempre \(t_1[X]\ne t_2[X]\).
     \begin{equation}
         \text{sia }X\in R(A_1,A_2...,A_k) | \forall t_1,t_2 \in r \text{ se }t_1[X]=t_2[X] \implies t_1=t_2
     \end{equation}
@@ -452,7 +452,7 @@ non è violato dalla presenza di un valore \(NULL\).
 Può quindi esistere un istanza dove la chiave esterna ha valore \(NULL\),
 conseguentemente non avrà nessun riferimento nella relazione alla quale è collegata. 
 \subsection{Le Dipendenze Funzionali}
-Come si possono definire facilmente i vincoli di integrità dei dati\ref{intDeiDati} visti nei paragrafi 
+Come si possono definire facilmente i vincoli di integrità dei dati \ref{intDeiDati} visti nei paragrafi 
 precedenti? Nelle basi di dati si utilizzano le note \textbf{dipendenze funzionali}, ossia un insieme
 di attributi che dipende da un altro insieme di attributi all'interno dello stesso schema. Tale definizione
 può sembrare poco esplicativa, ma è di vitale importanza in questo paragrafo che lo studente abbia
@@ -515,7 +515,7 @@ ma con esclusivamente le istanze degli attributi selezionati.\begin{center}
 \subsubsection{Selezione}
 La selezione, indicata con \(\sigma\), esegue un \textit{taglio orizzontale} sulla tabella, ossia, seleziona tutte le righe 
 che soddisfano un determinato vincolo \(C\), tale vincolo è un sepressione booleana della forma 
-\(A\Theta B\), dove \(\Theta\in\{<,>,=,\le,ge\}\). La condizione ovviamente per esser valida, ha bisogno 
+\(A\Theta B\), dove \(\Theta\in\{<,>,=,\le,\ge\}\). La condizione ovviamente per esser valida, ha bisogno 
 che \(A\) e \(B\) abbiano lo stesso dominio (non posso comparare un intero con una stringa).\begin{center}
     \( \sigma_{C}(R)\)
 \end{center}
@@ -814,7 +814,7 @@ capitare che le due relazioni non hanno alcun attributo in comune, il risultato 
         \end{tabular}
  \end{center}
 \subsubsection{\(\Theta\)-Join}
-Il \(\Theta\)-Join (Che si pronuncia "theta join"), selezione le tuple risultanti dal prodotto cartesiano,
+Il \(\Theta\)-Join (Che si pronuncia "theta join"), seleziona le tuple risultanti dal prodotto cartesiano,
 che soddisfino la condizione \(A\Theta B\) dove \(\Theta\in\{<,>,=,\le,ge\}\) ed \(A,B\) sono 
 attributi rispettivamente della prima, e seconda relazione (il dominio di \(A\) deve essere lo stesso
 del dominio di \(B\)).\begin{equation}
@@ -975,7 +975,7 @@ Vediamo adesso un esempio di un altro tipo, si consideri sempre la stessa relazi
     \multicolumn{1}{|l|}{Tosi}    & \multicolumn{1}{l|}{C6}  & \multicolumn{1}{l|}{100}     & C1     \\ \hline
     \end{tabular} 
 \end{center}
-Adesso vogliamo trovare l'impiegato che il salario più alto, ma come possiamo fare? Procederemo con il comparare 
+Adesso vogliamo trovare l'impiegato che ha il salario più alto, ma come possiamo fare? Procederemo con il comparare 
 ogni impiegato con tutti gli altri, seleziondo esclusivamente quelli che hanno lo stipendio inferiore all'impiegato 
 con la quale sono stati comparati (selezioniamo esclusivamente il codice impiegato):\begin{equation}
     Imp2=Imp
@@ -1258,7 +1258,7 @@ gli attributi restanti di \(R\) che non appartengono ad \(X^+_F\). Tali due tupl
     per lemma, ne consegue che \(X\rightarrow Y \in F^A\), ma abbiamo detto inizialmente che \(X\rightarrow Y \notin F^A\), 
     quindi si ha una contraddizione.
 \end{itemize}
-Quindi, è necessariamente vero che  \(X\rightarrow Y \in F^+ \implies X\rightarrow Y \notin F^A\). Quindi \(F^A=F^+\). \(\blacksquare\)
+Quindi, è necessariamente vero che  \(X\rightarrow Y \in F^+ \implies X\rightarrow Y \in F^A\). Quindi \(F^A=F^+\). \(\blacksquare\)
 
 \subsection{La Terza Forma Normale}
 All'inizio di questo paragrafo \ref{Cap4}, si è parlato di alcune caratteristiche che una base di dati deve avere per essere 
