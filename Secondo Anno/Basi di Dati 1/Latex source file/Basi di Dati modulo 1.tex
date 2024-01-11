@@ -2271,14 +2271,14 @@ protocollo se :\begin{itemize}
 \subsection{Formulario sull'Organizzazione Fisica}
 \subsubsection{Hashing (Bucket)}
 \fdot \(Puntatori\times Blocco = \lfloor\dfrac{BlockSize}{PointerSize}\rfloor\)\acc
-\fdot \(BlocchiDellaBucketDirectory = \lceil \dfrac{NumBucket}{Record\times Blocco}\rceil\)\acc 
+\fdot \(BlocchiDellaBucketDirectory = \lceil \dfrac{NumBucket}{Puntatore\times Blocco}\rceil\)\acc 
 \fdot \(Blocchi\times Bucket=\lceil\dfrac{Record \times Bucket}{Record\times Blocco}\rceil\)\acc 
 \fdot \(Record\times Blocco = \lfloor\dfrac{BlockSize-PointerSize}{RecordSize}\rfloor\)\acc 
 \fdot \(Record \times Bucket=\lceil\dfrac{NumRecord}{NumBucket}\rceil\)\acc 
 \fdot \(AvgTime=\lceil\dfrac{Blocchi\times Bucket}{2}\rceil\)
 \subsubsection{B-Tree}
 \fdot \(Record\times Blocco=\lfloor\dfrac{BlockSize}{RecordSize}\rfloor\) \acc 
-Se lo volessi pieno al minimo : \(Record\times Blocco=\lfloor\dfrac{\nicefrac{BlockSize}{2}}{RecordSize}\rfloor\)\acc 
+Se lo volessi pieno al minimo : \(Record\times Blocco=\lceil\dfrac{\nicefrac{BlockSize}{2}}{RecordSize}\rceil\)\acc 
 \fdot \(NumBlocchiMainFile=\lceil\dfrac{NumRecord}{Record\times Blocco}\rceil\)\acc 
 \fdot \(Key\times Blocco = \lfloor\dfrac{BlockSize-PointerSize}{PointerSize+KeySize}\rfloor\)\acc 
 Se lo volessi pieno al minimo  \(Key\times Blocco = \lceil\dfrac{\nicefrac{BlockSize}{2}-PointerSize}{PointerSize+KeySize}\rceil\)\acc 
@@ -2286,7 +2286,7 @@ Se lo volessi pieno al minimo  \(Key\times Blocco = \lceil\dfrac{\nicefrac{Block
 \fdot Il tempo di accesso necessario è l'altezza dell'albero.
 \subsubsection{ISAM}
 \fdot \(Record\times BloccoIndex = \lfloor\dfrac{BlockSize}{PointerSize+KeySize}\rfloor\)\acc 
-\fdot \(Record\times Blocco=\lceil\dfrac{BlockSize}{RecordSize}\rceil\)\acc 
+\fdot \(Record\times Blocco=\lfloor\dfrac{BlockSize}{RecordSize}\rfloor\)\acc 
 \fdot \(TotBlockMain=\lceil\dfrac{NumRecord}{Record\times Blocco}\rceil\)\acc
 \fdot \(TotBlockIndex=\lceil\dfrac{TotBlockMain}{Record\times BloccoIndex}\rceil\)\acc 
 \fdot  \(TempoAccesso=\log_2(TotBlockIndex)+1\)
