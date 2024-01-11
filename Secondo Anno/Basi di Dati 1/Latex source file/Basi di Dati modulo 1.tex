@@ -16,6 +16,7 @@
 \newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\dete}{{\rightarrow}}
+\newcommand{\fdot}{{\(\bullet\) }}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \title{Basi di Dati 1}
 \author{Marco Casu}
@@ -1895,7 +1896,7 @@ di organizzazione.
 È il modello più semplice di organizzazione, ogni nuovo record, viene inserito alla fine del file, e non vi sono relazioni 
 fra gli attributi del record e la loro posizione fisica, l'unico modo per cercare un file, è fare una \textit{ricerca 
 lineare}, scorrendo eventualmente, tutti i blocchi. Su un file contenente \(n\) blocchi, in media, si dovranno scorrere 
-\(dfrac{n}{2}\) blocchi prima di trovare quello ricercato. I blocchi, vengono sempre cercati ed identificati tramite il campo 
+\(\nicefrac{n}{2}\) blocchi prima di trovare quello ricercato. I blocchi, vengono sempre cercati ed identificati tramite il campo 
 della loro chiave primaria, detta anche \textit{chiave di ricerca}. La ricerca in questo modello ha costo computazionale \(O(n)\).
 \subsubsection{Sequential File Organization}
 I record vengono ordinati in base all'ordine (crescente o decrescente) della loro chiave di ricerca, permettendo 
@@ -2265,4 +2266,28 @@ protocollo se :\begin{itemize}
     \item Non rilascia un lock finchè non ha finito di scrivere sulla
     base di dati.
 \end{itemize}
+\newpage 
+\section{Complementi}
+\subsection{Formulario sull'Organizzazione Fisica}
+\subsubsection{Hashing (Bucket)}
+\fdot \(Puntatori\times Blocco = \lfloor\dfrac{BlockSize}{PointerSize}\rfloor\)\acc
+\fdot \(BlocchiDellaBucketDirectory = \lceil \dfrac{NumBucket}{Record\times Blocco}\rceil\)\acc 
+\fdot \(Blocchi\times Bucket=\lceil\dfrac{Record \times Bucket}{Record\times Blocco}\rceil\)\acc 
+\fdot \(Record\times Blocco = \lfloor\dfrac{BlockSize-PointerSize}{RecordSize}\rfloor\)\acc 
+\fdot \(Record \times Bucket=\lceil\dfrac{NumRecord}{NumBucket}\rceil\)\acc 
+\fdot \(AvgTime=\lceil\dfrac{Blocchi\times Bucket}{2}\rceil\)
+\subsubsection{B-Tree}
+\fdot \(Record\times Blocco=\lfloor\dfrac{BlockSize}{RecordSize}\rfloor\) \acc 
+Se lo volessi pieno al minimo : \(Record\times Blocco=\lfloor\dfrac{\nicefrac{BlockSize}{2}}{RecordSize}\rfloor\)\acc 
+\fdot \(NumBlocchiMainFile=\lceil\dfrac{NumRecord}{Record\times Blocco}\rceil\)\acc 
+\fdot \(Key\times Blocco = \lfloor\dfrac{BlockSize-PointerSize}{PointerSize+KeySize}\rfloor\)\acc 
+Se lo volessi pieno al minimo  \(Key\times Blocco = \lceil\dfrac{\nicefrac{BlockSize}{2}-PointerSize}{PointerSize+KeySize}\rceil\)\acc 
+\fdot I blocchi totali sono la somma dei blocchi in ogni livello. \acc 
+\fdot Il tempo di accesso necessario è l'altezza dell'albero.
+\subsubsection{ISAM}
+\fdot \(Record\times BloccoIndex = \lfloor\dfrac{BlockSize}{PointerSize+KeySize}\rfloor\)\acc 
+\fdot \(Record\times Blocco=\lceil\dfrac{BlockSize}{RecordSize}\rceil\)\acc 
+\fdot \(TotBlockMain=\lceil\dfrac{NumRecord}{Record\times Blocco}\rceil\)\acc
+\fdot \(TotBlockIndex=\lceil\dfrac{TotBlockMain}{Record\times BloccoIndex}\rceil\)\acc 
+\fdot  \(TempoAccesso=\log_2(TotBlockIndex)+1\)
 \end{document}
