@@ -1249,7 +1249,7 @@ gli attributi restanti di \(R\) che non appartengono ad \(X^+_F\). Tali due tupl
     \item \textbf{\(r\) è un istanza legale} : Assumiamo che non lo sia, vuol dire che esiste almeno una dipendenza \(V\rightarrow W\in F\),
     quindi anche in \(F^A\), che non è soddisfatta da \(r\), vuol dire che vi sono due tuple che sono uguali su \(V\) e 
     differenti su \(W\), questo implicherebbe che \(V\subseteq X^+_F\) e \(W\cap (R-X^+_F)=\emptyset\), dal momento che 
-    \(V\subseteq X^+_F\), per lemma è vero che \(X\rightarrow V\in F^A\), per assimoa di transitività,  
+    \(V\subseteq X^+_F\), per lemma è vero che \(X\rightarrow V\in F^A\), per assioma di transitività,  
     essendo che \(V\rightarrow W\in F\), si ottiene che \(X\rightarrow W\in F^A\), per lemma quindi \(W\subseteq X^+_F\), 
     ma ciò è una contraddizione, dato che abbiamo detto che  \(W\cap (R-X^+_F)=\emptyset\), quindi \(r\) è legale.
     \item \textbf{ se \(X\rightarrow Y \in F^+\), è impossibile che \(X\rightarrow Y \notin F^A\)} : Supponiamo che 
@@ -1301,7 +1301,7 @@ Dato uno schema \(R\),  è in terza forma normale se e solo se  \textbf{non} pre
 (analogamente, non presenta attributi che dipendono parzialmente o transitivamente da una chiave).
 \subsubsection{Decomposizione in più Schemi}\label{Decomposizione}
 Vogliamo saper creare delle basi di dati che siano in terza forma normale, ossia che, ognuna delle sue relazioni sia 
-in 3NF. Avendo uno schema che viola tale forma, è possibile \textit{decomporlo}, creando più relazioni che a loro 
+in 3NF. Avendo uno schema che viola tale forma, è sempre possibile \textit{decomporlo}, creando più relazioni che a loro 
 volta non violino la 3NF.\begin{quote}
     \textbf{Attenzione!} non tutte le decomposizioni in 3NF di uno schema che inizialmente non era in 3NF sono necessariamente
     corrette, esistono diverse scomposizioni in 3NF, ma alcune violano le dipendenze funzionali che vi erano in origine.
@@ -1449,7 +1449,7 @@ di dipendenze funzionali : \(F=(AB\rightarrow CD,EH\rightarrow D,D \rightarrow H
 Sappiamo che, se un insieme di attributi \(X\) determina tutto lo schema relazionale \(R\), allora tale insieme 
 è una \textit{chiave}. Se volessimo capire quali sono le chiavi di uno schema, potremmo quindi calcolare la chiusura di tutti 
 i possibili sotto-insiemi di \(R\), e compararli ad \(R\) stesso per vedere se sono equivalenti.\begin{center}
-    \(\forall X\in \mathcal{P}(R)\) : \codee{ if (Algoritmo(}\(X\)\code{)==}\(R\)\codee{) \{ return Algoritmo(}\(X\)\codee{) \}} 
+    \(\forall X\in \mathcal{P}(R)\) : \codee{ if (Algoritmo(}\(X\)\codee{)==}\(R\)\codee{) \{ return Algoritmo(}\(X\)\codee{) \}} 
 \end{center} Sappiamo però che, tutti i 
 sotto insiemi di \(R\), sono in numero \(2^{|R|}\), e per ognuno di questi si dovrà eseguire l'algoritmo per calcolarne 
 la chiusura \ref{alg}, è chiaro che questo tipo di problema, necessiti di un calcolo di una complessità \textit{non polinomiale}, 
@@ -1528,7 +1528,7 @@ quell'elemento. Si osservi che, \(\{f_1,f_2\dots,f_n\}\subseteq F \subseteq G^A\
         f_1\\.\\.\\f_n
         \end{Bmatrix}\xrightarrow[\text{}]{\text{Armstrong}}f\in F^+\)
 \end{center}
-Questo significa che, applicando gli assiomi di armstrong a partire da elemen ti in \(G\), ottengo degli elementi 
+Questo significa che, applicando gli assiomi di armstrong a partire da elementi in \(G\), ottengo degli elementi 
 in \(F^+\), ma se \(F\subseteq G^+\), so che ogni elemento di \(F^+\) si ottiene applicando gli assiomi 
 su \(F\), ed \(F\) si ottiene applicando gli assiomi su \(G\), quindi \(F^+\subseteq G^+\). \(\blacksquare\)\acc 
 Dato tale lemma, si giunge alla \textbf{conclusione fondamentale} che : \begin{center}
