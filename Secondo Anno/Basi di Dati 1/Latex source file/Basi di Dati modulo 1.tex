@@ -1213,20 +1213,20 @@ Lo scopo è quindi dimostrare, che applicando tali assiomi un numero di volte fi
 \textbf{Caso Base } (\(i=0\)) : \(F_0^A=F\subseteq F^+\) 
 \\\textbf{Passo Induttivo } : La tesi è, che \(F_i^A\subseteq F^+\implies F_{i+1}^A\subseteq F^+\). Distinguiamo i 3 
 casi di applicazione dei 3 assiomi. \begin{itemize}
-    \item \textit{Caso 1} \(X\rightarrow Y\) è stato ottenuto in \(F^A\) applicando la riflessività su \(Y\subseteq X\). 
+    \item \textit{Caso 1} \(X\rightarrow Y\) è stato ottenuto in \(F_{i+1}^A\) applicando la riflessività su \(Y\subseteq X\). 
     Se \(r\) è un istanza di \(R\), e \(t_1,t_2\) due tuple tali che \(t_1[X]=t_2[X]\), ovviamente 
     vale che \(t_1[Y]=t_2[Y]\), quindi \(X\rightarrow Y\in F^+\).
-    \item \textit{Caso 2} \(X\rightarrow Y\) è stato ottenuto in \(F^A\) applicando l'aumento su una dipendenza 
-    funzionale \(V\rightarrow W\in F^A\), che è stato ottenuto applicando gli assiomi \(i-1\) volte. Per 
+    \item \textit{Caso 2} \(X\rightarrow Y\) è stato ottenuto in \(F_{i+1}^A\) applicando l'aumento su una dipendenza 
+    funzionale \(V\rightarrow W\in F^A_i\) . Per 
     ipotesi induttiva, \(V\rightarrow W\in F^+\), vorrebbe dire che \(X=VZ\) e \(Y=WZ\) per qualche \(Z\subseteq R\).
     Se \(r\) è un istanza legale, e \(t_1,t_2\) due tuple tali che \(t_1[X]=t_2[X]\), ne consegue 
     che \(t_1[V]=t_2[V]\) e  \(t_1[Z]=t_2[Z]\), ma per ipotesi induttiva, essendo \(V\rightarrow W\in F^A\), 
     ne consegue che \(t_1[W]=t_2[W]\), e da ciò ne consegue  \(t_1[Z]=t_2[Z]\), quindi  \(t_1[Y]=t_2[Y]\), ne 
     consegue 
     \(X\rightarrow Y\in F^+\).
-    \item \textit{Caso 3} \(X\rightarrow Y\) è stato ottenuto in \(F^A\) applicando la transitività da due 
-    diepndenze \(X\rightarrow Z, Z\rightarrow Y \in F^A\), ottanute ricorsivamente applicando gli assiomi 
-    \(i-1\) volte. Se \(r\) è un istanza legale, e \(t_1,t_2\) due tuple tali che \(t_1[X]=t_2[X]\), 
+    \item \textit{Caso 3} \(X\rightarrow Y\) è stato ottenuto in \(F_{i+1}^A\) applicando la transitività da due 
+    dipendenze \(X\rightarrow Z, Z\rightarrow Y \in F^A_i\), ottanute ricorsivamente applicando gli assiomi 
+    \(i\) volte. Se \(r\) è un istanza legale, e \(t_1,t_2\) due tuple tali che \(t_1[X]=t_2[X]\), 
     ne consegue che \(t_1[Z]=t_2[Z]\), ma per ipotesi induttiva allora \(t_1[Y]=t_2[Y]\), quindi 
     \(X\rightarrow Y\in F^+\).
 \end{itemize}
@@ -1248,10 +1248,10 @@ gli attributi restanti di \(R\) che non appartengono ad \(X^+_F\). Tali due tupl
 \(X^+_F\), ma differiscono sui restanti attributi. Dimostriamo adesso due fatti :\begin{itemize}
     \item \textbf{\(r\) è un istanza legale} : Assumiamo che non lo sia, vuol dire che esiste almeno una dipendenza \(V\rightarrow W\in F\),
     quindi anche in \(F^A\), che non è soddisfatta da \(r\), vuol dire che vi sono due tuple che sono uguali su \(V\) e 
-    differenti su \(W\), questo implicherebbe che \(V\subseteq X^+_F\) e \(W\cap (R-X^+_F)=\emptyset\), dal momento che 
+    differenti su \(W\), questo implicherebbe che \(V\subseteq X^+_F\) e \(W\cap (R-X^+_F)\ne\emptyset\), dal momento che 
     \(V\subseteq X^+_F\), per lemma è vero che \(X\rightarrow V\in F^A\), per assioma di transitività,  
     essendo che \(V\rightarrow W\in F\), si ottiene che \(X\rightarrow W\in F^A\), per lemma quindi \(W\subseteq X^+_F\), 
-    ma ciò è una contraddizione, dato che abbiamo detto che  \(W\cap (R-X^+_F)=\emptyset\), quindi \(r\) è legale.
+    ma ciò è una contraddizione, dato che abbiamo detto che  \(W\cap (R-X^+_F)\ne\emptyset\), quindi \(r\) è legale.
     \item \textbf{ se \(X\rightarrow Y \in F^+\), è impossibile che \(X\rightarrow Y \notin F^A\)} : Supponiamo che 
     ciò sia vero, sappiamo che \(r\) è un istanza legale, quindi se le dipendenze in \(F^+\) sono soddisfatte 
     da ogni istanza legale, allora \(r\) soddisfa \(X\rightarrow Y\). Sappiamo che \(X\subseteq X^+_F\), dato 
