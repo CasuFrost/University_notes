@@ -1495,7 +1495,7 @@ applico quindi il calcolo appena visto :\begin{center}
 \end{center}
 \subsection{Preservare le Dipendenze Funzionali}
 Nel capitolo \ref{Decomposizione} abbiamo visto come, uno schema che non è in terza forma normale, può essere "decomposto" in più 
-schemi, che non comrpomettano l'integrità della base di dati, ma che in più, rispettino la 3NF. Una decomposizione di \(R\), è una 
+schemi, che non compromettano l'integrità della base di dati, ma che in più, rispettino la 3NF. Una decomposizione di \(R\), è una 
 famiglia di insiemi \(R_1,R_2\dots,R_n\) tali che \(\displaystyle\bigcup_{i=1}^nR_i=R\) (la decomposizione impone che i 
 diversi sotto-schemi non siano disgiunti, non deve essere una partizione).\acc Una volta decomposto uno schema, ad ogni 
 sotto-schema sarà assegnato un nuovo insieme di dipendenze funzionali. Decomporre una tabella (e la sua istanza), equivale 
@@ -1505,7 +1505,7 @@ denota \(F\equiv G\), se la loro chiusura è identica, quindi, determinano lo st
     \(F\equiv G\iff F^+=G^+\)
 \end{center} 
 Quando si decompone uno schema, occorre verificare che le dipendenze funzionali siano preservate, quindi, che il nuovo insieme 
-di dipendenze sia equivalente a quello originale. Ovviamente, \(F^+\) ed \(G^+\) sono troppo grandi, e controllarli nella loro 
+di dipendenze sia equivalente a quello originale. Ovviamente, \(F^+\) e \(G^+\) sono troppo grandi, e controllarli nella loro 
 interezza richiederebbe un tempo non polinomiale, risulta utile però il seguente lemma.\acc 
 \textbf{Lemma }: Sia \(R\) uno schema, ed \(F\) e \(G\) due insiemi di dipendenze funzionali, vale che :\begin{center}
     \(F^+\subseteq G^+\iff F\subseteq G^+\)
