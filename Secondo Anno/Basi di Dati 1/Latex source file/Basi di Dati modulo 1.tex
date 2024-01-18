@@ -1684,7 +1684,7 @@ di dipendenze funzionali sul quale calcolare la chiusura.\newpage
 \hphantom{ident}\hphantom{ident}\codee{return success}\\
 \hphantom{ident}\}
 \subsection{Join Senza Perdita}
-Nel capitolo \ref{Decomposizione}, abbiamo visto come una decomposizione che soffisfi la terza forma normale, non è comunque 
+Nel capitolo \ref{Decomposizione}, abbiamo visto come una decomposizione che soddisfi la terza forma normale, non è comunque 
 una buona decomposizione se, eseguendo un \codee{JOIN} su un istanza legale, si generano tuple che non erano presenti nell'istanza 
 originale prima della decomposizione.\acc Vogliamo quindi creare una decomposizione che ci permetta di non perdere informazioni, 
 ossia che ci permetta di ottenere un cosiddetto \codee{JOIN} senza perdita. Sia \(r\) un istanza \textit{legale} di uno schema 
@@ -1698,7 +1698,7 @@ Si ha un \codee{JOIN} senza perdita se e solo se, \textit{per ogni} istanza lega
     \item \(m_\rho(m_\rho(r))=m_\rho(r)\)
 \end{enumerate}
 \textbf{Dimostrazione }: \boxedMath{1} Sia \(t\) una tupla di \(r\), Se \(t\subset r\) allora \(t[R_i]\in \pi_{R_i}(r)\), si ha 
-che : \(t\in \{t[R_1]\}\Join\{t[R_2]\}\dots\Join\{t[R_k]\}\), ma \(\forall i\in \{1,2\dots,k\}\) si ha che \(\{t[R_i]\}\subseteq\pi_{R_k}(r)\), quindi : \begin{center}
+che : \(t\in \{t[R_1]\}\Join\{t[R_2]\}\dots\Join\{t[R_k]\}\), ma \(\forall i\in \{1,2\dots,k\}\) si ha che \(\{t[R_i]\}\subseteq\pi_{R_i}(r)\), quindi : \begin{center}
     \(t\in \{t[R_1]\}\Join\{t[R_2]\}\dots\Join\{t[R_k]\}\subseteq \pi_{R_1}(r)\Join\pi_{R_2}(r)\dots\Join\pi_{R_k}(r)=m_\rho(r)\implies r\subseteq m_\rho(r)\) \(\square\)
  \end{center}
 \boxedMath{2} Dimostro per doppia inclusione, dalla proprietà 1, deriva \(\pi_{R_i}(r)\subseteq\pi_{R_i}(m_\rho(r))\), bisogna 
@@ -1721,7 +1721,7 @@ l'insieme di dipendenze funzionali \(F\).
 \code{Output} : Un istanza \(r\) che dirà se \(\rho\) ha o non ha un \codee{JOIN} senza perdita.\acc
 \hphantom{ident}\codee{begin}\{\\
 \hphantom{ident}\hphantom{ident} \(r=\)\codee{Construct()}\\ 
-\hphantom{ident}\hphantom{ident}\hphantom{ident} \codee{if }\(\exists t_1,t_2\in r|t_1[X]=t_2[X]\land t_1[Y]\ne t_2[Y]\) \{\\ 
+\hphantom{ident}\hphantom{ident}\hphantom{ident} \codee{if }\(\exists t_1,t_2\in r|t_1[X]=t_2[X]\land t_1[Y]\ne t_2[Y]\text{ per qualche }X\rightarrow Y \in F\) \{\\ 
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident} \codee{for all} \( A_j\in Y \) \{ \\  
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident} \codee{if} \(t_1[A_j]=a\) \{ \\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\(t_2[A_j]=a\) \\
@@ -1743,7 +1743,7 @@ L'istanza costruita all'inizio può essere vista come un istanza di \(R\), non n
 per renderla tale.\acc 
 \textbf{Osservazione} : L'algoritmo non modificherà mai gli elementi dell'istanza uguali ad \(a\), bensì lavorerà esclusivamente 
 sugli elementi \(b_i\).\acc 
-Ciò ci garantisce che il numero delle \(a\), con l'andare avanti delle iterazioni è strettamente crescente, ciò garantisce la 
+Ciò è garanzia del fatto che il numero delle \(a\), con l'andare avanti delle iterazioni è strettamente crescente, garantendo la 
 terminazione dell'algoritmo, in quanto, se non dovesse modificare nulla terminerebbe, diversamente, se dovesse 
 continure ad aggiungere \(a\), prima o poi creerebbe una riga con tutte \(a\), terminando. Ciò  garantisce 
 anche che l'istanza finale sia legale, per motivi analoghi a quelli appena considerati.\acc 
@@ -1959,7 +1959,7 @@ oppure basata sugli indici :\\
         \end{tabular}
      
 \end{center}
-\newpage Esempio di index sparsi :
+ Esempio di index sparsi :
 \begin{figure}[h]
     \centering{
     \includegraphics[width=0.8\textwidth ]{images/sparseIndex.eps}
@@ -2014,7 +2014,7 @@ La ricerca sarà molto efficiente, nel caso peggiore si controllano tanti nodi q
 \begin{itemize}
     \item Caso migliore (altezza minimale) : \(h_{min}=\log_m(N+1)-1\)
     \item Caso peggiore (altezza massimale) : \(h_{max}=\log_d(\dfrac{N+1}{2})\)
-\end{itemize}\newpage
+\end{itemize}
 \section{Controllo della Concorrenza}
 Nel DBSM, più utenti possono accedere allo stesso file, sappiamo che la CPU esegue un solo processo alla volta, quindi 
 più utente che faranno richiesta nello stesso momento saranno gestiti in maniera concorrente, ciò può essere radice di 
