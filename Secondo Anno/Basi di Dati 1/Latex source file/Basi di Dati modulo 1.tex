@@ -48,7 +48,7 @@ I dati vanno organizzati, gestiti, e regolamentati da permessi di accesso a seco
 \\\\Un sistema informativo è composto dai seguenti componenti : 
 \begin{itemize}
     \item Database (DB)
-    \item Database Managment System (DBSM) - Ossia il software per il mantenimento dei dati  
+    \item Database Managment System (DBMS) - Ossia il software per il mantenimento dei dati  
     \item Application Software
     \item Computer Hardware - La memoria nella quale è contenuto
 \end{itemize}
@@ -1845,7 +1845,7 @@ dei dischi a stato solido. Vediamo nel dettaglio il funzionamento di un hard dis
 per poi implementare dei sistemi di ricerca e scrittura che sfruttino al meglio i tempi del supporto fisico.
 \begin{figure}[h]
     \centering{
-    \includegraphics[width=0.7\textwidth ]{images/Disk.eps}
+    \includegraphics[width=0.6\textwidth ]{images/Disk.eps}
     }
 \end{figure}\\
 Vi è un perno che rotea, sulla quale poggiano dei dischi, essi sono divisi in settori (cerchi 
@@ -1860,7 +1860,7 @@ Leggere un blocco di memoria richiederà quindi 3 diversi intervalli di tempo :\
     e dalla densità delle particelle magnetiche.
 \end{enumerate}
 Il tempo totale per leggere un dato, detto \textbf{service time}, è la somma di questi 3 delay elencati.\acc 
-Si può organizzare un DBSM in modo che gli accessi alla memoria siano sequenziali oppure randomici, ciò conferisce una 
+Si può organizzare un DBMS in modo che gli accessi alla memoria siano sequenziali oppure randomici, ciò conferisce una 
 notevole distinzione in termini di tempi, gli accessi sequenziali, prevedono che il disco debba solo roteare, in quanto 
 i dati sono organizzati in blocchi consecutivi. Se l'accesso fosse randomico, ogni lettura richiederebbe che l'attuatore 
 si riposizioni nel settore esatto.\begin{center}
@@ -1931,9 +1931,9 @@ di collisione, ma i bucket che contengono più record saranno più fitti, e biso
     }
 \end{figure}
 \subsubsection{Indexed Sequential File Organization}
-L'organizzazione di tipo Random è efficiente nel cercare record individuale in base alla chiave di ricerca, l'organizzazione 
+L'organizzazione di tipo Random è efficiente nel cercare un record individuale in base alla chiave di ricerca, l'organizzazione 
 sequenziale è efficiente nel ricercare più record ordinati fra loro, questo tipo di organizzazione Indexed Sequential, riconosce
-entrambi i concetti, combina i fila organizzati in maniera sequenziale con più \textit{indici}.\acc 
+entrambi i concetti, combina i file organizzati in maniera sequenziale con più \textit{indici}.\acc 
 I file sono divisi in intervalli o partizioni, ogni intervallo è rappresentato da una \textit{index entry}, 
 che contiene la chiave di ricerca del primo record nell'intervalo, ed il puntatore alla posizione fisica del primo record 
 dell'intervallo. Il puntatore, può puntare ad un blocco, o ad un record (combinazione dell'indirizzo del blocco + codice identificativo 
@@ -1959,7 +1959,7 @@ oppure basata sugli indici :\\
         \end{tabular}
      
 \end{center}
- Esempio di index sparsi :
+ \newpage Esempio di index sparsi :
 \begin{figure}[h]
     \centering{
     \includegraphics[width=0.8\textwidth ]{images/sparseIndex.eps}
@@ -2016,8 +2016,8 @@ La ricerca sarà molto efficiente, nel caso peggiore si controllano tanti nodi q
     \item Caso peggiore (altezza massimale) : \(h_{max}=\log_d(\dfrac{N+1}{2})\)
 \end{itemize}
 \section{Controllo della Concorrenza}
-Nel DBSM, più utenti possono accedere allo stesso file, sappiamo che la CPU esegue un solo processo alla volta, quindi 
-più utente che faranno richiesta nello stesso momento saranno gestiti in maniera concorrente, ciò può essere radice di 
+Nel DBMS, più utenti possono accedere allo stesso file, sappiamo che la CPU esegue un solo processo alla volta, quindi 
+più utenti che faranno richiesta nello stesso momento saranno gestiti in maniera concorrente, ciò può essere radice di 
 svariati problemi, è quindi necessario che l'accesso concorrenziale sia controllato.\subsection{Schedule e Transazioni}
 Una \textbf{transazione} è una sequenza di istruzioni ordinate da eseguire in maniera atomica, ciò vuol 
 dire che le istruzioni non possono essere eseguite in modo parziale, o si completa l'intera transazione, o essa non viene 
@@ -2166,9 +2166,9 @@ ne in lettura ne in scrittura. Entrambi gli stati vengono rilasciati con il meto
         \rowcolor[HTML]{EFEFEF} 
         unlocked         & \code{wlock(X)}               & \begin{tabular}[c]{@{}c@{}}T ottiene il lock in scrittura ed X \\ diventa wlocked.\end{tabular} \\ \hline
         \rowcolor[HTML]{EFEFEF} 
-        rlocked          & \code{wlock(X)}               & T ottiene il lock in lettura                                                                    \\ \hline
+        rlocked          & \code{wlock(X)}               & T attende il rilascio                                                                    \\ \hline
         \rowcolor[HTML]{EFEFEF} 
-        wlocked          & \code{wlock(X)}               & T ottiene il lock in lettura                                                                    \\ \hline
+        wlocked          & \code{wlock(X)}               & T attende il rilascio                                                                     \\ \hline
         \end{tabular}
 \end{center}
 La concorrenza è maggiore in quanto più transazioni adesso possono accedere contemporaneamente in lettura ad un item.
@@ -2242,7 +2242,7 @@ indefinitamente il permesso di accesso ad un item senza che esso venga mai rilas
 cosiddetta condizione di starvation.\acc Tale problema può essere facilmente 
 risolto, implementando la coda di attesa delle transazioni per una lock con una politica \textit{First-In-First-Out}, oppure 
 adoperando una \textit{coda prioritaria}, aumentando il grado di priorità di una transazione in base al tempo trascorso 
-nella coda, facendo ciò, tutte le transazioni prima o poi potranno acquisire la lock richiesta.
+nella coda, facendo ciò, tutte le transazioni, in un tempo finito, potranno acquisire la lock richiesta.
 \subsection{Roll-back e Punti di Commit}
 Abbiamo accennato già all'operazione di \textit{abort} di una transazione, essa può avvenire in diversi casi : \begin{enumerate}
     \item La transazione esegue un operazione non corretta (ad esempio, divisione per zero).
