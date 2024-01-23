@@ -13,6 +13,6 @@ Marcherò gli esami non ancora sostenuti con $NS$.
 | Architetture degli Elaboratori  |  30L  |
 | Metodologie di Programmazione  |  30  |
 | Algebra  |  30  |
-| Basi di Dati 1  |  $NS$  |
+| Basi di Dati 1  |  30  |
 | Sistemi Operativi 1  |  $NS$  |
 | Calcolo delle Probabilità  |  $NS$  |
