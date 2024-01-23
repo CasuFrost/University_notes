@@ -1921,7 +1921,7 @@ si assegna l'indirizzo uguale alla chiave modulo ad un numero (solitamente primo
 disponibili.\begin{center}
     \(\text{Address}(Key_i)= Key_i \mod M \)
 \end{center}
-I record che finiranno negli stessi bucket, saranno per definizione della funzione hash, vicini fra loro, si accedere in 
+I record che finiranno negli stessi bucket, saranno per definizione della funzione hash, vicini fra loro, si accederà in 
 maniera randomica al bucket, per poi ricercare in maniera lineare con accessi sequenziali, il record corretto che si trova 
 in quel bucket. La dimensione fissa dei bucket è arbitraria, dei bucket di dimensione maggiore, implicano una minore probabilità 
 di collisione, ma i bucket che contengono più record saranno più fitti, e bisognerà impiegare più tempo nella ricerca. 
