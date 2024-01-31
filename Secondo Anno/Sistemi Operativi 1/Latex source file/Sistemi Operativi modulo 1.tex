@@ -1148,7 +1148,7 @@ la memoria. Ci si pongono 3 principali obbiettivi nella gestione della memoria i
     "porsi" tale problema, ne tanto meno preoccuparsi degli indirizzi fisici nella quale sono allocati, devono essere eseguiti 
     in maniera trasparente, lasciando il compito della gestione all'OS.
     \item \textbf{Protezione e Sicurezza} - Diversi processi non devono essere in grado di corrompere aree di memoria dedicate 
-    ad altri processi o al sistma operativo, e non devono essere in grado di leggere dati destinati ad altri processi.
+    ad altri processi o al sistema operativo, e non devono essere in grado di leggere dati destinati ad altri processi.
     \item \textbf{Efficienza} - Le performance della CPU e della memoria non devono essere intaccate dalla condivisione dei processi. 
 \end{enumerate}
 \subsubsection{Rilocazione Statica}
@@ -1222,7 +1222,7 @@ un processo vorrà essere allocato, ma non verrà mai selezionato in quanto trop
 allocare l'intero spazio al processo, anche quella piccola porzione non necessaria, che andrà sprecata, tale problema 
 è noto come \textit{frammentazione interna}.\acc 
 \textbf{Worst Fit} - Quando un processo richiede di essere allocato, esso verrà inserito, nello spazio 
-più grande disponibile, lasciando ciò che avanza (che si prevede essere sufficientemente grande), libero e disponibile per altre richieste.\acc 
+più grande disponibile, lasciando ciò che avanza (che si prevede essere sufficientemente grande, libero e disponibile per altre richieste).\acc 
 Tali 3 politiche non sopperiscono al problema della frammentazione, è possibile però, spostare i processi all'interno 
 della memoria in modo da unire gli spazi contigui rimasti, tale soluzione è detta \textbf{deframmentazione}, ma spostare 
 fisicamente interi processi all'interno della memoria è lento ed inefficiente.
@@ -1329,4 +1329,72 @@ La TLB potrebbe anche essere implementata con dei bit aggiuntivi per ogni entry 
 due bit per classificare se una entry è in lettura, scrittura o entrambe. La \textbf{condivisione} di uno spazio di memoria 
 fra due processi avviene in maniera semplice, assegnando a due pagine logiche di due processi diversi, lo stesso mapping 
 in un unico frame fisico.
+\subsection{Segmentazione}
+Il codice dei programmi scritti dagli utenti, viene "pensato" sulla memoria come se fosse diviso in diversi 
+\textit{segmenti}. ognuno dedito ad una specifica mansione (dati, stack, heap ecc..). La segmentazione della memoria 
+avviene fornendo ad ogni indirizzo un \textit{numero di segmento} ed un 
+offset, il primo, è mappato ad un indirizzo base di un segmento. Ad esempio, un programma in \textit{C}, viene 
+segmentato dal compilatore in 5 diversi segmenti.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=1\textwidth ]{images/segmentC.eps}
+    }
+\end{figure}\\
+Esiste una \textbf{segment table} che si occupa di mappare gli indirizzi dei segmenti (con gli offset) in indirizzi 
+fisici, inoltre, simultaneamente verifica che gli indirizzi siano validi. In questo modello stiamo assumendo che i segmenti 
+siano mappati in spazi contigui di memoria. Ogni entrata della tabella contiene un indirizzo di base nella memoria, la lunghezza 
+del segmento, ed ulteriori informazioni riguardo la condivisione o i permessi di lettura/scrittura. \acc È possibile 
+implementare via hardware la segment table utilizzando un numero limitato di registri base/limit, in quanto deve 
+identificare un numero solitamente piccolo di segmenti per processo (nell'esempio di prima, 5 segmenti), differentemente 
+dalla page table, che non può essere implementata via hardware in quanto ci potrebbero essere troppe pagine per 
+processo.\acc 
+In questo modello, gli indirizzi generati dal compilatore avranno i bit più significativi che identificheranno il numero 
+di segmento, la segmentazione può funzionare sia in un ambiente di rilocazione statica che dinamica, essendo la memoria 
+dei segmenti contigua, può avvenire la frammentazione esterna.
+\subsubsection{Segmentazione e Paging Combinati}
+ È possibile "combinare" la segmentazione al paging, considerando i benefici di entrambi i modelli, applicando 
+ la paginazione ai segmenti. Ogni spazio di indirizzamento virtuale dei processi sarà visto come una collezione 
+ di segmenti di dimensione arbitraria, la memoria fisica è ancora suddivisa in frame di dimensione fissa, 
+ ed i segmenti sono (usualmente) più grandi di un singolo frame. Tali segmenti logici verranno mappati in più 
+ frame.
+ \begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/pagingSegmentation.eps}
+    }
+\end{figure}\newpage
+Ogni indirizzo virtuale adesso conterrà il numero di segmento nella segment table nei bit più significativi, che 
+contiene l'indirizzo base della page table per quel segmento. Avrà poi il numero di pagina che si riferisce alla 
+pagina nella page table ed al suo relativo mapping nel frame fisico corrispettivo. Ogni processo avrà una segment table 
+ed ogni segmento avrà una page table. Come possono essere memorizzate le nuove tabelle? \begin{itemize}
+    \item \textbf{Opzione 1} - La segment table viene memorizzata tramite pochi registri, e la page table viene memorizzata 
+    in memoria principale, insieme ad una TLB cache. Tale opzione risulta rapida ma impone un numero di segmenti limitato.
+    \item \textbf{Opzione 2} - Entrambe vengono memorizzate in memoria principale con una TLB cache, l'associazione della TLB 
+    viene fatta utilizzando gli indici di segmento e pagina. Tale opzione è più lenta ma più flessibile.
+\end{itemize}
+Sappiamo che una pagina può essere condivisa da più processi, anche un segmento può essere condiviso, facendo si che due 
+differenti processi \textit{condividano} una stessa entrata nella segment table : 
+\begin{quote}
+    Due o più processi mappano il segmento condiviso nella loro personale segment table, essendo che ogni segmento ha 
+    una sua page table, sarà necessario che i due differenti processi, per quel segmento, abbiano la stessa page table. 
+\end{quote}
+Nonostante la frammentazione esterna eliminata, la flessibilità, e la condivisione, questo modello rallenta 
+notevolmente la traduzione degli indirizzi ed i context switch, inoltre, la frammentazione interna è ancora presente, 
+più sono grandi le dimensioni di una pagina, più è probabile che si causa frammentazione interna.
+\subsection{Paging Avanzato}
+La maggior parte delle macchine moderne supportano spazi di indirizzamento logico determinati da 32 o 64 bit,
+con \(2^{32}\) indirizzi e pagine da \(2^{12}=4096\) \(Byte\), ci sono \(2^20\) entrate nella page table (circa un 
+milione), se ogni entrata dovesse essere da 4 \(Byte\), una page table occuperebbe \(4\) \(MiB\), inoltre anche la page 
+table deve essere "paginata", e servirebbero 1024 pagine solo per contenerla. È necessario adottare delle strutture di 
+paginazione più avanzate.
+\begin{itemize}
+    \item \textbf{Hashed Page Table} - Si utilizzano delle tabelle hash per memorizzare page table sparse, vengono 
+    mappate tramite delle funzioni hash piuttosto che da numeri interi.
+    \item  \textbf{Inverted Page Table} - Una tabella "inversa" elenca tutti i frame caricati in memoria per ogni 
+    processo, l'accesso ad una page table inversa può essere lento in quanto lineare, ed eseguire l'hashing della 
+    tabella può velocizzarne la ricerca. Tale modello non permette in maniera naturale a diversi processi di 
+    condividere pagine, ad ogni frame è associato esattamente un processo.
+    \item \textbf{Two-Tier Page Table} - È un modello in cui una tabella delle pagine è frammentata in diverse tabelle delle pagine,
+    si può dire che si tratta di una paginazione della tabella delle pagine stessa.
+\end{itemize}
+
 \end{document}
