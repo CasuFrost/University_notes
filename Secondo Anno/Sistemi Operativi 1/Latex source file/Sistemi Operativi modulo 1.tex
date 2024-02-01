@@ -1396,5 +1396,119 @@ paginazione più avanzate.
     \item \textbf{Two-Tier Page Table} - È un modello in cui una tabella delle pagine è frammentata in diverse tabelle delle pagine,
     si può dire che si tratta di una paginazione della tabella delle pagine stessa.
 \end{itemize}
-
+\subsection{Memoria Virtuale}
+Fino ad ora, abbiamo parlato di indirizzi virtuali assumendo che, l'intero spazio di indirizzamento virtuale sia 
+contenuto dentro l'effettiva memoria fisica, nei casi reali, la maggior parte dei processi non necessitano che tutte 
+le loro pagine siano caricate in memoria nello stesso meomento, vi è una sotto-specie di "spreco" della memoria, in quanto 
+alcune funzioni di certi processi sono utilizzate raramente, e gli array spesso sono più capienti del necessario, in modo 
+da coprire gli \textit{worst-case scenario}.\acc  La cosiddetta \textit{memoria virtuale}, utilizza la \textbf{memoria 
+secondaria} (come il disco fisso), per salvare le pagine inutilizzate, e per dare l'illusione all'utente che lo spazio 
+di indirizzamento virtuale sia infinito. Caricare dalla memoria secondaria alla memoria principale le pagine 
+strettamente necessarie dei processi in utilizzo può portare vari benefici : \begin{itemize}
+    \item I programmi possono essere pensati e scritti per operare su uno spazio di memoria molto più grande 
+    dell'effettivo spazio esistente nella memoria principale.
+    \item Vi è un utilizzo più efficiente della memoria principale.
+    \item Sono richieste meno operazioni di I/O per "swappare" i processi dalla memoria, velocizzandone il processo.
+\end{itemize}
+Ad un determinato istante di tempo una pagina si può trovare, o sulla memoria principale, ossia sui frame fisici, oppure 
+sulla memoria secondaria. Quest'ultima, data la sua capienza elevata, vede molti degli indirizzi virtuali 
+rimasti inutilizzati.
+\subsubsection{Cache della Memoria Secondaria e Gestione dei Page-Fault}
+Un'idea, è quella di utilizzare la memoria principale come una sorta di cache per il disco, la page table dovrà adesso 
+indicare se la pagina è presente in memoria o sul disco, quando una pagina viene caricata da quest'ultimo nella memoria, 
+l'OS si occuperà di aggiornarne la relativa entry sulla page table.\acc 
+Per ogni processo, è destinato uno spazio di indirizzi logici con la relativa page table, ogni entry della page 
+table avrà il bit "valid-invalid", se il bit è 1 (valid), allora la pagina richiesta si trova nella memoria principale,
+altrimenti, si verifica un \textbf{page-fault}, e la pagina deve essere caricata in memoria dal disco. Vediamo come 
+è strutturato il ciclo vitale di un page-fault :\begin{enumerate}
+    \item Si richiede un indirizzo, e si controlla prima che sia nel range adatto, se legittimo, essendo che nella 
+    page table il bit di validità è 0, esso dovrà essere caricato dal disco.
+    \item Il sistema operativo si occupa di leggere la pagina corrispondente dal disco tramite un operazione di 
+    I/O (che bloccherà il processo mettendolo nella lista di waiting). 
+    \item Una volta letta la pagina, verrà inserita in un frame fisico disponibile, se non ce ne sono, sarà necessario 
+    liberare un frame secondo delle arbitrarie politiche di rimpiazzo.
+    \item Quando l'operazione di I/O viene completata, viene aggiornata la page table, impostando il bit di 
+    validità su 1.
+    \item Il processo viene interrotto, e l'istruzione che ha causato il page-fault viene ri-eseguita dall'inizio.
+\end{enumerate}
+La TLB utilizza il bit di validità per indicare che la pagina sia in memoria principale. Se otteniamo una TLB hit (la 
+pagina è nella cache) ma il frame non è nella memoria principale, allora dovrà essere caricato dal disco.
+Se otteniamo un TLB miss : \begin{itemize}
+    \item Se la pagina richiesta non è in cache ma è nella memoria principale, l'OS caricherà la pagina 
+    nella cache aggiornando l'entry della TLB.
+    \item Se la pagina richiesta non è in cache e non è nemmeno nella memoria principale, l'OS performerà l'operazione 
+    di page-fault, aggiornando anche l'entry della TLB e ri-eseguirà l'istruzione in questione.
+\end{itemize}
+L'OS, tiene traccia di quale sia la pagina che ha generato il fault in diversi modi, che dipendono dall'architettura 
+del processore, ad esempio, nelle architetture \textit{x86}, l'indirizzo virtuale che ha causato il fault viene 
+salvato in uno specifico registro via hardware.\acc 
+Ri-eseguire da zero un processo in seguito di un page-fault può essere problematico, in quanto l'istruzione incriminata 
+potrebbe trovarsi nel mezzo dell'esecuzione, è quindi necessario che l'OS abbia un supporto hardware 
+per salvare lo stato della CPU e l'istruzione che ha generato il page-fault, esistono istruzioni di due tipi : \begin{itemize}
+    \item \textbf{idempotenti} - È necessario ri-eseguire l'istruzione che ha causato il fault, salvandone l'indirizzo 
+    via hardware. 
+    \item \textbf{non idempotenti} - Sono più ostiche da ri-eseguire, soprattutto se si tratta di istruzioni che non sono 
+    facilmente "riavvolgibili", come lo spostamento di blocchi dalla memoria, causando anche degli effetti collaterali.
+\end{itemize}
+Per ovviare a ciò, è necessario garantire che tutti gli indirizzi contenuti nel blocco che viene spostato siano in 
+memoria prima di eseguire l'istruzione incriminata.\acc
+Teoricamente, un page-fault può verificarsi per una qualsiasi istruzione di un processo, fortunatamente, nei casi reali, 
+i processi esibiscono la cosiddetta \textbf{località di riferimento} temporale o spaziale : \begin{itemize}
+    \item \textbf{temporale} - Se un processo accede ad una risorsa in memoria, tenderà ad accedervi nuovamente 
+    in un lasso di tempo prossimo.
+    \item \textbf{spaziale} - Se un processo accede ad una risorsa in memoria, tenderà ad accedere a risorse 
+    fisicamente vicine ad essa in un lasso di tempo prossimo.
+\end{itemize}
+\textbf{Esempio di Performance negli Accessi}, consideriamo le seguenti variabili : 
+$$t_{MA} := \text{ tempo di accesso alla memoria principale}$$ 
+$$t_{FAULT} := \text{ tempo necessario per gestire un page-fault}$$ 
+$$p\in[0,1] := \text{ probabilità che si causi un page-fault}$$
+È chiaro che il tempo effettivo per un accesso in memoria sarà : $$t_{ACCESS}=(1-p)\cdot t_{MA} + p\cdot t_{FAULT}$$
+Supponiamo adesso che $t_{MA}=100 nsec$ e che $t_{FAULT}=20 msec=20000000nsec$, il tempo effettivo per un 
+accesso sarà $t_{ACCESS}=(1-p)\cdot 100 + p\cdot 20000000$ nanosecondi, è chiaro che dipende fortemente dalla probabilità 
+\(p\) che si causi un fault. Quindi, se volessimo far si che, il tempo effettivo di accesso sia il \(10\%\) più lento 
+rispetto ad un regolare accesso, dovremmo risolvere la seguente equazione per \(p\) : 
+$$100*1.1=(1-p)\cdot 100 + p\cdot 20000000$$
+Risolvo ed ottengo : \begin{gather*}
+    100*1.1=(1-p)\cdot 100 + p\cdot 20000000\\ 110=100-100p + 20000000p\\ 
+    20000000p-100p=110-100\\19999900p=10\\p=\dfrac{10}{19999900}=\dfrac{1}{1999990}\simeq5*10^{-7}
+\end{gather*}
+Quindi la probabilità che si verifichi un page-fault deve essere estremamente bassa, ossia dello $0,00005 \%$.\acc
+Fino ad ora, abbiamo descritto come l'OS gestisce i page-fault, ma quando è che la pagina di un processo deve essere 
+caricata in memoria? E soprattutto, quale pagina va rimossa dalla memoria se essa è piena?
+\subsubsection{Page Fetching}
+L'obbiettivo principale rimane quello di far sembrare la memoria principale più grande di quello che è effettivamente,
+bisogna sfruttare la località di riferimento dei programmi e tenere in memoria esclusivamente le pagine utilizzate, lasciando 
+sul disco quelle non utilizzate, idealmente vorremmo produrre un sistema di memoria che sia performante come la memoria 
+principale ed abbia la capacità di un disco. Esistono 3 note strategie di page fetching : \begin{itemize}
+    \item \textbf{Startup} - È un caso particolare in cui tutte le pagine dei processi sono caricate nella memoria 
+    in quanto lo spazio di indirizzamento virtuale non può essere più capiente rispetto la memoria fisica.
+    \item \textbf{Overlays} - Il programmatore decide quando le pagine vanno rimosse/caricate. 
+    \item \textbf{Demand} - I processi comunicano all'OS quando necessitano di una pagina, e l'OS gestisce le richieste.
+\end{itemize}
+La maggiorparte dei sistemi operativi adopera quest'ultima strategia, quando un processo inizia la sua esecuzione, nessuna 
+delle sue pagine è caricata in memoria, ed una pagina viene caricata solo quando il processo fa riferimento ad essa, piuttosto che 
+caricarne tutte le pagine all'inizio.\acc Il \textbf{prefetching}, è una strategia che consiste nel prevedere 
+quando una pagina potrebbe eventualmente causare un fault, un possibile approccio, consiste nel, quando si genera 
+un fault, caricare anche altre pagine vicine a quella incriminata, e funziona e se l'accesso alla memoria è sequenziale.
+\subsubsection{Page Replacement} 
+Per  eseguire lo swap delle pagine, vi è uno spazio dedicato chiamato \textit{swap space}, ed è una porzione del disco 
+che non fa parte del file system, generalmente quando una pagina necessita di uno swap out, verrà copiata sul disco, le 
+pagine dei processi sono suddivise in :\begin{itemize}
+    \item \textbf{code} - in sola lettura.
+    \item \textbf{data} - inizializzata o non.
+\end{itemize}
+A seconda del tipo di pagina da rimuovere, possono essere applicate varie ottimizzazioni. Per le pagine riservate al 
+codice, ossia di tipo \textit{code}, essendo che rimangono invariate, possono essere spostate sul file system, è necessario 
+rimuoverle e ricaricarle direttamente dal file eseguibile sul disco fisso. Per quelle di tipo \textit{data}, il contenuto 
+potrebbe essere modificato, va quindi salvato in un file pagina separato in modo che le modifiche non vengano perse, è 
+necessario adottare uno swap space dedicato. \acc 
+Vediamo adesso quali sono gli algoritmi noti e le politiche da adottare per decretare quali pagine vanno scambiate nel caso 
+la memoria fisica sia piena.\begin{itemize}
+    \item \textbf{Random} - Seleziona una pagina in maniera casuale, funziona sorprendentemente bene.
+    \item \textbf{FIFO} - Rimuove la pagina che è stata in memoria per più tempo, è facile da implementare ma potrebbe 
+    rimuovere pagine alla quale si accede frequentemente.
+    \item \textbf{MIN} - Rimuove la pagina che non verrà acceduta per il tempo più lungo (difficile da predirre)
+    \item \textbf{LRU} - Rimuove la pagina che non è stata utilizzata da più tempo.
+\end{itemize}
 \end{document}
