@@ -1511,4 +1511,213 @@ la memoria fisica sia piena.\begin{itemize}
     \item \textbf{MIN} - Rimuove la pagina che non verrà acceduta per il tempo più lungo (difficile da predirre)
     \item \textbf{LRU} - Rimuove la pagina che non è stata utilizzata da più tempo.
 \end{itemize}
+\subsubsection{Implementazione dell'LRU}
+Nello specifico, come possiamo implementare un algoritmo di page replacement LRU? Possiamo tener conto di un 
+\textit{timestamp} per ogni pagina, che salva l'istante temporale in cui si è eseguito l'accesso ad essa l'ultima 
+volta, ciò però, comporta 2 contro, come prima cosa sarà necessario aggiornare il timestamp ogni qual volta si accede 
+ad una pagina, in secondo luogo, per rimuovore la pagina usata meno di recente sarà necessario ogni volta fare 
+una ricerca lineare fra tutte le pagine.\acc Un'altra idea è quella di considerare una lista di pagine in cui le prime 
+son quelle usate più di recente, e le ultime quelle usate meno di recente, ogni volta che si accede ad una pagina si sposta 
+nella prima posizione della lista. Risulta comunque troppo costoso per l'OS aggiornare i puntatori della lista ad ogni 
+accesso.\acc 
+Nelle situazioni reali, non è strettamente necessario un algoritmo LRU, può andar bene anche un algoritmo che lo 
+approssima grazie a dei supporti hardware (modello adottato dalla maggiorparte dei sistemi operativi). Si considera 
+per ogni entrata della page table, un \textbf{single-reference bit}, inizialmente tutti i bit della tabella sono 
+inizializzati a 0, ad ogni accesso, si imposta il bit ad 1, in tal modo, tutte le pagine con il bit ad 1 sono state accedute 
+prima di un ipotetico "reset" dei bit. No vi è una relazione di ordine totale fra le pagine accedute. \acc 
+Tale principio viene esteso, ad ogni entry si associano più reference bit, ad esempio, 8, e ad intervalli periodici 
+si esegue uno shift destro per tutte le entrate della tabella, ad ogni istante temporale, la pagina con il 
+reference bit minore è quella usata meno di recente. Il numero specifico di bit utilizzati e la frequenza di 
+aggiornamento (ossia di shift) sono arbitrari.\acc 
+Il cosiddetto algoritmo \textbf{Second-Chance} combina il modello dei single reference bit con quello di una 
+lista circolare \textit{FIFO}, l'OS mantiene i frame fisici nella lista, ad ogni accesso il reference bit è 
+impostato su 1, se avviene un page-fault, l'OS controlla la lista dei frame, controllando il reference bit della 
+pagina associata a quel frame, se 0, viene rimpiazzato con la pagina ed impostato ad 1, se 1, viene impostato 
+a 0 (seconda possibilità), e spostato nel frame successivo.\acc 
+Il rimpiazzo di una pagina costa due operazioni di I/O : \begin{itemize}
+    \item Scrivere la pagina rimossa sul disco 
+    \item Leggere dal disco la nuova pagina da inserire 
+\end{itemize}
+Risulta chiaro che, è meno costoso rimpiazzare una pagina che non è stata modificata, in modo che non sia necessario riscriverla 
+sul disco, quindi l'OS dovrebbe dare la precedenza di rimpiazzo alle pagine che non sono state modificate. Si 
+implementa un ulteriore supporto hardware, i \textbf{modify bit}, adesso ogni pagina avrà un bit che decreterà se 
+essa è stata modificata o no, siano quindi i due bit \((\)reference bit, modify bit\()\) : \begin{itemize}
+    \item \((0,0)\) non è stato ne usato di recente, ne modificato
+    \item \((0,1)\) non è stato  usato di recente, ma modificato
+    \item \((1,0)\) è stato usato di recente, ma non è stato modificato
+    \item \((1,1)\) è stato sia usato di recente che modificato
+\end{itemize}
+L'algoritmo adesso ricerca nella lista circolare, dando priorità ad una entry con i bit \((0,0)\\((0,0)\)), se non 
+la trova, cercherà una entry con i bit \((0,1)\).
+\subsubsection{Multiprogrammazione e Trashing}
+Fin'ora, abbiamo assunto che vi sia un solo processo caricato in memoria in ogni istante di tempo, d'altronde, gli OS 
+odierni sono multiprogrammati e più processi risiedono nello stesso momento su un unica CPU, il sistema può quindi 
+caricare le pagine necessarie al funzionamento (\textit{working set}) di più processi, aumentando il grado di 
+multiprogrammazione.\\  \begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.35\textwidth ]{images/trashing.eps}
+    }
+\end{figure}\acc
+Se il grado di multiprogrammazione diventa troppo alto, i troppi working set potrebbero occupare fin troppo la 
+capacità della RAM, rallentando l'effettiva efficienza, causando il \textbf{trashing}, ossia il fenomeno in cui la 
+memoria è sovraccaricata e le pagine vengono continuamente rimosse e riaggiunte nel mentre che sono in uso, l'accesso 
+medio alla memoria potrebbe richiedere un tempo che si avvicina di molto a quello di accesso al disco per via dei troppi 
+page fault.\acc Per ovviare a ciò, si deve far si che ogni processo abbia abbastanza memoria sufficiente ad evitare 
+di ricadere nel trashing, tramite delle \textbf{politiche di allocazione e rimpiazzo}.\begin{itemize}
+    \item \textbf{Allocazione e rimpiazzo globale} - Tutte le pagine di tutti i processi sono in 
+    una coda gestita con il modello LRU, quando vi è in corso una sostituzione, una qualsiasi pagine può 
+    essere rimossa, indipendentemente dal fatto che appartenga al processo che sta ricercando un frame libero o no.
+    Risulta flessibile, ma più incline al trashing.
+    \item \textbf{Allocazione e rimpiazzo locale} - Ogni processo ha la sua personale coda di pagine, e vengono 
+    considerati solo i processi che entrano nella memoria. Il rimpiazzo LRU riguarda solo i frame di ogni processo. Vi è 
+    un discreto grado di indipendenza ma può incidere sulle performance.
+\end{itemize}
+Un altro modello da considerare è quello della \textbf{allocazione e rimpiazzo proporzionale}, assume implicitamente 
+che un processo di grandi dimensioni richiederà un grande spazio di memoria, anche se ciò può non essere vero in certi 
+casi (Esempio : Un processo alloca un array da 1\(GB\) ma ne utilizza solo una piccola porzione), quindi il working set di un 
+processo potrebbe non essere correlato alla memoria che esso richiede.\acc Un obbiettivo fondamentale dell'OS è di 
+far coincidere il più possibile la memoria che si concede ad un processo al suo effettivo working set, formalmente, definiamo 
+il working set come l'insieme delle pagine alla quale il processo ha fatto riferimento nelle ultime \(\Delta\) unità di tempo. 
+La decisione arbitraria del valore dell'unità \(\Delta\) è fondamentale per creare un valido modello di working set.\\\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.7\textwidth ]{images/WS.eps}
+    }
+\end{figure}\\
+Un'unità \(\Delta\) troppo piccola non darebbe un quadro chiaro delle pagine richieste ed un \(\Delta\) troppo grande 
+includerebbe pagine alla quale il processo non ha richiesto l'accesso per molto tempo. Capire quale sia l'effettivo 
+working set richiederebbe di tener traccia del valore della finestra temporale \(\Delta\), per evitare il sovraccarico 
+dovuto al tener traccia della lista delle pagine richieste nell'ultimo lasso di tempo \(\Delta\), si implementa il 
+working set tramite il \textbf{sampling}, ogni \(k\) riferimenti alla memoria, il working set è considerato come tutte le 
+pagine richieste nel periodo di tempo dato dai \(k\) accessi.\acc 
+Un'altro obbiettivo importante è quello di cercare di diminuire il più possibile l'avvenirsi dei page fault, un approccio diretto 
+può essere quello di tener traccia del rateo di page fault per ogni processo, modificando in base a ciò il numero di 
+frame che gli vengono concessi. \acc 
+Riguardo la dimensione delle pagine, in base alle specifiche di chi progetta l'OS, è possibile renderle più o meno capienti : \begin{itemize}
+    \item Della pagine \textit{piccole} diminuiscono la frammentazione interna ed aumentano il grado di multiprogrammazione.
+    \item Delle pagine \textit{grandi} diminuiscono il numero di entry della page table, diminuiscono il numero di page 
+    fault (grazie al principio di località), ed ammortizzano il sovraccarico del disco.
+\end{itemize}
+\subsection{La Memoria di Massa}
+Esistono 3 categoria di memoria di massa, i dischi magnetici (HDD), i dischi a stato solido (SSD), ed i nastri magnetici. 
+Questi primi due son la cosiddetta memoria secondaria, il terzo è la memoria terziaria.\acc
+
+Riguardo l'HDD, la sua struttura è semplice, vi è un perno che rotea, sulla quale poggiano dei dischi, essi sono divisi in settori (cerchi 
+concentrici) contenenti dei blocchi di memoria di dimensione fissa. Vi è un \textit{attuatore}, che si muove avanti ed indietro, 
+composto da bracci che contengono a loro volta delle testine. L'attuatore, muovendosi avanti ed indietro seleziona il settore del 
+disco da leggere, il perno, roteando, selezionerà il blocco di memoria che la testina posta sul braccio (di dimensioni 
+identiche al blocco) leggerà.
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.6\textwidth ]{images/Disk.eps}
+    }
+\end{figure}\\
+La capacità totale del disco è data dal prodotto dei seguenti valori : Numero di testine che leggono sui disci, 
+numero di settori per lato del disco, numero di Byte per settore. Il numero di blocchi per settore varia in base al 
+raggio del settore, ossia dalla sua vicinanza dal centro del disco, in modo da cercare di tenere costante la 
+densità dei bit. Il disco rotea ad una velocità angolare costante, ed i settori più interni vengono attraversati 
+più rapidamente dalla testina rispetto a quelli esterni.\acc Leggere un blocco di memoria richiederà 3 diversi intervalli di tempo :\begin{enumerate}
+    \item \textbf{seek time }- Il tempo di movimento dell'attuatore in cui posiziona la testina sul giusto settore.
+    \item \textbf{rotation delay} - Il tempo di rotazione del disco per far selezionare alla testina il blocco corretto.
+    \item \textbf{transfer time} - Il tempo impiegato dalla testina per leggere il blocco, dipende dalle dimensioni di esso, 
+    e dalla densità delle particelle magnetiche.
+\end{enumerate}
+Solitamente, i blocchi di un disco magnetico sono indirizzati come un unico grande array di blocchi, mappati 
+sequenzialmente nei settori del disco. Il settore 0 è il primo settore del disco che si trova all'estremità, il mapping 
+procede secondo l'ordine dei settori fino al disco più interno, i bracci ce sorreggono le testine si trovano ad una 
+distanza estremamente ravvicinata dai dischi, ed il contatto con essi può causare danni permanenti al disco se non 
+la sua totale distruzione, quindi quando il computer è spento, i bracci vengono "parcheggiati" al di fuori del disco per 
+evitare tale danno. Gli hard drive possono essere rimossi dal computer, e sono collegati tramite gli appositi 
+bus di I/O, alcune delle più comuni interfacce di connessione sono : \begin{itemize}
+    \item Advanced Technology Attachment (ATA) e Serial ATA (SATA)
+    \item Universal Serial Bus (USB)
+    \item Small Computer System Interface (SCSI)
+\end{itemize}
+L'\textbf{host controller} si occupa di rispondere alle richieste della CPU e si trova all'estremità del bus I/O,  il 
+\textbf{disk controller} è contenuto all'interno del disco stesso, i dati sono trasferiti dalla superfice magnetica 
+nella cache del disk controller, che verrà poi letta dall'host controller nella scheda madre.\acc 
+Le componenti meccaniche del disco rischiano di causare il bottleneck \footnote{
+    un bottleneck si verifica quando una parte del sistema diventa un punto critico che limita le prestazioni complessive
+} dato che non si muovono, alla velocità dell'elettricità 
+come fanno i dati che vengono trasferiti, per minimizzare ciò, è possibile ridurre le dimensioni dei dischi e far si che 
+ruotino a velocità più elevate. Anche l'OS può minimizzare i tempi di trasferimento, schedulando le operazioni del disco 
+in modo da ridurre lo spostamento dell'attuatore, o mettendo dati utilizzati frequentemente in apposite porzioni del disco.
+\subsubsection{Scheduling del Disco}
+L'OS richiede costantemente operazioni di lettura e scrittura sul disco, l'idea è quella di permutare l'ordine delle 
+richieste sul disco rispetto all'originale in modo da ridurre la lunghezza ed il numero delle operazioni di spostamento 
+dell'attuatore (seek time). \acc 
+L'algoritmo più semplice è l'FCFS, che soddisfa le richieste nell'esatto ordine in cui arrivano, è facile da implementare e 
+funziona bene se il sistema non è sovraccaricato, le performance calano drasticamente se le richieste aumentano, è spesso 
+adoperato nelle memorie a stato solido in quanto non sono richiesti movimenti meccanici.\acc 
+L'algoritmo \textbf{Shortest Seek Time First} (SSTF) seleziona la richiesta successiva in modo che sia più 
+vicina possibile a quella corrente, va implementato con una lista ordinata delle richieste, potrebbe causare 
+però una situazione di starvation e non è ottimale in generale in quanto minimizza il seek time locale per 
+ogni accesso e non quello globale.\acc Un altro algoritmo è quello dello \textbf{SCAN}, la testina si muove avanti ed 
+indietro controllando tutto il disco, e le richieste vengono soddisfatte quando la testina passa sopra il blocco 
+corrispondente, necessita sempre  di una lista ordinata delle richieste, una possibile ottimizzazione, detta \textit{LOOK} può incorrere semplicemente 
+facendo muovere il disco fin dove è necessario secondo le richieste, evitando che lo visiti nella sua interezza. 
+Lo SCAN non soffre di starvation, ma il seek time potrebbe essere maggiore rispetto al SSTF se nuove richieste vengono 
+schedulate appena lo SCAN ha finito il suo percorso.\acc Bisogna considerare che la velocità di spostamento 
+della testina non è lineare, dato che essa è soggetta ad accellerazione e decellerazione.\acc L'algoritmo \textbf{C-SCAN} 
+consiste in uno scan circolare del disco, dove le richieste sono contenute in una coda circolare, ogni volta che lo scan 
+raggiunge la fine, ricomincia dal lato opposto, è possibile applicare la medesima ottimizzazione \textit{LOOK}. Tale 
+algoritmo evita la fermata e la ripartenza della testina meccanica. \acc 
+Questi algoritmi, sono tipicamente implementati nel disk controller, d'altronde, è possibile considerare degli 
+algoritmi più complessi, che devono però essere implementati nel disk driver dell'OS.\acc Alcune ottimizzazioni 
+possono derivare dal caricare i blocchi del disco direttamente nella cache del disk controller prima che essi vengano 
+richiesti, ciò funziona grazie al principio di località.
+\subsubsection{Gestione del disco} 
+Prima che un disco possa essere funzionante, va \textbf{formattato}, viene definito tramite dei metadati quali sono 
+i punti in cui inizia e finisce un settore, vengono implementati eventuali codici di errore gestiti dal disk 
+controller, una volta fatto ciò, va partizionato, in una o più partizioni, e la tabella delle partizioni viene 
+definita all'inizio del disco, una volta partizionato, il file system stesso va formattato a livello logico.\acc 
+La ROM del computer contiene un programma indipendente dall'OS, il \textbf{bootstrap}, con il codice necessario 
+a trovare il primo settore del primo disco, ed il relativo disk controller, il primo settore, noto come \textbf{Master 
+Boot Record} (MBR), contiene una piccola porzione di codice e la tabella delle partizioni, che da informazioni su come 
+il disco è logicamente partizionato, ed indica la partizione giusta che può essere avviata nel boot. Il programma di boot controlla 
+tale partizione per ricercare un sistema operativo, una voltra trovato il Kernel, viene caricato in memoria, ed il 
+controllo viene lasciato all'OS, che inizializzerà i vari servizi.
+\subsubsection{Disco a Stato Solido e Nastri Magnetici}
+Gli SSD utilizzano una tecnologia di memoria flash, o chip DRAM protetti da una batteria, non ha parti meccaniche 
+e l'accesso ai blocchi è diretto, non è quindi necessario alcuno scheduling, le operazioni di lettura sono più rapide, quelle 
+di scrittura più lente, e necessitano di un più lento ciclo di eliminazione (non è possibile sovrascrivere direttamente), 
+i blocchi non utilizzati restano "senza referenze" e sono detti \textit{garbage collection}, il controller dell'SSD deve 
+contare quante volte un blocco viene sovrascritto.\acc Gli SSD sono più costosi, e generalmente meno capienti, ed hanno 
+un ciclo di vita minore, sono utili per le cache ad alta velocità o per accedere ad informazioni che richiedono l'accesso 
+rapido, come il bootloader dell'OS ed alcune applicazioni eseguibili. Sono utilizzati nei laptop per renderli 
+più piccoli, leggeri e rapidi, alcuni SSD sono collegati direttamente al bus PCI.\acc 
+I nastri magnetici sono utilizzati per i backup, accedere ad un particolare blocco può essere lento e l'accesso 
+è esclusivamente sequenziale. La velocità iniziale è lenta, una volta che i nastri accellerano, la velocità è comparabile 
+a quella dei dischi fissi, i nastri hanno una capacità che varia dai 20 ai 200 GigaByte, nell'era odierna, sono 
+stati sostituiti dai dischi.
+\subsubsection{Il Modello RAID}
+RAID sta per \textbf{Redundant Array of Inexpensive Disks}, ed è un modello che consiste nel mettere insieme un gruppo 
+di dischi fissi (economici) insieme a delle forme di duplicazione piuttosto che utilizzare uno o due dischi fissi 
+più capienti e costosi, con l'obbiettivo di incrementare l'affidabilità oppure di velocizzare le operazioni.
+\acc 
+Al giorno d'oggi, il modello RAID impiega dischi più capienti e possibilmente costosi, ridefinendo il significato 
+di RAID in \textit{Redundant Array of Independent Disks}.\acc 
+Nei casi reali, i sistemi odierni richiedono più dischi, ma più dischi ci sono, maggiore è la probabilità che 
+uno di questi generi un errore in un qualsiasi istante di tempo, di conseguenza, aumentare il numero di dischi 
+diminuisce il tempo medio di guasto del sistema, detto MTTF.\acc 
+\textbf{Esempio }: Supponiamo di avere un sistema con \(n\) dischi, ogni disco ha un tempo medio di guasto 
+di 4000 giorni, quindi la probabilità che un disco si guasti è 
+$$p=\mathbb{P}(\{\text{ il disco }i\text{ si guasta}\})=\dfrac{1}{4000}=0.00025$$
+Associamo ad ogni disco \(i\) la variabile aleatoria di Bernoulli \(X_i\) di parametro \(p\), che restituisce \(1\) 
+se il disco si guasta, e \(0\) se funziona. Per semplicità, si assume che \(p\) sia la probabilità di guasto per ogni 
+disco del sistema, e che siano tutti indipendenti fra loro. Qual'è il valore atteso del numero di guasti in un determinato 
+giorno \(t\) data la probabilità di fallimento \(p\)? È esattamente \(T=X_1+X_2\dots+X_n\). Risulta chiaro che \(T\) sia 
+una variabile binomiale di parametri \(n\) e \(p\). Ne consegue che il valore atteso è \(\mathbb{E}(T)=n\cdot p\).
+Il valore atteso (dischi che si guastano) in un giorno, se i dischi sono 4000, è 1, se i dischi sono 400 000, 
+il valore atteso cresce a 100.
+\acc 
+È possibile incrementare il grado di affidabilità tramite la ridondanza, il \textbf{mirroring}, è una tecnica che consiste 
+nel copiare gli stessi dati su più dischi, i dati non verranno persi finché tutte le copie non verranno danneggiate 
+contemporaneamente, e diminuisce la probabilità per un singolo disco di vedere i propri dati persi.\acc 
+Il mirroring aumenta anche le performance quando si tratta di operazioni di lettura, facendo si che sia possibile leggere 
+blocchi da più dischi simultaneamente per ottenere gli stessi dati. Un altro modo per aumentare la velocità di accesso 
+è tramite lo \textbf{striping}, ossia, spargere i dati su più dischi per far si che possano essere acceduti simultaneamente, i 
+dischi sulla quale si applica lo striping sono visti a livello logico come una singola unità di memoria.\acc 
+Il mirroring aumenta l'affidabilità ma è costoso ed introduce dello spreco di memoria, lo striping aumenta le performance, 
+ma non l'affidabilità, differenti schemi possono essere costruiti sul RAID combinando le diverse ottimizzazioni 
+cercando di bilanciare affidabilità ed performance.
 \end{document}
