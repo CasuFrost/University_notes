@@ -107,7 +107,7 @@ momento in cui un altro processo in esecuzione viene arrestato da una chiamata b
     \includegraphics[width=0.7\textwidth ]{images/jobScheduling.png}
     }
 \end{figure}
-\\Assciurando un buon bilanciamento fra processi in esecuzione e chiamate I/O, tramite il job scheduling
+\\Assicurando un buon bilanciamento fra processi in esecuzione e chiamate I/O, tramite il job scheduling
 la CPU non si arresterà mai ed avrà sempre un processo in esecuzione. Sorge però un altro problema, nel caso 
 dovessimo avere un processo considerevolmente lungo, esso verrà eseguito per un \textit{tempo indeterminato} lasciando 
 la CPU sempre occupata, si utilizza quindi un sistema di \textbf{time sharing}, in cui ad ogni processo 
@@ -281,12 +281,11 @@ dalla CPU, ogni processo è un entità indipendente, e possono coesistere due pr
 programma. Ad ogni processo viene assegnata la sua quantità di memoria disponibile, e le sue istruzioni sono 
 eseguite in maniere sequenziale. Il sistema operativo si occupa di creare, distruggere, e gestire gli stati 
 dei processi, dedica ad essi la stessa quantità di memoria virtuale, ed il numero di indirizzi disponibili dipendono 
-dall'architettura della macchina (ad esempio, con un processore a 32 \text{bit}, si hanno \(2^32\) indirizzi disponibili).
+dall'architettura della macchina (ad esempio, con un processore a 32 \text{bit}, si hanno \(2^{32}\) indirizzi disponibili).
 \\\hphantom{.}\\
-Quando si crea un processo, ad esso viene assegnata una quantità di memoria divisa in 5 unità logiche :
+Quando si crea un processo, ad esso viene assegnata una quantità di memoria divisa in 4 unità logiche :
 \begin{itemize}
     \item \code{Text} - contiene le istruzioni eseguibili, ossia il risultato della compilazione.
-    \item \code{Data} - contiene le variabili globali o statiche inizializzate.
     \item \code{Data} - contiene le variabili globali o statiche non inizializzate, o inizializzate a 0.
     \item \code{Stack} - struttura LIFO utilizzata per memorizzare i dati ed i parametri necessari alle chiamate di funzioni.
     \item \code{Heap} - struttura dati utilizzata per l'allocazione dinamica della memoria.
@@ -323,7 +322,7 @@ Un processo in esecuzione può ritrovarsi in uno dei seguenti 5 \textbf{stati} :
 \subsection{Creazione dei Processi}
 Il sistema operativo per creare nuovi processi utilizza delle opportune chiamate di sistema. Per convenzione, 
 un processo \textit{Parent} (detto anche padre) è quello dalla quale si esegue la chiamata per generare nuovi processi, detti 
-\textit{Figli}. Ogni processo ha d.ue valori interi utilizzati per identificare se stesso: \code{PID}, ed 
+\textit{Figli}. Ogni processo ha due valori interi utilizzati per identificare se stesso: \code{PID}, ed 
 il suo parent : \code{PPID}. In sistemi come Unix, il process scheduler ha come PID=0, esso inizializza 
 come prima cosa un processo noto come \code{init}, che ha PID=1, e si occuperà di creare tutti i processi, sarà 
 quindi il parent primario. I processi vengono creati tramite una chiamata di sistema denominata \code{fork()}.
@@ -394,7 +393,7 @@ Quando un processo termina, lo spazio dedicato alle sue risorse viene liberato.
 \subsection{Scheduling dei Processi}
 Un sistema operativo deve far conto a due obbiettivi : \begin{itemize}
     \item far si che la CPU stia costantemente eseguendo processi 
-    \item avere un t empo di risposta accettabile per i programmi che interagiscono con l'utente
+    \item avere un tempo di risposta accettabile per i programmi che interagiscono con l'utente
 \end{itemize}
 Lo scheduler si occupa di decidere quale processo eseguire venendo in contro a tali obbiettivi, anche se 
 essi possono entrare in conflitto fra loro. Il sistema operativo salva tutti i PCBs\footnote{
@@ -413,7 +412,7 @@ Esistono due tipi di scheduler.\begin{itemize}
 \end{itemize}
 Abbiamo già definit l'operazione di \textit{Content Switch}, ossia quella di interrompere un processo per 
 eseguirne un altro. Tale operazione risulta costosa in termini computazionali, dato che è necessario salvare 
-lostato del processo da interrompere e caricare lo stato del processo da eseguire dai loro rispettivi 
+lo stato del processo da interrompere e caricare lo stato del processo da eseguire dai loro rispettivi 
 PCB. Il content switch è quindi operazione da eseguire solo quando necessario, quando avviene un interruzione, oppure 
 quando un processo impiega troppo tempo generando un interruzione del timer. I processi che utilizzano principalmente 
 la CPU per eseguire esclusivamente calcoli (talvolta pesanti), che quindi richiedono più tempo per essere 
@@ -495,13 +494,13 @@ passare alla user mode, e "saltare" all'indirizzo di memoria dell'ultimo program
 \subsubsection{Criteri e Politiche dello Scheduling}
 Introduciamo adesso alcune notazioni e definizioni importanti riguardo il calcolo dei tempi che un processo 
 impiega sulla CPU.\begin{itemize}
-    \item \textbf{Arrival Time} (\(T^{arrival}\)) : Il tempo che impiega un processo per arrivare nella coda pronti.
-    \item \textbf{Completion Time}  (\(T^{completion}\)) : Il tempo che impiega un processo per completare la sua esecuzione.
-    \item \textbf{Burst Time:}  (\(T^{burst}\)) : Il tempo totale nella quale il processo è in esecuzione sulla CPU.
-    \item \textbf{ Turnaround Time} (\(T^{turnaround}\))  : La differenza fra il Completion Time e l'Arrival Time, definita 
-    come \(T^{completion}-T^{arrival}\) .
-    \item \textbf{ Waiting Time} (\(T^{waiting}\)) : La differenza fra il Turnaround Time ed il Burst Time, definita 
-    come \(T^{turnaround}-T^{burst}\) .
+    \item \textbf{Arrival Time} (\(T_{arrival}\)) : Il tempo che impiega un processo per arrivare nella coda pronti.
+    \item \textbf{Completion Time}  (\(T_{completion}\)) : Il tempo che impiega un processo per completare la sua esecuzione.
+    \item \textbf{Burst Time:}  (\(T_{burst}\)) : Il tempo totale nella quale il processo è in esecuzione sulla CPU.
+    \item \textbf{ Turnaround Time} (\(T_{turnaround}\))  : La differenza fra il Completion Time e l'Arrival Time, definita 
+    come \(T_{completion}-T_{arrival}\) .
+    \item \textbf{ Waiting Time} (\(T_{waiting}\)) : La differenza fra il Turnaround Time ed il Burst Time, definita 
+    come \(T_{turnaround}-T_{burst}\) .
 \end{itemize}
 Ci sono diversi criteri da poter prendere in considerazione quando si scrive una algoritmo di scheduling, ed in 
 base a tali criteri, esistono algoritmi migliori di altri, tali criteri sono :\begin{itemize}
@@ -511,7 +510,7 @@ base a tali criteri, esistono algoritmi migliori di altri, tali criteri sono :\b
     \item \textbf{Tournaround time} - L'obbiettivo è quello di \textit{minimizzare} il tempo impiegato da un processo, 
     dalla sua selezione da parte dello scheduling fino al completamento (includendo lo Waiting Time).
     \item \textbf{Waiting time} - L'obbiettivo è quello di \textit{minimizzare} il tempo che un processo 
-    rimane fermo nella CPU in attesa di essere selezionato dallo scheduler.
+    rimane fermo nella coda, in attesa di essere selezionato dallo scheduler.
     \item \textbf{Response time} - Il tempo che interocorre fra la richiesta di un comando, e la risposta ad esso, l'obbiettivo 
     è quello di \textit{minimizzare} tale tempo per rendere il sistema più interattivo e responsivo.
 \end{itemize}
@@ -570,7 +569,7 @@ del quanto è molto grande, l'algoritmo si comporterà come un FCFS,
 se troppo piccolo, verranno fatti troppi context switch.
 \subsubsection{Shortest-Job-First (SJB)}
 L'idea, è di dare la priorità ai processi che hanno il 
-"carico di lavoro stimato" più grande sulla CPU, con carico di lavoro, si 
+"carico di lavoro stimato" più piccolo sulla CPU, con carico di lavoro, si 
 intende il tempo che impiegheranno in esecuzione, prima della prossima 
 richiesta di I/O o della terminazione stessa.\begin{itemize}
     \item \textbf{Pro} - È ottimale quando l'obbiettivo è quello di 
@@ -679,7 +678,7 @@ più frequentemente (simulando il SJF). Per evitare la starvation, si assegna ad
 alemeno un ticket. Inoltre, aggiungere o rimuovere processi dalla code, condiziona in maniera proporzionale 
 la probabilità di essere selezionati di tutti gli altri processi. Questo tipo di scheduling quindi, \textbf{non è 
 deterministico}, e si basa sulla \textit{randomness}.\begin{center}
-    \(m_i:=\)  numero di ticket assegnati al processi \(i\)\\\(N:=\) numero dei processi \\\(M=\displaystyle\sum_{i=1}^N:=\) numero totale dei ticket\\
+    \(m_i:=\)  numero di ticket assegnati al processi \(i\)\\\(N:=\) numero dei processi \\\(M=\displaystyle\sum_{i=1}^Nm_i:=\) numero totale dei ticket\\
 \(\mathbb{P}(i)=\dfrac{m_i}{M}:=\) probabilità che il processo \(i\) venga schedulato.
 \end{center}
 \section{I Threads}
@@ -855,13 +854,13 @@ thread affinché non daranno \textit{volontariamente} il controllo del thread al
 lo user thread lascierà libero il kernel thread.
 
 \subsection{Sincronizzazione dei Thread e Processi}
-Abbiamo già accennato al fatto che diversi processo/thread possono cooperare, il problema sorge quando uno di essi, deve 
+Abbiamo già accennato al fatto che diversi processi/thread possono cooperare, il problema sorge quando uno di essi, deve 
 eseguire una regione \textit{critica} di codice, che richiede l'esecuzione in maniera atomica, è quindi necessario 
 implementare delle metodologie \textbf{primitive} di sincronizzazione.\acc 
 Un processo/thread, prima di entrare in una sezione critica di codice, deve assicurarsi un 
 \textbf{lock}, in modo da far attendere tutti gli altri processi nel mentre che esegue tale sezione (il problema tipico da 
 evitare, è l'accesso da parte di due differenti processi alla stessa sezione di memoria, rischiando di perdere informazioni), 
-i meccanismi di sincronizzazione quindi si basano sull'attesa dei processo/thread, ogni soluzione di 
+i meccanismi di sincronizzazione quindi si basano sull'attesa dei processi/thread, ogni soluzione di 
 sincronizzazione deve garantire 3 proprietà : \begin{itemize}
     \item \textbf{Esclusività} - Un solo processo/thread alla volta può eseguire la sua sezione critica.
     \item \textbf{Vivibilità} - Se nessun processo/thread è nella sezione critica, ed un altro o più processi vogliono eseguire la propria, 
@@ -878,7 +877,7 @@ blocchi di codice da eseguire atomicamente per la sincronizzazione. Tali strumen
 \end{itemize}
 Tali metodi richiedono l'intervento del sistema operativo. 
 \subsubsection{Lock}
-Una lock fornisce l'esclusività dei dati condivisa tramite due primitive atomiche : \begin{itemize}
+Una lock fornisce l'esclusività dei dati condivisi tramite due primitive atomiche : \begin{itemize}
     \item \code{Lock.acquire()} - Attende che il lock sia libero, per poi acquisirlo.
     \item \code{Lock.release()} - Rilascia il lock, attivando un qualsiasi thread che è in attesa dopo aver richiesto 
     l'acquisizione.
@@ -937,7 +936,7 @@ memoria condivise. Similmente a \textit{Java} e \textit{C++}, delle classi imper
 sincronizzazione, il codice della sincronizzazione è aggiunto dal compilatore. \acc 
 Un monitor, definisce una lock, e delle \textit{variabili di condizione}, per gestire l'accesso concorrente alla memoria, 
 utilizzano i lock per assicurarsi che un solo thread alla volta sia attivo nel monitor. Si può trasformare una classe 
-di \textit{Java} in un monitore settando tutti i dati a \code{private}, e facendo si che tutti i 
+di \textit{Java} in un monitor settando tutti i dati a \code{private}, e facendo si che tutti i 
 metodi siano sincronizzati, nel senso che sono soggetti ad esclusività.
 Si veda l'\textbf{esempio 1.0}.\acc 
 In tale esempio, il metodo \code{remove()} dovrebbe attendere che qualcosa sia disponibile nella coda, 
@@ -1052,7 +1051,7 @@ Vediamo da cosa è composta la struttura dati sulla quale l'algoritmo opera : \b
     \item \code{n} = un valore intero rappresentante il numero dei thread.
     \item \code{m} = un valore intero rappresentante il numero delle risorse (escluse istanze).
     \item \code{available[m]} = un vettore di lunghezza \(m\), che rappresenta quante istanze vi sono di una specifica 
-    risorse. Il \(j\)-esimo elemento, conterrà il numero di istanze che la \(j\)-esima risorsa ha. 
+    risorsa. Il \(j\)-esimo elemento, conterrà il numero di istanze che la \(j\)-esima risorsa ha. 
     \item \code{max[m][n]} = una matrice \(n\times m\), in cui, l'elemento \((i,j)\) rappresenta 
     il numero di risorse del tipo \(j\), che il thread \(i\)-esimo potrebbe richiedere. 
     \item \code{allocation[m][n]} = una matrice \(n\times m\), dove l'elemento \(i,j\) rappresenta il numero di 
@@ -1102,7 +1101,7 @@ Riceve in input un indice \(i\) rappresentante un thread ed un vettore \(m\) dim
     verranno convalidate.
 \end{enumerate}
 \section{La Memoria}
-Durante l'introduzione del corso, si è già fatto riferimento a quanto la gestione memoria risulti di cruciale 
+Durante l'introduzione del corso, si è già fatto riferimento a quanto la gestione della memoria risulti di cruciale 
 importanza per quanto riguarda l'efficienza di un sistema operativo. Un buon OS, deve massimizzare l'utilizzo della 
 memoria, e garantire sicurezza ed isolamento di essa fra i deiversi processi che la co-abitano (un processo, non 
 dovrebbe essere in grado di accedere ad indirizzi di memoria riservati ad altri processi, a meno che essi non lavorino 
