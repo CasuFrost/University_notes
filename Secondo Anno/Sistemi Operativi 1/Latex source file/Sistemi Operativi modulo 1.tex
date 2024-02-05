@@ -1103,7 +1103,7 @@ Riceve in input un indice \(i\) rappresentante un thread ed un vettore \(m\) dim
 \section{La Memoria}
 Durante l'introduzione del corso, si è già fatto riferimento a quanto la gestione della memoria risulti di cruciale 
 importanza per quanto riguarda l'efficienza di un sistema operativo. Un buon OS, deve massimizzare l'utilizzo della 
-memoria, e garantire sicurezza ed isolamento di essa fra i deiversi processi che la co-abitano (un processo, non 
+memoria, e garantire sicurezza ed isolamento di essa fra i diversi processi che la co-abitano (un processo, non 
 dovrebbe essere in grado di accedere ad indirizzi di memoria riservati ad altri processi, a meno che essi non lavorino 
 su una zona condivisa).\acc 
 Il supporto fisico della memoria è, ovviamente finito, esiste un meccanismo di astrazione, implementato 
@@ -1271,9 +1271,9 @@ ristretto, tende ad eseguire accessi in porzioni di memoria vicine fra loro. Se 
 di una pagina non presente sulla RAM (\textit{page fault}), tale pagina sarà presa dal supporto secondario e caricata 
 in memoria.\acc 
 Un problema che sorge quando si tratta una page table, è che ogni qual volta che un processo deve accedere in memoria, deve 
-prima consultare appunto la tabella associative (che si trova nella porzione di memoria dell'OS), per poi consultare 
+prima consultare appunto la tabella associativa (che si trova nella porzione di memoria dell'OS), per poi consultare 
 l'effettivo indirizzo, quindi, per accedere ad un indirizzo ogni volta sono richiesti 2 accessi in memoria, rendendo il tutto 
-meno efficiente. Si può sopperire tale problema 
+meno efficiente. Si può sopperire a tale problema 
 con l’aggiunta di una nuova memoria più rapida, che memorizza al suo interno una porzione 
 delle pagine indicate dalla tabella, detta \textit{cache}.
 \subsubsection{Implementazione}
@@ -1381,7 +1381,7 @@ notevolmente la traduzione degli indirizzi ed i context switch, inoltre, la fram
 più sono grandi le dimensioni di una pagina, più è probabile che si causa frammentazione interna.
 \subsection{Paging Avanzato}
 La maggior parte delle macchine moderne supportano spazi di indirizzamento logico determinati da 32 o 64 bit,
-con \(2^{32}\) indirizzi e pagine da \(2^{12}=4096\) \(Byte\), ci sono \(2^20\) entrate nella page table (circa un 
+con \(2^{32}\) indirizzi e pagine da \(2^{12}=4096\) \(Byte\), ci sono \(2^{20}\) entrate nella page table (circa un 
 milione), se ogni entrata dovesse essere da 4 \(Byte\), una page table occuperebbe \(4\) \(MiB\), inoltre anche la page 
 table deve essere "paginata", e servirebbero 1024 pagine solo per contenerla. È necessario adottare delle strutture di 
 paginazione più avanzate.
@@ -1398,7 +1398,7 @@ paginazione più avanzate.
 \subsection{Memoria Virtuale}
 Fino ad ora, abbiamo parlato di indirizzi virtuali assumendo che, l'intero spazio di indirizzamento virtuale sia 
 contenuto dentro l'effettiva memoria fisica, nei casi reali, la maggior parte dei processi non necessitano che tutte 
-le loro pagine siano caricate in memoria nello stesso meomento, vi è una sotto-specie di "spreco" della memoria, in quanto 
+le loro pagine siano caricate in memoria nello stesso momento, vi è una sotto-specie di "spreco" della memoria, in quanto 
 alcune funzioni di certi processi sono utilizzate raramente, e gli array spesso sono più capienti del necessario, in modo 
 da coprire gli \textit{worst-case scenario}.\acc  La cosiddetta \textit{memoria virtuale}, utilizza la \textbf{memoria 
 secondaria} (come il disco fisso), per salvare le pagine inutilizzate, e per dare l'illusione all'utente che lo spazio 
