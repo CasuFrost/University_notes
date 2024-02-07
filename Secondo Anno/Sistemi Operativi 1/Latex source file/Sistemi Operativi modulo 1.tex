@@ -116,10 +116,10 @@ lasciare spazio ad altri processi (il tempo limite per ogni processo è stabilit
 molto bassi per la nostra percezione, tramite il time sharing l'utente avrà un'illusione di \textit{parallelismo} 
 (solo apparente dato che una CPU può eseguire un solo processo alla volta).\\
 È importante considerare che sospendere un processo per mandarne in esecuzione un altro 
-(\textbf{content switch}) ha un suo costo, in quanto bisogna salvare lo \textit{stato} del processo precedente
+(\textbf{context switch}) ha un suo costo, in quanto bisogna salvare lo \textit{stato} del processo precedente
 salvando i valori contenuti nei registri e l'ultima istruzione da eseguire in modo da poterlo poi 
 \textit{ripristinare} correttamente, per cui il tempo limitato dal sistema secondo il time sharing non deve 
-essere troppo piccolo altrimenti si rischia di fare content switch troppe volte rispetto agli effettivi 
+essere troppo piccolo altrimenti si rischia di fare context switch troppe volte rispetto agli effettivi 
 calcoli da eseguire.
 \section{Architettura Necessaria per i Servizi dell'OS}\subsection{User e Kernel Mode}\label{user kernel}
 Per mantenere un certo livello di sicurezza, all'interno dell'OS è possibile eseguire istruzioni in due 
@@ -147,7 +147,7 @@ operare su tutta la memoria disponibile, a livello hardware si implementano due 
 \textbf{base} e \textbf{limit}, quando un processo è in corso, ad esso verrà riservata una limitata partizione 
 di memoria, in \textit{base} sarà contenuto l'indirizzo iniziale dalla quale parte la memoria disponibile, 
 ed in \textit{limit} quello finale, in modo da fornire un \textit{range} di memoria utilizzabile. I valori di 
-tali registri si aggiornano ad ogni \textit{content switch}, dato che ad ogni processo è assegnato il suo 
+tali registri si aggiornano ad ogni \textit{context switch}, dato che ad ogni processo è assegnato il suo 
 range [base,limit].
 \subsection{Le System Call}
 Come abbiamo già accennato, l'utente non può interagire direttamente con le istruzioni privilegiate, esistono 
@@ -410,19 +410,19 @@ Esistono due tipi di scheduler.\begin{itemize}
      processi dalla coda dei pronti e di assegnarli alla CPU per l'esecuzione, viene eseguito molto frequentemente,
      circa ogni 50-100 millisecondi.
 \end{itemize}
-Abbiamo già definit l'operazione di \textit{Content Switch}, ossia quella di interrompere un processo per 
+Abbiamo già definito l'operazione di \textit{Context Switch}, ossia quella di interrompere un processo per 
 eseguirne un altro. Tale operazione risulta costosa in termini computazionali, dato che è necessario salvare 
 lo stato del processo da interrompere e caricare lo stato del processo da eseguire dai loro rispettivi 
-PCB. Il content switch è quindi operazione da eseguire solo quando necessario, quando avviene un interruzione, oppure 
+PCB. Il context switch è quindi operazione da eseguire solo quando necessario, quando avviene un interruzione, oppure 
 quando un processo impiega troppo tempo generando un interruzione del timer. I processi che utilizzano principalmente 
 la CPU per eseguire esclusivamente calcoli (talvolta pesanti), che quindi richiedono più tempo per essere 
 completati, senza però fare richieste di I/O, sono detti \textit{CPU-bound processes}.
 \\\hphantom{}\\ 
-Il tempo che impiega la CPU per fare content switch è "sprecato" dato che non si stanno effettuando 
+Il tempo che impiega la CPU per fare context switch è "sprecato" dato che non si stanno effettuando 
 calcoli utili all'esecuzione dei processi, quindi a seconda delle disponibilità, è possibile implementare 
-un quanto di tempo massimo dedicato ad ogni processo, a seconda delle esigenze :\begin{itemize}
-    \item Un quanto di tempo minore farà si che si eseguiranno più content switch, aumentando la responsività.
-    \item Un quanto di tempo maggiore risulterà in meno content switch, minimizzando il tempo perso della CPU, massimizzandone
+un quanto di tempo massimo dedicato ad ogni processo, a seconda delle esigenze:\begin{itemize}
+    \item Un quanto di tempo minore farà si che si eseguiranno più context switch, aumentando la responsività.
+    \item Un quanto di tempo maggiore risulterà in meno context switch, minimizzando il tempo perso della CPU, massimizzandone
     il suo utilizzo.
 \end{itemize}
 \subsection{Comunicazione fra processi}
@@ -523,7 +523,7 @@ politiche.\begin{itemize}
     \item Minimizzare il response time medio fa si che l'utente 
     riceva l'output il più rapidamente possibile, minimizzare il tempo massimo 
     di response time invece, previene dagli scenari in cui un processo 
-    ha un response time molto più altro rispetto agli altri, minimizzare 
+    ha un response time molto più alto rispetto agli altri, minimizzare 
     la varianza invece, rende il response time dei processi più "predicibile" 
     dall'utente, queste politche son tipiche dei \textbf{sistemi interattivi}.
     \item Massimizzare il throughput si traduce in un utilizzo più efficente 
@@ -688,7 +688,7 @@ i sistemi operativi moderni sono per la maggiorparte orientati alla gestione dei
 Un \textbf{thread}, è l'unità più piccola schedulabile sulla CPU, è composto da un program counter, uno stack, un insieme 
 di registri dedicati ed un thread ID. I processi, sono composti da più thread, che risultano essere più unità di controllo.
 Diversi thread di un singolo processo, hanno differenti PC, stack e registri, ma condividono lo stesso codice e la 
-stessa quantità di memoria dedicata. \begin{itemize}
+stessa quantità di memoria dedicata (stesso spazio di indirizzamento). \begin{itemize}
     \item Un \textbf{processo} definisce uno spazio di indirizzamento, il codice, e le risorse.
     \item Un \textbf{thread} definisce una singola sequenza/flusso di esecuzione all'interno di un processo.
 \end{itemize}
@@ -747,7 +747,7 @@ sa dell'esistenza di questi thread, e li tratta/vede come se fossero dei process
 thread di uno stesso processo dovrebbero essere rapide come delle chiamate di funzione.\begin{itemize}
     \item \textbf{Pro} : Molto veloci e leggeri, e le politiche di scheduling sono flessibili. Possono essere 
     implementati in sistemi che non supportano nativamente il multi-threading, e non richiedono chiamate di sistema, ma 
-    solo chiamate di funzione, non avvengono dei veri content-switch. 
+    solo chiamate di funzione, non avvengono dei veri context-switch. 
     \item \textbf{Contro} : Non avviene una vera concorrenza fra i vari thread, e le possibili decisioni che può 
     prendere lo scheduler sono limitate, il Kernel non sa nulla di essi, quindi potrebbe far competere per un quanto 
     di tempo un processo con 100 thread con uno disposto di un singolo thread, richiede delle chiamate di sistema non 
@@ -1031,7 +1031,7 @@ politica garantisce la non-esistenza di condizioni di attese circolari.
 \subsubsection{Esetensione del RAG}
 Possiamo pensare ad un nuovo tipo di grafo, considerando un nuovo tipo di arco, ossia un \textbf{arco di reclamo}, rappresentato graficamente con una freccia puntinata, ed indica che il 
 thread potrebbe in futuro richiedere quella risorsa. Soddisfare una richiesta quindi, significa 
-trasformare un \textit{arco di assegnamento} in un \textit{arco di reclamo}. \acc In questo nuovo 
+trasformare un \textit{arco di reclamo} in un \textit{arco di assegnamento}. \acc In questo nuovo 
 grafo, un ciclo indica uno stato non sicuro, impedendo ad una risorsa di essere allocata ad un thread, in altra parole, 
 se un thread fa una richiesta, l'arco di reclamo verrà trasformato in un arco di richiesta, e tale thread 
 attenderà, questa soluzione non funziona se vi sono più istanze della stessa risorsa.\begin{figure}[h]
@@ -1108,7 +1108,7 @@ dovrebbe essere in grado di accedere ad indirizzi di memoria riservati ad altri 
 su una zona condivisa).\acc 
 Il supporto fisico della memoria è, ovviamente finito, esiste un meccanismo di astrazione, implementato 
 dall'OS, noto come \textit{memoria virtuale}, che permette al programmatore di avere l'illusione che la memoria 
-disponibile sia \textit{infinita}, senza che esso debba preoccuparsi di gestire gli indirizzi e preoccuparsi di 
+disponibile sia \textit{enorme}, senza che esso debba preoccuparsi di gestire gli indirizzi e preoccuparsi di 
 allocare i processi.\acc 
 Quando si scrive del codice con un linguaggio di programmazione di alto livello come il \textit{C}, si utilizzano 
 costrutti e simboli, come \code{+}, \code{if}, e si definiscono variabili, ad esempio \code{int x = 1}, tali variabili, 
