@@ -266,7 +266,7 @@ in sotto-sistemi, ognungo con compiti ben definiti. Esistono varie strutture di 
     kernel. Ogni componente comunica con le altre tramite un interfaccia, è simile al \textit{Layered Structured},
     ma più flessibile.
 \end{itemize}
-È importante in base alla struttura utilizzati, provvedere al giusto hardware da implementare. I sistemi 
+È importante in base alla struttura utilizzata, provvedere al giusto hardware da implementare. I sistemi 
 moderni utilizzano per lo più approcci ibridi.\newpage
 \section{La Gestione dei Processi}
 Definiamo la differenza tra \textbf{programma} e \textbf{processo} :
@@ -290,7 +290,7 @@ Quando si crea un processo, ad esso viene assegnata una quantità di memoria div
     \item \code{Stack} - struttura LIFO utilizzata per memorizzare i dati ed i parametri necessari alle chiamate di funzioni.
     \item \code{Heap} - struttura dati utilizzata per l'allocazione dinamica della memoria.
 \end{itemize}
-Per ogni processo quindi, esiste tale area di memoria suddivisa in 5 unità. Lo \textbf{Stack} ha su di esso due 
+Per ogni processo quindi, esiste tale area di memoria suddivisa in 4 unità. Lo \textbf{Stack} ha su di esso due 
 operazioni, \code{push()} e \code{pop()}, ed un registro dedicato chiamato \textit{Stack Pointer} memorizza 
 l'indirizzo alla cima dello stack. Ogni funzione utilizza una porzione dello stack che viene denominata 
 \textbf{Stack Frame}, quindi quando si chiamano funzioni dentro altre funzioni, coesisteranno simultaneamente 
@@ -724,7 +724,8 @@ intensi sulla CPU. La suddivisione in thread può risultare utile anche in archi
 I/O e di calcolo, è possibile eseguirle nel solito pseudo parallelismo alla quale siamo abituati, senza che 
 il calcolo intensivo blocchi le richieste di I/O e viceversa. \acc Anche se suddividere in thread un operazione 
 puramente CPU-bound può essere contro producente, ciò risulta comunque più efficace in quanto elimina il tempo di attesa 
-che il processo dovrebbe attendere nel mentre che una richiesta di I/O non è stata ancora completata.
+che il processo dovrebbe attendere nel mentre che una richiesta di I/O non è stata ancora completata, in un contesto in cui 
+ci sono solamente processi CPU-bound su un sistema single core, l'impiego dei multi-threading non costituisce alcun vantaggio.
 \subsection{User e Kernel Thread}
 La gestione dei thread può avvenire :\begin{itemize}
     \item A livello del Kernel, che gestisce i così detti \textbf{Kernel thread}.
@@ -761,7 +762,7 @@ possono essere suddivisi su diversi core, dato che su ogni core può lavorare un
 può bloccare l'intero processo, anche se i thread potrebbero idealmente continuare.
 \begin{figure}[h]
     \centering{
-    \includegraphics[width=0.61\textwidth ]{images/manyToOne.eps}
+    \includegraphics[width=0.4\textwidth ]{images/manyToOne.eps}
     }
 \end{figure}
 \\\textbf{One-to-One} : 
@@ -908,17 +909,16 @@ a casistiche più generali.
 È un'altra struttura dati che fornisce l'accesso esclusivo alle sezioni critiche, è una generalizzazione dei lock 
 creata da \textit{Dijkstra} nel 1965. Si utilizzano delle variabili (intere) per supportare 2 
 istruzioni atomiche :\begin{itemize}
-    \item \code{wait()} / \code{P()} - decrementa, interrompe finchè il semaforo è libero. 
-    \item \code{signal()} / \code{V()} - incrementa, permette ad altri thread di entrare. 
+    \item \code{wait()} - decrementa, interrompe finchè il semaforo è libero. 
+    \item \code{signal()}  - incrementa, permette ad altri thread di entrare. 
 \end{itemize}
-Ad ogni semaforo è associata una coda di processi in attesa, se un thread chiama la funzione \code{wait()}, se il semaforo 
-è aperto, il thread continua, altrimenti si blocca nella coda. La funzione \code{signal()} apre il semaforo, se un 
-thread sta attendendo nella coda verrà sbloccato, se nessun thread è in attesa nella coda, il segnale resterà libero 
-per il prossimo thread che entrerà. \acc 
-Ci sono due tipi di semafori, i \textbf{semafori binari} garantiscono l'esclusività di accesso alle risorse, ad essi 
-è associata una variabile intera che può valere 0 o 1, vengono inizializzati liberi, con la variabile ad 1. I 
-\textbf{counting semaphore}, servono a gestire più risorse condivise, sono inizializzati con il numero delle risorse, ed 
-un processo può accedere ad una risorsa affinché essa è disponibile.\acc 
+Ad ogni risorsa è appunto associata una variabile intera, che sarebbe il semaforo stesso, tale variabile ha valore uguale al numero di 
+istanze disponibile della risorsa in questione. Se un thread vuole accedere a tale risorsa, ne richiede l'accesso tramite il metodo 
+\code{wait()}, ottenendola, e decrementando il valore del semaforo di 1. Se il numero di risorse disponibili è 0, quando un thread richiede 
+l'accesso si metterà in attesa, ed il valore del semaforo decrementerà diventando negativo, quando un thread ha finito di utilizzare una risorsa, 
+utilizzerà il metodo \code{signal()}, incrementando il semaforo e permettendo ad un altro thread di accedervi.  \acc 
+Se una risorsa non ha istanze, il semaforo è detto \textbf{semaforo binario}, e si comporta come una normale lock, 
+altrimenti, è detto \textbf{counting semaphore}.\acc 
 Abbiamo detto che se un processo richiede una \code{wait()}, se il semaforo è libero eseguirà la sezione critica, altrimenti 
 entrerà nella coda di attesa. D'altro canto, \code{signal()}, libererà dalla coda uno dei processi in attesa di 
 eseguire la sezione critica.\acc 
