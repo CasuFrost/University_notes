@@ -1152,7 +1152,7 @@ la memoria. Ci si pongono 3 principali obbiettivi nella gestione della memoria i
 \end{enumerate}
 \subsubsection{Rilocazione Statica}
 Vediamo un idea iniziale di rilocazione statica, si assuma che il sistema operativo, sia allocato nella parte superiore 
-della memoria, e che gli indirizzi generati da ogni processo utenti vadano da 0, fino a \(TOT-OSMEM-1\), dove \(TOT\)= Dimensioni 
+della memoria, e che gli indirizzi generati da ogni processo utente vadano da 0, fino a \(TOT-OSMEM-1\), dove \(TOT\)= Dimensioni 
 totali della memoria, e \\ \(OSMEM\)= Memoria destinata all'OS. I processi vengono allocati nel primo segmento contiguo di memoria 
 disponibile. È garantita la condivisione e la trasparenza, dato che i processi possono essere allocati in qualsiasi 
 zona della memoria, senza preouccuparsene.\acc 
@@ -1402,7 +1402,7 @@ le loro pagine siano caricate in memoria nello stesso momento, vi è una sotto-s
 alcune funzioni di certi processi sono utilizzate raramente, e gli array spesso sono più capienti del necessario, in modo 
 da coprire gli \textit{worst-case scenario}.\acc  La cosiddetta \textit{memoria virtuale}, utilizza la \textbf{memoria 
 secondaria} (come il disco fisso), per salvare le pagine inutilizzate, e per dare l'illusione all'utente che lo spazio 
-di indirizzamento virtuale sia infinito. Caricare dalla memoria secondaria alla memoria principale le pagine 
+di indirizzamento virtuale sia enorme. Caricare dalla memoria secondaria alla memoria principale le pagine 
 strettamente necessarie dei processi in utilizzo può portare vari benefici : \begin{itemize}
     \item I programmi possono essere pensati e scritti per operare su uno spazio di memoria molto più grande 
     dell'effettivo spazio esistente nella memoria principale.
@@ -1523,7 +1523,7 @@ Nelle situazioni reali, non è strettamente necessario un algoritmo LRU, può an
 approssima grazie a dei supporti hardware (modello adottato dalla maggiorparte dei sistemi operativi). Si considera 
 per ogni entrata della page table, un \textbf{single-reference bit}, inizialmente tutti i bit della tabella sono 
 inizializzati a 0, ad ogni accesso, si imposta il bit ad 1, in tal modo, tutte le pagine con il bit ad 1 sono state accedute 
-prima di un ipotetico "reset" dei bit. No vi è una relazione di ordine totale fra le pagine accedute. \acc 
+prima di un ipotetico "reset" dei bit. Non vi è una relazione di ordine totale fra le pagine accedute. \acc 
 Tale principio viene esteso, ad ogni entry si associano più reference bit, ad esempio, 8, e ad intervalli periodici 
 si esegue uno shift destro per tutte le entrate della tabella, ad ogni istante temporale, la pagina con il 
 reference bit minore è quella usata meno di recente. Il numero specifico di bit utilizzati e la frequenza di 
