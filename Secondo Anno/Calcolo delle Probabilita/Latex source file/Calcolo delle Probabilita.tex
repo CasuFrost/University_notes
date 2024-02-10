@@ -36,7 +36,7 @@
 \newpage
 \section{Il Modello Probabilistico}
 \subsection{Il Problema dei Compleanni}
-Qaunte sono le probabilità che in un gruppo di 25 persone, 2 di queste siano nate lo stesso giorno? 
+Quante sono le probabilità che in un gruppo di 25 persone, 2 di queste siano nate lo stesso giorno? 
 Procediamo nel \textbf{modellizzare} tale problema.
 Le possibili date di nascita sono 365. 
 \centering\(PossibiliDate=\{1,2,3,4...,365\}\)\\
@@ -65,8 +65,8 @@ esso accada e che esso non accada. Definiamo l'evento \(A\) come l'evento in cui
 lo stesso giorno.\\
 \centering\( A=\{\omega \in \Omega :\exists \omega_i,\omega_j \in \omega | i\ne j \land \omega_i=\omega_j\} \)\\
 \raggedright
-Quindi tale \(A\) è un sotto-insieme di \(\Omega\) in cui tutti gli elementi hanno almeno 2 date uguali. 
-Presa con \(|A|\) la cardinalità di tale sotto-insieme, le probabilità che tale evento accada sono :\\
+Quindi tale \(A\) è un sottoinsieme di \(\Omega\) in cui tutti gli elementi hanno almeno 2 date uguali. 
+Presa con \(|A|\) la cardinalità di tale sottoinsieme, le probabilità che tale evento accada sono :\\
 \centering\( \mathbb{P}(A)=\dfrac{|A|}{|\Omega|} \)\\
 \raggedright Piuttosto che trovare l'evento in cui ci sono almeno 2 persone con lo stesso  compleanno,
 è più facile trovare il suo \textbf{complementare}, ossia l'evento in cui nessuno fa il compleanno lo stesso giorno.
@@ -98,10 +98,10 @@ spazio campionario, ossia il numero dei suoi elementi.
 \\\hphantom{.}\\\textbf{2 - Algebra degli Eventi}
 
 Prima di definire l'algebra degli eventi, dichiariamo cos'è un \textbf{evento}, ossia una \textit{domanda
-binaria} sull'esito dell'esperimento, in termini matematici, è un qualsiasi sotto-insieme \(\Omega\), compresi
+binaria} sull'esito dell'esperimento, in termini matematici, è un qualsiasi sottoinsieme \(\Omega\), compresi
 gli elementi singoli di \(\Omega\), detti \textbf{eventi elementari}. Se l'esperimento è il lancio di un dato,
 i possibili esiti sono \(\Omega=\{1,2,3,4,5,6\}\), vogliamo definire l'evento \(A\) come la probabilità
-che l'esito del lancio sia un numero maggiore di 4, esso non è altro che un sotto-insieme dello spazio campionario,
+che l'esito del lancio sia un numero maggiore di 4, esso non è altro che un sottoinsieme dello spazio campionario,
 ossia \(A=\{\omega \in \Omega | \omega \ge 4 \}=\{4,5,6\}\). 
 
 Su tali eventi sono definite delle operazioni insiemistiche di unione, intersezione e complemento.\\
@@ -162,7 +162,7 @@ degli eventi elementari, sono tutte le coppie di numeri naturali compresi fra 1 
     \Omega = \{(w_1,w_2) | w_1,w_2 \in \{1,2,3,4,5\}, w_1 \ne w_2\}
 \end{equation}
 È di facile intuizione capire che \(|\Omega|=20\).\\
-L'evento \(A\) invece rappresenta il sotto-insieme di \(\Omega\), dove 1,2 o 3 appaiano sempre come seconda 
+L'evento \(A\) invece rappresenta il sottoinsieme di \(\Omega\), dove 1,2 o 3 appaiano sempre come seconda 
 coordinata dei suoi elementi, ossia tutte le estrazioni in cui la seconda pallina è bianca. Per calcolare \(\mathbb{P}(A)\),
 dobbiamo capire qual'è prima la cardinalità di \(A\), che risulta essere \(|A|=3\cdot 4 = 12\), il 3 rappresenta 
 le 3 possibili palline bianche della seconda estrazione, il 4 invece tutte le altre possibili rimanenti (per
@@ -1121,7 +1121,7 @@ Introduciamo un concetto : \begin{quote}
 \end{quote}
 Si consideri il seguente scenario, vi è una scimmia che preme a caso dei tasti su una macchina da scrivere, 
 la probabilità di un tasto rispetto ad un altro, non è necessariamente la stessa (magari la scimmia tende a premere 
-più frquentemente i tasti centrali), ma la probabilità che ogni singolo tasto venga premuto è sempre 
+più frequentemente i tasti centrali), ma la probabilità che ogni singolo tasto venga premuto è sempre 
 maggiore di zero.\acc La scimmia quindi, che è immortale ed instancabile, premendo tasti all'infinito, genera 
 una sequenza infinita di caratteri, il cui dominio di ogni carattere è l'alfabeto italiano \(a,b,c\dots,z\) con aggiunta 
 di spazi e virgole, chiamiamo tale dominio \(\mathcal{A}\). La \textit{Divina Commedia} di \textit{Dante}, non è altro che una sequenza di 
