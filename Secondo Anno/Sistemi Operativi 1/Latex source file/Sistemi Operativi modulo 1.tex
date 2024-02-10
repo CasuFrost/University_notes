@@ -130,7 +130,7 @@ si vuole implementare la \textit{kernel mode}, che ha la possibilità di eseguir
 Fisicamente, si implementa un \textit{bit} che descrive appunto, tramite i suoi 2 stati, se si sta 
 operando da utente, o in modalità kernel. Il sistema, in user mode, non può interagire direttamente 
 con l'I/O, e non può manipolare il contenuto della memoria. Se l'utente necessita di eseguire operazioni 
-in cui è necessaria la kernel mode, utilizzia le \textbf{system call}, delle chiamate, che permettono 
+in cui è necessaria la kernel mode, utilizza le \textbf{system call}, delle chiamate, che permettono 
 la momentanea transazione in kernel mode per soddisfare la richiesta, per poi ritornare alla modalità 
 utente.
 \begin{wrapfigure}{l}{0.25\textwidth}
@@ -189,7 +189,7 @@ che ci permette di chiamare funzioni che eseguiranno delle chiamate di sistema.
 Quando un utente chiama una funzione che richiede una syscall, viene generata un'interruzione, poi in un registro apposito 
 (nell'immagine sovrastante "\textit{\%eax}") viene salvato il codice di quella specifica chiamata,
 il segnale viene poi mandato alla \textbf{IVT} (Interrupt Vector Table), ossia un vettore all'interno 
-del kernel che assegna ad ogni interruzione una casua. Quindi l'IVT, capisce che si tratta di una system call 
+del kernel che assegna ad ogni interruzione una causa. Quindi l'IVT, capisce che si tratta di una system call 
 e manda il segnale al \textit{System Call Handler}, che si occupa di leggere il contenuto del registro 
 prima citato ("\textit{\%eax}"), ed in base al codice, richiamare dalla \textit{System Call Table} la chiamata 
 corretta.\\\hphantom{.}\\
@@ -406,7 +406,7 @@ Nelle altre code, non ci sono limiti teorici di dimensioni.
 Esistono due tipi di scheduler.\begin{itemize}
     \item Il \textbf{long-term scheduler} si occupa di selezionare i processi da eseguire dalla memoria secondaria 
     (ad esempio, il disco) e di caricarli in memoria principale, viene eseguito poco frequentemente.
-    \item Lo \textbf{short-term scheduler} nvece, si occupa di selezionare i
+    \item Lo \textbf{short-term scheduler} invece, si occupa di selezionare i
      processi dalla coda dei pronti e di assegnarli alla CPU per l'esecuzione, viene eseguito molto frequentemente,
      circa ogni 50-100 millisecondi.
 \end{itemize}
@@ -433,7 +433,7 @@ Due processi possono essere fra loro :  \begin{itemize}
 Un processo particolarmente complesso può essere scomposto in più processi \textit{cooperativi}, 
 è necessario predispore i processi cooperativi di adeguati canali di comunicazione, ci sono due possibili 
 modi di farli comunicare :\begin{itemize}
-    \item \textbf{Message Passing} - è il metodo più lento, dato che ogni trasferimento avviene tramite
+    \item \textbf{Message Passing} - è il metodo più lento, dato che per ogni trasferimento, avviene tramite
     una system call, ma è semplice da mettere in atto quindi preferibile se la quantità o la frequenza dei messaggi 
     non è particolarmente elevata.
     \item \textbf{Shared Memory} - è più complesso da mettere in atto e non funziona perfettamente quando si lavora 
@@ -494,8 +494,8 @@ passare alla user mode, e "saltare" all'indirizzo di memoria dell'ultimo program
 \subsubsection{Criteri e Politiche dello Scheduling}
 Introduciamo adesso alcune notazioni e definizioni importanti riguardo il calcolo dei tempi che un processo 
 impiega sulla CPU.\begin{itemize}
-    \item \textbf{Arrival Time} (\(T_{arrival}\)) : Il tempo che impiega un processo per arrivare nella coda pronti.
-    \item \textbf{Completion Time}  (\(T_{completion}\)) : Il tempo che impiega un processo per completare la sua esecuzione.
+    \item \textbf{Arrival Time} (\(T_{arrival}\)) : L'istante in cui un processo arriva nella coda pronti.
+    \item \textbf{Completion Time}  (\(T_{completion}\)) : L'istante in cui un processo completa la sua esecuzione.
     \item \textbf{Burst Time:}  (\(T_{burst}\)) : Il tempo totale nella quale il processo è in esecuzione sulla CPU.
     \item \textbf{ Turnaround Time} (\(T_{turnaround}\))  : La differenza fra il Completion Time e l'Arrival Time, definita 
     come \(T_{completion}-T_{arrival}\) .
@@ -525,9 +525,9 @@ politiche.\begin{itemize}
     di response time invece, previene dagli scenari in cui un processo 
     ha un response time molto più alto rispetto agli altri, minimizzare 
     la varianza invece, rende il response time dei processi più "predicibile" 
-    dall'utente, queste politche son tipiche dei \textbf{sistemi interattivi}.
+    dall'utente, queste politiche son tipiche dei \textbf{sistemi interattivi}.
     \item Massimizzare il throughput si traduce in un utilizzo più efficente 
-    delle risorse di sistema, e minimizzare lo waiting time da ad ogni processo 
+    delle risorse di sistema, e minimizzare il waiting time da ad ogni processo 
     la stessa quantità di tempo da spendere sulla CPU (di contro, potrebbe 
     aumentare la media del response time), queste politiche son tipiche 
     dei \text{sistemi batch}\footnote{
@@ -570,14 +570,14 @@ se troppo piccolo, verranno fatti troppi context switch.
 \subsubsection{Shortest-Job-First (SJB)}
 L'idea, è di dare la priorità ai processi che hanno il 
 "carico di lavoro stimato" più piccolo sulla CPU, con carico di lavoro, si 
-intende il tempo che impiegheranno in esecuzione, prima della prossima 
+intende il tempo che impiegheranno in esecuzione (burst time), prima della prossima 
 richiesta di I/O o della terminazione stessa.\begin{itemize}
     \item \textbf{Pro} - È ottimale quando l'obbiettivo è quello di 
     minimizzare il tempo di attesa.
     \item \textbf{Contro} - È quasi impossibile sapere con precisione 
     quale sia il prossimo processo con il minor carico di lavoro da eseguire.
     Inoltre, vi è il rischio che i processi con un carico di lavoro 
-    elevato entrino nella condizione di \textit{starving}\footnote{
+    elevato entrino nella condizione di \textit{starvation}\footnote{
         Restano nella coda senza mai essere selezionati dallo scheduler, 
         in quanto hanno bassa proprità di essere selezionati.
     }.
@@ -716,7 +716,7 @@ Spesso, le architetture moderne, prevedono diversi \textit{core}, ossia, più CP
 permettendo il vero parallelismo. Ci sono due modi differenti per "parallelizzare" il carico di lavoro :\begin{itemize}
     \item \textbf{Parallelismo dei dati} - Si divide la porzione di dati su cui lavorare in diversi core, gestiti 
     da diversi thread, e si performa l'operazione su entrambe le porzioni di dati.
-    \item \textbf{Parallelismo delle operazioni} - Si divide il compito da svolgere in diverse operazaioni che verranno 
+    \item \textbf{Parallelismo delle operazioni} - Si divide il compito da svolgere in diverse operazioni che verranno 
     eseguite simultaneamente su diversi core.
 \end{itemize}
 Esistono diversi problemi complessi che svolgono sia operazioni intensive di I/O, che calcoli 
@@ -803,7 +803,7 @@ Esistono delle librerie che forniscono all'utente delle API per creare e gestire
  la classe \code{Thread}, oppure implementando l'interfaccia 
  \code{Runnable}, per entrambe le soluzioni, è richiesto che l'utente 
  esegua l'override del metodo \code{run()}. Essendo che ogni classe 
- può estendere solo una classe, è prefiribile implementare l'interfaccia 
+ può estendere solo una classe, è preferibile implementare l'interfaccia 
  \code{Runnable}.
 \subsubsection{Thread Pools}
 Nell'esempio della Java Thread Library, abbiamo visto come, gestire una certa richiesta 
@@ -866,7 +866,7 @@ sincronizzazione deve garantire 3 proprietà : \begin{itemize}
     \item \textbf{Esclusività} - Un solo processo/thread alla volta può eseguire la sua sezione critica.
     \item \textbf{Vivibilità} - Se nessun processo/thread è nella sezione critica, ed un altro o più processi vogliono eseguire la propria, 
     allora devono tutti avere la possibilità di poterla eseguire 
-    \item \textbf{Attesa Limitata} - Prima o poi un processo che richiede di eseguire la sezione criticà, otterrà il permesso, 
+    \item \textbf{Attesa Limitata} - Prima o poi un processo che richiede di eseguire la sezione critica, otterrà il permesso, 
      e vi è un limite al numero di altri processi che possono precederlo.
 \end{itemize}
 Si necessita di appositi strumenti forniti dai linguaggi di programmazione da utilizzare come 
@@ -975,7 +975,7 @@ Una legge del Kansas del 1900 recita : \begin{quote}
      nessuno dei due deve ripartire finché l’altro non se ne è andato.”
 \end{quote}
 Un \textit{deadlock}, è una condizione di stallo, in cui due o più thread sono bloccati, in attesa di un 
-evento che può essere generato esclusivamente dagli stessi thread. Esso può accadere quanto più thread competono 
+evento che può essere generato esclusivamente dagli stessi thread. Esso può accadere quando più thread competono 
 per accedere ad un numero finito di risorse, esistono algoritmi di \textbf{deadlock detection}, per trovare delle 
 istanze di deadlock da risolvere, è necessario in primis, scrivere del codice che sia libero dalla possibilità di 
 avvento dei deadlock. \acc Un deadlock può accadere se le 4 condizioni seguenti avvengono contemporaneamente : \begin{enumerate}
@@ -1065,7 +1065,7 @@ L'algoritmo performa due operazioni : \begin{itemize}
     \item \code{requestResource} - Dato un thread, richiedente una certa risorsa, controlla se tale richiesta 
     può essere compiaciuta.
 \end{itemize}
-\textit{Apputno sulla Notazione }: In seguito verrà fatto riferimento a righe di codice, seguiranno le seguenti notazioni, se 
+\textit{Appunto sulla Notazione }: In seguito verrà fatto riferimento a righe di codice, seguiranno le seguenti notazioni, se 
 \code{a} e \code{b} sono due vettori, allora \code{a+b} indicherà che ad ogni elemento \(i\)-esimo di \code{a} aggiungo 
 l'elemento \(i\)-esimo di \code{b}. \code{a+5} indicherà che ad ogni elemento di \code{a} aggiungo \code{5}.
 \code{a<b}, o qualsiasi altra operazione di comparazione, risulterà vera se ogni \(i\)-esimo elemento di \code{a} sarà 
@@ -1221,7 +1221,7 @@ un processo vorrà essere allocato, ma non verrà mai selezionato in quanto trop
 allocare l'intero spazio al processo, anche quella piccola porzione non necessaria, che andrà sprecata, tale problema 
 è noto come \textit{frammentazione interna}.\acc 
 \textbf{Worst Fit} - Quando un processo richiede di essere allocato, esso verrà inserito, nello spazio 
-più grande disponibile, lasciando ciò che avanza (che si prevede essere sufficientemente grande, libero e disponibile per altre richieste).\acc 
+più grande disponibile, lasciando ciò che avanza (che si prevede essere sufficientemente grande, per accogliere altre richieste).\acc 
 Tali 3 politiche non sopperiscono al problema della frammentazione, è possibile però, spostare i processi all'interno 
 della memoria in modo da unire gli spazi contigui rimasti, tale soluzione è detta \textbf{deframmentazione}, ma spostare 
 fisicamente interi processi all'interno della memoria è lento ed inefficiente.
