@@ -49,13 +49,13 @@ Adesso, quante sono le probabilità che \textit{Tizio} sia nato il giorno \(i\) 
 il giorno \(j\)?\\
 \centering\( \mathbb{P}(\text{\textit{Tizio} è nato } i \text{ e \textit{Caio} è nato } j) = \mathbb{P}(\text{\textit{Tizio} è nato il giorno } i) \cdot \mathbb{P}(\text{\textit{Caio} è nato il giorno } j) \)\\
 \raggedright Questo si chiama \textbf{concetto di indipendenza}, ed è ovvio che le probabilità sono precisamente \(\dfrac{1}{365}\cdot\dfrac{1}{365} = \bigg( \dfrac{1}{365}\bigg)^2 \).
-Quindie probabilità che 25 persone siano nate in 25 giorni pre determinati sono precisamente : \\
+Quindi le probabilità che 25 persone siano nate in 25 giorni pre determinati sono precisamente : \\
 \centering\( \mathbb{P}( a_1 \text{ è nato } i_1,a_2 \text{ è nato } i_2...,a_{25} \text{ è nato } i_{25}) = \bigg( \dfrac{1}{365}\bigg)^{25} \)\\
 \raggedright
 Queste sono le probabilità che 25 persone siano nate lo stesso giorno, a noi ci interessano però
 le probabilità che almeno 2 persone siano nate lo stesso giorno. Prima di fare ciò andiamo a definire
 quello che si dice \textbf{modello probabilistico}.\\
-Chiamiamo \(\Omega\) lo spazio degli eventi elementare (in seguito verrà definito in modo formale), 
+Chiamiamo \(\Omega\) lo spazio degli eventi elementari (in seguito verrà definito in modo formale), 
 Ossia l'insieme di tutti i possibili risultati dell'esperimento. Sia l'esperimento in questo caso, la 
 data di nascita per \(k\) persone, il nostro \(\Omega\)  sarà l'insieme di tutte le possibili combinazioni 
 lunghe 25 di  numeri da 1 a 365, che sono precisamente \(|\Omega|=365^{25}\). La probabilità uniforme
@@ -99,7 +99,7 @@ spazio campionario, ossia il numero dei suoi elementi.
 
 Prima di definire l'algebra degli eventi, dichiariamo cos'è un \textbf{evento}, ossia una \textit{domanda
 binaria} sull'esito dell'esperimento, in termini matematici, è un qualsiasi sottoinsieme \(\Omega\), compresi
-gli elementi singoli di \(\Omega\), detti \textbf{eventi elementari}. Se l'esperimento è il lancio di un dato,
+gli elementi singoli di \(\Omega\), detti \textbf{eventi elementari}. Se l'esperimento è il lancio di un dado,
 i possibili esiti sono \(\Omega=\{1,2,3,4,5,6\}\), vogliamo definire l'evento \(A\) come la probabilità
 che l'esito del lancio sia un numero maggiore di 4, esso non è altro che un sottoinsieme dello spazio campionario,
 ossia \(A=\{\omega \in \Omega | \omega \ge 4 \}=\{4,5,6\}\). 
@@ -292,7 +292,7 @@ Quando si parla quindi di un numero elevato di eventi, il calcolo risulta diffic
 \subsection{Il Multinomio}
 Esaminiamo il problema in cui si vogliono distribuire \(n\) oggetti distinti in \(k\) scatole distinte, in modo che 
 ciascuna di esse contenga nell'ordine \(n_1,n_2...,n_k\) oggetti, per cui \(\displaystyle\sum_{i=1}^n n_i =n\). In quanti modi posso 
-effettuare tale suddivisione? Ci sono \(\binom{n}{n_1}\) scelte per la prima scatole, \(\binom{n-n_1}{n_2}\) per la seconda 
+effettuare tale suddivisione? Ci sono \(\binom{n}{n_1}\) scelte per la prima scatola, \(\binom{n-n_1}{n_2}\) per la seconda 
 e così via, fino a \(\dfrac{n!}{n_1!\cdot n_2!...,\cdot n_k!}\), che si denota con \(\displaystyle\binom{n}{n_1,n_2...,n_k}\), e 
 rappresenta il numero di suddivisioni di \(n\) oggetti distinti in \(k\) gruppi distinti con, rispettivamente
 \(n_1,n_2...,n_k\) oggetti.\\
@@ -307,9 +307,9 @@ restare in stazione ed altri 3 stare in riserva, quanti sono i modi possibili di
 Poniamo un esempio, c'è una festa con \(n\) invitati, ogni invitato porta con se un ombrello, 
 al termine della festa ogni invitato se ne va prendendo un ombrello a caso, qual'è la probabilità 
 che nessun invitato riprenda il proprio ombrello? Se il numero di persone \(n\) tende ad 
-infinito, come si comporta tale probabilità?\\\hphantom{.}\\ Si dice che in uno spazio di probabilità, 
+infinito, come si comporta tale probabilità?\\\hphantom{.}\\ In uno spazio di probabilità, 
 se un evento elementare composto da una lista \(a_1,a_2...,a_n\) che possono assumere 
-valori da \(1\) ad \(n\), se un elemento \(a_i\) assume valore \(i\), esso si dice \textbf{punto fisso},
+valori da \(1\) ad \(n\), capita che un elemento \(a_i\) assume valore \(i\), esso si dice \textbf{punto fisso},
 quindi possiamo tradurre il problema degli ombrelli (considerando ogni persona come un elemento dell'evento 
 elementare, ed i valori che possono assumere come gli ombrelli) come : Qual'è la probabilità che una permutazione 
 di \(n\) non abbia punti fissi?\begin{center}
@@ -359,9 +359,9 @@ Consideriamo due esperimenti : \begin{itemize}
     \item Viene misurata la temperatura in Brasile (che può variari dai 10 ai 50 gradi)
 \end{itemize}
 Per i due esperimenti diversi abbiamo due spazi di probabilità differenti, \((\Omega_1,\mathbb{P}_1)\) e 
-\((\Omega_2,\mathbb{P}_2)\), considerando l'esperimento congiunti, essendo essi totalmente indipendenti (non si 
+\((\Omega_2,\mathbb{P}_2)\), considerando l'esperimento congiunto, essendo essi totalmente indipendenti (non si 
 influenzano fra loro), possiamo immaginare ogni evento come una coppia composta dal primo evento elementare ed 
-il secondo evento elementare, costruendo un nuovo spazio elementare come prodotto cartesiani
+il secondo evento elementare, costruendo un nuovo spazio elementare come prodotto cartesiano
 dei primi due : \(\Omega=\Omega_1\times\Omega_2\).\begin{center}
     \( \Omega=\{(\omega_1,\omega_2)|\omega_1\in\{T,C\}, \omega_2\in \mathbb{N} | 10\le\omega_2\le50 \)
 \end{center}
@@ -377,10 +377,11 @@ Devo verificare che \(\displaystyle\sum_{\omega \in \Omega}\mathbb{P}(\{\omega\}
     \sum_{\omega_1 \in \Omega_1}\mathbb{P}_1(\{\omega_1\})\cdot \sum_{\omega_2 \in \Omega_2}\mathbb{P}_2(\{\omega_2\})=1\cdot1=1 \hphantom{aaa}\blacksquare
 \end{equation}
 Se \(\mathbb{P}_1\) e \(\mathbb{P}_2\) sono probabilità uniformi su \(\Omega_1\) e \(\Omega_2\), allora 
-\(\mathbb{P}=\mathbb{P}_1\cdot\mathbb{P}_2\) è uniforme su \(\Omega=\Omega_1\cdot\Omega_2\). Si dimostra 
+\(\mathbb{P}=\mathbb{P}_1\cdot\mathbb{P}_2\) è uniforme su \(\Omega=\Omega_1\times \Omega_2\). Si dimostra 
 facilmente :\begin{center}
     \(
-        \mathbb{P}(\{\omega_1,\omega_2\})=\mathbb{P}_1(\omega_1)\cdot\mathbb{P}_2(\omega_2)=\dfrac{1}{|\Omega_1|}\cdot\dfrac{1}{|\Omega_2|}=\dfrac{1}{|\Omega_1\times\Omega_2|}=\dfrac{1}{|\Omega|}
+        \mathbb{P}(\{\omega_1,\omega_2\})=\mathbb{P}_1(\omega_1)\cdot\mathbb{P}_2(\omega_2)=\dfrac{1}{|\Omega_1|}\cdot\dfrac{1}{|\Omega_2|}=
+        \dfrac{1}{|\Omega_1|\cdot |\Omega_2|}=\dfrac{1}{|\Omega_1\times\Omega_2|}=\dfrac{1}{|\Omega|}
     \)
 \end{center}
 \subsubsection{Indipendenza di Eventi}
@@ -407,7 +408,8 @@ una proprietà insiemistica.\\\hphantom{.}\\\textit{Esempio }:
 Estraggo a caso una carta fra un mazzo di 40. \(\Omega=\{\omega|1\le\omega\le40\} \), 
 ed ho i due eventi \(A=\{\) Estraggo un 7 \(\}\) e \\\(B=\{\) Estraggo una carta di denara \(\}\), tali 
 eventi sono indipendenti, dato che l'estrazione di un 7, in nessun modo condiziona la probabilità di 
-estrarre una carta di denara, e viceversa. Infatti \(\mathbb{P}(A)\cdot\mathbb{P}(B)=\dfrac{1}{10}\cdot\dfrac{1}{4}=\dfrac{1}{40}=\mathbb{P}(A\cap B)\).
+estrarre una carta di denara, e viceversa. Infatti \(\mathbb{P}(A)\cdot\mathbb{P}(B)=\dfrac{1}{10}\cdot\dfrac{1}{4}=\dfrac{1}{40}=\mathbb{P}(A\cap B)=
+\mathbb{P}(\{\text{ estraggo un 7 di denara }\})\).
 \\\hphantom{.}\\
 Discutiamo adesso \textbf{l'indipendenza fra 3 eventi}. \(A,B,C\subseteq\Omega\), si dicono \textit{indipendenti} se
 sono soddisfatte le seguenti condizioni :\begin{itemize}
@@ -453,11 +455,11 @@ essere : \begin{center}
 \end{center}
 Tale formula è detta \textbf{distribuzione binomiale}.
 \subsection{Probabilità Condizionata}
-Vie è una scatola con dentro 3 palline bianche e 2 nere, si fanno 2 estrazioni ordinate 
+Vi è una scatola con dentro 3 palline bianche e 2 nere, si fanno 2 estrazioni ordinate 
 senza rimpiazzo. Qual'è la probabilità che, dopo averne pescata una bianca, se ne peschi un'altra bianca?
 Vogliamo sapere la probabilità di un evento \(A\), dando però una condizione, ossia che 
 si sia già causato l'evento \(B\). \begin{quote}\textbf{Definizione Importante} : 
-    Consideriamo uno spazio di probabilità \(\Omega, \mathbb{P}\), e siano \(A,B\subseteq \Omega\), 
+    Consideriamo uno spazio di probabilità \((\Omega, \mathbb{P})\), e siano \(A,B\subseteq \Omega\), 
     denominiamo  \(\mathbb{P}(A|B)\) la probabilità che \(A\) si verifichi, con la condizione che 
     \(B\) si sia già verificato, e vale esattamente \(\mathbb{P}(A|B)=\dfrac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}\). 
 \end{quote}
@@ -490,7 +492,7 @@ della moneta, condiziona la probabilità che la pallina estratta sia bianca. Se 
 influire sulla probabilità dell'evento sono \textit{disgiunte}, in questo caso lo sono perchè, o esce testa, 
 o esce croce, la probabilità sarà uguale a :
 \begin{equation}
-    \mathbb{P}(\text{\{si estrae una bianca\}}) = \mathbb{P}(T)\mathbb{P}(\text{\{esce bianca\}}|T)+\mathbb{P}(C\mathbb{P}(\text{\{esce bianca\}}|C))
+    \mathbb{P}(\text{\{si estrae una bianca\}}) = \mathbb{P}(T)\mathbb{P}(\text{\{esce bianca\}}|T)+\mathbb{P}(C)\mathbb{P}(\text{\{esce bianca\}}|C)
 \end{equation}
 
     In generale, sia \(\Omega, \mathbb{P}\) uno spazio di probabilità, se \(D_1,D_2,D_3...,D_k\) è una partizione 
@@ -512,7 +514,7 @@ sia verificato un singolo \(D_i\) :
 \begin{equation}
     \mathbb{P}(D_i|A)=\dfrac{ \mathbb{P}(D_i)\cdot \mathbb{P}(A|D_i)}{\displaystyle\sum_{j=1}^{k-1}\mathbb{P}(D_j)\cdot \mathbb{P}(A|D_j)}
 \end{equation}
-\textit{Osservazione} : Se \(A,B\) sono eventi disgiutni, allora \(\mathbb{P}(A|B)=\mathbb{P}(A)\).
+\textit{Osservazione} : Se \(A,B\) sono eventi disgiunti, allora \(\mathbb{P}(A|B)=\mathbb{P}(A)\).
 \\\hphantom{}\\
 Vediamo adesso un esempio facile di applicazione della formula delle probabilità totali, per ricavare 
 il valore di una probabilità appartenente non banale. Si consideri lo schema di Bernoulli \ref{schemaBernoulli},
@@ -535,8 +537,8 @@ l'equazione si può riscrivere come :
 Abbiamo definito una relazione \textit{ricorsiva}, che tramite passaggi algebrici può essere 
 espressa in forma esplicita.
 \subsubsection{Mappa sulla Probabilità Condizionata}
-Quando si vuole calcolare la probabilità di un evento con la condizioni che un'altro evento si sia 
-verificato, è possibili applicare la formula che abbiamo visto all'inizio di questo paragrafo. Un altra via 
+Quando si vuole calcolare la probabilità di un evento con la condizione che un'altro evento si sia 
+verificato, è possibile applicare la formula che abbiamo visto all'inizio di questo paragrafo. Un altra via 
 da seguire però, può essere quella di considerare un \textbf{nuovo spazio di probabilità}, in cui si considerano come 
 eventi elementari, esclusivamente quelli che già includono che la condizione si 
 sia verificata.\\\hphantom{}\\ Se \(A\) è l'evento condizionante, posso considerare :
@@ -578,8 +580,8 @@ definito come \textit{passeggiata aleatoria}. Si consideri il piano \(\mathbb{Z}
     
     \includegraphics[scale=0.65]{images/PasseggiataAleatoriaPiano.eps}
 \end{center}
-l'asse 
-delle ascisse \(t\) rappresenta il tempo, o il numero 
+L'asse 
+delle ascisse \(t\) rappresenta il tempo discreto, o il numero 
 di giocate fatte, mentre quello delle ordinate \(S\) rappresenta la somma in denaro vinta da \(A\), ci sono poi 
 due asintoti orizzontali nelle posizioni \(S=b\) e \(S=-a\).
 Ad ogni coppia \(t,S\) è associato un valore denominato \(S_n\), che identifica l'istante di gioco, 
@@ -918,8 +920,8 @@ Le due variabili aleatorie si dicono \textbf{indipendenti}.\\\hphantom{}\\
 \textbf{Proposizione} : Se \(X\) ed \(Y\) sono indipendenti, vale la seguente identità :\begin{center}
     \(\V(X+Y)=\V(X)+\V(Y)\)
 \end{center}
-Detto ciò, risulta chiaro del perché, per \(X=\)\{Variabile Aleatoria di Bernoilli\}, si ha che \(\V(X)=np(1-p)\).
-Vediamo adesso, dimostriamo la \textit{proposizione}.\\\hphantom{}\\
+Detto ciò, risulta chiaro del perché, per \(X=\)\{Variabile Aleatoria di Bernoulli\}, si ha che \(\V(X)=np(1-p)\).
+Dimostriamo adesso la \textit{proposizione}.\\\hphantom{}\\
 \textbf{Dimostrazione della proposizione} : Sviluppo la varianza della somma :
 \begin{equation}
     \V(X+Y)=\E([X+Y-\E(X+Y)]^2)=\E([X-\E(X)+Y-\E(Y)]^2)
@@ -993,7 +995,7 @@ da considerare è lo schema di Bernoulli, dove si ha che \begin{center}\(X_i=\be
 con \(i=1,2\dots,n\) lanci. So che \(X_1,X_2\dots,X_n\) sono variabili aleatorie indipendenti, quindi 
 \(\V(X)=\displaystyle\sum _{i=1}^n\V(X_i)=n\cdot p\cdot (1-p)\).
 \subsection{Variabile Aleatoria Geometrica}
-La variabile aleatoria geometrica si comporta in modo simile alla variabile aleatoria binomiale, sia ha uno 
+La variabile aleatoria geometrica si comporta in modo simile alla variabile aleatoria binomiale, si ha uno 
 spazio di probabilità del tipo \(\Omega=\{0,1\}^{\N}\), che significa una parola lunga infinite cifre che possono 
 essere 0 oppure 1, la variabile aleatoria \(X\) restituisce l'\(i\)-esima cifra in cui per la prima 
 volta compare \(1\), definita \(X=\text{Inf}(i|\omega_i=0)\), l'immagine di \(X\) è quindi l'insieme dei 
@@ -1148,7 +1150,7 @@ Sia \(\lambda\in (0,+\infty)\), e sia \(X^{(n)}\) una variabile aleatoria binomi
 la \textbf{variabile aleatoria di Poisson}, è tale variabile binomiale, con il presupposto che \(n\) tenda all'infinito.\begin{center}
     \( \displaystyle\lim_{n\rightarrow+\infty} X^{(n)} \)
 \end{center}
-La distribuzione della variabile aleatoria di Poisson vale esattamente:\begin{center} \(\lim_{n\rightarrow+\infty}\Prob(X^{(n)}=k)=\dfrac{\lambda^k}{k!}e^{-\lambda}\)
+La distribuzione della variabile aleatoria di Poisson vale esattamente:\begin{center} \(\displaystyle\lim_{n\rightarrow+\infty}\Prob(X^{(n)}=k)=\dfrac{\lambda^k}{k!}e^{-\lambda}\)
 \end{center}
 \textbf{Dimostrazione }: \begin{equation}
     \Prob(X^{(n)}=k)=\binom{n}{k}(\dfrac{\lambda}{n})^n\cdot(1-\dfrac{\lambda}{n})^{n-k}=\dfrac{1}{k!}
@@ -1206,7 +1208,7 @@ Vedremo adesso che, qualunque sia la strategia adottata, la vincita media sarà 
 Introduco \(X^{(i)}\), che restituisce \(1\) se all'\(i\)-esimo turno è uscito rosso, altrimenti 0, è ovvio che 
 \(\forall i,j\in\{1,2\dots,n\}\) \(X^{(i)}\) e \(X^{(j)}\) sono indipendenti. Generalizziamo l'idea di 
 strategia adottata. Al primo turno, punto sul rosso una quantità \(f_0\), se \(f_0<0\), vuol 
-dire che sto puntando sul nero una quantità \(|f_0|\). \acc Chiamo \(V_1\) la vincita al primot turno, 
+dire che sto puntando sul nero una quantità \(|f_0|\). \acc Chiamo \(V_1\) la vincita al primo turno, 
 ed è ovvio che varrà \(V_1=f_0\cdot X^{(1)}\)\acc
 
 Al secondo turno, la quota da scommettere, 
@@ -1319,7 +1321,7 @@ Essendo questo il complementare di  \(\Prob(|\dfrac{S_n}{n}-\E(\dfrac{S_n}{n})|<
     \(\Prob(|\dfrac{S_n}{n}-\E(\dfrac{S_n}{n})|<\delta)= 1-\Prob(|\dfrac{S_n}{n}-\E(\dfrac{S_n}{n})|\ge\delta)=1-0=1\)
 \end{center}
 \begin{center}
-    \(\Prob(|\dfrac{S_n}{n}-\E(\dfrac{S_n}{n})|<\delta)=0\)\hphantom{aaaa}\(\blacksquare\)
+    \(\Prob(|\dfrac{S_n}{n}-\E(\dfrac{S_n}{n})|<\delta)=1\)\hphantom{aaaa}\(\blacksquare\)
 \end{center}
 \newpage\subsection{Distribuzione Congiunta di Variabili Aleatorie}
 Siano \(X\) ed \(Y\) due variabili aleatorie, si vuole guardare alla distribuzione di esse in maniera 
@@ -1539,7 +1541,7 @@ sarebbe quello dato dalle leggi di \textit{Ohm}), \(\sigma\) invece, è l'ampiez
 Questo comportamente è descritto dalla variabile aleatoria \textit{Gaussiana} o \textit{Normale}, definita 
 con il simbolo \(X\sim \mathcal{N}(\mu,\sigma^2)\), che accetta appunto i due parametri appena presentati (l'ampiezza della 
 fluttuazione è sempre positiva, quindi si scrive al quadrato).
-Il grafico visto precedentemente non è altro che la densità di probabilitò, definito in tal modo : 
+Il grafico visto precedentemente non è altro che la densità di probabilità, definito in tal modo : 
 $$f_X(x)=\dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\dfrac{1}{2}\dfrac{(x-\mu)^2}{\sigma^2}}$$
 Essendo una densità, si avrà che l'area sottesa al grafico è proprio 1 : 
 \begin{equation}
