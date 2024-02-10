@@ -215,7 +215,7 @@ segna semplicemente l'orario del giorno corrente (detto \textit{time stamp}), es
 \textit{scheduler}\ref{scheduling}, ad esempio, può generare un interruzione ogni 100 \textit{microsecondi}, in modo che 
 lo scheduler possa prendere il sopravvento sul processo per poi decidere quale altro job va eseguito.\\\hphantom{.}\\
 Alcune istruzioni sono dette \textbf{atomiche}, ossia, non possono essere fermate dalle interruzioni, le architetture 
-che implementano tali sitruzioni devono far si che esse vengano eseguite per intero, piuttosto, vengono
+che implementano tali istruzioni devono far si che esse vengano eseguite per intero, piuttosto, vengono
 totalmente abortite. Per eseguirle è possibile definirle nel linguaggio macchina come istruzioni speciali 
 che sono nativamente eseguite in maniera atomica, oppure, è possibile \textit{disabilitare} momentaneamente 
 tutte le interruzioni.
@@ -228,7 +228,7 @@ hardware(MMU) che software(OS) :
     \item \textbf{MMU} - è il componente che si occupa di tradurre gli indirizzi virtuali in indirizzi fisici.
     \item \textbf{OS} - è responsabile di gestire lo spazio degli indirizzi virtuali.
 \end{itemize}
-Un sistema a 64 \textit{bit}, è capace di indirzzare \(2^{64}\) \textit{bytes}, gli indirizzi virtuali sono 
+Un sistema a 64 \textit{bit}, è capace di indirzzare \(2^{64}\) entry, gli indirizzi virtuali sono 
 suddivisi in blocchi della stessa dimensione, chiamati \textbf{pagine}, le pagine che non vengono caricate 
 nella memoria principale, vengono salvate sul disco. Facendo ciò si fornisce ad un processo una quantità \(n\) di 
 indirizzi virtuali, che sono salvati sia in memoria che su disco, essi vengono mappati tramite quella che si chiama 
@@ -240,7 +240,7 @@ La struttura interna di un sistema operativo può variare largamente in base all
 di tale sistema, è necessario separare quelle che sono le \textbf{politiche} del sistema 
 (Le funzioni che deve svolgere) dal suo \textbf{meccanismo} (La possibile implementazione di tali funzioni).
 Tale distinzione ci permette di rendere l'OS più flessibile alle modifiche, riusabile per implementare nuove 
-politiche, e stabile. I primi sistemi operativi erano totalemnte implementati in linguaggio macchina, ciò 
+politiche, e stabile. I primi sistemi operativi erano totalmente implementati in linguaggio macchina, ciò 
 consentiva ad essi di essere molto efficenti, di contro però, erano limitati esclusivamente all'hardware sulla 
 quale erano scritti. I sistemi operativi odierni hanno esclusivamente una piccola porzione scritta in 
 linguaggio macchina, il corpo principale è scritto in \textit{C}, ed i programmi di sistema possono essere scritti 
@@ -458,7 +458,7 @@ ci sono 3 diversi modi di gestire la coda ad essi riservata :
     \item \textbf{Bounded Capacity} - I messaggi vengono salvati in una coda con una
      capacità di memoria finita predeterminata, quindi i mittenti potranno inviare messaggi affinché la coda 
      non sarà piena.
-     \item \textbf{Unbounded Capacity} - La coda ha una capacità (teoricamente )infinita, quindi i mittenti 
+     \item \textbf{Unbounded Capacity} - La coda ha una capacità (teoricamente) infinita, quindi i mittenti 
      potranno inviare messaggi senza blocchi.
 \end{itemize} 
 \begin{figure}[h]
@@ -736,7 +736,7 @@ ogni processo è associato un \textit{Process Control Block} (PCB), e ad ogni th
 Il sistema operativo mette a disposizione dell'utente una serie di chiamate di sistema per creare e gestire i thread.\begin{itemize}
     \item \textbf{Pro} : Il kernel ha piena conoscenza di questi thread, lo scheduler quindi, sapendo quanti thread sono associati 
     ad un processo, può riservargli più tempo sulla CPU. Sono ottimi nelle applicazioni che prevedono svariate interruzioni 
-    ed eseguire lo switch fra i thread risulta più rapide che eseguire lo switch fra processi. 
+    ed eseguire lo switch fra i thread risulta più rapido che eseguire lo switch fra processi. 
     \item \textbf{Contro} : La complessità del Kernel aumenta significativamente, inoltre, invocare troppe 
     volte il kernel per 
     la gestione di questi thread è inefficiente. Anche se il context-switch è più rapido, richiede sempre l'avvento del 
@@ -828,7 +828,7 @@ L'utilizzo delle thread pool porta svariati benefici : \begin{itemize}
         eseguita dopo un certo delay temporale definito, oppure 
         periodicamente).
 \end{itemize}
-Che succede su viene eseguito un \code{fork()} su un thread? Viene duplicato 
+Che succede se viene eseguito un \code{fork()} su un thread? Viene duplicato 
 esclusivamente il thread o l'intero processo? Tale decisione, dipende dalle 
 specifiche del sistema operativo, se il nuovo processo chiama immediatamente 
 un \code{exec()}, non c'è bisogno di copiare tutti i thread associati a quel 
