@@ -1602,7 +1602,7 @@ Questi primi due son la cosiddetta memoria secondaria, il terzo è la memoria te
 
 Riguardo l'HDD, la sua struttura è semplice, vi è un perno che rotea, sulla quale poggiano dei dischi, essi sono divisi in settori (cerchi 
 concentrici) contenenti dei blocchi di memoria di dimensione fissa. Vi è un \textit{attuatore}, che si muove avanti ed indietro, 
-composto da bracci che contengono a loro volta delle testine. L'attuatore, muovendosi avanti ed indietro seleziona il settore del 
+composto da bracci che contengono a loro volta delle testine. L'attuatore, muovendosi avanti ed indietro seleziona la traccia del 
 disco da leggere, il perno, roteando, selezionerà il blocco di memoria che la testina posta sul braccio (di dimensioni 
 identiche al blocco) leggerà.
 \begin{figure}[h]
@@ -1611,17 +1611,17 @@ identiche al blocco) leggerà.
     }
 \end{figure}\\
 La capacità totale del disco è data dal prodotto dei seguenti valori : Numero di testine che leggono sui disci, 
-numero di settori per lato del disco, numero di Byte per settore. Il numero di blocchi per settore varia in base al 
-raggio del settore, ossia dalla sua vicinanza dal centro del disco, in modo da cercare di tenere costante la 
+numero di traccie per lato del disco, numero di Byte per traccie. Il numero di blocchi per traccia varia in base al 
+raggio della traccia, ossia dalla sua vicinanza dal centro del disco, in modo da cercare di tenere costante la 
 densità dei bit. Il disco rotea ad una velocità angolare costante, ed i settori più interni vengono attraversati 
 più rapidamente dalla testina rispetto a quelli esterni.\acc Leggere un blocco di memoria richiederà 3 diversi intervalli di tempo :\begin{enumerate}
-    \item \textbf{seek time }- Il tempo di movimento dell'attuatore in cui posiziona la testina sul giusto settore.
+    \item \textbf{seek time }- Il tempo di movimento dell'attuatore in cui posiziona la testina sulla giusta traccia.
     \item \textbf{rotation delay} - Il tempo di rotazione del disco per far selezionare alla testina il blocco corretto.
     \item \textbf{transfer time} - Il tempo impiegato dalla testina per leggere il blocco, dipende dalle dimensioni di esso, 
     e dalla densità delle particelle magnetiche.
 \end{enumerate}
 Solitamente, i blocchi di un disco magnetico sono indirizzati come un unico grande array di blocchi, mappati 
-sequenzialmente nei settori del disco. Il settore 0 è il primo settore del disco che si trova all'estremità, il mapping 
+sequenzialmente nei settori del disco. La traccia 0 è la prima traccia del disco che si trova all'estremità, il mapping 
 procede secondo l'ordine dei settori fino al disco più interno, i bracci ce sorreggono le testine si trovano ad una 
 distanza estremamente ravvicinata dai dischi, ed il contatto con essi può causare danni permanenti al disco se non 
 la sua totale distruzione, quindi quando il computer è spento, i bracci vengono "parcheggiati" al di fuori del disco per 
@@ -1666,11 +1666,11 @@ possono derivare dal caricare i blocchi del disco direttamente nella cache del d
 richiesti, ciò funziona grazie al principio di località.
 \subsubsection{Gestione del disco} 
 Prima che un disco possa essere funzionante, va \textbf{formattato}, viene definito tramite dei metadati quali sono 
-i punti in cui inizia e finisce un settore, vengono implementati eventuali codici di errore gestiti dal disk 
+i punti in cui inizia e finisce una traccia, vengono implementati eventuali codici di errore gestiti dal disk 
 controller, una volta fatto ciò, va partizionato, in una o più partizioni, e la tabella delle partizioni viene 
 definita all'inizio del disco, una volta partizionato, il file system stesso va formattato a livello logico.\acc 
 La ROM del computer contiene un programma indipendente dall'OS, il \textbf{bootstrap}, con il codice necessario 
-a trovare il primo settore del primo disco, ed il relativo disk controller, il primo settore, noto come \textbf{Master 
+a trovare la prima traccia del primo disco, ed il relativo disk controller, il primo blocco, noto come \textbf{Master 
 Boot Record} (MBR), contiene una piccola porzione di codice e la tabella delle partizioni, che da informazioni su come 
 il disco è logicamente partizionato, ed indica la partizione giusta che può essere avviata nel boot. Il programma di boot controlla 
 tale partizione per ricercare un sistema operativo, una voltra trovato il Kernel, viene caricato in memoria, ed il 
