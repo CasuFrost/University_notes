@@ -1,0 +1,84 @@
+DOMANDA 1 : 
+Ci sono i seguenti processi, in una situazione di lottery scheduling, con i seguenti ticket assegnati :
+A - 3 ticket 
+B - 2 ticket 
+C - 9 ticket 
+D - 5 ticked 
+E - 1 ticket 
+Lo scheduler deve selezionare un processo da far eseguire alla CPU, qual'è la probabilità in percentuale che B venga schedulato?
+
+DOMANDA 2 :
+Nell'algoritmo di scheduling  Multi-Level-Queue (MLQ), cosa succede se un processo A viene interrotto dalla scadenza del quanto temporale?
+
+DOMANDA 3 : Quali svantaggi porta al sistema operativo l'implementazione dei kernel thread?
+
+DOMANDA 4 : Rispetto al grafo di allocazione normale, il grafo di allocazione esteso (con gli archi di reclamo), permette la rilevazione di.....?
+
+DOMANDA 5 : Se l'operazione di address binding avviene in compile time, per cambiare gli indirizzi è necessario ricaricare il programma in memoria : Vero o Falso?
+
+DOMANDA 6 : Un processo di 250 KB deve essere swappato sul disco fisso che ha una velocità di trasferimento di 4 MBit/sec, quanto tempo impiega l'operazione?
+
+DOMANDA 7 : Un processo di 250 KB deve essere swappato sul disco fisso che ha una velocità di trasferimento di 4 MBit/sec, quanto tempo impiega l'operazione?
+
+DOMANDA 8 : La segmentazione (senza paging) non sopperisce al problema della frammentazione esterna  : Vero o Falso?
+
+DOMANDA 9 : Quando si deve selezionare una pagina da sostituire in un operazione di page replacement, non è importante nella scelta considerare a quale segmento appartiene la pagina da sostituire : Vero o Falso?
+
+DOMANDA 10 : Il grado di multiprogrammazione : 
+a - è proporzionale all'utilizzo/efficienza della CPU
+b - è sempre inversamente proporzionale all'utilizzo/efficienza della CPU
+c - può aumentare grazie alla paginazione
+d - non può influire negativamente sull'utilizzo della CPU
+
+DOMANDA 11 : Un processo che esegue una fork, dovrà attendere la terminazione del figlio per continuare l'esecuzione : Vero o Falso?
+
+DOMANDA 12 : Il modello di sistema operativo Kernel Monolitico :
+a - sicuro e  molto efficiente
+b - sicuro ma  poco efficiente
+c - poco sicuro ma molto efficiente
+d - poco sicuro e poco efficiente
+
+DOMANDA 13 : Cosa è una TRAP?
+
+DOMANDA 14 : Due thread dello stesso processo, condividono lo stesso stack : Vero o Falso?
+
+DOMANDA 15 : Calcolare il waiting time medio (ALGORITMO SJF PREEMPTIVE) :
+
+	Arrival Time  |  Burst Time
+-------------------------------------
+A                 0                |               7
+-------------------------------------
+B                 0                |               8
+-------------------------------------
+C                 5                |               1
+-------------------------------------
+D                 7                |               5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+RISPOSTA  1 : 10%
+RISPOSTA 2 : Viene schedulato il prossimo processo, ma il processo A non viene spostato in un altra coda
+RISPOSTA 3 :  La complessità del Kernel aumenta significativamente.
+RISPOSTA 4 : Uno stato unsafe
+RISPOSTA 5 : Falso, è necessario ricompilare il programma.
+RISPOSTA 6 : 500 millisecondi
+RISPOSTA 8 : Vero
+RISPOSTA 9 : Falso, una segmento CODE non verrà modificato, è quindi una scelta più opportuna
+RISPOSTA 10 : c - può aumentare grazie alla paginazione
+RISPOSTA 11 : Falso
+RISPOSTA 12 : c - poco sicuro ma molto efficiente
+RISPOSTA 13 : eventi che causano lo switch da user a kernel mode
+RISPOSTA 14  : vero 
+RISPOSTA 15 : 3.75
