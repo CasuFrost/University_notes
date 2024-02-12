@@ -18,7 +18,7 @@ DOMANDA 5 : Se l'operazione di address binding avviene in compile time, per camb
 
 DOMANDA 6 : Un processo di 250 KB deve essere swappato sul disco fisso che ha una velocità di trasferimento di 4 MBit/sec, quanto tempo impiega l'operazione?
 
-DOMANDA 7 : Un processo di 250 KB deve essere swappato sul disco fisso che ha una velocità di trasferimento di 4 MBit/sec, quanto tempo impiega l'operazione?
+DOMANDA 7 : quali sono i 3 diversi modi di gestire la coda dei messaggi riservata allo scambio di messaggi fra processi nel Message Passing ?
 
 DOMANDA 8 : La segmentazione (senza paging) non sopperisce al problema della frammentazione esterna  : Vero o Falso?
 
@@ -54,31 +54,28 @@ C                 5                |               1
 -------------------------------------
 D                 7                |               5
 
+Le risposte sono sotto 
 
 
+		|
+		|
+		|
+    	          \/
 
 
-
-
-
-
-
-
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 RISPOSTA  1 : 10%
 RISPOSTA 2 : Viene schedulato il prossimo processo, ma il processo A non viene spostato in un altra coda
 RISPOSTA 3 :  La complessità del Kernel aumenta significativamente.
 RISPOSTA 4 : Uno stato unsafe
 RISPOSTA 5 : Falso, è necessario ricompilare il programma.
 RISPOSTA 6 : 500 millisecondi
+RISPOSTA 7 : Zero Capacity, Bounded Capacity e Unbounded Capacity 
 RISPOSTA 8 : Vero
 RISPOSTA 9 : Falso, una segmento CODE non verrà modificato, è quindi una scelta più opportuna
 RISPOSTA 10 : c - può aumentare grazie alla paginazione
 RISPOSTA 11 : Falso
 RISPOSTA 12 : c - poco sicuro ma molto efficiente
 RISPOSTA 13 : eventi che causano lo switch da user a kernel mode
-RISPOSTA 14  : vero 
+RISPOSTA 14  : Falso 
 RISPOSTA 15 : 3.75

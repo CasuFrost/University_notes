@@ -1041,8 +1041,8 @@ attenderà, questa soluzione non funziona se vi sono più istanze della stessa r
 \end{figure}
 \\ Se dessimo a \(t_4\) la risorsa \(r_2\), staremmo introducendo un possibile ciclo, entrando in uno 
 stato non sicuro. Se a \(t_3\) dessimo \(r_2\), non staremmo introducendo nessun ciclo, restando quindi 
-in uno stato sicuro.
-\subsubsection{L'algoritmo del Banchiere}
+in uno stato sicuro. Si legga il complemento nel capitolo \ref{DeadLockPrev&Avoid} (fondamentale al proseguimento).
+\subsubsection{L'algoritmo del Banchiere}\label{banchiere}
 Vediamo adesso uno dei più noti, se non il più noto, algoritmo di rilevamento di stati unsafe. L'algoritmo del banchiere, 
 gestisce anche i casi in cui vi sono più istanze della stessa risorsa, "costringe" i thread a fornire informazioni 
 su quali risorse potrebbero richiedere, si occupa di allocare risorse, se e soltanto se, tale allocazione 
@@ -1661,7 +1661,15 @@ consiste in uno scan circolare del disco, dove le richieste sono contenute in un
 raggiunge la fine, ricomincia dal lato opposto, è possibile applicare la medesima ottimizzazione \textit{LOOK}. Tale 
 algoritmo evita la fermata e la ripartenza della testina meccanica. \acc 
 Questi algoritmi, sono tipicamente implementati nel disk controller, d'altronde, è possibile considerare degli 
-algoritmi più complessi, che devono però essere implementati nel disk driver dell'OS.\acc Alcune ottimizzazioni 
+algoritmi più complessi, che devono però essere implementati nel disk driver dell'OS.
+\acc 
+Un noto problema che era solito presentarsi prende il nome di \textbf{interleaving}, data l'allocazione 
+contigua dei blocchi sul disco, la testina, che deve leggere i blocchi in maniera sequenziale, non riusciva 
+a leggere correttamente due o più blocchi in sequenza data l'alta velocità del disco, veniva quindi lasciato uno 
+spazio di memoria libero/sprecato fra due blocchi, in modo tale da dare il tempo alla testina di poter 
+leggere i blocchi senza perdita di informazioni. Ad oggi, tale problema non si causa più dato che le CPU 
+odierne sono abbastanza veloci da tenere il passo con la velocità angolare del disco.
+\acc Alcune ottimizzazioni 
 possono derivare dal caricare i blocchi del disco direttamente nella cache del disk controller prima che essi vengano 
 richiesti, ciò funziona grazie al principio di località.
 \subsubsection{Gestione del disco} 
@@ -1718,5 +1726,24 @@ blocchi da più dischi simultaneamente per ottenere gli stessi dati. Un altro mo
 dischi sulla quale si applica lo striping sono visti a livello logico come una singola unità di memoria.\acc 
 Il mirroring aumenta l'affidabilità ma è costoso ed introduce dello spreco di memoria, lo striping aumenta le performance, 
 ma non l'affidabilità, differenti schemi possono essere costruiti sul RAID combinando le diverse ottimizzazioni 
-cercando di bilanciare affidabilità ed performance.
+cercando di bilanciare affidabilità ed performance, sono noti quindi differenti livelli di RAID : 
+\begin{itemize}
+    \item RAID livello 0 - solo striping, senza mirroring 
+    \item RAID livello 1 - solo mirroring, senza striping 
+    \item \(\dots\)
+    \item RAID livello 6 - striping + mirroring, e parity bit
+\end{itemize}
+\newpage
+\section{Complementi}
+\textit{Perché questa sezione?} - Ci sono delle cose che durante il corso delle lezioni mi son perso, non ho voglia di 
+aggiungerle agli appunti già scritti, potrei farlo in un futuro prossimo ma adesso non lo farò.
+\subsection{Sui Thread}
+\subsubsection{Deadlock Prevention e Deadlock Avoidance}\label{DeadLockPrev&Avoid}
+Distinguiamo con due differenti notazioni, le clausole che applichiamo per far fronte ad un deadlock 
+prima che esso si causi, abbiamo definito la \textbf{deadlock prevention}, come il prevenire 
+l'avvenimento di un deadlock tramite determinate politiche decise "offline", ossia predeterminate, come la pratica di far 
+accedere i thread alle risorse con un certo ordinamento.\acc La \textbf{deadlock avoidance}, invece, 
+prevede il rilevamento di un possibile deadlock "online", ossia durante l'esecuzione dei thread, si occupa 
+quindi di capire in tempo reale se potrebbe incombere un deadlock, per poi "evitarlo", un famoso algoritmo 
+a tale scopo è \textit{L'algoritmo del banchiere} \ref{banchiere}.
 \end{document}
