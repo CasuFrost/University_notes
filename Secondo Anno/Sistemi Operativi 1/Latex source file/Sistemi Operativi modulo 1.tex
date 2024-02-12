@@ -177,7 +177,7 @@ prefissato per un job tramite il timer).
 \end{itemize}
 \subsection{API per le System Call}
 Usando le \textbf{API} (Application Programming Interface) al posto delle system call direttamente, è possibile 
-fornite maggiore portatilità, e rendere un programma che necessita delle chiamate di sistema indipendente 
+fornire maggiore portatilità, e rendere un programma che necessita delle chiamate di sistema indipendente 
 dall'hardware. Un API fornisce una libreria per un linguaggio di programmazione di alto livello (come il \textit{C}), 
 che ci permette di chiamare funzioni che eseguiranno delle chiamate di sistema.
 \begin{figure}[h]
@@ -280,7 +280,7 @@ Quindi un programma viene \textit{istanziato} in un processo, che è un entità 
 dalla CPU, ogni processo è un entità indipendente, e possono coesistere due processi istanza dello stesso
 programma. Ad ogni processo viene assegnata la sua quantità di memoria disponibile, e le sue istruzioni sono 
 eseguite in maniere sequenziale. Il sistema operativo si occupa di creare, distruggere, e gestire gli stati 
-dei processi, dedica ad essi la stessa quantità di memoria virtuale, ed il numero di indirizzi disponibili dipendono 
+dei processi, dedica ad essi la stessa quantità di memoria virtuale, ed il numero di indirizzi disponibili dipende 
 dall'architettura della macchina (ad esempio, con un processore a 32 \text{bit}, si hanno \(2^{32}\) indirizzi disponibili).
 \\\hphantom{.}\\
 Quando si crea un processo, ad esso viene assegnata una quantità di memoria divisa in 4 unità logiche :
@@ -913,7 +913,7 @@ istruzioni atomiche :\begin{itemize}
     \item \code{signal()}  - incrementa, permette ad altri thread di entrare. 
 \end{itemize}
 Ad ogni risorsa è appunto associata una variabile intera, che sarebbe il semaforo stesso, tale variabile ha valore uguale al numero di 
-istanze disponibile della risorsa in questione. Se un thread vuole accedere a tale risorsa, ne richiede l'accesso tramite il metodo 
+istanze disponibili della risorsa in questione. Se un thread vuole accedere a tale risorsa, ne richiede l'accesso tramite il metodo 
 \code{wait()}, ottenendola, e decrementando il valore del semaforo di 1. Se il numero di risorse disponibili è 0, quando un thread richiede 
 l'accesso si metterà in attesa, ed il valore del semaforo decrementerà diventando negativo, quando un thread ha finito di utilizzare una risorsa, 
 utilizzerà il metodo \code{signal()}, incrementando il semaforo e permettendo ad un altro thread di accedervi.  \acc 
@@ -1100,7 +1100,7 @@ Riceve in input un indice \(i\) rappresentante un thread ed un vettore \(m\) dim
     Dopo tali operazioni, si controlla \code{isSafeState()}, se no, tali operazioni verranno annullate, altrimenti, 
     verranno convalidate.
 \end{enumerate}
-\section{La Memoria}
+\section{La Gestione della Memoria}
 Durante l'introduzione del corso, si è già fatto riferimento a quanto la gestione della memoria risulti di cruciale 
 importanza per quanto riguarda l'efficienza di un sistema operativo. Un buon OS, deve massimizzare l'utilizzo della 
 memoria, e garantire sicurezza ed isolamento di essa fra i diversi processi che la co-abitano (un processo, non 
@@ -1223,9 +1223,9 @@ allocare l'intero spazio al processo, anche quella piccola porzione non necessar
 \textbf{Worst Fit} - Quando un processo richiede di essere allocato, esso verrà inserito, nello spazio 
 più grande disponibile, lasciando ciò che avanza (che si prevede essere sufficientemente grande, per accogliere altre richieste).\acc 
 Tali 3 politiche non sopperiscono al problema della frammentazione, è possibile però, spostare i processi all'interno 
-della memoria in modo da unire gli spazi contigui rimasti, tale soluzione è detta \textbf{deframmentazione}, ma spostare 
+della memoria in modo da unire gli spazi contigui rimasti, tale soluzione è detta \textbf{deframmentazione} \ref{Compaction}, ma spostare 
 fisicamente interi processi all'interno della memoria è lento ed inefficiente.
-\subsubsection{Swapping}
+\subsubsection{Swapping}\label{swapping}
 Sappiamo che, nonostante più processi siano caricati in RAM, solamente uno alla volta è in esecuzione 
 sulla CPU. Se un processo dovesse sospendersi per una richiesta di I/O, esso resterebbe comunque in memoria, occupando 
 dello spazio, sarebbe efficiente considerare un sistema, in cui i processi sospesi, liberino temporaneamente la memoria, 
@@ -1600,7 +1600,7 @@ Riguardo la dimensione delle pagine, in base alle specifiche di chi progetta l'O
 Esistono 3 categorie di memoria di massa, i dischi magnetici (HDD), i dischi a stato solido (SSD), ed i nastri magnetici. 
 Questi primi due son la cosiddetta memoria secondaria, il terzo è la memoria terziaria.\acc
 
-Riguardo l'HDD, la sua struttura è semplice, vi è un perno che rotea, sulla quale poggiano dei dischi, essi sono divisi in settori (cerchi 
+Riguardo l'HDD, la sua struttura è semplice, vi è un perno che rotea, sulla quale poggiano dei dischi, essi sono divisi in tracce (cerchi 
 concentrici) contenenti dei blocchi di memoria di dimensione fissa. Vi è un \textit{attuatore}, che si muove avanti ed indietro, 
 composto da bracci che contengono a loro volta delle testine. L'attuatore, muovendosi avanti ed indietro seleziona la traccia del 
 disco da leggere, il perno, roteando, selezionerà il blocco di memoria che la testina posta sul braccio (di dimensioni 
@@ -1623,7 +1623,7 @@ più rapidamente dalla testina rispetto a quelli esterni.\acc Leggere un blocco 
 Solitamente, i blocchi di un disco magnetico sono indirizzati come un unico grande array di blocchi, mappati 
 sequenzialmente nei settori del disco. La traccia 0 è la prima traccia del disco che si trova all'estremità, il mapping 
 procede secondo l'ordine dei settori fino al disco più interno, i bracci che sorreggono le testine si trovano ad una 
-distanza estremamente ravvicinata dai dischi, ed il contatto con essi può causare danni permanenti al disco se non 
+distanza estremamente ravvicinata dai dischi (nell'ordine dei nanometri), ed il contatto con essi può causare danni permanenti al disco se non 
 la sua totale distruzione, quindi quando il computer è spento, i bracci vengono "parcheggiati" al di fuori del disco per 
 evitare tale danno. Gli hard drive possono essere rimossi dal computer, e sono collegati tramite gli appositi 
 bus di I/O, alcune delle più comuni interfacce di connessione sono : \begin{itemize}
@@ -1737,6 +1737,19 @@ cercando di bilanciare affidabilità ed performance, sono noti quindi differenti
 \section{Complementi}
 \textit{Perché questa sezione?} - Ci sono delle cose che durante il corso delle lezioni mi son perso, non ho voglia di 
 aggiungerle agli appunti già scritti, potrei farlo in un futuro prossimo ma adesso non lo farò.
+\subsection{Sulla Gestione della Memoria }
+\subsubsection{Full Compaction e Partial Compaction }\label{Compaction}
+La Full Compaction è la pratica di deframmentazione che prevede lo spostamento di tutti i processi, in modo che vengano 
+ri-allocati in sequenza, lasciando un solo grande "buco" destinato ai nuovi processi. La Partial Compaction prevede 
+lo spostamento solo di alcuni processi, quelli strettamente necessari a lasciare libero un "buco" per un nuovo processo 
+da allocare.\\
+\begin{figure}[h]
+    \centering{
+    \includegraphics[width=0.8\textwidth ]{images/compaction.eps}
+    }
+\end{figure}
+\acc
+Argomento correlato : Swapping \ref{swapping}
 \subsection{Sui Thread}
 \subsubsection{Deadlock Prevention e Deadlock Avoidance}\label{DeadLockPrev&Avoid}
 Distinguiamo con due differenti notazioni, le clausole che applichiamo per far fronte ad un deadlock 

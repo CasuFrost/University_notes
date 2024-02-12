@@ -54,6 +54,67 @@ C                 5                |               1
 -------------------------------------
 D                 7                |               5
 
+
+DOMANDA 16 : Una memoria da 8KiB con word da 1 byte è suddivisa in frame fisici da 1KiB, ci sono 12 segmenti.
+Quanti bit per l'indirizzo fisico? Quanti bit per l'indirizzo logico?
+
+DOMANDA 17 : Le dimensioni del working set di un processo sono sempre correlate alla memoria che esso richiede : Vero o Falso?
+
+DOMANDA 18 : L'obbiettivo del sampling è :
+a - aumentare il grado di multiprogrammazione, nonostante abbassi l'utilizzo della CPU
+b - evitare il sovraccarico dovuto al tener traccia della lista delle pagine richieste in un lasso di tempo ∆
+c - aumentare  l'utilizzo della CPU, nonostante abbassi  il grado di multiprogrammazione
+d - far coincidere il pi`u possibile la memoria che si concede ad un processo al suo effettivo working set
+
+DOMANDA 19 : Nella gestione della memoria:
+a-  il sistema che combina segmentazione e paginazione soffre di frammentazione esterna
+b - il sistema che combina segmentazione e paginazione soffre di frammentazione interna
+c - il sistema a segmentazione soffre di frammentazione esterna
+d - il sistema a segmentazione incide sulle performance della CPU
+
+DOMANDA 20 : Cos'è il Direct Memory Access Controller?
+
+DOMANDA 21 : Si supponga di avere una memoria M di capacità pari a 8 KiB. Assumendo che l'indirizzamento avvenga 
+con lunghezza di parola (word size) pari 8 bytes e che M utilizzi una gestione paginata con blocchi di dimensione pari a S = 256 bytes, quanti
+ bit sono necessari per identificare l'indice di pagina (p) e l'offset (interno alla pagina), rispettivamente?
+
+DOMANDA 22 :  Si supponga che il tempo di accesso alla memoria fisica sia tMA = 0,1 microsec. e che il tempo per la gestione di un page fault tFAULT 
+sia pari a 9 000 microsec. Assumendo che il tempo medio di accesso alla memoria sia pari a 126 nanosec, qual è la probabilità p che si verifichi un page fault?
+
+DOMANDA 23 : Si supponga che un processo P necessiti di un'area di memoria libera pari a 99 KiB per essere allocato in modo contiguo in memoria principale.
+ Se la lista dei blocchi di memoria libera contiene i seguenti elementi: A, B, C, D, E, F, G  le cui dimensioni sono rispettivamente 190 KB, 200 KB, 60 KB, 350 Byte, 199 KiB, 150 KB e 125 KiB,
+ quale blocco verrà allocato per P assumendo una politica Worst-Fit?
+
+
+DOMANDA 24 : La distinzione fra user e kernel mode è necessaria per aumentare il grado di efficienza dell'OS : Vero o Falso?
+
+DOMANDA 25 : A fronte di una chiamata di sistema, la Interrupt Vector table verrà indicizzata da : 
+a - Un'apposita interfaccia che si occupa di trasferire tutte le interruzioni alla IVT
+b - Un componente del Kernel noto come Dispatcher
+c - Un'apposita interfaccia che si occupa di trasferire le system call alla IVT
+
+DOMANDA 26 : Si elenchino i 3 differenti metodi per trasferire parametri al sistema operativo tramite le system call.
+
+DOMANDA 27 : Il waiting time di un processo X dipende da : 
+a - il burst time degli altri processi
+b - L'algoritmo di scheduling adoperato 
+c - Le richieste di I/O che fa X 
+d - le richieste di I/O che fanno gli altri processi
+è possibile selezionare più di una risposta, si deve argomentare.
+
+DOMANDA 28 : Il medium term scheduler interagisce con la cache : Vero o Falso?
+
+DOMANDA 29 : Il disk controller è : 
+a - contenuto nel disco 
+b - provvisto di una cache 
+c - tutte le risposte sono corrette
+d - in comunicazione con l'host controller 
+
+DOMANDA 30 : Nel page replacement, lo svantaggio dell'algoritmo FIFO è : 
+a -  potrebbe rimuovere pagine alla quale si accede frequentemente
+b - è difficile da implementare 
+c - Rende poco predicibili quali pagine potrebbero essere accedute
+
 Le risposte sono sotto 
 
 
@@ -79,3 +140,19 @@ RISPOSTA 12 : c - poco sicuro ma molto efficiente
 RISPOSTA 13 : eventi che causano lo switch da user a kernel mode
 RISPOSTA 14  : Falso 
 RISPOSTA 15 : 3.75
+RISPOSTA 16 : Indirizzo fisico : 3(indice pagina)+10(offset), indirizzo logico 4(indice segmento)+3+10
+RISPOSTA 17 : Falso, un processo può allocare un array da 1GB ma utilizzarne solo una piccola porzione
+RISPOSTA 18 : b - evitare il sovraccarico dovuto al tener traccia della lista delle pagine richieste in un lasso di tempo ∆
+RISPOSTA 19 : c - il sistema a segmentazione soffre di frammentazione esterna
+RISPOSTA 20 : un mezzo di comunicazione, il suo scopo è quello di occuparsi di trasferire dati dalla memoria ai dispositivi di I/O evitando di  delegare tale compito alla CPU.
+RISPOSTA 21 : pagina : 5 bit   	offset : 5 bit
+RISPOSTA 22 :  circa 0.00028%
+RISPOSTA 23 : Blocco E
+RISPOSTA 24 : Falso, serve ad aumentare la sicurezza.
+RISPOSTA 25 : c - Un'apposita interfaccia che si occupa di trasferire le system call alla IVT
+RISPOSTA  26 : Registri, blocchi di memoria, stack
+RISPOSTA 27 : a-b-d
+RISPOSTA 28 : Falso
+RISPOSTA 29 : c - tutte le risposte sono corrette
+RISPOSTA 30 : a -  potrebbe rimuovere pagine alla quale si accede frequentemente
+
