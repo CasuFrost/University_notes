@@ -675,7 +675,7 @@ numero. Il processo in possesso del ticket con il numero estratto, verrà schedu
 per la \textit{legge dei grandi numeri}, prima o poi ogni processo verrà schedulato. \acc 
 Risulta opportuno dare più ticket ai processi più corti, in modo che possano essere schedulati 
 più frequentemente (simulando il SJF). Per evitare la starvation, si assegna ad ogni processo 
-alemeno un ticket. Inoltre, aggiungere o rimuovere processi dalla code, condiziona in maniera proporzionale 
+almeno un ticket. Inoltre, aggiungere o rimuovere processi dalla code, condiziona in maniera proporzionale 
 la probabilità di essere selezionati di tutti gli altri processi. Questo tipo di scheduling quindi, \textbf{non è 
 deterministico}, e si basa sulla \textit{randomness}.\begin{center}
     \(m_i:=\)  numero di ticket assegnati al processi \(i\)\\\(N:=\) numero dei processi \\\(M=\displaystyle\sum_{i=1}^Nm_i:=\) numero totale dei ticket\\
@@ -895,7 +895,7 @@ che un processo ha acquisito una lock, nei sistemi a singola CPU, possiamo imped
 il controllo della CPU, volontariamente o involontariamente.\acc 
 In quanto è necessario l'intervento dell'OS, vogliamo che i metodi \code{acquire()} e \code{release()} 
 siano implementati tramite system call.\acc 
-Si richiede l'implementazione di un istruzione atomica \textbf{read-modify-write}, che in un "singolo colpo" legga un valore 
+Si richiede l'implementazione di un istruzione atomica \code{test\&set}, che in un "singolo colpo" legga un valore 
 dalla memoria in un registro, e scriva un nuovo valore. In un sistema a singolo processore possiamo direttamente implementare 
 una nuova istruzione a livello macchina, nei sistemi multi-core invece, il processore che esegue tale istruzione, deve 
 essere in grado di cancellare ogni copia di tale valore, da modificare, che gli altri processori potrebbero avere nella cache.
@@ -925,7 +925,7 @@ eseguire la sezione critica.\acc
 Abbiamo quindi visto che i semafori hanno 3 scopi principali : \begin{itemize}
     \item Garantire l'esclusività come fanno le lock.
     \item Controllare l'accesso a più aree di memoria condivisa. 
-    \item Rinforzare le costrizioni dello scheduling per eseguire i thread secondo uno specifico ordine.
+    \item Forzare le politiche di scheduling per eseguire i thread secondo uno specifico ordine.
 \end{itemize}
 I semafori però hanno vari problemi, sono essenzialmente, delle variabili globali condivise, la loro correttezza dipende 
 dalle abilità del programmatore, da soli hanno più scopi, e non è immediato capire il significato del waiting\slash signaling.
@@ -1387,7 +1387,7 @@ table deve essere "paginata", e servirebbero 1024 pagine solo per contenerla. È
 paginazione più avanzate.
 \begin{itemize}
     \item \textbf{Hashed Page Table} - Si utilizzano delle tabelle hash per memorizzare page table sparse, vengono 
-    mappate tramite delle funzioni hash piuttosto che da numeri interi.
+    mappate tramite delle funzioni hash piuttosto che da numeri interi, ma potrebbero esserci \textit{collisioni}.
     \item  \textbf{Inverted Page Table} - Una tabella "inversa" elenca tutti i frame caricati in memoria per ogni 
     processo, l'accesso ad una page table inversa può essere lento in quanto lineare, ed eseguire l'hashing della 
     tabella può velocizzarne la ricerca. Tale modello non permette in maniera naturale a diversi processi di 
