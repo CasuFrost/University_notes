@@ -905,7 +905,7 @@ comportano l'attesa degli altri processi, inoltre non c'è una coda dove i threa
 rilasciato, quindi pecca di equità. \acc Abbiamo visto come i lock permettono la protezione durante l'esecuzione 
 di sezioni critiche, vediamo adesso delle primitive di sincronizzazione di più alto livello, destinate 
 a casistiche più generali. 
-\subsubsection{Semafori}
+\subsubsection{Semafori}\label{semafori}
 È un'altra struttura dati che fornisce l'accesso esclusivo alle sezioni critiche, è una generalizzazione dei lock 
 creata da \textit{Dijkstra} nel 1965. Si utilizzano delle variabili (intere) per supportare 2 
 istruzioni atomiche :\begin{itemize}
@@ -925,7 +925,7 @@ eseguire la sezione critica.\acc
 Abbiamo quindi visto che i semafori hanno 3 scopi principali : \begin{itemize}
     \item Garantire l'esclusività come fanno le lock.
     \item Controllare l'accesso a più aree di memoria condivisa. 
-    \item Forzare le politiche di scheduling per eseguire i thread secondo uno specifico ordine.
+    \item Forzare le politiche di scheduling per eseguire i thread secondo uno specifico ordine. \ref{scheduleConstraint}
 \end{itemize}
 I semafori però hanno vari problemi, sono essenzialmente, delle variabili globali condivise, la loro correttezza dipende 
 dalle abilità del programmatore, da soli hanno più scopi, e non è immediato capire il significato del waiting\slash signaling.
@@ -1759,4 +1759,12 @@ accedere i thread alle risorse con un certo ordinamento.\acc La \textbf{deadlock
 prevede il rilevamento di un possibile deadlock "online", ossia durante l'esecuzione dei thread, si occupa 
 quindi di capire in tempo reale se potrebbe incombere un deadlock, per poi "evitarlo", un famoso algoritmo 
 a tale scopo è \textit{L'algoritmo del banchiere} \ref{banchiere}.
+\subsubsection{Forzare lo Scheduling dei Thread}\label{scheduleConstraint}
+In che modo un semaforo può forzare lo scheduler ad eseguire un insieme di thread secondo un determinato ordine? È 
+possibile considerare un insieme di thread, in cui il thread \(X\), ossia quello che va eseguito per primo, eludendo 
+le politiche di scheduling, implementa il metodo \code{signal()} alla fine delle sue istruzioni. Tutti gli altri processi 
+vedranno il metodo \code{wait()} all'inizio della loro esecuzione. Impostando il valore del semaforo a 0, esclusivamente il 
+processo \(X\) potrà venire eseguito, alla sua terminazione, richiamando il metodo \code{signal()}, cederà il controllo 
+agli altri processi. 
+Argomento correlato : Semafori \ref{semafori}
 \end{document}

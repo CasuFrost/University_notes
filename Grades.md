@@ -14,5 +14,5 @@ Marcherò gli esami non ancora sostenuti con $NS$.
 | Metodologie di Programmazione  |  30  |
 | Algebra  |  30  |
 | Basi di Dati 1  |  30  |
-| Sistemi Operativi 1  |  $NS$  |
+| Sistemi Operativi 1  |  30L  |
 | Calcolo delle Probabilità  |  $NS$  |
