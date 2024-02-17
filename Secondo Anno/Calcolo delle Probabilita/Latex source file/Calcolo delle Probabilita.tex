@@ -507,12 +507,12 @@ o esce croce, la probabilità sarà uguale a :
     }
 \end{figure}
 \subsubsection{Formula di Bayes}
-Questo è il caso analogamente opposto a quello visto precedentemente, sia \(D_1,D_2,D_3...,D_k\)  una partizione 
+Questo è il caso analogamente opposto a quello visto precedentemente, sia \(D_1,D_2,D_3...,D_n\)  una partizione 
 di \(\Omega\), e sia \(A\subseteq \Omega\) un evento che 
 segue uno degli eventi \(D_i\), sapendo che si è verificato \(A\), possiamo calcolare la probabilità che si 
 sia verificato un singolo \(D_i\) : 
 \begin{equation}
-    \mathbb{P}(D_i|A)=\dfrac{ \mathbb{P}(D_i)\cdot \mathbb{P}(A|D_i)}{\displaystyle\sum_{j=1}^{k-1}\mathbb{P}(D_j)\cdot \mathbb{P}(A|D_j)}
+    \mathbb{P}(D_i|A)=\dfrac{ \mathbb{P}(D_i)\cdot \mathbb{P}(A|D_i)}{\displaystyle\sum_{j=1}^{n}\mathbb{P}(D_j)\cdot \mathbb{P}(A|D_j)}
 \end{equation}
 \textit{Osservazione} : Se \(A,B\) sono eventi disgiunti, allora \(\mathbb{P}(A|B)=\mathbb{P}(A)\).
 \\\hphantom{}\\
