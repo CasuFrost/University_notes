@@ -857,10 +857,10 @@ il numero di \(1\), ossia \(X(\omega)=\displaystyle \sum_{i=1}^n\omega_i\). \\Ad
     \)
 \end{center}
 Abbiamo già visto in precedenza qual'è la probabilità che il numero di 1 sia \(k\) :\begin{center} 
-    \(\Im(\{k\})=\displaystyle \binom{n}{k}p^k(1-p)^{n-k}\)\end{center}
+    \(\Prob(X=k)=\displaystyle \binom{n}{k}p^k(1-p)^{n-k}\)\end{center}
     Il valore di attesa vale :
     \begin{equation}
-        \mathbb{E}(X)=\sum_{k=0}^nk\cdot \Im(\{k\})=\sum_{k=0}^nk\binom{n}{k}p^k(1-p)^{n-k}=n\cdot p
+        \mathbb{E}(X)=\sum_{k=0}^nk\cdot \Prob(X=k)=\sum_{k=0}^nk\binom{n}{k}p^k(1-p)^{n-k}=n\cdot p
     \end{equation}
 Possiamo sfruttare la \textit{linearità} del valore atteso \ref{linE} per calcolare il valore atteso 
 della variabile aleatoria binomiale senza calcoli complessi.
@@ -878,7 +878,7 @@ Calcoliamo adesso la varianza della variabile aleatoria di Bernoulli, ma prima f
     \(\V(X)=\E(X^2)-(\E(X))^2\)
 \end{center}
 Dimostrazione :\begin{center}\(
-    \V(X)=\displaystyle\sum_{x\in Im(X)}(x-\mathbb{E}(X))^2\cdot\Im(\{x\})  =\E(X-\E(X)^2)=\E(X^2-2X\E(X)+\E(X)^2)
+    \V(X)=\displaystyle\sum_{x\in Im(X)}(x-\mathbb{E}(X))^2\cdot\Prob(X=x)  =\E(X-\E(X)^2)=\E(X^2-2X\E(X)+\E(X)^2)
 \)\\\(
     =\E(X^2)-2\E(X\E(X))+\E(\E(X)^2)=\E(X^2)-2\E(X)\E(X)+\E(\E(X)^2)=\E(X^2)-(\E(X))^2\) \(\blacksquare\)
 \end{center}
