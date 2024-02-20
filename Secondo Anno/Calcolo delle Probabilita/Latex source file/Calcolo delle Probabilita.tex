@@ -259,7 +259,7 @@ Vale la proprietà : \begin{center}
 \end{center}
 \large \textbf{Binomio di Newton}\\\begin{center}
 \normalsize Siano \(a,b \in \mathbb{R}\) e \(n\in\mathbb{N}\), vale che \(
-    \displaystyle(a+b)^n = \sum_{k=0}^{n}\binom{n}{k}\cdot a^{n-k}\cdot b
+    \displaystyle(a+b)^n = \sum_{k=0}^{n}\binom{n}{k}\cdot a^{n-k}\cdot b^k
 \)\end{center}
 \subsubsection{Caso 4 - Estrazioni non Ordinate con Rimpiazzo}
 \normalsize Consideriamo il lancio di 2 dadi identici, senza considerare l'ordine. Abbiamo che l'evento elementare 
@@ -1168,7 +1168,7 @@ La variabile di Poisson quindi, ha come parametro un tasso di arrivi \(\lambda\)
 che in un istante di tempo infinitesimale arrivi un cliente in coda.\begin{equation}
     \sum_{k=0}^\infty\dfrac{\lambda^k}{k!}e^{-\lambda}=e^{-\lambda}\sum_{k=0}^\infty\dfrac{\lambda^k}{k!}=e^{-\lambda}e^{\lambda}=1
 \end{equation}
-Ovviamente, il \textit{valore atteso}, sarà proprio  \(E(X^{(n)})=\lambda\) : \begin{equation}
+Ovviamente, il \textit{valore atteso}, sarà proprio  \(\E(X^{(n)})=\lambda\) : \begin{equation}
     \E(X^{(n)})=\sum_{k=0}^\infty k\Prob(X^{(n)}=k)=\sum_{k=1}^\infty k\dfrac{\lambda^k}{k!}e^{-\lambda}=e^{-\lambda}\sum_{k=1}^\infty k\dfrac{1}{k\cdot(k-1)!}\lambda^k
 =\end{equation}\begin{equation}
     e^{-\lambda}\sum_{k=1}^\infty \dfrac{1}{\cdot(k-1)!}\lambda^k \text{ sotituisco }h=k-1\implies e^{-\lambda}\sum_{h=0}^\infty\lambda\cdot\dfrac{\lambda^h}{h!}=
