@@ -784,7 +784,7 @@ Introduciamo un altro valore associato alle variabili aleatorie.\\
 La \textbf{varianza} di una variabile aleatoria è una funzione \(\mathbb{V}\) strettamente maggiore di 0, definita nel seguente modo :
 \begin{center}
     \(
-    \mathbb{V}(X)=\E([X-\E(X)]^2)=\displaystyle\sum_{x\in Im(X)}(x-\mathbb{E}(X))^2\cdot   \Im(\{x\})  
+    \mathbb{V}(X)=\E([X-\E(X)]^2)=\displaystyle\sum_{x\in Im(X)}(x-\mathbb{E}(X))^2\cdot   \Im(\{x\})=\E(X^2)-[\E(X)]^2  
     \)
 \end{center}
 È lo scarto quadratico medio, ossia, una misura di quanto i valori si discostino 
@@ -870,8 +870,8 @@ Consideriamo \(X_i\) la variabile aleatoria definita nel seguente modo : \begin{
         0 \text{ se l'}i\text{-esimo lancio ha fatto croce}\\
     \end{cases}
 \end{equation}
-Per cui risulta \(\E(X_i)=p\), da qui osservo che :\begin{equation}
-    \E(X)=\sum_{i=1}^n\E(X_i)=\sum_{i=1}^np=n\cdot p
+\(X_i\) è la variabile di Bernoulli, per cui risulta \(\E(X_i)=p\), da qui osservo che :\begin{equation}
+    X=\sum_{i=1}^n X_i\implies \E(X)=\sum_{i=1}^n\E(X_i)=\sum_{i=1}^np=n\cdot p
 \end{equation}
 Calcoliamo adesso la varianza della variabile aleatoria di Bernoulli, ma prima facciamo un'osservazione, in generale
 è vero che  :\begin{center}
