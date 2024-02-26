@@ -15,4 +15,4 @@ Marcherò gli esami non ancora sostenuti con $NS$.
 | Algebra  |  30  |
 | Basi di Dati 1  |  30  |
 | Sistemi Operativi 1  |  30L  |
-| Calcolo delle Probabilità  |  $NS$  |
+| Calcolo delle Probabilità  |  22  |
