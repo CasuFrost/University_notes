@@ -9,9 +9,10 @@ Per appunti meno descrittivi e più riassuntivi (magari si vuole semplicemente u
 - [Appunti di Metodologie di Programmazione](https://github.com/CasuFrost/University_notes/blob/main/Primo%20Anno/Secondo%20Semestre/Metodologie%20di%20Programmazione/Appunti%20Metodologie%20di%20programmazione.pdf)
 ## Secondo Anno
 - [Appunti di Algebra](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Algebra/Latex%20source%20file/Algebra.pdf)
-- [Appunti di Basi di Dati](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf)
+- [Appunti di Basi di Dati 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf)
 - [Appunti di Calcolo delle Probabilità](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Calcolo%20delle%20Probabilita/Latex%20source%20file/Calcolo%20delle%20Probabilita.pdf)
-- [Appunti di Sistemi Operativi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Sistemi%20Operativi%201/Latex%20source%20file/Sistemi%20Operativi%20modulo%201.pdf)
+- [Appunti di Sistemi Operativi 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Sistemi%20Operativi%201/Latex%20source%20file/Sistemi%20Operativi%20modulo%201.pdf)
+- [Appunti di Basi di Dati 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Latex%20source%20file/Basi%20di%20Dati%20modulo%202.pdf)
 
 Per alcuni esercizi svolti riguardanti diversi esami del corso, peremere nel seguente link : \
 [Esercizi Svolti](https://github.com/CasuFrost/University_notes/blob/main/Excercise.md) 
