@@ -18,6 +18,6 @@ Per appunti meno descrittivi e più riassuntivi (magari si vuole semplicemente u
 - [Appunti di Basi di Dati 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Latex%20source%20file/Basi%20di%20Dati%20modulo%202.pdf)
 - [Appunti di Sistemi Operativi 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Sistemi%20Operativi%202/Latex%20source%20file/Sistemi%20Operativi%20modulo%202.pdf)
 - [Appunti di Progettazione di Algoritmi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Latex%20source%20file/Progettazione%20di%20Algoritmi.pdf)
-
+- [Appunti di Reti di Elaboratori](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Latex%20source%20file/Reti%20di%20Elaboratori.pdf)
 Per alcuni esercizi svolti riguardanti diversi esami del corso, peremere nel seguente link : \
 [Esercizi Svolti](https://github.com/CasuFrost/University_notes/blob/main/Excercise.md) 
