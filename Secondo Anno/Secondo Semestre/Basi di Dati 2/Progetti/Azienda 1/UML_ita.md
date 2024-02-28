@@ -36,6 +36,11 @@ classDiagram
     Dipartimento : +String nome
     Dipartimento : +int numero
     
+    class Associazione
+    Associazione : Timestamp inizio
+
+    class Direzione
+    Direzione : Timestamp inizio
 
     class Progetto
     Progetto : +String nome
@@ -44,8 +49,12 @@ classDiagram
     class Lavoro
     Lavoro : +Timestamp data_inizio
     
-    Impiegato "0..*"  -- "1..1" Dipartimento : dirige
-    Impiegato "0..*" -- "1..1" Dipartimento : afferisce
+    
+    Impiegato "1..1" --  "0..*" Associazione : afferisce
+    Impiegato "1..1" --  "0..*" Direzione : dirige
+    
+    Direzione "0..*"  -- "1..1"Dipartimento: diretto
+    Associazione "0..*"  -- "1..1"Dipartimento: associato
     Impiegato"1..1" --  "0..*" Lavoro : lavora
     Lavoro "0..*"  -- "1..1"Progetto : lavoro_progetto
 
