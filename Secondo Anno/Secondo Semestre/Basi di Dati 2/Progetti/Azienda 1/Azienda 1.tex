@@ -1,0 +1,64 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{mathtools}
+\usepackage[table,xcdraw]{xcolor}
+\definecolor{light-gray}{gray}{0.95}
+\definecolor{sap}{RGB}{130, 36, 51}
+\definecolor{lg}{RGB}{102, 161, 95}
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
+\newcommand{\acc}{\\\hphantom{}\\}
+\newcommand{\dete}{{\rightarrow}}
+\newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
+\title{Azienda 1}
+\author{Marco Casu}
+\date{\vspace{-5ex}}
+\begin{document}
+
+
+
+\maketitle
+\begin{figure}[h]
+    \centering{
+    
+    }
+\end{figure}
+\section{Requisiti}
+\begin{enumerate}
+    \item Un \underline{Impiegato} avrà ad esso associato i record riguardanti i suoi 
+    dati personali, ossia nome, data di nascita, cognome, e stipendio.
+    \item Ogni \underline{Impiegato} inoltre avrà un altro dato associato, ossia la data nella 
+    quale ha iniziato a lavorare nel \underline{Dipartimento} alla quale afferisce.
+    \item Tale campo è dinamico in quanto potrebbe variare in correlazione ad eventuali 
+    cambi di \underline{Dipartimento}.
+    \item Di ogni \underline{Dipartimento} vi saranno in egual modo i record con i dati menzionati 
+    associati, ossia nome e numero del centralino.
+    \item Ogni \underline{Impiegato} sarà in relazione con un \underline{Dipartimento}.
+    \item Ogni \underline{Dipartimento} sarà in una relazione esclusiva con un certo 
+    \underline{Impiegato}, che ne sarà il direttore. 
+    \item Il direttore di un \underline{Dipartimento} sarà in relazione con il 
+    \underline{Dipartimento} esclusivamente secondo la relazione di direzione, e non 
+    secondo la stessa relazione per la quale sono associati gli altri impiegati.
+    \item Sarà quindi omesso che un direttore afferisca al \underline{Dipartimento}
+    della quale appunto, ne è alla direzione.
+    \item Ogni \underline{Impiegato} può partecipare a più \underline{Progetti}. 
+    \item Un apposita entità \underline{Partecipazione} si occuperà di tale relazione, specificando 
+    anche la data nella quale l'\underline{Impiegato} ha iniziato a lavorare a tale 
+    \underline{Progetto}.
+    \item Un \underline{Progetto} avrà ad esso associato i record riguardanti i suoi 
+    dettagli, come il nome ed il budget.
+\end{enumerate}
+\newpage
+\section{Diagramma UML}
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{UML_ita2.png}
+\end{center}
+\end{document}
