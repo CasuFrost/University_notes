@@ -37,10 +37,10 @@ classDiagram
     Dipartimento : +int numero
     
     class Associazione
-    Associazione : Timestamp inizio
+    Associazione : +Timestamp inizio
 
     class Direzione
-    Direzione : Timestamp inizio
+    Direzione : +Timestamp inizio
 
     class Progetto
     Progetto : +String nome
