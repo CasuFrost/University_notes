@@ -142,4 +142,16 @@ fino all'elemento antecedente a quello identico all'elemento finale. \begin{cent
 Qual'è la complessita di tale algoritmo? Entrambi i cicli \code{while} eseguono \(O(n)\) iterazioni, il 
 fatto è che, nel primo ciclo while, il controllo \code{next$\notin$W} deve scorrere comunque tutto il vettore, 
 rendendo il costo dell'algoritmo \(O(n^2)\), non rispettando le specifiche iniziali, ossia \(O(n+m)\).
+\subsection{Cammini sui Grafi}
+Un \textbf{cammino}, non è altro che una passeggiata su un grafo in cui non 
+si passa mai più di una volta sullo stesso vertice, ossia una passeggiata 
+senzza ripetizioni di vertici o archi. \acc 
+\textbf{Osservazione} : Siano $x$ ed $y$ due nodi di un grafo, se esiste 
+una passeggiata da $x$ ad $y$, allore esiste anche un cammino.\acc 
+Nei grafi diretti vale la stessa regola, con ovviamente il vincola che bisogna rispettare 
+l'orientazione degli archi. Un grafo diretto si dice \textbf{fortemente connesso} 
+se, per ogni coppia di vertici \(x,y\), esiste un cammino da \(x\) ad \(y\)
+e viceversa. \begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/fortConnesso.eps}
+\end{center}
 \end{document}
