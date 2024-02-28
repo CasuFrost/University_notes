@@ -17,6 +17,7 @@
 \newcommand{\shell}[1]{\colorbox{black}{\textcolor{white}{\texttt{casufrost@debian:$\sim$\$ #1}}}}
 \newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
 \newcommand{\acc}{\\\hphantom{}\\}
+\newcommand{\comm}[1]{\color{lg}\textit{\hphantom{spaz}// \text{#1}}\color{black}}
 \newcommand{\dete}{{\rightarrow}}
 \newcommand{\fdot}{{\(\bullet\) }}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
@@ -83,16 +84,16 @@ Che struttura dati possiamo utilizzare per rappresentare un grafo? Vediamo due a
     \(O(n^2)\).
     \item \textbf{Liste di Adiacenza} - Ad ogni vertice del grafo è associata una lista, contenente tutti 
     i suoi vertici adiacenti, per controllare se due vertici sono adiacenti, è necessario fare una ricerca 
-    lineare su tale lista, ed ha costo $\displaystyle O(deg(v))$, dove \(v\) è il vertice sulla 
+    lineare su tale lista, ed ha costo $\displaystyle O(\deg(v))$, dove \(v\) è il vertice sulla 
     quale si sta effettuando la ricerca, ed è ovviamente limitato da \(n-1\) (numero di vertici).\acc
-    Le dimensioni della struttura dati sono $\displaystyle O\big(n + \sum_{v\in V(G)}deg(v)\big)$.
+    Le dimensioni della struttura dati sono $\displaystyle O\big(n + \sum_{v\in V(G)}\deg(v)\big)$.
 \end{itemize}
 Nel caso in cui un grafo dovesse vedere ogni vertice adiacente a tutti gli altri, la ricerca costerebbe 
 \(O(n)\) e le dimensioni sarebbero \(O(n^2)\), ciò differisce però dal caso reale, la rappresentazione con 
 liste di adiacenza risulta un buon compromesso fra costo computazionale e dimensioni.
 Sarà usuale denotare \(m\) il numero di archi e \(n\) il numero di vertici.
 Le liste di adiacenza occupano quindi spazio $O(n+m)$,  si osservi inoltre la 
-seguente identià : $$\sum_{v\in V(G)}deg(v)=2\cdot m\text{ dove }m:=|E|$$
+seguente identià : $$\sum_{v\in V(G)}\deg(v)=2\cdot m\text{ dove }m:=|E|$$
 \subsection{Ricerca di un Ciclo}
 \textbf{Definizione} : Un \textit{ciclo} in un grafo, non p altro che un \textit{sottografo connesso} dove 
 ogni vertice è di grado 2. Identifica un "cammino circolare", e la ricerca dei cicli nei grafi è un 
@@ -122,6 +123,7 @@ fino all'elemento antecedente a quello identico all'elemento finale. \begin{cent
 \end{center}
 \code{Input} : Un grafo $G=(V,E)$.\\
 \code{Output} : I nodi di un sottografo di \(G\) che è un ciclo.\\\hphantom{}\\
+\codee{CercaCiclo(graph G)\{}\\
 \hphantom{ident}\codee{x = V[random]}\color{lg}\textit{// Un vertice a caso}\color{black}\\
 \hphantom{ident}\codee{W=[x]}\color{lg}\textit{// Inizializzo il vettore output}\color{black}\\
 \hphantom{ident}\codee{current = V}\\
@@ -138,7 +140,8 @@ fino all'elemento antecedente a quello identico all'elemento finale. \begin{cent
 \hphantom{ident}\codee{while(W[0]$\ne$next)\{}\\
 \hphantom{ident}\hphantom{ident}\codee{W.remove(W[0])}\color{lg}\textit{// Rimuove il primo elemento}\color{black}\\
 \hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return W}\acc 
+\hphantom{ident}\codee{return W}\\
+\codee{\}}\acc 
 Qual'è la complessita di tale algoritmo? Entrambi i cicli \code{while} eseguono \(O(n)\) iterazioni, il 
 fatto è che, nel primo ciclo while, il controllo \code{next$\notin$W} deve scorrere comunque tutto il vettore, 
 rendendo il costo dell'algoritmo \(O(n^2)\), non rispettando le specifiche iniziali, ossia \(O(n+m)\).
@@ -154,4 +157,100 @@ se, per ogni coppia di vertici \(x,y\), esiste un cammino da \(x\) ad \(y\)
 e viceversa. \begin{center}
     \includegraphics[width=0.6\textwidth ]{images/fortConnesso.eps}
 \end{center}
+Un noto problema è il seguente, dato un grafo \(G\) e due veritici \(x,y\), esiste un cammino da \(x\) ad \(y\)? In generale, 
+il carico di lavoro per controllare ciò, equivale al carico di lavoro necessario per controllare tutti i nodi che possono essere 
+"raggiunti" partendo da \(x\).\acc 
+Prendo quindi un vertici \(x\) e trovo tutti i vertici \(y\) per i quali esiste un cammino fra essi, per fare ciò, occorre 
+\textbf{visitare} il grafo, e può essere fatto in due modi differenti.
+\subsubsection{Depth-First Search}
+Abbreviato \textbf{DFS}, tale algoritmo rappresenta la visita su un grafo in \textit{profondità}. Partendo da un qualsiasi 
+vertice \(x\), inizio a visitare randomicamente uno dei vertici adiacenti, per poi proseguire da esso. Se ad un certo punto non 
+vi sono nuovi vertici da visitare, si esegue il cosiddetto \textit{back tracking}, controllando i nodi a ritroso e cercando 
+dei nuovi vertici. Risulta quindi naturale l'uso di uno \textit{stack} per poter implementare tale ricerca. L'algoritmo 
+alla fine visiterà ogni nodo per la quale esiste un cammino dal nodo iniziale.
+\begin{center}
+    Pseudocodice
+\end{center} 
+\code{Input} : Un grafo $G=(V,E)$, ed un vertice \(x\).\\
+\code{Output} : L'insieme dei vertici visitati partendo da \(x\).\\
+\codee{DFS(graph G, vert x)\{}\\
+\hphantom{ident}\codee{S : stack = \{x\}}\\
+\hphantom{ident}\codee{Vis : set = [x]}\comm{l'insieme che conterrà l'output}\\
+\hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
+\hphantom{ident}\hphantom{ident}\codee{if(\(\exists\)z adiacente ad y\(\land \)x\(\ne\)Vis)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis.add(z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.pop()}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Vis}\\
+\codee{\}}\acc 
+Esempio di applicazione (il nodo di partenza è il nodo 1) : \begin{center}
+    \includegraphics[width=1\textwidth ]{images/DFS.eps}
+\end{center}
+L'output dell'algoritmo sarà proprio l'insieme \code{Vis}, contenente tutti i nodi raggiungibili dal vettore input, 
+bisogna dimostrare che l'algoritmo sia corretto, mostrando che ogni vertice raggiungibile da \(x\) è in \code{Vis}.\acc 
+\textbf{Dimostrazione} : Supponiamo per assurdo che vi sia un vertice \(y\) tale che, esiste un cammino da \(x\) ad 
+\(y\) e che \(y\) non sia presente in Vis.
+$$\exists y|x\rightarrow y\land y\notin\text{Vis}$$
+Essendo \(x\) il vertice di partenza, esso sicuramente si troverà in Vis, per costruzione dell'algoritmo. Questo vuol dire che 
+esiste un vertice nel cammino, per la quale vale la seguente proprietà : 
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/xxx.eps}
+\end{center}
+Essendo \(v_i\) in Vis, vuol dire che ad un certo punto è stato nel top 
+dello stack, ma \(v_{i+1}\) è adiacente a \(v_i\), quindi da quest'ultimo l'algoritmo avrà selezionato 
+ad un certo punto \(v_{i+1}\), per poi proseguire da esso, per costruzione, sarà inserito in Vis, ma ciò è 
+in contraddizione con l'ipotesi iniziale che \(y\) non è in Vis. \(\blacksquare\)\acc 
+Questo algoritmo presenta un problema cruciale, non è efficiente, infatti risulta particolarmente 
+pesante il controllo \code{if(\(\exists\)z adiacente ad y\(\land \)x\(\ne\)Vis)}, che ha costo 
+computazionale \(O(\deg(y))+O(n)\). L'algoritmo va migliorato, al posto di un set, è possibile utilizzare un 
+array nella seguente maniera : sarà composto da \(n:=|V|\) elementi inizializzato con tutti 0, si avrà che
+ \(array[i]=1\iff i\) fa parte dell'output.\begin{center}
+    Pseudocodice
+\end{center} 
+\codee{DFS2(graph G, vert x)\{}\\
+\hphantom{ident}\codee{S : stack = \{x\}}\\
+\hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\comm{L'array in questione}\\
+\hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
+\hphantom{ident}\hphantom{ident}\codee{if(Vis[y.adiacenti[0]]==0)\{}\comm{Trova un adiacenta non ancora controllato}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{z=y.adiacenti[0]}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis[z]=1}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{y.adiacenti.remove(0)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{y.adiacenti.remove(0)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{if(y.adiacenti\(\ne\)0)\{S.pop()\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Vis}\\
+\codee{\}}\acc 
+Si è nell'ipotesi in cui il grafo è implementato con le liste di adiacenza, infatti si noti come ogni vertice 
+presenta il campo \code{adiacenti}. Per rendere più efficiente il tutto senza dover controllare ogni volta se un 
+nodo è stato già visitato, semplicemente si rimuove dalla lista di adiacenza, ed ogni volta se ne prende il primo 
+di tale lista che sicuramente non è stato ancora visitato, rendendo costante tale operazione.\acc 
+Qual'è ora il costo computazionale? Quante  volte viene eseguito il ciclo \code{while}? Rispondere a ciò risulta 
+difficile, piuttosto ci si chiede quanto lavoro devo fare nel ciclo per ogni vertice? Per ognuno di essi, si 
+esegue un numero limitato di volte il comando \code{S.top()}. Nello specifico, si esegue tante volte quanto è il 
+grado del vertice, risulta naturale che la complessità finale sia : 
+$$O(n)+O\big( \sum_{v\in V(G)}\deg(v)\big)=O(n+|E|)=O(n+m)\text{ costo lineare}$$
+Lo stesso algoritmo, si presta in maniera piuttosto naturale ad essere implementato in maniera ricorsiva, 
+permettendo l'omissione dell'utilizzo di uno stack.\begin{center}
+    Pseudocodice
+\end{center} 
+\codee{DFSRec(graph G, vert x,int[n] Vis)\{}\\
+\hphantom{ident}\codee{Vis[x]=1}\\
+\hphantom{ident}\codee{for each y\(\in\)x.adiacenti\{}\comm{per ogni adiacente di x}\\
+\hphantom{ident}\hphantom{ident}\codee{if(Vis[y]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSRec(G,y,Vis)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\codee{\}}\acc 
+Il ciclo \code{for each y\(\in\)x.adiacenti} considera ogni adiacente di \(x\) una volta sola, facendo 
+lo stesso lavoro di "cancellazione" dei vicini già controllati, la complessità rimane la medesima.\acc
 \end{document}
