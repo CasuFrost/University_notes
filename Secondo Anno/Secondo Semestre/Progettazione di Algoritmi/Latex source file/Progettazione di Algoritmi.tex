@@ -215,6 +215,7 @@ array nella seguente maniera : sarà composto da \(n:=|V|\) elementi inizializza
 \codee{DFS2(graph G, vert x)\{}\\
 \hphantom{ident}\codee{S : stack = \{x\}}\\
 \hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\comm{L'array in questione}\\
+\hphantom{ident}\codee{Vis[x]=1}\\
 \hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
 \hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
 \hphantom{ident}\hphantom{ident}\codee{if(Vis[y.adiacenti[0]]==0)\{}\comm{Trova un adiacenta non ancora controllato}\\
@@ -253,4 +254,70 @@ permettendo l'omissione dell'utilizzo di uno stack.\begin{center}
 \codee{\}}\acc 
 Il ciclo \code{for each y\(\in\)x.adiacenti} considera ogni adiacente di \(x\) una volta sola, facendo 
 lo stesso lavoro di "cancellazione" dei vicini già controllati, la complessità rimane la medesima.\acc
+Si considera la figura seguente, rappresentante una visita \textit{DFS} su un grafo :
+\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/AlberoDiVisita.eps}
+\end{center}
+Dal nodo di partenza, si inizia a visitare diversi nodi seguendo diversi percorsi, definiamo 
+\textbf{albero di visita}, il sottografo generato, o composto dagli archi che utilizziamo per raggiungere i nuovi 
+vertici non ancora visitati. In generale, un albero è un grafo connesso ed aciclico. Essendo che non si ritorna mai 
+in un nodo già visitato due volte, nell'albero di visita non si creeranno cicli (rendendolo appunto un albero).\acc 
+Possiamo applicare lo stesso algoritmo ai grafi diretti, l'unica considerazione da fare, è il controllo dell'ordine
+di ogni arco. Consideriamo l'implementazione non ricorsiva.\begin{center}
+    Pseudocodice
+\end{center} 
+\codee{DFSdiretto(graph G, vert x,)\{}\\
+\hphantom{ident}\codee{S : stack = \{x\}}\\
+\hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\\
+\hphantom{ident}\codee{Vis[x]=1}\\
+\hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
+\hphantom{ident}\hphantom{ident}\codee{if(\(\exists z|(y,z)\in E(G)\land \) Vis[z]==0)\{}\comm{l'arco ha la giusta orientazione}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis[z]=1}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.pop()}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Vis}\\
+\codee{\}}\acc 
+Anche questo algoritmo genera l'albero di visita, solo che avrà tutti gli archi, ordinati "verso il basso", ossia 
+seguiranno l'orientazione che va dalla radice verso le foglie, tale albero è detto \textbf{arborescenza}.
+\subsubsection{Componenti di un Grafo}
+Se \(G\) è un grafo connesso, è ovvio che la DFS, qualsi voglia sia il vertice iniziale, restituirà sempre tutti 
+i vertici del grafo. Se esso non dovesse essere connesso, restituirà un sottografo, precisamente il sottografo 
+\textbf{componente} connesso che contiene il nodo input, i diversi sottografi componenti costituiscono una 
+\textit{partizione} del grafo originale.\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/comp.eps}
+\end{center}
+Saper riconoscere le componenti di un grafo è un problema noto, che trova applicazione in svariati ambiti, ad esempio, 
+nell'identificazione delle reti di amicizia in un social network, per capire se ci sono grandi gruppi di persone 
+per i quali non vi è nemmeno 1 collegamento.\acc 
+Il problema è il seguente, si vuole scrivere un algoritmo che identifichi tutte le componenti di un grafo, 
+associando ad ogni vertice, un indice che ne indica la componente, dato un grafo \(G\), e due vertici 
+\(x,y\), si vuole costruire 
+un array Comp  tale che : \begin{center}
+    Comp[\(x\)]=Comp[\(y\)]\(\iff\)\(x\) ed \(y\) sono nella stessa componente
+\end{center}
+Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessarie 2 funzioni : \begin{center}
+    Pseudocodice
+\end{center} 
+\codee{DFSRecComp(graph G, vert x,int[n] Comp, int index)\{}\comm{funzione di supporto}\\
+\hphantom{ident}\codee{Comp[x]=index}\\
+\hphantom{ident}\codee{for each y\(\in\)x.adiacenti\{}\comm{per ogni adiacente di x}\\
+\hphantom{ident}\hphantom{ident}\codee{if(Comp[y]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSRec(G,y,Comp,index)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\codee{\}}\acc 
+\codee{Comp(graph G)\{}\comm{funzione principale da eseguire}\\
+\hphantom{ident}\codee{Comp : int[n] = [0,0\(\dots \)0]}\\
+\hphantom{ident}\codee{index = 0}\\
+\hphantom{ident}\codee{for each x\(\in\)V(G)\{}\comm{per ogni vertice del grafo}\\
+\hphantom{ident}\hphantom{ident}\codee{index++}\\
+\hphantom{ident}\hphantom{ident}\codee{DFSRecComp(G,x,Comp,index)}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Comp}\\
+\codee{\}}\acc 
 \end{document}
