@@ -19,6 +19,7 @@
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\dete}{{\rightarrow}}
 \newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\spaz}{{\hphantom{spazio} }}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \title{Sistemi Operativi 2}
 \author{Marco Casu}
@@ -108,4 +109,80 @@ a quali gruppi appartiene un utente tramite il comando \shelll{groups}.\acc
 comando chiamato \shelll{su}, e sta per \textit{substitute user}, e serve per cambiare utente, e diventare 
 possibilmente amministratore, risulta comunque meno sicuro del comando \shelll{sudo}, in quanto quest'ultimo 
 permette solo di eseguire un operazione in maniera privilegiata, senza rimanere nella condizione di root.
+\section{Il File System}
+La gestione dei file in un sistema Unix non è delegata al kernel, essi non risiedono infatti in quest'ultimo, e più file system 
+possono coesistere nello stesso sistema : diversi dischi (o altre unità di archiviazione) possono gestire i file in maniera
+ diversa. Tutti i file convivono sotto la stessa cartella radice, detta \textit{root}, in maniera totalmente trasparente.\acc 
+ Il file system gestisce la memoria secondaria ed è organizzato in maniera \textbf{gerarchica}, vi è una \textit{directory}
+  (cartella) principale che si trova alla radice dell'albero, che si dirama in più directory fino ad arrivare alle foglie, 
+  ovvero i file (che non possono ospitare altri file), è una struttura ricorsiva. Ci sono due tipi di file in Unix : \begin{itemize}
+    \item \textbf{file non regolari} - Quei file che danno un \textit{accesso astratto} a periferiche e dispositivi, come già
+    accennato, in Unix tutto può essere visto come un file o come un processo, de facto anche lo stesso mouse viene modellato come 
+    un file, e sarà appunto un file di questo tipo.
+    \item \textbf{file regolari} - Tutti i restanti file ordinari, come un file di testo o l'eseguibile di un programma.
+  \end{itemize}
+La directory root è indicata dal simbolo \shelll{/}, tutto è contenuto in tale cartella, anche una chiavetta USB che viene 
+inserita nella macchina, i drive riceveranno una cartella sotto la root. Il file system impone alcune restrizioni sui nomi dei file : \begin{itemize}
+    \item Non è possibile creare due file con lo stesso nome nella stessa directory.
+    \item Non è possibile creare due directory con lo stesso nome nella stessa directory.
+    \item Non è possibile creare una directory ed un file con lo stesso nome nella stessa directory.
+\end{itemize}
+\subsection{Operazioni sulle Directory}
+Ogni singolo file del file system è raggiungibile mediante un cammino detto \textit{path}, una sequenza di nomi di directory 
+separate dal carattere \shelll{/} che indicano la locazione del file, tale path può essere assoluto o relativo. In ogni sistema 
+Unix, la directory \textit{home} dell'utente può anche essere indicata con il carattere \shelll{\(\sim\)}, infatti, i seguenti 
+due path sono equivalenti : \acc 
+\shelll{\(\sim\)/Immagini(faces)}\\
+\shelll{home/Immagini(faces)}\acc
+Nella shell, viene sempre visualizzata la directory corrente nella quale ci si trova, che di default è home appena si apre il 
+terminale, cambiando la directory cambierà anche la dicitura che indica la current directory sul prompt.
+\subsubsection{Comandi di Base}
+Il comando \shelll{cd}, che sta per \textit{change directory}, serve a cambiare la directory corrente, e richiede come 
+argomento un path, che può essere assoluto o relativo, se relativo, si riferirà alle directory contenute nella current directory, altrimenti 
+si può dare il cosiddetto path assoluto, specificando la posizione a partire dalla root.\acc 
+\shell{cd Immagini}\spaz per spostarsi nella cartella immagini\\
+\shelll{casufrost@debian:$\sim$/Immagini\$}\acc 
+Se non si passa alcun argomento, il comando sposta l'utente nella home. È possibile riferirsi alla directory padre 
+con \shelll{cd ..} o alla directory corrente con \shelll{cd .}.\acc 
+È possibile creare nuove cartelle con il comando \shelll{mkdir}, che sta per \textit{make directory}, prende come argomento 
+il path di una cartella, se essa non esiste, verrà creata, è possibile utilizzare l'opzione \code{-p} per creare 
+tutto un intero path specificato, creando l'intero cammino in un solo comando.\acc Un path assoluto è valido in qualunque caso, un 
+path relativo è ovviamente dipendente dalla current directory, potrebbe quindi risultare non valido. Supponiamo che nel file 
+system esista il seguente path : \code{home/animal/dog}, si avrà che : \acc 
+\shell{cd dog} Non è valido, funzionerebbe se fossimo in \code{animal}\\
+\shell{cd /home/casufrost/animal/dog} assoluto, quindi valido\acc 
+Un altro comando estremamente utile è \shelll{ls}, che sta per \textit{list segments}, prende come argomento una directory (se 
+omesso considera quella corrente), e mostra tutti i contenuti all'interno di essa, l'opzione \code{-l} mostra ulteriori informazioni 
+utili, come i permessi di lettura o scrittura (verrà approfondito in seguito). \acc 
+In Unix i file che iniziano con il punto, ad esempio \code{.secret.txt} sono nascosti, è possibile visualizzarli con il 
+comando \shelll{ls -a}.\acc 
+Esistono altri comandi secondari piuttosto utili : \shelll{tree} mostra l'alberazione della directory, \shelll{touch} crea 
+un file vuoto, \shelll{pwd} stampa a schermo la directory corrente.
+\subsection{Struttura del File System}
+\subsubsection{Mounting e Partizioni}
+Il file system può contenere dischi di memoria secondaria, anche dischi in reta, o addirittura una porzione della RAM, tutto 
+grazie al meccanismo di \textbf{mounting}, ossia l'operazione di attaccare la radice del file system di un unità secondaria, ad una 
+cartella appartenente al file system principale, ossia quello della radice root. \begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/mounting.eps}
+\end{center}
+Una qualsiasi directory dell'albero principale può diventare un \textit{punto di mount} di una qualsiasi altro 
+file system, l'unico fatto da considerare è il seguente : Se viene montato un disco su una directory contenete dei file, 
+tali file non saranno accessibili finché il mounting verrà rimosso, è quindi opportuno montare i dischi su directory vuote.\acc 
+Un disco, può essere anche \textbf{partizionato}, ossia diviso in unità logiche disgiunte che il sistema operativo vedrà come 
+ dischi differenti, è solito partizionare il disco in modo da avere un unità per il sistema operativo (che viene montata sulla 
+ root) ed un unità per i dati dell'utente (che viene montata sulla home).
+ Partizionare il disco risulta comodo ed aumenta il grado di sicurezza nell'organizzazione dei file, se dovesse accadere qualcosa 
+ all'unità dell'OS, i dati utente non rimarrebbero corrotti. \acc 
+ Linux funziona con diversi tipi di file system, un file system piuttosto utilizzato è quello di tipo \textit{Journal}, esso 
+ tiene traccia di tutte le operazioni da eseguire sul disco, in caso di problemi ad esso, consultando il "diario", è possibile 
+ avere informazioni riguardo le operazioni eseguite, e le operazioni da eseguire ma non completate, riducendo il danno.\acc 
+ Diversi file system differiscono in caratteristiche quali : \begin{itemize}
+    \item Dimensione massima delle unità di una partizione 
+    \item Dimensione massima di un file
+    \item Lunghezza massima per il nome di file o directory
+ \end{itemize}
+ In unix esistono due importanti file che tengono traccia dei dischi montati, il file \code{/etc/mtab} contiene informazioni 
+ sui dischi montati all'avvio della macchina, \code{/etc/fstab} contiene informazioni sui dischi montati dinamicamente dall'utente, è 
+ possibile visualizzare il contenuto di questi file (come di un qualsiasi altro file) tramite il comando \shelll{cat}.
+ \subsubsection{Inode e Metadati}
 \end{document}
