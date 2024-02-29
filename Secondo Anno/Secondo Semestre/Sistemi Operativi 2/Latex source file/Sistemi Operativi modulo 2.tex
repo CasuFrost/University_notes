@@ -185,4 +185,77 @@ Un disco, può essere anche \textbf{partizionato}, ossia diviso in unità logich
  sui dischi montati all'avvio della macchina, \code{/etc/fstab} contiene informazioni sui dischi montati dinamicamente dall'utente, è 
  possibile visualizzare il contenuto di questi file (come di un qualsiasi altro file) tramite il comando \shelll{cat}.
  \subsubsection{Inode e Metadati}
+ Come vengono gestiti i file all'interno del file system, o meglio, quale struttura dati è impiegata? Esiste una struttura chiama 
+ \textbf{inode}, contenente ogni singolo file, identificato da un codice univoco detto \textit{inode number}, fisicamente quindi 
+ non vi è un implementazione ad albero/gerarchica.\acc 
+ Quando un file viene eliminato, non viene realmente cancellato fisicamente, viene solamente etichettato come "libero" l'inode 
+ number ad esso associata, permettendo a nuovi eventuali file di venire associati a quel numero. Il numero totale di entrate 
+ nell'inode è elevatissimo ma limitato, esiste quindi un limite al numero di file che possono coesistere nel sistema.\acc 
+ Ogni file ha quindi un entrata nell'inode, che ne specifica il codice, ed altri \textit{metadati} utili riguardanti il file, 
+ essi sono : \begin{itemize}
+    \item Type - il suo tipo, se regolare o non regolare 
+    \item User Id - l'Id dell'utente proprietario del file 
+    \item Group Id - l'Id del gruppo primario del proprietario 
+    \item Mode - permessi di lettura, scrittura ed accesso, riguardanti il proprietario, il gruppo del proprietario e 
+    tutti gli altri  utenti
+    \item Size - le dimensioni in byte del file 
+    \item Timestamps - 3 marcature temporali riguardanti l'istante di cambiamento di un metadato, modifica e lettura del file.
+    \item Data pointers - puntatore alla lista di blocchi che compone il file.
+ \end{itemize} 
+ Le directory contengono informazioni sugli inode number dei file che contengono, permettendo al sistema di seguire i percorsi 
+ specificati dall'utente. Tramite il comando \shelll{ls -i},  è possibile visualizzare 
+ l'inode number  nel terminale.\subsection{Permessi di Accesso}
+ Nei metadati di un file, sono contenute delle informazioni riguardanti l'accesso, appunto del file, da parte dei vari utenti 
+ che co-abitano l'ambiente di sistema. \begin{quote}
+Supponiamo che il sig. Rossi per non perdere traccia dei suoi accessi ai vari servizi 
+ online, si scriva tutte le sue password su un file di testo, che salva sul desktop. Il sig. Verdi, accede al medesimo sistema 
+ (ovviamente con un utente differente), esso può visualizzare le password del sig. Rossi?    
+\end{quote}
+Ogni file contiene dei bit che definiscono i permessi di accesso per i vari utenti, esistono 3 diversi tipi di accesso : \begin{itemize}
+    \item \code{r} - \textit{read}, accesso in lettura 
+    \item \code{w} - \textit{write}, accesso in scrittura 
+    \item \code{x} - \textit{execute}, accesso in esecuzione
+\end{itemize}
+Quest'ultimo è valido per le directory, una directory con l'accesso \code{x} può essere navigata. Per un file eseguibile non ha 
+senso l'accesso \code{x} singolarmente, in quanto è necessario anche che il file venga letto.
+Quindi ogni file ha 3 bit, che ne identificano gli accessi, essendo 3 bit, possono anche essere visti come un
+numero intero da 0 a 7.\begin{center}
+    \begin{tabular}{l|c|c|l|c|}
+        \cline{2-5}
+        \rowcolor[HTML]{C0C0C0} 
+        \cellcolor[HTML]{FFFFFF}{\color[HTML]{FFFFFF} } & 4                                                 & 2                                                 & 1                         & permessi                \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}0} & -                                                 & -                                                 & -                         & nessun permesso         \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}1} & -                                                 & -                                                 & \code{x}& solo esecuzione         \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}2} & -                                                 & \code{w}                        & -                         & solo scrittura          \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}3} & -                                                 & \cellcolor[HTML]{EFEFEF}\code{w}& \code{x}& scrittura ed esecuzione \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}4} & \cellcolor[HTML]{EFEFEF}\code{r} & -                                                 & -                         & solo lettura            \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}5} & \cellcolor[HTML]{EFEFEF}\code{r} & -                                                 & \code{x}& lettura ed esecuzione   \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}6} & \cellcolor[HTML]{EFEFEF}\code{r} & \cellcolor[HTML]{EFEFEF}\code{w}& -                         & lettura e scrittura     \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}7} & \cellcolor[HTML]{EFEFEF}\code{r} & \cellcolor[HTML]{EFEFEF}\code{w}& \code{x}& tutti i permessi        \\ \hline
+        \end{tabular}
+\end{center}
+Il fatto è che non esiste una sola tripla di bit, ma ne esistono ben 3, la prima identifica i permessi per l'utente proprietario 
+del file in questione, la seconda identifica i permessi per gli utenti che appartengono al gruppo primario del proprietario del file, 
+la terza identifica i permessi per tutti gli altri utenti. Ad esempio, se il file \code{frost.txt} ha i permessi 
+\code{rwx,rwx,r--} o \code{774} può essere letto, scritto ed eseguito dal proprietario e dai membri del suo gruppo primario, 
+mentra può essere esclusivamente letto da tutti gli altri utenti.
+\acc
+Esistono inoltre 3 ulteriori bit nei metadati di ogni file che consentono ulteriori permessi : \begin{itemize}
+    \item \textbf{sticky bit} - Serve a proteggere le directory ed il loro contenuto dagli utenti non proprietari, un file in una 
+    directory può essere acceduto da chi ha i permessi della directory ma non del file, con lo sticky bit, sarà necessario 
+    essere proprietario del file in questione.
+    \item \textbf{setuid bit} - Utilizzato esclusivamente per i file eseguibili, permette a coloro che eseguono il 
+    file in questione di ottenere momentaneamente gli stessi permessi del proprietario del file, ad esempio il comando 
+    \shelll{passwd} sfrutta tale bit, e permette ad un utente di modificare la propria password anche se il proprietario 
+    del file è l'utente root.
+    \item \textbf{setgid bit} - Analogo al precedente, ma riguardante il gruppo.
+\end{itemize}
 \end{document}
