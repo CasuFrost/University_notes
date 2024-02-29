@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240229195030" modified="D:20240229200305"/>
+<info created="D:20240229200417" modified="D:20240229202232"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,31 +313,44 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" stroke="black" fill="0 0.502 0.502" pen="fat" opacity="50%" stroke-opacity="opaque">
+<path layer="alpha" matrix="1 0 0 1 -80 -128" stroke="black" fill="0 0.502 0.502" pen="fat" opacity="50%" stroke-opacity="opaque">
 16 0 0 16 272 656 e
 </path>
-<path stroke="black" fill="0 0.502 0.502" pen="fat" opacity="50%" stroke-opacity="opaque">
+<path matrix="1 0 0 1 -80 -128" stroke="black" fill="0 0.502 0.502" pen="fat" opacity="50%" stroke-opacity="opaque">
 16 0 0 16 320 720 e
 </path>
-<path stroke="black" fill="0 0.502 0.502" pen="fat" opacity="50%" stroke-opacity="opaque">
+<path matrix="1 0 0 1 -80 -128" stroke="black" fill="0 0.502 0.502" pen="fat" opacity="50%" stroke-opacity="opaque">
 16 0 0 16 368 656 e
 </path>
-<path stroke="black" pen="fat" arrow="normal/normal">
+<path matrix="1 0 0 1 -80 -128" stroke="black" pen="fat" arrow="normal/normal">
 272 672 m
 272 720
 304 720 c
 </path>
-<path stroke="black" pen="fat" arrow="normal/normal">
+<path matrix="1 0 0 1 -80 -128" stroke="black" pen="fat" rarrow="normal/normal">
 368 672 m
 368 720
 336 720 c
 </path>
-<path stroke="black" pen="fat" arrow="normal/normal">
-288 656 m
-352 656 l
+<path matrix="1 0 0 1 -80 -176" stroke="black" fill="0 0.502 0.502" pen="fat" opacity="50%" stroke-opacity="opaque">
+16 0 0 16 320 720 e
 </path>
-<text transformations="translations" pos="320 720" stroke="black" type="label" width="23.766" height="10.674" depth="4.78" halign="center" valign="center" size="Huge" style="math">x_2</text>
-<text matrix="1 0 0 1 -48 -64" transformations="translations" pos="320 720" stroke="black" type="label" width="23.766" height="10.674" depth="4.78" halign="center" valign="center" size="Huge" style="math">x_1</text>
-<text matrix="1 0 0 1 48 -64" transformations="translations" pos="320 720" stroke="black" type="label" width="23.766" height="10.674" depth="4.78" halign="center" valign="center" size="Huge" style="math">x_3</text>
+<path matrix="1 0 0 1 -64 0" stroke="black" pen="fat" arrow="normal/normal" opacity="50%" stroke-opacity="opaque">
+352 512 m
+352 496
+352 480
+256 480
+256 496
+256 512 c
+</path>
+<path matrix="1 0 0 1 -64 0" stroke="black" pen="fat" arrow="normal/normal" opacity="50%" stroke-opacity="opaque">
+336 528 m
+320 528
+320 512
+304 512
+304 528 c
+</path>
+<text matrix="1 0 0 1 0 -8" transformations="translations" pos="416 592" stroke="black" type="minipage" width="176" height="43.294" depth="38.4" valign="top" size="Large">L&apos;implicazione inversa non è verificata, infatti è possibile che esista un grafo in cui vi è un nodo senza archi uscenti, 
+ed anche un ciclo.</text>
 </page>
 </ipe>

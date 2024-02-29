@@ -336,5 +336,50 @@ del grafo, con la proprietà che tutti i vertici siano orientati "da destra vers
 \end{center}
 \textbf{Osservazione} : Se in un grafo diretto vi è un ciclo, allora il grafo non ha tutti gli archi che vanno 
 da destra verso sinistra. \acc 
-\textbf{Dimostrazione} : 
+\textbf{Dimostrazione} : Presumiamo che esista tale ordine, allora esiste un vertice \(x\) che è l'ultimo vertice 
+di tale ordinamento, esiste quindi un arco \((y,x)\) per qualche \(y\), però, nonostante sia l'ultimo, 
+data la presenza di un ciclo, deve esistere un arco uscente \((x,y)\), ma quindi l'ordine iniziale non è rispettato, 
+causando una contraddizione. \(\blacksquare\)\acc 
+Se in un grafo diretto vi è un ciclo, tutto il grafo non ammette la proprietà dell'orientazione degli archi. Tale 
+proprietà è nota con il nome di \textbf{ordine topologico}, e l'assenza di un ciclo, è condizione necessaria 
+e sufficiente per garantirla.\acc 
+\textbf{Proposizione} : Se ogni singolo vertice di un grafo diretto ha almeno un arco uscente, allora 
+esiste un ciclo.\acc 
+\textbf{Dimostrazione} : Se esiste sempre un arco uscente, è sempre possibile, partendo da un vertice \(x\) spostarsi 
+in un suo vertice adiacente, ciò significa che è possibile "camminare" all'infinito sul grafo, il fatto è che il 
+numero di vertici è finito, quindi prima o poi si visiterà un vertice per una seconda volta, trovandosi in un 
+ciclo.\begin{center}
+\includegraphics[width=0.7\textwidth ]{images/controEsempio.eps}
+\end{center}
+\textbf{Corollario} : Se non esiste alcun ciclo in un grafo, allora esiste almeno un vertice che non ha 
+archi uscenti.\acc 
+Per ottenere un cosiddetto \textbf{ordinamento topologico}, posso considerare il seguente algoritmo : Si ha un 
+grafo diretto \(G\), sprovvisto di cicli, si sceglie un qualsiasi vertice privo di archi uscenti, si inserisce 
+in una lista per poi eliminarlo dal grafo (insieme a tutti i suoi archi associati), dopo ciò, si 
+ri-esegue l'operazione, inserendo ogni volta il vertice nella prima posizione della lista.\acc Tale algoritmo risulta 
+parecchio utile, si pensi all'ordinamento topologico applicato al grafo di serializzazione nell'ambito 
+del controllo della concorrenza 
+(trattato nel corso di \href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf}{Basi di Dati 1}).
+\begin{center}
+    Pseudocodice
+\end{center}
+\codee{OrdinamentoTopologico(graph G)\{}\comm{il grafo è diretto}\\
+\hphantom{ident}\codee{L : list}\comm{una lista vuota, sarà l'output dell'algoritmo}\\
+\hphantom{ident}\codee{while(G\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\codee{x=v\(\in\)V(G)|v.adiacentiOut=\(\emptyset\)}\comm{un vertice senza archi uscenti}\\
+\hphantom{ident}\hphantom{ident}\codee{L.insert(x)}\\
+\hphantom{ident}\hphantom{ident}\codee{G.delete(x)}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return L}\\
+\codee{\}}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/ordTopologico.eps}
+    \end{center}
+Il \textit{problema} di questo algoritmo è il suo costo computazionale, di fatto è troppo dispendioso : Per 
+controllare se un vertice non ha archi uscenti, si è in \(O(n)\), inoltre il ciclo \code{while} controlla 
+tutti i vertici, quindi si è nuovamente in \(O(n)\).    \acc  La cancellazione di un vertice risulta dispendiosa, in 
+quanto bisona eliminare anche tutti gli archi associati, ossia, eliminare il vertice da tutte le liste 
+di adiacenza degli altri vertici, il numero di controlli dipende dal grado di ogni vertice,
+quindi costa \(O(m)\). In totale, l'intero algoritmo ha una complessità \(O(n\cdot(n+m))\), vorremmo riuscire 
+ad ottenere lo stesso output in tempo lineare.
+\subsubsection{Contatore nel DFS e Relazioni sull'Arborescenza}
 \end{document}
