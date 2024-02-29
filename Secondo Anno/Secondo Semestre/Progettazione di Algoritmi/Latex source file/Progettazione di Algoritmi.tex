@@ -382,4 +382,52 @@ di adiacenza degli altri vertici, il numero di controlli dipende dal grado di og
 quindi costa \(O(m)\). In totale, l'intero algoritmo ha una complessità \(O(n\cdot(n+m))\), vorremmo riuscire 
 ad ottenere lo stesso output in tempo lineare.
 \subsubsection{Contatore nel DFS e Relazioni sull'Arborescenza}
+Vogliamo considerare un estensione del normale DFS, consideriamo un contatore, denotato \code{cc}, tale contatore, 
+verrà incrementato ogni qual volta verrà visitato per la prima volta un nuovo nodo.\acc Consideriamo inoltre, due nuove 
+funzioni \(t:V(G)\rightarrow\mathbb{N}\) e \(T:V(G)\rightarrow\mathbb{N}\), sia \(v\) un vertice, \(t(v)\) sarà uguale al valore 
+del contatore \code{cc} nel momento in cui \(v\) viene visitato per la prima volta, invece \(T(v)\) sarà uguale al valore 
+del contatore \code{cc} nel momento in cui \(v\) viene visitato per l'ultima volta, ossia quando esso viene rimosso dallo stack.\acc 
+\textbf{Osservazione} : \begin{itemize}
+    \item Per ogni coppia di vertici \(v,u\), si ha che \(t(v)\ne t(u)\)
+    \item Per ogni vertice \(v\), si ha che \(t(v)\le T(V)\)
+    \item Sia \(v\) un vertice, se \(t(v)=T(V)\), allora \(v\), è una foglia nell'albero di visita derivante dall'applicazione 
+    del DFS.
+    \item Sia \(n\) il numero di vertici e \(v_0\) la radice dell'albero di visita, si ha che \(t(v_0)=1\land T(v_0)=n\).
+\end{itemize}
+Esempio di applicazione dell'algoritmo (si parte dal vertice \(1\)) : \begin{center}
+    \includegraphics[width=1.05\textwidth ]{images/dfsContatore.eps}
+    \end{center}
+Ad ogni vertice \(v\), è associato un \textit{intervallo} \([t(v),T(v)]\), gli intervalli di vertici diversi possono 
+essere confrontati, e si ricade sempre in uno dei seguenti casi.\acc 
+\textbf{Osservazione} : Siano \(v\) e \(u\) due vertici distinti del grafo, uno dei seguenti punti è sempre vero:\begin{itemize}
+    \item \(i)\) $[t(v),T(v)]\subseteq[t(u),T(u)]$
+    \item \(ii)\) $[t(v),T(v)]\supseteq[t(u),T(u)]$
+    \item \(iii)\) $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$
+\end{itemize}
+\textbf{Dimostrazione} : Il quarto ed ultimo caso possibile, sarebbe un intersezione del tipo: $$
+t(u)<t(v)\le T(u)<t(v)$$ Basta dimostrare che questa casistica non può verificarsi. Se \(u\) è stato inserito 
+nello stack prima di \(v\), si avrà che \(T(u)\ge t(v)\), questo implica che \(u\) era già nello stack quando 
+\(v\) è stato inserito, ma allora è impossibile togliere \(u\) prima di \(v\), e necessariamente \(T(u)>T(v)\). \(\blacksquare\)\acc 
+Adesso, consideriamo il grafo sulla quale è stato applicato il nuovo DFS con contatore, e consideriamo gli archi che \textit{non appartengono} 
+all'arborescenza, ossia gli archi che non sono stati attraversati durante il DFS (nell'immagine esplicativa precedente, quelli colorati in 
+azzurro). \acc 
+Vi è un fatto interessante, consideriamo tutti un qualsiasi arco non facente parte dell'arborescenza, esso indica due vertici \((v,u)\), 
+e tali vertici posseggono gli intervalli che possono essere messi in relazione, ricadendo in uno dei 3 casi prima citati.\acc Gli archi 
+non facenti parte dell'arborescenza, se considerati nell'arborescenza, potranno essere di 3 tipi, o partire da un vertice ed andare 
+verso un suo antenato, o partire da un vertice ed andare 
+verso un suo successore, oppure attraversare due vertici di due diramazioni differenti, in effetti, riguardo la relazione 
+di intervalli prima citata, si ha che : \begin{itemize}
+    \item Se i due vertici dell'arco ricadono nel punto \((i)\), allora l'arco va da un antenato ad un discendente (\textbf{arco in avanti}).
+    \item Se i due vertici dell'arco ricadono nel punto \((ii)\), allora l'arco va da un discendente ad un antenato  (\textbf{arco all'indietro}).
+    \item Se i due vertici dell'arco ricadono nel punto \((iii)\), allora l'arco attraversa due diramazioni differenti  (\textbf{arco di attraversamento}).
+\end{itemize}
+Riguardo il grafo del precedente esempio : \begin{center}
+    \includegraphics[width=1.05\textwidth ]{images/archiArborescenza.eps}
+    \end{center}
+Si noti come l'arco che va dal vertice 8 al vertice 9, è un \textit{arco all'indietro}, infatti gli intervalli dei due 
+vertici ricadono nel secondo caso : \([9,9]\supseteq[7,9]\).\acc  
+Si noti come l'arco che va dal vertice 2 al vertice 4, è un \textit{arco in avanti}, infatti gli intervalli dei due 
+vertici ricadono nel primo caso : \([2,6]\subseteq[6,6]\).\acc  
+Si noti come l'arco che va dal vertice 7 al vertice 5, è un \textit{arco di attraversamento}, infatti gli intervalli dei due 
+vertici ricadono nel terzo caso : \([8,9]\cap[4,5]=\emptyset\).\acc  
 \end{document}
