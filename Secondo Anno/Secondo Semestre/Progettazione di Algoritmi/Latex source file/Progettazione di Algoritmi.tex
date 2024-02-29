@@ -178,7 +178,7 @@ alla fine visiterà ogni nodo per la quale esiste un cammino dal nodo iniziale.
 \hphantom{ident}\codee{Vis : set = [x]}\comm{l'insieme che conterrà l'output}\\
 \hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
 \hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
-\hphantom{ident}\hphantom{ident}\codee{if(\(\exists\)z adiacente ad y\(\land \)x\(\ne\)Vis)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(\(\exists\)z adiacente ad y\(\land \)x\(\notin\)Vis)\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis.add(z)}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
@@ -319,5 +319,22 @@ Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessar
 \hphantom{ident}\hphantom{ident}\codee{DFSRecComp(G,x,Comp,index)}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Comp}\\
-\codee{\}}\acc 
+\codee{\}}
+\subsubsection{Ordinamento Topologico}
+Supponiamo che vi sia un progetto da completare, che viene diviso in \(n\) piccoli processi 
+\(x_1,x_2\dots x_n\), e supponiamo che fra essi, vi siano delle dipendenze sull'ordine di completamento, ad 
+esempio : \begin{itemize}
+    \item Per essere completato \(x_1\), ha bisogno che siano completati \(x_2,x_3\)
+    \item Per essere completato \(x_3\), ha bisogno che sia completato \(x_2\)
+\end{itemize}
+Dobbiamo pensare ad una programmazione dei processi che rispetti le dipendenze allo scopo di completare il progetto.
+Nell'esempio dato, l'ordine corretto sarebbe \(x_2,x_3,x_1\). Utilizziamo un grafo diretto per modellizzare il 
+problema : i processi saranno i vertici del grafo, e vi sarà un arco da \(x_i\) a \(x_j\) se \(x_i\) dipende 
+da \(x_j\).\acc In questo modello, una programmazione dei processi non è altro che un ordine dei vertici 
+del grafo, con la proprietà che tutti i vertici siano orientati "da destra verso sinistra".\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/processiGrafo.eps}
+\end{center}
+\textbf{Osservazione} : Se in un grafo diretto vi è un ciclo, allora il grafo non ha tutti gli archi che vanno 
+da destra verso sinistra. \acc 
+\textbf{Dimostrazione} : 
 \end{document}
