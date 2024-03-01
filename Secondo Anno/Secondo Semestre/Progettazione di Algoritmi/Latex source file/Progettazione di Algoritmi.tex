@@ -430,4 +430,49 @@ Si noti come l'arco che va dal vertice 2 al vertice 4, è un \textit{arco in ava
 vertici ricadono nel primo caso : \([2,6]\subseteq[6,6]\).\acc  
 Si noti come l'arco che va dal vertice 7 al vertice 5, è un \textit{arco di attraversamento}, infatti gli intervalli dei due 
 vertici ricadono nel terzo caso : \([8,9]\cap[4,5]=\emptyset\).\acc  
+Se dovessi applicare lo stesso algoritmo ai grafi non diretti, non si potrebbe definire una relazione di antenato-discendente, 
+in quanto ogni arco è percorribile per entrambe le direzioni, quindi i casi \((i)\) e \((ii)\) indicherebbero la stessa 
+situazione.\acc 
+Inoltre, è impossibile che, per due nodi \(u,v\) si verifichi che $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$, quindi  
+il caso \((iii)\) è impossibile.\acc 
+\textit{\textbf{Esercizio}} : Si vuole dare lo pseudocodice di una modifica del DFS, che restituisca in output 3 liste, una contenente 
+gli archi in avanti, una quelli all'indietro, ed una gli archi di attraversamento.\begin{center}
+    Pseudocodice
+\end{center}
+\codee{DFSconArchi(graph G, vert x,)\{}\comm{il grafo è diretto}\\
+\hphantom{ident}\codee{int cc=1}\\
+\hphantom{ident}\codee{t : int[n]} \comm{array lungo \(n\) inizializzato a zero}\\
+\hphantom{ident}\codee{T : int[n]}\comm{array lungo \(n\) inizializzato a zero}\\
+\hphantom{ident}\codee{t[x]=1}\\
+\hphantom{ident}\codee{T[x]=|V(G)|}\\
+\hphantom{ident}\codee{S : stack = \{x\}}\\
+\hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\\
+\hphantom{ident}\codee{Vis[x]=1}\\
+\hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
+\hphantom{ident}\hphantom{ident}\codee{if(\(\exists z|(y,z)\in E(G)\land \) Vis[z]==0)\{}\comm{l'arco ha la giusta orientazione}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{c++}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{t[z]=cc}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis[z]=1}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.pop()}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{T[z]=cc}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{A : graph = arborescenza generata dal DFS}\\
+\hphantom{ident}\codee{A' : graph = G-A}\comm{il complementare dell'arborescenza}\\
+\hphantom{ident}\codee{av : list}\\
+\hphantom{ident}\codee{ind : list}\\
+\hphantom{ident}\codee{att : list}\\
+\hphantom{ident}\codee{for each (x,y)\(\in\)E(A')\{}\\
+\hphantom{ident}\hphantom{ident}\codee{switch(t[x],T[x],t[y],T[y])\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$[t(v),T(v)]\subseteq[t(u),T(u)]$ : sv.append((x,y))}\comm{si ricade nel primo caso}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$[t(v),T(v)]\supseteq[t(u),T(u)]$ : ind.append((x,y))}\comm{si ricade nel secondo caso}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$ : att.append((x,y))}\comm{si ricade nel terzo caso}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return av,ind,att}
+\codee{\}}\acc 
 \end{document}
