@@ -44,11 +44,9 @@
     \item Ogni \underline{Impiegato} sarà in relazione con un \underline{Dipartimento}.
     \item Ogni \underline{Dipartimento} sarà in una relazione esclusiva con un certo 
     \underline{Impiegato}, che ne sarà il direttore. 
-    \item Il direttore di un \underline{Dipartimento} sarà in relazione con il 
-    \underline{Dipartimento} esclusivamente secondo la relazione di direzione, e non 
-    secondo la stessa relazione per la quale sono associati gli altri impiegati.
-    \item Sarà quindi omesso che un direttore afferisca al \underline{Dipartimento}
-    della quale appunto, ne è alla direzione.
+    \item Uno \underline{Impiegato} può essere direttore di un \underline{Dipartimento} 
+    indipendentemente dal dipartimento alla quale afferisce.
+    \item Uno stesso \underline{Impiegato} può dirigere più di un \underline{Dipartimento} .
     \item Ogni \underline{Impiegato} può partecipare a più \underline{Progetti}. 
     \item Un apposita entità \underline{Partecipazione} si occuperà di tale relazione, specificando 
     anche la data nella quale l'\underline{Impiegato} ha iniziato a lavorare a tale 
@@ -56,7 +54,7 @@
     \item Un \underline{Progetto} avrà ad esso associato i record riguardanti i suoi 
     dettagli, come il nome ed il budget.
     \item Un  \underline{Impiegato}, nell'implementazione, potrà avere più dipartimenti alla quale 
-    afferisce o alla quale ne è direttore, lo scopo di ciò, è dare uno storico dei dipartimenti 
+    afferisce, lo scopo di ciò, è dare uno storico dei dipartimenti 
     passati alla quale è stato associato, difatti per ogni associazione fra  \underline{Impiegato} e \underline{Dipartimento},
     vi sarà una data di inizio-contratto in quel \underline{Dipartimento}.
     \item Come di facile intuizione, l'associazione con la data più recente sarà considerata 
@@ -67,9 +65,4 @@
 \begin{center}
     \includegraphics[width=1\textwidth ]{images/UML_visualParadigm.png}
 \end{center}
-\color{red} \textbf{ERRORE} : \color{black} L'aggiunta delle due classi \underline{Direzione}
-e \underline{Associazione} crea un inevitabile problema: Nonostante nei requisiti sia specificato 
-che un impiegato possa appartenere ad un solo dipartimento alla volta, nulla vieta ad esso 
-(guardando esclusivamente il diagramma) di essere relazionato a \underline{Dipartimento} per 
-via di entrambe le entità ponte.
 \end{document}
