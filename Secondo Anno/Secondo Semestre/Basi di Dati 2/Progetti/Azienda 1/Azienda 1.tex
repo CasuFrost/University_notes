@@ -32,14 +32,14 @@ I dati di interesse per il sistema sono \textbf{impiegati}, \textbf{dipartimenti
 \begin{enumerate}
     \item Nome (include anche il doppio nome), cognome, data di nascita. 
     \item Stipendio attuale \textit{(dato che interessa solo lo stipendio attuale, non serve memorizzare lo storico degli stipendi)}.
-    \item Dipartimento a cui afferisce, con relativa data di afferenza \textit{(esattamente uno)}.
     \item La data di afferenza al dipartimento non può essere precedente alla creazione dell'azienda.
-    \item Uno stesso impiegato può dirigere più di un dipartimento.
-    \item L'impiegato può partecipare a \textbf{0 o più progetti} \textit{(un nuovo impiegato non partecipa ancora a nessun progetto)}.
+    \item Dipartimento a cui afferisce, con relativa data di afferenza \textit{(esattamente uno)}.
     \item Ogni dipendente può cambiare dipartimento, e vogliamo memorizzare lo storico dei dipartimenti in cui ha lavorato.
     \item L'associazione con la data più recente sarà considerata 
     quella valida/corrente.
+    \item Uno stesso impiegato può dirigere più di un dipartimento.
     \item Un dirigente non afferisce al dipartimento che dirige. Afferisce al dipartimento riservato ai dirigenti.
+    \item L'impiegato può partecipare a \textbf{0 o più progetti} \textit{(un nuovo impiegato non partecipa ancora a nessun progetto)}.
 \end{enumerate}
 
 \paragraph{Dipartimento}
