@@ -98,5 +98,46 @@ i requisiti per la prima versione del software, nel tempo \(t_1\) gli analisti i
 possono essere nel mentre stilati i requisiti della versione 2, al tempo \(t_3\), com'è di facile intuzione : 
  Si raccolgono i requisiti per la versione 3, si produce il modello della versione 2, si progetta la versione 1.
  \subsection{Il linguaggio UML}
-
+Il linguaggio UML, acronimo di \textit{Unified Modeling Language}, nasce con l'intento di definire un 
+linguaggio logico-matematico e formale per la progettazione del software. Utilizza dei diagrammi con lo scopo di 
+"sintetizzare" un linguaggio puramente logico. \acc 
+Verrà utilizzato l'UML per modellare il dominio applicativo ed i dati di interesse, utilizzeremo il cosiddetto 
+\textbf{diagramma delle classi e degli oggetti}. Un \textit{oggetto} modella un elemento del dominio di business, 
+la cui esistenza è "autonoma", e può essere identificato appunto come un "oggetto" del mondo reale, identifica una classe, 
+di cui è "estensione", in maniera similare ai linguaggi object-oriented\acc Sarà importante concentrarsi sulle classi 
+piuttosto che sugli oggetti specifici, una classe definisce un nome identificativo, degli attributi e delle 
+operazioni.\begin{center}
+    \includegraphics[width=\textwidth ]{images/umlBase.eps}
+\end{center}
+Una classe permette di modellare oggetti dello specifico tipo definito da essa, un oggetto ha un identificatore 
+univoco (sottolineato), possono però esistere due oggetti identici, a patto che differiscano per 
+l'identificatore.
+\subsection{Associazioni e Link}
+Un \textit{associazione} definisce un legame fra due oggetti istanza di due classi diverse, si denota con una freccia o linea che collega due classi, 
+e deve presentare un titolo, ad esempio, un oggetto di tipo \textit{Libro}, può essere associato ad un oggetto 
+di tipo \textit{Persona} tramite un'ipotetica associazione \textit{autore}.\begin{center}
+    \includegraphics[width=\textwidth ]{images/associazione.eps}
+\end{center}
+Un \textit{link} non è altro che il corrispettivo delle associazioni, ma sugli oggetti istanza delle classi. Due oggetti 
+identici possono esistere, ma due link identici fra due oggetti no, si immagini l'esempio precedente di autore, 
+non avrebbe senso che una persona sia due volte autore dello stesso libro.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/2link.eps}
+\end{center}
+\subsubsection{Classi Ponte e Molteplicità}
+Si consideri adesso il seguente esempio, si vuole progettare un'applicazione che gestire le prenotazioni di un 
+hotel, e si produce il seguente modello UML, con le classi \textit{Hotel} e \textit{Persona} unite dall'associazione 
+"prenota", cosa succederebbe se una persona volesse prenotare 2 volte lo stesso hotel? \begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/hotelSbagliato.eps}
+\end{center}
+Non è giusto modellare la prenotazione come un associazione, in quanto vogliamo che le prenotazioni esistano come 
+oggetti autonomi, e che uno stesso cliente possa prenotare più volte lo stesso hotel, si necessita di una classe 
+prenotazione che si occupi di tale relazione, una classe di questo tipo è detta \textbf{classe ponte}, e nel 
+caso degli hotel, viene 
+implementata nel seguente modo : \begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/hotelGiusto.eps}
+\end{center}
+Ovviamente, fra le stesse due classi, possono esistere più associazioni diverse, ad esempio, le classi 
+\textit{Libro} e \textit{Persona}, potrebbero essere relazionate da \textit{autore} ed \textit{editore}. Inoltre, 
+un oggetto di una classe \(C_1\), può essere collegato tramite link a due oggetti diversi di una stessa classe 
+\(C_2\), ciò è valido, ma potrebbe causare alcuni errori logici : 
 \end{document}
