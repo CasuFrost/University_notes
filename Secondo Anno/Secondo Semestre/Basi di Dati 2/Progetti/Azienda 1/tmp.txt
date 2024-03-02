@@ -34,14 +34,9 @@ I dati di interesse per il sistema sono \textbf{impiegati}, \textbf{dipartimenti
     \item stipendio attuale \textit{(dato che interessa solo lo stipendio attuale, non serve memorizzare lo storico degli stipendi)}
     \item dipartimento a cui afferisce, con relativa data di afferenza \textit{(esattamente uno, non interessa lo storico nel caso di cambi di dipartimento)}
     \item la data di afferenza al dipartimento non può essere precedente alla creazione dell'azienda
-    \item Uno stesso impiegato può dirigere più di un dipartimento .
+    \item se l'impiegato è direttore di un dipartimento, allora afferisce \textbf{solo} al dipartimento di cui è direttore
+    \item il punto precedente implica che un impiegato può essere direttore di un solo dipartimento
     \item l'impiegato può partecipare a \textbf{0 o più progetti} \textit{(un nuovo impiegato non partecipa ancora a nessun progetto)}
-    \item Un impiegato, nell'implementazione, potrà avere più link con diversi dipartimenti, lo scopo di ciò, è permettere ad un impiegato 
-    di cambiare dipartimento, e fornire uno storico dei dipartimenti 
-    passati alla quale è stato associato, difatti per ogni associazione fra  impiegato e dipartimento,
-    vi sarà una data di inizio-contratto in quel dipartimento.
-    \item Come di facile intuizione, l'associazione con la data più recente sarà considerata 
-    quella valida/corrente.
 \end{itemize}
 
 \paragraph{Dipartimento}
@@ -84,7 +79,7 @@ I dati di interesse per il sistema sono \textbf{impiegati}, \textbf{dipartimenti
 
 \section{UML}
 
-\includegraphics[width=\textwidth]{Azienda1.eps}
+\includegraphics[width=\textwidth]{Azienda 1.png}
 
 
 \end{document}
