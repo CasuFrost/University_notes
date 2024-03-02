@@ -29,39 +29,31 @@ I dati di interesse per il sistema sono \textbf{impiegati}, \textbf{dipartimenti
 
 % \textit{(se vogliamo essere pedanti, l'impiegato deve avere almeno 16 anni e al più 70, ma dipende dal ma dipende dal giorno in cui viene assunto, quindi è un requisito inutile)}
 
-\begin{itemize}
-    \item nome (include anche il doppio nome), cognome, data di nascita 
-    \item stipendio attuale \textit{(dato che interessa solo lo stipendio attuale, non serve memorizzare lo storico degli stipendi)}
-    \item dipartimento a cui afferisce, con relativa data di afferenza \textit{(esattamente uno, non interessa lo storico nel caso di cambi di dipartimento)}
-    \item la data di afferenza al dipartimento non può essere precedente alla creazione dell'azienda
-    \item Uno stesso impiegato può dirigere più di un dipartimento .
-    \item l'impiegato può partecipare a \textbf{0 o più progetti} \textit{(un nuovo impiegato non partecipa ancora a nessun progetto)}
-    \item Un impiegato, nell'implementazione, potrà avere più link con diversi dipartimenti, lo scopo di ciò, è permettere ad un impiegato 
-    di cambiare dipartimento, e fornire uno storico dei dipartimenti 
-    passati alla quale è stato associato, difatti per ogni associazione fra  impiegato e dipartimento,
-    vi sarà una data di inizio-contratto in quel dipartimento.
-    \item Come di facile intuizione, l'associazione con la data più recente sarà considerata 
+\begin{enumerate}
+    \item Nome (include anche il doppio nome), cognome, data di nascita. 
+    \item Stipendio attuale \textit{(dato che interessa solo lo stipendio attuale, non serve memorizzare lo storico degli stipendi)}.
+    \item Dipartimento a cui afferisce, con relativa data di afferenza \textit{(esattamente uno)}.
+    \item La data di afferenza al dipartimento non può essere precedente alla creazione dell'azienda.
+    \item Uno stesso impiegato può dirigere più di un dipartimento.
+    \item L'impiegato può partecipare a \textbf{0 o più progetti} \textit{(un nuovo impiegato non partecipa ancora a nessun progetto)}.
+    \item Ogni dipendente può cambiare dipartimento, e vogliamo memorizzare lo storico dei dipartimenti in cui ha lavorato.
+    \item L'associazione con la data più recente sarà considerata 
     quella valida/corrente.
-\end{itemize}
+    \item Un dirigente non afferisce al dipartimento che dirige. Afferisce al dipartimento riservato ai dirigenti.
+\end{enumerate}
 
 \paragraph{Dipartimento}
 
-\begin{itemize}
-    \item nome, telefono
-    \item ogni dipartimento ha esattamente un direttore, quindi per poter creare un dipartimento serve che esista già un impiegato a cui assegnare il ruolo
-    \item per poter registrare un impiegato, questo deve essere assegnato ad un dipartimento già esistente, quindi si hanno due opzioni
-        \begin{itemize}
-            \item assumere un nuovo impiegato \textit{(per il ruolo di direttore)} assegnandoli inizialmente un dipartimento arbitrario, per poi cambiarlo al nuovo dipartimento una volta creato
-            \item supporre che, nell'evento della creazione di un nuovo dipartimento, il direttore venga scelto fra uno degli impiegati che già lavora regolarmente in azienda, per cui basta cambiare il dipartimento di afferenza \textit{(e la rispettiva data)}
-        \end{itemize}
-\end{itemize}
+\begin{enumerate}
+    \item Nome, telefono.
+\end{enumerate}
 
 \paragraph{Progetto}
 
-\begin{itemize}
-    \item ad un progetto possono partecipare \textbf{0 o più impiegati} \textit{(potrebbe succedere che il progetto è nuovo e non è stato assegnato nessuno)}
-    \item il budget di un progetto non può essere negativo \textit{(o si? Teniamo traccia del budget man mano che viene usato? O solo del budget iniziale? O per le spese si fa una cosa a parte?)}
-\end{itemize}
+\begin{enumerate}
+    \item Ad un progetto possono partecipare \textbf{0 o più impiegati} \textit{(potrebbe succedere che il progetto è nuovo e non è stato assegnato nessun impiegato)}.
+    \item Il budget di un progetto non può essere negativo. 
+\end{enumerate}
 
 % I dati di interesse per il sistema sono impiegati, dipartimenti, direttori dei dipartimenti e
 % progetti aziendali.
@@ -84,7 +76,7 @@ I dati di interesse per il sistema sono \textbf{impiegati}, \textbf{dipartimenti
 
 \section{UML}
 
-\includegraphics[width=\textwidth]{Azienda1.eps}
+\includegraphics[width=\textwidth]{UML.png}
 
 
 \end{document}
