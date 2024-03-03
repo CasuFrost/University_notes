@@ -139,5 +139,29 @@ implementata nel seguente modo : \begin{center}
 Ovviamente, fra le stesse due classi, possono esistere più associazioni diverse, ad esempio, le classi 
 \textit{Libro} e \textit{Persona}, potrebbero essere relazionate da \textit{autore} ed \textit{editore}. Inoltre, 
 un oggetto di una classe \(C_1\), può essere collegato tramite link a due oggetti diversi di una stessa classe 
-\(C_2\), ciò è valido, ma potrebbe causare alcuni errori logici : 
+\(C_2\), ciò è valido, ma potrebbe causare alcuni errori logici : \begin{center}
+    \includegraphics[width=1\textwidth ]{images/multError.eps}
+\end{center}
+Nonostante lo schema relazionale permetta tali istanze, il fatto che una persona sia nata in due città differenti 
+non rispetta i vincoli del mondo reale, il diagramma è quindi troppo \textit{lasco}, appositamente per situazioni 
+di questo tipo, esistono dei costrutti, detti \textbf{vincoli di molteplicità} sulle associazioni, che restringono 
+il possibile numero delle istanze, imponendo delle restrizioni sul numero di link che possono esistere fra due classi.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/molteplicita.eps}
+\end{center} 
+I vincoli di molteplicità vengono aggiunti ai terminali della linea associazione : \begin{itemize}
+    \item il vincolo \textbf{0..*} posto al terminale della classe \textit{A}, in associazione con la 
+    classe \textit{B} implica che ogni istanza della classe \textit{A}, dovrà essere coinvolta in un numero di link 
+    dell'associazione in questione, che va da 0 ad un qualsiasi numero (ogni istanza di \textit{A} può essere legata 
+    ad un numero qualunque di istanze di \textit{B}).
+    \item il vincolo \textbf{1..1} posto al terminale della classe \textit{A}, in associazione con la 
+    classe \textit{B} implica che ogni istanza della classe \textit{A}, dovrà essere coinvolta in un numero di link 
+    dell'associazione in questione, che va da 1 ad 1 (ogni istanza di \textit{A} sarà collegata ad una sola 
+    istanza di \textit{B}).
+    \item (caso generale) il vincolo \textbf{\(k\)..\(n\)} posto al terminale della classe \textit{A}, in associazione con la 
+    classe \textit{B} implica che ogni istanza della classe \textit{A}, dovrà essere coinvolta in un numero di link 
+    dell'associazione in questione, che va da \(k\) ad \(n\).
+\end{itemize}\begin{center}
+    \includegraphics[width=\textwidth ]{images/esempioAuto.eps}
+\end{center} 
 \end{document}
