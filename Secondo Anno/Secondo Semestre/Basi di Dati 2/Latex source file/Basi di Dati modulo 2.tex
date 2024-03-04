@@ -17,6 +17,7 @@
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\dete}{{\rightarrow}}
 \newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\comm}[1]{\color{lg}\textit{\hphantom{spaz}// \text{#1}}\color{black}}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \title{Basi di Dati 2}
 \author{Marco Casu}
@@ -209,5 +210,35 @@ considerare il tipo del dato, esiste infatti un insieme di tipi di
 dato \textit{concettuali}, che siano facilmente implementabili 
 in modo ovvio su qualsiasi sistema o linguaggio di programmazione.\begin{center}
     \code{Intero, Reale, Booleano, Data, Ora, DataOra}
+\end{center} Il fatto è che il linguaggio UML vuole modellare situazioni 
+reali, è quindi necessario considerare dei tipi di dato più restrittivi ed 
+accurati, nell'esempio precedente degli esami, che tipo di dato dovrebbe 
+assumere l'attributo \textit{voto}? \acc Non possiamo dargli il tipo "intero", 
+in quanto ciò permetterebbe ad un voto di assumere anche valori come -5 o 25013, e 
+non avrebbe alcun senso per essere un voto di un esame. È possibile considerare 
+dei \textbf{vincoli} con un criterio di \textit{specializzazione}, allo scopo di 
+restringere l'insieme dei possibili valori che può assumere un determinato 
+attributo, ad esempio : \begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/tipiDato.eps}
+    \end{center} 
+In UML, il tipo \(k..n\), indica un \textit{intervallo di numeri interi}, 
+l'attributo in questione può assumere valori da un minimo di \(k\) ad un 
+massimo di \(n\), nel caso del voto, assume valori da 18 a 30.\acc 
+È possibile anche definire esplicitamente l'insieme di valori che possono essere 
+assunti, tramite il tipo \textit{enumerativo} :
+\begin{center}
+    \includegraphics[width=\textwidth ]{images/enum.eps}
+\end{center} 
+Se volessimo rappresentare un indirizzo? Si possono creare dei tipi di 
+dato \textbf{composti}, costituiti da più tipi di dato, con le eventuali 
+restrizioni (è possibile definire i tipi di dato in un documento separato) : 
+\begin{center}
+    \includegraphics[width=\textwidth ]{images/datiComposti.eps}
+\end{center} 
+Possono essere definiti anche dei \textit{vincoli di molteplicità} sugli 
+attributi, permettendo ad un oggetto di avere più campi di uno stesso attributo, ad 
+esempio, una classe \textit{Utente} di un social network, può permettere ad ogni utente di 
+avere più indirizzi email, allora l'attributo si definirà nel seguente modo : \begin{center}
+    email : String [1..*]\comm{uno o più indirizzi email}
 \end{center}
 \end{document}

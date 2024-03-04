@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240304155903" modified="D:20240304160111"/>
+<info created="D:20240304155903" modified="D:20240304163250"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -314,8 +314,8 @@ h
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
 <text layer="alpha" matrix="1 0 0 1 -20 52" transformations="translations" pos="192 720" stroke="black" type="label" width="38.467" height="6.918" depth="0" halign="center" valign="center">Studente</text>
-<text matrix="1 0 0 1 -20 36" transformations="translations" pos="192 720" stroke="black" type="label" width="62.294" height="6.815" depth="1.93" halign="center" valign="center">Nome : String</text>
-<text matrix="1 0 0 1 -20 20" transformations="translations" pos="192 720" stroke="black" type="label" width="78.926" height="6.926" depth="1.93" halign="center" valign="center">Matricola : String</text>
+<text matrix="1 0 0 1 -20 36" transformations="translations" pos="192 720" stroke="black" type="label" width="60.357" height="6.815" depth="1.93" halign="center" valign="center">nome : String</text>
+<text matrix="1 0 0 1 -20 20" transformations="translations" pos="192 720" stroke="black" type="label" width="78.096" height="6.926" depth="1.93" halign="center" valign="center">matricola : String</text>
 <path matrix="1 0 0 1 -4 80" stroke="black">
 132 700 m
 132 648 l
@@ -332,7 +332,7 @@ h
 220 652 l
 </path>
 <text matrix="1 0 0 1 200 44" transformations="translations" pos="192 720" stroke="black" type="label" width="28.421" height="6.808" depth="0" halign="center" valign="center">Esame</text>
-<text matrix="1 0 0 1 200 28" transformations="translations" pos="192 720" stroke="black" type="label" width="62.294" height="6.815" depth="1.93" halign="center" valign="center">Nome : String</text>
+<text matrix="1 0 0 1 200 28" transformations="translations" pos="192 720" stroke="black" type="label" width="60.357" height="6.815" depth="1.93" halign="center" valign="center">nome : String</text>
 <path matrix="1 0 0 1 216 72" stroke="black">
 132 684 m
 220 684 l
@@ -351,8 +351,8 @@ h
 <text matrix="1 0 0 1 32 36" transformations="translations" pos="192 720" stroke="black" type="label" width="10.793" height="3.736" depth="0" halign="center" valign="center" size="tiny">0..*</text>
 <text matrix="1 0 0 1 148 36" transformations="translations" pos="192 720" stroke="black" type="label" width="10.793" height="3.736" depth="0" halign="center" valign="center" size="tiny">0..*</text>
 <text matrix="1 0 0 1 92 8" transformations="translations" pos="192 720" stroke="0" type="label" width="55.154" height="6.815" depth="1.93" halign="center" valign="center">testSuperato</text>
-<text matrix="1 0 0 1 92 -8" transformations="translations" pos="192 720" stroke="0" type="label" width="36.53" height="6.808" depth="0" halign="center" valign="center">Voto : ..</text>
-<text matrix="1 0 0 1 92 -24" transformations="translations" pos="192 720" stroke="0" type="label" width="51.335" height="6.918" depth="0" halign="center" valign="center">Data : data</text>
+<text matrix="1 0 0 1 92 -8" transformations="translations" pos="192 720" stroke="0" type="label" width="34.869" height="6.128" depth="0" halign="center" valign="center">voto : ..</text>
+<text matrix="1 0 0 1 92 -24" transformations="translations" pos="192 720" stroke="0" type="label" width="51.335" height="6.918" depth="0" halign="center" valign="center">data : Data</text>
 <path matrix="1 0 0 1 108 36" stroke="0">
 132 684 m
 220 684 l
