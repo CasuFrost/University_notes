@@ -36,5 +36,29 @@
 \newpage 
 \tableofcontents
 \newpage
-\section{Introduzione}
+\section{Introduzione e Definizioni}
+Cos'è una richiesta di rete? E soprattutto quali sono i passaggi ed il procedimento scaturito a seguito di una richiesta? Questo corso 
+si concentrerà sull'aspetto del \textit{networking}, ossia, su come avviene la comunicazione tramite più elaboratori.\acc 
+Una \textit{connessione} è una comunicazione aperta in cui sono coinvolte entrambe le parti in attesa di ricevere ed inviare 
+messaggi, tramite l'apertura di un \textit{socket} (si approfondirà in seguito). Il problema di una comunicazione di questo tipo, 
+è il bisogno di avere la certezza che i messaggi inviati da una parte siano ricevuti correttamente dall'altra, senza il rischio di 
+comunicare "a vuoto", per questo sono definiti degli appositi protocolli.\acc 
+\textbf{Host} : Un dispositivo connesso alla rete in modo periferico, non funge da esclusivo tramite per la comunicazione, 
+ed è un sistema "periferico", esegue delle \textit{app} che forniscono servizi sulla rete.\acc 
+\textbf{Switch} : Gli switch sono i dispositivi capaci di "instradare" i \textit{pacchetti}.\acc
+\textbf{Rete} : Una collezione di dispositivi host/switch e collegamenti gestiti da un unico ente/organizzazione.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/reteDef.eps}
+\end{center}
+Quella che noi chiamiamo \textbf{internet}, è una "\textit{rete di reti}", ossia l'insieme interconnesso di tutte le reti 
+pubbliche, che si stabilisce e necessita di protocolli su tutti i livelli : \begin{itemize}
+    \item Livello di applicazione
+    \item Livello di trasporto 
+    \item Livello network 
+    \item Livello di collegamento
+\end{itemize}
+Lo scopo di internet è quello di essere un infrastruttura che fornisce i servizi alle applicazioni distribuite, è 
+un interfaccia di programmazione e fornisce un servizio di \textit{trasporto dei dati}.\acc 
+Un \textbf{protocollo di rete}, stabilisce delle regole riguardanti lo scambio di messaggi, con le relative "azioni" specifiche 
+da intraprendere per la ricezione di messaggi ed eventi, definiscono il \textit{formato} e \textit{l'ordine} dei messaggi 
+da inviare fra le entità di rete, e le azioni intraprese sulla ricezione e trasmissione dei messaggi.
 \end{document}
