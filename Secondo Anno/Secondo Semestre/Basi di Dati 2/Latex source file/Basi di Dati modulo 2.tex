@@ -163,5 +163,51 @@ I vincoli di molteplicità vengono aggiunti ai terminali della linea associazion
     dell'associazione in questione, che va da \(k\) ad \(n\).
 \end{itemize}\begin{center}
     \includegraphics[width=\textwidth ]{images/esempioAuto.eps}
-\end{center} 
+\end{center}
+Si considerino i seguenti requisiti : Si vogliono rappresentare i sovrani 
+di un regno, di ognuno di loro, è importante considerare il predecessore 
+ed il successore, è possibile in UML creare un link fra due oggetti della 
+stessa classe, con un associazione sulla stessa classe : \begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/sovrani.eps}
+\end{center}
+Risulta però \textit{obbligatorio} dare dei nominativi ai \textbf{ruoli}
+posti ai terminali dell'associazione, altrimenti sarebbe impossibile quale 
+delle due classi sta interpretando il ruolo di successore o predecessore. 
+Vorremmo inoltre che ogni sovrano, eccetto il primo e l'ultimo, abbia esattamente 
+un successore ed un predecessore, ma il diagramma in questione permette a qualunque 
+sovrano di violare tali vincoli del mondo reale.
+\subsubsection{Associazioni con Attributi}
+Si vuole progettare un sistema che gestisca gli esiti (voti in 30esimi) di 
+più esami sostenuti dagli studenti di un corso di laurea, esisteranno sicuramente 
+le classi \textit{Studente} ed \textit{Esame}.\acc 
+Il problema, è che non è possibile utilizzare una classe ponte, in quanto 
+deve essere impossibile per uno studente, superare lo stesso esame più di una volta. Sarebbe 
+naturale inserire il voto dell'esame in questa ipotetica classe ponte, ma sapendo che non 
+è utilizzabile, dove verrà inserito l'attributo \textit{voto}?
+\begin{center}
+\includegraphics[width=0.8\textwidth ]{images/votoSbagliato.eps}
+\end{center}
+ Chiaramente, non posso inserirlo nella classe \textit{Studente}, in quanto 
+ ogni studente avrebbe un unico voto per ogni esame, e non posso inserirlo 
+ nella classe \textit{Esame}, dato che tutti gli studenti avrebbero lo 
+ stesso voto nello stesso esame. \acc 
+ È possibile considerare degli \textbf{attributi di associazione}, dando 
+ ad ogni link di \textit{testSuperato}, il corrispettivo valore del voto, risulta 
+ una soluzione naturale, in quanto il voto è assegnato ad ogni superamento di un test :\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/votoGiusto.eps}
+    \end{center} 
+Anche se simile, il riquadro \textit{votoSuperato} non rappresenta una 
+classe, in UML è detta \textit{association class}, e anche essa può essere collegata ad 
+altre classi, si supponga ad esempio che vogliamo associare ad ogni 
+test superato, anche il docente che ha verbalizzato il voto, basta 
+collegare l'associazione con attributi ad una classe \textit{Docente} : \begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/conDocente.eps}
+    \end{center} 
+\subsection{Tipi di Dato} 
+Per ogni attributo di ogni classe abbiamo visto essere necessario 
+considerare il tipo del dato, esiste infatti un insieme di tipi di 
+dato \textit{concettuali}, che siano facilmente implementabili 
+in modo ovvio su qualsiasi sistema o linguaggio di programmazione.\begin{center}
+    \code{Intero, Reale, Booleano, Data, Ora, DataOra}
+\end{center}
 \end{document}
