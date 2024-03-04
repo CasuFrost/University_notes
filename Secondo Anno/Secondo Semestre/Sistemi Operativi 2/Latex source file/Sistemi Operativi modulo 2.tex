@@ -258,4 +258,62 @@ Esistono inoltre 3 ulteriori bit nei metadati di ogni file che consentono ulteri
     del file è l'utente root.
     \item \textbf{setgid bit} - Analogo al precedente, ma riguardante il gruppo.
 \end{itemize}
+È possibile modificare i permessi di accesso ad un file tramite il comando \shelll{chmod}, specificando prima la tripla di ottali 
+che identificherà i nuovi permessi, e poi il file in questione, è possibile anche cambiare il proprietario ed il gruppo di un 
+file tramite \shelll{chown} e \shelll{chgrp}, se abbinati con l'opzine \shelll{-r}, tutti i sottoalberi dell'argomento 
+riceveranno lo stesso trattamento.\acc Un importante valore di un sistema operativo Unix è la  \textit{user mask}, ossia 
+una parola di bit che identifica i permessi di default che vengono assegnati ad un file nel momento della sua creazione.
+La user mask è composta da quattro terne di 3 bit (rappresentanti i permessi ed i permessi speciali), e può essere modificata 
+con il comando \shelll{umask} inserendo come parametro la nuova maschera.\acc 
+I permessi di default di ogni file sono calcolati nel seguente modo : \begin{center}
+    \code{111 111 111 111 AND NOT(\{user mask\})}
+\end{center}
+Ad esempio (escludendo i bit speciali) per impostare i diritti di default a 664, bisognerà performare il seguente comando : \begin{center}
+    \shelll{umask 113}  \code{111 111 111 AND NOT(001 001 011) = 111 111 111 AND 110 110 100 = 110 110 100 = 664}
+\end{center}
+Altri comandi fondamentali per manipolare i file sono\begin{itemize} \item \shelll{cp} : Permette di copiare un file in una destinazione specificata
+    \item \shelll{mv} : Permette di spostare un file in una destinazione specificata \item\shelll{rm} : Elimina il file specificato\acc 
+\end{itemize}
+Abbiamo poi visto che è possibile creare dei \textit{link o collegamenti} fra file, un \textit{soft link}, sarà un file che conterrà 
+il puntatore ad un altro file, un \textit{hard link}, sarà invece un altro file, ma con il riferimento allo stesso inode number,
+saranno quindi due file distinti, senza che però il disco sia occupato due volte.\acc 
+È possibile creare dei link con il comando \shelll{ln}, l'eliminazione del file originale nega l'accesso a tutti 
+i soft link ad esso collegati, per eliminare un file di cui invece esistono più hard link, bisogna eliminarli tutti.\acc 
+Passiamo ora ad un comando particolare, ossia \shelll{dd}, tale comando è presente anche in delle primordiali versioni di Unix, e 
+serve a copiare i file in maniera più sofisticata, opzionalmente effettuando conversioni, i suoi parametri assumono la 
+sintassi \shelll{variabile=valore}, differentemente dal simbolo \shelll{-} utilizzato per gli altri comandi.\acc 
+Può leggere e copiare i file \textit{byte per byte}, specificando il numero preciso di blocchi da copiare, la dimensione 
+di tali blocchi, e 
+dove scriverli all'interno del file di destinazione, a tal scopo ci sono le opzioni \code{count,bs,skip,of,if,seek}, ad esempio : \begin{itemize}
+    \item \shelll{skip=x} - Del file da copiare, verranno ignorati i primi $x$ blocchi.
+    \item \shelll{seek=x} - Nel file di destinazione, il contenuto verrà copiato a partire dal $x$-esimo blocco. 
+\end{itemize}
+\section{I Processi in Unix}
+Abbiamo già accennato al fatto che in Unix ogni entità può essere vista come un file, le due componenti fondamentali di un 
+sistema di questo tipo però, non sono esclusivamente i file, ma anche i \textit{processi}. Un processo 
+rappresenta l'istanza di un programma/file eseguibile che viene avviato e caricato sulla memoria
+principale, una volta avviato, l'OS si occuperà di tale processo, come i file, ogni processo è identificato da un numero 
+intero univoco.\acc 
+Per avviare un programma, e renderlo un processo, bisogna digitare sulla shell il codice del programma da eseguire, quando 
+vengono richiamati i comandi \shelll{dd,ls,cat} e \shelll{cp}, vengono eseguiti dei nuovi processi, differentemente, i 
+programmi \shelll{echo} e \shelll{cd}, che sono comandi interni, fanno parte del processo shell.\acc 
+Uno stesso programma può essere istanziato più volte, dando vita a più processi copia di uno stesso programma che girano sulla 
+macchina.
+\subsection{Canali di Input/Output}
+Ogni processo di Unix ha accesso a 3 canali/file di default, utili per il flusso di dati in input ed output, questi sono : \begin{itemize}
+    \item \code{stdin} (\textit{standard input}) : Per il flusso di dati in input, ha il codice descrittore uguale a 0, e di default è impostata 
+    la tastiera.
+    \item \code{stdout} (\textit{standard output}) : Per il flusso di dati in output, ha il codice descrittore uguale a 1, e di default
+    è impostato lo schermo.
+    \item \code{stderr} (\textit{standard error}) : Secondo canale di output utile per eventuali errori e diagnostica, 
+    ha il codice descrittore uguale a 1, e di default è impostato lo schermo.
+\end{itemize}
+I 3 canali possono essere "ridirezionati" dall'utente in maniera indipendente, ad esempio, è possibile cambiare il flusso di dati 
+in output, facendo si che \code{stdout} venga impostato su un file, tutti i dati in output di un programma potranno quindi 
+essere scritti su un file specificato, vale lo stesso principio per la lettura con \code{stdin}.\acc A tale scopo, quando 
+si avviano i programmi dalla shell, bisogna utilizzare i simboli \code{<} e \code{>} per ridirezionare rispettivamente 
+l'input e l'output, ad esempio : \acc 
+\shell{ls > dirlist} : scriverà il risultato del comando sul file \code{dirlist}.\acc 
+Il precedente citato \textit{descrittore di un file} è un identificatore univoco per ogni file, similmente all'inode, ma di 
+più alto livello.
 \end{document}
