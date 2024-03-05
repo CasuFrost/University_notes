@@ -178,7 +178,7 @@ alla fine visiterà ogni nodo per la quale esiste un cammino dal nodo iniziale.
 \hphantom{ident}\codee{Vis : set = [x]}\comm{l'insieme che conterrà l'output}\\
 \hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
 \hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
-\hphantom{ident}\hphantom{ident}\codee{if(\(\exists\)z adiacente ad y\(\land \)x\(\notin\)Vis)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(\(\exists\)z adiacente ad y\(\land \)z\(\notin\)Vis)\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis.add(z)}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
@@ -206,7 +206,7 @@ dello stack, ma \(v_{i+1}\) è adiacente a \(v_i\), quindi da quest'ultimo l'alg
 ad un certo punto \(v_{i+1}\), per poi proseguire da esso, per costruzione, sarà inserito in Vis, ma ciò è 
 in contraddizione con l'ipotesi iniziale che \(y\) non è in Vis. \(\blacksquare\)\acc 
 Questo algoritmo presenta un problema cruciale, non è efficiente, infatti risulta particolarmente 
-pesante il controllo \code{if(\(\exists\)z adiacente ad y\(\land \)x\(\ne\)Vis)}, che ha costo 
+pesante il controllo \code{if(\(\exists\)z adiacente ad y\(\land \)z\(\ne\)Vis)}, che ha costo 
 computazionale \(O(\deg(y))+O(n)\). L'algoritmo va migliorato, al posto di un set, è possibile utilizzare un 
 array nella seguente maniera : sarà composto da \(n:=|V|\) elementi inizializzato con tutti 0, si avrà che
  \(array[i]=1\iff i\) fa parte dell'output.\begin{center}
@@ -475,4 +475,60 @@ gli archi in avanti, una quelli all'indietro, ed una gli archi di attraversament
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return av,ind,att}\\
 \codee{\}}\acc 
+La domanda da porsi adesso è, la presenza di questi archi \textit{in avanti}, \textit{indietro} e di \textit{attraversamento}, 
+quali informazioni fornisce riguardo le proprietà del grafo?\acc Consideriamo un grafo \(G\) non diretto e connesso, vuol dire che per 
+ogni coppia di vertici \(x\) ed $y$ esiste un cammino da $x$ ad $y$, se dovesse esistere un'arco \((x,y)\in E(G)\), allora 
+vi sarà un ciclo.\acc 
+\textbf{Proposizione} : Sia \(G\) un grafo connesso non diretto, se esiste un ciclo, allora, per una
+ \textit{qualsiasi applicazione} del DFS, esisterà un arco all'indietro (che è identico all'arco in avanti,
+  essendo il grafo non diretto).\acc 
+\textbf{Dimostrazione} : Se in \(G\) c'è un ciclo, allora esisterà un arco che non sarà presente nell'albero di visita 
+generato dal DFS (essendo un albero, non ha cicli), quindi esiste un arco esterno a tale albero che collega due nodi, 
+ed è necessariamente un arco all'indietro. \(\blacksquare\)
+\begin{center}
+    \textit{Conclusione} : DFS genera arco all'indietro $\iff$ \(G\) ha un ciclo
+\end{center}
+Consideriamo ora il caso in cui il grafo è diretto, sia \(v\) un vertice, ed \(u\) un suo discendente nell'arborescenza 
+generata da una qualsiasi applicazione del DFS, esiste un cammino diretto da \(v\) ad \(u\).\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/discentente.eps}
+    \end{center}
+Se \(u\) è un discendente di \(v\), allora \(u\) è stato visitato la prima volta dopo di \(v\), allora è stato 
+rimosso dallo stack prima di \(v\) $$t(v)<t(u)\le T(u)\le T(v)$$
+Se esistesse un arco $(u,v)$, allora sarebbe un arco all'indietro. Sappiamo che per ogni coppia di vertici 
+\(u,v\), se \(u\) è un discendente di \(v\), allora esiste un cammino diretto da \(v\) ad \(u\) nell'arborescenza.\acc 
+\textbf{Osservazione} : Se esistesse un arco all'indietro nell'arborescenza generata dal DFS, allora 
+il grafo avrebbe un ciclo.\acc 
+\textbf{Proposizione 1} : Se \(G\) è un grado diretto, e tutti i suoi vertici sono raggiungibili da un 
+vertice di partenza \(x\), allor, una qualsiasi applicazione del DFS partendo da \(x\) genera un
+ arco all'indietro nell'arborescenza \textit{se e solo se} esiste un ciclo in \(G\).\acc 
+Assumendo che in \(G\) ci sia un ciclo, consideriamo i vertici che compongono il ciclo :
+$c_0,c_1,c_2\dots,c_k$, elencati in ordine di visita nel DFS, quindi \(c_0\) è il primo vertice del ciclo 
+visitato durante una qualsiasi applicazione del DFS.
+ \acc\textbf{Proposizione 2} : Tutti i vertici del ciclo (escluso $c_0$), verranno visitati per la prima 
+ volta \textit{prima} che \(c_0\) venga rimosso dallo stack.\acc 
+ \textbf{Dimostrazione della prop. 2} : So che $\forall i\in\{1\dots k\},t(c_i)>t(c_0)$, assumiamo che 
+ esista un \(c_i\) fissato che non rispetti la condizione della proposizione, ossia $$t(c_i)>T(c_0)$$
+ Tale $c_i$ potrebbe non essere l'unico, sia però il vertice visitato per primo fra quelli che non rispettano 
+ la condizione, considero ora il vertice visitato appena prima di $c_i$, ossia $c_{i-1}$, so che 
+ $t(c_{i-1})>t(c_0)$ e che $t(c_{i-1})\le T(c_0)$, ovviamente non può essere superiore perchè il primo 
+ vertice che viola la condizione, è il suo successivo $c_i$. Si verifica la condizione :
+ \begin{center}
+    \includegraphics[width=1\textwidth ]{images/realLine.eps}
+\end{center}
+Sappiamo però che $c_{i-1}$ viene prima di $c_i$ nel ciclo, esiste quindi un arco $(c_{i-1},c_i)$, quindi 
+è impossibile che $c_{i-1}$ venga rimosso dallo stack prima di $c_i$, è quindi una contraddizione, e 
+necessariamente la proposizione è vera. \(\blacksquare\)\acc 
+\textbf{Dimostrazione della prop. 1} : Data la \textit{proposizione 2}, necessariamente l'arco del 
+ciclo \((c_k,c_0)\) è un arco all'indietro. \begin{center}
+    \includegraphics[width=1\textwidth ]{images/realLine2.eps}
+\end{center}\subsubsection{Pozzo Universale}
+Si consideri ora un vertice $x$ di un generico grafo diretto $G$, che rispetti le seguenti proprietà : \begin{itemize}
+    \item $\forall y\in V(G), \nexists (x,y)\in E(G)$
+    \item $\forall y\in V(G), \exists (y,x)\in E(G)$
+\end{itemize}
+È un vertice che non ha archi uscenti, e tutti gli altri vertici del grafo hanno un arco che diretto verso di esso,
+tale vertice prende il nome di \textit{pozzo universale}.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/pozzo.eps}
+\end{center}
+
 \end{document}
