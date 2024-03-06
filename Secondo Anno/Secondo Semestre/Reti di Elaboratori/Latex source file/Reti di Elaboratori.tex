@@ -140,4 +140,74 @@ Internet), tutt'oggi è raro trovare LAN o WAN isolate, spesso sono connesse fra
 mettere in comunicazione due LAN in città differenti tramite una WAN.\begin{center}
     \includegraphics[width=1\textwidth ]{images/internetwork.eps}
 \end{center}
+\subsubsection{Nucleo della Rete}
+Si definisce nucleo della rete, quella parte composta esclusivamente da router  che effettuano \textit{commutazione} di pacchetto, ossia 
+ricevono il pacchetto, e lo re-indirizzano tramite i collegamenti. Ogni router presenta più porte, si occupa di fare il 
+cosiddetto \textbf{forwarding}, ossia l'azione locale di spostare i pacchetti in arrivo dal collegamento in ingresso, al collegamento 
+in uscita, è un azione locale del router.\acc 
+Il \textbf{routing} invece è un azione globale, si intende la determinazione dei percorsi origine-destinazione che i pacchetti 
+dovranno prendere all'interno dell'Internet, tale decisione è presa tramite degli algoritmi di instradamento.\acc 
+Con il termine \textit{Trasmissione}, si intende l'azione che intraprende un pacchetto per essere trasferito interamente 
+sul collegamento. Tale termine non include l'intero tragitto fino a destinazione, ma esclusivamente la (appunto) trasmissione sull'eventuale 
+cavo, il \textit{ritardo di trasmissione} è quindi il delay misurato in secondi per trasmettere un pacchetto, si è già specificato che tale 
+valore è uguale a $\dfrac{L}{R}=\dfrac{\text{bit di un pacchetto}}{\text{bit per secondo}}$.\acc 
+I router funzionano nella seguente maniera, detta \textbf{store and forward} : Un pacchetto deve arrivare per intero ad un router 
+prima di essere ri-trasmesso su un nuovo collegamento.\begin{quote}
+    \color{gray} \textit{Esempio} : Si devono trasferire, dal collegamento A al collegamento B, 3 pacchetti da 10 Kbit ad una 
+    velocità di 100 Mbitt per secondo, si assume che il  tempo che impiega un bit per propagarsi nel collegamento è zero. 
+    In totale, il ritardo di trasmissione sarà : $\dfrac{10*3*10^3}{100*10^6}=\dfrac{3}{100*10^2}=\dfrac{3}{10^4}=0,0003\text{ sec }=0,3\text{ msec }$
+    \color{black}
+\end{quote}
+Un problema noto durante la tramissione dei pacchetti è l'\textbf{accodamento}, avviene quando la velocità di arrivo ad 
+un router da parte di un link è maggiore della velocità di trasmissione in uscità (dal link al router), quindi si causa un 
+accodamento in attesa della trasmissione.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/accodamento.ip.eps}
+\end{center}
+I pacchetti arrivano al router prima di essere trasmessi sul link, quindi si accoderanno in una memoria interna del router prima 
+di essere ritrasmessi, se i pacchetti accodati diventano troppi e la memoria viene esaurita, ci sarà una \textit{perdita} di 
+pacchetti. \acc 
+Una possibile soluzione alla perdita è la \textbf{commutazione di circuito}, ossia, far si che i diversi host non condividano lo 
+stesso collegamento per i pacchetti, bensì, si considerano dei canali riservati per la comunicazione tra sorgente e destinazione.\acc 
+Non c'è condivisione, ci saranno quindi svariati collegamenti, in numero necessario per permettere a tutti i dispositivi di 
+poter comunicare in modo libero, ovviamente non tutti comunicano nello stesso momento, quindi i un segmento di cirucito potrebbe 
+rimanere inutilizzato.\acc 
+Un'altra alternativa è quella di condividere lo stesso circuito, riservando ad ogni comunicatore una frequenza (\textit{FDM}), oppure un certo 
+quanto temporale (\textit{TDM}).\begin{itemize}
+    \item Nel FDM, le frequenze elettromagnetiche o ottiche sono divise in bande, ogni utente può comunicare in maniera continua, 
+    ma la velocità massima di comunicazione è data dalla larghezza della banda, che è stretta in quanto condivisa.
+    \item Nel TDM, ogni utente, a turno in un attesa circolare, può comunicare per un quanto di tempo determinato, in cui ha a 
+    disposizione la velocità massima della banda.
+\end{itemize}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/FdmTdm.eps}
+\end{center}
+Il problema è che la commutazione di circuito risulta comunque in efficiente, in quanto permette ad un numero 
+limitato di utenti di usufruire della rete. Si preferisce quindi la condivisione delle risorse, in quanto l'accodamento e la 
+significativa perdita di pacchetto, incombe quando un elevato numero di utenti sta usufruendo della rete.\acc 
+Il fatto è che gli utenti non comunicano il 100\% del tempo, supponiamo che un utente stia comunicando con probabilità $p$, in un 
+sistema con $n$ utenti. Vi è una significativa perdita di pacchetto quando $k$ utenti condividono le risorse, qual'è la probabilità che 
+$k$ utenti comunichino contemporaneamente ?\acc  Sia $X$ la variabile aleatoria che indica il numero di utenti che comunica 
+contemporaneamente, $X$ è una variabile aleatoria binomiale, e la sua distribuzione vale
+ $\displaystyle\mathbb{P}(X\ge k)=\sum_{i=k}^n\binom{n}{i}p^i(1-p)^{n-i}$.\begin{quote}
+ \color{gray} \textit{Esempio} : In un sistema con 35 utenti, ogni utente comunica con probabilità uguale a 0.1. 
+ Vi è una significativa perdita di pacchetto quando 10 utenti comunicano contemporaneamente, qual'è la probabilità che 
+ ciò accada? $$\sum_{i=10}^{35}\binom{35}{i}(0.1)^i(0.9)^{35-i}\simeq0.001$$
+ \color{black}
+\end{quote}
+La condivisione del circuito risulta quindi la scelta migliore, anche se la possibile congestione in casi particolari 
+è eccessiva, e risulta inevitabilmente una perdita di pacchetti.\subsubsection{Internet}
+Fino ad ora, abbiamo utilizzato il termine Internet (con la iniziale maiuscola) ed internet (con la iniziale minuscola), è necessario 
+dare una definizione più rigorosa di Internet.\acc 
+Abbiamo visto come gli host si connettono ad Internet tramite l'accesso agli ISP, residenziali o aziendali. I grandi ISP sono fra 
+loro interconnessi, da qui il nome internet (inter network), in tal modo, tutti gli host connessi ai differenti ISP possono 
+scambiarsi pacchetti.\acc Ogni host connesso ad Internet, è quindi connesso ad un ISP, ed i grandi ISP sono tutti interconnessi fra loro, 
+creando un unica grande rete globale, denominata appunto, Internet (con la iniziale maiuscola), ossia una rete delle reti.\acc 
+Tale rete globale è complessa, e la sua evoluzione, nella struttura, è anche derivata da dinamice politiche ed economiche a livello 
+nazionale, si osservi la seguente immagine.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/Internet.eps}
+\end{center}
+Le icone con scritto \textit{accesso rete} rappresentano i punti in cui un host può connettersi, ad esempio una LAN, tali punti si 
+collegano agli ISP regionali, che a loro volte si collegano ad ISP nazionali, spesso condiviso anche da più nazioni, spesso 
+interconnessi da degli \textit{Internet Exchange Point} (ISP), gestiti da più enti in comune accordo.\acc Quindi una 
+internet è una rete costituita da più reti interconnesse, Internet invece, è la "internet" più grande e famose, composta da migliaia di reti 
+interconnesse.
 \end{document}

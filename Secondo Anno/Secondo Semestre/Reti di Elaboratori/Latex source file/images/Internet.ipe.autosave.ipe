@@ -1,0 +1,771 @@
+<?xml version="1.0"?>
+<!DOCTYPE ipe SYSTEM "ipe.dtd">
+<ipe version="70218" creator="Ipe 7.2.28">
+<info created="D:20240306202416" modified="D:20240306203057"/>
+<ipestyle name="basic">
+<symbol name="arrow/arc(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/farc(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/ptarc(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/fptarc(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="mark/circle(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</symbol>
+<symbol name="mark/disk(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+</path>
+</symbol>
+<symbol name="mark/fdisk(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+0.5 0 0 0.5 0 0 e
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</group>
+</symbol>
+<symbol name="mark/box(sx)" transformations="translations">
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</symbol>
+<symbol name="mark/square(sx)" transformations="translations">
+<path fill="sym-stroke">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+</path>
+</symbol>
+<symbol name="mark/fsquare(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+-0.5 -0.5 m
+0.5 -0.5 l
+0.5 0.5 l
+-0.5 0.5 l
+h
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="mark/cross(sx)" transformations="translations">
+<group>
+<path fill="sym-stroke">
+-0.43 -0.57 m
+0.57 0.43 l
+0.43 0.57 l
+-0.57 -0.43 l
+h
+</path>
+<path fill="sym-stroke">
+-0.43 0.57 m
+0.57 -0.43 l
+0.43 -0.57 l
+-0.57 0.43 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="arrow/fnormal(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/pointed(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/fpointed(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/linear(spx)">
+<path stroke="sym-stroke" pen="sym-pen">
+-1 0.333 m
+0 0 l
+-1 -0.333 l
+</path>
+</symbol>
+<symbol name="arrow/fdouble(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/double(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-normal(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0.5 0 m
+-0.5 0.333 l
+-0.5 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-fnormal(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0.5 0 m
+-0.5 0.333 l
+-0.5 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-pointed(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0.5 0 m
+-0.5 0.333 l
+-0.3 0 l
+-0.5 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-fpointed(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0.5 0 m
+-0.5 0.333 l
+-0.3 0 l
+-0.5 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-double(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+1 0 m
+0 0.333 l
+0 -0.333 l
+h
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-fdouble(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+1 0 m
+0 0.333 l
+0 -0.333 l
+h
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<anglesize name="22.5 deg" value="22.5"/>
+<anglesize name="30 deg" value="30"/>
+<anglesize name="45 deg" value="45"/>
+<anglesize name="60 deg" value="60"/>
+<anglesize name="90 deg" value="90"/>
+<arrowsize name="large" value="10"/>
+<arrowsize name="small" value="5"/>
+<arrowsize name="tiny" value="3"/>
+<color name="blue" value="0 0 1"/>
+<color name="brown" value="0.647 0.165 0.165"/>
+<color name="darkblue" value="0 0 0.545"/>
+<color name="darkcyan" value="0 0.545 0.545"/>
+<color name="darkgray" value="0.663"/>
+<color name="darkgreen" value="0 0.392 0"/>
+<color name="darkmagenta" value="0.545 0 0.545"/>
+<color name="darkorange" value="1 0.549 0"/>
+<color name="darkred" value="0.545 0 0"/>
+<color name="gold" value="1 0.843 0"/>
+<color name="gray" value="0.745"/>
+<color name="green" value="0 1 0"/>
+<color name="lightblue" value="0.678 0.847 0.902"/>
+<color name="lightcyan" value="0.878 1 1"/>
+<color name="lightgray" value="0.827"/>
+<color name="lightgreen" value="0.565 0.933 0.565"/>
+<color name="lightyellow" value="1 1 0.878"/>
+<color name="navy" value="0 0 0.502"/>
+<color name="orange" value="1 0.647 0"/>
+<color name="pink" value="1 0.753 0.796"/>
+<color name="purple" value="0.627 0.125 0.941"/>
+<color name="red" value="1 0 0"/>
+<color name="seagreen" value="0.18 0.545 0.341"/>
+<color name="turquoise" value="0.251 0.878 0.816"/>
+<color name="violet" value="0.933 0.51 0.933"/>
+<color name="yellow" value="1 1 0"/>
+<dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
+<dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
+<dashstyle name="dashed" value="[4] 0"/>
+<dashstyle name="dotted" value="[1 3] 0"/>
+<gridsize name="10 pts (~3.5 mm)" value="10"/>
+<gridsize name="14 pts (~5 mm)" value="14"/>
+<gridsize name="16 pts (~6 mm)" value="16"/>
+<gridsize name="20 pts (~7 mm)" value="20"/>
+<gridsize name="28 pts (~10 mm)" value="28"/>
+<gridsize name="32 pts (~12 mm)" value="32"/>
+<gridsize name="4 pts" value="4"/>
+<gridsize name="56 pts (~20 mm)" value="56"/>
+<gridsize name="8 pts (~3 mm)" value="8"/>
+<opacity name="10%" value="0.1"/>
+<opacity name="30%" value="0.3"/>
+<opacity name="50%" value="0.5"/>
+<opacity name="75%" value="0.75"/>
+<pen name="fat" value="1.2"/>
+<pen name="heavier" value="0.8"/>
+<pen name="ultrafat" value="2"/>
+<symbolsize name="large" value="5"/>
+<symbolsize name="small" value="2"/>
+<symbolsize name="tiny" value="1.1"/>
+<textsize name="Huge" value="\Huge"/>
+<textsize name="LARGE" value="\LARGE"/>
+<textsize name="Large" value="\Large"/>
+<textsize name="footnote" value="\footnotesize"/>
+<textsize name="huge" value="\huge"/>
+<textsize name="large" value="\large"/>
+<textsize name="script" value="\scriptsize"/>
+<textsize name="small" value="\small"/>
+<textsize name="tiny" value="\tiny"/>
+<textstyle name="center" begin="\begin{center}" end="\end{center}"/>
+<textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
+<textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
+<tiling name="falling" angle="-60" step="4" width="1"/>
+<tiling name="rising" angle="30" step="4" width="1"/>
+</ipestyle>
+<page>
+<layer name="alpha"/>
+<view layers="alpha" active="alpha"/>
+<path layer="alpha" matrix="1 0 0 1 -104 -52" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 -84 -60" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="2.4 0 0 0.519048 -288 266.19" fill="0.757 0.757 1">
+28 0 0 28 208 592 e
+</path>
+<text matrix="1 0 0 1 -20 -40" transformations="translations" pos="184 608" stroke="0" type="label" width="91.611" height="11.954" depth="3.35" valign="baseline" size="LARGE">ISP regionale</text>
+<path matrix="1.5408 0 0 0.720429 -288.73 150.882" fill="0.427 0.643 0.996">
+52.1536 0 0 52.1536 356 692 e
+</path>
+<path matrix="1 0 0 0.4 68 333.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 68 337.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 68 -116" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 92 -116" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 108 325.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 108 329.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 108 -124" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 132 -124" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<text matrix="1 0 0 1 28 60" transformations="translations" pos="184 608" stroke="0" type="label" width="94.309" height="11.955" depth="0" valign="baseline" size="LARGE">ISP nazionale</text>
+<path matrix="1 0 0 0.4 152 337.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 152 341.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 152 -112" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 176 -112" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 128 353.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 128 357.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 128 -96" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 152 -96" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 88 353.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 88 357.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 88 -96" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 112 -96" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 56 353.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 56 357.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 56 -96" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 80 -96" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1.5408 0 0 0.720429 -112.73 222.882" fill="0.427 0.643 0.996">
+52.1536 0 0 52.1536 356 692 e
+</path>
+<path matrix="1 0 0 0.4 244 405.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 244 409.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 244 -44" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 268 -44" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 284 397.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 284 401.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 284 -52" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 308 -52" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<text matrix="1 0 0 1 204 132" transformations="translations" pos="184 608" stroke="0" type="label" width="94.309" height="11.955" depth="0" valign="baseline" size="LARGE">ISP nazionale</text>
+<path matrix="1 0 0 0.4 328 409.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 328 413.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 328 -40" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 352 -40" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 304 425.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 304 429.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 304 -24" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 328 -24" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 264 425.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 264 429.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 264 -24" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 288 -24" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 232 425.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 232 429.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 232 -24" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 256 -24" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1.5408 0 0 0.720429 -308.73 254.882" fill="0.427 0.643 0.996">
+52.1536 0 0 52.1536 356 692 e
+</path>
+<path matrix="1 0 0 0.4 48 437.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 48 441.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 48 -12" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 72 -12" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 88 429.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 88 433.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 88 -20" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 112 -20" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<text matrix="1 0 0 1 8 164" transformations="translations" pos="184 608" stroke="0" type="label" width="94.309" height="11.955" depth="0" valign="baseline" size="LARGE">ISP nazionale</text>
+<path matrix="1 0 0 0.4 132 441.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 132 445.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 132 -8" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 156 -8" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 108 457.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 108 461.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 108 8" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 132 8" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 68 457.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 68 461.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 68 8" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 92 8" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 0.4 36 457.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 0.4 36 461.6" stroke="black" fill="1">
+12 0 0 12 152 744 e
+</path>
+<path matrix="1 0 0 1 36 8" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="1 0 0 1 60 8" stroke="black" fill="white">
+140 752 m
+139.936 746.988 l
+</path>
+<path matrix="2.4 0 0 0.519048 -372 390.19" fill="0.757 0.757 1">
+28 0 0 28 208 592 e
+</path>
+<text matrix="1 0 0 1 -104 84" transformations="translations" pos="184 608" stroke="0" type="label" width="91.611" height="11.954" depth="3.35" valign="baseline" size="LARGE">ISP regionale</text>
+<path matrix="2.4 0 0 0.519048 -32 334.19" fill="0.757 0.757 1">
+28 0 0 28 208 592 e
+</path>
+<text matrix="1 0 0 1 236 28" transformations="translations" pos="184 608" stroke="0" type="label" width="91.611" height="11.954" depth="3.35" valign="baseline" size="LARGE">ISP regionale</text>
+<path matrix="2.4 0 0 0.519048 -48 482.19" fill="0.757 0.757 1">
+28 0 0 28 208 592 e
+</path>
+<text matrix="1 0 0 1 220 176" transformations="translations" pos="184 608" stroke="0" type="label" width="91.611" height="11.954" depth="3.35" valign="baseline" size="LARGE">ISP regionale</text>
+<path matrix="1 0 0 1 -40 -72" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 -20 -80" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 16 -44" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 36 -52" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 -172 -24" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 -152 -32" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 -180 72" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 -160 64" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 -248 104" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 -228 96" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 -228 176" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 -208 168" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 88 240" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 108 232" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 180 268" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 200 260" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 268 248" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 288 240" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 288 180" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 308 172" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 308 16" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 328 8" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 264 -28" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 284 -36" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path matrix="1 0 0 1 176 -8" fill="0.733 1 1">
+240 568
+240 604
+312 588
+272 556 u
+</path>
+<text matrix="1 0 0 1 196 -16" transformations="translations" pos="248 588" stroke="0" type="minipage" width="40" height="12.035" depth="7.06" halign="center" valign="center" size="large">\begin{center}accesso rete\end{center}</text>
+<path stroke="0">
+96 556 m
+196 572 l
+</path>
+<path stroke="0">
+164 528 m
+208 568 l
+</path>
+<path stroke="0">
+228 508 m
+228 572 l
+</path>
+<path stroke="0">
+284 532 m
+252 572 l
+</path>
+<path stroke="0">
+220.769 577.663 m
+258.209 626.127 l
+</path>
+<path stroke="0">
+87.0301 648.566 m
+114.412 691.746 l
+</path>
+<path stroke="0">
+27.702 681.214 m
+109.849 695.608 l
+</path>
+<path stroke="0">
+43.8505 757.393 m
+116.519 696.661 l
+</path>
+<path stroke="0">
+155.526 695.74 m
+196.059 736.543 l
+</path>
+<path stroke="0">
+164.173 696.01 m
+205.246 653.856 l
+</path>
+<path stroke="0">
+209.299 653.315 m
+219.298 633.049 l
+</path>
+<path stroke="0">
+222 632.779 m
+258.479 626.023 l
+</path>
+<path stroke="0">
+260.101 628.185 m
+239.024 654.396 l
+</path>
+<path stroke="0">
+236.051 655.477 m
+211.191 654.126 l
+</path>
+<path stroke="0">
+246.049 653.856 m
+281.989 653.856 l
+</path>
+<path stroke="0">
+284.421 653.586 m
+305.498 638.183 l
+</path>
+<path stroke="0">
+297.391 637.102 m
+260.371 624.672 l
+</path>
+<path stroke="0">
+199.381 737.805 m
+240.805 729.731 l
+</path>
+<path stroke="0">
+242.912 729.379 m
+286.091 742.72 l
+</path>
+</page>
+</ipe>
