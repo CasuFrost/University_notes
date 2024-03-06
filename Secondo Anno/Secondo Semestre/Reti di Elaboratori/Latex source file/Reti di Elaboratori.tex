@@ -61,4 +61,83 @@ un interfaccia di programmazione e fornisce un servizio di \textit{trasporto dei
 Un \textbf{protocollo di rete}, stabilisce delle regole riguardanti lo scambio di messaggi, con le relative "azioni" specifiche 
 da intraprendere per la ricezione di messaggi ed eventi, definiscono il \textit{formato} e \textit{l'ordine} dei messaggi 
 da inviare fra le entità di rete, e le azioni intraprese sulla ricezione e trasmissione dei messaggi.
+\subsection{Struttura di Internet e Link}  
+Una rete è quindi un insieme di nodi collegati tramite dei \textit{link}, composta da dispositivi di interconnessione, che 
+si scambiano informazioni, usualmente utilizziamo il termine \textit{host} per i dispositivi che usufruiscono di un servizio, 
+e \textit{server} per i dispositivi che lo erogano.\acc 
+I dispositivi di interconnessione, ricevono un segnale, lo modificano e lo ritrasmettono, sono i \textit{router} (collegano una 
+rete ad altre reti) e gli  \textit{switch} (collegano più dispositivi ad una rete locale). I collegamenti, o link, possono 
+essere cablati (rame o fibra ottica) oppure wireless, senza cavi (onde elettromagnetiche).\acc 
+Le reti locali come quelle casalinghe o aziendali, si collegano ad una rete regionale ISP (internet service provider) di router interconnessi detta 
+\textit{core} o \textit{backbone}, che a sua volta si collega ad una simile struttura ma a livello nazionale o globale.\acc 
+\subsubsection{Reti Cablate e Wireless}
+Nell'accesso via cavo, c'è un terminale comune per più abitazioni detto \textbf{CMTS}, ossia \textit{Cable Modem Termination System},
+che viene poi diramato nelle diverse abitazioni, i dati dalla rete ed i segnali per la televisione sono trasmessi sul medesimo 
+cavo ma a frequenze differenti. Il CMTS è direttamente collegato ad un ISP. In questo modello diverse case condividono la rete di 
+accesso.\begin{center}
+    \includegraphics[width=1.1\textwidth ]{images/cableHeadend.eps}
+\end{center}
+La \textbf{DSL} diversamente, utilizza la linea telefonica esistente, collegandosi alla DSLAM, i dati sulla linea 
+DSL vanno su internet, la voce su DSL va sulla linea telefonica. \acc 
+Una rete \textit{domestica}  c'è un \textit{modem} 
+(si occupa di ricevere il segnale analogico e di  \textit{modularlo} in segnale digitale)
+ connesso ad un CMTS, collegato via cavo ad 
+un router, collegato direttamente tramite \textit{ethernet} agli host, oppure collegato ad un \textit{access point WI-FI} che 
+permette la connessione senza fili, questi utlimi tre molto spesso sono combinati in un unico device.\acc 
+La connessione senza fili, o wireless connette i sistemi terminali (host) al router, tramite il già citato 
+access point, esistono reti locali senza fili (WLAN), che hanno una copertura di circa 30 metri, e reti di accesso 
+cellulare \textit{wide area}, utilizzate dai dispositivi mobili e fornite da un operatore di rete cellulare, ed hanno una 
+copertura più ampia, nell'ordine dei kilometri.\acc 
+Le reti aziendali, come quelle delle università sono di una scala diverso rispetto quelle domestiche, prevedono molti più 
+dispositivi, ed un mix di varie tecnologie di collegamento, cablate o wireless, tramite svariati switch e router.
+\subsubsection{Comunicazione e Classificazione delle Reti}
+Un host comunica tramite l'invio e la ricezioni di messaggi da un applicazione sottoforma di \textit{pacchetti} di dati, ossia 
+messaggi suddivisi in blocchi più piccoli, di lunghezza $L$ bit. L'host trasmettono i pacchetti nella rete 
+ad una \textit{velocità di trasmissione} di $R$ $\nicefrac{bit}{sec}$. Il \textit{ritardo} di trasmissione del pacchetto è 
+il tempo necessario per trasmettere il pacchetto ($L$ bit) nel collegamento, ed equivale a $\dfrac{L}{R}$ secondi.\acc 
+Il segnale si propaga fra trasmettitore e ricevitore, tramite \textit{supporti guidati}, ossia i mezzi solidi (cavi), oppure 
+ \textit{non guidati}, propagandosi liberamente nell'aria (onde elettromagnetiche).\begin{itemize}
+    \item Il \textbf{cavo coassiale} è provvisto di due conduttori di rame concentrici, è bidirezionale, supporta più canali
+    date diverse frequenze, ed è resistente alle interferenze. 
+    \item La \textbf{fibra ottica} ha soppiantato il cavo coassiale, è una fibra di vetro che trasporta impulsi luminosi, dove ciascun 
+    impulso rappresenta un bit, la luce rimbalza nel cavo muovendosi ad alta velocità, è necessario però considerare dei 
+    ripetitori (anche se molto distanziati), dato che la luce rimbalzando potrebbe tendere a disperdersi causando una perdita 
+    di informazioni.
+    \item La rete \textbf{wireless} non ha un supporto guidato, il segnale è propagato nell'aria, è quindi \textit{broadcast},  
+    chiunque può ricevere il segnale. Tale metodo di comunicazione è \textit{half-duplex}, ossia, la comunicazione avviene da un 
+    mittente ad un destinatario, e non è possibile comunicare fra due enti contemporaneamente, è soggetta ad effetti dovuti all'ambiente 
+    di propagazione, come interferenze, riflessione e ostruzione da parte di oggetti fisici.
+ \end{itemize}
+ Esiste una scala di classificazione delle reti :\begin{center}
+    \begin{tabular}{|
+        >{\columncolor[HTML]{EFEFEF}}c |
+        >{\columncolor[HTML]{FFFFFF}}c |c|
+        >{\columncolor[HTML]{FFFFFF}}c |}
+        \hline
+        \cellcolor[HTML]{9AFF99}{\color[HTML]{000000} Scala} & \cellcolor[HTML]{9AFF99}Tipo & \cellcolor[HTML]{9AFF99}Nome completo & \cellcolor[HTML]{9AFF99}Esempio \\ \hline
+        Distanza ravvicinata                                 & PAN                          & Personal Area Network                 & Bluetooth                       \\ \hline
+        Edificio                                             & LAN                          & Local Area Network                    & WiFi, Ethernet                  \\ \hline
+        Città                                                & MAN                          & Metropolitan Area Network             & Cablata, DSL                    \\ \hline
+        Paese                                                & WAN                          & Wide Area Network                     & Grandi ISP                      \\ \hline
+        Pianeta                                              & Internet                     & La rete di tutte le reti              & L'Internet                      \\ \hline
+        \end{tabular}
+ \end{center}
+ La \textbf{LAN} è la rete locale, come una rete domestica, è una rete privata ed ogni terminale connesso ad essa è identificato 
+ da un indirizzo distinto dagli altri, può essere a \textit{cavo condiviso} oppure a \textit{commutazione} con uno switch.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/cavocondiviso.eps}
+\end{center}
+In tale modello di cavo condiviso il pacchetto inviato ad un dispositivo viene ricevuto da tutti, solo il destinatario lo 
+elaborerà, tutti i restanti host lo ignoreranno.\acc \begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/commutazione.eps}
+\end{center}
+Quest'ultimo a commutazione è il più utilizzato tutt'oggi, ogni dispositivo è direttamente collegato allo switch, ed esso è 
+in grado di riconoscere gli host ed inviare i pacchetti esclusivamente al destinatario, riduce il traffico nella LAN.\acc 
+Le reti \textbf{WAN} sono reti geografica, vengono interconnessi dispositivi di comunicazione, necessari a città, regioni o 
+perfino nazioni. I dispositivi in questione sono switch, router e modem, tale rete è gestita da un grande operatore/ente di 
+telecomunicazioni detto IPS (Internet Service Provider) che fornisce i servizi alle organizzazioni.\acc Una WAN può vedere i suoi 
+dispositivi di comunicazione connessi punto-punto, oppure a commutazione, con più punti di terminazione (usata nelle dorsali di 
+Internet), tutt'oggi è raro trovare LAN o WAN isolate, spesso sono connesse fra loro per formare una internetwork (internet), per 
+mettere in comunicazione due LAN in città differenti tramite una WAN.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/internetwork.eps}
+\end{center}
 \end{document}

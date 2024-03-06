@@ -530,5 +530,38 @@ Si consideri ora un vertice $x$ di un generico grafo diretto $G$, che rispetti l
 tale vertice prende il nome di \textit{pozzo universale}.\begin{center}
     \includegraphics[width=0.6\textwidth ]{images/pozzo.eps}
 \end{center}
-
+\textit{Esercizio} : Si dia lo pseudocodice di un algoritmo che in $O(n)$, dove $n$ è il numero di vertici, 
+stabilisca se il grafo in input ha o non ha un pozzo universale, il grafo è dato sottoforma di matrice di 
+adiacenza.\acc 
+La costrizione più grande è la richiesta del costo computazionale, è chiaro che non è possibile 
+controllare ogni vertice in maniera dettagliata, vedendo se è o non è un pozzo universale in base 
+ai valori che assumono le entrate nella matrice.\acc 
+Una possibile idea è di controllare in coppia tutti i vertici, escludendo i possibili che sicuramente non sono 
+un pozzo universale : Si comincia controllando due vertici a caso \(x,y\), se l'entrata della matrice 
+$m(x,y)$ è 1, vuol dire che esiste un arco che va da $x$ ad $y$, dovremmo quindi escludere $x$ dato che ha 
+archi uscenti, e continuare con $y$, altrimenti continueremo con $x$.\acc 
+Alla fine, avremo un vertice candidato ad essere un pozzo, e controlleremo in maniera esplicita se lo è o no.
+\begin{center}
+    Pseudocodice
+\end{center}
+\codee{PozzoUniversale(m)\{}\comm{l'input è la matrice di adiacenza}\\
+\hphantom{ident}\codee{candidato = 1}\\
+\hphantom{ident}\codee{n = m[1].lenght()}\comm{n è il numero di vertici}\\
+\hphantom{ident}\codee{for(i=2;i\(\le\)n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(m[candidato,i]==1)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{candidato=i}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{for(i=1;i\(\le\)n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(m[candidato,i]==1)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{return false}\comm{il candidato ha un arco uscente}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{for(i=1;i\(\le\)n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(m[i,candidato]==0 \(\land\) i\(\ne\)candidato)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{return false}\comm{un nodo non ha un arco verso il candidato}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return true}\\
+\codee{\}}\acc 
 \end{document}
