@@ -1,0 +1,29 @@
+for each g in GPARTITION{
+	x = un nodo a caso di g
+	Vis : Int[n] = [0...,0]
+	Part : Int[n] = [0...,0]
+	Vis[x] = 1
+	parità = 1
+	Part[x]=parità
+	S : Stack
+	S.push(x)
+	while(S not vuoto){
+		y=S.top()
+		if(Vis[y.adiacenti[0]==0){
+			parità*=-1
+			z=y.adiacenti[0[
+			Vis[z]=1
+			Part[x]=parità
+			S.push[z]
+			y.adiacenti.remove(0)
+		}
+		else{
+			y.adiacenti.remove(0)
+		}
+		if(y.adiacenti = vuoto) {S.pop()}
+	}
+	for each (u,v) in E(G){
+		if(Part[u]==Part[v]) return false
+	}
+}
+return true
