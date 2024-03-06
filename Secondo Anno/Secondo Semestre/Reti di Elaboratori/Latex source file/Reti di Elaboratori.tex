@@ -36,7 +36,7 @@
 \newpage 
 \tableofcontents
 \newpage
-\section{Introduzione e Definizioni}
+\section{Reti di Calcolatori e Internet}
 Cos'è una richiesta di rete? E soprattutto quali sono i passaggi ed il procedimento scaturito a seguito di una richiesta? Questo corso 
 si concentrerà sull'aspetto del \textit{networking}, ossia, su come avviene la comunicazione tramite più elaboratori.\acc 
 Una \textit{connessione} è una comunicazione aperta in cui sono coinvolte entrambe le parti in attesa di ricevere ed inviare 
@@ -210,4 +210,47 @@ collegano agli ISP regionali, che a loro volte si collegano ad ISP nazionali, sp
 interconnessi da degli \textit{Internet Exchange Point} (ISP), gestiti da più enti in comune accordo.\acc Quindi una 
 internet è una rete costituita da più reti interconnesse, Internet invece, è la "internet" più grande e famose, composta da migliaia di reti 
 interconnesse.
+\subsection{Prestazioni della Rete}
+Utilizziamo il termine \textbf{ampiezza di banda} per intendere due concetti differenti, ma collegati: \begin{itemize}
+    \item Caratterizzazione del canale di trasmissione dei dati - quantità che si misura in \textit{hertz}, 
+    rappresenta la larghezza dell'intervallo di frequenze utilizzato dal sistema trasmissivo,
+    ovvero l'intervallo di frequenze che un mezzo fisico consente di trasmettere senza
+    danneggiare il segnale in maniera irrecuperabile. Maggiore è l'ampiezza di banda,
+    maggiore è la quantità di informazione che può essere veicolata attraverso il mezzo
+    trasmissivo.
+    \item Caratterizzazione di un collegamento - rappresenta i bit al secondo che possono essere trasmessi 
+    in un canale di trasmissione, tale grandezza viene denotata \textit{bit rate}.
+\end{itemize}
+Il bit rate dipende dalla banda e dal canale di trasmissione, è proporzionale alla banda in hertz, tale rate descrive 
+la capacità indicativa (o potenziale), non l'effettivo numero di bit trasferiti per unità di tempo, quest'ultimo 
+dato è detto \textit{troughput}, ed è il numero effettivo di bit al secondo che passano attraverso un 
+punto della rete. Il troughput è limitato dal bitrate.\acc 
+Se un pacchetto deve passare per due o più link con bit rate differenti, il link con il bit rate minore 
+condizionerà il troughput medio dell'intero tragitto, causando un collo di bottigllia. Si consideri adesso 
+la seguente situazione :\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/troughput.eps}
+\end{center}\begin{itemize}
+    \item $R_s$ è il bitrate dei link che collegano i server al router di sinistra.
+    \item $R_c$ è il bitrate dei link che collegano gli host al router di destra.
+    \item $R$ è il bitrate del link che collega i due router.
+\end{itemize}
+Il troughput medio come sarà condizionato? I server e gli host hanno un collegamento riservato, i due router 
+invece, hanno un link unico per far comunicare i pacchetti di tutti i dispositivi periferici (in totale 6),
+il collo di bottiglia sarà causato dal collegamento che ha il bit rate minimo fra : (il link server-router, il link 
+host-router, il link router-router condiviso da 6 differenti dispositvi), quindi si avrà : $\min(R_s,R_c,\nicefrac{R}{n})$, dove 
+$n$ è il numero di dispositivi (in questo caso 6).
+\subsubsection{Latenza e Perdita di Pacchetti}
+Abbiamo visto come i pacchetti si accodano nella memoria di un router, i delay in una comunicazione di un bit 
+che passa su un determinato nodo della rete sono i seguenti: 
+\begin{itemize}
+    \item $d_{proc}$ - Elaborazione del nodo, controllo di possibili errori sul bit, solitamente ininfluente.
+    \item $d_{coda}$ - Tempo che il bit di un pacchetto trascorre in attesa nella coda di un router.
+    \item $d_{trans}$ - Ritardo di trasmissione già visto in precedenza.
+    \item $d_{prop}$ - Il tempo di propagazione del bit attraverso il link (cablato o wireless).
+\end{itemize}
+Abbiamo visto come il $d_{trans}$ si misura in secondi tramite la formula
+ $\dfrac{L}{R}=\dfrac{\text{bit di un pacchetto}}{\text{bit per secondo}}$, il ritardo di propagazione, ossia 
+ il $d_{prop}$, si misura con la formula $\dfrac{k}{v}$, dove $k$ è la lunghezza in metri del collegamento 
+ fisico, e $v$ la velocità di propagazione attraverso il collegamento (ad esempio, la luce nella fibra ottica 
+ si propaga a circa 300 000 $\nicefrac{km}{s}$).
 \end{document}
