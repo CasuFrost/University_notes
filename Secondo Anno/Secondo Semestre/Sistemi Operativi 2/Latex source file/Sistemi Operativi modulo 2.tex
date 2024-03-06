@@ -316,4 +316,24 @@ l'input e l'output, ad esempio : \acc
 \shell{ls > dirlist} : scriverà il risultato del comando sul file \code{dirlist}.\acc 
 Il precedente citato \textit{descrittore di un file} è un identificatore univoco per ogni file, similmente all'inode, ma di 
 più alto livello.
+\subsection{Struttura di un Processo}
+Ogni processo è identificato dal sistema con un codice 
+univoco, un numero intero detto \textit{PID}. Oltre ciò, 
+ogni processo ha un \textit{Process Control Block} (PCB), e 
+6 aree di memoria dedicata.\acc 
+Il PID 0 è assegnato ad un processo chiamato 
+\code{init}, è il primo processo avviato dalla macchina e 
+si occupa di avviare tutti gli altri processi. Quando un 
+processo termina, il suo PID viene liberato, alcuni sistemi per 
+ragioni di sicurezza assegnano i PID in maniera casuale.
+Il PCB è una struttura dati contenente dei valori che forniscono 
+informazioni su ogni processo, contiene: \begin{itemize}
+    \item PID - Il suo codice identificativo 
+    \item PPID - Il PID del suo processo padre
+    \item Real UID - Id dell'utente proprietario 
+    \item Real GID - Id del gruppo dell'utente proprietario 
+    \item Effective UID - Id effettivo dell'utente assunto
+    \item Effective GID - Id effettivo del gruppo dell'utente assunto
+    \item Saved UID - 
+\end{itemize}
 \end{document}
