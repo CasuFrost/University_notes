@@ -21,6 +21,34 @@
 \newcommand{\fdot}{{\(\bullet\) }}
 \newcommand{\spaz}{{\hphantom{spazio} }}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
+
+%sta roba serve per il codice C
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+%fine roba che serve per il codice C
+
 \title{Sistemi Operativi 2}
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -386,5 +414,65 @@ nome comando, tempo di esecuzione ed altre possono essere visualizzate con il co
 con l'opzione \code{-o} è possibile scegliere quali dati visualizzare. Sono particolarmente utili le opzioni \code{-a} : visualizza 
 tutti i processi, e \code{-x} : visualizza i processi che non hanno un terminale.\acc
 Il comando \shelll{top} è una versione "interattiva" del comando \shelll{ps}, prende il controllo della shell e funziona in
-tempo reale.
+tempo reale, mostrando i processi che eventualmente vengono creati o terminati.\acc 
+Il comando \shelll{kill -[codice] \%PID\%} serve per inviare segnali ai processi, prende in ingresso il codice di uno specifico 
+segnale ed il PID di un processo, ad esempio : \acc \shell{kill -9 4562}\acc 
+Con il comando \shelll{kill -l} è possibile visualizzare tutti i segnali che possono essere inviati, i più 
+comuni sono: \begin{itemize}
+    \item \code{SIGSTP} - Per la sospensione di un processo 
+    \item \code{SIGCONT} - Per la continuazione di un processo 
+    \item \code{SIGKILL} o \code{SIGINT} - Per la terminazione di un processo.
+\end{itemize}
+Il comando \shelll{nice} serve ad assegnare ad un processo un certo grado di priorità, che lo avvantaggierà nell'essere 
+selezionato dallo scheduler, il range della priorità va da -19 a +20.
+\section{Il Linguaggio C}
+Il linguaggio C è uno dei più antichi linguaggi mai sviluppati, è stato creato dagli autori di Unix negli anni 70 ed è ancora 
+in uso. Il C è nato per poter scrivere il kernel di Unix in un linguaggio di più alto livello, in modo da renderlo portatile 
+su differenti architetture, è un linguaggio \textit{indipendente} dalla macchina e può essere eseguito su diversi 
+sistemi con poche modifiche nel codice (previa eventuale ricompilazione).\acc 
+Il \textit{workflow} per la scrittura di un programma in C è la seguente : \begin{enumerate}
+    \item Si scrive il programma su un editor di testo.
+    \item Si chiama il preprocessore, che si occuperà di "semplificare" il codice.
+    \item Si chiama il compilatore, che dal file sorgente genererà le istruzioni in linguaggio macchina. 
+    \item Il Linker collegherà l'assemblatore con le eventuali librerie esterne.
+\end{enumerate}
+I punti (2) e (4) sono spesso gestiti dal compilatore, quindi sarà necessario scrivere il programma, compilarlo per poi 
+eseguirlo. Verrà utilizzato il compilatore open-source della GNU, ossia \textit{gcc}.\acc 
+Sappiamo che un codice scritto in Java viene compilato in bytecode, per poi venire interpretato dalla \textit{Java Virtual Machine},
+ e non direttamente dal processore. La compilazione di un programma C invece, genera un codice del tutto eseguibile, in quanto 
+sono istruzioni interpretabili direttamente dal processore, rendendolo quindi più efficente. Necessariamente, un file eseguibile 
+scritto in C, deve avere i permessi di esecuzione garantiti.\acc 
+Gli strumenti per la scrittura di un programma in C sono il compilatore ed un editor di testo, basterà scrivere il codice per 
+poi richiamare dalla shell il compilatore con il comando \shelll{gcc}, la "struttura" di un programma C è fissata, ci deve 
+sempre essere una funzione chiamata \code{main()}, ed è la prima funzione che viene chiamata all'avvio del programma quando viene 
+caricato in memoria.\acc 
+Ovviamente possono essere incluse anche altre funzioni che implementano ulteriori operazioni, è buona regola non scrivere tutto il 
+programma in C, ma suddividere il tutto in apposite funzioni, possono essere scritte in un unico file, o anche in più file diversi, 
+la compilazione genererà comunque un solo eseguibile.
+\subsection{Sintassi}
+Una funzione in C ha un intestazione, un tipo di ritorno, dei parametri ed un blocco di codice associato.
+\begin{lstlisting}[style=CStyle]
+    return_type function_name(parameter list)
+    {
+       blocco di istruzioni
+    }
+    \end{lstlisting}
+I blocchi in C vengono aperti e chiusi dalle parentesi graffe, un blocco può contenere 
+dichiarazioni di variabili o dei comandi C da eseguire, detti \textit{statement}, il punto e virgola viene 
+utilizzato per identificare la fine di uno statement, un blocco può contenere 0 o più statement.\acc 
+Esempio di un codice C :
+\begin{lstlisting}[style=CStyle]
+    int main()
+    {
+       int x = 5; //dichiarazione di una variabile 
+       int y = 0;
+       y = x+5; //statement 
+       printf("Ciao mondo!"); //comando per scrivere una stringa in output 
+       return 0; //valore di ritorno
+    }
+    \end{lstlisting}
+Il valore di ritorno può essere costante, una variabile, un espressione o perfino una chiamata di funzione, l'importante 
+è che sia del tipo specificato.\begin{center}
+    \code{return 0;}\hphantom{text}\code{return x;}\hphantom{text}\code{return 3*x+1;}\hphantom{text}\code{return abs(x);}
+\end{center}
 \end{document}
