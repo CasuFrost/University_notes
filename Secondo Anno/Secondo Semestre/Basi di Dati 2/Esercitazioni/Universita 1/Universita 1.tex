@@ -32,15 +32,16 @@ I dati di interesse per il sistema sono \underline{Studenti}, \underline{Facolt�
         \item matricola 
         \item data di nascita 
         \item città di nascita 
-        \item corso di laurea 
-        \item esami superati
+        \item corso di laurea - Il/I corso/corsi alla quale lo studente è iscritto.
+        \item insegnamenti superati - Gli \underline{Insegnamenti} che lo studente ha superato, uno stesso \underline{Insegnamento} non può essere 
+        superato più di una volta.
     \end{enumerate}
     \item \textbf{Professore}\begin{enumerate}
         \item nome e cognome
         \item data di nascita 
         \item codice fiscale 
         \item città di nascita 
-        \item insegnamenti erogati
+        \item insegnamenti erogati - L'\underline{Insegnamento} (o più di uno) erogato da un \underline{Professore}.
     \end{enumerate}
     \item \textbf{Corso di Laurea}\begin{enumerate}
         \item nome 
@@ -52,13 +53,17 @@ I dati di interesse per il sistema sono \underline{Studenti}, \underline{Facolt�
     \item \textbf{Insegnamento}\begin{enumerate}
         \item nome 
         \item ore di lezione 
-        \item corsi alla quale appartiene
-        \item codice
+        \item corsi alla quale appartiene - Il \underline{Corso di Laurea} nel quale un \underline{Insegnamento} viene erogato.
+        \item codice -  Serie di caratteri alfanumerici che identificano univocamente un \underline{Insegnamento}.
     \end{enumerate}
 \end{enumerate}
 \newpage
 \section{Considerazioni}
-\newpage
+Sarebbe possibile considerare una generalizzazione delle classi  \underline{Professore} e  \underline{Studente}, denotata 
+\underline{Persona}, in quanto queste due condividono più aspetti, come l'associazione ad una città, o i vari attributi identificativi,
+differiscono esclusivamente nella loro relazione con \underline{Insegnamento}. Sarebbe quindi corretto considerare 
+\underline{Professore} e  \underline{Studente} come \textit{sottoclassi} di \underline{Persona}.
+
 \section{UML}
 \includegraphics[width=\textwidth]{images/UML.png}
 

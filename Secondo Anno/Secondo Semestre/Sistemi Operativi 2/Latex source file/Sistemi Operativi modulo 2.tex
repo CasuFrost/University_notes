@@ -328,14 +328,63 @@ processo termina, il suo PID viene liberato, alcuni sistemi per
 ragioni di sicurezza assegnano i PID in maniera casuale.
 Il PCB è una struttura dati contenente dei valori che forniscono 
 informazioni su ogni processo, contiene: \begin{itemize}
-    \item PID - Il suo codice identificativo 
-    \item PPID - Il PID del suo processo padre
-    \item Real UID - Id dell'utente proprietario 
-    \item Real GID - Id del gruppo dell'utente proprietario 
-    \item Effective UID - Id effettivo dell'utente assunto
-    \item Effective GID - Id effettivo del gruppo dell'utente assunto
-    \item Saved UID - UID avuto prima dell'esecuzione del SetUID
-    \item Saved GID - Analogo al precedente ma per il gruppo 
-    \item Current Working Directory - La directory dalla quale è stato avviato il processo
+    \item \textit{PID} - Il suo codice identificativo 
+    \item \textit{PPID} - Il PID del suo processo padre
+    \item \textit{Real UID} - Id dell'utente proprietario 
+    \item \textit{Real GID} - Id del gruppo dell'utente proprietario 
+    \item \textit{Effective UID} - Id effettivo dell'utente assunto
+    \item \textit{Effective GID} - Id effettivo del gruppo dell'utente assunto
+    \item \textit{Saved UID} - UID avuto prima dell'esecuzione del SetUID
+    \item \textit{Saved GID} - Analogo al precedente ma per il gruppo 
+    \item \textit{Current Working Directory} - La directory dalla quale è stato avviato il processo
 \end{itemize}
+Il \textit{Saved UID} permette ad un processo in esecuzione come root, di eseguire delle operazioni in veste di utente 
+non privilegiato, è importante ridurre al minimo (per ragioni di sicurezza) l'utilizzo dei privilegi di root. All'avvio di 
+ogni processo, vengono riservate le 6 aree di memoria in seguito : \begin{enumerate}
+    \item \textit{Text Segment} - Le istruzioni sequenziali del programma in linguaggio macchina.
+    \item \textit{Data Segment} - I dati statici del programma inizializzati caricato, come le variabili globali.
+    \item \textit{BSS} - I dati statici del programma non inizializzati, distinto dal Data Segment per motivi di realizzazione
+    hardware.
+    \item \textit{Heap} - I dati dinamici generati dal processo, ad esempio, la memoria che si riserva con la funzione \code{malloc}.
+    \item \textit{Stack} - Pila necessaria per il funzionamento delle chiamate di funzione, con i corrispondenti dati dinamici, come 
+    i parametri passati.
+    \item \textit{Memory Mapping Segment} - Tutto ciò che riguarda le librerie esterne necessarie al processo.
+\end{enumerate}
+Per comunicare, più processi potrebbero condividere alcune aree di memoria, come l'heap, oppure se sono caricati due processi 
+istanza dello stesso programma, non è necessario avere due distinti text segment, in quanto condividono le stesse istruzioni. Un 
+processo in memoria, può trovarsi in uno dei seguenti stati : \begin{itemize}
+    \item \textbf{Running} - Il processo è in esecuzione sulla CPU.
+    \item \textbf{Runnable} - Il processo è pronto per essere eseguito, ed è in una coda in attesa di essere selezionato dallo
+    scheduler.
+    \item \textbf{Sleeping} - Il processo non può essere eseguito, in quanto è in atteso di un certo evento, come un segnale di Input 
+    da parte dell'utente.
+    \item \textbf{Zombie} - Il processo è stato eliminato e le sue aree di memoria liberate, tuttavia il suo PCB è ancora 
+    mantenuto, in quanto il processo padre che l'ha generato non ha richiesto che il processo figlio venisse abortito.
+    \item \textbf{Stopped} - Non è altro che un particolare caso dello stato \textit{Sleeping}, anche se il processo potrebbe 
+    continuare la sua esecuzione, esso è fermo in quanto ha ricevuto un segnale esterno (dall'utente o da un processo) di fermarsi.
+    \item \textbf{Traced} - in esecuzione di debug, oppure in generale in attesa di un segnale (altro caso
+    particolare di sleep, verrà trattato in seguito).
+    \item \textbf{Uninterruptible Sleep} - Un caso di \textit{Sleeping} in cui il processo sta facendo operazioni di I/O molto 
+    lunghe su un disco molto lento, facendo si che si trovi in uno stato di attesa appartenentemente interminabile.
+\end{itemize}
+Un processo, può essere eseguito in \textbf{foreground}, ossia sulla shell dalla quale è stato avviato, prendendone il controllo, 
+e solamente una volta che terminerà la sua esecuzione l'utente potrà nuovamente interagire con la shell, oppure in
+\textbf{background}, lasciando la shell libera all'utente, e venendo eseguito comunque, a patto che non possa ricevere 
+input da tastiera grazie alla shell, riducendone l'interattività. Si può richiedere ad un comando di venire eseguito in 
+background con il simbolo \code{\&} :\acc
+\shell{ls / -l \&}
+\acc
+La lista di tutti i processi in esecuzione può essere visualizzata con il comando \shelll{job}, inoltre, è possibile 
+spostare un processo da uno stato di background ad uno stato di foreground con il comando \shelll{fg}, oppure
+fare l'operazione analoga ma inversa con il comando \shelll{bg}, specificando il PID del processo in questione.
+\subsection{Pipelining e Segnali}
+L'idea del \textit{pipelining} è quella di creare programmi complessi, concatendando gli output e gli input di piccoli 
+programmi più semplici (come appunto è nella filosofia di Unix). Il simbolo \code{|} fra due comandi Unix permette di 
+concatenare l'Output del comando alla sua sinistra con l'input del comando alla sua destra, ad esempio \shelll{comando1 | comando2}
+farà si che l'input di \shelll{comando2} sarà l'output di \shelll{comando1}. \acc Le informazioni relative ai processi, quali PID, 
+nome comando, tempo di esecuzione ed altre possono essere visualizzate con il comando \shelll{ps}, che sta per \textit{processes},
+con l'opzione \code{-o} è possibile scegliere quali dati visualizzare. Sono particolarmente utili le opzioni \code{-a} : visualizza 
+tutti i processi, e \code{-x} : visualizza i processi che non hanno un terminale.\acc
+Il comando \shelll{top} è una versione "interattiva" del comando \shelll{ps}, prende il controllo della shell e funziona in
+tempo reale.
 \end{document}
