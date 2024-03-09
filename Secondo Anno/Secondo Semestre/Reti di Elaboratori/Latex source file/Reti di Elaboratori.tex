@@ -11,6 +11,7 @@
 \definecolor{light-gray}{gray}{0.95}
 \definecolor{sap}{RGB}{130, 36, 51}
 \definecolor{lg}{RGB}{102, 161, 95}
+\definecolor{g}{RGB}{60, 50, 50}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 \newcommand{\shelll}[1]{\colorbox{black}{\textcolor{white}{\texttt{#1}}}}
@@ -19,6 +20,7 @@
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\dete}{{\rightarrow}}
 \newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\textg}[1]{\color{g}{\textbf{#1}}\color{black}}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \title{Reti di Elaboratori}
 \author{Marco Casu}
@@ -253,4 +255,79 @@ Abbiamo visto come il $d_{trans}$ si misura in secondi tramite la formula
  il $d_{prop}$, si misura con la formula $\dfrac{k}{v}$, dove $k$ è la lunghezza in metri del collegamento 
  fisico, e $v$ la velocità di propagazione attraverso il collegamento (ad esempio, la luce nella fibra ottica 
  si propaga a circa 300 000 $\nicefrac{km}{s}$).
+\subsubsection{Ritardo di Accodamento}
+Calcolare il ritardo di accodamento è piuttosto difficile in quanto ci sono innumerevoli fattori in gioco da 
+considerare, è possibile fare delle stime, consideriamo i seguenti parametri:\begin{itemize}
+    \item $L$ - lunghezza di un pacchetto in bit. 
+    \item $R$ - velocità di trasmissione in bit al secondo.
+    \item $a$ - tasso medio di arrivo di pacchetti, misurato in pacchetti al secondo.
+\end{itemize}
+L'\textit{intensità del traffico} è una misura adimensionale data da $\dfrac{L\cdot a}{R}$ ed è limitata 
+dall'unità di tempo (in questo caso, 1 secondo).\begin{center}
+    \includegraphics[width=\textwidth ]{images/traffico.eps}
+\end{center}
+Come si calcola però l'effettivo ritardo di accodamento nei casi reali? Esistono dei software 
+diagnostici come \textit{tracerout}, che si occupano di misurare il ritardo che impiega un pacchetto 
+per spostarsi dalla sorgente ad un nodo della rete. \acc Tali software fanno uso di una proprietà dei pacchetti, 
+è possibile impostare per ogni pacchetto un "tempo di vita", ossia un numero massimo di nodi della rete (router) 
+nella quale possono passare, quando tale limite viene superato, il pacchetto verrà automaticamente scartato.\acc 
+La maggiorparte dei router, quando vedono un pacchetto venire eliminato, mandano indietro al destinatario un messaggio di 
+avvertimento, per indicare appunto che il pacchetto è stato perso.\acc Grazie alla combinazione di questi due meccanismi, 
+traceroute invia dei pacchetti con un determinato tempo di vita, per poi aspettarsi un messaggio di ritorno, misurando il 
+tempo che intercorre fra l'invio del pacchetto ad un determinato router, ed il messaggio di ritorno che avvisa dell'eliminazione 
+del pacchetto.\acc 
+Un dato importante da considerare è il \textbf{prodotto rate$\times$ritardo} ossia il 
+prodotto fra il bit rate ed il ritardo di propagazione di un certo 
+collegamento. Supponiamo di avere un link con rate di $R$ bit al secondo ed un ritardo di propagazione 
+di $x$ secondi, si avrà che $R\cdot x$, non sarà altro che il \textit{massimo numero di bit} che 
+possono passare contemporaneamente sul collegamento.\acc 
+Possiamo pensare al collegamento come un tubo che passa fra due punti, il ritardo rappresenta la lunghezza 
+del tubo, ed il rate la sezione trasfersale, il volume del tubo è appunto tale prodotto rate$\times$ritardo.
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/tubo.eps}
+\end{center}
+\subsection{Introduzione ai Protocolli}
+Le reti sono piuttosto complesse, i protocolli sono un tentativo di rendere la struttura più 
+organizzata, definiscono delle regole che un mittente ed un destinatario devono rispettare per 
+comunicare, insieme al formato del messaggio.\acc 
+La comunicazione in rete è suddivisa su più livelli, per questo si dice che i protocolli sono 
+definiti a strati (verrà chiarito il concetto), con lo scopo di suddividere un compito complesso 
+in più compiti semplici tramite la modularizzazione.\acc 
+Possiamo vedere ogni livello come una \textit{black box}, in cui un messaggio entra e viene 
+manipolato per poi uscire e passare al livello sccessivo. Ogni livello offre utilizza i servizi 
+del livello inferiore, e fornisce servizi al livello superiore, indipendentemente da coma sia implementato. \acc 
+Quando la comunicazione è bidirezionale, un protocollo deve poter eseguire i due compiti inversi (ad esempio, 
+il protocollo che si occupa della crittografia, deve saper cifrare il messaggio ed anche decifrarlo).\acc
+La stratificazione dei livelli e dei protocolli garantisce più semplicitià quando si tratta di manutenere 
+o aggiornare il sistema, aumenta la riusabilità e l'eterogeneità, comporta però anche degli svantaggi, 
+come la ridondanza delle operazione ed un calo dell'efficienza.
+\subsubsection{Layer di Protocollo}
+I 5 macro-livelli sulla quale si fonda la comunicazione sono i seguenti :
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/livelli.eps}
+\end{center}
+Sino ad ora i dati incapsulati che vengono comunicati sulla rete sono stati chiamati generalmente 
+"pacchetti", vedremo che questi assumono una denominazione diversa per ogni livello. Ogni protocollo 
+fa parte di un livello, ed anche se esistono più protocolli per un livello, ogni pacchetto 
+che viene trasmesso usufruisce di un solo protocollo per livello. I nomi dei protocolli citati in 
+seguito, verranno approfonditi e caratterizzati in seguito.
+\begin{enumerate}
+    \item Il livello di \textbf{applicazione} è dove risiedono le applicazioni di rete che 
+    usufruiscono dei servizi di Internet, alcuni dei protocolli presenti in questo livello 
+    sono \textit{HTTP,SMTP,FTP,DNS}, in questo livello, i pacchetti sono chiamati 
+    \textg{messaggi}.
+    \item Il livello di \textbf{trasporto} si occupa del trasferimento dei messaggi  dal livello di 
+    applicazione di un client al livello di applicazione del server, alcuni protocolli sono 
+    \textit{TCP,UDP}, in questo livello, i pacchetti sono chiamati 
+    \textg{segmenti}.
+    \item Il livello di \textbf{rete} riguarda l'instradamento dei segmenti dall'origine alla 
+    destinazione, un noto protocollo è l'\textit{IP}, i pacchetti in questo livello sono detti 
+    \textg{datagrammi}. 
+    \item Il livello di \textbf{collegamento} si occupa della trasmissione dei datagrammi da un 
+    nodo della rete al nodo successivo sul percorso, alcuni protocolli sono \textit{Ethernet,Wi-Fi e 
+    PPP}, lungo un percorso sorgente-destinazione, un datagramma può essere gestito anche da 
+    differenti protocolli, i pacchetti qui sono detti \textg{frame}. 
+    \item Il livello \textbf{fisico} riguarda il trasferimento dei singoli \textg{bit} sul canale 
+    fisico, tramite elettricità nei cavi, oppure onde elettromagnetiche-
+\end{enumerate}
 \end{document}
