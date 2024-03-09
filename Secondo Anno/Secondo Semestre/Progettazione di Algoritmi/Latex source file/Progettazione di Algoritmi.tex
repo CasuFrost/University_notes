@@ -320,7 +320,7 @@ Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessar
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Comp}\\
 \codee{\}}
-\subsubsection{Ordinamento Topologico}
+\subsection{Ordinamento Topologico}
 Supponiamo che vi sia un progetto da completare, che viene diviso in \(n\) piccoli processi 
 \(x_1,x_2\dots x_n\), e supponiamo che fra essi, vi siano delle dipendenze sull'ordine di completamento, ad 
 esempio : \begin{itemize}
@@ -563,5 +563,136 @@ Alla fine, avremo un vertice candidato ad essere un pozzo, e controlleremo in ma
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return true}\\
+\codee{\}}
+\subsubsection{Ordine Topologico in Tempo Lineare}
+Tornando al DFS con il contatore, esiste ovviamente anche una versione ricorsiva, composta da due funzioni, 
+una "globale" che inizializza il processo, ed una ricorsiva che opera.\begin{center}
+    Pseudocodice
+\end{center}
+\codee{DFSglobal(G,x)\{}\\
+\hphantom{ident}\codee{Vis : int[n] = [0,0...,0]}\\
+\hphantom{ident}\codee{t : int[n] = [0,0...,0]}\\
+\hphantom{ident}\codee{T : int[n] = [0,0...,0]}\\
+\hphantom{ident}\codee{c : int = 1}\\
+\hphantom{ident}\codee{DFSrecursive(x,Vis,c,t,T)}\comm{prima chiamata della funzione ricorsiva}\\
+\hphantom{ident}\codee{return Vis}\\
 \codee{\}}\acc 
+L'algoritmo rimane in $O(n+m)$, passiamo ora alla funzione ricorsiva.\begin{center}
+    Pseudocodice
+\end{center}
+\codee{DFSrecursive(x,Vis,c,t,T)\{}\\
+\hphantom{ident}\codee{while($\exists$y$\in$V(G) | Vis[y]=0 $\land$ (x,y)$\in$E(G))\{}\\
+\hphantom{ident}\hphantom{ident}\codee{Vis[y]=1}\\
+\hphantom{ident}\hphantom{ident}\codee{c++}\\
+\hphantom{ident}\hphantom{ident}\codee{t[y]=c}\\
+\hphantom{ident}\hphantom{ident}\codee{DFSrecursive(y,Vis,c,t,T)}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{T[x]=c}\\
+\codee{\}}\acc 
+\textbf{Proposizione} : Per ogni arco $(v,u)$ in un grafo diretto, si ha che $t(u)\le T(v)$.\acc 
+\textbf{Dimostrazione} : Se così non fosse, vorrebbe dire che $t(u)>T(v)$, significherebbe che avremmo
+chiuso (tolto dallo stack) $v$ quando vi era ancora possibilità di continuare su $u$, quindi 
+è impossibile che ciò accada. $\blacksquare$\acc 
+Torniamo adesso all'\textit{ordinamento topologico}, nei capitoli precedenti, si è visto che, se il grafo 
+è ciclico allora esistono degli archi all'indietro. In caso contrario, ci sono due restanti possibilità 
+per ogni arco $(v,u)$ :\begin{itemize}
+    \item \(ii)\) $[t(v),T(v)]\supseteq[t(u),T(u)]$
+    \item \(iii)\) $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$
+\end{itemize} 
+Sicuramente $t(u)\le T(u)\le T(v)$, $t(v)$ può trovarsi in uno dei due seguenti intervalli :\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/cases.eps}
+\end{center}
+Il fatto, è che $T(u)\le T(v)$, e ciò vale per ogni arco del grafo $(v,u)$, nel corrispettivo ordine 
+topologico in cui tutti gli archi andranno da "sinistra verso destra", si avrà che, seguento quest'ordine, 
+i valori di $T$ per i vertici coinvolti saranno \textit{decrescenti}.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/t_T_crescenza.eps}
+\end{center} La dove si causerà una situazione 
+di "tie break", ossia in cui i valori di $T$ sono coincidenti per due vertici, si avrà che essi differiranno 
+per i valori di $t$, che secondo l'ordine prima menzionato saranno strettamente crescenti, nel risultante 
+ordine topologico, i vertici chiusi (tolti dallo stack) per ultimi, saranno quelli a sinistra.\begin{center}
+    Pseudocodice
+\end{center} 
+\codee{ORDtopologico(G)\{}\comm{funzione globale}\\
+\hphantom{ident}\codee{L : list}\comm{l'output, conterrà i vertici dell'ordine topologico}\\
+\hphantom{ident}\codee{Vis : int[n] = [0,0...,0]}\\
+\hphantom{ident}\codee{for each (v$\in$V(G))\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(Vis[v]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSord(G,v,Vis,L)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\codee{\}}\acc 
+\codee{DFSord(G,v,Vis,L)\{}\comm{funzione ricorsiva}\\
+\hphantom{ident}\codee{Vis[v]=1}\\
+\hphantom{ident}\codee{for each (w adiacente di v)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(Vis[w]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSord(G,w,Vis,L)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{L.insert(v,0)}\comm{inserisci il vertice nella prima posizione della lista}\\
+\codee{\}}
+\subsection{Ponti sui Grafi non Diretti}
+\hphantom{a}
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/ponte.eps}
+\end{center} 
+Come si può procedere per verificare che un arco $(u,v)$ sia o no un ponte? Posso rimuovere l'arco, e controllare con il DFS 
+se esiste ancora un cammino fra i due vertici coinvolti, se esiste, allora quell'arco non era un ponte. Se volessi trovare 
+tutti i ponti di un grafo, questa operazione risulterebbe poco efficiente, e l'algoritmo avrebbe complessità $O(m\cdot(n+m))$.\acc 
+\textbf{Osservazione} : Qualsiasi arco coinvolto in un ciclo, non è un ponte, viceversa, se un arco è un ponte, allora 
+non fa parte di un ciclo.\acc 
+Ne consegue che, qualsiasi arco che non fa parte dell'albero di visita derivante da una qualsiasi applicazione del DFS 
+(gli archi all'indietro), sicuramente non è un ponte. Quindi un ponte fa parte dell'albero di visita, non è necessario 
+controllare tutti gli archi. Si considerino i due seguenti alberi di visita di due grafi che 
+differiscono esclusivamente per un arco.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/checkPonte.eps}
+\end{center} 
+Osservando la seguente immagine, si noti che, l'arco viola del primo grafo, è un ponte, invece l'arco viola del 
+secondo grafo, non lo è, rimane infatti connesso grazie all'arco arancione, che non fa parte dell'albero di 
+visita, da tali considerazioni, si giunge alla seguente proposizione.\acc
+\textbf{Proposizione} : Sia $T$ un albero di visita derivante da una qualsiasi applicazione del DFS su un 
+grafo connesso e non diretto, e sia $(u,v)\in E(T)$, un arco dell'albero, dove $v$ è il padre di $u$, si ha che, 
+l'arco  $(u,v)$ è un ponte \textit{se e solo se} non esiste alcun arco all'indietro da un qualsiasi vertice 
+discendente di $u$, ad un qualsiasi vertice antenato di $v$ ($v$ compreso).\acc 
+\textbf{Dimostrazione} : \boxedMath{$(1)\implies(2)$} Sia $T_u$ l'insieme dei discendenti di $u$. Se esistesse un arco da  $T_u$ all'indietro, 
+allora $(u,v)$ sarebbe parte di un ciclo, e sicuramente non sarebbe un ponte. \boxedMath{$(2)\implies(1)$} Assumiamo che 
+$(u,v)$ non sia un ponte, allora esiste un cammino $u\rightarrow v$ che non fa uso dell'arco in questione. Esiste sicuramente 
+un punto nel cammino, in cui si passa da un vertice $x$ tale che $x\notin T_u$, ad un vertice $y$ tale che 
+$y\in T_u$, ma sappiamo che non esistono archi all'indietro, ciò porta ad una contraddizione. $\blacksquare$\acc 
+Scriviamo adesso lo pseudocodice di un algoritmo che restituisce tutti i ponti di un grafo in tempo lineare, come prima, diamo 
+la definizione di \textit{punto di back}, o semplicemente \textit{back}.\acc 
+\textbf{Definizione} : Il \textit{back} di un vertice $u$ in un albero di visita, non è altro che il vertice più 
+vicino alla radice che è possibile raggiungere con un arco da $u$ o da uno dei suoi discendenti.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/back.eps}
+\end{center} 
+Vogliamo quindi un algoritmo che, per un arco $(u,v)$, dove $v$ è il padre di $u$, si controlli il 
+back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non è un ponte, altrimenti lo è. 
+\begin{center}
+    Pseudocodice
+\end{center} 
+\codee{Ponti(G : grafo connesso non diretto)\{}\comm{funzione globale}\\
+\hphantom{ident}\codee{t : int[n] = [0,0...,0]}\\
+\hphantom{ident}\codee{c : int = 0}\\
+\hphantom{ident}\codee{Ponti : list}\comm{l'output}\\
+\hphantom{ident}\codee{z = un vertice a caso di G}\\
+\hphantom{ident}\codee{DFSponte(G,z,z,t,c,Ponti)}\\
+\hphantom{ident}\codee{return Ponti}\\
+\codee{\}}\acc
+\codee{DFSponte(G, v, z, t, c, Ponti)\{}\comm{funzione ricorsiva, z è il padre di v}\\
+\hphantom{ident}\codee{back=t[v]}\\
+\hphantom{ident}\codee{c++}\\
+\hphantom{ident}\codee{t[v]=c}\\
+\hphantom{ident}\codee{for each (w adiacente di v)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(t[w]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{b=DFSponte(G,w,v,t,c,Ponti)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{back = min(b,back)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{else if(w$\ne$z)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{back = min(t[w],back)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{if(back==t[v])\{}\\
+\hphantom{ident}\hphantom{ident}\codee{Ponti.add((v,z))}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return back}\\
+\codee{\}}\acc
 \end{document}
