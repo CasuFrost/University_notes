@@ -241,4 +241,99 @@ esempio, una classe \textit{Utente} di un social network, può permettere ad ogn
 avere più indirizzi email, allora l'attributo si definirà nel seguente modo : \begin{center}
     email : String [1..*]\comm{uno o più indirizzi email}
 \end{center}
+\subsection{Vincoli}
+Il linguaggio UML permette di aggiungere i cosiddetti \textbf{vincoli d'integrità}, delle asserzioni che hanno lo 
+scopo di restringere il possibile insieme delle istanze, ossia degli oggetti ammessi. Una tipologia di vincolo è 
+quella dell'\textit{identificazione di classe}, è un vincolo che, impone a due differenti istanze di una classe, 
+di non poter avere uno o più attributi coincidenti.\acc 
+Un tipico esempio può essere fatto per una classe \code{Persona}, che presenta un attributo \code{codice fiscale},
+è necessario un vincolo di identificazione di classe, che imponga a due differenti istanze di \code{Persona} di non 
+avere lo stesso \code{codice fiscale}. \acc Tale vincolo può essere aggiunto anche su un insieme di attributi, 
+se il vincolo è su \code{x} ed \code{y}, due oggetti istanza possono coincidere su \code{x} ma non su \code{y}, oppure 
+su \code{y} ma non su \code{x}, non possono essere coincidenti su entrambi.\begin{center}
+    \includegraphics[width=\textwidth ]{images/identificazione.eps}
+\end{center} 
+Affianco all'attributo in questione, si inserisce la dicitura \code{\{id\}}, possono coesistere anche identificazioni 
+di classe differenti, di solito si usano le diciture \code{\{id1\}, \{id2\}...,\{id$k$\}} ecc.\acc Un vincolo di 
+identificazione può anche coinvolgere un'associazione. Se il vincolo è posto su un'associazione da 
+\code{x} ad \code{y}, e su un attributo
+della classe \code{x}, 
+vuol dire che non possono esistere due istanze di \code{x} con l'attributo in questione coincidente, che hanno un 
+link verso la medesima istanza di \code{y} :\begin{center}
+    \includegraphics[width=\textwidth ]{images/vincoloAss.eps}
+\end{center} 
+Attenzione : Un vincolo di identificazione di classe può coinvolgere esclusivamente attributi a molteplicità 
+$1..1$ e associazioni in cui il ruolo della classe ha molteplicità $1..1$.
+\subsection{Generalizzazione delle Classi}
+Risultano molto comuni, situazioni in cui diverse classi condividono gli stessi attributi. Il concetto di classe e sotto-classe 
+è ben noto, già dal corso di
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Primo%20Anno/Secondo%20Semestre/Metodologie%20di%20Programmazione/Appunti%20Metodologie%20di%20programmazione.pdf}{
+    Metodologie di Programmazione
+}\color{black}, dove si è affrontata la programmazione orientata agli oggetti, in UML, è possibile definire delle relazioni 
+di classe e sotto-classe, che però risultano ben più "potenti" e flessibili del corrispettivo in Java.\begin{center}
+    \includegraphics[width=\textwidth ]{images/sottoclasse..eps}
+\end{center} 
+Tutti gli attributi, associazioni e le molteplicità della superclasse sono ereditati dalla sottoclasse. Ovviamente 
+la relazione di classe-sottoclasse può essere re-iterata, costruende un "albero" gerarchico, in cui ogni 
+livello eredita gli attributi ed associazioni del livello superiore.\acc La classe \code{Studente} sarà sottoclasse di 
+una classe \code{Persona}, se quest'ultima è in una associazione \code{nascita} con una classe \code{Città}, anche 
+\code{Studente} lo sarà, una sottoclasse di \code{Studente}, ad esempio, \code{StudenteStraniero}, erediterà sia 
+le proprietà di \code{Studente} che quelle di \code{Persona}. \begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/studStraniero.eps}
+\end{center} 
+Tutto ciò, aumenta significativamente la complessità dello schema relazionale e del livello degli oggetti, nulla vieta 
+ad un oggetto di appartenere a più classi, nell'esempio precedente, un istanza di \code{StudenteStraniero}, è anche 
+istanza di \code{Studente} e \code{Persona}, però la classe più \textit{specifica} alla quale fa riferimento è appunto 
+\code{StudenteStraniero}, si definisce per un oggetto quindi l'insieme delle sue classi più specifiche.
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/ClassiSpec.eps}
+\end{center} 
+Se diverse classi sono sottoclassi di una classe comune, è possibile utilizzare il costrutto "\textit{is-a}" per 
+denotare tale comportamento del modello. Si ha una classe \code{a}, e due classi \code{b} e \code{c}, entrambe 
+sottoclassi di \code{a} tramite il costrutto "\textit{is-a}", un oggetto istanza di \code{a} potrà essere anche :\begin{itemize}
+    \item Sia istanza di \code{b} che di \code{c}.
+    \item Solo istanza di \code{b}.
+    \item Solo istanza di \code{c}.
+    \item Ne istanza di \code{b}, ne di \code{c}.
+\end{itemize}\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/isa.eps}
+\end{center} 
+In questo caso \code{Studente} e \code{Lavoratore} fanno parte della \textbf{stessa generalizzazione}, ossia \code{occupazione},
+nulla vieta ad una classe di essere superclasse di generalizzazioni distinte : \begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/isa2.eps}
+\end{center} 
+In questo modello, una Persona può essere : Uomo, Donna, Uomo e Donna, ne Uomo ne Donna, e contemporaneamente 
+può essere Studente, Lavoratore, Studente e Lavoratore o nessuno dei due. Risulta ambiguo il fatto che una persona 
+possa essere sia uomo che donna, è necessario imporre allo schema, che ogni persona sia o Uomo o Donna, è possibile 
+considerare dei \textbf{criteri sulle generalizzazioni}, che si occupano proprio di gestire queste situazioni.\begin{itemize}
+    \item \textbf{Criterio disjoint} - Impone agli oggetti istanza di una classe soggetta a generalizzazione, di non poter 
+    essere istanza di più di una delle sottoclassi in questione. Se nell'esempio precedente, la generalizzazione 
+    \code{genere} avesse il criterio \textit{disjoint}, sarebbe impossibile essere sia Uomo che Donna, ma 
+    sarebbe ancora possibile non essere ne Uomo ne Donna.
+    \item \textbf{Criterio complete} - Impone agli oggetti istanza di una classe soggetta a generalizzazione,
+    di dover essere obbligatoriamente istanza di almeno una delle sottoclassi in questione. Se nell'esempio precedente, la generalizzazione 
+    \code{genere} avesse il criterio \textit{complete}, sarebbe impossibile non essere ne Uomo ne Donna, ma     
+    sarebbe ancora possibile non essere sia Uomo che Donna.
+\end{itemize}
+A seguito di ciò, è possibile combinare i diversi criteri per poter permettere ad un istanza di persona, di essere 
+necessariamente o Uomo o Donna. Vogliamo quindi che la generalizzazione \code{genere} consideri entrambi i criteri 
+complete e disjoint, vogliamo invece che la generalizzazione ruolo non abbia criteri, in quanto è possibile che una 
+persona decida di studiare, lavorare, fare entrambi o non fare nulla. \begin{center}
+    \includegraphics[width=1\textwidth ]{images/isa3.eps}
+\end{center} 
+Ora le possibili combinazioni di persona sono 8 : Studente Uomo,
+Lavoratore Uomo, 
+Studente e Lavoratore Uomo,
+Nullafacente Uomo,
+Studente Donna ,
+Lavoratore Donna,
+Studente e Lavoratore Donna e
+Nullafacente Donna.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/criteriDisjointComplete.eps}
+\end{center} 
+UML permette anche ad una classe di ereditare da più classi, anche se tale scelta potrebbe 
+aumentare troppo la complessità del diagramma, e va utilizzata esclusivamente quando necessario, molto spesso 
+è consigliabile procedere diversamente.\begin{center}
+    \includegraphics[width=0.85\textwidth ]{images/eredMultipla.eps}
+\end{center} 
 \end{document}
