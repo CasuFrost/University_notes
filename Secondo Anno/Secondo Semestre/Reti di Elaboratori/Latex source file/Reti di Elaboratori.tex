@@ -330,4 +330,80 @@ seguito, verranno approfonditi e caratterizzati in seguito.
     \item Il livello \textbf{fisico} riguarda il trasferimento dei singoli \textg{bit} sul canale 
     fisico, tramite elettricità nei cavi, oppure onde elettromagnetiche-
 \end{enumerate}
-\end{document}
+Durante la comunicazione, non tutti i sistemi intermedi richiedono che il messaggio venga processato 
+su tutti i livelli, alcuni dispositivi richiedono solo alcuni layer, riducendo la complessità.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/comunicazioneProtocolli.eps}
+\end{center}
+Lo strato di un livello ha una comunicazione logica/virtuale con lo stesso livello su un altro 
+computer, ma i dati non sono trasferiti direttamente da uno strato all'altro, passano per tutti i livelli 
+inferiori, un \textit{protocollo} è quindi un insieme di regole che controllano il formato ed il 
+significato dei pacchetti scambiati tra le entità \textit{pari} all'interno di uno strato, un 
+\textit{servizio} invece è un insieme di primitive che uno strato offre a quello superiore, ossia :\begin{itemize}
+    \item Quali operazioni fornisce (senza dire nulla sull'implementazione).
+    \item Posto come interfaccia fra due strati, quello inferiore fornisce il servizio, quello superiore ne 
+    usufruisce.
+\end{itemize}
+\subsubsection{Incapsulamento e Multiplexing}
+Un pacchetto passando di livello in livello viene \textit{processato}, vengono aggiunte informazioni, 
+ la sorgente effettua \textit{l'incapsulamento}, prende il pacchetto dal livello superiore, 
+ e aggiunge un "intestazione".\acc 
+ Un \textit{messaggio} passa dal livello di applicazione al livello di trasporto, qua gli verrà aggiunto un 
+ "header trasporto" e diventerà un \textit{segmento} (incapsulato), verrà poi passato al livello di rete, 
+ e con l'aggiunta di un "header rete" diventerà un \textit{datagramma} (un altro incapsulamento di un 
+ messaggio già incapsulato). \acc 
+ Così il processo si ripete nei vari livelli rendendo il messaggio una matrioska, il destinatario 
+ che dovrà leggerlo, effettuerà il decapsulamento ai livelli di riferimento (quando il datagramma arriva al 
+ destinatario, il livello di rete si occuperà di leggere le informazioni contenute nell'header di rete).
+ \begin{center}
+    \includegraphics[width=1\textwidth ]{images/incapsulamento.eps}
+\end{center}
+Si è già accennato al fatto che, ad ogni livello, possono esistere più protocolli per l'incapsulamento 
+dei messaggi, è necessario fare \textit{multiplexing} alla sorgente e \textit{demultiplexing} 
+alla destinazione. \begin{itemize}
+    \item \textbf{Multiplexing} - Un protocollo può incapsulare un pacchetto che proviene da più protocolli 
+    dal livello superiore (ad esempio, a livello di trasporto, il protocollo \textit{TCP} può incapsulare 
+    sia pacchetti che sono stati incapsulati tramite \textit{HTTP}, che incapsulati tramite \textit{FTP}).
+    \item \textbf{Demultiplexing} - Un protocollo può decapsulare pacchetti a più protocolli del livello 
+    superiore (ad esempio, se al livello di datagramma arriva un frame, il protocollo deve poterlo decapsulare sia 
+    in un segmento \textit{TCP}, sia in un segmento \textit{UDP}).
+\end{itemize} \begin{center}
+    \includegraphics[width=1\textwidth ]{images/multiplexing.eps}
+\end{center}
+Per poter effettuare il multiplexing, all'interno dell'header sono contenute le informazioni sul tipo di 
+protocollo da usare. Per far si che tale modello protocollare funzioni, è necessario che ogni sorgente e 
+destinazioni, prevedano degli \textit{indirizzi} ad ogni livello.
+\subsection{Introduzione alla Sicurezza}
+Esiste un modello referenziale per descrivere gli strati/livelli della comunicazione chiamato 
+\textbf{modello OSI}, che ai 5 precedenti aggiunge 2 livelli interposti fra applicazione e trasporto, ossia 
+\textit{presentazione} (si occupa della crittografia) e \textit{sessione} (si occupa della 
+sincronizzazione). \acc Definiamo \textbf{campo della sicurezza}, l'ambito che si occupa di capire come le reti 
+potrebbero subire attacchi, e quali potrebbero essere eventuali difese, Internet in origine, alla sua nascita, 
+non è stato pensato per essere "sicuro", in quanto \textit{Arpanet} era una rete confidenziale condivisa
+fra utenti che si fidano fra loro, ed ogni livello dello stack è soggetto ad attacchi.
+\subsubsection{Attacchi alla Rete} 
+ Un \textbf{malware} è un software malevolo che può entrare in una rete, ed infettare gli host tramite un  
+ meccanismo "autoreplicante" mediante la ricezione/esecuzione di oggetti, come allegati di posta elettronica 
+ o file eseguibili.\acc Uno \textit{spyware} è un tipo di malware che ha lo scopo di registrare gli input 
+ dell'host infetto, e le sue tracce sulla rete, come i siti web visitati. L'host infetto può diventare parte 
+ di una \textit{botnet}\footnote{Una botnet è una rete di computer infettati da malware che vengono controllati da un criminale informatico.},
+ utilizzata per scopi malevoli.\acc 
+ Uno degli attacchi tipici che possono arrivare da una botnet è l'attacco \textbf{DOS} (Denial of Service), 
+ tale attacco viene eseguito sovraccaricando un servizio (bersaglio), inviando un numero elevato di pacchetti in modo 
+ da creare traffico sulla rete e rendere il servizio non disponibile.\acc 
+ Un altro attacco tipico è il \textbf{packet sniffing}, ossia l'intercettazione di pacchetti da parte di un terzo 
+ utente alla quale tali pacchetti non erano destinati. Viene spesso perpetrato tramite mezzi di 
+ trasmissione fisici come il cavo Ethernet o Wireless. L'utente malevolo legge e registra i pacchetti, che possono 
+ contenere informazioni confidenziali.\acc 
+ L'\textbf{IP spoofing} è un attacco che ha lo scopo di inviare pacchetti ad un destinatario, fingendosi una 
+ sorgente fasulla, ovvero utilizzando un indirizzo di origine falso, convincendo il destinatario ad avviare una comunicazione, facendogli 
+ credere di star comunicando con un utente fidato.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/spoofing.eps}
+ \end{center}
+ Ci sono diverse forme di divesa agli attacchi presentati, l'\textbf{autenticazione} (dimostrare che il destinatario 
+ è effettivamente chi dichiara di essere), la \textbf{confidenzialità} (cifrare i messaggi tramite la crittografia), 
+ il \textbf{controllo integrità} (associare delle firme digitali ad un messaggio per prevenire o riconoscere eventuali 
+ manomissioni), le \textbf{restrizioni di accesso} (VPNs protette da password), e l'utilizzio di un 
+ \textbf{firewall} (programmi che si trovano nel nucleo dell'access point, con lo scopo di filtrare i pacchetti 
+ e riconoscere eventuali attacchi DOS).
+ \end{document}
