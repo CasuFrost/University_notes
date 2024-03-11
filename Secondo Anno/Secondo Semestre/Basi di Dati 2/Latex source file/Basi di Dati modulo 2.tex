@@ -98,7 +98,7 @@ Nulla vieta alle varie fasi di essere eseguite in parallelo, ad esempio, nel tem
 i requisiti per la prima versione del software, nel tempo \(t_1\) gli analisti iniziano a produrre il modello della versione 1, ma 
 possono essere nel mentre stilati i requisiti della versione 2, al tempo \(t_3\), com'è di facile intuzione : 
  Si raccolgono i requisiti per la versione 3, si produce il modello della versione 2, si progetta la versione 1.
- \subsection{Il linguaggio UML}
+ \section{Il linguaggio UML}
 Il linguaggio UML, acronimo di \textit{Unified Modeling Language}, nasce con l'intento di definire un 
 linguaggio logico-matematico e formale per la progettazione del software. Utilizza dei diagrammi con lo scopo di 
 "sintetizzare" un linguaggio puramente logico. \acc 
@@ -204,7 +204,7 @@ test superato, anche il docente che ha verbalizzato il voto, basta
 collegare l'associazione con attributi ad una classe \textit{Docente} : \begin{center}
     \includegraphics[width=0.8\textwidth ]{images/conDocente.eps}
     \end{center} 
-\subsection{Tipi di Dato} 
+\subsection{Tipi di Dato} \label{dataType}
 Per ogni attributo di ogni classe abbiamo visto essere necessario 
 considerare il tipo del dato, esiste infatti un insieme di tipi di 
 dato \textit{concettuali}, che siano facilmente implementabili 
@@ -350,5 +350,33 @@ oggetto. Quando un operazione modifica un oggetto, si dice che provoca degli
 La sintassi è la seguente, un operazione ha un \textit{nome}, dopo di ché 
 si specificano in delle parentesi tonde i parametri con relativi tipi, alla fine 
 si inserisce il tipo di ritorno dell'operazione. L'operazione definita in 
- una classe $x$ viene sempre invocata da un oggetto istanza di $x$.
+ una classe $x$ viene sempre invocata da un oggetto istanza di $x$. L'ereditarietà 
+ ovviamente, si applica anche alle operazioni.\acc 
+ in UML quindi vengono definite le operazioni con i loro nomi (evocativi), parametri e tipo di ritorno, ma non viene 
+ esplicitato in maniera formale cosa queste operazioni devono calcolare. La descrizione logica-formale di ciò che 
+ le operazioni devono fare (non come), viene data in un documento separato.
+ \subsection{Documenti di Specifica}
+Tali \textit{specifiche} hanno lo scopo di affiancare il diagramma UML, e sono contenute in un documento separato, un tipo 
+di specifiche già presentate sono le specifiche dei \textbf{tipi di dato}, viste nel capitolo \ref{dataType}, esistono 
+4 documenti differenti per le specifiche.
+\subsubsection{Specifica delle Classi}
+La specifica delle classi è un documento che associa ad ogni classe, appunto, una specifica formale su ciò che rappresenta, di cui 
+per ogni operazione è data la sua descrizione logica-matematica, tale specifica può essere scritta in linguaggio 
+umano (informale) ed in linguaggio puramente logico (formale), per ora vedremo degli esempi di specifiche 
+informali.\acc 
+La specifica di un operazione segue il seguente template : \begin{quote}
+    nome\_operazione(parametri) : tipo\_ritorno\begin{itemize}
+        \item pre condizioni  \\\(\dots\)\\\(\dots\)\\\(\dots\)
+        \item post condizioni  \\\(\dots\)\\\(\dots\)\\\(\dots\)
+    \end{itemize}
+\end{quote}
+Le specifiche includono alcune parole chiave, come \code{this}: L'oggetto invocante, oppure 
+\code{result}: Il valore di ritorno.\acc 
+Le \textbf{post condizioni} danno la definizione matematica dell'operazione e del valore che restituiranno, 
+omettendo eventuali meccanismi di calcolo o implementazioni. Deve essere segnalato se l'operazione 
+modifica o no il livello degli oggetti (le istanze presenti).\acc Le \textbf{pre condizioni} sono le condizioni 
+che devono essere soddisfatte dalle istanze per far si che l'operazione possa essere 
+invocata, definiscono il cosiddetto \textit{contratto} dell'operazione.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/specificaClassi.eps}
+\end{center}
 \end{document}
