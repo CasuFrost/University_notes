@@ -68,11 +68,15 @@ fa riferimento a questi due, ma esclusivamente agli aereoporti di "scalo".
 Ogni \underline{VoloCharter} ha associati più modelli di \underline{Veivolo}, un modello per ogni tappa.
 \acc 
 Ogni \underline{TappaIntermedia}, che ha ordine $x$, ha associato un modello di veivolo, esso fa riferminto all'aereo utilizzato 
-per la tratta $x-1$-$x$.\acc 
+per la tratta $x-1$.\acc 
 I \underline{Veivoli} non hanno un codice identificativo, perché non ci interessa rappresentare il singolo 
 \underline{Veivolo} associato ad una tappa, ma il suo modello.
+\section{Specifica Tipi di Dato}
+Duration : \{h : Int\(\ge\)0, m 0..59\}
+\newpage
 \section{UML}
 \includegraphics[width=\textwidth]{images/UML.png}
+
 
 
 \end{document}
