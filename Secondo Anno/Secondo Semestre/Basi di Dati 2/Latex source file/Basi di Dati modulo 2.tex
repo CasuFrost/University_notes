@@ -335,5 +335,20 @@ UML permette anche ad una classe di ereditare da più classi, anche se tale scel
 aumentare troppo la complessità del diagramma, e va utilizzata esclusivamente quando necessario, molto spesso 
 è consigliabile procedere diversamente.\begin{center}
     \includegraphics[width=0.85\textwidth ]{images/eredMultipla.eps}
-\end{center} 
+\end{center}
+\subsection{Operazioni di Classe}
+Una classe ha un nome, degli attributi e delle \textit{operazioni}, 
+esse definiscono il comportamento della classe e differentemente dagli attributi 
+non sono statici.\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/operazione.eps}
+\end{center}
+Un operazione è una proprietà il cui valore è calcolato a 
+partire dai valori dell'oggetto che la invoca od altri oggetti ad esso 
+correlati, un operazione puà anche cambiare lo \textit{stato} di un 
+oggetto. Quando un operazione modifica un oggetto, si dice che provoca degli 
+\textit{effetti collaterali}.\acc 
+La sintassi è la seguente, un operazione ha un \textit{nome}, dopo di ché 
+si specificano in delle parentesi tonde i parametri con relativi tipi, alla fine 
+si inserisce il tipo di ritorno dell'operazione. L'operazione definita in 
+ una classe $x$ viene sempre invocata da un oggetto istanza di $x$.
 \end{document}
