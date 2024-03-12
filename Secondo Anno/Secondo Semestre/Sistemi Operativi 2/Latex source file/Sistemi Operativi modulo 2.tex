@@ -464,6 +464,8 @@ utilizzato per identificare la fine di uno statement, un blocco può contenere 0
 Esempio di un codice C :
 \begin{lstlisting}[style=CStyle]
 
+#include <stdio.h>
+
     int main()
     {
        int x = 5; //dichiarazione di una variabile 
@@ -477,4 +479,88 @@ Il valore di ritorno può essere costante, una variabile, un espressione o perfi
 è che sia del tipo specificato.\begin{center}
     \code{return 0;}\hphantom{text}\code{return x;}\hphantom{text}\code{return 3*x+1;}\hphantom{text}\code{return abs(x);}
 \end{center}
+Il simbolo \code{\#}, serve ad indicare al preprocessore quali file vanno inclusi nel contenuto del programma, nel codice 
+di esempio sovrastante, all'inizio del file viene scritto \code{\#include <stdio.h>}, si sta includendo nel programma il 
+file \code{stdio.h}, tale estenzione viene utilizzata per i file \textit{header}, ossia i file che contengono delle funzioni da 
+includere nel programma ma contenute in file separati.\acc L'inclusione può avvenire in due modi :
+\begin{itemize}
+    \item \code{\#include <nome\_file.h>} - Viene incluso il file con tale nome, contenuto nella directory dei file standard 
+    del C, nel path \shelll{/usr/include}.
+    \item \code{\#include "nome\_file.h"} - Viene incluso il file con tale nome, contenuto nella stessa directory in cui 
+    è contenuto il file che si sta compilando.
+    \item Al momento della compilazione, con il comando \shelll{-I}, è possibile specificare il path in cui cercare i file header.
+\end{itemize}
+Un programma C interagisce con l'utente grazie alle funzioni contenute nel file \code{stdio.h}, contenente tutte le 
+operazioni essenziali per l'I/O.\acc  La principale funzione per scrivere delle stringe nel canale output di default (che è 
+lo schermo) è \code{printf("format string", value-list)}, essa prende come parametri due valori, la stringa da stampare 
+ed una lista di valori che possono essere variabili, costanti, sequenze di caratteri o espressioni logico-matematiche, e restituisce 
+come valore di ritorno il numero effettivo di caratteri stampati a schermo.\acc 
+Ci sono alcuni caratteri speciali da utilizzare nella funzione \code{printf}, ad esempio, scrivendo 
+\code{\textbackslash n} si andrà a capo nella stringa.\acc 
+Nella stringa da stampare è possibile inserire dei "segnaposti" dichiarati con il carattere \code{\%}, essi indicheranno che 
+in quel punto ci sarà il valore di una variabile, definita nella lista di valori, il segnaposto include anche un carattere,
+che definisce il tipo della variabile che verrà stampata a schermo. 
+\code{\%d}indica che la variabile sarà un numero intero.\begin{lstlisting}[style=CStyle]
+
+    int x = 5;
+    printf("Dopo il numero 4 viene il numero %d",x); 
+    \end{lstlisting}\begin{center}
+        \begin{tabular}{|c|c|}
+            \hline
+            \rowcolor[HTML]{C0C0C0} 
+            Segnaposto & Tipo                           \\ \hline
+            \%d o \%i  & intero                         \\ \hline
+            \%l        & intero (long)                  \\ \hline
+            \%x        & esadecimale                    \\ \hline
+            \%f        & float                          \\ \hline
+            \%e        & float in notazione scientifica \\ \hline
+            \%lf       & double                         \\ \hline
+            \end{tabular}
+    \end{center}
+Definendo una variabile, non si sta facendo altro che assegnare un etichetta ad una locazione di memoria che conterrà il contenuto 
+di tale variabile, tale contenuto può essere modificato durante l'esecuzione del programma. \acc Una variabile 
+si definisce specificandone il tipo, che ne specificherà anche lo spazio in byte che occuperà in memoria. 
+\begin{lstlisting}[style=CStyle]
+    
+    int a; //variabile non inizializzata
+    int b = 5; //variabile inizializzata
+    char c;
+    double r;
+    \end{lstlisting}
+Una variabile può contenere dei modificatori opzionali, per indicare se il valore memorizzato ha o non ha il segno, 
+oppure il range che può contenere.\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{C0C0C0} 
+        Tipo          & Dimensione & Intervallo di valori                \\ \hline
+        signed char   & 1 byte     & {[}-128,127{]}                      \\ \hline
+        unsigned char & 1 byte     & {[}0,255{]}                         \\ \hline
+        short         & 2 byte     & {[}-32 768,32 767{]}                \\ \hline
+        int           & 4 byte     & {[}-2 147 483 648, 2 147 483 647{]} \\ \hline
+        float         & 4 byte     & {[}1.2E-38,3.4E+38{]}               \\ \hline
+        double        & 8 byte     & {[}2.3E-308,1.7E+308{]}             \\ \hline
+        \end{tabular}
+\end{center}
+È anche possibile mostrare le dimensioni in byte di una variabile (spazio che occupa in memoria) tramite la 
+funzione \code{sizeof()}.\acc 
+Per prendere input da tastiera si utilizza la funzione \code{scanf("format string", address-list)}, differentemente 
+da \code{printf}, gli si deve dare l'indirizzo di memoria nella quale dovrà inserire il contenuto letto, è possibile quindi 
+mettere come prefisso all'etichetta di una variabile il carattere \code{\&}, che indicherà il puntatore di quella variabile.\acc 
+Esempio di programma che utilizza le funzioni di input ed output :
+\begin{lstlisting}[style=CStyle]
+
+#include <stdio.h>
+
+    int main(){
+
+        printf("Questo programma converte gli euro in lire.\n");
+        printf("Inserire il valore in euro : \n");
+        int euro;
+        scanf("%d", &euro);
+        printf("il valore corrispondente in lire risulta essere  %d", euro*200); 
+
+        return 0;
+
+    }
+    \end{lstlisting}
 \end{document}
