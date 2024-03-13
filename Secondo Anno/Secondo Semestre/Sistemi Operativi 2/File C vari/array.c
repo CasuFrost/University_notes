@@ -40,4 +40,8 @@ int main(){
 	for(int i = 0;i<2*GIORNI;i++) //Provando a scrivere oltre l'area di memoria allocata, l'OS potrebbe abortire il processo.
 		temp_max[i]=0.0;
 	
+	char str[80]; //Così definisco una stringa, di dimensiona massima 80 caratteri
+	scanf("%s",&str);
+	printf("%s",str);
+	
 }
