@@ -732,4 +732,34 @@ da $x$ a $V_H$ e da $V_H$ ad $x$, quindi il grafo $\nicefrac{G}{H}$ è fortement
 \textbf{Osservazione} : Se $G$ è fortemente connesso e non è banale, allora contiene sicuramente un ciclo, quindi esiste un 
 arco $(x,y)$ per cui esiste anche un cammino da $y$ ad $x$, che insieme all'arco precedente compone il ciclo. Un ciclo inoltre 
 è un sottografo fortemente connesso, se applichiamo la contrazione ricorsivamente sui cicli, otterremo le componenti connesse.
+\acc 
+Se $u_1,u_2\dots,u_k$ sono fortemente connessi in $\nicefrac{G}{C}$, con 
+$C$ un insieme e $V_C$ il vertice contratto, si ha che le componenti in 
+$G$ sono $u'_1,u'_2\dots,u'_k$ con:$$
+u'_i=\begin{cases}
+    u_i\text{ se }V_C\notin u_i\\
+    (u_i\backslash \{V_C\})\cup \{V(C)\}\text{ se }V_C\in u_i
+\end{cases}
+$$ Se il grafo non ha cicli, ogni vertice è un componente connesso. Vediamo 
+ora l'algoritmo non lineare.\begin{center}
+    Pseudocodice
+\end{center}
+\codee{Fort(G graph)\{}\acc 
+\hphantom{ident}\codee{C = un ciclo in G}\\
+\hphantom{ident}\codee{if (C non esiste)\{}\comm{non ci sono cicli nel grafo}\\
+\hphantom{ident}\hphantom{ident}\codee{return \{\{v\}|v $\in$ V(G)\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{G=$\nicefrac{G}{C}$}\\
+\hphantom{ident}\codee{$V_C$ = vertice contratto}\\
+\hphantom{ident}\codee{($u_1,u_2\dots,u_k$)=Fort(G)}\\
+\hphantom{ident}\codee{for (i in 1...k)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if ($V_C\notin u_i$)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$u'_i=u_i$}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{else \{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$u'_i=(u_i\backslash V_C)\cup \{V(C)\}$}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return ($u'_1,u'_2\dots,u'_k$)}\\
+\codee{\}}\acc
 \end{document}
