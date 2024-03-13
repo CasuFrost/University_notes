@@ -695,4 +695,41 @@ back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non �
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return back}\\
 \codee{\}}\acc
+\subsection{Componenti Fortemente Connesse}
+Abbiamo già dato la definizione di fortemente connesso per un grafo diretto, ossia un grafo $G$ di cui, 
+per ogni coppia di vertici $(u,v)$ esiste un cammino da $u$ a $v$ e viceversa. Quando un grafo è non diretto, risulta 
+facile trovare le componenti connesse, in quanto è facilmente visualizzabile come un "pezzo" di grafo connesso 
+distaccato dal resto.\acc 
+In un grafo diretto, una componente è un sottografo fortemente connesso \textit{massimale}, ossia, che non è contenuto in 
+un sottografo più grande fortemente connesso.\acc 
+\textbf{Osservazione} : Ogni vertice di un grafo diretto è contenuto in un componente fortemente connesso, dato che 
+al minimo esiste il componente costituito dall'unico vertice.\acc 
+\textbf{Osservazione} : Non esistono più componenti che hanno vertici in comune, ogni vertice appartiene ad un solo 
+componente.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/compoGrafDir.eps}
+\end{center}
+Si vuole un algoritmo capace di trovare le componenti fortemente connesse di un grafo diretto.
+\subsubsection{Contrazione di Vertici} 
+\textbf{Definizione} : Sia $G$ un grafo diretto, e sia $H\in V(G)$ un insieme di vertici, è possibile 
+\textit{contrarre} i vertici, facendoli "collassare" in un unico vertice, ottenendo il grafo $G$ contratto $H$, denotato 
+$\nicefrac{G}{H}$. Si denota con $V_H$ il nuovo vertice contratto.\begin{itemize}
+    \item  $V(\nicefrac{G}{H}) := (V(G)\backslash H)\cup \{V_H\}$
+    \item $E(\nicefrac{G}{H}) := \{(x,y)\in E(G)| x,y\notin H\}\cup$\\
+    \hphantom{identaiden.}$\{(w,V_H)\text{ se } \exists(w,y)|w \notin V_H\land y \in V_H\}\cup$\\
+    \hphantom{identaiden.}$\{(V_H,w)\text{ se } \exists(y,w)|w \notin V_H\land y \in V_H\}$
+\end{itemize} \begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/contrazione.eps}
+\end{center}
+\textbf{Proposizione} : Se $G$ è un grafo fortemente connesso ed $H$ è un sottografo connesso, allora $\nicefrac{G}{H}$ è 
+ancora un grafo fortemente connesso.\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/propFortCOnn.eps}
+\end{center}
+\textbf{Dimostrazione} : Nel grafo 
+originale $G$ esiste un cammino $P$ da un qualsiasi nodo $x$ ad un qualsiasi nodo contenuto in $H$, ed esiste un 
+cammino $Q$ da un qualsiasi nodo in $H$ ad un qualsiasi nodo $x$, siano questi cammini quelli più corti possibile, essi 
+per definizione di $\nicefrac{G}{H}$ saranno anche in $\nicefrac{G}{H}$, quindi esisterà un cammino da 
+da $x$ a $V_H$ e da $V_H$ ad $x$, quindi il grafo $\nicefrac{G}{H}$ è fortemente connesso. $\blacksquare$\acc 
+\textbf{Osservazione} : Se $G$ è fortemente connesso e non è banale, allora contiene sicuramente un ciclo, quindi esiste un 
+arco $(x,y)$ per cui esiste anche un cammino da $y$ ad $x$, che insieme all'arco precedente compone il ciclo. Un ciclo inoltre 
+è un sottografo fortemente connesso, se applichiamo la contrazione ricorsivamente sui cicli, otterremo le componenti connesse.
 \end{document}
