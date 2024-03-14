@@ -26,23 +26,21 @@
 \section{Requisiti}
 I dati di interesse per il sistema sono \underline{Studenti}, \underline{Facoltà}, \underline{Professori} e \underline{Corsi}.
 \begin{enumerate}
-    \item \textbf{Studente}\begin{enumerate}
+    \item \textbf{Persona}\begin{enumerate}
         \item nome e cognome
-        \item codice fiscale 
-        \item matricola 
+        \item codice fiscale
         \item data di nascita 
         \item città di nascita 
+    \item \textbf{Studente}\begin{enumerate}
+        \item matricola 
         \item corso di laurea - Il/I corso/corsi alla quale lo studente è iscritto.
         \item insegnamenti superati - Gli \underline{Insegnamenti} che lo studente ha superato, uno stesso \underline{Insegnamento} non può essere 
         superato più di una volta.
     \end{enumerate}
     \item \textbf{Professore}\begin{enumerate}
-        \item nome e cognome
-        \item data di nascita 
-        \item codice fiscale 
-        \item città di nascita 
         \item insegnamenti erogati - L'\underline{Insegnamento} (o più di uno) erogato da un \underline{Professore}.
     \end{enumerate}
+\end{enumerate}
     \item \textbf{Corso di Laurea}\begin{enumerate}
         \item nome 
         \item facoltà
@@ -58,16 +56,12 @@ I dati di interesse per il sistema sono \underline{Studenti}, \underline{Facolt�
     \end{enumerate}
 \end{enumerate}
 \newpage
-\section{Considerazioni}
-Sarebbe possibile considerare una generalizzazione delle classi  \underline{Professore} e  \underline{Studente}, denotata 
-\underline{Persona}, in quanto queste due condividono più aspetti, come l'associazione ad una città, o i vari attributi identificativi,
-differiscono esclusivamente nella loro relazione con \underline{Insegnamento}. Sarebbe quindi corretto considerare 
-\underline{Professore} e  \underline{Studente} come \textit{sottoclassi} di \underline{Persona}.
 \section{Documenti di Specifica}
 \subsection{Tipi di Dato}
 I tipi sono dati sottoforma di espressioni regolari : \acc
 Matricola = Stringa [0-9]\{7\}\acc 
-CF = [A-Z]\{6\} [0-9]\{2\} [A-Z]\{1\} [0-9]\{2\} [A-Z]\{1\} [0-9]\{3\} [A-Z]\{1\}
+CF = [A-Z]\{6\} [0-9]\{2\} [A-Z]\{1\} [0-9]\{2\} [A-Z]\{1\} [0-9]\{3\} [A-Z]\{1\}\acc 
+Cap = Stringa [0-9]\{5\} 
 \section{UML}
 \includegraphics[width=\textwidth]{images/UML.png}
 

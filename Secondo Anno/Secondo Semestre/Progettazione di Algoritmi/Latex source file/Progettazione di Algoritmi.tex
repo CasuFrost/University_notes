@@ -762,4 +762,56 @@ ora l'algoritmo non lineare.\begin{center}
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return ($u'_1,u'_2\dots,u'_k$)}\\
 \codee{\}}\acc
+Tale algoritmo ha complessità $O(n\cdot(n+m))$, voglio modificare il DFS per ottenere lo stesso algoritmo che operi in 
+tempo lineare.\acc 
+\textbf{Definizione} : Data l'esecuzione del DFS su un grafo $G$ diretto, e dato un componente fortemente 
+connesso $C$ del grafo, una \textbf{C-radice} è il primo vertice appartenente a $C$, visitato nel DFS.\acc 
+\textbf{Proposizione} : Sia $T$ un arborescenza di visita di un DFS, e sia $T(u)$ l'insieme dei discendenti di un nodo 
+$u$, sia poi $C(u)$ il componente fortemente connesso nella quale è contenuto $u$, valgono le seguenti:\begin{enumerate}
+    \item $C(u)\subseteq T(u)$
+    \item Se $u_1,u_2\dots,u_k$ sono le C-radici in $T(u)$, si ha che $\displaystyle T(u)=\bigcup_{i=1}^k C(u_i)$
+\end{enumerate}
+\textbf{Dimostrazione} \boxedMath{1} Assumiamo che $C(u)\nsubseteq  T(u)$, allora esiste un arco $(x,y)\in C(u)$ tale 
+che $x\in T(u)\land y\notin T(u)$, tale arco è, o all'indietro, o di attraversamento. In entrambi i casi, si ha che 
+$y$ è un antenato di $u$ $\implies$ $y$ è stato visitato per la prima volta, prima di $u$ $\implies$ $u$ non è la 
+C-radice del suo componente, ma per ipotesi $u$ è la C-radice, si ha quindi una contraddizione.\acc
+\boxedMath{2} Se $u_i\in T(u)$, per il punto (1), $C(u_i)\subseteq T(u_i) \subseteq T(u)\implies C(u_i)\subset T(u)$. Dimostro 
+adesso che, 
+se $w\in T(u)$, il componente $C(w)$ non ha elementi al di fuori di $T(u)$. Assumiamo per assurdo che ciò sia falso, si ha 
+che $C(w)\nsubseteq T(u)$, sia allora $z$ la C-radice di $C(w)$, si ha che  \begin{itemize}
+    \item $w$ è un discendente di $z$
+    \item $u$ è un discendente di $z$
+\end{itemize}
+Ma allore esistono i cammini da $z$ ad $u$, e da $u$ a $w$, ma so che nel componente fortemente connesso $C(w)$ esiste 
+un cammino da $w$ a $z$, ma allora $u,w,z\in C(w)$, ma inizialmente si è detto che $u$ è la C-radice, ma come può esserlo se 
+$u$ è un discendente di $z$? C'è una contraddizione, quindi $C(w)\subseteq T(u)$. $\blacksquare$
+\begin{center}
+    Pseudocodice
+\end{center}
+\codee{DFS\_Scc(G : graph, v : vert, C : stack, Output : list)\{}\comm{chiamata ricorsiva}\\
+\hphantom{ident}\codee{segna v come visitato}\\
+\hphantom{ident}\codee{C.push(v)}\\
+\hphantom{ident}\codee{for each (u adiacente a v $\land$ u non ancora visitato)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{DFS\_Scc(G,u,C,Output)}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{if(v è una C-radice)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{X : list}\\
+\hphantom{ident}\hphantom{ident}\codee{do\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{w=C.pop()}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{X.append(w)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}while(w$\ne$v)}\\
+\hphantom{ident}\hphantom{ident}\codee{Output.add(X)}\\
+\hphantom{ident}\codee{\}}\\
+\codee{\}}\acc
+\code{C} è uno stack che contiene tutti i vertici che sono stati già visitati, ma che non hanno ancora un componente fortemente 
+connesso assegnato, non è da confondersi con lo stack \code{S} del DFS iterativo.\acc
+\codee{Scc(G : graph)\{}\comm{chiamata globale}\\
+\hphantom{ident}\codee{C : stack}\comm{vertici visitati ma ancora senza componente}\\
+\hphantom{ident}\codee{Output : list}\\
+\hphantom{ident}\codee{for each (v$\in$V(G)| $v$ non ancora visitato)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{DFS\_Scc(G,v,C,Output)}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Output}\\
+\codee{\}}\acc
+Il problema di questo algoritmo, è la riga in cui si controlla se un nodo è una C-radice.
 \end{document}
