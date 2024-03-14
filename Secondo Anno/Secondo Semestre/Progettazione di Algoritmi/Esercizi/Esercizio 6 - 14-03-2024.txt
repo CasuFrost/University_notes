@@ -1,0 +1,19 @@
+grafo G non diretto
+Voglio lo pseudocodice che ritorni un algoritmo G' aciclico diretto aciclico
+
+
+Es6(graph G, vert x,int[n] Vis, G' graph){
+	Vis[x]=1
+	aggiungo x a V(G')
+	for each y∈x.adiacenti{ // per ogni adiacente di x
+		if(Vis[y]==0){
+			aggiungo (x,y) a E(G')
+			DFSRec(G,y,Vis)
+		}
+		else{ aggiungo (y,x) a E(G') }
+	}
+}
+
+
+
+
