@@ -630,7 +630,7 @@ ordine topologico, i vertici chiusi (tolti dallo stack) per ultimi, saranno quel
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{L.insert(v,0)}\comm{inserisci il vertice nella prima posizione della lista}\\
 \codee{\}}
-\subsection{Ponti sui Grafi non Diretti}
+\subsection{Ponti sui Grafi non Diretti}\label{PontiGrafiNonDir}
 \hphantom{a}
 \begin{center}
     \includegraphics[width=0.7\textwidth ]{images/ponte.eps}
@@ -728,7 +728,8 @@ ancora un grafo fortemente connesso.\begin{center}
 originale $G$ esiste un cammino $P$ da un qualsiasi nodo $x$ ad un qualsiasi nodo contenuto in $H$, ed esiste un 
 cammino $Q$ da un qualsiasi nodo in $H$ ad un qualsiasi nodo $x$, siano questi cammini quelli più corti possibile, essi 
 per definizione di $\nicefrac{G}{H}$ saranno anche in $\nicefrac{G}{H}$, quindi esisterà un cammino da 
-da $x$ a $V_H$ e da $V_H$ ad $x$, quindi il grafo $\nicefrac{G}{H}$ è fortemente connesso. $\blacksquare$\acc 
+da $x$ a $V_H$ e da $V_H$ ad $x$, quindi il grafo $\nicefrac{G}{H}$ è fortemente connesso. $\blacksquare$
+\subsubsection{C-radice di un Componente Fortemente Connesso}
 \textbf{Osservazione} : Se $G$ è fortemente connesso e non è banale, allora contiene sicuramente un ciclo, quindi esiste un 
 arco $(x,y)$ per cui esiste anche un cammino da $y$ ad $x$, che insieme all'arco precedente compone il ciclo. Un ciclo inoltre 
 è un sottografo fortemente connesso, se applichiamo la contrazione ricorsivamente sui cicli, otterremo le componenti connesse.
@@ -804,7 +805,7 @@ $u$ è un discendente di $z$? C'è una contraddizione, quindi $C(w)\subseteq T(u
 \hphantom{ident}\codee{\}}\\
 \codee{\}}\acc
 \code{C} è uno stack che contiene tutti i vertici che sono stati già visitati, ma che non hanno ancora un componente fortemente 
-connesso assegnato, non è da confondersi con lo stack \code{S} del DFS iterativo.\acc
+connesso assegnato, non è da confondersi con lo stack \code{S} del DFS.\acc
 \codee{Scc(G : graph)\{}\comm{chiamata globale}\\
 \hphantom{ident}\codee{C : stack}\comm{vertici visitati ma ancora senza componente}\\
 \hphantom{ident}\codee{Output : list}\\
@@ -813,5 +814,57 @@ connesso assegnato, non è da confondersi con lo stack \code{S} del DFS iterativ
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Output}\\
 \codee{\}}\acc
-Il problema di questo algoritmo, è la riga in cui si controlla se un nodo è una C-radice.
+Il problema di questo algoritmo, è la riga in cui si controlla se un nodo è una C-radice, come possiamo fare tale controllo 
+in un tempo ragionevole?\acc 
+\textbf{Proposizione} : Un nodo $u$ \textit{non} è una C-radice se e solo se, nella chiamata ricorsiva del \code{DFS\_Scc} con 
+radice $u$, viene attraversato un arco $(v,w)$ tale che:
+  $w$ è stato visitato ma non ha un componente assegnato (si trova nello stack \code{C}). \acc 
+  \textbf{Dimostrazione} \boxedMath{$\implies$} Assumiamo che $u$ non sia una C-radice, sia $z$ la C-radice del componente 
+  di $u$, allora $z$ è una antenato di $u$ perché $u\in T(z)$. Ciò implica che, nella chiamata ricorsiva che parte da $u$, 
+  ci sarà un arco dentro $C(u)$ con un vertice $w\notin T(w)\implies$ $ C(w)$ non è stato ancora stabilito.
+\acc\boxedMath{$\impliedby$} Il componente di $w$ non è stato ancora stabilito, se $z$ è la C-radice di tale componente, esso 
+è ancora "aperto" nella ricorsione, ed è un antenato di $u$, \begin{itemize}
+\item esiste un cammino da $z$ ad $u$
+\item esiste un camminoda $u$ a $v$
+\item esiste l'arco $(v,w)$
+\item in $C(w)$ è presente un cammino da $w$ a $z$
+\end{itemize}
+Ne concludiamo che $u,v,w,z$ sono tutti nello stesso componente di cui la C-radice è $z$, quindi il nodo $u$
+non è una C-radice. $\blacksquare$\acc 
+Per l'algoritmo useremo un valore simile al \code{back} visto nell'algoritmo per i ponti \ref{PontiGrafiNonDir}, tale 
+valore indica per un nodo $u$, il punto più indietro (vicino alla radice) nell'arborescenza raggiungibile con un 
+arco $(v,w)$ per cui $v$ è un vertice attraversato dal DFS partendo da $u$, e $w$ un nodo visitato di cui 
+il componente non è stato ancora stabilito. Utilizzeremo un array \code{CC} che memorizzerà le seguenti informazioni:\begin{itemize}
+    \item \code{CC[u] = 0} se $u$ non è stato ancora visitato.
+    \item \code{CC[u] = -t} dove $t$ è l'istante in cui $u$ è stato visitato per la prima volta. 
+    \item \code{CC[u] = c} quando $u$ ha un componente stabilito, e $c$ è il numero di tale componente.
+\end{itemize}
+Passiamo adesso all'algoritmo, la funzione globale rimane la medesima, cambia la funzione ricorsiva.
+\begin{center}
+    Pseudocodice
+\end{center}
+\codee{DFS\_Scc\_ottimizzato(G,u,CC,C,cont\_nodi,cont\_comp)\{}\comm{funzione ricorsiva}\\
+\hphantom{ident}\codee{cont\_nodi++}\\
+\hphantom{ident}\codee{CC[u]= -cont\_nodi}\\
+\hphantom{ident}\codee{C.push(u)}\\
+\hphantom{ident}\codee{back = cont\_nodi}\\
+\hphantom{ident}\codee{for each(v adiacente a u)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(CC[v]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{b=DFS\_Scc\_ottimizzato(G,v,CC,C,cont\_nodi,cont\_comp)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{back=min(back,b)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{else if(CC[v]<0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{back=min(back,-CC[v])}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{if(back==-CC[u])\{}\\
+\hphantom{ident}\hphantom{ident}\codee{cont\_comp++}\\
+\hphantom{ident}\hphantom{ident}\codee{do\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{w=C.pop()}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{CC[w]=cont\_comp}\\
+\hphantom{ident}\hphantom{ident}\codee{\}while(w$\ne$u)}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return back}\\
+\codee{\}}\acc
+La complessità di questo algoritmo è $O(n+m)$.
 \end{document}
