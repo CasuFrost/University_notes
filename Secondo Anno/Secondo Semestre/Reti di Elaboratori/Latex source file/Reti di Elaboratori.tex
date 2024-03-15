@@ -407,9 +407,124 @@ fra utenti che si fidano fra loro, ed ogni livello dello stack è soggetto ad at
  \textbf{firewall} (programmi che si trovano nel nucleo dell'access point, con lo scopo di filtrare i pacchetti 
  e riconoscere eventuali attacchi DOS).
  \section{Livello di Applicazione}
- Le applicazioni di rete sono il motivo per la quale esiste 
- Internet, è possibile creare un applicazione che si interfacci con 
- la rete in modo facile, possiamo ignorare la complessità dei 
- livelli inferiori, e preoccuparci solo di ciò che è gestito dal 
- livello applicativo.
+ Le applicazioni di rete sono il motivo per la quale esiste Internet, è possibile creare un applicazione
+che si interfacci con la rete in modo facile, possiamo ignorare la complessità dei livelli inferiori, 
+e preoccuparci solo di ciò che è gestito dal livello applicativo.\acc
+I due paradigmi di comunicazione a livello applicativo sono \begin{itemize}
+    \item \textbf{Client-Server} : Il server è un host sempre attivo, con un indirizzo IP fisso, ed eroga il 
+    servizio sulla rete. Il client è l'host che usufruisce del servizio contattando il server, diversi client 
+    non comunicano direttamente fra loro.
+    \item \textbf{Peer-to-Peer} : Non esiste un server sempre attivo, qualsiasi utente in rete detto peer può 
+    comunicare direttamente con gli altri, più peer ci sono, più incrementano le capacità del servizio, i 
+    peer sono connessi con indirizzi IP variabili e la loro gestione è complessa.
+\end{itemize}
+I processi in host diversi comunicano fra loro tramite i messaggi, un \textbf{socket} è il canale 
+virtuale che si occupa di connettere 2 processi a livello applicativo, sia il server che il client per 
+comunicare, aprono un socket, può essere visto come un'entrata per i messaggi.\acc 
+Per ricevere i messaggi, un processo deve avere un identificatore univoco nella rete, ogni host ha un 
+indirizzo IP univoco a 32 bit, l'identificatore di un processo è composto dall'indirizzo IP 
+del dispositivo, più un \textit{numero di porta}.\begin{quote}
+    Per inviare un messaggio HTTP al server web \textit{gaia.cs.umass.edu}:\begin{itemize}
+        \item Indirizzo IP : 128.119.245.12
+        \item Numero di porta : 80
+    \end{itemize}
+\end{quote}
+\subsection{Definizione di Protocollo}
+Si è già accennato alle funzioni che deve svolgere un protocollo, non è altro che un insieme di regole 
+che definiscono:\begin{enumerate}
+    \item I tipi di messaggi scambiati. 
+    \item La sintassi dei messaggi. 
+    \item La semantica del messaggio. 
+    \item Le regole per quando e come i processi devono inviare e rispondere ai messaggi.
+\end{enumerate}
+I protocolli possono essere aperti e reperibili a chiunque, come HTTP, oppure chiusi e proprietari, come 
+il protocollo che utilizza \textit{Skype}.
+\subsubsection{Parentesi sul Livello di Trasporto}
+Facciamo adesso degli accenni al livello di trasporto, di quali servizi necessità un app a questo livello? In 
+base alle caratteristiche o alle funzione, un applicazione potrebbe prediligere alcuni servizi piuttosto che altri:\begin{itemize}
+    \item \textbf{integrità dei dati} : Alcune applicazioni di rete, come quelle che devono trasferire file, 
+    richiedono che i dati ricevuti siano al 100\% quelli inviati, e non ammettono perdite di pacchetti.
+    \item \textbf{garanzie temporali} : Alcune applicazioni necessitano che il ritardo fra l'invio e la 
+    ricezione dei pacchetti sia basso, un esempio sono i videogiochi online interattivi.
+    \item \textbf{troughput} : Alcune applicazioni richiedono una minima quantità di troughput per essere 
+    efficaci, alcune sono "elastiche" e si adattano a qualsiasi velocità effettiva.
+    \item \textbf{sicurezza} : Alcune applicazioni richiedono la crittografia dei dati inviati, e la protezione 
+    da eventuali manomissioni.
+\end{itemize}\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \rowcolor[HTML]{ECF4FF} 
+        \textbf{Applicazione}      & \textbf{Integrità dei dati} & \textbf{Troughput}                                                                 & \textbf{Sensibile al ritardo} \\ \hline
+        Trasferimento dati         & senza perdite               & elastico                                                                           & no                            \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        E-mail                     & senza perdite               & elastico                                                                           & no                            \\ \hline
+        Documenti web              & senza perdite               & elastico                                                                           & no                            \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Audio/video in tempo reale & tollerante a perdite        & \begin{tabular}[c]{@{}c@{}}audio : 5Kbps-1Mbps\\ video : 10Kmbs-5Mbps\end{tabular} & 10 millisecondi               \\ \hline
+        Audio/video in streaming   & tollerante a perdite        & \begin{tabular}[c]{@{}c@{}}audio : 5Kbps-1Mbps\\ video : 10Kmbs-5Mbps\end{tabular} & qualche secondo               \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Videogiochi interattivi    & tollerante a perdite        & 1 Kbps o più                                                                       & 10 millisecondi               \\ \hline
+        Messaggistica              & senza perdite               & elastico                                                                           & dipende                       \\ \hline
+        \end{tabular}
+\end{center}
+I due principali protocolli di trasporto sono \textbf{UDP} e \textbf{TCP}.\begin{itemize}
+    \item Il servizio \textbf{TCP} offre un \textit{traporto dei dati affidabile} fra i due processi, offre 
+    \textit{controllo del flusso}, facendo attenzione alla velocità con la quale il mittente manda i pacchetti 
+    al destinatario, evitando di ingolfarlo. Offre \textit{controllo della congestione}, limitando il mittente 
+    se la rete è sovraccarica, \textit{non} prevede un \textit{timing o troughput minimo garantito}, e non 
+    prevede nemmeno \textit{sicurezza}.
+    \item Il servizio \textbf{UDP} non garantisce nulla, si occupa eslcusivamente di inviare i pacchetti, 
+    può quindi risultare più rapido, e può risultare una "base" per costruire sopra il proprio protocollo, gestendo 
+    le proprietà precedentemente elencate a livello di applicazione.
+\end{itemize}\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{FFFFC7} 
+        \textbf{Applicazione}    & \textbf{\begin{tabular}[c]{@{}c@{}}Protocollo a livello\\  applicativo\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Protocollo a livello\\ di trasporto\end{tabular}} \\ \hline
+        Trasferimento dati       & FTP                                                                                  & TCP                                                                                  \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        E-mail                   & SMTP                                                                                 & TCP                                                                                  \\ \hline
+        Documenti web            & HTTP                                                                                 & TCP                                                                                  \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Telefonia Internet       & SIP, RTP o proprietario                                                              & TCP o UDP                                                                            \\ \hline
+        Audio/video in streaming & HTTP o DASH                                                                          & TCP                                                                                  \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Videogiochi interattivi  & WOW, FPS o proprietario                                                              & \cellcolor[HTML]{EFEFEF}TCP o UDP                                                    \\ \hline
+        \end{tabular}
+\end{center}
+Entrambi i protocolli non forniscono alcuna protezione o crittografia, esiste quindi un livello 
+intermedio fra trasporto e applicazione, noto come \textbf{Transport Security Layer (TLS)}, e fornisce 
+delle connessioni TCP crittografate, con garanzia rispetto l'integrità dei dati, e l'autenticazione 
+dell'end-point. Le applicazioni di rete si interfacciano con delle librerie TLS, queste ultime si 
+interfacciano con TCP, il testo in chiaro inviato al socket TLS verrà crittografato.
+\subsection{Web e HTTP}
+Una pagina web, come quelle che siamo abituati e vedere da sempre, è composta da \textbf{oggetti}, archiviati, 
+ossia contenuti nella memoria fisica di un server web, alla quale accediamo dai nostri dispositivi quando vogliamo 
+connetterci ad un sito. Tali oggetti possono essere dei file \textit{HTML}, delle immagini, degli 
+applet Java, dei file audio e altro ancora.\acc 
+Una pagina web consiste in un file HTML di base, che include più oggetti "referenziati" nel file, ogni oggetto 
+è indirizzato da un \textit{URL}, ossia una dicitura che indica il nome dell'host che funge da 
+server web, ed il percorso del file.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/url.eps}
+\end{center}
+\textbf{HTTP (hyper text transfer protocol)} è un protocollo a livello di applicazione che segue un 
+modello client-server, in sostanza, il client richiede un oggetto (tramite un browser), ed il server
+risponde, fornendoglielo.   \acc Tale protocollo funziona con il protocollo di trasporto TCP, il client avvia una 
+connessione con il server, il cui processo che si occupa di comunicare è \textit{aperto} sul numero di 
+porta 80. Il server accetta la connessione TCP dal client, ed essi possono scambiarsi dei messaggi 
+HTTP, per poi chiudere la connessione.\acc 
+Un fatto importante, è che il protocollo HTTP non salva lo stato della comunicazione, non conserva alcuna 
+informazione sulle richieste passate del client.\acc 
+Le connessioni HTTP sono di due tipi:\begin{itemize}
+    \item \textbf{non persistenti} - La connessione TCP viene aperta, viene scambiato al massimo un oggetto, 
+    per poi chiudere la connessione.
+    \item \textbf{persistenti} - La connession TCP viene aperta, permette a più oggetti di essere inviati 
+    sulla singola connessione, per poi venire chiusa.
+\end{itemize}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/httpnonPersistente.eps}
+\end{center}
+Definiamo come \textbf{Round Trip Time} ($RTT$), il tempo che un pacchetto impiega per andare dal client 
+al server, per poi ritornare al client. Il tempo di risposta HTTP per un oggetto equivale al tempo necessario 
+per l'invio della richiesta di connessione TCP, l'invio della richiesta HTTP, e la trasmissione del file, 
+il tempo di risposta di una richiesta HTTP non persistente è quindi: $$2\cdot RTT + d_{trans}$$ 
  \end{document}
