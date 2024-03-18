@@ -1,0 +1,73 @@
+/ ************ /
+
+DEBAGGIN
+
+// Inserire informazioni di debugging nell'objectifile (eseguibile)
+
+gcc -g -Wall esempioGDB.c -o esempioGDB
+
+// rimuovere informazioni di dbugging da objectfile
+
+strip esempioGDB
+
+// lanciare GDB
+
+gdb
+
+// per conoscere le classi di comandi disponibili
+
+(gdb) help 
+
+// per sapere i comandi di una class (ad esempio running)
+(gdb) help running
+...
+continue -- Continue program being debugged
+jump -- Continue program being debugged at specified line or address
+kill -- Kill execution of program being debugged
+next -- Step program
+run -- Start debugged program
+...
+
+// per caricare un file
+
+(gdb) file esempio 
+
+// oppure lanciare gdb con nome_file come argomento, 
+// ad es: gdb esempioGDB
+
+// per vedere le linee di programma caricato
+// list start,end
+(gdb) list 1,20
+
+
+// eseguiamo il nostro porgamma e vogliamo farlo fermare a linea 8 e 11. Vogliamo visualizzare il contenutto di a quando il programma di ferma
+(gdb) break 8
+(gdb) break 11
+(gdb) run  //esegue il programma
+(gdb) display a
+(gdb) continue
+// per arrivare  alla fine
+(gdb) continue
+
+// eseguiamo ancora il programma e dopo il primo break vogliamo saltare alla fine
+
+(gdb) run
+(gdb) jump 13
+
+// ora vogliamo eseguire il programma passo passo a partire 
+// dalla prima riga. 
+
+(gdb) break 1
+
+(gdb) run  //salta a riga 5 perche' e' la prima istruzione 		
+			eseguibile
+
+(gdb) step // passa alla riga successiva ...
+
+
+
+
+
+
+
+
