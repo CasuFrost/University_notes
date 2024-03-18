@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include <string.h>  	//Libreria contenente funzioni e macro per la gestione delle stringhe
+
 int main(){
     //Una stringa è un array di caratteri
     //Una stringa in C è sempre terminata dal carattere "\0"
@@ -16,6 +18,7 @@ int main(){
     //è possibile non definire la lunghezza della stringa, viene calcolata automaticamente 
     
     char s3[] = "Lezione Del Giorno"
+
 
 
 }
