@@ -30,3 +30,8 @@ void printArrayElement(double a[],unsigned int n){
 		printf("%lf  ",a[i]);
 	}
 }
+
+//Se voglio passare una variabile per riferimento devo passare il puntatore
+void test(int *a){
+	
+}
