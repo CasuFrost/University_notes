@@ -5,6 +5,7 @@
 - [Università 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Universita%201/Universita%201.pdf)
 - [Università 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Universita%202/Universita%202.pdf)
 - [Accademia 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Accademia%201/Accademia%201.pdf)
+- [Accademia 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Accademia%202/Accademia%202.pdf)
 - [Impiegati e Studenti](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Impiegati%20e%20Studenti/Impiegati%20e%20Studenti.pdf)
 - [Go](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Go/Go.pdf)
 - [Esercitazioni Universitarie 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Esercitazioni%20Universitarie%201/Esercitazioni%20Universitarie%201.pdf)
