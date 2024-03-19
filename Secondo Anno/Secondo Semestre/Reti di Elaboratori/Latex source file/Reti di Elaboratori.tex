@@ -20,6 +20,7 @@
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\dete}{{\rightarrow}}
 \newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\comm}[1]{\color{lg}\textit{\hphantom{spaz}// \text{#1}}\color{black}}
 \newcommand{\textg}[1]{\color{g}{\textbf{#1}}\color{black}}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \title{Reti di Elaboratori}
@@ -527,4 +528,129 @@ Definiamo come \textbf{Round Trip Time} ($RTT$), il tempo che un pacchetto impie
 al server, per poi ritornare al client. Il tempo di risposta HTTP per un oggetto equivale al tempo necessario 
 per l'invio della richiesta di connessione TCP, l'invio della richiesta HTTP, e la trasmissione del file, 
 il tempo di risposta di una richiesta HTTP non persistente è quindi: $$2\cdot RTT + d_{trans}$$ 
+\subsubsection{Formato del Messaggio}
+Un messaggio HTTP può essere una richiesta oppure una risposta, il messaggio è di tipo testuale, ossia 
+ASCII, ed è composto da una riga di richiesta, dove si dichiara il tipo 
+del messaggio con i comandi \code{GET,POST} e \code{HEAD}, da un \textit{header}, e dal \textit{corpo} del messaggio,
+contente le informazioni da inviare.\acc
+Ogni riga deve contenere alla fine i due caratteri \code{$\backslash$r$\backslash$n} per indicare 
+che essa termina, l'header viene chiuso da una riga contenente esclusivamente i 
+caratteri \code{$\backslash$r$\backslash$n}, un messaggio di richiesta non presenta un corpo, si veda 
+il seguente esempio:\acc
+\hphantom{ident}\codee{GET /index.html HTTP/1.1 $\backslash$r$\backslash$n} \comm{riga di richiesta}\\
+\hphantom{ident}\codee{Host: www-net.cs.umass.edu$\backslash$r$\backslash$n}\comm{inizio header}\\
+\hphantom{ident}\codee{User-Agent: Firefox/3.6.10$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Accept: text/html,application/xhtml+xml$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Accept-Language: en-us,en;q=0.5$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Accept-Encoding: gzip,deflate$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Accept-Charset: ISO-8859-1,utf-8;q=0.7$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Keep-Alive: 115$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Connection: keep-alive$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{$\backslash$r$\backslash$n}\comm{fine header}\acc 
+L'header contiene le seguenti intestazioni:\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \rowcolor[HTML]{C0C0C0} 
+        \textbf{Intestazione} & \textbf{Descrizione}                                                  \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        User-agent            & Indica il programma client utilizzato                                 \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Accept                & Indica il formato dei contenuti che il client è in grado di accettare \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Accept-charset        & Famiglia di caratteri che il client è in grado di gestire             \\ \hline
+        Accept-encoding       & Schema di codifica supportato dal client                              \\ \hline
+        Accept-language       & Linguaggio preferito dal client                                       \\ \hline
+        Authorization         & Indica le credenziali possedute dal client                            \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Host                  & Host e numero di porta del client                                     \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Date                  & Data e ora del messaggio                                              \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Upgrade               & Specifica il protocollo di comunicazione preferito                    \\ \hline
+        Cookie                & Comunica il cookie al server (verrà spiegato successivamente)         \\ \hline
+        If-Modified-Since     & Invia il documento solo se è più recente della data specificata       \\ \hline
+        \end{tabular}
+\end{center}
+Un messaggio di richiesta di tipo \code{GET} può includere dei parametri da passare al server, da inserire 
+nell'url dopo il carattere \code{?}, un messaggio \code{HEAD} richiede al server esclusivamente l'header, 
+senza il corpo del messaggio. Una richiesta \code{PUT} sostituisce il file esistente nell'URL specificato 
+con il contenuto del corpo del messaggio. Vediamo ora un esempio di messaggio di risposta, esso include 
+una \textit{riga di stato}, l'header ed il corpo:\acc 
+\hphantom{ident}\codee{HTTP/1.1 200 OK$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Date: Sun, 26 Sep 2010 20:09:20 GMT$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Server: Apache/2.0.52 (CentOS)$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Last-Modified: Tue, 30 Oct 2007 17:00:02 GMT$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{ETag: "17dc6-a5c-bf716880"$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Accept-Ranges: bytes$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Content-Length: 2652$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Keep-Alive: timeout=10, max=100$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Connection: Keep-Alive$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{Content-Type: text/html; charset=ISO-8859-1$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{$\backslash$r$\backslash$n}\\
+\hphantom{ident}\codee{data data data data data$\dots$}\comm{Il corpo, ossia il file richiesto}\acc
+Il codice di stato che appare nella prima riga fornisce informazioni sulla risposta:\begin{itemize}
+    \item \code{200 - OK} : la richiesta ha avuto successo. 
+    \item \code{301 - Moved Permanently} : L'oggetto richiesto è stato trasferito nella locazione specificata 
+    nell'header.
+    \item  \code{400 - Bad Request} : Il messaggio di richiesta non è stato compreso dal server.
+    \item \code{404 - Not Found} : L'oggetto richiesto non si trova sul server.
+    \item \code{505 - HTTP Version Not Supported} : Il server non supporta la versione di protocollo HTTP.
+\end{itemize}
+Le possibili voci dell'header sono le seguenti :\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \rowcolor[HTML]{C0C0C0} 
+        \textbf{Intestazione} & \textbf{Descrizione}                                      \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Date                  & \cellcolor[HTML]{FFFFFF}Data corrente                     \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Upgrade               & Specifica il protocollo di comunicazione preferito        \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Server                & Indica il programma server utilizzato                     \\ \hline
+        Set-Cookie            & Il server richiede al client di memorizzare un cookie     \\ \hline
+        Content-Encoding      & Specifica lo schema di codifica                           \\ \hline
+        Content-Language      & Specifica la lingua del documento                         \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Content-Lenght        & Specifica la lunghezza del documento                      \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Content-Type          & Specifica la tipologia del documento                      \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        Location              & Chiede al client di inviare la richiesta ad un altro sito \\ \hline
+        Last-modified         & Fornisce data ed ora dell'ultima modifica del documento   \\ \hline
+        \end{tabular}
+\end{center}
+\subsubsection{Cookie}
+Il problema di HTTP è che non mantiene alcuna informazione sulle richieste passate, risulta infattibile  
+comunicare con esclusivamente richieste \textit{stateless}, esiste un modo per mantenere lo stato 
+della comunicazione, tramite i \textit{cookie}, sono dei file che vengono inclusi nell'header dei messaggi, 
+conservati sulla macchina dell'host e gestiti dal browser dell'utente.\acc I cookie permettono al sito che riceve 
+la richiesta di identificare l'utente, il server può chiudere una "sessione" con l'intestazione 
+\code{Set-Cookie}, rimuovendo tutti i cookie dell'host.
+\subsubsection{Web Cache}
+Abbiamo visto che nell'header di un messaggio di risposta HTTP ci sono informazioni riguardanti la data 
+di ultima modifica del documento richiesto. L'utente può configurare un \textbf{proxy server}, esso fungerà 
+da cache, il browser potrà fare richiesta ad esso, e se presenta già il file richiesto, non sarà 
+necessario fare richiesta al server di destinazione, se non presenta, una volta ottenuto l'oggetto, esso 
+verrà memorizzato nella cache, rendendo l'accesso più rapido.\acc 
+Generalmente tali cache sono installate dagli ISP, servono a ridurre il traffico nei link di accesso ad una rete 
+locale e minimizzare il tempo di risposta. Abbiamo visto l'intestazione \code{if-modified-since} nelle richieste 
+HTTP, essa serve per fare delle richieste \code{GET} condizionate, richiedendo al server di origine il
+documento esclusivamente se è stato aggiornato rispetto alla versione già presente sulla cache. 
+\subsubsection{HTTP/2 ed HTTP/3}
+Abbiamo visto come HTTP/1.1 permette di aprire una singola connessione TCP per lo scambio di più 
+oggetti, utilizza però una politica First Come First Serve, ossia, se vengono richiesti $x$ oggetti secondo 
+uno specifico ordine, verrà forniti nello stesso ordine con la quale sono stati richiesti.\acc 
+Se il primo oggetto richiesto è molto più grande degli altri oggetti, la sua trasmissione potrebbe 
+rallentare il caricamento di una pagina, HTTP/2 quindi introduce la permutazione dell'ordine di trasmissione 
+secondo delle priorità specificate dal client, più oggetti vengono poi divisi in \textit{frame} della 
+stessa dimensione, e la trasmissione avviene interlacciata.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/http2.eps}
+\end{center}
+La creazione di HTTP/3 ha lo scopo di ridurre il tempo di attesa per le richieste multi-oggetto, HTTP/2 
+funziona su una singola connessione TCP, che è stato pensato per gestire un singolo 
+flusso di informazioni. La perdita di pacchetti blocca tutte le trasmissioni di oggetti,
+inoltre, TCP non incorpora alcun livello di sicurezza. \acc 
+HTTP/3 aggiunge sicurezza e controllo degli errori, e controlla la congestione per oggetto, utilizzando 
+come protocollo di trasporto UDP.
+\subsection{SMTP e Posta Elettronica}
  \end{document}
