@@ -1,6 +1,5 @@
 #include <stdio.h>
-
-#define MAX 10
+#define MAX 30
 
 int leggi(char str[]) {
     int nc = -1;

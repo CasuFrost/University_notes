@@ -1,8 +1,8 @@
-main : main.c leggi check
-	gcc main.c -o main.o
+CFLAGS := -O2
+CC := gcc
+main : main.o checkIfPal.o leggi.o
+	$(CC) $^ -o $@
 
-check : checkIfPal.h
-	gcc checkIfPal.h -o check.o
+%.o : %.c
 
-leggi : leggi.h
-	gcc leggi.h -o leggi.o
+	$(CC) $(CFLAGS) -c $< -o $@

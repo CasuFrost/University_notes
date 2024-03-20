@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "leggi.h"
-#include "checkIfPal.h"
+#define MAX 30
 
  int main(){
 
