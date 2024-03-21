@@ -376,7 +376,37 @@ Le \textbf{post condizioni} danno la definizione matematica dell'operazione e de
 omettendo eventuali meccanismi di calcolo o implementazioni. Deve essere segnalato se l'operazione 
 modifica o no il livello degli oggetti (le istanze presenti).\acc Le \textbf{pre condizioni} sono le condizioni 
 che devono essere soddisfatte dalle istanze per far si che l'operazione possa essere 
-invocata, definiscono il cosiddetto \textit{contratto} dell'operazione.\begin{center}
+invocata, definiscono il cosiddetto \textit{contratto} dell'operazione, va anche specificato se l'operazione 
+modifica o no il livello degli oggetti.\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/specificaClassi.eps}
 \end{center}
+\subsection{Specializzazione}
+Abbiamo visto come una classe può essere generalizzata, in un rapporto padre-figlio, ossia superclasse-sottoclasse, e 
+che la classe figlia eredita gli attributi e le operazioni della classe padre, il punto è che, essa può anche 
+\textit{specializzare} un attributo desiderato, ossia \textit{restringerne} il dominio, ad esempio:
+\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/specAttributo.eps}
+\end{center}
+Nel modello sovrastante, un articolo in vendita potrebbe avere una garanzia valida per zero o più anni, ma un articolo nuovo 
+ha una garanzia di minimo due anni, il tipo specializzato deve essere un \textbf{sottotipo}, vale a dire che l'insieme 
+dei possibili valori che l'attributo specializzato può assumere, deve essere un sotto-insieme dell'insieme dei valori che può 
+assumere l'attributo che specializza, si dice che ne \textit{restringe} il tipo.\acc 
+Anche un association class, essendo una classe, può essere specializzata ed essere soggetta a generalizzazioni.
+\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/specAssociazione.eps}
+\end{center}
+In questo modello, ogni articolo è venduto da esattamente un utente, e gli articoli nuovi possono essere venduti 
+esclusivamente da venditori professionali. Un articolo nuovo è in associazione con un utente, tale associazione però 
+può essere sia \textit{venditore} che \textit{venditoreNuovo}, nel secondo caso, l'utente deve essere necessariamente 
+un venditore professionale.\acc 
+Supponiamo che vi sia una specializzazione di articolo, ossia un articolo in offerta, il calcolo del suo prezzo deve 
+essere soggetto ad una riduzione, ha senso che vi siano due differenti operazioni \textit{calcoloPrezzo} e
+ \textit{calcoloPrezzoOfferta}? No, dal momento che è possibile \textit{specializzare un operazione}, distinguendo 
+ le specifiche, eventualmente anche rendendo completamente differenti le post-condizioni. \begin{center}
+    \includegraphics[width=\textwidth ]{images/specOperazione.eps}
+ \end{center}
+ L'importante è che l'operazione specializzata, rispetto a quella che specializza, mantenga:\begin{itemize}
+    \item Lo stesso numero e tipo di argomenti.
+    \item Lo stesso tipo di ritorno, oppure un sotto-tipo del tipo dell'operazione che spacializza.
+ \end{itemize}
 \end{document}
