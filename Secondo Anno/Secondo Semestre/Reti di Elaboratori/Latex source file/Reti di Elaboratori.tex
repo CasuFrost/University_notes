@@ -653,4 +653,232 @@ inoltre, TCP non incorpora alcun livello di sicurezza. \acc
 HTTP/3 aggiunge sicurezza e controllo degli errori, e controlla la congestione per oggetto, utilizzando 
 come protocollo di trasporto UDP.
 \subsection{SMTP e Posta Elettronica}
- \end{document}
+La posta elettronica che conosciamo, e che esiste dagli albori di 
+Internet, è gestita da un protocollo denominato SMTP, tale protocollo è utilizzato in un 
+cosiddetto \textit{server di posta} sia per inviare che ricevere messaggi, tramite 
+l'incapsulamento in un segmento TCP.\acc 
+L'utente che invia una e-mail utilizza uno \textit{user agent}, il programma che si occupa di notificare 
+all'utente le e-mail da leggere. L'utente invierà al server di posta la lettera, che tramite 
+Internet, la invierà al server di posta dove risiede l'utente destinatario.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/smtp.eps}
+\end{center}
+Il protocollo è utilizzato dai server di posta per comunicare, utilizza TCP per un trasferimento 
+affidabile, usando la porta 25, il trasferimento avviene in maniera diretta fra i due server di posta, in 
+3 fasi:\begin{itemize}
+    \item hand shaking 
+    \item trasferimento messaggi 
+    \item chiusura
+\end{itemize}
+Se il server destinatario è inattivo, il server mittente terrà i propri messaggi in una coda, e ritenterà 
+la connessione in seguito, cercando di stabilire l'handshaking, la connessione è persistente, e può servire 
+per trasferire più messaggi. I messaggi sono nel formato testuale ASCII, hanno un'\textit{intestazione}
+ed un \textit{corpo}. Il corpo non è altro che il messaggio in formato 
+ASCII, L'intestazione presenta i seguenti campi:\begin{itemize}
+    \item \code{To} - L'indirizzo di uno o più destinatari 
+    \item \code{From} - L'indirizzo del mittente 
+    \item \code{Cc} - L'indirizzo di uno o più destinatari a cui si invia per conoscenza 
+    \item \code{blind Cc} - Gli altri destinatari non sanno che anche colui in tale campo riceverà il messaggio 
+    \item \code{Subject} - L'argomento del messaggio 
+    \item \code{Sender} - Chi materialmente effettua l'invio (ad esempio, la segreteria)
+\end{itemize}
+Vediamo un esempio dell'invio di un messaggio fra due utenti:\begin{enumerate}
+    \item Alice apre il suo user agent (ad esempio, outlook) e compone un messaggio da 
+    inviare a \code{bob@sineschool.edu}. 
+    \item Lo user agent invia il messaggio al server di posta di Alice, inserendolo nella coda dei messaggi.
+    \item Il server di posta di Alice funge da client ed apre una connessione TCP con il server di posta 
+    di Bob.
+    \item Il client SMTP invia il messaggio tramite la connessione. 
+    \item Il server di posta di Bob riceve il messaggio, e lo inoltra nella casella di posta di Bob.
+    \item Bob, accedendo al suo user agent, si ritroverà il messaggio da leggere.              
+\end{enumerate}
+\subsubsection{Codifica Contenuti Multimediali ed Accesso alla Posta}
+Inizialmente tramite posta elettronica non era possibile inviare contenuti multimediali, è quindi stata creata 
+un'estensione, \textbf{MIME}, che si occupa di convertire i contenuti multimediali come le immagini in
+formato ASCII, per poi farle riconvertire dal destinatario, permettendo ai file multimediali di venire 
+trasferiti tramite SMTP.\acc 
+Tale estensione aggiunge anche alcune righe nell'intestazione dei messaggi SMTP, che dichiarano il 
+metodo usato per codificare i dati, la versione di MIME ed il tipo di dato.\acc 
+SMTP è un protocollo di tipo \textit{push}, si occupa esclusivamente di consegnare il messaggio 
+al server destinatario. Uno user agent per ricevere il messaggio dal server di posta non usa SMTP, in 
+quanto è un operazione di \textit{pull}. Si utilizza il protocollo \textbf{POP3} per accedere alla posta 
+ed ottenere i messaggi dal server. aprendo una connessione TCP sulla porta 110. Una volta stabilita la 
+connessione, si procede in 3 fasi:\begin{enumerate}
+    \item Autorizzazione : lo user agent si identifica con nome utente e password.
+    \item Transazione : lo user agent recupera i messaggi.
+    \item Aggiornamento : dopo che l'utente ha ricevuto i messaggi, invia un segnale \code{QUIT}, ed i 
+    messaggi ormai scaricati dall'utente verranno cancellati dal server di posta, per liberarne 
+    la memoria.
+\end{enumerate}
+Dato il punto (3), l'utente non potrà mantenere i messaggi se si connette da host differenti,
+esiste un protocollo più avanzato, l'\textbf{IMAP} (Internet Mail Access Protocol), esso fa si che i messaggi 
+siano mantenuti sul server, e consente ad essi di venire organizzati in cartelle, conservando lo stato 
+dell'utente fra le varie sessioni.\acc Il protocollo IMAP permette all'utente anche di spostare messaggi 
+fra cartelle ed effettuare ricerche in cartelle remote. Alcune server di posta forniscono accesso alle mail 
+tramite HTTP, rendendo il browser lo user agent.
+\subsection{File Transfer Protocol}
+Il protocollo FTP nasce con lo scopo di trasferire file piuttosto che messaggi, è quindi ottimizzato a tale 
+scopo rendendolo più efficace di HTTP per lo scambio di dati rispetto che l'invio di pagine ed 
+oggetti web.\acc 
+Si basa sul paradigma client-server, il processo client FTP stabilisce una connessione 
+sulla porta 21 con il processo server, esistono due connessioni, una permette di \textit{controllare} il 
+flusso dei dati, l'altra serve per il trasferimento vero e proprio, viene aperta una connessione per ogni file,
+ma rimane attiva una sola connessione di controllo.\acc 
+La porta 21 ospita la connessione di controllo, la porta 20 quella per i dati, suddividere in due connessioni 
+risulta estremamente utile, in quanto l'ingolfamento della connessione per i dati, non blocca la possibilità 
+di controllare la connessione.\acc L'apertura della connessione avviene tramite il comando da parte del 
+client \code{ftp NomeHost}, i comandi saranno trasferiti sulla connessione di controllo, è necessaria 
+l'autenticazione tramite identificativo utente e password, i comandi per l'invio e la ricezione di file sono 
+\code{put} e \code{get}. Dopo il trasferimento di un file, la connessione di controllo rimane aperta, mentre 
+quella per i dati viene chiusa, per trasferire $n$ file sono quindi necessarie $n+1$ connessioni.
+\subsubsection{Principali Comandi FTP}\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{C0C0C0} 
+        Comando & Argomenti              & Descrizione                                     \\ \hline
+        ABOR    &                        & Interruzione del comando precedente             \\ \hline
+        CDUP    &                        & Sale di un livello nell'albero delle directory  \\ \hline
+        CWD     & Nome directory         & Cambia la directory corrente                    \\ \hline
+        DELE    & Nome file              & Cancella il file                                \\ \hline
+        LIST    & Nome directory         & Elenca il contenuto della directory             \\ \hline
+        MKD     & Nome directory         & Crea una nuova directory                        \\ \hline
+        PASS    & Password               & Password                                        \\ \hline
+        PASV    &                        & Il server sceglie la porta                      \\ \hline
+        PORT    & Numero di porta        & Il client sceglie la porta                      \\ \hline
+        PWD     &                        & Mostra il nome della directory corrente         \\ \hline
+        QUIT    &                        & Uscita dal sistema                              \\ \hline
+        RETR    & Nome di uno o più file & Trasferisce uno o più file dal server al client \\ \hline
+        RMD     & Nome directory         & Cancella la directory                           \\ \hline
+        RNTO    & Nome del nuovo file    & Cambia il nome del file                         \\ \hline
+        STOR    & Nome di uno o più file & Trasferisce uno o più file dal client al server \\ \hline
+        USER    & identificativo         & Identificazione dell'utente                     \\ \hline
+        \end{tabular}
+\end{center}
+\subsection{Domain Name System}
+Un host su Internet è identificato univocamente da un indirizzo IP (protocollo a livello di rete, verrà 
+visto in seguito), ciò significa che per connettersi ad una serie di differenti pagine web, è necessario 
+tenere a mente tutti gli indirizzi IP che li identificano, anche se questi ultimi, possono cambiare.\acc 
+Nei browser, non si inserisce l'indirizzo IP, bensì una stringa chiamata \textit{dominio}, come 
+\code{google.com} o \code{www.twitch.tv}, la traduzione da dominio ad indirizzo IP, avviene in maniera automatica, 
+ed è una funzionalità di base dell'Internet, ebben essa è implementata a livello di applicazione, tramite il 
+protocollo \textbf{DNS}, che si occupa di eseguire tale mapping.\acc 
+Per eseguire la traduzione è necessaria una tabella che associa ad ogni dominio un indirizzo IP, è quindi 
+necessario un enorme database, de facto, con DNS si intende sia il protcollo, sia l'enorme 
+database \textit{distribuito} implementato in maniera \textit{gerarchica}, l'host ed il server DNS comunicano 
+per risolvere\footnote{con risolvere, si intende il processo di traduzione} i nomi. Il DNS offre:\begin{itemize}
+    \item traduzione da nome host a indirizzo IP
+    \item host aliasing (uno stesso host può avere un nome canonico e più nomi alias)
+    \item alias del server di posta
+    \item distribuzione del carico
+\end{itemize}
+\subsubsection{Gerarchia degli Host-Name e Risoluzione}
+È necessario mantenere il database decentralizzato in quanto è soggetto da milioni e milioni di richieste in pochi 
+secondi, le aziende sono responsabili dei propri record nel database. Esistono svariati server DNS, che contengono una 
+porzione del database, nessun server mantiene il mapping di tutti gli host esistenti. Le $2^{32}$ coppie 
+IP-nome host sono memorizzate in maniera da rendere breve la ricerca. \acc
+Gli host vengono raggruppati in maniera gerarchica in base al loro nome e alla separazione delle parole 
+dal simbolo ".", ogni server DNS è resposabile del proprio dominio, ed esistono dei \textit{TDL (Top Level Domain)}, 
+che sono dei grandi server DNS autorevoli (gestiti da nazioni o grandi aziende), responsabili dei domini più noti, come \code{.com} o \code{.it}, in 
+cima a tutti vi è un \textit{root server}.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/DNS.eps}
+\end{center}
+Il client che vuole risolvere il nome \code{www.amazon.com} interrogherà il Root server, esso 
+lo rimanderà al server DNS \code{.com}, che lo rimanderà al server DNS \code{amazon.com}, dalla quale infine 
+risolverà il nome ricercato.\acc 
+Il punto è che i vari server DNS sparsi per il mondo mantengono una cache anche dei nomi della quale non sono 
+responsabili, esistono quindi più istanze della tabella, che sono a livello di rete più "vicine" al client, non è 
+quindi necessario interrogare il Root server, che rimane l'ultima alternativa per un client che deve 
+risolvere un nome. Esistono sparsi per il mondo 13 root name server principali logici, distribuiti 
+geograficamente in circa 200 server fisici.\acc 
+Quando un ente, un azienda o un università vuole registrare un dominio, imposta un server DNS, e fornisce 
+le proprie traduzioni che sono considerate autorevoli, esse potranno essere presenti anche in altri server 
+DNS, ma solamente l'ente che fornisce l'host name è considerato quello ufficiale.\acc
+Esistono anche dei server DNS \textit{locali}, appartenenti agli ISP (ogni ISP ne ha almeno uno), essi 
+mantengono una cache locale con le traduzioni più frequenti, quando un host effettua una query DNS, esso 
+delegherà il compito al DNS locale che:\begin{itemize}
+    \item Risponderà con la traduzione in cache, se presente.
+    \item Interrogherà i vari server DNS per risolvere il nome e fornirlo all'host.
+\end{itemize} 
+L'host quindi non risolve direttamente il nome, ma affida il compito al DNS locale. Il DNS locale può 
+risolvere il nome facendo una query che può essere di due differenti tipi:\begin{itemize}
+    \item \textbf{query iterativa} - Il server DNS locale contatta un server DNS $x$, esso non ha 
+    la soluzione diretta, ma fornisce l'indirizzo di un altro server $y$, che potrebbe avere la 
+    traduzione, il server DNS locale procederà quindi chiedendo ad $y$, ed eventualmente ricominciando il 
+    procedimento. 
+    \item \textbf{query ricorsiva} - Il server DNS locale contatta un server $x$, affidandogli il 
+    compito di risolvere il nome per lui, appesantendo il carico sui livello superiori della gerarchia. Il 
+    server $x$ si occuperà personalmente di risolvere il nome, per poi fornirlo al server DNS locale.
+\end{itemize}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/risoluzioneDNS.eps}
+\end{center}
+Quando un server DNS riceve un record del database distribuito (una mappatura), lo salva nella cache, 
+e lo utilizza per rispondere a query future, tali mappature potrebbero però scadere, quindi in ogni record del 
+database, un nome possiede anche un campo chiamato \textit{TTL (Time To Live)}, un valore temporale che 
+esprime dopo quanto tempo il mapping non è più valido e deve essere cancellato.\acc Facendo ciò, si evita che 
+dei server DNS posseggano delle entrate del database obsolete, dato che il nome dell'host potrebbe 
+cambiare indirizzo IP, esistono anche dei meccanismi di notifica, che avvisano quando un mapping non è 
+più valido.
+\subsubsection{Record del DNS e Formato dei Messaggi}
+Vediamo nello specifico come è composto un record del database, esso ha 4 campi, e segue il seguente 
+formato:\begin{center}
+    \code{(name,value,type,ttl)}
+\end{center}
+Il campo \code{name} identifica il nome dell'host, il campo \code{ttl} è il time to live, il campo 
+\code{value} in combinazione con il campo \code{type} identificano il valore che è stato richiesto, può 
+essere uno fra:\begin{itemize}
+    \item \code{type=A} : Il campo \code{value} conterrà l'indirizzo IP collegato al nome dell'host.
+    \item \code{type=NS} : Il campo \code{value} conterrà il nome dell'host del server DNS autoritario 
+    per il campo richiesto.
+    \item \code{type=CNAME} :  Il campo \code{value} conterrà il nome canonico/ufficiale associato al nome 
+    alias nel campo \code{name}.
+    \item \code{type=MX}  :  Il campo \code{value} conterrà il nome del server di posta associato al 
+    nome dell'host.
+\end{itemize}
+Ci sono alcune \textbf{restrizioni} da considerare, che i record del database devono rispettare:\begin{enumerate}
+    \item CNAME non può coesistere con altri record di altro tipo per lo stesso
+    dominio.
+    \item CNAME non può essere usato nei domini di root. 
+    \item Se si tengono in cache valori di un server non di competenza,
+    bisogna anche fornire il nome del server DNS autoritativo quando rispondiamo a una
+    query.
+\end{enumerate}
+Vediamo adesso il formato dei messaggi DNS che verranno incapsulati in UDP, le query di richiesta ed i 
+messaggi di risposta condividono lo stesso identico formato, appositi flags identificheranno se il messaggio 
+è una richiesta oppure una risposta.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/messaggioDNS.eps}
+\end{center}
+\begin{itemize}
+    \item Il campo \textbf{idenitifcazione} è composto da 16 bit, contiene un numero generato casualmente 
+    e serve ad identificare univocamente una richiesta attiva, il messaggio di risposta conterrà lo stesso 
+    numero identificativo.
+    \item Il campo \textbf{flags} è composto anche esso da 16 bit, ed indica alcune specifiche della 
+    richiesta/risposta, indicando prima di tutto quale  tipo di messaggio è, se la ricorsione è richiesta 
+    oppure concessa, e se la risposta è autoritativa. 
+    \item I restanti campi servono per la query effettiva, i record forniti, i record forniti da server 
+    autoritativi, oppure delle informazioni aggiuntive fornite dal server DNS che potrebbero risultare utili.
+\end{itemize}
+\subsubsection{Ruolo del Punto e Sicurezza}
+Il simbolo del punto "." nei nomi rappresenta il \textit{dominio di root}, nei record di configurazione 
+dei server DNS autoritativi, ogni dominio senza il punto finale rappresenta un dominio locale, ad esempio, 
+nel server DNS \code{example.com}, il nome locale \code{orange} rappresenta il nome 
+globale \code{orange.example.com}.\acc 
+Il protocollo DNS può essere soggetto ad attacchi DDOS (Distribuited Denial of Service), bombardando i 
+root server con del traffico, cercando di rendere inutilizzabile il servizio di traduzione, oppure 
+bombardando i TLD.\acc 
+Un noto attacco è noto come \textbf{DNS Amplification}, consiste nell'inviare delle query con un indirizzo 
+IP di origine falso, che identifica la vittima, che verrà bombardata di risposte dai server DNS, l'attore malevolo 
+manda pacchetti UDP utilizzando delle query di tipo ANY, con lo scopo di far si che la risposta sia 
+molto più grande della richiesta, "amplificando" appunto l'attacco.\acc
+    Quali dei seguenti record del database DNS non sono validi? (l'ordine è domain,value,type).\begin{enumerate}
+        \item \code{<it nameserver.cnr.it NS>}
+        \item \code{<it nameserver.cnr.it A>}
+        \item \code{<it nameserver.cnr.it CNAME>}
+        \item \code{<it 151.100.27.38 NS>}
+        \item \code{<nameserver.cnr.it 151.100.27.38 A>}
+    \end{enumerate}
+I record sbagliati sono i seguenti:\begin{itemize}
+    \item \color{red}(2) \color{black} è richiesto un indirizzo ma viene fornito un nome 
+    \item  \color{red}(3) \color{black} CNAME non può essere usato nella root di un dominio 
+    \item \color{red}(4) \color{black} viene chiesto un nome di dominio ma viene fornito un indirizzo
+\end{itemize}
+\subsection{Il Paradigma Peer to Peer}
+\end{document}
