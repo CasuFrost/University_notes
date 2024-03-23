@@ -881,4 +881,134 @@ I record sbagliati sono i seguenti:\begin{itemize}
     \item \color{red}(4) \color{black} viene chiesto un nome di dominio ma viene fornito un indirizzo
 \end{itemize}
 \subsection{Il Paradigma Peer to Peer}
+Tale paradigma si differenzia dal classico client-server, gli elementi della rete sono detti \textit{peer},
+e fungono sia da client sia da server, non ci sono peer sempre attivi come un classico server. I peer forniscono 
+servizi e ne usufruiscono comunicando in maniera intermittente.\acc 
+Tale paradigma comporta un aumento della velocità, vediamo un esempio di condivisione di un file da
+parte di un server, per $n$ host, semplificando ovviamente il modello. \acc 
+Supponiamo di avere un file di dimensione $F$ byte, ed un server ha una velocità di upload di $u_s$ byte 
+al secondo. Ogni client $i$ ha una velocità di download $d_i$ e di upload  $u_i$.\acc 
+Nel paradigma client-server, bisognerebbe attendere il tempo che il server impieghi a trasmettere $n$ 
+copie del file 
+sulla rete, dato da $n\cdot\nicefrac{ F}{u_s}$, per bisognerebbe attendere il tempo che tutti i client scarichino il 
+file. Ovviamente il download da parte di questi ultimi avviene in parallelo, quindi il tempo totale di scaricamento 
+dipende dal tempo di scaricamento del client con la velocità di download più lenta. sia $d_{min}$ la velocità 
+del client più lento, il tempo per distribuire il file risulta essere:
+$$t_{distr}>\max(n\cdot\nicefrac{ F}{u_s},\nicefrac{F}{d_{min}} )$$
+Si ha che il tempo per trasferire il file cresce linearmente con $n$.
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/nFile.eps}
+\end{center}
+Nella stessa situazione ma in un modello peer to peer, ogni client scaricherà il file, ma 
+una volta ottenuta una porzione potrà \textit{contribuire} inviando tale porzione algi altri file, in tal modo, 
+più peer ci sono nella rete, più peer staranno contribuiendo, la velocità di upload totale del file 
+sarà: $$\displaystyle u_s +\sum_{i=1}^n u_i$$
+Il tempo per distribuire il file agli $n$ peer sarà:$$
+t_{distr}>\max(\nicefrac{ F}{u_s},\nicefrac{ F}{d_{min}},n\cdot \dfrac{F}{u_s +\sum_{i=1}^n u_i})
+$$
+Anche in questo caso aumenta linearmente con $n$, ma ogni peer apporta alla rete capacità di servizio, 
+ciò controbilancia l'aumento, facendo si che all'aumentare di $n$, il tempo di distribuzione si stabilizza 
+senza crescere ulteriormente, sono state fatte delle stime statistiche in merito:\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/p2pTime.eps}
+\end{center}
+La distribuzione di file è particolarmente vantaggiosa in un sistema dove sono attivi contemporaneamente 
+molti peer, il programma \textbf{BitTorrent} si occupa proprio della condivisione, quando si riceve un 
+file o una porzione di file, viene diviso in \textbf{blocchi} da 256 Kb, ogni peer che partecipa alla condivisione nel 
+mentre che scarica, invia i blocchi agli altri peer, ogni peer quindi fa nello stesso momento sia 
+download che upload dei blocchi.\acc 
+Periodicamente un peer \textbf{richiede dei blocchi} agli altri peer, i blocchi che sono presenti su pochi elementi, detti 
+più "rari", verranno condivisi in modo prioritario, per evitare che le possibili copie vadano perse (nel caso 
+in cui quei pochi peer che li posseggono, si disconnettano dalla rete).\acc 
+Ogni peer, non scambia blocchi con tutti quelli disponibili, ma solamente ad un gruppo ristretto di peer 
+\textit{ottimali}, vengono favoriti i peer che hanno capacità di condivisione maggiore, tramite una 
+stima sulla velocità di upload, vengono svaforiti i peer che 
+scaricano tanto e condividono poco.\acc 
+Se un peer si connette per la prima volta alla condivisione, non vi è alcuna stima sulla sua velocità, e rischia 
+di non essere mai selezionato da nessun gruppo, per questo, ogni peer, ogni 30 secondi seleziona in 
+maniera casuale un peer qualsiasi sulla rete di cui si è sconosciuta la 
+velocità di upload, tale meccanismo è noto come \textbf{optimistical unchoke},
+ha lo scopo di concedere la condivisione in modo da poter stimare la capacità dei peer non ancora selezionati.
+\section{Livello di Trasporto}
+Il protocollo di trasporto fornisce una comunicazione virtuale fra due \textit{processi su host 
+differenti}, si occupa anche di fornire alcune garanzie riguardo l'affidabilità dei messaggi che vengono 
+passati dal livello di applicazione. I protocolli di trasporto principali sono due, UDP e TCP, si occupano 
+principalmente di:\begin{enumerate}
+    \item (da mittente) Ricevere un messaggio (file) dal livello di applicazione, tramite un \textit{socket}. 
+    \item Suddividere il messaggio in segmenti, aggiungere l'header di segmento ad ognuno di essi, per 
+    poi passarli al livello sottostante (rete).
+    \item (da destinatrio) Ricevere un segmento, leggere l'header, e consegnarlo al giusto processo, 
+    estraendo il messaggio.
+\end{enumerate}
+Abbiamo visto come il TCP offre una consegna affidabile, la stabilizazzione di una connessione (handshake), 
+ed il controllo della congestione. L'UDP non offre nulla di ciò, si occupa solo di spedire il messaggio 
+"senza fronzoli", non ha quindi garanzie, è come un foglio bianco, sulla quale si possono costruire appositi 
+controlli a livello applicativo.
+\subsection{Multiplexing e Demultiplexing}
+Supponiamo di avere un server HTTP che deve inviare un oggetto web ad un client, tale client, ha 3 applicazioni 
+aperte, Netflix, Firefox e Skype, come fa il segmento ad essere indirizzato verso il giusto processo?\acc 
+Ogni singolo processo su una macchina viene identificato univocamente da un numero intero detto \textbf{numero 
+di porta}, per identificare il processo che dovrà ricevere il segmento, sarà quindi necessaria 
+la coppia Indirizzo IP-numero di porta, per identificare rispettivamente l'host sulla rete, ed il giusto 
+processo sull'host.\acc 
+Le applicazioni aprono i cosiddetti \textbf{socket}, che non sono altro che un mapping fra 
+processo e numero di porta, sono il canale virtuale nella quale passano i segmenti. Il processo 
+mittente aprirà un socket su una porta, ed invierà il messaggio a tale socket, verrà aggiunto l'apposito 
+header, dove vi sarà indicata la porta del processo destinatario. Il destinatario riceverà il segmento, e leggerà l'header 
+per indirizzare il messaggio al socket corretto.\acc 
+L'host destinatario riceve un datagramma, che ha un indirizzo IP di origine ed un indirizzo IP di 
+destinazione, ogni datagramma contiene un segmento del livello di trasporto, e tale segmento contiene la 
+porta di origine e destinazione.\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/segmento.eps}
+\end{center}
+\subsubsection{Demultiplexing UDP e TCP}
+Vediamo adesso come funziona il demultiplexing per i due differenti protocolli di trasporto, partendo con 
+UDP.\acc 
+Quando si crea un socket (canale virtuale), si deve specificare la porta locale del proprio host:\acc 
+\code{DatagramSocket mySocket1 = new DatagramSocket(12534);}
+\acc 
+Per inviare un datagramma al socket UDP, bisogna specificare l'indirizzo IP di destinazione, e la porta del 
+processo di destinazione. Tramite l'IP, verrà individuato sulla rete l'host di destinazione, esso riceverà un 
+segmento UDP, verrà letto nell'header il campo relativo alla porta di destinazione, ed indirizzerà il 
+segmento al socket relativo a quel numero di porta.\acc 
+Per eseguire il demultiplexing nel destinatario, verrà utilizzato esclusivamente il numero di porta 
+del processo destinatario, il trasferimento UDP ha lo scopo di inviare un messaggio, e non di stabilire una 
+connessione, se arrivano ad un host due differenti datagrammi IP/UDP con la stessa porta di destinazione ma 
+diversi IP di origine (due diversi mittenti comunicano con lo stesso processo destinatario), semplicemente 
+entrambi i messaggi verranno indirizzati allo stesso socket ricevente.\acc 
+Nel caso del TCP, è differente, tale protocollo ha lo scopo di aprire una connessione persistente fra due 
+processi, ogni processo destinatario, non avrà un singolo socket che riceve tutti i segmenti, ma avrà 
+un socket per ogni connessione, quindi per ogni mittente.\acc 
+Un segmento IP/TCP quindi avrà bisogno di essere indirizzato nel socket corretto, non sarà più necessario 
+il numero di porta e l'IP del destinatario, ma per eseguire il demultiplexing, sarà anche necessario 
+distinguere i differenti host mittenti. \acc 
+Ogni socket sarà quindi identificato da una tupla composta da 4 valori:\begin{itemize}
+    \item IP di origine 
+    \item Numero di porta di origine
+    \item IP di destinazione 
+    \item Numero di porta di destinazione
+\end{itemize}
+Il multiplexing/demultiplexing non avviene però esclusivamente al livello di trasporto, ma anche su altri 
+livelli (verrà visto in seguito).
+\subsection{UDP}
+UDP è l'acronimo di \textit{User Datagram Protocol}, perché viene utilizzato il termine datagramma se si 
+parla di un segmento al livello di trasporto? Tale protocollo fornisce il servizio di trasporto senza 
+stabilire una connessione, è un sistema best-effort privo del concetto di handshake, si usa la parola datagramma 
+perché il segmento UDP è molto semplice, non c'è molta aggiunta di informazioni, l'header è molto piccolo. 
+\acc 
+Non c'è alcun controllo della congestione, un segmento UDP verrà inviato a prescindere dal traffico sulla 
+rete, viene utilizzato sulle applicazioni multimediali (streaming), dal DNS, dal SMTP e da HTTP/3, che 
+gestisce il trasferimento affidabile a livello applicativo. \acc 
+Tale protocollo è estremamente semplice, non fa altro che ricevere un messaggio dall'applicazione, aggiungere 
+un header UDP, ed inviarlo al livello di rete, un segmento UDP ha il seguente formato:\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/segmentoUDP.eps}
+\end{center}
+Il campo \textbf{checksum}, è un valore intero che serve a rilevare eventuali errori nel messaggio, quali 
+la modifica di alcuni bit dovuta ad interferenze elettromagnetiche. Quando viene composto un 
+segmento UDP, esso viene suddiviso in pezzi da 16 bit, che verranno trattati come un numero  
+intero in complemento ad 1, per poi essere sommati, dando quindi un valore che sarà appunto 
+il checksum.\acc 
+Il destinatario, si occuperà di eseguire lo stesso procedimento, ottenendo una somma, se essa differisce 
+dal campo checksum, vuol dire che c'è stato un errore ed alcuni bit sono cambiati, sarà poi compito 
+del destinatario decidere se scartare il segmento. Il checksum si imposta a zero nel caso non 
+si voglia utilizzare, esso è utilizzato su più livello e non solo nei segmenti al livello di trasporto.
 \end{document}
