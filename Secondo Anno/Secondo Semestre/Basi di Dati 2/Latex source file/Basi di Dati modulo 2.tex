@@ -427,4 +427,94 @@ Per semplicità, inizialmente le asserzioni saranno scritte in linguaggio
 umano. Se un vincolo coinvolge una sola classe, per mantenere un certo grado di
 modularità, è buona norma specificare tale vincolo all'interno del documento
 di specifica della classe in questione.
+\subsection{Diagramma degli Use-Case}
+Insieme all'UML, si modella un diagramma che descrive le funzionalità che il sistema deve realizzare, in termini appunti 
+di use-case (scenari di utilizzo), tali use-case possono essere desritti come l'insieme omogeneo di 
+\textit{funzionalità} che un \textit{determinato gruppo} di utenti omogeneo può compiere. Tipicamente coinvolge 
+concetti rappresentati da più classi ed associazioni del diagramma delle classi.\acc 
+Definiamo come \textbf{attore}, il ruolo o la categoria che un utente del sistema (oppure un sistema esterno) può assumere interagendo 
+con il sistema. Un singolo utente può assumere più ruoli, ossia può essere rappresentato da più attori, e diversi utenti 
+possono essere rappresentati dallo stesso ruolo, ossia essere rappresentati dallo stesso attore.\begin{quote}
+    \textit{Esempio} : Un sistema prevede due attori : Docenti e Studenti. Paolo può essere sia Docente che Studente, mentre 
+    sia Alice che Giovanni sono entrambi Studenti.
+\end{quote}
+\subsubsection{Semantica del Diagramma}
+UML fornisce il diagramma degli use-case, è un \textit{grafo}, in cui:\begin{itemize}
+    \item I \textbf{nodi} rappresentano attori e use-case. 
+    \item Gli \textbf{archi} rappresentano:\begin{itemize}
+        \item $(i)$ - La possibilità per un attore di invocare uno use-case (a quali funzionalità può accedere un attore).
+        \item $(ii)$ - La possibilità per uno use-case di invocare un altro use-case.
+        \item $(iii)$ - La generalizzazione fra attori e fra use-case (verrà vista in seguito).
+    \end{itemize}
+\end{itemize}
+Gli attori sono rappresentati con uno \textit{stickman}, gli use case da un ellisse.\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/use-case.eps}
+\end{center}
+\textbf{Attenzione} : Il fatto che esista un attore \textit{Utente} non implica necessariamente l'esistenza di un 
+una classe \underline{Utente} nel diagramma delle classi, avremmo la già citata classe \underline{Utente} 
+\textit{esclusivamente} se  il sistema deve rappresentare dei \textit{dati} (attributi) sugli utenti.\acc 
+Vediamo adesso un \textit{Esempio} di un diagramma degli use-case. Si hanno le seguenti specifiche: \begin{quote}
+Il sistema deve permettere agli studenti di iscriversi, via web, ai corsi offerti. La segreteria deve poter
+assegnare i docenti ai singoli corsi. I docenti devono poter inserire i risultati dei test degli studenti: tali
+test sono somministrati agli studenti utilizzando il sistema.\end{quote}\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/esempioUse-case.eps}
+\end{center}
+Note sugli use-case:\begin{itemize}
+    \item \textit{Gestione iscrizioni} : funzionalità che permettono l'iscrizione via web da parte degli studenti.
+    \item \textit{Gestione test} : funzionalità che permettono la creazione, la somministrazione e la valutazione 
+    dei test.
+    \item \textit{Gestione docenti} : funzionalità che permettono l'assegnazione dei docenti ai corsi.
+\end{itemize}
+Ogni singolo utente che si interfaccia/interagisce con il sistema modellato deve necessariamente assumere uno  
+fra questi ruoli. Anche se esiste l'attore \textit{Segreteria}, nel diagramma delle classi potrebbe non esistere alcuna 
+classe \underline{Segreteria}, in quanto di essa non è necessario salvare alcuna informazione.\acc 
+Nel diagramma sovrastante sorge un problema, sia l'attore \textit{Studente} che \textit{Docente} hanno accesso 
+a tutte le funzionalità dello use-case \textit{Gestione test}, e non solamente a quelle che li riguardano. Nel diagramma, 
+il concetto di \textbf{Inclusione}, permette ad uno use-case di utilizzare \textit{alcune} delle funzionalità 
+di un altro use-case.\begin{center}
+    \includegraphics[width=\textwidth ]{images/inclusione.eps}
+\end{center}
+In questo modello, l'attore \textit{Docente} come l'attore \textit{Studente} ha un accesso limitato alle funzionalità dello 
+use-case \textit{Gestione test}, i docenti potranno creare e valutare i test, e gli studenti potranno parteciparvi, 
+\textit{Gestione test} include le funzionalità che permettono la memorizzazione nel sistema dei test e delle 
+risposte degli studenti.\acc 
+Ci sono delle situazioni in cui uno use-case, eredità le funzionalità di un'altro use-case, aggiungendone di nuove,
+tale concetto prende il nome di \textbf{Estensione}. Riguardo il modello precedente, supponiamo che uno studente che 
+si iscrive ad un test, ha anche la possibilità, se volente, di pagare online, 
+lo use-case \textit{Iscrizione} verrà quindi esteso. Il pagamento online è un caso particolare di iscrizione.
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/estensioneUse-case.eps}
+\end{center}
+Alcuno funzionalità di uno use-case, in alcuni casi particolari, possono essere \textit{rimpiazzate} con le 
+funzionalità di un'altro use-case, è possibilie \textbf{generalizzare uno use-case}. Supponiamo che gli studenti devono 
+potersi identificare, e tale identificazione può avvenire tramite una password, oppure tramite un accesso biometrico 
+(impronta digitale o iride):\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/useCasegeneralizzazione.eps}
+\end{center}
+\textit{Nota} : nei diagrammi degli use-case non possiamo usare
+generalizzazioni uniche che coinvolgono più sotto-usecase, né tantomeno vincoli \{disjoint\} e \{complete\}.\acc 
+Un'altra possibilità, è quella di far si che un attore "erediti" tutte le associazioni di un altro attore, potendo 
+invocare i suoi use-case, è possibile \textbf{generalizzare un attore}. Supponiamo che in un sistema, i 
+manager possano fare le veci della segreteria ed accedere a gli use-case ad essa dedicati:\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/generalizzazioneAttori.eps}
+\end{center}
+In questo modello un manager eredita le funzionalità della segreteria, e può anche esso gestire i corsi dei docenti.\acc
+\textbf{Attenzione} : Il diagramma non implica che esistano le classi \underline{Segreteria} e \underline{Manager} 
+nel diagramma delle classi, né tantomeno che la classe \underline{Manager} sia una sottoclasse di
+\underline{Segreteria}. 
+\subsubsection{Specifiche degli Use-Case}
+Il diagramma UML degli use-case è semplice e poco elaborato, più semplice del diagramma delle classi in termini di 
+quantità dei costrutti, da una visione di alto livello riguardo:\begin{itemize}
+    \item Quali sono gli attori che possono interagire con il sistema.
+    \item A quali macro-funzionalità gli attori definiti possono accedere.
+\end{itemize}
+Definiscono come tali macro-funzionalità sono organizzate e modularizzate, deve essere un diagramma comprensibile per 
+il committente, e \textit{non definisce} le singole operazioni all'interno di ogni use-case, de facto, ogni singolo use-case 
+deve essere affiancato da un apposito \textit{documento di specifica} dettagliato.\acc 
+Le operazioni degli use-case, non presentano alcun oggetto di invocazione, possono come le operazioni di classe, non 
+avere alcun tipo di ritorno, si guardi il seguente esempio:\begin{center}
+    \includegraphics[width=\textwidth ]{images/specificaUseCase.eps}
+\end{center}
+Si noti come nel diagramma delle classi non esiste alcuna classe \underline{Docente} nonostante esista il medesimo
+attore, questo perchè il sistema non richiede di memorizzare le informazioni relative ai docenti.
 \end{document}
