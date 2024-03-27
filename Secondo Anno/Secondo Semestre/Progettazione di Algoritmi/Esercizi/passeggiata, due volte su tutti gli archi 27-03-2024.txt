@@ -1,0 +1,29 @@
+dato un grafo G non diretto, restituisce una passeggiata che attraversa tutti gli archi esattamente una volta sola 
+in entrambe le direzioni
+
+Una normale DFS ma : 
+Quando trova una foglia torna indietro :
+Quando c'è un nodo non visitato lo visita 
+Quando c'è un nodo visitato ma l'arco è non visitato, ci va e ritorna indietro
+Quando c'è un nodo visitato e l'arco è  visitato, lo ignora
+
+Path(G){
+	P=[]
+	Vis[n] inizializzato a False
+	DFS(G,0,0,Vis,P)
+	return P
+}
+	
+
+DFS(G,x,z,Vis,P){
+	Vis[x]=True
+	for each y adiacente di x {
+		if (y != z){
+			P.push((x,y))
+			if(!Vis[y]){
+				DFS(G,y,x,Vis,P)
+			}
+		}
+		P.push((y,x))
+	}
+}
