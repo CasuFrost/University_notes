@@ -19,6 +19,7 @@
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\comm}[1]{\color{lg}\textit{\hphantom{spaz}// \text{#1}}\color{black}}
 \newcommand{\dete}{{\rightarrow}}
+\newcommand{\dist}{{$\text{dist}$ }}
 \newcommand{\fdot}{{\(\bullet\) }}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \title{Progettazione di Algoritmi}
@@ -867,4 +868,60 @@ Passiamo adesso all'algoritmo, la funzione globale rimane la medesima, cambia la
 \hphantom{ident}\codee{return back}\\
 \codee{\}}\acc
 La complessità di questo algoritmo è $O(n+m)$.
+\subsection{Breadth First Search}
+Supponiamo di voler trovare la \textbf{distanza} fra due nodi $x$ ed $y$, denotata $dist(x,y)$, ossia, il numero di archi di un 
+cammino \textit{minimo} fra i due nodi.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/dist.eps}
+\end{center} 
+Tramite la DFS, è possibile verificare se esiste un cammino fra  due nodi $x,y$, ma non è assicurato il fatto che tale 
+cammino sia minimo, è necessario fare un altro tipo di ricerca, nota come  \textbf{BFS}, ossia la ricerca in ampiezza.\acc 
+Si vuole trovare la distanza fra $x$, ed $y$, si parte dal nodo $x$, e si controllano tutti i suoi adiacenti, se fra questi 
+vi sarà $y$, la distanza sarà 1, altrimenti, sarà strettamente maggiore di 1, e si continuerà cercando fra gli adiacenti 
+di $y$, evitando i nodi già visitati. \acc 
+\begin{center}
+    Pseudocodice
+\end{center}
+\codee{BFS(G graph, x node)\{}\\
+\hphantom{ident}\codee{P : vettore di padri inizializzato a -1}\\
+\hphantom{ident}\codee{int Dist[$n$] array lungo $n=|V(G)|$ inizializzato a 0}\\
+\hphantom{ident}\codee{P[x]=x}\\
+\hphantom{ident}\codee{Q : coda vuota}\\
+\hphantom{ident}\codee{Q.enqueue(x)}\\
+\hphantom{ident}\codee{while(Q$\ne\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{v=Q.dequeue()}\\
+\hphantom{ident}\hphantom{ident}\codee{for each (w adiacente di v)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if(P[w]==-1)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Q.enqueue(w)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Dist[w]=Dist[v]+1}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{P[w]=v}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Dist, P}\\
+\codee{\}}\acc
+È di facile verifica il fatto che ogni nodo sia controllato una volta, l'algoritmo rientra in una complessità $O(n+m)$.\acc 
+\textbf{Proposizione }: Sia $G$ un grafo e siano $x,y$ due vertici, $\exists z $ adiacente ad $y$ tale che
+ $dist(x,z)=dist(x,y)-1$.\acc
+ \textbf{Dimostrazione }: Se $dist(x,y)=1$, allora $z=x$. Consideriamo il caso generale, sia $P$ un cammino 
+ \textit{minimo} fra $x$ ed $y$ composto da $dist(x,y)=d$ archi. Sia $w$ il vertice adiacente ad $y$ nel cammino $P$:
+ \begin{center}
+\includegraphics[width=0.4\textwidth ]{images/xvy.eps}
+\end{center} 
+Si ha che necessariamente, $dist(x,w)\le d-1$, essendo che esiste un cammino da $x$ a $w$ con $d-1$ archi, 
+ossia $P\backslash \{(w,y)\}$.\acc 
+Abbiamo che  $dist(x,w)\le d-1$, se esistesse un cammino più corto da $x$ a $w$ con un numero di archi strettamente 
+minore di $d-1$, allora tale cammino, unito al vertice $(w,y)$, diverrebbe un cammino da $x$ ad $y$ con un numero di 
+archi strettamente minore di $d$, ma per ipotesi, $P$ era già un cammino minimo, ciò è impossibile, quindi 
+$dist(x,w)=d-1$. $\blacksquare$\acc
+\textbf{Dimostrazione della correttezza del BFS}: Sia $dist(x,y)$ la distanza effettiva fra due nodi $x,y$, e sia 
+\codee{dist[y]} la distanza calcolata dall'algoritmo (partendo da $x$). Si dimostra per induzione su $dist(x,y)$.\begin{itemize}
+    \item \textit{Caso Base} : $dist(x,y)=0$ - Se la distanza è $0$, $x=y$, e data l'inizializzazione dell'array, si ha che 
+    \codee{Dist[y]}$=0$. 
+    \item \textit{Ipotesi Induttiva} : Assumiamo che per ogni vertice $v_i$ tale che $dist(x,y)=k$, si ha che \codee{Dist[$v_i$]}$=k$.
+    \item \textit{Passo Induttivo} : Sia $y$ un vertice, tale che $dist(x,y)=k+1$, per la proposizione vista in precedenza, 
+    $\exists w$ adiacente ad $y$ tale che $dist(x,w)=k\implies$\codee{Dist[w]}$=k$, quando tale $w$ sarà primo nella coda 
+    durante l'esecuzione dell'algoritmo, essendo $y$ un suo adiacente non ancora visitato, verrà calcolato il suo 
+    valore nell'array nel seguente modo: \codee{Dist[y]=Dist[w]+1}, si avrà che \codee{Dist[y]=k+1}$\implies$ la distanza è 
+    calcolata correttamente. $\blacksquare$
+\end{itemize}
 \end{document}
