@@ -1034,7 +1034,7 @@ Costruiremo un astrazione di un protocollo chiamato
 controllo su entrambi i canali. Per descrivere il funzionamento del protocollo
 useremo le \textbf{FSM}, ossia le macchine a stati finiti.
 \subsubsection{rdt 1.0}
-Costruiamo un protocollo partendo da alcune assunzioni riguardanti possibili
+Costruiamo un'astrazione di un protocollo partendo da alcune assunzioni riguardanti possibili
 inaffidabilità della comunicazione, aggiungendone sempre di più,
 avvicinandoci ad un caso reale. Il protocollo rdt 1.0 si baserà su un
 canale di comunicazione affidabile, in cui non ci sono perdite di
@@ -1055,5 +1055,35 @@ canale totalmente affidabile.\acc
           incapsulato in un pacchetto.
     \item udt\_send(data) - il pacchetto incapsulato viene inviato
           al socket tramite un protocollo inaffidabile.
+    \item rdt\_receive(packet) - il protocollo riceve il pacchetto dal mittente. 
+    \item extract(packet,data) - il protocollo si occupa di eseguire il decapsulamento del pacchetto,
+    data conterrà il messaggio estratto. 
+    \item deliver\_data(data) - il messaggio estratto viene inviato all'applicazione.
 \end{itemize}
+\subsubsection{rdt 2.0}
+Consideriamo adesso un canale che non è al 100\% affidabile, ossia che, con una certa probabilità, 
+causi degli \textit{errori} sui bit, che dovranno essere rilevati tramite il campo checksum nell'header.
+Sono necessari i seguenti costrutti: 
+\begin{itemize}
+    \item Con il termine \textbf{ACK}, si intende un pacchetto che il destinatario invia al mittente in seguito 
+    alla ricezione di un messaggio, ed ha lo 
+    scopo di notificare a quest'ultimo che tale messaggio non presenta errori nei bit.
+    \item Con il termine \textbf{NAK}, si intende un pacchetto che il destinatario invia al mittente in seguito 
+    alla ricezione di un messaggio, ed ha lo 
+    scopo di notificare a quest'ultimo che tale messaggio presenta errori nei bit, appositamente rilevati 
+    tramite il checksum.
+\end{itemize}
+Se il destinatario dovesse notificare un NAK, sarà necessario re-inviare il pacchetto che è stato modificato. 
+Per ragioni di semplicità, tale protocollo utilizzera una politica di invio pacchetti \textbf{stop-and-wait}, 
+consiste nell'inviare un singolo pacchetto alla volta, ed inviare il pacchetto successivo solo quando 
+si ha la certezza che quello precedente è stato consegnato.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/rdt2.0.eps}
+\end{center}
+Il protocollo è ancora relativamente semplice, il mittente dopo aver inviato il pacchetto, attende di ricevere un 
+ACK od un NAK, nel primo caso, passerà al prossimo pacchetto, altrimenti, si occuperà di re-inviare il pacchetto 
+corrotto. Il destinatario invece, si occuperà semplicemente di ricevere pacchetti, controllare se sono corrotti tramite 
+l'operazione \code{is\_corrupt(packet)}, ed inviare un eventuale ACK o NAK al destinatario. 
+C'è però un assunzione in questo modello che non è stata considerata.
+\subsubsection{rdt 2.1} 
+L'rdt 2.1 si occupa di gestire anche un possibile errore sui bit dei pacchetti ACK/NAK
 \end{document}

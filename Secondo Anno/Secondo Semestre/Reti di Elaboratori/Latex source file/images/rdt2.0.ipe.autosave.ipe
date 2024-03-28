@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240328102507" modified="D:20240328195820"/>
+<info created="D:20240328195555" modified="D:20240328201253"/>
 <preamble>\usepackage{amssymb}
 \usepackage{amsmath}</preamble>
 <ipestyle name="basic">
@@ -315,39 +315,72 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<text layer="alpha" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="17.256" depth="12.3" valign="top" size="script">\begin{center}
+<text layer="alpha" matrix="1 0 0 1 60 -32" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="17.256" depth="12.3" valign="top" size="script">\begin{center}
 attesa messaggio dal livello applicativo
 \end{center}</text>
-<path stroke="black" pen="fat">
+<path matrix="1 0 0 1 60 -32" stroke="black" pen="fat">
 28.2843 0 0 28.2843 148 780 e
 </path>
-<path stroke="black" pen="fat" arrow="normal/normal">
-168 800 m
-224 816
-224 752
-172 764 c
-</path>
-<text matrix="1 0 0 1 92 0" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="11.653" depth="6.67" valign="top" size="script">\begin{center}
+<text matrix="1 0 0 1 112 20" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="11.653" depth="6.67" valign="top" size="script">\begin{center}
 $\dfrac{\text{rdt\_send(data)}}{\text{packet = make\_packet(data)}}$
 \end{center}</text>
-<text matrix="1 0 0 1 -8.24081 -4.34586" transformations="translations" pos="240 776" stroke="black" type="label" width="58.825" height="5.234" depth="1.74" valign="baseline" size="script"> udt\_send(packet)</text>
-<text matrix="1 0 0 1 188 36" transformations="translations" pos="32 784" stroke="black" type="label" width="48.153" height="6.808" depth="0" halign="center" valign="center">Mittente : </text>
-<text matrix="1 0 0 1 256 -5.11658" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="12.6" depth="7.63" valign="top" size="script">\begin{center}
+<text matrix="1 0 0 1 8 16" transformations="translations" pos="240 776" stroke="black" type="label" width="58.825" height="5.234" depth="1.74" valign="baseline" size="script"> udt\_send(packet)</text>
+<text matrix="1 0 0 1 84 -36" transformations="translations" pos="32 784" stroke="black" type="label" width="48.153" height="6.808" depth="0" halign="center" valign="center">Mittente : </text>
+<text matrix="1 0 0 1 244 -169.117" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="12.6" depth="7.63" valign="top" size="script">\begin{center}
 attesa pacchetto dal livello di rete
 \end{center}</text>
-<path matrix="1 0 0 1 256 0" stroke="black" pen="fat">
+<path matrix="1 0 0 1 244 -164" stroke="black" pen="fat">
 28.2843 0 0 28.2843 148 780 e
 </path>
-<path matrix="1 0 0 1 256 0" stroke="black" pen="fat" arrow="normal/normal">
+<path matrix="1 0 0 1 244 -164" stroke="black" pen="fat" arrow="normal/normal">
 168 800 m
 224 816
 224 752
 172 764 c
 </path>
-<text matrix="1 0 0 1 348 0" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="11.653" depth="6.67" valign="top" size="script">\begin{center}
-$\dfrac{\text{rdt\_receive(packet)}}{\text{extract(packet,data)}}$
+<text matrix="1 0 0 1 340 -164" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="11.653" depth="6.67" valign="top" size="script">\begin{center}
+$\dfrac{\text{rdt\_receive(packet)} \&amp;\&amp; \text{!is\_corrupt(packet)}}{\text{extract(packet,data)}}$
 \end{center}</text>
-<text matrix="1 0 0 1 232 -4" transformations="translations" pos="240 776" stroke="black" type="label" width="63.078" height="5.234" depth="1.74" valign="baseline" size="script">deliver\_data(data)</text>
-<text matrix="1 0 0 1 444 36" transformations="translations" pos="32 784" stroke="black" type="label" width="64.148" height="6.808" depth="0" halign="center" valign="center">Destinatario : </text>
+<text matrix="1 0 0 1 260 -168" transformations="translations" pos="240 776" stroke="black" type="label" width="63.078" height="5.234" depth="1.74" valign="baseline" size="script">deliver\_data(data)</text>
+<text matrix="1 0 0 1 84 -168" transformations="translations" pos="32 784" stroke="black" type="label" width="64.148" height="6.808" depth="0" halign="center" valign="center">Destinatario : </text>
+<path matrix="1 0 0 1 200 -32" stroke="black" pen="fat">
+28.2843 0 0 28.2843 148 780 e
+</path>
+<text matrix="1 0 0 1 200 -40" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="8.893" depth="3.92" valign="top" size="script">\begin{center}
+attesa del\\ NAK o ACK
+\end{center}</text>
+<path matrix="1 0 0 1 200 -32" stroke="black" pen="fat" arrow="normal/normal">
+168 800 m
+224 816
+224 752
+172 764 c
+</path>
+<path stroke="black" pen="fat" arrow="normal/normal">
+332 724 m
+272 704
+224 724 c
+</path>
+<path stroke="black" pen="fat" arrow="normal/normal">
+224 772 m
+272 800
+332 772 c
+</path>
+<text matrix="1 0 0 1 88 -84" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="10.779" depth="5.8" valign="top" size="script">\begin{center}
+$\dfrac{\text{rdt\_receive(rcvpkt) \&amp;\&amp; is\_ACK(rcvpkt)}}{\Lambda}$
+\end{center}</text>
+<text matrix="1 0 0 1 296 -36" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="11.653" depth="6.67" valign="top" size="script">\begin{center}
+$\dfrac{\text{rdt\_receive(rcvpkt) \&amp;\&amp; is\_NAK(rcvpkt)}}{\text{ udt\_send(packet)}}$
+\end{center}</text>
+<text matrix="1 0 0 1 264 -176" transformations="translations" pos="240 776" stroke="black" type="label" width="53.947" height="5.234" depth="1.74" valign="baseline" size="script">udt\_send(ACK)</text>
+<path matrix="1 0 0 1 76 0" stroke="black" pen="fat" arrow="normal/normal">
+288 624 m
+272 640
+240 640
+240 592
+272 592
+288 608 c
+</path>
+<text matrix="1 0 0 1 52 -168" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="9.09" depth="4.11" valign="top" size="script">rdt\_receive(packet) \&amp;\&amp; </text>
+<text matrix="1 0 0 1 396 -100" transformations="translations" pos="40 804" stroke="0.502" type="label" width="100.872" height="6.815" depth="1.93" valign="baseline">$\Lambda$ : nessuna operazione</text>
 </page>
 </ipe>
