@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240329143320" modified="D:20240329144833"/>
+<info created="D:20240329143320" modified="D:20240329190613"/>
 <preamble>\usepackage{amssymb}
 \usepackage{amsmath}</preamble>
 <ipestyle name="basic">
@@ -402,5 +402,106 @@ $\dfrac{\text{is\_corrupt(rcvpkt))}}{\text{ udt\_send(packet1)}}$
 <text matrix="1 0 0 1 -148 0" transformations="translations" pos="216 636" stroke="0" type="label" width="12.232" height="4.843" depth="0" valign="baseline" size="script">\&amp;\&amp;</text>
 <text matrix="1 0 0 1 -360 -156" transformations="translations" pos="404 784" stroke="black" type="label" width="60.693" height="5.234" depth="1.74" valign="baseline" size="script" style="math">(\text{ is\_NAK(rcvpkt)}</text>
 <text matrix="1 0 0 1 -332 -164" transformations="translations" pos="404 784" stroke="black" type="label" width="4.732" height="5.234" depth="1.74" valign="baseline" size="script" style="math">||</text>
+<text matrix="1 0 0 1 35.26 -349.062" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="12.6" depth="7.63" valign="top" size="script">\begin{center}
+attesa \\chiamata 0 dall&apos;alto
+\end{center}</text>
+<path matrix="1 0 0 1 35.26 -341.062" stroke="black" pen="fat">
+28.2843 0 0 28.2843 148 780 e
+</path>
+<text matrix="1 0 0 1 151.26 -349.062" transformations="translations" pos="120 796" stroke="black" type="minipage" width="56" height="12.6" depth="7.63" valign="top" size="script">\begin{center}
+attesa \\chiamata 1 dall&apos;alto
+\end{center}</text>
+<path matrix="1 0 0 1 151.26 -341.062" stroke="black" pen="fat">
+28.2843 0 0 28.2843 148 780 e
+</path>
+<path matrix="1 0 0 1 -8.74 -205.062" stroke="black" pen="fat" arrow="normal/normal">
+192 672 m
+192 688
+192 704
+308 704
+308 688
+308 672 c
+</path>
+<path matrix="1 0 0 1 -8.74 -205.062" stroke="black" pen="fat" arrow="normal/normal">
+308 616 m
+308 600
+308 584
+192 584
+192 600
+192 616 c
+</path>
+<text matrix="1 0 0 1 -4.5897 -194.987" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="13.944" depth="8.97" valign="top" size="script">rdt\_receive(rcvpkt) \\\&amp;\&amp; !is\_corrupt(rcvpkt) \\
+\&amp;\&amp; has\_seq0(rcvpkt)</text>
+<path matrix="1 0 0 1 -4.5897 -202.987" stroke="black">
+200 736 m
+284 736 l
+</path>
+<text matrix="1 0 0 1 -4.41677 -219.679" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="17.924" depth="12.96" valign="top" size="script">extract(rcvpkt,data)\\
+deliver\_data(data)\\
+sndpkt = make\_packet(ACK)\\
+udt\_send(sndpkt)</text>
+<text matrix="1 0 0 1 -6.86474 -375.094" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="13.944" depth="8.97" valign="top" size="script">rdt\_receive(rcvpkt) \\\&amp;\&amp; !is\_corrupt(rcvpkt) \\
+\&amp;\&amp; has\_seq1(rcvpkt)</text>
+<path matrix="1 0 0 1 -6.86474 -383.094" stroke="black">
+200 736 m
+284 736 l
+</path>
+<text matrix="1 0 0 1 -6.69181 -399.786" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="17.924" depth="12.96" valign="top" size="script">extract(rcvpkt,data)\\
+deliver\_data(data)\\
+sndpkt = make\_packet(ACK)\\
+udt\_send(sndpkt)</text>
+<text matrix="1 0 0 1 123.541 -237.277" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="9.964" depth="4.98" valign="top" size="script">rdt\_receive(rcvpkt) \\\&amp;\&amp; is\_corrupt(rcvpkt)</text>
+<text matrix="1 0 0 1 121.379 -253.213" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="9.964" depth="4.98" valign="top" size="script">sndpkt = make\_packet(NAK)\\
+udt\_send(sndpkt)</text>
+<path matrix="1 0 0 1 122.047 -236.653" stroke="black">
+200 736 m
+284 736 l
+</path>
+<path matrix="1 0 0 1 -8.74 -205.062" stroke="black" pen="fat" arrow="normal/normal">
+316 672 m
+352 704
+376 672
+336 656 c
+</path>
+<path matrix="1 0 0 1 -8.74 -205.062" stroke="black" pen="fat" arrow="normal/normal">
+336 640 m
+372 608
+340 588
+316 616 c
+</path>
+<path matrix="1 0 0 1 -8.74 -205.062" stroke="black" pen="fat" arrow="normal/normal">
+184 672 m
+148 704
+128 688
+168 656 c
+</path>
+<path matrix="1 0 0 1 -8.74 -205.062" stroke="black" pen="fat" arrow="normal/normal">
+164 636 m
+128 616
+152 588
+184 616 c
+</path>
+<text matrix="1 0 0 1 -130.884 -233.107" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="9.964" depth="4.98" valign="top" size="script">rdt\_receive(rcvpkt) \\\&amp;\&amp; is\_corrupt(rcvpkt)</text>
+<text matrix="1 0 0 1 -133.046 -249.042" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="9.964" depth="4.98" valign="top" size="script">sndpkt = make\_packet(NAK)\\
+udt\_send(sndpkt)</text>
+<path matrix="1 0 0 1 -132.378 -232.482" stroke="black">
+200 736 m
+284 736 l
+</path>
+<text matrix="1 0 0 1 147.808 -330.933" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="13.944" depth="8.97" valign="top" size="script">rdt\_receive(rcvpkt) \\\&amp;\&amp; !is\_corrupt(rcvpkt)\\ \&amp;\&amp; has\_sec0(rcvpkt)</text>
+<text matrix="1 0 0 1 147.249 -356.507" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="9.964" depth="4.98" valign="top" size="script">sndpkt = make\_packet(ACK)\\
+udt\_send(sndpkt)</text>
+<path matrix="1 0 0 1 144.913 -339.391" stroke="black">
+200 736 m
+284 736 l
+</path>
+<text matrix="1 0 0 1 -144.349 -339.105" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="13.944" depth="8.97" valign="top" size="script">rdt\_receive(rcvpkt) \\\&amp;\&amp; !is\_corrupt(rcvpkt)\\ \&amp;\&amp; has\_sec1(rcvpkt)</text>
+<text matrix="1 0 0 1 -144.908 -364.679" transformations="translations" pos="200 752" stroke="black" type="minipage" width="104" height="9.964" depth="4.98" valign="top" size="script">sndpkt = make\_packet(ACK)\\
+udt\_send(sndpkt)</text>
+<path matrix="1 0 0 1 -147.244 -347.563" stroke="black">
+200 736 m
+284 736 l
+</path>
+<text matrix="1 0 0 1 53.7427 -234.569" transformations="translations" pos="32 784" stroke="black" type="label" width="101.203" height="11.761" depth="0" halign="center" valign="center" size="LARGE">Destinatario : </text>
 </page>
 </ipe>

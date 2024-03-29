@@ -1092,8 +1092,49 @@ Ad ogni pacchetto verrà aggiunto un numero di controllo, che identificherà il 
 destinatario sarà necessario leggerlo per controllare se tale pacchetto è nuovo oppure è una ritrasmissione 
 del pacchetto precedente, scaturita da un ACK/NAK corrotto. Tale numero di sequenza sarà implementato con un singolo 
 bit, che può essere 0 oppure 1, nel modello stop-and-wait sono necessari solo questi due valori.\begin{center}
-    \includegraphics[width=1\textwidth ]{images/rdt2.1.eps}
+    \includegraphics[width=0.9\textwidth ]{images/rdt2.1.eps}
 \end{center} 
 Il mittente manda il pacchetto 0, se riceve un ACK/NAK corrotto, lo ri-invierà, se il destinatario si aspettava un pacchetto 
 1, in quanto aveva ricevuto correttamente il pacchetto 0, scarterà il pacchetto.
+\subsubsection{rdt 3.0}
+Il problema principale che non è ancora stato considerato riguarda l'eventualità che un pacchetto venga 
+\textit{perso}, ebbene è un evento molto comune nelle reti, e se si vuole garantire un trasferimento affidabile, 
+si deve considerare un modo per evitare tale perdita, mantenendo l'integrità dei dati.\acc 
+Supponiamo nell'rdt 3.0, che il canale possa causare una perdita di pacchetto, il mittente dovrà accertarsi che ogni pacchetto 
+inviato sia ricevuto, il destinatario non è al corrente dello stato del mittente, quindi esso potrebbe essere totalmente 
+ignaro che un pacchetto a lui destinato è stato perso.\acc 
+Il mittente, sa che un pacchetto è stato perso se non riceverà alcun ACK (o NAK) da parte del destinatario, per ogni pacchetto 
+inviato sarà quindi previsto un \textit{timer}, se entro un lasso di tempo stabilito, il mittente non riceverà alcun messaggio 
+di ACK, il pacchetto sarà considerato perso, e sarà inviato nuovamente.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/rdt3.0.eps}
+\end{center} 
+Se viene ricevuto un pacchetto ACK con un numero non atteso, non viene fatto nulla, in quanto scatterà ugualmente 
+il timeout, non vengono più usati pacchetti ACK e NAK, ma esclusivamente pacchetti ACK. 
+\subsubsection{Pipelining}
+Il problema è che tale protocollo convive con le restrizioni di un paradigma stop-and-wait, e l'attesa di un round trip 
+time per ogni pacchetto prima di poter inviare il prossimo riduce drasticamente le prestazioni, bisogna utilizzare un modello 
+di \textit{pipelining}, ossia includere la possibilità per il mittente, che esso possa inviare pacchetti senza dover 
+attendere che quelli precedenti siano stati correttamente consegnati. Vediamo i due paradigmi di pipelining principali.\acc 
+Il modello \textbf{go-back-n} permette al mittente di trasmettere più pacchetti contemporaneamente, può inviare al destinatario 
+al più $n$ pacchetti senza riceverne i rispettivi ACK. Alla ricezione di ogni pacchetto, il destinatario invierà un 
+ACK \textbf{comulativo}, i pacchetti sono numerati ed ordinati in sequenza, ed un ACK di numero $x$ indica che sono 
+stati ricevuti tutti i pacchetti sino al pacchetto $x$, e se ne necessitano dall'$x+1$-esimo in poi.\acc 
+Il timer, farà riferimento al pacchetto più "vecchio" inviato del quale non è stato ricevuto l'ACK, se scade, 
+verranno re-inviati tutti gli $n$ pacchetti da quest'ultimo in poi. I pacchetti che sono stati ricevuti ma in un ordine 
+sbagliato (ad esempio, si è in attesa del pacchetto 3 ma viene consegnato il pacchetto 4) verranno scartati, oppure 
+memorizzati in un buffer.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/go-back-n.eps}
+\end{center} 
+L'altro costrutto di pipelining è noto con il nome di \textbf{selective repeat}, piuttosto che inviare un ACK 
+comulativo, ne viene inviato uno \textbf{selettivo}, riservato ad ogni singolo pacchetto, i pacchetti arrivati ma 
+in un ordine sbagliato, verranno salvati in un buffer, in questo modo, il mittente avrà una finestra di $n$ pacchetti 
+da poter inviare, ed il destinatario avrà una finestra di $n$ pacchetti da poter mantenere nel buffer, inoltre ogni 
+pacchetto ha il suo personale timer.\acc 
+Tale metodo risulta efficiente in quanto non è necessario dover inviare nuovamente l'intera finestra di $n$ pacchetti, 
+e riduce il grado di ridondanza, inoltre se la reta è congestionata, la rispedizione di tutti i pacchetti 
+peggiora la congestione. \acc 
+Il destinatario salverà i pacchetti nel buffer, quando avrà a disposizione la giusta sequenza ordinata, li invierà 
+al livello applicativo, decapsulandoli.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/selectiveRepeat.eps}
+\end{center} 
 \end{document}
