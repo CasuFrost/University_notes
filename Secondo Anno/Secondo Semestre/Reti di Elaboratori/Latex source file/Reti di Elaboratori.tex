@@ -1085,5 +1085,15 @@ corrotto. Il destinatario invece, si occuperà semplicemente di ricevere pacchet
 l'operazione \code{is\_corrupt(packet)}, ed inviare un eventuale ACK o NAK al destinatario. 
 C'è però un assunzione in questo modello che non è stata considerata.
 \subsubsection{rdt 2.1} 
-L'rdt 2.1 si occupa di gestire anche un possibile errore sui bit dei pacchetti ACK/NAK
+L'rdt 2.1 si occupa di gestire anche un possibile errore sui bit dei pacchetti ACK/NAK, un pacchetto corrotto di questo 
+tipo non può essere interpretato dal mittente, quindi come soluzione, quest'ultimo ri-invierà il pacchetto, se il messaggio 
+corrotto però in origine era un ACK, si avrà un pacchetto duplicato che il destinatario dovrà scartare.\acc 
+Ad ogni pacchetto verrà aggiunto un numero di controllo, che identificherà il numero di sequenza del pacchetto, al 
+destinatario sarà necessario leggerlo per controllare se tale pacchetto è nuovo oppure è una ritrasmissione 
+del pacchetto precedente, scaturita da un ACK/NAK corrotto. Tale numero di sequenza sarà implementato con un singolo 
+bit, che può essere 0 oppure 1, nel modello stop-and-wait sono necessari solo questi due valori.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/rdt2.1.eps}
+\end{center} 
+Il mittente manda il pacchetto 0, se riceve un ACK/NAK corrotto, lo ri-invierà, se il destinatario si aspettava un pacchetto 
+1, in quanto aveva ricevuto correttamente il pacchetto 0, scarterà il pacchetto.
 \end{document}
