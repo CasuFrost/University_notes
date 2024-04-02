@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9.24) (preloaded format=pdflatex 2024.2.10)  29 MAR 2024 20:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9.24) (preloaded format=pdflatex 2024.2.10)  2 APR 2024 16:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -670,6 +670,11 @@ File: images/tubo-eps-converted-to.pdf Graphic file (type pdf)
 <use images/tubo-eps-converted-to.pdf>
 Package pdftex.def Info: images/tubo-eps-converted-to.pdf  used on input line 288.
 (pdftex.def)             Requested size: 386.95897pt x 83.67334pt.
+
+Overfull \hbox (12.83131pt too wide) in paragraph at lines 291--305
+\OT1/cmr/m/n/12 La strat-i-fi-cazione dei liv-elli e dei pro-to-colli garan-tisce pi^^Ru sem-plicit^^Ra quando si tratta di manutenere
+ []
+
 Package epstopdf Info: Source file: <images/livelli.eps>
 (epstopdf)                    date: 2024-03-09 18:34:28
 (epstopdf)                    size: 41955 bytes
@@ -684,7 +689,7 @@ File: images/livelli-eps-converted-to.pdf Graphic file (type pdf)
 <use images/livelli-eps-converted-to.pdf>
 Package pdftex.def Info: images/livelli-eps-converted-to.pdf  used on input line 308.
 (pdftex.def)             Requested size: 483.69687pt x 107.34732pt.
- [12 <./images/tubo-eps-converted-to.pdf> <./images/livelli-eps-converted-to.pdf>]
+[12 <./images/tubo-eps-converted-to.pdf> <./images/livelli-eps-converted-to.pdf>]
 Overfull \hbox (20.74913pt too wide) in paragraph at lines 316--320
 \OT1/cmr/m/n/12 servizi di In-ter-net, al-cuni dei pro-to-colli pre-senti in questo liv-ello sono \OT1/cmr/m/it/12 HTTP,SMTP,FTP,DNS\OT1/cmr/m/n/12 ,
  []
@@ -1013,15 +1018,11 @@ Package epstopdf Info: Source file: <images/selectiveRepeat.eps>
 (epstopdf)                    date: 2024-03-29 20:15:16
 (epstopdf)                    size: 82059 bytes
 (epstopdf)             Output file: <images/selectiveRepeat-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-03-29 20:10:41
-(epstopdf)                    size: 12233 bytes
+(epstopdf)                    date: 2024-03-29 20:15:20
+(epstopdf)                    size: 12277 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/selectiveRepeat-eps-converted-to.pdf images/selectiveRepeat.eps>
 (epstopdf)             \includegraphics on input line 1138.
-runsystem(miktex-epstopdf --outfile=images/selectiveRepeat-eps-converted-to.pdf images/selectiveRepeat.eps)...executed safely (allowed).
-
-Package epstopdf Info: Result file: <images/selectiveRepeat-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-03-29 20:15:20
-(epstopdf)                    size: 12277 bytes.
+Package epstopdf Info: Output file is already uptodate.
 <images/selectiveRepeat-eps-converted-to.pdf, id=767, 456.70625pt x 210.7875pt>
 File: images/selectiveRepeat-eps-converted-to.pdf Graphic file (type pdf)
 <use images/selectiveRepeat-eps-converted-to.pdf>
@@ -1044,7 +1045,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  75i,14n,79p,534b,580s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mcasu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Reti di Elaboratori.pdf" (38 pages, 803637 bytes).
+Output written on "Reti di Elaboratori.pdf" (38 pages, 803643 bytes).
 PDF statistics:
  881 PDF objects out of 1000 (max. 8388607)
  112 named destinations out of 1000 (max. 500000)

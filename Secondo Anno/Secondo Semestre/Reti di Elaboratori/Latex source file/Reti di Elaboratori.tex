@@ -82,7 +82,7 @@ accesso.\begin{center}
 \end{center}
 La \textbf{DSL} diversamente, utilizza la linea telefonica esistente, collegandosi alla DSLAM, i dati sulla linea
 DSL vanno su internet, la voce su DSL va sulla linea telefonica. \acc
-Una rete \textit{domestica}  c'è un \textit{modem}
+In una rete \textit{domestica}  c'è un \textit{modem}
 (si occupa di ricevere il segnale analogico e di  \textit{modularlo} in segnale digitale)
 connesso ad un CMTS, collegato via cavo ad
 un router, collegato direttamente tramite \textit{ethernet} agli host, oppure collegato ad un \textit{access point WI-FI} che
@@ -91,7 +91,7 @@ La connessione senza fili, o wireless connette i sistemi terminali (host) al rou
 access point, esistono reti locali senza fili (WLAN), che hanno una copertura di circa 30 metri, e reti di accesso
 cellulare \textit{wide area}, utilizzate dai dispositivi mobili e fornite da un operatore di rete cellulare, ed hanno una
 copertura più ampia, nell'ordine dei kilometri.\acc
-Le reti aziendali, come quelle delle università sono di una scala diverso rispetto quelle domestiche, prevedono molti più
+Le reti aziendali, come quelle delle università sono di una scala diversa rispetto quelle domestiche, prevedono molti più
 dispositivi, ed un mix di varie tecnologie di collegamento, cablate o wireless, tramite svariati switch e router.
 \subsubsection{Comunicazione e Classificazione delle Reti}
 Un host comunica tramite l'invio e la ricezioni di messaggi da un applicazione sottoforma di \textit{pacchetti} di dati, ossia
@@ -135,7 +135,7 @@ elaborerà, tutti i restanti host lo ignoreranno.\acc \begin{center}
 \end{center}
 Quest'ultimo a commutazione è il più utilizzato tutt'oggi, ogni dispositivo è direttamente collegato allo switch, ed esso è
 in grado di riconoscere gli host ed inviare i pacchetti esclusivamente al destinatario, riduce il traffico nella LAN.\acc
-Le reti \textbf{WAN} sono reti geografica, vengono interconnessi dispositivi di comunicazione, necessari a città, regioni o
+Le reti \textbf{WAN} sono reti geografiche, vengono interconnessi dispositivi di comunicazione, necessari a città, regioni o
 perfino nazioni. I dispositivi in questione sono switch, router e modem, tale rete è gestita da un grande operatore/ente di
 telecomunicazioni detto IPS (Internet Service Provider) che fornisce i servizi alle organizzazioni.\acc Una WAN può vedere i suoi
 dispositivi di comunicazione connessi punto-punto, oppure a commutazione, con più punti di terminazione (usata nelle dorsali di
@@ -157,7 +157,7 @@ valore è uguale a $\dfrac{L}{R}=\dfrac{\text{bit di un pacchetto}}{\text{bit pe
 I router funzionano nella seguente maniera, detta \textbf{store and forward} : Un pacchetto deve arrivare per intero ad un router
 prima di essere ri-trasmesso su un nuovo collegamento.\begin{quote}
     \color{gray} \textit{Esempio} : Si devono trasferire, dal collegamento A al collegamento B, 3 pacchetti da 10 Kbit ad una
-    velocità di 100 Mbitt per secondo, si assume che il  tempo che impiega un bit per propagarsi nel collegamento è zero.
+    velocità di 100 Mbit per secondo, si assume che il  tempo che impiega un bit per propagarsi nel collegamento è zero.
     In totale, il ritardo di trasmissione sarà : $\dfrac{10*3*10^3}{100*10^6}=\dfrac{3}{100*10^2}=\dfrac{3}{10^4}=0,0003\text{ sec }=0,3\text{ msec }$
     \color{black}
 \end{quote}
@@ -183,7 +183,7 @@ quanto temporale (\textit{TDM}).\begin{itemize}
 \end{itemize}\begin{center}
     \includegraphics[width=1\textwidth ]{images/FdmTdm.eps}
 \end{center}
-Il problema è che la commutazione di circuito risulta comunque in efficiente, in quanto permette ad un numero
+Il problema è che la commutazione di circuito risulta comunque inefficiente, in quanto permette ad un numero
 limitato di utenti di usufruire della rete. Si preferisce quindi la condivisione delle risorse, in quanto l'accodamento e la
 significativa perdita di pacchetto, incombe quando un elevato numero di utenti sta usufruendo della rete.\acc
 Il fatto è che gli utenti non comunicano il 100\% del tempo, supponiamo che un utente stia comunicando con probabilità $p$, in un
@@ -211,7 +211,7 @@ nazionale, si osservi la seguente immagine.\begin{center}
 Le icone con scritto \textit{accesso rete} rappresentano i punti in cui un host può connettersi, ad esempio una LAN, tali punti si
 collegano agli ISP regionali, che a loro volte si collegano ad ISP nazionali, spesso condiviso anche da più nazioni, spesso
 interconnessi da degli \textit{Internet Exchange Point} (ISP), gestiti da più enti in comune accordo.\acc Quindi una
-internet è una rete costituita da più reti interconnesse, Internet invece, è la "internet" più grande e famose, composta da migliaia di reti
+internet è una rete costituita da più reti interconnesse, Internet invece, è la "internet" più grande e famosa, composta da migliaia di reti
 interconnesse.
 \subsection{Prestazioni della Rete}
 Utilizziamo il termine \textbf{ampiezza di banda} per intendere due concetti differenti, ma collegati: \begin{itemize}
@@ -299,7 +299,7 @@ manipolato per poi uscire e passare al livello sccessivo. Ogni livello offre uti
 del livello inferiore, e fornisce servizi al livello superiore, indipendentemente da coma sia implementato. \acc
 Quando la comunicazione è bidirezionale, un protocollo deve poter eseguire i due compiti inversi (ad esempio,
 il protocollo che si occupa della crittografia, deve saper cifrare il messaggio ed anche decifrarlo).\acc
-La stratificazione dei livelli e dei protocolli garantisce più semplicitià quando si tratta di manutenere
+La stratificazione dei livelli e dei protocolli garantisce più semplicità quando si tratta di manutenere
 o aggiornare il sistema, aumenta la riusabilità e l'eterogeneità, comporta però anche degli svantaggi,
 come la ridondanza delle operazione ed un calo dell'efficienza.
 \subsubsection{Layer di Protocollo}
@@ -328,8 +328,8 @@ seguito, verranno approfonditi e caratterizzati in seguito.
           nodo della rete al nodo successivo sul percorso, alcuni protocolli sono \textit{Ethernet,Wi-Fi e
               PPP}, lungo un percorso sorgente-destinazione, un datagramma può essere gestito anche da
           differenti protocolli, i pacchetti qui sono detti \textg{frame}.
-    \item Il livello \textbf{fisico} riguarda il trasferimento dei singoli \textg{bit} sul canale
-          fisico, tramite elettricità nei cavi, oppure onde elettromagnetiche-
+    \item Il livello \textbf{fisico} riguarda il trasferimento dei singoli \textbf{bit} sul canale
+          fisico, tramite elettricità nei cavi, oppure onde elettromagnetiche.
 \end{enumerate}
 Durante la comunicazione, non tutti i sistemi intermedi richiedono che il messaggio venga processato
 su tutti i livelli, alcuni dispositivi richiedono solo alcuni layer, riducendo la complessità.
@@ -401,7 +401,7 @@ sorgente fasulla, ovvero utilizzando un indirizzo di origine falso, convincendo 
 credere di star comunicando con un utente fidato.\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/spoofing.eps}
 \end{center}
-Ci sono diverse forme di divesa agli attacchi presentati, l'\textbf{autenticazione} (dimostrare che il destinatario
+Ci sono diverse forme di difesa agli attacchi presentati, l'\textbf{autenticazione} (dimostrare che il destinatario
 è effettivamente chi dichiara di essere), la \textbf{confidenzialità} (cifrare i messaggi tramite la crittografia),
 il \textbf{controllo integrità} (associare delle firme digitali ad un messaggio per prevenire o riconoscere eventuali
 manomissioni), le \textbf{restrizioni di accesso} (VPNs protette da password), e l'utilizzio di un
@@ -759,7 +759,7 @@ visto in seguito), ciò significa che per connettersi ad una serie di differenti
 tenere a mente tutti gli indirizzi IP che li identificano, anche se questi ultimi, possono cambiare.\acc
 Nei browser, non si inserisce l'indirizzo IP, bensì una stringa chiamata \textit{dominio}, come
 \code{google.com} o \code{www.twitch.tv}, la traduzione da dominio ad indirizzo IP, avviene in maniera automatica,
-ed è una funzionalità di base dell'Internet, ebben essa è implementata a livello di applicazione, tramite il
+ed è una funzionalità di base dell'Internet, sebbene essa è implementata a livello di applicazione, tramite il
 protocollo \textbf{DNS}, che si occupa di eseguire tale mapping.\acc
 Per eseguire la traduzione è necessaria una tabella che associa ad ogni dominio un indirizzo IP, è quindi
 necessario un enorme database, de facto, con DNS si intende sia il protcollo, sia l'enorme
@@ -805,7 +805,7 @@ risolvere il nome facendo una query che può essere di due differenti tipi:\begi
           traduzione, il server DNS locale procederà quindi chiedendo ad $y$, ed eventualmente ricominciando il
           procedimento.
     \item \textbf{query ricorsiva} - Il server DNS locale contatta un server $x$, affidandogli il
-          compito di risolvere il nome per lui, appesantendo il carico sui livello superiori della gerarchia. Il
+          compito di risolvere il nome per lui, appesantendo il carico sui livelli superiori della gerarchia. Il
           server $x$ si occuperà personalmente di risolvere il nome, per poi fornirlo al server DNS locale.
 \end{itemize}\begin{center}
     \includegraphics[width=1\textwidth ]{images/risoluzioneDNS.eps}
@@ -1010,7 +1010,7 @@ il checksum.\acc
 Il destinatario, si occuperà di eseguire lo stesso procedimento, ottenendo una somma, se essa differisce
 dal campo checksum, vuol dire che c'è stato un errore ed alcuni bit sono cambiati, sarà poi compito
 del destinatario decidere se scartare il segmento. Il checksum si imposta a zero nel caso non
-si voglia utilizzare, esso è utilizzato su più livello e non solo nei segmenti al livello di trasporto.
+si voglia utilizzare, esso è utilizzato su più livelli e non solo nei segmenti al livello di trasporto.
 \subsection{Principi di Trasferimento Affidabile}
 I protocolli al livello di trasporto non si occupano solo di creare
 una comunicazione virtuale fra due processi su host diversi, ma anche di
@@ -1076,11 +1076,11 @@ Sono necessari i seguenti costrutti:
 Se il destinatario dovesse notificare un NAK, sarà necessario re-inviare il pacchetto che è stato modificato. 
 Per ragioni di semplicità, tale protocollo utilizzera una politica di invio pacchetti \textbf{stop-and-wait}, 
 consiste nell'inviare un singolo pacchetto alla volta, ed inviare il pacchetto successivo solo quando 
-si ha la certezza che quello precedente è stato consegnato.\begin{center}
+si ha la certezza che quello precedente sia stato consegnato.\begin{center}
     \includegraphics[width=1\textwidth ]{images/rdt2.0.eps}
 \end{center}
 Il protocollo è ancora relativamente semplice, il mittente dopo aver inviato il pacchetto, attende di ricevere un 
-ACK od un NAK, nel primo caso, passerà al prossimo pacchetto, altrimenti, si occuperà di re-inviare il pacchetto 
+ACK oppure un NAK, nel primo caso, passerà al prossimo pacchetto, altrimenti, si occuperà di re-inviare il pacchetto 
 corrotto. Il destinatario invece, si occuperà semplicemente di ricevere pacchetti, controllare se sono corrotti tramite 
 l'operazione \code{is\_corrupt(packet)}, ed inviare un eventuale ACK o NAK al destinatario. 
 C'è però un assunzione in questo modello che non è stata considerata.
