@@ -924,4 +924,57 @@ $dist(x,w)=d-1$. $\blacksquare$\acc
     valore nell'array nel seguente modo: \codee{Dist[y]=Dist[w]+1}, si avrà che \codee{Dist[y]=k+1}$\implies$ la distanza è 
     calcolata correttamente. $\blacksquare$
 \end{itemize}
+\subsubsection{Distanza fra Insieme e Distanza tramite Vettore dei Padri}
+Occupiamoci adesso di presentare due problemi relativi alla ricerca in ampiezza, il primo riguarda la distanza minima fra 
+due insiemi di nodi.\acc 
+Siano $X$ ed $Y$ due insiemi di nodi, la loro distanza è uguale alla distanza minima nell'insieme delle distanze fra qualsiasi 
+nodo di $X$ e di $Y$, ossia la distanza minima fra l'insieme delle coppie $X\times Y$. \begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/distInsiemi.eps}
+    \end{center} 
+Una possibile soluzione sarebbe quella di contrarre i due insiemi rendendoli dei vertici a sé stanti, ma per fare ciò 
+bisognerebbe modificare il grafo, è possibile fare ciò in $O(n+m)$, ma risulta complicato, un modo più semplice è 
+quello di considerare una versione differente del BFS che sfrutti una coda, calcolando prima tutti i vicini 
+di ogni nodo appartenente ad uno dei due insieme.\begin{center}
+    Pseudocodice
+\end{center}
+\codee{BFS\_set(X,Y insiemi di nodi, G graph)\{}\\
+\hphantom{ident}\codee{int Dist[n] inizializzato a -1}\\
+\hphantom{ident}\codee{Q : queue}\\
+\hphantom{ident}\codee{for each x $\in$ X\{}\\
+\hphantom{ident}\hphantom{ident}\codee{Q.push(x)}\\
+\hphantom{ident}\hphantom{ident}\codee{Dist[x]=0}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{while(Q$\ne\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{v = Q.pop()}\\
+\hphantom{ident}\hphantom{ident}\codee{for each w adiacente di v \{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if (Dist[w]==-1)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{}\hphantom{ident}\codee{Dist[w]=Dist[v]+1}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{}\hphantom{ident}\codee{Q.push(w)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{minimo=Dist[0]}\\
+\hphantom{ident}\codee{for each y $\in$ Y\{}\\
+\hphantom{ident}\hphantom{ident}\codee{minimo = min(Dist[y],minimo)}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return minimo}\\
+\codee{\}}\acc
+Consideriamo adesso un vettore dei padri riguardante un albero dato come output da un BFS partito da un nodo $x$, risulta 
+facile trovare la distanza minima fra $x$ ed un qualsiasi nodo $y$, ma è possibile trovare la distanza fra 
+$x$ e tutti gli altri nodi in tempo lineare? Il seguente algoritmo, è in $O(n)$.\acc
+\codee{Dist\_ric(P vettore padri, Dist, y vertice)\{}\comm{chiamata ricorsiva}\\
+\hphantom{ident}\codee{if(P[y]==y)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{Dist[y]=0}\\
+\hphantom{ident}\hphantom{ident}\codee{return 0}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{if(P[y]>0)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{Dist[y]=Dist[P[y]]+1}\\
+\hphantom{ident}\hphantom{ident}\codee{return Dist[y]}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{Dist[y]=Dist\_ric(P,Dist,P[y])+1}\\
+\hphantom{ident}\codee{return Dist[y]}\\
+\codee{\}}\acc
+Basta poi eseguire tale chiamata per ogni nodo del grafo, inizializzando l'apposito vettore \code{Dist}, ogni nodo viene controllato 
+una singola volta, per questo è garantita la complessità lineare.
+\subsection{Grafi Pesati}
 \end{document}
