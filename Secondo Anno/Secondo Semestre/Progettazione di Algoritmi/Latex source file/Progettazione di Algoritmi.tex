@@ -977,4 +977,20 @@ $x$ e tutti gli altri nodi in tempo lineare? Il seguente algoritmo, è in $O(n)$
 Basta poi eseguire tale chiamata per ogni nodo del grafo, inizializzando l'apposito vettore \code{Dist}, ogni nodo viene controllato 
 una singola volta, per questo è garantita la complessità lineare.
 \subsection{Grafi Pesati}
+Consideriamo adesso un nuovo tipo di grafi, che introducono il concetto di \textbf{peso sugli archi}, ogni arco del grafo, 
+avrà ad esso associato un numero reale detto, appunto, \textit{peso}, indicato con $w : E(G)\rightarrow \mathbb{R}^+$,
+rimodellando il concetto di distanza.\acc 
+In un grafo pesato, si definisce il \textbf{peso di un cammino} come la somma dei pesi associati ad ogni arco del cammino,
+la distanza fra due vertici sarà data dal peso del cammino fra i due vertici con il peso minimo, se il peso di ogni 
+arco è 1, la definizione di distanza coincide con la definizione classica per i grafi non pesati. \begin{center}
+    \includegraphics[width=1\textwidth ]{images/grafoPesato.eps}
+    \end{center}  
+Per poter calcolare correttamente la distanza in un tempo polinomiale è assolutamente necessaro che 
+i pesi degli archi siano tutti positivi (si vedrà in seguito un algoritmo a tale scopo).\acc 
+\textbf{Osservazione} : Se  $w : E(G)\rightarrow \mathbb{R}^+$ (i pesi sono positivi), per due qualsiasi 
+vertici $x$ e $y$, valgono le seguenti:\begin{itemize}
+    \item $dist(x,x)=0$
+    \item $dist(x,y)>0\iff x\ne y$
+    \item $dist(x,y)\le dist(x,z)+dist(z,y)$ $\forall z\in V(G)$
+\end{itemize}
 \end{document}
