@@ -1,5 +1,5 @@
 # Appunti Università - Laurea triennale in informatica
-Li metto pubblici per comodità, non sono gli appunti più affidabili del mondo e potrebbero esserci errori (fatemeli notare nel caso). 
+Li metto pubblici per comodità, non sono gli appunti più affidabili del mondo e potrebbero esserci errori (perfavore, fatemeli notare nel caso). 
 Per appunti meno descrittivi e più riassuntivi (magari si vuole semplicemente una sheet con le formule) consiglio il [Notion di SimLid](https://deserted-drawbridge-894.notion.site/Laurea-Informatica-646ba04621584c82a639604725750cc5 ).
 
 ## Primo Anno
