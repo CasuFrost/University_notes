@@ -77,15 +77,15 @@ I dati di interesse per il sistema sono \acc
 \hphantom{ident}6.4 numero posti prenotati\acc
 7. Requisiti sui \textbf{clienti}:\\
 \hphantom{ident}7.1 nome.\\
-\hphantom{ident}7.2 cognome.\\ 
-\hphantom{ident}7.3 età.\\ 
+\hphantom{ident}7.2 cognome.\\
+\hphantom{ident}7.3 età.\\
 \hphantom{ident}7.4 indirizzo.
 \newpage
 \section{UML}\begin{center}
-    
+
     \includegraphics[width=\textwidth]{images/UML.eps}
 \end{center}
-\newpage 
+\newpage
 \section{Specifiche}
 \subsection{Specifica dei Tipi di Dato}
 TipoDestinazione = {romantica, divertente}\acc
@@ -104,20 +104,20 @@ Operazioni del tipo di dato DeltaDataOra:\acc
 \subsection{Specifica delle Classi}
 \subsubsection{Crociera}
 Operazione \code{fine() : Data}\begin{itemize}
-    \item \textit{pre-condizioni} : nessuna 
+    \item \textit{pre-condizioni} : nessuna
     \item \textit{post-condizioni} : Sia i:Itinerario tale che (this, i):croc\_itin.\acc
-    Sia x:DeltaDataOra il valore dell'attributo "istante" dell'unico link di assoc.
-    arrivo\_itin in cui "i" è coinvolto.\acc
-    result = this.inizio + x.giorno "giorni".
+          Sia x:DeltaDataOra il valore dell'attributo "istante" dell'unico link di assoc.
+          arrivo\_itin in cui "i" è coinvolto.\acc
+          result = this.inizio + x.giorno "giorni".
 \end{itemize}
 \textbf{Vincoli esterni} :\acc
 $[$V.Crociera.date$]$\\
-\hphantom{ident}Per ogni oggetto c:Crociera deve essere: c.inizio $\le$ c.fine\acc 
+\hphantom{ident}Per ogni oggetto c:Crociera deve essere: c.inizio $\le$ c.fine\acc
 $[$V.Crociera.posti$]$\\
 \hphantom{ident}Per ogni oggetto c:Crociera deve essere che\begin{itemize}
-    \item  sia $R$ l'insieme delle relazioni (c,$p$) dove 
-$p$:Prenotazione coinvolta con c:Crociera. Considero $n=\displaystyle\sum_{(\text{c},p_i)\in R}p_i.\text{postiPrenotati}$
-\item sia (c,nave) il link di tipo croc\_nave e sia nave:Nave.
+    \item  sia $R$ l'insieme delle relazioni (c,$p$) dove
+          $p$:Prenotazione coinvolta con c:Crociera. Considero $n=\displaystyle\sum_{(\text{c},p_i)\in R}p_i.\text{postiPrenotati}$
+    \item sia (c,nave) il link di tipo croc\_nave e sia nave:Nave.
 \end{itemize}
 \hphantom{ident} Deve essere che $n\le$nave.capienza.
 
@@ -126,70 +126,70 @@ $p$:Prenotazione coinvolta con c:Crociera. Considero $n=\displaystyle\sum_{(\tex
 $[$V.Itinerario.arrivo\_dopo\_ultima\_tappa$]$\\
 \hphantom{ident}Per ogni i:Itinerario siano: \begin{itemize}
     \item  T l'insieme delle istanze 't' di classe Tappa tali che (i,t):itin\_tappa
-	\item x il valore dell'attributo 'istante' dell'unico link di associazione arrivo\_itin in cui 'i' è coinvolto
+    \item x il valore dell'attributo 'istante' dell'unico link di associazione arrivo\_itin in cui 'i' è coinvolto
 \end{itemize}
-\hphantom{ident}Per ogni t:T, deve essere: t.ripartenza $<$ x.\acc 
+\hphantom{ident}Per ogni t:T, deve essere: t.ripartenza $<$ x.\acc
 $[$V.Itinerario.prima\_tappa\_dopo\_partenza$]$\\
 \hphantom{ident}Per ogni i:Itinerario siano: \begin{itemize}
-		\item  T l'insieme delle istanze 't' di classe Tappa tali che (i,t):itin\_tappa e t.arrivo.giorno = 1
-		\item  x il valore dell'attributo 'istante' dell'unico link di associazione partenza\_itin in cui 'i' è coinvolto
-    \end{itemize}
-\hphantom{ident}Per ogni t:T, deve essere t.arrivo.orario $>$ x.\acc 
+    \item  T l'insieme delle istanze 't' di classe Tappa tali che (i,t):itin\_tappa e t.arrivo.giorno = 1
+    \item  x il valore dell'attributo 'istante' dell'unico link di associazione partenza\_itin in cui 'i' è coinvolto
+\end{itemize}
+\hphantom{ident}Per ogni t:T, deve essere t.arrivo.orario $>$ x.\acc
 $[$V.Itinerario.arrivo\_dopo\_partenza\_se\_senza\_tappe$]$\\
 \hphantom{ident}Per ogni i:Itinerario tale siano:  \begin{itemize}
-\item T l'insieme delle istanze 't' di classe Tappa tali che (i,t):itin\_tappa
-\item x il valore dell'attributo 'istante' dell'unico link di associazione partenza\_itin in cui 'i' è coinvolto
-\item y il valore dell'attributo 'istante' dell'unico link di associazione arrivo\_itin in cui 'i' è coinvolto
-    
+    \item T l'insieme delle istanze 't' di classe Tappa tali che (i,t):itin\_tappa
+    \item x il valore dell'attributo 'istante' dell'unico link di associazione partenza\_itin in cui 'i' è coinvolto
+    \item y il valore dell'attributo 'istante' dell'unico link di associazione arrivo\_itin in cui 'i' è coinvolto
+
 \end{itemize}
-    \hphantom{ident}se T = vuoto e y.giorno = 1, allora deve essere x $<$ y.orario.\\
-    \hphantom{ident}Per ogni t:T, deve essere t.arrivo.orario $>$ x.
+\hphantom{ident}se T = vuoto e y.giorno = 1, allora deve essere x $<$ y.orario.\\
+\hphantom{ident}Per ogni t:T, deve essere t.arrivo.orario $>$ x.
 \subsubsection{Tappa}
 Operazione \code{n\_ordine() : Int $>$ 0}\begin{itemize}
-    \item \textit{pre-condizioni} : nessuna 
+    \item \textit{pre-condizioni} : nessuna
     \item \textit{post-condizioni} : No side-effect.
-    Sia i l'itinerario della tappa this;
-    Sia TappePrecedenti l'insieme degli oggetti t:Tappa tali che:\begin{itemize}
-        \item  (i,t): itin\_tappa\\
-        \item  t.arrivo $<$ this.arrivo;\end{itemize}
-    result = $|$TappePrecedenti$|$ + 1. 
+          Sia i l'itinerario della tappa this;
+          Sia TappePrecedenti l'insieme degli oggetti t:Tappa tali che:\begin{itemize}
+              \item  (i,t): itin\_tappa\\
+              \item  t.arrivo $<$ this.arrivo;\end{itemize}
+          result = $|$TappePrecedenti$|$ + 1.
 \end{itemize}
 \textbf{Vincoli esterni} :\acc
 $[$V.Tappa.date$]$\\
 \hphantom{ident}Per ogni istanza t:Tappa, deve essere:
-		t.arrivo $<$ t.ripartenza
+t.arrivo $<$ t.ripartenza
 \subsubsection{Prenotazioni}
 \textbf{Vincoli esterni} :\acc
 Operazione : \code{etàMediaEsot(leftBound : Data, rightBound : Data) : Reale}\begin{itemize}
-    \item \textit{pre-condizioni} : leftBound $<$ rightBound. 
-    \item \textit{post-condizioni} : Si consideri $P_1$ l'insieme delle prenotazioni p:Prenotazione tale 
-    che leftBound $\le$ p.istante $le$ rightBound.\acc 
-    Si consideri $P_2$ l'insieme delle prenotazioni p:Prenotazione, per cui, vi è almeno un link (p,c) con c:Crociera, per cui 
-    tale crociera è coinvolta in almeno un link (c,i) con i:Itinerario, per cui tale itinerario è coinvolto in almeno un 
-    link (i,d) con d:Destinazione, per cui tale destinazione è coinvolta in almeno un link (d,c) con c:Continente, per cui 
-    c.Stringa $\ne$ "Europa".\acc 
-    Si consideri $P_1\cap P_2$, si consideri $C$ l'insieme dei clienti c:Cliente per cui esiste un link (c,p) dove 
-    p$\in P$. Si consideri $n=\displaystyle \sum_{c\in C}c.\text{età}$.
-    result = $\dfrac{n}{|C|}$.
-\end{itemize} 
+    \item \textit{pre-condizioni} : leftBound $<$ rightBound.
+    \item \textit{post-condizioni} : Si consideri $P_1$ l'insieme delle prenotazioni p:Prenotazione tale
+          che leftBound $\le$ p.istante $le$ rightBound.\acc
+          Si consideri $P_2$ l'insieme delle prenotazioni p:Prenotazione, per cui, vi è almeno un link (p,c) con c:Crociera, per cui
+          tale crociera è coinvolta in almeno un link (c,i) con i:Itinerario, per cui tale itinerario è coinvolto in almeno un
+          link (i,d) con d:Destinazione, per cui tale destinazione è coinvolta in almeno un link (d,c) con c:Continente, per cui
+          c.Stringa $\ne$ "Europa".\acc
+          Si consideri $P_1\cap P_2$, si consideri $C$ l'insieme dei clienti c:Cliente per cui esiste un link (c,p) dove
+          p$\in P$. Si consideri $n=\displaystyle \sum_{c\in C}c.\text{età}$.
+          result = $\dfrac{n}{|C|}$.
+\end{itemize}
 Operazione : \code{destGett(leftBound : Data, rightBound : Data) : Reale}\begin{itemize}
-    \item \textit{pre-condizioni} : leftBound $<$ rightBound. Esiste almeno un oggetto di tipo p:Prenotazione 
-    per cui leftBound $\le$ p.istante $le$ rightBound.
-    \item \textit{post-condizioni} : Sia $P$ l'insieme delle prenotazioni p:Prenotazione tale 
-    che leftBound $\le$ p.istante $le$ rightBound. \color{red}DA CONTINUARE\color{black}
-\end{itemize} 
+    \item \textit{pre-condizioni} : leftBound $<$ rightBound. Esiste almeno un oggetto di tipo p:Prenotazione
+          per cui leftBound $\le$ p.istante $le$ rightBound.
+    \item \textit{post-condizioni} : Sia $P$ l'insieme delle prenotazioni p:Prenotazione tale
+          che leftBound $\le$ p.istante $\le$ rightBound.
+\end{itemize}
 $[$V.Prenotazioni.date$]$\\
-\hphantom{ident} Per ogni istanza p:Prenotazione, ed ogni link $r$ fra p:Prenotazione e c:Crociera, deve\\ 
+\hphantom{ident} Per ogni istanza p:Prenotazione, ed ogni link $r$ fra p:Prenotazione e c:Crociera, deve\\
 \hphantom{ident} essere:
 p.data\_prenotazione$<$c.inizio
 \subsubsection{Cliente}
 Operazione : \code{prenota( posti:Intero $>$ 0, c:Crociera)}\begin{itemize}
-    \item \textit{pre-condizioni} : sia $R$ l'insieme delle relazioni (c,$p$) dove 
-    $p$:Prenotazione coinvolta con c:Crociera. Considero $n=\displaystyle\sum_{(\text{c},p_i)\in R}p_i.\text{postiPrenotati}$.\acc 
-    sia (c,nave) il link di tipo croc\_nave e sia nave:Nave, considero $free=\text{nave.capienza}-n$ (i posti liberi). \acc 
-    Deve essere che posti$\le$ $free$.
-    \item \textit{post-condizioni} : Viene creato un oggetto p:Prenotazione in relazione con this ed in relazione con 
-    c:Crociera (parametro in input), sarà che : p.istante=now, p.postiPrenotati=posti, p.codicePren=Stringa univoca randomica.
+    \item \textit{pre-condizioni} : sia $R$ l'insieme delle relazioni (c,$p$) dove
+          $p$:Prenotazione coinvolta con c:Crociera. Considero $n=\displaystyle\sum_{(\text{c},p_i)\in R}p_i.\text{postiPrenotati}$.\acc
+          sia (c,nave) il link di tipo croc\_nave e sia nave:Nave, considero $free=\text{nave.capienza}-n$ (i posti liberi). \acc
+          Deve essere che posti$\le$ $free$.
+    \item \textit{post-condizioni} : Viene creato un oggetto p:Prenotazione in relazione con this ed in relazione con
+          c:Crociera (parametro in input), sarà che : p.istante=now, p.postiPrenotati=posti, p.codicePren=Stringa univoca randomica.
 \end{itemize}
 \end{document}
 
