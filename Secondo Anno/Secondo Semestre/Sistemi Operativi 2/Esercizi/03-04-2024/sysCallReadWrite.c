@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
 	{
 		size = atoi(argv[1]);
 	}
+
 	int ogSize = size;
 
 	char *m1 = malloc(size);
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
 		i++;
 		ch = fgetc(fp);
 	}
-	printf("%d  %d", size, ogSize);
+	printf("%d  %d\n", size, ogSize);
 
 	if (fp == NULL)
 	{
