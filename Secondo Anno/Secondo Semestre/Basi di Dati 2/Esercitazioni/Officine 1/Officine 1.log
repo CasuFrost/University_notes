@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9.24) (preloaded format=pdflatex 2024.2.10)  30 MAR 2024 16:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9.24) (preloaded format=pdflatex 2024.2.10)  4 APR 2024 21:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -481,12 +481,23 @@ LaTeX Warning: No \author given.
 [1
 
 {C:/Users/mcasu/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-<images/UML.png, id=67, 688.82344pt x 738.50906pt>
-File: images/UML.png Graphic file (type png)
-<use images/UML.png>
-Package pdftex.def Info: images/UML.png  used on input line 68.
-(pdftex.def)             Requested size: 483.69687pt x 518.58679pt.
- [2 <./images/UML.png>]
+Package epstopdf Info: Source file: <images/UML.eps>
+(epstopdf)                    date: 2024-04-04 21:13:23
+(epstopdf)                    size: 28833 bytes
+(epstopdf)             Output file: <images/UML-eps-converted-to.pdf>
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/UML-eps-converted-to.pdf images/UML.eps>
+(epstopdf)             \includegraphics on input line 68.
+runsystem(miktex-epstopdf --outfile=images/UML-eps-converted-to.pdf images/UML.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <images/UML-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-04-04 21:13:57
+(epstopdf)                    size: 12577 bytes.
+<images/UML-eps-converted-to.pdf, id=67, 379.4175pt x 356.33125pt>
+File: images/UML-eps-converted-to.pdf Graphic file (type pdf)
+<use images/UML-eps-converted-to.pdf>
+Package pdftex.def Info: images/UML-eps-converted-to.pdf  used on input line 68.
+(pdftex.def)             Requested size: 483.69687pt x 454.27554pt.
+ [2 <./images/UML-eps-converted-to.pdf>]
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 73.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
 File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
@@ -513,16 +524,16 @@ Package rerunfilecheck Info: File `"Officine 1".out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  14424 strings out of 474542
- 233643 string characters out of 5744446
+ 233735 string characters out of 5744446
  1937978 words of memory out of 5000000
  36416 multiletter control sequences out of 15000+600000
  567685 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,7n,79p,378b,580s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mcasu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on "Officine 1.pdf" (3 pages, 191178 bytes).
+Output written on "Officine 1.pdf" (3 pages, 125063 bytes).
 PDF statistics:
- 138 PDF objects out of 1000 (max. 8388607)
+ 144 PDF objects out of 1000 (max. 8388607)
  39 named destinations out of 1000 (max. 500000)
  62 words of extra memory for PDF output out of 10000 (max. 10000000)
 

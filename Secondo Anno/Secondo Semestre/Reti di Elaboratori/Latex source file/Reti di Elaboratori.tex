@@ -1137,4 +1137,21 @@ Il destinatario salverà i pacchetti nel buffer, quando avrà a disposizione la 
 al livello applicativo, decapsulandoli.\begin{center}
     \includegraphics[width=1\textwidth ]{images/selectiveRepeat.eps}
 \end{center} 
+Anche se tale astrazione è stata costruita per una comunicazione mono-direzionale, nulla vita ad un pacchetto che 
+trasporta i dati, di trasportare anche i riscontri ACK, tale tecnica è nota con il nome di \textit{piggy-backing}, 
+permettendo a due enti di comunicare e contemporaneamente notificarsi dell'ascolto.
+\subsection{TCP}
+\subsubsection{Introduzione}
+Il protocollo TCP vede il trasferimento dei dati, non come l'invio di segmenti, ma come l'invio di un 
+flusso di byte che compongono i messaggi, che deve arrivare dal mittente al destinatario in un 
+preciso ordine, è un protocollo bidirezionale che prevede una misura massima per la dimensione dei segmenti, 
+detta $MSS$ (solitamente 1460 byte).\acc 
+Il TCP permette ai due enti che comunicano di stabilire una connessione virtuale, di cui il resto della rete 
+non è a conoscenza. Utilizza dei riscontri ACK comulativi, e sfrutta il pipelining per l'invio di più 
+pacchetti, con il termine \textbf{handshake}, si intende l'azione in cui i due enti stabiliscono la 
+connessione, tramite dei messaggi di controllo. Un segmento TCP è lo stesso sia per un messaggio di invio dati, sia 
+che per un messaggio di ACK (dato che utilizza il piggy-backing), ed è la seguente:\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/TCPsegment.eps}
+\end{center} 
+Il numero di sequenza
 \end{document}
