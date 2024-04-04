@@ -993,4 +993,92 @@ vertici $x$ e $y$, valgono le seguenti:\begin{itemize}
     \item $dist(x,y)>0\iff x\ne y$
     \item $dist(x,y)\le dist(x,z)+dist(z,y)$ $\forall z\in V(G)$
 \end{itemize}
+Uno dei problemi più noti dei grafi pesati è il calcolo della distanza (pesata) fra due nodi $x,y$, che da ora in
+poi denoteremo $dist_w(x,y)$, non è possibile utilizzare un normale BFS per la ricerca, inoltre, si noti come non è possibile 
+nemmeno calcolare la distanza fra un nodo $x$ ed i suoi vicini, in quanto è possibile che $w(x,v_i)\ne dist_w(x,v_i)$, con 
+$v_i$ adiacente di $x$, si osservi però la seguente.\acc 
+\textbf{Proposizione} : Sia $G$ un grafo pesato, sia $x$ un nodo e sia $\{v_1,v_2\dots,v_k\}$ l'insieme dei nodi adiacenti 
+ad $x$, sia inoltre, $\alpha_i=w(x,v_i)$ $\forall i$. Sia $(x,v_j)$ l'arco con il peso $\alpha_j$ minimo rispetto 
+ai restanti, ebbene si ha che $\alpha_j=w(x,v_j)=dist_w(x,v_j)$. \begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/distNodiVicini.eps}
+    \end{center}  
+\textbf{Dimostrazione} : Sia $P$ un qualsiasi altro cammino da $x$ a $v_j$, che non percorra l'arco 
+$(x,v_j)$. Necessariamente, in $P$ sarà contenuto almeno un arco $(x,v_i)$, con $v_i\ne v_j$, quindi 
+$w(P)\ge w(x,v_i)$, ma per ipotesi $w(x,v_j)<w(x,v_i)$, quindi $w(P)\ge w(x,v_j)\implies(x,v_j)$ è il cammino minimo 
+da $x$ a $v_j$. $\blacksquare$\acc 
+Questa proposizione può essere generalizzata, sia $R$ un insieme dei vertici per cui è nota la distanza pesata effettiva con un 
+nodo di partenza $x$. Conoscendo $dist_w(u,x)$ se $u\in R$, vogliamo trovare la distanza fra $x$ ed un nodo $v\notin R$, 
+essa può essere trovata minimizzando il peso di un cammino composto da un cammino fra $x$ ed un nodo $u$, più un arco 
+$(u,v)$.\acc 
+\textbf{Proposizione} : Sia $G$ un grafo pesato ed $x$ un vertice, sia $R\subseteq V(G)$ un insieme di vertici per cui 
+è nota la distanza con $x$. Sia $(u,v)$ l'arco che \textit{minimizza} il valore $dist_w(x,u)+w(u,v)$ con $u\in R \land v\notin R$, 
+si ha che $dist_w(x,v)=dist_w(x,u)+w(u,v)$.\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/insiemeR.eps}
+    \end{center}  
+\textbf{Dimostrazione} : Sia $P$ un qualsiasi altro cammino da $x$ a $v$, partendo da $x$ ed attraversando $P$, ci 
+sarà ad un certo punto un arco $(u',v')$, tale che $u'\in R\land v'\notin R$. \acc Consideriamo adesso due sotto-cammini di 
+$P$, ossia $Q_1=$\{da $x$ a $u'$\}, e $Q_2=$\{da $v'$ a $v$\}, sarà che $P=Q_1+(u',v')+Q_2$, ne consegue che 
+$w(P)=w(Q_1)+w(u',v')+w(Q_2)$, per ipotesi $w(Q_1)\ge dist_w(x,u')$ dato che $u'\in R$, e si ha che $w(Q_2)\ge 0$ (sarebbe 0 
+se e solo se $v'=u'$).\acc 
+Si ha che $w(Q_1)+w(u',v')\ge dist_w(x,u)+w(u,v)$ in quanto quest'ultima era minimizzata, quindi non esistono cammini 
+con un peso minore, allora $dist_w(x,v)=dist_w(x,u)+w(u,v)$. $\blacksquare$\acc 
+In \textit{conclusione}, dato un insieme $R$ per cui sono note le distanze da un vertice $x$, è sempre possibile trovare un 
+nuovo nodo $v$ di cui sarà nota la distanza, incrementando $R$, fino a che tale insieme non conterrà tutti i vertici.\begin{center}
+    Pseudocodice
+\end{center}
+\codee{Dijkstra\_non\_ottimizzato(G graph (pesato), x vert)\{}\comm{calcola distanze con pesi}\\ 
+\hphantom{ident}\codee{Dist : array lungo $n=|V(G)|$ inizializzato a 0}\\
+\hphantom{ident}\codee{R : Insieme = \{x\}}\\
+\hphantom{ident}\codee{while(R$\ne$V(G))\{}\\
+\hphantom{ident}\hphantom{ident}\codee{min = $\infty$}\\
+\hphantom{ident}\hphantom{ident}\codee{min\_arco = NULL}\\
+\hphantom{ident}\hphantom{ident}\codee{for each (u,v)|u$\in$R $\land$ v$\notin$R\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if(Dist[u]+w(u,v)<min)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{min=Dist[u]+w(u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{min\_arco = (u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{R.add(min\_arco[1])}\comm{min\_arco = (a,b)$\implies$min\_arco[0]=a $\land$ min\_arco[1]=b}\\
+\hphantom{ident}\hphantom{ident}\codee{Dist[min\_arco[1]]=min}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Dist}\\
+\codee{\}}\newpage
+Nel ciclo \code{while} vengono eseguite $n$ iterazioni in quanto $R$ ad ogni iterazione cresce ed è limitato da 
+$V(G)$, all'interno del ciclo, l'operazione \code{for} costa $n+m$ iterazioni, la complessità totale dell'algoritmo 
+risutla essere $O\big(n(n+m)\big)$.\acc 
+È possibile migliorare l'efficienza dell'algoritmo servendosi di un \textit{min heap} per la memorizzazione degli archi.\acc
+\codee{Dijkstra(G graph (pesato), x vert)\{}\\
+\hphantom{ident}\codee{Dist : array lungo $n=|V(G)|$ inizializzato a $\infty$}\\
+\hphantom{ident}\codee{Dist[x]=0}\\
+\hphantom{ident}\codee{R : Insieme = \{x\}}\\
+\hphantom{ident}\codee{P : vettore di padri, P[x]=x}\\
+\hphantom{ident}\codee{H : min heap}\\
+\hphantom{ident}\codee{for each v $\in$ V(G)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if(v$\ne$x)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{H.insert(v,key=$\infty$)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{else \{ H.insert(v,key=0) \}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{while(H$\ne\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{v=H.extract\_min()}\\
+\hphantom{ident}\hphantom{ident}\codee{Dist[v]=H.key(v)}\\
+\hphantom{ident}\hphantom{ident}\codee{R.add(v)}\\
+\hphantom{ident}\hphantom{ident}\codee{for each u adiacente di v\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if(Dist[u]==$\infty$)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Dist[u]=Dist[v]+w(u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{H.update\_key(u,Dist[u])}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{P[u]=v}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{else if(u$\notin$R)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if(Dist[u]>Dist[v]+w(u,v))\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Dist[u]=Dist[v]+w(u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{H.update\_key(u,Dist[u])}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{P[u]=v}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Dist}\\
+\codee{\}}\acc
+La complessità, date le operazioni di aggiornamento sull'heap, risulta essere $O\big((n+m)\cdot\log{n}\big)$.
 \end{document}
