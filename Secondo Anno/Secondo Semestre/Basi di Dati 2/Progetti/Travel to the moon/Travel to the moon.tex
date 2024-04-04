@@ -78,7 +78,7 @@ I dati di interesse per il sistema sono \acc
 7. Requisiti sui \textbf{clienti}:\\
 \hphantom{ident}7.1 nome.\\
 \hphantom{ident}7.2 cognome.\\
-\hphantom{ident}7.3 età.\\
+\hphantom{ident}7.3 data di nascita.\\
 \hphantom{ident}7.4 indirizzo.
 \newpage
 \section{UML}\begin{center}
@@ -86,11 +86,19 @@ I dati di interesse per il sistema sono \acc
     \includegraphics[width=\textwidth]{images/UML.eps}
 \end{center}
 \newpage
+\section{Use Case}\begin{center}
+
+    \includegraphics[width=\textwidth]{images/UseCase.eps}
+\end{center}
+\newpage
 \section{Specifiche}
 \subsection{Specifica dei Tipi di Dato}
+Indirizzo = \{   via:Stringa,   civico  :  Intero$>$0,    CAP : Intero$>$0  \}\acc
+GiornoSettimana = \{Lunedì...,Domenica\}\acc
+FasciaOraria = (inizio\_fascia : Ora, fine\_fascia : Ora)\acc 
 TipoDestinazione = {romantica, divertente}\acc
 DeltaDataOra = (\\
-\hphantom{ident}giorno: Intero > 0,\\
+\hphantom{ident}giorno: Intero $>$ 0,\\
 \hphantom{ident}orario: Ora	\\
 )\acc
 Operazioni del tipo di dato DeltaDataOra:\acc
@@ -98,11 +106,19 @@ Operazioni del tipo di dato DeltaDataOra:\acc
 \hphantom{ident}\hphantom{ident}pre: nessuna\\
 \hphantom{ident}\hphantom{ident}postcondizioni:\\
 \hphantom{ident}\hphantom{ident}result = true se e solo se:\\
-\hphantom{ident}\hphantom{ident}(x.giorno < y.giorno)\\
+\hphantom{ident}\hphantom{ident}(x.giorno $<$ y.giorno)\\
 \hphantom{ident}\hphantom{ident}oppure\\
-\hphantom{ident}\hphantom{ident}(x.giorno = y.giorno e x.orario < y.orario)
+\hphantom{ident}\hphantom{ident}(x.giorno = y.giorno e x.orario $<$ y.orario)
 \subsection{Specifica delle Classi}
 \subsubsection{Crociera}
+Operazione \code{posti\_liberi () : Intero $\ge$ 0}\begin{itemize}
+    \item \textit{pre-condizioni} : L'oggetto \textit{this} deve essere coinvolto in almeno un link di 
+    tipo croc\_nave con un oggetto di tipo Nave.
+    \item \textit{post-condizioni} : Sia $P$ l'insieme delle prenotazioni p:Prenotazione tale che 
+    $\exists$ un link di tipo croc\_pren con \textit{this}. Sia
+     $n=\displaystyle\sum_{p\in P}p.\text{postiPrenotati}$, sia b:Nave l'oggetto di tipo Nave 
+     per il quale esiste il link (this,b) di tipo croc\_nave. result = b.capienza-$n$.
+\end{itemize}
 Operazione \code{fine() : Data}\begin{itemize}
     \item \textit{pre-condizioni} : nessuna
     \item \textit{post-condizioni} : Sia i:Itinerario tale che (this, i):croc\_itin.\acc
@@ -113,14 +129,6 @@ Operazione \code{fine() : Data}\begin{itemize}
 \textbf{Vincoli esterni} :\acc
 $[$V.Crociera.date$]$\\
 \hphantom{ident}Per ogni oggetto c:Crociera deve essere: c.inizio $\le$ c.fine\acc
-$[$V.Crociera.posti$]$\\
-\hphantom{ident}Per ogni oggetto c:Crociera deve essere che\begin{itemize}
-    \item  sia $R$ l'insieme delle relazioni (c,$p$) dove
-          $p$:Prenotazione coinvolta con c:Crociera. Considero $n=\displaystyle\sum_{(\text{c},p_i)\in R}p_i.\text{postiPrenotati}$
-    \item sia (c,nave) il link di tipo croc\_nave e sia nave:Nave.
-\end{itemize}
-\hphantom{ident} Deve essere che $n\le$nave.capienza.
-
 \subsubsection{Itinerario}
 \textbf{Vincoli esterni} :\acc
 $[$V.Itinerario.arrivo\_dopo\_ultima\_tappa$]$\\
@@ -160,6 +168,89 @@ $[$V.Tappa.date$]$\\
 t.arrivo $<$ t.ripartenza
 \subsubsection{Prenotazioni}
 \textbf{Vincoli esterni} :\acc
+$[$V.Prenotazioni.date$]$\\
+\hphantom{ident} Per ogni istanza p:Prenotazione, ed ogni link $r$ fra p:Prenotazione e c:Crociera, deve\\
+\hphantom{ident} essere:
+p.data\_prenotazione$<$c.indirizzo 
+\subsubsection{Fascia Oraria}
+$[$V.FasciaOraria.inizio\_fascia\_fine\_fascia$]$\\
+\hphantom{ident} Per ogni f:FasciaOraria, f.fascia.inizio\_fascia $<$ f.fascia.fine\_fascia\acc 
+$[$V.FasciaOraria.sovrapposizione\_fasce$]$\\
+\hphantom{ident} Per ogni f:FasciaOraria con  $|$f.fascia$|$ $>$ 1 , presi f.fascia = x e f.fascia' = y 
+, non esiste \hphantom{ident} y tale che:
+(x.inizio\_fascia $\le$ y.inizio\_fascia $<$ x.fine\_fascia)
+\subsection{Specifica degli Use-Case}
+\subsubsection{Prenotazione}
+Operazione\\ \code{effettua\_prenotazione (cl:Cliente, cr:Crociera, nPosti : Intero>0) : Prenotazione} \begin{itemize}
+    \item \textit{pre-condizioni} : cr.Inizio $>$ now $\land$  nPosti $\le$ cr.posti\_liberi(). 
+    \item \textit{post-condizioni} : Crea oggetto $p:Prenotazione$ tale che:\begin{itemize}
+        \item $p$.istante = now 
+        \item $p$.postiPrenotati = nPosti
+    
+    \item Viene creato un link di tipo croc\_pren fra cr e $p$\item Viene creato un link di tipo prenota fra $p$ e cl.
+\end{itemize}
+result = $p$
+\end{itemize}
+\subsubsection{Statistiche Azienda}
+Operazione
+\code{media\_dest\_esotica($d_i:Data, d_f:Data$) : Reale}
+\begin{quote}
+    pre: nessuno
+
+post: Sia $\mathcal{C}$ l'insieme formato da ogni $c:Crociera$ tale che $\exists (p,c)$ con $p:Prenotazione$ e $d_i \le p.istante\le d_f$.\\
+Sia $\mathcal{M}$ l'insieme contente le $ c\in\mathcal{C}$ tali che $\exists$ $i:Itinerario,d:Destinazione,t:Tappa$ con
+$[(c,i)\wedge(i,d)]\vee[(c,i)\wedge(i,t)\wedge(t,d)] $  e  $cont:Continente|(d,cont)\wedge cont.nome \neq "Europa"$.
+
+Se $\mathcal{M}\neq\emptyset\Rightarrow\mathcal{P}:=\{ c:Cliente | \exists (m,p)\wedge(p,c)$ con $m\in\mathcal{M}$ e $p:Prenotazione\}$ .\\
+
+$$result = (\sum_{c\in\mathcal{P}}now - c.data\_nascita)/|\mathcal{P}|$$
+
+altrimenti $result = -1$\\
+
+\hfill{}\textit{ Con $(\alpha,\beta)\longrightarrow$ link tra $\alpha$ e $\beta$.}
+\end{quote}
+Operazione
+\code{percentuale\_gettonate($d_i:Data, d_f:Data$): Reale}
+\begin{quote}
+    pre: nessuna
+    
+    post: Sia $\mathcal{L}:= \{l:LunaDiMiele | \quad d_i\le l.inizio\le d_f \}$ e\\ $
+    \mathcal{F}:= \{f:PerFamiglie | \quad d_i\le f.inizio\le d_f \}$.\\
+    Sia $\varphi(x):=$ proprietà di $x:Destinazione$ vera $\Leftrightarrow\exists$ almeno 10 link del tipo 
+    : $(x,i)^*\wedge(i,l)$ oppure almeno 15 del tipo: $(x,i)^*\wedge(i,f)$ con $i:Itinerario$,$l\in\mathcal{L}$ e $f\in\mathcal{F}$.\\
+
+    Consideriamo $\mathcal{D}$ l'insieme di tutte le destinazioni raggiunte tra $d_i$ e $d_f$, $\mathcal{D}'$ l'insieme di tutte le destinazioni per cui è vera $\varphi(x)$.\\
+    $$result = \frac{|\mathcal{D}'|}{|\mathcal{D}|}\cdot 100$$\\
+
+\hfill{}\textit{Con $(x,i)^*\rightarrow[(x,i)\vee((x,t)\wedge(t,i))]$} 
+
+
+\end{quote}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Operazione : \code{etàMediaEsot(leftBound : Data, rightBound : Data) : Reale}\begin{itemize}
     \item \textit{pre-condizioni} : leftBound $<$ rightBound.
     \item \textit{post-condizioni} : Si consideri $P_1$ l'insieme delle prenotazioni p:Prenotazione tale
@@ -178,10 +269,7 @@ Operazione : \code{destGett(leftBound : Data, rightBound : Data) : Reale}\begin{
     \item \textit{post-condizioni} : Sia $P$ l'insieme delle prenotazioni p:Prenotazione tale
           che leftBound $\le$ p.istante $\le$ rightBound.
 \end{itemize}
-$[$V.Prenotazioni.date$]$\\
-\hphantom{ident} Per ogni istanza p:Prenotazione, ed ogni link $r$ fra p:Prenotazione e c:Crociera, deve\\
-\hphantom{ident} essere:
-p.data\_prenotazione$<$c.inizio
+
 \subsubsection{Cliente}
 Operazione : \code{prenota( posti:Intero $>$ 0, c:Crociera)}\begin{itemize}
     \item \textit{pre-condizioni} : sia $R$ l'insieme delle relazioni (c,$p$) dove
@@ -191,5 +279,5 @@ Operazione : \code{prenota( posti:Intero $>$ 0, c:Crociera)}\begin{itemize}
     \item \textit{post-condizioni} : Viene creato un oggetto p:Prenotazione in relazione con this ed in relazione con
           c:Crociera (parametro in input), sarà che : p.istante=now, p.postiPrenotati=posti, p.codicePren=Stringa univoca randomica.
 \end{itemize}
-\end{document}
+
 
