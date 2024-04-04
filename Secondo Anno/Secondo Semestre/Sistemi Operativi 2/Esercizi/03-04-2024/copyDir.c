@@ -21,20 +21,25 @@ void copyFileIntoPath(char* fileName,char* filePath, char* dstDir){
     //tmp sarà la locazione+nome file del file da creare
     
     int fdDst = open(tmp,O_CREAT);
+    int fdSrc = open(filePath,O_RDONLY);
+    
 
     if(fdDst==-1){
+        close(fdDst);
 
-        close(tmp);
         fdDst = open(tmp,O_RDONLY);
-        printf("\n %d \n",fdDst);
+        
         if(fdDst==-1){
-            printf("errore apertura file");
+            printf("errore apertura file\n");
+            close(fdDst);
             exit(1);
         }
-
     }
 
-    close(tmp);
+    
+
+    close(fdSrc);
+    close(fdDst);
 }
 
 void recSearch(char* dirName, int depth){
