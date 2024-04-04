@@ -13,13 +13,28 @@
 int prof;
 void copyFileIntoPath(char* fileName,char* filePath, char* dstDir){
     //create a file called fileName into dstDir 
-    char* tmp;
-    /*strcpy(tmp,dstDir);
+    char* tmp[100];
+    strcpy(tmp,dstDir);
     strcat(tmp,"/");
-    strcat(tmp,fileName);*/
+    strcat(tmp,fileName);
 
-    //open(tmp,O_CREAT);
-    //close(tmp);
+    //tmp sarà la locazione+nome file del file da creare
+    
+    int fdDst = open(tmp,O_CREAT);
+
+    if(fdDst==-1){
+
+        close(tmp);
+        fdDst = open(tmp,O_RDONLY);
+        printf("\n %d \n",fdDst);
+        if(fdDst==-1){
+            printf("errore apertura file");
+            exit(1);
+        }
+
+    }
+
+    close(tmp);
 }
 
 void recSearch(char* dirName, int depth){
