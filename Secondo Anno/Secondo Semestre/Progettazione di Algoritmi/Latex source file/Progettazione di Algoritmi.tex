@@ -32,95 +32,95 @@
 \maketitle
 \begin{figure}[h]
     \centering{
-    \includegraphics[width=1\textwidth ]{images/cop.jpg}
+        \includegraphics[width=1\textwidth ]{images/cop.jpg}
     }
 \end{figure}
-\newpage 
+\newpage
 \tableofcontents
 \newpage
 \section{Grafi}
 \subsection{Introduzione e Definizioni}
-Un grafo, è una coppia $(V,E)$, dove $V$ è un insieme di \textit{nodi o vertici}, ed $E$ un 
-insieme di archi che collegano i nodi. Un grafo è detto \textbf{semplice} se, per ogni 
-coppia di nodi, essi sono collegati da al massimo un arco, e non esistono dei cicli su 
-un singolo nodo. Nel corso ci occuperemo di \textit{visitare} i grafi in 
-profondità ed in ampiezza (concetti che verranno ripresi più in avanti). \acc 
-Un grafo, può vedere i suoi archi \textit{orientati}, in questo caso si dice che 
-il grafo è \textbf{diretto}. Due nodi sono \textbf{adiacenti} se collegati da un arco, 
+Un grafo, è una coppia $(V,E)$, dove $V$ è un insieme di \textit{nodi o vertici}, ed $E$ un
+insieme di archi che collegano i nodi. Un grafo è detto \textbf{semplice} se, per ogni
+coppia di nodi, essi sono collegati da al massimo un arco, e non esistono dei cicli su
+un singolo nodo. Nel corso ci occuperemo di \textit{visitare} i grafi in
+profondità ed in ampiezza (concetti che verranno ripresi più in avanti). \acc
+Un grafo, può vedere i suoi archi \textit{orientati}, in questo caso si dice che
+il grafo è \textbf{diretto}. Due nodi sono \textbf{adiacenti} se collegati da un arco,
 ed il \textbf{grado} di un nodo non è altro che il numero di nodi adiacenti ad esso.\begin{center}
     \includegraphics[width=1\textwidth ]{images/defGrafi.eps}
 \end{center}
-Esiste un problema classico dal 1700, noto come \textit{problema dei ponti di Königsberg}, 
-si consideri la seguente città posta nei pressi di un fiume che la divide in diversi settori, collegati 
+Esiste un problema classico dal 1700, noto come \textit{problema dei ponti di Königsberg},
+si consideri la seguente città posta nei pressi di un fiume che la divide in diversi settori, collegati
 da appositi ponti, rappresentata con il seguente grafo :\begin{center}
     \includegraphics[width=1\textwidth ]{images/konigsberg.eps}
 \end{center}
-Ci si chiede se è possibile passeggiare per la città, visitando tutti i settori, senza passare per due volte 
-sullo stesso ponte. Consideriamo il modello del grafo, una passeggiata su un grafo non è altro che una 
+Ci si chiede se è possibile passeggiare per la città, visitando tutti i settori, senza passare per due volte
+sullo stesso ponte. Consideriamo il modello del grafo, una passeggiata su un grafo non è altro che una
 sequenza ordinata di vertici ed archi che si alternano, come : $v_0,e_1,v_1\dots, e_k,v_k$.
-Esiste una passeggiata su questo grafo, ossia una sequenza che non vede ripetizioni degli archi?\acc 
-\textbf{Osservazione} : Per visitare un nodo è necessario passare per due archi, uno entrante ed uno uscente. 
-Se entriamo in un nodo di grado 3, resterà un arco non visitato, per visitarlo sarà necessario entravi nuovamente 
-da tale arco, per poi uscire da un altro precedentemente già visitato (questo ovviamente se non si comincia la 
-passeggiata dal nodo in questione).\acc 
-Ci rende chiaro il seguente fatto : Se il grado di un nodo $x$ è dispari, a meno che la passeggiata non inizi 
-o finisca su $x$, uno dei suoi archi verrà attraversato più di una volta. \textit{Eulero} studiò questo problema, 
-si dice infatti che la passeggiata su un grafo è \textbf{euleriana} se non si passa 2 volte sulle stesso arco.\acc 
+Esiste una passeggiata su questo grafo, ossia una sequenza che non vede ripetizioni degli archi?\acc
+\textbf{Osservazione} : Per visitare un nodo è necessario passare per due archi, uno entrante ed uno uscente.
+Se entriamo in un nodo di grado 3, resterà un arco non visitato, per visitarlo sarà necessario entravi nuovamente
+da tale arco, per poi uscire da un altro precedentemente già visitato (questo ovviamente se non si comincia la
+passeggiata dal nodo in questione).\acc
+Ci rende chiaro il seguente fatto : Se il grado di un nodo $x$ è dispari, a meno che la passeggiata non inizi
+o finisca su $x$, uno dei suoi archi verrà attraversato più di una volta. \textit{Eulero} studiò questo problema,
+si dice infatti che la passeggiata su un grafo è \textbf{euleriana} se non si passa 2 volte sulle stesso arco.\acc
 Si consideri però il seguente grafo :\begin{center}
     \includegraphics[width=1\textwidth ]{images/nonConnesso.eps}
 \end{center}
-Un grafo si dice \textbf{connesso} se, per ogni coppia di vertici, essi sono collegati da una passeggiata, 
-ossia è possibile raggiungere un vertice partendo da un altro. Le precedenti osservazioni ci portano al 
-seguente risultato.\acc 
-\textbf{Teorema (Eulero)} : Un grafo ha una passeggiata euleriana se e solo se è connesso, ed 
-esistono al massimo 2 vertici di grado dispari.\acc 
-Il fatto che sono concessi 2 vertici di grado dispari, è dato dal fatto che essi saranno l'inizio e la fine 
+Un grafo si dice \textbf{connesso} se, per ogni coppia di vertici, essi sono collegati da una passeggiata,
+ossia è possibile raggiungere un vertice partendo da un altro. Le precedenti osservazioni ci portano al
+seguente risultato.\acc
+\textbf{Teorema (Eulero)} : Un grafo ha una passeggiata euleriana se e solo se è connesso, ed
+esistono al massimo 2 vertici di grado dispari.\acc
+Il fatto che sono concessi 2 vertici di grado dispari, è dato dal fatto che essi saranno l'inizio e la fine
 della passeggiata.
 \subsection{Rappresentazione Fisica}
 Che struttura dati possiamo utilizzare per rappresentare un grafo? Vediamo due alternative : \begin{itemize}
-    \item \textbf{Matrice di Adiacenza} - Utilizziamo una matrice $n\times n$, dove \(n\) è il numero di 
-    nodi del grafo. Nella posizione \(i,j\) ci sarà 1 se il vertice \(v_i\) è adiacente al vertice 
-    \(v_j\), altrimenti 0. Il costo di "\textit{check}" per l'adiacenza di due vertici è costante, basta 
-    consultare un entrata della matrice, nonostante ciò, lo spazio che occupa tale rappresentazione è 
-    \(O(n^2)\).
-    \item \textbf{Liste di Adiacenza} - Ad ogni vertice del grafo è associata una lista, contenente tutti 
-    i suoi vertici adiacenti, per controllare se due vertici sono adiacenti, è necessario fare una ricerca 
-    lineare su tale lista, ed ha costo $\displaystyle O(\deg(v))$, dove \(v\) è il vertice sulla 
-    quale si sta effettuando la ricerca, ed è ovviamente limitato da \(n-1\) (numero di vertici).\acc
-    Le dimensioni della struttura dati sono $\displaystyle O\big(n + \sum_{v\in V(G)}\deg(v)\big)$.
+    \item \textbf{Matrice di Adiacenza} - Utilizziamo una matrice $n\times n$, dove \(n\) è il numero di
+          nodi del grafo. Nella posizione \(i,j\) ci sarà 1 se il vertice \(v_i\) è adiacente al vertice
+          \(v_j\), altrimenti 0. Il costo di "\textit{check}" per l'adiacenza di due vertici è costante, basta
+          consultare un entrata della matrice, nonostante ciò, lo spazio che occupa tale rappresentazione è
+          \(O(n^2)\).
+    \item \textbf{Liste di Adiacenza} - Ad ogni vertice del grafo è associata una lista, contenente tutti
+          i suoi vertici adiacenti, per controllare se due vertici sono adiacenti, è necessario fare una ricerca
+          lineare su tale lista, ed ha costo $\displaystyle O(\deg(v))$, dove \(v\) è il vertice sulla
+          quale si sta effettuando la ricerca, ed è ovviamente limitato da \(n-1\) (numero di vertici).\acc
+          Le dimensioni della struttura dati sono $\displaystyle O\big(n + \sum_{v\in V(G)}\deg(v)\big)$.
 \end{itemize}
-Nel caso in cui un grafo dovesse vedere ogni vertice adiacente a tutti gli altri, la ricerca costerebbe 
-\(O(n)\) e le dimensioni sarebbero \(O(n^2)\), ciò differisce però dal caso reale, la rappresentazione con 
+Nel caso in cui un grafo dovesse vedere ogni vertice adiacente a tutti gli altri, la ricerca costerebbe
+\(O(n)\) e le dimensioni sarebbero \(O(n^2)\), ciò differisce però dal caso reale, la rappresentazione con
 liste di adiacenza risulta un buon compromesso fra costo computazionale e dimensioni.
 Sarà usuale denotare \(m\) il numero di archi e \(n\) il numero di vertici.
-Le liste di adiacenza occupano quindi spazio $O(n+m)$,  si osservi inoltre la 
+Le liste di adiacenza occupano quindi spazio $O(n+m)$,  si osservi inoltre la
 seguente identià : $$\sum_{v\in V(G)}\deg(v)=2\cdot m\text{ dove }m:=|E|$$
 \subsection{Ricerca di un Ciclo}
-\textbf{Definizione} : Un \textit{ciclo} in un grafo, non p altro che un \textit{sottografo connesso} dove 
-ogni vertice è di grado 2. Identifica un "cammino circolare", e la ricerca dei cicli nei grafi è un 
+\textbf{Definizione} : Un \textit{ciclo} in un grafo, non p altro che un \textit{sottografo connesso} dove
+ogni vertice è di grado 2. Identifica un "cammino circolare", e la ricerca dei cicli nei grafi è un
 problema molto noto.\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/ciclo.eps}
 \end{center}
-Consideriamo adesso un problema, vogliamo definire un algoritmo che, dato in input un grafo \(G=(V,E)\), dove ogni 
-vertice ha grado maggiore o uguale a 2, restituisca in output un qualsiasi ciclo presente nel grafo, mantenendo 
-un costo computazionele $O(n+m)=O(|V|+|E)$. 
+Consideriamo adesso un problema, vogliamo definire un algoritmo che, dato in input un grafo \(G=(V,E)\), dove ogni
+vertice ha grado maggiore o uguale a 2, restituisca in output un qualsiasi ciclo presente nel grafo, mantenendo
+un costo computazionele $O(n+m)=O(|V|+|E)$.
 \begin{quote}
-    Si consideri la seguente \textit{idea} informale di soluzione : \end{quote}  
-    Ogni vertice ha almeno 2 nodi adiacenti, è quindi sempre possibile entrare in un vertice ed uscirne da un
-    arco diverso da quello dalla quale si è entrati. Si parte da un qualsiasi vertice nel grafo, e si procede 
-    selezionando uno qualsiasi dei due nodi adiacenti successivi, almeno uno dei due non sarà quello dalla 
-    quale si è entrati, procederemo in questa maniera camminando in maniera casuale sul grafo, finchè non troveremo 
-    un nodo che è stato già visitato in precedenza, ciò indica che si è eseguito un cammino ciclico.\acc 
-Utilizzeremo un vettore con lo scopo di salvare i nodi visitati, il ciclo sarà rappresentato 
-dai nodi presenti nel vettore, partendo dall'ultimo elemento, continuando a ritroso fino a trovare il nodo 
-identico all'ultimo. Si consideri il seguente esempio in cui gli archi sono contrassegnati dall'iterazione 
-dell'algoritmo nella quale sono stati attraversati : 
+    Si consideri la seguente \textit{idea} informale di soluzione : \end{quote}
+Ogni vertice ha almeno 2 nodi adiacenti, è quindi sempre possibile entrare in un vertice ed uscirne da un
+arco diverso da quello dalla quale si è entrati. Si parte da un qualsiasi vertice nel grafo, e si procede
+selezionando uno qualsiasi dei due nodi adiacenti successivi, almeno uno dei due non sarà quello dalla
+quale si è entrati, procederemo in questa maniera camminando in maniera casuale sul grafo, finchè non troveremo
+un nodo che è stato già visitato in precedenza, ciò indica che si è eseguito un cammino ciclico.\acc
+Utilizzeremo un vettore con lo scopo di salvare i nodi visitati, il ciclo sarà rappresentato
+dai nodi presenti nel vettore, partendo dall'ultimo elemento, continuando a ritroso fino a trovare il nodo
+identico all'ultimo. Si consideri il seguente esempio in cui gli archi sono contrassegnati dall'iterazione
+dell'algoritmo nella quale sono stati attraversati :
 \begin{center}
     \includegraphics[width=0.8\textwidth ]{images/algoCiclo.eps}
 \end{center}
-Una volta completato la ricerca del ciclo, elimineremo dal vettore tutti gli elementi a partire dal primo 
+Una volta completato la ricerca del ciclo, elimineremo dal vettore tutti gli elementi a partire dal primo
 fino all'elemento antecedente a quello identico all'elemento finale. \begin{center}
-    Pseudocodice 
+    Pseudocodice
 \end{center}
 \code{Input} : Un grafo $G=(V,E)$.\\
 \code{Output} : I nodi di un sottografo di \(G\) che è un ciclo.\\\hphantom{}\\
@@ -142,36 +142,36 @@ fino all'elemento antecedente a quello identico all'elemento finale. \begin{cent
 \hphantom{ident}\hphantom{ident}\codee{W.remove(W[0])}\color{lg}\textit{// Rimuove il primo elemento}\color{black}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return W}\\
-\codee{\}}\acc 
-Qual'è la complessita di tale algoritmo? Entrambi i cicli \code{while} eseguono \(O(n)\) iterazioni, il 
-fatto è che, nel primo ciclo while, il controllo \code{next$\notin$W} deve scorrere comunque tutto il vettore, 
+\codee{\}}\acc
+Qual'è la complessita di tale algoritmo? Entrambi i cicli \code{while} eseguono \(O(n)\) iterazioni, il
+fatto è che, nel primo ciclo while, il controllo \code{next$\notin$W} deve scorrere comunque tutto il vettore,
 rendendo il costo dell'algoritmo \(O(n^2)\), non rispettando le specifiche iniziali, ossia \(O(n+m)\).
 \subsection{Cammini sui Grafi}
-Un \textbf{cammino}, non è altro che una passeggiata su un grafo in cui non 
-si passa mai più di una volta sullo stesso vertice, ossia una passeggiata 
-senzza ripetizioni di vertici o archi. \acc 
-\textbf{Osservazione} : Siano $x$ ed $y$ due nodi di un grafo, se esiste 
-una passeggiata da $x$ ad $y$, allore esiste anche un cammino.\acc 
-Nei grafi diretti vale la stessa regola, con ovviamente il vincola che bisogna rispettare 
-l'orientazione degli archi. Un grafo diretto si dice \textbf{fortemente connesso} 
+Un \textbf{cammino}, non è altro che una passeggiata su un grafo in cui non
+si passa mai più di una volta sullo stesso vertice, ossia una passeggiata
+senzza ripetizioni di vertici o archi. \acc
+\textbf{Osservazione} : Siano $x$ ed $y$ due nodi di un grafo, se esiste
+una passeggiata da $x$ ad $y$, allore esiste anche un cammino.\acc
+Nei grafi diretti vale la stessa regola, con ovviamente il vincola che bisogna rispettare
+l'orientazione degli archi. Un grafo diretto si dice \textbf{fortemente connesso}
 se, per ogni coppia di vertici \(x,y\), esiste un cammino da \(x\) ad \(y\)
 e viceversa. \begin{center}
     \includegraphics[width=0.6\textwidth ]{images/fortConnesso.eps}
 \end{center}
-Un noto problema è il seguente, dato un grafo \(G\) e due veritici \(x,y\), esiste un cammino da \(x\) ad \(y\)? In generale, 
-il carico di lavoro per controllare ciò, equivale al carico di lavoro necessario per controllare tutti i nodi che possono essere 
-"raggiunti" partendo da \(x\).\acc 
-Prendo quindi un vertici \(x\) e trovo tutti i vertici \(y\) per i quali esiste un cammino fra essi, per fare ciò, occorre 
+Un noto problema è il seguente, dato un grafo \(G\) e due veritici \(x,y\), esiste un cammino da \(x\) ad \(y\)? In generale,
+il carico di lavoro per controllare ciò, equivale al carico di lavoro necessario per controllare tutti i nodi che possono essere
+"raggiunti" partendo da \(x\).\acc
+Prendo quindi un vertici \(x\) e trovo tutti i vertici \(y\) per i quali esiste un cammino fra essi, per fare ciò, occorre
 \textbf{visitare} il grafo, e può essere fatto in due modi differenti.
 \subsubsection{Depth-First Search}
-Abbreviato \textbf{DFS}, tale algoritmo rappresenta la visita su un grafo in \textit{profondità}. Partendo da un qualsiasi 
-vertice \(x\), inizio a visitare randomicamente uno dei vertici adiacenti, per poi proseguire da esso. Se ad un certo punto non 
-vi sono nuovi vertici da visitare, si esegue il cosiddetto \textit{back tracking}, controllando i nodi a ritroso e cercando 
-dei nuovi vertici. Risulta quindi naturale l'uso di uno \textit{stack} per poter implementare tale ricerca. L'algoritmo 
+Abbreviato \textbf{DFS}, tale algoritmo rappresenta la visita su un grafo in \textit{profondità}. Partendo da un qualsiasi
+vertice \(x\), inizio a visitare randomicamente uno dei vertici adiacenti, per poi proseguire da esso. Se ad un certo punto non
+vi sono nuovi vertici da visitare, si esegue il cosiddetto \textit{back tracking}, controllando i nodi a ritroso e cercando
+dei nuovi vertici. Risulta quindi naturale l'uso di uno \textit{stack} per poter implementare tale ricerca. L'algoritmo
 alla fine visiterà ogni nodo per la quale esiste un cammino dal nodo iniziale.
 \begin{center}
     Pseudocodice
-\end{center} 
+\end{center}
 \code{Input} : Un grafo $G=(V,E)$, ed un vertice \(x\).\\
 \code{Output} : L'insieme dei vertici visitati partendo da \(x\).\\
 \codee{DFS(graph G, vert x)\{}\\
@@ -188,31 +188,31 @@ alla fine visiterà ogni nodo per la quale esiste un cammino dal nodo iniziale.
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Vis}\\
-\codee{\}}\acc 
+\codee{\}}\acc
 Esempio di applicazione (il nodo di partenza è il nodo 1) : \begin{center}
     \includegraphics[width=1\textwidth ]{images/DFS.eps}
 \end{center}
-L'output dell'algoritmo sarà proprio l'insieme \code{Vis}, contenente tutti i nodi raggiungibili dal vettore input, 
-bisogna dimostrare che l'algoritmo sia corretto, mostrando che ogni vertice raggiungibile da \(x\) è in \code{Vis}.\acc 
-\textbf{Dimostrazione} : Supponiamo per assurdo che vi sia un vertice \(y\) tale che, esiste un cammino da \(x\) ad 
+L'output dell'algoritmo sarà proprio l'insieme \code{Vis}, contenente tutti i nodi raggiungibili dal vettore input,
+bisogna dimostrare che l'algoritmo sia corretto, mostrando che ogni vertice raggiungibile da \(x\) è in \code{Vis}.\acc
+\textbf{Dimostrazione} : Supponiamo per assurdo che vi sia un vertice \(y\) tale che, esiste un cammino da \(x\) ad
 \(y\) e che \(y\) non sia presente in Vis.
 $$\exists y|x\rightarrow y\land y\notin\text{Vis}$$
-Essendo \(x\) il vertice di partenza, esso sicuramente si troverà in Vis, per costruzione dell'algoritmo. Questo vuol dire che 
-esiste un vertice nel cammino, per la quale vale la seguente proprietà : 
+Essendo \(x\) il vertice di partenza, esso sicuramente si troverà in Vis, per costruzione dell'algoritmo. Questo vuol dire che
+esiste un vertice nel cammino, per la quale vale la seguente proprietà :
 \begin{center}
     \includegraphics[width=0.7\textwidth ]{images/xxx.eps}
 \end{center}
-Essendo \(v_i\) in Vis, vuol dire che ad un certo punto è stato nel top 
-dello stack, ma \(v_{i+1}\) è adiacente a \(v_i\), quindi da quest'ultimo l'algoritmo avrà selezionato 
-ad un certo punto \(v_{i+1}\), per poi proseguire da esso, per costruzione, sarà inserito in Vis, ma ciò è 
-in contraddizione con l'ipotesi iniziale che \(y\) non è in Vis. \(\blacksquare\)\acc 
-Questo algoritmo presenta un problema cruciale, non è efficiente, infatti risulta particolarmente 
-pesante il controllo \code{if(\(\exists\)z adiacente ad y\(\land \)z\(\ne\)Vis)}, che ha costo 
-computazionale \(O(\deg(y))+O(n)\). L'algoritmo va migliorato, al posto di un set, è possibile utilizzare un 
+Essendo \(v_i\) in Vis, vuol dire che ad un certo punto è stato nel top
+dello stack, ma \(v_{i+1}\) è adiacente a \(v_i\), quindi da quest'ultimo l'algoritmo avrà selezionato
+ad un certo punto \(v_{i+1}\), per poi proseguire da esso, per costruzione, sarà inserito in Vis, ma ciò è
+in contraddizione con l'ipotesi iniziale che \(y\) non è in Vis. \(\blacksquare\)\acc
+Questo algoritmo presenta un problema cruciale, non è efficiente, infatti risulta particolarmente
+pesante il controllo \code{if(\(\exists\)z adiacente ad y\(\land \)z\(\ne\)Vis)}, che ha costo
+computazionale \(O(\deg(y))+O(n)\). L'algoritmo va migliorato, al posto di un set, è possibile utilizzare un
 array nella seguente maniera : sarà composto da \(n:=|V|\) elementi inizializzato con tutti 0, si avrà che
- \(array[i]=1\iff i\) fa parte dell'output.\begin{center}
+\(array[i]=1\iff i\) fa parte dell'output.\begin{center}
     Pseudocodice
-\end{center} 
+\end{center}
 \codee{DFS2(graph G, vert x)\{}\\
 \hphantom{ident}\codee{S : stack = \{x\}}\\
 \hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\comm{L'array in questione}\\
@@ -231,20 +231,20 @@ array nella seguente maniera : sarà composto da \(n:=|V|\) elementi inizializza
 \hphantom{ident}\hphantom{ident}\codee{if(y.adiacenti\(==\emptyset\))\{S.pop()\}}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Vis}\\
-\codee{\}}\acc 
-Si è nell'ipotesi in cui il grafo è implementato con le liste di adiacenza, infatti si noti come ogni vertice 
-presenta il campo \code{adiacenti}. Per rendere più efficiente il tutto senza dover controllare ogni volta se un 
-nodo è stato già visitato, semplicemente si rimuove dalla lista di adiacenza, ed ogni volta se ne prende il primo 
-di tale lista che sicuramente non è stato ancora visitato, rendendo costante tale operazione.\acc 
-Qual'è ora il costo computazionale? Quante  volte viene eseguito il ciclo \code{while}? Rispondere a ciò risulta 
-difficile, piuttosto ci si chiede quanto lavoro devo fare nel ciclo per ogni vertice? Per ognuno di essi, si 
-esegue un numero limitato di volte il comando \code{S.top()}. Nello specifico, si esegue tante volte quanto è il 
-grado del vertice, risulta naturale che la complessità finale sia : 
+\codee{\}}\acc
+Si è nell'ipotesi in cui il grafo è implementato con le liste di adiacenza, infatti si noti come ogni vertice
+presenta il campo \code{adiacenti}. Per rendere più efficiente il tutto senza dover controllare ogni volta se un
+nodo è stato già visitato, semplicemente si rimuove dalla lista di adiacenza, ed ogni volta se ne prende il primo
+di tale lista che sicuramente non è stato ancora visitato, rendendo costante tale operazione.\acc
+Qual'è ora il costo computazionale? Quante  volte viene eseguito il ciclo \code{while}? Rispondere a ciò risulta
+difficile, piuttosto ci si chiede quanto lavoro devo fare nel ciclo per ogni vertice? Per ognuno di essi, si
+esegue un numero limitato di volte il comando \code{S.top()}. Nello specifico, si esegue tante volte quanto è il
+grado del vertice, risulta naturale che la complessità finale sia :
 $$O(n)+O\big( \sum_{v\in V(G)}\deg(v)\big)=O(n+|E|)=O(n+m)\text{ costo lineare}$$
-Lo stesso algoritmo, si presta in maniera piuttosto naturale ad essere implementato in maniera ricorsiva, 
+Lo stesso algoritmo, si presta in maniera piuttosto naturale ad essere implementato in maniera ricorsiva,
 permettendo l'omissione dell'utilizzo di uno stack.\begin{center}
     Pseudocodice
-\end{center} 
+\end{center}
 \codee{DFSRec(graph G, vert x,int[n] Vis)\{}\\
 \hphantom{ident}\codee{Vis[x]=1}\\
 \hphantom{ident}\codee{for each y\(\in\)x.adiacenti\{}\comm{per ogni adiacente di x}\\
@@ -252,21 +252,21 @@ permettendo l'omissione dell'utilizzo di uno stack.\begin{center}
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSRec(G,y,Vis)}\\
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{\}}\\
-\codee{\}}\acc 
-Il ciclo \code{for each y\(\in\)x.adiacenti} considera ogni adiacente di \(x\) una volta sola, facendo 
+\codee{\}}\acc
+Il ciclo \code{for each y\(\in\)x.adiacenti} considera ogni adiacente di \(x\) una volta sola, facendo
 lo stesso lavoro di "cancellazione" dei vicini già controllati, la complessità rimane la medesima.\acc
 Si considera la figura seguente, rappresentante una visita \textit{DFS} su un grafo :
 \begin{center}
     \includegraphics[width=0.9\textwidth ]{images/AlberoDiVisita.eps}
 \end{center}
-Dal nodo di partenza, si inizia a visitare diversi nodi seguendo diversi percorsi, definiamo 
-\textbf{albero di visita}, il sottografo generato, o composto dagli archi che utilizziamo per raggiungere i nuovi 
-vertici non ancora visitati. In generale, un albero è un grafo connesso ed aciclico. Essendo che non si ritorna mai 
-in un nodo già visitato due volte, nell'albero di visita non si creeranno cicli (rendendolo appunto un albero).\acc 
+Dal nodo di partenza, si inizia a visitare diversi nodi seguendo diversi percorsi, definiamo
+\textbf{albero di visita}, il sottografo generato, o composto dagli archi che utilizziamo per raggiungere i nuovi
+vertici non ancora visitati. In generale, un albero è un grafo connesso ed aciclico. Essendo che non si ritorna mai
+in un nodo già visitato due volte, nell'albero di visita non si creeranno cicli (rendendolo appunto un albero).\acc
 Possiamo applicare lo stesso algoritmo ai grafi diretti, l'unica considerazione da fare, è il controllo dell'ordine
 di ogni arco. Consideriamo l'implementazione non ricorsiva.\begin{center}
     Pseudocodice
-\end{center} 
+\end{center}
 \codee{DFSdiretto(graph G, vert x,)\{}\\
 \hphantom{ident}\codee{S : stack = \{x\}}\\
 \hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\\
@@ -282,28 +282,28 @@ di ogni arco. Consideriamo l'implementazione non ricorsiva.\begin{center}
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Vis}\\
-\codee{\}}\acc 
-Anche questo algoritmo genera l'albero di visita, solo che avrà tutti gli archi, ordinati "verso il basso", ossia 
+\codee{\}}\acc
+Anche questo algoritmo genera l'albero di visita, solo che avrà tutti gli archi, ordinati "verso il basso", ossia
 seguiranno l'orientazione che va dalla radice verso le foglie, tale albero è detto \textbf{arborescenza}.
 \subsubsection{Componenti di un Grafo}
-Se \(G\) è un grafo connesso, è ovvio che la DFS, qualsi voglia sia il vertice iniziale, restituirà sempre tutti 
-i vertici del grafo. Se esso non dovesse essere connesso, restituirà un sottografo, precisamente il sottografo 
-\textbf{componente} connesso che contiene il nodo input, i diversi sottografi componenti costituiscono una 
+Se \(G\) è un grafo connesso, è ovvio che la DFS, qualsi voglia sia il vertice iniziale, restituirà sempre tutti
+i vertici del grafo. Se esso non dovesse essere connesso, restituirà un sottografo, precisamente il sottografo
+\textbf{componente} connesso che contiene il nodo input, i diversi sottografi componenti costituiscono una
 \textit{partizione} del grafo originale.\begin{center}
     \includegraphics[width=0.9\textwidth ]{images/comp.eps}
 \end{center}
-Saper riconoscere le componenti di un grafo è un problema noto, che trova applicazione in svariati ambiti, ad esempio, 
-nell'identificazione delle reti di amicizia in un social network, per capire se ci sono grandi gruppi di persone 
-per i quali non vi è nemmeno 1 collegamento.\acc 
-Il problema è il seguente, si vuole scrivere un algoritmo che identifichi tutte le componenti di un grafo, 
-associando ad ogni vertice, un indice che ne indica la componente, dato un grafo \(G\), e due vertici 
-\(x,y\), si vuole costruire 
+Saper riconoscere le componenti di un grafo è un problema noto, che trova applicazione in svariati ambiti, ad esempio,
+nell'identificazione delle reti di amicizia in un social network, per capire se ci sono grandi gruppi di persone
+per i quali non vi è nemmeno 1 collegamento.\acc
+Il problema è il seguente, si vuole scrivere un algoritmo che identifichi tutte le componenti di un grafo,
+associando ad ogni vertice, un indice che ne indica la componente, dato un grafo \(G\), e due vertici
+\(x,y\), si vuole costruire
 un array Comp  tale che : \begin{center}
     Comp[\(x\)]=Comp[\(y\)]\(\iff\)\(x\) ed \(y\) sono nella stessa componente
 \end{center}
 Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessarie 2 funzioni : \begin{center}
     Pseudocodice
-\end{center} 
+\end{center}
 \codee{DFSRecComp(graph G, vert x,int[n] Comp, int index)\{}\comm{funzione di supporto}\\
 \hphantom{ident}\codee{Comp[x]=index}\\
 \hphantom{ident}\codee{for each y\(\in\)x.adiacenti\{}\comm{per ogni adiacente di x}\\
@@ -311,7 +311,7 @@ Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessar
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSRec(G,y,Comp,index)}\\
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{\}}\\
-\codee{\}}\acc 
+\codee{\}}\acc
 \codee{Comp(graph G)\{}\comm{funzione principale da eseguire}\\
 \hphantom{ident}\codee{Comp : int[n] = [0,0\(\dots \)0]}\\
 \hphantom{ident}\codee{index = 0}\\
@@ -322,44 +322,44 @@ Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessar
 \hphantom{ident}\codee{return Comp}\\
 \codee{\}}
 \subsection{Ordinamento Topologico}
-Supponiamo che vi sia un progetto da completare, che viene diviso in \(n\) piccoli processi 
-\(x_1,x_2\dots x_n\), e supponiamo che fra essi, vi siano delle dipendenze sull'ordine di completamento, ad 
+Supponiamo che vi sia un progetto da completare, che viene diviso in \(n\) piccoli processi
+\(x_1,x_2\dots x_n\), e supponiamo che fra essi, vi siano delle dipendenze sull'ordine di completamento, ad
 esempio : \begin{itemize}
     \item Per essere completato \(x_1\), ha bisogno che siano completati \(x_2,x_3\)
     \item Per essere completato \(x_3\), ha bisogno che sia completato \(x_2\)
 \end{itemize}
 Dobbiamo pensare ad una programmazione dei processi che rispetti le dipendenze allo scopo di completare il progetto.
-Nell'esempio dato, l'ordine corretto sarebbe \(x_2,x_3,x_1\). Utilizziamo un grafo diretto per modellizzare il 
-problema : i processi saranno i vertici del grafo, e vi sarà un arco da \(x_i\) a \(x_j\) se \(x_i\) dipende 
-da \(x_j\).\acc In questo modello, una programmazione dei processi non è altro che un ordine dei vertici 
+Nell'esempio dato, l'ordine corretto sarebbe \(x_2,x_3,x_1\). Utilizziamo un grafo diretto per modellizzare il
+problema : i processi saranno i vertici del grafo, e vi sarà un arco da \(x_i\) a \(x_j\) se \(x_i\) dipende
+da \(x_j\).\acc In questo modello, una programmazione dei processi non è altro che un ordine dei vertici
 del grafo, con la proprietà che tutti i vertici siano orientati "da destra verso sinistra".\begin{center}
     \includegraphics[width=0.3\textwidth ]{images/processiGrafo.eps}
 \end{center}
-\textbf{Osservazione} : Se in un grafo diretto vi è un ciclo, allora il grafo non ha tutti gli archi che vanno 
-da destra verso sinistra. \acc 
-\textbf{Dimostrazione} : Presumiamo che esista tale ordine, allora esiste un vertice \(x\) che è l'ultimo vertice 
-di tale ordinamento, esiste quindi un arco \((y,x)\) per qualche \(y\), però, nonostante sia l'ultimo, 
-data la presenza di un ciclo, deve esistere un arco uscente \((x,y)\), ma quindi l'ordine iniziale non è rispettato, 
-causando una contraddizione. \(\blacksquare\)\acc 
-Se in un grafo diretto vi è un ciclo, tutto il grafo non ammette la proprietà dell'orientazione degli archi. Tale 
-proprietà è nota con il nome di \textbf{ordine topologico}, e l'assenza di un ciclo, è condizione necessaria 
-e sufficiente per garantirla.\acc 
-\textbf{Proposizione} : Se ogni singolo vertice di un grafo diretto ha almeno un arco uscente, allora 
-esiste un ciclo.\acc 
-\textbf{Dimostrazione} : Se esiste sempre un arco uscente, è sempre possibile, partendo da un vertice \(x\) spostarsi 
-in un suo vertice adiacente, ciò significa che è possibile "camminare" all'infinito sul grafo, il fatto è che il 
-numero di vertici è finito, quindi prima o poi si visiterà un vertice per una seconda volta, trovandosi in un 
+\textbf{Osservazione} : Se in un grafo diretto vi è un ciclo, allora il grafo non ha tutti gli archi che vanno
+da destra verso sinistra. \acc
+\textbf{Dimostrazione} : Presumiamo che esista tale ordine, allora esiste un vertice \(x\) che è l'ultimo vertice
+di tale ordinamento, esiste quindi un arco \((y,x)\) per qualche \(y\), però, nonostante sia l'ultimo,
+data la presenza di un ciclo, deve esistere un arco uscente \((x,y)\), ma quindi l'ordine iniziale non è rispettato,
+causando una contraddizione. \(\blacksquare\)\acc
+Se in un grafo diretto vi è un ciclo, tutto il grafo non ammette la proprietà dell'orientazione degli archi. Tale
+proprietà è nota con il nome di \textbf{ordine topologico}, e l'assenza di un ciclo, è condizione necessaria
+e sufficiente per garantirla.\acc
+\textbf{Proposizione} : Se ogni singolo vertice di un grafo diretto ha almeno un arco uscente, allora
+esiste un ciclo.\acc
+\textbf{Dimostrazione} : Se esiste sempre un arco uscente, è sempre possibile, partendo da un vertice \(x\) spostarsi
+in un suo vertice adiacente, ciò significa che è possibile "camminare" all'infinito sul grafo, il fatto è che il
+numero di vertici è finito, quindi prima o poi si visiterà un vertice per una seconda volta, trovandosi in un
 ciclo.\begin{center}
-\includegraphics[width=0.7\textwidth ]{images/controEsempio.eps}
+    \includegraphics[width=0.7\textwidth ]{images/controEsempio.eps}
 \end{center}
-\textbf{Corollario} : Se non esiste alcun ciclo in un grafo, allora esiste almeno un vertice che non ha 
-archi uscenti.\acc 
-Per ottenere un cosiddetto \textbf{ordinamento topologico}, posso considerare il seguente algoritmo : Si ha un 
-grafo diretto \(G\), sprovvisto di cicli, si sceglie un qualsiasi vertice privo di archi uscenti, si inserisce 
-in una lista per poi eliminarlo dal grafo (insieme a tutti i suoi archi associati), dopo ciò, si 
-ri-esegue l'operazione, inserendo ogni volta il vertice nella prima posizione della lista.\acc Tale algoritmo risulta 
-parecchio utile, si pensi all'ordinamento topologico applicato al grafo di serializzazione nell'ambito 
-del controllo della concorrenza 
+\textbf{Corollario} : Se non esiste alcun ciclo in un grafo, allora esiste almeno un vertice che non ha
+archi uscenti.\acc
+Per ottenere un cosiddetto \textbf{ordinamento topologico}, posso considerare il seguente algoritmo : Si ha un
+grafo diretto \(G\), sprovvisto di cicli, si sceglie un qualsiasi vertice privo di archi uscenti, si inserisce
+in una lista per poi eliminarlo dal grafo (insieme a tutti i suoi archi associati), dopo ciò, si
+ri-esegue l'operazione, inserendo ogni volta il vertice nella prima posizione della lista.\acc Tale algoritmo risulta
+parecchio utile, si pensi all'ordinamento topologico applicato al grafo di serializzazione nell'ambito
+del controllo della concorrenza
 (trattato nel corso di \href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf}{Basi di Dati 1}).
 \begin{center}
     Pseudocodice
@@ -374,49 +374,49 @@ del controllo della concorrenza
 \hphantom{ident}\codee{return L}\\
 \codee{\}}\begin{center}
     \includegraphics[width=1\textwidth ]{images/ordTopologico.eps}
-    \end{center}
-Il \textit{problema} di questo algoritmo è il suo costo computazionale, di fatto è troppo dispendioso : Per 
-controllare se un vertice non ha archi uscenti, si è in \(O(n)\), inoltre il ciclo \code{while} controlla 
-tutti i vertici, quindi si è nuovamente in \(O(n)\).    \acc  La cancellazione di un vertice risulta dispendiosa, in 
-quanto bisona eliminare anche tutti gli archi associati, ossia, eliminare il vertice da tutte le liste 
+\end{center}
+Il \textit{problema} di questo algoritmo è il suo costo computazionale, di fatto è troppo dispendioso : Per
+controllare se un vertice non ha archi uscenti, si è in \(O(n)\), inoltre il ciclo \code{while} controlla
+tutti i vertici, quindi si è nuovamente in \(O(n)\).    \acc  La cancellazione di un vertice risulta dispendiosa, in
+quanto bisona eliminare anche tutti gli archi associati, ossia, eliminare il vertice da tutte le liste
 di adiacenza degli altri vertici, il numero di controlli dipende dal grado di ogni vertice,
-quindi costa \(O(m)\). In totale, l'intero algoritmo ha una complessità \(O(n\cdot(n+m))\), vorremmo riuscire 
+quindi costa \(O(m)\). In totale, l'intero algoritmo ha una complessità \(O(n\cdot(n+m))\), vorremmo riuscire
 ad ottenere lo stesso output in tempo lineare.
 \subsubsection{Contatore nel DFS e Relazioni sull'Arborescenza}
-Vogliamo considerare un estensione del normale DFS, consideriamo un contatore, denotato \code{cc}, tale contatore, 
-verrà incrementato ogni qual volta verrà visitato per la prima volta un nuovo nodo.\acc Consideriamo inoltre, due nuove 
-funzioni \(t:V(G)\rightarrow\mathbb{N}\) e \(T:V(G)\rightarrow\mathbb{N}\), sia \(v\) un vertice, \(t(v)\) sarà uguale al valore 
-del contatore \code{cc} nel momento in cui \(v\) viene visitato per la prima volta, invece \(T(v)\) sarà uguale al valore 
-del contatore \code{cc} nel momento in cui \(v\) viene visitato per l'ultima volta, ossia quando esso viene rimosso dallo stack.\acc 
+Vogliamo considerare un estensione del normale DFS, consideriamo un contatore, denotato \code{cc}, tale contatore,
+verrà incrementato ogni qual volta verrà visitato per la prima volta un nuovo nodo.\acc Consideriamo inoltre, due nuove
+funzioni \(t:V(G)\rightarrow\mathbb{N}\) e \(T:V(G)\rightarrow\mathbb{N}\), sia \(v\) un vertice, \(t(v)\) sarà uguale al valore
+del contatore \code{cc} nel momento in cui \(v\) viene visitato per la prima volta, invece \(T(v)\) sarà uguale al valore
+del contatore \code{cc} nel momento in cui \(v\) viene visitato per l'ultima volta, ossia quando esso viene rimosso dallo stack.\acc
 \textbf{Osservazione} : \begin{itemize}
     \item Per ogni coppia di vertici \(v,u\), si ha che \(t(v)\ne t(u)\)
     \item Per ogni vertice \(v\), si ha che \(t(v)\le T(V)\)
-    \item Sia \(v\) un vertice, se \(t(v)=T(V)\), allora \(v\), è una foglia nell'albero di visita derivante dall'applicazione 
-    del DFS.
+    \item Sia \(v\) un vertice, se \(t(v)=T(V)\), allora \(v\), è una foglia nell'albero di visita derivante dall'applicazione
+          del DFS.
     \item Sia \(n\) il numero di vertici e \(v_0\) la radice dell'albero di visita, si ha che \(t(v_0)=1\land T(v_0)=n\).
 \end{itemize}
 Esempio di applicazione dell'algoritmo (si parte dal vertice \(1\)) : \begin{center}
     \includegraphics[width=1.05\textwidth ]{images/dfsContatore.eps}
-    \end{center}
-Ad ogni vertice \(v\), è associato un \textit{intervallo} \([t(v),T(v)]\), gli intervalli di vertici diversi possono 
-essere confrontati, e si ricade sempre in uno dei seguenti casi.\acc 
+\end{center}
+Ad ogni vertice \(v\), è associato un \textit{intervallo} \([t(v),T(v)]\), gli intervalli di vertici diversi possono
+essere confrontati, e si ricade sempre in uno dei seguenti casi.\acc
 \textbf{Osservazione} : Siano \(v\) e \(u\) due vertici distinti del grafo, uno dei seguenti punti è sempre vero:\begin{itemize}
     \item \(i)\) $[t(v),T(v)]\subseteq[t(u),T(u)]$
     \item \(ii)\) $[t(v),T(v)]\supseteq[t(u),T(u)]$
     \item \(iii)\) $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$
 \end{itemize}
 \textbf{Dimostrazione} : Il quarto ed ultimo caso possibile, sarebbe un intersezione del tipo: $$
-t(u)<t(v)\le T(u)<t(v)$$ Basta dimostrare che questa casistica non può verificarsi. Se \(u\) è stato inserito 
-nello stack prima di \(v\), si avrà che \(T(u)\ge t(v)\), questo implica che \(u\) era già nello stack quando 
-\(v\) è stato inserito, ma allora è impossibile togliere \(u\) prima di \(v\), e necessariamente \(T(u)>T(v)\). \(\blacksquare\)\acc 
-Adesso, consideriamo il grafo sulla quale è stato applicato il nuovo DFS con contatore, e consideriamo gli archi che \textit{non appartengono} 
-all'arborescenza, ossia gli archi che non sono stati attraversati durante il DFS (nell'immagine esplicativa precedente, quelli colorati in 
-azzurro). \acc 
-Vi è un fatto interessante, consideriamo tutti un qualsiasi arco non facente parte dell'arborescenza, esso indica due vertici \((v,u)\), 
-e tali vertici posseggono gli intervalli che possono essere messi in relazione, ricadendo in uno dei 3 casi prima citati.\acc Gli archi 
-non facenti parte dell'arborescenza, se considerati nell'arborescenza, potranno essere di 3 tipi, o partire da un vertice ed andare 
-verso un suo antenato, o partire da un vertice ed andare 
-verso un suo successore, oppure attraversare due vertici di due diramazioni differenti, in effetti, riguardo la relazione 
+    t(u)<t(v)\le T(u)<t(v)$$ Basta dimostrare che questa casistica non può verificarsi. Se \(u\) è stato inserito
+nello stack prima di \(v\), si avrà che \(T(u)\ge t(v)\), questo implica che \(u\) era già nello stack quando
+\(v\) è stato inserito, ma allora è impossibile togliere \(u\) prima di \(v\), e necessariamente \(T(u)>T(v)\). \(\blacksquare\)\acc
+Adesso, consideriamo il grafo sulla quale è stato applicato il nuovo DFS con contatore, e consideriamo gli archi che \textit{non appartengono}
+all'arborescenza, ossia gli archi che non sono stati attraversati durante il DFS (nell'immagine esplicativa precedente, quelli colorati in
+azzurro). \acc
+Vi è un fatto interessante, consideriamo tutti un qualsiasi arco non facente parte dell'arborescenza, esso indica due vertici \((v,u)\),
+e tali vertici posseggono gli intervalli che possono essere messi in relazione, ricadendo in uno dei 3 casi prima citati.\acc Gli archi
+non facenti parte dell'arborescenza, se considerati nell'arborescenza, potranno essere di 3 tipi, o partire da un vertice ed andare
+verso un suo antenato, o partire da un vertice ed andare
+verso un suo successore, oppure attraversare due vertici di due diramazioni differenti, in effetti, riguardo la relazione
 di intervalli prima citata, si ha che : \begin{itemize}
     \item Se i due vertici dell'arco ricadono nel punto \((i)\), allora l'arco va da un antenato ad un discendente (\textbf{arco in avanti}).
     \item Se i due vertici dell'arco ricadono nel punto \((ii)\), allora l'arco va da un discendente ad un antenato  (\textbf{arco all'indietro}).
@@ -424,19 +424,19 @@ di intervalli prima citata, si ha che : \begin{itemize}
 \end{itemize}
 Riguardo il grafo del precedente esempio : \begin{center}
     \includegraphics[width=1.05\textwidth ]{images/archiArborescenza.eps}
-    \end{center}
-Si noti come l'arco che va dal vertice 8 al vertice 9, è un \textit{arco all'indietro}, infatti gli intervalli dei due 
-vertici ricadono nel secondo caso : \([9,9]\supseteq[7,9]\).\acc  
-Si noti come l'arco che va dal vertice 2 al vertice 4, è un \textit{arco in avanti}, infatti gli intervalli dei due 
-vertici ricadono nel primo caso : \([2,6]\subseteq[6,6]\).\acc  
-Si noti come l'arco che va dal vertice 7 al vertice 5, è un \textit{arco di attraversamento}, infatti gli intervalli dei due 
-vertici ricadono nel terzo caso : \([8,9]\cap[4,5]=\emptyset\).\acc  
-Se dovessi applicare lo stesso algoritmo ai grafi non diretti, non si potrebbe definire una relazione di antenato-discendente, 
-in quanto ogni arco è percorribile per entrambe le direzioni, quindi i casi \((i)\) e \((ii)\) indicherebbero la stessa 
-situazione.\acc 
-Inoltre, è impossibile che, per due nodi \(u,v\) si verifichi che $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$, quindi  
-il caso \((iii)\) è impossibile.\acc 
-\textit{\textbf{Esercizio}} : Si vuole dare lo pseudocodice di una modifica del DFS, che restituisca in output 3 liste, una contenente 
+\end{center}
+Si noti come l'arco che va dal vertice 8 al vertice 9, è un \textit{arco all'indietro}, infatti gli intervalli dei due
+vertici ricadono nel secondo caso : \([9,9]\supseteq[7,9]\).\acc
+Si noti come l'arco che va dal vertice 2 al vertice 4, è un \textit{arco in avanti}, infatti gli intervalli dei due
+vertici ricadono nel primo caso : \([2,6]\subseteq[6,6]\).\acc
+Si noti come l'arco che va dal vertice 7 al vertice 5, è un \textit{arco di attraversamento}, infatti gli intervalli dei due
+vertici ricadono nel terzo caso : \([8,9]\cap[4,5]=\emptyset\).\acc
+Se dovessi applicare lo stesso algoritmo ai grafi non diretti, non si potrebbe definire una relazione di antenato-discendente,
+in quanto ogni arco è percorribile per entrambe le direzioni, quindi i casi \((i)\) e \((ii)\) indicherebbero la stessa
+situazione.\acc
+Inoltre, è impossibile che, per due nodi \(u,v\) si verifichi che $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$, quindi
+il caso \((iii)\) è impossibile.\acc
+\textit{\textbf{Esercizio}} : Si vuole dare lo pseudocodice di una modifica del DFS, che restituisca in output 3 liste, una contenente
 gli archi in avanti, una quelli all'indietro, ed una gli archi di attraversamento.\begin{center}
     Pseudocodice
 \end{center}
@@ -475,51 +475,51 @@ gli archi in avanti, una quelli all'indietro, ed una gli archi di attraversament
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return av,ind,att}\\
-\codee{\}}\acc 
-La domanda da porsi adesso è, la presenza di questi archi \textit{in avanti}, \textit{indietro} e di \textit{attraversamento}, 
-quali informazioni fornisce riguardo le proprietà del grafo?\acc Consideriamo un grafo \(G\) non diretto e connesso, vuol dire che per 
-ogni coppia di vertici \(x\) ed $y$ esiste un cammino da $x$ ad $y$, se dovesse esistere un'arco \((x,y)\in E(G)\), allora 
-vi sarà un ciclo.\acc 
+\codee{\}}\acc
+La domanda da porsi adesso è, la presenza di questi archi \textit{in avanti}, \textit{indietro} e di \textit{attraversamento},
+quali informazioni fornisce riguardo le proprietà del grafo?\acc Consideriamo un grafo \(G\) non diretto e connesso, vuol dire che per
+ogni coppia di vertici \(x\) ed $y$ esiste un cammino da $x$ ad $y$, se dovesse esistere un'arco \((x,y)\in E(G)\), allora
+vi sarà un ciclo.\acc
 \textbf{Proposizione} : Sia \(G\) un grafo connesso non diretto, se esiste un ciclo, allora, per una
- \textit{qualsiasi applicazione} del DFS, esisterà un arco all'indietro (che è identico all'arco in avanti,
-  essendo il grafo non diretto).\acc 
-\textbf{Dimostrazione} : Se in \(G\) c'è un ciclo, allora esisterà un arco che non sarà presente nell'albero di visita 
-generato dal DFS (essendo un albero, non ha cicli), quindi esiste un arco esterno a tale albero che collega due nodi, 
+\textit{qualsiasi applicazione} del DFS, esisterà un arco all'indietro (che è identico all'arco in avanti,
+essendo il grafo non diretto).\acc
+\textbf{Dimostrazione} : Se in \(G\) c'è un ciclo, allora esisterà un arco che non sarà presente nell'albero di visita
+generato dal DFS (essendo un albero, non ha cicli), quindi esiste un arco esterno a tale albero che collega due nodi,
 ed è necessariamente un arco all'indietro. \(\blacksquare\)
 \begin{center}
     \textit{Conclusione} : DFS genera arco all'indietro $\iff$ \(G\) ha un ciclo
 \end{center}
-Consideriamo ora il caso in cui il grafo è diretto, sia \(v\) un vertice, ed \(u\) un suo discendente nell'arborescenza 
+Consideriamo ora il caso in cui il grafo è diretto, sia \(v\) un vertice, ed \(u\) un suo discendente nell'arborescenza
 generata da una qualsiasi applicazione del DFS, esiste un cammino diretto da \(v\) ad \(u\).\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/discentente.eps}
-    \end{center}
-Se \(u\) è un discendente di \(v\), allora \(u\) è stato visitato la prima volta dopo di \(v\), allora è stato 
+\end{center}
+Se \(u\) è un discendente di \(v\), allora \(u\) è stato visitato la prima volta dopo di \(v\), allora è stato
 rimosso dallo stack prima di \(v\) $$t(v)<t(u)\le T(u)\le T(v)$$
-Se esistesse un arco $(u,v)$, allora sarebbe un arco all'indietro. Sappiamo che per ogni coppia di vertici 
-\(u,v\), se \(u\) è un discendente di \(v\), allora esiste un cammino diretto da \(v\) ad \(u\) nell'arborescenza.\acc 
-\textbf{Osservazione} : Se esistesse un arco all'indietro nell'arborescenza generata dal DFS, allora 
-il grafo avrebbe un ciclo.\acc 
-\textbf{Proposizione 1} : Se \(G\) è un grado diretto, e tutti i suoi vertici sono raggiungibili da un 
+Se esistesse un arco $(u,v)$, allora sarebbe un arco all'indietro. Sappiamo che per ogni coppia di vertici
+\(u,v\), se \(u\) è un discendente di \(v\), allora esiste un cammino diretto da \(v\) ad \(u\) nell'arborescenza.\acc
+\textbf{Osservazione} : Se esistesse un arco all'indietro nell'arborescenza generata dal DFS, allora
+il grafo avrebbe un ciclo.\acc
+\textbf{Proposizione 1} : Se \(G\) è un grado diretto, e tutti i suoi vertici sono raggiungibili da un
 vertice di partenza \(x\), allor, una qualsiasi applicazione del DFS partendo da \(x\) genera un
- arco all'indietro nell'arborescenza \textit{se e solo se} esiste un ciclo in \(G\).\acc 
+arco all'indietro nell'arborescenza \textit{se e solo se} esiste un ciclo in \(G\).\acc
 Assumendo che in \(G\) ci sia un ciclo, consideriamo i vertici che compongono il ciclo :
-$c_0,c_1,c_2\dots,c_k$, elencati in ordine di visita nel DFS, quindi \(c_0\) è il primo vertice del ciclo 
+$c_0,c_1,c_2\dots,c_k$, elencati in ordine di visita nel DFS, quindi \(c_0\) è il primo vertice del ciclo
 visitato durante una qualsiasi applicazione del DFS.
- \acc\textbf{Proposizione 2} : Tutti i vertici del ciclo (escluso $c_0$), verranno visitati per la prima 
- volta \textit{prima} che \(c_0\) venga rimosso dallo stack.\acc 
- \textbf{Dimostrazione della prop. 2} : So che $\forall i\in\{1\dots k\},t(c_i)>t(c_0)$, assumiamo che 
- esista un \(c_i\) fissato che non rispetti la condizione della proposizione, ossia $$t(c_i)>T(c_0)$$
- Tale $c_i$ potrebbe non essere l'unico, sia però il vertice visitato per primo fra quelli che non rispettano 
- la condizione, considero ora il vertice visitato appena prima di $c_i$, ossia $c_{i-1}$, so che 
- $t(c_{i-1})>t(c_0)$ e che $t(c_{i-1})\le T(c_0)$, ovviamente non può essere superiore perchè il primo 
- vertice che viola la condizione, è il suo successivo $c_i$. Si verifica la condizione :
- \begin{center}
+\acc\textbf{Proposizione 2} : Tutti i vertici del ciclo (escluso $c_0$), verranno visitati per la prima
+volta \textit{prima} che \(c_0\) venga rimosso dallo stack.\acc
+\textbf{Dimostrazione della prop. 2} : So che $\forall i\in\{1\dots k\},t(c_i)>t(c_0)$, assumiamo che
+esista un \(c_i\) fissato che non rispetti la condizione della proposizione, ossia $$t(c_i)>T(c_0)$$
+Tale $c_i$ potrebbe non essere l'unico, sia però il vertice visitato per primo fra quelli che non rispettano
+la condizione, considero ora il vertice visitato appena prima di $c_i$, ossia $c_{i-1}$, so che
+$t(c_{i-1})>t(c_0)$ e che $t(c_{i-1})\le T(c_0)$, ovviamente non può essere superiore perchè il primo
+vertice che viola la condizione, è il suo successivo $c_i$. Si verifica la condizione :
+\begin{center}
     \includegraphics[width=1\textwidth ]{images/realLine.eps}
 \end{center}
-Sappiamo però che $c_{i-1}$ viene prima di $c_i$ nel ciclo, esiste quindi un arco $(c_{i-1},c_i)$, quindi 
-è impossibile che $c_{i-1}$ venga rimosso dallo stack prima di $c_i$, è quindi una contraddizione, e 
-necessariamente la proposizione è vera. \(\blacksquare\)\acc 
-\textbf{Dimostrazione della prop. 1} : Data la \textit{proposizione 2}, necessariamente l'arco del 
+Sappiamo però che $c_{i-1}$ viene prima di $c_i$ nel ciclo, esiste quindi un arco $(c_{i-1},c_i)$, quindi
+è impossibile che $c_{i-1}$ venga rimosso dallo stack prima di $c_i$, è quindi una contraddizione, e
+necessariamente la proposizione è vera. \(\blacksquare\)\acc
+\textbf{Dimostrazione della prop. 1} : Data la \textit{proposizione 2}, necessariamente l'arco del
 ciclo \((c_k,c_0)\) è un arco all'indietro. \begin{center}
     \includegraphics[width=1\textwidth ]{images/realLine2.eps}
 \end{center}\subsubsection{Pozzo Universale}
@@ -531,16 +531,16 @@ Si consideri ora un vertice $x$ di un generico grafo diretto $G$, che rispetti l
 tale vertice prende il nome di \textit{pozzo universale}.\begin{center}
     \includegraphics[width=0.6\textwidth ]{images/pozzo.eps}
 \end{center}
-\textit{Esercizio} : Si dia lo pseudocodice di un algoritmo che in $O(n)$, dove $n$ è il numero di vertici, 
-stabilisca se il grafo in input ha o non ha un pozzo universale, il grafo è dato sottoforma di matrice di 
-adiacenza.\acc 
-La costrizione più grande è la richiesta del costo computazionale, è chiaro che non è possibile 
-controllare ogni vertice in maniera dettagliata, vedendo se è o non è un pozzo universale in base 
-ai valori che assumono le entrate nella matrice.\acc 
-Una possibile idea è di controllare in coppia tutti i vertici, escludendo i possibili che sicuramente non sono 
-un pozzo universale : Si comincia controllando due vertici a caso \(x,y\), se l'entrata della matrice 
-$m(x,y)$ è 1, vuol dire che esiste un arco che va da $x$ ad $y$, dovremmo quindi escludere $x$ dato che ha 
-archi uscenti, e continuare con $y$, altrimenti continueremo con $x$.\acc 
+\textit{Esercizio} : Si dia lo pseudocodice di un algoritmo che in $O(n)$, dove $n$ è il numero di vertici,
+stabilisca se il grafo in input ha o non ha un pozzo universale, il grafo è dato sottoforma di matrice di
+adiacenza.\acc
+La costrizione più grande è la richiesta del costo computazionale, è chiaro che non è possibile
+controllare ogni vertice in maniera dettagliata, vedendo se è o non è un pozzo universale in base
+ai valori che assumono le entrate nella matrice.\acc
+Una possibile idea è di controllare in coppia tutti i vertici, escludendo i possibili che sicuramente non sono
+un pozzo universale : Si comincia controllando due vertici a caso \(x,y\), se l'entrata della matrice
+$m(x,y)$ è 1, vuol dire che esiste un arco che va da $x$ ad $y$, dovremmo quindi escludere $x$ dato che ha
+archi uscenti, e continuare con $y$, altrimenti continueremo con $x$.\acc
 Alla fine, avremo un vertice candidato ad essere un pozzo, e controlleremo in maniera esplicita se lo è o no.
 \begin{center}
     Pseudocodice
@@ -566,7 +566,7 @@ Alla fine, avremo un vertice candidato ad essere un pozzo, e controlleremo in ma
 \hphantom{ident}\codee{return true}\\
 \codee{\}}
 \subsubsection{Ordine Topologico in Tempo Lineare}
-Tornando al DFS con il contatore, esiste ovviamente anche una versione ricorsiva, composta da due funzioni, 
+Tornando al DFS con il contatore, esiste ovviamente anche una versione ricorsiva, composta da due funzioni,
 una "globale" che inizializza il processo, ed una ricorsiva che opera.\begin{center}
     Pseudocodice
 \end{center}
@@ -577,7 +577,7 @@ una "globale" che inizializza il processo, ed una ricorsiva che opera.\begin{cen
 \hphantom{ident}\codee{c : int = 1}\\
 \hphantom{ident}\codee{DFSrecursive(x,Vis,c,t,T)}\comm{prima chiamata della funzione ricorsiva}\\
 \hphantom{ident}\codee{return Vis}\\
-\codee{\}}\acc 
+\codee{\}}\acc
 L'algoritmo rimane in $O(n+m)$, passiamo ora alla funzione ricorsiva.\begin{center}
     Pseudocodice
 \end{center}
@@ -589,30 +589,30 @@ L'algoritmo rimane in $O(n+m)$, passiamo ora alla funzione ricorsiva.\begin{cent
 \hphantom{ident}\hphantom{ident}\codee{DFSrecursive(y,Vis,c,t,T)}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{T[x]=c}\\
-\codee{\}}\acc 
-\textbf{Proposizione} : Per ogni arco $(v,u)$ in un grafo diretto, si ha che $t(u)\le T(v)$.\acc 
+\codee{\}}\acc
+\textbf{Proposizione} : Per ogni arco $(v,u)$ in un grafo diretto, si ha che $t(u)\le T(v)$.\acc
 \textbf{Dimostrazione} : Se così non fosse, vorrebbe dire che $t(u)>T(v)$, significherebbe che avremmo
-chiuso (tolto dallo stack) $v$ quando vi era ancora possibilità di continuare su $u$, quindi 
-è impossibile che ciò accada. $\blacksquare$\acc 
-Torniamo adesso all'\textit{ordinamento topologico}, nei capitoli precedenti, si è visto che, se il grafo 
-è ciclico allora esistono degli archi all'indietro. In caso contrario, ci sono due restanti possibilità 
+chiuso (tolto dallo stack) $v$ quando vi era ancora possibilità di continuare su $u$, quindi
+è impossibile che ciò accada. $\blacksquare$\acc
+Torniamo adesso all'\textit{ordinamento topologico}, nei capitoli precedenti, si è visto che, se il grafo
+è ciclico allora esistono degli archi all'indietro. In caso contrario, ci sono due restanti possibilità
 per ogni arco $(v,u)$ :\begin{itemize}
     \item \(ii)\) $[t(v),T(v)]\supseteq[t(u),T(u)]$
     \item \(iii)\) $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$
-\end{itemize} 
+\end{itemize}
 Sicuramente $t(u)\le T(u)\le T(v)$, $t(v)$ può trovarsi in uno dei due seguenti intervalli :\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/cases.eps}
 \end{center}
-Il fatto, è che $T(u)\le T(v)$, e ciò vale per ogni arco del grafo $(v,u)$, nel corrispettivo ordine 
-topologico in cui tutti gli archi andranno da "sinistra verso destra", si avrà che, seguento quest'ordine, 
+Il fatto, è che $T(u)\le T(v)$, e ciò vale per ogni arco del grafo $(v,u)$, nel corrispettivo ordine
+topologico in cui tutti gli archi andranno da "sinistra verso destra", si avrà che, seguento quest'ordine,
 i valori di $T$ per i vertici coinvolti saranno \textit{decrescenti}.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/t_T_crescenza.eps}
-\end{center} La dove si causerà una situazione 
-di "tie break", ossia in cui i valori di $T$ sono coincidenti per due vertici, si avrà che essi differiranno 
-per i valori di $t$, che secondo l'ordine prima menzionato saranno strettamente crescenti, nel risultante 
+\end{center} La dove si causerà una situazione
+di "tie break", ossia in cui i valori di $T$ sono coincidenti per due vertici, si avrà che essi differiranno
+per i valori di $t$, che secondo l'ordine prima menzionato saranno strettamente crescenti, nel risultante
 ordine topologico, i vertici chiusi (tolti dallo stack) per ultimi, saranno quelli a sinistra.\begin{center}
     Pseudocodice
-\end{center} 
+\end{center}
 \codee{ORDtopologico(G)\{}\comm{funzione globale}\\
 \hphantom{ident}\codee{L : list}\comm{l'output, conterrà i vertici dell'ordine topologico}\\
 \hphantom{ident}\codee{Vis : int[n] = [0,0...,0]}\\
@@ -621,7 +621,7 @@ ordine topologico, i vertici chiusi (tolti dallo stack) per ultimi, saranno quel
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSord(G,v,Vis,L)}\\
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{\}}\\
-\codee{\}}\acc 
+\codee{\}}\acc
 \codee{DFSord(G,v,Vis,L)\{}\comm{funzione ricorsiva}\\
 \hphantom{ident}\codee{Vis[v]=1}\\
 \hphantom{ident}\codee{for each (w adiacente di v)\{}\\
@@ -635,41 +635,41 @@ ordine topologico, i vertici chiusi (tolti dallo stack) per ultimi, saranno quel
 \hphantom{a}
 \begin{center}
     \includegraphics[width=0.7\textwidth ]{images/ponte.eps}
-\end{center} 
-Come si può procedere per verificare che un arco $(u,v)$ sia o no un ponte? Posso rimuovere l'arco, e controllare con il DFS 
-se esiste ancora un cammino fra i due vertici coinvolti, se esiste, allora quell'arco non era un ponte. Se volessi trovare 
-tutti i ponti di un grafo, questa operazione risulterebbe poco efficiente, e l'algoritmo avrebbe complessità $O(m\cdot(n+m))$.\acc 
-\textbf{Osservazione} : Qualsiasi arco coinvolto in un ciclo, non è un ponte, viceversa, se un arco è un ponte, allora 
-non fa parte di un ciclo.\acc 
-Ne consegue che, qualsiasi arco che non fa parte dell'albero di visita derivante da una qualsiasi applicazione del DFS 
-(gli archi all'indietro), sicuramente non è un ponte. Quindi un ponte fa parte dell'albero di visita, non è necessario 
-controllare tutti gli archi. Si considerino i due seguenti alberi di visita di due grafi che 
+\end{center}
+Come si può procedere per verificare che un arco $(u,v)$ sia o no un ponte? Posso rimuovere l'arco, e controllare con il DFS
+se esiste ancora un cammino fra i due vertici coinvolti, se esiste, allora quell'arco non era un ponte. Se volessi trovare
+tutti i ponti di un grafo, questa operazione risulterebbe poco efficiente, e l'algoritmo avrebbe complessità $O(m\cdot(n+m))$.\acc
+\textbf{Osservazione} : Qualsiasi arco coinvolto in un ciclo, non è un ponte, viceversa, se un arco è un ponte, allora
+non fa parte di un ciclo.\acc
+Ne consegue che, qualsiasi arco che non fa parte dell'albero di visita derivante da una qualsiasi applicazione del DFS
+(gli archi all'indietro), sicuramente non è un ponte. Quindi un ponte fa parte dell'albero di visita, non è necessario
+controllare tutti gli archi. Si considerino i due seguenti alberi di visita di due grafi che
 differiscono esclusivamente per un arco.\begin{center}
     \includegraphics[width=1\textwidth ]{images/checkPonte.eps}
-\end{center} 
-Osservando la seguente immagine, si noti che, l'arco viola del primo grafo, è un ponte, invece l'arco viola del 
-secondo grafo, non lo è, rimane infatti connesso grazie all'arco arancione, che non fa parte dell'albero di 
+\end{center}
+Osservando la seguente immagine, si noti che, l'arco viola del primo grafo, è un ponte, invece l'arco viola del
+secondo grafo, non lo è, rimane infatti connesso grazie all'arco arancione, che non fa parte dell'albero di
 visita, da tali considerazioni, si giunge alla seguente proposizione.\acc
-\textbf{Proposizione} : Sia $T$ un albero di visita derivante da una qualsiasi applicazione del DFS su un 
-grafo connesso e non diretto, e sia $(u,v)\in E(T)$, un arco dell'albero, dove $v$ è il padre di $u$, si ha che, 
-l'arco  $(u,v)$ è un ponte \textit{se e solo se} non esiste alcun arco all'indietro da un qualsiasi vertice 
-discendente di $u$, ad un qualsiasi vertice antenato di $v$ ($v$ compreso).\acc 
-\textbf{Dimostrazione} : \boxedMath{$(1)\implies(2)$} Sia $T_u$ l'insieme dei discendenti di $u$. Se esistesse un arco da  $T_u$ all'indietro, 
-allora $(u,v)$ sarebbe parte di un ciclo, e sicuramente non sarebbe un ponte. \boxedMath{$(2)\implies(1)$} Assumiamo che 
-$(u,v)$ non sia un ponte, allora esiste un cammino $u\rightarrow v$ che non fa uso dell'arco in questione. Esiste sicuramente 
-un punto nel cammino, in cui si passa da un vertice $x$ tale che $x\notin T_u$, ad un vertice $y$ tale che 
-$y\in T_u$, ma sappiamo che non esistono archi all'indietro, ciò porta ad una contraddizione. $\blacksquare$\acc 
-Scriviamo adesso lo pseudocodice di un algoritmo che restituisce tutti i ponti di un grafo in tempo lineare, come prima, diamo 
-la definizione di \textit{punto di back}, o semplicemente \textit{back}.\acc 
-\textbf{Definizione} : Il \textit{back} di un vertice $u$ in un albero di visita, non è altro che il vertice più 
+\textbf{Proposizione} : Sia $T$ un albero di visita derivante da una qualsiasi applicazione del DFS su un
+grafo connesso e non diretto, e sia $(u,v)\in E(T)$, un arco dell'albero, dove $v$ è il padre di $u$, si ha che,
+l'arco  $(u,v)$ è un ponte \textit{se e solo se} non esiste alcun arco all'indietro da un qualsiasi vertice
+discendente di $u$, ad un qualsiasi vertice antenato di $v$ ($v$ compreso).\acc
+\textbf{Dimostrazione} : \boxedMath{$(1)\implies(2)$} Sia $T_u$ l'insieme dei discendenti di $u$. Se esistesse un arco da  $T_u$ all'indietro,
+allora $(u,v)$ sarebbe parte di un ciclo, e sicuramente non sarebbe un ponte. \boxedMath{$(2)\implies(1)$} Assumiamo che
+$(u,v)$ non sia un ponte, allora esiste un cammino $u\rightarrow v$ che non fa uso dell'arco in questione. Esiste sicuramente
+un punto nel cammino, in cui si passa da un vertice $x$ tale che $x\notin T_u$, ad un vertice $y$ tale che
+$y\in T_u$, ma sappiamo che non esistono archi all'indietro, ciò porta ad una contraddizione. $\blacksquare$\acc
+Scriviamo adesso lo pseudocodice di un algoritmo che restituisce tutti i ponti di un grafo in tempo lineare, come prima, diamo
+la definizione di \textit{punto di back}, o semplicemente \textit{back}.\acc
+\textbf{Definizione} : Il \textit{back} di un vertice $u$ in un albero di visita, non è altro che il vertice più
 vicino alla radice che è possibile raggiungere con un arco da $u$ o da uno dei suoi discendenti.\begin{center}
     \includegraphics[width=1\textwidth ]{images/back.eps}
-\end{center} 
-Vogliamo quindi un algoritmo che, per un arco $(u,v)$, dove $v$ è il padre di $u$, si controlli il 
-back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non è un ponte, altrimenti lo è. 
+\end{center}
+Vogliamo quindi un algoritmo che, per un arco $(u,v)$, dove $v$ è il padre di $u$, si controlli il
+back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non è un ponte, altrimenti lo è.
 \begin{center}
     Pseudocodice
-\end{center} 
+\end{center}
 \codee{Ponti(G : grafo connesso non diretto)\{}\comm{funzione globale}\\
 \hphantom{ident}\codee{t : int[n] = [0,0...,0]}\\
 \hphantom{ident}\codee{c : int = 0}\\
@@ -697,56 +697,56 @@ back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non �
 \hphantom{ident}\codee{return back}\\
 \codee{\}}\acc
 \subsection{Componenti Fortemente Connesse}
-Abbiamo già dato la definizione di fortemente connesso per un grafo diretto, ossia un grafo $G$ di cui, 
-per ogni coppia di vertici $(u,v)$ esiste un cammino da $u$ a $v$ e viceversa. Quando un grafo è non diretto, risulta 
-facile trovare le componenti connesse, in quanto è facilmente visualizzabile come un "pezzo" di grafo connesso 
-distaccato dal resto.\acc 
-In un grafo diretto, una componente è un sottografo fortemente connesso \textit{massimale}, ossia, che non è contenuto in 
-un sottografo più grande fortemente connesso.\acc 
-\textbf{Osservazione} : Ogni vertice di un grafo diretto è contenuto in un componente fortemente connesso, dato che 
-al minimo esiste il componente costituito dall'unico vertice.\acc 
-\textbf{Osservazione} : Non esistono più componenti che hanno vertici in comune, ogni vertice appartiene ad un solo 
+Abbiamo già dato la definizione di fortemente connesso per un grafo diretto, ossia un grafo $G$ di cui,
+per ogni coppia di vertici $(u,v)$ esiste un cammino da $u$ a $v$ e viceversa. Quando un grafo è non diretto, risulta
+facile trovare le componenti connesse, in quanto è facilmente visualizzabile come un "pezzo" di grafo connesso
+distaccato dal resto.\acc
+In un grafo diretto, una componente è un sottografo fortemente connesso \textit{massimale}, ossia, che non è contenuto in
+un sottografo più grande fortemente connesso.\acc
+\textbf{Osservazione} : Ogni vertice di un grafo diretto è contenuto in un componente fortemente connesso, dato che
+al minimo esiste il componente costituito dall'unico vertice.\acc
+\textbf{Osservazione} : Non esistono più componenti che hanno vertici in comune, ogni vertice appartiene ad un solo
 componente.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/compoGrafDir.eps}
 \end{center}
 Si vuole un algoritmo capace di trovare le componenti fortemente connesse di un grafo diretto.
-\subsubsection{Contrazione di Vertici} 
-\textbf{Definizione} : Sia $G$ un grafo diretto, e sia $H\in V(G)$ un insieme di vertici, è possibile 
-\textit{contrarre} i vertici, facendoli "collassare" in un unico vertice, ottenendo il grafo $G$ contratto $H$, denotato 
+\subsubsection{Contrazione di Vertici}
+\textbf{Definizione} : Sia $G$ un grafo diretto, e sia $H\in V(G)$ un insieme di vertici, è possibile
+\textit{contrarre} i vertici, facendoli "collassare" in un unico vertice, ottenendo il grafo $G$ contratto $H$, denotato
 $\nicefrac{G}{H}$. Si denota con $V_H$ il nuovo vertice contratto.\begin{itemize}
     \item  $V(\nicefrac{G}{H}) := (V(G)\backslash H)\cup \{V_H\}$
     \item $E(\nicefrac{G}{H}) := \{(x,y)\in E(G)| x,y\notin H\}\cup$\\
-    \hphantom{identaiden.}$\{(w,V_H)\text{ se } \exists(w,y)|w \notin V_H\land y \in V_H\}\cup$\\
-    \hphantom{identaiden.}$\{(V_H,w)\text{ se } \exists(y,w)|w \notin V_H\land y \in V_H\}$
+          \hphantom{identaiden.}$\{(w,V_H)\text{ se } \exists(w,y)|w \notin V_H\land y \in V_H\}\cup$\\
+          \hphantom{identaiden.}$\{(V_H,w)\text{ se } \exists(y,w)|w \notin V_H\land y \in V_H\}$
 \end{itemize} \begin{center}
     \includegraphics[width=0.55\textwidth ]{images/contrazione.eps}
 \end{center}
-\textbf{Proposizione} : Se $G$ è un grafo fortemente connesso ed $H$ è un sottografo connesso, allora $\nicefrac{G}{H}$ è 
+\textbf{Proposizione} : Se $G$ è un grafo fortemente connesso ed $H$ è un sottografo connesso, allora $\nicefrac{G}{H}$ è
 ancora un grafo fortemente connesso.\begin{center}
     \includegraphics[width=0.65\textwidth ]{images/propFortCOnn.eps}
 \end{center}
-\textbf{Dimostrazione} : Nel grafo 
-originale $G$ esiste un cammino $P$ da un qualsiasi nodo $x$ ad un qualsiasi nodo contenuto in $H$, ed esiste un 
-cammino $Q$ da un qualsiasi nodo in $H$ ad un qualsiasi nodo $x$, siano questi cammini quelli più corti possibile, essi 
-per definizione di $\nicefrac{G}{H}$ saranno anche in $\nicefrac{G}{H}$, quindi esisterà un cammino da 
+\textbf{Dimostrazione} : Nel grafo
+originale $G$ esiste un cammino $P$ da un qualsiasi nodo $x$ ad un qualsiasi nodo contenuto in $H$, ed esiste un
+cammino $Q$ da un qualsiasi nodo in $H$ ad un qualsiasi nodo $x$, siano questi cammini quelli più corti possibile, essi
+per definizione di $\nicefrac{G}{H}$ saranno anche in $\nicefrac{G}{H}$, quindi esisterà un cammino da
 da $x$ a $V_H$ e da $V_H$ ad $x$, quindi il grafo $\nicefrac{G}{H}$ è fortemente connesso. $\blacksquare$
 \subsubsection{C-radice di un Componente Fortemente Connesso}
-\textbf{Osservazione} : Se $G$ è fortemente connesso e non è banale, allora contiene sicuramente un ciclo, quindi esiste un 
-arco $(x,y)$ per cui esiste anche un cammino da $y$ ad $x$, che insieme all'arco precedente compone il ciclo. Un ciclo inoltre 
+\textbf{Osservazione} : Se $G$ è fortemente connesso e non è banale, allora contiene sicuramente un ciclo, quindi esiste un
+arco $(x,y)$ per cui esiste anche un cammino da $y$ ad $x$, che insieme all'arco precedente compone il ciclo. Un ciclo inoltre
 è un sottografo fortemente connesso, se applichiamo la contrazione ricorsivamente sui cicli, otterremo le componenti connesse.
-\acc 
-Se $u_1,u_2\dots,u_k$ sono fortemente connessi in $\nicefrac{G}{C}$, con 
-$C$ un insieme e $V_C$ il vertice contratto, si ha che le componenti in 
+\acc
+Se $u_1,u_2\dots,u_k$ sono fortemente connessi in $\nicefrac{G}{C}$, con
+$C$ un insieme e $V_C$ il vertice contratto, si ha che le componenti in
 $G$ sono $u'_1,u'_2\dots,u'_k$ con:$$
-u'_i=\begin{cases}
-    u_i\text{ se }V_C\notin u_i\\
-    (u_i\backslash \{V_C\})\cup \{V(C)\}\text{ se }V_C\in u_i
-\end{cases}
-$$ Se il grafo non ha cicli, ogni vertice è un componente connesso. Vediamo 
+    u'_i=\begin{cases}
+        u_i\text{ se }V_C\notin u_i \\
+        (u_i\backslash \{V_C\})\cup \{V(C)\}\text{ se }V_C\in u_i
+    \end{cases}
+$$ Se il grafo non ha cicli, ogni vertice è un componente connesso. Vediamo
 ora l'algoritmo non lineare.\begin{center}
     Pseudocodice
 \end{center}
-\codee{Fort(G graph)\{}\acc 
+\codee{Fort(G graph)\{}\acc
 \hphantom{ident}\codee{C = un ciclo in G}\\
 \hphantom{ident}\codee{if (C non esiste)\{}\comm{non ci sono cicli nel grafo}\\
 \hphantom{ident}\hphantom{ident}\codee{return \{\{v\}|v $\in$ V(G)\}}\\
@@ -764,28 +764,28 @@ ora l'algoritmo non lineare.\begin{center}
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return ($u'_1,u'_2\dots,u'_k$)}\\
 \codee{\}}\acc
-Tale algoritmo ha complessità $O(n\cdot(n+m))$, voglio modificare il DFS per ottenere lo stesso algoritmo che operi in 
-tempo lineare.\acc 
-\textbf{Definizione} : Data l'esecuzione del DFS su un grafo $G$ diretto, e dato un componente fortemente 
-connesso $C$ del grafo, una \textbf{C-radice} è il primo vertice appartenente a $C$, visitato nel DFS.\acc 
-\textbf{Proposizione} : Sia $T$ un arborescenza di visita di un DFS, e sia $T(u)$ l'insieme dei discendenti di un nodo 
+Tale algoritmo ha complessità $O(n\cdot(n+m))$, voglio modificare il DFS per ottenere lo stesso algoritmo che operi in
+tempo lineare.\acc
+\textbf{Definizione} : Data l'esecuzione del DFS su un grafo $G$ diretto, e dato un componente fortemente
+connesso $C$ del grafo, una \textbf{C-radice} è il primo vertice appartenente a $C$, visitato nel DFS.\acc
+\textbf{Proposizione} : Sia $T$ un arborescenza di visita di un DFS, e sia $T(u)$ l'insieme dei discendenti di un nodo
 $u$, sia poi $C(u)$ il componente fortemente connesso nella quale è contenuto $u$, valgono le seguenti:\begin{enumerate}
     \item $C(u)\subseteq T(u)$
     \item Se $u_1,u_2\dots,u_k$ sono le C-radici in $T(u)$, si ha che $\displaystyle T(u)=\bigcup_{i=1}^k C(u_i)$
 \end{enumerate}
-\textbf{Dimostrazione} \boxedMath{1} Assumiamo che $C(u)\nsubseteq  T(u)$, allora esiste un arco $(x,y)\in C(u)$ tale 
-che $x\in T(u)\land y\notin T(u)$, tale arco è, o all'indietro, o di attraversamento. In entrambi i casi, si ha che 
-$y$ è un antenato di $u$ $\implies$ $y$ è stato visitato per la prima volta, prima di $u$ $\implies$ $u$ non è la 
+\textbf{Dimostrazione} \boxedMath{1} Assumiamo che $C(u)\nsubseteq  T(u)$, allora esiste un arco $(x,y)\in C(u)$ tale
+che $x\in T(u)\land y\notin T(u)$, tale arco è, o all'indietro, o di attraversamento. In entrambi i casi, si ha che
+$y$ è un antenato di $u$ $\implies$ $y$ è stato visitato per la prima volta, prima di $u$ $\implies$ $u$ non è la
 C-radice del suo componente, ma per ipotesi $u$ è la C-radice, si ha quindi una contraddizione.\acc
-\boxedMath{2} Se $u_i\in T(u)$, per il punto (1), $C(u_i)\subseteq T(u_i) \subseteq T(u)\implies C(u_i)\subset T(u)$. Dimostro 
-adesso che, 
-se $w\in T(u)$, il componente $C(w)$ non ha elementi al di fuori di $T(u)$. Assumiamo per assurdo che ciò sia falso, si ha 
+\boxedMath{2} Se $u_i\in T(u)$, per il punto (1), $C(u_i)\subseteq T(u_i) \subseteq T(u)\implies C(u_i)\subset T(u)$. Dimostro
+adesso che,
+se $w\in T(u)$, il componente $C(w)$ non ha elementi al di fuori di $T(u)$. Assumiamo per assurdo che ciò sia falso, si ha
 che $C(w)\nsubseteq T(u)$, sia allora $z$ la C-radice di $C(w)$, si ha che  \begin{itemize}
     \item $w$ è un discendente di $z$
     \item $u$ è un discendente di $z$
 \end{itemize}
-Ma allore esistono i cammini da $z$ ad $u$, e da $u$ a $w$, ma so che nel componente fortemente connesso $C(w)$ esiste 
-un cammino da $w$ a $z$, ma allora $u,w,z\in C(w)$, ma inizialmente si è detto che $u$ è la C-radice, ma come può esserlo se 
+Ma allore esistono i cammini da $z$ ad $u$, e da $u$ a $w$, ma so che nel componente fortemente connesso $C(w)$ esiste
+un cammino da $w$ a $z$, ma allora $u,w,z\in C(w)$, ma inizialmente si è detto che $u$ è la C-radice, ma come può esserlo se
 $u$ è un discendente di $z$? C'è una contraddizione, quindi $C(w)\subseteq T(u)$. $\blacksquare$
 \begin{center}
     Pseudocodice
@@ -805,7 +805,7 @@ $u$ è un discendente di $z$? C'è una contraddizione, quindi $C(w)\subseteq T(u
 \hphantom{ident}\hphantom{ident}\codee{Output.add(X)}\\
 \hphantom{ident}\codee{\}}\\
 \codee{\}}\acc
-\code{C} è uno stack che contiene tutti i vertici che sono stati già visitati, ma che non hanno ancora un componente fortemente 
+\code{C} è uno stack che contiene tutti i vertici che sono stati già visitati, ma che non hanno ancora un componente fortemente
 connesso assegnato, non è da confondersi con lo stack \code{S} del DFS.\acc
 \codee{Scc(G : graph)\{}\comm{chiamata globale}\\
 \hphantom{ident}\codee{C : stack}\comm{vertici visitati ma ancora senza componente}\\
@@ -815,29 +815,29 @@ connesso assegnato, non è da confondersi con lo stack \code{S} del DFS.\acc
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Output}\\
 \codee{\}}\acc
-Il problema di questo algoritmo, è la riga in cui si controlla se un nodo è una C-radice, come possiamo fare tale controllo 
-in un tempo ragionevole?\acc 
-\textbf{Proposizione} : Un nodo $u$ \textit{non} è una C-radice se e solo se, nella chiamata ricorsiva del \code{DFS\_Scc} con 
+Il problema di questo algoritmo, è la riga in cui si controlla se un nodo è una C-radice, come possiamo fare tale controllo
+in un tempo ragionevole?\acc
+\textbf{Proposizione} : Un nodo $u$ \textit{non} è una C-radice se e solo se, nella chiamata ricorsiva del \code{DFS\_Scc} con
 radice $u$, viene attraversato un arco $(v,w)$ tale che:
-  $w$ è stato visitato ma non ha un componente assegnato (si trova nello stack \code{C}). \acc 
-  \textbf{Dimostrazione} \boxedMath{$\implies$} Assumiamo che $u$ non sia una C-radice, sia $z$ la C-radice del componente 
-  di $u$, allora $z$ è una antenato di $u$ perché $u\in T(z)$. Ciò implica che, nella chiamata ricorsiva che parte da $u$, 
-  ci sarà un arco dentro $C(u)$ con un vertice $w\notin T(w)\implies$ $ C(w)$ non è stato ancora stabilito.
-\acc\boxedMath{$\impliedby$} Il componente di $w$ non è stato ancora stabilito, se $z$ è la C-radice di tale componente, esso 
+$w$ è stato visitato ma non ha un componente assegnato (si trova nello stack \code{C}). \acc
+\textbf{Dimostrazione} \boxedMath{$\implies$} Assumiamo che $u$ non sia una C-radice, sia $z$ la C-radice del componente
+di $u$, allora $z$ è una antenato di $u$ perché $u\in T(z)$. Ciò implica che, nella chiamata ricorsiva che parte da $u$,
+ci sarà un arco dentro $C(u)$ con un vertice $w\notin T(w)\implies$ $ C(w)$ non è stato ancora stabilito.
+\acc\boxedMath{$\impliedby$} Il componente di $w$ non è stato ancora stabilito, se $z$ è la C-radice di tale componente, esso
 è ancora "aperto" nella ricorsione, ed è un antenato di $u$, \begin{itemize}
-\item esiste un cammino da $z$ ad $u$
-\item esiste un camminoda $u$ a $v$
-\item esiste l'arco $(v,w)$
-\item in $C(w)$ è presente un cammino da $w$ a $z$
+    \item esiste un cammino da $z$ ad $u$
+    \item esiste un camminoda $u$ a $v$
+    \item esiste l'arco $(v,w)$
+    \item in $C(w)$ è presente un cammino da $w$ a $z$
 \end{itemize}
 Ne concludiamo che $u,v,w,z$ sono tutti nello stesso componente di cui la C-radice è $z$, quindi il nodo $u$
-non è una C-radice. $\blacksquare$\acc 
-Per l'algoritmo useremo un valore simile al \code{back} visto nell'algoritmo per i ponti \ref{PontiGrafiNonDir}, tale 
-valore indica per un nodo $u$, il punto più indietro (vicino alla radice) nell'arborescenza raggiungibile con un 
-arco $(v,w)$ per cui $v$ è un vertice attraversato dal DFS partendo da $u$, e $w$ un nodo visitato di cui 
+non è una C-radice. $\blacksquare$\acc
+Per l'algoritmo useremo un valore simile al \code{back} visto nell'algoritmo per i ponti \ref{PontiGrafiNonDir}, tale
+valore indica per un nodo $u$, il punto più indietro (vicino alla radice) nell'arborescenza raggiungibile con un
+arco $(v,w)$ per cui $v$ è un vertice attraversato dal DFS partendo da $u$, e $w$ un nodo visitato di cui
 il componente non è stato ancora stabilito. Utilizzeremo un array \code{CC} che memorizzerà le seguenti informazioni:\begin{itemize}
     \item \code{CC[u] = 0} se $u$ non è stato ancora visitato.
-    \item \code{CC[u] = -t} dove $t$ è l'istante in cui $u$ è stato visitato per la prima volta. 
+    \item \code{CC[u] = -t} dove $t$ è l'istante in cui $u$ è stato visitato per la prima volta.
     \item \code{CC[u] = c} quando $u$ ha un componente stabilito, e $c$ è il numero di tale componente.
 \end{itemize}
 Passiamo adesso all'algoritmo, la funzione globale rimane la medesima, cambia la funzione ricorsiva.
@@ -869,15 +869,15 @@ Passiamo adesso all'algoritmo, la funzione globale rimane la medesima, cambia la
 \codee{\}}\acc
 La complessità di questo algoritmo è $O(n+m)$.
 \subsection{Breadth First Search}
-Supponiamo di voler trovare la \textbf{distanza} fra due nodi $x$ ed $y$, denotata $dist(x,y)$, ossia, il numero di archi di un 
+Supponiamo di voler trovare la \textbf{distanza} fra due nodi $x$ ed $y$, denotata $dist(x,y)$, ossia, il numero di archi di un
 cammino \textit{minimo} fra i due nodi.\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/dist.eps}
-\end{center} 
-Tramite la DFS, è possibile verificare se esiste un cammino fra  due nodi $x,y$, ma non è assicurato il fatto che tale 
-cammino sia minimo, è necessario fare un altro tipo di ricerca, nota come  \textbf{BFS}, ossia la ricerca in ampiezza.\acc 
-Si vuole trovare la distanza fra $x$, ed $y$, si parte dal nodo $x$, e si controllano tutti i suoi adiacenti, se fra questi 
-vi sarà $y$, la distanza sarà 1, altrimenti, sarà strettamente maggiore di 1, e si continuerà cercando fra gli adiacenti 
-di $y$, evitando i nodi già visitati. \acc 
+\end{center}
+Tramite la DFS, è possibile verificare se esiste un cammino fra  due nodi $x,y$, ma non è assicurato il fatto che tale
+cammino sia minimo, è necessario fare un altro tipo di ricerca, nota come  \textbf{BFS}, ossia la ricerca in ampiezza.\acc
+Si vuole trovare la distanza fra $x$, ed $y$, si parte dal nodo $x$, e si controllano tutti i suoi adiacenti, se fra questi
+vi sarà $y$, la distanza sarà 1, altrimenti, sarà strettamente maggiore di 1, e si continuerà cercando fra gli adiacenti
+di $y$, evitando i nodi già visitati. \acc
 \begin{center}
     Pseudocodice
 \end{center}
@@ -899,41 +899,41 @@ di $y$, evitando i nodi già visitati. \acc
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Dist, P}\\
 \codee{\}}\acc
-È di facile verifica il fatto che ogni nodo sia controllato una volta, l'algoritmo rientra in una complessità $O(n+m)$.\acc 
+È di facile verifica il fatto che ogni nodo sia controllato una volta, l'algoritmo rientra in una complessità $O(n+m)$.\acc
 \textbf{Proposizione }: Sia $G$ un grafo e siano $x,y$ due vertici, $\exists z $ adiacente ad $y$ tale che
- $dist(x,z)=dist(x,y)-1$.\acc
- \textbf{Dimostrazione }: Se $dist(x,y)=1$, allora $z=x$. Consideriamo il caso generale, sia $P$ un cammino 
- \textit{minimo} fra $x$ ed $y$ composto da $dist(x,y)=d$ archi. Sia $w$ il vertice adiacente ad $y$ nel cammino $P$:
- \begin{center}
-\includegraphics[width=0.4\textwidth ]{images/xvy.eps}
-\end{center} 
-Si ha che necessariamente, $dist(x,w)\le d-1$, essendo che esiste un cammino da $x$ a $w$ con $d-1$ archi, 
-ossia $P\backslash \{(w,y)\}$.\acc 
-Abbiamo che  $dist(x,w)\le d-1$, se esistesse un cammino più corto da $x$ a $w$ con un numero di archi strettamente 
-minore di $d-1$, allora tale cammino, unito al vertice $(w,y)$, diverrebbe un cammino da $x$ ad $y$ con un numero di 
-archi strettamente minore di $d$, ma per ipotesi, $P$ era già un cammino minimo, ciò è impossibile, quindi 
+$dist(x,z)=dist(x,y)-1$.\acc
+\textbf{Dimostrazione }: Se $dist(x,y)=1$, allora $z=x$. Consideriamo il caso generale, sia $P$ un cammino
+\textit{minimo} fra $x$ ed $y$ composto da $dist(x,y)=d$ archi. Sia $w$ il vertice adiacente ad $y$ nel cammino $P$:
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/xvy.eps}
+\end{center}
+Si ha che necessariamente, $dist(x,w)\le d-1$, essendo che esiste un cammino da $x$ a $w$ con $d-1$ archi,
+ossia $P\backslash \{(w,y)\}$.\acc
+Abbiamo che  $dist(x,w)\le d-1$, se esistesse un cammino più corto da $x$ a $w$ con un numero di archi strettamente
+minore di $d-1$, allora tale cammino, unito al vertice $(w,y)$, diverrebbe un cammino da $x$ ad $y$ con un numero di
+archi strettamente minore di $d$, ma per ipotesi, $P$ era già un cammino minimo, ciò è impossibile, quindi
 $dist(x,w)=d-1$. $\blacksquare$\acc
-\textbf{Dimostrazione della correttezza del BFS}: Sia $dist(x,y)$ la distanza effettiva fra due nodi $x,y$, e sia 
+\textbf{Dimostrazione della correttezza del BFS}: Sia $dist(x,y)$ la distanza effettiva fra due nodi $x,y$, e sia
 \codee{dist[y]} la distanza calcolata dall'algoritmo (partendo da $x$). Si dimostra per induzione su $dist(x,y)$.\begin{itemize}
-    \item \textit{Caso Base} : $dist(x,y)=0$ - Se la distanza è $0$, $x=y$, e data l'inizializzazione dell'array, si ha che 
-    \codee{Dist[y]}$=0$. 
+    \item \textit{Caso Base} : $dist(x,y)=0$ - Se la distanza è $0$, $x=y$, e data l'inizializzazione dell'array, si ha che
+          \codee{Dist[y]}$=0$.
     \item \textit{Ipotesi Induttiva} : Assumiamo che per ogni vertice $v_i$ tale che $dist(x,y)=k$, si ha che \codee{Dist[$v_i$]}$=k$.
-    \item \textit{Passo Induttivo} : Sia $y$ un vertice, tale che $dist(x,y)=k+1$, per la proposizione vista in precedenza, 
-    $\exists w$ adiacente ad $y$ tale che $dist(x,w)=k\implies$\codee{Dist[w]}$=k$, quando tale $w$ sarà primo nella coda 
-    durante l'esecuzione dell'algoritmo, essendo $y$ un suo adiacente non ancora visitato, verrà calcolato il suo 
-    valore nell'array nel seguente modo: \codee{Dist[y]=Dist[w]+1}, si avrà che \codee{Dist[y]=k+1}$\implies$ la distanza è 
-    calcolata correttamente. $\blacksquare$
+    \item \textit{Passo Induttivo} : Sia $y$ un vertice, tale che $dist(x,y)=k+1$, per la proposizione vista in precedenza,
+          $\exists w$ adiacente ad $y$ tale che $dist(x,w)=k\implies$\codee{Dist[w]}$=k$, quando tale $w$ sarà primo nella coda
+          durante l'esecuzione dell'algoritmo, essendo $y$ un suo adiacente non ancora visitato, verrà calcolato il suo
+          valore nell'array nel seguente modo: \codee{Dist[y]=Dist[w]+1}, si avrà che \codee{Dist[y]=k+1}$\implies$ la distanza è
+          calcolata correttamente. $\blacksquare$
 \end{itemize}
 \subsubsection{Distanza fra Insieme e Distanza tramite Vettore dei Padri}
-Occupiamoci adesso di presentare due problemi relativi alla ricerca in ampiezza, il primo riguarda la distanza minima fra 
-due insiemi di nodi.\acc 
-Siano $X$ ed $Y$ due insiemi di nodi, la loro distanza è uguale alla distanza minima nell'insieme delle distanze fra qualsiasi 
+Occupiamoci adesso di presentare due problemi relativi alla ricerca in ampiezza, il primo riguarda la distanza minima fra
+due insiemi di nodi.\acc
+Siano $X$ ed $Y$ due insiemi di nodi, la loro distanza è uguale alla distanza minima nell'insieme delle distanze fra qualsiasi
 nodo di $X$ e di $Y$, ossia la distanza minima fra l'insieme delle coppie $X\times Y$. \begin{center}
     \includegraphics[width=0.7\textwidth ]{images/distInsiemi.eps}
-    \end{center} 
-Una possibile soluzione sarebbe quella di contrarre i due insiemi rendendoli dei vertici a sé stanti, ma per fare ciò 
-bisognerebbe modificare il grafo, è possibile fare ciò in $O(n+m)$, ma risulta complicato, un modo più semplice è 
-quello di considerare una versione differente del BFS che sfrutti una coda, calcolando prima tutti i vicini 
+\end{center}
+Una possibile soluzione sarebbe quella di contrarre i due insiemi rendendoli dei vertici a sé stanti, ma per fare ciò
+bisognerebbe modificare il grafo, è possibile fare ciò in $O(n+m)$, ma risulta complicato, un modo più semplice è
+quello di considerare una versione differente del BFS che sfrutti una coda, calcolando prima tutti i vicini
 di ogni nodo appartenente ad uno dei due insieme.\begin{center}
     Pseudocodice
 \end{center}
@@ -953,80 +953,80 @@ di ogni nodo appartenente ad uno dei due insieme.\begin{center}
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{minimo=Dist[0]}\\
+\hphantom{ident}\codee{minimo=$\infty$}\\
 \hphantom{ident}\codee{for each y $\in$ Y\{}\\
 \hphantom{ident}\hphantom{ident}\codee{minimo = min(Dist[y],minimo)}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return minimo}\\
 \codee{\}}\acc
-Consideriamo adesso un vettore dei padri riguardante un albero dato come output da un BFS partito da un nodo $x$, risulta 
-facile trovare la distanza minima fra $x$ ed un qualsiasi nodo $y$, ma è possibile trovare la distanza fra 
+Consideriamo adesso un vettore dei padri riguardante un albero dato come output da un BFS partito da un nodo $x$, risulta
+facile trovare la distanza minima fra $x$ ed un qualsiasi nodo $y$, ma è possibile trovare la distanza fra
 $x$ e tutti gli altri nodi in tempo lineare? Il seguente algoritmo, è in $O(n)$.\acc
 \codee{Dist\_ric(P vettore padri, Dist, y vertice)\{}\comm{chiamata ricorsiva}\\
 \hphantom{ident}\codee{if(P[y]==y)\{}\\
 \hphantom{ident}\hphantom{ident}\codee{Dist[y]=0}\\
 \hphantom{ident}\hphantom{ident}\codee{return 0}\\
 \hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{if(P[y]>0)\{}\\
+\hphantom{ident}\codee{if(Dist[y]>0)\{}\\
 \hphantom{ident}\hphantom{ident}\codee{Dist[y]=Dist[P[y]]+1}\\
 \hphantom{ident}\hphantom{ident}\codee{return Dist[y]}\\
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{Dist[y]=Dist\_ric(P,Dist,P[y])+1}\\
 \hphantom{ident}\codee{return Dist[y]}\\
 \codee{\}}\acc
-Basta poi eseguire tale chiamata per ogni nodo del grafo, inizializzando l'apposito vettore \code{Dist}, ogni nodo viene controllato 
+Basta poi eseguire tale chiamata per ogni nodo del grafo, inizializzando l'apposito vettore \code{Dist}, ogni nodo viene controllato
 una singola volta, per questo è garantita la complessità lineare.
 \subsection{Grafi Pesati}
-Consideriamo adesso un nuovo tipo di grafi, che introducono il concetto di \textbf{peso sugli archi}, ogni arco del grafo, 
+Consideriamo adesso un nuovo tipo di grafi, che introducono il concetto di \textbf{peso sugli archi}, ogni arco del grafo,
 avrà ad esso associato un numero reale detto, appunto, \textit{peso}, indicato con $w : E(G)\rightarrow \mathbb{R}^+$,
-rimodellando il concetto di distanza.\acc 
+rimodellando il concetto di distanza.\acc
 In un grafo pesato, si definisce il \textbf{peso di un cammino} come la somma dei pesi associati ad ogni arco del cammino,
-la distanza fra due vertici sarà data dal peso del cammino fra i due vertici con il peso minimo, se il peso di ogni 
+la distanza fra due vertici sarà data dal peso del cammino fra i due vertici con il peso minimo, se il peso di ogni
 arco è 1, la definizione di distanza coincide con la definizione classica per i grafi non pesati. \begin{center}
     \includegraphics[width=1\textwidth ]{images/grafoPesato.eps}
-    \end{center}  
-Per poter calcolare correttamente la distanza in un tempo polinomiale è assolutamente necessaro che 
-i pesi degli archi siano tutti positivi (si vedrà in seguito un algoritmo a tale scopo).\acc 
-\textbf{Osservazione} : Se  $w : E(G)\rightarrow \mathbb{R}^+$ (i pesi sono positivi), per due qualsiasi 
+\end{center}
+Per poter calcolare correttamente la distanza in un tempo polinomiale è assolutamente necessaro che
+i pesi degli archi siano tutti positivi (si vedrà in seguito un algoritmo a tale scopo).\acc
+\textbf{Osservazione} : Se  $w : E(G)\rightarrow \mathbb{R}^+$ (i pesi sono positivi), per due qualsiasi
 vertici $x$ e $y$, valgono le seguenti:\begin{itemize}
     \item $dist(x,x)=0$
     \item $dist(x,y)>0\iff x\ne y$
     \item $dist(x,y)\le dist(x,z)+dist(z,y)$ $\forall z\in V(G)$
 \end{itemize}
 Uno dei problemi più noti dei grafi pesati è il calcolo della distanza (pesata) fra due nodi $x,y$, che da ora in
-poi denoteremo $dist_w(x,y)$, non è possibile utilizzare un normale BFS per la ricerca, inoltre, si noti come non è possibile 
-nemmeno calcolare la distanza fra un nodo $x$ ed i suoi vicini, in quanto è possibile che $w(x,v_i)\ne dist_w(x,v_i)$, con 
-$v_i$ adiacente di $x$, si osservi però la seguente.\acc 
-\textbf{Proposizione} : Sia $G$ un grafo pesato, sia $x$ un nodo e sia $\{v_1,v_2\dots,v_k\}$ l'insieme dei nodi adiacenti 
-ad $x$, sia inoltre, $\alpha_i=w(x,v_i)$ $\forall i$. Sia $(x,v_j)$ l'arco con il peso $\alpha_j$ minimo rispetto 
+poi denoteremo $dist_w(x,y)$, non è possibile utilizzare un normale BFS per la ricerca, inoltre, si noti come non è possibile
+nemmeno calcolare la distanza fra un nodo $x$ ed i suoi vicini, in quanto è possibile che $w(x,v_i)\ne dist_w(x,v_i)$, con
+$v_i$ adiacente di $x$, si osservi però la seguente.\acc
+\textbf{Proposizione} : Sia $G$ un grafo pesato, sia $x$ un nodo e sia $\{v_1,v_2\dots,v_k\}$ l'insieme dei nodi adiacenti
+ad $x$, sia inoltre, $\alpha_i=w(x,v_i)$ $\forall i$. Sia $(x,v_j)$ l'arco con il peso $\alpha_j$ minimo rispetto
 ai restanti, ebbene si ha che $\alpha_j=w(x,v_j)=dist_w(x,v_j)$. \begin{center}
     \includegraphics[width=0.9\textwidth ]{images/distNodiVicini.eps}
-    \end{center}  
-\textbf{Dimostrazione} : Sia $P$ un qualsiasi altro cammino da $x$ a $v_j$, che non percorra l'arco 
-$(x,v_j)$. Necessariamente, in $P$ sarà contenuto almeno un arco $(x,v_i)$, con $v_i\ne v_j$, quindi 
-$w(P)\ge w(x,v_i)$, ma per ipotesi $w(x,v_j)<w(x,v_i)$, quindi $w(P)\ge w(x,v_j)\implies(x,v_j)$ è il cammino minimo 
-da $x$ a $v_j$. $\blacksquare$\acc 
-Questa proposizione può essere generalizzata, sia $R$ un insieme dei vertici per cui è nota la distanza pesata effettiva con un 
-nodo di partenza $x$. Conoscendo $dist_w(u,x)$ se $u\in R$, vogliamo trovare la distanza fra $x$ ed un nodo $v\notin R$, 
-essa può essere trovata minimizzando il peso di un cammino composto da un cammino fra $x$ ed un nodo $u$, più un arco 
-$(u,v)$.\acc 
-\textbf{Proposizione} : Sia $G$ un grafo pesato ed $x$ un vertice, sia $R\subseteq V(G)$ un insieme di vertici per cui 
-è nota la distanza con $x$. Sia $(u,v)$ l'arco che \textit{minimizza} il valore $dist_w(x,u)+w(u,v)$ con $u\in R \land v\notin R$, 
+\end{center}
+\textbf{Dimostrazione} : Sia $P$ un qualsiasi altro cammino da $x$ a $v_j$, che non percorra l'arco
+$(x,v_j)$. Necessariamente, in $P$ sarà contenuto almeno un arco $(x,v_i)$, con $v_i\ne v_j$, quindi
+$w(P)\ge w(x,v_i)$, ma per ipotesi $w(x,v_j)<w(x,v_i)$, quindi $w(P)\ge w(x,v_j)\implies(x,v_j)$ è il cammino minimo
+da $x$ a $v_j$. $\blacksquare$\acc
+Questa proposizione può essere generalizzata, sia $R$ un insieme dei vertici per cui è nota la distanza pesata effettiva con un
+nodo di partenza $x$. Conoscendo $dist_w(u,x)$ se $u\in R$, vogliamo trovare la distanza fra $x$ ed un nodo $v\notin R$,
+essa può essere trovata minimizzando il peso di un cammino composto da un cammino fra $x$ ed un nodo $u$, più un arco
+$(u,v)$.\acc
+\textbf{Proposizione} : Sia $G$ un grafo pesato ed $x$ un vertice, sia $R\subseteq V(G)$ un insieme di vertici per cui
+è nota la distanza con $x$. Sia $(u,v)$ l'arco che \textit{minimizza} il valore $dist_w(x,u)+w(u,v)$ con $u\in R \land v\notin R$,
 si ha che $dist_w(x,v)=dist_w(x,u)+w(u,v)$.\begin{center}
     \includegraphics[width=0.35\textwidth ]{images/insiemeR.eps}
-    \end{center}  
-\textbf{Dimostrazione} : Sia $P$ un qualsiasi altro cammino da $x$ a $v$, partendo da $x$ ed attraversando $P$, ci 
-sarà ad un certo punto un arco $(u',v')$, tale che $u'\in R\land v'\notin R$. \acc Consideriamo adesso due sotto-cammini di 
-$P$, ossia $Q_1=$\{da $x$ a $u'$\}, e $Q_2=$\{da $v'$ a $v$\}, sarà che $P=Q_1+(u',v')+Q_2$, ne consegue che 
-$w(P)=w(Q_1)+w(u',v')+w(Q_2)$, per ipotesi $w(Q_1)\ge dist_w(x,u')$ dato che $u'\in R$, e si ha che $w(Q_2)\ge 0$ (sarebbe 0 
-se e solo se $v'=u'$).\acc 
-Si ha che $w(Q_1)+w(u',v')\ge dist_w(x,u)+w(u,v)$ in quanto quest'ultima era minimizzata, quindi non esistono cammini 
-con un peso minore, allora $dist_w(x,v)=dist_w(x,u)+w(u,v)$. $\blacksquare$\acc 
-In \textit{conclusione}, dato un insieme $R$ per cui sono note le distanze da un vertice $x$, è sempre possibile trovare un 
+\end{center}
+\textbf{Dimostrazione} : Sia $P$ un qualsiasi altro cammino da $x$ a $v$, partendo da $x$ ed attraversando $P$, ci
+sarà ad un certo punto un arco $(u',v')$, tale che $u'\in R\land v'\notin R$. \acc Consideriamo adesso due sotto-cammini di
+$P$, ossia $Q_1=$\{da $x$ a $u'$\}, e $Q_2=$\{da $v'$ a $v$\}, sarà che $P=Q_1+(u',v')+Q_2$, ne consegue che
+$w(P)=w(Q_1)+w(u',v')+w(Q_2)$, per ipotesi $w(Q_1)\ge dist_w(x,u')$ dato che $u'\in R$, e si ha che $w(Q_2)\ge 0$ (sarebbe 0
+se e solo se $v'=u'$).\acc
+Si ha che $w(Q_1)+w(u',v')\ge dist_w(x,u)+w(u,v)$ in quanto quest'ultima era minimizzata, quindi non esistono cammini
+con un peso minore, allora $dist_w(x,v)=dist_w(x,u)+w(u,v)$. $\blacksquare$\acc
+In \textit{conclusione}, dato un insieme $R$ per cui sono note le distanze da un vertice $x$, è sempre possibile trovare un
 nuovo nodo $v$ di cui sarà nota la distanza, incrementando $R$, fino a che tale insieme non conterrà tutti i vertici.\begin{center}
     Pseudocodice
 \end{center}
-\codee{Dijkstra\_non\_ottimizzato(G graph (pesato), x vert)\{}\comm{calcola distanze con pesi}\\ 
+\codee{Dijkstra\_non\_ottimizzato(G graph (pesato), x vert)\{}\comm{calcola distanze con pesi}\\
 \hphantom{ident}\codee{Dist : array lungo $n=|V(G)|$ inizializzato a 0}\\
 \hphantom{ident}\codee{R : Insieme = \{x\}}\\
 \hphantom{ident}\codee{while(R$\ne$V(G))\{}\\
@@ -1043,9 +1043,9 @@ nuovo nodo $v$ di cui sarà nota la distanza, incrementando $R$, fino a che tale
 \hphantom{ident}\codee{\}}\\
 \hphantom{ident}\codee{return Dist}\\
 \codee{\}}\newpage
-Nel ciclo \code{while} vengono eseguite $n$ iterazioni in quanto $R$ ad ogni iterazione cresce ed è limitato da 
-$V(G)$, all'interno del ciclo, l'operazione \code{for} costa $n+m$ iterazioni, la complessità totale dell'algoritmo 
-risutla essere $O\big(n(n+m)\big)$.\acc 
+Nel ciclo \code{while} vengono eseguite $n$ iterazioni in quanto $R$ ad ogni iterazione cresce ed è limitato da
+$V(G)$, all'interno del ciclo, l'operazione \code{for} costa $n+m$ iterazioni, la complessità totale dell'algoritmo
+risutla essere $O\big(n(n+m)\big)$.\acc
 È possibile migliorare l'efficienza dell'algoritmo servendosi di un \textit{min heap} per la memorizzazione degli archi.\acc
 \codee{Dijkstra(G graph (pesato), x vert)\{}\\
 \hphantom{ident}\codee{Dist : array lungo $n=|V(G)|$ inizializzato a $\infty$}\\
