@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.11)  21 MAR 2024 13:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.11)  5 APR 2024 18:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -483,17 +483,26 @@ LaTeX Warning: No \author given.
 [1
 
 {C:/Users/mcasu/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3]
-<images/UML.png, id=59, 398.23781pt x 453.94594pt>
-File: images/UML.png Graphic file (type png)
-<use images/UML.png>
-Package pdftex.def Info: images/UML.png  used on input line 76.
-(pdftex.def)             Requested size: 532.0695pt x 606.57352pt.
+Package epstopdf Info: Source file: <images/UML.eps>
+(epstopdf)                    date: 2024-04-05 17:59:27
+(epstopdf)                    size: 32221 bytes
+(epstopdf)             Output file: <images/UML-eps-converted-to.pdf>
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/UML-eps-converted-to.pdf images/UML.eps>
+(epstopdf)             \includegraphics on input line 76.
+runsystem(miktex-epstopdf --outfile=images/UML-eps-converted-to.pdf images/UML.eps)...executed safely (allowed).
 
-Overfull \hbox (48.37263pt too wide) in paragraph at lines 76--77
- [] 
- []
+Package epstopdf Info: Result file: <images/UML-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-04-05 18:00:23
+(epstopdf)                    size: 13869 bytes.
 
-[4 <./images/UML.png>] (Accademia 2.aux)
+
+pdfTeX warning: pdflatex (file ./images/UML-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/UML-eps-converted-to.pdf, id=59, 363.3575pt x 405.515pt>
+File: images/UML-eps-converted-to.pdf Graphic file (type pdf)
+<use images/UML-eps-converted-to.pdf>
+Package pdftex.def Info: images/UML-eps-converted-to.pdf  used on input line 76.
+(pdftex.def)             Requested size: 483.69687pt x 539.82936pt.
+[4 <./images/UML-eps-converted-to.pdf>] (Accademia 2.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -503,16 +512,16 @@ Package rerunfilecheck Info: File `"Accademia 2".out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  14363 strings out of 475248
- 229747 string characters out of 5767628
+ 229839 string characters out of 5767628
  1930801 words of memory out of 5000000
  35657 multiletter control sequences out of 15000+600000
  566872 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,7n,79p,389b,530s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on "Accademia 2.pdf" (4 pages, 170171 bytes).
+Output written on "Accademia 2.pdf" (4 pages, 75175 bytes).
 PDF statistics:
- 92 PDF objects out of 1000 (max. 8388607)
+ 98 PDF objects out of 1000 (max. 8388607)
  32 named destinations out of 1000 (max. 500000)
  38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
