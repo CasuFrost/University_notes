@@ -1141,7 +1141,7 @@ Anche se tale astrazione è stata costruita per una comunicazione mono-direziona
 trasporta i dati, di trasportare anche i riscontri ACK, tale tecnica è nota con il nome di \textit{piggy-backing}, 
 permettendo a due enti di comunicare e contemporaneamente notificarsi dell'ascolto.
 \subsection{TCP}
-\subsubsection{Introduzione}
+\subsubsection{Introduzione e Struttura del Segmento}
 Il protocollo TCP vede il trasferimento dei dati, non come l'invio di segmenti, ma come l'invio di un 
 flusso di byte che compongono i messaggi, che deve arrivare dal mittente al destinatario in un 
 preciso ordine, è un protocollo bidirezionale che prevede una misura massima per la dimensione dei segmenti, 
@@ -1153,5 +1153,46 @@ connessione, tramite dei messaggi di controllo. Un segmento TCP è lo stesso sia
 che per un messaggio di ACK (dato che utilizza il piggy-backing), ed è la seguente:\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/TCPsegment.eps}
 \end{center} 
-Il numero di sequenza
+Il numero di sequenza non si riferisce al numero d'ordine del segmento, ma si riferisce al numero d'ordine 
+del primo byte del segmento di cui fa riferimento.\begin{quote}\color{gray}
+    Ad esempio, si vuole mandare un messaggio di 10 byte, verrà incapsulato in 2 segmenti tcp di 
+    5 byte ciascuno, il primo segmento conterrà i byte dal numero 1 al numero 5, avrà quindi numero di 
+    sequenza 1, il secondo segmento conterrà i byte dal numero 6 al numero 10, avrà quindi numero di 
+    sequenza 6.\color{black}
+\end{quote}
+Il numero dell'ACK fa riferimento al byte successivo atteso, un numero di ACK $x$ indica che sono stati ricevuti tutti 
+i byte dal primo fino al $x-1$ esimo (l'ACK è comulativo). Il campo \textit{"INFO"} contiene delle informazioni come il numero di lunghezza 
+dell'header, un flag che indica se il checksum è in utilizzo oppure no, dei flag riguardo la gestione/sincronizzazione 
+della connessione ed altre informazioni.\acc 
+Il campo \textit{"finestra del ricevitore"} indica il numero di byte che il destinatario può "accogliere", ossia 
+attendere, è necessario per il controllo della congestione, se la rete è congestionata, tale numero 
+di byte sarà più basso, imponendo al mittente di porre limite al numero di pacchetti che può inviare, per non intasare 
+ulteriormente la connessione. Il campo \textit{"opzioni aggiuntive"} contiene informazioni come la lunghezza 
+del messaggio.\acc 
+La gestione dei segmenti arrivati fuori ordine, non è considerata dal TCP, bensì dipende dall'implementazione.
+\subsubsection{Gestione del Timer}
+Abbiamo visto che un protocollo che ha lo scopo di garantire un trasferimento affidabile deve servirsi di un timeout 
+per la ritrasmissione dei pacchetti andati perduti, ma come va dosato il tempo effettivo di durata del timer?\acc 
+È chiaro che, il timeout deve essere almeno uguale o superiore al RTT (\textit{round trip time}), altrimenti ogni pacchetto 
+inviato scadrebbe in un timeout, il punto è che il RTT è variabile, e deve essere misurato da un timer, chiameremo 
+il tempo di RTT effettivo misurato dal timer $sampleRTT$, tramite tale misurazione per un pacchetto,
+ vogliamo stimare il RTT del pacchetto successivo, mantenendo la stima regolare, senza che sia troppo condizionata dalle 
+ oscillazioni (variabilità) del $sampleRTT$.\acc 
+ Viene utilizzata una tecnica nota come \textbf{EWMA} (exponential waited moving avarage), che tramite l'uso di un 
+ peso $\alpha$ (numero reale fra 0 ed 1), utilizza le misurazioni precedenti per stimare il RTT successivo. Si indica con 
+ $RTTstimato(t)$, la stima del RTT al tempo $t$, si ha che:
+ $$ RTTstimato(t) = (1-\alpha)\cdot RTTstimato(t-1)+\alpha \cdot SampleRTT$$
+ Se $\alpha = \nicefrac{1}{2}$, il RTT stimato sarà una media fra il RTT precedentemente stimato e quello 
+ precedentemente misurato. Un valore tipico che si utilizza è $\alpha=0.125$.\acc 
+ Il time out necessita inoltre di un minimo spazio, margine di sicurezza, in modo da essere di poco superiore 
+ al RTT stimato, il valore effettivo che verrà utilizzato per il timeout, sarà pesato da tale margine di sicurezza 
+ noto come $DevRTT$, misura la precisione della stima, ed è influenzato dalla variabilità del $SampleRTT$.
+ $$ DevRTT(t) = (1-\beta)\cdot DevRTT(t-1) + \beta\cdot(|SampleRTT-RTTstimato(t-1)|) $$
+ Dove $\beta$ è un numero reale fra 0 ed 1. Il tempo effettivo del timeout sarà:
+ $$ timeout=RTTstimato+4\cdot DevRTT$$
+ Si noti il seguente grafico che mostra la differenza fra il RTT misurato ed il RTT stimato (quest'ultimo risulta 
+ regolare e meno soggetto ad oscillazioni).\begin{center}
+    \includegraphics[width=\textwidth ]{images/RTTstimato.eps}
+\end{center} 
+\subsubsection{Semplificazione del TCP}
 \end{document}
