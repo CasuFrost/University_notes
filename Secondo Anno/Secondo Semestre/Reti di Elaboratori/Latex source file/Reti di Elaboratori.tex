@@ -1140,8 +1140,8 @@ al livello applicativo, decapsulandoli.\begin{center}
 Anche se tale astrazione è stata costruita per una comunicazione mono-direzionale, nulla vita ad un pacchetto che 
 trasporta i dati, di trasportare anche i riscontri ACK, tale tecnica è nota con il nome di \textit{piggy-backing}, 
 permettendo a due enti di comunicare e contemporaneamente notificarsi dell'ascolto.
-\subsection{TCP}
-\subsubsection{Introduzione e Struttura del Segmento}
+\subsection{TCP - parte 1 : Affidabilità e Connessione}
+\subsubsection{Struttura del Segmento}
 Il protocollo TCP vede il trasferimento dei dati, non come l'invio di segmenti, ma come l'invio di un 
 flusso di byte che compongono i messaggi, che deve arrivare dal mittente al destinatario in un 
 preciso ordine, è un protocollo bidirezionale che prevede una misura massima per la dimensione dei segmenti, 
@@ -1194,5 +1194,88 @@ il tempo di RTT effettivo misurato dal timer $sampleRTT$, tramite tale misurazio
  regolare e meno soggetto ad oscillazioni).\begin{center}
     \includegraphics[width=\textwidth ]{images/RTTstimato.eps}
 \end{center} 
-\subsubsection{Semplificazione del TCP}
+\subsubsection{Semplificazione del TCP, Gestione del Flusso e della Connessione}
+Vediamo adesso il funzionamento del TCP in maniera approssimativa, cominciando dal ruolo del \textbf{mittente}, 
+esso riceve un messaggio dal livello applicativo, tale messaggio viene incapsulato in un segmento TCP con 
+l'aggiunta di un header, dopo di che, se non vi è già un timer in esecuzione, viene avviato (si ricordi che 
+è in esecuzione un solo timer valido per il segmento inviato meno recentemente per la quale non si è ricevuto 
+ancora l'ACK).\acc 
+All'avvenimento di un timeout, il mittente dovrà ri-inviare il segmento in questione, riavviando anche il timer. 
+Alla ricezione di un ACK (che si ricorda essere comulativo), viene aggiornata la finestra di pacchetti 
+da inviare, se vi sono ancora pacchetti il cui invio non è confermato, partirà un timer associato al pacchetto 
+inviato meno recentemente fra questi ultimi.\acc Vediamo il comportamento del \textbf{destinatario}:\begin{itemize}
+    \item \textbf{evento} : arrivo di un segmento in ordine,
+    con numero di segmento atteso, 
+   ossia per cui tutti i segmenti precedenti  ad esso sono 
+   già stati confermati  (situazione regolare) \\ \textbf{risposta} : si attende un tempo (solitamente 500ms) prima 
+   di inviare l'ACK, questo delay serve a coprire 
+   situazioni in cui, dovesse arrivare un nuovo segmento (successivo a
+    quello originale)  pochi istanti dopo (riducendo il numero di ACK
+    complessivi inviati).
+    \item \textbf{evento} :arrivo di un segmento in ordine, con numero
+    di segmento atteso,  ma un segmento precedente ricevuto,
+    non è ancora stato confermato 
+   tramite l'invio di un ACK (complementare
+    all'evento precedente)\\
+    \textbf{risposta} : si invia immediatamente un ACK comulativo,
+    confermando entrambi i segmenti.
+    \item \textbf{evento} : arrivo di un segmento fuori ordine\\
+    \textbf{risposta} : si invia immediatamente un ACK duplicato in
+    cui si richiede il segmento atteso in ordine
+    \item \textbf{evento} : arrivo di un segmento che riempie
+    parzialmente o completamente un gap\\
+    \textbf{risposta} : si invia immediatamente un ACK 
+\end{itemize}
+Nell'ultimo caso, in cui si parla di "gap" da riempire, si intende una situazione in cui il destinatario ha confermato 
+(ad esempio), i segmenti 1,2 e 3, è in attesa del 4, ma mantiene nel buffer i segmenti 5 e 6, l'arrivo del 
+segmento 4, farà si che verranno mandati al livello applicativo i segmenti 4,5 e 6, facendo si che il destinatario 
+invia un ACK comulativo con numero 6 (si ricordi che il numero di segmento si riferisce ai byte e non al segmento 
+stesso, sono stati utilizzati numeri sequenziali per semplicità, nell'assunzione che ogni segmento abbia 1 byte).\acc 
+Si osservi la seguente situazione:\begin{center}
+    \includegraphics[width=\textwidth ]{images/fastRetrasmit.eps}
+\end{center} 
+Introduciamo il \textbf{controllo del flusso}, si consideri uno scenario, dalla parte di un destinatario 
+TCP, in cui il livello di rete fornisce segmenti più rapidamente rispetto a quanto il livello di applicazione 
+possa leggerne, riempendo il buffer del socket TCP. \acc In tal caso il destinatario, dovrà notificare il mittente del 
+fatto che esso sta trasmettendo troppo \textit{rapidamente}, almeno più di quanto esso possa processare i 
+segmenti. Il destinatario avviserà il mittente tramite gli appositi campi nell'header relativi alla sua finestra 
+di ricezione.\acc 
+Si osservi come questa è una congestion \textit{locale}, e non da parte della rete, può avvenire anche se la rete 
+è totalmente libera, e dipende eslcusivamente dalla velocità di elaborazione dei segmenti del destinatario.\acc 
+Il destinatario TCP "dichiara" lo spazio che ha libero per i segmenti nel buffer tramite il 
+campo \code{rwnd} nell'header, ed il mittente imposta la sua finestra di segmenti possibilmente 
+inviabili prima di essere confermati, proprio al valore di \code{rwnd}, ciò garantisce l'assenza di 
+sovraccaricamento nel buffer del ricevitore.\acc 
+Il TCP si occupa anche di creare una \textbf{connessione} stabile fra i due comunicatori, tramite la già 
+citata operazione di \textbf{handshake} (stretta di mano). Consiste, nella dichiarazione da parte dei due comunicatori 
+di voler aprire una connessione (richiesta ed accettazione), e nel concordamento di alcuni parametri, quali il 
+numero di porta, la finestra di ricezione, oppure il numero iniziale di segmento atteso.\acc 
+Inizialmente il TCP si serviva di un handshake \textit{a 2 vie}:\begin{enumerate}
+    \item 
+ colui che voleva aprire la connessione (richiedente) 
+inviava una richiesta di connessione ad un host (richiesto), tale richiesta era accompagnata da un numero 
+$x$.     \item  il richiesto, rispondeva con un messaggio di "accettazione", re-inviando il numero $x$ per indicare 
+che la risposta è relativa alla richiesta dello stesso numero.
+\item a quel punto, il richiedente era pronto ad inviare dati, inviando però, anche un valore numerico aggiuntivo, 
+ossia $x+1$. 
+\item il richiesto, riceve i dati, ed invia un messaggio di ACK, con numero di sequenza $x+1$, alla ricezione di quest'ultimo 
+la connessione sarà ufficialmente stabilita.
+\end{enumerate}
+In alcuni scenari, l'handshake a 2 vie può risultare problematico, ad esempio quando il richiedente si disconnette 
+durante una richiesta di connessione, lasciando una connessione "aperta", per questo le implementazioni odierne del TCP 
+implementano l'handshake \textit{a 3 vie}:\begin{enumerate}
+    \item il richiedente, sceglie un numero $x$, ed invia un messaggio TCP SYN. 
+    \item il richiesto che riceve il messaggio, sceglie un numero $y$, che sarà il primo numero di 
+    sequenza, ed invia al richiedente un ACK, con numero di sequenza richiesto $y$, insieme ad un valore aggiuntivo,
+    ossia $x+1$. 
+    \item il richiedente riceverà il messaggio, verificando di aver ricevuto $x+1$, ciò indicherà che il 
+    richiesto è attivo, invierà poi un segmento (possibilmente 
+    già provvisto di dati), con numero di ACK $y+1$. 
+    \item il richiesto, una volta ricevuto il segmento con ACK $y+1$, avrà la certezza che il richiedente è attivo, 
+    e la connessione sarà ufficialmente stabilita.
+\end{enumerate}
+Quando una connessione deve essere \textit{chiusa}, colui che ha intenzione di interromperla invierà un segmento 
+con un flag \code{FIN=1}, colui che lo riceverà, risponderà con un ACK combinato con il proprio \code{FIN}, 
+confermando la chiusura della connessione.
+\subsection{TCP - parte 2 : Controllo della Congestione }
 \end{document}
