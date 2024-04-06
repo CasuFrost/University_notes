@@ -272,7 +272,7 @@ diagnostici come \textit{tracerout}, che si occupano di misurare il ritardo che 
 per spostarsi dalla sorgente ad un nodo della rete. \acc Tali software fanno uso di una proprietà dei pacchetti,
 è possibile impostare per ogni pacchetto un "tempo di vita", ossia un numero massimo di nodi della rete (router)
 nella quale possono passare, quando tale limite viene superato, il pacchetto verrà automaticamente scartato.\acc
-La maggiorparte dei router, quando vedono un pacchetto venire eliminato, mandano indietro al destinatario un messaggio di
+La maggiorparte dei router, quando vedono un pacchetto venire eliminato, mandano indietro al mittente un messaggio di
 avvertimento, per indicare appunto che il pacchetto è stato perso.\acc Grazie alla combinazione di questi due meccanismi,
 traceroute invia dei pacchetti con un determinato tempo di vita, per poi aspettarsi un messaggio di ritorno, misurando il
 tempo che intercorre fra l'invio del pacchetto ad un determinato router, ed il messaggio di ritorno che avvisa dell'eliminazione
@@ -283,7 +283,7 @@ collegamento. Supponiamo di avere un link con rate di $R$ bit al secondo ed un r
 di $x$ secondi, si avrà che $R\cdot x$, non sarà altro che il \textit{massimo numero di bit} che
 possono passare contemporaneamente sul collegamento.\acc
 Possiamo pensare al collegamento come un tubo che passa fra due punti, il ritardo rappresenta la lunghezza
-del tubo, ed il rate la sezione trasfersale, il volume del tubo è appunto tale prodotto rate$\times$ritardo.
+del tubo, ed il rate la sezione trasversale, il volume del tubo è appunto tale prodotto rate$\times$ritardo.
 \begin{center}
     \includegraphics[width=0.8\textwidth ]{images/tubo.eps}
 \end{center}
@@ -295,8 +295,8 @@ La comunicazione in rete è suddivisa su più livelli, per questo si dice che i 
 definiti a strati (verrà chiarito il concetto), con lo scopo di suddividere un compito complesso
 in più compiti semplici tramite la modularizzazione.\acc
 Possiamo vedere ogni livello come una \textit{black box}, in cui un messaggio entra e viene
-manipolato per poi uscire e passare al livello sccessivo. Ogni livello offre utilizza i servizi
-del livello inferiore, e fornisce servizi al livello superiore, indipendentemente da coma sia implementato. \acc
+manipolato per poi uscire e passare al livello sccessivo. Ogni livello offre ed utilizza i servizi
+del livello inferiore, e fornisce servizi al livello superiore, indipendentemente da come sia implementato. \acc
 Quando la comunicazione è bidirezionale, un protocollo deve poter eseguire i due compiti inversi (ad esempio,
 il protocollo che si occupa della crittografia, deve saper cifrare il messaggio ed anche decifrarlo).\acc
 La stratificazione dei livelli e dei protocolli garantisce più semplicità quando si tratta di manutenere
@@ -319,7 +319,7 @@ seguito, verranno approfonditi e caratterizzati in seguito.
           \textg{messaggi}.
     \item Il livello di \textbf{trasporto} si occupa del trasferimento dei messaggi  dal livello di
           applicazione di un client al livello di applicazione del server, alcuni protocolli sono
-          \textit{TCP,UDP}, in questo livello, i pacchetti sono chiamati
+          \textit{TCP} e \textit{UDP}, in questo livello, i pacchetti sono chiamati
           \textg{segmenti}.
     \item Il livello di \textbf{rete} riguarda l'instradamento dei segmenti dall'origine alla
           destinazione, un noto protocollo è l'\textit{IP}, i pacchetti in questo livello sono detti
@@ -519,7 +519,7 @@ informazione sulle richieste passate del client.\acc
 Le connessioni HTTP sono di due tipi:\begin{itemize}
     \item \textbf{non persistenti} - La connessione TCP viene aperta, viene scambiato al massimo un oggetto,
           per poi chiudere la connessione.
-    \item \textbf{persistenti} - La connession TCP viene aperta, permette a più oggetti di essere inviati
+    \item \textbf{persistenti} - La connessione TCP viene aperta, permette a più oggetti di essere inviati
           sulla singola connessione, per poi venire chiusa.
 \end{itemize}\begin{center}
     \includegraphics[width=1\textwidth ]{images/httpnonPersistente.eps}
@@ -659,7 +659,7 @@ cosiddetto \textit{server di posta} sia per inviare che ricevere messaggi, trami
 l'incapsulamento in un segmento TCP.\acc
 L'utente che invia una e-mail utilizza uno \textit{user agent}, il programma che si occupa di notificare
 all'utente le e-mail da leggere. L'utente invierà al server di posta la lettera, che tramite
-Internet, la invierà al server di posta dove risiede l'utente destinatario.\begin{center}
+Internet, verrà al server di posta dove risiede l'utente destinatario.\begin{center}
     \includegraphics[width=1\textwidth ]{images/smtp.eps}
 \end{center}
 Il protocollo è utilizzato dai server di posta per comunicare, utilizza TCP per un trasferimento
@@ -713,7 +713,7 @@ Dato il punto (3), l'utente non potrà mantenere i messaggi se si connette da ho
 esiste un protocollo più avanzato, l'\textbf{IMAP} (Internet Mail Access Protocol), esso fa si che i messaggi
 siano mantenuti sul server, e consente ad essi di venire organizzati in cartelle, conservando lo stato
 dell'utente fra le varie sessioni.\acc Il protocollo IMAP permette all'utente anche di spostare messaggi
-fra cartelle ed effettuare ricerche in cartelle remote. Alcune server di posta forniscono accesso alle mail
+fra cartelle ed effettuare ricerche in cartelle remote. Alcuni server di posta forniscono accesso alle mail
 tramite HTTP, rendendo il browser lo user agent.
 \subsection{File Transfer Protocol}
 Il protocollo FTP nasce con lo scopo di trasferire file piuttosto che messaggi, è quindi ottimizzato a tale
@@ -759,7 +759,7 @@ visto in seguito), ciò significa che per connettersi ad una serie di differenti
 tenere a mente tutti gli indirizzi IP che li identificano, anche se questi ultimi, possono cambiare.\acc
 Nei browser, non si inserisce l'indirizzo IP, bensì una stringa chiamata \textit{dominio}, come
 \code{google.com} o \code{www.twitch.tv}, la traduzione da dominio ad indirizzo IP, avviene in maniera automatica,
-ed è una funzionalità di base dell'Internet, sebbene essa è implementata a livello di applicazione, tramite il
+ed è una funzionalità di base dell'Internet, sebbene essa sia implementata a livello di applicazione, tramite il
 protocollo \textbf{DNS}, che si occupa di eseguire tale mapping.\acc
 Per eseguire la traduzione è necessaria una tabella che associa ad ogni dominio un indirizzo IP, è quindi
 necessario un enorme database, de facto, con DNS si intende sia il protcollo, sia l'enorme
@@ -771,7 +771,7 @@ per risolvere\footnote{con risolvere, si intende il processo di traduzione} i no
     \item distribuzione del carico
 \end{itemize}
 \subsubsection{Gerarchia degli Host-Name e Risoluzione}
-È necessario mantenere il database decentralizzato in quanto è soggetto da milioni e milioni di richieste in pochi
+È necessario mantenere il database decentralizzato in quanto è soggetto a milioni e milioni di richieste in pochi
 secondi, le aziende sono responsabili dei propri record nel database. Esistono svariati server DNS, che contengono una
 porzione del database, nessun server mantiene il mapping di tutti gli host esistenti. Le $2^{32}$ coppie
 IP-nome host sono memorizzate in maniera da rendere breve la ricerca. \acc
@@ -798,7 +798,7 @@ delegherà il compito al DNS locale che:\begin{itemize}
     \item Risponderà con la traduzione in cache, se presente.
     \item Interrogherà i vari server DNS per risolvere il nome e fornirlo all'host.
 \end{itemize}
-L'host quindi non risolve direttamente il nome, ma affida il compito al DNS locale. Il DNS locale può
+L'host quindi non risolve direttamente il nome, ma delega il compito al DNS locale. Il DNS locale può
 risolvere il nome facendo una query che può essere di due differenti tipi:\begin{itemize}
     \item \textbf{query iterativa} - Il server DNS locale contatta un server DNS $x$, esso non ha
           la soluzione diretta, ma fornisce l'indirizzo di un altro server $y$, che potrebbe avere la
@@ -907,7 +907,7 @@ Il tempo per distribuire il file agli $n$ peer sarà:$$
     t_{distr}>\max(\nicefrac{ F}{u_s},\nicefrac{ F}{d_{min}},n\cdot \dfrac{F}{u_s +\sum_{i=1}^n u_i})
 $$
 Anche in questo caso aumenta linearmente con $n$, ma ogni peer apporta alla rete capacità di servizio,
-ciò controbilancia l'aumento, facendo si che all'aumentare di $n$, il tempo di distribuzione si stabilizza
+ciò controbilancia l'aumento, facendo si che all'aumentare di $n$, il tempo di distribuzione si stabilizzi
 senza crescere ulteriormente, sono state fatte delle stime statistiche in merito:\begin{center}
     \includegraphics[width=0.6\textwidth ]{images/p2pTime.eps}
 \end{center}
@@ -996,7 +996,7 @@ stabilire una connessione, è un sistema best-effort privo del concetto di hands
 perché il segmento UDP è molto semplice, non c'è molta aggiunta di informazioni, l'header è molto piccolo.
 \acc
 Non c'è alcun controllo della congestione, un segmento UDP verrà inviato a prescindere dal traffico sulla
-rete, viene utilizzato sulle applicazioni multimediali (streaming), dal DNS, dal SMTP e da HTTP/3, che
+rete, viene utilizzato sulle applicazioni multimediali (streaming), dal DNS e da HTTP/3, che
 gestisce il trasferimento affidabile a livello applicativo. \acc
 Tale protocollo è estremamente semplice, non fa altro che ricevere un messaggio dall'applicazione, aggiungere
 un header UDP, ed inviarlo al livello di rete, un segmento UDP ha il seguente formato:\begin{center}
@@ -1041,7 +1041,7 @@ canale di comunicazione affidabile, in cui non ci sono perdite di
 pacchetti o errori sui bit.\acc
 Semplicemente, il mittente che riceve un messaggio dal livello applicativo,
 lo incapsulerà in un pacchetto, per poi inviarlo ai livelli inferiori.
-Il destinatario riceverà il pacchetto dai livelli inferiori, lo
+Il destinatario riceverà il pacchetto dai livelli inferiori,
 effettuerà il decapsulamento ed invierà il messaggio al giusto
 processo tramite il numero di porta.\begin{center}
     \includegraphics[width=\textwidth ]{images/rdt1.0.eps}
@@ -1074,7 +1074,7 @@ Sono necessari i seguenti costrutti:
     tramite il checksum.
 \end{itemize}
 Se il destinatario dovesse notificare un NAK, sarà necessario re-inviare il pacchetto che è stato modificato. 
-Per ragioni di semplicità, tale protocollo utilizzera una politica di invio pacchetti \textbf{stop-and-wait}, 
+Per ragioni di semplicità, tale protocollo utilizzerà una politica di invio pacchetti \textbf{stop-and-wait}, 
 consiste nell'inviare un singolo pacchetto alla volta, ed inviare il pacchetto successivo solo quando 
 si ha la certezza che quello precedente sia stato consegnato.\begin{center}
     \includegraphics[width=1\textwidth ]{images/rdt2.0.eps}
@@ -1126,12 +1126,12 @@ memorizzati in un buffer.\begin{center}
     \includegraphics[width=1\textwidth ]{images/go-back-n.eps}
 \end{center} 
 L'altro costrutto di pipelining è noto con il nome di \textbf{selective repeat}, piuttosto che inviare un ACK 
-comulativo, ne viene inviato uno \textbf{selettivo}, riservato ad ogni singolo pacchetto, i pacchetti arrivati ma 
+comulativo, ne viene inviato uno \textbf{selettivo}, riservato ad ogni singolo pacchetto, i pacchetti arrivati
 in un ordine sbagliato, verranno salvati in un buffer, in questo modo, il mittente avrà una finestra di $n$ pacchetti 
 da poter inviare, ed il destinatario avrà una finestra di $n$ pacchetti da poter mantenere nel buffer, inoltre ogni 
 pacchetto ha il suo personale timer.\acc 
 Tale metodo risulta efficiente in quanto non è necessario dover inviare nuovamente l'intera finestra di $n$ pacchetti, 
-e riduce il grado di ridondanza, inoltre se la reta è congestionata, la rispedizione di tutti i pacchetti 
+e riduce il grado di ridondanza, inoltre se la rete è congestionata, la rispedizione di tutti i pacchetti 
 peggiora la congestione. \acc 
 Il destinatario salverà i pacchetti nel buffer, quando avrà a disposizione la giusta sequenza ordinata, li invierà 
 al livello applicativo, decapsulandoli.\begin{center}
@@ -1148,14 +1148,14 @@ preciso ordine, è un protocollo bidirezionale che prevede una misura massima pe
 detta $MSS$ (solitamente 1460 byte).\acc 
 Il TCP permette ai due enti che comunicano di stabilire una connessione virtuale, di cui il resto della rete 
 non è a conoscenza. Utilizza dei riscontri ACK comulativi, e sfrutta il pipelining per l'invio di più 
-pacchetti, con il termine \textbf{handshake}, si intende l'azione in cui i due enti stabiliscono la 
+pacchetti. Con il termine \textbf{handshake}, si intende l'azione in cui i due enti stabiliscono la 
 connessione, tramite dei messaggi di controllo. Un segmento TCP è lo stesso sia per un messaggio di invio dati, sia 
 che per un messaggio di ACK (dato che utilizza il piggy-backing), ed è la seguente:\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/TCPsegment.eps}
 \end{center} 
 Il numero di sequenza non si riferisce al numero d'ordine del segmento, ma si riferisce al numero d'ordine 
 del primo byte del segmento di cui fa riferimento.\begin{quote}\color{gray}
-    Ad esempio, si vuole mandare un messaggio di 10 byte, verrà incapsulato in 2 segmenti tcp di 
+    Ad esempio, si vuole mandare un messaggio di 10 byte, verrà incapsulato in 2 segmenti TCP di 
     5 byte ciascuno, il primo segmento conterrà i byte dal numero 1 al numero 5, avrà quindi numero di 
     sequenza 1, il secondo segmento conterrà i byte dal numero 6 al numero 10, avrà quindi numero di 
     sequenza 6.\color{black}
@@ -1164,8 +1164,8 @@ Il numero dell'ACK fa riferimento al byte successivo atteso, un numero di ACK $x
 i byte dal primo fino al $x-1$ esimo (l'ACK è comulativo). Il campo \textit{"INFO"} contiene delle informazioni come il numero di lunghezza 
 dell'header, un flag che indica se il checksum è in utilizzo oppure no, dei flag riguardo la gestione/sincronizzazione 
 della connessione ed altre informazioni.\acc 
-Il campo \textit{"finestra del ricevitore"} indica il numero di byte che il destinatario può "accogliere", ossia 
-attendere, è necessario per il controllo della congestione, se la rete è congestionata, tale numero 
+Il campo \textit{"finestra del ricevitore"} indica il numero di byte che il destinatario può "accogliere", 
+ è necessario per il controllo del flusso, se il destinatario è "ingolfato", tale numero 
 di byte sarà più basso, imponendo al mittente di porre limite al numero di pacchetti che può inviare, per non intasare 
 ulteriormente la connessione. Il campo \textit{"opzioni aggiuntive"} contiene informazioni come la lunghezza 
 del messaggio.\acc 
@@ -1240,7 +1240,7 @@ possa leggerne, riempendo il buffer del socket TCP. \acc In tal caso il destinat
 fatto che esso sta trasmettendo troppo \textit{rapidamente}, almeno più di quanto esso possa processare i 
 segmenti. Il destinatario avviserà il mittente tramite gli appositi campi nell'header relativi alla sua finestra 
 di ricezione.\acc 
-Si osservi come questa è una congestion \textit{locale}, e non da parte della rete, può avvenire anche se la rete 
+Si osservi come questa è una congestione \textit{locale}, e non da parte della rete, può avvenire anche se la rete 
 è totalmente libera, e dipende eslcusivamente dalla velocità di elaborazione dei segmenti del destinatario.\acc 
 Il destinatario TCP "dichiara" lo spazio che ha libero per i segmenti nel buffer tramite il 
 campo \code{rwnd} nell'header, ed il mittente imposta la sua finestra di segmenti possibilmente 

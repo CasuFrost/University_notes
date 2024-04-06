@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240405113208" modified="D:20240405114917"/>
+<info created="D:20240405113208" modified="D:20240406193944"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -579,5 +579,11 @@ h
 <use matrix="1 0 0 1 -24 124" name="mark/square(sx)" pos="88 568" size="large" stroke="1 0 0.502"/>
 <text matrix="1 0 0 1 32 -44" transformations="translations" pos="72 720" stroke="0" type="label" width="59.361" height="6.918" depth="0" halign="center" valign="center">RTT effettivo</text>
 <text matrix="1 0 0 1 32 -28" transformations="translations" pos="72 720" stroke="0" type="label" width="56.926" height="6.808" depth="0" halign="center" valign="center">RTT stimato</text>
+<path stroke="black" arrow="normal/normal">
+544 512 m
+548 512 l
+</path>
+<text matrix="1 0 0 1 416 -164" transformations="translations" pos="144 676" stroke="black" type="label" width="19.372" height="6.654" depth="0" halign="center" valign="center">time</text>
+<text matrix="0 1 -1 0 732 536" pos="72 720" stroke="0" type="label" width="24.215" height="6.808" depth="0" halign="center" valign="center">RTT </text>
 </page>
 </ipe>
