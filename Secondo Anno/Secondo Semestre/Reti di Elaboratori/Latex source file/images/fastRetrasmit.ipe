@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240405210402" modified="D:20240405215219"/>
+<info created="D:20240405210402" modified="D:20240407105827"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -440,6 +440,6 @@ h
 <text matrix="1 0 0 1 -136 -32" transformations="translations" pos="224 768" stroke="0" type="label" width="29.113" height="6.918" depth="0" halign="center" valign="center">host A</text>
 <text matrix="1 0 0 1 -20 -32" transformations="translations" pos="224 768" stroke="0" type="label" width="28.698" height="6.918" depth="0" halign="center" valign="center">host B</text>
 <text matrix="1 0 0 1 4 16" transformations="translations" pos="264 664" stroke="0" type="minipage" width="300" height="70.496" depth="65.66" valign="top" size="large">In assenza dell&apos;ACK di un segmento, si attende la scadenza del timer prima di ritrasmetterlo, in questo scenario però, alla ricezione del terzo ACK duplicato, piuttosto che attendere 
-il timer si ritrasmette subito il pacchetto, dato che si ha la certezza che tale pacchetto è stato perso, tale procedura è nota con il nome di \textbf{Fast Retransmit}, inoltre, il fatto che siano arrivati 3 duplicati in un tempo breve, è anche indice del fatto che la rete non sia congestionata, la ritrasmissione istantanea del segmento quindi non sarà gravante sulla congestione.</text>
+il timer si ritrasmette subito il pacchetto, dato che si ha la certezza che tale pacchetto è stato perso, tale procedura è nota con il nome di \textbf{Fast Retransmit}, inoltre, il fatto che siano arrivati 3 ACK duplicati in un tempo breve, è anche indice del fatto che la rete non sia congestionata, la ritrasmissione istantanea del segmento quindi non sarà gravante sulla congestione.</text>
 </page>
 </ipe>
