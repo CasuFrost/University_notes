@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240404203944" modified="D:20240404204611"/>
+<info created="D:20240404203944" modified="D:20240407104413"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -315,8 +315,8 @@ h
 <view layers="alpha" active="alpha"/>
 <text layer="alpha" matrix="1 0 0 1 -8 8" transformations="translations" pos="220 720" stroke="black" type="label" width="79.729" height="6.926" depth="1.93" halign="center" valign="center">porta del mittente</text>
 <text matrix="1 0 0 1 92 8" transformations="translations" pos="220 720" stroke="black" type="label" width="94.479" height="6.926" depth="1.93" halign="center" valign="center">porta del destinatario</text>
-<text matrix="1 0 0 1 36 -8" transformations="translations" pos="220 720" stroke="black" type="label" width="85.873" height="6.926" depth="1.93" halign="center" valign="center">numero di sequenza</text>
-<text matrix="1 0 0 1 36 -24" transformations="translations" pos="220 720" stroke="black" type="label" width="76.131" height="6.918" depth="0" halign="center" valign="center">numero dell&apos;ACK</text>
+<text matrix="1 0 0 1 40 -8" transformations="translations" pos="220 720" stroke="black" type="label" width="85.873" height="6.926" depth="1.93" halign="center" valign="center">numero di sequenza</text>
+<text matrix="1 0 0 1 40 -24" transformations="translations" pos="220 720" stroke="black" type="label" width="76.131" height="6.918" depth="0" halign="center" valign="center">numero dell&apos;ACK</text>
 <text matrix="1 0 0 1 92 -40" transformations="translations" pos="220 720" stroke="black" type="label" width="92.293" height="6.918" depth="0" halign="center" valign="center">finestra del ricevitore</text>
 <text matrix="1 0 0 1 -8 -56" transformations="translations" pos="220 720" stroke="black" type="label" width="41.29" height="6.918" depth="0" halign="center" valign="center">checksum</text>
 <text matrix="1 0 0 1 92 -56" transformations="translations" pos="220 720" stroke="0.753" type="label" width="73.392" height="6.926" depth="1.93" halign="center" valign="center">Urg data pointer</text>

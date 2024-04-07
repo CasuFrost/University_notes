@@ -441,8 +441,8 @@ che definiscono:\begin{enumerate}
 I protocolli possono essere aperti e reperibili a chiunque, come HTTP, oppure chiusi e proprietari, come
 il protocollo che utilizza \textit{Skype}.
 \subsubsection{Parentesi sul Livello di Trasporto}
-Facciamo adesso degli accenni al livello di trasporto, di quali servizi necessità un app a questo livello? In
-base alle caratteristiche o alle funzione, un applicazione potrebbe prediligere alcuni servizi piuttosto che altri:\begin{itemize}
+Facciamo adesso degli accenni al livello di trasporto, di quali servizi necessita un app a questo livello? In
+base alle caratteristiche o alle funzionalità, un applicazione potrebbe prediligere alcuni servizi piuttosto che altri:\begin{itemize}
     \item \textbf{integrità dei dati} : Alcune applicazioni di rete, come quelle che devono trasferire file,
           richiedono che i dati ricevuti siano al 100\% quelli inviati, e non ammettono perdite di pacchetti.
     \item \textbf{garanzie temporali} : Alcune applicazioni necessitano che il ritardo fra l'invio e la
@@ -771,8 +771,8 @@ per risolvere\footnote{con risolvere, si intende il processo di traduzione} i no
     \item distribuzione del carico
 \end{itemize}
 \subsubsection{Gerarchia degli Host-Name e Risoluzione}
-È necessario mantenere il database decentralizzato in quanto è soggetto a milioni e milioni di richieste in pochi
-secondi, le aziende sono responsabili dei propri record nel database. Esistono svariati server DNS, che contengono una
+È necessario mantenere il database decentralizzato in quanto è soggetto a milioni e milioni di richieste 
+al giorno, le aziende sono responsabili dei propri record nel database. Esistono svariati server DNS, che contengono una
 porzione del database, nessun server mantiene il mapping di tutti gli host esistenti. Le $2^{32}$ coppie
 IP-nome host sono memorizzate in maniera da rendere breve la ricerca. \acc
 Gli host vengono raggruppati in maniera gerarchica in base al loro nome e alla separazione delle parole
@@ -853,7 +853,8 @@ messaggi di risposta condividono lo stesso identico formato, appositi flags iden
     \item Il campo \textbf{flags} è composto anche esso da 16 bit, ed indica alcune specifiche della
           richiesta/risposta, indicando prima di tutto quale  tipo di messaggio è, se la ricorsione è richiesta
           oppure concessa, e se la risposta è autoritativa.
-    \item I restanti campi servono per la query effettiva, i record forniti, i record forniti da server
+    \item I restanti campi servono per la query effettiva, i record forniti 
+    da server non autoritativi, i record forniti da server
           autoritativi, oppure delle informazioni aggiuntive fornite dal server DNS che potrebbero risultare utili.
 \end{itemize}
 \subsubsection{Ruolo del Punto e Sicurezza}
@@ -878,7 +879,7 @@ Quali dei seguenti record del database DNS non sono validi? (l'ordine è domain,
 I record sbagliati sono i seguenti:\begin{itemize}
     \item \color{red}(2) \color{black} è richiesto un indirizzo ma viene fornito un nome
     \item  \color{red}(3) \color{black} CNAME non può essere usato nella root di un dominio
-    \item \color{red}(4) \color{black} viene chiesto un nome di dominio ma viene fornito un indirizzo
+    \item \color{red}(4) \color{black} è richiesto il nome del DNS server ma viene fornito un indirizzo
 \end{itemize}
 \subsection{Il Paradigma Peer to Peer}
 Tale paradigma si differenzia dal classico client-server, gli elementi della rete sono detti \textit{peer},
@@ -890,7 +891,7 @@ Supponiamo di avere un file di dimensione $F$ byte, ed un server ha una velocit�
 al secondo. Ogni client $i$ ha una velocità di download $d_i$ e di upload  $u_i$.\acc
 Nel paradigma client-server, bisognerebbe attendere il tempo che il server impieghi a trasmettere $n$
 copie del file
-sulla rete, dato da $n\cdot\nicefrac{ F}{u_s}$, per bisognerebbe attendere il tempo che tutti i client scarichino il
+sulla rete, dato da $n\cdot\nicefrac{ F}{u_s}$, e bisognerebbe attendere il tempo che tutti i client scarichino il
 file. Ovviamente il download da parte di questi ultimi avviene in parallelo, quindi il tempo totale di scaricamento
 dipende dal tempo di scaricamento del client con la velocità di download più lenta. sia $d_{min}$ la velocità
 del client più lento, il tempo per distribuire il file risulta essere:
@@ -1062,7 +1063,9 @@ canale totalmente affidabile.\acc
 \end{itemize}
 \subsubsection{rdt 2.0}
 Consideriamo adesso un canale che non è al 100\% affidabile, ossia che, con una certa probabilità, 
-causi degli \textit{errori} sui bit, che dovranno essere rilevati tramite il campo checksum nell'header.
+causi degli \textit{errori} sui bit, che dovranno essere rilevati tramite il campo checksum\footnote{
+    si assume che il checksum sia infallibile e rilevi sempre errori, se presenti
+} nell'header.
 Sono necessari i seguenti costrutti: 
 \begin{itemize}
     \item Con il termine \textbf{ACK}, si intende un pacchetto che il destinatario invia al mittente in seguito 
@@ -1139,18 +1142,38 @@ al livello applicativo, decapsulandoli.\begin{center}
 \end{center} 
 Anche se tale astrazione è stata costruita per una comunicazione mono-direzionale, nulla vita ad un pacchetto che 
 trasporta i dati, di trasportare anche i riscontri ACK, tale tecnica è nota con il nome di \textit{piggy-backing}, 
-permettendo a due enti di comunicare e contemporaneamente notificarsi dell'ascolto.
+permettendo a due enti di comunicare e contemporaneamente notificarsi dell'ascolto.\acc 
+Un problema noto del selective repeat risiede nelle dimensioni della finestra del ricevitore, la mancata sincronizzazione 
+fra la finestra del mittente e quest'ultima causa gravi conseguenze quando si ha a che fare con un intervallo finito 
+di numeri di sequenza, si osservi il seguente esempio, in cui il range di numeri di sequenza per i 
+pacchetti sono [0,1,2,3] e la finestra del ricevitore ha ampiezza 3:\begin{center}
+    \includegraphics[width=\textwidth ]{images/ErroreSelectiveRepeat.eps}
+\end{center} 
+Il primo pacchetto ed il quinto pacchetto, hanno entrambi numero di sequenza 0. Il mittente, riceve correttamente
+i primi tre pacchetti, con numeri di sequenza 0, 1 e 2, e la sua finestra verrà spostata sui pacchetti 
+3, 0 ed 1, che sono rispettivamente il quarto, il quinto ed il sesto.\acc 
+Il fatto è che, a seguito della perdita dei pacchetti ACK, il mittente non sa che i primi tre pacchetti sono stati 
+ricevuti, ri-invierà quindi il primo pacchetto con numero di sequenza 0 a seguito del timeout. Qui, il destinatario, 
+sta attendendo il quinto pacchetto che ha numero di sequenza 0, e riceve il primo pacchetto, anche esso con numero di 
+sequenza 0.\acc 
+Il destinatario interpreterà il primo pacchetto come se fosse il quinto, essendo che essi hanno lo stesso numero di 
+sequenza, tale errore causa una grave corruzione dei dati ricevuti.\acc 
+Per evitare ciò, è necessario sincronizzare l'ampiezza della finestra del destinatario, con la sequenza dei 
+numeri dei pacchetti, secondo tale relazione: \begin{itemize}
+    \item Se i numeri di sequenza sono $2^m$ (Ad esempio, [0,1,2,3] sono $2^2$).
+    \item La finestra del ricevitore deve essere grande $2^{m-1}$ (Ad esempio : $2^{2-1}=2^1=2$).
+\end{itemize}
 \subsection{TCP - parte 1 : Affidabilità e Connessione}
 \subsubsection{Struttura del Segmento}
 Il protocollo TCP vede il trasferimento dei dati, non come l'invio di segmenti, ma come l'invio di un 
-flusso di byte che compongono i messaggi, che deve arrivare dal mittente al destinatario in un 
+flusso di byte che compongono i messaggi, tale flusso deve arrivare dal mittente al destinatario in un 
 preciso ordine, è un protocollo bidirezionale che prevede una misura massima per la dimensione dei segmenti, 
 detta $MSS$ (solitamente 1460 byte).\acc 
 Il TCP permette ai due enti che comunicano di stabilire una connessione virtuale, di cui il resto della rete 
 non è a conoscenza. Utilizza dei riscontri ACK comulativi, e sfrutta il pipelining per l'invio di più 
 pacchetti. Con il termine \textbf{handshake}, si intende l'azione in cui i due enti stabiliscono la 
 connessione, tramite dei messaggi di controllo. Un segmento TCP è lo stesso sia per un messaggio di invio dati, sia 
-che per un messaggio di ACK (dato che utilizza il piggy-backing), ed è la seguente:\begin{center}
+che per un messaggio di ACK (dato che utilizza il piggy-backing), ed è il seguente:\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/TCPsegment.eps}
 \end{center} 
 Il numero di sequenza non si riferisce al numero d'ordine del segmento, ma si riferisce al numero d'ordine 
@@ -1188,9 +1211,11 @@ il tempo di RTT effettivo misurato dal timer $sampleRTT$, tramite tale misurazio
  al RTT stimato, il valore effettivo che verrà utilizzato per il timeout, sarà pesato da tale margine di sicurezza 
  noto come $DevRTT$, misura la precisione della stima, ed è influenzato dalla variabilità del $SampleRTT$.
  $$ DevRTT(t) = (1-\beta)\cdot DevRTT(t-1) + \beta\cdot(|SampleRTT-RTTstimato(t-1)|) $$
- Dove $\beta$ è un numero reale fra 0 ed 1. Il tempo effettivo del timeout sarà:
+ Dove $\beta$ è un numero reale fra 0 ed 1, viene utilizzato come peso, il valore 
+ $|SampleRTT-RTTstimato(t-1)|$ non è altro che la differenza fra il RTT stimato ed il 
+ RTT effettivo. Il tempo effettivo del timeout sarà:
  $$ timeout=RTTstimato+4\cdot DevRTT$$
- Si noti il seguente grafico che mostra la differenza fra il RTT misurato ed il RTT stimato (quest'ultimo risulta 
+ Si osservi il seguente grafico che mostra la differenza fra il RTT misurato ed il RTT stimato (quest'ultimo risulta 
  regolare e meno soggetto ad oscillazioni).\begin{center}
     \includegraphics[width=\textwidth ]{images/RTTstimato.eps}
 \end{center} 
@@ -1229,7 +1254,7 @@ inviato meno recentemente fra questi ultimi.\acc Vediamo il comportamento del \t
 Nell'ultimo caso, in cui si parla di "gap" da riempire, si intende una situazione in cui il destinatario ha confermato 
 (ad esempio), i segmenti 1,2 e 3, è in attesa del 4, ma mantiene nel buffer i segmenti 5 e 6, l'arrivo del 
 segmento 4, farà si che verranno mandati al livello applicativo i segmenti 4,5 e 6, facendo si che il destinatario 
-invia un ACK comulativo con numero 6 (si ricordi che il numero di segmento si riferisce ai byte e non al segmento 
+invia un ACK comulativo con numero 7 (si ricordi che il numero di segmento si riferisce ai byte e non al segmento 
 stesso, sono stati utilizzati numeri sequenziali per semplicità, nell'assunzione che ogni segmento abbia 1 byte).\acc 
 Si osservi la seguente situazione:\begin{center}
     \includegraphics[width=\textwidth ]{images/fastRetrasmit.eps}
@@ -1274,6 +1299,8 @@ implementano l'handshake \textit{a 3 vie}:\begin{enumerate}
     \item il richiesto, una volta ricevuto il segmento con ACK $y+1$, avrà la certezza che il richiedente è attivo, 
     e la connessione sarà ufficialmente stabilita.
 \end{enumerate}
+Tali numeri $x$ ed $y$ stabiliscono quindi il numero di sequenza iniziale, che molto spesso non è 0, infatti, 
+per ragioni di sicurezza,  tali due numeri sono selezionati casualmente.\acc
 Quando una connessione deve essere \textit{chiusa}, colui che ha intenzione di interromperla invierà un segmento 
 con un flag \code{FIN=1}, colui che lo riceverà, risponderà con un ACK combinato con il proprio \code{FIN}, 
 confermando la chiusura della connessione.
