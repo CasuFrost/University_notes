@@ -1,0 +1,105 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{mathtools}
+\usepackage[table,xcdraw]{xcolor}
+\definecolor{light-gray}{gray}{0.95}
+\definecolor{sap}{RGB}{130, 36, 51}
+\definecolor{lg}{RGB}{102, 161, 95}
+\definecolor{g}{RGB}{60, 50, 50}
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\shelll}[1]{\colorbox{black}{\textcolor{white}{\texttt{#1}}}}
+\newcommand{\shell}[1]{\colorbox{black}{\textcolor{white}{\texttt{casufrost@debian:$\sim$\$ #1}}}}
+\newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
+\newcommand{\acc}{\\\hphantom{}\\}
+\newcommand{\dete}{{\rightarrow}}
+\newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\comm}[1]{\color{lg}\textit{\hphantom{spaz}// \text{#1}}\color{black}}
+\newcommand{\textg}[1]{\color{g}{\textbf{#1}}\color{black}}
+\newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
+\title{Esonero Aprile 2015 - Reti di Elaboratori}
+\date{\vspace{-5ex}}
+\begin{document}
+\maketitle
+\textbf{1) Quali sono i livelli protcollari presenti su un host?}\acc 
+
+
+
+\textbf{2) Quali sono i vantaggi di avere uno stack protocollare basato slla stratificazione (architettura a livelli)?}\acc 
+
+
+
+\textbf{3) Come si calcola il ritardo di propagazione sperimentato nella trasmissione di un pacchetto di lunghezza $L$ bit, su un link 
+di capacità $R$($\nicefrac{bit}{sec}$) e lungo $D$ chilometri?}\acc 
+
+
+\textbf{4) Come si calcola il ritardo di trasmissione sperimentato nella trasmissione di un pacchetto
+di lunghezza $L$ bit, su un link di capacità $R$($\nicefrac{bit}{sec}$) e lungo $D$ chilometri?}\acc 
+
+
+\textbf{5) Quali sono le prestazioni in termini di latenza (ritardo) sperimentate su tale link nel caso di un 
+processo di arrivo del traffico Poissoniano al crescere del carico offerto sul link?}\acc 
+
+
+\textbf{6) Cosa è un socket? }\acc 
+
+
+\textbf{7) Cosa identifica univocamente un socket TCP?}\acc 
+
+
+\textbf{8) Quale livello di trasporto utilizza l'applicazione DNS e perché?}\acc 
+
+
+
+\textbf{9) Quale protocollo è utilizzato per la comunicazione fra mail server?}\acc 
+
+
+
+\textbf{10) Cosa si intende per controllo di flusso?}\acc 
+
+
+
+\textbf{11) Cosa si intende per slow start in TCP?}\acc 
+
+
+
+\textbf{12) La trasmissione affidabile dell'informazione in TPC avviene secondo un protocollo di AutomaticRepeat Request ibrido.
+ Il protocollo è un mix di quali protocolli? (Quali caratteristiche ha di uno e dell'altro?)}\acc 
+
+
+
+ \textbf{13) Quali livelli protocollari sono presenti su un router?}\\
+ \color{red}Domanda riguardante argomenti
+ non ancora presentati 
+ nel programma oggi 07/04/2024\color{black}\acc
+ Livello di rete e livello di collegamento (risposta "a sentimento").\acc 
+
+
+
+ \textbf{14) Che tipo di protocollo di routing è BGP (intra o 
+ inter-autonomoussystemrouting? Distancevector/Link State/Policy Based/PathBased?}\\
+ \color{red}Domanda riguardante argomenti
+ non ancora presentati 
+ nel programma oggi 07/04/2024\color{black}\acc\hphantom{text}\acc
+ \Large  \textbf{Domande estese}\acc
+ \normalsize
+
+
+ \textbf{1) Si descriva in dettaglio il protocollo RIP (in quale contesto è usato? Quale 
+ è l'algoritmo usato per il calcolo dei cammini minimi? Quali la metrica? Quale il funzionamento 
+ del protocollo in dettaglio? Quali i problemi del funzionamento del protocollo e come sono risolti in pratica)?}\\
+ \color{red}Domanda riguardante argomenti
+ non ancora presentati 
+ nel programma oggi 07/04/2024\color{black}\acc\hphantom{text}\acc
+
+
+ \textbf{2) Si descriva il funzionamento dell'applicazione Web(in quale livello e per cosa è usata?
+  Descrizione del protocollo usato per scambiare i messaggi. Si spieghi cosa sono i cookies. Discutete 
+  anche come si possono migliorare le prestazioni dell'applicazione web.}
+\end{document}

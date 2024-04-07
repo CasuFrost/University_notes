@@ -1,0 +1,147 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{mathtools}
+\usepackage[table,xcdraw]{xcolor}
+\definecolor{light-gray}{gray}{0.95}
+\definecolor{sap}{RGB}{130, 36, 51}
+\definecolor{lg}{RGB}{102, 161, 95}
+\definecolor{g}{RGB}{60, 50, 50}
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\shelll}[1]{\colorbox{black}{\textcolor{white}{\texttt{#1}}}}
+\newcommand{\shell}[1]{\colorbox{black}{\textcolor{white}{\texttt{casufrost@debian:$\sim$\$ #1}}}}
+\newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
+\newcommand{\acc}{\\\hphantom{}\\}
+\newcommand{\dete}{{\rightarrow}}
+\newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\comm}[1]{\color{lg}\textit{\hphantom{spaz}// \text{#1}}\color{black}}
+\newcommand{\textg}[1]{\color{g}{\textbf{#1}}\color{black}}
+\newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
+\title{Esonero Aprile 2015 - Reti di Elaboratori}
+\date{\vspace{-5ex}}
+\begin{document}
+\maketitle
+\textbf{1) Quali sono i livelli protcollari presenti su un host?}\acc 
+I livelli protocollari presenti su un host sono : applicazione, TSL, trasporto e rete. Un host invia e riceve messaggi dal/al livello 
+di applicazione, li incapsula in segmenti (trasporto) per scambiarli fra processi su diversi host, e li incapsula a livello 
+di rete in datagrammi per far si che raggiungano l'host richiesto.\acc
+
+
+\textbf{2) Quali sono i vantaggi di avere uno stack protocollare basato slla stratificazione (architettura a livelli)?}\acc 
+I vantaggi derivano dal fatto che ogni singolo livello, può usufruire dei servizi implementati dal livello inferiore, i livelli 
+vengono visti come delle blackbox, ciò garantisce una grande modularità e rende Internet più organizzato, anche se ciò aumenta la 
+complessità della struttura ed introduce ridondanza.\acc 
+
+
+\textbf{3) Come si calcola il ritardo di propagazione sperimentato nella trasmissione di un pacchetto di lunghezza $L$ bit, su un link 
+di capacità $R$($\nicefrac{bit}{sec}$) e lungo $D$ chilometri?}\acc 
+Il ritardo di propagazione è indipendente dal rate $R$ e dalla lunghezza $L$ del pacchetto, è il tempo che impiega un bit per 
+propagarsi in un link, sia $v$ la velocità di propagazione di un bit sul link misurata in $\nicefrac{m}{s}$, il ritardo di propagazione è dato 
+da $\frac{D\cdot 10^{3}}{v} sec$. (ho moltiplicato $D$ per $10^{3}$ per convertirlo da chilometri a metri).\acc 
+
+
+\textbf{4) Come si calcola il ritardo di trasmissione sperimentato nella trasmissione di un pacchetto
+di lunghezza $L$ bit, su un link di capacità $R$($\nicefrac{bit}{sec}$) e lungo $D$ chilometri?}\acc 
+Il ritardo di trasmissione è esattamente $\frac{L}{R}sec$.\acc 
+
+
+\textbf{5) Quali sono le prestazioni in termini di latenza (ritardo) sperimentate su tale link nel caso di un 
+processo di arrivo del traffico Poissoniano al crescere del carico offerto sul link?}\acc 
+Se consideriamo $\lambda$ come il tasso di arrivo dei pacchetti misurato in pacchetti al secondo, si ha che, il valore 
+adimensionale $\nicefrac{\lambda\cdot L}{R}$ da una misura del tempo di attesa in coda di un pacchetto, se tale valore 
+tende ad 1, il tempo di attesa tende ad $+\infty$, se tale valore è maggiore o uguale ad 1, il tempo di attesa è $+\infty$.\acc 
+
+
+\textbf{6) Cosa è un socket? }\acc 
+Un socket non è altro che il canale virtuale nella quale comunicano due processi su host diversi. Il livello di trasporto mette in 
+comunicazione due processi tramite i numeri di porta, un socket è una mappatura numero di porta - processo. Più socket possono 
+essere associati ad un unico processo.\acc 
+
+
+\textbf{7) Cosa identifica univocamente un socket TCP?}\acc 
+Un socket TCP è identificato univocamente dalla quadrupla : (IP mittente, porta mittente, IP destinatario, porta destinatario).\acc 
+
+
+\textbf{8) Quale livello di trasporto utilizza l'applicazione DNS e perché?}\acc
+I messaggi DNS devono essere i più veloci possibili, non necessitano di stabilire una connessione fra DNS server e colui che sta risolvendo 
+un nome, è una richiesta unica di un record di un database, per questo, si utilizza UDP. Se il pacchetto con la richiesta viene perduto, 
+la richiesta viene semplicemente ritrasmessa.\acc 
+
+\textbf{9) Quale protocollo è utilizzato per la comunicazione fra mail server?}\acc 
+Il protocollo SMTP.\acc 
+
+
+\textbf{10) Cosa si intende per controllo di flusso?}\acc 
+Quando due processi comunicano, può succedere che uno dei due processi, invii segmenti più rapidamente rispetto a quanto l'altro 
+processo possa elaborarne ed inviarne al livello di applicazione, tale "ingolfamento" fa si che il buffer del socket del processo che 
+sta ricevendo pacchetti venga riempito. Il controllo del flusso (implementato dal TCP), fa si che i processi forniscano informazioni 
+sul numero di segmenti che possono ricevere senza venire ingolfati, facendo si che l'altro processo comunicante si adatti e non 
+invii segmenti troppo rapidamente, evitando l'ingolfamento.\acc 
+
+
+\textbf{11) Cosa si intende per slow start in TCP?}\acc 
+Si intende il processo/algoritmo per il quale, colui che non ha informazioni sulla finestra di ricevimento del destinatario, 
+inizia ad inviare segmenti, aumentando la propria finestra di invio in maniera esponenziale, in modo tale da raggiungere 
+rapidamente il limite di segmenti inviabili, per poi ri-impostare correttamente tale finestra in base alle disponibilità del 
+destinatario. Se tale algoritmo non venisse applicato, si impiegherebbe troppo tempo a raggiungere il limite prima citato, 
+causando uno spreco di banda.\acc 
+
+
+\textbf{12) La trasmissione affidabile dell'informazione in TPC avviene secondo un protocollo di AutomaticRepeat Request ibrido.
+ Il protocollo è un mix di quali protocolli? (Quali caratteristiche ha di uno e dell'altro?)}\acc 
+ Il TCP implementa un ibrido fra i due modelli di pipelining \textit{Go-back-$n$} e \textit{selective-repeat}, possono venire 
+ inviati fino ad $n$ pacchetti alla volta, ed il ricevitore ha una finestra di $m$ pacchetti che può ricevere senza venire ingolfato, 
+ gli ACK sono cumulativi, e vi è un solo timer alla volta che fa riferimento al segmento inviato meno recentemente della quale 
+ non si è ancora ricevuto un ACK. La ritrasmissione di un segmento avviene in due circostanze, la prima, è allo scadere del 
+ timeout ad esso associato, la secondo, è alla ricezione di 3 ACK duplicati da parte del destinatario (fast retransmit).\acc 
+
+
+ \textbf{13) Quali livelli protocollari sono presenti su un router?}\\
+ \color{red}Domanda riguardante argomenti
+ non ancora presentati 
+ nel programma oggi 07/04/2024\color{black}\acc
+ Livello di rete e livello di collegamento (risposta "a sentimento").\acc 
+
+
+
+ \textbf{14) Che tipo di protocollo di routing è BGP (intra o 
+ inter-autonomoussystemrouting? Distancevector/Link State/Policy Based/PathBased?}\\
+ \color{red}Domanda riguardante argomenti
+ non ancora presentati 
+ nel programma oggi 07/04/2024\color{black}\acc\hphantom{text}\acc
+ \Large  \textbf{Domande estese}\acc
+ \normalsize
+
+
+ \textbf{1) Si descriva in dettaglio il protocollo RIP (in quale contesto è usato? Quale 
+ è l'algoritmo usato per il calcolo dei cammini minimi? Quali la metrica? Quale il funzionamento 
+ del protocollo in dettaglio? Quali i problemi del funzionamento del protocollo e come sono risolti in pratica)?}\\
+ \color{red}Domanda riguardante argomenti
+ non ancora presentati 
+ nel programma oggi 07/04/2024\color{black}\acc\hphantom{text}\acc
+
+
+ \textbf{2) Si descriva il funzionamento dell'applicazione Web(in quale livello e per cosa è usata?
+  Descrizione del protocollo usato per scambiare i messaggi. Si spieghi cosa sono i cookies. Discutete 
+  anche come si possono migliorare le prestazioni dell'applicazione web.}\acc 
+Un applicazione web. è un'applicazione/processo che usufruisce delle funzionalità di Internet, ed è definita 
+nel livello di applicazione. Un host può fornire un applicazione web tramite il protocollo HTTP, creando un 
+server HTTP, aprendo un socket (TCP) sulla porta 80, necessario per accogliere le richieste. Un client HTTP, 
+farà una richiesta al server, chiedendo degli oggetti web, che sono dei file presenti sul server. Per ogni file richiesto 
+da un client HTTP, si apre una connessione TCP, sulla quale verrà trasferito il file, per poi venire chiusa alla fine della 
+condivisione. Un oggetto web, può fare riferimento ad altri oggetti web, se si richiede il primo, dovranno essere 
+trasferiti anche i restanti oggetti referenziati. Una comunicazione fra client e server HTTP non è persistente, dato 
+che alla fine di uno scambio di un oggetto la connessione viene chiusa, per questo, il client può salvare dei file 
+locali gestiti dal browser detti cookies, che permettono al server di avere informazioni riguardanti colui 
+che sta facendo le richieste, in quanto queste conterranno appunto tali cookies. 
+È possibile migliorare le prestazioni dell'applicazione, facendo si che gli oggetti HTTP vengano divisi in frame 
+più piccoli ed interlacciati, in modo tale che l'ordine di invio degli oggetti non sia identico all'ordine di 
+richiesta (se viene richiesto un oggetto molto grande per primo, tutti i restanti oggetti non saranno disponibili
+fino alla fine della condivisione di questo).  
+\end{document}
