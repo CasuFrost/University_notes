@@ -16,3 +16,5 @@ Marcherò gli esami non ancora sostenuti con $NS$.
 | Basi di Dati 1  |  30  |
 | Sistemi Operativi 1  |  30L  |
 | Calcolo delle Probabilità  |  22  |
+
+Se trovi imbarazzante il fatto che io renda pubblici i miei voti, hai ragione.
