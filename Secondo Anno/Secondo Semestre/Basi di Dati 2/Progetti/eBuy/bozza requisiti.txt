@@ -1,0 +1,51 @@
+1. Utente
+	1.1 nome
+	1.2 data registrazione
+	1.3 bid fatte
+
+2. Post (annuncio)
+	2.1 descrizione oggetto
+	2.2 categoria (fai classe categoria)
+	2.3 garanziaInAnni int>=0
+	2.4 pagabile in (implementato con enum)
+		2.4.1 bonifico
+		2.4.2 carta di credito
+	2.5 usato? (implementato con enum)
+		2.5.1 nuovo
+			2.5.1.1 garanziaInAnni int>1 (attributo specializzato)
+		2.5.2 usato 
+			2.5.2.1 condizioni {ottimo,buono,discreto, da sistemare}
+	2.6 asta o no? (disjoint.complete)
+		2.6.1 post con asta
+			2.6.1.1 prezzo iniziale in (euro,centesimi)
+			2.6.1.2 prezzo rialzi in (euro,centesimi)
+			2.6.1.3 istante scadenza asta (date time)
+			2.6.1.4 insieme di Bid (offerte)
+		2.6.2 post senza asta
+			2.6.2.1 prezzo in (euro,centesimi)
+			2.6.2.1 utente che ha effettuato l'acquisto
+
+3. Bid (offerta)
+	3.1 Utente che ha fatto l'offerta
+	3.2 Post in questione
+	3.3 Istante offerta 
+	3.4 ordine nell'offerta, n se è l'n-esimo utente che fa l'offerta
+	3.5 prezzo offerta = n*Post.rialzo+prezzo iniziale
+	3.6 bid vincente o no?
+
+tipi di dato :
+
+Price = (euro : Int>0, cent : [0..99] ) 
+
+
+
+Vincoli (bozze)
+
+Istante offerta di una bid di un oggetto X deve essere <= X.scadenza
+
+Istante offerta di una bid di utente X deve essere >= X.data registrazione
+
+data scadenza di un asta creata da utente X deve essere >= X.data registrazione
+
+	
+	
