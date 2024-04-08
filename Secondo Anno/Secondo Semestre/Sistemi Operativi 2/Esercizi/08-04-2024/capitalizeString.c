@@ -16,7 +16,7 @@ int main(int argc, char *argv[]){
 
     char* inputFile = argv[1]; //il file in input
 
-    int fdin; 
+    int fdin;
     int fdout;
     struct stat staBuffer;
 
@@ -63,7 +63,6 @@ int main(int argc, char *argv[]){
     msync(dst,staBuffer.st_size,0);
     munmap(src,  staBuffer.st_size);
     munmap(dst,  staBuffer.st_size);
-    
 
 
     return 0;
