@@ -8,6 +8,7 @@
 \usepackage{nicefrac, xfrac}
 \usepackage{mathtools}
 \newcommand{\acc}{\\\hphantom{}\\}
+\usepackage[dvipsnames]{xcolor}
 \usepackage[table,xcdraw]{xcolor}
 \definecolor{light-gray}{gray}{0.95}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
@@ -17,6 +18,7 @@
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
 \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
 \newcommand{\id}{{\hphantom{ident}}}
+\newcommand{\vincolo}[1]{\colorbox{Orange}{$[$\text{#1}$]$}}
 \title{\textbf{eBuy}}
 
 \date{}
@@ -58,7 +60,7 @@
 \id	3.2 Post in questione\\
     \id	3.3 Istante offerta \\
     \id	3.4 ordine nell'offerta, n se è l'n-esimo utente che fa l'offerta\\
-    \id	3.5 prezzo offerta = n*Post.rialzo+prezzo iniziale\\
+    \id	3.5 prezzo offerta = n$\cdot$Post.rialzo+prezzo iniziale\\
     \id	3.6 bid vincente o no?\\
 \section{Diagramma UML}\begin{center}
     \includegraphics[width=\textwidth ]{images/UML.eps}
@@ -83,7 +85,7 @@ Price = (euro : Int$>$0, cent : $[$0..99$]$ )
 \code{bidVincente() : Booleano}\begin{itemize}
     \item \textit{pre-condizioni} : Nessuna
     \item \textit{post-condizioni} : Non modifica il livello degli oggetti.\\ 
-    Sia$a:Asta$ l'oggetto per cui esiste il link ($this,a$)\\ 
+    Sia $a:Asta$ l'oggetto per cui esiste il link ($this,a$)\\ 
     Se $now<a.scadenza$, si ha che $result=False$\\
     Sia $B$ l'insieme di tutti gli oggetti $x:Bid$ per cui $\exists (x,a)$\\
     Se $\forall b\in B$ è vero che $b.istante<this.istante$, allora $result=True$\\
@@ -98,15 +100,15 @@ Price = (euro : Int$>$0, cent : $[$0..99$]$ )
     $result = price + r\cdot ($\codee{this.numero\_bid()} $-1 )$
 \end{itemize}
 \subsection{Specifica dei vincoli esterni}
-$[$V.Bid.istante\_offerta$]$ : $\forall b:Bid$  e $\forall a:Asta$ per cui $\exists (a,b)$, deve 
+\vincolo{V.Bid.istante\_offerta} : $\forall b:Bid$  e $\forall a:Asta$ per cui $\exists (a,b)$, deve 
 essere vero che $b.istante\le a.scadenza$.\acc
-$[$V.Bid.istante\_reg\_utente$]$ :  $\forall b:Bid$  e $\forall u:Utente$ per cui $\exists (u,b)$, deve 
+\vincolo{V.Bid.istante\_reg\_utente} :  $\forall b:Bid$  e $\forall u:Utente$ per cui $\exists (u,b)$, deve 
 essere vero che $b.istante\ge u.registrazione$.\acc
-$[$V.Utente.scadenza\_aste$]$ : $\forall u:Utente$, sia $P$ l'insieme degli oggetti $p:Asta$ tale che 
+\vincolo{V.Utente.scadenza\_aste} : $\forall u:Utente$, sia $P$ l'insieme degli oggetti $p:Asta$ tale che 
 $\exists (p,u):vende$. $\forall p\in P$ deve essere vero che $p.scadenza\ge u.registrazione$.\acc 
-$[$V.Utente.acquisto\_proprio\_oggetto$]$ :  $\forall u:Utente$, e per ogni $p:Post$ per cui esiste 
+\vincolo{V.Utente.acquisto\_proprio\_oggetto }:  $\forall u:Utente$, e per ogni $p:Post$ per cui esiste 
 $(p,u):acquista$, non può esistere un link $(p,u):vende$.\acc 
-$[$V.Utente.offerta\_proprio\_oggetto$]$ : $\forall u:Utente$, sia $B$ l'insieme degli oggett $b:Bid$ 
+\vincolo{V.Utente.offerta\_proprio\_oggetto} : $\forall u:Utente$, sia $B$ l'insieme degli oggett $b:Bid$ 
 per cui $\exists (b,u):offerta$. Sia $A$ l'insieme degli oggetti $a:Asta$ per cui $\exists (a,b)$ con 
 $b\in B$. $\forall a\in A$ non può esistere $(a,u):vende$. 
 \subsection{Specifica degli use-case}
