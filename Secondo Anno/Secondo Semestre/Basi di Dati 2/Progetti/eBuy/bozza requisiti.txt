@@ -33,11 +33,13 @@
 	3.5 prezzo offerta = n*Post.rialzo+prezzo iniziale
 	3.6 bid vincente o no?
 
+###############################################################
+
 tipi di dato :
 
 Price = (euro : Int>0, cent : [0..99] ) 
 
-
+###############################################################
 
 Vincoli (bozze)
 
@@ -46,6 +48,21 @@ Istante offerta di una bid di un oggetto X deve essere <= X.scadenza
 Istante offerta di una bid di utente X deve essere >= X.data registrazione
 
 data scadenza di un asta creata da utente X deve essere >= X.data registrazione
+
+###############################################################
+
+specifica Operazioni 
+
+Bid.numero_bid() 
+
+pre condizioni 
+
+post condizioni 
+
+Sia A l'asta per cui esiste il link (this,A)
+Sia B l'insieme delle bid X per cui ESISTE il link (X,A) e per cui X.istante<this.istante 
+
+return |B|+1
 
 	
 	
