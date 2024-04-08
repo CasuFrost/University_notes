@@ -43,11 +43,11 @@ Price = (euro : Int>0, cent : [0..99] )
 
 Vincoli (bozze)
 
-Istante offerta di una bid di un oggetto X deve essere <= X.scadenza
+Istante offerta di una bid di un oggetto X deve essere <= X.scadenza *
 
-Istante offerta di una bid di utente X deve essere >= X.data registrazione
+Istante offerta di una bid di utente X deve essere >= X.data registrazione *
 
-data scadenza di un asta creata da utente X deve essere >= X.data registrazione
+data scadenza di un asta creata da utente X deve essere >= X.data registrazione*
 
 ###############################################################
 
@@ -65,4 +65,5 @@ Sia B l'insieme delle bid X per cui ESISTE il link (X,A) e per cui X.istante<thi
 return |B|+1
 
 	
+
 	
