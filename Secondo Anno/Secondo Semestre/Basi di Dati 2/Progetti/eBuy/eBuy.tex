@@ -82,23 +82,6 @@ Price = (euro : Int$>$0, cent : $[$0..99$]$ )
     Sia $B$ l'insieme di tutti gli oggetti $x:Bid$ per cui $\exists (x,a) \land x.istante<this.istante$\\ 
     $result = |B|+1$ 
 \end{itemize}
-\code{bidVincente() : Booleano}\begin{itemize}
-    \item \textit{pre-condizioni} : Nessuna
-    \item \textit{post-condizioni} : Non modifica il livello degli oggetti.\\ 
-    Sia $a:Asta$ l'oggetto per cui esiste il link ($this,a$)\\ 
-    Se $now<a.scadenza$, si ha che $result=False$\\
-    Sia $B$ l'insieme di tutti gli oggetti $x:Bid$ per cui $\exists (x,a)$\\
-    Se $\forall b\in B$ è vero che $b.istante<this.istante$, allora $result=True$\\
-    altrimenti $result=False$.
-\end{itemize}
-\code{prezzoOffera() : Price}\begin{itemize}
-    \item \textit{pre-condizioni} : Nessuna
-    \item \textit{post-condizioni} : Non modifica il livello degli oggetti.\\ 
-    Sia $a:Asta$ l'oggetto per cui esiste il link ($this,a$)\\ 
-    Sia $r=a.rialzi$\\ 
-    Sia $price=a.prezzo$\\
-    $result = price + r\cdot ($\codee{this.numero\_bid()} $-1 )$
-\end{itemize}
 \subsection{Specifica dei vincoli esterni}
 \vincolo{V.Bid.istante\_offerta} : $\forall b:Bid$  e $\forall a:Asta$ per cui $\exists (a,b)$, deve 
 essere vero che $b.istante\le a.scadenza$.\acc
@@ -106,18 +89,48 @@ essere vero che $b.istante\le a.scadenza$.\acc
 essere vero che $b.istante\ge u.registrazione$.\acc
 \vincolo{V.Utente.scadenza\_aste} : $\forall u:Utente$, sia $P$ l'insieme degli oggetti $p:Asta$ tale che 
 $\exists (p,u):vende$. $\forall p\in P$ deve essere vero che $p.scadenza\ge u.registrazione$.\acc 
-\vincolo{V.Utente.acquisto\_proprio\_oggetto }:  $\forall u:Utente$, e per ogni $p:Post$ per cui esiste 
-$(p,u):acquista$, non può esistere un link $(p,u):vende$.\acc 
-\vincolo{V.Utente.offerta\_proprio\_oggetto} : $\forall u:Utente$, sia $B$ l'insieme degli oggett $b:Bid$ 
-per cui $\exists (b,u):offerta$. Sia $A$ l'insieme degli oggetti $a:Asta$ per cui $\exists (a,b)$ con 
-$b\in B$. $\forall a\in A$ non può esistere $(a,u):vende$. 
+\newpage
 \subsection{Specifica degli use-case}
 \subsubsection{Utente}
 \code{offerta (a:Asta, u:Utente) :  Bid }\begin{itemize}
-    \item textit{pre-condizioni} : Nessuna
+    \item \textit{pre-condizioni} : Non deve esistere $(u,a):pubblica$. 
     \item \textit{post-condizioni} : Viene creato un oggetto $b:Bid$ tale che:\\ 
      $b.istante=now$ \\
      $\exists (u,b) : offerta$ \\
-     $\exists (a,b) $ 
+     $\exists (a,b) $ \\ 
+     Sia $r=a.rialzi$\\ 
+     Sia $price=a.prezzo$\\
+     $b.prezzo = price + r\cdot ($\codee{this.numero\_bid()} $-1 )$\\
+     Viene creato $(u,a):acquista/bidder$ 
 \end{itemize}
+\code{compraOggetto (c:CompraSubito, u:Utente) }\begin{itemize}
+    \item \textit{pre-condizioni} : Non deve esistere $(u,c):pubblica$, non deve 
+    esistere un link di tipo $acquista$ in cui è coinvolto $c$. 
+    \item \textit{post-condizioni} : Viene creato un link di tipo $(u,c):scquista/bidder$.
+\end{itemize}
+\code{ creaAstaNuovo ( u : Utente, prezzoIniziale : Price, desc :Stringa, gar : Intero$>$1,
+}\\\code{ pag : \{Bonifico,Carta\}[1..2],
+rialzi : Price, scad : DateTime$> now$,}\\\code{ cat : Categoria[1..*])}\begin{itemize}
+    \item \textit{pre-condizioni} : Deve esistere almeno un oggetto di tipo Categoria.
+    \item \textit{post-condizioni} : Viene creato un oggetto $a:Asta$ tale che\\ 
+    $a.Price = prezzoIniziale$\\ 
+    $a.descrizione\_oggetto = desc$\\ 
+    $a.garanzia\_in\_anni = gar$\\ 
+    $a.pagamento = pag$\\
+    $\forall c \in cat$, crea un link $(a,c)$\\
+    $a.scadenza=sca$ \\
+    $a.rialzi=rialzi$\\
+    Viene creato un link $(u,a):pubblica$.
+\end{itemize}
+Simile ed analogo per i metodi realativi al:\begin{itemize}
+    \item Creare un post (compra subito) per un oggetto usato 
+    \item Creare un post (compra subito) per un oggetto nuovo 
+    \item Creare un asta per un oggetto usato
+\end{itemize}
+
+
+
+
+
+
 \end{document}
