@@ -86,7 +86,7 @@ In una rete \textit{domestica}  c'è un \textit{modem}
 (si occupa di ricevere il segnale analogico e di  \textit{modularlo} in segnale digitale)
 connesso ad un CMTS, collegato via cavo ad
 un router, collegato direttamente tramite \textit{ethernet} agli host, oppure collegato ad un \textit{access point WI-FI} che
-permette la connessione senza fili, questi utlimi tre molto spesso sono combinati in un unico device.\acc
+permette la connessione senza fili, questi ultimi tre molto spesso sono combinati in un unico device.\acc
 La connessione senza fili, o wireless connette i sistemi terminali (host) al router, tramite il già citato
 access point, esistono reti locali senza fili (WLAN), che hanno una copertura di circa 30 metri, e reti di accesso
 cellulare \textit{wide area}, utilizzate dai dispositivi mobili e fornite da un operatore di rete cellulare, ed hanno una
@@ -1305,4 +1305,73 @@ Quando una connessione deve essere \textit{chiusa}, colui che ha intenzione di i
 con un flag \code{FIN=1}, colui che lo riceverà, risponderà con un ACK combinato con il proprio \code{FIN}, 
 confermando la chiusura della connessione.
 \subsection{TCP - parte 2 : Controllo della Congestione }
+Quando i pacchetti arrivano ai router troppo rapidamente per essere gestiti dalla rete ed essere immediatamente 
+ritrasmessi, si crea un accodamento nei buffer dei router, essendo la memoria di questi buffer finita, all'aumentare 
+della coda alcuni pacchetti andranno scartati, causando una perdita di pacchetti.\acc  
+Supponiamo che, il mittente abbia perfetta conoscenza dei buffer dei router, sapendo se sono liberi o no,
+facendo si che esso possa trasmettere solo quando possibile senza causare congestione. Supponiamo poi che il mittente 
+ritrasmetta eslcusivamente i pacchetti persi, sprecando in qualche modo il rate disponibile per questi ultimi.\acc 
+ In uno scenario reale però, alcuni pacchetti possono essere ritrasmessi anche se non necessario, dato un prematuro scadere 
+ del timer, quindi si aggiunge un ulteriore spreco della capacità. Durante uno scenario di congestione è necessario più 
+ lavoro (ritrasmissioni) per un dato troughput, date le ritrasmissioni inevitabili.\begin{center}
+    \includegraphics[width=\textwidth ]{images/perditaCongestione.eps}
+\end{center} 
+Anche se la perdita sembra labile, il problema è che, queste ritrasmissioni in uno scenario con più 
+router/nodi sul percorso, causano una perdita do troughput \textit{catastrofica}, lo scarto di un pacchetto rende 
+sprecate le capacità ed il buffering di tutti i nodi utilizzati per quel pacchetto. I pacchetti tenderanno 
+ad avere una probabilità di passare per un nodo sempre più bassa, tendente a zero, così come il troughput.  
+\subsubsection{AIMD, Slow Start e Cubic} 
+Ciò fa capire che controllare la congestione è necessario. Vedremo un approccio end-to-end, in cui il mittente e destinatario 
+che comunicano "dedurranno" lo stato della congestione in base al ritardo e le perdite osservate.\acc 
+Il TCP di base, si occupa della congestione regolando la velocità di invio dei mittenti: Un mittente potrà 
+\textit{aumentare} (linearmente) la sua velocità di invio (aumentando il numero di segmenti della finestra) affinchè non si
+causerà una perdita di pacchetti, a quel punto, ridurrà \textit{sostanzialmente} la velocità, venendo 
+dimezzata. Tale approccio è detto \textbf{AIMD} (Additive Increase Multiplicative Decrease):\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/AIMD.eps}
+\end{center} 
+Ogni RTT il rate di invio aumenta di 1 MSS (misura massima per la dimensione dei segmenti) fino a quando non viene 
+osservata una perdita. Se vengono ricevuti 3 ACK duplicati, il rate viene dimezzato, se invece avviene un 
+timeout il rate viene impostato ad 1 MSS.\acc Il fatto è che quando l'aumento lineare inizia da un valore 
+basso del rate, ci vorrà del tempo prima che esso raggiunga la soglia di perdita, ciò significa che, per un certo 
+lasso di tempo il mittente sta trasmettendo più lentamente di quello che effettivamente potrebbe, causando uno spreco 
+di banda, è possibile rendere questa crescita più veloce fino al raggiungimento del limite, per poi entrare 
+nella fase di AIMD. \acc Tale algoritmo è noto come \textbf{slow start}, consiste nel far incrementare la finestra di 
+invio in maniera esponenziale, si aumenta di 1 MSS per ogni ACK ricevuto:\begin{itemize}
+    \item All'inizio si invia un segmento.
+    \item Dopo un RTT si riceve un ACK e si inviano 2 segmenti. 
+    \item Dopo un RTT si ricevono 2 ACK e si inviano 4 segmenti. 
+    \item Dopo un RTT si ricevono 4 ACK e si inviano 8 segmenti.
+    \item $\dots$
+\end{itemize}\begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/slowStart.eps}
+\end{center} 
+Quando è però che bisogna passare dalla crescita esponenziale (slow start) alla crescita 
+lineare (AIMD)? Quando la variabile \code{cwnd} = byte inviati al secondo raggiunge un valore 
+$x$ tale che $x = \dfrac{\code{cwnd'}}{2}$ dove \code{cwnd'} è il valore di \code{cwnd} prima dell'ultima perdita 
+di pacchetto. \acc 
+Si implementa una variabile \code{sstresh} che è impostata a $\dfrac{\code{cwnd'}}{2}$, quando il rate raggiunge 
+tale variabile, si passa allo stato di AIMD. A seguito di una perdita, il valore di \code{sstresh} si re-imposta 
+al nuovo valore di $\dfrac{\code{cwnd'}}{2}$ dato dalla nuova perdita. Questo comportamento è adottato dalla versione 
+del TCP nota come \textit{Tahoe}, la versione TCP \textit{Reno} passa direttamente allo stato di 
+AIMD dopo l'arrivo di 3 ACK duplicati. All'inizio della congestione, \code{sstresh} è impostato ad un valore di 
+default (nell'esempio seguente, è 12): \begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/sstresh.eps}
+\end{center} 
+Esiste anche un approccio migliore per "sondare" la larghezza di banda utilizzabile, possiamo cambiare la pendenza 
+della crescita nella fase di "congestion avoidance", sia $W_{max}$ la velocità di invio quando è stata rilevata 
+la perdita per colpa della congestione.\acc Si suppone che lo stato della congestione nel frattempo non sia cambiato 
+in maniera significativa, quindi, piuttosto che crescere linearmente, il rate salirà 
+rapidamente verso $W_{max}$, e quando vi è in prossimità, ci si avvicinerà lentamente, sia $K$ l'istante di 
+tempo stimato in cui la dimensione della finestra raggiungerà $W_{max}$, aumenteremo tale finestra 
+in funzione del cubo fra la distanza tra il tempo corrente e $K$.\acc 
+Tale versione del TCP è detta \textbf{Cubic}, è la versione predefinita sulle distribuzioni di \textit{Linux} ed è 
+il TCP più popolare per i server web più diffusi.\acc 
+\begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/TCPcubic.eps}
+\end{center} 
+Il comportamento del controllo della congestione può essere riassunto con la seguente FSM:
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/TCPfsm.png}
+\end{center} 
+\subsubsection{Differenti Approcci TCP}
 \end{document}
