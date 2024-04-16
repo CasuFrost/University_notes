@@ -1081,4 +1081,92 @@ risutla essere $O\big(n(n+m)\big)$.\acc
 \hphantom{ident}\codee{return Dist}\\
 \codee{\}}\acc
 La complessità, date le operazioni di aggiornamento sull'heap, risulta essere $O\big((n+m)\cdot\log{n}\big)$.
+\section{Gli Algoritmi Greedy}
+Con algoritmi "greedy", si intende una categoria di algoritmi che si basano sul seguente paradigma: Per trovare la soluzione 
+finale (che rappresenta una soluzione "ottimale") si parte da una soluzione qualsiasi, molto spesso una soluzione "vuota", per 
+poi farla "incrementare" fino a trovare una soluzione finale.\acc 
+Si considerano uno ad uno i "passi" per far "crescere" la soluzione, e se essi sono corretti si procede per tale via. Sono quindi algoritmi applicati 
+per problemi di \textit{ottimizzazione}, sebbene 
+tale descrizione risulti ambigua, il concetto verrà reso più chiaro con il prossimo esempio.\acc 
+Si consideri un insieme di intervalli reali $I_1,I_2\dots,I_n \in \mathbb{R}$, si vuole trovare un sotto-insieme di intervalli 
+disgiunti, che sia il più grande possibile. \begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/intervallIReali.eps}
+\end{center}
+La soluzione iniziale di partenza sarà l'insieme vuoto, indichiamo con $S_i$ la soluzione all'$i$-esimo passo dell'algoritmo, 
+quindi $S_0=\emptyset$. Per trovare una soluzione (non necessariamente ottimale), possiamo considerare ad ogni passo gli intervalli dell'insieme, 
+se aggiungendolo alla soluzione, essa rimarrà fattibile (non ci saranno intersezioni), allora verrà aggiunto, e si procederà 
+con il passo successivo.\acc 
+Alla fine, si arriverà nella situazione in cui non vi sono possibili passi validi, quindi l'algoritmo terminerà, sarà garantito 
+il fatto che la soluzione sia fattibile.\begin{center}
+    Pseudocodice
+\end{center}
+\codee{Intervalli( Insieme $I_1,I_2\dots,I_n$)\{}\\
+\hphantom{ident}\codee{Sol = $\emptyset$}\\
+\hphantom{ident}\codee{for each i $\in$ 1,2$\dots,n$\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Sol.add($I_i$)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Sol}\\
+\codee{\}}\acc 
+Tale algoritmo trova sempre una soluzione ma non sempre è ottimale, infatti in una situazione in cui ci sono due intervalli 
+disgiunti ed uno che li interseca entrambi, la considerazione di quest'ultimo all'inizio dell'algoritmo lo porterà ad 
+essere l'unico intervallo nella soluzione.\acc 
+Una possibile idea è quella di ordinare gli intervalli in maniera crescente secondo il valore del loro estremo destro. L'algoritmo 
+risulta quindi molto semplice da scrivere:\begin{center}
+    Pseudocodice
+\end{center}
+\codee{Intervalli\_ottimale( Insieme $I_1=[a_1,b_1],I_2=[a_2,b_2]\dots,I_n=[a_n,b_n]$ )\{}\\
+\hphantom{ident}\codee{ordina $I_1,I_2\dots,I_n$ per il valore di $b_i$ in maniera crescente}\\
+\hphantom{ident}\codee{Sol = $\emptyset$}\\
+\hphantom{ident}\codee{for each i $\in$ 1,2$\dots,n$\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Sol.add($I_i$)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{return Sol}\\
+\codee{\}}\acc
+Una caratteristica comune degli algoritmi greedy è che sono semplici da scrivere, ma risulta lunga la dimostrazione della 
+loro correttezza. Ebbene, abbiamo dato per scontato che questo algoritmo funzioni senza dare spiegazioni, procediamo con la dimostrazione 
+della correttezza. Per dimostrarla, è possibile dimostrare una proposizione più "forte", che implica la correttezza dell'algoritmo. \acc 
+\textbf{Proposizione $\bigstar$ } : Sia $Sol_i$ il valore di \code{Sol} all'$i$-esima iterazione del ciclo \code{for} 
+dell'algoritmo, e sia $Sol^\star$ una qualsiasi soluzione ottimale, si ha che, $\forall i\in \{0,1\dots,n\}$ $Sol_i\in Sol^\star$
+\acc 
+Se la proposizione fosse vera, allora esisterebbe una soluzione ottimale $Sol^\star$ che conterrebbe $Sol_n$, ossia 
+l'output dell'algoritmo, bisogna dimostrare che $Sol^\star \subseteq Sol_n$. \acc 
+\textbf{Dimostrazione $Sol^\star \subseteq Sol_n$} : Supponiamo che ciò non sia vero, esiste quindi un 
+elemento $I_i$ in $Sol^\star$ che non fa parte di $Sol_n$ $$ \exists I_i\in Sol^\star | I_i\notin Sol_n$$
+So che : $$\forall X\in Sol^\star, I_i\cap X = \emptyset\implies \forall X\in Sol_n, I_i\cap X = \emptyset$$
+All'$i$-esimo passo dell'algoritmo, nel ciclo \code{for} è stato considerato $I_i$, e \textbf{non è stato incluso} in 
+$Sol_i\subseteq Sol_n$, avevamo detto che $I_i$ è disgiunto da ogni elemento di $Sol_n$, e questa condizione è sufficiente 
+per far si che esso venga incluso nell'algoritmo. 
+$$ \begin{cases}
+    S_i\subseteq S_n\\ 
+     I_i\cap X \ne \emptyset \text{ per qualche }X\in Sol_i\\
+    \forall X\in Sol_n, I_i\cap X = \emptyset
+\end{cases}\implies \text{ contraddizione }\blacksquare$$
+La seguente dimostrazione, seguirà un procedimento comune fra le dimostrazioni degli algoritmi greedy:\acc 
+\textbf{Dimostrazione $\bigstar$} : Si procede per induzione su $i :=$ passo dell'algoritmo.\begin{itemize}
+    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$ 
+    \item Ipotesi induttiva  \boxedMath{$i=k$} supponiamo che $\exists Sol^\star$ ottimale tale che $Sol_k\subseteq Sol^\star$
+\end{itemize}
+Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} Ci sono due possibili casi:
+ $$\begin{cases}
+    Sol_{k+1}=Sol_k\\ 
+    Sol_{k+1}=Sol_k \cup \{I_{k+1}\}
+\end{cases}$$ 
+Il primo caso è banale, prendiamo in considerazione il secondo caso $Sol_{k+1}=Sol_k \cup \{I_{k+1}\}$, sappiamo per certo che 
+$I_{k+1}$ si interseca con \textit{almeno} un elemento di $Sol^\star$, altrimenti $Sol^\star\cup \{I_{k+1}\}$ sarebbe una 
+soluzione più grande di $Sol^\star$, che per ipotesi è già ottimale.\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/dimPropIntervalli.eps}
+\end{center}
+Sia $[a_j,b_j]$ l'intervallo di $Sol^\star$ che si interseca con $I_{k+1}$ 
+$$ [a_j,b_j]\cap [a_{k+1},b_{k+1}]\ne \emptyset$$ 
+Si noti come $I_j$, non essendo stato considerato durante l'esecuzione dell'algoritmo fino al passo $k+1$, dato 
+l'ordinamento in base agli estremi dell'intervallo, si può affermare come $b_j>b_{k+1}$, sia poi 
+$L$ il numero reale massimo che compare in $Sol_k$, definito nel seguente modo 
+$$ L=\max\{\bigcup_{I\in Sol_k}\{I\}\}$$ 
+Siccome $b_{k+1}>L$ e $I_{k+1}$ è disgiunto dagli elementi di $Sol_k$, si ha che $a_j>L$\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/dimPropIntervalli2.eps}
+\end{center}
 \end{document}
