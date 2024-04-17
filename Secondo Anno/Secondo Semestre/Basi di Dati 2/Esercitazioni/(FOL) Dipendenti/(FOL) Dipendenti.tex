@@ -1,0 +1,119 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{mathtools}
+\newcommand{\acc}{\\\hphantom{}\\}
+\usepackage[table,xcdraw]{xcolor}
+%PER LE BOXED EQUATION
+\definecolor{myblue}{rgb}{.8, .8, 1}
+\usepackage{empheq}
+
+\newlength\mytemplen
+\newsavebox\mytempbox
+
+\makeatletter
+\newcommand\mybluebox{%
+    \@ifnextchar[%]
+       {\@mybluebox}%
+       {\@mybluebox[0pt]}}
+
+\def\@mybluebox[#1]{%
+    \@ifnextchar[%]
+       {\@@mybluebox[#1]}%
+       {\@@mybluebox[#1][0pt]}}
+
+\def\@@mybluebox[#1][#2]#3{
+    \sbox\mytempbox{#3}%
+    \mytemplen\ht\mytempbox
+    \advance\mytemplen #1\relax
+    \ht\mytempbox\mytemplen
+    \mytemplen\dp\mytempbox
+    \advance\mytemplen #2\relax
+    \dp\mytempbox\mytemplen
+    \colorbox{myblue}{\hspace{1em}\usebox{\mytempbox}\hspace{1em}}}
+%FINE
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+    \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+    \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+\title{(FOL) Dipendenti (gruppo 42)}
+% \author{ Giacomo Biribicchi \and Marco Casu \and Christian Di Manno \and Alessandro Gautieri }
+\date{}
+\begin{document}
+\maketitle\hphantom{a}\\
+Simboli di predicato : $$
+\begin{aligned}\mathcal{P}=\{Persona/1,\;CellPersonale/2,\;Numero/1,\;Nome/2\}\;\\
+     \cup\; \{Stringa/1,\;Dipartimento/1,\;Lavora/2,\;Direttore/2\}
+\end{aligned}$$
+Variabili : $$\mathcal{V}=\{x,\;y,\;z,\;a,\;b,\;c\}$$
+
+\textbf{1) Tutte le persone hanno almeno un numero di telefono} \acc 
+Con la seguente affermo che ogni $Persona$ ha almeno un $CellPersonale$, che è un $Numero$
+\begin{empheq}[box={\mybluebox[2pt]}]{equation*}
+    \forall x\; Persona(x) \rightarrow \exists y\; CellPersonale(x,y) \land Numero(y)
+\end{empheq}
+L'\textbf{Interpretazione} è la seguente: 
+$$ \mathcal{D}=\{\alpha,\; \beta, \;\gamma,\; \delta\}$$
+$Persona/1 =\{\alpha,\;\beta\}$ \\ 
+$Numero/1=\{\gamma,\;\delta\}$\\ 
+$CellPersonale/2=\{(\alpha,\gamma),\;(\alpha,\delta)\}$\acc
+
+\textbf{2) Ogni persona ha esattamente un nome}\acc 
+Con la seguente affermo che ogni $Persona$ ha almeno un $Nome$, che è una $Stringa$
+\begin{empheq}[box={\mybluebox[2pt]}]{equation*}
+    \forall x\; Persona(x) \rightarrow \exists y\; Nome(x,y) \land Stringa(y)
+\end{empheq}
+Con la seguente affermo che non esiste una $Persona$ che ha due $Nomi$ o più
+\begin{empheq}[box={\mybluebox[2pt]}]{equation*}
+    \lnot \exists \;x,\;y,\;z\; Nome(x,z) \land Nome(x,y) \land  z\ne y
+\end{empheq}
+L'\textbf{Interpretazione} è la seguente: 
+$$ \mathcal{D}=\{\alpha,\; \beta,\; \gamma,\; \delta\}$$
+$Persona/1 =\{\alpha,\;\beta\}$ \\ 
+$Stringa/1 = \{\gamma,\;\delta\}$\\ 
+$Nome/2 = \{(\alpha,\gamma),\;(\beta,\delta)\}$\acc 
+
+\textbf{3) Non ci sono dipendenti che lavorano in più di due dipartimenti}\acc
+Con la seguente dico che gli oggetti implicati nella relazione $Lavora$ sono una $Persona$ ed un $Dipartimento$
+\begin{empheq}[box={\mybluebox[2pt]}]{equation*}
+    \forall x,\;y\; Lavora(x,y)\rightarrow Persona(x) \land Dipartimento(y)
+\end{empheq}
+Con la seguente dico che, non esiste una persona che lavora in tre (o più) distinti dipartimenti
+\begin{empheq}[box={\mybluebox[2pt]}]{equation*}\begin{matrix}
+    \lnot \exists\; x,\;a,\;b,\;c \; Persona(x)\; \land \\ 
+    Dipartimento(a) \land Dipartimento(b) \land Dipartimento(c)\; \land\\
+    Lavora(x,a) \land Lavora(x,b) \land Lavora(x,c) \;\land  a\ne b\ne c
+\end{matrix}\end{empheq}
+L'\textbf{Interpretazione} è la seguente: 
+$$ \mathcal{D}=\{\alpha,\; \beta,\; \gamma,\; \delta,\; \epsilon\}$$
+$Persona/1 =\{\alpha,\;\beta\}$ \\ 
+$Dipartimento/1=\{\gamma,\; \delta,\; \epsilon\}$\\ 
+$Lavora/2=\{(\alpha,\gamma),\;(\alpha,\epsilon),\;(\beta,\gamma),\;(\beta,\delta)\}$\acc
+
+\textbf{4) Ogni dipartimento ha esattamente un direttore che è una persona} \acc 
+Con la seguente dico che gli oggetti implicati nella relazione $Direttore$ sono una $Persona$ ed un $Dipartimento$
+\begin{empheq}[box={\mybluebox[2pt]}]{equation*}
+    \forall x,\;y\; Direttore(x,y)\rightarrow Persona(x) \land Dipartimento(y)
+\end{empheq}
+Con la seguente affermo che ogni $Dipartimento$ ha almeno un $Direttore$
+\begin{empheq}[box={\mybluebox[2pt]}]{equation*}
+    \forall y\;Dipartimento(y) \exists x\; Direttore(x,y)
+\end{empheq}
+Con la seguente affermo che non esiste un $Dipartimento$ con due o più $Direttori$
+\begin{empheq}[box={\mybluebox[2pt]}]{equation*}\begin{matrix}
+    \lnot \exists\; x,\;a,\;b\; \\ 
+    Persona(a) \land Persona(b) \land Dipartimento(x) \land a\ne b \\ 
+    Direttore(a,x) \land Direttore(b,x)
+\end{matrix}\end{empheq}
+L'\textbf{Interpretazione} è la seguente: 
+$$ \mathcal{D}=\{\alpha,\; \beta,\; \gamma,\; \delta,\; \epsilon\}$$
+$Persona/1 =\{\alpha,\;\beta\}$ \\ 
+$Dipartimento/1=\{\gamma,\; \delta,\; \epsilon\}$\\ 
+$Direttore/2=\{(\alpha,\gamma),\;(\alpha,\delta),\;(\beta,\epsilon)\}$\acc
+\end{document}
+

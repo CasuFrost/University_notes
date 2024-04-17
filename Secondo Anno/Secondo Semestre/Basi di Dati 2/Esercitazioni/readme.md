@@ -10,3 +10,4 @@
 - [Go](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Go/Go.pdf)
 - [Officine 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Officine%201/Officine%201.pdf)
 - [Esercitazioni Universitarie 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Esercitazioni%20Universitarie%201/Esercitazioni%20Universitarie%201.pdf)
+- [(FOL) Dipendenti](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/(FOL)%20Dipendenti/(FOL)%20Dipendenti.pdf)
