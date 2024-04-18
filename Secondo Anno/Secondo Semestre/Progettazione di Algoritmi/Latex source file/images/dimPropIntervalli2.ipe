@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240416150857" modified="D:20240416151317"/>
+<info created="D:20240416150857" modified="D:20240418101429"/>
 <preamble>\usepackage{amssymb}
 \usepackage{amsmath}</preamble>
 <ipestyle name="basic">
@@ -326,7 +326,7 @@ h
 </path>
 <text matrix="1 0 0 1 -52 -28" transformations="translations" pos="404 704" stroke="black" type="label" width="6.78" height="6.808" depth="0" halign="center" valign="center" style="math">L</text>
 <text matrix="1 0 0 1 -108 -28" transformations="translations" pos="404 704" stroke="black" type="label" width="73.379" height="6.923" depth="1.49" halign="center" valign="center">Intervalli di $Sol_{k}$</text>
-<path stroke="black" opacity="50%" stroke-opacity="opaque">
+<path stroke="0 0 1" opacity="50%" stroke-opacity="opaque">
 372 692 m
 372 684 l
 </path>
@@ -334,13 +334,9 @@ h
 372 688 m
 400 688 l
 </path>
-<path stroke="black" opacity="50%" stroke-opacity="opaque">
+<path stroke="0 0 1" opacity="50%" stroke-opacity="opaque">
 372 688 m
 404 688 l
-</path>
-<path matrix="1 0 0 1 32 0" stroke="black" opacity="50%" stroke-opacity="opaque">
-372 692 m
-372 684 l
 </path>
 <path matrix="1 0 0 1 52 0" stroke="black" opacity="50%" stroke-opacity="opaque">
 372 692 m
@@ -359,10 +355,23 @@ h
 372 684 l
 </path>
 <text matrix="1 0 0 1 -16 -24" transformations="translations" pos="404 704" stroke="black" type="label" width="19.368" height="6.812" depth="2.32" halign="center" valign="center" style="math">I_{k+1}</text>
-<text matrix="1 0 0 1 36 -24" transformations="translations" pos="404 704" stroke="black" type="label" width="4.673" height="6.578" depth="1.93" halign="center" valign="center" style="math">j</text>
+<text matrix="1 0 0 1 36 -24" transformations="translations" pos="404 704" stroke="black" type="label" width="8.577" height="6.808" depth="2.85" halign="center" valign="center" style="math">I_j</text>
 <text matrix="1 0 0 1 20 -8" transformations="translations" pos="404 704" stroke="black" type="label" width="7.58" height="2.147" depth="2.57" halign="center" valign="center" size="tiny" style="math">a_j</text>
 <text matrix="1 0 0 1 52 -8" transformations="translations" pos="404 704" stroke="black" type="label" width="6.877" height="3.462" depth="2.57" halign="center" valign="center" size="tiny" style="math">b_j</text>
-<text matrix="1 0 0 1 -32 -8" transformations="translations" pos="404 704" stroke="black" type="label" width="16.723" height="2.148" depth="2.57" halign="center" valign="center" size="tiny" style="math">a_{k+1}</text>
-<text matrix="1 0 0 1 0 -8" transformations="translations" pos="404 704" stroke="black" type="label" width="16.02" height="3.463" depth="2.57" halign="center" valign="center" size="tiny" style="math">b_{k+1}</text>
+<text matrix="1 0 0 1 -32 -8" transformations="translations" pos="404 704" stroke="0 0 1" type="label" width="16.723" height="2.148" depth="2.57" halign="center" valign="center" size="tiny" style="math">a_{k+1}</text>
+<text matrix="1 0 0 1 28 4" transformations="translations" pos="404 704" stroke="0 0 1" type="label" width="16.02" height="3.463" depth="2.57" halign="center" valign="center" size="tiny" style="math">b_{k+1}</text>
+<path stroke="0 0 1">
+432 692 m
+432 684 l
+</path>
+<path stroke="0 0 1" dash="dashed">
+404 688 m
+436 688 l
+</path>
+<path matrix="1 0 0 1 -4 0" stroke="0 0 1" dash="dotted">
+436 692 m
+436 708 l
+</path>
+<text matrix="1 0 0 1 0 -20" transformations="translations" pos="488 708" stroke="0" type="minipage" width="104" height="7.379" depth="2.39" valign="top">$b_{k+1}$ è contenuto in $I_j$</text>
 </page>
 </ipe>

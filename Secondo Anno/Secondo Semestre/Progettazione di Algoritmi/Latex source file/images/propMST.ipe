@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240416145753" modified="D:20240418101725"/>
-<preamble>\usepackage{amssymb}
-\usepackage{amsmath}</preamble>
+<info created="D:20240418104951" modified="D:20240418105206"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -315,19 +313,80 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" matrix="1.33333 0 0 0.833333 -69.3333 106" stroke="0">
-12 0 0 12 208 648 e
+<path layer="alpha" matrix="1 0 0 0.653432 0 265.053" stroke="0" pen="heavier">
+40.7922 0 0 40.7922 140 724 e
 </path>
-<path matrix="3.57121 0 0 1.83333 -557.667 -542.001" stroke="0">
-12 0 0 12 208 648 e
+<path matrix="1 0 0 0.653432 108 237.053" stroke="0" pen="heavier">
+40.7922 0 0 40.7922 140 724 e
 </path>
-<path matrix="4.08854 0 0 1.83333 -611.48 -542.001" stroke="0">
-12 0 0 12 208 648 e
+<path matrix="1 0 0 0.653432 164 301.053" stroke="0" pen="heavier">
+40.7922 0 0 40.7922 140 724 e
 </path>
-<text matrix="1 0 0 1 44 -60" transformations="translations" pos="196 700" stroke="black" type="label" width="19.261" height="6.918" depth="0" valign="baseline" style="math">Sol^\star</text>
-<text matrix="1 0 0 1 0 -56" transformations="translations" pos="196 700" stroke="black" type="label" width="19.387" height="6.923" depth="1.49" valign="baseline" style="math">Sol_k</text>
-<text matrix="1 0 0 1 -40 -64" transformations="translations" pos="196 700" stroke="black" type="label" width="29.474" height="6.923" depth="2.32" valign="baseline" style="math">Sol_{k+1}</text>
-<text matrix="1 0 0 1 -28 -44" transformations="translations" pos="196 700" stroke="0 0 1" type="label" width="16.396" height="4.773" depth="1.88" valign="baseline" size="script" style="math">I_{k+1}</text>
-<use matrix="1 0 0 1 8 -60" name="mark/disk(sx)" pos="168 712" size="normal" stroke="0 0 1"/>
+<use name="mark/disk(sx)" pos="128 724" size="normal"/>
+<use name="mark/disk(sx)" pos="112 736" size="normal"/>
+<use name="mark/disk(sx)" pos="140 752" size="normal"/>
+<use name="mark/disk(sx)" pos="124 748" size="normal"/>
+<use name="mark/disk(sx)" pos="220 700" size="normal"/>
+<use name="mark/disk(sx)" pos="232 720" size="normal"/>
+<use name="mark/disk(sx)" pos="260 712" size="normal"/>
+<use name="mark/disk(sx)" pos="248 692" size="normal"/>
+<use name="mark/disk(sx)" pos="244 708" size="normal"/>
+<use name="mark/disk(sx)" pos="276 716" size="normal"/>
+<use name="mark/disk(sx)" pos="256 728" size="normal"/>
+<use name="mark/disk(sx)" pos="288 768" size="normal"/>
+<use name="mark/disk(sx)" pos="296 756" size="normal"/>
+<use name="mark/disk(sx)" pos="324 772" size="normal"/>
+<use name="mark/disk(sx)" pos="316 792" size="normal"/>
+<use name="mark/disk(sx)" pos="276 768" size="normal"/>
+<use name="mark/disk(sx)" pos="300 776" size="normal"/>
+<path stroke="0">
+128 724 m
+112 736 l
+124 748 l
+156 732 l
+164 752 l
+140 752 l
+</path>
+<path stroke="0">
+220 700 m
+244 708 l
+232 720 l
+</path>
+<path stroke="0">
+244 708 m
+248 692 l
+</path>
+<path stroke="0">
+244 708 m
+260 712 l
+276 716 l
+</path>
+<path stroke="0">
+276 716 m
+256 728 l
+</path>
+<path stroke="0">
+276 768 m
+280 784 l
+288 768 l
+296 756 l
+300 776 l
+324 772 l
+316 792 l
+</path>
+<text transformations="translations" pos="152 772" stroke="0" type="label" width="12.723" height="6.812" depth="1.49" valign="baseline" style="math">X_1</text>
+<text matrix="1 0 0 1 140 -72" transformations="translations" pos="152 772" stroke="1 0 0" type="label" width="12.723" height="6.812" depth="1.49" valign="baseline" style="math">X_2</text>
+<text matrix="1 0 0 1 184 24" transformations="translations" pos="152 772" stroke="0" type="label" width="12.723" height="6.812" depth="1.49" valign="baseline" style="math">X_3</text>
+<path stroke="1 0 0" dash="dashed">
+156 732 m
+220 700 l
+</path>
+<path stroke="1 0 0" dash="dashed">
+164 752 m
+280 784 l
+</path>
+<use name="mark/disk(sx)" pos="280 784" size="normal"/>
+<use name="mark/disk(sx)" pos="164 752" size="normal"/>
+<use name="mark/disk(sx)" pos="156 732" size="normal"/>
 </page>
 </ipe>

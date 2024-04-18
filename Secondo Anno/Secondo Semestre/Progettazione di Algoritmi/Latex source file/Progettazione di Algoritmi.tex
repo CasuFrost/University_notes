@@ -1158,15 +1158,87 @@ Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} Ci sono due possi
 Il primo caso è banale, prendiamo in considerazione il secondo caso $Sol_{k+1}=Sol_k \cup \{I_{k+1}\}$, sappiamo per certo che 
 $I_{k+1}$ si interseca con \textit{almeno} un elemento di $Sol^\star$, altrimenti $Sol^\star\cup \{I_{k+1}\}$ sarebbe una 
 soluzione più grande di $Sol^\star$, che per ipotesi è già ottimale.\begin{center}
-    \includegraphics[width=0.4\textwidth ]{images/dimPropIntervalli.eps}
+    \includegraphics[width=0.7\textwidth ]{images/dimPropIntervalli.eps}
 \end{center}
-Sia $[a_j,b_j]$ l'intervallo di $Sol^\star$ che si interseca con $I_{k+1}$ 
+Sia $I_j=[a_j,b_j]$ l'intervallo di $Sol^\star$ che si interseca con $I_{k+1}$ 
 $$ [a_j,b_j]\cap [a_{k+1},b_{k+1}]\ne \emptyset$$ 
 Si noti come $I_j$, non essendo stato considerato durante l'esecuzione dell'algoritmo fino al passo $k+1$, dato 
 l'ordinamento in base agli estremi dell'intervallo, si può affermare come $b_j>b_{k+1}$, sia poi 
 $L$ il numero reale massimo che compare in $Sol_k$, definito nel seguente modo 
 $$ L=\max\{\bigcup_{I\in Sol_k}\{I\}\}$$ 
-Siccome $b_{k+1}>L$ e $I_{k+1}$ è disgiunto dagli elementi di $Sol_k$, si ha che $a_j>L$\begin{center}
-    \includegraphics[width=0.7\textwidth ]{images/dimPropIntervalli2.eps}
+Siccome $b_{k+1}>L$ e $I_{k+1}$ è disgiunto dagli elementi di $Sol_k$, si ha che $a_j>L$
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/dimPropIntervalli2.eps}
 \end{center}
+Il fatto è, che $I_{k+1}$ si interseca con $I_j$, ma con nessun altro elemento di $Sol^\star$
+$$ \forall [a_{j'},b_{j'}]\in Sol^\star | j'\ne j, \; I_{j'}\cap I_{k+1}=\emptyset$$
+Questo fatto è chiaro in quanto ogni $[a_{j'},b_{j'}]$ in $Sol^\star$ non si interseca con $[a_j,b_j]$, si ha che  
+$b_{k+1}\in I_j$, e $a_{j'}>b_{k+1}$. Giungiamo alla \textit{conclusione} che, essendo qualsiasi intervallo $I_{j'}$ di 
+$Sol^\star$ disgiunto da $I_{k+1}$, possiamo \textbf{sostituire} $I_j$ con $I_{k+1}$ in $Sol^\star$ 
+$$ T=(Sol^\star \backslash \{I_j\})\cup \{I_{k+1}\}$$
+Tale nuovo insieme $T$, ha la stessa cardinalità di $Sol^\star$, inoltre tutti gli intervalli in esso contenuti sono 
+disgiunti, $T$ è quindi una \textit{soluzione ottimale} che contiene $Sol_{k+1}$, dimostrando la proposizione. $\blacksquare$
+\subsection{Minimum Spanning Tree} 
+Sia $G$ un grafo (connesso) non diretto con pesi $w:E(G)\rightarrow \mathbb{R}^+$ sugli archi, sia $H$ un sottografo di $G$, si ricordi come il peso di 
+un sottografo equivale a 
+$$ w(H)=\sum_{e\in E(H)}w(e)$$
+Si vuole trovare un sottografo $H$ di $G$ di \textbf{peso minimo} che sia un albero (quindi connesso ed aciclico), e che contenga tutti i nodi 
+dell'albero $V(G)=V(H)$, tale albero è detto \textit{MST (Minimum Spanning Tree)}, e non è detto che ve ne sia solamente uno.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/MST.eps}
+\end{center}
+\textbf{Proposizione} : Un sottografo connesso $H$ di peso minimo, che contiene tutti i vertici, sarà sempre un albero.\acc 
+\textbf{Dimostrazione} : Essendo connesso, bisogna verificare che non abbia cicli. Assumiamo per assurdo che nel sottografo 
+connesso di peso minimo $H$ vi sia un ciclo $C$, ogni arco di $C$ ha peso positivo. \acc Considero il sottografo $H'$ identico 
+ad $H$, ma dalla quale viene cancellato un arco di $C$, tale $H'$ è ancora connesso, e contiene tutti i vertici, avendo tolto 
+un arco con peso positivo, si ha che $w(H')<w(H)$, ma per ipotesi $H$ era di peso minimo, quindi non può avere cicli. $\blacksquare$\acc 
+Si vuole trovare un algoritmo greedy in grado di restituire l'MST di un grafo connesso, la soluzione sarà data 
+sottoforma di insieme di archi. Come punto di partenza nell'algoritmo, è possibile partire da un arco di peso minimo.\begin{center}
+    Pseudocodice
+\end{center}
+\codee{Kruskal(G grafo pesato)\{}\\
+\hphantom{ident}\codee{Ordina archi \{$e_1,e_2\dots,e_n$\} per il peso in maniera crescente}\\
+\hphantom{ident}\codee{Sol = $\emptyset$}\\
+\hphantom{ident}\codee{for (i=0; i$<=n$; i++)\{}\\
+\hphantom{ident}\hphantom{ident}\codee{if( Sol $\cup$ $e_i$ non ha un ciclo)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Sol.add($e_i$)}\\
+\hphantom{ident}\hphantom{ident}\codee{\}}\\
+\hphantom{ident}\codee{\}}\\
+\codee{\}}\acc 
+L'algoritmo è semplice, si continuano ad aggiungere gli archi di peso minore, escludendo quelli che creano cicli, fino 
+a connettere tutti i vertici del grafo.\acc 
+\textbf{Proposizione} : L'output dell'algoritmo di \codee{Kruskal} è un grafo connesso.\acc 
+\textbf{Dimostrazione} : Assumiamo per assurdo che l'output formato dagli archi di \codee{Sol} non sia connesso, 
+la soluzione sarà frammentata in diverse componenti connesse $X_1,X_2\dots,X_k$. Il fatto è che il grafo originale in input è connesso, quindi 
+esiste un arco che collega 2 componenti connesse, che se aggiunto non creerebbe cicli.
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/propMST.eps}
+\end{center}
+ Tale arco è stato considerato nell'algoritmo, 
+ma non selezionato, quindi l'algoritmo non è stato eseguito correttamente. $\blacksquare$
+\textbf{Corollario} : L'albero dato in output dall'algoritmo di  \codee{Kruskal} è un albero di copertura.\acc 
+Adesso bisogna dimostrare che la soluzione sia ottimale, dimostreremo, come nel caso dell'algoritmo precedente, una proposizione 
+più "forte" che ne implica la correttezza.\acc 
+\textbf{Proposizione $\bigstar$} : Sia $Sol_i$ il valore dell'insieme \codee{Sol} all'$i$-esima iterazione nell'algoritmo, 
+si ha che, $\forall i,\; \exists $ una soluzione ottimale $Sol^\star$ tale che $Sol_i\subseteq Sol^\star$.\acc 
+Sia $Sol_n$ l'output dell'algoritmo, per la proposizione, esiste una soluzione ottimale che contiene $Sol_n$, ma quest'ultimo 
+è già un albero di copertura, quindi $|Sol_n|$ è una soluzione ottimale, se $\bigstar$ è vera, l'algoritmo è corretto.\acc 
+\textbf{Dimostrazione $\bigstar$} :  Si procede per induzione su $i :=$ passo dell'algoritmo.\begin{itemize}
+    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$ 
+    \item Ipotesi induttiva  \boxedMath{$i=k$} supponiamo che $\exists Sol^\star$ ottimale tale che $Sol_k\subseteq Sol^\star$
+\end{itemize}
+Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} Ci sono due possibili casi:
+ $$\begin{cases}
+    Sol_{k+1}=Sol_k \text{ ( banale, non necessita di dimostrazione )}\\ 
+    Sol_{k+1}=Sol_k \cup \{e_{k+1}\}
+\end{cases}$$ 
+Aggiungendo $e_{k+1}$ a $Sol^\star$, stiamo aggiungendo un arco ad un albero di copertura, creando un ciclo $C$, essendo che 
+$Sol_k$ non aveva cicli, esiste un arco $f \in C$ che non fa parte di $Sol_k$, ma fa parte di $Sol^\star$.\acc 
+Dato che l'algoritmo considera gli archi in ordine in base al loro peso, l'arco $f$, non essendo ancora stato considerato 
+nell'algoritmo, ha peso $w(f)\ge w(e_{k+1})$, possiamo sostituire $f$ con $e_{k+1}$ in $Sol^\star$, ottenendo 
+$$ T=(Sol^\star \backslash \{f\})\cup \{e_{k+1}\}$$
+$T$ è ancora un albero di copertura, in quanto l'arco $f$ che viene rimosso fa parte di un ciclo, inoltre $T$ è aciclico 
+in quanto $C$ era l'unico ciclo presente in $Sol^\star \cup  \{e_{k+1}\}$.\acc 
+Essendo che il peso di $e_{k+1}$ è minore o uguale al peso di $f$, si ha che il peso di $T$ è minore o uguale 
+al peso di $Sol^\star$, quest'ultima però, era una soluzione ottimale di peso minimo, quindi $w(T)=w(Sol^\star)$, allora 
+$T$ è una soluzione ottimale che contiene $e_{k+1}$, dimostrando così la proposizione. $\blacksquare$
 \end{document}

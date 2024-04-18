@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240416145753" modified="D:20240418101725"/>
-<preamble>\usepackage{amssymb}
-\usepackage{amsmath}</preamble>
+<info created="D:20240418102421" modified="D:20240418102900"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -315,19 +313,169 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" matrix="1.33333 0 0 0.833333 -69.3333 106" stroke="0">
-12 0 0 12 208 648 e
+<path layer="alpha" stroke="0" fill="white" pen="heavier">
+172 708 m
+244 672 l
 </path>
-<path matrix="3.57121 0 0 1.83333 -557.667 -542.001" stroke="0">
-12 0 0 12 208 648 e
+<path stroke="0" pen="heavier">
+244 672 m
+224 720 l
+172 708 l
 </path>
-<path matrix="4.08854 0 0 1.83333 -611.48 -542.001" stroke="0">
-12 0 0 12 208 648 e
+<path stroke="0" pen="heavier">
+224 720 m
+184 760 l
+172 708 l
+172 708 l
 </path>
-<text matrix="1 0 0 1 44 -60" transformations="translations" pos="196 700" stroke="black" type="label" width="19.261" height="6.918" depth="0" valign="baseline" style="math">Sol^\star</text>
-<text matrix="1 0 0 1 0 -56" transformations="translations" pos="196 700" stroke="black" type="label" width="19.387" height="6.923" depth="1.49" valign="baseline" style="math">Sol_k</text>
-<text matrix="1 0 0 1 -40 -64" transformations="translations" pos="196 700" stroke="black" type="label" width="29.474" height="6.923" depth="2.32" valign="baseline" style="math">Sol_{k+1}</text>
-<text matrix="1 0 0 1 -28 -44" transformations="translations" pos="196 700" stroke="0 0 1" type="label" width="16.396" height="4.773" depth="1.88" valign="baseline" size="script" style="math">I_{k+1}</text>
-<use matrix="1 0 0 1 8 -60" name="mark/disk(sx)" pos="168 712" size="normal" stroke="0 0 1"/>
+<path stroke="0" pen="heavier">
+184 760 m
+264 760 l
+224 720 l
+</path>
+<path stroke="0" fill="white" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 40 40" stroke="0" fill="1" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 -40 40" stroke="0" fill="1" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 -52 -12" stroke="0" fill="1" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 20 -48" stroke="0" fill="1" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<text matrix="1 0 0 1 4 0" transformations="translations" pos="292 716" stroke="0" type="label" width="37.637" height="6.808" depth="0" valign="baseline">Ha MST</text>
+<path matrix="1 0 0 1 -13.8928 -0.552074" stroke="0">
+304 728 m
+344 728 l
+344 736 l
+360 720 l
+344 704 l
+344 712 l
+304 712 l
+</path>
+<path matrix="1 0 0 1 64 108" fill="white">
+156 656 m
+156 648 l
+164 648 l
+164 656 l
+h
+</path>
+<text matrix="1 0 0 1 64 108" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">2</text>
+<path matrix="1 0 0 1 44 40" fill="white">
+156 656 m
+156 648 l
+164 648 l
+164 656 l
+h
+</path>
+<text matrix="1 0 0 1 44 40" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">2</text>
+<path fill="white">
+172 736 m
+172 728 l
+180 728 l
+180 736 l
+h
+</path>
+<text matrix="1 0 0 1 16 80" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">9</text>
+<path matrix="1 0 0 1 20 -16" fill="white">
+172 736 m
+172 728 l
+180 728 l
+180 736 l
+h
+</path>
+<text matrix="1 0 0 1 36 64" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">8</text>
+<path matrix="1 0 0 1 28 8" fill="white">
+172 736 m
+172 728 l
+180 728 l
+180 736 l
+h
+</path>
+<text matrix="1 0 0 1 44 88" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">1</text>
+<path matrix="1 0 0 1 68 8" fill="white">
+172 736 m
+172 728 l
+180 728 l
+180 736 l
+h
+</path>
+<text matrix="1 0 0 1 84 88" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">7</text>
+<path matrix="1 0 0 1 60 -40" fill="white">
+172 736 m
+172 728 l
+180 728 l
+180 736 l
+h
+</path>
+<text matrix="1 0 0 1 76 40" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">3</text>
+<path matrix="1 0 0 1 212 0" stroke="0" fill="white" pen="heavier">
+172 708 m
+244 672 l
+</path>
+<path stroke="0" pen="heavier">
+436 720 m
+456 672 l
+</path>
+<path stroke="0" pen="heavier">
+396 760 m
+436 720 l
+</path>
+<path stroke="0" pen="heavier">
+476 760 m
+396 760 l
+</path>
+<path matrix="1 0 0 1 212 0" stroke="0" fill="white" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 252 40" stroke="0" fill="1" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 172 40" stroke="0" fill="1" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 160 -12" stroke="0" fill="1" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 232 -48" stroke="0" fill="1" pen="heavier">
+8 0 0 8 224 720 e
+</path>
+<path matrix="1 0 0 1 276 108" fill="white">
+156 656 m
+156 648 l
+164 648 l
+164 656 l
+h
+</path>
+<text matrix="1 0 0 1 276 108" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">2</text>
+<path matrix="1 0 0 1 256 40" fill="white">
+156 656 m
+156 648 l
+164 648 l
+164 656 l
+h
+</path>
+<text matrix="1 0 0 1 256 40" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">2</text>
+<path matrix="1 0 0 1 240 8" fill="white">
+172 736 m
+172 728 l
+180 728 l
+180 736 l
+h
+</path>
+<text matrix="1 0 0 1 256 88" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">1</text>
+<path matrix="1 0 0 1 272 -40" fill="white">
+172 736 m
+172 728 l
+180 728 l
+180 736 l
+h
+</path>
+<text matrix="1 0 0 1 288 40" transformations="translations" pos="160 652" stroke="0" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">3</text>
 </page>
 </ipe>
