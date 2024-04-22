@@ -9,6 +9,13 @@
 \usepackage{mathtools}
 \usepackage[table,xcdraw]{xcolor}
 \definecolor{light-gray}{gray}{0.95}
+\newcommand\greybox[1]{%
+  \vskip\baselineskip%
+  \par\noindent\colorbox{light-gray}{%
+    \begin{minipage}{\textwidth}#1\end{minipage}%
+  }%
+  \vskip\baselineskip%
+}
 \definecolor{sap}{RGB}{130, 36, 51}
 \definecolor{lg}{RGB}{102, 161, 95}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
@@ -22,6 +29,7 @@
 \newcommand{\dist}{{$\text{dist}$ }}
 \newcommand{\fdot}{{\(\bullet\) }}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
+
 \title{Progettazione di Algoritmi}
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -38,7 +46,7 @@
 \newpage
 \tableofcontents
 \newpage
-\section{Grafi}
+\section{Teoria dei Grafi}
 \subsection{Introduzione e Definizioni}
 Un grafo, è una coppia $(V,E)$, dove $V$ è un insieme di \textit{nodi o vertici}, ed $E$ un
 insieme di archi che collegano i nodi. Un grafo è detto \textbf{semplice} se, per ogni
@@ -123,26 +131,26 @@ fino all'elemento antecedente a quello identico all'elemento finale. \begin{cent
     Pseudocodice
 \end{center}
 \code{Input} : Un grafo $G=(V,E)$.\\
-\code{Output} : I nodi di un sottografo di \(G\) che è un ciclo.\\\hphantom{}\\
-\codee{CercaCiclo(graph G)\{}\\
-\hphantom{ident}\codee{x = V[random]}\color{lg}\textit{// Un vertice a caso}\color{black}\\
-\hphantom{ident}\codee{W=[x]}\color{lg}\textit{// Inizializzo il vettore output}\color{black}\\
-\hphantom{ident}\codee{current = V}\\
-\hphantom{ident}\codee{y=adiacente di x}\color{lg}\textit{// Un adiacente a caso}\color{black}\\
-\hphantom{ident}\codee{next=y}\\
-\hphantom{ident}\codee{while(next$\notin$ W)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{W.append(next)}\\
-\hphantom{ident}\hphantom{ident}\codee{current=next}\\
-\hphantom{ident}\hphantom{ident}\codee{if ($1^\circ$ adiacente di current$\ne$W[W.lenght-2])\{}
+\code{Output} : I nodi di un sottografo di \(G\) che è un ciclo.\greybox{
+\code{CercaCiclo(graph G)\{}\\
+\hphantom{ident}\code{x = V[random]}\color{lg}\textit{// Un vertice a caso}\color{black}\\
+\hphantom{ident}\code{W=[x]}\color{lg}\textit{// Inizializzo il vettore output}\color{black}\\
+\hphantom{ident}\code{current = V}\\
+\hphantom{ident}\code{y=adiacente di x}\color{lg}\textit{// Un adiacente a caso}\color{black}\\
+\hphantom{ident}\code{next=y}\\
+\hphantom{ident}\code{while(next$\notin$ W)\{}\\
+\hphantom{ident}\hphantom{ident}\code{W.append(next)}\\
+\hphantom{ident}\hphantom{ident}\code{current=next}\\
+\hphantom{ident}\hphantom{ident}\code{if ($1^\circ$ adiacente di current$\ne$W[W.lenght-2])\{}
 \color{lg}\textit{// Il penultimo}\color{black}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{next = $1^\circ$ adiacente di current}\\
-\hphantom{ident}\hphantom{ident}\codee{\}else\{next = $2^\circ$ adiacente di current}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{while(W[0]$\ne$next)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{W.remove(W[0])}\color{lg}\textit{// Rimuove il primo elemento}\color{black}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return W}\\
-\codee{\}}\acc
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{next = $1^\circ$ adiacente di current}\\
+\hphantom{ident}\hphantom{ident}\code{\}else\{next = $2^\circ$ adiacente di current}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{while(W[0]$\ne$next)\{}\\
+\hphantom{ident}\hphantom{ident}\code{W.remove(W[0])}\color{lg}\textit{// Rimuove il primo elemento}\color{black}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return W}\\
+\code{\}}}
 Qual'è la complessita di tale algoritmo? Entrambi i cicli \code{while} eseguono \(O(n)\) iterazioni, il
 fatto è che, nel primo ciclo while, il controllo \code{next$\notin$W} deve scorrere comunque tutto il vettore,
 rendendo il costo dell'algoritmo \(O(n^2)\), non rispettando le specifiche iniziali, ossia \(O(n+m)\).
@@ -169,26 +177,22 @@ vertice \(x\), inizio a visitare randomicamente uno dei vertici adiacenti, per p
 vi sono nuovi vertici da visitare, si esegue il cosiddetto \textit{back tracking}, controllando i nodi a ritroso e cercando
 dei nuovi vertici. Risulta quindi naturale l'uso di uno \textit{stack} per poter implementare tale ricerca. L'algoritmo
 alla fine visiterà ogni nodo per la quale esiste un cammino dal nodo iniziale.
-\begin{center}
-    Pseudocodice
-\end{center}
-\code{Input} : Un grafo $G=(V,E)$, ed un vertice \(x\).\\
-\code{Output} : L'insieme dei vertici visitati partendo da \(x\).\\
-\codee{DFS(graph G, vert x)\{}\\
-\hphantom{ident}\codee{S : stack = \{x\}}\\
-\hphantom{ident}\codee{Vis : set = [x]}\comm{l'insieme che conterrà l'output}\\
-\hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
-\hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
-\hphantom{ident}\hphantom{ident}\codee{if(\(\exists\)z adiacente ad y\(\land \)z\(\notin\)Vis)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis.add(z)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{else\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.pop()}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Vis}\\
-\codee{\}}\acc
+\greybox{
+\code{DFS(graph G, vert x)\{}\\
+\hphantom{ident}\code{S : stack = \{x\}}\\
+\hphantom{ident}\code{Vis : set = [x]}\comm{l'insieme che conterrà l'output}\\
+\hphantom{ident}\code{while(S\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\code{y=S.top()}\\
+\hphantom{ident}\hphantom{ident}\code{if(\(\exists\)z adiacente ad y\(\land \)z\(\notin\)Vis)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Vis.add(z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.push(z)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.pop()}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Vis}\\
+\code{\}}}
 Esempio di applicazione (il nodo di partenza è il nodo 1) : \begin{center}
     \includegraphics[width=1\textwidth ]{images/DFS.eps}
 \end{center}
@@ -208,30 +212,29 @@ ad un certo punto \(v_{i+1}\), per poi proseguire da esso, per costruzione, sar�
 in contraddizione con l'ipotesi iniziale che \(y\) non è in Vis. \(\blacksquare\)\acc
 Questo algoritmo presenta un problema cruciale, non è efficiente, infatti risulta particolarmente
 pesante il controllo \code{if(\(\exists\)z adiacente ad y\(\land \)z\(\ne\)Vis)}, che ha costo
-computazionale \(O(\deg(y))+O(n)\). L'algoritmo va migliorato, al posto di un set, è possibile utilizzare un
+computazionale \(O(\deg(y))+O(n)\). \greybox{
+\code{DFS2(graph G, vert x)\{}\\
+\hphantom{ident}\code{S : stack = \{x\}}\\
+\hphantom{ident}\code{Vis : int[n] = [0,0\(\dots \)0]}\comm{L'array in questione}\\
+\hphantom{ident}\code{Vis[x]=1}\\
+\hphantom{ident}\code{while(S\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\code{y=S.top()}\\
+\hphantom{ident}\hphantom{ident}\code{if(Vis[y.adiacenti[0]]==0)\{}\comm{Trova un adiacenta non ancora controllato}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{z=y.adiacenti[0]}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Vis[z]=1}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.push(z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{y.adiacenti.remove(0)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{y.adiacenti.remove(0)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{if(y.adiacenti\(==\emptyset\))\{S.pop()\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Vis}\\
+\code{\}}}
+In questa versione l'algoritmo è migliorato, al posto di un set, è possibile utilizzare un
 array nella seguente maniera : sarà composto da \(n:=|V|\) elementi inizializzato con tutti 0, si avrà che
-\(array[i]=1\iff i\) fa parte dell'output.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFS2(graph G, vert x)\{}\\
-\hphantom{ident}\codee{S : stack = \{x\}}\\
-\hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\comm{L'array in questione}\\
-\hphantom{ident}\codee{Vis[x]=1}\\
-\hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
-\hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
-\hphantom{ident}\hphantom{ident}\codee{if(Vis[y.adiacenti[0]]==0)\{}\comm{Trova un adiacenta non ancora controllato}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{z=y.adiacenti[0]}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis[z]=1}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{y.adiacenti.remove(0)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{else\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{y.adiacenti.remove(0)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{if(y.adiacenti\(==\emptyset\))\{S.pop()\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Vis}\\
-\codee{\}}\acc
+\(array[i]=1\iff i\) fa parte dell'output.\acc
 Si è nell'ipotesi in cui il grafo è implementato con le liste di adiacenza, infatti si noti come ogni vertice
 presenta il campo \code{adiacenti}. Per rendere più efficiente il tutto senza dover controllare ogni volta se un
 nodo è stato già visitato, semplicemente si rimuove dalla lista di adiacenza, ed ogni volta se ne prende il primo
@@ -242,17 +245,15 @@ esegue un numero limitato di volte il comando \code{S.top()}. Nello specifico, s
 grado del vertice, risulta naturale che la complessità finale sia :
 $$O(n)+O\big( \sum_{v\in V(G)}\deg(v)\big)=O(n+|E|)=O(n+m)\text{ costo lineare}$$
 Lo stesso algoritmo, si presta in maniera piuttosto naturale ad essere implementato in maniera ricorsiva,
-permettendo l'omissione dell'utilizzo di uno stack.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFSRec(graph G, vert x,int[n] Vis)\{}\\
-\hphantom{ident}\codee{Vis[x]=1}\\
-\hphantom{ident}\codee{for each y\(\in\)x.adiacenti\{}\comm{per ogni adiacente di x}\\
-\hphantom{ident}\hphantom{ident}\codee{if(Vis[y]==0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSRec(G,y,Vis)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\codee{\}}\acc
+permettendo l'omissione dell'utilizzo di uno stack.\greybox{
+\code{DFSRec(graph G, vert x,int[n] Vis)\{}\\
+\hphantom{ident}\code{Vis[x]=1}\\
+\hphantom{ident}\code{for each y\(\in\)x.adiacenti\{}\comm{per ogni adiacente di x}\\
+\hphantom{ident}\hphantom{ident}\code{if(Vis[y]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{DFSRec(G,y,Vis)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\code{\}}}
 Il ciclo \code{for each y\(\in\)x.adiacenti} considera ogni adiacente di \(x\) una volta sola, facendo
 lo stesso lavoro di "cancellazione" dei vicini già controllati, la complessità rimane la medesima.\acc
 Si considera la figura seguente, rappresentante una visita \textit{DFS} su un grafo :
@@ -264,25 +265,23 @@ Dal nodo di partenza, si inizia a visitare diversi nodi seguendo diversi percors
 vertici non ancora visitati. In generale, un albero è un grafo connesso ed aciclico. Essendo che non si ritorna mai
 in un nodo già visitato due volte, nell'albero di visita non si creeranno cicli (rendendolo appunto un albero).\acc
 Possiamo applicare lo stesso algoritmo ai grafi diretti, l'unica considerazione da fare, è il controllo dell'ordine
-di ogni arco. Consideriamo l'implementazione non ricorsiva.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFSdiretto(graph G, vert x,)\{}\\
-\hphantom{ident}\codee{S : stack = \{x\}}\\
-\hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\\
-\hphantom{ident}\codee{Vis[x]=1}\\
-\hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
-\hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
-\hphantom{ident}\hphantom{ident}\codee{if(\(\exists z|(y,z)\in E(G)\land \) Vis[z]==0)\{}\comm{l'arco ha la giusta orientazione}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis[z]=1}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{else\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.pop()}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Vis}\\
-\codee{\}}\acc
+di ogni arco. Consideriamo l'implementazione non ricorsiva.\greybox{
+\code{DFSdiretto(graph G, vert x,)\{}\\
+\hphantom{ident}\code{S : stack = \{x\}}\\
+\hphantom{ident}\code{Vis : int[n] = [0,0\(\dots \)0]}\\
+\hphantom{ident}\code{Vis[x]=1}\\
+\hphantom{ident}\code{while(S\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\code{y=S.top()}\\
+\hphantom{ident}\hphantom{ident}\code{if(\(\exists z|(y,z)\in E(G)\land \) Vis[z]==0)\{}\comm{l'arco ha la giusta orientazione}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.push(z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Vis[z]=1}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.pop()}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Vis}\\
+\code{\}}}
 Anche questo algoritmo genera l'albero di visita, solo che avrà tutti gli archi, ordinati "verso il basso", ossia
 seguiranno l'orientazione che va dalla radice verso le foglie, tale albero è detto \textbf{arborescenza}.
 \subsubsection{Componenti di un Grafo}
@@ -301,26 +300,24 @@ associando ad ogni vertice, un indice che ne indica la componente, dato un grafo
 un array Comp  tale che : \begin{center}
     Comp[\(x\)]=Comp[\(y\)]\(\iff\)\(x\) ed \(y\) sono nella stessa componente
 \end{center}
-Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessarie 2 funzioni : \begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFSRecComp(graph G, vert x,int[n] Comp, int index)\{}\comm{funzione di supporto}\\
-\hphantom{ident}\codee{Comp[x]=index}\\
-\hphantom{ident}\codee{for each y\(\in\)x.adiacenti\{}\comm{per ogni adiacente di x}\\
-\hphantom{ident}\hphantom{ident}\codee{if(Comp[y]==0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSRec(G,y,Comp,index)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\codee{\}}\acc
-\codee{Comp(graph G)\{}\comm{funzione principale da eseguire}\\
-\hphantom{ident}\codee{Comp : int[n] = [0,0\(\dots \)0]}\\
-\hphantom{ident}\codee{index = 0}\\
-\hphantom{ident}\codee{for each x\(\in\)V(G)\{}\comm{per ogni vertice del grafo}\\
-\hphantom{ident}\hphantom{ident}\codee{index++}\\
-\hphantom{ident}\hphantom{ident}\codee{DFSRecComp(G,x,Comp,index)}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Comp}\\
-\codee{\}}
+Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessarie 2 funzioni : \greybox{
+\code{DFSRecComp(graph G, vert x,int[n] Comp, int index)\{}\comm{funzione di supporto}\\
+\hphantom{ident}\code{Comp[x]=index}\\
+\hphantom{ident}\code{for each y\(\in\)x.adiacenti\{}\comm{per ogni adiacente di x}\\
+\hphantom{ident}\hphantom{ident}\code{if(Comp[y]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{DFSRec(G,y,Comp,index)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\code{\}}}\greybox{
+\code{Comp(graph G)\{}\comm{funzione principale da eseguire}\\
+\hphantom{ident}\code{Comp : int[n] = [0,0\(\dots \)0]}\\
+\hphantom{ident}\code{index = 0}\\
+\hphantom{ident}\code{for each x\(\in\)V(G)\{}\comm{per ogni vertice del grafo}\\
+\hphantom{ident}\hphantom{ident}\code{index++}\\
+\hphantom{ident}\hphantom{ident}\code{DFSRecComp(G,x,Comp,index)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Comp}\\
+\code{\}}}
 \subsection{Ordinamento Topologico}
 Supponiamo che vi sia un progetto da completare, che viene diviso in \(n\) piccoli processi
 \(x_1,x_2\dots x_n\), e supponiamo che fra essi, vi siano delle dipendenze sull'ordine di completamento, ad
@@ -361,18 +358,16 @@ ri-esegue l'operazione, inserendo ogni volta il vertice nella prima posizione de
 parecchio utile, si pensi all'ordinamento topologico applicato al grafo di serializzazione nell'ambito
 del controllo della concorrenza
 (trattato nel corso di \href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf}{Basi di Dati 1}).
-\begin{center}
-    Pseudocodice
-\end{center}
-\codee{OrdinamentoTopologico(graph G)\{}\comm{il grafo è diretto}\\
-\hphantom{ident}\codee{L : list}\comm{una lista vuota, sarà l'output dell'algoritmo}\\
-\hphantom{ident}\codee{while(G\(\ne\emptyset\))\{}\\
-\hphantom{ident}\hphantom{ident}\codee{x=v\(\in\)V(G)|v.adiacentiOut=\(\emptyset\)}\comm{un vertice senza archi uscenti}\\
-\hphantom{ident}\hphantom{ident}\codee{L.insert(x)}\\
-\hphantom{ident}\hphantom{ident}\codee{G.delete(x)}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return L}\\
-\codee{\}}\begin{center}
+\greybox{
+\code{OrdinamentoTopologico(graph G)\{}\comm{il grafo è diretto}\\
+\hphantom{ident}\code{L : list}\comm{una lista vuota, sarà l'output dell'algoritmo}\\
+\hphantom{ident}\code{while(G\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\code{x=v\(\in\)V(G)|v.adiacentiOut=\(\emptyset\)}\comm{un vertice senza archi uscenti}\\
+\hphantom{ident}\hphantom{ident}\code{L.insert(x)}\\
+\hphantom{ident}\hphantom{ident}\code{G.delete(x)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return L}\\
+\code{\}}}\begin{center}
     \includegraphics[width=1\textwidth ]{images/ordTopologico.eps}
 \end{center}
 Il \textit{problema} di questo algoritmo è il suo costo computazionale, di fatto è troppo dispendioso : Per
@@ -435,47 +430,44 @@ Se dovessi applicare lo stesso algoritmo ai grafi non diretti, non si potrebbe d
 in quanto ogni arco è percorribile per entrambe le direzioni, quindi i casi \((i)\) e \((ii)\) indicherebbero la stessa
 situazione.\acc
 Inoltre, è impossibile che, per due nodi \(u,v\) si verifichi che $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$, quindi
-il caso \((iii)\) è impossibile.\acc
-\textit{\textbf{Esercizio}} : Si vuole dare lo pseudocodice di una modifica del DFS, che restituisca in output 3 liste, una contenente
-gli archi in avanti, una quelli all'indietro, ed una gli archi di attraversamento.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFSconArchi(graph G, vert x,)\{}\comm{il grafo è diretto}\\
-\hphantom{ident}\codee{int cc=1}\\
-\hphantom{ident}\codee{t : int[n]} \comm{array lungo \(n\) inizializzato a zero}\\
-\hphantom{ident}\codee{T : int[n]}\comm{array lungo \(n\) inizializzato a zero}\\
-\hphantom{ident}\codee{t[x]=1}\\
-\hphantom{ident}\codee{T[x]=|V(G)|}\\
-\hphantom{ident}\codee{S : stack = \{x\}}\\
-\hphantom{ident}\codee{Vis : int[n] = [0,0\(\dots \)0]}\\
-\hphantom{ident}\codee{Vis[x]=1}\\
-\hphantom{ident}\codee{while(S\(\ne\emptyset\))\{}\\
-\hphantom{ident}\hphantom{ident}\codee{y=S.top()}\\
-\hphantom{ident}\hphantom{ident}\codee{if(\(\exists z|(y,z)\in E(G)\land \) Vis[z]==0)\{}\comm{l'arco ha la giusta orientazione}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.push(z)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{c++}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{t[z]=cc}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Vis[z]=1}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{else\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{S.pop()}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{T[z]=cc}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{A : graph = arborescenza generata dal DFS}\\
-\hphantom{ident}\codee{A' : graph = G-A}\comm{il complementare dell'arborescenza}\\
-\hphantom{ident}\codee{av : list}\\
-\hphantom{ident}\codee{ind : list}\\
-\hphantom{ident}\codee{att : list}\\
-\hphantom{ident}\codee{for each (x,y)\(\in\)E(A')\{}\\
-\hphantom{ident}\hphantom{ident}\codee{switch(t[x],T[x],t[y],T[y])\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$[t(v),T(v)]\subseteq[t(u),T(u)]$ : sv.append((x,y))}\comm{si ricade nel primo caso}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$[t(v),T(v)]\supseteq[t(u),T(u)]$ : ind.append((x,y))}\comm{si ricade nel secondo caso}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$ : att.append((x,y))}\comm{si ricade nel terzo caso}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return av,ind,att}\\
-\codee{\}}\acc
+il caso \((iii)\) è impossibile. Si vuole dare ora lo pseudocodice di una modifica del DFS, che restituisca in output 3 liste, conteneti
+gli archi in avanti, all'indietro, e di attraversamento.\greybox{
+\code{DFSconArchi(graph G, vert x,)\{}\comm{il grafo è diretto}\\
+\hphantom{ident}\code{int cc=1}\\
+\hphantom{ident}\code{t : int[n]} \comm{array lungo \(n\) inizializzato a zero}\\
+\hphantom{ident}\code{T : int[n]}\comm{array lungo \(n\) inizializzato a zero}\\
+\hphantom{ident}\code{t[x]=1}\\
+\hphantom{ident}\code{T[x]=|V(G)|}\\
+\hphantom{ident}\code{S : stack = \{x\}}\\
+\hphantom{ident}\code{Vis : int[n] = [0,0\(\dots \)0]}\\
+\hphantom{ident}\code{Vis[x]=1}\\
+\hphantom{ident}\code{while(S\(\ne\emptyset\))\{}\\
+\hphantom{ident}\hphantom{ident}\code{y=S.top()}\\
+\hphantom{ident}\hphantom{ident}\code{if(\(\exists z|(y,z)\in E(G)\land \) Vis[z]==0)\{}\comm{l'arco ha la giusta orientazione}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.push(z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{c++}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{t[z]=cc}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Vis[z]=1}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.pop()}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[z]=cc}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{A : graph = arborescenza generata dal DFS}\\
+\hphantom{ident}\code{A' : graph = G-A}\comm{il complementare dell'arborescenza}\\
+\hphantom{ident}\code{av : list}\\
+\hphantom{ident}\code{ind : list}\\
+\hphantom{ident}\code{att : list}\\
+\hphantom{ident}\code{for each (x,y)\(\in\)E(A')\{}\\
+\hphantom{ident}\hphantom{ident}\code{switch(t[x],T[x],t[y],T[y])\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$[t(v),T(v)]\subseteq[t(u),T(u)]$ : sv.append((x,y))}\comm{primo caso}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$[t(v),T(v)]\supseteq[t(u),T(u)]$ : ind.append((x,y))}\comm{secondo caso}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$ : att.append((x,y))}\comm{terzo caso}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return av,ind,att}\\
+\code{\}}}\newpage
 La domanda da porsi adesso è, la presenza di questi archi \textit{in avanti}, \textit{indietro} e di \textit{attraversamento},
 quali informazioni fornisce riguardo le proprietà del grafo?\acc Consideriamo un grafo \(G\) non diretto e connesso, vuol dire che per
 ogni coppia di vertici \(x\) ed $y$ esiste un cammino da $x$ ad $y$, se dovesse esistere un'arco \((x,y)\in E(G)\), allora
@@ -542,54 +534,48 @@ un pozzo universale : Si comincia controllando due vertici a caso \(x,y\), se l'
 $m(x,y)$ è 1, vuol dire che esiste un arco che va da $x$ ad $y$, dovremmo quindi escludere $x$ dato che ha
 archi uscenti, e continuare con $y$, altrimenti continueremo con $x$.\acc
 Alla fine, avremo un vertice candidato ad essere un pozzo, e controlleremo in maniera esplicita se lo è o no.
-\begin{center}
-    Pseudocodice
-\end{center}
-\codee{PozzoUniversale(m)\{}\comm{l'input è la matrice di adiacenza}\\
-\hphantom{ident}\codee{candidato = 1}\\
-\hphantom{ident}\codee{n = m[1].lenght()}\comm{n è il numero di vertici}\\
-\hphantom{ident}\codee{for(i=2;i\(\le\)n;i++)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if(m[candidato,i]==1)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{candidato=i}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{for(i=1;i\(\le\)n;i++)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if(m[candidato,i]==1)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{return false}\comm{il candidato ha un arco uscente}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{for(i=1;i\(\le\)n;i++)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if(m[i,candidato]==0 \(\land\) i\(\ne\)candidato)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{return false}\comm{un nodo non ha un arco verso il candidato}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return true}\\
-\codee{\}}
+\greybox{
+\code{PozzoUniversale(m)\{}\comm{l'input è la matrice di adiacenza}\\
+\hphantom{ident}\code{candidato = 1}\\
+\hphantom{ident}\code{n = m[1].lenght()}\comm{n è il numero di vertici}\\
+\hphantom{ident}\code{for(i=2;i\(\le\)n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(m[candidato,i]==1)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{candidato=i}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{for(i=1;i\(\le\)n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(m[candidato,i]==1)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{return false}\comm{il candidato ha un arco uscente}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{for(i=1;i\(\le\)n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(m[i,candidato]==0 \(\land\) i\(\ne\)candidato)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{return false}\comm{un nodo non ha un arco verso il candidato}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return true}\\
+\code{\}}}
 \subsubsection{Ordine Topologico in Tempo Lineare}
 Tornando al DFS con il contatore, esiste ovviamente anche una versione ricorsiva, composta da due funzioni,
-una "globale" che inizializza il processo, ed una ricorsiva che opera.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFSglobal(G,x)\{}\\
-\hphantom{ident}\codee{Vis : int[n] = [0,0...,0]}\\
-\hphantom{ident}\codee{t : int[n] = [0,0...,0]}\\
-\hphantom{ident}\codee{T : int[n] = [0,0...,0]}\\
-\hphantom{ident}\codee{c : int = 1}\\
-\hphantom{ident}\codee{DFSrecursive(x,Vis,c,t,T)}\comm{prima chiamata della funzione ricorsiva}\\
-\hphantom{ident}\codee{return Vis}\\
-\codee{\}}\acc
-L'algoritmo rimane in $O(n+m)$, passiamo ora alla funzione ricorsiva.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFSrecursive(x,Vis,c,t,T)\{}\\
-\hphantom{ident}\codee{while($\exists$y$\in$V(G) | Vis[y]=0 $\land$ (x,y)$\in$E(G))\{}\\
-\hphantom{ident}\hphantom{ident}\codee{Vis[y]=1}\\
-\hphantom{ident}\hphantom{ident}\codee{c++}\\
-\hphantom{ident}\hphantom{ident}\codee{t[y]=c}\\
-\hphantom{ident}\hphantom{ident}\codee{DFSrecursive(y,Vis,c,t,T)}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{T[x]=c}\\
-\codee{\}}\acc
+una "globale" che inizializza il processo, ed una ricorsiva che opera.\greybox{
+\code{DFSglobal(G,x)\{}\\
+\hphantom{ident}\code{Vis : int[n] = [0,0...,0]}\\
+\hphantom{ident}\code{t : int[n] = [0,0...,0]}\\
+\hphantom{ident}\code{T : int[n] = [0,0...,0]}\\
+\hphantom{ident}\code{c : int = 1}\\
+\hphantom{ident}\code{DFSrecursive(x,Vis,c,t,T)}\comm{prima chiamata della funzione ricorsiva}\\
+\hphantom{ident}\code{return Vis}\\
+\code{\}}}
+L'algoritmo rimane in $O(n+m)$, passiamo ora alla funzione ricorsiva.\greybox{
+\code{DFSrecursive(x,Vis,c,t,T)\{}\\
+\hphantom{ident}\code{while($\exists$y$\in$V(G) | Vis[y]=0 $\land$ (x,y)$\in$E(G))\{}\\
+\hphantom{ident}\hphantom{ident}\code{Vis[y]=1}\\
+\hphantom{ident}\hphantom{ident}\code{c++}\\
+\hphantom{ident}\hphantom{ident}\code{t[y]=c}\\
+\hphantom{ident}\hphantom{ident}\code{DFSrecursive(y,Vis,c,t,T)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{T[x]=c}\\
+\code{\}}}
 \textbf{Proposizione} : Per ogni arco $(v,u)$ in un grafo diretto, si ha che $t(u)\le T(v)$.\acc
 \textbf{Dimostrazione} : Se così non fosse, vorrebbe dire che $t(u)>T(v)$, significherebbe che avremmo
 chiuso (tolto dallo stack) $v$ quando vi era ancora possibilità di continuare su $u$, quindi
@@ -610,27 +596,25 @@ i valori di $T$ per i vertici coinvolti saranno \textit{decrescenti}.\begin{cent
 \end{center} La dove si causerà una situazione
 di "tie break", ossia in cui i valori di $T$ sono coincidenti per due vertici, si avrà che essi differiranno
 per i valori di $t$, che secondo l'ordine prima menzionato saranno strettamente crescenti, nel risultante
-ordine topologico, i vertici chiusi (tolti dallo stack) per ultimi, saranno quelli a sinistra.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{ORDtopologico(G)\{}\comm{funzione globale}\\
-\hphantom{ident}\codee{L : list}\comm{l'output, conterrà i vertici dell'ordine topologico}\\
-\hphantom{ident}\codee{Vis : int[n] = [0,0...,0]}\\
-\hphantom{ident}\codee{for each (v$\in$V(G))\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if(Vis[v]==0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSord(G,v,Vis,L)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\codee{\}}\acc
-\codee{DFSord(G,v,Vis,L)\{}\comm{funzione ricorsiva}\\
-\hphantom{ident}\codee{Vis[v]=1}\\
-\hphantom{ident}\codee{for each (w adiacente di v)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if(Vis[w]==0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{DFSord(G,w,Vis,L)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{L.insert(v,0)}\comm{inserisci il vertice nella prima posizione della lista}\\
-\codee{\}}
+ordine topologico, i vertici chiusi (tolti dallo stack) per ultimi, saranno quelli a sinistra.\greybox{
+\code{ORDtopologico(G)\{}\comm{funzione globale}\\
+\hphantom{ident}\code{L : list}\comm{l'output, conterrà i vertici dell'ordine topologico}\\
+\hphantom{ident}\code{Vis : int[n] = [0,0...,0]}\\
+\hphantom{ident}\code{for each (v$\in$V(G))\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(Vis[v]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{DFSord(G,v,Vis,L)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\code{\}}}\greybox{
+\code{DFSord(G,v,Vis,L)\{}\comm{funzione ricorsiva}\\
+\hphantom{ident}\code{Vis[v]=1}\\
+\hphantom{ident}\code{for each (w adiacente di v)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(Vis[w]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{DFSord(G,w,Vis,L)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{L.insert(v,0)}\comm{inserisci il vertice nella prima posizione della lista}\\
+\code{\}}}
 \subsection{Ponti sui Grafi non Diretti}\label{PontiGrafiNonDir}
 \hphantom{a}
 \begin{center}
@@ -667,35 +651,33 @@ vicino alla radice che è possibile raggiungere con un arco da $u$ o da uno dei 
 \end{center}
 Vogliamo quindi un algoritmo che, per un arco $(u,v)$, dove $v$ è il padre di $u$, si controlli il
 back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non è un ponte, altrimenti lo è.
-\begin{center}
-    Pseudocodice
-\end{center}
-\codee{Ponti(G : grafo connesso non diretto)\{}\comm{funzione globale}\\
-\hphantom{ident}\codee{t : int[n] = [0,0...,0]}\\
-\hphantom{ident}\codee{c : int = 0}\\
-\hphantom{ident}\codee{Ponti : list}\comm{l'output}\\
-\hphantom{ident}\codee{z = un vertice a caso di G}\\
-\hphantom{ident}\codee{DFSponte(G,z,z,t,c,Ponti)}\\
-\hphantom{ident}\codee{return Ponti}\\
-\codee{\}}\acc
-\codee{DFSponte(G, v, z, t, c, Ponti)\{}\comm{funzione ricorsiva, z è il padre di v}\\
-\hphantom{ident}\codee{back=t[v]}\\
-\hphantom{ident}\codee{c++}\\
-\hphantom{ident}\codee{t[v]=c}\\
-\hphantom{ident}\codee{for each (w adiacente di v)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if(t[w]==0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{b=DFSponte(G,w,v,t,c,Ponti)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{back = min(b,back)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{else if(w$\ne$z)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{back = min(t[w],back)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{if(back==t[v])\{}\\
-\hphantom{ident}\hphantom{ident}\codee{Ponti.add((v,z))}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return back}\\
-\codee{\}}\acc
+\greybox{
+\code{Ponti(G : grafo connesso non diretto)\{}\comm{funzione globale}\\
+\hphantom{ident}\code{t : int[n] = [0,0...,0]}\\
+\hphantom{ident}\code{c : int = 0}\\
+\hphantom{ident}\code{Ponti : list}\comm{l'output}\\
+\hphantom{ident}\code{z = un vertice a caso di G}\\
+\hphantom{ident}\code{DFSponte(G,z,z,t,c,Ponti)}\\
+\hphantom{ident}\code{return Ponti}\\
+\code{\}}}\greybox{
+\code{DFSponte(G, v, z, t, c, Ponti)\{}\comm{funzione ricorsiva, z è il padre di v}\\
+\hphantom{ident}\code{back=t[v]}\\
+\hphantom{ident}\code{c++}\\
+\hphantom{ident}\code{t[v]=c}\\
+\hphantom{ident}\code{for each (w adiacente di v)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(t[w]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{b=DFSponte(G,w,v,t,c,Ponti)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{back = min(b,back)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{else if(w$\ne$z)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{back = min(t[w],back)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{if(back==t[v])\{}\\
+\hphantom{ident}\hphantom{ident}\code{Ponti.add((v,z))}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return back}\\
+\code{\}}}
 \subsection{Componenti Fortemente Connesse}
 Abbiamo già dato la definizione di fortemente connesso per un grafo diretto, ossia un grafo $G$ di cui,
 per ogni coppia di vertici $(u,v)$ esiste un cammino da $u$ a $v$ e viceversa. Quando un grafo è non diretto, risulta
@@ -743,27 +725,25 @@ $G$ sono $u'_1,u'_2\dots,u'_k$ con:$$
         (u_i\backslash \{V_C\})\cup \{V(C)\}\text{ se }V_C\in u_i
     \end{cases}
 $$ Se il grafo non ha cicli, ogni vertice è un componente connesso. Vediamo
-ora l'algoritmo non lineare.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{Fort(G graph)\{}\acc
-\hphantom{ident}\codee{C = un ciclo in G}\\
-\hphantom{ident}\codee{if (C non esiste)\{}\comm{non ci sono cicli nel grafo}\\
-\hphantom{ident}\hphantom{ident}\codee{return \{\{v\}|v $\in$ V(G)\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{G=$\nicefrac{G}{C}$}\\
-\hphantom{ident}\codee{$V_C$ = vertice contratto}\\
-\hphantom{ident}\codee{($u_1,u_2\dots,u_k$)=Fort(G)}\\
-\hphantom{ident}\codee{for (i in 1...k)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if ($V_C\notin u_i$)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$u'_i=u_i$}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{else \{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{$u'_i=(u_i\backslash V_C)\cup \{V(C)\}$}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return ($u'_1,u'_2\dots,u'_k$)}\\
-\codee{\}}\acc
+ora l'algoritmo non lineare.\greybox{
+\code{Fort(G graph)\{}\acc
+\hphantom{ident}\code{C = un ciclo in G}\\
+\hphantom{ident}\code{if (C non esiste)\{}\comm{non ci sono cicli nel grafo}\\
+\hphantom{ident}\hphantom{ident}\code{return \{\{v\}|v $\in$ V(G)\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{G=$\nicefrac{G}{C}$}\\
+\hphantom{ident}\code{$V_C$ = vertice contratto}\\
+\hphantom{ident}\code{($u_1,u_2\dots,u_k$)=Fort(G)}\\
+\hphantom{ident}\code{for (i in 1...k)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if ($V_C\notin u_i$)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$u'_i=u_i$}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{else \{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$u'_i=(u_i\backslash V_C)\cup \{V(C)\}$}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return ($u'_1,u'_2\dots,u'_k$)}\\
+\code{\}}}
 Tale algoritmo ha complessità $O(n\cdot(n+m))$, voglio modificare il DFS per ottenere lo stesso algoritmo che operi in
 tempo lineare.\acc
 \textbf{Definizione} : Data l'esecuzione del DFS su un grafo $G$ diretto, e dato un componente fortemente
@@ -787,34 +767,32 @@ che $C(w)\nsubseteq T(u)$, sia allora $z$ la C-radice di $C(w)$, si ha che  \beg
 Ma allore esistono i cammini da $z$ ad $u$, e da $u$ a $w$, ma so che nel componente fortemente connesso $C(w)$ esiste
 un cammino da $w$ a $z$, ma allora $u,w,z\in C(w)$, ma inizialmente si è detto che $u$ è la C-radice, ma come può esserlo se
 $u$ è un discendente di $z$? C'è una contraddizione, quindi $C(w)\subseteq T(u)$. $\blacksquare$
-\begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFS\_Scc(G : graph, v : vert, C : stack, Output : list)\{}\comm{chiamata ricorsiva}\\
-\hphantom{ident}\codee{segna v come visitato}\\
-\hphantom{ident}\codee{C.push(v)}\\
-\hphantom{ident}\codee{for each (u adiacente a v $\land$ u non ancora visitato)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{DFS\_Scc(G,u,C,Output)}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{if(v è una C-radice)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{X : list}\\
-\hphantom{ident}\hphantom{ident}\codee{do\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{w=C.pop()}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{X.append(w)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}while(w$\ne$v)}\\
-\hphantom{ident}\hphantom{ident}\codee{Output.add(X)}\\
-\hphantom{ident}\codee{\}}\\
-\codee{\}}\acc
+\greybox{
+\code{DFS\_Scc(G : graph, v : vert, C : stack, Output : list)\{}\comm{ricorsiva}\\
+\hphantom{ident}\code{segna v come visitato}\\
+\hphantom{ident}\code{C.push(v)}\\
+\hphantom{ident}\code{for each (u adiacente a v $\land$ u non ancora visitato)\{}\\
+\hphantom{ident}\hphantom{ident}\code{DFS\_Scc(G,u,C,Output)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{if(v è una C-radice)\{}\\
+\hphantom{ident}\hphantom{ident}\code{X : list}\\
+\hphantom{ident}\hphantom{ident}\code{do\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{w=C.pop()}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{X.append(w)}\\
+\hphantom{ident}\hphantom{ident}\code{\}while(w$\ne$v)}\\
+\hphantom{ident}\hphantom{ident}\code{Output.add(X)}\\
+\hphantom{ident}\code{\}}\\
+\code{\}}}
 \code{C} è uno stack che contiene tutti i vertici che sono stati già visitati, ma che non hanno ancora un componente fortemente
-connesso assegnato, non è da confondersi con lo stack \code{S} del DFS.\acc
-\codee{Scc(G : graph)\{}\comm{chiamata globale}\\
-\hphantom{ident}\codee{C : stack}\comm{vertici visitati ma ancora senza componente}\\
-\hphantom{ident}\codee{Output : list}\\
-\hphantom{ident}\codee{for each (v$\in$V(G)| $v$ non ancora visitato)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{DFS\_Scc(G,v,C,Output)}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Output}\\
-\codee{\}}\acc
+connesso assegnato, non è da confondersi con lo stack \code{S} del DFS.\greybox{
+\code{Scc(G : graph)\{}\comm{chiamata globale}\\
+\hphantom{ident}\code{C : stack}\comm{vertici visitati ma ancora senza componente}\\
+\hphantom{ident}\code{Output : list}\\
+\hphantom{ident}\code{for each (v$\in$V(G)| $v$ non ancora visitato)\{}\\
+\hphantom{ident}\hphantom{ident}\code{DFS\_Scc(G,v,C,Output)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Output}\\
+\code{\}}}
 Il problema di questo algoritmo, è la riga in cui si controlla se un nodo è una C-radice, come possiamo fare tale controllo
 in un tempo ragionevole?\acc
 \textbf{Proposizione} : Un nodo $u$ \textit{non} è una C-radice se e solo se, nella chiamata ricorsiva del \code{DFS\_Scc} con
@@ -841,32 +819,30 @@ il componente non è stato ancora stabilito. Utilizzeremo un array \code{CC} che
     \item \code{CC[u] = c} quando $u$ ha un componente stabilito, e $c$ è il numero di tale componente.
 \end{itemize}
 Passiamo adesso all'algoritmo, la funzione globale rimane la medesima, cambia la funzione ricorsiva.
-\begin{center}
-    Pseudocodice
-\end{center}
-\codee{DFS\_Scc\_ottimizzato(G,u,CC,C,cont\_nodi,cont\_comp)\{}\comm{funzione ricorsiva}\\
-\hphantom{ident}\codee{cont\_nodi++}\\
-\hphantom{ident}\codee{CC[u]= -cont\_nodi}\\
-\hphantom{ident}\codee{C.push(u)}\\
-\hphantom{ident}\codee{back = cont\_nodi}\\
-\hphantom{ident}\codee{for each(v adiacente a u)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if(CC[v]==0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{b=DFS\_Scc\_ottimizzato(G,v,CC,C,cont\_nodi,cont\_comp)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{back=min(back,b)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{else if(CC[v]<0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{back=min(back,-CC[v])}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{if(back==-CC[u])\{}\\
-\hphantom{ident}\hphantom{ident}\codee{cont\_comp++}\\
-\hphantom{ident}\hphantom{ident}\codee{do\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{w=C.pop()}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{CC[w]=cont\_comp}\\
-\hphantom{ident}\hphantom{ident}\codee{\}while(w$\ne$u)}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return back}\\
-\codee{\}}\acc
+\greybox{
+\code{DFS\_Scc\_ottimizzato(G,u,CC,C,cont\_nodi,cont\_comp)\{}\comm{funzione ricorsiva}\\
+\hphantom{ident}\code{cont\_nodi++}\\
+\hphantom{ident}\code{CC[u]= -cont\_nodi}\\
+\hphantom{ident}\code{C.push(u)}\\
+\hphantom{ident}\code{back = cont\_nodi}\\
+\hphantom{ident}\code{for each(v adiacente a u)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(CC[v]==0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{b=DFS\_Scc\_ottimizzato(G,v,CC,C,cont\_nodi,cont\_comp)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{back=min(back,b)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{else if(CC[v]<0)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{back=min(back,-CC[v])}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{if(back==-CC[u])\{}\\
+\hphantom{ident}\hphantom{ident}\code{cont\_comp++}\\
+\hphantom{ident}\hphantom{ident}\code{do\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{w=C.pop()}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{CC[w]=cont\_comp}\\
+\hphantom{ident}\hphantom{ident}\code{\}while(w$\ne$u)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return back}\\
+\code{\}}}
 La complessità di questo algoritmo è $O(n+m)$.
 \subsection{Breadth First Search}
 Supponiamo di voler trovare la \textbf{distanza} fra due nodi $x$ ed $y$, denotata $dist(x,y)$, ossia, il numero di archi di un
@@ -878,27 +854,25 @@ cammino sia minimo, è necessario fare un altro tipo di ricerca, nota come  \tex
 Si vuole trovare la distanza fra $x$, ed $y$, si parte dal nodo $x$, e si controllano tutti i suoi adiacenti, se fra questi
 vi sarà $y$, la distanza sarà 1, altrimenti, sarà strettamente maggiore di 1, e si continuerà cercando fra gli adiacenti
 di $y$, evitando i nodi già visitati. \acc
-\begin{center}
-    Pseudocodice
-\end{center}
-\codee{BFS(G graph, x node)\{}\\
-\hphantom{ident}\codee{P : vettore di padri inizializzato a -1}\\
-\hphantom{ident}\codee{int Dist[$n$] array lungo $n=|V(G)|$ inizializzato a 0}\\
-\hphantom{ident}\codee{P[x]=x}\\
-\hphantom{ident}\codee{Q : coda vuota}\\
-\hphantom{ident}\codee{Q.enqueue(x)}\\
-\hphantom{ident}\codee{while(Q$\ne\emptyset$)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{v=Q.dequeue()}\\
-\hphantom{ident}\hphantom{ident}\codee{for each (w adiacente di v)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if(P[w]==-1)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Q.enqueue(w)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Dist[w]=Dist[v]+1}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{P[w]=v}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Dist, P}\\
-\codee{\}}\acc
+\greybox{
+\code{BFS(G graph, x node)\{}\\
+\hphantom{ident}\code{P : vettore di padri inizializzato a -1}\\
+\hphantom{ident}\code{int Dist[$n$] array lungo $n=|V(G)|$ inizializzato a 0}\\
+\hphantom{ident}\code{P[x]=x}\\
+\hphantom{ident}\code{Q : coda vuota}\\
+\hphantom{ident}\code{Q.enqueue(x)}\\
+\hphantom{ident}\code{while(Q$\ne\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\code{v=Q.dequeue()}\\
+\hphantom{ident}\hphantom{ident}\code{for each (w adiacente di v)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(P[w]==-1)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Q.enqueue(w)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Dist[w]=Dist[v]+1}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{P[w]=v}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Dist, P}\\
+\code{\}}}
 È di facile verifica il fatto che ogni nodo sia controllato una volta, l'algoritmo rientra in una complessità $O(n+m)$.\acc
 \textbf{Proposizione }: Sia $G$ un grafo e siano $x,y$ due vertici, $\exists z $ adiacente ad $y$ tale che
 $dist(x,z)=dist(x,y)-1$.\acc
@@ -934,49 +908,47 @@ nodo di $X$ e di $Y$, ossia la distanza minima fra l'insieme delle coppie $X\tim
 Una possibile soluzione sarebbe quella di contrarre i due insiemi rendendoli dei vertici a sé stanti, ma per fare ciò
 bisognerebbe modificare il grafo, è possibile fare ciò in $O(n+m)$, ma risulta complicato, un modo più semplice è
 quello di considerare una versione differente del BFS che sfrutti una coda, calcolando prima tutti i vicini
-di ogni nodo appartenente ad uno dei due insieme.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{BFS\_set(X,Y insiemi di nodi, G graph)\{}\\
-\hphantom{ident}\codee{int Dist[n] inizializzato a -1}\\
-\hphantom{ident}\codee{Q : queue}\\
-\hphantom{ident}\codee{for each x $\in$ X\{}\\
-\hphantom{ident}\hphantom{ident}\codee{Q.push(x)}\\
-\hphantom{ident}\hphantom{ident}\codee{Dist[x]=0}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{while(Q$\ne\emptyset$)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{v = Q.pop()}\\
-\hphantom{ident}\hphantom{ident}\codee{for each w adiacente di v \{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if (Dist[w]==-1)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{}\hphantom{ident}\codee{Dist[w]=Dist[v]+1}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{}\hphantom{ident}\codee{Q.push(w)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{minimo=$\infty$}\\
-\hphantom{ident}\codee{for each y $\in$ Y\{}\\
-\hphantom{ident}\hphantom{ident}\codee{minimo = min(Dist[y],minimo)}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return minimo}\\
-\codee{\}}\acc
+di ogni nodo appartenente ad uno dei due insieme.\greybox{
+\code{BFS\_set(X,Y insiemi di nodi, G graph)\{}\\
+\hphantom{ident}\code{int Dist[n] inizializzato a -1}\\
+\hphantom{ident}\code{Q : queue}\\
+\hphantom{ident}\code{for each x $\in$ X\{}\\
+\hphantom{ident}\hphantom{ident}\code{Q.push(x)}\\
+\hphantom{ident}\hphantom{ident}\code{Dist[x]=0}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{while(Q$\ne\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\code{v = Q.pop()}}\greybox{
+\hphantom{ident}\hphantom{ident}\code{for each w adiacente di v \{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if (Dist[w]==-1)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{}\hphantom{ident}\code{Dist[w]=Dist[v]+1}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{}\hphantom{ident}\code{Q.push(w)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{minimo=$\infty$}\\
+\hphantom{ident}\code{for each y $\in$ Y\{}\\
+\hphantom{ident}\hphantom{ident}\code{minimo = min(Dist[y],minimo)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return minimo}\\
+\code{\}}}
 Consideriamo adesso un vettore dei padri riguardante un albero dato come output da un BFS partito da un nodo $x$, risulta
 facile trovare la distanza minima fra $x$ ed un qualsiasi nodo $y$, ma è possibile trovare la distanza fra
-$x$ e tutti gli altri nodi in tempo lineare? Il seguente algoritmo, è in $O(n)$.\acc
-\codee{Dist\_ric(P vettore padri, Dist, y vertice)\{}\comm{chiamata ricorsiva}\\
-\hphantom{ident}\codee{if(P[y]==y)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{Dist[y]=0}\\
-\hphantom{ident}\hphantom{ident}\codee{return 0}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{if(Dist[y]>0)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{Dist[y]=Dist[P[y]]+1}\\
-\hphantom{ident}\hphantom{ident}\codee{return Dist[y]}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{Dist[y]=Dist\_ric(P,Dist,P[y])+1}\\
-\hphantom{ident}\codee{return Dist[y]}\\
-\codee{\}}\acc
+$x$ e tutti gli altri nodi in tempo lineare? Il seguente algoritmo, è in $O(n)$.\greybox{
+\code{Dist\_ric(P vettore padri, Dist, y vertice)\{}\comm{chiamata ricorsiva}\\
+\hphantom{ident}\code{if(P[y]==y)\{}\\
+\hphantom{ident}\hphantom{ident}\code{Dist[y]=0}\\
+\hphantom{ident}\hphantom{ident}\code{return 0}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{if(Dist[y]>0)\{}\\
+\hphantom{ident}\hphantom{ident}\code{Dist[y]=Dist[P[y]]+1}\\
+\hphantom{ident}\hphantom{ident}\code{return Dist[y]}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{Dist[y]=Dist\_ric(P,Dist,P[y])+1}\\
+\hphantom{ident}\code{return Dist[y]}\\
+\code{\}}}
 Basta poi eseguire tale chiamata per ogni nodo del grafo, inizializzando l'apposito vettore \code{Dist}, ogni nodo viene controllato
 una singola volta, per questo è garantita la complessità lineare.
-\subsection{Grafi Pesati}
+\subsection{Grafi Pesati}\label{grafiPesati}
 Consideriamo adesso un nuovo tipo di grafi, che introducono il concetto di \textbf{peso sugli archi}, ogni arco del grafo,
 avrà ad esso associato un numero reale detto, appunto, \textit{peso}, indicato con $w : E(G)\rightarrow \mathbb{R}^+$,
 rimodellando il concetto di distanza.\acc
@@ -1021,71 +993,73 @@ $P$, ossia $Q_1=$\{da $x$ a $u'$\}, e $Q_2=$\{da $v'$ a $v$\}, sarà che $P=Q_1+
 $w(P)=w(Q_1)+w(u',v')+w(Q_2)$, per ipotesi $w(Q_1)\ge dist_w(x,u')$ dato che $u'\in R$, e si ha che $w(Q_2)\ge 0$ (sarebbe 0
 se e solo se $v'=u'$).\acc
 Si ha che $w(Q_1)+w(u',v')\ge dist_w(x,u)+w(u,v)$ in quanto quest'ultima era minimizzata, quindi non esistono cammini
-con un peso minore, allora $dist_w(x,v)=dist_w(x,u)+w(u,v)$. $\blacksquare$\acc
+con un peso minore, allora $dist_w(x,v)=dist_w(x,u)+w(u,v)$. $\blacksquare$
+\greybox{
+\code{Dijkstra\_non\_ottimizzato(G graph (pesato), x vert)\{}\comm{calcola distanze con pesi}\\
+\hphantom{ident}\code{Dist : array lungo $n=|V(G)|$ inizializzato a 0}\\
+\hphantom{ident}\code{R : Insieme = \{x\}}\\
+\hphantom{ident}\code{while(R$\ne$V(G))\{}\\
+\hphantom{ident}\hphantom{ident}\code{min = $\infty$}\\
+\hphantom{ident}\hphantom{ident}\code{min\_arco = NULL}\\
+\hphantom{ident}\hphantom{ident}\code{for each (u,v)|u$\in$R $\land$ v$\notin$R\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(Dist[u]+w(u,v)<min)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{min=Dist[u]+w(u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{min\_arco = (u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{R.add(min\_arco[1])}\comm{min\_arco = (a,b)$\implies$min\_arco[0]=a $\land$ min\_arco[1]=b}\\
+\hphantom{ident}\hphantom{ident}\code{Dist[min\_arco[1]]=min}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Dist}\\
+\code{\}}}
 In \textit{conclusione}, dato un insieme $R$ per cui sono note le distanze da un vertice $x$, è sempre possibile trovare un
-nuovo nodo $v$ di cui sarà nota la distanza, incrementando $R$, fino a che tale insieme non conterrà tutti i vertici.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{Dijkstra\_non\_ottimizzato(G graph (pesato), x vert)\{}\comm{calcola distanze con pesi}\\
-\hphantom{ident}\codee{Dist : array lungo $n=|V(G)|$ inizializzato a 0}\\
-\hphantom{ident}\codee{R : Insieme = \{x\}}\\
-\hphantom{ident}\codee{while(R$\ne$V(G))\{}\\
-\hphantom{ident}\hphantom{ident}\codee{min = $\infty$}\\
-\hphantom{ident}\hphantom{ident}\codee{min\_arco = NULL}\\
-\hphantom{ident}\hphantom{ident}\codee{for each (u,v)|u$\in$R $\land$ v$\notin$R\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if(Dist[u]+w(u,v)<min)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{min=Dist[u]+w(u,v)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{min\_arco = (u,v)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{R.add(min\_arco[1])}\comm{min\_arco = (a,b)$\implies$min\_arco[0]=a $\land$ min\_arco[1]=b}\\
-\hphantom{ident}\hphantom{ident}\codee{Dist[min\_arco[1]]=min}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Dist}\\
-\codee{\}}\newpage
+nuovo nodo $v$ di cui sarà nota la distanza, incrementando $R$, fino a che tale insieme non conterrà tutti i vertici.\acc 
 Nel ciclo \code{while} vengono eseguite $n$ iterazioni in quanto $R$ ad ogni iterazione cresce ed è limitato da
 $V(G)$, all'interno del ciclo, l'operazione \code{for} costa $n+m$ iterazioni, la complessità totale dell'algoritmo
-risutla essere $O\big(n(n+m)\big)$.\acc
-È possibile migliorare l'efficienza dell'algoritmo servendosi di un \textit{min heap} per la memorizzazione degli archi.\acc
-\codee{Dijkstra(G graph (pesato), x vert)\{}\\
-\hphantom{ident}\codee{Dist : array lungo $n=|V(G)|$ inizializzato a $\infty$}\\
-\hphantom{ident}\codee{Dist[x]=0}\\
-\hphantom{ident}\codee{R : Insieme = \{x\}}\\
-\hphantom{ident}\codee{P : vettore di padri, P[x]=x}\\
-\hphantom{ident}\codee{H : min heap}\\
-\hphantom{ident}\codee{for each v $\in$ V(G)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if(v$\ne$x)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{H.insert(v,key=$\infty$)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{else \{ H.insert(v,key=0) \}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{while(H$\ne\emptyset$)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{v=H.extract\_min()}\\
-\hphantom{ident}\hphantom{ident}\codee{Dist[v]=H.key(v)}\\
-\hphantom{ident}\hphantom{ident}\codee{R.add(v)}\\
-\hphantom{ident}\hphantom{ident}\codee{for each u adiacente di v\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if(Dist[u]==$\infty$)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Dist[u]=Dist[v]+w(u,v)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{H.update\_key(u,Dist[u])}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{P[u]=v}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{else if(u$\notin$R)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{if(Dist[u]>Dist[v]+w(u,v))\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Dist[u]=Dist[v]+w(u,v)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{H.update\_key(u,Dist[u])}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{P[u]=v}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Dist}\\
-\codee{\}}\acc
-La complessità, date le operazioni di aggiornamento sull'heap, risulta essere $O\big((n+m)\cdot\log{n}\big)$.
+risutla essere $O\big(n(n+m)\big)$.
+\greybox{\code{Dijkstra(G graph (pesato), x vert)\{}\\
+\hphantom{ident}\code{Dist : array lungo $n=|V(G)|$ inizializzato a $\infty$}\\
+\hphantom{ident}\code{Dist[x]=0}\\
+\hphantom{ident}\code{R : Insieme = \{x\}}\\
+\hphantom{ident}\code{P : vettore di padri, P[x]=x}\\
+\hphantom{ident}\code{H : min heap}\\
+\hphantom{ident}\code{for each v $\in$ V(G)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(v$\ne$x)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{H.insert(v,key=$\infty$)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{else \{ H.insert(v,key=0) \}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{while(H$\ne\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\code{v=H.extract\_min()}\\
+\hphantom{ident}\hphantom{ident}\code{Dist[v]=H.key(v)}\\
+\hphantom{ident}\hphantom{ident}\code{R.add(v)}\\
+\hphantom{ident}\hphantom{ident}\code{for each u adiacente di v\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(Dist[u]==$\infty$)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Dist[u]=Dist[v]+w(u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{H.update\_key(u,Dist[u])}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{P[u]=v}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{else if(u$\notin$R)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(Dist[u]>Dist[v]+w(u,v))\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Dist[u]=Dist[v]+w(u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{H.update\_key(u,Dist[u])}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{P[u]=v}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Dist}\\
+\code{\}}}
+È possibile migliorare l'efficienza dell'algoritmo servendosi di un \textit{min heap} per la memorizzazione degli archi,
+ora la complessità, date le operazioni di aggiornamento sull'heap, risulta essere $O\big((n+m)\cdot\log{n}\big)$.
 \section{Gli Algoritmi Greedy}
+\subsection{Problemi sugli Intervalli}
 Con algoritmi "greedy", si intende una categoria di algoritmi che si basano sul seguente paradigma: Per trovare la soluzione 
 finale (che rappresenta una soluzione "ottimale") si parte da una soluzione qualsiasi, molto spesso una soluzione "vuota", per 
-poi farla "incrementare" fino a trovare una soluzione finale.\acc 
-Si considerano uno ad uno i "passi" per far "crescere" la soluzione, e se essi sono corretti si procede per tale via. Sono quindi algoritmi applicati 
+poi farla "incrementare" fino a trovare una soluzione finale, algoritmi di questo tipo, sono stati presentati nel corso 
+di  
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf}{Basi di Dati 1}.\acc 
+\color{black}Si considerano uno ad uno i "passi" per far "crescere" la soluzione, e se essi sono corretti si procede per tale via. Sono quindi algoritmi applicati 
 per problemi di \textit{ottimizzazione}, sebbene 
 tale descrizione risulti ambigua, il concetto verrà reso più chiaro con il prossimo esempio.\acc 
 Si consideri un insieme di intervalli reali $I_1,I_2\dots,I_n \in \mathbb{R}$, si vuole trovare un sotto-insieme di intervalli 
@@ -1097,40 +1071,36 @@ quindi $S_0=\emptyset$. Per trovare una soluzione (non necessariamente ottimale)
 se aggiungendolo alla soluzione, essa rimarrà fattibile (non ci saranno intersezioni), allora verrà aggiunto, e si procederà 
 con il passo successivo.\acc 
 Alla fine, si arriverà nella situazione in cui non vi sono possibili passi validi, quindi l'algoritmo terminerà, sarà garantito 
-il fatto che la soluzione sia fattibile.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{Intervalli( Insieme $I_1,I_2\dots,I_n$)\{}\\
-\hphantom{ident}\codee{Sol = $\emptyset$}\\
-\hphantom{ident}\codee{for each i $\in$ 1,2$\dots,n$\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Sol.add($I_i$)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Sol}\\
-\codee{\}}\acc 
+il fatto che la soluzione sia fattibile.\greybox{
+\code{Intervalli( Insieme $I_1,I_2\dots,I_n$)\{}\\
+\hphantom{ident}\code{Sol = $\emptyset$}\\
+\hphantom{ident}\code{for each i $\in$ 1,2$\dots,n$\{}\\
+\hphantom{ident}\hphantom{ident}\code{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($I_i$)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Sol}\\
+\code{\}}}
 Tale algoritmo trova sempre una soluzione ma non sempre è ottimale, infatti in una situazione in cui ci sono due intervalli 
 disgiunti ed uno che li interseca entrambi, la considerazione di quest'ultimo all'inizio dell'algoritmo lo porterà ad 
 essere l'unico intervallo nella soluzione.\acc 
 Una possibile idea è quella di ordinare gli intervalli in maniera crescente secondo il valore del loro estremo destro. L'algoritmo 
-risulta quindi molto semplice da scrivere:\begin{center}
-    Pseudocodice
-\end{center}
-\codee{Intervalli\_ottimale( Insieme $I_1=[a_1,b_1],I_2=[a_2,b_2]\dots,I_n=[a_n,b_n]$ )\{}\\
-\hphantom{ident}\codee{ordina $I_1,I_2\dots,I_n$ per il valore di $b_i$ in maniera crescente}\\
-\hphantom{ident}\codee{Sol = $\emptyset$}\\
-\hphantom{ident}\codee{for each i $\in$ 1,2$\dots,n$\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Sol.add($I_i$)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{return Sol}\\
-\codee{\}}\acc
+risulta quindi molto semplice da scrivere:\greybox{
+\code{Intervalli\_ottimale( Insieme $I_1=[a_1,b_1],I_2=[a_2,b_2]\dots,I_n=[a_n,b_n]$ )\{}\\
+\hphantom{ident}\code{ordina $I_1,I_2\dots,I_n$ per il valore di $b_i$ in maniera crescente}\\
+\hphantom{ident}\code{Sol = $\emptyset$}\\
+\hphantom{ident}\code{for each i $\in$ 1,2$\dots,n$\{}\\
+\hphantom{ident}\hphantom{ident}\code{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($I_i$)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Sol}\\
+\code{\}}}
 Una caratteristica comune degli algoritmi greedy è che sono semplici da scrivere, ma risulta lunga la dimostrazione della 
 loro correttezza. Ebbene, abbiamo dato per scontato che questo algoritmo funzioni senza dare spiegazioni, procediamo con la dimostrazione 
 della correttezza. Per dimostrarla, è possibile dimostrare una proposizione più "forte", che implica la correttezza dell'algoritmo. \acc 
 \textbf{Proposizione $\bigstar$ } : Sia $Sol_i$ il valore di \code{Sol} all'$i$-esima iterazione del ciclo \code{for} 
-dell'algoritmo, e sia $Sol^\star$ una qualsiasi soluzione ottimale, si ha che, $\forall i\in \{0,1\dots,n\}$ $Sol_i\in Sol^\star$
+dell'algoritmo, e sia $Sol^\star$ una qualsiasi soluzione ottimale, si ha che, $\forall i\in \{0,1\dots,n\}$ $Sol_i\subseteq Sol^\star$
 \acc 
 Se la proposizione fosse vera, allora esisterebbe una soluzione ottimale $Sol^\star$ che conterrebbe $Sol_n$, ossia 
 l'output dell'algoritmo, bisogna dimostrare che $Sol^\star \subseteq Sol_n$. \acc 
@@ -1177,8 +1147,56 @@ $b_{k+1}\in I_j$, e $a_{j'}>b_{k+1}$. Giungiamo alla \textit{conclusione} che, e
 $Sol^\star$ disgiunto da $I_{k+1}$, possiamo \textbf{sostituire} $I_j$ con $I_{k+1}$ in $Sol^\star$ 
 $$ T=(Sol^\star \backslash \{I_j\})\cup \{I_{k+1}\}$$
 Tale nuovo insieme $T$, ha la stessa cardinalità di $Sol^\star$, inoltre tutti gli intervalli in esso contenuti sono 
-disgiunti, $T$ è quindi una \textit{soluzione ottimale} che contiene $Sol_{k+1}$, dimostrando la proposizione. $\blacksquare$
+disgiunti, $T$ è quindi una \textit{soluzione ottimale} che contiene $Sol_{k+1}$, dimostrando la proposizione. $\blacksquare$\acc 
+Consideriamo adesso un altro problema relativo agli intervalli, come input, si ha sempre un insieme di 
+intervalli $I_1,I_2\dots,I_n$. Consideriamo un insieme di numeri reali $X$, con la seguente proprietà: Tutti gli intervalli 
+si intersecano con almeno un elemento di $X$, ossia $$X\cap [a_i,b_i]\ne \emptyset\; \forall i\in\{1,2\dots,n\}$$
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/midPointInterset.eps}
+\end{center}
+Si vuole trovare un numero minimale di reali che si intersechino con tutti gli intervalli, ossia minimizzare la cardinalità 
+di questo insieme $X$, è possibile ordinare gli intervalli in maniera crescente secondo il valore di $b_i$, ossia l'estremo 
+maggiore dell'$i$-esimo intervallo, e considerare questo elemento come candidato da aggiungere in $X$, aggiungendoli ad ogni passo
+quando necessario.\greybox{
+\code{Min\_point\_interset( I := \{$[a_1,b_1],[a_2,b_2]\dots,[a_n,b_n]$\} )\{}\\
+\hphantom{ident}\code{I := ordina\_secondo\_gli\_estremi\_destri(I)}\\
+\hphantom{ident}\code{Sol=$\emptyset$}\\
+\hphantom{ident}\code{for(int i = 0;i<$n$;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if( Sol$\cap[a_i,b_i]==\emptyset$ )\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($b_i$)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Sol}\\
+\code{\}}}
+Vogliamo adesso dimostrare la correttezza di tale algoritmo, per costruzione, sicuramente l'output si intersecherà con 
+tutti gli intervalli, ma non è sicuro che sia minimale. \acc 
+\textbf{Proposizione $\bigstar$ } : Sia $Sol_i$ il valore di \code{Sol} all'$i$-esima iterazione del ciclo \code{for} 
+dell'algoritmo, e sia $Sol^\star$ una qualsiasi soluzione ottimale, si ha che, $\forall i\in \{0,1\dots,n\}$ $Sol_i\subseteq Sol^\star$
+\acc 
+\textbf{Dimostrazione $\bigstar$} :  Si procede per induzione su $i :=$ passo dell'algoritmo.\begin{itemize}
+    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$ 
+    \item Ipotesi induttiva  \boxedMath{$i=k$} supponiamo che $\exists Sol^\star$ ottimale tale che $Sol_k\subseteq Sol^\star$
+\end{itemize}
+Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} Abbiamo che $$Sol_{k+1}=Sol_k\cup\{b_{k+1}\}$$
+Se $b_{k+1}$ non è presente in $Sol^\star$, allora deve esistere un punto $b_x$ che copre in $Sol^\star$ gli intervalli 
+che intersecano con $b_{k+1}$, ed ovviamente $b_x \notin Sol_k$.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/dimMidPointInt..eps}
+\end{center} 
+Qualsiasi intervallo $[a_j,b_j]$ dove $j\le k+1$ è coperto dai punti in $Sol_k\cup\{b_{k+1}\}$, per o restanti intervalli, 
+dove $j>k+1$\begin{itemize}
+    \item Se $x\in [a_j,b_j]$
+    \item Essendo che $b_j\ge b_{k+1}$
+    \item E che $b_x \le b_{k+1}$
+    \item Allora $b+1\in [a_j,b_j]$
+\end{itemize}
+Ciò significa che \textbf{ogni} intervallo di $Sol^\star$ che interseca \textit{esclusivamente} con il punto $b_x$, interseca 
+anche con $b_{k+1}$, questo significa che, è possibile sostituire $b_x$ con $b_{k+1}$ in $Sol^\star$
+$$ T=(Sol^\star \backslash \{b_x\})\cup \{b_{k+1}\}$$ 
+L'insieme $T$ ha punti che si intersecano con tutti gli intervalli, inoltre ha la stessa cardinalità di $Sol^\star$, che era una 
+soluzione ottimale. $T$ è una soluzione ottimale che contiene $Sol_{k+1}$, dimostrando la proposizione. $\blacksquare$
+
 \subsection{Minimum Spanning Tree} 
+\subsubsection{L'algoritmo di Kruskal}
 Sia $G$ un grafo (connesso) non diretto con pesi $w:E(G)\rightarrow \mathbb{R}^+$ sugli archi, sia $H$ un sottografo di $G$, si ricordi come il peso di 
 un sottografo equivale a 
 $$ w(H)=\sum_{e\in E(H)}w(e)$$
@@ -1192,18 +1210,16 @@ connesso di peso minimo $H$ vi sia un ciclo $C$, ogni arco di $C$ ha peso positi
 ad $H$, ma dalla quale viene cancellato un arco di $C$, tale $H'$ è ancora connesso, e contiene tutti i vertici, avendo tolto 
 un arco con peso positivo, si ha che $w(H')<w(H)$, ma per ipotesi $H$ era di peso minimo, quindi non può avere cicli. $\blacksquare$\acc 
 Si vuole trovare un algoritmo greedy in grado di restituire l'MST di un grafo connesso, la soluzione sarà data 
-sottoforma di insieme di archi. Come punto di partenza nell'algoritmo, è possibile partire da un arco di peso minimo.\begin{center}
-    Pseudocodice
-\end{center}
-\codee{Kruskal(G grafo pesato)\{}\\
-\hphantom{ident}\codee{Ordina archi \{$e_1,e_2\dots,e_n$\} per il peso in maniera crescente}\\
-\hphantom{ident}\codee{Sol = $\emptyset$}\\
-\hphantom{ident}\codee{for (i=0; i$<=n$; i++)\{}\\
-\hphantom{ident}\hphantom{ident}\codee{if( Sol $\cup$ $e_i$ non ha un ciclo)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\codee{Sol.add($e_i$)}\\
-\hphantom{ident}\hphantom{ident}\codee{\}}\\
-\hphantom{ident}\codee{\}}\\
-\codee{\}}\acc 
+sottoforma di insieme di archi. Come punto di partenza nell'algoritmo, è possibile partire da un arco di peso minimo.
+\greybox{\code{Kruskal(G grafo pesato)\{}\\
+\hphantom{ident}\code{Ordina archi \{$e_1,e_2\dots,e_n$\} per il peso in maniera crescente}\\
+\hphantom{ident}\code{Sol = $\emptyset$}\\
+\hphantom{ident}\code{for (i=0; i$<=n$; i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if( Sol $\cup$ $e_i$ non ha un ciclo)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($e_i$)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\code{\}}}
 L'algoritmo è semplice, si continuano ad aggiungere gli archi di peso minore, escludendo quelli che creano cicli, fino 
 a connettere tutti i vertici del grafo.\acc 
 \textbf{Proposizione} : L'output dell'algoritmo di \codee{Kruskal} è un grafo connesso.\acc 
@@ -1214,7 +1230,7 @@ esiste un arco che collega 2 componenti connesse, che se aggiunto non creerebbe 
     \includegraphics[width=0.4\textwidth ]{images/propMST.eps}
 \end{center}
  Tale arco è stato considerato nell'algoritmo, 
-ma non selezionato, quindi l'algoritmo non è stato eseguito correttamente. $\blacksquare$
+ma non selezionato, quindi l'algoritmo non è stato eseguito correttamente. $\blacksquare$\acc
 \textbf{Corollario} : L'albero dato in output dall'algoritmo di  \codee{Kruskal} è un albero di copertura.\acc 
 Adesso bisogna dimostrare che la soluzione sia ottimale, dimostreremo, come nel caso dell'algoritmo precedente, una proposizione 
 più "forte" che ne implica la correttezza.\acc 
@@ -1240,5 +1256,164 @@ $T$ è ancora un albero di copertura, in quanto l'arco $f$ che viene rimosso fa 
 in quanto $C$ era l'unico ciclo presente in $Sol^\star \cup  \{e_{k+1}\}$.\acc 
 Essendo che il peso di $e_{k+1}$ è minore o uguale al peso di $f$, si ha che il peso di $T$ è minore o uguale 
 al peso di $Sol^\star$, quest'ultima però, era una soluzione ottimale di peso minimo, quindi $w(T)=w(Sol^\star)$, allora 
-$T$ è una soluzione ottimale che contiene $e_{k+1}$, dimostrando così la proposizione. $\blacksquare$
+$T$ è una soluzione ottimale che contiene $e_{k+1}$, dimostrando così la proposizione. $\blacksquare$\acc 
+Vediamo adesso un problema simile la cui soluzione segue direttamente dall'algoritmo appena visto, si vuole  trovare
+il sottografo di peso minimo di un grafo pesato, con pesi sia positivi che negativi $$w:E(G)\rightarrow \mathbb{R} $$ 
+In questo caso, è possibile che tale sottografo non sia un albero, data la presenza di cicli.\acc 
+\textbf{Proposizione} : Tutti gli archi di peso negativo saranno presenti nel sottografo. \acc 
+Data la seguente proposizione la soluzione risulta banale, basterà includere nella soluzione tutti gli archi di peso negativo, 
+per poi eseguire il già visto algoritmo di Kruskal sui rimanenti archi di peso positivo fino ad includere ogni vertice 
+del grafo.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/MSTneg.eps}
+\end{center}\greybox{
+\code{Kruskal\_Neg(G grafo pesato)\{}\\
+\hphantom{ident}\code{Sol = \{ $e\text{ tale che }w(e)<0$ \}}\\
+\hphantom{ident}\code{Ordina archi \{$e_1,e_2\dots,e_n$\} per il peso in maniera crescente}\\
+\hphantom{ident}\code{Rimuovi da G gli archi di peso negativo}\\
+\hphantom{ident}\code{for (i=0; i$<=n$; i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if( $e_i=(x,y)\land \ne$ un cammino $x\rightarrow y$ in Sol )\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($e_i$)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\code{\}}}
+\subsubsection{L'algoritmo di Prim}
+Vediamo un secondo algoritmo dedito all'estrazione di un MST da un grafo pesato con pesi strettamente positivi, l'idea è 
+la seguente, considero ogni volta l'arco di peso minimo che collega un vertice della soluzione ad un vertice che non è 
+stato ancora incluso, e lo aggiungo, fino ad includere  tutti i vertici, tale algoritmo è simile all'algoritmo di 
+Dijkstra \ref{grafiPesati}.\greybox{
+\code{Prim(G grafo pesato)\{}\\
+\hphantom{ident}\code{x = vertice qualsiasi}\\ 
+\hphantom{ident}\code{Vis[n]=\{0,0...,0\}}\comm{array inizializzato a zero dove $n=|V(G)|$}\\
+\hphantom{ident}\code{Vis[x]=1}\\
+\hphantom{ident}\code{Sol = $\emptyset$}\\
+\hphantom{ident}\code{while($\exists$ w$\in V(G)$ tale che Vis[w]=0 )\{}\comm{un vertice non ancora visitato}\\
+\hphantom{ident}\hphantom{ident}\code{(u,v)= arco di peso minimo tale che Vis[u]=1 $\land$ Vis[v]=0}\\
+\hphantom{ident}\hphantom{ident}\code{Vis[v]=1}\\
+\hphantom{ident}\hphantom{ident}\code{Sol.add((u,v))}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Sol}\\
+\code{\}}}
+\textbf{Proposizione} : L'insieme \code{Sol} output dell'algoritmo è sempre un albero di copertura.\acc 
+\textbf{Dimostrazione} : L'algoritmo termina quando non un vertice non ancora visitato, quindi l'output conterrà 
+ogni vertice di $G$, inoltre, ogni arco viene aggiunto nella soluzione esclusivamente se connette un nodo già visto ad un 
+nodo ancora non considerato, rendendo la soluzione priva di cicli, mantenendola connessa. $\blacksquare$\acc 
+\textbf{Proposizione $\bigstar$} : Sia $Sol_i$ il valore dell'insieme \code{Sol} all'$i$-esima iterazione nell'algoritmo, 
+si ha che, $\forall i,\; \exists $ una soluzione ottimale $Sol^\star$ tale che $Sol_i\subseteq Sol^\star$.\acc
+\textbf{Dimostrazione $\bigstar$} :  Si procede per induzione su $i :=$ passo dell'algoritmo.\begin{itemize}
+    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$ 
+    \item Ipotesi induttiva  \boxedMath{$i=k$} supponiamo che $\exists Sol^\star$ ottimale tale che $Sol_k\subseteq Sol^\star$
+\end{itemize}
+Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} L'insieme $Sol_k$ è un albero contenuto in $Sol^\star$, si 
+ha che $$ Sol_{k+1}=Sol_k\cup\{e\}$$ 
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/dimPrim1.eps}
+\end{center}
+Tale arco $e$ collega un vertice di $Sol_k$ ad un vertice di $Sol^\star\backslash Sol_k$, e non è presente in $Sol^\star$. 
+Seguendo il procedimento già visto nelle dimostrazioni di questo tipo, so che devo sostituire in $Sol^\star$ un arco 
+con $e$, tale arco crea un singolo ciclo $C$ in $Sol^\star \cup \{e\}$
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/dimPrim2.eps}
+\end{center}
+Vediamo come $C\backslash\{e\}$ è un cammino da un vertice che è in $Sol_k$, ad un vertice che ne è fuori, ciò significa 
+che in $C\backslash\{e\}$ deve necessariamente esistere un arco $f=(u',v')$ tale che $$v'\notin Sol_k\;\land\;u'\in Sol_k$$ 
+Siccome l'arco $f$ non è ancora stato considerato nell'algoritmo, data la sua costruzione sappiamo che $w(f)\ge w(w)$, quindi 
+è possibile sostituire questi due in $Sol^\star$ considerando 
+$$ T=(Sol^\star\backslash\{f\})\cup\{e\}$$ 
+Si ha che $T$ è un albero di copertura con $w(t)\le w(Sol^\star)$, essendo $Sol^\star$ ottimale, si ha che 
+$w(t) = w(Sol^\star)$, quindi $T$ è una soluzione ottimale che contiene $Sol_{k+1}$, dimostrando così la proposizione. $\blacksquare$
+\newpage 
+\section{Algoritmi Divide et Impera}
+Gli algoritmi \textit{Divide et Impera}, sono quegli algoritmi che consistono nel suddividere il problema principale 
+in due o più sotto-problemi da risolvere ricorsivamente, per ottenere delle soluzioni parziali da "ricomporre", ottenendo
+la soluzione principale. Un classico esempio di algoritmo di questo tipo è il \textit{Merge Sort}, già visto nel corso 
+di 
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Primo%20Anno/Secondo%20Semestre/Introduzione%20agli%20algoritmi/Introduzione%20agli%20Algoritmi.pdf}{Algoritmi 1}.
+\color{black}\acc 
+Gli algoritmi ricorsivi di questo tipo hanno un costo computazionale descritto da un relazione di ricorrenza, il già citato \textit{Merge Sort} 
+divide il problema in due sotto-problemi, e ad ogni passo ricorsivo, il costo per ricomporre la soluzione è lineare, il costo complessivo 
+dell'algoritmo è descritto dalla relazione: 
+$$ T(n)=2\cdot T(\dfrac{n}{2})+O(n) $$ 
+È possibile determinare rapidamente il costo computazionale, data una relazione di ricorrenza, grazie al seguente enunciato. 
+\subsubsection{Teorema Principale}
+\textbf{Enunciato } : Sia $T(n)$ una relazione di ricorrenza del tipo 
+$$ T(n)=a\cdot T(\dfrac{n}{b})+f(n)$$
+Dove
+   $a\ge 1$,
+   $b\ge 1$,
+    e $f$ è una funzione che descrive il costo ad ogni passo ricorsivo, 
+Valgono le seguenti:\begin{itemize}
+    \item \textbf{Caso 1} : Se \begin{itemize}
+        \item $f(n)=\theta(n^c)$
+        \item $c$ è un numero reale tale che $c<\log_b(a)$
+    \end{itemize}
+    Allora $T(n)=\theta(n^{\log_b(a)})$.
+    \item \textbf{Caso 2} : Se \begin{itemize}
+        \item $f(n)=\theta(n^c\cdot \log^k(n))$
+        \item $c=\log_b(a)$
+        \item $k\ge 0$
+    \end{itemize}
+    Allora $T(n)=\theta(n^c\cdot \log^{k+1}(n))$.
+    \item \textbf{Caso 3} : Se \begin{itemize}
+        \item $f(n)=\theta(n^c)$
+        \item $c$ è un numero reale tale che $c>\log_b(a)$
+    \end{itemize}
+    Allora $T(n)=\theta(n^c)$.
+\end{itemize}
+\subsection{Problemi sui Vettori}
+\subsubsection{Problema del Massimo Sotto-array}
+Consideriamo il seguente problema : Dato $A$ un array di numeri interi, si vuole trovare un sotto-array, della forma 
+$A[i:j]$, con $j<i$, che massimizzi la somma degli elementi.\acc 
+Supponiamo di voler utilizzare la "forza bruta", e di controllare ogni singolo sotto-array, ciò rientrerebbe in una complessità 
+$O(n^2)$.
+\greybox{\code{Max\_sub\_vector(A : array)\{}\comm{Versione forza bruta}\\
+\hphantom{ident}\code{Sol=0}\\ 
+\hphantom{ident}\code{for(int i = 0;i<n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{Somma = 0}\\
+\hphantom{ident}\hphantom{ident}\code{for(int j = i;j<n;j++)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Somma+=A[j]}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol = max(Sol,Somma)}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Sol}\\
+\code{\}}} 
+Pensiamo adesso ad un algoritmo Divide et Impera che possa trovare la soluzione in tempo minore, per ottenere un costo minore 
+di $O(n^2)$, dal teorema principale sappiamo che l'"overhead" ad ogni passo ricorsivo deve essere \textit{lineare}.\acc 
+L'array viene diviso in due sotto-array, eseguendo la chiamata ricorsiva su entrambe le metà, ottenendo il valore massimo 
+per la metà destra, ed il valore massimo per la metà sinistra, il punto è che bisogna anche considerare i possibili 
+sotto-array "a cavallo" fra le due metà. Ovviamente il caso base è raggiunto quando il sotto-array considerato è composto 
+da un solo elemento.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/maxSubVec.eps}
+\end{center}
+\textbf{Proposizione} : Un qualsiasi sotto-array "a cavallo" fra i due sarà composto da un prefisso ed un 
+suffisso rispetto la metà dell'array iniziale. Il sotto-array "a cavallo" di somma massima sarà composto dal 
+prefisso massimo ed il suffisso massimo. \acc 
+Partendo quindi dal centro, si sposterà il prefisso a sinistra (ed il suffisso a destra) controllando il valore della somma, 
+fino a trovare la somma massima.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/esempioSuffPref.eps}
+\end{center}
+\greybox{\code{Max\_sub\_vector(A : array)\{}\comm{Versione divide et impera}\\
+\hphantom{ident}\code{if(A.length()==0)\{ return 0 \}}\comm{caso base}\\
+\hphantom{ident}\code{if(A.length()==1)\{ return max(0,A[0]) \}}\comm{caso base}\\
+\hphantom{ident}\code{m=A.length()/2}\\
+\hphantom{ident}\code{max1 = Max\_sub\_vector(A[0 : m])}\\
+\hphantom{ident}\code{max2 = Max\_sub\_vector(A[m+1 : A.length()-1])}\\
+\hphantom{ident}\code{pref\_max = 0}\\
+\hphantom{ident}\code{suff\_max = 0}\\
+\hphantom{ident}\code{Somma = 0}\\
+\hphantom{ident}\code{for(int i = m;i >=0; i-- )\{}\comm{trovo il prefisso massimo}\\
+\hphantom{ident}\hphantom{ident}\code{Somma+=A[i]}\\
+\hphantom{ident}\hphantom{ident}\code{pref\_max = max(pref\_max,Somma)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{Somma = 0}\\
+\hphantom{ident}\code{for(int i = m+1;i < A.length()-1; i++ )\{}\comm{trovo il suffisso massimo}\\
+\hphantom{ident}\hphantom{ident}\code{Somma+=A[i]}\\
+\hphantom{ident}\hphantom{ident}\code{suff\_max = max(suff\_max,Somma)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{somma\_a\_cavallo=suff\_max+pref\_max}\\
+\hphantom{ident}\code{return max(somma\_a\_cavallo, max1, max2)}\\
+\code{\}}}
+La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n)=2\cdot T(\dfrac{n}{2})+O(n)$$
+Per il teorema principale risulta che
+$$ a=2\;\;b=2\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$ 
+$$ T(n)=O\big(n\cdot\log{n}\big)$$
 \end{document}
