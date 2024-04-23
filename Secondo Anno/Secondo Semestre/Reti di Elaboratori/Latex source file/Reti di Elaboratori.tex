@@ -771,7 +771,7 @@ per risolvere\footnote{con risolvere, si intende il processo di traduzione} i no
     \item distribuzione del carico
 \end{itemize}
 \subsubsection{Gerarchia degli Host-Name e Risoluzione}
-È necessario mantenere il database decentralizzato in quanto è soggetto a milioni e milioni di richieste 
+È necessario mantenere il database decentralizzato in quanto è soggetto a milioni e milioni di richieste
 al giorno, le aziende sono responsabili dei propri record nel database. Esistono svariati server DNS, che contengono una
 porzione del database, nessun server mantiene il mapping di tutti gli host esistenti. Le $2^{32}$ coppie
 IP-nome host sono memorizzate in maniera da rendere breve la ricerca. \acc
@@ -853,8 +853,8 @@ messaggi di risposta condividono lo stesso identico formato, appositi flags iden
     \item Il campo \textbf{flags} è composto anche esso da 16 bit, ed indica alcune specifiche della
           richiesta/risposta, indicando prima di tutto quale  tipo di messaggio è, se la ricorsione è richiesta
           oppure concessa, e se la risposta è autoritativa.
-    \item I restanti campi servono per la query effettiva, i record forniti 
-    da server non autoritativi, i record forniti da server
+    \item I restanti campi servono per la query effettiva, i record forniti
+          da server non autoritativi, i record forniti da server
           autoritativi, oppure delle informazioni aggiuntive fornite dal server DNS che potrebbero risultare utili.
 \end{itemize}
 \subsubsection{Ruolo del Punto e Sicurezza}
@@ -1056,322 +1056,328 @@ canale totalmente affidabile.\acc
           incapsulato in un pacchetto.
     \item udt\_send(data) - il pacchetto incapsulato viene inviato
           al socket tramite un protocollo inaffidabile.
-    \item rdt\_receive(packet) - il protocollo riceve il pacchetto dal mittente. 
+    \item rdt\_receive(packet) - il protocollo riceve il pacchetto dal mittente.
     \item extract(packet,data) - il protocollo si occupa di eseguire il decapsulamento del pacchetto,
-    data conterrà il messaggio estratto. 
+          data conterrà il messaggio estratto.
     \item deliver\_data(data) - il messaggio estratto viene inviato all'applicazione.
 \end{itemize}
 \subsubsection{rdt 2.0}
-Consideriamo adesso un canale che non è al 100\% affidabile, ossia che, con una certa probabilità, 
+Consideriamo adesso un canale che non è al 100\% affidabile, ossia che, con una certa probabilità,
 causi degli \textit{errori} sui bit, che dovranno essere rilevati tramite il campo checksum\footnote{
     si assume che il checksum sia infallibile e rilevi sempre errori, se presenti
 } nell'header.
-Sono necessari i seguenti costrutti: 
+Sono necessari i seguenti costrutti:
 \begin{itemize}
-    \item Con il termine \textbf{ACK}, si intende un pacchetto che il destinatario invia al mittente in seguito 
-    alla ricezione di un messaggio, ed ha lo 
-    scopo di notificare a quest'ultimo che tale messaggio non presenta errori nei bit.
-    \item Con il termine \textbf{NAK}, si intende un pacchetto che il destinatario invia al mittente in seguito 
-    alla ricezione di un messaggio, ed ha lo 
-    scopo di notificare a quest'ultimo che tale messaggio presenta errori nei bit, appositamente rilevati 
-    tramite il checksum.
+    \item Con il termine \textbf{ACK}, si intende un pacchetto che il destinatario invia al mittente in seguito
+          alla ricezione di un messaggio, ed ha lo
+          scopo di notificare a quest'ultimo che tale messaggio non presenta errori nei bit.
+    \item Con il termine \textbf{NAK}, si intende un pacchetto che il destinatario invia al mittente in seguito
+          alla ricezione di un messaggio, ed ha lo
+          scopo di notificare a quest'ultimo che tale messaggio presenta errori nei bit, appositamente rilevati
+          tramite il checksum.
 \end{itemize}
-Se il destinatario dovesse notificare un NAK, sarà necessario re-inviare il pacchetto che è stato modificato. 
-Per ragioni di semplicità, tale protocollo utilizzerà una politica di invio pacchetti \textbf{stop-and-wait}, 
-consiste nell'inviare un singolo pacchetto alla volta, ed inviare il pacchetto successivo solo quando 
+Se il destinatario dovesse notificare un NAK, sarà necessario re-inviare il pacchetto che è stato modificato.
+Per ragioni di semplicità, tale protocollo utilizzerà una politica di invio pacchetti \textbf{stop-and-wait},
+consiste nell'inviare un singolo pacchetto alla volta, ed inviare il pacchetto successivo solo quando
 si ha la certezza che quello precedente sia stato consegnato.\begin{center}
     \includegraphics[width=1\textwidth ]{images/rdt2.0.eps}
 \end{center}
-Il protocollo è ancora relativamente semplice, il mittente dopo aver inviato il pacchetto, attende di ricevere un 
-ACK oppure un NAK, nel primo caso, passerà al prossimo pacchetto, altrimenti, si occuperà di re-inviare il pacchetto 
-corrotto. Il destinatario invece, si occuperà semplicemente di ricevere pacchetti, controllare se sono corrotti tramite 
-l'operazione \code{is\_corrupt(packet)}, ed inviare un eventuale ACK o NAK al destinatario. 
+Il protocollo è ancora relativamente semplice, il mittente dopo aver inviato il pacchetto, attende di ricevere un
+ACK oppure un NAK, nel primo caso, passerà al prossimo pacchetto, altrimenti, si occuperà di re-inviare il pacchetto
+corrotto. Il destinatario invece, si occuperà semplicemente di ricevere pacchetti, controllare se sono corrotti tramite
+l'operazione \code{is\_corrupt(packet)}, ed inviare un eventuale ACK o NAK al destinatario.
 C'è però un assunzione in questo modello che non è stata considerata.
-\subsubsection{rdt 2.1} 
-L'rdt 2.1 si occupa di gestire anche un possibile errore sui bit dei pacchetti ACK/NAK, un pacchetto corrotto di questo 
-tipo non può essere interpretato dal mittente, quindi come soluzione, quest'ultimo ri-invierà il pacchetto, se il messaggio 
-corrotto però in origine era un ACK, si avrà un pacchetto duplicato che il destinatario dovrà scartare.\acc 
-Ad ogni pacchetto verrà aggiunto un numero di controllo, che identificherà il numero di sequenza del pacchetto, al 
-destinatario sarà necessario leggerlo per controllare se tale pacchetto è nuovo oppure è una ritrasmissione 
-del pacchetto precedente, scaturita da un ACK/NAK corrotto. Tale numero di sequenza sarà implementato con un singolo 
+\subsubsection{rdt 2.1}
+L'rdt 2.1 si occupa di gestire anche un possibile errore sui bit dei pacchetti ACK/NAK, un pacchetto corrotto di questo
+tipo non può essere interpretato dal mittente, quindi come soluzione, quest'ultimo ri-invierà il pacchetto, se il messaggio
+corrotto però in origine era un ACK, si avrà un pacchetto duplicato che il destinatario dovrà scartare.\acc
+Ad ogni pacchetto verrà aggiunto un numero di controllo, che identificherà il numero di sequenza del pacchetto, al
+destinatario sarà necessario leggerlo per controllare se tale pacchetto è nuovo oppure è una ritrasmissione
+del pacchetto precedente, scaturita da un ACK/NAK corrotto. Tale numero di sequenza sarà implementato con un singolo
 bit, che può essere 0 oppure 1, nel modello stop-and-wait sono necessari solo questi due valori.\begin{center}
     \includegraphics[width=0.9\textwidth ]{images/rdt2.1.eps}
-\end{center} 
-Il mittente manda il pacchetto 0, se riceve un ACK/NAK corrotto, lo ri-invierà, se il destinatario si aspettava un pacchetto 
+\end{center}
+Il mittente manda il pacchetto 0, se riceve un ACK/NAK corrotto, lo ri-invierà, se il destinatario si aspettava un pacchetto
 1, in quanto aveva ricevuto correttamente il pacchetto 0, scarterà il pacchetto.
 \subsubsection{rdt 3.0}
-Il problema principale che non è ancora stato considerato riguarda l'eventualità che un pacchetto venga 
-\textit{perso}, ebbene è un evento molto comune nelle reti, e se si vuole garantire un trasferimento affidabile, 
-si deve considerare un modo per evitare tale perdita, mantenendo l'integrità dei dati.\acc 
-Supponiamo nell'rdt 3.0, che il canale possa causare una perdita di pacchetto, il mittente dovrà accertarsi che ogni pacchetto 
-inviato sia ricevuto, il destinatario non è al corrente dello stato del mittente, quindi esso potrebbe essere totalmente 
-ignaro che un pacchetto a lui destinato è stato perso.\acc 
-Il mittente, sa che un pacchetto è stato perso se non riceverà alcun ACK (o NAK) da parte del destinatario, per ogni pacchetto 
-inviato sarà quindi previsto un \textit{timer}, se entro un lasso di tempo stabilito, il mittente non riceverà alcun messaggio 
+Il problema principale che non è ancora stato considerato riguarda l'eventualità che un pacchetto venga
+\textit{perso}, ebbene è un evento molto comune nelle reti, e se si vuole garantire un trasferimento affidabile,
+si deve considerare un modo per evitare tale perdita, mantenendo l'integrità dei dati.\acc
+Supponiamo nell'rdt 3.0, che il canale possa causare una perdita di pacchetto, il mittente dovrà accertarsi che ogni pacchetto
+inviato sia ricevuto, il destinatario non è al corrente dello stato del mittente, quindi esso potrebbe essere totalmente
+ignaro che un pacchetto a lui destinato è stato perso.\acc
+Il mittente, sa che un pacchetto è stato perso se non riceverà alcun ACK (o NAK) da parte del destinatario, per ogni pacchetto
+inviato sarà quindi previsto un \textit{timer}, se entro un lasso di tempo stabilito, il mittente non riceverà alcun messaggio
 di ACK, il pacchetto sarà considerato perso, e sarà inviato nuovamente.\begin{center}
     \includegraphics[width=1\textwidth ]{images/rdt3.0.eps}
-\end{center} 
-Se viene ricevuto un pacchetto ACK con un numero non atteso, non viene fatto nulla, in quanto scatterà ugualmente 
-il timeout, non vengono più usati pacchetti ACK e NAK, ma esclusivamente pacchetti ACK. 
+\end{center}
+Se viene ricevuto un pacchetto ACK con un numero non atteso, non viene fatto nulla, in quanto scatterà ugualmente
+il timeout, non vengono più usati pacchetti ACK e NAK, ma esclusivamente pacchetti ACK.
 \subsubsection{Pipelining}
-Il problema è che tale protocollo convive con le restrizioni di un paradigma stop-and-wait, e l'attesa di un round trip 
-time per ogni pacchetto prima di poter inviare il prossimo riduce drasticamente le prestazioni, bisogna utilizzare un modello 
-di \textit{pipelining}, ossia includere la possibilità per il mittente, che esso possa inviare pacchetti senza dover 
-attendere che quelli precedenti siano stati correttamente consegnati. Vediamo i due paradigmi di pipelining principali.\acc 
-Il modello \textbf{go-back-n} permette al mittente di trasmettere più pacchetti contemporaneamente, può inviare al destinatario 
-al più $n$ pacchetti senza riceverne i rispettivi ACK. Alla ricezione di ogni pacchetto, il destinatario invierà un 
-ACK \textbf{comulativo}, i pacchetti sono numerati ed ordinati in sequenza, ed un ACK di numero $x$ indica che sono 
-stati ricevuti tutti i pacchetti sino al pacchetto $x$, e se ne necessitano dall'$x+1$-esimo in poi.\acc 
-Il timer, farà riferimento al pacchetto più "vecchio" inviato del quale non è stato ricevuto l'ACK, se scade, 
-verranno re-inviati tutti gli $n$ pacchetti da quest'ultimo in poi. I pacchetti che sono stati ricevuti ma in un ordine 
-sbagliato (ad esempio, si è in attesa del pacchetto 3 ma viene consegnato il pacchetto 4) verranno scartati, oppure 
+Il problema è che tale protocollo convive con le restrizioni di un paradigma stop-and-wait, e l'attesa di un round trip
+time per ogni pacchetto prima di poter inviare il prossimo riduce drasticamente le prestazioni, bisogna utilizzare un modello
+di \textit{pipelining}, ossia includere la possibilità per il mittente, che esso possa inviare pacchetti senza dover
+attendere che quelli precedenti siano stati correttamente consegnati. Vediamo i due paradigmi di pipelining principali.\acc
+Il modello \textbf{go-back-n} permette al mittente di trasmettere più pacchetti contemporaneamente, può inviare al destinatario
+al più $n$ pacchetti senza riceverne i rispettivi ACK. Alla ricezione di ogni pacchetto, il destinatario invierà un
+ACK \textbf{comulativo}, i pacchetti sono numerati ed ordinati in sequenza, ed un ACK di numero $x$ indica che sono
+stati ricevuti tutti i pacchetti sino al pacchetto $x$, e se ne necessitano dall'$x+1$-esimo in poi.\acc
+Il timer, farà riferimento al pacchetto più "vecchio" inviato del quale non è stato ricevuto l'ACK, se scade,
+verranno re-inviati tutti gli $n$ pacchetti da quest'ultimo in poi. I pacchetti che sono stati ricevuti ma in un ordine
+sbagliato (ad esempio, si è in attesa del pacchetto 3 ma viene consegnato il pacchetto 4) verranno scartati, oppure
 memorizzati in un buffer.\begin{center}
     \includegraphics[width=1\textwidth ]{images/go-back-n.eps}
-\end{center} 
-L'altro costrutto di pipelining è noto con il nome di \textbf{selective repeat}, piuttosto che inviare un ACK 
+\end{center}
+L'altro costrutto di pipelining è noto con il nome di \textbf{selective repeat}, piuttosto che inviare un ACK
 comulativo, ne viene inviato uno \textbf{selettivo}, riservato ad ogni singolo pacchetto, i pacchetti arrivati
-in un ordine sbagliato, verranno salvati in un buffer, in questo modo, il mittente avrà una finestra di $n$ pacchetti 
-da poter inviare, ed il destinatario avrà una finestra di $n$ pacchetti da poter mantenere nel buffer, inoltre ogni 
-pacchetto ha il suo personale timer.\acc 
-Tale metodo risulta efficiente in quanto non è necessario dover inviare nuovamente l'intera finestra di $n$ pacchetti, 
-e riduce il grado di ridondanza, inoltre se la rete è congestionata, la rispedizione di tutti i pacchetti 
-peggiora la congestione. \acc 
-Il destinatario salverà i pacchetti nel buffer, quando avrà a disposizione la giusta sequenza ordinata, li invierà 
+in un ordine sbagliato, verranno salvati in un buffer, in questo modo, il mittente avrà una finestra di $n$ pacchetti
+da poter inviare, ed il destinatario avrà una finestra di $n$ pacchetti da poter mantenere nel buffer, inoltre ogni
+pacchetto ha il suo personale timer.\acc
+Tale metodo risulta efficiente in quanto non è necessario dover inviare nuovamente l'intera finestra di $n$ pacchetti,
+e riduce il grado di ridondanza, inoltre se la rete è congestionata, la rispedizione di tutti i pacchetti
+peggiora la congestione. \acc
+Il destinatario salverà i pacchetti nel buffer, quando avrà a disposizione la giusta sequenza ordinata, li invierà
 al livello applicativo, decapsulandoli.\begin{center}
     \includegraphics[width=1\textwidth ]{images/selectiveRepeat.eps}
-\end{center} 
-Anche se tale astrazione è stata costruita per una comunicazione mono-direzionale, nulla vita ad un pacchetto che 
-trasporta i dati, di trasportare anche i riscontri ACK, tale tecnica è nota con il nome di \textit{piggy-backing}, 
-permettendo a due enti di comunicare e contemporaneamente notificarsi dell'ascolto.\acc 
-Un problema noto del selective repeat risiede nelle dimensioni della finestra del ricevitore, la mancata sincronizzazione 
-fra la finestra del mittente e quest'ultima causa gravi conseguenze quando si ha a che fare con un intervallo finito 
-di numeri di sequenza, si osservi il seguente esempio, in cui il range di numeri di sequenza per i 
+\end{center}
+Anche se tale astrazione è stata costruita per una comunicazione mono-direzionale, nulla vita ad un pacchetto che
+trasporta i dati, di trasportare anche i riscontri ACK, tale tecnica è nota con il nome di \textit{piggy-backing},
+permettendo a due enti di comunicare e contemporaneamente notificarsi dell'ascolto.\acc
+Un problema noto del selective repeat risiede nelle dimensioni della finestra del ricevitore, la mancata sincronizzazione
+fra la finestra del mittente e quest'ultima causa gravi conseguenze quando si ha a che fare con un intervallo finito
+di numeri di sequenza, si osservi il seguente esempio, in cui il range di numeri di sequenza per i
 pacchetti sono [0,1,2,3] e la finestra del ricevitore ha ampiezza 3:\begin{center}
     \includegraphics[width=\textwidth ]{images/ErroreSelectiveRepeat.eps}
-\end{center} 
+\end{center}
 Il primo pacchetto ed il quinto pacchetto, hanno entrambi numero di sequenza 0. Il mittente, riceve correttamente
-i primi tre pacchetti, con numeri di sequenza 0, 1 e 2, e la sua finestra verrà spostata sui pacchetti 
-3, 0 ed 1, che sono rispettivamente il quarto, il quinto ed il sesto.\acc 
-Il fatto è che, a seguito della perdita dei pacchetti ACK, il mittente non sa che i primi tre pacchetti sono stati 
-ricevuti, ri-invierà quindi il primo pacchetto con numero di sequenza 0 a seguito del timeout. Qui, il destinatario, 
-sta attendendo il quinto pacchetto che ha numero di sequenza 0, e riceve il primo pacchetto, anche esso con numero di 
-sequenza 0.\acc 
-Il destinatario interpreterà il primo pacchetto come se fosse il quinto, essendo che essi hanno lo stesso numero di 
-sequenza, tale errore causa una grave corruzione dei dati ricevuti.\acc 
-Per evitare ciò, è necessario sincronizzare l'ampiezza della finestra del destinatario, con la sequenza dei 
+i primi tre pacchetti, con numeri di sequenza 0, 1 e 2, e la sua finestra verrà spostata sui pacchetti
+3, 0 ed 1, che sono rispettivamente il quarto, il quinto ed il sesto.\acc
+Il fatto è che, a seguito della perdita dei pacchetti ACK, il mittente non sa che i primi tre pacchetti sono stati
+ricevuti, ri-invierà quindi il primo pacchetto con numero di sequenza 0 a seguito del timeout. Qui, il destinatario,
+sta attendendo il quinto pacchetto che ha numero di sequenza 0, e riceve il primo pacchetto, anche esso con numero di
+sequenza 0.\acc
+Il destinatario interpreterà il primo pacchetto come se fosse il quinto, essendo che essi hanno lo stesso numero di
+sequenza, tale errore causa una grave corruzione dei dati ricevuti.\acc
+Per evitare ciò, è necessario sincronizzare l'ampiezza della finestra del destinatario, con la sequenza dei
 numeri dei pacchetti, secondo tale relazione: \begin{itemize}
     \item Se i numeri di sequenza sono $2^m$ (Ad esempio, [0,1,2,3] sono $2^2$).
     \item La finestra del ricevitore deve essere grande $2^{m-1}$ (Ad esempio : $2^{2-1}=2^1=2$).
 \end{itemize}
 \subsection{TCP - parte 1 : Affidabilità e Connessione}
 \subsubsection{Struttura del Segmento}
-Il protocollo TCP vede il trasferimento dei dati, non come l'invio di segmenti, ma come l'invio di un 
-flusso di byte che compongono i messaggi, tale flusso deve arrivare dal mittente al destinatario in un 
-preciso ordine, è un protocollo bidirezionale che prevede una misura massima per la dimensione dei segmenti, 
-detta $MSS$ (solitamente 1460 byte).\acc 
-Il TCP permette ai due enti che comunicano di stabilire una connessione virtuale, di cui il resto della rete 
-non è a conoscenza. Utilizza dei riscontri ACK comulativi, e sfrutta il pipelining per l'invio di più 
-pacchetti. Con il termine \textbf{handshake}, si intende l'azione in cui i due enti stabiliscono la 
-connessione, tramite dei messaggi di controllo. Un segmento TCP è lo stesso sia per un messaggio di invio dati, sia 
+Il protocollo TCP vede il trasferimento dei dati, non come l'invio di segmenti, ma come l'invio di un
+flusso di byte che compongono i messaggi, tale flusso deve arrivare dal mittente al destinatario in un
+preciso ordine, è un protocollo bidirezionale che prevede una misura massima per la dimensione dei segmenti,
+detta $MSS$ (solitamente 1460 byte).\acc
+Il TCP permette ai due enti che comunicano di stabilire una connessione virtuale, di cui il resto della rete
+non è a conoscenza. Utilizza dei riscontri ACK comulativi, e sfrutta il pipelining per l'invio di più
+pacchetti. Con il termine \textbf{handshake}, si intende l'azione in cui i due enti stabiliscono la
+connessione, tramite dei messaggi di controllo. Un segmento TCP è lo stesso sia per un messaggio di invio dati, sia
 che per un messaggio di ACK (dato che utilizza il piggy-backing), ed è il seguente:\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/TCPsegment.eps}
-\end{center} 
-Il numero di sequenza non si riferisce al numero d'ordine del segmento, ma si riferisce al numero d'ordine 
+\end{center}
+Il numero di sequenza non si riferisce al numero d'ordine del segmento, ma si riferisce al numero d'ordine
 del primo byte del segmento di cui fa riferimento.\begin{quote}\color{gray}
-    Ad esempio, si vuole mandare un messaggio di 10 byte, verrà incapsulato in 2 segmenti TCP di 
-    5 byte ciascuno, il primo segmento conterrà i byte dal numero 1 al numero 5, avrà quindi numero di 
-    sequenza 1, il secondo segmento conterrà i byte dal numero 6 al numero 10, avrà quindi numero di 
+    Ad esempio, si vuole mandare un messaggio di 10 byte, verrà incapsulato in 2 segmenti TCP di
+    5 byte ciascuno, il primo segmento conterrà i byte dal numero 1 al numero 5, avrà quindi numero di
+    sequenza 1, il secondo segmento conterrà i byte dal numero 6 al numero 10, avrà quindi numero di
     sequenza 6.\color{black}
 \end{quote}
-Il numero dell'ACK fa riferimento al byte successivo atteso, un numero di ACK $x$ indica che sono stati ricevuti tutti 
-i byte dal primo fino al $x-1$ esimo (l'ACK è comulativo). Il campo \textit{"INFO"} contiene delle informazioni come il numero di lunghezza 
-dell'header, un flag che indica se il checksum è in utilizzo oppure no, dei flag riguardo la gestione/sincronizzazione 
-della connessione ed altre informazioni.\acc 
-Il campo \textit{"finestra del ricevitore"} indica il numero di byte che il destinatario può "accogliere", 
- è necessario per il controllo del flusso, se il destinatario è "ingolfato", tale numero 
-di byte sarà più basso, imponendo al mittente di porre limite al numero di pacchetti che può inviare, per non intasare 
-ulteriormente la connessione. Il campo \textit{"opzioni aggiuntive"} contiene informazioni come la lunghezza 
-del messaggio.\acc 
+Il numero dell'ACK fa riferimento al byte successivo atteso, un numero di ACK $x$ indica che sono stati ricevuti tutti
+i byte dal primo fino al $x-1$ esimo (l'ACK è comulativo). Il campo \textit{"INFO"} contiene delle informazioni come il numero di lunghezza
+dell'header, un flag che indica se il checksum è in utilizzo oppure no, dei flag riguardo la gestione/sincronizzazione
+della connessione ed altre informazioni.\acc
+Il campo \textit{"finestra del ricevitore"} indica il numero di byte che il destinatario può "accogliere",
+è necessario per il controllo del flusso, se il destinatario è "ingolfato", tale numero
+di byte sarà più basso, imponendo al mittente di porre limite al numero di pacchetti che può inviare, per non intasare
+ulteriormente la connessione. Il campo \textit{"opzioni aggiuntive"} contiene informazioni come la lunghezza
+del messaggio.\acc
 La gestione dei segmenti arrivati fuori ordine, non è considerata dal TCP, bensì dipende dall'implementazione.
 \subsubsection{Gestione del Timer}
-Abbiamo visto che un protocollo che ha lo scopo di garantire un trasferimento affidabile deve servirsi di un timeout 
-per la ritrasmissione dei pacchetti andati perduti, ma come va dosato il tempo effettivo di durata del timer?\acc 
-È chiaro che, il timeout deve essere almeno uguale o superiore al RTT (\textit{round trip time}), altrimenti ogni pacchetto 
-inviato scadrebbe in un timeout, il punto è che il RTT è variabile, e deve essere misurato da un timer, chiameremo 
+Abbiamo visto che un protocollo che ha lo scopo di garantire un trasferimento affidabile deve servirsi di un timeout
+per la ritrasmissione dei pacchetti andati perduti, ma come va dosato il tempo effettivo di durata del timer?\acc
+È chiaro che, il timeout deve essere almeno uguale o superiore al RTT (\textit{round trip time}), altrimenti ogni pacchetto
+inviato scadrebbe in un timeout, il punto è che il RTT è variabile, e deve essere misurato da un timer, chiameremo
 il tempo di RTT effettivo misurato dal timer $sampleRTT$, tramite tale misurazione per un pacchetto,
- vogliamo stimare il RTT del pacchetto successivo, mantenendo la stima regolare, senza che sia troppo condizionata dalle 
- oscillazioni (variabilità) del $sampleRTT$.\acc 
- Viene utilizzata una tecnica nota come \textbf{EWMA} (exponential waited moving avarage), che tramite l'uso di un 
- peso $\alpha$ (numero reale fra 0 ed 1), utilizza le misurazioni precedenti per stimare il RTT successivo. Si indica con 
- $RTTstimato(t)$, la stima del RTT al tempo $t$, si ha che:
- $$ RTTstimato(t) = (1-\alpha)\cdot RTTstimato(t-1)+\alpha \cdot SampleRTT$$
- Se $\alpha = \nicefrac{1}{2}$, il RTT stimato sarà una media fra il RTT precedentemente stimato e quello 
- precedentemente misurato. Un valore tipico che si utilizza è $\alpha=0.125$.\acc 
- Il time out necessita inoltre di un minimo spazio, margine di sicurezza, in modo da essere di poco superiore 
- al RTT stimato, il valore effettivo che verrà utilizzato per il timeout, sarà pesato da tale margine di sicurezza 
- noto come $DevRTT$, misura la precisione della stima, ed è influenzato dalla variabilità del $SampleRTT$.
- $$ DevRTT(t) = (1-\beta)\cdot DevRTT(t-1) + \beta\cdot(|SampleRTT-RTTstimato(t-1)|) $$
- Dove $\beta$ è un numero reale fra 0 ed 1, viene utilizzato come peso, il valore 
- $|SampleRTT-RTTstimato(t-1)|$ non è altro che la differenza fra il RTT stimato ed il 
- RTT effettivo. Il tempo effettivo del timeout sarà:
- $$ timeout=RTTstimato+4\cdot DevRTT$$
- Si osservi il seguente grafico che mostra la differenza fra il RTT misurato ed il RTT stimato (quest'ultimo risulta 
- regolare e meno soggetto ad oscillazioni).\begin{center}
+vogliamo stimare il RTT del pacchetto successivo, mantenendo la stima regolare, senza che sia troppo condizionata dalle
+oscillazioni (variabilità) del $sampleRTT$.\acc
+Viene utilizzata una tecnica nota come \textbf{EWMA} (exponential waited moving avarage), che tramite l'uso di un
+peso $\alpha$ (numero reale fra 0 ed 1), utilizza le misurazioni precedenti per stimare il RTT successivo. Si indica con
+$RTTstimato(t)$, la stima del RTT al tempo $t$, si ha che:
+$$ RTTstimato(t) = (1-\alpha)\cdot RTTstimato(t-1)+\alpha \cdot SampleRTT$$
+Se $\alpha = \nicefrac{1}{2}$, il RTT stimato sarà una media fra il RTT precedentemente stimato e quello
+precedentemente misurato. Un valore tipico che si utilizza è $\alpha=0.125$.\acc
+Il time out necessita inoltre di un minimo spazio, margine di sicurezza, in modo da essere di poco superiore
+al RTT stimato, il valore effettivo che verrà utilizzato per il timeout, sarà pesato da tale margine di sicurezza
+noto come $DevRTT$, misura la precisione della stima, ed è influenzato dalla variabilità del $SampleRTT$.
+$$ DevRTT(t) = (1-\beta)\cdot DevRTT(t-1) + \beta\cdot(|SampleRTT-RTTstimato(t-1)|) $$
+Dove $\beta$ è un numero reale fra 0 ed 1, viene utilizzato come peso, il valore
+$|SampleRTT-RTTstimato(t-1)|$ non è altro che la differenza fra il RTT stimato ed il
+RTT effettivo. Il tempo effettivo del timeout sarà:
+$$ timeout=RTTstimato+4\cdot DevRTT$$
+Si osservi il seguente grafico che mostra la differenza fra il RTT misurato ed il RTT stimato (quest'ultimo risulta
+regolare e meno soggetto ad oscillazioni).\begin{center}
     \includegraphics[width=\textwidth ]{images/RTTstimato.eps}
-\end{center} 
+\end{center}
 \subsubsection{Semplificazione del TCP, Gestione del Flusso e della Connessione}
-Vediamo adesso il funzionamento del TCP in maniera approssimativa, cominciando dal ruolo del \textbf{mittente}, 
-esso riceve un messaggio dal livello applicativo, tale messaggio viene incapsulato in un segmento TCP con 
-l'aggiunta di un header, dopo di che, se non vi è già un timer in esecuzione, viene avviato (si ricordi che 
-è in esecuzione un solo timer valido per il segmento inviato meno recentemente per la quale non si è ricevuto 
-ancora l'ACK).\acc 
-All'avvenimento di un timeout, il mittente dovrà ri-inviare il segmento in questione, riavviando anche il timer. 
-Alla ricezione di un ACK (che si ricorda essere comulativo), viene aggiornata la finestra di pacchetti 
-da inviare, se vi sono ancora pacchetti il cui invio non è confermato, partirà un timer associato al pacchetto 
+Vediamo adesso il funzionamento del TCP in maniera approssimativa, cominciando dal ruolo del \textbf{mittente},
+esso riceve un messaggio dal livello applicativo, tale messaggio viene incapsulato in un segmento TCP con
+l'aggiunta di un header, dopo di che, se non vi è già un timer in esecuzione, viene avviato (si ricordi che
+è in esecuzione un solo timer valido per il segmento inviato meno recentemente per la quale non si è ricevuto
+ancora l'ACK).\acc
+All'avvenimento di un timeout, il mittente dovrà ri-inviare il segmento in questione, riavviando anche il timer.
+Alla ricezione di un ACK (che si ricorda essere comulativo), viene aggiornata la finestra di pacchetti
+da inviare, se vi sono ancora pacchetti il cui invio non è confermato, partirà un timer associato al pacchetto
 inviato meno recentemente fra questi ultimi.\acc Vediamo il comportamento del \textbf{destinatario}:\begin{itemize}
     \item \textbf{evento} : arrivo di un segmento in ordine,
-    con numero di segmento atteso, 
-   ossia per cui tutti i segmenti precedenti  ad esso sono 
-   già stati confermati  (situazione regolare) \\ \textbf{risposta} : si attende un tempo (solitamente 500ms) prima 
-   di inviare l'ACK, questo delay serve a coprire 
-   situazioni in cui, dovesse arrivare un nuovo segmento (successivo a
-    quello originale)  pochi istanti dopo (riducendo il numero di ACK
-    complessivi inviati).
+          con numero di segmento atteso,
+          ossia per cui tutti i segmenti precedenti  ad esso sono
+          già stati confermati  (situazione regolare) \\ \textbf{risposta} : si attende un tempo (solitamente 500ms) prima
+          di inviare l'ACK, questo delay serve a coprire
+          situazioni in cui, dovesse arrivare un nuovo segmento (successivo a
+          quello originale)  pochi istanti dopo (riducendo il numero di ACK
+          complessivi inviati).
     \item \textbf{evento} :arrivo di un segmento in ordine, con numero
-    di segmento atteso,  ma un segmento precedente ricevuto,
-    non è ancora stato confermato 
-   tramite l'invio di un ACK (complementare
-    all'evento precedente)\\
-    \textbf{risposta} : si invia immediatamente un ACK comulativo,
-    confermando entrambi i segmenti.
+          di segmento atteso,  ma un segmento precedente ricevuto,
+          non è ancora stato confermato
+          tramite l'invio di un ACK (complementare
+          all'evento precedente)\\
+          \textbf{risposta} : si invia immediatamente un ACK comulativo,
+          confermando entrambi i segmenti.
     \item \textbf{evento} : arrivo di un segmento fuori ordine\\
-    \textbf{risposta} : si invia immediatamente un ACK duplicato in
-    cui si richiede il segmento atteso in ordine
+          \textbf{risposta} : si invia immediatamente un ACK duplicato in
+          cui si richiede il segmento atteso in ordine
     \item \textbf{evento} : arrivo di un segmento che riempie
-    parzialmente o completamente un gap\\
-    \textbf{risposta} : si invia immediatamente un ACK 
+          parzialmente o completamente un gap\\
+          \textbf{risposta} : si invia immediatamente un ACK
 \end{itemize}
-Nell'ultimo caso, in cui si parla di "gap" da riempire, si intende una situazione in cui il destinatario ha confermato 
-(ad esempio), i segmenti 1,2 e 3, è in attesa del 4, ma mantiene nel buffer i segmenti 5 e 6, l'arrivo del 
-segmento 4, farà si che verranno mandati al livello applicativo i segmenti 4,5 e 6, facendo si che il destinatario 
-invia un ACK comulativo con numero 7 (si ricordi che il numero di segmento si riferisce ai byte e non al segmento 
-stesso, sono stati utilizzati numeri sequenziali per semplicità, nell'assunzione che ogni segmento abbia 1 byte).\acc 
+Nell'ultimo caso, in cui si parla di "gap" da riempire, si intende una situazione in cui il destinatario ha confermato
+(ad esempio), i segmenti 1,2 e 3, è in attesa del 4, ma mantiene nel buffer i segmenti 5 e 6, l'arrivo del
+segmento 4, farà si che verranno mandati al livello applicativo i segmenti 4,5 e 6, facendo si che il destinatario
+invia un ACK comulativo con numero 7 (si ricordi che il numero di segmento si riferisce ai byte e non al segmento
+stesso, sono stati utilizzati numeri sequenziali per semplicità, nell'assunzione che ogni segmento abbia 1 byte).\acc
 Si osservi la seguente situazione:\begin{center}
     \includegraphics[width=\textwidth ]{images/fastRetrasmit.eps}
-\end{center} 
-Introduciamo il \textbf{controllo del flusso}, si consideri uno scenario, dalla parte di un destinatario 
-TCP, in cui il livello di rete fornisce segmenti più rapidamente rispetto a quanto il livello di applicazione 
-possa leggerne, riempendo il buffer del socket TCP. \acc In tal caso il destinatario, dovrà notificare il mittente del 
-fatto che esso sta trasmettendo troppo \textit{rapidamente}, almeno più di quanto esso possa processare i 
-segmenti. Il destinatario avviserà il mittente tramite gli appositi campi nell'header relativi alla sua finestra 
-di ricezione.\acc 
-Si osservi come questa è una congestione \textit{locale}, e non da parte della rete, può avvenire anche se la rete 
-è totalmente libera, e dipende eslcusivamente dalla velocità di elaborazione dei segmenti del destinatario.\acc 
-Il destinatario TCP "dichiara" lo spazio che ha libero per i segmenti nel buffer tramite il 
-campo \code{rwnd} nell'header, ed il mittente imposta la sua finestra di segmenti possibilmente 
-inviabili prima di essere confermati, proprio al valore di \code{rwnd}, ciò garantisce l'assenza di 
-sovraccaricamento nel buffer del ricevitore.\acc 
-Il TCP si occupa anche di creare una \textbf{connessione} stabile fra i due comunicatori, tramite la già 
-citata operazione di \textbf{handshake} (stretta di mano). Consiste, nella dichiarazione da parte dei due comunicatori 
-di voler aprire una connessione (richiesta ed accettazione), e nel concordamento di alcuni parametri, quali il 
-numero di porta, la finestra di ricezione, oppure il numero iniziale di segmento atteso.\acc 
+\end{center}
+Introduciamo il \textbf{controllo del flusso}, si consideri uno scenario, dalla parte di un destinatario
+TCP, in cui il livello di rete fornisce segmenti più rapidamente rispetto a quanto il livello di applicazione
+possa leggerne, riempendo il buffer del socket TCP. \acc In tal caso il destinatario, dovrà notificare il mittente del
+fatto che esso sta trasmettendo troppo \textit{rapidamente}, almeno più di quanto esso possa processare i
+segmenti. Il destinatario avviserà il mittente tramite gli appositi campi nell'header relativi alla sua finestra
+di ricezione.\acc
+Si osservi come questa è una congestione \textit{locale}, e non da parte della rete, può avvenire anche se la rete
+è totalmente libera, e dipende eslcusivamente dalla velocità di elaborazione dei segmenti del destinatario.\acc
+Il destinatario TCP "dichiara" lo spazio che ha libero per i segmenti nel buffer tramite il
+campo \code{rwnd} nell'header, ed il mittente imposta la sua finestra di segmenti possibilmente
+inviabili prima di essere confermati, proprio al valore di \code{rwnd}, ciò garantisce l'assenza di
+sovraccaricamento nel buffer del ricevitore.\acc
+Il TCP si occupa anche di creare una \textbf{connessione} stabile fra i due comunicatori, tramite la già
+citata operazione di \textbf{handshake} (stretta di mano). Consiste, nella dichiarazione da parte dei due comunicatori
+di voler aprire una connessione (richiesta ed accettazione), e nel concordamento di alcuni parametri, quali il
+numero di porta, la finestra di ricezione, oppure il numero iniziale di segmento atteso.\acc
 Inizialmente il TCP si serviva di un handshake \textit{a 2 vie}:\begin{enumerate}
-    \item 
- colui che voleva aprire la connessione (richiedente) 
-inviava una richiesta di connessione ad un host (richiesto), tale richiesta era accompagnata da un numero 
-$x$.     \item  il richiesto, rispondeva con un messaggio di "accettazione", re-inviando il numero $x$ per indicare 
-che la risposta è relativa alla richiesta dello stesso numero.
-\item a quel punto, il richiedente era pronto ad inviare dati, inviando però, anche un valore numerico aggiuntivo, 
-ossia $x+1$. 
-\item il richiesto, riceve i dati, ed invia un messaggio di ACK, con numero di sequenza $x+1$, alla ricezione di quest'ultimo 
-la connessione sarà ufficialmente stabilita.
+    \item
+          colui che voleva aprire la connessione (richiedente)
+          inviava una richiesta di connessione ad un host (richiesto), tale richiesta era accompagnata da un numero
+          $x$.     \item  il richiesto, rispondeva con un messaggio di "accettazione", re-inviando il numero $x$ per indicare
+          che la risposta è relativa alla richiesta dello stesso numero.
+    \item a quel punto, il richiedente era pronto ad inviare dati, inviando però, anche un valore numerico aggiuntivo,
+          ossia $x+1$.
+    \item il richiesto, riceve i dati, ed invia un messaggio di ACK, con numero di sequenza $x+1$, alla ricezione di quest'ultimo
+          la connessione sarà ufficialmente stabilita.
 \end{enumerate}
-In alcuni scenari, l'handshake a 2 vie può risultare problematico, ad esempio quando il richiedente si disconnette 
-durante una richiesta di connessione, lasciando una connessione "aperta", per questo le implementazioni odierne del TCP 
+In alcuni scenari, l'handshake a 2 vie può risultare problematico, ad esempio quando il richiedente si disconnette
+durante una richiesta di connessione, lasciando una connessione "aperta", per questo le implementazioni odierne del TCP
 implementano l'handshake \textit{a 3 vie}:\begin{enumerate}
-    \item il richiedente, sceglie un numero $x$, ed invia un messaggio TCP SYN. 
-    \item il richiesto che riceve il messaggio, sceglie un numero $y$, che sarà il primo numero di 
-    sequenza, ed invia al richiedente un ACK, con numero di sequenza richiesto $y$, insieme ad un valore aggiuntivo,
-    ossia $x+1$. 
-    \item il richiedente riceverà il messaggio, verificando di aver ricevuto $x+1$, ciò indicherà che il 
-    richiesto è attivo, invierà poi un segmento (possibilmente 
-    già provvisto di dati), con numero di ACK $y+1$. 
-    \item il richiesto, una volta ricevuto il segmento con ACK $y+1$, avrà la certezza che il richiedente è attivo, 
-    e la connessione sarà ufficialmente stabilita.
+    \item il richiedente, sceglie un numero $x$, ed invia un messaggio TCP SYN.
+    \item il richiesto che riceve il messaggio, sceglie un numero $y$, che sarà il primo numero di
+          sequenza, ed invia al richiedente un ACK, con numero di sequenza richiesto $y$, insieme ad un valore aggiuntivo,
+          ossia $x+1$.
+    \item il richiedente riceverà il messaggio, verificando di aver ricevuto $x+1$, ciò indicherà che il
+          richiesto è attivo, invierà poi un segmento (possibilmente
+          già provvisto di dati), con numero di ACK $y+1$.
+    \item il richiesto, una volta ricevuto il segmento con ACK $y+1$, avrà la certezza che il richiedente è attivo,
+          e la connessione sarà ufficialmente stabilita.
 \end{enumerate}
-Tali numeri $x$ ed $y$ stabiliscono quindi il numero di sequenza iniziale, che molto spesso non è 0, infatti, 
+Tali numeri $x$ ed $y$ stabiliscono quindi il numero di sequenza iniziale, che molto spesso non è 0, infatti,
 per ragioni di sicurezza,  tali due numeri sono selezionati casualmente.\acc
-Quando una connessione deve essere \textit{chiusa}, colui che ha intenzione di interromperla invierà un segmento 
-con un flag \code{FIN=1}, colui che lo riceverà, risponderà con un ACK combinato con il proprio \code{FIN}, 
+Quando una connessione deve essere \textit{chiusa}, colui che ha intenzione di interromperla invierà un segmento
+con un flag \code{FIN=1}, colui che lo riceverà, risponderà con un ACK combinato con il proprio \code{FIN},
 confermando la chiusura della connessione.
 \subsection{TCP - parte 2 : Controllo della Congestione }
-Quando i pacchetti arrivano ai router troppo rapidamente per essere gestiti dalla rete ed essere immediatamente 
-ritrasmessi, si crea un accodamento nei buffer dei router, essendo la memoria di questi buffer finita, all'aumentare 
-della coda alcuni pacchetti andranno scartati, causando una perdita di pacchetti.\acc  
+Quando i pacchetti arrivano ai router troppo rapidamente per essere gestiti dalla rete ed essere immediatamente
+ritrasmessi, si crea un accodamento nei buffer dei router, essendo la memoria di questi buffer finita, all'aumentare
+della coda alcuni pacchetti andranno scartati, causando una perdita di pacchetti.\acc
 Supponiamo che, il mittente abbia perfetta conoscenza dei buffer dei router, sapendo se sono liberi o no,
-facendo si che esso possa trasmettere solo quando possibile senza causare congestione. Supponiamo poi che il mittente 
-ritrasmetta eslcusivamente i pacchetti persi, sprecando in qualche modo il rate disponibile per questi ultimi.\acc 
- In uno scenario reale però, alcuni pacchetti possono essere ritrasmessi anche se non necessario, dato un prematuro scadere 
- del timer, quindi si aggiunge un ulteriore spreco della capacità. Durante uno scenario di congestione è necessario più 
- lavoro (ritrasmissioni) per un dato troughput, date le ritrasmissioni inevitabili.\begin{center}
+facendo si che esso possa trasmettere solo quando possibile senza causare congestione. Supponiamo poi che il mittente
+ritrasmetta eslcusivamente i pacchetti persi, sprecando in qualche modo il rate disponibile per questi ultimi.\acc
+In uno scenario reale però, alcuni pacchetti possono essere ritrasmessi anche se non necessario, dato un prematuro scadere
+del timer, quindi si aggiunge un ulteriore spreco della capacità. Durante uno scenario di congestione è necessario più
+lavoro (ritrasmissioni) per un dato troughput, date le ritrasmissioni inevitabili.\begin{center}
     \includegraphics[width=\textwidth ]{images/perditaCongestione.eps}
-\end{center} 
-Anche se la perdita sembra labile, il problema è che, queste ritrasmissioni in uno scenario con più 
-router/nodi sul percorso, causano una perdita do troughput \textit{catastrofica}, lo scarto di un pacchetto rende 
-sprecate le capacità ed il buffering di tutti i nodi utilizzati per quel pacchetto. I pacchetti tenderanno 
-ad avere una probabilità di passare per un nodo sempre più bassa, tendente a zero, così come il troughput.  
-\subsubsection{AIMD, Slow Start e Cubic} 
-Ciò fa capire che controllare la congestione è necessario. Vedremo un approccio end-to-end, in cui il mittente e destinatario 
-che comunicano "dedurranno" lo stato della congestione in base al ritardo e le perdite osservate.\acc 
-Il TCP di base, si occupa della congestione regolando la velocità di invio dei mittenti: Un mittente potrà 
+\end{center}
+Anche se la perdita sembra labile, il problema è che, queste ritrasmissioni in uno scenario con più
+router/nodi sul percorso, causano una perdita do troughput \textit{catastrofica}, lo scarto di un pacchetto rende
+sprecate le capacità ed il buffering di tutti i nodi utilizzati per quel pacchetto. I pacchetti tenderanno
+ad avere una probabilità di passare per un nodo sempre più bassa, tendente a zero, così come il troughput.
+\subsubsection{AIMD, Slow Start e Cubic}
+Ciò fa capire che controllare la congestione è necessario. Vedremo un approccio end-to-end, in cui il mittente e destinatario
+che comunicano "dedurranno" lo stato della congestione in base al ritardo e le perdite osservate.\acc
+Il TCP di base, si occupa della congestione regolando la velocità di invio dei mittenti: Un mittente potrà
 \textit{aumentare} (linearmente) la sua velocità di invio (aumentando il numero di segmenti della finestra) affinchè non si
-causerà una perdita di pacchetti, a quel punto, ridurrà \textit{sostanzialmente} la velocità, venendo 
+causerà una perdita di pacchetti, a quel punto, ridurrà \textit{sostanzialmente} la velocità, venendo
 dimezzata. Tale approccio è detto \textbf{AIMD} (Additive Increase Multiplicative Decrease):\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/AIMD.eps}
-\end{center} 
-Ogni RTT il rate di invio aumenta di 1 MSS (misura massima per la dimensione dei segmenti) fino a quando non viene 
-osservata una perdita. Se vengono ricevuti 3 ACK duplicati, il rate viene dimezzato, se invece avviene un 
-timeout il rate viene impostato ad 1 MSS.\acc Il fatto è che quando l'aumento lineare inizia da un valore 
-basso del rate, ci vorrà del tempo prima che esso raggiunga la soglia di perdita, ciò significa che, per un certo 
-lasso di tempo il mittente sta trasmettendo più lentamente di quello che effettivamente potrebbe, causando uno spreco 
-di banda, è possibile rendere questa crescita più veloce fino al raggiungimento del limite, per poi entrare 
-nella fase di AIMD. \acc Tale algoritmo è noto come \textbf{slow start}, consiste nel far incrementare la finestra di 
+\end{center}
+Ogni RTT il rate di invio aumenta di 1 MSS (misura massima per la dimensione dei segmenti) fino a quando non viene
+osservata una perdita. Se vengono ricevuti 3 ACK duplicati, il rate viene dimezzato, se invece avviene un
+timeout il rate viene impostato ad 1 MSS.\acc Il fatto è che quando l'aumento lineare inizia da un valore
+basso del rate, ci vorrà del tempo prima che esso raggiunga la soglia di perdita, ciò significa che, per un certo
+lasso di tempo il mittente sta trasmettendo più lentamente di quello che effettivamente potrebbe, causando uno spreco
+di banda, è possibile rendere questa crescita più veloce fino al raggiungimento del limite, per poi entrare
+nella fase di AIMD. \acc Tale algoritmo è noto come \textbf{slow start}, consiste nel far incrementare la finestra di
 invio in maniera esponenziale, si aumenta di 1 MSS per ogni ACK ricevuto:\begin{itemize}
     \item All'inizio si invia un segmento.
-    \item Dopo un RTT si riceve un ACK e si inviano 2 segmenti. 
-    \item Dopo un RTT si ricevono 2 ACK e si inviano 4 segmenti. 
+    \item Dopo un RTT si riceve un ACK e si inviano 2 segmenti.
+    \item Dopo un RTT si ricevono 2 ACK e si inviano 4 segmenti.
     \item Dopo un RTT si ricevono 4 ACK e si inviano 8 segmenti.
     \item $\dots$
 \end{itemize}\begin{center}
     \includegraphics[width=0.55\textwidth ]{images/slowStart.eps}
-\end{center} 
-Quando è però che bisogna passare dalla crescita esponenziale (slow start) alla crescita 
-lineare (AIMD)? Quando la variabile \code{cwnd} = byte inviati al secondo raggiunge un valore 
-$x$ tale che $x = \dfrac{\code{cwnd'}}{2}$ dove \code{cwnd'} è il valore di \code{cwnd} prima dell'ultima perdita 
-di pacchetto. \acc 
-Si implementa una variabile \code{sstresh} che è impostata a $\dfrac{\code{cwnd'}}{2}$, quando il rate raggiunge 
-tale variabile, si passa allo stato di AIMD. A seguito di una perdita, il valore di \code{sstresh} si re-imposta 
-al nuovo valore di $\dfrac{\code{cwnd'}}{2}$ dato dalla nuova perdita. Questo comportamento è adottato dalla versione 
-del TCP nota come \textit{Tahoe}, la versione TCP \textit{Reno} passa direttamente allo stato di 
-AIMD dopo l'arrivo di 3 ACK duplicati. All'inizio della congestione, \code{sstresh} è impostato ad un valore di 
+\end{center}
+Quando è però che bisogna passare dalla crescita esponenziale (slow start) alla crescita
+lineare (AIMD)? Quando la variabile \code{cwnd} = byte inviati al secondo raggiunge un valore
+$x$ tale che $x = \dfrac{\code{cwnd'}}{2}$ dove \code{cwnd'} è il valore di \code{cwnd} prima dell'ultima perdita
+di pacchetto. \acc
+Si implementa una variabile \code{sstresh} che è impostata a $\dfrac{\code{cwnd'}}{2}$, quando il rate raggiunge
+tale variabile, si passa allo stato di AIMD. A seguito di una perdita, il valore di \code{sstresh} si re-imposta
+al nuovo valore di $\dfrac{\code{cwnd'}}{2}$ dato dalla nuova perdita. Questo comportamento è adottato dalla versione
+del TCP nota come \textit{Tahoe}, la versione TCP \textit{Reno} passa direttamente allo stato di
+AIMD dopo l'arrivo di 3 ACK duplicati. All'inizio della congestione, \code{sstresh} è impostato ad un valore di
 default (nell'esempio seguente, è 12): \begin{center}
     \includegraphics[width=0.55\textwidth ]{images/sstresh.eps}
-\end{center} 
-Esiste anche un approccio migliore per "sondare" la larghezza di banda utilizzabile, possiamo cambiare la pendenza 
-della crescita nella fase di "congestion avoidance", sia $W_{max}$ la velocità di invio quando è stata rilevata 
-la perdita per colpa della congestione.\acc Si suppone che lo stato della congestione nel frattempo non sia cambiato 
-in maniera significativa, quindi, piuttosto che crescere linearmente, il rate salirà 
-rapidamente verso $W_{max}$, e quando vi è in prossimità, ci si avvicinerà lentamente, sia $K$ l'istante di 
-tempo stimato in cui la dimensione della finestra raggiungerà $W_{max}$, aumenteremo tale finestra 
-in funzione del cubo fra la distanza tra il tempo corrente e $K$.\acc 
-Tale versione del TCP è detta \textbf{Cubic}, è la versione predefinita sulle distribuzioni di \textit{Linux} ed è 
-il TCP più popolare per i server web più diffusi.\acc 
+\end{center}
+Esiste anche un approccio migliore per "sondare" la larghezza di banda utilizzabile, possiamo cambiare la pendenza
+della crescita nella fase di "congestion avoidance", sia $W_{max}$ la velocità di invio quando è stata rilevata
+la perdita per colpa della congestione.\acc Si suppone che lo stato della congestione nel frattempo non sia cambiato
+in maniera significativa, quindi, piuttosto che crescere linearmente, il rate salirà
+rapidamente verso $W_{max}$, e quando vi è in prossimità, ci si avvicinerà lentamente, sia $K$ l'istante di
+tempo stimato in cui la dimensione della finestra raggiungerà $W_{max}$, aumenteremo tale finestra
+in funzione del cubo fra la distanza tra il tempo corrente e $K$.\acc
+Tale versione del TCP è detta \textbf{Cubic}, è la versione predefinita sulle distribuzioni di \textit{Linux} ed è
+il TCP più popolare per i server web più diffusi.\acc
 \begin{center}
     \includegraphics[width=0.55\textwidth ]{images/TCPcubic.eps}
-\end{center} 
+\end{center}
 Il comportamento del controllo della congestione può essere riassunto con la seguente FSM:
 \begin{center}
     \includegraphics[width=0.8\textwidth ]{images/TCPfsm.png}
-\end{center} 
+\end{center}
 \subsubsection{Differenti Approcci TCP}
+Il TCP è basato sull'aumento del rate di invio affinché non si registrano
+perdite di pacchetti, dovute alla congestione di un link che funge
+da collo di bottiglia. Esistono altri approcci basati su differenti
+paradigmi : è possibile cercare di capire quando la coda in un router
+si sta riempendo, in quanto a quel punto,
+l'aumento del rate incrementa il ritardo.
 \end{document}
