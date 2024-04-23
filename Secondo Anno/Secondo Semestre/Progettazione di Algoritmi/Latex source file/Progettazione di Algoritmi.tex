@@ -141,7 +141,7 @@ fino all'elemento antecedente a quello identico all'elemento finale. \begin{cent
 \hphantom{ident}\code{while(next$\notin$ W)\{}\\
 \hphantom{ident}\hphantom{ident}\code{W.append(next)}\\
 \hphantom{ident}\hphantom{ident}\code{current=next}\\
-\hphantom{ident}\hphantom{ident}\code{if ($1^\circ$ adiacente di current$\ne$W[W.lenght-2])\{}
+\hphantom{ident}\hphantom{ident}\code{if ($1^\circ$ adiacente di current$\ne$W[W.length()-2])\{}
 \color{lg}\textit{// Il penultimo}\color{black}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{next = $1^\circ$ adiacente di current}\\
 \hphantom{ident}\hphantom{ident}\code{\}else\{next = $2^\circ$ adiacente di current}\\
@@ -537,7 +537,7 @@ Alla fine, avremo un vertice candidato ad essere un pozzo, e controlleremo in ma
 \greybox{
 \code{PozzoUniversale(m)\{}\comm{l'input è la matrice di adiacenza}\\
 \hphantom{ident}\code{candidato = 1}\\
-\hphantom{ident}\code{n = m[1].lenght()}\comm{n è il numero di vertici}\\
+\hphantom{ident}\code{n = m[1].length()}\comm{n è il numero di vertici}\\
 \hphantom{ident}\code{for(i=2;i\(\le\)n;i++)\{}\\
 \hphantom{ident}\hphantom{ident}\code{if(m[candidato,i]==1)\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{candidato=i}\\
@@ -1334,7 +1334,7 @@ divide il problema in due sotto-problemi, e ad ogni passo ricorsivo, il costo pe
 dell'algoritmo è descritto dalla relazione: 
 $$ T(n)=2\cdot T(\dfrac{n}{2})+O(n) $$ 
 È possibile determinare rapidamente il costo computazionale, data una relazione di ricorrenza, grazie al seguente enunciato. 
-\subsubsection{Teorema Principale}
+\subsubsection{Teorema Principale}\label{tp}
 \textbf{Enunciato } : Sia $T(n)$ una relazione di ricorrenza del tipo 
 $$ T(n)=a\cdot T(\dfrac{n}{b})+f(n)$$
 Dove
@@ -1377,7 +1377,7 @@ $O(n^2)$.
 \hphantom{ident}\code{return Sol}\\
 \code{\}}} 
 Pensiamo adesso ad un algoritmo Divide et Impera che possa trovare la soluzione in tempo minore, per ottenere un costo minore 
-di $O(n^2)$, dal teorema principale sappiamo che l'"overhead" ad ogni passo ricorsivo deve essere \textit{lineare}.\acc 
+di $O(n^2)$, dal teorema principale \ref{tp}  sappiamo che l'"overhead" ad ogni passo ricorsivo deve essere \textit{lineare}.\acc 
 L'array viene diviso in due sotto-array, eseguendo la chiamata ricorsiva su entrambe le metà, ottenendo il valore massimo 
 per la metà destra, ed il valore massimo per la metà sinistra, il punto è che bisogna anche considerare i possibili 
 sotto-array "a cavallo" fra le due metà. Ovviamente il caso base è raggiunto quando il sotto-array considerato è composto 
@@ -1387,7 +1387,8 @@ da un solo elemento.\begin{center}
 \textbf{Proposizione} : Un qualsiasi sotto-array "a cavallo" fra i due sarà composto da un prefisso ed un 
 suffisso rispetto la metà dell'array iniziale. Il sotto-array "a cavallo" di somma massima sarà composto dal 
 prefisso massimo ed il suffisso massimo. \acc 
-Partendo quindi dal centro, si sposterà il prefisso a sinistra (ed il suffisso a destra) controllando il valore della somma, 
+Partendo quindi dal centro, si sposterà il prefisso a sinistra (ed il suffisso a destra) controllando il valore della somma degli elementi 
+nel range $A[pref_{max} : m]$ e $A[m+1 : suff_{max}]$, 
 fino a trovare la somma massima.\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/esempioSuffPref.eps}
 \end{center}
@@ -1413,7 +1414,82 @@ fino a trovare la somma massima.\begin{center}
 \hphantom{ident}\code{return max(somma\_a\_cavallo, max1, max2)}\\
 \code{\}}}
 La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n)=2\cdot T(\dfrac{n}{2})+O(n)$$
-Per il teorema principale risulta che
-$$ a=2\;\;b=2\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$ 
+Per il teorema principale \ref{tp}  risulta che
+$$ a=2\;\;\;b=2\;\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$ 
+$$ T(n)=O\big(n\cdot\log{n}\big)$$
+Consideriamo adesso il seguente problema, sia $A$ un array ordinato di lunghezza \textit{dispari}, i cui valori di 
+$A$, occorrono 1 oppure 2 volte.\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        1 & 2 & 2 & 4 & 4 & 5 & 6 & 6 & 8 \\ \hline
+        \end{tabular}
+\end{center}
+Si vuole trovare un algoritmo che agisca in $O(\log{n})$, che trovi un qualsiasi elemento che occorre una sola volta.
+La presenza di tale elemento è garantita dal fatto che l'array sia di lunghezza dispari.\acc 
+Come primo passo, è possibile controllare l'elemento centrale dell'array in input, se esso è diverso da entrambi i suoi 
+vicini, allora sarà un elemento che occorre una volta, altrimenti sarà necessario procedere con il passo ricorsivo su 
+\textit{una delle due metà} dell'array in input.\acc  
+Se l'elemento alla sinistra del centro è identico al centro, seleziono la metà sinistra se il centro è un elemento pari, 
+altrimenti la destra.\greybox{
+\code{Occ\_singola( A : array ordinato di lunghezza dispari)\{}\\ 
+\hphantom{ident}\code{if(A.length()==1)\{}\\
+\hphantom{ident}\hphantom{ident}\code{return A[0]}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{m = A.length()/2}\\
+\hphantom{ident}\code{if( (A[m]$\ne$A[m-1]) $\land$ (A[m]$\ne$A[m+1]) )\{}\\
+\hphantom{ident}\hphantom{ident}\code{return A[m]}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{if( A[m] == A[m-1] )\{}\\
+\hphantom{ident}\hphantom{ident}\code{if (m\%2==0) \{ return  Occ\_singola(A[0:m])\}}\\
+\hphantom{ident}\hphantom{ident}\code{else \{ return Occ\_singola(A[m+1:A.length()])  \}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{else\{}\\
+\hphantom{ident}\hphantom{ident}\code{if (m\%2==0) \{ return Occ\_singola(A[m+2:A.length()]) \}}\\
+\hphantom{ident}\hphantom{ident}\code{else \{ return  Occ\_singola(A[0:m-1]) \}}\\
+\hphantom{ident}\code{\}}\\
+\code{\}}}
+Il costo è ovviamente $O(\log{n})$, verificabile anche con il teorema principale \ref{tp}.
+\subsubsection{Elemento Maggioritario}
+In un array, un \textit{elemento maggioritario}, o \textit{majority element}, è quel valore $x$ tale che, 
+per più di $\nicefrac{n}{2}$ indici $i$, vale che $A[i]=x$, ossia un elemento che occorre nell'array in più di 
+$\nicefrac{n}{2}$ posizioni, dove $n$ è la lunghezzadell'array.
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        82 & x & -9 & x & 6 & x & 44 & x & x \\ \hline
+        \end{tabular}
+\end{center}
+Si vuole trovare un algoritmo di costo computazionale $O(n\cdot\log{n})$ che stabilisca se in un dato array, è 
+presente o no un majority element.\acc 
+\textbf{Proposizione} : Se in $A[0:n]$ è presente un valore $x$ che sia majority element, allora, anche tale $x$ sarà 
+anche majority element di una delle sue metà, ossia di $A[0:\nicefrac{n}{2}]$ o $A[\nicefrac{n}{2}+1:n]$.\acc 
+Data tale proposizione, sarà facile stabilire l'elemento maggioritario, dividendo in due l'array iniziale ed avviando la ricorsione 
+su entrambe le metà, se esse restituiscono due majority element distinti, allora quello effettivo sarà l'elemento che occorre più volte.
+\greybox{
+\code{Majority\_Element( A : array )}\{ \\
+\hphantom{ident}\code{if(A.length()==1)\{ return A[0] \}}\\
+\hphantom{ident}\code{if(A.length()==0)\{ return NULL \}}\\
+\hphantom{ident}\code{if(A.length()==)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(A[0]==A[1])\{ return A[0] \}}\\
+\hphantom{ident}\hphantom{ident}\code{else\{ return NULL \}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{m=A.length()/2}\\
+\hphantom{ident}\code{c1=Majority\_Element(A[0:m])}\\
+\hphantom{ident}\code{c2=Majority\_Element(A[m+1:A,length()-1])}\\
+\hphantom{ident}\code{count=0}\\
+\hphantom{ident}\code{for(int i = 0;i < A.length(); i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(A[i]==c1)\{ count++ \}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{if (count > A.length()/2)\{ return c1 \}}\\
+\hphantom{ident}\code{count=0}\\
+\hphantom{ident}\code{for(int i = 0;i < A.length(); i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(A[i]==c2)\{ count++ \}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{if (count > A.length()/2)\{ return c2 \}}\\
+\hphantom{ident}\code{return NULL}\\
+\code{\}}}
+La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n)=2\cdot T(\dfrac{n}{2})+O(n)$$
+Per il teorema principale \ref{tp}  risulta che
+$$ a=2\;\;\;b=2\;\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$ 
 $$ T(n)=O\big(n\cdot\log{n}\big)$$
 \end{document}
