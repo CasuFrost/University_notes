@@ -31,7 +31,14 @@
 1.  \textbf{Utente}\\
 \id	1.1 nome\\
 \id	1.2 data registrazione\\
-\id	1.3 bid fatte\\
+\id 1.3 utente privato\\ 
+\id \id	1.3.1 bid fatte\\
+\id \id	1.3.2 acquisti fatte\\
+\id 1.4 utente professionale\\ 
+\id \id 1.4.1 URL vetrina\\
+\id \id 1.4.2 post\\
+\id \id 1.4.3 popolarità\\
+\id \id 1.4.4 affidabilità\\
 \acc
 2.  \textbf{Post} (annuncio)\\
 \id2.1 descrizione oggetto\\
@@ -82,6 +89,32 @@ Price = (euro : Int$>$0, cent : $[$0..99$]$ )
     Sia $B$ l'insieme di tutti gli oggetti $x:Bid$ per cui $\exists (x,a) \land x.istante<this.istante$\\ 
     $result = |B|+1$ 
 \end{itemize}
+\subsubsection{professionale}
+\code{popolarità () : {bassa,media,alta}}\begin{itemize}
+    \item \textit{pre-condizioni} : $this$ deve essere coinvolto in almeno un link di tipo $pubblica$.
+    \item \textit{post-condizioni} : Sia $P'$ l'insieme degli oggetti $p:Post$ per cui $\exists (this,p):pubblica$\\
+            Sia $P$ il sottoinsieme di $P'$ per cui ogni $p\in P$ è coinvolto in un link di tipo $(acquista/bidder)$ dove 
+            $now -(acquista/bidder).istante < 12$ mesi 
+            Sia $B$ l'insieme degli oggetti $b:Bid$ per cui : \begin{itemize}
+                \item $now - b.istante < 12$ mesi 
+                \item $\exists (b,p)$ dove $p:Asta$ e $p\in P$
+            \end{itemize}
+            $Pop = |B\cup P|$\\
+            $Pop<50\implies result = $bassa \\
+            $Pop\le300\land Pop\ge50\implies result = $media\\ 
+            $Pop>300\implies result =$alta
+\end{itemize}
+\code{affidabilità () : Reale in [0,1]}\begin{itemize}
+    \item \textit{pre-condizioni} : $this$ deve essere coinvolto in almeno un link di tipo $pubblica$ con almeno un oggetto $p$ 
+    che è coinvolto in un link di tipo $acquista/bidder$
+    \item \textit{post-condizioni} : Sia $P'$ l'insieme degli oggetti $p:Post$ per cui $\exists (this,p):pubblica$\\
+    Sia $P$ il sottoinsieme di $P'$ ove ogni $p\in P$ è coinvolto in un link di tipo $acquista/bidder$\\
+    Sia $m=\displaystyle\sum_{p\in P'}p.votoFeedback\cdot \dfrac{1}{|P|}$\\
+    Sia $N$ il sottoinsieme di $P$ ove per ogni $p\in N$ risulta che $p.votoFeedback\le 2$\\
+    Sia $z=\dfrac{|N|}{|P|}$\\
+    $result = \dfrac{m\cdot(1- z)}{5}$
+\end{itemize}
+\newpage
 \subsection{Specifica dei vincoli esterni}
 \vincolo{V.Bid.istante\_offerta} : $\forall b:Bid$  e $\forall a:Asta$ per cui $\exists (a,b)$, deve 
 essere vero che $b.istante\le a.scadenza$.\acc
@@ -89,6 +122,8 @@ essere vero che $b.istante\le a.scadenza$.\acc
 essere vero che $b.istante\ge u.registrazione$.\acc
 \vincolo{V.Utente.scadenza\_aste} : $\forall u:Utente$, sia $P$ l'insieme degli oggetti $p:Asta$ tale che 
 $\exists (p,u):vende$. $\forall p\in P$ deve essere vero che $p.scadenza\ge u.registrazione$.\acc 
+\vincolo{V.Post.categorie} : Non esiste una categoria che è sia super\_cat che sotto\_cat di un altra 
+categoria.
 \newpage
 \subsection{Specifica degli use-case}
 \subsubsection{Utente}
