@@ -1492,4 +1492,29 @@ La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n
 Per il teorema principale \ref{tp}  risulta che
 $$ a=2\;\;\;b=2\;\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$ 
 $$ T(n)=O\big(n\cdot\log{n}\big)$$
+\subsubsection{Distanza Minima fra due Punti}
+Consideriamo il seguente problema, vi è un insieme di punti $p_1,p_2\dots,p_n$, si vuole trovare la coppia 
+di punti $p_i,p_j$ la cui distanza è minima rispetto tutte le altre distanze. Se volessimo controllare tutte le distanze 
+per ricavarne la minima, dovremmo controllare $\binom{n}{2}$ coppie di punti, facendo si che la complessità dell'algoritmo 
+sia $O(n^2)$.\acc Non è stato però specificato, a quale spazio vettoriale appartengano i punti, consideriamo il caso più 
+semplice in cui i punti appartengono ad $\mathbb{R}$. In questo caso, è possibile ordinarli in tempo $O(n\log{n})$,
+per poi controllare ogni punto dell'array con i suoi adiacenti in tempo lineare.
+\greybox{
+\code{Dist\_Min( $x_1,x_2\dots x_n$ )\{}\\
+\hphantom{ident}\code{Ordina i punti $x_1,x_2\dots x_n$ }\\
+\hphantom{ident}\code{Sol = $\infty$}\\
+\hphantom{ident}\code{for(int i=2;i$\le$n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{Sol = min(Sol, $x_i-x_{i-1}$)}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return Sol}\\
+\code{\}}}
+Supponiamo però che i punti appartengano ad $\mathbb{R}^2$, in questo caso, non è possibile ordinare i punti, o meglio, 
+ordinandoli secondo il valore dell'ascissa, oppure dell'ordinata, non implica
+necessariamente una vicinanza rispetto le loro distanze.\acc 
+Si vuole trovare un algoritmo che operi in $O(n\log{n})$, seguendo un approccio divide et impera. Si divide quindi in due 
+parti l'array in input, separando i punti in due metà del piano, si trovano le rispettive distanze minime delle due metà 
+ricorsivamente, per poi cercare di trovare la distanza minima considerando anche quelle "a cavallo", ossia dei punti appartenenti 
+a due metà differenti.\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/distMin.eps}
+\end{center}
 \end{document}
