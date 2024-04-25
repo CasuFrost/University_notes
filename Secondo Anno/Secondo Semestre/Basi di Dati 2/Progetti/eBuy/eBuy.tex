@@ -79,7 +79,10 @@
 \newpage
 \section{Specifiche}
 \subsection{Specifica dei tipi di dato}
-Price = (euro : Int$>$0, cent : $[$0..99$]$ ) 
+Price = (euro : Int$>$0, cent : $[$0..99$]$ ) \\ 
+Popolarita = \{bassa,media,alta\}\\ 
+Dominio = un dominio di root esistente\\
+Url = "http/" $\lor$ "https/" \codee{concat} Stringa \codee{concat} . \codee{concat} Dominio \\
 \subsection{Specifica delle classi}
 \subsubsection{Bid}
 \code{numero\_bid () : Intero}\begin{itemize}
@@ -90,31 +93,49 @@ Price = (euro : Int$>$0, cent : $[$0..99$]$ )
     $result = |B|+1$ 
 \end{itemize}
 \subsubsection{professionale}
-\code{popolarità () : {bassa,media,alta}}\begin{itemize}
+\code{popolarità () : Popolarita}\begin{itemize}
     \item \textit{pre-condizioni} : $this$ deve essere coinvolto in almeno un link di tipo $pubblica$.
     \item \textit{post-condizioni} : Sia $P'$ l'insieme degli oggetti $p:Post$ per cui $\exists (this,p):pubblica$\\
             Sia $P$ il sottoinsieme di $P'$ per cui ogni $p\in P$ è coinvolto in un link di tipo $(acquista/bidder)$ dove 
-            $now -(acquista/bidder).istante < 12$ mesi 
+            \begin{itemize}
+                \item Se $p:Asta$ allora $now - p.scadenza < 12$ mesi 
+                \item Se $p:CompraSubito$ allora $now - p.dataVendita < 12$ mesi 
+            \end{itemize}
+            
             Sia $B$ l'insieme degli oggetti $b:Bid$ per cui : \begin{itemize}
                 \item $now - b.istante < 12$ mesi 
                 \item $\exists (b,p)$ dove $p:Asta$ e $p\in P$
             \end{itemize}
-            $Pop = |B\cup P|$\\
+            Sia $U$ l'insieme di utenti $u$ tale che, $u$ è coinvolto in un link di tipo $(aquista/bidder)$ o $offerta$ con un 
+            oggetto in $B\cup P$\\
+            $Pop = |U|$\\
             $Pop<50\implies result = $bassa \\
             $Pop\le300\land Pop\ge50\implies result = $media\\ 
             $Pop>300\implies result =$alta
 \end{itemize}
 \code{affidabilità () : Reale in [0,1]}\begin{itemize}
     \item \textit{pre-condizioni} : $this$ deve essere coinvolto in almeno un link di tipo $pubblica$ con almeno un oggetto $p$ 
-    che è coinvolto in un link di tipo $acquista/bidder$
+    che è coinvolto in un link di tipo $acquista/bidder$, per cui tale link è 
+    coinvolto in un link di tipo $valutato$ con un oggetto di tipo $Feedback$
     \item \textit{post-condizioni} : Sia $P'$ l'insieme degli oggetti $p:Post$ per cui $\exists (this,p):pubblica$\\
-    Sia $P$ il sottoinsieme di $P'$ ove ogni $p\in P$ è coinvolto in un link di tipo $acquista/bidder$\\
-    Sia $m=\displaystyle\sum_{p\in P'}p.votoFeedback\cdot \dfrac{1}{|P|}$\\
-    Sia $N$ il sottoinsieme di $P$ ove per ogni $p\in N$ risulta che $p.votoFeedback\le 2$\\
-    Sia $z=\dfrac{|N|}{|P|}$\\
+    Sia $P$ il sottoinsieme di $P'$ ove ogni $p\in P$ è coinvolto in un link di tipo $acquista/bidder$, dove è coinvolto 
+    in un link di tipo $valutato$\\
+    Sia $F$ l'insieme degli oggetti $f:Feedback$ tale che $\exists (f,p):valutato$ con $p\in P$\\
+    Sia $m=\displaystyle\sum_{f\in F}f.voto\cdot \dfrac{1}{|F|}$\\
+    Sia $N$ il sottoinsieme di $F$ ove per ogni $f\in N$ risulta che $f.voto\le 2$\\
+    Sia $z=\dfrac{|N|}{|F|}$\\
     $result = \dfrac{m\cdot(1- z)}{5}$
 \end{itemize}
-\newpage
+\subsubsection{acquista/bidder}
+\code{ aggiungiFeedback( voto : Intero, commento : Stringa ) : Void}\begin{itemize}
+    \item \textit{pre-condizioni} : Se $this$ coinvolge un oggetto $a:Asta$, allora $a.scadenza < now$
+    \item \textit{post-condizioni} : Viene creato un oggetto $f:Feedback$ tale che:\begin{itemize}
+        \item $f.voto$ = \code{voto}
+        \item $f.commento$ = \code{commento}
+    \end{itemize}
+    Viene creato il seguente link $(this,f):valutato$
+\end{itemize}
+
 \subsection{Specifica dei vincoli esterni}
 \vincolo{V.Bid.istante\_offerta} : $\forall b:Bid$  e $\forall a:Asta$ per cui $\exists (a,b)$, deve 
 essere vero che $b.istante\le a.scadenza$.\acc
@@ -122,8 +143,8 @@ essere vero che $b.istante\le a.scadenza$.\acc
 essere vero che $b.istante\ge u.registrazione$.\acc
 \vincolo{V.Utente.scadenza\_aste} : $\forall u:Utente$, sia $P$ l'insieme degli oggetti $p:Asta$ tale che 
 $\exists (p,u):vende$. $\forall p\in P$ deve essere vero che $p.scadenza\ge u.registrazione$.\acc 
-\vincolo{V.Post.categorie} : Non esiste una categoria che è sia super\_cat che sotto\_cat di un altra 
-categoria.
+\vincolo{V.Post.categorie} : Sia $G=(V,E)$ il grafo dove $V$ sono gli oggetti di tipo $categoria$ ed $E$ i link di tipo 
+$comprende$. $G$ deve essere un albero (conneso ed aciclico).
 \newpage
 \subsection{Specifica degli use-case}
 \subsubsection{Utente}
