@@ -1500,7 +1500,7 @@ sia $O(n^2)$.\acc Non è stato però specificato, a quale spazio vettoriale appa
 semplice in cui i punti appartengono ad $\mathbb{R}$. In questo caso, è possibile ordinarli in tempo $O(n\log{n})$,
 per poi controllare ogni punto dell'array con i suoi adiacenti in tempo lineare.
 \greybox{
-\code{Dist\_Min( $x_1,x_2\dots x_n$ )\{}\\
+\code{Dist\_Min\_in\_$\mathbb{R}$( $x_1,x_2\dots x_n$ )\{}\\
 \hphantom{ident}\code{Ordina i punti $x_1,x_2\dots x_n$ }\\
 \hphantom{ident}\code{Sol = $\infty$}\\
 \hphantom{ident}\code{for(int i=2;i$\le$n;i++)\{}\\
@@ -1515,6 +1515,62 @@ Si vuole trovare un algoritmo che operi in $O(n\log{n})$, seguendo un approccio 
 parti l'array in input, separando i punti in due metà del piano, si trovano le rispettive distanze minime delle due metà 
 ricorsivamente, per poi cercare di trovare la distanza minima considerando anche quelle "a cavallo", ossia dei punti appartenenti 
 a due metà differenti.\begin{center}
-    \includegraphics[width=0.4\textwidth ]{images/distMin.eps}
+    \includegraphics[width=1\textwidth ]{images/distMin.eps}
 \end{center}
+È ovvio che due punti fra le due metà che non si trovano nella fascia, saranno distanti almeno quanto la distanza minima 
+calcolata in una delle due metà, sarà quindi inutile considerarli, in quanto stiamo cercando una distinza più piccola 
+rispetto alle due minime già calcolate.\acc 
+A questo punto bisogna calcolare le distanze nella fascia, si noti come non è efficiente controllare tutte le possibili coppie 
+di punti nella fascia, in quanto tale controllo potrebbe richiedere un costo computazionale quadratico, e non lineare,
+bisogna quindi procedere in maniera differente.\acc 
+L'idea è la seguente: Supponiamo di dividere le due fasce in quadranti di eguale dimensione, ossia
+ $\nicefrac{d}{2}\times \nicefrac{d}{2}$, nella maniera seguente:\begin{center}
+    \includegraphics[width=1\textwidth ]{images/distMin2.eps}
+\end{center}
+\textbf{Proposizione} : Non esistono due punti che sono contenuti nello stesso quadrante.\acc 
+La dimostrazione è banale, se fossero contenuti nello stesso quadrante, si troverebbero anche nella 
+stessa metà, e la loro distanza, può essere al più quanto la diagonale di un quadrante, che equivale 
+a $\sqrt{(\nicefrac{d}{2})^2+(\nicefrac{d}{2})^2}=\dfrac{d}{\sqrt{2}}$, e tale distanza è minore di $d$, che era la 
+distanza minima fra due punti nelle due metà, è quindi impossibile.\acc 
+\textbf{Osservazione} : Due punti possono avere una distanza minore di $d$, esclusivamente se si trovano ad 1 oppure 2 
+quadranti di distanza.\acc 
+Tale osservazione segue dal fatto che i quadranti sono  $\nicefrac{d}{2}\times \nicefrac{d}{2}$, quindi due punti possono 
+avere una distanza minore di $d$ esclusivamente se i quadranti in cui si trovano sono adiacenti, o sono separati da 
+al più un altro quadrante.\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/distMin3.eps}
+\end{center}
+A questo punto, posso ordinare tutti i punti presenti nella fascia blu in base al valore delle $x$ ed in base al valore delle 
+$y$, in tale modo, essendo che ogni punto è in quadrante diverso, se  $|i-j|>11$, i punti $(x_i,y_i)$ e $(x_j,y_j)$ avranno 
+una distanza strettamente maggiore di $d$.\acc  
+Dato l'ordinamento, se due punti hanno una distanza minore di $d$, si troveranno al più ad 11 indici di distanza nell'array, 
+quindi per ogni punto nella fascia, verrà calcolata la distanza fra esso e gli 11 punti nella fascia che lo seguono, 
+tale controllo costa $O(11\cdot n)=O(n)$, non ha quindi costo quadratico.\acc  L'algoritmo è il seguente, la funzione 
+\code{dist} utilizzata, calcola la distanza euclidea $L_2$.
+\greybox{
+\code{Dist\_Min\_in\_$\mathbb{R}^2$( $(x_1,y_1),(x_2,y_2)\dots (x_n,y_n)$ )\{}\\
+\hphantom{ident}\code{if(n==1)\{return NULL\}}\comm{caso base}\\
+\hphantom{ident}\code{if(n==2)\{return dist($(x_1,y_1),(x_2,y_2)$)\}}\comm{caso base}\\
+\hphantom{ident}\code{ordina i punti per i valori delle $x$}\comm{$O(n\log{n})$}\\
+\hphantom{ident}\code{dL = Dist\_Min\_in\_$\mathbb{R}^2$( $(x_i,y_i)$ con $i = 1,2\dots\nicefrac{n}{2}$ )}\comm{metà sinistra}\\
+\hphantom{ident}\code{dR = Dist\_Min\_in\_$\mathbb{R}^2$( $(x_i,y_i)$ con $i = \nicefrac{n}{2}+1,\nicefrac{n}{2}+2\dots n$ )}\comm{metà destra}\\
+\hphantom{ident}\code{d = min(dL,dR)}\\
+\hphantom{ident}\code{mid = $x_{\nicefrac{n}{2}}$}\comm{il punto medio della fascia}\\
+\hphantom{ident}\code{fascia = $\emptyset$}\\
+\hphantom{ident}\code{for(int i = 0;i$\le$n;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(mid-d $\le\;x_i\;\le$ mid+d )\{ fascia.add(($x_i,y_i$)) \}}\comm{è nella fascia}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{ordina i punti della fascia per i valori delle $y$}\comm{$O(n\log{n})$}\\
+\hphantom{ident}\code{minDist = d}\\
+\hphantom{ident}\code{for(int i = 0;i$\le$fascia.length();i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{for(int j = 1;j$\le$11;j++)\{}\comm{ogni punto con gli 11 successivi}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{currentDist = dist($(x_i,y_i),(x_{i+j},y_{i+j})$)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{minDist = min( minDist, currentDist )}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return minDist}\\
+\code{\}}}
+La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n)=2\cdot T(\dfrac{n}{2})+O(n\log{n})$$
+Per il teorema principale \ref{tp}  risulta che
+$$ a=2\;\;\;b=2\;\;\;f(n)=\theta(n^c\cdot(\log{n})^k)\;\;\;c=\log_b{a}\;\;\;k=1$$ 
+$$ T(n)=O\big(n\cdot(\log{n})^2\big)$$
 \end{document}
