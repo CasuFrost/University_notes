@@ -256,7 +256,7 @@ $\dfrac{L}{R}=\dfrac{\text{bit di un pacchetto}}{\text{bit per secondo}}$, il ri
 il $d_{prop}$, si misura con la formula $\dfrac{k}{v}$, dove $k$ è la lunghezza in metri del collegamento
 fisico, e $v$ la velocità di propagazione attraverso il collegamento (ad esempio, la luce nella fibra ottica
 si propaga a circa 300 000 $\nicefrac{km}{s}$).
-\subsubsection{Ritardo di Accodamento}
+\subsubsection{Ritardo di Accodamento}\label{ritAccodamento}
 Calcolare il ritardo di accodamento è piuttosto difficile in quanto ci sono innumerevoli fattori in gioco da
 considerare, è possibile fare delle stime, consideriamo i seguenti parametri:\begin{itemize}
     \item $L$ - lunghezza di un pacchetto in bit.
@@ -1379,5 +1379,299 @@ perdite di pacchetti, dovute alla congestione di un link che funge
 da collo di bottiglia. Esistono altri approcci basati su differenti
 paradigmi : è possibile cercare di capire quando la coda in un router
 si sta riempendo, in quanto a quel punto,
-l'aumento del rate incrementa il ritardo.
+l'aumento del rate provoca anche un aumento del ritardo.\acc 
+Viene misurato l'RTT tenendo conto del minimo osservato, ossia $RTT_{min}$, calcolando il troughput nella maniera 
+seguente $$ \dfrac{BLS}{RTT_{min}}\;\;\;BLS = \text{ Byte inviati nell'ultimo stream }$$
+Se il troughput è "vicino" al troughput "ottimale", ossia $\dfrac{\code{cwnd}}{RTT_{min}}$, allora  \code{cwnd} 
+aumenta linearmente, altrimenti, se è "lontano", diminuisce linearmente.\acc 
+Tale apporccio controlla la congestione senza indurre un aumento del troughput che cuserà una necessaria perdita, cerca 
+di massimizzare il troughput cercando di mantenere il link "quasi pieno", funziona end-to-end e necessita di informazioni 
+storiche sul percorso.\acc 
+Un altro meccanismo può essere quello di inviare una \textbf{notifica esplicita (ECN)} di congestione, tramite 
+due bit nell'intestazione IP che vengono contrassegnati dal router di rete per la quale passa il datagramma.\acc 
+Il TCP si pone come obbiettivo quello di essere il più "equo" possibile, se $k$ connessioni TCP condividono 
+un collegamento di bitrate $R$, ogni singola connessione dovrebbe avere a disposizione una velocità 
+medi pari a $\nicefrac{R}{2}$, a prescendere dall'ordine in cui le connessioni vengono avviate.\acc 
+Il problema è che un host può aprire più connessioni TCP, ottenendo quindi più velocità in quanto la velocità del 
+collegamento è condivisa fra le singole connessioni TCP e non fra gli host che ne usufruiscono.\acc 
+Molte applicazioni di rete al giorno d'oggi, non utilizzano TCP, bensì UDP, per poi gestire il controllo della 
+congestione al livello applicativo, come HTTP/3 che utilizza il protocollo \textit{QUIC}, implementato in larga scala 
+sui servizi di \textit{Google}.
+\section{Livello di Rete}
+\subsection{Introduzione}
+I protocolli che operano su tale livello, sono implementati su qualsiasi macchina che si può connettere 
+ad una rete, e risultano complessi. Un pacchetto viene incapsulato in un datagramma IP per poi venire spedito 
+nella rete, dove deve essere instradato fino al destinatario, a tal proposito, i router si occupano di 
+leggere l'intestazione IP di un datagramma entrato in una porta in entrata, per poi smistarlo nelle porte di uscita.\acc 
+La rete, basa il suo funzionamento su due costrutti principali:\begin{itemize}
+    \item \textbf{forwarding} : Spostare i pacchetti che entrano dalla porta di ingresso di un router in 
+    una delle sue porte di uscita, è un'operazione \textit{locale} che avviene su ogni router, i pacchetti vengono spostati 
+    in base ai loro valori nell'intestazione, ed ogni router possiede delle tabelle associative che indicano dove 
+    far uscire i datagrammi in base ai valori prima citati. 
+    \item \textbf{routing} : Il processo per cui si determina \textit{globalmente} il percorso che un datagramma 
+    deve seguire per arrivare dalla sorgente alla destinazione, tale processo avviene tramite dei dedicati 
+    algoritmi di instradamento, con cui si riempioni i campi delle tabelle nei router sopra citate.
+\end{itemize}
+L'intero livello di rete si divide quindi in due parti, il \textbf{piano dei dati}, ossia l'insieme di costrutti e 
+paradigmi relativi al forwarding, come il determinare come un datagramma in arrivo deve essere smistato, ed il 
+\textbf{piano di controllo}, relativo al routing, ossia la determinazione di come il datagramma deve essere 
+instradato sulla rete, tramite algoritmi di routing tradizionali (distribuiti ed implementati nei router), oppure 
+implementati in server remoti, che hanno una visione globale dell'intera rete, e si occupano di aggiornare le
+tabelle dei router.\acc Gli ISP spesso seguono questo tipo di approccio, avendo un server (o un insieme di server) centralizzati 
+che si occupano di eseguire gli algoritmi, che risultano computazionalmente pesanti in quanto, il calcolo dell'instradamento 
+nell'Internet moderno è molto complesso, data la presenza di milioni di router sparsi nel mondo.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/dataAndControlPlane.eps}
+\end{center}
+Il livello di rete non offre alcuna garanzia sulla consegna affidabile dei pacchetti, ne sui tempi di consegna, 
+Internet è un servizio best-effort, implementato in maniera semplice, in modo da essere ampliato facilmente.
+\subsection{Funzionamento del Router}
+Il router è il device principale che opera sul livello di rete, e permette l'instradamento dei pacchetti, è disposto di una 
+struttura detta \textbf{switching fabric}, implementata via hardware, in modo tale da permettere lo smistamento dei pacchetti in 
+un lasso di tempo brevissimo, nell'ordine dei nanosecondi. È anche disposto di un classico processore per le operazioni 
+del piano di controllo, anche se in tempi odierni la maggiorparte dei router delegano tale lavoro a dei server 
+remoti (come precedentemente accennato). \acc 
+Vi sono diverse terminazioni di linea, predisposte alla ricezione dei bit, una volta che il datagramma 
+è entrato in una porta, agisce 
+la switching fabric, che leggendo i valori nell'intestazione inoltra il datagramma in una porta di uscita, consultando 
+la tabella di inoltro, tale operazione deve avvenire in un lasso di tempo brevissimo, più del rate di arrivo dei datagrammi, in modo 
+da non causare bottleneck.\acc 
+La tabella associa ad ogni indirizzo IP una porta di uscita, un indirizzo è composto da 32 bit, quindi la tabella teoricamente 
+necessita di $2^{32} \simeq 4.3\cdot 10^9 $ entrate. Per evitare un numero così grande di entrate, è organizzata 
+in maniera gerarchica, assegnando ogni porta ad un certo range di indirizzi.\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \rowcolor[HTML]{C0C0C0} 
+        \textbf{range di indirizzi}            & \textbf{porta in uscita}        \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        11001000  00010111  00010***  ******** & \cellcolor[HTML]{FFFFFF}porta 0 \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        11001000  00010111  00010000  ******** & porta 1                         \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        11001000  00010111  00011***  ******** & \cellcolor[HTML]{FFFFFF}porta 2 \\ \hline
+        altrimenti                             & porta 3                         \\ \hline
+        \end{tabular}
+\end{center}
+Alcuni bit meno significativi sono lasciati indefiniti, ed il range è rappresentato dai bit più significativi. Quando vi è 
+un indirizzo in entrata, si esegue l'AND con gli indirizzi nella tabella (escludendo i bit indefiniti), e sarà scelta 
+la porta dedicata all'indirizzo con cui avviene un match. \acc 
+Cosa succede però nei casi in cui un indirizzo fa match con più di un indirizzo presente nella tabella?
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \rowcolor[HTML]{C0C0C0} 
+        \textbf{range di indirizzi}                                   & \textbf{porta in uscita}        \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        {\color[HTML]{FE0000} 11001000  00010111  00010***  ********} & \cellcolor[HTML]{FFFFFF}porta 0 \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        {\color[HTML]{FE0000} 11001000  00010111  00010000  ********} & porta 1                         \\ \hline
+        \rowcolor[HTML]{FFFFFF} 
+        {\color[HTML]{000000} 11001000  00010111  00011***  ********} & \cellcolor[HTML]{FFFFFF}porta 2 \\ \hline
+        altrimenti                                                    & porta 3                         \\ \hline
+        \end{tabular}\acc
+        entrambi \color{red}MATCH \color{black}  con l'indirizzo 11001000  00010111  00010000 10110010
+\end{center}
+Viene selezionato l'indirizzo con il prefisso di bit definiti più lungo che è un match con l'indirizzo in entrata, nel 
+caso sovrastante, il datagramma verrebbe inoltrato nella porta 1. \acc 
+La switching fabric quindi si occupa di trasferire il datagramma nella porta di uscita, definiamo \textbf{switching rate} 
+la velocità con la quale i pacchetti possono essere trasferiti dalle porta in ingresso a quelle in uscita. Se le porte in ingresso 
+sono $n$ la velocità ideale di commutazione sarà $n\cdot $switching rate.\acc  
+Nei router di prima generazione lo switching avveniva sotto il controllo di una vera CPU, il pacchetto veniva copiato nella 
+RAM presente nel router e veniva poi processato, la velocità di lettura e scrittura della memoria limitava però lo 
+switching rate.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/fabricMem.eps}
+\end{center}
+Successivamente si è optato per implementare via hardware dei bus appositi, più rapidi dei bus di sistema, ma sempre 
+limitanti rispetto alle implementazioni moderne, che prevedono delle \textit{reti di interconnessione},
+che sfruttano il parallelismo, frammentando il datagramma in celle di lunghezza fissa, facendolo commutare nella rete 
+di interconnessione per poi ri-assemblarlo in uscita.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/fabricInterconnesso.eps}
+\end{center}
+I router moderni applicano lo "scaling", ossia implementano più piani di commutazione che operano in parallelo, permettendo 
+un'aumento sostanziale dello switching rate, garantendo velocità elevate, ed una capacità di commutazione 
+fino a 100 teraByte per secondo.\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/fabricParallelo.eps}
+\end{center}
+\subsubsection{Accodamento}
+L'accodamento interno al router (da non confondersi con l'accodamento visto nei capitoli precedenti) si verifica quando 
+i pacchetti arrivanno nelle porte di input più rapidamente di quanto la switching fabric possa smistarli nelle 
+porte di uscita. Se ciò avviene i datagrammi verrano accodati in un buffer di capienza limitata, quando raggiunge la dimensione 
+massima sarà necessario eliminare dei pacchetti nel buffer secondo delle determinate politiche.\acc 
+Il buffer deve avere una capienza che non sia ne limitata ne eccessiva, le dimensioni ottimali sono date dalla 
+seguente formula empirica: $$\dfrac{ RTT\cdot c}{\sqrt{n}}$$
+Dove $RTT$ è il round trip time tipico, $c$ è il bit rate ed $n$ è il numero di flussi presenti. Vediamo alcuni paradigmi di 
+scheduling adottati nel selezionare un pacchetto da scartare quando il buffer è pieno.\begin{itemize}
+    \item \textbf{FCFS} : I pacchetti vengono elaborati in ordine di arrivo, chi arriva prima ha la priorità, se il buffer 
+    è pieno, i pacchetti nuovi verranno scartati. 
+    \item \textbf{Prioritario} : I pacchetti verranno selezionati in base ad un grado di priorità dato dalle informazioni 
+    presenti nell'header. Ad ogni grado di priorità viene assegnata una coda, ed i pacchetti delle code sottostanti verranno 
+    considerati esclusivamente quando non vi saranno pacchetti in attesa nelle code sovrastanti.
+    \item \textbf{Round Robin} : I pacchetti sono smistati in differenti code in base ad una classificazione che avviene 
+    per via della loro intestazione, ciclicamente viene selezionata una nuova coda dalla quale si seleziona il pacchetto in 
+    attesa, ogni classe quindi deve aspettare il proprio turno.
+\end{itemize} 
+Il Round Robin può essere generalizzato nella politica \textbf{Weighted fair queuing}, in cui ad ogni classe $i$ viene 
+assegnato un peso $w_i$, e riceve una quantità di servizio (pacchetti selezionati per turno) pesata: 
+$$ \dfrac{w_i}{\sum_{j=1}^nw_j}\;\;\;\;\;\;\;\;\;\;\;\;n=\text{ numero delle classi}$$
+Il router deve anche occuparsi del cosiddetto \textbf{marking}: In situazioni in cui la rete è congestionata, vanno 
+selezionati degli appositi pacchetti che verranno marcati come trasportatori dell'informazione riguardo la congestione.\acc 
+Come accennato, alcuni router possono dare la precedenza ad alcuni pacchetti, oppure penalizzarli, in base alla loro intestazione, 
+non sono strani casi in cui alcuni ISP hanno penalizzato pacchetti di competitor commerciali all'interno delle proprie reti 
+private, è un problema di natura tecnica ma anche sociale ed economica. Diversi paesi hanno differenti approcci sulla neutralità 
+della rete e sono necessari dei provvedimenti legali per stabilire regole e politiche di gestione.
+\subsection{Il protocollo IP}
+Tale protocollo, riguarda sia il formato del datagramma e la sua intestazione, sia le regole riguardanti la struttura 
+degli indirizzi che identificano i terminali della rete. Un segmento TCP, UDP o di un qualsiasi altro protocollo di trasporto, 
+viene incapsulato in un datagramma IP, che segue il formato seguente:\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/ipDatagram.eps}
+\end{center}
+\begin{itemize}
+    \item Il campo \textit{header len} identifica la lunghezza in byte dell'intestazione.
+    \item Il campo \textit{ver} identifica la versione del protocollo IP 
+    \item Il campo \textit{serv} specifica il tipo di servizio per la quale si sta utilizzando il datagramma, ad esempio, un ECN. 
+    \item Il campo \textit{lunghezza} identifica la lunghezza in byte dell'intero datagramma, è variabile, può essere 
+    al massimo di 65536 byte, ma un valore tipico è 1500 byte.
+    \item I campi \textit{id 16 bit}, \textit{flags} e \textit{fragment offset}, sono necessari nei casi in cui 
+    un segmento viene frammentato in più datagrammi. 
+    \item Il campo \textit{TTL} è un numero intero positivo ed identifica il numero di hop/router intermedi per la quale può passare 
+    il datagramma prima di essere scartato (l'utilizzo è stato accennato nel capitolo \ref{ritAccodamento}).
+    \item Il campo \textit{upper layer} identifica che tipo di segmento di trasporto è stato incapsulato (ad esempio, se TCP o UDP).
+    \item Il campo opzioni può contenere informazioni aggiuntive come il timestamp.
+\end{itemize}
+Il punto centrale dell'intestazione sono gli indirizzi IP di mittente e destinatario, l'indirizzo IP è un identificatore 
+a 32 bit, ed identifica un \textit{interfaccia di rete} di un host o di un router, il primo ha solitamente due 
+interfacce (ethernet e wirless), mentre il secondo ne ha svariate. Per comodità, un IP viene letto 
+in notazione decimale puntata a gruppi di 8 bit \begin{center}
+    \begin{tabular}{cccc}
+        \cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} 11011111.} & 00000001. & 00000001. & \cellcolor[HTML]{FFFFFF}00000001 \\
+        223.                                                     & 1.        & 1.        & 1                               
+        \end{tabular}
+\end{center}
+Definiamo \textbf{sottorete}, un insieme di dispositivi connessi che possono comunicare (raggiungersi fisicamente) senza 
+l'utilizzo di un router intermedio, i dispositivi di una sottorete condividono un range di bit più significativi nei 
+loro indirizzi IP, che identifica la sottorete, quelli meno significativi identificano i singoli host.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/sottoreteIp.eps}
+\end{center}
+È possibile identificare un'intera sottorete tramite \textbf{subnet mask}, tramite la seguente notazione detta CIDR\begin{center}
+    a.b.c.d/$x$ \\ 
+    ad esempio : 200.23.16.0/23
+\end{center}
+Dove il numero $x$ seguito dallo slash rappresenta il numero di bit fissi dell'indirizzo, mentre $32-x$ rappresenta il 
+numero di bit variabili, e conseguentemente l'insieme di indirizzi IP distinti che possono esistere in tale sottorette.
+\begin{center}
+    200.23.16.0/23 $\implies$ 11001000 00010111 0001000x xxxxxxxx
+\end{center}
+La sottorete nell'esempio sovrastante può identificare $2^4=16$ indirizzi IP differenti. La maschera viene spesso 
+rappresentata come maschera binaria di 32 bit, dove vi è 1 nei bit fissi, e 0 nei bit variabili 
+\begin{center}
+    subnet mask 23 :\\ 11111111 11111111 11111110 00000000 = 255.255.254.0
+\end{center}
+Quando un host si connette ad una sottorete per la prima volta, che indirizzo IP gli viene assegnato? Ed in che modo 
+può ricevere messaggi se non è identificabile? Esiste un protocollo apposito, implementato nei sistemi operativi, chiamato 
+\textbf{DHCP (Dynamic Host Configuration Protocol)}, l'host può ottenere dinamicamente un indirizzo IP ogni volta che 
+si collega ad una rete, tale indirizzo è preso "in prestito", ed una volta disconnesso, tornerà disponibile per 
+essere usato da altri dispositivi. \acc 
+L'host trasmette un messaggio "DHCP discover" in broadcast, cercando di raggiungere il server DHCP, una volta identificato l'IP 
+di tale server, farà una richiesta DHCP, ed il server risponderà a tale richiesta inviando l'indirizzo assegnato, il server 
+DHCP è solitamente collocato nel router. Il DHCP fornisce al nuovo host anche\begin{itemize}
+    \item Indirizzo IP del router nella rete (first hop)
+    \item Nome ed indirizzo IP del server DNS 
+    \item subnet mask
+\end{itemize}
+In che modo una sottorete può ottenere un range di indirizzi? Ogni grande ISP ha a disposizione un suo spazio degli 
+indirizzi, gestiti dall'ICANN, che offre alle sue sottoreti, allocando uno spazio di indirizzi, come è di facile intuizione, l'indirizzamento 
+segue una struttura gerarchica, favorendo l'instradamento dei pacchetti.\acc 
+Alcuni indirizzi IP sono considerati speciali e non sono assegnati ad un'interfaccia di rete, ad esempio, 0.0.0.0 serve 
+ad identificare un host con un IP che non è stato ancora assegnato, un IP con i bit tutti impostati ad 1 invece 
+rappresenta un messaggio di broadcast da inviare a tutta la sottorete. Gli IP che iniziano con 127 identificano dei pacchetti 
+che un host si auto-invia per ragioni di testing.
+\subsubsection{NAT e IPv6}
+Il protocollo IP nasce nel 1978 con lo scopo di connettere le macchine di alcuni centri di ricerca ed enti universitari, 
+venne quindi scelto uno spazio di indirizzamento a 32 bit, capace di identificare $2^{32}$ differenti interfacce di rete, mai si 
+sarebbe pensato che tale numero non sarebbe stato sufficente nel futuro, dove l'utilizzo di Internet divenne largamente utilizzato 
+su tutto il globo.\acc 
+L'ultimo range di indirizzi IPv4 (ossia, a 32 bit) vennero assegnati nel 2011, è stato quindi necessario lo sviluppo di nuovi 
+protocolli, volti a sopperire la mancanza di indirizzi disponibili.\acc 
+Ogni rete domestica implementa la \textbf{NAT (network address translation)}, un sistema presente nel router, fa si che ogni 
+singolo device di una sottorete sia identificato da un unico indirizzo IP correlato al router, i singoli device 
+interni alla rete sono identificati da un indirizzo IP privato, che non li identifica nel mondo esterno.\acc 
+Due differenti sottoreti (con indirizzi IP pubblici distinti) possono quindi avere degli host che hanno lo stesso 
+identico indirizzo IP privato, non possono esserci due host con lo stesso IP privato nella stessa sottorete.\acc 
+Tutti i datagrammi che escono da una sottorete condivideranno lo stesso IP sorgente, e differiranno secondo il numero 
+di porta, il router mantiene una tabella di traduzione degli indirizzi, quando riceve un datagramma da inoltrare 
+ad un host, tramite il numero di porta identificherà l'IP privato dell'host in questione.\acc Grazie 
+alla NAT, un ISP può fornire un singolo indirizzo IP ad un intera sottorete, il problema della NAT risiede nel fatto che 
+viola la filosofia di internet, in quanto il router, che è un dispositivo di rete, deve processare i pacchetti anche 
+al livello di trasporto (leggendo il numero di porta), il problema della carenza di indirizzi dovrebbe essere 
+gestito da IPv6 (si vedrà in seguito), ma il paradigma NAT è ormai ampliamente utilizzato e non può essere 
+facilmente rimosso.\acc 
+Il protocollo \textbf{IPv6}, si propone come soluzione al problema della carenza di indirizzi, infatti fornisce uno  
+spazio di indirizzamento a 128 bit, allargando ampliamente il numero di dispositivi identificabili, che sono circa $3.4\cdot 10^{38}$, 
+un numero talmente vasto di indirizzo da permettere la certezza che non verranno mai esauriti (speriamo).\acc 
+IPv6 introduce anche ulteriori migliorie, i datagrammi hanno un intestazione di lunghezza fissata, in quanto la lunghezza 
+variabile comportava un aumento dei tempi di processamento, a tal proposito è anche stata rimossa la possibilità 
+di frammentazione. Viene anche rimosso il checksum, in quanto già presente nei segmenti al livello di trasporto che 
+incapsula, il datagramma IPv6 risulta quindi più snello del datagramma IPv4.\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/IPv6Datagram.eps}
+\end{center}
+\begin{itemize}
+    \item Il campo \textit{priority} identifica la priorità del datagramma.
+    \item Il campo \textit{flow label} identifica un insieme di datagrammi appartenenti allo stesso flusso, il concetto 
+    di flusso però, non è stato ancora definito (potrebbe risultare utile in futuro).
+\end{itemize}
+La maggiorparte dei router tutto'oggi, utilizzano ancora IPv4, altri invece accettano segmenti di entrambe le 
+versioni, se due enti devono comunicare tramite IPv6, ma il datagramma deve passare attraverso un router capace di 
+processare esclusivamente datagrammi IPv4, si esegue il cosiddetto \textbf{tunneling}, ossia la pratica di incapsulare un 
+datagramma IPv6, all'interno di un datagramma IPv4, come se fosse un segmento al livello di trasporto.
+\subsubsection{Errori e ICMP}
+Come vengono gestiti gli errori a livello di rete? Tipici esempi sono: Un router scarta un datagramma in quanto non sa 
+come istradarlo; Un datagramma ha campo TTL=0 o altri. Sono tutte situazioni che non sono definite nel protocollo IP, 
+definito per rimanere semplice.\acc 
+Esiste un protcollo costruito sopra IP, noto come \textbf{ICMP (Internet Control Message Protocol)}, nato per permettere 
+ai router di inviare messaggi di diagnostica ai mittenti dei pacchetti che risultano problematici.\begin{quote}
+    Un host A prova ad inviare un datagramma IP ad un host B, il router $x$ per la quale passa tale datagramma, legge 
+    un campo nell'intestazione che lo porta a scartarlo. Il router $x$ invierà tramite ICMP un messaggio di diagnostica all'host 
+    A, avvisandolo.
+\end{quote}
+Tale protocollo viene anche utilizzato per delle richieste di tipo \textit{echo}, per verificare se un certo host 
+sia o meno raggiungibile, viene inviato un pacchetto fittizzio, attendendo una risposta ICMP, come fa il programma 
+\textit{ping}.\acc 
+I messaggi ICMP sono disposti di un campo tipo ed un campo codice, e nella loro intestazione contengono i primi 8 
+byte del datagramma IP che ha provocato la generazione del messaggio.\acc 
+I collegamenti della rete, accettano una dimensione \textit{massima} per i frame che possono passarvici sopra, tale dimensione 
+varia a seconda del collegamento, se un datagramma IP supera tale misura, dovrà essere frammentato, per poi venire 
+ri-assemblato a destinazione, utilizzando i bit \textit{fragFlag} nell'intestazione IP per identificare i frame correlati e riordinarli.
+\subsection{Forwarding Generalizzato}
+Quando si è parlato della tabella associativa nei router, si è parlato di un match fra indirizzi IP, e di un 
+conseguente inoltro in una delle porte di uscita del router. È possibile generalizzare il concetto di forwarding:\begin{itemize}
+    \item Un match può avvenire in base ad una congruenza non solo fra indirizzi IP, ma anche in base ad altri valori 
+    presenti nell'intestazione IP. 
+    \item A seguito di un match, non vi è necessariamente un inoltro, ma sono disponibili più azioni.  
+\end{itemize}
+La tabella viene ora denominata \textit{flow table}, e tale modello prende il nome di \textbf{match plus action}, 
+a seguito di un match, è scaturita un azione. Le azioni intraprese possono essere, ad esempio: \begin{itemize}
+    \item inoltro del datagramma 
+    \item scarto del datagramma 
+    \item modifica del datagramma, ad esempio, cambiandone l'indirizzo di destinazione
+    \item ecc 
+\end{itemize}
+Ad esempio, se si vuole evitare di ricevere datagrammi da una determinata sorgente, è possibile associare nella flowTable 
+uno scarto del datagramma all'indirizzo di tale sorgente, può anche fungere da firewall, scartando tutti
+ i pacchetti correlati ad una determinata porta.\begin{center}
+    \begin{tabular}{|
+        >{\columncolor[HTML]{FFFFFF}}c |c|}
+        \hline
+        \cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Intestazione} & \cellcolor[HTML]{C0C0C0}Azione \\ \hline
+        src : *.*.*.*   dest : 3.4.*.*                              & inoltra nella porta 2          \\ \hline
+        src : 1.2.*.*   dest : *.*.*.*                              & scarta                         \\ \hline
+        src : 1.2.3.*   dest : *.*.*.*                              & invia al remote controller     \\ \hline
+        \end{tabular}
+\end{center}
+Questo tipo di astrazione, svolge il compito di vari dispositivi, quali il router, la NAT, lo switch ed il firewall.\acc 
+Ad oggi la rete, è colma delle cosiddette \textit{middleboxes}, ossia dispositivi o paradigmi che fungono da intermezzo 
+durante la trasmissione di un pacchetto. Internet inizialmente, doveva avere una struttura semplice, concentrando 
+la computazione sugli end-point, e non sui router, che dovevano rimanere strumenti semplici dediti al solo instradamento. \acc 
+Ad oggi però, vi sono molti intermezzi, anche implementati nei router, come la NAT, i firewall e le cache (proxy server). 
+Sebbene IP fosse un protcollo semplice, nel tempo è stato "appesantito" dai diversi paradigmi che aumentano la complessità, 
+l'"intelligenza" non è più quindi concentrata sulla periferia della rete, ma anche nei router e nel core di Internet.
+\subsection{Il Piano di Controllo}
 \end{document}
