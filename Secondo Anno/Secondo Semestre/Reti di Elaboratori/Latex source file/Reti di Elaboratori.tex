@@ -1674,4 +1674,28 @@ Ad oggi però, vi sono molti intermezzi, anche implementati nei router, come la 
 Sebbene IP fosse un protcollo semplice, nel tempo è stato "appesantito" dai diversi paradigmi che aumentano la complessità, 
 l'"intelligenza" non è più quindi concentrata sulla periferia della rete, ma anche nei router e nel core di Internet.
 \subsection{Il Piano di Controllo}
+I router presenti su Internet interagiscono nel piano di controllo per riempire i campi delle tabelle in modo da definire 
+l'instradamento dei pacchetti. Come già accennato, gli \textbf{algoritmi di routing} possono essere eseguiti in maniera distribuita 
+sui vari router, oppure in maniera centralizzata su uno o più server remoti, che dispongono di una potenza di calcolo 
+maggiore. Quest'ultimo paradigma ad oggi è il più comune. \begin{center}
+    \includegraphics[width=\textwidth ]{images/routingAlgoritm.eps}
+\end{center}
+Non esiste un solo percorso fra un due host sulla rete, ce ne sono diversi, gli algoritmi di routing devono calcolare il 
+percorso "migliore" secondo determinate caratteristiche, tale scelta è influenzata da diversi fattori, come il numero di 
+router intermedi che dovrà attraversare un pacchetto, oppure la possibile congestione su un percorso piuttosto che in un 
+altro. \acc 
+Gli algoritmi di routing possono essere categorizzati in base a due ditinti fattori: \begin{itemize}
+    \item La centralizzazione \begin{itemize}
+        \item Gli algoritmi centralizzati si dicono di tipo \textbf{link state}.
+        \item Gli algoritmi distribuiti si dicono di tipo \textbf{distance vector}.
+    \end{itemize}
+    \item La rapidità di aggiornamento, un algoritmo si dice \textbf{statico}, se i percorsi corretti vengono 
+    calcolati poco frequentemente, si dice \textbf{dinamico} se l'aggiornamento dei percorsi, e delle relative 
+    tabelle del router è molto frequente.
+\end{itemize}
+Una rete può essere modellizzata con un \textit{grafo pesato}, dove i nodi rappresentano gli elementi della rete, 
+e gli archi rappresentano i collegamenti. Per un quadro generale e dettagliato riguardante la teoria dei grafi 
+si consigliano gli appunti relativi al corso di 
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Latex%20source%20file/Progettazione%20di%20Algoritmi.pdf}{Algoritmi 2}
+\color{black}.
 \end{document}
