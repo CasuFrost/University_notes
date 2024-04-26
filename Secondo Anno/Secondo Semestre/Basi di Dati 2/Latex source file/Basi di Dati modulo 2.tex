@@ -17,6 +17,9 @@
 \newcommand{\acc}{\\\hphantom{}\\}
 \newcommand{\dete}{{\rightarrow}}
 \newcommand{\fdot}{{\(\bullet\) }}
+\newcommand{\V}{{\mathcal{V} }}
+\newcommand{\F}{{\mathcal{F} }}
+\newcommand{\Pred}{{\mathcal{P} }}
 \newcommand{\comm}[1]{\color{lg}\textit{\hphantom{spaz}// \text{#1}}\color{black}}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
 \title{Basi di Dati 2}
@@ -517,4 +520,136 @@ avere alcun tipo di ritorno, si guardi il seguente esempio:\begin{center}
 \end{center}
 Si noti come nel diagramma delle classi non esiste alcuna classe \underline{Docente} nonostante esista il medesimo
 attore, questo perchè il sistema non richiede di memorizzare le informazioni relative ai docenti.
+\section{Logica di Primo Ordine}
+Una logica, è una famiglia di linguaggi formali, che ha lo scopo di \textit{rappresentare} l'informazione e 
+\textit{manipolare} la conoscenza. Ogni logica è fornita di una \textbf{sintassi} e di una \textbf{semantica}, la sintassi 
+definisce una serie di simboli e la struttura che le formule devono assumere per essere considerate valide, la semantica 
+definisce il significato di tali formule.\acc 
+Nelle logiche classiche, ogni formula, in base al "mondo" sulla quale è applicata, può essere vera oppure false. 
+Per definire la sintassi devo stabilire:\begin{itemize}
+    \item Quali simboli posso utilizzare (l'alfabeto)
+    \item Quali sequenze finite di simboli possono comporre una formula
+\end{itemize}
+La semantica invece stabilisce la \textit{verità} delle formule nei cosiddetti "mondi" possibili, ossia 
+le \textbf{interpretazioni}. Nella logica di primo ordine, detta anche \textbf{FOL} si stabilisce\begin{itemize}
+    \item Sintassi 
+    \item Semantica \begin{itemize}
+        \item Interpretazione 
+        \item Assegnamento delle variabili 
+        \item Modello 
+        \item Valutazione di una formula 
+    \end{itemize}
+    \item Soddisfacibilità 
+    \item Insoddisfacibilità
+    \item Validità
+\end{itemize}
+\subsection{Sintassi della FOL}
+La logica di primo ordine segue la seguente sintassi, vi sono : \begin{itemize}
+    \item un insieme $\V$ di variabili 
+    \item un insieme $\F$ di simboli di funzione, dove ognuno di essi ha associata la sua arità 
+    \item un insieme $\Pred$ di simboli di predicato, dove ognuno di essi ha associata la sua arità 
+    \item dei connettivi logici, ossia : $\lnot,\land,\lor,\rightarrow,\leftrightarrow $ 
+    \item dei quantificatori, universale $\forall$ ed esistenziale $\exists$ 
+    \item altri simboli speciali come la virgola
+\end{itemize}
+L'arità dei simboli di funzione e dei simboli di predicato è il numero di parametri/argomenti che accettano, 
+un simbolo di funzione $f$ di arità 1 si denota $f/1$. Ad esempio, definisco il simbolo di funzione $succ/1$, che 
+associa ad ogni numero intero il suo successivo, se $x\in\mathbb{N}$, $succ(x)=x+1$.\acc  
+I simboli di funzione servono ad identificare degli \textit{oggetti} del mondo, dati degli argomenti, che sono 
+oggetti del mondo, restituiscono un altro oggetto del mondo, i simboli di funzioni di arità 
+0 sono detti simboli di costante. I simboli di predicato invece, definiscono delle 
+\textit{proprietà}, dati degli argomenti, un simbolo di predicato può essere vero o falso, ad esempio, per il 
+simbolo $doppio/2$, risulta che $doppio(x,y)=True\iff x=2\cdot y$.\acc 
+Un altro esempio può essere un simbolo di predicato $uomo/1$ che è vero se e solo se l'argomento 
+passato è un uomo, ma chi decide se un oggetto del mondo è un uomo o no? E chi decide qual'è la funzione 
+effettiva associata ad un simbolo di funzione? Ciò verrà visto in seguito nel capitolo riguardante 
+l'interpretazione.\acc 
+Una formula nella FOL si divide in due piani, il linguaggio dei \textit{termini} ed il linguaggio delle 
+\textit{formule}. \newpage
+\textbf{Definizione di termine}\begin{itemize}
+    \item Ogni variabile è un termine 
+    \item Ogni simbolo di funzione di arità 0 è un termine 
+    \item Se $f/n$ è un simbolo di funzione, dove $n\ge1$, e $t_1,t_2\dots,t_n$ sono dei termini, 
+    allora anche $f(t_1,t_2\dots,t_n)$ è un termine.
+\end{itemize}
+Consideriamo il seguente esempio $$\F = \{zero/0,succ/1,socrate/0,padre/1\}\;\;\;\;\;\;\;\;\;\V=\{MiaVar, X\} $$
+I seguenti sono dei termini 
+$$ \begin{matrix}
+    zero\;\;\;\;\;\;\;\;\;padre(padre(socrate))\\ 
+    MiaVar\;\;\;\;\;\;\;\;\;padre(succ(X))\\ 
+    succ(zero)\;\;\;\;\;\;\;\;\;succ(succ(zero))
+\end{matrix}$$
+\textbf{Definizione di formula}\begin{itemize}
+    \item Se $p/n$ è un simbolo di predicato e  $t_1,t_2\dots,t_n$ sono dei termini, 
+    allora  $p(t_1,t_2\dots,t_n)$ è una formula (atomica).
+    \item Se $\phi$ e $\varphi$ sono due formule, allora anche le seguenti sono formule\begin{itemize}
+        \item ($\phi$)\hphantom{spaziospazio}$\phi\lor\varphi$\hphantom{spaziospazio}$\phi\rightarrow\varphi$
+        \item  $\lnot\phi$\hphantom{spaziospazio}$\varphi\land\phi$\hphantom{spaziospazio}$\phi\leftrightarrow\varphi$
+    \end{itemize}
+    \item Se $\phi$ è una formula e $X$ è una variabile, allora anche le seguenti sono formule
+     $$\forall X \phi\;\;\;\; \exists X \phi$$ 
+\end{itemize}
+Esiste un simbolo di predicato speciale, utilizzabile in ogni formula, ossia $=/2$, se $x$ ed $y$ sono identici, 
+ossia sono lo stesso oggetto del mondo, allora $=(x,y)$ sarà vera, per comodità, tale simbolo verrà utilizzato 
+scrivendo $x=y$ piuttosto che $=(x,y)$. Analogamente, verrà utilizzato $x\ne y$ piuttosto che $\lnot=(x,y)$.\acc 
+Consideriamo il seguente esempio
+$$\F = \{zero/0,succ/1,socrate/0,padre/1\}\;\;\;\;\;\;\;\;\;\Pred=\{doppio/2,somma/3, uomo/1, mortale/1\}$$
+Le seguenti sequenze di simboli sono formule 
+$$doppio(succ(succ(zero)), X)\;\;\;\;\;\;\exists X doppio(succ(succ(zero)), X)\;\;\;\;\;\;\forall X doppio(succ(succ(zero)), X)$$
+$$somma(succ(zero), zero,succ(zero))\;\;\;\;\;\;\forall X\forall Y somma(X, X, Y ) → doppio(X, Y ) \;\;\;\;\;\;mortale(socrate)$$
+$$(\forall X\exists Y doppio(X,Y )) \land  (\forall I \forall J\exists K somma(I,J,K))\;\;\;\;\;\;mortale(socrate) \land mortale(padre(socrate)) $$
+\subsection{Semantica della FOL}
+La verità di una formula e dei predicati dipendono dal mondo in cui sono espressi, nella logica proposizionale: 
+$$ (A\lor \lnot B)\land C \begin{cases}
+    \text{è vera se }A=1,\;B=1,\;C=1\\
+    \text{è false se }C=0
+\end{cases}$$
+Bisogna definire la nozione di interpretazione, essa fornisce i valori di base per i predicati e per i termini. 
+Tutte le formule atomiche sono le cosiddette \textit{lettere proposizionali}, l'interpretazione è una funzione 
+$I$ che associa ad ogni lettera proposizionale un valore di verità, la pre-interpretazione riguarda l'interpretazione 
+dei termini.\acc 
+Consideriamo i seguenti simboli 
+$$ \F=\{socrate/0,padre/1\}\;\;\;\Pred=\{Uomo/1,Mortale/0\}$$
+Per valutare la formula $$ (\forall X Uomo(X)\rightarrow Mortale(padre(X)))\land Uomo(socrate)$$
+Bisogna fornire un insieme $D$ di oggetti del dominio, una corrispondenza fra i simboli di funzione e funzioni 
+effettive su $D$, ed una corrispondenza fra le variabili e gli elementi di $D$.\acc 
+Le funzioni nella FOL sono \textit{totali}, ogni singolo elemento del dominio $D$ può essere valutato da una 
+funzione associata al relativo simbolo di funzione, data un'interpretazione, una volta risolti tutti i termini, è 
+possibile valutare qualsiasi formula complessa.\acc 
+I simboli di predicato sono definiscono delle \textit{relazioni matematiche} su $D^n$ dove $n$ è l'arità del simbolo 
+in questione. Un simbolo di predicato risulta vero se gli oggetti del dominio coinvolti sono contenuti nella 
+relazione associata al simbolo, si consideri il seguente esempio 
+$$ D=\{a,b,c\}$$
+$$ \Pred=\{p/2\}\;\;\;\text{ la relazione associata a }p\text{ è }p=\{(a,b),(b,c)\}$$ 
+$$ p(a,b)=True\;\;\;\;\;\;\;\;\;p(a,c)=False\;\;\;\;\;\;\;\;\;p(b,c)=True$$
+Vediamo adesso um \textit{esempio} esaustivo, si considerino i seguenti simboli: 
+$$ \F=\{pippo/0,pluto/2,ciro/0\}\;\;\;\;\;\;\;\;\;\Pred=\{Paperino/2,Ugo/0\}\;\;\;\;\;\;\;\;\;\V=\{X,Y\}$$
+Considero la formula sintatticamente corretta: 
+$$ Paperino(pippo,pluto(X,pippo))\rightarrow \lnot (Ugo\lor Paperino(pippo,ciro))$$
+Per valutarla, necessito di un intepretazione $I$, considero il seguente dominio 
+$$ D=\{a,b,c,d\}$$
+Definisco ora le funzioni associate all'interpretazione $I$ 
+$$ I(pippo) : D^0\rightarrow D\text{ tale che }pippo()=d$$
+$$ I(ciro) : D^0\rightarrow D\text{ tale che }ciro()=a$$ 
+$$ I(pluto) : D^2\rightarrow D\text{ tale che }$$ $$
+\begin{matrix}
+    pluto(a,a)=a\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;pluto(b,c)=a\\
+    pluto(a,b)=a\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;pluto(b,d)=a\\
+    pluto(a,c)=a\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;pluto(c,c)=d\\
+    pluto(a,d)=b\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;pluto(c,d)=d\\
+    pluto(b,b)=c\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;pluto(d,d)=a
+\end{matrix}$$
+Assegno le variabili $$I(X)=c\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;I(Y)=c $$ 
+A questo punto, definisco le relazioni associate ai simboli di predicato 
+$$ Paperino = \{(a,b),(b,b),(d,d)\}\text{ è una relazione su }D^2$$
+$Ugo$ è una relazione su $D^0$, questi simboli di predicato hanno un valore fisso, sono o veri o falsi, in 
+questo caso, definisco $Ugo=True$. 
+A questo punto posso interpretare la formula\acc
+$ Paperino(pippo,pluto(X,pippo))\rightarrow \lnot (Ugo\lor Paperino(pippo,ciro))$\\
+$ Paperino(d,d)\rightarrow \lnot (Ugo\lor Paperino(d,a))$\\
+$ True \rightarrow \lnot (True \lor False)$\\
+$ True \rightarrow \lnot(True)$\\
+$True \rightarrow False $\\
+$ False $
+\subsection{Valutazione dei Termini}
 \end{document}
