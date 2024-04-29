@@ -1,0 +1,113 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{mathtools}
+\newcommand{\acc}{\\\hphantom{}\\}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[table,xcdraw]{xcolor}
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+\newcommand{\id}{{\hphantom{ident}}}
+\newcommand{\vincolo}[1]{\colorbox{Orange}{$[$\text{#1}$]$}}
+\title{\textbf{TuTubi}}
+
+\date{}
+
+
+\begin{document}
+
+\maketitle\section{Requisiti}
+\hphantom{a}\\
+1. 
+
+\newpage
+\section{Diagramma UML}\begin{center}
+    \includegraphics[width=\textwidth ]{images/UML.eps}
+\end{center}
+\newpage
+\section{Diagramma Use-Case}\begin{center}
+    \includegraphics[width=\textwidth ]{images/UseCase.eps}
+\end{center}
+\newpage
+\section{Specifiche}
+\subsection{Specifica dei tipi di dato}
+FileVideo:      \\
+\id- sequenza di byte che codifica un flusso video \\    
+\id- operazioni del tipo di dato      \\ 
+\id durataSec(f:FileVideo): Intero $\ge$ 0\\
+\id \id \textit{pre-condizioni} :  nessuna\\
+\id \id \textit{post-condizioni} : result è la durata di 'f'\\
+\subsection{Specifica delle classi}
+\subsubsection{Video}
+\code{durataSec () : Intero$\ge$0}\begin{itemize}
+    \item \textit{pre-condizioni} : Nessuna
+    \item \textit{post-condizioni} : $result$ = durataSec(this.flusso)
+\end{itemize}
+\code{n\_visualizzazioni () : Intero$\ge$0}\begin{itemize}
+    \item \textit{pre-condizioni} : Nessuna
+    \item \textit{post-condizioni} : $result$ è il numero \\di oggetti $v:Visualizzazione$ tali che:
+    $(this, v): vid_vis$
+\end{itemize}
+\subsection{Specifica dei vincoli esterni}
+\vincolo{V.Video.autore\_non\_risponde\_a\_se\_stesso} : 
+Per ogni r:Video, per cui esiste v:Video tale che\\
+\id(r,v): risponde\_a\_video\\
+\id sia:\\
+\id\id- u:Utente tale che:\\
+\id\id (u, r): pubblica\\
+\id Deve che (u,v) non è un link di pubblica.\\
+\id Formalmente:\\
+	$$ \begin{matrix}\forall r,v,u \;\;\;  Video(r) \land Video(v) \land Utente(u) \land \\
+				pubblica(u,r) \land \\
+				risponde\_a\_video(r,v)  \;\;\;\rightarrow\\
+                \lnot pubblica(u,v) \end{matrix}$$
+                \newpage
+\subsection{Specifica degli use-case}
+\subsubsection{Cronologia}
+\code{cronologia(): Visualizzazione $[$0..*$]$ }\begin{itemize}
+    \item \textit{pre-condizioni} : Nessuna
+    \item \textit{post-condizioni} : Sia u:Utente l'oggetto che rappresenta l'attore\\ che ha 
+    invocato l'operazione.
+    $result$ è l'insieme dei\\ $v:Visualizzazione$ tali che:
+        $(u,v):ut\_vis$
+\end{itemize}
+\subsubsection{PubblicazioneVideo}
+\code{nuovoVideo(t:Stringa, d:Stringa, f:FileVideo, c:Categoria, T:Tag $[$1..*$]$) : Video }\begin{itemize}
+    \item \textit{pre-condizioni} : Nessuna
+    \item \textit{post-condizioni} :  
+    Viene creato e restituito result:Video tale che:\begin{itemize}
+        \item  result.titolo = t
+        \item  result.descrizione = d
+        \item  result.flusso = f
+        \item  result.istante = adesso
+\end{itemize}
+Viene creato il link $(c, result): cat\_video$.
+
+Per ogni $t:T$, viene creato il link $(t,result): tag\_video$.
+
+Sia $u:Utente$ l'oggetto che rappresenta l'attore che ha 
+invocato l'operazione.
+
+Viene creato il link $(u,result): utente\_pubblica\_video$.
+\end{itemize}
+\subsubsection{Registrazione}
+\code{nuovoUtente(nome:Stringa) : Utente}\begin{itemize}
+    \item \textit{pre-condizioni} : $\nexists u:Utente$ tale che $u.nome = nome$
+    \item \textit{post-condizioni} :  
+    viene creato e restituito $result:Utente$ tale che:
+
+				$result.nome$ = nome
+
+				$result.iscrizione=now$ 
+\end{itemize}
+\end{document}
