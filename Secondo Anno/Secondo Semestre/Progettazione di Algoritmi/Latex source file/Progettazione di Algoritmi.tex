@@ -1573,4 +1573,115 @@ La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n
 Per il teorema principale \ref{tp}  risulta che
 $$ a=2\;\;\;b=2\;\;\;f(n)=\theta(n^c\cdot(\log{n})^k)\;\;\;c=\log_b{a}\;\;\;k=1$$ 
 $$ T(n)=O\big(n\cdot(\log{n})^2\big)$$
+\newpage 
+\section{Programmazione Dinamica}
+Con \textit{programmazione dinamica}, si intende quel paradigma di progettazione di algoritmi, che, allo scopo di 
+trovare una soluzione finale ad un problema, considera una serie di sotto-problemi minori che saranno poi utili alla 
+decisione della già citata soluzione finale. Per rendere chiaro il concetto, vediamo un esempio di applicazione.\acc 
+Si consideri il seguente problema, vi è un disco fisso di capacità $C$ (l'unità di misura è omessa), ed un insieme 
+$\{f_1,f_2\dots,f_2\}$ di file, le cui rispettive dimensioni, risultano essere $\{s_1,s_2\dots,s_n\}$.\acc 
+Si vuole trovare un sotto-insieme di file da inserire sul disco, che ne massimizzi l'utilizzo in termini di 
+capacità, ad esempio: $$ \begin{matrix}
+    C = 30\\ 
+    \text{dimensioni file }=\{2,10,13,4,8,7\}
+\end{matrix}\;\;\;\;\;\;\; \text{soluzione }=\{10,13,7\}$$
+Questo problema è \textit{np-completo}, non è possibile trovare una soluzione con un algoritmo che operi in una complessità 
+polinomiale, supponiamo di voler provare a fare ricerca brutta, se $n$ è il numero di file, dovremmo provare ogni singola combinazione 
+di file, sappiamo che ci sono quindi $2^n$ sotto-insiemi possibili di file.\acc 
+Considero un algoritmo ricorsivo che, partendo dall'insieme totale dei file, considera ad ogni passo due nuovi insiemi, 
+uno che includa l'ultimo elemento, ed uno che non lo includa, in modo tale da controllare alla fine ogni possibile sottoinsieme.
+\greybox{ 
+    \code{Spazio\_forza\_bruta($s_1,s_2\dots,s_n$, C)\{}\\
+    \hphantom{ident}\code{if($\forall i\;\;s_i>$C)\{ return 0 \}}\comm{caso base}\\
+    \hphantom{ident}\code{if($s_i+s_2+\dots+s_n\le$C)\{ return $s_i+s_2+\dots+s_n$ \}}\comm{caso base}\\
+    \hphantom{ident}\code{sol1 = Spazio\_forza\_bruta($s_1,s_2\dots,s_{n-1}$, C)}\comm{non includo l'ultimo }\\
+    \hphantom{ident}\code{sol2 = Spazio\_forza\_bruta($s_1,s_2\dots,s_{n-1}$, C-$s_n$) + $s_n$}\comm{includo l'ultimo }\\
+    \hphantom{ident}\code{return max(sol1, sol2)}\\
+    \code{\}}}
+La complessità risulta essere $O(n\cdot 2^n)$. Facendo alcune osservazioni, è possibile trovare una soluzione più 
+efficente, che modelli a pieno i concetti della programmazione dinamica.\acc 
+\textbf{Osservazione }: Se in un passo dell'algoritmo si verifica la condizione in cui $s_n=s_{n-1}$, il sotto albero di 
+ricorsione in cui $s_n$ è presente e non $s_{n-1}$, ed il sotto albero di 
+ricorsione in cui $s_{n-1}$ è presente e non $s_{n}$, saranno identici.\acc 
+\textbf{Osservazione} : Nei casi in cui $n$ (numero di file) risulta essere molto più grande di $C$ (capacità del disco), 
+si verificherà la situazione in cui molti file avranno la stessa dimensione, facendo si che l'algoritmo esegua gli stessi 
+identici passi ricorsivi molte volte (data l'osservazione precedente).\acc 
+L'idea è quella di sfruttare tali proprietà, per scrivere un algoritmo che, sempre tramite forza bruta, trovi una soluzione, 
+ma che possa astenersi da un calcolo globale, verrà eseguita una ricerca in forza bruta \textbf{sui possibili calcoli} che 
+si potrebbero fare.\acc 
+Definiamo la matrice $T$, tale che $T[k,\alpha]$ identifica la capacità massima che può essere riempita da 
+$k$ file su un disco di capacità $\alpha$. $$0\le\alpha\le C \;\;\;\;\;\;0\le k\le n$$
+L'idea è quella di scrivere un algoritmo che costruisca tale matrice, per poi, ottenere come risultato $T[n,c]$. Il punto cruciale è 
+che tale matrice può essere costruita iterativamente, sfruttando le entrate di indici minori per calcolare rapidamente le 
+entrate di indici maggiori. Si noti come, se $\alpha = 0 \lor k= 0 $ le entrate sono banali:
+$$\forall \alpha \;\;\;T[0,\alpha ]= 0 \;\;\;\;\;\;\;\;\;\;\;\;\forall k \;\;\;T[k,0]=0$$
+Infatti, tali matrici rappresentano i due casi in cui si cerca di capire quali sia la capacità massima che può essere 
+riempita da zero file, oppure la capacità massima che può essere riempita su un disco di capacità zero.\acc 
+Anche la prima riga, ossia $T[1,\alpha ]$ risulta banale da calcolare per ogni $\alpha$, in quanto, se vi è un solo 
+file, di capacità $s_1$, sarà possibile riempire il disco, con la medesima capacità, laddove il disco avrà una capacità 
+minima di $s_1$, quindi: $$\begin{cases}
+    T[1,\alpha ] = s_1\;\;\;\;\text{ se }\alpha \ge s_1\\
+    T[1,\alpha ] = 0\;\;\;\;\text{ se }\alpha < s_1
+\end{cases} $$  \begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/matriceSpazioFile.eps}
+\end{center}
+A questo punto, una volta riempite le prime due righe della matrice, si vuole trovare una formula generale per 
+il valore $T[k,\alpha]$, dati 
+per assunti i valori di $T[k',\alpha']$, $\forall k'<k\land \forall \alpha'<\alpha$. \acc 
+Conosciamo quindi il valore di $T[k-1,\alpha]$, che rappresenta la capacità massima che può essere riempita da 
+$k-1$ file su un disco di capacità $\alpha$, se le dimensioni del file $k$-esimo, ossia $s_k$ sono maggiori di 
+$\alpha-T[k-1,\alpha]$, allora tale file non può essere incluso nel disco di capacità $k$, e si avrà 
+inevitabilmente che $T[k-1,\alpha]=T[k,\alpha]$.\acc 
+Diversamente, si avrebbe che i $k-1$ file, possono essere inclusi anche in un disco di capacità 
+$\alpha-s_k$, quindi, nel disco di capacità $\alpha$, sarà possibile riempire la capacità  $T[k-1,\alpha-s_k]$ sommata, 
+appunto alle dimensioni del file aggiunto, ossia $s_k$. Si giunge quindi alla seguente formula 
+$$ T[k,\alpha]=\max\big(T[k-1,\alpha],T[k-1,\alpha-s_k]+s_k\big) \;\;\;\;\;\;\;\;\;\;\;\;\text{ per }s_k\le\alpha$$
+È quindi possibile, ad ogni passo, riempire la tabella utilizzando i valori precedentemente calcolati.\greybox{ 
+\code{Spazio($s_1,s_2\dots,s_n$, C)\{}\\
+\hphantom{ident}\code{T : matrice n+1$\times$C+1}\\ 
+\hphantom{ident}\code{for(int i = 0;i$\le n$;i++)\{ T[0,i]=0 \}}\comm{prima riga}\\ 
+\hphantom{ident}\code{for(int i = 1;i$\le n$;i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{for(int j = 0;j$\le$C;j++)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if($s_i\le$j)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=max(T[i-1,j],T[i-1,j-$s_i$]+$s_i$)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=T[i-1,j]}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return T[n,C]}\\
+\code{\}}} 
+Le seguenti linee di codice, data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco 
+\greybox{
+    \code{spazio=T[n,C]}\\ 
+    \code{Sol=$\emptyset$}\\
+    \code{for(int k=n;k$\ge$1;k--)\{}\\ 
+    \hphantom{ident}\code{if(T[k,spazio]$\ne$T[k-1,spazio])}\\
+    \hphantom{ident}\hphantom{ident}\code{Sol.add($s_k$)}\\
+    \hphantom{ident}\hphantom{ident}\code{spazio-=$s_k$}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}\\
+    \code{return Sol}}
+La complessità dell'algoritmo \code{Spazio} risulta essere $O(n\cdot C)$, si era però detto, che tale problema è non 
+polinomiale, com'è possibile che la complessità sia lineare? \acc Il punto è che la complessità, descrive la crescita della 
+computazione in base all'input, di fatto, il parametro $C$, rende la complessità \textbf{esponenziale}, in quanto l'input 
+è un numero codificato in binario, rappresentato con un input di $\log_2(C)$ bit, de facto, $C$ è esponenziale 
+rispetto $\log_2(C)$.\acc 
+Nonostante ciò, questo algoritmo risulta significativamente più efficente rispetto alla forza bruta vista in precedenza, soprattutto 
+in condizioni in cui le dimensioni dei file sono particolarmente piccole rispetto ad $n$.\acc 
+Si osservi ora la seguente matrice generata dall'esecuzione dell'algoritmo su un determinato input:
+$$ C=10\;\;\;\;\;\;\;\;\;\;\;\;FileSize=\{1,5,3,5,2,2\}$$\begin{center}
+    \begin{tabular}{c|ccccccccccc}
+        & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & 10                                               \\ \hline
+0                         & 0 & 0                         & 0                         & 0                         & 0                         & 0                         & 0                                                & 0                         & 0                         & 0                         & 0                                                \\
+\cellcolor[HTML]{CBCEFB}1 & 0 & \cellcolor[HTML]{FFCCC9}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{FE0000}{\color[HTML]{FFFFFF} 1} & 1                         & 1                         & 1                         & 1                                                \\
+\cellcolor[HTML]{CBCEFB}5 & 0 & 1                         & 1                         & 1                         & 1                         & 5                         & \cellcolor[HTML]{9AFF99}6                        & 6                         & 6                         & 6                         & 6                                                \\
+3                         & 0 & 1                         & 1                         & 3                         & 4                         & 5                         & \cellcolor[HTML]{FFCCC9}6                        & \cellcolor[HTML]{C0C0C0}6 & \cellcolor[HTML]{C0C0C0}8 & \cellcolor[HTML]{C0C0C0}9 & \cellcolor[HTML]{FE0000}{\color[HTML]{FFFFFF} 9} \\
+\cellcolor[HTML]{CBCEFB}4 & 0 & 1                         & 1                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{9AFF99}10                       \\
+2                         & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{9AFF99}10                       \\
+2                         & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{FFCCC9}10                      
+\end{tabular}
+\end{center}
+I colori nella matrice rappresentano l'algoritmo che,
+ data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco, in questo caso \{1, 5, 4\}. 
 \end{document}
