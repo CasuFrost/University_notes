@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9.24) (preloaded format=pdflatex 2024.2.10)  29 APR 2024 19:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9.24) (preloaded format=pdflatex 2024.2.10)  30 APR 2024 11:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -485,77 +485,88 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 LaTeX Warning: No \author given.
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--67
+
+ []
+
 [1
 
 {C:/Users/mcasu/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 Package epstopdf Info: Source file: <images/UML.eps>
-(epstopdf)                    date: 2024-04-29 19:51:27
-(epstopdf)                    size: 20923 bytes
+(epstopdf)                    date: 2024-04-30 11:45:38
+(epstopdf)                    size: 29154 bytes
 (epstopdf)             Output file: <images/UML-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-04-29 19:51:30
-(epstopdf)                    size: 10363 bytes
+(epstopdf)                    date: 2024-04-30 11:45:41
+(epstopdf)                    size: 12219 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/UML-eps-converted-to.pdf images/UML.eps>
-(epstopdf)             \includegraphics on input line 35.
+(epstopdf)             \includegraphics on input line 69.
 Package epstopdf Info: Output file is already uptodate.
-<images/UML-eps-converted-to.pdf, id=58, 616.3025pt x 299.1175pt>
+<images/UML-eps-converted-to.pdf, id=66, 447.6725pt x 460.72125pt>
 File: images/UML-eps-converted-to.pdf Graphic file (type pdf)
 <use images/UML-eps-converted-to.pdf>
-Package pdftex.def Info: images/UML-eps-converted-to.pdf  used on input line 35.
-(pdftex.def)             Requested size: 483.69687pt x 234.7621pt.
- [2 <./images/UML-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <images/UseCase.eps>
-(epstopdf)                    date: 2024-04-29 19:51:32
-(epstopdf)                    size: 17633 bytes
-(epstopdf)             Output file: <images/UseCase-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-04-29 19:50:48
-(epstopdf)                    size: 11445 bytes
-(epstopdf)             Command: <miktex-epstopdf --outfile=images/UseCase-eps-converted-to.pdf images/UseCase.eps>
-(epstopdf)             \includegraphics on input line 39.
-runsystem(miktex-epstopdf --outfile=images/UseCase-eps-converted-to.pdf images/UseCase.eps)...executed safely (allowed).
+Package pdftex.def Info: images/UML-eps-converted-to.pdf  used on input line 69.
+(pdftex.def)             Requested size: 532.0695pt x 547.63239pt.
 
-Package epstopdf Info: Result file: <images/UseCase-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-04-29 19:51:35
-(epstopdf)                    size: 6955 bytes.
-<images/UseCase-eps-converted-to.pdf, id=71, 336.25626pt x 303.1325pt>
+Overfull \hbox (48.37263pt too wide) in paragraph at lines 69--70
+ [] 
+ []
+
+[2 <./images/UML-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <images/UseCase.eps>
+(epstopdf)                    date: 2024-04-30 11:45:43
+(epstopdf)                    size: 18719 bytes
+(epstopdf)             Output file: <images/UseCase-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-04-30 11:45:46
+(epstopdf)                    size: 7501 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/UseCase-eps-converted-to.pdf images/UseCase.eps>
+(epstopdf)             \includegraphics on input line 73.
+Package epstopdf Info: Output file is already uptodate.
+<images/UseCase-eps-converted-to.pdf, id=79, 369.38pt x 364.36125pt>
 File: images/UseCase-eps-converted-to.pdf Graphic file (type pdf)
 <use images/UseCase-eps-converted-to.pdf>
-Package pdftex.def Info: images/UseCase-eps-converted-to.pdf  used on input line 39.
-(pdftex.def)             Requested size: 483.69687pt x 436.05255pt.
- [3 <./images/UseCase-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 44--50
+Package pdftex.def Info: images/UseCase-eps-converted-to.pdf  used on input line 73.
+(pdftex.def)             Requested size: 532.0695pt x 524.84102pt.
+
+Overfull \hbox (48.37263pt too wide) in paragraph at lines 73--74
+ [] 
+ []
+
+[3 <./images/UseCase-eps-converted-to.pdf>] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 111--119
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 62--70
-
- []
-
-[4]
-Overfull \hbox (22.83109pt too wide) in paragraph at lines 85--85
+[5]
+Overfull \hbox (22.83109pt too wide) in paragraph at lines 157--157
 [][][][][][] 
  []
 
-[5] (TuTubi.aux)
+[6]
+Overfull \hbox (16.39938pt too wide) in paragraph at lines 216--216
+[][][][][][] 
+ []
+
+[7] (TuTubi.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `TuTubi.out' has not changed.
-(rerunfilecheck)             Checksum: 5B4228B1CDBB4E362C99A862D349A4FB;1695.
+(rerunfilecheck)             Checksum: A5E4E09F32D6DF8A2E263B1E8A7BFC73;1954.
  ) 
 Here is how much of TeX's memory you used:
- 14469 strings out of 474542
- 234642 string characters out of 5744446
- 1930978 words of memory out of 5000000
- 36482 multiletter control sequences out of 15000+600000
+ 14476 strings out of 474542
+ 234758 string characters out of 5744446
+ 1936978 words of memory out of 5000000
+ 36485 multiletter control sequences out of 15000+600000
  567992 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,10n,79p,369b,580s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\mcasu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TuTubi.pdf (5 pages, 115571 bytes).
+ <C:\Users\mcasu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on TuTubi.pdf (7 pages, 152453 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 18 named destinations out of 1000 (max. 500000)
- 107 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 169 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 123 words of extra memory for PDF output out of 10000 (max. 10000000)
 
