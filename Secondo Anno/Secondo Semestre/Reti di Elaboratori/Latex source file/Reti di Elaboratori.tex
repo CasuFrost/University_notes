@@ -10,6 +10,7 @@
 \usepackage[table,xcdraw]{xcolor}
 \definecolor{light-gray}{gray}{0.95}
 \definecolor{sap}{RGB}{130, 36, 51}
+\definecolor{newBlue}{RGB}{0, 109, 199}
 \definecolor{lg}{RGB}{102, 161, 95}
 \definecolor{g}{RGB}{60, 50, 50}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
@@ -23,6 +24,13 @@
 \newcommand{\comm}[1]{\color{lg}\textit{\hphantom{spaz}// \text{#1}}\color{black}}
 \newcommand{\textg}[1]{\color{g}{\textbf{#1}}\color{black}}
 \newcommand{\boxedMath}[1]{\begin{tabular}{|c|}\hline \texttt{#1} \\ \hline\end{tabular} :}
+\newcommand\greybox[1]{%
+  \vskip\baselineskip%
+  \par\noindent\colorbox{light-gray}{%
+    \begin{minipage}{\textwidth}#1\end{minipage}%
+  }%
+  \vskip\baselineskip%
+}
 \title{Reti di Elaboratori}
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -1397,7 +1405,7 @@ collegamento è condivisa fra le singole connessioni TCP e non fra gli host che 
 Molte applicazioni di rete al giorno d'oggi, non utilizzano TCP, bensì UDP, per poi gestire il controllo della 
 congestione al livello applicativo, come HTTP/3 che utilizza il protocollo \textit{QUIC}, implementato in larga scala 
 sui servizi di \textit{Google}.
-\section{Livello di Rete}
+\section{Livello di Rete - parte 1 : Il Piano dei Dati}
 \subsection{Introduzione}
 I protocolli che operano su tale livello, sono implementati su qualsiasi macchina che si può connettere 
 ad una rete, e risultano complessi. Un pacchetto viene incapsulato in un datagramma IP per poi venire spedito 
@@ -1673,7 +1681,7 @@ la computazione sugli end-point, e non sui router, che dovevano rimanere strumen
 Ad oggi però, vi sono molti intermezzi, anche implementati nei router, come la NAT, i firewall e le cache (proxy server). 
 Sebbene IP fosse un protcollo semplice, nel tempo è stato "appesantito" dai diversi paradigmi che aumentano la complessità, 
 l'"intelligenza" non è più quindi concentrata sulla periferia della rete, ma anche nei router e nel core di Internet.
-\subsection{Il Piano di Controllo}
+\section{Livello di Rete - parte 2 : Il Piano di Controllo}
 I router presenti su Internet interagiscono nel piano di controllo per riempire i campi delle tabelle in modo da definire 
 l'instradamento dei pacchetti. Come già accennato, gli \textbf{algoritmi di routing} possono essere eseguiti in maniera distribuita 
 sui vari router, oppure in maniera centralizzata su uno o più server remoti, che dispongono di una potenza di calcolo 
@@ -1683,7 +1691,8 @@ maggiore. Quest'ultimo paradigma ad oggi è il più comune. \begin{center}
 Non esiste un solo percorso fra un due host sulla rete, ce ne sono diversi, gli algoritmi di routing devono calcolare il 
 percorso "migliore" secondo determinate caratteristiche, tale scelta è influenzata da diversi fattori, come il numero di 
 router intermedi che dovrà attraversare un pacchetto, oppure la possibile congestione su un percorso piuttosto che in un 
-altro. \acc 
+altro. 
+\subsection{Algoritmi di Instradamento}
 Gli algoritmi di routing possono essere categorizzati in base a due ditinti fattori: \begin{itemize}
     \item La centralizzazione \begin{itemize}
         \item Gli algoritmi centralizzati si dicono di tipo \textbf{link state}.
@@ -1698,4 +1707,190 @@ e gli archi rappresentano i collegamenti. Per un quadro generale e dettagliato r
 si consigliano gli appunti relativi al corso di 
 \color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Latex%20source%20file/Progettazione%20di%20Algoritmi.pdf}{Algoritmi 2}
 \color{black}.
+\acc
+Vediamo in questo capitolo degli esempi di algoritmi di instradamento di tipo link state e distance vector, tali algoritmi 
+non rappresenteranno gli effettivi protocolli implementati nei router, ma saranno più un astrazione, la base sulla 
+quale costruire dei protocolli da applicare nelle reti reali.\acc 
+Iniziamo con \textbf{l'algoritmo di Dijkstra}, è un algoritmo di tipo link-state, centralizzato, ogni router, per ottenere 
+i percorsi migliori, necessita di conoscere l'intera topologia della rete, quali il numero e posizione dei nodi, gli 
+archi ed i relativi costi. 
+È un algoritmo iterativo che fornisce ad ogni $k$-esimo  passo, il percorso minimo per i $k$ nodi più vicini, verrà 
+adottata la seguente notazione:
+\begin{itemize}
+    \item $c_{x,y}$ : peso sull'arco $(x,y)$
+    \item \codee{D[v]} : stima del costo del percorso dal nodo sorgente al nodo \codee{v}
+    \item \codee{N} : insieme di tutti i nodi della rete
+    \item \codee{N'} : insieme dei nodi per cui è noto il percorso ottimale partendo dalla sorgente
+\end{itemize} 
+Con "sorgente", si intende il nodo rappresentante il router sulla quale viene eseguito l'algoritmo.
+\greybox{
+    \color{newBlue}\textbf{Inizializzazione}\color{black}\\
+    \code{N' = \{u\} }\comm{Inizializzo l'insieme con il nodo sorgente 'u'}\\
+    \code{for each v $\in$ N\{}\comm{eseguo il controllo su ogni nodo del grafo}\\
+    \hphantom{ident}\code{if (v è adiacente a u) \{}\\
+    \hphantom{ident}\hphantom{ident}\code{D[v] = $c_{u,v}$}\\
+    \hphantom{ident}\code{\}else\{}\\
+    \hphantom{ident}\hphantom{ident}\code{D[v] = $\infty$}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}\acc
+    \color{newBlue}\textbf{Ciclo iterativo}\color{black}\\
+    \code{while ( N $\ne$ N' )\{} \comm{Finché non si conosce la distanza di tutti i nodi}\\
+    \hphantom{ident}\code{w = nodo tale che w $\notin$ N' $\land$ D(w) è minima}\\
+    \hphantom{ident}\code{N'.add(w)}\\
+    \hphantom{ident}\code{for each v adiacente a w $\land$ v $\notin$ N'\{}\\
+    \hphantom{ident}\hphantom{ident}\code{D(v) = min(D(v), D(w) + $c_{w,v}$)}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}\\}
+La spiegazione teorica con relativa dimostrazione di correttezza è presente nei già citati appunti di 
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Latex%20source%20file/Progettazione%20di%20Algoritmi.pdf}{Algoritmi 2}
+\color{black}, la complessità di tale algoritmo risulta essere $O(n^2)$, anche se, tramite l'utilizzo di un 
+\codee{min heap} può essere ridotta a $O(n\cdot\log{n})$.\acc 
+Si ricordi come, per eseguire l'algoritmo, ogni router necessita di conoscere la topologia dell'intera rete, va anche considerato 
+il costo necessario per far si che ogni router ottenga le informazioni necessarie, si parla quindi di \textit{complessità di 
+comunicazione}, gravante sul traffico della rete, ogni router può "disseminare" in broadcast le informazioni in $O(n)$, la complessità 
+totale di comunicazione risulta quindi $O(n^2)$.\acc 
+Un'osservazione fondamentale da fare riguarda il costo dei link, ossia i pesi sugli archi, essi possono dipendere dal 
+traffico della rete o da altri fattori, e sono soggetti ad \textbf{oscillazioni}, se l'algoritmo non viene ricalcolato 
+a seguito di un cambiamento di costi, il percorso ottimale stimato in precedenza potrebbe non essere più valido. A tal proposito, 
+ultimamente come metro di misura per il costo degli archi, non viene più utilizzato il traffico sulla rete, piuttosto il 
+numero di router intermedi.\acc 
+Vediamo ora un esempio di un algoritmo di tipo distance vector, tali algoritmi funzionano localmente e non necessitano di 
+conoscere l'intera topologia della rete, \textbf{l'algoritmo di Bellman-Ford}, è costruito sopra la seguente 
+proposizione\begin{quote}
+    Sia $D_x(y)$ il costo del percorso ottimale (di costo minore) dal nodo $x$ al nodo $y$, si ha che 
+    $$D_x(y) = \min\Big(\bigcup_{v\in V(G)} c_{x,v} + D_v(y)\Big) $$
+\end{quote}  \begin{center}
+    \includegraphics[width=\textwidth ]{images/BelmanFord.eps}
+\end{center}
+I benefici di un algoritmi basato su tale equazione sono chiari, quando un costo viene aggiornato, non è necessario ricalcolare 
+il costo dei percorsi dell'intera rete, ma esclusivamente dei vicini coinvolti nell'arco che è stato aggiornato, tale algoritmo garantisce 
+quindi una certa compostezza.\acc 
+L'idea chiave risiede nel far comunicare i nodi della rete esclusivamente quando necessario, fornendo le proprie informazioni, 
+ogni qual volta un nodo $x$ riceve una nuova stima, aggiorna il proprio vettore delle distanze.
+\greybox{
+    \code{while(True)\{}\comm{costantemente in esecuzione}\\ 
+    \hphantom{ident}\code{wait\_for\_updates()}\comm{attende un messaggio di cambio del costo}\acc 
+    \hphantom{ident}\color{newBlue}\textbf{ a questo punto, il router ha ricevuto informazioni sugli altri nodi}\color{black}\acc
+    \hphantom{ident}\code{ricalcolo del distance vector per ogni nodo}\comm{equazione di Bellman-Ford}\\
+    \hphantom{ident}\code{if( il distance vector ha subito modifiche )\{}\\
+    \hphantom{ident}\hphantom{ident}\code{broadcast\_to\_neighboor()}\comm{notifica i vicini dell'aggiornamento}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}
+}
+Sotto condizioni ragionevoli, la stima delle distanze converge alle distanze minime effettive, il vettore distanza della quale 
+si parla non è altro che una tabella, posseduta da ogni nodo della rete, che associa ad ogni destinazione, il costo del 
+percorso minimo per raggiungerla.\acc 
+
+È un algoritmo iterativo ed asincrono, che viene eseguito in maniera distribuita su ogni router, si noti come non è dipendente 
+dal tempo, bensì reagisce all'evento di ricezione di un messaggio.\acc 
+Gli algoritmi distrbuiti sono soggetti a problemi patologici, e l'algritmo di Bellman-Ford non ne è esente, di fatto in alcune 
+situazione dove il costo di un link cambia, acquisendo un valore maggiore di quello precedente, è possibile ricadere in casi 
+di \textit{conteggio all'infinito}, a tal proposito identifichiamo due soluzioni\begin{itemize}
+    \item \textbf{split horizon} Piuttosto che notificare un nodo $x$ con tutto il vettore distanza in possesso, $x$ verrà 
+    notificato esclusivamente con informazioni che non sono state apprese da $x$ stesso, prevenendo la nascita di 
+    rotte cicliche. 
+    \item \textbf{poisoned reverse} Viene posto ad $\infty$ il costo di un percorso da $y$ ad $x$ quando vengono inviate 
+    informazioni verso $x$, propagando informazione negativa nel caso una rotta diventi ciclica.
+\end{itemize}
+Vediamo un confronto fra i due tipi di algoritmi presentati\begin{itemize}
+    \item Complessità per la trasmissione delle informazioni\begin{itemize}
+        \item \textit{Link State} : $O(n^2)$
+        \item \textit{Distance Vector} : $O(n)$ 
+    \end{itemize}
+    \item velocità di convergenza\begin{itemize}
+        \item \textit{Link State} : $O(n^2)$, soggetto ad oscillazioni
+        \item \textit{Distance Vector} : dipende, soggetto a instradamento ciclico e conteggio all'infinito
+    \end{itemize}
+    \item robustezza \begin{itemize}
+        \item \textit{Link State} : Se un router è soggetto ad un errore, verrà publicizzato un costo del link errato, 
+        ma non saranno condizionati gli altri router
+        \item \textit{Distance Vector} : Se un router è soggetto ad un errore e viene pubblicizzato un costo di percorso 
+        errato, vi è il rischio che ogni pacchetto verrà instradato verso quel router (black holing), quindi l'errore di un 
+        router può condizionare l'intera rete.
+    \end{itemize}
+\end{itemize}
+\subsection{Protocolli di Instradamento}
+Vediamo in questo capitolo i protocolli reali che sfruttano i principi degli algoritmi di routing visti nel capitolo 
+precedente. Non è possibile applicare l'algoritmo di Dijkstra all'intera rete in quanto troppo numerosa in termini di 
+nodi e link fra di essi, vi è un problema di \textit{scala}, inoltre lo scambio delle informazioni fra tutti i router sarebbe 
+sufficente ad intasare la rete.\acc 
+Inoltre, vi è anche un problema amministrativo, in quanto Internet è per definizione una rete di reti, composta da differenti enti  
+non correlati che possono adottare diverse politiche di amministrazione della rete, e conseguentemente differenti protocolli di routing. \acc 
+È necessario un approccio scalabile, definiamo \textbf{autonomous systems (AS)}, un aggregato di router appartenenti ad 
+un unico ente/dominio/amministratore sulla quale è in esecuzione lo stesso protocollo. Si definiscono protocolli:\begin{itemize}
+    \item \textbf{intra-AS} : protocolli in esecuzione sui router di un unico AS, ogni AS può scegliere il proprio protocollo 
+    di instradamento per i suoi router interni, sul bordo di un AS sono posti i \textit{gateway router}, che hanno lo scopo 
+    di collegarsi con router esterni di altri AS.
+    \item \textbf{inter-AS} : protocolli di instradamento fra reti distinte, ossia fra diversi AS, gestiti dai gateway router, 
+    sono necessari dei protocolli standard adottati da differenti AS.
+\end{itemize}
+\subsubsection{intra-AS : RIP e OSPF}
+Il protocollo \textbf{RIP (Routing Information Protocol)} è un protocollo di instradamento fra router di uno stesso AS adottato dagli anni '80 fino 
+ai primi anni 2000, sfrutta un algoritmo di routing di tipo distance vector, ed il costo di un percorso è dato dal 
+numero di hop (router intermedi) su di esso, quindi gli archi del grafo associato alla reti hanno peso unitario.\acc 
+Il costo massimo di un percorso è 15, un costo pari a 16 equivale ad un costo infinito, al momento della sua realizzazione, si 
+riteneva impossibile per un pacchetto dover attraversare più di 15 router differenti per giungere ad una destinazione.\acc 
+I messaggi RIP (sopra UDP, porta 520)  che si scambiano i router  per notificarsi delle informazioni sui costi contengono le effettive tabelle  
+di routing, ogni riga della tabella contiene i campi \begin{center}
+    Rete di destinazione $\Big\vert $ Prossimo router $\Big\vert $ costo in hop
+\end{center}
+Possono essere di due tipi\begin{itemize}
+    \item \textbf{RIP Request} - Quando sulle rete si connette un nuovo router, richiede informazioni sui percorsi ad 
+    i suoi vicini  
+    \item \textbf{RIP Response} - Il messaggio contenente le informazioni che i router condividono con i propri vicini 
+\end{itemize}
+Differentemente dall'algoritmo di Bellman-Ford visto precedentemente, i messaggi \textit{RIP Response} non vengono inviati 
+a seguito di un evento, bensì vengono inviati in broadcast periodicamente ogni $x$ secondi, il valore di $x$ viene 
+randomizzato per evitare effetti di sincronizzazione, e rientra nel range $[25,35]$.\begin{center}
+    \begin{tabular}{|
+        >{\columncolor[HTML]{FFFFFF}}c 
+        >{\columncolor[HTML]{FFFFFF}}c 
+        >{\columncolor[HTML]{FFFFFF}}l |}
+        \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} com}} & \multicolumn{1}{c|}{\cellcolor[HTML]{FFFFFF}ver} & Riservato \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFFF}Famiglia}                   & \multicolumn{2}{c|}{\cellcolor[HTML]{FFFFFF}Tag}             \\ \hline
+        \multicolumn{3}{|c|}{\cellcolor[HTML]{FFFFFF}Indirizzo IP sorgente}                                                                     \\ \hline
+        \multicolumn{3}{|c|}{\cellcolor[HTML]{FFFFFF}Subnet mask}                                                                               \\ \hline
+        \multicolumn{3}{|c|}{\cellcolor[HTML]{FFFFFF}Indirizzo IP prossimo hop}                                                                 \\ \hline
+        \multicolumn{3}{|c|}{\cellcolor[HTML]{FFFFFF}Costo}                                                                                     \\ \hline
+        \end{tabular}
+\end{center}\begin{itemize}
+    \item \textbf{com} : Identifica se il messaggio rappresenta una richiesta o una risposta 
+    \item \textbf{ver} : Versione del protocollo
+    \item \textbf{Famiglia} : Famiglia del protocollo sulla quale è incapsulato 
+    \item \textbf{Tag} : Informazioni sull' AS
+\end{itemize}
+Il protocollo RIP è provvisto di 3 \textbf{timer}, il primo, già citato, decreta la condivisione delle informazioni, il secondo, 
+determina la scadenza della validità dei percorsi, ha un valore randomizzato di $x\in[150,210]$ secondi, quando un  
+percorso scade, il suo costo viene impostato a 16. Vi è poi un terzo timer che si occupa di eliminare dalla tabella 
+i percorsi con costo uguale a 16 (garbage collection), facendo si che i router smettano di pubblicizzarli, viene attivato ogni 120 secondi.
+\acc 
+RIP fornisce anche i seguenti meccanismi\begin{itemize}
+    \item \textbf{Split horizon e poisoned reverse} : Non invia ad un nodo $x$ informazioni sui percorsi apprese da 
+    $x$ stesso, inoltre si imposta a infinito (16) il costo della rotta che passa attraverso il vicino a cui si
+    mandano informazioni.
+    \item \textbf{Triggered updates} : Le informazioni non vengono inviate esclusivamente alla scadenza del timer, ma 
+    anche a seguito del cambio del costo di un percorso.
+    \item \textbf{Hold-down} : Quando un router $x$ non risulta più valido nella rete, anche tutte le informazioni sui percorsi 
+    riguardanti $x$ in possesso degli altri router verranno ritenute non valide (scartate), garantendo robustezza.
+\end{itemize}
+RIP risulta ambiguo in quanto è implementato come protocollo al livello di applicazione, anche se viene utilizzato nella rete 
+dai router, che dovrebbero occuparsi eslcusivamente del livello di rete, è un processo \textit{routed}, ossia costantemente in 
+esecuzione sui router.\acc 
+Si è già accennato al fatto che RIP non è pià in utilizzo al giorno d'oggi, il suo successore si chiama
+ \textbf{OSPF (Open Shortest Path First)}, è un protocollo libero, aperto, la cui documentazione è pubblica e disponibile, 
+ è basato su un algoritmo di tipo link state, ossia Dijkstra, le informazioni riguardanti i messaggi che i router devono 
+ scambiarsi vengon incapsulate direttamente su IP, senza passare attraverso alcun protocollo di trasporto o applicazione,
+ funzionando quindi eslcusivamente a livello di rete.\acc 
+ Ogni router, esegue il \textit{flooding} (condivisione delle informazioni) a tutti gli altri router dell' AS, dato che ognuno di 
+ essi deve essere a conoscenza della topologia dell'intera rete prima di eseguire l'algoritmo di Dijkstra. Include anche 
+ \textit{sicurezza}, in quanto i messaggi OSPF necessitano di autenticazione.\begin{center}
+    \includegraphics[width=\textwidth ]{images/OPFS.eps}
+\end{center}
+Nell'OPFS, i router vengono divisi in differenti \textit{aree}, e seguono una struttura gerarchica rispetto una 
+speciale area dette \textit{backbone}.\acc  Ogni router conosce la topologia completa esclusivamente della propria area, 
+ed esegue flooding esclusivamente all'interno di essa, mentre 
+conosce solamente la destinazione per il raggiungimento delle altre aree, tramite i router di bordo (colorati in grigio
+nell'immagine sovrastante), la backbone rappresenta l'area principale, che si suddivide 
+in maniera gerarchica nelle altre aree, funge inoltre da tramite per gli altri AS.
 \end{document}
