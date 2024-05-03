@@ -132,25 +132,25 @@ fino all'elemento antecedente a quello identico all'elemento finale. \begin{cent
 \end{center}
 \code{Input} : Un grafo $G=(V,E)$.\\
 \code{Output} : I nodi di un sottografo di \(G\) che è un ciclo.\greybox{
-\code{CercaCiclo(graph G)\{}\\
-\hphantom{ident}\code{x = V[random]}\color{lg}\textit{// Un vertice a caso}\color{black}\\
-\hphantom{ident}\code{W=[x]}\color{lg}\textit{// Inizializzo il vettore output}\color{black}\\
-\hphantom{ident}\code{current = V}\\
-\hphantom{ident}\code{y=adiacente di x}\color{lg}\textit{// Un adiacente a caso}\color{black}\\
-\hphantom{ident}\code{next=y}\\
-\hphantom{ident}\code{while(next$\notin$ W)\{}\\
-\hphantom{ident}\hphantom{ident}\code{W.append(next)}\\
-\hphantom{ident}\hphantom{ident}\code{current=next}\\
-\hphantom{ident}\hphantom{ident}\code{if ($1^\circ$ adiacente di current$\ne$W[W.length()-2])\{}
-\color{lg}\textit{// Il penultimo}\color{black}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{next = $1^\circ$ adiacente di current}\\
-\hphantom{ident}\hphantom{ident}\code{\}else\{next = $2^\circ$ adiacente di current}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{while(W[0]$\ne$next)\{}\\
-\hphantom{ident}\hphantom{ident}\code{W.remove(W[0])}\color{lg}\textit{// Rimuove il primo elemento}\color{black}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return W}\\
-\code{\}}}
+    \code{CercaCiclo(graph G)\{}\\
+    \hphantom{ident}\code{x = V[random]}\color{lg}\textit{// Un vertice a caso}\color{black}\\
+    \hphantom{ident}\code{W=[x]}\color{lg}\textit{// Inizializzo il vettore output}\color{black}\\
+    \hphantom{ident}\code{current = V}\\
+    \hphantom{ident}\code{y=adiacente di x}\color{lg}\textit{// Un adiacente a caso}\color{black}\\
+    \hphantom{ident}\code{next=y}\\
+    \hphantom{ident}\code{while(next$\notin$ W)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{W.append(next)}\\
+    \hphantom{ident}\hphantom{ident}\code{current=next}\\
+    \hphantom{ident}\hphantom{ident}\code{if ($1^\circ$ adiacente di current$\ne$W[W.length()-2])\{}
+    \color{lg}\textit{// Il penultimo}\color{black}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{next = $1^\circ$ adiacente di current}\\
+    \hphantom{ident}\hphantom{ident}\code{\}else\{next = $2^\circ$ adiacente di current}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{while(W[0]$\ne$next)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{W.remove(W[0])}\color{lg}\textit{// Rimuove il primo elemento}\color{black}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return W}\\
+    \code{\}}}
 Qual'è la complessita di tale algoritmo? Entrambi i cicli \code{while} eseguono \(O(n)\) iterazioni, il
 fatto è che, nel primo ciclo while, il controllo \code{next$\notin$W} deve scorrere comunque tutto il vettore,
 rendendo il costo dell'algoritmo \(O(n^2)\), non rispettando le specifiche iniziali, ossia \(O(n+m)\).
@@ -178,21 +178,21 @@ vi sono nuovi vertici da visitare, si esegue il cosiddetto \textit{back tracking
 dei nuovi vertici. Risulta quindi naturale l'uso di uno \textit{stack} per poter implementare tale ricerca. L'algoritmo
 alla fine visiterà ogni nodo per la quale esiste un cammino dal nodo iniziale.
 \greybox{
-\code{DFS(graph G, vert x)\{}\\
-\hphantom{ident}\code{S : stack = \{x\}}\\
-\hphantom{ident}\code{Vis : set = [x]}\comm{l'insieme che conterrà l'output}\\
-\hphantom{ident}\code{while(S\(\ne\emptyset\))\{}\\
-\hphantom{ident}\hphantom{ident}\code{y=S.top()}\\
-\hphantom{ident}\hphantom{ident}\code{if(\(\exists\)z adiacente ad y\(\land \)z\(\notin\)Vis)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Vis.add(z)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.push(z)}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\hphantom{ident}\code{else\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.pop()}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return Vis}\\
-\code{\}}}
+    \code{DFS(graph G, vert x)\{}\\
+    \hphantom{ident}\code{S : stack = \{x\}}\\
+    \hphantom{ident}\code{Vis : set = [x]}\comm{l'insieme che conterrà l'output}\\
+    \hphantom{ident}\code{while(S\(\ne\emptyset\))\{}\\
+    \hphantom{ident}\hphantom{ident}\code{y=S.top()}\\
+    \hphantom{ident}\hphantom{ident}\code{if(\(\exists\)z adiacente ad y\(\land \)z\(\notin\)Vis)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Vis.add(z)}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.push(z)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\hphantom{ident}\code{else\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.pop()}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return Vis}\\
+    \code{\}}}
 Esempio di applicazione (il nodo di partenza è il nodo 1) : \begin{center}
     \includegraphics[width=1\textwidth ]{images/DFS.eps}
 \end{center}
@@ -266,22 +266,22 @@ vertici non ancora visitati. In generale, un albero è un grafo connesso ed acic
 in un nodo già visitato due volte, nell'albero di visita non si creeranno cicli (rendendolo appunto un albero).\acc
 Possiamo applicare lo stesso algoritmo ai grafi diretti, l'unica considerazione da fare, è il controllo dell'ordine
 di ogni arco. Consideriamo l'implementazione non ricorsiva.\greybox{
-\code{DFSdiretto(graph G, vert x,)\{}\\
-\hphantom{ident}\code{S : stack = \{x\}}\\
-\hphantom{ident}\code{Vis : int[n] = [0,0\(\dots \)0]}\\
-\hphantom{ident}\code{Vis[x]=1}\\
-\hphantom{ident}\code{while(S\(\ne\emptyset\))\{}\\
-\hphantom{ident}\hphantom{ident}\code{y=S.top()}\\
-\hphantom{ident}\hphantom{ident}\code{if(\(\exists z|(y,z)\in E(G)\land \) Vis[z]==0)\{}\comm{l'arco ha la giusta orientazione}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.push(z)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Vis[z]=1}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\hphantom{ident}\code{else\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.pop()}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return Vis}\\
-\code{\}}}
+    \code{DFSdiretto(graph G, vert x,)\{}\\
+    \hphantom{ident}\code{S : stack = \{x\}}\\
+    \hphantom{ident}\code{Vis : int[n] = [0,0\(\dots \)0]}\\
+    \hphantom{ident}\code{Vis[x]=1}\\
+    \hphantom{ident}\code{while(S\(\ne\emptyset\))\{}\\
+    \hphantom{ident}\hphantom{ident}\code{y=S.top()}\\
+    \hphantom{ident}\hphantom{ident}\code{if(\(\exists z|(y,z)\in E(G)\land \) Vis[z]==0)\{}\comm{l'arco ha la giusta orientazione}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.push(z)}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Vis[z]=1}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\hphantom{ident}\code{else\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{S.pop()}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return Vis}\\
+    \code{\}}}
 Anche questo algoritmo genera l'albero di visita, solo che avrà tutti gli archi, ordinati "verso il basso", ossia
 seguiranno l'orientazione che va dalla radice verso le foglie, tale albero è detto \textbf{arborescenza}.
 \subsubsection{Componenti di un Grafo}
@@ -309,15 +309,15 @@ Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessar
 \hphantom{ident}\hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{\}}\\
 \code{\}}}\greybox{
-\code{Comp(graph G)\{}\comm{funzione principale da eseguire}\\
-\hphantom{ident}\code{Comp : int[n] = [0,0\(\dots \)0]}\\
-\hphantom{ident}\code{index = 0}\\
-\hphantom{ident}\code{for each x\(\in\)V(G)\{}\comm{per ogni vertice del grafo}\\
-\hphantom{ident}\hphantom{ident}\code{index++}\\
-\hphantom{ident}\hphantom{ident}\code{DFSRecComp(G,x,Comp,index)}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return Comp}\\
-\code{\}}}
+    \code{Comp(graph G)\{}\comm{funzione principale da eseguire}\\
+    \hphantom{ident}\code{Comp : int[n] = [0,0\(\dots \)0]}\\
+    \hphantom{ident}\code{index = 0}\\
+    \hphantom{ident}\code{for each x\(\in\)V(G)\{}\comm{per ogni vertice del grafo}\\
+    \hphantom{ident}\hphantom{ident}\code{index++}\\
+    \hphantom{ident}\hphantom{ident}\code{DFSRecComp(G,x,Comp,index)}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return Comp}\\
+    \code{\}}}
 \subsection{Ordinamento Topologico}
 Supponiamo che vi sia un progetto da completare, che viene diviso in \(n\) piccoli processi
 \(x_1,x_2\dots x_n\), e supponiamo che fra essi, vi siano delle dipendenze sull'ordine di completamento, ad
@@ -359,15 +359,15 @@ parecchio utile, si pensi all'ordinamento topologico applicato al grafo di seria
 del controllo della concorrenza
 (trattato nel corso di \href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf}{Basi di Dati 1}).
 \greybox{
-\code{OrdinamentoTopologico(graph G)\{}\comm{il grafo è diretto}\\
-\hphantom{ident}\code{L : list}\comm{una lista vuota, sarà l'output dell'algoritmo}\\
-\hphantom{ident}\code{while(G\(\ne\emptyset\))\{}\\
-\hphantom{ident}\hphantom{ident}\code{x=v\(\in\)V(G)|v.adiacentiOut=\(\emptyset\)}\comm{un vertice senza archi uscenti}\\
-\hphantom{ident}\hphantom{ident}\code{L.insert(x)}\\
-\hphantom{ident}\hphantom{ident}\code{G.delete(x)}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return L}\\
-\code{\}}}\begin{center}
+    \code{OrdinamentoTopologico(graph G)\{}\comm{il grafo è diretto}\\
+    \hphantom{ident}\code{L : list}\comm{una lista vuota, sarà l'output dell'algoritmo}\\
+    \hphantom{ident}\code{while(G\(\ne\emptyset\))\{}\\
+    \hphantom{ident}\hphantom{ident}\code{x=v\(\in\)V(G)|v.adiacentiOut=\(\emptyset\)}\comm{un vertice senza archi uscenti}\\
+    \hphantom{ident}\hphantom{ident}\code{L.insert(x)}\\
+    \hphantom{ident}\hphantom{ident}\code{G.delete(x)}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return L}\\
+    \code{\}}}\begin{center}
     \includegraphics[width=1\textwidth ]{images/ordTopologico.eps}
 \end{center}
 Il \textit{problema} di questo algoritmo è il suo costo computazionale, di fatto è troppo dispendioso : Per
@@ -535,47 +535,47 @@ $m(x,y)$ è 1, vuol dire che esiste un arco che va da $x$ ad $y$, dovremmo quind
 archi uscenti, e continuare con $y$, altrimenti continueremo con $x$.\acc
 Alla fine, avremo un vertice candidato ad essere un pozzo, e controlleremo in maniera esplicita se lo è o no.
 \greybox{
-\code{PozzoUniversale(m)\{}\comm{l'input è la matrice di adiacenza}\\
-\hphantom{ident}\code{candidato = 1}\\
-\hphantom{ident}\code{n = m[1].length()}\comm{n è il numero di vertici}\\
-\hphantom{ident}\code{for(i=2;i\(\le\)n;i++)\{}\\
-\hphantom{ident}\hphantom{ident}\code{if(m[candidato,i]==1)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{candidato=i}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{for(i=1;i\(\le\)n;i++)\{}\\
-\hphantom{ident}\hphantom{ident}\code{if(m[candidato,i]==1)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{return false}\comm{il candidato ha un arco uscente}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{for(i=1;i\(\le\)n;i++)\{}\\
-\hphantom{ident}\hphantom{ident}\code{if(m[i,candidato]==0 \(\land\) i\(\ne\)candidato)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{return false}\comm{un nodo non ha un arco verso il candidato}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return true}\\
-\code{\}}}
+    \code{PozzoUniversale(m)\{}\comm{l'input è la matrice di adiacenza}\\
+    \hphantom{ident}\code{candidato = 1}\\
+    \hphantom{ident}\code{n = m[1].length()}\comm{n è il numero di vertici}\\
+    \hphantom{ident}\code{for(i=2;i\(\le\)n;i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if(m[candidato,i]==1)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{candidato=i}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{for(i=1;i\(\le\)n;i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if(m[candidato,i]==1)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{return false}\comm{il candidato ha un arco uscente}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{for(i=1;i\(\le\)n;i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if(m[i,candidato]==0 \(\land\) i\(\ne\)candidato)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{return false}\comm{un nodo non ha un arco verso il candidato}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return true}\\
+    \code{\}}}
 \subsubsection{Ordine Topologico in Tempo Lineare}
 Tornando al DFS con il contatore, esiste ovviamente anche una versione ricorsiva, composta da due funzioni,
 una "globale" che inizializza il processo, ed una ricorsiva che opera.\greybox{
-\code{DFSglobal(G,x)\{}\\
-\hphantom{ident}\code{Vis : int[n] = [0,0...,0]}\\
-\hphantom{ident}\code{t : int[n] = [0,0...,0]}\\
-\hphantom{ident}\code{T : int[n] = [0,0...,0]}\\
-\hphantom{ident}\code{c : int = 1}\\
-\hphantom{ident}\code{DFSrecursive(x,Vis,c,t,T)}\comm{prima chiamata della funzione ricorsiva}\\
-\hphantom{ident}\code{return Vis}\\
-\code{\}}}
+    \code{DFSglobal(G,x)\{}\\
+    \hphantom{ident}\code{Vis : int[n] = [0,0...,0]}\\
+    \hphantom{ident}\code{t : int[n] = [0,0...,0]}\\
+    \hphantom{ident}\code{T : int[n] = [0,0...,0]}\\
+    \hphantom{ident}\code{c : int = 1}\\
+    \hphantom{ident}\code{DFSrecursive(x,Vis,c,t,T)}\comm{prima chiamata della funzione ricorsiva}\\
+    \hphantom{ident}\code{return Vis}\\
+    \code{\}}}
 L'algoritmo rimane in $O(n+m)$, passiamo ora alla funzione ricorsiva.\greybox{
-\code{DFSrecursive(x,Vis,c,t,T)\{}\\
-\hphantom{ident}\code{while($\exists$y$\in$V(G) | Vis[y]=0 $\land$ (x,y)$\in$E(G))\{}\\
-\hphantom{ident}\hphantom{ident}\code{Vis[y]=1}\\
-\hphantom{ident}\hphantom{ident}\code{c++}\\
-\hphantom{ident}\hphantom{ident}\code{t[y]=c}\\
-\hphantom{ident}\hphantom{ident}\code{DFSrecursive(y,Vis,c,t,T)}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{T[x]=c}\\
-\code{\}}}
+    \code{DFSrecursive(x,Vis,c,t,T)\{}\\
+    \hphantom{ident}\code{while($\exists$y$\in$V(G) | Vis[y]=0 $\land$ (x,y)$\in$E(G))\{}\\
+    \hphantom{ident}\hphantom{ident}\code{Vis[y]=1}\\
+    \hphantom{ident}\hphantom{ident}\code{c++}\\
+    \hphantom{ident}\hphantom{ident}\code{t[y]=c}\\
+    \hphantom{ident}\hphantom{ident}\code{DFSrecursive(y,Vis,c,t,T)}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{T[x]=c}\\
+    \code{\}}}
 \textbf{Proposizione} : Per ogni arco $(v,u)$ in un grafo diretto, si ha che $t(u)\le T(v)$.\acc
 \textbf{Dimostrazione} : Se così non fosse, vorrebbe dire che $t(u)>T(v)$, significherebbe che avremmo
 chiuso (tolto dallo stack) $v$ quando vi era ancora possibilità di continuare su $u$, quindi
@@ -597,24 +597,24 @@ i valori di $T$ per i vertici coinvolti saranno \textit{decrescenti}.\begin{cent
 di "tie break", ossia in cui i valori di $T$ sono coincidenti per due vertici, si avrà che essi differiranno
 per i valori di $t$, che secondo l'ordine prima menzionato saranno strettamente crescenti, nel risultante
 ordine topologico, i vertici chiusi (tolti dallo stack) per ultimi, saranno quelli a sinistra.\greybox{
-\code{ORDtopologico(G)\{}\comm{funzione globale}\\
-\hphantom{ident}\code{L : list}\comm{l'output, conterrà i vertici dell'ordine topologico}\\
-\hphantom{ident}\code{Vis : int[n] = [0,0...,0]}\\
-\hphantom{ident}\code{for each (v$\in$V(G))\{}\\
-\hphantom{ident}\hphantom{ident}\code{if(Vis[v]==0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{DFSord(G,v,Vis,L)}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\code{\}}}\greybox{
-\code{DFSord(G,v,Vis,L)\{}\comm{funzione ricorsiva}\\
-\hphantom{ident}\code{Vis[v]=1}\\
-\hphantom{ident}\code{for each (w adiacente di v)\{}\\
-\hphantom{ident}\hphantom{ident}\code{if(Vis[w]==0)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{DFSord(G,w,Vis,L)}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{L.insert(v,0)}\comm{inserisci il vertice nella prima posizione della lista}\\
-\code{\}}}
+    \code{ORDtopologico(G)\{}\comm{funzione globale}\\
+    \hphantom{ident}\code{L : list}\comm{l'output, conterrà i vertici dell'ordine topologico}\\
+    \hphantom{ident}\code{Vis : int[n] = [0,0...,0]}\\
+    \hphantom{ident}\code{for each (v$\in$V(G))\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if(Vis[v]==0)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{DFSord(G,v,Vis,L)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}}\greybox{
+    \code{DFSord(G,v,Vis,L)\{}\comm{funzione ricorsiva}\\
+    \hphantom{ident}\code{Vis[v]=1}\\
+    \hphantom{ident}\code{for each (w adiacente di v)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if(Vis[w]==0)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{DFSord(G,w,Vis,L)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{L.insert(v,0)}\comm{inserisci il vertice nella prima posizione della lista}\\
+    \code{\}}}
 \subsection{Ponti sui Grafi non Diretti}\label{PontiGrafiNonDir}
 \hphantom{a}
 \begin{center}
@@ -652,14 +652,14 @@ vicino alla radice che è possibile raggiungere con un arco da $u$ o da uno dei 
 Vogliamo quindi un algoritmo che, per un arco $(u,v)$, dove $v$ è il padre di $u$, si controlli il
 back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non è un ponte, altrimenti lo è.
 \greybox{
-\code{Ponti(G : grafo connesso non diretto)\{}\comm{funzione globale}\\
-\hphantom{ident}\code{t : int[n] = [0,0...,0]}\\
-\hphantom{ident}\code{c : int = 0}\\
-\hphantom{ident}\code{Ponti : list}\comm{l'output}\\
-\hphantom{ident}\code{z = un vertice a caso di G}\\
-\hphantom{ident}\code{DFSponte(G,z,z,t,c,Ponti)}\\
-\hphantom{ident}\code{return Ponti}\\
-\code{\}}}\greybox{
+    \code{Ponti(G : grafo connesso non diretto)\{}\comm{funzione globale}\\
+    \hphantom{ident}\code{t : int[n] = [0,0...,0]}\\
+    \hphantom{ident}\code{c : int = 0}\\
+    \hphantom{ident}\code{Ponti : list}\comm{l'output}\\
+    \hphantom{ident}\code{z = un vertice a caso di G}\\
+    \hphantom{ident}\code{DFSponte(G,z,z,t,c,Ponti)}\\
+    \hphantom{ident}\code{return Ponti}\\
+    \code{\}}}\greybox{
 \code{DFSponte(G, v, z, t, c, Ponti)\{}\comm{funzione ricorsiva, z è il padre di v}\\
 \hphantom{ident}\code{back=t[v]}\\
 \hphantom{ident}\code{c++}\\
@@ -726,24 +726,24 @@ $G$ sono $u'_1,u'_2\dots,u'_k$ con:$$
     \end{cases}
 $$ Se il grafo non ha cicli, ogni vertice è un componente connesso. Vediamo
 ora l'algoritmo non lineare.\greybox{
-\code{Fort(G graph)\{}\acc
-\hphantom{ident}\code{C = un ciclo in G}\\
-\hphantom{ident}\code{if (C non esiste)\{}\comm{non ci sono cicli nel grafo}\\
-\hphantom{ident}\hphantom{ident}\code{return \{\{v\}|v $\in$ V(G)\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{G=$\nicefrac{G}{C}$}\\
-\hphantom{ident}\code{$V_C$ = vertice contratto}\\
-\hphantom{ident}\code{($u_1,u_2\dots,u_k$)=Fort(G)}\\
-\hphantom{ident}\code{for (i in 1...k)\{}\\
-\hphantom{ident}\hphantom{ident}\code{if ($V_C\notin u_i$)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$u'_i=u_i$}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\hphantom{ident}\code{else \{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$u'_i=(u_i\backslash V_C)\cup \{V(C)\}$}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return ($u'_1,u'_2\dots,u'_k$)}\\
-\code{\}}}
+    \code{Fort(G graph)\{}\acc
+    \hphantom{ident}\code{C = un ciclo in G}\\
+    \hphantom{ident}\code{if (C non esiste)\{}\comm{non ci sono cicli nel grafo}\\
+    \hphantom{ident}\hphantom{ident}\code{return \{\{v\}|v $\in$ V(G)\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{G=$\nicefrac{G}{C}$}\\
+    \hphantom{ident}\code{$V_C$ = vertice contratto}\\
+    \hphantom{ident}\code{($u_1,u_2\dots,u_k$)=Fort(G)}\\
+    \hphantom{ident}\code{for (i in 1...k)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if ($V_C\notin u_i$)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$u'_i=u_i$}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\hphantom{ident}\code{else \{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$u'_i=(u_i\backslash V_C)\cup \{V(C)\}$}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return ($u'_1,u'_2\dots,u'_k$)}\\
+    \code{\}}}
 Tale algoritmo ha complessità $O(n\cdot(n+m))$, voglio modificare il DFS per ottenere lo stesso algoritmo che operi in
 tempo lineare.\acc
 \textbf{Definizione} : Data l'esecuzione del DFS su un grafo $G$ diretto, e dato un componente fortemente
@@ -768,31 +768,31 @@ Ma allore esistono i cammini da $z$ ad $u$, e da $u$ a $w$, ma so che nel compon
 un cammino da $w$ a $z$, ma allora $u,w,z\in C(w)$, ma inizialmente si è detto che $u$ è la C-radice, ma come può esserlo se
 $u$ è un discendente di $z$? C'è una contraddizione, quindi $C(w)\subseteq T(u)$. $\blacksquare$
 \greybox{
-\code{DFS\_Scc(G : graph, v : vert, C : stack, Output : list)\{}\comm{ricorsiva}\\
-\hphantom{ident}\code{segna v come visitato}\\
-\hphantom{ident}\code{C.push(v)}\\
-\hphantom{ident}\code{for each (u adiacente a v $\land$ u non ancora visitato)\{}\\
-\hphantom{ident}\hphantom{ident}\code{DFS\_Scc(G,u,C,Output)}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{if(v è una C-radice)\{}\\
-\hphantom{ident}\hphantom{ident}\code{X : list}\\
-\hphantom{ident}\hphantom{ident}\code{do\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{w=C.pop()}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{X.append(w)}\\
-\hphantom{ident}\hphantom{ident}\code{\}while(w$\ne$v)}\\
-\hphantom{ident}\hphantom{ident}\code{Output.add(X)}\\
-\hphantom{ident}\code{\}}\\
-\code{\}}}
+    \code{DFS\_Scc(G : graph, v : vert, C : stack, Output : list)\{}\comm{ricorsiva}\\
+    \hphantom{ident}\code{segna v come visitato}\\
+    \hphantom{ident}\code{C.push(v)}\\
+    \hphantom{ident}\code{for each (u adiacente a v $\land$ u non ancora visitato)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{DFS\_Scc(G,u,C,Output)}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{if(v è una C-radice)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{X : list}\\
+    \hphantom{ident}\hphantom{ident}\code{do\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{w=C.pop()}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{X.append(w)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}while(w$\ne$v)}\\
+    \hphantom{ident}\hphantom{ident}\code{Output.add(X)}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}}
 \code{C} è uno stack che contiene tutti i vertici che sono stati già visitati, ma che non hanno ancora un componente fortemente
 connesso assegnato, non è da confondersi con lo stack \code{S} del DFS.\greybox{
-\code{Scc(G : graph)\{}\comm{chiamata globale}\\
-\hphantom{ident}\code{C : stack}\comm{vertici visitati ma ancora senza componente}\\
-\hphantom{ident}\code{Output : list}\\
-\hphantom{ident}\code{for each (v$\in$V(G)| $v$ non ancora visitato)\{}\\
-\hphantom{ident}\hphantom{ident}\code{DFS\_Scc(G,v,C,Output)}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return Output}\\
-\code{\}}}
+    \code{Scc(G : graph)\{}\comm{chiamata globale}\\
+    \hphantom{ident}\code{C : stack}\comm{vertici visitati ma ancora senza componente}\\
+    \hphantom{ident}\code{Output : list}\\
+    \hphantom{ident}\code{for each (v$\in$V(G)| $v$ non ancora visitato)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{DFS\_Scc(G,v,C,Output)}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return Output}\\
+    \code{\}}}
 Il problema di questo algoritmo, è la riga in cui si controlla se un nodo è una C-radice, come possiamo fare tale controllo
 in un tempo ragionevole?\acc
 \textbf{Proposizione} : Un nodo $u$ \textit{non} è una C-radice se e solo se, nella chiamata ricorsiva del \code{DFS\_Scc} con
@@ -909,15 +909,15 @@ Una possibile soluzione sarebbe quella di contrarre i due insiemi rendendoli dei
 bisognerebbe modificare il grafo, è possibile fare ciò in $O(n+m)$, ma risulta complicato, un modo più semplice è
 quello di considerare una versione differente del BFS che sfrutti una coda, calcolando prima tutti i vicini
 di ogni nodo appartenente ad uno dei due insieme.\greybox{
-\code{BFS\_set(X,Y insiemi di nodi, G graph)\{}\\
-\hphantom{ident}\code{int Dist[n] inizializzato a -1}\\
-\hphantom{ident}\code{Q : queue}\\
-\hphantom{ident}\code{for each x $\in$ X\{}\\
-\hphantom{ident}\hphantom{ident}\code{Q.push(x)}\\
-\hphantom{ident}\hphantom{ident}\code{Dist[x]=0}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{while(Q$\ne\emptyset$)\{}\\
-\hphantom{ident}\hphantom{ident}\code{v = Q.pop()}}\greybox{
+    \code{BFS\_set(X,Y insiemi di nodi, G graph)\{}\\
+    \hphantom{ident}\code{int Dist[n] inizializzato a -1}\\
+    \hphantom{ident}\code{Q : queue}\\
+    \hphantom{ident}\code{for each x $\in$ X\{}\\
+    \hphantom{ident}\hphantom{ident}\code{Q.push(x)}\\
+    \hphantom{ident}\hphantom{ident}\code{Dist[x]=0}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{while(Q$\ne\emptyset$)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{v = Q.pop()}}\greybox{
 \hphantom{ident}\hphantom{ident}\code{for each w adiacente di v \{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if (Dist[w]==-1)\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{}\hphantom{ident}\code{Dist[w]=Dist[v]+1}\\
@@ -1013,7 +1013,7 @@ con un peso minore, allora $dist_w(x,v)=dist_w(x,u)+w(u,v)$. $\blacksquare$
 \hphantom{ident}\code{return Dist}\\
 \code{\}}}
 In \textit{conclusione}, dato un insieme $R$ per cui sono note le distanze da un vertice $x$, è sempre possibile trovare un
-nuovo nodo $v$ di cui sarà nota la distanza, incrementando $R$, fino a che tale insieme non conterrà tutti i vertici.\acc 
+nuovo nodo $v$ di cui sarà nota la distanza, incrementando $R$, fino a che tale insieme non conterrà tutti i vertici.\acc
 Nel ciclo \code{while} vengono eseguite $n$ iterazioni in quanto $R$ ad ogni iterazione cresce ed è limitato da
 $V(G)$, all'interno del ciclo, l'operazione \code{for} costa $n+m$ iterazioni, la complessità totale dell'algoritmo
 risutla essere $O\big(n(n+m)\big)$.
@@ -1054,319 +1054,319 @@ risutla essere $O\big(n(n+m)\big)$.
 ora la complessità, date le operazioni di aggiornamento sull'heap, risulta essere $O\big((n+m)\cdot\log{n}\big)$.
 \section{Gli Algoritmi Greedy}
 \subsection{Problemi sugli Intervalli}
-Con algoritmi "greedy", si intende una categoria di algoritmi che si basano sul seguente paradigma: Per trovare la soluzione 
-finale (che rappresenta una soluzione "ottimale") si parte da una soluzione qualsiasi, molto spesso una soluzione "vuota", per 
-poi farla "incrementare" fino a trovare una soluzione finale, algoritmi di questo tipo, sono stati presentati nel corso 
-di  
+Con algoritmi "greedy", si intende una categoria di algoritmi che si basano sul seguente paradigma: Per trovare la soluzione
+finale (che rappresenta una soluzione "ottimale") si parte da una soluzione qualsiasi, molto spesso una soluzione "vuota", per
+poi farla "incrementare" fino a trovare una soluzione finale, algoritmi di questo tipo, sono stati presentati nel corso
+di
 \color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf}{Basi di Dati 1}.\acc 
-\color{black}Si considerano uno ad uno i "passi" per far "crescere" la soluzione, e se essi sono corretti si procede per tale via. Sono quindi algoritmi applicati 
-per problemi di \textit{ottimizzazione}, sebbene 
-tale descrizione risulti ambigua, il concetto verrà reso più chiaro con il prossimo esempio.\acc 
-Si consideri un insieme di intervalli reali $I_1,I_2\dots,I_n \in \mathbb{R}$, si vuole trovare un sotto-insieme di intervalli 
+\color{black}Si considerano uno ad uno i "passi" per far "crescere" la soluzione, e se essi sono corretti si procede per tale via. Sono quindi algoritmi applicati
+per problemi di \textit{ottimizzazione}, sebbene
+tale descrizione risulti ambigua, il concetto verrà reso più chiaro con il prossimo esempio.\acc
+Si consideri un insieme di intervalli reali $I_1,I_2\dots,I_n \in \mathbb{R}$, si vuole trovare un sotto-insieme di intervalli
 disgiunti, che sia il più grande possibile. \begin{center}
     \includegraphics[width=0.9\textwidth ]{images/intervallIReali.eps}
 \end{center}
-La soluzione iniziale di partenza sarà l'insieme vuoto, indichiamo con $S_i$ la soluzione all'$i$-esimo passo dell'algoritmo, 
-quindi $S_0=\emptyset$. Per trovare una soluzione (non necessariamente ottimale), possiamo considerare ad ogni passo gli intervalli dell'insieme, 
-se aggiungendolo alla soluzione, essa rimarrà fattibile (non ci saranno intersezioni), allora verrà aggiunto, e si procederà 
-con il passo successivo.\acc 
-Alla fine, si arriverà nella situazione in cui non vi sono possibili passi validi, quindi l'algoritmo terminerà, sarà garantito 
+La soluzione iniziale di partenza sarà l'insieme vuoto, indichiamo con $S_i$ la soluzione all'$i$-esimo passo dell'algoritmo,
+quindi $S_0=\emptyset$. Per trovare una soluzione (non necessariamente ottimale), possiamo considerare ad ogni passo gli intervalli dell'insieme,
+se aggiungendolo alla soluzione, essa rimarrà fattibile (non ci saranno intersezioni), allora verrà aggiunto, e si procederà
+con il passo successivo.\acc
+Alla fine, si arriverà nella situazione in cui non vi sono possibili passi validi, quindi l'algoritmo terminerà, sarà garantito
 il fatto che la soluzione sia fattibile.\greybox{
-\code{Intervalli( Insieme $I_1,I_2\dots,I_n$)\{}\\
-\hphantom{ident}\code{Sol = $\emptyset$}\\
-\hphantom{ident}\code{for each i $\in$ 1,2$\dots,n$\{}\\
-\hphantom{ident}\hphantom{ident}\code{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($I_i$)}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return Sol}\\
-\code{\}}}
-Tale algoritmo trova sempre una soluzione ma non sempre è ottimale, infatti in una situazione in cui ci sono due intervalli 
-disgiunti ed uno che li interseca entrambi, la considerazione di quest'ultimo all'inizio dell'algoritmo lo porterà ad 
-essere l'unico intervallo nella soluzione.\acc 
-Una possibile idea è quella di ordinare gli intervalli in maniera crescente secondo il valore del loro estremo destro. L'algoritmo 
+    \code{Intervalli( Insieme $I_1,I_2\dots,I_n$)\{}\\
+    \hphantom{ident}\code{Sol = $\emptyset$}\\
+    \hphantom{ident}\code{for each i $\in$ 1,2$\dots,n$\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($I_i$)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return Sol}\\
+    \code{\}}}
+Tale algoritmo trova sempre una soluzione ma non sempre è ottimale, infatti in una situazione in cui ci sono due intervalli
+disgiunti ed uno che li interseca entrambi, la considerazione di quest'ultimo all'inizio dell'algoritmo lo porterà ad
+essere l'unico intervallo nella soluzione.\acc
+Una possibile idea è quella di ordinare gli intervalli in maniera crescente secondo il valore del loro estremo destro. L'algoritmo
 risulta quindi molto semplice da scrivere:\greybox{
-\code{Intervalli\_ottimale( Insieme $I_1=[a_1,b_1],I_2=[a_2,b_2]\dots,I_n=[a_n,b_n]$ )\{}\\
-\hphantom{ident}\code{ordina $I_1,I_2\dots,I_n$ per il valore di $b_i$ in maniera crescente}\\
-\hphantom{ident}\code{Sol = $\emptyset$}\\
-\hphantom{ident}\code{for each i $\in$ 1,2$\dots,n$\{}\\
-\hphantom{ident}\hphantom{ident}\code{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($I_i$)}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return Sol}\\
-\code{\}}}
-Una caratteristica comune degli algoritmi greedy è che sono semplici da scrivere, ma risulta lunga la dimostrazione della 
-loro correttezza. Ebbene, abbiamo dato per scontato che questo algoritmo funzioni senza dare spiegazioni, procediamo con la dimostrazione 
-della correttezza. Per dimostrarla, è possibile dimostrare una proposizione più "forte", che implica la correttezza dell'algoritmo. \acc 
-\textbf{Proposizione $\bigstar$ } : Sia $Sol_i$ il valore di \code{Sol} all'$i$-esima iterazione del ciclo \code{for} 
+    \code{Intervalli\_ottimale( Insieme $I_1=[a_1,b_1],I_2=[a_2,b_2]\dots,I_n=[a_n,b_n]$ )\{}\\
+    \hphantom{ident}\code{ordina $I_1,I_2\dots,I_n$ per il valore di $b_i$ in maniera crescente}\\
+    \hphantom{ident}\code{Sol = $\emptyset$}\\
+    \hphantom{ident}\code{for each i $\in$ 1,2$\dots,n$\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if($\forall X \in $ Sol $I_i\cap X =\emptyset$)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($I_i$)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return Sol}\\
+    \code{\}}}
+Una caratteristica comune degli algoritmi greedy è che sono semplici da scrivere, ma risulta lunga la dimostrazione della
+loro correttezza. Ebbene, abbiamo dato per scontato che questo algoritmo funzioni senza dare spiegazioni, procediamo con la dimostrazione
+della correttezza. Per dimostrarla, è possibile dimostrare una proposizione più "forte", che implica la correttezza dell'algoritmo. \acc
+\textbf{Proposizione $\bigstar$ } : Sia $Sol_i$ il valore di \code{Sol} all'$i$-esima iterazione del ciclo \code{for}
 dell'algoritmo, e sia $Sol^\star$ una qualsiasi soluzione ottimale, si ha che, $\forall i\in \{0,1\dots,n\}$ $Sol_i\subseteq Sol^\star$
-\acc 
-Se la proposizione fosse vera, allora esisterebbe una soluzione ottimale $Sol^\star$ che conterrebbe $Sol_n$, ossia 
-l'output dell'algoritmo, bisogna dimostrare che $Sol^\star \subseteq Sol_n$. \acc 
-\textbf{Dimostrazione $Sol^\star \subseteq Sol_n$} : Supponiamo che ciò non sia vero, esiste quindi un 
+\acc
+Se la proposizione fosse vera, allora esisterebbe una soluzione ottimale $Sol^\star$ che conterrebbe $Sol_n$, ossia
+l'output dell'algoritmo, bisogna dimostrare che $Sol^\star \subseteq Sol_n$. \acc
+\textbf{Dimostrazione $Sol^\star \subseteq Sol_n$} : Supponiamo che ciò non sia vero, esiste quindi un
 elemento $I_i$ in $Sol^\star$ che non fa parte di $Sol_n$ $$ \exists I_i\in Sol^\star | I_i\notin Sol_n$$
 So che : $$\forall X\in Sol^\star, I_i\cap X = \emptyset\implies \forall X\in Sol_n, I_i\cap X = \emptyset$$
-All'$i$-esimo passo dell'algoritmo, nel ciclo \code{for} è stato considerato $I_i$, e \textbf{non è stato incluso} in 
-$Sol_i\subseteq Sol_n$, avevamo detto che $I_i$ è disgiunto da ogni elemento di $Sol_n$, e questa condizione è sufficiente 
-per far si che esso venga incluso nell'algoritmo. 
+All'$i$-esimo passo dell'algoritmo, nel ciclo \code{for} è stato considerato $I_i$, e \textbf{non è stato incluso} in
+$Sol_i\subseteq Sol_n$, avevamo detto che $I_i$ è disgiunto da ogni elemento di $Sol_n$, e questa condizione è sufficiente
+per far si che esso venga incluso nell'algoritmo.
 $$ \begin{cases}
-    S_i\subseteq S_n\\ 
-     I_i\cap X \ne \emptyset \text{ per qualche }X\in Sol_i\\
-    \forall X\in Sol_n, I_i\cap X = \emptyset
-\end{cases}\implies \text{ contraddizione }\blacksquare$$
-La seguente dimostrazione, seguirà un procedimento comune fra le dimostrazioni degli algoritmi greedy:\acc 
+        S_i\subseteq S_n                                       \\
+        I_i\cap X \ne \emptyset \text{ per qualche }X\in Sol_i \\
+        \forall X\in Sol_n, I_i\cap X = \emptyset
+    \end{cases}\implies \text{ contraddizione }\blacksquare$$
+La seguente dimostrazione, seguirà un procedimento comune fra le dimostrazioni degli algoritmi greedy:\acc
 \textbf{Dimostrazione $\bigstar$} : Si procede per induzione su $i :=$ passo dell'algoritmo.\begin{itemize}
-    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$ 
+    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$
     \item Ipotesi induttiva  \boxedMath{$i=k$} supponiamo che $\exists Sol^\star$ ottimale tale che $Sol_k\subseteq Sol^\star$
 \end{itemize}
 Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} Ci sono due possibili casi:
- $$\begin{cases}
-    Sol_{k+1}=Sol_k\\ 
-    Sol_{k+1}=Sol_k \cup \{I_{k+1}\}
-\end{cases}$$ 
-Il primo caso è banale, prendiamo in considerazione il secondo caso $Sol_{k+1}=Sol_k \cup \{I_{k+1}\}$, sappiamo per certo che 
-$I_{k+1}$ si interseca con \textit{almeno} un elemento di $Sol^\star$, altrimenti $Sol^\star\cup \{I_{k+1}\}$ sarebbe una 
+$$\begin{cases}
+        Sol_{k+1}=Sol_k \\
+        Sol_{k+1}=Sol_k \cup \{I_{k+1}\}
+    \end{cases}$$
+Il primo caso è banale, prendiamo in considerazione il secondo caso $Sol_{k+1}=Sol_k \cup \{I_{k+1}\}$, sappiamo per certo che
+$I_{k+1}$ si interseca con \textit{almeno} un elemento di $Sol^\star$, altrimenti $Sol^\star\cup \{I_{k+1}\}$ sarebbe una
 soluzione più grande di $Sol^\star$, che per ipotesi è già ottimale.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/dimPropIntervalli.eps}
 \end{center}
-Sia $I_j=[a_j,b_j]$ l'intervallo di $Sol^\star$ che si interseca con $I_{k+1}$ 
-$$ [a_j,b_j]\cap [a_{k+1},b_{k+1}]\ne \emptyset$$ 
-Si noti come $I_j$, non essendo stato considerato durante l'esecuzione dell'algoritmo fino al passo $k+1$, dato 
-l'ordinamento in base agli estremi dell'intervallo, si può affermare come $b_j>b_{k+1}$, sia poi 
-$L$ il numero reale massimo che compare in $Sol_k$, definito nel seguente modo 
-$$ L=\max\{\bigcup_{I\in Sol_k}\{I\}\}$$ 
+Sia $I_j=[a_j,b_j]$ l'intervallo di $Sol^\star$ che si interseca con $I_{k+1}$
+$$ [a_j,b_j]\cap [a_{k+1},b_{k+1}]\ne \emptyset$$
+Si noti come $I_j$, non essendo stato considerato durante l'esecuzione dell'algoritmo fino al passo $k+1$, dato
+l'ordinamento in base agli estremi dell'intervallo, si può affermare come $b_j>b_{k+1}$, sia poi
+$L$ il numero reale massimo che compare in $Sol_k$, definito nel seguente modo
+$$ L=\max\{\bigcup_{I\in Sol_k}\{I\}\}$$
 Siccome $b_{k+1}>L$ e $I_{k+1}$ è disgiunto dagli elementi di $Sol_k$, si ha che $a_j>L$
 \begin{center}
     \includegraphics[width=1\textwidth ]{images/dimPropIntervalli2.eps}
 \end{center}
 Il fatto è, che $I_{k+1}$ si interseca con $I_j$, ma con nessun altro elemento di $Sol^\star$
 $$ \forall [a_{j'},b_{j'}]\in Sol^\star | j'\ne j, \; I_{j'}\cap I_{k+1}=\emptyset$$
-Questo fatto è chiaro in quanto ogni $[a_{j'},b_{j'}]$ in $Sol^\star$ non si interseca con $[a_j,b_j]$, si ha che  
-$b_{k+1}\in I_j$, e $a_{j'}>b_{k+1}$. Giungiamo alla \textit{conclusione} che, essendo qualsiasi intervallo $I_{j'}$ di 
-$Sol^\star$ disgiunto da $I_{k+1}$, possiamo \textbf{sostituire} $I_j$ con $I_{k+1}$ in $Sol^\star$ 
+Questo fatto è chiaro in quanto ogni $[a_{j'},b_{j'}]$ in $Sol^\star$ non si interseca con $[a_j,b_j]$, si ha che
+$b_{k+1}\in I_j$, e $a_{j'}>b_{k+1}$. Giungiamo alla \textit{conclusione} che, essendo qualsiasi intervallo $I_{j'}$ di
+$Sol^\star$ disgiunto da $I_{k+1}$, possiamo \textbf{sostituire} $I_j$ con $I_{k+1}$ in $Sol^\star$
 $$ T=(Sol^\star \backslash \{I_j\})\cup \{I_{k+1}\}$$
-Tale nuovo insieme $T$, ha la stessa cardinalità di $Sol^\star$, inoltre tutti gli intervalli in esso contenuti sono 
-disgiunti, $T$ è quindi una \textit{soluzione ottimale} che contiene $Sol_{k+1}$, dimostrando la proposizione. $\blacksquare$\acc 
-Consideriamo adesso un altro problema relativo agli intervalli, come input, si ha sempre un insieme di 
-intervalli $I_1,I_2\dots,I_n$. Consideriamo un insieme di numeri reali $X$, con la seguente proprietà: Tutti gli intervalli 
+Tale nuovo insieme $T$, ha la stessa cardinalità di $Sol^\star$, inoltre tutti gli intervalli in esso contenuti sono
+disgiunti, $T$ è quindi una \textit{soluzione ottimale} che contiene $Sol_{k+1}$, dimostrando la proposizione. $\blacksquare$\acc
+Consideriamo adesso un altro problema relativo agli intervalli, come input, si ha sempre un insieme di
+intervalli $I_1,I_2\dots,I_n$. Consideriamo un insieme di numeri reali $X$, con la seguente proprietà: Tutti gli intervalli
 si intersecano con almeno un elemento di $X$, ossia $$X\cap [a_i,b_i]\ne \emptyset\; \forall i\in\{1,2\dots,n\}$$
 \begin{center}
     \includegraphics[width=1\textwidth ]{images/midPointInterset.eps}
 \end{center}
-Si vuole trovare un numero minimale di reali che si intersechino con tutti gli intervalli, ossia minimizzare la cardinalità 
-di questo insieme $X$, è possibile ordinare gli intervalli in maniera crescente secondo il valore di $b_i$, ossia l'estremo 
+Si vuole trovare un numero minimale di reali che si intersechino con tutti gli intervalli, ossia minimizzare la cardinalità
+di questo insieme $X$, è possibile ordinare gli intervalli in maniera crescente secondo il valore di $b_i$, ossia l'estremo
 maggiore dell'$i$-esimo intervallo, e considerare questo elemento come candidato da aggiungere in $X$, aggiungendoli ad ogni passo
 quando necessario.\greybox{
-\code{Min\_point\_interset( I := \{$[a_1,b_1],[a_2,b_2]\dots,[a_n,b_n]$\} )\{}\\
-\hphantom{ident}\code{I := ordina\_secondo\_gli\_estremi\_destri(I)}\\
-\hphantom{ident}\code{Sol=$\emptyset$}\\
-\hphantom{ident}\code{for(int i = 0;i<$n$;i++)\{}\\
-\hphantom{ident}\hphantom{ident}\code{if( Sol$\cap[a_i,b_i]==\emptyset$ )\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($b_i$)}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return Sol}\\
-\code{\}}}
-Vogliamo adesso dimostrare la correttezza di tale algoritmo, per costruzione, sicuramente l'output si intersecherà con 
-tutti gli intervalli, ma non è sicuro che sia minimale. \acc 
-\textbf{Proposizione $\bigstar$ } : Sia $Sol_i$ il valore di \code{Sol} all'$i$-esima iterazione del ciclo \code{for} 
+    \code{Min\_point\_interset( I := \{$[a_1,b_1],[a_2,b_2]\dots,[a_n,b_n]$\} )\{}\\
+    \hphantom{ident}\code{I := ordina\_secondo\_gli\_estremi\_destri(I)}\\
+    \hphantom{ident}\code{Sol=$\emptyset$}\\
+    \hphantom{ident}\code{for(int i = 0;i<$n$;i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if( Sol$\cap[a_i,b_i]==\emptyset$ )\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($b_i$)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return Sol}\\
+    \code{\}}}
+Vogliamo adesso dimostrare la correttezza di tale algoritmo, per costruzione, sicuramente l'output si intersecherà con
+tutti gli intervalli, ma non è sicuro che sia minimale. \acc
+\textbf{Proposizione $\bigstar$ } : Sia $Sol_i$ il valore di \code{Sol} all'$i$-esima iterazione del ciclo \code{for}
 dell'algoritmo, e sia $Sol^\star$ una qualsiasi soluzione ottimale, si ha che, $\forall i\in \{0,1\dots,n\}$ $Sol_i\subseteq Sol^\star$
-\acc 
+\acc
 \textbf{Dimostrazione $\bigstar$} :  Si procede per induzione su $i :=$ passo dell'algoritmo.\begin{itemize}
-    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$ 
+    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$
     \item Ipotesi induttiva  \boxedMath{$i=k$} supponiamo che $\exists Sol^\star$ ottimale tale che $Sol_k\subseteq Sol^\star$
 \end{itemize}
 Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} Abbiamo che $$Sol_{k+1}=Sol_k\cup\{b_{k+1}\}$$
-Se $b_{k+1}$ non è presente in $Sol^\star$, allora deve esistere un punto $b_x$ che copre in $Sol^\star$ gli intervalli 
+Se $b_{k+1}$ non è presente in $Sol^\star$, allora deve esistere un punto $b_x$ che copre in $Sol^\star$ gli intervalli
 che intersecano con $b_{k+1}$, ed ovviamente $b_x \notin Sol_k$.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/dimMidPointInt..eps}
-\end{center} 
-Qualsiasi intervallo $[a_j,b_j]$ dove $j\le k+1$ è coperto dai punti in $Sol_k\cup\{b_{k+1}\}$, per o restanti intervalli, 
+\end{center}
+Qualsiasi intervallo $[a_j,b_j]$ dove $j\le k+1$ è coperto dai punti in $Sol_k\cup\{b_{k+1}\}$, per o restanti intervalli,
 dove $j>k+1$\begin{itemize}
     \item Se $x\in [a_j,b_j]$
     \item Essendo che $b_j\ge b_{k+1}$
     \item E che $b_x \le b_{k+1}$
     \item Allora $b+1\in [a_j,b_j]$
 \end{itemize}
-Ciò significa che \textbf{ogni} intervallo di $Sol^\star$ che interseca \textit{esclusivamente} con il punto $b_x$, interseca 
+Ciò significa che \textbf{ogni} intervallo di $Sol^\star$ che interseca \textit{esclusivamente} con il punto $b_x$, interseca
 anche con $b_{k+1}$, questo significa che, è possibile sostituire $b_x$ con $b_{k+1}$ in $Sol^\star$
-$$ T=(Sol^\star \backslash \{b_x\})\cup \{b_{k+1}\}$$ 
-L'insieme $T$ ha punti che si intersecano con tutti gli intervalli, inoltre ha la stessa cardinalità di $Sol^\star$, che era una 
+$$ T=(Sol^\star \backslash \{b_x\})\cup \{b_{k+1}\}$$
+L'insieme $T$ ha punti che si intersecano con tutti gli intervalli, inoltre ha la stessa cardinalità di $Sol^\star$, che era una
 soluzione ottimale. $T$ è una soluzione ottimale che contiene $Sol_{k+1}$, dimostrando la proposizione. $\blacksquare$
 
-\subsection{Minimum Spanning Tree} 
+\subsection{Minimum Spanning Tree}
 \subsubsection{L'algoritmo di Kruskal}
-Sia $G$ un grafo (connesso) non diretto con pesi $w:E(G)\rightarrow \mathbb{R}^+$ sugli archi, sia $H$ un sottografo di $G$, si ricordi come il peso di 
-un sottografo equivale a 
+Sia $G$ un grafo (connesso) non diretto con pesi $w:E(G)\rightarrow \mathbb{R}^+$ sugli archi, sia $H$ un sottografo di $G$, si ricordi come il peso di
+un sottografo equivale a
 $$ w(H)=\sum_{e\in E(H)}w(e)$$
-Si vuole trovare un sottografo $H$ di $G$ di \textbf{peso minimo} che sia un albero (quindi connesso ed aciclico), e che contenga tutti i nodi 
+Si vuole trovare un sottografo $H$ di $G$ di \textbf{peso minimo} che sia un albero (quindi connesso ed aciclico), e che contenga tutti i nodi
 dell'albero $V(G)=V(H)$, tale albero è detto \textit{MST (Minimum Spanning Tree)}, e non è detto che ve ne sia solamente uno.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/MST.eps}
 \end{center}
-\textbf{Proposizione} : Un sottografo connesso $H$ di peso minimo, che contiene tutti i vertici, sarà sempre un albero.\acc 
-\textbf{Dimostrazione} : Essendo connesso, bisogna verificare che non abbia cicli. Assumiamo per assurdo che nel sottografo 
-connesso di peso minimo $H$ vi sia un ciclo $C$, ogni arco di $C$ ha peso positivo. \acc Considero il sottografo $H'$ identico 
-ad $H$, ma dalla quale viene cancellato un arco di $C$, tale $H'$ è ancora connesso, e contiene tutti i vertici, avendo tolto 
-un arco con peso positivo, si ha che $w(H')<w(H)$, ma per ipotesi $H$ era di peso minimo, quindi non può avere cicli. $\blacksquare$\acc 
-Si vuole trovare un algoritmo greedy in grado di restituire l'MST di un grafo connesso, la soluzione sarà data 
+\textbf{Proposizione} : Un sottografo connesso $H$ di peso minimo, che contiene tutti i vertici, sarà sempre un albero.\acc
+\textbf{Dimostrazione} : Essendo connesso, bisogna verificare che non abbia cicli. Assumiamo per assurdo che nel sottografo
+connesso di peso minimo $H$ vi sia un ciclo $C$, ogni arco di $C$ ha peso positivo. \acc Considero il sottografo $H'$ identico
+ad $H$, ma dalla quale viene cancellato un arco di $C$, tale $H'$ è ancora connesso, e contiene tutti i vertici, avendo tolto
+un arco con peso positivo, si ha che $w(H')<w(H)$, ma per ipotesi $H$ era di peso minimo, quindi non può avere cicli. $\blacksquare$\acc
+Si vuole trovare un algoritmo greedy in grado di restituire l'MST di un grafo connesso, la soluzione sarà data
 sottoforma di insieme di archi. Come punto di partenza nell'algoritmo, è possibile partire da un arco di peso minimo.
 \greybox{\code{Kruskal(G grafo pesato)\{}\\
-\hphantom{ident}\code{Ordina archi \{$e_1,e_2\dots,e_n$\} per il peso in maniera crescente}\\
-\hphantom{ident}\code{Sol = $\emptyset$}\\
-\hphantom{ident}\code{for (i=0; i$<=n$; i++)\{}\\
-\hphantom{ident}\hphantom{ident}\code{if( Sol $\cup$ $e_i$ non ha un ciclo)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($e_i$)}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\code{\}}}
-L'algoritmo è semplice, si continuano ad aggiungere gli archi di peso minore, escludendo quelli che creano cicli, fino 
-a connettere tutti i vertici del grafo.\acc 
-\textbf{Proposizione} : L'output dell'algoritmo di \codee{Kruskal} è un grafo connesso.\acc 
-\textbf{Dimostrazione} : Assumiamo per assurdo che l'output formato dagli archi di \codee{Sol} non sia connesso, 
-la soluzione sarà frammentata in diverse componenti connesse $X_1,X_2\dots,X_k$. Il fatto è che il grafo originale in input è connesso, quindi 
+    \hphantom{ident}\code{Ordina archi \{$e_1,e_2\dots,e_n$\} per il peso in maniera crescente}\\
+    \hphantom{ident}\code{Sol = $\emptyset$}\\
+    \hphantom{ident}\code{for (i=0; i$<=n$; i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if( Sol $\cup$ $e_i$ non ha un ciclo)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($e_i$)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}}
+L'algoritmo è semplice, si continuano ad aggiungere gli archi di peso minore, escludendo quelli che creano cicli, fino
+a connettere tutti i vertici del grafo.\acc
+\textbf{Proposizione} : L'output dell'algoritmo di \codee{Kruskal} è un grafo connesso.\acc
+\textbf{Dimostrazione} : Assumiamo per assurdo che l'output formato dagli archi di \codee{Sol} non sia connesso,
+la soluzione sarà frammentata in diverse componenti connesse $X_1,X_2\dots,X_k$. Il fatto è che il grafo originale in input è connesso, quindi
 esiste un arco che collega 2 componenti connesse, che se aggiunto non creerebbe cicli.
 \begin{center}
     \includegraphics[width=0.4\textwidth ]{images/propMST.eps}
 \end{center}
- Tale arco è stato considerato nell'algoritmo, 
+Tale arco è stato considerato nell'algoritmo,
 ma non selezionato, quindi l'algoritmo non è stato eseguito correttamente. $\blacksquare$\acc
-\textbf{Corollario} : L'albero dato in output dall'algoritmo di  \codee{Kruskal} è un albero di copertura.\acc 
-Adesso bisogna dimostrare che la soluzione sia ottimale, dimostreremo, come nel caso dell'algoritmo precedente, una proposizione 
-più "forte" che ne implica la correttezza.\acc 
-\textbf{Proposizione $\bigstar$} : Sia $Sol_i$ il valore dell'insieme \codee{Sol} all'$i$-esima iterazione nell'algoritmo, 
-si ha che, $\forall i,\; \exists $ una soluzione ottimale $Sol^\star$ tale che $Sol_i\subseteq Sol^\star$.\acc 
-Sia $Sol_n$ l'output dell'algoritmo, per la proposizione, esiste una soluzione ottimale che contiene $Sol_n$, ma quest'ultimo 
-è già un albero di copertura, quindi $|Sol_n|$ è una soluzione ottimale, se $\bigstar$ è vera, l'algoritmo è corretto.\acc 
+\textbf{Corollario} : L'albero dato in output dall'algoritmo di  \codee{Kruskal} è un albero di copertura.\acc
+Adesso bisogna dimostrare che la soluzione sia ottimale, dimostreremo, come nel caso dell'algoritmo precedente, una proposizione
+più "forte" che ne implica la correttezza.\acc
+\textbf{Proposizione $\bigstar$} : Sia $Sol_i$ il valore dell'insieme \codee{Sol} all'$i$-esima iterazione nell'algoritmo,
+si ha che, $\forall i,\; \exists $ una soluzione ottimale $Sol^\star$ tale che $Sol_i\subseteq Sol^\star$.\acc
+Sia $Sol_n$ l'output dell'algoritmo, per la proposizione, esiste una soluzione ottimale che contiene $Sol_n$, ma quest'ultimo
+è già un albero di copertura, quindi $|Sol_n|$ è una soluzione ottimale, se $\bigstar$ è vera, l'algoritmo è corretto.\acc
 \textbf{Dimostrazione $\bigstar$} :  Si procede per induzione su $i :=$ passo dell'algoritmo.\begin{itemize}
-    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$ 
+    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$
     \item Ipotesi induttiva  \boxedMath{$i=k$} supponiamo che $\exists Sol^\star$ ottimale tale che $Sol_k\subseteq Sol^\star$
 \end{itemize}
 Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} Ci sono due possibili casi:
- $$\begin{cases}
-    Sol_{k+1}=Sol_k \text{ ( banale, non necessita di dimostrazione )}\\ 
-    Sol_{k+1}=Sol_k \cup \{e_{k+1}\}
-\end{cases}$$ 
-Aggiungendo $e_{k+1}$ a $Sol^\star$, stiamo aggiungendo un arco ad un albero di copertura, creando un ciclo $C$, essendo che 
-$Sol_k$ non aveva cicli, esiste un arco $f \in C$ che non fa parte di $Sol_k$, ma fa parte di $Sol^\star$.\acc 
-Dato che l'algoritmo considera gli archi in ordine in base al loro peso, l'arco $f$, non essendo ancora stato considerato 
-nell'algoritmo, ha peso $w(f)\ge w(e_{k+1})$, possiamo sostituire $f$ con $e_{k+1}$ in $Sol^\star$, ottenendo 
+$$\begin{cases}
+        Sol_{k+1}=Sol_k \text{ ( banale, non necessita di dimostrazione )} \\
+        Sol_{k+1}=Sol_k \cup \{e_{k+1}\}
+    \end{cases}$$
+Aggiungendo $e_{k+1}$ a $Sol^\star$, stiamo aggiungendo un arco ad un albero di copertura, creando un ciclo $C$, essendo che
+$Sol_k$ non aveva cicli, esiste un arco $f \in C$ che non fa parte di $Sol_k$, ma fa parte di $Sol^\star$.\acc
+Dato che l'algoritmo considera gli archi in ordine in base al loro peso, l'arco $f$, non essendo ancora stato considerato
+nell'algoritmo, ha peso $w(f)\ge w(e_{k+1})$, possiamo sostituire $f$ con $e_{k+1}$ in $Sol^\star$, ottenendo
 $$ T=(Sol^\star \backslash \{f\})\cup \{e_{k+1}\}$$
-$T$ è ancora un albero di copertura, in quanto l'arco $f$ che viene rimosso fa parte di un ciclo, inoltre $T$ è aciclico 
-in quanto $C$ era l'unico ciclo presente in $Sol^\star \cup  \{e_{k+1}\}$.\acc 
-Essendo che il peso di $e_{k+1}$ è minore o uguale al peso di $f$, si ha che il peso di $T$ è minore o uguale 
-al peso di $Sol^\star$, quest'ultima però, era una soluzione ottimale di peso minimo, quindi $w(T)=w(Sol^\star)$, allora 
-$T$ è una soluzione ottimale che contiene $e_{k+1}$, dimostrando così la proposizione. $\blacksquare$\acc 
+$T$ è ancora un albero di copertura, in quanto l'arco $f$ che viene rimosso fa parte di un ciclo, inoltre $T$ è aciclico
+in quanto $C$ era l'unico ciclo presente in $Sol^\star \cup  \{e_{k+1}\}$.\acc
+Essendo che il peso di $e_{k+1}$ è minore o uguale al peso di $f$, si ha che il peso di $T$ è minore o uguale
+al peso di $Sol^\star$, quest'ultima però, era una soluzione ottimale di peso minimo, quindi $w(T)=w(Sol^\star)$, allora
+$T$ è una soluzione ottimale che contiene $e_{k+1}$, dimostrando così la proposizione. $\blacksquare$\acc
 Vediamo adesso un problema simile la cui soluzione segue direttamente dall'algoritmo appena visto, si vuole  trovare
-il sottografo di peso minimo di un grafo pesato, con pesi sia positivi che negativi $$w:E(G)\rightarrow \mathbb{R} $$ 
-In questo caso, è possibile che tale sottografo non sia un albero, data la presenza di cicli.\acc 
-\textbf{Proposizione} : Tutti gli archi di peso negativo saranno presenti nel sottografo. \acc 
-Data la seguente proposizione la soluzione risulta banale, basterà includere nella soluzione tutti gli archi di peso negativo, 
-per poi eseguire il già visto algoritmo di Kruskal sui rimanenti archi di peso positivo fino ad includere ogni vertice 
+il sottografo di peso minimo di un grafo pesato, con pesi sia positivi che negativi $$w:E(G)\rightarrow \mathbb{R} $$
+In questo caso, è possibile che tale sottografo non sia un albero, data la presenza di cicli.\acc
+\textbf{Proposizione} : Tutti gli archi di peso negativo saranno presenti nel sottografo. \acc
+Data la seguente proposizione la soluzione risulta banale, basterà includere nella soluzione tutti gli archi di peso negativo,
+per poi eseguire il già visto algoritmo di Kruskal sui rimanenti archi di peso positivo fino ad includere ogni vertice
 del grafo.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/MSTneg.eps}
 \end{center}\greybox{
-\code{Kruskal\_Neg(G grafo pesato)\{}\\
-\hphantom{ident}\code{Sol = \{ $e\text{ tale che }w(e)<0$ \}}\\
-\hphantom{ident}\code{Ordina archi \{$e_1,e_2\dots,e_n$\} per il peso in maniera crescente}\\
-\hphantom{ident}\code{Rimuovi da G gli archi di peso negativo}\\
-\hphantom{ident}\code{for (i=0; i$<=n$; i++)\{}\\
-\hphantom{ident}\hphantom{ident}\code{if( $e_i=(x,y)\land \ne$ un cammino $x\rightarrow y$ in Sol )\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($e_i$)}\\
-\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{\}}\\
-\code{\}}}
+    \code{Kruskal\_Neg(G grafo pesato)\{}\\
+    \hphantom{ident}\code{Sol = \{ $e\text{ tale che }w(e)<0$ \}}\\
+    \hphantom{ident}\code{Ordina archi \{$e_1,e_2\dots,e_n$\} per il peso in maniera crescente}\\
+    \hphantom{ident}\code{Rimuovi da G gli archi di peso negativo}\\
+    \hphantom{ident}\code{for (i=0; i$<=n$; i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if( $e_i=(x,y)\land \ne$ un cammino $x\rightarrow y$ in Sol )\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Sol.add($e_i$)}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}}
 \subsubsection{L'algoritmo di Prim}
-Vediamo un secondo algoritmo dedito all'estrazione di un MST da un grafo pesato con pesi strettamente positivi, l'idea è 
-la seguente, considero ogni volta l'arco di peso minimo che collega un vertice della soluzione ad un vertice che non è 
-stato ancora incluso, e lo aggiungo, fino ad includere  tutti i vertici, tale algoritmo è simile all'algoritmo di 
+Vediamo un secondo algoritmo dedito all'estrazione di un MST da un grafo pesato con pesi strettamente positivi, l'idea è
+la seguente, considero ogni volta l'arco di peso minimo che collega un vertice della soluzione ad un vertice che non è
+stato ancora incluso, e lo aggiungo, fino ad includere  tutti i vertici, tale algoritmo è simile all'algoritmo di
 Dijkstra \ref{grafiPesati}.\greybox{
-\code{Prim(G grafo pesato)\{}\\
-\hphantom{ident}\code{x = vertice qualsiasi}\\ 
-\hphantom{ident}\code{Vis[n]=\{0,0...,0\}}\comm{array inizializzato a zero dove $n=|V(G)|$}\\
-\hphantom{ident}\code{Vis[x]=1}\\
-\hphantom{ident}\code{Sol = $\emptyset$}\\
-\hphantom{ident}\code{while($\exists$ w$\in V(G)$ tale che Vis[w]=0 )\{}\comm{un vertice non ancora visitato}\\
-\hphantom{ident}\hphantom{ident}\code{(u,v)= arco di peso minimo tale che Vis[u]=1 $\land$ Vis[v]=0}\\
-\hphantom{ident}\hphantom{ident}\code{Vis[v]=1}\\
-\hphantom{ident}\hphantom{ident}\code{Sol.add((u,v))}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{return Sol}\\
-\code{\}}}
-\textbf{Proposizione} : L'insieme \code{Sol} output dell'algoritmo è sempre un albero di copertura.\acc 
-\textbf{Dimostrazione} : L'algoritmo termina quando non un vertice non ancora visitato, quindi l'output conterrà 
-ogni vertice di $G$, inoltre, ogni arco viene aggiunto nella soluzione esclusivamente se connette un nodo già visto ad un 
-nodo ancora non considerato, rendendo la soluzione priva di cicli, mantenendola connessa. $\blacksquare$\acc 
-\textbf{Proposizione $\bigstar$} : Sia $Sol_i$ il valore dell'insieme \code{Sol} all'$i$-esima iterazione nell'algoritmo, 
+    \code{Prim(G grafo pesato)\{}\\
+    \hphantom{ident}\code{x = vertice qualsiasi}\\
+    \hphantom{ident}\code{Vis[n]=\{0,0...,0\}}\comm{array inizializzato a zero dove $n=|V(G)|$}\\
+    \hphantom{ident}\code{Vis[x]=1}\\
+    \hphantom{ident}\code{Sol = $\emptyset$}\\
+    \hphantom{ident}\code{while($\exists$ w$\in V(G)$ tale che Vis[w]=0 )\{}\comm{un vertice non ancora visitato}\\
+    \hphantom{ident}\hphantom{ident}\code{(u,v)= arco di peso minimo tale che Vis[u]=1 $\land$ Vis[v]=0}\\
+    \hphantom{ident}\hphantom{ident}\code{Vis[v]=1}\\
+    \hphantom{ident}\hphantom{ident}\code{Sol.add((u,v))}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return Sol}\\
+    \code{\}}}
+\textbf{Proposizione} : L'insieme \code{Sol} output dell'algoritmo è sempre un albero di copertura.\acc
+\textbf{Dimostrazione} : L'algoritmo termina quando non un vertice non ancora visitato, quindi l'output conterrà
+ogni vertice di $G$, inoltre, ogni arco viene aggiunto nella soluzione esclusivamente se connette un nodo già visto ad un
+nodo ancora non considerato, rendendo la soluzione priva di cicli, mantenendola connessa. $\blacksquare$\acc
+\textbf{Proposizione $\bigstar$} : Sia $Sol_i$ il valore dell'insieme \code{Sol} all'$i$-esima iterazione nell'algoritmo,
 si ha che, $\forall i,\; \exists $ una soluzione ottimale $Sol^\star$ tale che $Sol_i\subseteq Sol^\star$.\acc
 \textbf{Dimostrazione $\bigstar$} :  Si procede per induzione su $i :=$ passo dell'algoritmo.\begin{itemize}
-    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$ 
+    \item Caso base \boxedMath{$i=0$} $Sol_0 = \emptyset \subseteq Sol^\star$
     \item Ipotesi induttiva  \boxedMath{$i=k$} supponiamo che $\exists Sol^\star$ ottimale tale che $Sol_k\subseteq Sol^\star$
 \end{itemize}
-Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} L'insieme $Sol_k$ è un albero contenuto in $Sol^\star$, si 
-ha che $$ Sol_{k+1}=Sol_k\cup\{e\}$$ 
+Procediamo con il \textit{passo induttivo} \boxedMath{$i=k+1$} L'insieme $Sol_k$ è un albero contenuto in $Sol^\star$, si
+ha che $$ Sol_{k+1}=Sol_k\cup\{e\}$$
 \begin{center}
     \includegraphics[width=0.6\textwidth ]{images/dimPrim1.eps}
 \end{center}
-Tale arco $e$ collega un vertice di $Sol_k$ ad un vertice di $Sol^\star\backslash Sol_k$, e non è presente in $Sol^\star$. 
-Seguendo il procedimento già visto nelle dimostrazioni di questo tipo, so che devo sostituire in $Sol^\star$ un arco 
+Tale arco $e$ collega un vertice di $Sol_k$ ad un vertice di $Sol^\star\backslash Sol_k$, e non è presente in $Sol^\star$.
+Seguendo il procedimento già visto nelle dimostrazioni di questo tipo, so che devo sostituire in $Sol^\star$ un arco
 con $e$, tale arco crea un singolo ciclo $C$ in $Sol^\star \cup \{e\}$
 \begin{center}
     \includegraphics[width=0.6\textwidth ]{images/dimPrim2.eps}
 \end{center}
-Vediamo come $C\backslash\{e\}$ è un cammino da un vertice che è in $Sol_k$, ad un vertice che ne è fuori, ciò significa 
-che in $C\backslash\{e\}$ deve necessariamente esistere un arco $f=(u',v')$ tale che $$v'\notin Sol_k\;\land\;u'\in Sol_k$$ 
-Siccome l'arco $f$ non è ancora stato considerato nell'algoritmo, data la sua costruzione sappiamo che $w(f)\ge w(w)$, quindi 
-è possibile sostituire questi due in $Sol^\star$ considerando 
-$$ T=(Sol^\star\backslash\{f\})\cup\{e\}$$ 
-Si ha che $T$ è un albero di copertura con $w(t)\le w(Sol^\star)$, essendo $Sol^\star$ ottimale, si ha che 
+Vediamo come $C\backslash\{e\}$ è un cammino da un vertice che è in $Sol_k$, ad un vertice che ne è fuori, ciò significa
+che in $C\backslash\{e\}$ deve necessariamente esistere un arco $f=(u',v')$ tale che $$v'\notin Sol_k\;\land\;u'\in Sol_k$$
+Siccome l'arco $f$ non è ancora stato considerato nell'algoritmo, data la sua costruzione sappiamo che $w(f)\ge w(w)$, quindi
+è possibile sostituire questi due in $Sol^\star$ considerando
+$$ T=(Sol^\star\backslash\{f\})\cup\{e\}$$
+Si ha che $T$ è un albero di copertura con $w(t)\le w(Sol^\star)$, essendo $Sol^\star$ ottimale, si ha che
 $w(t) = w(Sol^\star)$, quindi $T$ è una soluzione ottimale che contiene $Sol_{k+1}$, dimostrando così la proposizione. $\blacksquare$
-\newpage 
+\newpage
 \section{Algoritmi Divide et Impera}
-Gli algoritmi \textit{Divide et Impera}, sono quegli algoritmi che consistono nel suddividere il problema principale 
+Gli algoritmi \textit{Divide et Impera}, sono quegli algoritmi che consistono nel suddividere il problema principale
 in due o più sotto-problemi da risolvere ricorsivamente, per ottenere delle soluzioni parziali da "ricomporre", ottenendo
-la soluzione principale. Un classico esempio di algoritmo di questo tipo è il \textit{Merge Sort}, già visto nel corso 
-di 
+la soluzione principale. Un classico esempio di algoritmo di questo tipo è il \textit{Merge Sort}, già visto nel corso
+di
 \color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Primo%20Anno/Secondo%20Semestre/Introduzione%20agli%20algoritmi/Introduzione%20agli%20Algoritmi.pdf}{Algoritmi 1}.
-\color{black}\acc 
-Gli algoritmi ricorsivi di questo tipo hanno un costo computazionale descritto da un relazione di ricorrenza, il già citato \textit{Merge Sort} 
-divide il problema in due sotto-problemi, e ad ogni passo ricorsivo, il costo per ricomporre la soluzione è lineare, il costo complessivo 
-dell'algoritmo è descritto dalla relazione: 
-$$ T(n)=2\cdot T(\dfrac{n}{2})+O(n) $$ 
-È possibile determinare rapidamente il costo computazionale, data una relazione di ricorrenza, grazie al seguente enunciato. 
+\color{black}\acc
+Gli algoritmi ricorsivi di questo tipo hanno un costo computazionale descritto da un relazione di ricorrenza, il già citato \textit{Merge Sort}
+divide il problema in due sotto-problemi, e ad ogni passo ricorsivo, il costo per ricomporre la soluzione è lineare, il costo complessivo
+dell'algoritmo è descritto dalla relazione:
+$$ T(n)=2\cdot T(\dfrac{n}{2})+O(n) $$
+È possibile determinare rapidamente il costo computazionale, data una relazione di ricorrenza, grazie al seguente enunciato.
 \subsubsection{Teorema Principale}\label{tp}
-\textbf{Enunciato } : Sia $T(n)$ una relazione di ricorrenza del tipo 
+\textbf{Enunciato } : Sia $T(n)$ una relazione di ricorrenza del tipo
 $$ T(n)=a\cdot T(\dfrac{n}{b})+f(n)$$
 Dove
-   $a\ge 1$,
-   $b\ge 1$,
-    e $f$ è una funzione che descrive il costo ad ogni passo ricorsivo, 
+$a\ge 1$,
+$b\ge 1$,
+e $f$ è una funzione che descrive il costo ad ogni passo ricorsivo,
 Valgono le seguenti:\begin{itemize}
     \item \textbf{Caso 1} : Se \begin{itemize}
-        \item $f(n)=\theta(n^c)$
-        \item $c$ è un numero reale tale che $c<\log_b(a)$
-    \end{itemize}
-    Allora $T(n)=\theta(n^{\log_b(a)})$.
+              \item $f(n)=\theta(n^c)$
+              \item $c$ è un numero reale tale che $c<\log_b(a)$
+          \end{itemize}
+          Allora $T(n)=\theta(n^{\log_b(a)})$.
     \item \textbf{Caso 2} : Se \begin{itemize}
-        \item $f(n)=\theta(n^c\cdot \log^k(n))$
-        \item $c=\log_b(a)$
-        \item $k\ge 0$
-    \end{itemize}
-    Allora $T(n)=\theta(n^c\cdot \log^{k+1}(n))$.
+              \item $f(n)=\theta(n^c\cdot \log^k(n))$
+              \item $c=\log_b(a)$
+              \item $k\ge 0$
+          \end{itemize}
+          Allora $T(n)=\theta(n^c\cdot \log^{k+1}(n))$.
     \item \textbf{Caso 3} : Se \begin{itemize}
-        \item $f(n)=\theta(n^c)$
-        \item $c$ è un numero reale tale che $c>\log_b(a)$
-    \end{itemize}
-    Allora $T(n)=\theta(n^c)$.
+              \item $f(n)=\theta(n^c)$
+              \item $c$ è un numero reale tale che $c>\log_b(a)$
+          \end{itemize}
+          Allora $T(n)=\theta(n^c)$.
 \end{itemize}
 \subsection{Problemi sui Vettori}
 \subsubsection{Problema del Massimo Sotto-array}
-Consideriamo il seguente problema : Dato $A$ un array di numeri interi, si vuole trovare un sotto-array, della forma 
-$A[i:j]$, con $j<i$, che massimizzi la somma degli elementi.\acc 
-Supponiamo di voler utilizzare la "forza bruta", e di controllare ogni singolo sotto-array, ciò rientrerebbe in una complessità 
+Consideriamo il seguente problema : Dato $A$ un array di numeri interi, si vuole trovare un sotto-array, della forma
+$A[i:j]$, con $j<i$, che massimizzi la somma degli elementi.\acc
+Supponiamo di voler utilizzare la "forza bruta", e di controllare ogni singolo sotto-array, ciò rientrerebbe in una complessità
 $O(n^2)$.
 \greybox{\code{Max\_sub\_vector(A : array)\{}\comm{Versione forza bruta}\\
-\hphantom{ident}\code{Sol=0}\\ 
+\hphantom{ident}\code{Sol=0}\\
 \hphantom{ident}\code{for(int i = 0;i<n;i++)\{}\\
 \hphantom{ident}\hphantom{ident}\code{Somma = 0}\\
 \hphantom{ident}\hphantom{ident}\code{for(int j = i;j<n;j++)\{}\\
@@ -1375,20 +1375,20 @@ $O(n^2)$.
 \hphantom{ident}\hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{return Sol}\\
-\code{\}}} 
-Pensiamo adesso ad un algoritmo Divide et Impera che possa trovare la soluzione in tempo minore, per ottenere un costo minore 
-di $O(n^2)$, dal teorema principale \ref{tp}  sappiamo che l'"overhead" ad ogni passo ricorsivo deve essere \textit{lineare}.\acc 
-L'array viene diviso in due sotto-array, eseguendo la chiamata ricorsiva su entrambe le metà, ottenendo il valore massimo 
-per la metà destra, ed il valore massimo per la metà sinistra, il punto è che bisogna anche considerare i possibili 
-sotto-array "a cavallo" fra le due metà. Ovviamente il caso base è raggiunto quando il sotto-array considerato è composto 
+\code{\}}}
+Pensiamo adesso ad un algoritmo Divide et Impera che possa trovare la soluzione in tempo minore, per ottenere un costo minore
+di $O(n^2)$, dal teorema principale \ref{tp}  sappiamo che l'"overhead" ad ogni passo ricorsivo deve essere \textit{lineare}.\acc
+L'array viene diviso in due sotto-array, eseguendo la chiamata ricorsiva su entrambe le metà, ottenendo il valore massimo
+per la metà destra, ed il valore massimo per la metà sinistra, il punto è che bisogna anche considerare i possibili
+sotto-array "a cavallo" fra le due metà. Ovviamente il caso base è raggiunto quando il sotto-array considerato è composto
 da un solo elemento.\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/maxSubVec.eps}
 \end{center}
-\textbf{Proposizione} : Un qualsiasi sotto-array "a cavallo" fra i due sarà composto da un prefisso ed un 
-suffisso rispetto la metà dell'array iniziale. Il sotto-array "a cavallo" di somma massima sarà composto dal 
-prefisso massimo ed il suffisso massimo. \acc 
-Partendo quindi dal centro, si sposterà il prefisso a sinistra (ed il suffisso a destra) controllando il valore della somma degli elementi 
-nel range $A[pref_{max} : m]$ e $A[m+1 : suff_{max}]$, 
+\textbf{Proposizione} : Un qualsiasi sotto-array "a cavallo" fra i due sarà composto da un prefisso ed un
+suffisso rispetto la metà dell'array iniziale. Il sotto-array "a cavallo" di somma massima sarà composto dal
+prefisso massimo ed il suffisso massimo. \acc
+Partendo quindi dal centro, si sposterà il prefisso a sinistra (ed il suffisso a destra) controllando il valore della somma degli elementi
+nel range $A[pref_{max} : m]$ e $A[m+1 : suff_{max}]$,
 fino a trovare la somma massima.\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/esempioSuffPref.eps}
 \end{center}
@@ -1415,55 +1415,55 @@ fino a trovare la somma massima.\begin{center}
 \code{\}}}
 La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n)=2\cdot T(\dfrac{n}{2})+O(n)$$
 Per il teorema principale \ref{tp}  risulta che
-$$ a=2\;\;\;b=2\;\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$ 
+$$ a=2\;\;\;b=2\;\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$
 $$ T(n)=O\big(n\cdot\log{n}\big)$$
-Consideriamo adesso il seguente problema, sia $A$ un array ordinato di lunghezza \textit{dispari}, i cui valori di 
+Consideriamo adesso il seguente problema, sia $A$ un array ordinato di lunghezza \textit{dispari}, i cui valori di
 $A$, occorrono 1 oppure 2 volte.\begin{center}
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
         \hline
         1 & 2 & 2 & 4 & 4 & 5 & 6 & 6 & 8 \\ \hline
-        \end{tabular}
+    \end{tabular}
 \end{center}
 Si vuole trovare un algoritmo che agisca in $O(\log{n})$, che trovi un qualsiasi elemento che occorre una sola volta.
-La presenza di tale elemento è garantita dal fatto che l'array sia di lunghezza dispari.\acc 
-Come primo passo, è possibile controllare l'elemento centrale dell'array in input, se esso è diverso da entrambi i suoi 
-vicini, allora sarà un elemento che occorre una volta, altrimenti sarà necessario procedere con il passo ricorsivo su 
-\textit{una delle due metà} dell'array in input.\acc  
-Se l'elemento alla sinistra del centro è identico al centro, seleziono la metà sinistra se il centro è un elemento pari, 
+La presenza di tale elemento è garantita dal fatto che l'array sia di lunghezza dispari.\acc
+Come primo passo, è possibile controllare l'elemento centrale dell'array in input, se esso è diverso da entrambi i suoi
+vicini, allora sarà un elemento che occorre una volta, altrimenti sarà necessario procedere con il passo ricorsivo su
+\textit{una delle due metà} dell'array in input.\acc
+Se l'elemento alla sinistra del centro è identico al centro, seleziono la metà sinistra se il centro è un elemento pari,
 altrimenti la destra.\greybox{
-\code{Occ\_singola( A : array ordinato di lunghezza dispari)\{}\\ 
-\hphantom{ident}\code{if(A.length()==1)\{}\\
-\hphantom{ident}\hphantom{ident}\code{return A[0]}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{m = A.length()/2}\\
-\hphantom{ident}\code{if( (A[m]$\ne$A[m-1]) $\land$ (A[m]$\ne$A[m+1]) )\{}\\
-\hphantom{ident}\hphantom{ident}\code{return A[m]}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{if( A[m] == A[m-1] )\{}\\
-\hphantom{ident}\hphantom{ident}\code{if (m\%2==0) \{ return  Occ\_singola(A[0:m])\}}\\
-\hphantom{ident}\hphantom{ident}\code{else \{ return Occ\_singola(A[m+1:A.length()])  \}}\\
-\hphantom{ident}\code{\}}\\
-\hphantom{ident}\code{else\{}\\
-\hphantom{ident}\hphantom{ident}\code{if (m\%2==0) \{ return Occ\_singola(A[m+2:A.length()]) \}}\\
-\hphantom{ident}\hphantom{ident}\code{else \{ return  Occ\_singola(A[0:m-1]) \}}\\
-\hphantom{ident}\code{\}}\\
-\code{\}}}
+    \code{Occ\_singola( A : array ordinato di lunghezza dispari)\{}\\
+    \hphantom{ident}\code{if(A.length()==1)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{return A[0]}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{m = A.length()/2}\\
+    \hphantom{ident}\code{if( (A[m]$\ne$A[m-1]) $\land$ (A[m]$\ne$A[m+1]) )\{}\\
+    \hphantom{ident}\hphantom{ident}\code{return A[m]}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{if( A[m] == A[m-1] )\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if (m\%2==0) \{ return  Occ\_singola(A[0:m])\}}\\
+    \hphantom{ident}\hphantom{ident}\code{else \{ return Occ\_singola(A[m+1:A.length()])  \}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{else\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if (m\%2==0) \{ return Occ\_singola(A[m+2:A.length()]) \}}\\
+    \hphantom{ident}\hphantom{ident}\code{else \{ return  Occ\_singola(A[0:m-1]) \}}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}}
 Il costo è ovviamente $O(\log{n})$, verificabile anche con il teorema principale \ref{tp}.
 \subsubsection{Elemento Maggioritario}
-In un array, un \textit{elemento maggioritario}, o \textit{majority element}, è quel valore $x$ tale che, 
-per più di $\nicefrac{n}{2}$ indici $i$, vale che $A[i]=x$, ossia un elemento che occorre nell'array in più di 
+In un array, un \textit{elemento maggioritario}, o \textit{majority element}, è quel valore $x$ tale che,
+per più di $\nicefrac{n}{2}$ indici $i$, vale che $A[i]=x$, ossia un elemento che occorre nell'array in più di
 $\nicefrac{n}{2}$ posizioni, dove $n$ è la lunghezzadell'array.
 \begin{center}
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
         \hline
         82 & x & -9 & x & 6 & x & 44 & x & x \\ \hline
-        \end{tabular}
+    \end{tabular}
 \end{center}
-Si vuole trovare un algoritmo di costo computazionale $O(n\cdot\log{n})$ che stabilisca se in un dato array, è 
-presente o no un majority element.\acc 
-\textbf{Proposizione} : Se in $A[0:n]$ è presente un valore $x$ che sia majority element, allora, anche tale $x$ sarà 
-anche majority element di una delle sue metà, ossia di $A[0:\nicefrac{n}{2}]$ o $A[\nicefrac{n}{2}+1:n]$.\acc 
-Data tale proposizione, sarà facile stabilire l'elemento maggioritario, dividendo in due l'array iniziale ed avviando la ricorsione 
+Si vuole trovare un algoritmo di costo computazionale $O(n\cdot\log{n})$ che stabilisca se in un dato array, è
+presente o no un majority element.\acc
+\textbf{Proposizione} : Se in $A[0:n]$ è presente un valore $x$ che sia majority element, allora, anche tale $x$ sarà
+anche majority element di una delle sue metà, ossia di $A[0:\nicefrac{n}{2}]$ o $A[\nicefrac{n}{2}+1:n]$.\acc
+Data tale proposizione, sarà facile stabilire l'elemento maggioritario, dividendo in due l'array iniziale ed avviando la ricorsione
 su entrambe le metà, se esse restituiscono due majority element distinti, allora quello effettivo sarà l'elemento che occorre più volte.
 \greybox{
 \code{Majority\_Element( A : array )}\{ \\
@@ -1490,13 +1490,13 @@ su entrambe le metà, se esse restituiscono due majority element distinti, allor
 \code{\}}}
 La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n)=2\cdot T(\dfrac{n}{2})+O(n)$$
 Per il teorema principale \ref{tp}  risulta che
-$$ a=2\;\;\;b=2\;\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$ 
+$$ a=2\;\;\;b=2\;\;\;f(n)=O(n)=n^{\log_2(2)}\cdot \log^0(n)$$
 $$ T(n)=O\big(n\cdot\log{n}\big)$$
 \subsubsection{Distanza Minima fra due Punti}
-Consideriamo il seguente problema, vi è un insieme di punti $p_1,p_2\dots,p_n$, si vuole trovare la coppia 
-di punti $p_i,p_j$ la cui distanza è minima rispetto tutte le altre distanze. Se volessimo controllare tutte le distanze 
-per ricavarne la minima, dovremmo controllare $\binom{n}{2}$ coppie di punti, facendo si che la complessità dell'algoritmo 
-sia $O(n^2)$.\acc Non è stato però specificato, a quale spazio vettoriale appartengano i punti, consideriamo il caso più 
+Consideriamo il seguente problema, vi è un insieme di punti $p_1,p_2\dots,p_n$, si vuole trovare la coppia
+di punti $p_i,p_j$ la cui distanza è minima rispetto tutte le altre distanze. Se volessimo controllare tutte le distanze
+per ricavarne la minima, dovremmo controllare $\binom{n}{2}$ coppie di punti, facendo si che la complessità dell'algoritmo
+sia $O(n^2)$.\acc Non è stato però specificato, a quale spazio vettoriale appartengano i punti, consideriamo il caso più
 semplice in cui i punti appartengono ad $\mathbb{R}$. In questo caso, è possibile ordinarli in tempo $O(n\log{n})$,
 per poi controllare ogni punto dell'array con i suoi adiacenti in tempo lineare.
 \greybox{
@@ -1508,43 +1508,43 @@ per poi controllare ogni punto dell'array con i suoi adiacenti in tempo lineare.
 \hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{return Sol}\\
 \code{\}}}
-Supponiamo però che i punti appartengano ad $\mathbb{R}^2$, in questo caso, non è possibile ordinare i punti, o meglio, 
+Supponiamo però che i punti appartengano ad $\mathbb{R}^2$, in questo caso, non è possibile ordinare i punti, o meglio,
 ordinandoli secondo il valore dell'ascissa, oppure dell'ordinata, non implica
-necessariamente una vicinanza rispetto le loro distanze.\acc 
-Si vuole trovare un algoritmo che operi in $O(n\log{n})$, seguendo un approccio divide et impera. Si divide quindi in due 
-parti l'array in input, separando i punti in due metà del piano, si trovano le rispettive distanze minime delle due metà 
-ricorsivamente, per poi cercare di trovare la distanza minima considerando anche quelle "a cavallo", ossia dei punti appartenenti 
+necessariamente una vicinanza rispetto le loro distanze.\acc
+Si vuole trovare un algoritmo che operi in $O(n\log{n})$, seguendo un approccio divide et impera. Si divide quindi in due
+parti l'array in input, separando i punti in due metà del piano, si trovano le rispettive distanze minime delle due metà
+ricorsivamente, per poi cercare di trovare la distanza minima considerando anche quelle "a cavallo", ossia dei punti appartenenti
 a due metà differenti.\begin{center}
     \includegraphics[width=1\textwidth ]{images/distMin.eps}
 \end{center}
-È ovvio che due punti fra le due metà che non si trovano nella fascia, saranno distanti almeno quanto la distanza minima 
-calcolata in una delle due metà, sarà quindi inutile considerarli, in quanto stiamo cercando una distinza più piccola 
-rispetto alle due minime già calcolate.\acc 
-A questo punto bisogna calcolare le distanze nella fascia, si noti come non è efficiente controllare tutte le possibili coppie 
+È ovvio che due punti fra le due metà che non si trovano nella fascia, saranno distanti almeno quanto la distanza minima
+calcolata in una delle due metà, sarà quindi inutile considerarli, in quanto stiamo cercando una distinza più piccola
+rispetto alle due minime già calcolate.\acc
+A questo punto bisogna calcolare le distanze nella fascia, si noti come non è efficiente controllare tutte le possibili coppie
 di punti nella fascia, in quanto tale controllo potrebbe richiedere un costo computazionale quadratico, e non lineare,
-bisogna quindi procedere in maniera differente.\acc 
+bisogna quindi procedere in maniera differente.\acc
 L'idea è la seguente: Supponiamo di dividere le due fasce in quadranti di eguale dimensione, ossia
- $\nicefrac{d}{2}\times \nicefrac{d}{2}$, nella maniera seguente:\begin{center}
+$\nicefrac{d}{2}\times \nicefrac{d}{2}$, nella maniera seguente:\begin{center}
     \includegraphics[width=1\textwidth ]{images/distMin2.eps}
 \end{center}
-\textbf{Proposizione} : Non esistono due punti che sono contenuti nello stesso quadrante.\acc 
-La dimostrazione è banale, se fossero contenuti nello stesso quadrante, si troverebbero anche nella 
-stessa metà, e la loro distanza, può essere al più quanto la diagonale di un quadrante, che equivale 
-a $\sqrt{(\nicefrac{d}{2})^2+(\nicefrac{d}{2})^2}=\dfrac{d}{\sqrt{2}}$, e tale distanza è minore di $d$, che era la 
-distanza minima fra due punti nelle due metà, è quindi impossibile.\acc 
-\textbf{Osservazione} : Due punti possono avere una distanza minore di $d$, esclusivamente se si trovano ad 1 oppure 2 
-quadranti di distanza.\acc 
-Tale osservazione segue dal fatto che i quadranti sono  $\nicefrac{d}{2}\times \nicefrac{d}{2}$, quindi due punti possono 
-avere una distanza minore di $d$ esclusivamente se i quadranti in cui si trovano sono adiacenti, o sono separati da 
+\textbf{Proposizione} : Non esistono due punti che sono contenuti nello stesso quadrante.\acc
+La dimostrazione è banale, se fossero contenuti nello stesso quadrante, si troverebbero anche nella
+stessa metà, e la loro distanza, può essere al più quanto la diagonale di un quadrante, che equivale
+a $\sqrt{(\nicefrac{d}{2})^2+(\nicefrac{d}{2})^2}=\dfrac{d}{\sqrt{2}}$, e tale distanza è minore di $d$, che era la
+distanza minima fra due punti nelle due metà, è quindi impossibile.\acc
+\textbf{Osservazione} : Due punti possono avere una distanza minore di $d$, esclusivamente se si trovano ad 1 oppure 2
+quadranti di distanza.\acc
+Tale osservazione segue dal fatto che i quadranti sono  $\nicefrac{d}{2}\times \nicefrac{d}{2}$, quindi due punti possono
+avere una distanza minore di $d$ esclusivamente se i quadranti in cui si trovano sono adiacenti, o sono separati da
 al più un altro quadrante.\begin{center}
     \includegraphics[width=0.65\textwidth ]{images/distMin3.eps}
 \end{center}
-A questo punto, posso ordinare tutti i punti presenti nella fascia blu in base al valore delle $x$ ed in base al valore delle 
-$y$, in tale modo, essendo che ogni punto è in quadrante diverso, se  $|i-j|>11$, i punti $(x_i,y_i)$ e $(x_j,y_j)$ avranno 
-una distanza strettamente maggiore di $d$.\acc  
-Dato l'ordinamento, se due punti hanno una distanza minore di $d$, si troveranno al più ad 11 indici di distanza nell'array, 
-quindi per ogni punto nella fascia, verrà calcolata la distanza fra esso e gli 11 punti nella fascia che lo seguono, 
-tale controllo costa $O(11\cdot n)=O(n)$, non ha quindi costo quadratico.\acc  L'algoritmo è il seguente, la funzione 
+A questo punto, posso ordinare tutti i punti presenti nella fascia blu in base al valore delle $x$ ed in base al valore delle
+$y$, in tale modo, essendo che ogni punto è in quadrante diverso, se  $|i-j|>11$, i punti $(x_i,y_i)$ e $(x_j,y_j)$ avranno
+una distanza strettamente maggiore di $d$.\acc
+Dato l'ordinamento, se due punti hanno una distanza minore di $d$, si troveranno al più ad 11 indici di distanza nell'array,
+quindi per ogni punto nella fascia, verrà calcolata la distanza fra esso e gli 11 punti nella fascia che lo seguono,
+tale controllo costa $O(11\cdot n)=O(n)$, non ha quindi costo quadratico.\acc  L'algoritmo è il seguente, la funzione
 \code{dist} utilizzata, calcola la distanza euclidea $L_2$.
 \greybox{
 \code{Dist\_Min\_in\_$\mathbb{R}^2$( $(x_1,y_1),(x_2,y_2)\dots (x_n,y_n)$ )\{}\\
@@ -1571,26 +1571,26 @@ tale controllo costa $O(11\cdot n)=O(n)$, non ha quindi costo quadratico.\acc  L
 \code{\}}}
 La complessità dell'algoritmo è descritta dalla relazione di ricorrenza $$ T(n)=2\cdot T(\dfrac{n}{2})+O(n\log{n})$$
 Per il teorema principale \ref{tp}  risulta che
-$$ a=2\;\;\;b=2\;\;\;f(n)=\theta(n^c\cdot(\log{n})^k)\;\;\;c=\log_b{a}\;\;\;k=1$$ 
+$$ a=2\;\;\;b=2\;\;\;f(n)=\theta(n^c\cdot(\log{n})^k)\;\;\;c=\log_b{a}\;\;\;k=1$$
 $$ T(n)=O\big(n\cdot(\log{n})^2\big)$$
-\newpage 
+\newpage
 \section{Programmazione Dinamica}
-Con \textit{programmazione dinamica}, si intende quel paradigma di progettazione di algoritmi, che, allo scopo di 
-trovare una soluzione finale ad un problema, considera una serie di sotto-problemi minori che saranno poi utili alla 
-decisione della già citata soluzione finale. Per rendere chiaro il concetto, vediamo un esempio di applicazione.\acc 
-Si consideri il seguente problema, vi è un disco fisso di capacità $C$ (l'unità di misura è omessa), ed un insieme 
-$\{f_1,f_2\dots,f_2\}$ di file, le cui rispettive dimensioni, risultano essere $\{s_1,s_2\dots,s_n\}$.\acc 
-Si vuole trovare un sotto-insieme di file da inserire sul disco, che ne massimizzi l'utilizzo in termini di 
+Con \textit{programmazione dinamica}, si intende quel paradigma di progettazione di algoritmi, che, allo scopo di
+trovare una soluzione finale ad un problema, considera una serie di sotto-problemi minori che saranno poi utili alla
+decisione della già citata soluzione finale. Per rendere chiaro il concetto, vediamo un esempio di applicazione.\acc
+Si consideri il seguente problema, vi è un disco fisso di capacità $C$ (l'unità di misura è omessa), ed un insieme
+$\{f_1,f_2\dots,f_2\}$ di file, le cui rispettive dimensioni, risultano essere $\{s_1,s_2\dots,s_n\}$.\acc
+Si vuole trovare un sotto-insieme di file da inserire sul disco, che ne massimizzi l'utilizzo in termini di
 capacità, ad esempio: $$ \begin{matrix}
-    C = 30\\ 
-    \text{dimensioni file }=\{2,10,13,4,8,7\}
-\end{matrix}\;\;\;\;\;\;\; \text{soluzione }=\{10,13,7\}$$
-Questo problema è \textit{np-completo}, non è possibile trovare una soluzione con un algoritmo che operi in una complessità 
-polinomiale, supponiamo di voler provare a fare ricerca brutta, se $n$ è il numero di file, dovremmo provare ogni singola combinazione 
-di file, sappiamo che ci sono quindi $2^n$ sotto-insiemi possibili di file.\acc 
-Considero un algoritmo ricorsivo che, partendo dall'insieme totale dei file, considera ad ogni passo due nuovi insiemi, 
+        C = 30 \\
+        \text{dimensioni file }=\{2,10,13,4,8,7\}
+    \end{matrix}\;\;\;\;\;\;\; \text{soluzione }=\{10,13,7\}$$
+Questo problema è \textit{np-completo}, non è possibile trovare una soluzione con un algoritmo che operi in una complessità
+polinomiale, supponiamo di voler provare a fare ricerca brutta, se $n$ è il numero di file, dovremmo provare ogni singola combinazione
+di file, sappiamo che ci sono quindi $2^n$ sotto-insiemi possibili di file.\acc
+Considero un algoritmo ricorsivo che, partendo dall'insieme totale dei file, considera ad ogni passo due nuovi insiemi,
 uno che includa l'ultimo elemento, ed uno che non lo includa, in modo tale da controllare alla fine ogni possibile sottoinsieme.
-\greybox{ 
+\greybox{
     \code{Spazio\_forza\_bruta($s_1,s_2\dots,s_n$, C)\{}\\
     \hphantom{ident}\code{if($\forall i\;\;s_i>$C)\{ return 0 \}}\comm{caso base}\\
     \hphantom{ident}\code{if($s_i+s_2+\dots+s_n\le$C)\{ return $s_i+s_2+\dots+s_n$ \}}\comm{caso base}\\
@@ -1598,48 +1598,48 @@ uno che includa l'ultimo elemento, ed uno che non lo includa, in modo tale da co
     \hphantom{ident}\code{sol2 = Spazio\_forza\_bruta($s_1,s_2\dots,s_{n-1}$, C-$s_n$) + $s_n$}\comm{includo l'ultimo }\\
     \hphantom{ident}\code{return max(sol1, sol2)}\\
     \code{\}}}
-La complessità risulta essere $O(n\cdot 2^n)$. Facendo alcune osservazioni, è possibile trovare una soluzione più 
-efficente, che modelli a pieno i concetti della programmazione dinamica.\acc 
-\textbf{Osservazione }: Se in un passo dell'algoritmo si verifica la condizione in cui $s_n=s_{n-1}$, il sotto albero di 
-ricorsione in cui $s_n$ è presente e non $s_{n-1}$, ed il sotto albero di 
-ricorsione in cui $s_{n-1}$ è presente e non $s_{n}$, saranno identici.\acc 
-\textbf{Osservazione} : Nei casi in cui $n$ (numero di file) risulta essere molto più grande di $C$ (capacità del disco), 
-si verificherà la situazione in cui molti file avranno la stessa dimensione, facendo si che l'algoritmo esegua gli stessi 
-identici passi ricorsivi molte volte (data l'osservazione precedente).\acc 
-L'idea è quella di sfruttare tali proprietà, per scrivere un algoritmo che, sempre tramite forza bruta, trovi una soluzione, 
-ma che possa astenersi da un calcolo globale, verrà eseguita una ricerca in forza bruta \textbf{sui possibili calcoli} che 
-si potrebbero fare.\acc 
-Definiamo la matrice $T$, tale che $T[k,\alpha]$ identifica la capacità massima che può essere riempita da 
+La complessità risulta essere $O(n\cdot 2^n)$. Facendo alcune osservazioni, è possibile trovare una soluzione più
+efficente, che modelli a pieno i concetti della programmazione dinamica.\acc
+\textbf{Osservazione }: Se in un passo dell'algoritmo si verifica la condizione in cui $s_n=s_{n-1}$, il sotto albero di
+ricorsione in cui $s_n$ è presente e non $s_{n-1}$, ed il sotto albero di
+ricorsione in cui $s_{n-1}$ è presente e non $s_{n}$, saranno identici.\acc
+\textbf{Osservazione} : Nei casi in cui $n$ (numero di file) risulta essere molto più grande di $C$ (capacità del disco),
+si verificherà la situazione in cui molti file avranno la stessa dimensione, facendo si che l'algoritmo esegua gli stessi
+identici passi ricorsivi molte volte (data l'osservazione precedente).\acc
+L'idea è quella di sfruttare tali proprietà, per scrivere un algoritmo che, sempre tramite forza bruta, trovi una soluzione,
+ma che possa astenersi da un calcolo globale, verrà eseguita una ricerca in forza bruta \textbf{sui possibili calcoli} che
+si potrebbero fare.\acc
+Definiamo la matrice $T$, tale che $T[k,\alpha]$ identifica la capacità massima che può essere riempita da
 $k$ file su un disco di capacità $\alpha$. $$0\le\alpha\le C \;\;\;\;\;\;0\le k\le n$$
-L'idea è quella di scrivere un algoritmo che costruisca tale matrice, per poi, ottenere come risultato $T[n,c]$. Il punto cruciale è 
-che tale matrice può essere costruita iterativamente, sfruttando le entrate di indici minori per calcolare rapidamente le 
+L'idea è quella di scrivere un algoritmo che costruisca tale matrice, per poi, ottenere come risultato $T[n,c]$. Il punto cruciale è
+che tale matrice può essere costruita iterativamente, sfruttando le entrate di indici minori per calcolare rapidamente le
 entrate di indici maggiori. Si noti come, se $\alpha = 0 \lor k= 0 $ le entrate sono banali:
 $$\forall \alpha \;\;\;T[0,\alpha ]= 0 \;\;\;\;\;\;\;\;\;\;\;\;\forall k \;\;\;T[k,0]=0$$
-Infatti, tali matrici rappresentano i due casi in cui si cerca di capire quali sia la capacità massima che può essere 
-riempita da zero file, oppure la capacità massima che può essere riempita su un disco di capacità zero.\acc 
-Anche la prima riga, ossia $T[1,\alpha ]$ risulta banale da calcolare per ogni $\alpha$, in quanto, se vi è un solo 
-file, di capacità $s_1$, sarà possibile riempire il disco, con la medesima capacità, laddove il disco avrà una capacità 
+Infatti, tali matrici rappresentano i due casi in cui si cerca di capire quali sia la capacità massima che può essere
+riempita da zero file, oppure la capacità massima che può essere riempita su un disco di capacità zero.\acc
+Anche la prima riga, ossia $T[1,\alpha ]$ risulta banale da calcolare per ogni $\alpha$, in quanto, se vi è un solo
+file, di capacità $s_1$, sarà possibile riempire il disco, con la medesima capacità, laddove il disco avrà una capacità
 minima di $s_1$, quindi: $$\begin{cases}
-    T[1,\alpha ] = s_1\;\;\;\;\text{ se }\alpha \ge s_1\\
-    T[1,\alpha ] = 0\;\;\;\;\text{ se }\alpha < s_1
-\end{cases} $$  \begin{center}
+        T[1,\alpha ] = s_1\;\;\;\;\text{ se }\alpha \ge s_1 \\
+        T[1,\alpha ] = 0\;\;\;\;\text{ se }\alpha < s_1
+    \end{cases} $$  \begin{center}
     \includegraphics[width=0.65\textwidth ]{images/matriceSpazioFile.eps}
 \end{center}
-A questo punto, una volta riempite le prime due righe della matrice, si vuole trovare una formula generale per 
-il valore $T[k,\alpha]$, dati 
-per assunti i valori di $T[k',\alpha']$, $\forall k'<k\land \forall \alpha'<\alpha$. \acc 
-Conosciamo quindi il valore di $T[k-1,\alpha]$, che rappresenta la capacità massima che può essere riempita da 
-$k-1$ file su un disco di capacità $\alpha$, se le dimensioni del file $k$-esimo, ossia $s_k$ sono maggiori di 
-$\alpha-T[k-1,\alpha]$, allora tale file non può essere incluso nel disco di capacità $k$, e si avrà 
-inevitabilmente che $T[k-1,\alpha]=T[k,\alpha]$.\acc 
-Diversamente, si avrebbe che i $k-1$ file, possono essere inclusi anche in un disco di capacità 
-$\alpha-s_k$, quindi, nel disco di capacità $\alpha$, sarà possibile riempire la capacità  $T[k-1,\alpha-s_k]$ sommata, 
-appunto alle dimensioni del file aggiunto, ossia $s_k$. Si giunge quindi alla seguente formula 
+A questo punto, una volta riempite le prime due righe della matrice, si vuole trovare una formula generale per
+il valore $T[k,\alpha]$, dati
+per assunti i valori di $T[k',\alpha']$, $\forall k'<k\land \forall \alpha'<\alpha$. \acc
+Conosciamo quindi il valore di $T[k-1,\alpha]$, che rappresenta la capacità massima che può essere riempita da
+$k-1$ file su un disco di capacità $\alpha$, se le dimensioni del file $k$-esimo, ossia $s_k$ sono maggiori di
+$\alpha-T[k-1,\alpha]$, allora tale file non può essere incluso nel disco di capacità $k$, e si avrà
+inevitabilmente che $T[k-1,\alpha]=T[k,\alpha]$.\acc
+Diversamente, si avrebbe che i $k-1$ file, possono essere inclusi anche in un disco di capacità
+$\alpha-s_k$, quindi, nel disco di capacità $\alpha$, sarà possibile riempire la capacità  $T[k-1,\alpha-s_k]$ sommata,
+appunto alle dimensioni del file aggiunto, ossia $s_k$. Si giunge quindi alla seguente formula
 $$ T[k,\alpha]=\max\big(T[k-1,\alpha],T[k-1,\alpha-s_k]+s_k\big) \;\;\;\;\;\;\;\;\;\;\;\;\text{ per }s_k\le\alpha$$
-È quindi possibile, ad ogni passo, riempire la tabella utilizzando i valori precedentemente calcolati.\greybox{ 
+È quindi possibile, ad ogni passo, riempire la tabella utilizzando i valori precedentemente calcolati.\greybox{
 \code{Spazio($s_1,s_2\dots,s_n$, C)\{}\\
-\hphantom{ident}\code{T : matrice n+1$\times$C+1}\\ 
-\hphantom{ident}\code{for(int i = 0;i$\le n$;i++)\{ T[0,i]=0 \}}\comm{prima riga}\\ 
+\hphantom{ident}\code{T : matrice n+1$\times$C+1}\\
+\hphantom{ident}\code{for(int i = 0;i$\le n$;i++)\{ T[0,i]=0 \}}\comm{prima riga}\\
 \hphantom{ident}\code{for(int i = 1;i$\le n$;i++)\{}\\
 \hphantom{ident}\hphantom{ident}\code{for(int j = 0;j$\le$C;j++)\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if($s_i\le$j)\{}\\
@@ -1650,138 +1650,155 @@ $$ T[k,\alpha]=\max\big(T[k-1,\alpha],T[k-1,\alpha-s_k]+s_k\big) \;\;\;\;\;\;\;\
 \hphantom{ident}\hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{return T[n,C]}\\
-\code{\}}} 
-Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco 
+\code{\}}}
+Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco
 \greybox{
-    \code{spazio=T[n,C]}\\ 
-    \code{Sol=$\emptyset$}\\
-    \code{for(int k=n;k$\ge$1;k--)\{}\\ 
-    \hphantom{ident}\code{if(T[k,spazio]$\ne$T[k-1,spazio])}\\
-    \hphantom{ident}\hphantom{ident}\code{Sol.add($s_k$)}\\
-    \hphantom{ident}\hphantom{ident}\code{spazio-=$s_k$}\\
-    \hphantom{ident}\code{\}}\\
-    \code{\}}\\
-    \code{return Sol}}
-La complessità dell'algoritmo \code{Spazio} risulta essere $O(n\cdot C)$, si era però detto, che tale problema è non 
-polinomiale, com'è possibile che la complessità sia lineare? \acc Il punto è che la complessità, descrive la crescita della 
-computazione in base all'input, di fatto, il parametro $C$, rende la complessità \textbf{esponenziale}, in quanto l'input 
-è un numero codificato in binario, rappresentato con un input di $\log_2(C)$ bit, de facto, $C$ è esponenziale 
-rispetto $\log_2(C)$.\acc 
-Nonostante ciò, questo algoritmo risulta significativamente più efficente rispetto alla forza bruta vista in precedenza, soprattutto 
-in condizioni in cui le dimensioni dei file sono particolarmente piccole rispetto ad $n$.\acc 
+\code{spazio=T[n,C]}\\
+\code{Sol=$\emptyset$}\\
+\code{for(int k=n;k$\ge$1;k--)\{}\\
+\hphantom{ident}\code{if(T[k,spazio]$\ne$T[k-1,spazio])}\\
+\hphantom{ident}\hphantom{ident}\code{Sol.add($s_k$)}\\
+\hphantom{ident}\hphantom{ident}\code{spazio-=$s_k$}\\
+\hphantom{ident}\code{\}}\\
+\code{\}}\\
+\code{return Sol}}
+La complessità dell'algoritmo \code{Spazio} risulta essere $O(n\cdot C)$, si era però detto, che tale problema è non
+polinomiale, com'è possibile che la complessità sia lineare? \acc Il punto è che la complessità, descrive la crescita della
+computazione in base all'input, di fatto, il parametro $C$, rende la complessità \textbf{esponenziale}, in quanto l'input
+è un numero codificato in binario, rappresentato con un input di $\log_2(C)$ bit, de facto, $C$ è esponenziale
+rispetto $\log_2(C)$.\acc
+Nonostante ciò, questo algoritmo risulta significativamente più efficente rispetto alla forza bruta vista in precedenza, soprattutto
+in condizioni in cui le dimensioni dei file sono particolarmente piccole rispetto ad $n$.\acc
 Si osservi ora la seguente matrice generata dall'esecuzione dell'algoritmo su un determinato input:
 $$ C=10\;\;\;\;\;\;\;\;\;\;\;\;FileSize=\{1,5,3,5,2,2\}$$\begin{center}
     \begin{tabular}{c|ccccccccccc}
-        & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & 10                                               \\ \hline
-0                         & 0 & 0                         & 0                         & 0                         & 0                         & 0                         & 0                                                & 0                         & 0                         & 0                         & 0                                                \\
-\cellcolor[HTML]{CBCEFB}1 & 0 & \cellcolor[HTML]{FFCCC9}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{FE0000}{\color[HTML]{FFFFFF} 1} & 1                         & 1                         & 1                         & 1                                                \\
-\cellcolor[HTML]{CBCEFB}5 & 0 & 1                         & 1                         & 1                         & 1                         & 5                         & \cellcolor[HTML]{9AFF99}6                        & 6                         & 6                         & 6                         & 6                                                \\
-3                         & 0 & 1                         & 1                         & 3                         & 4                         & 5                         & \cellcolor[HTML]{FFCCC9}6                        & \cellcolor[HTML]{C0C0C0}6 & \cellcolor[HTML]{C0C0C0}8 & \cellcolor[HTML]{C0C0C0}9 & \cellcolor[HTML]{FE0000}{\color[HTML]{FFFFFF} 9} \\
-\cellcolor[HTML]{CBCEFB}4 & 0 & 1                         & 1                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{9AFF99}10                       \\
-2                         & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{9AFF99}10                       \\
-2                         & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{FFCCC9}10                      
-\end{tabular}
+                                  & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & 10                                               \\ \hline
+        0                         & 0 & 0                         & 0                         & 0                         & 0                         & 0                         & 0                                                & 0                         & 0                         & 0                         & 0                                                \\
+        \cellcolor[HTML]{CBCEFB}1 & 0 & \cellcolor[HTML]{FFCCC9}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{C0C0C0}1 & \cellcolor[HTML]{FE0000}{\color[HTML]{FFFFFF} 1} & 1                         & 1                         & 1                         & 1                                                \\
+        \cellcolor[HTML]{CBCEFB}5 & 0 & 1                         & 1                         & 1                         & 1                         & 5                         & \cellcolor[HTML]{9AFF99}6                        & 6                         & 6                         & 6                         & 6                                                \\
+        3                         & 0 & 1                         & 1                         & 3                         & 4                         & 5                         & \cellcolor[HTML]{FFCCC9}6                        & \cellcolor[HTML]{C0C0C0}6 & \cellcolor[HTML]{C0C0C0}8 & \cellcolor[HTML]{C0C0C0}9 & \cellcolor[HTML]{FE0000}{\color[HTML]{FFFFFF} 9} \\
+        \cellcolor[HTML]{CBCEFB}4 & 0 & 1                         & 1                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{9AFF99}10                       \\
+        2                         & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{9AFF99}10                       \\
+        2                         & 0 & 1                         & 2                         & 3                         & 4                         & 5                         & 6                                                & 7                         & 8                         & 9                         & \cellcolor[HTML]{FFCCC9}10
+    \end{tabular}
 \end{center}
 I colori nella matrice rappresentano l'algoritmo che,
- data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco, in questo caso \{1, 5, 4\}. \acc 
- Vediamo adesso una \textbf{generalizzaziione} del problema del disco, ossia il \textit{problema dello zaino}, vi è uno zaino 
- di capacità $C$, e ci sono $n$ oggetti $x_1,x_2\dots,x_n$, ogni oggetto $x_i$, ha peso $p_i$ e valore $v_i$. Si vuole trovare un 
- sottoinsieme di oggetti, la cui somma di pesi non è maggiore di $C$, che massimizzi la somma dei valori.\acc 
- Procediamo come nel problema del disco, che è un caso particolare di questo problema, in cui i pesi ed i valori coincidono, 
- definisco quindi la matrice $T$ tale che\begin{center}
+data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco, in questo caso \{1, 5, 4\}. \acc
+Vediamo adesso una \textbf{generalizzaziione} del problema del disco, ossia il \textit{problema dello zaino}, vi è uno zaino
+di capacità $C$, e ci sono $n$ oggetti $x_1,x_2\dots,x_n$, ogni oggetto $x_i$, ha peso $p_i$ e valore $v_i$. Si vuole trovare un
+sottoinsieme di oggetti, la cui somma di pesi non è maggiore di $C$, che massimizzi la somma dei valori.\acc
+Procediamo come nel problema del disco, che è un caso particolare di questo problema, in cui i pesi ed i valori coincidono,
+definisco quindi la matrice $T$ tale che\begin{center}
     $T[k,\alpha]=$ valore massimo che si può raggiungere con $k$ oggetti, il cui peso totale è minore o uguale a $\alpha$
- \end{center}
- Vogliamo adesso riempire le entrate della matrice, i seguenti casi sono banali
-    $$T[k,0]=0\;\;\forall k\;\;\;\;\;\;\;\;\;\;\;T[0,\alpha]=0\;\;\forall \alpha\;\;\;\;\;\;\;\;\;\;\;T[1,\alpha]=\begin{cases}
-        0\text{ se }\alpha<p_1\\ 
+\end{center}
+Vogliamo adesso riempire le entrate della matrice, i seguenti casi sono banali
+$$T[k,0]=0\;\;\forall k\;\;\;\;\;\;\;\;\;\;\;T[0,\alpha]=0\;\;\forall \alpha\;\;\;\;\;\;\;\;\;\;\;T[1,\alpha]=\begin{cases}
+        0\text{ se }\alpha<p_1 \\
         v_1\text{ se }\alpha\ge p_1
     \end{cases}\forall \alpha$$
-    A questo punto, una volta riempite le prime due righe della matrice, si vuole trovare una formula generale per 
-    il valore $T[k,\alpha]$, dati 
-    per assunti i valori di $T[k',\alpha']$, $\forall k'<k\land \forall \alpha'<\alpha$. \acc 
-Abbiamo considerato $k-1$ oggetti, consideriamo l'oggetto $x_k$, se non lo selezionassimo, si avrebbe che 
-$T[k,\alpha]=T[k-1,\alpha]$, nel caso in cui lo prendessimo invece, se $p_k\le \alpha$, si avrebbe che 
+A questo punto, una volta riempite le prime due righe della matrice, si vuole trovare una formula generale per
+il valore $T[k,\alpha]$, dati
+per assunti i valori di $T[k',\alpha']$, $\forall k'<k\land \forall \alpha'<\alpha$. \acc
+Abbiamo considerato $k-1$ oggetti, consideriamo l'oggetto $x_k$, se non lo selezionassimo, si avrebbe che
+$T[k,\alpha]=T[k-1,\alpha]$, nel caso in cui lo prendessimo invece, se $p_k\le \alpha$, si avrebbe che
 $T[k,\alpha]=T[k-1,\alpha-p_k]+v_k$, una volta riempita la matrice, il risultato sarà $T[n,C]$.
 \greybox{
     \code{Zaino($\{v_1,v_2\dots,v_k\}$, $\{p_1,p_2\dots_k\}$, C)\{}\\
-    \hphantom{ident}\code{T = matrice $n\times (C+1)$}\\ 
-    \hphantom{ident}\code{for (int j = 0; j$\le$ C; j++)\{}\comm{riempio la prima riga}\\ 
+    \hphantom{ident}\code{T = matrice $n\times (C+1)$}\\
+    \hphantom{ident}\code{for (int j = 0; j$\le$ C; j++)\{}\comm{riempio la prima riga}\\
     \hphantom{ident}\hphantom{ident}\code{if(j$\ge p_1$)\{ T[1,j] = $v_1$ \}}\\
     \hphantom{ident}\hphantom{ident}\code{else\{ T[1,j] = 0 \}}\\
     \hphantom{ident}\code{\}}\\
 }\greybox{
-    \hphantom{ident}\code{for (int i = 1; j$\le$ $n$; i++)\{}\\
-    \hphantom{ident}\hphantom{ident}\code{for (int j = 0; j$\le$ C; j++)\{}\\
-    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if($p_j\le$j)\{}\\
-    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=max(T[i-1,j], T[i-1,j-$p_i$]+$b_i$)}\\
-    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}else\{}\\
-    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=T[i-1,j]}\\
-    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
-    \hphantom{ident}\hphantom{ident}\code{\}}\\
-    \hphantom{ident}\code{\}}\\
-    \hphantom{ident}\code{return T[$n$,C]}\\
-    \code{\}}\\
+\hphantom{ident}\code{for (int i = 1; j$\le$ $n$; i++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{for (int j = 0; j$\le$ C; j++)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if($p_j\le$j)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=max(T[i-1,j], T[i-1,j-$p_i$]+$b_i$)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}else\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=T[i-1,j]}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return T[$n$,C]}\\
+\code{\}}\\
 }
-La programmazione dinamica è necessaria per un certo insieme di problemi, si potrebbe pensare di risolvere il problema 
-dello zaino con un approccio \textit{greedy}, ordinando gli oggetti in maniera decrescente secondo i loro rapporti 
+La programmazione dinamica è necessaria per un certo insieme di problemi, si potrebbe pensare di risolvere il problema
+dello zaino con un approccio \textit{greedy}, ordinando gli oggetti in maniera decrescente secondo i loro rapporti
 valore-peso, ma tale approccio, non funziona, si osservi il seguente controesempio\begin{center}
     \begin{tabular}{l|l|l|l}
         oggetto   & peso & valore & $\nicefrac{v}{p}$ \\ \hline
         collana   & 6    & 13     & 2.16              \\
         bracciale & 5    & 10     & 2                 \\
-        bracciale & 5    & 10     & 2                
-        \end{tabular} \hphantom{textaaaaaaaaa}$C=10$
+        bracciale & 5    & 10     & 2
+    \end{tabular} \hphantom{textaaaaaaaaa}$C=10$
 \end{center}
-Ordinando e selezionando gli oggetti, il sottoinsieme soluzione sarebbe composto solo dalla collana, quando la soluzione 
-ottimale effettiva dovrebbe essere composta dai due bracciali.\acc 
-Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme di oggetti da inserire nello zaino. 
+Ordinando e selezionando gli oggetti, il sottoinsieme soluzione sarebbe composto solo dalla collana, quando la soluzione
+ottimale effettiva dovrebbe essere composta dai due bracciali.\acc
+Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme di oggetti da inserire nello zaino.
 \greybox{
-    \code{col=C}\\ 
+    \code{col=C}\\
     \code{Sol=$\emptyset$}\\
-    \code{for(int i=n;i$\ge$2;i--)\{}\\ 
+    \code{for(int i=n;i$\ge$2;i--)\{}\\
     \hphantom{ident}\code{if(T[i,col]$\ne$T[i-1,col])}\\
     \hphantom{ident}\hphantom{ident}\code{Sol.add($x_i$)}\\
     \hphantom{ident}\hphantom{ident}\code{col=col-$p_i$}\\
     \hphantom{ident}\code{\}}\\
     \code{\}}\\
     \code{return Sol}}
-Vediamo adesso un nuovo problema riguardante i grafi, che necessita di una soluzione dal punto di vista della programmazione 
-dinamica, sia $G$ un grafo diretto con peso sugli archi, tale che i pesi sono sempre maggiori o uguale a zero, sappiamo che 
-con l'algoritmo di Dijkstra, è possibile trovare un cammino di costo minimo fra due nodi. Il problema inverso, ossia la ricerca 
-di un cammino di costo massimo, è un problema np-completo, a meno che non vi sia l'assunzione che il grafo sia aciclico.\acc 
-\textbf{Proposizione} : Sia $G$ un grafo diretto pesato ed aciclico, siano $x,u,v$ tre vertici di $G$, tali che esiste 
-un arco $(u,v)$. Se esiste un cammino da $x$ a $u$ di peso $\alpha$, allora esiste un cammino da $x$ a $v$ tale che 
+Vediamo adesso un nuovo problema riguardante i grafi, che necessita di una soluzione dal punto di vista della programmazione
+dinamica, sia $G$ un grafo diretto con peso sugli archi, tale che i pesi sono sempre maggiori o uguale a zero, sappiamo che
+con l'algoritmo di Dijkstra, è possibile trovare un cammino di costo minimo fra due nodi. Il problema inverso, ossia la ricerca
+di un cammino di costo massimo, è un problema np-completo, a meno che non vi sia l'assunzione che il grafo sia aciclico.\acc
+\textbf{Proposizione} : Sia $G$ un grafo diretto pesato ed aciclico, siano $x,u,v$ tre vertici di $G$, tali che esiste
+un arco $(u,v)$. Se esiste un cammino da $x$ a $u$ di peso $\alpha$, allora esiste un cammino da $x$ a $v$ tale che
 $$ w(x\rightarrow v)=\alpha + w((u,v))$$ \begin{center}
     \includegraphics[width=0.65\textwidth ]{images/cammCostoMax.eps}
 \end{center}
-\textbf{Dimostrazione} : Sia $P$ il cammino $x\rightarrow u \cup (u,v)$, esso, è un cammino da $x$ a $v$ se e solo 
-se nel percorso, il nodo $u$ compare prima di $v$, se così non fosse, esisterebbe un ciclo in $P$, ma data l'ipotesi, 
-il grafo è aciclico, quindi la proposizione è dimostrata.\acc 
-Si vuole trovare un algoritmo che sfrutti la programmazione dinamica per trovare il cammino di costo massimo in una complessità 
+\textbf{Dimostrazione} : Sia $P$ il cammino $x\rightarrow u \cup (u,v)$, esso, è un cammino da $x$ a $v$ se e solo
+se nel percorso, il nodo $u$ compare prima di $v$, se così non fosse, esisterebbe un ciclo in $P$, ma data l'ipotesi,
+il grafo è aciclico, quindi la proposizione è dimostrata.\acc
+Si vuole trovare un algoritmo che sfrutti la programmazione dinamica per trovare il cammino di costo massimo in una complessità
 polinomiale, si considera, come di consueto, una matrice $T$ tale che\begin{center}
     $T[z,k]=$ peso massimo di un cammino composto da $k$ archi da un nodo sorgente $x$ al nodo $z$
-\end{center} 
-Anche in questo caso, è facile individuare alcuni casi banali 
+\end{center}
+Anche in questo caso, è facile individuare alcuni casi banali
 $$ T[z,0]=\begin{cases}
-    0\text{ se }z=x\\ 
-    \text{\codee{NULL} altrimenti}
-\end{cases}\;\;\;T[z,1]=\begin{cases}
-    w(x,z)\text{ se }\exists (x,z)\in E(G)\\ 
-    \text{\codee{NULL} altrimenti}
-\end{cases}\;\;\;T[x,1]=NULL$$
-A questo punto, assumendo di conoscere il valore di $T[z,k]\;\;\;\forall z\in V(G)$, si vuole calcolare il valore di 
-$T[z,k+1]$, il problema risulta essere piuttosto intuitivo, sia infatti $N$ l'insieme dei nodi adiacenti entranti a $z$ 
-$$ N=\{u\in V(G) | \exists (u,z)\in E(G)\}$$ 
-Risulta chiaro che, esiste un cammino di $k+1$ archi da $x$ a $z$, se e solo se esiste un cammino di $k$ archi da 
-$x$ a $u\in N$. Il cammino di costo massimo risulta essere: 
-$$ \forall u \in N,\;\; P_u=\text{ percorso da }x\text{ a }u$$ 
+        0\text{ se }z=x \\
+        \text{\codee{NULL} altrimenti}
+    \end{cases}\;\;\;T[z,1]=\begin{cases}
+        w(x,z)\text{ se }\exists (x,z)\in E(G) \\
+        \text{\codee{NULL} altrimenti}
+    \end{cases}\;\;\;T[x,1]=NULL$$
+A questo punto, assumendo di conoscere il valore di $T[z,k]\;\;\;\forall z\in V(G)$, si vuole calcolare il valore di
+$T[z,k+1]$, il problema risulta essere piuttosto intuitivo, sia infatti $N$ l'insieme dei nodi adiacenti entranti a $z$
+$$ N=\{u\in V(G) | \exists (u,z)\in E(G)\}$$
+Risulta chiaro che, esiste un cammino di $k+1$ archi da $x$ a $z$, se e solo se esiste un cammino di $k$ archi da
+$x$ a $u\in N$. Il cammino di costo massimo risulta essere:
+$$ \forall u \in N,\;\; P_u=\text{ percorso da }x\text{ a }u$$
 $$ T[z,k+1]=\max\Big(\bigcup_{u\in N}w(P_u)+w(u,z)\Big)$$\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/cammCostoMax2.eps}
 \end{center}
-Per trovare il cammino di costo massimo da $x$ ad $y$ quindi, costruisco la matrice $T$ con sorgente $x$, per poi controllare 
+Per trovare il cammino di costo massimo da $x$ ad $y$ quindi, costruisco la matrice $T$ con sorgente $x$, per poi controllare
 tutti i cammini, con qualsiasi numero di archi da $x$ ad $y$, selezionando quello di costo massimo.
 \greybox{
-    \code{Cammino\_massimo( G grafo diretto aciclico con pesi, x, y )\{}
-    \code{\}}\\
+\code{Cammino\_massimo( G grafo diretto aciclico con pesi, x, y )\{}
+\hphantom{ident}\code{T = matrice $n\times n$}\comm{$n$ è il numero di nodi del grafo}\\
+\hphantom{ident}\code{for each z$\in$V(G)\{}\\
+\hphantom{ident}\hphantom{ident}\code{if(z==x)\{ T[z,0] = 0\}}\\
+\hphantom{ident}\hphantom{ident}\code{else\{ T[z,0] = NULL\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{for (int k = 1; k<$n$; k++)\{}\\
+\hphantom{ident}\hphantom{ident}\code{for each z$\in$V(G)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{massimo=NULL}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{for each u$\in$V(G) t.c. $\exists$(u,z)$\in$E(G)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(T[u,k-1]+w(u,z)>massimo $\lor$ massimo==NULL)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{massimo=T[u,k-1]+w(u,z)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[z,k]=massimo}\\
+\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{\}}\\
+\hphantom{ident}\code{return max(T[y,k] $\forall$ k tale che T[y,k]$\ne$NULL)}\\
+\code{\}}\\
 }
 \end{document}
