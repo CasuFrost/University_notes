@@ -1651,7 +1651,7 @@ $$ T[k,\alpha]=\max\big(T[k-1,\alpha],T[k-1,\alpha-s_k]+s_k\big) \;\;\;\;\;\;\;\
 \hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{return T[n,C]}\\
 \code{\}}} 
-Le seguenti linee di codice, data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco 
+Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco 
 \greybox{
     \code{spazio=T[n,C]}\\ 
     \code{Sol=$\emptyset$}\\
@@ -1683,5 +1683,68 @@ $$ C=10\;\;\;\;\;\;\;\;\;\;\;\;FileSize=\{1,5,3,5,2,2\}$$\begin{center}
 \end{tabular}
 \end{center}
 I colori nella matrice rappresentano l'algoritmo che,
- data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco, in questo caso \{1, 5, 4\}. 
+ data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco, in questo caso \{1, 5, 4\}. \acc 
+ Vediamo adesso una \textbf{generalizzaziione} del problema del disco, ossia il \textit{problema dello zaino}, vi è uno zaino 
+ di capacità $C$, e ci sono $n$ oggetti $x_1,x_2\dots,x_n$, ogni oggetto $x_i$, ha peso $p_i$ e valore $v_i$. Si vuole trovare un 
+ sottoinsieme di oggetti, la cui somma di pesi non è maggiore di $C$, che massimizzi la somma dei valori.\acc 
+ Procediamo come nel problema del disco, che è un caso particolare di questo problema, in cui i pesi ed i valori coincidono, 
+ definisco quindi la matrice $T$ tale che\begin{center}
+    $T[k,\alpha]=$ valore massimo che si può raggiungere con $k$ oggetti, il cui peso totale è minore o uguale a $\alpha$
+ \end{center}
+ Vogliamo adesso riempire le entrate della matrice, i seguenti casi sono banali
+    $$T[k,0]=0\;\;\forall k\;\;\;\;\;\;\;\;\;\;\;T[0,\alpha]=0\;\;\forall \alpha\;\;\;\;\;\;\;\;\;\;\;T[1,\alpha]=\begin{cases}
+        0\text{ se }\alpha<p_1\\ 
+        v_1\text{ se }\alpha\ge p_1
+    \end{cases}\forall \alpha$$
+    A questo punto, una volta riempite le prime due righe della matrice, si vuole trovare una formula generale per 
+    il valore $T[k,\alpha]$, dati 
+    per assunti i valori di $T[k',\alpha']$, $\forall k'<k\land \forall \alpha'<\alpha$. \acc 
+Abbiamo considerato $k-1$ oggetti, consideriamo l'oggetto $x_k$, se non lo selezionassimo, si avrebbe che 
+$T[k,\alpha]=T[k-1,\alpha]$, nel caso in cui lo prendessimo invece, se $p_k\le \alpha$, si avrebbe che 
+$T[k,\alpha]=T[k-1,\alpha-p_k]+v_k$, una volta riempita la matrice, il risultato sarà $T[n,C]$.
+\greybox{
+    \code{Zaino($\{v_1,v_2\dots,v_k\}$, $\{p_1,p_2\dots_k\}$, C)\{}\\
+    \hphantom{ident}\code{T = matrice $n\times (C+1)$}\\ 
+    \hphantom{ident}\code{for (int j = 0; j$\le$ C; j++)\{}\comm{riempio la prima riga}\\ 
+    \hphantom{ident}\hphantom{ident}\code{if(j$\ge p_1$)\{ T[1,j] = $v_1$ \}}\\
+    \hphantom{ident}\hphantom{ident}\code{else\{ T[1,j] = 0 \}}\\
+    \hphantom{ident}\code{\}}\\
+}\greybox{
+    \hphantom{ident}\code{for (int i = 1; j$\le$ $n$; i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{for (int j = 0; j$\le$ C; j++)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if($p_j\le$j)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=max(T[i-1,j], T[i-1,j-$p_i$]+$b_i$)}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}else\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=T[i-1,j]}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return T[$n$,C]}\\
+    \code{\}}\\
+}
+La programmazione dinamica è necessaria per un certo insieme di problemi, si potrebbe pensare di risolvere il problema 
+dello zaino con un approccio \textit{greedy}, ordinando gli oggetti in maniera decrescente secondo i loro rapporti 
+valore-peso, ma tale approccio, non funziona, si osservi il seguente controesempio\begin{center}
+    \begin{tabular}{l|l|l|l}
+        oggetto   & peso & valore & $\nicefrac{v}{p}$ \\ \hline
+        collana   & 6    & 13     & 2.16              \\
+        bracciale & 5    & 10     & 2                 \\
+        bracciale & 5    & 10     & 2                
+        \end{tabular} \hphantom{textaaaaaaaaa}$C=10$
+\end{center}
+Ordinando e selezionando gli oggetti, il sottoinsieme soluzione sarebbe composto solo dalla collana, quando la soluzione 
+ottimale effettiva dovrebbe essere composta dai due bracciali.\acc 
+Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme di oggetti da inserire nello zaino. 
+\greybox{
+    \code{col=C}\\ 
+    \code{Sol=$\emptyset$}\\
+    \code{for(int i=n;i$\ge$2;i--)\{}\\ 
+    \hphantom{ident}\code{if(T[i,col]$\ne$T[i-1,col])}\\
+    \hphantom{ident}\hphantom{ident}\code{Sol.add($x_i$)}\\
+    \hphantom{ident}\hphantom{ident}\code{col=col-$p_i$}\\
+    \hphantom{ident}\code{\}}\\
+    \code{\}}\\
+    \code{return Sol}}
+Vediamo adesso un nuovo problema riguardante i grafi, che necessita di una soluzione dal punto di vista della programmazione 
+dinamica,
 \end{document}
