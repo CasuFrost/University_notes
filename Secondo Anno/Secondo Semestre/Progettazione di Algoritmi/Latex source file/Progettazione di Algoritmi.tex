@@ -1746,5 +1746,42 @@ Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme 
     \code{\}}\\
     \code{return Sol}}
 Vediamo adesso un nuovo problema riguardante i grafi, che necessita di una soluzione dal punto di vista della programmazione 
-dinamica,
+dinamica, sia $G$ un grafo diretto con peso sugli archi, tale che i pesi sono sempre maggiori o uguale a zero, sappiamo che 
+con l'algoritmo di Dijkstra, è possibile trovare un cammino di costo minimo fra due nodi. Il problema inverso, ossia la ricerca 
+di un cammino di costo massimo, è un problema np-completo, a meno che non vi sia l'assunzione che il grafo sia aciclico.\acc 
+\textbf{Proposizione} : Sia $G$ un grafo diretto pesato ed aciclico, siano $x,u,v$ tre vertici di $G$, tali che esiste 
+un arco $(u,v)$. Se esiste un cammino da $x$ a $u$ di peso $\alpha$, allora esiste un cammino da $x$ a $v$ tale che 
+$$ w(x\rightarrow v)=\alpha + w((u,v))$$ \begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/cammCostoMax.eps}
+\end{center}
+\textbf{Dimostrazione} : Sia $P$ il cammino $x\rightarrow u \cup (u,v)$, esso, è un cammino da $x$ a $v$ se e solo 
+se nel percorso, il nodo $u$ compare prima di $v$, se così non fosse, esisterebbe un ciclo in $P$, ma data l'ipotesi, 
+il grafo è aciclico, quindi la proposizione è dimostrata.\acc 
+Si vuole trovare un algoritmo che sfrutti la programmazione dinamica per trovare il cammino di costo massimo in una complessità 
+polinomiale, si considera, come di consueto, una matrice $T$ tale che\begin{center}
+    $T[z,k]=$ peso massimo di un cammino composto da $k$ archi da un nodo sorgente $x$ al nodo $z$
+\end{center} 
+Anche in questo caso, è facile individuare alcuni casi banali 
+$$ T[z,0]=\begin{cases}
+    0\text{ se }z=x\\ 
+    \text{\codee{NULL} altrimenti}
+\end{cases}\;\;\;T[z,1]=\begin{cases}
+    w(x,z)\text{ se }\exists (x,z)\in E(G)\\ 
+    \text{\codee{NULL} altrimenti}
+\end{cases}\;\;\;T[x,1]=NULL$$
+A questo punto, assumendo di conoscere il valore di $T[z,k]\;\;\;\forall z\in V(G)$, si vuole calcolare il valore di 
+$T[z,k+1]$, il problema risulta essere piuttosto intuitivo, sia infatti $N$ l'insieme dei nodi adiacenti entranti a $z$ 
+$$ N=\{u\in V(G) | \exists (u,z)\in E(G)\}$$ 
+Risulta chiaro che, esiste un cammino di $k+1$ archi da $x$ a $z$, se e solo se esiste un cammino di $k$ archi da 
+$x$ a $u\in N$. Il cammino di costo massimo risulta essere: 
+$$ \forall u \in N,\;\; P_u=\text{ percorso da }x\text{ a }u$$ 
+$$ T[z,k+1]=\max\Big(\bigcup_{u\in N}w(P_u)+w(u,z)\Big)$$\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/cammCostoMax2.eps}
+\end{center}
+Per trovare il cammino di costo massimo da $x$ ad $y$ quindi, costruisco la matrice $T$ con sorgente $x$, per poi controllare 
+tutti i cammini, con qualsiasi numero di archi da $x$ ad $y$, selezionando quello di costo massimo.
+\greybox{
+    \code{Cammino\_massimo( G grafo diretto aciclico con pesi, x, y )\{}
+    \code{\}}\\
+}
 \end{document}
