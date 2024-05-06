@@ -135,7 +135,12 @@ $$\begin{matrix} \forall u,\;v\;,vis\;\;Utente(u)\land Video(v)\land Visualizzaz
     \end{matrix}$$
 \vincolo{V.Playlist\_no\_visualizza\_privata} \\
 Per ogni utente $u$, se esiste $(u,p):puo\_visualizzare$ e non esiste $(u,p):crea$,
-allora deve essere che $p.pubblica=True$\acc
+allora deve essere che $p.pubblica=True$\\ 
+\id Formalmente $$\begin{matrix}
+    \forall u \forall p\;\;\;Utente(u)\land Playlist(p)\land \\ puo\_visualizzare(u,p) \land \lor crea(u,p)\rightarrow 
+    pubblica(p,True)
+\end{matrix} $$
+\acc
 \vincolo{V.Video\_censurati} \\
 Solo i video non censurati possono essere visualizzati, commentati, valutati o aggiunti a playlist.\\
 \id Formalmente $$\begin{matrix}
@@ -145,7 +150,10 @@ Solo i video non censurati possono essere visualizzati, commentati, valutati o a
     \end{matrix} $$
 \vincolo{V.Valutazione\_Registrati}\\
 Se esiste $(u,v):valutazione$, allora esiste $(u,vis)$ e $(vis,v)$.\\
-\id Formalmente
+\id Formalmente$$ \begin{matrix}
+    \forall ut\forall vid\;\;\; valutazione(ut,vid) \rightarrow \exists vis \\ 
+    [Visualizzazione(vis) \land ut\_vis(ut,vis) \land vid\_vis(vis,vid)]
+\end{matrix}$$
 \newpage
 \subsection{Specifica degli use-case}
 \subsubsection{Cronologia}

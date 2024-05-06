@@ -1824,7 +1824,7 @@ un unico ente/dominio/amministratore sulla quale è in esecuzione lo stesso prot
     \item \textbf{inter-AS} : protocolli di instradamento fra reti distinte, ossia fra diversi AS, gestiti dai gateway router, 
     sono necessari dei protocolli standard adottati da differenti AS.
 \end{itemize}
-\subsubsection{intra-AS : RIP e OSPF}
+\subsubsection{intra-AS : RIP e OSPF}\label{intraAs}
 Il protocollo \textbf{RIP (Routing Information Protocol)} è un protocollo di instradamento fra router di uno stesso AS adottato dagli anni '80 fino 
 ai primi anni 2000, sfrutta un algoritmo di routing di tipo distance vector, ed il costo di un percorso è dato dal 
 numero di hop (router intermedi) su di esso, quindi gli archi del grafo associato alla reti hanno peso unitario.\acc 
@@ -1893,4 +1893,49 @@ ed esegue flooding esclusivamente all'interno di essa, mentre
 conosce solamente la destinazione per il raggiungimento delle altre aree, tramite i router di bordo (colorati in grigio
 nell'immagine sovrastante), la backbone rappresenta l'area principale, che si suddivide 
 in maniera gerarchica nelle altre aree, funge inoltre da tramite per gli altri AS.
+\subsubsection{Inter-AS : BGP}
+Il più noto protocollo di instradamento fra differenti AS si chiama \textbf{BGP (Border Gateway Protocol)}, consente ad una 
+rete di identificarsi pubblicamente, "sponsorizzando" le destinazioni che possono essere raggiunte passando per essa alle 
+altre reti, specificando anche per quali altri AS trafficheranno i pacchetti destinati ad un 
+determinato percorso.\acc Tale protocollo si suddivide in\begin{itemize}
+    \item \textbf{eBGP} : interfaccia "esterna" con la quale i router gateway ottengono informazioni sui percorsi 
+    degli AS adiacenti 
+    \item \textbf{iBGP} : protocollo interno con cui i router vengono a sapere quali router gateway dovranno 
+    raggiungere per venire instradati verso un AS esterno
+\end{itemize}
+Si noti come \textit{iBGP} definisce quali sono i router gateway da raggiungere, ma non stabilisce per quale percorso 
+interno essi saranno raggiunti, ciò è definito dai protocolli di instradamento intra-AS, come i già visti RIP o 
+OSPF \ref{intraAs}.\begin{center}
+    \includegraphics[width=1.1\textwidth ]{images/BGP.eps}
+\end{center}
+I messaggi BGP vengono inviati tramite una connessione TCP persistente, e possono essere di diversi tipi\begin{itemize}
+    \item \code{OPEN} mette in comunicazione due router che dovranno scambiarsi messaggi BGP aprendo la connessione 
+    \item \code{UPDATE} sponsorizza ad un router un nuovo percorso, oppure ne elimina uno obsoleto 
+    \item \code{KEEPALIVE} a seguito di un assenza di messaggi update, questo messaggio segnala che la connessione 
+    va mantenuta 
+    \item \code{NOTIFICATION} utilizzatto per chiudere una connessione, oppure per segnalare degli errori 
+\end{itemize}
+Quando un router sponsorizza un percorso fornisce un prefisso, rappresentante la destinazione, e degli attributi, 
+rappresentanti gli AS presenti sul tragitto, insieme al next-hop, ossia l'AS subito successivo, grazie ad essi, 
+tramite delle politiche interne, verrà deciso quali percorsi accettare (e sponsorizzare), e quali ignorare.\acc 
+È uno scenario comune, quello in cui un ISP vuole sfruttare la propria rete esclusivamente per instradare il traffico 
+relativo ai propri clienti, per scopi commerciali può quindi scegliere, attraverso delle specifiche politiche interne, di 
+evitare che pacchetti destinati a clienti di altri ISP vengano instradati sulla propria rete, dato che da essi, non vi 
+è alcun ricavo.\acc 
+Si osservi il seguente scenario : l'AS $X$ riceve sulla propria rete un pacchetto destinato ad un router esterno $y$ 
+alla propria rete, il percorso più breve verso $y$, si cimenta in una serie di router interni ad $X$, esiste anche un 
+percorso che fa utilizzo di hop esterni ad $X$, ma tale percorso è considerevolmente più lungo:\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/hotPotato.eps}
+\end{center}
+Nell'immagine sovrastante, anche se il percorso rosso è quello ottimale verso $y$, l'AS $X$ provvederà ad instradare 
+il pacchetto verso il router $z$, cercando di liberarsi il più rapidamente possibile di un pacchetto che 
+creerebbe traffico sulla rete di $X$ senza portare alcun guadagno, tale problema è noto con il nome di \textbf{hot 
+potato routing}, ed è un chiaro esempio di come, diversamente dal routing intra-AS dove si mettono al primo posto le prestazioni, 
+nel routing-AS la decisione dei percorsi segue dei criteri commerciali e talvolta politici. La scelta di un percorso dipende 
+da pià fattori\begin{itemize}
+    \item politiche interne 
+    \item percorso fra AS più breve 
+    \item router next hop (hot potato) 
+    \item criteri aggiuntivi
+\end{itemize}
 \end{document}
