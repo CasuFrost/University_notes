@@ -46,6 +46,7 @@ create table WP (
 	fine  date,
 	inizio  date check(inizio<fine), 
 	primary key (id),
+	unique nome,
 	unique (progetto, id),
 	foreign key (progetto) references Progetto(id)
 )

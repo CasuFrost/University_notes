@@ -9,7 +9,7 @@
 \usepackage{mathtools}
 \newcommand{\acc}{\\\hphantom{}\\}
 \usepackage[dvipsnames]{xcolor}
-\usepackage[table,xcdraw]{xcolor}
+
 \definecolor{light-gray}{gray}{0.95}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 \newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
@@ -28,39 +28,39 @@
 
 \maketitle\section{Requisiti}
 \hphantom{a}\\
-1. Utente \\ 
+1. Utente \\
 \id 1.1 nome \\
 \id 1.2 data iscrizione \\
 \id 1.3 playlist create \\
 \id 1.4 playlist visualizzate \\
-\id 1.5 video pubblicati\\ 
-\id \id 1.5.1 istante pubblicazione\\ 
+\id 1.5 video pubblicati\\
+\id \id 1.5.1 istante pubblicazione\\
 \id 1.6 video visualizzati \\
 \id \id 1.6.1 data ed ora visualizzazione \\
 \id \id 1.6.2 valutazione video \\
-\id \id 1.6.3 commento al video\\ 
+\id \id 1.6.3 commento al video\\
 \id \id \id 1.6.3.1 data ed ora commento \acc
 2. Playlist \\
 \id 2.1 nome \\
 \id 2.2 data creazione \\
 \id 2.3 pubblica o privata? \\
 \id 2.4 video coinvolti \\
-\id \id 2.4.1 ordine del video \acc 
-3. Video \\ 
+\id \id 2.4.1 ordine del video \acc
+3. Video \\
 \id 3.1 titolo \\
 \id 3.2 commenti \\
 \id \id 3.2.1 data ed ora commento \\
-\id 3.3 descrizione \\ 
+\id 3.3 descrizione \\
 \id 3.4 file video \\
 \id 3.5 istante pubblicazione \\
 \id 3.6 video censurato? \\
 \id \id 3.6.1 motivazione censura\\
-\id 3.7 statistiche \\ 
+\id 3.7 statistiche \\
 \id \id 3.7.1 durata del video in secondi \\
 \id \id 3.7.2 numero di visualizzazioni \\
 \id \id 3.7.3 valutazione media \\
 \id \id 3.7.4 numero di video risposta\\
-\id 3.8 video risposta? \\ 
+\id 3.8 video risposta? \\
 \id \id 3.8.1 video alla quale si risponde \\
 \id 3.9 tag del video \\
 \id 3.10 categoria del video\\
@@ -76,8 +76,8 @@
 \section{Specifiche}
 \subsection{Specifica dei tipi di dato}
 FileVideo:      \\
-\id- sequenza di byte che codifica un flusso video \\    
-\id- operazioni del tipo di dato      \\ 
+\id- sequenza di byte che codifica un flusso video \\
+\id- operazioni del tipo di dato      \\
 \id durataSec(f:FileVideo): Intero $\ge$ 0\\
 \id \id \textit{pre-condizioni} :  nessuna\\
 \id \id \textit{post-condizioni} : result è la durata di 'f'
@@ -90,23 +90,23 @@ FileVideo:      \\
 \code{n\_visualizzazioni () : Intero$\ge$0}\begin{itemize}
     \item \textit{pre-condizioni} : Nessuna
     \item \textit{post-condizioni} : $result$ è il numero \\di oggetti $v:Visualizzazione$ tali che:
-    $(this, v): vid_vis$
+          $(this, v): vid_vis$
 \end{itemize}
 \code{valutazione\_media () : Reale $\in$ [1,5]}\begin{itemize}
     \item \textit{pre-condizioni} : Deve esistere almeno un link $(this,vis):vid\_vis$ con $vis.valutazione\ne NULL$
     \item \textit{post-condizioni} :\\
-    \id Sia $VIS$ l'insieme degli oggetti $vis:Visualizzazione$ 
-    \\\id tali che $\exists(this,vis):vid\_vis\land vis.valutazione\ne NULL$\\ 
-    \id Si ha che $$ result = \dfrac{1}{|VIS|}\cdot \sum_{vis\in VIS}vis.valutazione$$
+          \id Sia $VIS$ l'insieme degli oggetti $vis:Visualizzazione$
+          \\\id tali che $\exists(this,vis):vid\_vis\land vis.valutazione\ne NULL$\\
+          \id Si ha che $$ result = \dfrac{1}{|VIS|}\cdot \sum_{vis\in VIS}vis.valutazione$$
 \end{itemize}
 \code{num\_risposte () : Intero $\ge$ 0}\begin{itemize}
     \item \textit{pre-condizioni} : Nessuna
-    \item  \textit{post-condizioni} :\\ 
-    \id  Sia $R$ l'insieme dei link $r:risposta\_a\_video$\\ 
-    \id tali che $this$ è coinvolto in $r$ secondo il ruolo $originale$.\\ 
-    \id $result = |R|$
+    \item  \textit{post-condizioni} :\\
+          \id  Sia $R$ l'insieme dei link $r:risposta\_a\_video$\\
+          \id tali che $this$ è coinvolto in $r$ secondo il ruolo $originale$.\\
+          \id $result = |R|$
 \end{itemize}
-\newpage 
+\newpage
 \subsection{Specifica dei vincoli esterni}
 \vincolo{V.Video.autore\_non\_risponde\_a\_se\_stesso} \\
 Per ogni r:Video, per cui esiste v:Video tale che\\
@@ -116,124 +116,127 @@ Per ogni r:Video, per cui esiste v:Video tale che\\
 \id\id (u, r): pubblica\\
 \id Deve che (u,v) non è un link di pubblica.\\
 \id Formalmente:\\
-	$$ \begin{matrix}\forall r,v,u \;\;\;  Video(r) \land Video(v) \land Utente(u) \land \\
-				pubblica(u,r) \land \\
-				risponde\_a\_video(r,v)  \;\;\;\rightarrow\\
-                \lnot pubblica(u,v) \end{matrix}$$
-\vincolo{V.Visualizzazione.valutare\_proprio\_video} \\ 
-Per ogni utente $u$, sia $VIS$ l'insieme degli oggetti di tipo $Visualizzazione$ 
+$$ \begin{matrix}\forall r,v,u \;\;\;  Video(r) \land Video(v) \land Utente(u) \land \\
+        pubblica(u,r) \land                                                 \\
+        risponde\_a\_video(r,v)  \;\;\;\rightarrow                          \\
+        \lnot pubblica(u,v)\end{matrix}$$
+\vincolo{V.Visualizzazione.valutare\_proprio\_video} \\
+Per ogni utente $u$, sia $VIS$ l'insieme degli oggetti di tipo $Visualizzazione$
 tale che:\begin{itemize}
     \item $\exists (u,vis):ut\_vis$ con $vis\in VIS$
     \item $\exists (vis,v):vid\_vis$ con $vis\in VIS$
     \item $\exists(u,v):utente\_pubblica\_video$
 \end{itemize}
-Deve essere che $\forall\; vis \in Vis,\;\;\;vis.valutazione=NULL$\\ 
-\id Formalmente 
-$$\begin{matrix} \forall u,\;v\;,vis\;\;Utente(u)\land Video(v)\land Visualizzazione(vis)\\
-    \land ut\_vis(u,vis)\land vid\_vis(vis,v)\\\land utente\_pubblica\_video(u,v)\rightarrow \\ 
-    valutazione(vis,NULL) 
-\end{matrix}$$
-\vincolo{V.Playlist\_no\_visualizza\_privata} \\ 
-Per ogni utente $u$, se esiste $(u,p):puo\_visualizzare$ e non esiste $(u,p):crea$, 
+Deve essere che $\forall\; vis \in Vis,\;\;\;vis.valutazione=NULL$\\
+\id Formalmente
+$$\begin{matrix} \forall u,\;v\;,vis\;\;Utente(u)\land Video(v)\land Visualizzazione(vis) \\
+        \land ut\_vis(u,vis)\land vid\_vis(vis,v)                                \\\land utente\_pubblica\_video(u,v)\rightarrow \\
+        valutazione(vis,NULL)
+    \end{matrix}$$
+\vincolo{V.Playlist\_no\_visualizza\_privata} \\
+Per ogni utente $u$, se esiste $(u,p):puo\_visualizzare$ e non esiste $(u,p):crea$,
 allora deve essere che $p.pubblica=True$\acc
 \vincolo{V.Video\_censurati} \\
 Solo i video non censurati possono essere visualizzati, commentati, valutati o aggiunti a playlist.\\
 \id Formalmente $$\begin{matrix}
-    \forall v,\;vis,\;e\;\;\;Video(v)\land Visualizzazione(vis)\land Elemento(e)\\ 
-    elem\_video(v,e)\lor vid\_vis(vis,v) \rightarrow \\ 
-    censura(v,False)
-\end{matrix} $$
+        \forall v,\;vis,\;e\;\;\;Video(v)\land Visualizzazione(vis)\land Elemento(e) \\
+        elem\_video(v,e)\lor vid\_vis(vis,v) \rightarrow                             \\
+        censura(v,False)
+    \end{matrix} $$
+\vincolo{V.Valutazione\_Registrati}\\
+Se esiste $(u,v):valutazione$, allora esiste $(u,vis)$ e $(vis,v)$.\\
+\id Formalmente
 \newpage
 \subsection{Specifica degli use-case}
 \subsubsection{Cronologia}
 \code{cronologia(): Visualizzazione $[$0..*$]$ }\begin{itemize}
     \item \textit{pre-condizioni} : Nessuna
-    \item \textit{post-condizioni} : Sia u:Utente l'oggetto che rappresenta l'attore\\ che ha 
-    invocato l'operazione.
-    $result$ è l'insieme dei\\ $v:Visualizzazione$ tali che:
-        $(u,v):ut\_vis$
+    \item \textit{post-condizioni} : Sia u:Utente l'oggetto che rappresenta l'attore\\ che ha
+          invocato l'operazione.
+          $result$ è l'insieme dei\\ $v:Visualizzazione$ tali che:
+          $(u,v):ut\_vis$
 \end{itemize}
 \subsubsection{PubblicazioneVideo}
 \code{nuovoVideo(t:Stringa, d:Stringa, f:FileVideo, c:Categoria, T:Tag $[$1..*$]$) : Video }\begin{itemize}
     \item \textit{pre-condizioni} : Nessuna
-    \item \textit{post-condizioni} :  
-    Viene creato e restituito result:Video tale che:\begin{itemize}
-        \item  result.titolo = t
-        \item  result.descrizione = d
-        \item  result.flusso = f
-        \item  result.istante = adesso
-\end{itemize}
-Viene creato il link $(c, result): cat\_video$.
+    \item \textit{post-condizioni} :
+          Viene creato e restituito result:Video tale che:\begin{itemize}
+              \item  result.titolo = t
+              \item  result.descrizione = d
+              \item  result.flusso = f
+              \item  result.istante = adesso
+          \end{itemize}
+          Viene creato il link $(c, result): cat\_video$.
 
-Per ogni $t:T$, viene creato il link $(t,result): tag\_video$.
+          Per ogni $t:T$, viene creato il link $(t,result): tag\_video$.
 
-Sia $u:Utente$ l'oggetto che rappresenta l'attore che ha 
-invocato l'operazione.
+          Sia $u:Utente$ l'oggetto che rappresenta l'attore che ha
+          invocato l'operazione.
 
-Viene creato il link $(u,result): utente\_pubblica\_video$.
+          Viene creato il link $(u,result): utente\_pubblica\_video$.
 \end{itemize}
 \subsubsection{Registrazione}
 \code{nuovoUtente(nome:Stringa) : Utente}\begin{itemize}
     \item \textit{pre-condizioni} : $\nexists u:Utente$ tale che $u.nome = nome$
-    \item \textit{post-condizioni} :  
-    viene creato e restituito $result:Utente$ tale che:
+    \item \textit{post-condizioni} :
+          viene creato e restituito $result:Utente$ tale che:
 
-				$result.nome$ = nome
+          $result.nome$ = nome
 
-				$result.iscrizione=now$ 
+          $result.iscrizione=now$
 \end{itemize}
 \subsubsection{Gestione Playlist}
 \code{crea\_playlist(nome:Stringa, privacy : Booleano) : Playlist}\begin{itemize}
-    \item \textit{pre-condizioni} : Nessuna 
-    \item \textit{post-condizioni} : Viene creato un oggetto $p:Playlist$, per cui $result=p$, 
-    e tale che \begin{itemize}
-        \item $p.nome=$nome 
-        \item $p.pubblica=$privacy 
-        \item $p.creazione=now$
-    \end{itemize}
-    Viene creato un link $(u,p):crea$ dove $u:Utente$ è l'utente che ha chiamato l'invocazione.
+    \item \textit{pre-condizioni} : Nessuna
+    \item \textit{post-condizioni} : Viene creato un oggetto $p:Playlist$, per cui $result=p$,
+          e tale che \begin{itemize}
+              \item $p.nome=$nome
+              \item $p.pubblica=$privacy
+              \item $p.creazione=now$
+          \end{itemize}
+          Viene creato un link $(u,p):crea$ dove $u:Utente$ è l'utente che ha chiamato l'invocazione.
 \end{itemize}
 \code{aggiungi\_elemento( p:Playlist, v:Video, ord:Intero):Elemento}\begin{itemize}
-    \item \textit{pre-condizioni} : Sia $u:Utente$ l'utente che ha chiamato l'invocazione, 
-    deve esistere $(u,p):crea$. \\ 
-    Sia $E$ l'insieme di oggetti $e:Elemento$ tali che $\exists (p,e):play\_elem$, deve 
-    essere che $\forall e\in E\;\;e.ordine\ne$ord \\ 
-    Deve essere che v.censura=False
-    \item \textit{post-condizioni} : \\\id Viene creato un oggetto $e:Elemento$, per cui $e.ordine$=ord\\ 
-    \id Viene creato il link $(p,e):play\_elem$ \\ 
-    \id Viene creato il link $(e,v):elem\_video$
+    \item \textit{pre-condizioni} : Sia $u:Utente$ l'utente che ha chiamato l'invocazione,
+          deve esistere $(u,p):crea$. \\
+          Sia $E$ l'insieme di oggetti $e:Elemento$ tali che $\exists (p,e):play\_elem$, deve
+          essere che $\forall e\in E\;\;e.ordine\ne$ord \\
+          Deve essere che v.censura=False
+    \item \textit{post-condizioni} : \\\id Viene creato un oggetto $e:Elemento$, per cui $e.ordine$=ord\\
+          \id Viene creato il link $(p,e):play\_elem$ \\
+          \id Viene creato il link $(e,v):elem\_video$
 \end{itemize}
 \code{rimuovi\_elemento( p:Playlist, ord:Intero):Elemento}\begin{itemize}
-    \item \textit{pre-condizioni} : Sia $u:Utente$ l'utente che ha chiamato l'invocazione, 
-    deve esistere $(u,p):crea$. \\ 
-    Sia $E$ l'insieme di oggetti $e:Elemento$ tali che $\exists (p,e):play\_elem$, deve 
-    essere che $\exists e\in E\;\;e.ordine=$ord 
-    \item \textit{post-condizioni} : \\ 
-    \id  Sia $e:Elemento$ l'oggetto tale che $\exists (p,e):play\_elem\land e.ordine=$ord\\ 
-    \id L'oggetto $e$ e tutti i link ad esso associati vengono eliminati.
+    \item \textit{pre-condizioni} : Sia $u:Utente$ l'utente che ha chiamato l'invocazione,
+          deve esistere $(u,p):crea$. \\
+          Sia $E$ l'insieme di oggetti $e:Elemento$ tali che $\exists (p,e):play\_elem$, deve
+          essere che $\exists e\in E\;\;e.ordine=$ord
+    \item \textit{post-condizioni} : \\
+          \id  Sia $e:Elemento$ l'oggetto tale che $\exists (p,e):play\_elem\land e.ordine=$ord\\
+          \id L'oggetto $e$ e tutti i link ad esso associati vengono eliminati.
 \end{itemize}
 \subsubsection{Ricerca}
 \code{ricerca\_filtri (cat:Categoria, tag:Tag [0..*], v:Reale $\in$ [1,5] ) : Video [0..*]}\begin{itemize}
-\item\textit{pre-condizioni} : Nessuna
-\item \textit{post-condizioni} : Sia $V$ l'insieme di oggetti $v:Video$ tale che,$\forall v\in V$\begin{itemize}
-    \item $v.censura=False$
-    \item $\exists (v,c):cat\_video$ con $c=$cat 
-    \item sia $T$ l'insieme di $t.Tag$ tali che $\exists (v,t):tag\_video$, deve essere che Tag$\cap T\ne \emptyset$.
-    \item Si verifica una delle due condizioni seguenti\begin{itemize}
-        \item $\nexists vis:Visualizzazione$ tale che $\exists(vis,v)$ e $vis.valutazione\ne NULL$ 
-        \item $v.valutazione\_media()\ge $v
-    \end{itemize}
-\end{itemize}
-$result=V$
+    \item\textit{pre-condizioni} : Nessuna
+    \item \textit{post-condizioni} : Sia $V$ l'insieme di oggetti $v:Video$ tale che,$\forall v\in V$\begin{itemize}
+              \item $v.censura=False$
+              \item $\exists (v,c):cat\_video$ con $c=$cat
+              \item sia $T$ l'insieme di $t.Tag$ tali che $\exists (v,t):tag\_video$, deve essere che Tag$\cap T\ne \emptyset$.
+              \item Si verifica una delle due condizioni seguenti\begin{itemize}
+                        \item $\nexists vis:Visualizzazione$ tale che $\exists(vis,v)$ e $vis.valutazione\ne NULL$
+                        \item $v.valutazione\_media()\ge $v
+                    \end{itemize}
+          \end{itemize}
+          $result=V$
 \end{itemize}
 \code{ricerca\_discussione ( cat:Categoria) : Video [0..*]}\begin{itemize}
     \item \textit{pre-condizioni} : Nessuna
-    \item \textit{post-condizioni} : Sia $V$ l'insieme di oggetti $v$ tale che\\ 
-    \id  $\exists (v,c):cat\_video$ con $c=$cat \\
-    \id $v.censura=False$\\
-    Sia $v_{max}$ l'elemento di $V$ tale che, $\forall v\in V,\;\;v_{max}.num\_risposte()\ge v.num\_risposte()$\\
-    Sia $V'$ il sottoinsieme di $V$ tale che $\forall v\in V'\;\;\;v_{max}.num\_risposte()= v.num\_risposte()$\\
-    $result=V'$ 
+    \item \textit{post-condizioni} : Sia $V$ l'insieme di oggetti $v$ tale che\\
+          \id  $\exists (v,c):cat\_video$ con $c=$cat \\
+          \id $v.censura=False$\\
+          Sia $v_{max}$ l'elemento di $V$ tale che, $\forall v\in V,\;\;v_{max}.num\_risposte()\ge v.num\_risposte()$\\
+          Sia $V'$ il sottoinsieme di $V$ tale che $\forall v\in V'\;\;\;v_{max}.num\_risposte()= v.num\_risposte()$\\
+          $result=V'$
 \end{itemize}
 
 \end{document}
