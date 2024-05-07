@@ -318,7 +318,7 @@ Utilizziamo la versione ricorsiva del DFS, modificandola a dovere, sono necessar
     \hphantom{ident}\code{\}}\\
     \hphantom{ident}\code{return Comp}\\
     \code{\}}}
-\subsection{Ordinamento Topologico}
+\subsection{Ordinamento Topologico}\label{OrdTop}
 Supponiamo che vi sia un progetto da completare, che viene diviso in \(n\) piccoli processi
 \(x_1,x_2\dots x_n\), e supponiamo che fra essi, vi siano delle dipendenze sull'ordine di completamento, ad
 esempio : \begin{itemize}
@@ -1577,7 +1577,8 @@ $$ T(n)=O\big(n\cdot(\log{n})^2\big)$$
 \section{Programmazione Dinamica}
 Con \textit{programmazione dinamica}, si intende quel paradigma di progettazione di algoritmi, che, allo scopo di
 trovare una soluzione finale ad un problema, considera una serie di sotto-problemi minori che saranno poi utili alla
-decisione della già citata soluzione finale. Per rendere chiaro il concetto, vediamo un esempio di applicazione.\acc
+decisione della già citata soluzione finale. Per rendere chiaro il concetto, vediamo un esempio di applicazione.
+\subsection{Problema dello Spazio Libero}
 Si consideri il seguente problema, vi è un disco fisso di capacità $C$ (l'unità di misura è omessa), ed un insieme
 $\{f_1,f_2\dots,f_2\}$ di file, le cui rispettive dimensioni, risultano essere $\{s_1,s_2\dots,s_n\}$.\acc
 Si vuole trovare un sotto-insieme di file da inserire sul disco, che ne massimizzi l'utilizzo in termini di
@@ -1745,6 +1746,7 @@ Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme 
     \hphantom{ident}\code{\}}\\
     \code{\}}\\
     \code{return Sol}}
+\subsection{Problemi sui Grafi}
 Vediamo adesso un nuovo problema riguardante i grafi, che necessita di una soluzione dal punto di vista della programmazione
 dinamica, sia $G$ un grafo diretto con peso sugli archi, tale che i pesi sono sempre maggiori o uguale a zero, sappiamo che
 con l'algoritmo di Dijkstra, è possibile trovare un cammino di costo minimo fra due nodi. Il problema inverso, ossia la ricerca
@@ -1801,4 +1803,47 @@ tutti i cammini, con qualsiasi numero di archi da $x$ ad $y$, selezionando quell
 \hphantom{ident}\code{return max(T[y,k] $\forall$ k tale che T[y,k]$\ne$NULL)}\\
 \code{\}}\\
 }
+\subsubsection{Scheduling di Processi}
+Riprendiamo adesso un problema tipico già trattato nel capitolo \ref{OrdTop}, vi è un progetto da terminare, esso viene 
+suddiviso in $n$ lavori/processi $\{x_1,x_2\dots,x_n\}$,
+ fra i quali vi sono delle relazioni di \textit{dipendenza}, del tipo\begin{quote}
+    il processo $x_i$ per essere portato a termine necessita che il processo $x_j$ sia stato già completato
+ \end{quote}
+ Abbiamo visto come tale problema può essere modellizzato con un grafo diretto, dove ogni nodo rappresenta un processo, 
+ e vi è un arco $(x_i,x_j)$ se $x_j$ è dipendente da $x_i$, e deve quindi essere svolto prima. Abbiamo visto come, un 
+ corretto scheduling dei processi, esiste se e solo se il grafo è aciclico, e può essere trovato 
+ tramite l'ordinamento topologico.\acc 
+ Riprendiamo il problema dello scheduling dei processi, \textit{generalizzandolo}, diremo che ogni processo $x_i$, necessita 
+ di tempo pari a $t_i$ per essere completato, si vuole quindi fissare per ogni processo $x_i$, un istante di tempo 
+ $m[i]$ in cui esso deve iniziare, in modo tale che ogni dipendenza sia rispettata.\acc 
+ Se $x_j$ dipende da $x_i$, allora il tempo di inizio di $x_j$, ossia $m[j]$, sarà almeno maggiore del tempo di inizio di $x_i$, 
+ sommato il tempo di completamento di $x_i$ $$\exists(x_i,x_j)\in E(G)\implies m[j]\ge m[i]+t_i $$
+Il peso di un arco $(x_i,x_j)$ non sarà altro che il valore $t_i$.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/initNode.eps}
+\end{center}
+\textbf{Osservazione} : Se esiste un cammino diretto $P$ nel grafo, dal nodo $\mathcal{I}$ ad un nodo $x_i$, allora il processo 
+$x_i$ non può essere schedulato prima dell'istante $w(P)$ $$m[i]\ge w(P) = w(\mathcal{I}\rightarrow x_i)$$\acc 
+\textbf{Dimostrazione} : Siano $u_0,u_1\dots,u_k$ i nodi presenti nel cammino $P$ in questione, per cui $u_0=\mathcal{I}$ e 
+$u_k=x_i$, sia $p_j = w(u_{j-1},j)$, risulta chiaro che\begin{itemize}
+    \item $p_1=0$ dato che $u_0$ è il nodo iniziale, e che $u_1$ potrà essere schedulato dopo $p_1=0$ unità di tempo 
+    \item $u_2$ potrà essere schedulato dopo $u_1$, quindi potrà iniziare dall'istante $p_1+p_2$
+    \item $u_3$ potrà essere schedulato dopo $u_2$, quindi potrà iniziare dall'istante $p_1+p_2+p_3$
+    \item $\vdots$ 
+    \item $u_j$ potrà essere schedulato dopo $u_{j-1}$, quindi potrà iniziare dall'istante $\displaystyle\sum_{l=1}^j p_l$
+\end{itemize}
+Ciò si protrae per tutti nodi del percorso, risulta chiaro che il nodo $u_k$ potrà essere schedulato almeno dopo 
+$\sum_{l=1}^k p_l$ unità di tempo. $\blacksquare$\acc
+Sia $T[i]$ il peso del cammino di peso massimo dal nodo $\mathcal{I}$ al nodo $x_i$, in conclusione, l'istante di tempo 
+minimo alla quale può iniziare $x_i$, è proprio $T[i]$ $$ m[i]\ge T[i]$$
+\textbf{Proposizione} :  Facendo partire ogni singolo processo 
+$x_i$ all'istante di tempo $T[i]$, allora, ogni vincolo della forma $m[j]\ge m[i]+t_i$ sarà rispettato.\acc 
+\textbf{Dimostrazione} : Siano $x_i,x_j$ due nodi per cui $\exists(x_i,x_j)\in E(G)$, per cui deve essere rispettato 
+il vincolo $m[j]\ge m[i]+t_i$, sappiamo che $m[i]=T[i]$, quindi bisogna rispettare il vincolo 
+$m[j]\ge T[i]+t_i$.\acc 
+$T[i]$ non è altro che il peso del cammino $P$ di peso massimo da $\mathcal{I}$ a $x_i$\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/dimScheduling.eps}
+\end{center}
+Essendo che esiste un arco $(x_i,x_j)$, possiamo prolungare $P$ con tale arco, ottenendo $P\cup \{(x_i,x_j)\}$, diventa un 
+cammino da $\mathcal{I}$ al nodo $x_j$, di peso $T[i]+t_i$, tale cammino non è detto che sia il cammino da 
+$\mathcal{I}$ a $x_j$ di peso massimo, ma comunque implica l'uguaglianza $$ T[j]\ge T[i]+t_i$$
 \end{document}
