@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240507221506" modified="D:20240508104525"/>
+<info created="D:20240508111253" modified="D:20240508112234"/>
 <preamble>\usepackage{amssymb}
 \usepackage{amsmath}</preamble>
 <ipestyle name="basic">
@@ -315,153 +315,53 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" matrix="1 0 0 1 -136 -16" stroke="black" fill="white" pen="ultrafat">
-8 0 0 8 248 536 e
+<text layer="alpha" matrix="1 0 0 1 -144 -4" transformations="translations" pos="160 700" stroke="black" type="label" width="249.712" height="20.906" depth="14.96" valign="baseline" size="large" style="math">\begin{cases}
+    m[2]\ge m[1] + 2\\
+    m[2]\le m[1] + 4\\
+\end{cases}\implies 
+\begin{cases}
+    m[1]- m[2] \le -2\\
+    m[2]- m[1] \le 4\\
+\end{cases}</text>
+<path stroke="black" fill="white" pen="ultrafat">
+12 0 0 12 328 700 e
 </path>
-<path matrix="1 0 0 1 -104 -48" stroke="black" fill="white" pen="ultrafat">
-8 0 0 8 248 536 e
+<path matrix="1 0 0 1 104 0" stroke="black" fill="white" pen="ultrafat">
+12 0 0 12 328 700 e
 </path>
-<path matrix="1 0 0 1 -48 -20" stroke="black" fill="white" pen="ultrafat">
-8 0 0 8 248 536 e
+<path stroke="black" arrow="normal/normal">
+328 688 m
+328 672
+328 656
+432 656
+432 672
+432 688 c
 </path>
-<path matrix="1 0 0 1 -4 -48" stroke="black" fill="white" pen="ultrafat">
-8 0 0 8 248 536 e
+<path stroke="black" arrow="normal/normal">
+432 712 m
+432 728
+432 744
+328 744
+328 728
+328 712 c
 </path>
-<path matrix="1 0 0 1 -180 -44" stroke="black" fill="white" pen="ultrafat">
-8 0 0 8 248 536 e
-</path>
-<path matrix="1 0 0 1 -136 -16" stroke="black" arrow="normal/normal">
-212 508 m
-224 508
-224 536
-232 536
-240 536 c
-</path>
-<path matrix="1 0 0 1 -136 -16" stroke="black" arrow="normal/normal">
-248 528 m
-240 504
-260 504
-272 504 c
-</path>
-<path matrix="1 0 0 1 -136 -16" stroke="black" arrow="normal/normal">
-288 504 m
-336 496
-336 508
-336 524 c
-</path>
-<path matrix="1 0 0 1 -136 -16" stroke="black" arrow="normal/normal">
-280 496 m
-280 480
-328 480
-372 500 c
-</path>
-<path matrix="1 0 0 1 -92 40" stroke="0.502 0 1" fill="white" pen="ultrafat">
-8 0 0 8 248 536 e
-</path>
-<text matrix="1 0 0 1 -136 -20" transformations="translations" pos="292 612" stroke="black" type="label" width="8.871" height="9.803" depth="0" halign="center" valign="center" size="Large" style="math">\mathcal{I}</text>
-<path matrix="1 0 0 1 -136 -16" stroke="0.502 0 1" arrow="normal/normal">
-284 592 m
-200 592
-204 564
-204 516 c
-</path>
-<path matrix="1 0 0 1 -136 -16" stroke="0.502 0 1" arrow="normal/normal">
-300 592 m
-380 592
-380 568
-380 512 c
-</path>
-<path matrix="1 0 0 1 -136 -16" stroke="0.502 0 1" arrow="normal/normal">
-300 588 m
-336 580
-336 556
-336 540 c
-</path>
-<path matrix="1 0 0 1 -136 -16" stroke="0.502 0 1" arrow="normal/normal">
-284 588 m
-248 576
-248 560
-248 544 c
-</path>
-<path matrix="1 0 0 1 -136 -16" stroke="0.502 0 1" arrow="normal/normal">
-292 584 m
-280 556
-280 512 c
-</path>
-<path matrix="1 0 0 1 -157.123 -64.2247" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
+<path fill="white">
+368 748 m
+368 736 l
+388 736 l
+388 748 l
 h
 </path>
-<text matrix="1 0 0 1 -221.123 -68.2247" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">0</text>
-<path matrix="1 0 0 1 -112.191 -59.0575" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
+<text matrix="1 0 0 1 86.62 130.536" transformations="translations" pos="292 612" stroke="black" type="label" width="15.151" height="7.711" depth="0.99" halign="center" valign="center" size="large" style="math">-2</text>
+<path fill="white">
+376 664 m
+376 652 l
+388 652 l
+388 664 l
 h
 </path>
-<text matrix="1 0 0 1 -176.191 -63.0575" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">0</text>
-<path matrix="1 0 0 1 -80.2897 -67.1452" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
-h
-</path>
-<text matrix="1 0 0 1 -144.29 -71.1452" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">0</text>
-<path matrix="1 0 0 1 -32.437 -57.9342" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
-h
-</path>
-<text matrix="1 0 0 1 -96.4372 -61.9342" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">0</text>
-<path matrix="1 0 0 1 6.204 -52.5423" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
-h
-</path>
-<text matrix="1 0 0 1 -57.7958 -56.5423" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">0</text>
-<path matrix="1 0 0 1 -37.3798 -137.464" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
-h
-</path>
-<text matrix="1 0 0 1 -101.38 -141.464" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">2</text>
-<path matrix="1 0 0 1 -49.736 -120.839" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
-h
-</path>
-<text matrix="1 0 0 1 -113.736 -124.839" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">2</text>
-<path matrix="1 0 0 1 -115.112 -113.425" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
-h
-</path>
-<text matrix="1 0 0 1 -179.112 -117.425" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">3</text>
-<path matrix="1 0 0 1 -140.499 -105.787" fill="white">
-224 612 m
-224 604 l
-232 604 l
-232 612 l
-h
-</path>
-<text matrix="1 0 0 1 -204.499 -109.787" transformations="translations" pos="292 612" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center" style="math">1</text>
-<text transformations="translations" pos="296 568" stroke="black" type="minipage" width="200" height="40.752" depth="35.85" valign="top">Consideriamo inoltre un nuovo vertice, denotato $\mathcal{I} $, tale 
-che $$\forall v\in V(G),\;\;\;\exists (\mathcal{I},v) \in E(G)\;\;\land\;\; w((\mathcal{I},v))=0 $$
-Tale vertice fungerà da &quot;inizio&quot;, ossia da primo processo da schedulare</text>
+<text matrix="1 0 0 1 90.62 46.536" transformations="translations" pos="292 612" stroke="black" type="label" width="5.853" height="7.704" depth="0" halign="center" valign="center" size="large" style="math">4</text>
+<text matrix="1 0 0 1 34.62 86.536" transformations="translations" pos="292 612" stroke="black" type="label" width="15.93" height="7.415" depth="2.58" halign="center" valign="center" size="LARGE" style="math">x_1</text>
+<text matrix="1 0 0 1 138.62 86.536" transformations="translations" pos="292 612" stroke="black" type="label" width="15.93" height="7.415" depth="2.58" halign="center" valign="center" size="LARGE" style="math">x_2</text>
 </page>
 </ipe>

@@ -1845,5 +1845,70 @@ $T[i]$ non è altro che il peso del cammino $P$ di peso massimo da $\mathcal{I}$
 \end{center}
 Essendo che esiste un arco $(x_i,x_j)$, possiamo prolungare $P$ con tale arco, ottenendo $P\cup \{(x_i,x_j)\}$, diventa un 
 cammino da $\mathcal{I}$ al nodo $x_j$, di peso $T[i]+t_i$, tale cammino non è detto che sia il cammino da 
-$\mathcal{I}$ a $x_j$ di peso massimo, ma comunque implica l'uguaglianza $$ T[j]\ge T[i]+t_i$$
+$\mathcal{I}$ a $x_j$ di peso massimo, ma comunque implica l'uguaglianza $$ T[j]\ge T[i]+t_i\;\;\;\blacksquare$$
+A questo punto, se ogni processo comincia nell'istante di tempo $T[i]$, e termina dopo $t_i$ unità di tempo, l'ultimo processo 
+schedulato, degli $n$ totali, e con esso l'intero progetto, verrà terminato all'istante
+$$ \max\Big(\big\{\bigcup_{k=0}^n T[k]+t_k\big\}\Big)$$
+A questo punto è chiaro che per conoscere la quantità di tempo necessaria a terminare il progetto, basta considerare il cammino 
+di costo massimo, si vuole però generalizzare ancora di più il problema, considerando un nuovo tipo di vincolo.\acc 
+La validità di terminazione di un processo adesso, ha un tempo \textit{limitato}, se il processo $x_i$ necessita di 
+$x_j$ per essere terminato, si ha che $x_j$ dovrà essere eseguito dopo $x_i$, ma entro una finestra temporale limitata,
+non potrà essere schedulato dopo una certa quantità di tempo dalla terminazione di $x_i$ 
+$$
+    x_j \text{ dipende da }x_i \implies \begin{cases}
+    m[j] \ge m[i]+t_i \\
+    m[j] \le m[i] + T_i \text{ (nuovo vincolo)}\end{cases}
+ $$
+ A questo punto, possiamo esprimere tutti i vincoli in una forma più compatta, del tipo 
+ $$ m[i]-m[j]\le b\;\;\;\;\;\;\;\text{ con }\;\;\;\;\;\;b\in \mathbb{R} $$
+\textbf{Osservazione} : Siano $M=\{m[1],m[2]\dots,m[n]\}$ un insieme di istanti di tempo di inizio dei processi che rispettino 
+tutti i vincoli imposti dalle dipendenze, e siano $M'=\{m'[1],m'[2]\dots,m'[n]\}$ un nuovo insieme di istanti, tali che 
+$$\forall i,\;\;m'[i]=m[i]+\delta$$ con $\delta$ un qualunque numero reale. L'insieme di istanti $M'$ rispetta ancora tutti i 
+vincoli imposti dalle dipendenze.\acc 
+Essendo che i valori di $m[i]$ per ogni processo $x_i$ in questo nuovo modello possono assumere valori negativi, data 
+l'osservazione, si potranno "shiftare" tutti gli istanti $m[i]$, sommandoli ad un valore positivo (o negativo), in modo 
+tale che l'elemento che l'istante di inizio del primo processo sia uguale a 0.\acc 
+L'interpretazione del grafo che modella tale problema sarà differente da quella vista in precedenza, i nodi rappresenteranno 
+ancora i processi, per ogni vincolo 
+del tipo $m[i]-m[j]\le b$ vi sarà un arco $(x_j,x_i)$ di peso $b$. \acc 
+\textbf{Osservazione} : La presenza di cicli nel grafo \textit{non} esclude la presenza di una soluzione.\acc 
+Si osservi il seguente \textbf{esempio}, ci sono due processi, $x_1$ e $x_2$, il processo $x_2$ dipende da $x_1$, 
+il processo $x_1$ necessita di 
+$2$ secondi per essere completato, il processo $x_2$ deve essere iniziato entro $2$ secondi il completamento del 
+processo $x_1$. \begin{center}
+    \includegraphics[width=1\textwidth ]{images/scheduling2.eps}
+\end{center}
+Tale problema con tali vincoli ammette una soluzione, si osservi invece il seguente problema:\begin{center}
+    \includegraphics[width=1\textwidth ]{images/scheduling3.eps}
+\end{center}
+Quest'ultimo non ammette soluzione, infatti, non esistono $m[1],m[2]\in \mathbb{R}$ che risolvino il sistema di 
+disequazioni.\acc 
+\textbf{Proposizione} : Esiste uno scheduling dei processi che rispetti tutti i vincoli imposti, \textit{se e solo se} non 
+esiste alcun ciclo nel grafo, per cui la somma dei pesi degli archi coinvolti nel ciclo sia negativa.\acc 
+\textbf{Dimostrazione} : Si assuma per assurdo che esiste uno scheduling che rispetti i vincoli, e che il grafo 
+possegga un ciclo negativo $C$, composto dai vertici $u_1,u_2\dots,u_k$, dove $b_i = w(u_i,u_{i+1})$, quindi per 
+ipotesi $$w(C) = \displaystyle \sum_{i=0}^k b_i < 0 \;\;\;\;\text{ inoltre, si ha il sistema }\;\;\;\;\begin{cases}
+    m[2]-m[1]\le b_1\\
+    m[3]-m[2]\le b_2\\
+    \vdots\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\vdots \\
+    m[1]-m[k]\le b_k
+\end{cases} $$
+A questo punto, sapendo che una soluzione deve soddisfare tutte le disuguaglianze del sistema, essa dovrà soddisfare anche 
+la somma di essere, ossia 
+$$ 
+(m[2]-m[1])+ (m[3]-m[2]) + \dots + (m[1]-m[k]) \le b_1 + b_2 + \dots + b_k
+$$
+Riorganizzo la disequazione:
+$$ 
+(m[1]-m[1]) + (m[2]-m[2])+ (m[3]-m[3]) + \dots + (m[k]-m[k]) \le \sum_{i=0}^k b_i
+$$
+$$ 
+0 + 0 +0 + \dots + 0 \le \sum_{i=0}^k b_i
+$$
+Ma per ipotesi, si ha che $ \sum_{i=0}^k b_i<0$ , quindi si ottiene la disuguaglianza 
+$$ 0\le  \sum_{i=0}^k b_i < 0$$
+Quindi la somma dei pesi del grafo è un numero sia negativo, ma che al contempo deve essere maggiore o uguale a zero, è 
+una contraddizione, quindi se esiste uno scheduling che rispetta i vincoli, non può esistere un ciclo negativo nel grafo. $\blacksquare$\acc 
+A questo punto, vogliamo trovare il cammino di peso minimo fra due nodi su un grafo diretto con pesi reali sugli archi, con 
+l'assunzione che il grafo non abbia cicli la cui somma dei pesi risulta negativa.
 \end{document}
