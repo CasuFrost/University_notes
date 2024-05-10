@@ -1746,7 +1746,7 @@ Il seguente algoritmo, data la matrice già riempita $T$, restituisce l'insieme 
     \hphantom{ident}\code{\}}\\
     \code{\}}\\
     \code{return Sol}}
-\subsection{Problemi sui Grafi}
+\subsection{Problemi sui Grafi}\label{dinamicaGrafi}
 Vediamo adesso un nuovo problema riguardante i grafi, che necessita di una soluzione dal punto di vista della programmazione
 dinamica, sia $G$ un grafo diretto con peso sugli archi, tale che i pesi sono sempre maggiori o uguale a zero, sappiamo che
 con l'algoritmo di Dijkstra, è possibile trovare un cammino di costo minimo fra due nodi. Il problema inverso, ossia la ricerca
@@ -1910,5 +1910,71 @@ $$ 0\le  \sum_{i=0}^k b_i < 0$$
 Quindi la somma dei pesi del grafo è un numero sia negativo, ma che al contempo deve essere maggiore o uguale a zero, è 
 una contraddizione, quindi se esiste uno scheduling che rispetta i vincoli, non può esistere un ciclo negativo nel grafo. $\blacksquare$\acc 
 A questo punto, vogliamo trovare il cammino di peso minimo fra due nodi su un grafo diretto con pesi reali sugli archi, con 
-l'assunzione che il grafo non abbia cicli la cui somma dei pesi risulta negativa.
+l'assunzione che il grafo non abbia cicli la cui somma dei pesi risulti negativa.\acc 
+All'inizio del capitolo \ref{dinamicaGrafi} si è visto come trovare il cammino massimo su un grafo aciclico, vedremo come il problema 
+corrente segue una soluzione similare, si definisce quindi la matrice $T$, tale che $T[k,u]=$ il cammino di peso minimo da un 
+nodo sorgente $x$ ad $u$ che abbia al più $k$ archi. Il seguente caso è banale 
+$$ T[0,u]=\begin{cases}
+    0 \text{ se }u=x\\ \infty \text{ se }u\ne x
+\end{cases}$$
+Assumendo di conoscere $T[k,u]$ per ogni nodo $u$, si vuole trovare il valore di $T[k+1,u]$, come già visto nel problema del 
+cammino massimo, basta trovare un percorso dalla sorgente $x$ ad un adiacente di $u$ che abbia $k$ archi, e prolungarlo 
+con l'arco corrispondente entrante in $u$ 
+$$ T[k+1,u]=\min\Big( \bigcup_{v\in V(G) | \exists (v,u)\in E(G)}\{T[k,v]+w(v,u)\} \Big)$$
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/cicloIncostoMin.eps}
+\end{center}
+Differentemente dal caso del cammino massimo, nel grafo corrente non è assicurata l'assenza di cicli, quindi, la dove si 
+considera un cammino $P$ da $x$ ad un adiacente di $u$ con $k$ archi, non è scontato che in tale cammino $P$, non 
+compaia già $u$ nel percorso. Vedremo come in realtà, è impossibile che in questo cammino sia presente un ciclo.\acc 
+\textbf{Proposizione} : Il cammino di costo minimo di $k+1$ archi da $x$ ad $u$, di costo 
+$T[k+1,u]$, calcolato utilizzando il valore $T[k,u]$ più il peso dell'arco $w(v_i,u)$, dove $v_i$ è un nodo tale che $\exists (v_i,u)\in E(G)$, 
+non presenta cicli.\acc 
+\textbf{Dimostrazione} : Sia $T[k+1,u]$ il cammino di costo minimo da $x$ ad $u$, e sia $P$ il percorso da $x$ ad un adiacente 
+di $u$, denotato $v_i$, tale che $T[k+1,u]=w(P)+w(v_i,u)$, assumiamo che in $P\cup \{(v_i,u)\}$ ci sia un ciclo, dato dal 
+fatto che $u$ compare due volte. \acc 
+Ad un certo punto nel cammino $P$, vi è $u$, prima di esso, vi è un altro adiacente di $u$, sia $v_j$ questo adiacente.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/dimNoCicli.eps}
+\end{center}
+Si noti come $P\cup \{(v_i,u)\}$, può essere diviso in un cammino $Q$ da $x$ ad $u$ (prima comparsa di $u$ in $P$), ed in 
+un ciclo $C$ da $u$ a se stesso.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/dimNoCicli2.eps}
+\end{center}
+$Q$ è un cammino da $x$ ad $u$, con un numero di archi minore a $k+1$, il peso del cammino $Q$, è inferiore al peso 
+del cammino $P\cup \{(v_i,u)\}$ perché : \begin{itemize}
+    \item $P\cup \{(v_i,u)\} = Q\cup C$
+    \item $w(P\cup \{(v_i,u)\})=T[k+1,u]$
+\end{itemize}\begin{eqnarray}
+    T[k+1,u] = w(Q) + w(C) \\
+    T[k+1,u] - w(C) = w(Q) \implies  \\
+    T[k+1,u] \le w(Q) \iff w(C)<0
+\end{eqnarray} 
+Risulta chiaro che $Q$ può avere costo maggiore di $T[k+1,u]$ solamente se il costo di $C$ è negativo, per ipotesi però, 
+\textbf{non esistono} cicli di costo negativo, quindi $w(C)\ge 0$, ne consegue che $Q$ è un percorso da $x$ a $u$ di costo 
+inferiore di $T[k+1,u]$, che per ipotesi, era il costo minimo, quindi vi è una contraddizione, ed è impossibile che 
+nel cammino   $P\cup\{(v_i,u)\}$ ci siano cicli. $\blacksquare$\acc 
+A questo punto vediamo l'algoritmo di \textbf{Bellman-Ford} per trovare il cammino minimo sviluppando la matrice $T$, su un 
+grafo di questo tipo, i cui cicli presenti hanno somma dei pesi mai negativa. 
+\greybox{
+    \code{Bellman-Ford(G : grafo, x : nodo sorgente)\{}\\
+    \hphantom{ident}\code{T = matrice n$\times$n dove n=$|V(G)|$}\\
+    \hphantom{ident}\code{for each ($u\in V(G)\backslash \{x\}$)\{ T[0,$u$]=$\infty$ \}}\\
+    \hphantom{ident}\code{T[0,$x$]=0}\\
+    \hphantom{ident}\code{for(int k = 0;k < n; k++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{for (each $u\in V(G)$)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[k,$u$]=T[k-1,$u$]}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{for (each $v$ tale che $\exists (v,u)\in E(G)$)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(T[k-1,$v$]+$w((v,u))$<T[k,$u$])\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[k,$u$]=T[k-1,$v$]+$w((v,u))$}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident} \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{Dist[n] = array lungo n}\\
+    \hphantom{ident}\code{for (each $u\in V(G)$)\{ Dist[u]=T[n-1,$u$] \}}\\
+    \hphantom{ident}\code{return Dist}\\
+    \code{\}}
+}
+La complessità risulta essere
 \end{document}
