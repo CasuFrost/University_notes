@@ -1961,8 +1961,8 @@ grafo di questo tipo, i cui cicli presenti hanno somma dei pesi mai negativa.
     \hphantom{ident}\code{T = matrice n$\times$n dove n=$|V(G)|$}\\
     \hphantom{ident}\code{for each ($u\in V(G)\backslash \{x\}$)\{ T[0,$u$]=$\infty$ \}}\\
     \hphantom{ident}\code{T[0,$x$]=0}\\
-    \hphantom{ident}\code{for(int k = 0;k < n; k++)\{}\\
-    \hphantom{ident}\hphantom{ident}\code{for (each $u\in V(G)$)\{}\\
+    \hphantom{ident}\code{for(int k = 0;k < n; k++)\{}\comm{ n iterazioni}\\
+    \hphantom{ident}\hphantom{ident}\code{for (each $u\in V(G)$)\{}\comm{ n iterazioni}\\
     \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[k,$u$]=T[k-1,$u$]}\\
     \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{for (each $v$ tale che $\exists (v,u)\in E(G)$)\{}\\
     \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(T[k-1,$v$]+$w((v,u))$<T[k,$u$])\{}\\
@@ -1976,5 +1976,18 @@ grafo di questo tipo, i cui cicli presenti hanno somma dei pesi mai negativa.
     \hphantom{ident}\code{return Dist}\\
     \code{\}}
 }
-La complessità risulta essere
+La complessità risulta essere $n\cdot \sum_{v\in V(G)}\deg^{in}(v)\implies O(n\cdot (n+m))$.\acc  
+A questo punto è possibile trovare uno scheduling corretto dei processi, riassumendo i passaggi\begin{enumerate}
+    \item Si costruisce il grafo $G$ dove i processi sono i nodi, e per ogni vincolo del tipo $m[i]-m[j]\le b$ esiste 
+    l'arco $(x_j,x_i)$ di peso $b$.
+    \item Si aggiunge un nodo $\mathcal{I}$ tale che $\forall i\;\exists (\mathcal{I},x_i)\in E(G)\land w((\mathcal{I},x_i))=0$.
+    \item Se nel grafo vi è un ciclo di peso negativo, non esiste soluzione, altrimenti si utilizza l'algoritmo di 
+    \code{Bellman-Ford} per trovare il vettore \codee{Dist} con nodo sorgente $\mathcal{I}$.
+\end{enumerate}
+Si noti come, per ogni $i$ si avrà che \codee{Dist[$x_i$]}$\le$ 0, bisogna quindi utilizzare l'osservazione vista in precedenza per far 
+si che ogni processo cominci in un istante di tempo positivo, ed il primo inizi al tempo 0\begin{itemize}
+    \item $\delta = \min\Big(\displaystyle\bigcup_{i=1}^n\{\text{\codee{Dist[$x_i$]}}\}\Big)$
+    \item $m[i]=$\codee{Dist[$x_i$]}$+|\delta|\;\;\;\;\,\;\;\forall i$
+\end{itemize}
+Si avrà uno scheduling dei processi che rispetta tutti i vincoli di dipendenza.
 \end{document}
