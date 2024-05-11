@@ -2168,5 +2168,22 @@ $$ n\cdot p\cdot (1-p)^{n-1}  $$
 L'efficienza massima che si può ottenere dipende dal valore di $p$, sia $\tilde p$ il valore di $p$ che 
 massimizzi $ n\cdot p\cdot (1-p)^{n-1} $, per $n$ che tende ad infinito, si ottiene \textbf{l'efficenza massima} 
 raggiungibile con slotted Aloha : $$\lim_{n\rightarrow +\infty}  n\cdot\tilde p\cdot (1-\tilde p)^{n-1} = \dfrac{1}{1}\simeq 0.37 $$
-Quindi nel migliore dei casi, il canale sarà utilizzato il 37\% del tempo.
+Quindi nel migliore dei casi, il canale sarà utilizzato il 37\% del tempo.\acc 
+Il protocollo \textbf{Pure Aloha} è una versione semplificata di quello appena visto, che non considera la suddivisione 
+in slot del tempo, eliminando la sincronizzazione, e risultando più semplice nella sua implementazione. \acc ll punto è che la probabilità di collisione 
+aumenta e risulta più ampia senza l'utilizzo degli slot, in quanto un frame che è stato trasmesso al tempo $t_0$, andrà in 
+collisione con i frame inviati nell'intervallo $[t_0-d_{trans},t_0+d_{trans}]$, la finestra temporale di vulnerabilità risulta 
+grande due volte il tempo di trasmissione di un frame. L'efficienza di Pure Aloha risulta essere circa del 18\%.
+\subsubsection{Carrier Sense Multiple Access}
+Con \textbf{CSMA} si intende un protocollo di accesso casuale ad un canale condiviso, risulta semplice: Il nodo che intende 
+comunicare, "ascolta" il canale, cercando di capire se è in corso una trasmissione, in caso contrario, trasmetterà, senza 
+alcun controllo o rilevamento delle collisioni.\acc 
+Il CSMA non garantisce l'assenza di collisioni, in quanto due nodi potrebbero comunicare in istanti di tempo 
+vicini, senza rendersi conto che il canale sta essendo utilizzato dall'altro creando una collisione, che scadrebbe nello 
+spreco del tempo di trasmissione dell'intero pacchetto.\acc 
+Il tempo di vulnerabilità, ossia la finestra temporale in cui un nodo potrebbe trasmettere senza sapere che il canale 
+è già in utilizzo, è condizionata dalla lunghezza del mezzo di trasmissione e la velocità, risulta uguale 
+al tempo di propagazione.\acc 
+Il \textbf{CSMA/CD} (Collision Detection) introduce il rilevamento di collisioni, riducendo la quantità di tempo sprecato 
+nelle collisioni, in quanto, alla rilevazione di esse, il nodo interrompe immediatamente la trasmissione sul canale.
  \end{document}
