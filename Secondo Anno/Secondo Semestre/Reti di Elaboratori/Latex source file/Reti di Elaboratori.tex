@@ -151,7 +151,7 @@ Internet), tutt'oggi è raro trovare LAN o WAN isolate, spesso sono connesse fra
 mettere in comunicazione due LAN in città differenti tramite una WAN.\begin{center}
     \includegraphics[width=1\textwidth ]{images/internetwork.eps}
 \end{center}
-\subsubsection{Nucleo della Rete}
+\subsubsection{Nucleo della Rete} \label{NucleoRete}
 Si definisce nucleo della rete, quella parte composta esclusivamente da router  che effettuano \textit{commutazione} di pacchetto, ossia
 ricevono il pacchetto, e lo re-indirizzano tramite i collegamenti. Ogni router presenta più porte, si occupa di fare il
 cosiddetto \textbf{forwarding}, ossia l'azione locale di spostare i pacchetti in arrivo dal collegamento in ingresso, al collegamento
@@ -1938,4 +1938,235 @@ da pià fattori\begin{itemize}
     \item router next hop (hot potato) 
     \item criteri aggiuntivi
 \end{itemize}
-\end{document}
+\subsection{Inoltro a più Destinazioni}
+\subsubsection{Multicast e Flooding}
+Utilizziamo il termine \textit{unicast} per riferirci ad una comunicazione fra una singola sorgente ed un
+singolo destinatario, si è poi parlato di \textit{broadcast}, ossia l'atto di una sorgente di voler comunicare con 
+tutti i restanti nodi disponibili, questa azione prevede l'inevitabile creazione di più pacchetti IP che dovranno 
+muoversi nella rete.\acc 
+Il processo di duplicazione di pacchetti sulla rete per poter raggiungere più destinazioni si chiama \textbf{flooding}, 
+se avviene in maniera non controllata, può causare un aumento del traffico della rete rendendola una 
+pratica inefficiente.\acc 
+il \textit{flooding non controllato}, come già accennato è una pratica sconsigliata, il suo funzionamento risulta 
+semplice, quando un nodo riceve un pacchetto di tipo broadcast, provvederà a crearne delle copie da inoltrare a tutti 
+i nodi adiacenti.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/UncontrolledFlooding.eps}
+\end{center}
+Come di facile intuizione, se il grafo presenta cicli, una o più copie del pacchetto verrano inoltrate in un percorso 
+ciclico all'infinito nella rete. È quindi necessario \textit{identificare i cicli} utilizzando un numero di sequenza, 
+ogni nodo tiene traccia in una tabella dei pacchetti ricevuti con numero di sequenza ed indirizzo del mittente, ogni volta 
+che riceverà un pacchetto broadcast, eseguirà una ricerca in tale tabella, con lo scopo di non inoltrare pacchetti 
+già ricevuti, scartandoli.\acc 
+Non è una soluzione efficiente, inoltre si delega la ricerca ai router, che sono dispositivi sulla quale non dovrebbe 
+concentrarsi l'intelligenza, un'altra soluzione è nota come \textbf{RPF (Reverse Path Forwarding)}, quando un nodo
+riceve un pacchetto, lo inoltra esclusivamente se arriva da un link che fa parte del percorso ottimale dalla 
+sorgente a se stesso.\begin{center}
+    \includegraphics[width=\textwidth ]{images/RPF.eps}
+\end{center} 
+Anche se RPF riduce notevolmente il traffico di pacchetti ridondanti sulla rete, non ne elimina completamente la 
+ritrasmissione, è necessario un approccio ad un \textit{flooding controllato}, un idea è quella di costruire 
+lo \textbf{spanning tree} di inoltro in partenza, una volta costruito, si inoltrano i pacchetti sulle rotte 
+stabilite, con impossibilità di creare cicli, facendo si che ogni nodo riceva una sola copia del pacchetto.\begin{center}
+    \includegraphics[width=\textwidth ]{images/spanningTree.eps}
+\end{center} 
+\subsubsection{Multicast e IGMP}
+Si parla di \textit{multicast} quando si vuole intendere l'inoltro di un messaggio da parte di un nodo, ad un gruppo
+specifico di $n$ destinazioni, si noti come un'approccio di questo tipo risulta estremamente più efficiente rispetto che 
+ad una serie di comunicazioni unicast singole dal nodo sorgente ad ogni altro nodo del gruppo specificato, richiederebbe 
+la creazione di $n$ pacchetti da inoltrare da parte della sorgente.\acc 
+Il problema del multicast, è che non è stato incluso nell'idea originale di IP, nell'header infatti è possibile 
+specificare esclusivamente un indirizzo di destinazione, tutta la struttura gerarchica di IP è stata costruita e pensata 
+per la comunicazione unicast. \acc 
+Essendo che non è possibile specificare più di un indirizzo nel datagramma IP, la soluzione è quella di assegnare un 
+unico indirizzo per tutto il gruppo di host che deve ricevere il messaggio, i router leggendo l'header IP, dovranno 
+riconoscere se l'indirizzo è relativo al multicast, ed eventualmente inoltrare il pacchetto su più porte.\acc 
+Nella struttura gerarchica di IP sono quindi stabiliti dei range di indirizzi relativi al multicast, in IPv4, 
+gli indirizzi dedicati sono $2^{28}$, e sono quelli presenti nel range $$[224.0.0.0,\;\; 239.255.255.255]$$ 
+$$ [11100000.00000000.00000000.00000000,\;\;11101111.11111111.11111111.11111111]$$
+i primi 4 bit, ossa $1110$ identificano che si tratta di un multicast, i restanti, specificano il gruppo di appartenenza.
+\acc 
+Il problema del multicast è che l'indirizzo di un gruppo non ha alcuna relazione con gli indirizzi degli host che vi 
+appartengono, un router deve quindi tenere in memoria quali interfacce sono relative ad un determinato gruppo multicast, 
+e deve comunicare con le reti esterne che è si è interssati a ricevere i pacchetti destinati ai gruppi nella quale sono presenti 
+i propri host.\acc 
+Il protocollo \textbf{IGMP (Internet Group Management Protocol)} è utilizzato per far comunicare gli host di una 
+rete con il proprio router, per comunicare il fatto che una certa applicazione di rete fa parte di un determinato 
+gruppo multicast, e si richiede ricevere i pacchetti ad esso destinati.\acc Il router salverà nella sua memoria una lista per ciascun gruppo multicast.
+I messaggi IGMP sono direttamente incapsulati su un datagramma IP, non devono uscire dalla propria rete, si imposta quindi il 
+TTL ad 1, i messaggi possono essere di diversi tipi\begin{itemize}
+    \item \textbf{membership query} : messaggio periodico che il router invia agli host per determinare quali di 
+    essi aderiscono ad un gruppo, e nel caso, a quale gruppo. 
+    \item \textbf{membership report} : messaggio inviato da un host ad un router per informare autonomamente che si 
+    vuole aderire ad un determinato gruppo multicast. 
+    \item \textbf{leave group} : messaggio inviato da un host ad un router per informare del fatto che si vuole 
+    abbandonare un determinato gruppo multicast. 
+\end{itemize}
+Esistono dei protocolli che hanno lo scopo di coordinare i router alla quale son connessi host che aderiscono ad un 
+determinato gruppo multicast, per ogni gruppo, si vuole costruire un albero, contenente tutti i router alla quale è collegato 
+almeno un host del gruppo in questione, per poi instradare i pacchetti multicast su tale albero, ci sono diversi protocolli 
+di routing multicast che non verranno approfonditi in questo corso\begin{itemize}
+    \item Intra-AS\begin{itemize}
+        \item DVMRP: distance-vector multicast routing protocol
+        \item  MOSPF: multicast open shortest path first 
+        \item PIM: protocol independent multicast
+    \end{itemize}
+    \item Inter-AS\begin{itemize}
+        \item MBGP: multicast border gateway protocol
+    \end{itemize}
+\end{itemize}
+\subsection{Software Defined Networking}
+Tradizionalmente, gli algoritmi di instradamento vengono eseguiti sui router, tale dispositivo risulta 
+monolitico, esso contiene anche hardware di commutazione, funge da middleboxes, ed implementa anche dei 
+protocolli proprietari. In passato router prodotti da compagnie diverse, potevano anche non comunicare fra loro, in 
+quanto non implementavano i medesimi protocolli.\acc 
+Negli ultimi anni vi è stato un rinnovamento, ed un interesse nel ripensare il piano di controllo, delegando il 
+lavoro ad una \textbf{SDN} (Software Defined Network), spostando l'intelligenza dai router.\acc 
+Con un piano di controllo centralizzato, la gestione della rete risulta più semplice, è possibile inoltre definire 
+delle configurazioni più elaborate, potendo controllare direttamente i percorsi sulla quale i pacchetti devono essere 
+instradati. Ogni router quindi, interagirà con un controller esterno, che si occuperà di definire i percorsi 
+per poi modificare le tabelle di routing interne dei router.\acc 
+Senza una SDN, un amministratore di rete, come unico controllo degli instradamenti aveva accesso 
+eslcusivamente al cambio di pesi sugli archi, ciò però conferisce poco controllo e condiziona l'instradamento 
+sull'intera rete, risulta poi complesso dividere i flussi di pacchetti su più percorsi.\acc 
+Ad oggi, chi controlla una SDN, può utilizzare dei software remoti che comunicano autonomamente con i router, 
+implementando regole avanzate per estendere il routing tradizionale. Una SDN dispone quindi di due interfacce di comunicazione, 
+una con i software di gestione, con la quale gli amministratori di rete possono configurare le regole di routing, ed una 
+con i router, alla quale hanno accesso per l'aggiornamento delle tabelle.\acc 
+Il protocollo utilizzato per far comunicare router ed SDN si chiama \textbf{OpenFlow}, incapsula i messaggi su 
+segmenti TCP, i messaggi dal controller ad i router sono\begin{itemize}
+    \item \textbf{features} : Utilizzato per conoscere quali funzionalità i router possono implementare  
+    \item \textbf{configure} : Per impostare parametri di configurazione sui router 
+    \item \textbf{modify-state} : Per aggiornare i campi delle tabelle di routing 
+    \item \textbf{packet-out} : Utilizzato per inviare pacchetti da parte del controller, utilizzando una porta di un router
+\end{itemize}
+I messaggi dai router ad il controller sono\begin{itemize}
+    \item \textbf{packet-in} : Per inviare pacchetti al controller 
+    \item \textbf{flow-removed} : per segnalare che una riga della tabella di routing è stata eliminata 
+    \item \textbf{port status} : per notificare al controller che una porta ha subito una modifica 
+\end{itemize}
+Le SDN hanno sostituito il routing tradizionale intra-AS, sono fondamentali nelle reti cellulari 5G e rafforzano il 
+piano di controllo con un sistema più affidabile, scalabile e sicuro. Si può immaginare un futuro in cui il controllo 
+della congestione avviene tramite le SDN, impostando i rate ed i percorsi in base al traffico sulla rete, della quale 
+le SDN hanno una visione globale.
+\section{Livello di Collegamento}
+Il livello di collegamento si occupa della comunicazione fra host in una stessa sotto-rete, senza che venghino 
+coinvolti dei router. Il dispositivo principale che si occupa di mettere in comunicazione due host 
+è lo \textbf{switch}, collega i nodi di una sottorete, opera esclusivamente su tale livello, non legge 
+l'header di rete IP.\acc 
+I pacchetti a questo livello sono detti \textit{frame}, i protocolli a tale livello offrono l'accesso ai 
+link (talvolta condivisi), ed un controllo degli errori sui bit, con eventuale correzione, il livello di collegamento è 
+implementato su ogni singolo host, ed ogni dispositivo che disponga di una scheda di rete.\acc 
+Il livello di collegamento può essere suddiviso in due sotto-livelli\begin{itemize}
+    \item \textbf{Data Link Control} : Si occupa di questioni comuni alle comunicazioni punto-punto e quelle 
+    su un canale condiviso, fornisce controllo del flusso e degli errori, con eventuale correzione. Gestisce quindi 
+    la comunicazione indipendentemente dal fatto che sia fra due singoli host o fra più host. 
+    \item \textbf{Media Acces Control} : Riguarda gli aspetti specifici dei canali broadcast, come il controllo 
+    dell'accesso su un canale fisico condiviso, per evitare e gestire eventuali interferenze.
+\end{itemize}
+\subsection{Controllo e Correzione degli Errori}
+I segnali sul mezzo di collegamento fisico, che può essere un cavo oppure l'aria tramite onde elettromagnetiche, sono 
+segnali digitali che identificano, tramite l'ampiezza del segnale e la frequenza, una serie di 1 e 0 che vengono interpretati 
+poi come flussi di bit dai dispositivi.\begin{center}
+    \includegraphics[width=\textwidth ]{images/segnali.eps}
+\end{center} 
+I mezzi fisici sono soggetti ad interferenze elettromagnetiche, esse, modificando la forma del segnale, casuano 
+un flip\footnote{cambio su un bit, da 0 ad 1 oppure da 1 a 0} sui bit che verranno interpretati erroneamente. Quando avviene 
+un interferenza, la probabilità che comprometta un singolo bit è estremamente bassa, è molto probabile che invece vengano 
+"flippati" una serie di bit, trasmessi nella finestra temporale in cui è avvenuta l'interferenza, si dice che 
+gli errori avvengono a \textit{raffica}, il numero di bit coinvolti dipende dalla velocità di propagazione dei dati 
+e dalla durata dell'interferenza.\acc 
+Il metodo per la rilevazione di errori si chiama \textbf{EDC (Error Detection and Correction)}, il rilevamento degli 
+errori avviene tramite un bit di parità, esso viene impostato in modo tale che il numero di bit uguali ad 1, incluso quest'ultimo, 
+sia un numero pari, se tale numero sui bit del frame ricevuto dal destinatario è un numero dispari, allora è rilevato un 
+errore.\acc 
+Tale controllo non è affidabile al 100\%, per incrementarne l'affidabilità ed includere la correzione, viene considerato un 
+controllo sulla parità bidimensionale, il flusso di $n$ bit del segmento viene diviso in diverse righe con la quale 
+viene formata una matrice.
+$$\text{flusso : }b_1,b_2,b_3\dots b_n \implies \begin{matrix}
+    b_{1_1}&b_{1_2}&\dots &b_{1_j}\\ 
+    b_{2_1}&b_{2_2}&\dots &b_{2_j}\\
+    \vdots \\ 
+    b_{i_1}&b_{i_2}&\dots &b_{i_j}
+\end{matrix} $$
+Ad esempio : $$ 10101 00101 10010   \implies \begin{matrix}
+    1\;0\;1\;0\;1\\ 0\;0\;1\;0\;1 \\1\;0\;0\;1\;0 
+\end{matrix}$$
+A questo punto, viene calcolato un bit di parità per ogni riga e per ogni colonna, in modo che la somma dei bit 
+uguali ad uno  
+di una riga più il bit di parità sia un numero pari, ed anche la somma di tutti i bit di 
+una colonna più il bit di parità sia un numero pari.\begin{center}
+    \begin{tabular}{l|l}
+        1 0 1 0 1  & 1 \\
+        0 0 1 0 1  & 0 \\
+        1 0 0 1 0 & 0 \\ \hline
+        0 0 0 1 0  &  
+        \end{tabular}
+\end{center}
+Se vi sarà un errore su un bit, esso condizionerà il parity bit della sua colonna e della sua riga, permettendo 
+al bit che è stato flippato di essere individuato e corretto.
+\begin{center}
+    \begin{tabular}{l|l}
+        1 0 1 0 1  & 1 \\
+        0 0 \color{red}0 \color{black} 0 1  & \color{red}0\color{black} \\
+        1 0 0 1 0 & 0 \\ \hline
+        0 0 \color{red}0 \color{black} 1 0  &  
+        \end{tabular}
+\end{center}
+\subsubsection{Cyclic Redundancy Check}
+Questo sistema con i pariti bit è efficace ma non infallibile, di fatto, anche se dei bit dovessero essere soggetti 
+ad errore, la somma dei bit uguali ad uno potrebbe risultare comunque un numero pari.
+Il \textbf{CRC} è uno strumento ancora più potente e sofisticato per la rilevazione e correzione degli errori.\acc 
+Sia $D$ il numero binario definito dai bit del frame, in coda a questo, viene aggiunta una sequenza di $r$ 
+bit detta appunto, CRC. Si considera poi un valore $G$ detto generatore, tale valore è predeterminato e noto sia al 
+mittente che al destinatario.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/crcBit.eps}
+\end{center} 
+Il valore di $D$ ed il valore di $G$ sono noti, bisogna scegliere $r$ bit, che identificano il numero $R$, tali che, 
+il valore $D\cdot 2^r$  XOR $R$ sia divisibile per $G$ in $\mathbb{Z}_2$.
+$$ D\cdot 2^r \oplus R = G \mod{2}$$ 
+Il destinatario ha noto il valore di $G$, procede con il dividere $D\cdot 2^r \oplus R$ per 2, se il resto è 
+diverso da zero, allora un errore è stato rilevato. Tale tecnica rileva tutti gli errori di burst inferiori 
+ad $r+1$ bit.\acc 
+Il valore $R$ corrisponde quindi al resto della divisione di $D\cdot 2^r$ per $G$ in $\mathbb{Z}_2$ 
+$$ R\equiv \dfrac{D\cdot 2^r}{G}\mod{2}$$
+Il destinatario che riceve il frame, verificherà che $$\dfrac{D\cdot 2^r \oplus R}{G}\equiv 0 \mod{2} $$ 
+Se ciò dovesse essere falso, l'errore è stato rilevato.
+\subsection{Accesso Multiplo ad un Canale Condiviso}
+I collegamenti punto-punto risultano semplici in quanto un mittente ed un destinatario possono scambiarsi messaggi 
+su un canale dedicato, risulta più ostica la comunicazione sui canali ad accesso condiviso, come per le reti wifi o le 
+vecchie implementazioni di cavi ethernet.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/AccessoMultiplo.eps}
+\end{center} 
+Quando due host trasmettono dati sullo stesso mezzo, ed essi entrano in contatto causando interferenza, si dice 
+che è avvenuta una \textbf{collisione}, i protocolli di accesso multiplo sono implementati sugli host e definiscono 
+algoritmi distribuiti che determinano e coordinano i nodi nella condivisione del canale.\acc 
+Idealmente, vorremmo un protocollo semplice e decentralizzato, che permetta ad $m$ host su un canale dove la velocità 
+di trasmissione è $r$ bit al secondo, di trasmettere ad una velocità pari a $\nicefrac{r}{m}$ bit al secondo.\acc 
+Esistono 3 tipi di protocolli di accesso, quelli a partizionamento del canale, quelli ad accesso casuale, e quelli a rotazione. 
+I protocolli di partizionamento del canale, lo dividono in slot temporali, oppure in base alle frequenze, come il 
+TDMA o il FDMA già visti nel capitolo \ref{NucleoRete}.\acc 
+Vediamo alcuni dei più noti protcolli ad \textit{accesso casuale}, che sono tutt'oggi i più utilizzati nelle 
+reti reali, quando un nodo ha un pacchetto da inviare, lo trasmette immediatamente, i protocolli definiscono 
+il rilevamento delle collisioni, ed eventuali recuperi.
+\subsubsection{I Protocolli Aloha}
+Il protocollo \textbf{Slotted Aloha} funziona su una rete locale per cui tutti i frame sono della stessa dimensione. Viene 
+diviso il tempo in slot, ogni slot equivale al tempo di trasmissione di 1 frame, ed i nodi della rete iniziano a trasmettere 
+i frame esclusivamente all'inizio dello slot temporale.\acc 
+Quando un nodo ha un frame da inviare, lo trasmette all'inizio dello slot successivo, se non vi è collisione, 
+potrà utilizzare anche lo slot successivo a quello appena usato per inviare un nuovo frame, se invece vi è 
+collisione, il nodo ri-trasmetterà il frame nello slot successivo con probabilità $p$.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/slottedAloha.eps}
+\end{center} 
+Se un singolo nodo è attivo, esso trasmetterà sempre al massimo della velocità, è un protocollo decentralizzato 
+e di facile implementazione, di contro, le collisioni causano uno spreco di slot, ed è probabile che anche gli slot 
+successivi siano sprecati.\acc 
+In uno scenario con $n$ nodi che vogliono trasmettere contemporaneamente, in cui il valore della probabilità 
+di ritrasmettere dopo una collisione è $p$, la probabilità che un certo nodo ha di trasmettere risulta 
+$$ p\cdot (1-p)^{n-1} $$
+La probabilità che un qualsiasi nodo trasmetta con successo, è quindi tale valore moltiplicato per il numero di nodi 
+$$ n\cdot p\cdot (1-p)^{n-1}  $$
+L'efficienza massima che si può ottenere dipende dal valore di $p$, sia $\tilde p$ il valore di $p$ che 
+massimizzi $ n\cdot p\cdot (1-p)^{n-1} $, per $n$ che tende ad infinito, si ottiene \textbf{l'efficenza massima} 
+raggiungibile con slotted Aloha : $$\lim_{n\rightarrow +\infty}  n\cdot\tilde p\cdot (1-\tilde p)^{n-1} = \dfrac{1}{1}\simeq 0.37 $$
+Quindi nel migliore dei casi, il canale sarà utilizzato il 37\% del tempo.
+ \end{document}

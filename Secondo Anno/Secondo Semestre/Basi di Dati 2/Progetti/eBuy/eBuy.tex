@@ -90,7 +90,13 @@ Url = "http/" $\lor$ "https/" \codee{concat} Stringa \codee{concat} . \codee{con
     \item \textit{post-condizioni} : Non modifica il livello degli oggetti.\\ 
     Sia $a:Asta$ l'oggetto per cui esiste il link ($this,a$)\\ 
     Sia $B$ l'insieme di tutti gli oggetti $x:Bid$ per cui $\exists (x,a) \land x.istante<this.istante$\\ 
-    $result = |B|+1$ 
+    $result = |B|+1$\acc 
+    in \textbf{FOL} : $$\begin{matrix}
+        \alpha \;|\; bid\_asta(\alpha,this)\\ 
+        B = \{ x  \;|\; bid\_asta(\alpha,x) \land \beta < \gamma \land istante(x, \beta)<istante(this,\gamma)\}\\ 
+        result = |B| +1
+    \end{matrix} $$
+
 \end{itemize}
 \subsubsection{professionale}
 \code{popolarità () : Popolarita}\begin{itemize}
@@ -109,6 +115,18 @@ Url = "http/" $\lor$ "https/" \codee{concat} Stringa \codee{concat} . \codee{con
             Sia $U$ l'insieme di utenti $u$ tale che, $u$ è coinvolto in un link di tipo $(aquista/bidder)$ o $offerta$ con un 
             oggetto in $B\cup P$\\
             $Pop = |U|$\\
+            $Pop<50\implies result = $bassa \\
+            $Pop\le300\land Pop\ge50\implies result = $media\\ 
+            $Pop>300\implies result =$alta\acc 
+            in \textbf{FOL} :$$\begin{matrix}
+                P' = \big\{ p \;|\;pubblica(this,p) \land \\ \exists x \;acquista\_bidder(p,x) \land \\ 
+                (Asta(p) \land ORA-m<12\text{ mesi } \land scadenza(p,m)) \lor \\ 
+                (CompraSubito(p) \land ORA-m<12\text{ mesi }  \land dataVendita(p,m)) \big\}\\ \\
+                B =  \big\{ b | Bid(b) \land  ORA-m<12\text{ mesi } \land istante(b,m)\land \\ 
+                \exists p\; bid\_asta(b,p) \land p\in P \big\}\\ \\ 
+                U =  \big\{ u \;|\;( acquista/bidder(u,x) \lor offerta(u,x)) \land x\in B\cup P \big\}\\ 
+                Pop=|U| 
+            \end{matrix} $$
             $Pop<50\implies result = $bassa \\
             $Pop\le300\land Pop\ge50\implies result = $media\\ 
             $Pop>300\implies result =$alta
