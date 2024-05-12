@@ -1,0 +1,161 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{mathtools}
+\newcommand{\acc}{\\\hphantom{}\\}
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+\newcommand{\id}{{\hphantom{ident}}}
+\newcommand{\vincolo}[1]{\colorbox{Orange}{$[$\text{#1}$]$}}
+\title{\textbf{Rain Air}}
+
+\date{}
+
+
+\begin{document}
+
+\maketitle\section{Specifica dei Requisiti}
+\hphantom{a}\\
+1. Cliente \\
+\id 1.1 nome \\
+\id 1.2 cognome\\
+\id 1.3 indirizzo \\ 
+\id 1.4 prenotazioni\\
+\id 1.5 frequen flyers (facoltativo) \\ 
+\id \id 1.5.1 codice \\ 
+\id \id 1.5.2 data affiliazione\\
+\id \id 1.5.3 miglia accumulate (operazione di classe)
+\acc 
+2. Volo \\ 
+\id 2.1 codice \\ 
+\id 2.2 miglia percorse \\ 
+\id 2.3 informazioni volo \\
+\id \id 2.3.1 orario di partenza \\
+\id \id 2.3.2 orario di arrivo \\ 
+\id \id 2.3.3 aereoporto di partenza \\
+\id \id 2.3.4 aereoporto di arrivo \\ 
+\id \id 2.3.5 giorni \\ 
+\id 2.4 veivolo usato \\
+\id 2.5 prezzo base \acc 
+3. Prenotazione \\ 
+\id 3.1 utente coinvolto \\ 
+\id 3.2 voli coinvolti (almeno 1) \\ 
+\id \id 3.2.1 data decollo (per ogni volo)\\ 
+\id \id 3.2.2 numero posti richiesti (per ogni volo)\\ 
+\id 3.3 istante prenotazione\\
+\id 3.4 eventuale hotel (facoltativo) \\  
+\id \id 3.4.1 data check-in \\
+\id \id 3.4.2 data check-out\\ 
+\id \id 3.4.3 numero stanze prenotate \acc 
+4. Aereoporto \\ 
+\id 4.1 codice (stringa 3 caratteri) \\ 
+\id 4.2 nome \\
+\id 4.3 città \\
+\id 4.4 stato \\
+\id 4.5 tassa decollo \\ 
+\id 4.6 tassa atterraggio \acc 
+5. Veivolo \\ 
+\id 5.1 codice (stringa) \\
+\id 5.2 tipo \\ 
+\id 5.3 numero di posti \\ 
+\id 5.4 costo al miglio \acc 
+6. Hotel\\ 
+\id 6.1 nome \\ 
+\id 6.2 indirizzo \\ 
+\id 6.3 categoria (stelle, da 1 a 5) \\
+\id 6.4 tariffa stanza per notte \\ 
+\id 6.5 distanza dal centro in Km \\ 
+\id 6.6 aereoporto vicino \\ 
+\id \id 6.6.1 distanza aereoporto
+
+
+\newpage 
+\section{UML}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/UML.eps}
+\end{center}
+
+\newpage
+\section{Tipi di Dato}
+CAP = 5 cifre decimali che seguono lo standard del CAP
+
+\newpage 
+\section{Specifica delle Classi}
+\subsection{Specifica delle Operazioni di Classe}
+\subsubsection{FrequentyFlyers}
+\code{migliaAccumulate() : Intero $\ge$ 0}\begin{itemize}
+    \item \textbf{pre-condizioni} : nessuna 
+    \item \textbf{post-condizioni} : Non modifica il livello estensionale $$\begin{matrix} 
+       \text{ sia }dA \text{ tale che }affilianzione(this,dA) \\ \\ 
+        P = \{ p \;|\; cli\_pren(this,p)\; \land \;istante(is,p) \;\land \;is \ge dA\}\\ \\
+        PrenVoloNoHotel = \big\{ (m,posti) \;|\;  \exists v \; Volo(v) \; \exists p\in P\;pren\_volo(v,p)\\ \;\land\;
+         \lnot(\exists h\; hot\_pren(h,p))\\ \;\land\; miglia(v,m) \;\land \; numPosti(v,p,posti)\big\} \\ \\ 
+        PrenVoloHotel4 = \big\{  (m,posti) \;|\;  \exists v \; Volo(v) \; \exists p\in P\;pren\_volo(v,p) 
+        \;\land\; \\(\exists h\; hot\_pren(h,p) \land categoria(h,4))\\ \;\land\; miglia(v,m) \;\land \; numPosti(v,p,posti)\big\}\\ \\
+        PrenVoloHotel5 = \big\{  (m,posti) \;|\;  \exists v \; Volo(v) \; \exists p\in P\;pren\_volo(v,p) 
+        \;\land\;\\ (\exists h\; hot\_pren(h,p) \land categoria(h,5))\\ \;\land\; miglia(v,m) \;\land \; numPosti(v,p,posti)\big\}\\ \\  
+        r1 = \displaystyle \sum_{(m,posti)\in PrenVoloNoHotel}m\cdot posti\\ \\ 
+        r2 = \displaystyle \Big(\sum_{(m,posti)\in PrenVoloHotel4}m\cdot posti \Big)\cdot 2 \\ \\ 
+        r3 = \displaystyle \Big(\sum_{(m,posti)\in PrenVoloHotel5}m\cdot posti \Big)\cdot 3\\ \\ 
+        result = r1+r2+r3
+    \end{matrix}$$
+\end{itemize}\newpage
+\subsubsection{Volo}
+\code{prezzoBaseEuro() : Intero >= 0}\begin{itemize}
+    \item \textbf{pre-condizioni} : nessuna 
+    \item \textbf{post-condizioni} : Non modifica il livello estensionale$$\begin{matrix}
+        \text{sia }costo \text{ tale che }costoAlMiglioInEuro(V,costo) \;\land\; veiv\_volo(this,V)\\ \\ 
+        \text{ sia }costoVolo \text{ tale che } costo\cdot m \;\land\; miglia(this,m)\\ \\ 
+        \text{ sia }taxDec \text{ tale che } tassaDecEuro(A,tax)\;\land\; partenza(A,V) \;\land\; veiv\_volo(this,V)\\ \\ 
+        \text{ sia }taxAtt \text{ tale che } tassaAttEuro(A,tax)\;\land\; arrivo(A,V) \;\land\; veiv\_volo(this,V)\\ \\ 
+        prezzo = taxAtt + costoVolo + taxDec\\ \\ 
+        \text{ sia }p \text{ tale che } numeroPosti(p,V)\;\land\; veiv\_volo(this,V)\\ \\ 
+        result = \dfrac{prezzo}{p}\cdot 1.2
+    \end{matrix} $$
+\end{itemize}
+\newpage 
+\section{Specifica dei Vincoli Esterni}
+\vincolo{V.partenza\_prima\_di\_arrivo}
+$$\begin{matrix}
+    \lnot\big(\\\exists part \;\exists arrivo \;\exists g\;\; OrarioGiornoVolo(g) \\  
+     part > arrivo \;\land\; oraPartenza(g,part) \;\land\; oraArrivo(g,arrivo)\\\big)
+\end{matrix} $$
+\vincolo{V.veivolo\_due\_voli\_stesso\_giorno}$$ \begin{matrix}
+    \lnot\big(\\\exists A\;\exists g\; \exists v_1\; \exists v_2 \\ 
+    Veivolo(A) \;\land\; OrarioGiornoVolo(g) \;\land\; Volo(v_1) \;\land\; Volo(v_2)\;\land\;\\ 
+    volo\_giorni(v_1,g) \;\land\; volo\_giorni(v_2,g)\;\land\; v_1\ne v_2\\ 
+    \;\land\; veiv\_volo(v_1,A) \land veiv\_volo(v_2,A)\\\big) 
+\end{matrix}$$
+\vincolo{V.prenotazione\_volo\_passato}$$\begin{matrix}
+    \lnot\big(\\\exists p\; \exists v\; \exists g \;\exists d_1 \;\exists d_2 \;\exists k \\ 
+    Prenotazione(p) \;\land\; Volo(v) \;\land\; OrarioGiornoVolo(g) \\ 
+    pren\_volo(p,v)  \;\land\; volo\_giorni(v,g)  \;\land\; istante(p,d_1)  \;\land\; dataVolo(g,d_2)\\ 
+    k \ge d_2 \land Data(k,d_1)\\\big) 
+\end{matrix} $$
+\vincolo{V.checkout\_maggiore\_di\_checkin}$$\begin{matrix}
+    \forall h\forall p \; hot\_pren(p,h) \\ 
+    \lnot \exists in \;\lnot \exists out \;\; 
+    chek\_in(p,h,in) \;\land\; chek\_out(p,h,out) \;\land\; in>out
+\end{matrix} $$
+\vincolo{V.checkin\_hotel\_maggiore\_o\_uguale\_DataOra\_prenotazione}$$\begin{matrix}
+    \exists pren \; \exists v\; \exists g\;\exists h\; \exists dataC\;\exists dataV\;\exists k  \\ 
+    checkIn(p,h,dataC) \;\land\; pren\_volo(pren,v)\;\land\;volo\_giorni(v,g)\\ 
+    dataVolo(g,dataV) ;\land; dataV > k \land Data(k,dataC)
+\end{matrix} $$ 
+\newpage
+\section{Appunti}
+Ricordare tutti i vincoli esterni relativi alle prenotazion dei voli in relazione  
+con le date checkin e checkout di eventuale hotel\acc 
+\end{document}

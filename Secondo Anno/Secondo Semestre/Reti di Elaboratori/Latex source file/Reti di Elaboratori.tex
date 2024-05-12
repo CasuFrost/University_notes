@@ -2112,7 +2112,7 @@ al bit che è stato flippato di essere individuato e corretto.
         0 0 \color{red}0 \color{black} 1 0  &  
         \end{tabular}
 \end{center}
-\subsubsection{Cyclic Redundancy Check}
+\subsubsection{Cyclic Redundancy Check}\label{CRC}
 Questo sistema con i pariti bit è efficace ma non infallibile, di fatto, anche se dei bit dovessero essere soggetti 
 ad errore, la somma dei bit uguali ad uno potrebbe risultare comunque un numero pari.
 Il \textbf{CRC} è uno strumento ancora più potente e sofisticato per la rilevazione e correzione degli errori.\acc 
@@ -2305,4 +2305,130 @@ I messaggi ARP sono incapsulati direttamente nel frame Ethernet, e seguono il se
     \item \textbf{Operazione} : Se il messaggio è una richiesta o una risposta
 \end{itemize}
 \subsubsection{Ethernet}
- \end{document}
+Ethernet è il principale protocollo/formato utilizzato nelle reti cablate, con Ethernet si denota sia il protocollo 
+di incapsulamento, ed il relativo frame, sia il cavo utilizzato per la trasmissione dei dati in una rete locale.\acc 
+Una rete locale di computer in comunicazione con Ethernet può essere implementata in due modi distinti\begin{itemize}
+    \item \textbf{Bus} : Utilizzato in passato, vi è un unico cavo coassiale principale alla quale si attaccano i 
+    vari host, tutti sullo stesso dominio di collisione, il cavo è half duplex.
+    \item \textbf{Switched} : Circuito commutato in utilizzo ad oggi, fa uso di uno \textit{switch} che unisce 
+    le interfacce creando una connessione separata per ogni coppia di nodi, facendo si che non entrino in collisione.
+\end{itemize}\begin{center}
+    \includegraphics[width=\textwidth ]{images/switchOHub.eps}
+\end{center}
+Il frame Ethernet segue il seguente formato:\begin{center}
+    \begin{tabular}{
+        >{\columncolor[HTML]{009901}}c 
+        >{\columncolor[HTML]{009901}}l |
+        >{\columncolor[HTML]{009901}}c |
+        >{\columncolor[HTML]{009901}}c |
+        >{\columncolor[HTML]{009901}}c |
+        >{\columncolor[HTML]{009901}}c |
+        >{\columncolor[HTML]{009901}}c }
+        \multicolumn{2}{c|}{\cellcolor[HTML]{009901}{\color[HTML]{FFFFFF} preambolo}} & {\color[HTML]{FFFFFF} indirizzo di destinazione} & {\color[HTML]{FFFFFF} indirizzo sorgente} & {\color[HTML]{FFFFFF} tipo} & {\color[HTML]{FFFFFF} datagramma(dati)} & {\color[HTML]{FFFFFF} CRC}
+        \end{tabular}
+\end{center}
+Il campo \textbf{preambolo}, non è altro che una sequenza fissata di 8 byte, \codee{10101010} per i primi 7 byte, e 
+\codee{10101011} per l'ultimo, serve per sincronizzare le frequenze di clock fra mittente e destinatario, quest'ultimo, 
+ascoltando questa specifica sequenza di bit sul segnale, sincronizzerà il clock e si preparerà alla ricezione 
+e lettura del frame.\begin{center}
+    \includegraphics[width=0.85\textwidth ]{images/preambolo.eps}
+\end{center}
+Il campo \textbf{tipo} indica il protocollo utilizzato per incapsulare il datagramma al livello superiore, insieme 
+ad altri flag e la lunghezza in byte dell'intero frame. Il CRC rappresenta il \textit{Cyclic Redundancy Check} \ref{CRC} 
+per il controllo e correzione degli errori, se viene rilevato un frame con degli errori, sarà scartato.\acc 
+Il protocollo Ethernet è semplice e non gestisce controllo della congestione o trasporto affidabile, tutto il resto 
+è lasciato ai protocolli superiori, si occupa esclusivamente di inoltrare il frame, negli anni sono stati definiti 
+diversi standard Ethernet che operano a differenti velocità, supportando diversi mezzi fisici di collegamento. 
+\subsubsection{Ruolo e Funzionamento degli Switch}
+Lo \textit{switch} è il principale dispositivo che opera nelle reti al livello di collegamento, si occupa di operare 
+ed elaborare esclusivamente i frame, leggendo l'header Ethernet, senza operare sul livello di rete. Si occupa di leggere 
+gli indirizzi MAC dei frame ed inoltrarli selettivamente verso il corretto collegamento in uscita.\acc 
+Lo switch permette agli host di essere collegati con un collegamento virtuale punto-punto, evitando la possibilità 
+di collisioni, essi sono ignari dell'esistenza degli switch, operano quindi in maniera trasparente. Gli switch, sono 
+dispositivi \textit{plug and play}, non necessitano di essere configurati, una volta connessi, apprenderanno in 
+automatico la topologia e la disposizione della rete, grazie ad essi è possibile abbandonare definitivamente il 
+paradigma del bus condiviso, velocizzando Ethernet.\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/switchFunzionamento.eps}
+\end{center}
+Come fa lo switch a sapere verso quale porta indirizzare un pacchetto destinato ad un certo dispositivo? Ogni switch, 
+mantiene salvata una \textbf{tabella locale}, che associa ad ogni indirizzo MAC dei dispositivi sulla rete, una porta 
+in uscita, lo switch quindi, analizza il frame Ethernet, ne legge l'indirizzo di destinazione, ed in base a quest'ultimo 
+inoltra il frame nella porta adeguata.\acc 
+Si è accennato al fatto che questi dispositivi apprendenono automaticamente, vediamo un algoritmo che rappresenta 
+in maniera generale, il funzionamento di uno switch, a seguito della ricezione di un frame.
+\greybox{
+    \color{newBlue}\code{si riceve un frame\{}\color{black}\\
+    \hphantom{ident}\code{registra nella tabella il MAC del mittente del frame}\\
+    \hphantom{ident}\code{cerca nella tabella il MAC del destinatario}\\
+    \hphantom{ident}\code{if(MAC destinatario è già salvato nella tabella)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if (destinazione == sorgente)\{ scarta frame \}}\\
+    \hphantom{ident}\hphantom{ident}\code{else \{ inoltra sull'interfaccia \} }\\
+    \hphantom{ident}\code{\}else\{}\\
+    \hphantom{ident}\hphantom{ident}\code{ inoltra su tutte le interfacce }\\
+    \hphantom{ident}\code{\}}\\
+    \color{newBlue}\code{\}}\color{black}
+}
+Quindi uno switch che non conosce l'interfaccia di un nodo, inoltrerà il frame a tutti, se un nodo 
+vede ricevere un frame destinato ad un altro nodo, semplicemente lo scarterà. Quando il nodo destinatario riceverà 
+il frame, rispondendo al mittente, farà si che lo switch apprenda anche il suo indirizzo MAC.\acc 
+Grazie agli switch, ogni host dispone di una connessione dedicata con tutti gli altri host della rete, riducendo 
+esclusivamente ad essa il dominio di collisione, in una rete possono essere presenti anche più switch interconnessi 
+fra di loro, il funzionamento non viene compromesso.
+\subsubsection{Virtual LAN}
+I protocolli come ARP, DHCP o MAC stesso per gli switch prevedono l'utilizzo di messaggi broadcast che trafficano 
+sull'intera rete locale, aumentando appunto, il traffico della rete, ci sono situazioni in cui una LAN deve essere divisa 
+in più unità logiche, in modo che il traffico di questo tipo sia confinato all'interno di ogni unità.\acc 
+L'utilizzo delle \textbf{VLAN} permette la separazione logica delle reti all'interno di una stessa sottorete, aumentando 
+il grado di scalabilità:\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/InfToEng.eps}
+\end{center}
+Supponiamo che un professore del dipartimento di informatica debba spostare la sua sede nel dipartimento di ingegneria, 
+sarà necessario che esso si sposti fisicamente nel dipartimento di ingegneria, ma vuole rimanere logicamente collegato 
+all'unità della rete relativa al dipartimento di informatica.\acc 
+La funzionalità delle VLAN permette agli switch di suddividere le varie porte in diversi gruppi rappresentanti 
+le reti virtuali, host connessi a porte di gruppi differenti non potranno vedersi, come se si trovassero su due 
+reti differenti.\begin{center}
+    \includegraphics[width=\textwidth ]{images/VLANPort.eps}
+\end{center}
+Ciò risulta particolarmente scalabile, in quanto, per far si che un host cambi rete, sarà necessario riassegnare la 
+porta alla quale è collegato ad un'altro gruppo, senza dover spostare fisicamente il collegamento, o doverne cambiare 
+l'indirizzo IP. Viene risolto il problema del flooding, in quanto gli host che dovranno comunicare in broadcast, potranno 
+isolare il traffico confinandolo allo propria sottorete di appartenenza.\acc 
+Possono essere definite delle VLAN che comprenano anche più switch tramite il una \textbf{porta trunk}, che si occupa 
+di far comunicare host che appartengono alla stessa VLAN ma che sono collegati su switch fisici differenti, tale porta permette 
+di trasmettere i frame ad uno switch esterno, per poi specificare a quale delle VLAN dello switch si vuole comunicare, tramite 
+il protocollo \codee{802.1q}, che aggiunge al frame Ethernet la specifica riguardo l'id della VLAN in questione.
+\subsubsection{Reti Punto-Punto}
+Alcune configurazioni di rete prevedono due enti che comunica attraverso un collegamento punto-punto, tramite un singolo 
+cavo dedicato, senza aggiunta di switch o altri nodi nella rete, utilizzate per fornire accesso ad Internet agli utenti.
+\begin{center}
+    \includegraphics[width=\textwidth ]{images/punto-punto.eps}
+\end{center}
+Non sono necessari indirizzi MAC in quanto i due nodi possono comunicare esclusivamente fra loro, non è quindi necessario 
+dover identificare la porta corretta per l'host corretto, dato che vi è un unica via di comunicazione, non utilizzano i 
+protocolli MAC di accesso condiviso, ma implementano dei protocolli punto-punto.\acc 
+Il protocollo punto-punto è stato definito dall'IETF per il trasferimento sulle reti di questo tipo, lo standard definito 
+è indipendente dal produttore della rete, può trasportare datagrammi IP o di altro genere. Il protocollo definisce l'incapsulamento 
+del datagramma in un pacchetto PPP, permette la rilevazione di errori ma non la correzione. I frame sono definiti secondo 
+il seguente formato:\begin{center}
+    \begin{tabular}{
+        >{\columncolor[HTML]{329A9D}}c 
+        >{\columncolor[HTML]{329A9D}}l |
+        >{\columncolor[HTML]{329A9D}}c |
+        >{\columncolor[HTML]{329A9D}}c |
+        >{\columncolor[HTML]{329A9D}}c |
+        >{\columncolor[HTML]{329A9D}}c |
+        >{\columncolor[HTML]{329A9D}}c |
+        >{\columncolor[HTML]{329A9D}}l }
+        \multicolumn{2}{c|}{\cellcolor[HTML]{329A9D}{\color[HTML]{FFFFFF} flag}} & {\color[HTML]{FFFFFF} indirizzo} & {\color[HTML]{FFFFFF} controllo} & {\color[HTML]{FFFFFF} protocollo} & {\color[HTML]{FFFFFF} informazioni} & {\color[HTML]{FFFFFF} check} & {\color[HTML]{FFFFFF} flag}
+        \end{tabular}
+\end{center}\begin{itemize}
+    \item \textbf{flag} : tale campo è fisso, contiene i bit \codee{01111110} e serve ad indicare l'inzio e la fine del frame. 
+    \item \textbf{indirizzo} : anche tale campo ha un valore fisso, con 8 bit tutti uguali ad 1. 
+    \item \textbf{controllo} : anche tale campo ha un valore fisso di \codee{00000011}, altri valori potranno essere stabiliti 
+    in futuro per nuovi utilizzi.
+    \item \textbf{protocollo} : indica il protocollo di rete utilizzato.  
+    \item \textbf{informazioni} : il datagramma incapsulato, di lunghezza variabile. 
+    \item \textbf{check} : il checksum per il controllo degli errori.
+\end{itemize}
+\end{document}
