@@ -93,7 +93,7 @@ DSL vanno su internet, la voce su DSL va sulla linea telefonica. \acc
 In una rete \textit{domestica}  c'è un \textit{modem}
 (si occupa di ricevere il segnale analogico e di  \textit{modularlo} in segnale digitale)
 connesso ad un CMTS, collegato via cavo ad
-un router, collegato direttamente tramite \textit{ethernet} agli host, oppure collegato ad un \textit{access point WI-FI} che
+un router, collegato direttamente tramite \textit{Ethernet} agli host, oppure collegato ad un \textit{access point WI-FI} che
 permette la connessione senza fili, questi ultimi tre molto spesso sono combinati in un unico device.\acc
 La connessione senza fili, o wireless connette i sistemi terminali (host) al router, tramite il già citato
 access point, esistono reti locali senza fili (WLAN), che hanno una copertura di circa 30 metri, e reti di accesso
@@ -1547,7 +1547,7 @@ viene incapsulato in un datagramma IP, che segue il formato seguente:\begin{cent
 \end{itemize}
 Il punto centrale dell'intestazione sono gli indirizzi IP di mittente e destinatario, l'indirizzo IP è un identificatore 
 a 32 bit, ed identifica un \textit{interfaccia di rete} di un host o di un router, il primo ha solitamente due 
-interfacce (ethernet e wirless), mentre il secondo ne ha svariate. Per comodità, un IP viene letto 
+interfacce (Ethernet e wirless), mentre il secondo ne ha svariate. Per comodità, un IP viene letto 
 in notazione decimale puntata a gruppi di 8 bit \begin{center}
     \begin{tabular}{cccc}
         \cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} 11011111.} & 00000001. & 00000001. & \cellcolor[HTML]{FFFFFF}00000001 \\
@@ -2134,7 +2134,7 @@ Se ciò dovesse essere falso, l'errore è stato rilevato.
 \subsection{Accesso Multiplo ad un Canale Condiviso}
 I collegamenti punto-punto risultano semplici in quanto un mittente ed un destinatario possono scambiarsi messaggi 
 su un canale dedicato, risulta più ostica la comunicazione sui canali ad accesso condiviso, come per le reti wifi o le 
-vecchie implementazioni di cavi ethernet.\begin{center}
+vecchie implementazioni di cavi Ethernet.\begin{center}
     \includegraphics[width=1\textwidth ]{images/AccessoMultiplo.eps}
 \end{center} 
 Quando due host trasmettono dati sullo stesso mezzo, ed essi entrano in contatto causando interferenza, si dice 
@@ -2185,5 +2185,124 @@ Il tempo di vulnerabilità, ossia la finestra temporale in cui un nodo potrebbe 
 è già in utilizzo, è condizionata dalla lunghezza del mezzo di trasmissione e la velocità, risulta uguale 
 al tempo di propagazione.\acc 
 Il \textbf{CSMA/CD} (Collision Detection) introduce il rilevamento di collisioni, riducendo la quantità di tempo sprecato 
-nelle collisioni, in quanto, alla rilevazione di esse, il nodo interrompe immediatamente la trasmissione sul canale.
+nelle collisioni, in quanto, alla rilevazione di esse, il nodo interrompe immediatamente la trasmissione sul canale.\acc 
+È necessario inoltre, che i frame abbiano una dimensione minima, dato che il tempo di trasmissione di un frame, deve 
+essere almeno due volte il tempo di propagazione perché il collision detection funzioni, in quanto il mittente, deve poter 
+rilevare la collisione di un suo frame, prima che abbia smesso di trasmettere l'ultimo bit. In Ethernet, le dimensioni 
+minime del frame sono di 64 byte.\acc Il CSMA/CD può essere implementato secondo diversi gradi di \textit{persistenza},
+definiscono il comportamento dei nodi a seguito dell'ascolto del canale, e alle possibile azioni da intraprendere 
+nel caso tale canale sia occupato o no.\begin{itemize}
+    \item \textbf{non persistente}\begin{itemize}
+        \item Se il canale è libero, trasmette immediatamente 
+        \item Se il canale è occupato, attende un lasso di tempo casuale, per poi riascoltare il canale 
+        \item Se avviene una collisione, interrompe la trasmissione\begin{center}
+            \begin{center}
+                \includegraphics[width=0.7\textwidth ]{images/nonpersistente.eps}
+            \end{center} 
+        \end{center} 
+    \end{itemize}
+    \item \textbf{1-persistente}\begin{itemize}
+        \item Se il canale è libero, trasmette immediatamente 
+        \item Se il canale è occupato, continua l'ascolto
+        \item Se avviene una collisione, interrompe la trasmissione 
+        \begin{center}
+            \includegraphics[width=0.7\textwidth ]{images/1Persistente.eps}
+        \end{center} 
+    \end{itemize}
+    \item \textbf{p-persistente}, il tempo viene diviso in slot\begin{itemize}
+        \item Se il canale è libero, trasmette con probabilità $p$, altrimenti attende lo slot successivo 
+        \item Se il canale è occupato, attende un lasso di tempo casuale, per poi riascoltare il canale 
+        \item Se avviene una collisione, interrompe la trasmissione 
+        \begin{center}
+            \includegraphics[width=0.7\textwidth ]{images/pPersistente.eps}
+        \end{center} 
+    \end{itemize}
+\end{itemize}
+\subsubsection{Ethernet CSMA/CD}
+Vediamo adesso un implementazione di CSMA/CD nel protocollo Ethernet (verrà approfondito in seguito), è un 
+algoritmo 1-persistente, funziona come segue:\begin{enumerate}
+    \item Il nodo riceve un datagramma, lo incapsula in un frame Ethernet 
+    \item Ascolta il canale\begin{itemize}
+        \item Se libero, trasmette il frame 
+        \item Se occupato, attende che il canale sia libero per poi trasmettere 
+    \end{itemize}
+    \item Il frame viene trasmesso interamente se non vengono rilevate collisioni 
+    \item Se viene rilevata una collisione, viene interrotta la trasmissione, ed invio un 
+    segnale di \textit{jam} di 48 bit, per avvisare gli altri nodi della collisione avvenuta 
+    \item A seguito di tale rilevamento, il nodo entra nella condizione di \textit{backoff binario esponenziale}
+\end{enumerate}
+Il  \textbf{backoff binario esponenziale} è una tecnica utile a ridurre le probabilità di collisione ed aumentare 
+l'efficienza, fa si che il tempo di attesa di un nodo prima di ritrasmettere sia proporzionale al numero di collisioni 
+avvenute con un frame da lui inviato. Il suo funzionamento è semplice\begin{itemize}
+    \item Il nodo tiene traccia del numero di collisioni avvenute con frame da lui inviati
+    \item A seguito di una $m$-esima collisione, viene selezionato un numero $k$ casualmente da un insieme $\{0,1,2\dots,2^{m-1}\}$
+    \item Il nodo attenderà $k$ slot temporali\footnote{tempo per trasmettere un frame di 64 byte}, prima
+    di riascoltare il canale (passaggio 2)
+\end{itemize}
+L'efficienza di questo protocollo risulta superiore anche a quella di Slotted Aloha 
+$$efficienza = \dfrac{1}{1+5\cdot\dfrac{d_{prop}}{d_{trans}}} $$
+In condizioni ragionevoli, l'efficienza raggiunge il 50\%. 
+\subsubsection{Protocolli a Rotazione}
+Esistono anche dei protocolli di accesso condiviso basati sul \textit{polling}, a rotazione, viene selezionato 
+un nodo della rete, se esso ha un frame da trasmettere, verrà trasmesso. Essendo estremamente semplice nella sua 
+implementazione, viene spesso utilizzato sui sistemi embedded, sensori, o altri dispositivi cosiddetti "dumb", con 
+poca potenza di calcolo.\acc 
+La sua implementazione avviene tramite un nodo \textit{master}, che uno ad uno, ascolta i nodi della rete (polling), 
+ed "invitarli" a trasmettere in caso abbiano un frame da inviare. Il problema di tale implementazione 
+risiede nell'overhead dovuto al polling e alla latenza, ogni nodo dovrà attendere il suo turno prima di trasmettere 
+anche se il canale è libero, inoltre il nodo master funge da singolo punto di fallimento.\acc 
+Un'altra possibile implementazione, non considera alcun nodo master, bensì vi è un pacchetto speciale 
+detto \textbf{token}, che i nodi si trasmettono a rotazione, quando un nodo ottiene il token, ha la possibilità 
+di trasmettere, una volta finito, passerà il token al nodo successivo.
+\subsection{LAN ed Indirizzi MAC}
+Se al livello di rete si utilizzano gli indirizzi IP per identificare un interfaccia di rete, al livello di collegamento, 
+per identificare i singoli dispositivi all'interno di una rete locale, si utilizzano gli indirizzi MAC a 48 bit, essi, 
+essendo locali, non vengono propagati o utilizzati al di fuori di una sottorete, se un dispositivo dovesse cambiare 
+rete, il suo indirizzo MAC resterebbe invariato.\acc 
+Identificano univocamente un interfaccia di rete e sono definiti sulla ROM della scheda di rete di ogni dispositivo, sono 
+quindi \textit{hardcoded}. L'indirizzamento MAC non ha una struttura gerarchica, i bit dell'indirizzo non 
+danno alcuna informazione sulla topologia della rete. Gli indirizzi MAC sono gestiti da IEEE, che assegna ai produttori 
+un certo spazio di indirizzi disponibili da assegnare ai dispositivi.
+\subsubsection{Il Protocollo ARP}
+Per ora sappiamo che i dispositivi su una LAN per identificarsi utilizzano gli indirizzi MAC, il punto è che quando 
+si incapsula un datagramma, viene definita la destinazione tramite l'indirizzo IP, e non tramite l'indirizzo MAC. Ogni 
+dispositivo deve disporre di una tabella che fornisca l'associazione fra indirizzi MAC ed indirizzi IP. \acc 
+Tale tabella è detta \textbf{tabella ARP}, come il protocollo per la risoluzione degli indirizzi, ogni dispositivo 
+possiede la propria tabella, in modo da poter associare al destinatario identificato tramite IP, il corretto 
+indirizzo MAC utilizzato nell'header a livello di collegamento, i record della tabella hanno la seguente forma 
+\begin{center}
+    \codee{\Big< indirizzo IP \Big| Indirizzo MAC \Big| Time to Live \Big>}
+\end{center}
+Vediamo il funzionamento del protocollo ARP\begin{itemize}
+    \item Un nodo $A$ vuole comunicare con un nodo $B$ all'interno della stessa rete locale 
+    \item Il nodo $A$ non conosce l'indirizzo MAC di $B$, manda quindi una richiesta in broadcast, 
+    richiedendo il MAC del dispositivo con IP : $w.x.y.z$ (l'indirizzo di $B$, noto ad $A$)
+    \item A questo punto $B$ riceverà il messaggio, notando che l'IP in questione è il suo, se non presente 
+    nella sua tabella, salverà il MAC di $A$, procederà poi a comunicare ad $A$ il suo indirizzo MAC, inviando 
+    un apposito messaggio.
+\end{itemize}
+Cosa succederebbe se il nodo $B$ fosse in una rete esterna a quella di $A$?\begin{itemize}
+    \item Il nodo $A$ non conosce l'indirizzo MAC di $B$, manda quindi una richiesta in broadcast, 
+    richiedendo il MAC del dispositivo con IP : $w.x.y.z$ (l'indirizzo di $B$, noto ad $A$)
+    \item Il nodo $B$ non essendo nella sottorete di $A$, non riceverà questo frame. 
+    \item Il router riceverà il frame, noterà che $B$ si trova in una rete esterna, scarterà quindi 
+    l'header Ethernet, leggerà l'indirizzo IP di destinazione, e tramite la propria tabella, 
+    incapsulerà la richiesta in un nuovo frame Ethernet, per poterlo indirizzare verso $B$. 
+\end{itemize}
+I messaggi ARP sono incapsulati direttamente nel frame Ethernet, e seguono il seguente formato: \begin{center}
+    \begin{tabular}{|ccc|}
+        \hline
+        \multicolumn{2}{|c|}{Tipo Hardware}                                                  & Tipo Protocollo \\ \hline
+        \multicolumn{1}{|c|}{lunghezza hardware} & \multicolumn{1}{c|}{lunghezza protocollo} & Operazione      \\ \hline
+        \multicolumn{3}{|c|}{Indirizzo MAC della sorgente}                                                     \\ \hline
+        \multicolumn{3}{|c|}{Indirizzo IP della sorgente}                                                      \\ \hline
+        \multicolumn{3}{|c|}{Indirizzo MAC di destinazione (vuoto nelle richieste)}                            \\ \hline
+        \multicolumn{3}{|c|}{Indirizzo IP di destinazione}                                                     \\ \hline
+        \end{tabular}
+\end{center}\begin{itemize}
+    \item \textbf{Tipo Hardware} : Il protocollo a livello di collegamento
+    \item \textbf{Tipo Protocollo} : Il protocollo a livello di rete
+    \item \textbf{Operazione} : Se il messaggio è una richiesta o una risposta
+\end{itemize}
+\subsubsection{Ethernet}
  \end{document}
