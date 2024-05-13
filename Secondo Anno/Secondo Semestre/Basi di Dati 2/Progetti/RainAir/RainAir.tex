@@ -86,7 +86,11 @@
 \begin{center}
     \includegraphics[width=\textwidth]{images/UML.eps}
 \end{center}
-
+\newpage 
+\section{UseCase}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/UseCase.eps}
+\end{center}
 \newpage
 \section{Tipi di Dato}
 CAP = 5 cifre decimali che seguono lo standard del CAP
@@ -129,7 +133,7 @@ CAP = 5 cifre decimali che seguono lo standard del CAP
 \section{Specifica dei Vincoli Esterni}
 \vincolo{V.partenza\_prima\_di\_arrivo}
 $$\begin{matrix}
-    \lnot\big(\\\exists part \;\exists arrivo \;\exists g\;\; OrarioGiornoVolo(g) \\  
+    \lnot\big(\\\exists part \;\exists arrivo \;\exists g\;\; OrarioGiornoVolo(g) \;\land \\  
      part > arrivo \;\land\; oraPartenza(g,part) \;\land\; oraArrivo(g,arrivo)\\\big)
 \end{matrix} $$
 \vincolo{V.veivolo\_due\_voli\_stesso\_giorno}$$ \begin{matrix}
@@ -154,8 +158,48 @@ $$\begin{matrix}
     checkIn(p,h,dataC) \;\land\; pren\_volo(pren,v)\;\land\;volo\_giorni(v,g)\\ 
     dataVolo(g,dataV) ;\land; dataV > k \land Data(k,dataC)
 \end{matrix} $$ 
+\vincolo{V.posti\_prenotati\_minore\_uguale\_posti\_totali\_aereo}
+$$\begin{matrix}
+    \forall v\;\forall A\;\forall nposti\;\forall postiPren\;\forall pren \\ 
+    pren\_volo(v,pren,postiPren)\;\land\;veiv\_volo(v,A)\;\land\;numeroPosti(A,nposti)\\ 
+    \rightarrow nposti \ge postiPren
+\end{matrix} $$
 \newpage
-\section{Appunti}
-Ricordare tutti i vincoli esterni relativi alle prenotazion dei voli in relazione  
-con le date checkin e checkout di eventuale hotel\acc 
+\section{Specifica degli UseCase}
+\subsection{Specifica delle Operazioni degli UseCase}
+\subsubsection{Sistema Prenotazioni}
+\code{posti\_disponibili(v : Volo, d : Data) : Intero $\ge$ 0}\begin{itemize}
+    \item \textbf{pre-condizioni} : $$\begin{matrix}
+        \exists g\; volo\_giorni(v,g) \;\land\; dataVolo(g,d)
+    \end{matrix}$$
+    \item \textbf{post-condizioni} : $$\begin{matrix}
+        NumP = \big\{ np \;|\; \exists p\;pren\_volo(v,p)\;\land\;dataDecollo(v,p,d)\;\land\;numPosti(v,p,np)  \big\}\\ \\ 
+        result = \displaystyle\sum_{np\in NumP}np
+    \end{matrix} $$
+\end{itemize}
+\code{prezzo\_biglietti(v : Volo, d : Data, n : Intero $\ge$ 0) : Intero $\ge$ 0}\begin{itemize}
+    \item \textbf{pre-condizioni} : $$\begin{matrix}
+        \exists g\; volo\_giorni(v,g) \;\land\; dataVolo(g,d)\\ 
+        n \le \codee{posti\_disponibili($v,d$)}
+    \end{matrix}$$
+    \item \textbf{post-condizioni} :$$\begin{matrix}
+        prezzoBase = v.\codee{prezzoBaseEuro()}\\  \\
+        postiDisp = \codee{posti\_disponibili($v,d$)} \\ \\
+        postiTot = postiTot\;|\; veiv\_volo(v,A)\;\land\;numeroPosti(A,postiTot) \\ \\
+    \end{matrix} $$
+    \begin{itemize}
+        \item Se $postiDisp < postiTot\cdot \dfrac{1}{2}$ $$\begin{matrix}
+            numInc = |postiDisp-postiTot|\\ 
+            inc = \sum_{i=1}^{numInc} 1.02\\
+            prezzoBase = prezzoBase\cdot inc
+        \end{matrix} $$
+        \item altrimenti$$\begin{matrix}
+            numInc = |postiDisp-postiTot|\\ 
+            inc = \sum_{i=1}^{numInc} 0.98\\
+            prezzoBase = prezzoBase\cdot inc
+        \end{matrix} $$   
+    \end{itemize}
+    $result = prezzoBase \cdot n$
+\end{itemize}
+
 \end{document}
