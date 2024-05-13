@@ -651,5 +651,95 @@ $ True \rightarrow \lnot (True \lor False)$\\
 $ True \rightarrow \lnot(True)$\\
 $True \rightarrow False $\\
 $ False $
-\subsection{Valutazione dei Termini}
+\subsection{Valutazione dei Termini} 
+\newpage 
+\section{Progettazione di Basi di Dati}
+Una volta aver definito lo schema concettuale del sistema da realizzare, è possibile derivarne una base di dati in pochi 
+passaggi, tramite una metodologia precisa e delineata. Il processo di "trasformazione" dal diagramma UML (con relativi vincoli) 
+ad una base di dati, è suddiviso in tre passaggi\begin{enumerate}
+    \item Far corrispondere ogni tipo di dato concettuale ad un tipo di dato implementato nel DBMS. 
+    \item Progettazione dello schema relazionale, tenendo conto dei vincoli.
+    \item Progettazione delle specifiche realizzative inerenti alle operazioni di UseCase e classi.
+\end{enumerate}\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/frontEndBackEnd.eps}
+\end{center}
+Quindi, dato in input un diagramma UML, si vuole definire una base di dati, si osservi il seguente esempio:\acc 
+\textbf{input :}\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/VPP/umlToDB.eps}
+\end{center}
+\textbf{output :}\acc
+    \codee{tabella Studente(\underline{matricola : integer}, nome : varchar)}\\ 
+    \codee{tabella Corso(\underline{nome : varchar})}\\ 
+    \codee{tabella esame(\underline{studente : integer, corso : varchar}, data : Data)}\\
+    \hphantom{ident}\codee{foreign key studente references Studente(matricola)}\\ 
+    \hphantom{ident}\codee{foreign key corso references Corso(nome)}\acc 
+Scrivere manualmente la base di dati a partire dal diagramma UML comporta un rischio di errore maggiore, 
+verrà utilizzata una metodologia \textbf{scalabile e robusta}, suddivisa in due fasi:\begin{enumerate}
+    \item \textbf{Ristrutturazione}
+    \item \textbf{Traduzione diretta}
+\end{enumerate}
+\subsection{Ristrutturazione del Diagramma delle Classi}
+La ristrutturazione, consiste nel definire un nuovo diagramma delle classi, adatto all'implementazione su una 
+base di dati, tale diagramma, rispetterà le seguenti proprietà\begin{itemize}
+    \item Definisce solamente classi le cui istanze saranno memorizzate sulla base di dati 
+    \item Non comprende operazioni di classe 
+    \item Risulta \textit{equivalente} all'originale, ossia, rappresenta gli stessi livelli estensionali del diagramma 
+    di partenza, anche se diverso nella struttura 
+    \item Contiene i costrutti più semplici del UML, ovvero\begin{itemize}
+        \item classe 
+        \item associazione 
+        \item attributi i cui tipi di dato, sono anche disponibili nel linguaggio \codee{SQL} 
+        \item molteplicità degli attributi, al massimo pari ad 1
+    \end{itemize}
+\end{itemize}
+La ristrutturazione, è composta da 6 passi fondamentali:\begin{enumerate}
+    \item Eliminazione di attributi multivalore 
+    \item Sostituzione dei tipi di dato 
+    \item Eliminazione delle generalizzazioni tra classi ed associazioni
+    \item Definizione degli identificatori per ogni classe 
+    \item Selezione di un identificatore primario per ogni classe 
+\end{enumerate}
+\subsubsection{Procedimento della Ristrutturazione}
+{\large \textbf{PASSO 1}}\\ 
+Il primo passo consiste nel rimuovere dallo schema tutti quegli attributi, la cui molteplicità risulta 
+superiore ad 1, in quanto un database relazionale non può gestire attributi multivalore. Gli attributi multi valore, 
+diventeranno una classe separata, la cui classe originale proprietaria sarà collegata tramite un associazione, di 
+molteplicità uguale a quella dell'attributo ormai eliminato.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/VPP/RIST1.eps}
+\end{center}
+Si abusa quindi del concetto di classe per adattare il diagramma alla tecnologia delle basi di 
+dati relazionali.\acc 
+{\large \textbf{PASSO 2}}\\ 
+A questo punto, si vogliono eliminare tutti i tipi di dato concettuali, per sostituirli con dei tipi di dato 
+esistenti ed implementati nel DBMS, per i tipi di dato di base, come i numeri interi o le stringhe, vi 
+è un immediata corrispondenza, ad esempio\begin{center}
+    Stringa $\longleftrightarrow $ \codee{varchar}
+\end{center}
+Tutti i tipi di dato specializzati, necessiteranno di un tipo di dato nuovo, utilizzando il costrutto \code{CREATE DOMAIN} di 
+\codee{SQL}, per i tipi di dato enumerativi, sarà necessario il costrutto \code{CREATE TYPE}.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/VPP/RIST2.eps}
+\end{center}
+{\large \textbf{PASSO 3}}\\ 
+Questo passo risulta il più "ostico", vogliamo modificare il nostro schema in modo che non contenga alcuna 
+relazione \textit{is-a}, ne fra classi, ne fra associazioni, dato che quest'ultime non sono supportate 
+dal DBMS.\acc 
+Iniziamo con le generalizzazioni fra classi, esistono tre diversi approcci per liberarsene, ogni approccio, 
+favorisce la scrittura e la velocità di esecuzione di una certa categoria di query, sfavorendone altre, colui che 
+esegue la ristrutturazione, deve saper riconoscere quale approccio può essere più efficace a seconda dell'operazione.\begin{itemize}
+    \item \textbf{Fusione} : Tale approccio prevede, il collasso di un insieme di sottoclassi nella superclasse,
+    aumentando l'insieme di attributi della superclasse, in modo tale da poter distinguere ogni istanza di tale 
+    classe (ormai unica).\acc Sarà quindi l'insieme di attributi (o relazioni) di ogni istanza a definire se un oggetto 
+    appartiene ad una certa categoria o ad un altra (precedentemente, definito dalla relazione \textit{is-a}). Dopo aver 
+    fuso le classi, è necessaria la definizione di nuovi necessari vincoli esterni.\begin{center}
+        \includegraphics[width=1\textwidth ]{images/VPP/RIST3.eps}
+    \end{center}
+    Vanno considerati i nuovi vincoli esterni : \begin{enumerate}
+        \item $\forall p\;\;PersonaNew(p)\rightarrow[tipo(p, 'Studente') \leftrightarrow \exists m\;  matricola(p, m)]$
+        \item $\forall p\;\; PersonaNew(p)\rightarrow [tipo(p, 'Studente') \leftrightarrow \exists c\; iscritto(c, p)]$
+        \item $\forall p\;\; Persona(p) \rightarrow [tipo(p, 'Docente') \leftrightarrow \exists n\; nascita(p, n)]$
+        \item $\forall p\;\; Persona(p) \rightarrow [tipo(p, 'Docente') \leftrightarrow \exists d \;afferenza(d, p)]$
+    \end{enumerate}
+    Quindi, l'approccio tramite fusione, comporta l'aggiunta di svariati vincoli esterni.
+    \item \textbf{Divisione in classi disgiunte} : 
+\end{itemize}
 \end{document}
