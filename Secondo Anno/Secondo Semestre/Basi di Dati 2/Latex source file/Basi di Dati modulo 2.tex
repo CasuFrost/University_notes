@@ -736,10 +736,48 @@ esegue la ristrutturazione, deve saper riconoscere quale approccio può essere p
     Vanno considerati i nuovi vincoli esterni : \begin{enumerate}
         \item $\forall p\;\;PersonaNew(p)\rightarrow[tipo(p, 'Studente') \leftrightarrow \exists m\;  matricola(p, m)]$
         \item $\forall p\;\; PersonaNew(p)\rightarrow [tipo(p, 'Studente') \leftrightarrow \exists c\; iscritto(c, p)]$
-        \item $\forall p\;\; Persona(p) \rightarrow [tipo(p, 'Docente') \leftrightarrow \exists n\; nascita(p, n)]$
-        \item $\forall p\;\; Persona(p) \rightarrow [tipo(p, 'Docente') \leftrightarrow \exists d \;afferenza(d, p)]$
+        \item $\forall p\;\; PersonaNew(p) \rightarrow [tipo(p, 'Docente') \leftrightarrow \exists n\; nascita(p, n)]$
+        \item $\forall p\;\; PersonaNew(p) \rightarrow [tipo(p, 'Docente') \leftrightarrow \exists d \;afferenza(d, p)]$
     \end{enumerate}
     Quindi, l'approccio tramite fusione, comporta l'aggiunta di svariati vincoli esterni.
-    \item \textbf{Divisione in classi disgiunte} : 
+    \item \textbf{Divisione in classi disgiunte} : Tale approccio, prevede l'eliminazione di una superclasse, 
+    facendo vivere in maniera indipendente, quelle che prima erano sottoclassi, che dovranno ereditare tutti 
+    gli attributi e le associazioni, prima specificate nella superclasse, comportando ridondanza.\begin{center}
+        \includegraphics[width=0.85\textwidth ]{images/VPP/RIST3.1.eps}
+    \end{center}
+    Riguardo l'esempio sovrastante : Se nel diagramma originale non potevano coesistere uno studente ed un 
+    docente con lo stesso codice fiscale, nel nuovo diagramma, ciò può accadere, è quindi necessario, quando 
+    vi sono degli identificatori nella superclasse eliminata, \textit{definire dei nuovi vincoli} che impongano 
+    l'unicità delle istanze riguardo gli attributi univoci.$$
+    \lnot \exists \;s,\; d,\; v\;\; StudenteNew(s) \;\land\; DocenteNew(d) \;\land\; cf(s, v) \;\land\; cf(d, v) $$
+    Questo approccio necessita quindi di vincoli per recuperare la semantica del vincolo di identificazione 
+    concettuale nelle superclassi eliminate.\acc  Tale approccio va utilizzato con cautela, se saranno necessarie 
+    query che comprendono la consultazione di tutte le istanze della superclasse ormai eliminata, sarà necessario 
+    eseguire un \codee{JOIN} fra le istanze delle classi (ex-sottoclassi). Com'è di facile intuizione, tale 
+    approccio risulta sensato se applicato a generalizzazioni \{disjoint,complete\}.
+    \item \textbf{Sostituzione con associazioni} : Quest'ultimo approccio risulta, nella pratica, il più 
+    utilizzato, in quanto riesce a mantenere la struttura del diagramma, il più simile possibile a quella 
+    del diagramma originale, si tratta del \textit{sostituire} le relazioni \textit{is-a} con 
+    delle associazioni.\begin{center}
+        \includegraphics[width=0.85\textwidth ]{images/VPP/RIST3.2.eps}
+    \end{center}
+    Si noti come la struttura sia perfettamente mantenuta, e sia necessario che le associazioni che modellano 
+    l'ex relazione \textit{is-a}, comprendano il vincolo di identificazione (un docente non può essere due 
+    persone diverse).\acc 
+    Se la generalizzazione comprende dei vincoli complete e/o disjoint, è necessaria l'aggiunta di nuovi vincoli 
+    esterni, ad esempio, se la relazione dell'immagine sovrastante fosse disjoint, sarebbe necessario 
+    imporre la non-esistenza di un'istanza di \underline{PersonaNew}, che ha un link sia verso un istanza 
+    di  \underline{DocenteNew}, sia verso un istanza di  \underline{StudenteNew}.\begin{center}
+        \includegraphics[width=0.9\textwidth ]{images/VPP/RIST3.2.1.eps}
+        $\begin{matrix}\lnot \exists p,\;s,\; d\;\; \\ PersonaNew(p) \;\land\; StudenteNew(s) \;\land\; DocenteNew(d)
+         \\ \;\land\; s\_isa\_p(s, p) \;\land\; d\_isa\_p(d, p)\end{matrix}$
+    \end{center}
+    Nel caso del vincolo complete, è necessario specificare che ogni istanza di \underline{PersonaNew}, è 
+   almeno associata, o ad un'istanza di \underline{StudenteNew}, oppure ad un istanza di \underline{DocenteNew}.
+   \begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/VPP/RIST3.2.2.eps}
+    $\forall p\; PersonaNew(p) \rightarrow [\exists s\; s\_isa\_p(s, p)] \;\lor\; [\exists d\;  d\_isa\_p(d, p)]$
+   \end{center}
+   Com'è di facile intuizione, in una generalizzazione \{disjoint,complete\} saranno necessari entrambi i vincoli.
 \end{itemize}
 \end{document}
