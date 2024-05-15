@@ -20,6 +20,7 @@
 \definecolor{lg}{RGB}{102, 161, 95}
 \usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\codeee}[1]{\colorbox{lg}{\texttt{#1}}}
 \newcommand{\shelll}[1]{\colorbox{black}{\textcolor{white}{\texttt{#1}}}}
 \newcommand{\shell}[1]{\colorbox{black}{\textcolor{white}{\texttt{casufrost@debian:$\sim$\$ #1}}}}
 \newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
@@ -1990,4 +1991,24 @@ si che ogni processo cominci in un istante di tempo positivo, ed il primo inizi 
     \item $m[i]=$\codee{Dist[$x_i$]}$+|\delta|\;\;\;\;\,\;\;\forall i$
 \end{itemize}
 Si avrà uno scheduling dei processi che rispetta tutti i vincoli di dipendenza.
+\subsection{Problemi sulle Stringhe}
+Si consideri il seguente problema, vi è un array $A$ di lunghezza $n$ composto da numeri interi, si vogliono scegliere 
+due indici \codee{start} e \codee{finish}, con \codee{start}$<$\codee{finish}$\le n$, tali che, il sotto 
+array $A[\codee{start}:\codee{finish}]$ massimizzi la somma degli elementi. \begin{center}
+    $A$=\codee{[1,-3,4,5,8,-2,3,-5,1,2]} soluzione : \codee{[1,-3,}\codeee{4,5,8,-2,3}\codee{,-5,1,2]}
+\end{center}
+Tramite un algoritmo divide-et-impera, è possibile trovare una soluzione in tempo $O(n\cdot\log{n})$, si vuole utilizzare 
+la programmazione dinamica per ottenere un algoritmo che risolva il problema, di complessità lineare $O(n)$.\acc 
+Dovremmo quindi definire un array $m$ lungo $n$ che servirà a contenere, ad ogni passo, le soluzioni parziali del problema, 
+darà definito nel seguente modo $$m[i]=\text{ soluzione del problema con input l'array }A[0:i]$$
+Ad esempio:\begin{center}
+    $A$=\codee{[0,5,9,-4]}  \\ $m[0]=$ \codee{[0,5,9,-4]} soluzione = $0$ 
+    \\ $m[1]=$ \codee{[0,}\codeee{5,}\codee{9,-4]} soluzione = $5$ \\  $m[2]=$ \codee{[0,}\codeee{5,  9}\codee{,-4]} soluzione = $5+9=14$ 
+    \\ $m[3]=$ \codee{[0,}\codeee{5,  9}\codee{,-4]} soluzione = $5+9=14$
+\end{center}
+Consideriamo i casi banali, è chiaro che $m[0]=A[0]$ se $A[0]>0$. Supponiamo di conoscere il valore di $m[i]$, e di voler 
+calcolare $m[i+1]$, se la soluzione finale \textit{non} contiene $A[i+1]$, allora $m[i]=m[i+1]$, altrimenti come bisogna 
+procedere? Non basta aggiungere alla soluzione parziale semplicemente $A[i+1]$.
+
+
 \end{document}
