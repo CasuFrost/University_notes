@@ -2008,7 +2008,45 @@ Ad esempio:\begin{center}
 \end{center}
 Consideriamo i casi banali, è chiaro che $m[0]=A[0]$ se $A[0]>0$. Supponiamo di conoscere il valore di $m[i]$, e di voler 
 calcolare $m[i+1]$, se la soluzione finale \textit{non} contiene $A[i+1]$, allora $m[i]=m[i+1]$, altrimenti come bisogna 
-procedere? Non basta aggiungere alla soluzione parziale semplicemente $A[i+1]$.
-
-
+procedere? Non basta aggiungere alla soluzione parziale semplicemente $A[i+1]$.\acc 
+Si consideri un nuovo array $m'$, tale che $$m'[i]=\text{ soluzione del problema con input l'array }A[0:i]\text{ con il 
+vincolo }A[i]\in m'[i]$$
+Sarà tale array la chiave per trovare la soluzione, ad ogni passo de facto, ci sono due possibilità 
+$$ m'[i+1]=\max(A[i+1], m'[i]+A[i+1])$$
+Se la soluzione ottimale fosse $A[i:j]$, nell'algoritmo, essa sarà considerata al passo $j-esimo$, durante il calcolo di $m'[j]$.
+\greybox{
+    \code{intervallo\_max(A : array lungo $n$)\{}\\
+    \hphantom{ident}\code{m = array lungo $n$}\\ 
+    \hphantom{ident}\code{m[0]=A[0]}\\
+    \hphantom{ident}\code{for (int i = 0; i<$n$;i++)\{}\\ 
+    \hphantom{ident}\hphantom{ident}\code{m[i]=max(A[i],A[i]+m[i-1])}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{Sol = 0}\\
+    \hphantom{ident}\code{for (int i = 0; i<$n$;i++)\{ Sol = max(Sol,m[i]) \}}\\
+    \hphantom{ident}\code{return Sol}\\
+    \code{\}}
+}
+Il seguente algoritmo, dato l'array $m'$ già riempito dall'algoritmo sovrastante, restituisce i valori degli indici 
+\codee{start} e \codee{finish}.
+\greybox{ 
+    \code{intervallo\_max\_indici(m : array lungo $n$, Sol)\{}\\
+    \hphantom{ident}\code{start = 0}\\
+    \hphantom{ident}\code{finish = 0}\\
+    \hphantom{ident}\code{int i}\\
+    \hphantom{ident}\code{for (i = 0; i<$n$;i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if( m[i]==Sol) \{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{finish = i}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{break}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{pref = A[i]}\\
+    \hphantom{ident}\code{while ( pref $\ne$ Sol)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{i=i-1}\\
+    \hphantom{ident}\hphantom{ident}\code{pref+=A[i]}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{start = i}\\
+    \hphantom{ident}\code{return (start,finish)}\\
+    \code{\}}
+}
+\subsubsection{Sottostringa Comune Massima (LCS)}
 \end{document}
