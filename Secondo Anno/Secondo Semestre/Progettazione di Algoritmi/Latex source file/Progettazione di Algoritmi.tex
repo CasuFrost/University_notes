@@ -2049,4 +2049,19 @@ Il seguente algoritmo, dato l'array $m'$ già riempito dall'algoritmo sovrastant
     \code{\}}
 }
 \subsubsection{Sottostringa Comune Massima (LCS)}
+Si consideri il seguente problema, si hanno due stringhe $x$ ed $y$, rispettivamente 
+lunghe $n$ ed $m$ caratteri, si vuole trovare il massimo numero di 
+indici $i_1<i_2\dots <i_k$ e $j_1,j_2\dots,j_k$ tali che $x[i_l]=y[j_l]$ 
+per ogni $l\in \{1,2\dots,k\}$.\acc 
+Esempio:\begin{center}
+    $x$ = A L B E R O \hphantom{spaziospazio}
+    $y$ = L I B R I \\ 
+    Soluzione : L B R :\\  $x[1]=y[0]$=L\\  $x[2]=y[2]$=B\\ $x[4]=y[3]$=R
+\end{center}
+Tale problema trova la \textit{sottosequenza comune massima}, si vuole utilizzare 
+la programmazione dinamica per scrivere un algoritmo dedito a tale problema, che operi 
+in una complessità $O(n^2)$.\acc 
+Si definisce la matrice $M_{n\times m}$, tale che\begin{center}
+$M[i,j]$= sottosequenza comune massime fra le stringhe
+ $x[0:i]$ e $y[0:j]$\end{center}
 \end{document}
