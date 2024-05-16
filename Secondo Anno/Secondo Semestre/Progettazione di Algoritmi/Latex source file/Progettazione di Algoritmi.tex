@@ -1949,7 +1949,7 @@ del cammino $P\cup \{(v_i,u)\}$ perché : \begin{itemize}
 \end{itemize}\begin{eqnarray}
     T[k+1,u] = w(Q) + w(C) \\
     T[k+1,u] - w(C) = w(Q) \implies  \\
-    T[k+1,u] \le w(Q) \iff w(C)<0
+    T[k+1,u] < w(Q) \iff w(C)<0
 \end{eqnarray} 
 Risulta chiaro che $Q$ può avere costo maggiore di $T[k+1,u]$ solamente se il costo di $C$ è negativo, per ipotesi però, 
 \textbf{non esistono} cicli di costo negativo, quindi $w(C)\ge 0$, ne consegue che $Q$ è un percorso da $x$ a $u$ di costo 
@@ -2056,7 +2056,7 @@ per ogni $l\in \{1,2\dots,k\}$.\acc
 Esempio:\begin{center}
     $x$ = A L B E R O \hphantom{spaziospazio}
     $y$ = L I B R I \\ 
-    Soluzione : L B R :\\  $x[1]=y[0]$=L\\  $x[2]=y[2]$=B\\ $x[4]=y[3]$=R
+    Soluzione = L B R :\\  $x[1]=y[0]$=L\\  $x[2]=y[2]$=B\\ $x[4]=y[3]$=R
 \end{center}
 Tale problema trova la \textit{sottosequenza comune massima}, si vuole utilizzare 
 la programmazione dinamica per scrivere un algoritmo dedito a tale problema, che operi 
@@ -2064,4 +2064,171 @@ in una complessità $O(n^2)$.\acc
 Si definisce la matrice $M_{n\times m}$, tale che\begin{center}
 $M[i,j]$= sottosequenza comune massime fra le stringhe
  $x[0:i]$ e $y[0:j]$\end{center}
+Si hanno i seguenti casi banali, per ogni $i$ e per ogni $j$ :$$ M[1,1]=\begin{cases}
+    1 \text{ se } x[1]=y[1]\\ 
+    0 \text{ altrimenti }
+\end{cases}\;
+M[1,j]=\begin{cases}
+    1 \text{ se } y[j]=x[1]\\ 
+    M[1,j-1] \text{ altrimenti }
+\end{cases}\;
+M[i,1]=\begin{cases}
+    1 \text{ se } y[1]=x[i]\\ 
+    M[i-1,1] \text{ altrimenti }
+\end{cases}$$
+A questo punto si vuole calcolare il valore della matrice per il caso generale $M[i,j]$, assumendo di conoscere le entrate 
+della matrice per i valori minori di $i$ e minori di $j$. Si noti il seguente esempio. 
+Riguardo le stringhe 
+\begin{center}
+    $x$ = A L B E R O \hphantom{spaziospazio}
+    $y$ = L I B R I
+\end{center}
+Sono noti i valori della matrice fino a $i=j=1$, si ha che, $M[1,1]=1$ perchè nelle stringhe 
+\begin{center}
+    $x$ = A L  \hphantom{spaziospazio}
+    $y$ = L I 
+\end{center}
+Vi è in comune solo la lettere 'L'. Consideriamo adesso $M[i+1,j+1]=M[2,2]$, dovrebbe rappresentare la sottosequenza massima 
+delle stringhe\begin{center}
+    $x$ = A L B  \hphantom{spaziospazio}
+    $y$ = L I B
+\end{center}
+Essendo che $x[i+1]=y[j+1]$, è possibile considerare il valore precedente della matrice, ossia  $M[1,1]=1$, ed incrementarlo di 
+1, dato che è possibile considerare i due caratteri $x[i+1]$, $y[j+1]$ in comune nella soluzione $M[2,2]$.\acc 
+\textbf{Risulta chiaro che} : Se $x[i]=y[j]$, allora $M[i,j]=M[i-1,j-1]+1$.\acc 
+Nel caso in cui $x[i]\ne y[j]$, non sarà possibile incrementare la soluzione, in quanto non sono possibili nuovi 
+accoppiamenti di caratteri, si avrà che: 
+$$M[i,j]=\max(M[i-1,j],M[i,j-1],M[i-1,j-1]) $$
+\greybox{ 
+    \code{LCS(x,y)\{}\\
+    \hphantom{ident}\code{n = x-lenght()}\\
+    \hphantom{ident}\code{m = y.length()}\\
+    \hphantom{ident}\code{M = matrice n $\times$ m}\\
+    \hphantom{ident}\code{if(x[0]==y[0])\{ M[0,0]=1 \}}\\
+    \hphantom{ident}\code{else \{ M[0,0]=0 \}}\\
+    \hphantom{ident}\code{for(int i = 1;i < n;i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if(x[i]==y[0])\{ M[i,1]=1 \}}\\
+    \hphantom{ident}\hphantom{ident}\code{else\{ M[i,1]=M[i-1,1] \}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{for(int j = 1;j < m;j++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{if(y[j]==x[0])\{ M[1,j]=1 \}}\\
+    \hphantom{ident}\hphantom{ident}\code{else\{ M[1,j]=M[1,j-1] \}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{for(int i = 1;i < n;i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{for(int j = 1;j < m;j++)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if (x[i]==y[i])\{ M[i,j]=M[i-1,j-1]+1 \}}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{else \{ M[i,j] = max(M[i-1,j-1], M[i,j-1], M[i-1,j]) \}}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return M[n,m]}\\
+    \code{\}}
+}
+Si veda il seguente esempio di applicazione dell'algoritmo e costruzione della matrice:\begin{center}
+    $M = $\begin{tabular}{l|llllll}
+        & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+      1 & 0 & 1 & 1 & 1 & 1 & 1 \\
+      2 & 0 & 1 & 1 & 1 & 1 & 1 \\
+      3 & 0 & 1 & 2 & 2 & 2 & 2 \\
+      4 & 0 & 1 & 2 & 2 & 3 & 3 \\
+      5 & 0 & 1 & 2 & 2 & 3 & 3
+      \end{tabular} $\;\;\;\;\;\;\;\;\;\;\;\;\begin{matrix}
+        x = \text{ A L B E R O}\\ 
+        y = \text{ L I B R I}
+      \end{matrix}$
+\end{center}
+Data la matrice $M$ sulla quale è stato applicato l'algoritmo, come si può ottenere la sottosequenza comune massima? Sarà 
+necessario iniziare dall'elemento $M[i,j]$ con $i=n,\;j=m$, per poi spostarsi verso sinistra (diminuendo il valore 
+dell'indice $i$), ogni qual volta vi sarà una variazione del valore della matrice all'elemento $i$, considereremo il carattere 
+della prima stringa contenuto nel medesimo indice.
+\greybox{
+    \code{LCS\_str(M : matrice n$\times$m, x, y)\{}\\ 
+    \hphantom{ident}\code{Sol = []}\comm{stringa vuota}\\
+    \hphantom{ident}\code{for(int i = n-1; i>0;i--)\{}\\
+    \hphantom{ident} \hphantom{ident}\code{if(M[i,m]$\ne$M[i-1,m])\{}\\
+    \hphantom{ident} \hphantom{ident} \hphantom{ident}\code{Sol.insert(x[i])}\comm{inserimento alla prima posizione}\\
+    \hphantom{ident} \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{if(M[0,m]==1)\{ Sol.insert(x[1]) \}}\\
+    \hphantom{ident}\code{return Sol}\\
+    \code{\}}
+}
+\subsubsection{Edit Distance fra due Stringhe}
+Date due stringhe $x$ ed $y$, l'\textbf{edit distance} fra di esse, è il numero minimo di \textit{cancellazioni} o 
+\textit{aggiunte} di caratteri da eseguire sulla stringa $x$, per renderla identica alla stringa $y$.\begin{center}
+    $x$ = A L B E R O \hphantom{spaziospazio}
+    $y$ = L I B R I \acc 
+    A L B E R O $\longrightarrow$   \color{red}\underline{A} \color{black} L B \color{red}\underline{E} \color{black} R \underline{O} $\longrightarrow$ L B R \hphantom{spazio} \codee{3 cancellazioni}\\ 
+    L B R $\longrightarrow$ L \underline{\hphantom{a}} B R \underline{\hphantom{a}} $\longrightarrow$ L  \color{green}\underline{I} \color{black} B R  \color{green}\underline{I} \color{black}\hphantom{spazio} \codee{2 aggiunte}
+\end{center}
+L'edit distance fra "\textit{albero}" e "\textit{libri}" equivale a 5. Si noti come l'edit distance, viene valutata 
+in funzione di tre parametri : la lunghezza della prima stringa, la lunghezza della seconda stringa, e la lunghezza 
+della LCS, infatti:\begin{center}
+    cancellazioni necessarie : \codee{$x$.lenght()-LCS($x,y$)}\\ 
+    aggiunte necessarie : \codee{$y$.lenght()-LCS($x,y$)}\\ 
+    \codee{edit\_distance($x,y$) = $x$.lenght() + $y$.lenght()-2$\cdot$LCS($x,y$)}
+\end{center}
+Supponiamo ora di voler calcolare una edit distance, in cui fra le possibili manipolazioni della stringa, vi è anche 
+la \textit{sostituzione} di un carattere con un altro.
+\begin{center}
+    $x$ = A L B E R O \hphantom{spaziospazio}
+    $y$ = L I B R I \acc 
+    A L B E R O $\longrightarrow$   \color{red}\underline{A} \color{black} L B \color{red}\underline{E} \color{black} R O $\longrightarrow$ L B R O \hphantom{spazio} \codee{2 cancellazioni}\\ 
+    L B R O $\longrightarrow$ L \underline{\hphantom{a}} B R O $\longrightarrow$ L  \color{green}\underline{I} \color{black} B R  O \hphantom{spazio} \codee{1 aggiunta}\\ 
+    L I B R O $\longrightarrow$ L I B R \underline{O} $\longrightarrow$ L I B R \color{orange}I \color{black}   \hphantom{spazio} \codee{1 sostituzione}
+\end{center}
+Con questa nuova definizione, l'edit distance fra  "\textit{albero}" e "\textit{libri}" equivale a 4. In questo caso, definire 
+esplicitamente la funzione non è semplice come nel caso precedente, si vuole utilizzare la programmazione dinamica per 
+scrivere un algoritmo che trovi l'edit distance fra due stringhe date in input, che operi in una complessità $O(n\cdot m)$, 
+dove $n$ ed $m$ sono le lunghezze delle due stringhe.\acc 
+Si definisce la matrice $M_{(n+1)\times (m+1)}$ tale che \begin{center}
+    $M[i,j]$ = \codee{edit\_distance($x$[1:i],$y$[1:j])}
+\end{center}
+In questo modello, l'indice del primo carattere di una parola sarà $1$, e l'indice 
+dell'ultimo carattere sarà la lunghezza della parola. Si hanno i seguenti casi banali 
+$$M[1,1]=\begin{cases}
+    0\text{ se }x[1]=y[1]\\ 
+    1 \text{ altrimenti}
+\end{cases} $$
+Siano $x[0]=y[0]$ la stringa vuota, si ha che$$\begin{cases} M[0,0]=0\\M[0,j]=j\;\;\forall j\\M[i,0]=i\;\;\forall i\end{cases} $$
+Seguono dal fatto che, se si vuole trasformare una stringa vuota in una stringa di $k$ caratteri, sono necessarie 
+$k$ aggiunte, nel caso si voglia trasformare una stringa di $k$ caratteri in una stringa vuota, sono 
+necessarie $k$ cancellazioni.\acc 
+Consideriamo il caso in cui si vuole trasformare una stringa $x[1:i]$ nella stringa $y[1:j]$, ed assumiamo di conoscere i 
+valori della matrice $M[i-1,j-1]$. Il valore $y[j]$ appena considerato, sarà stato ottenuto dalla stringa precedente, in 
+uno dei seguenti casi\begin{itemize}
+    \item \textbf{Caso 1} : Il carattere $y[j]$ ha sostituito nella stringa il carattere $x[l]$, che è stato cancellato\begin{itemize}
+        \item Se $l<i$, allora è stata necessaria una cancellazione $$ M[i,j]=M[i-1,j]+1$$ 
+        \item Se $l=i$, non sono state applicate mosse $$M[i,j]=M[i-1,j-1] $$
+    \end{itemize}
+    \item \textbf{Caso 2} : Il carattere $y[j]$ proviene da una \textit{sostituzione} di un carattere $x[l]$\begin{itemize}
+        \item Se $l<i$ $$ M[i,j]=M[i-1,j]+1$$ 
+        \item Se $l=i$ $$ M[i,j]=M[i-1,j-1]+1$$
+    \end{itemize} 
+    \item  \textbf{Caso 3} :   Il carattere $y[j]$ è stato \textit{aggiunto} $$ M[i,j]=M[i,j-1]+1$$
+\end{itemize}
+In \textbf{conclusione} : $$ 
+M[i,j]=\begin{cases}
+    \min(M[i-1,j]+1,\;M[i,j-1]+1,\;M[i-1,j-1]+1) \text{ se }x[i]\ne y[j]\\ 
+    \min(M[i-1,j]+1,\;M[i,j-1]+1,\;M[i-1,j-1])\text{ altrimenti }
+\end{cases}
+$$\greybox{
+    \code{edit\_distance(x,y)\{}\\
+    \hphantom{ident}\code{n=x.length()}\\
+    \hphantom{ident}\code{m=y.length()}\\
+    \hphantom{ident}\code{M = matrice (n+1)$\times$(m+1)}\\
+    \hphantom{ident}\code{M[0,0]=0}\\
+    \hphantom{ident}\code{for(int i = 1;i$\le$n;i++)\{ M[i,0] = i \} }\\
+    \hphantom{ident}\code{for(int j = 1;i$\le$m;j++)\{ M[0,j] = j \} }\\
+    \hphantom{ident}\code{for(int i = 1;i$\le$n;i++)\{}\\
+    \hphantom{ident}\hphantom{ident}\code{for(int j = 1;i$\le$m;j++)\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(x[i]==y[j])\{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{M[i,j] = min(M[i-1,j]+1, M[i,j-1]+1, M[i-1,j-1])}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}else \{}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{M[i,j] = min(M[i-1,j]+1, M[i,j-1]+1, M[i-1,j-1]+1)}\\
+    \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{\}}\\
+    \hphantom{ident}\code{return M[n,m]}\\
+    \code{\}}
+}
 \end{document}
