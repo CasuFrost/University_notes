@@ -2174,7 +2174,7 @@ in slot del tempo, eliminando la sincronizzazione, e risultando più semplice ne
 aumenta e risulta più ampia senza l'utilizzo degli slot, in quanto un frame che è stato trasmesso al tempo $t_0$, andrà in 
 collisione con i frame inviati nell'intervallo $[t_0-d_{trans},t_0+d_{trans}]$, la finestra temporale di vulnerabilità risulta 
 grande due volte il tempo di trasmissione di un frame. L'efficienza di Pure Aloha risulta essere circa del 18\%.
-\subsubsection{Carrier Sense Multiple Access}
+\subsubsection{Carrier Sense Multiple Access}\label{csma}
 Con \textbf{CSMA} si intende un protocollo di accesso casuale ad un canale condiviso, risulta semplice: Il nodo che intende 
 comunicare, "ascolta" il canale, cercando di capire se è in corso una trasmissione, in caso contrario, trasmetterà, senza 
 alcun controllo o rilevamento delle collisioni.\acc 
@@ -2431,4 +2431,48 @@ il seguente formato:\begin{center}
     \item \textbf{informazioni} : il datagramma incapsulato, di lunghezza variabile. 
     \item \textbf{check} : il checksum per il controllo degli errori.
 \end{itemize}
+\section{Le Reti Wireless}
+Ad oggi, le reti senza fili, come le LAN wireless, le reti cellulari e le reti Bluetooth sono largamente 
+utilizzate ovunque nel mondo. I segnali elettromagnetici sono caratterizzata dalla frequenza, e dalla copertura, 
+queste due ultime sono inversamente proporzionali, più un segnale ha un alta frequenza, meno si degraderà con 
+l'allontanarsi dalla sorgente che l'ha generato. \acc 
+I pacchetti wifi, possono essere facilmente convertiti in pacchetti Ethernet, per questo molte reti sfruttano entrambi i 
+paradigmi, ed un pacchetto per giungere ad una destinazione, potrà attraversare sia un mezzo fisico come il cavo, sia 
+propagarsi come onda.\acc 
+I dispositivi accedono alla rete wireless per mezzo di un antenna, quest'ultima è in grado di trasmettere\begin{itemize}
+    \item generando corrente sull'antenna, si genera un campo magnetico che si propaga nello spazio in ogni 
+    direzione. 
+    \item in prossimità di un campo magnetico variabile, verrà generato un campo elettrico nell'antenna, ricevendo il segnale.
+\end{itemize}
+Possiamo immaginare i link wireless come dei cavi, anche se tale comunicazione è broadcast, cambia quindi il modo di 
+accedere al link rispetto ad un usale collegamento Ethernet. I dispositivi wireless possono accedere alle altre reti 
+per via di un mezzo condiviso chiamato \textbf{access point (AP)}. Le reti wireless possono essere di due tipi\begin{itemize}
+    \item \textbf{ad hoc} : Ogni dispositivo comunica direttamente con gli altri dispositivi della rete. 
+    \item \textbf{tramite AP} : I dispositivi non comunicano con la rete, ma esclusivamente con l'access point, 
+    che funge da tramite per la comunicazione.
+\end{itemize}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/degradazioneSegnale.eps}
+\end{center}
+Una particolare caratteristica delle onde elettromagnetiche, e che se incontrano un ostacolo durante la propagazione, 
+possono essere totalmente o parzialmente riflesse, ciò permette la creazione di diversi percorsi per raggiungere 
+una stessa destinazione mediante la \textit{propagazione multi-path}.\acc 
+Il problema principale della comunicazione wireless è relativo alle numerose \textbf{interferenze} alla quale i segnali sono 
+soggetti, se due dispositivi trasmettono simultaneamente, le onde possono interferire fra loro distorcendo il segnale 
+ e rendendolo incomprensibile, o semplicemente causando errori sui bit.\acc 
+È quindi necessario controllare l'accesso al mezzo condiviso (aria,frequenza\footnote{
+    Segnali trasmessi a diverse frequenze potrebbero non entrare in collisione, in base a principi che non verranno 
+    trattati in questo corso
+}) per evitare le collisioni. La qualità di un segnale è misurata con il rapporto \textit{segnale-rumore} (con "rumore", 
+si intende un segnale che viene ricevuto non intensionalmente).\acc 
+Non è possibile utilizzare il protocollo CSMA/CD \ref{csma} per accedere al canale, in quanto per le proprietà fisiche 
+delle antenne, gli host non possono trasmettere ed ascoltare il canale contemporaneamente. Si potrebbero utilizzare due antenne, 
+ma l'antenna ricevitrice sarà intaccata dal segnale (molto pià potente) dell'antenna trasmettente, e costruire 
+dispositivi che gestiscano tali problemi è costoso ed inefficiente, soprattutto considerando che spesso i dispositivi 
+wireless hanno un hardware ed una batteria limitata (cellulari, computer portatili).\acc 
+Inoltre vi è il problema del \textbf{hidden terminal}, data la topologia della rete, potrebbe succedere che un host 
+non riesca a ricevere il segnale trasmesso da un altro host (troppo lontano), rischiando di trasmettere senza rendersi conto 
+che un altro host sta già trasmettendo. \begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/hiddenTerminal.eps}
+\end{center}
+\subsection{Protocollo 802.11}
 \end{document}
