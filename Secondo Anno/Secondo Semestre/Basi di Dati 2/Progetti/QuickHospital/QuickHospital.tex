@@ -1,0 +1,69 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{nicefrac, xfrac}
+\usepackage{mathtools}
+\newcommand{\acc}{\\\hphantom{}\\}
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
+\usepackage[paper=a4paper,left=20mm,right=20mm,bottom=25mm,top=25mm]{geometry}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+\newcommand{\id}{{\hphantom{ident}}}
+\newcommand{\vincolo}[1]{\colorbox{Orange}{$[$\text{#1}$]$}}
+\title{\textbf{QuickHospital}}
+
+\date{}
+
+
+\begin{document}
+
+\maketitle
+\section{Requisiti}
+1. Paziente \\ 
+\id 1.1 nome \\
+\id 1.2 cognome \\
+\id 1.3 data di nascita \\ 
+\id 1.4 recapiti telefonici [1..*] \\ 
+\id 1.5 email \\ 
+\id 1.6 recapito postale  \\
+\id 1.7 interno o esterno? \\ 
+\id \id 1.7.1 se esterno, prestazione medica richiesta (vedi REQ 4.)
+\acc 
+2. Medico \\ 
+\id 2.1 nome \\ 
+\id 2.2 cognome \\ 
+\id 2.3 data di nascita \\ 
+\id 2.4 pazienti in cura \\ 
+\id 2.5 specializzazione primaria\\
+\id 2.6 specializzazione secondaria\acc
+3. Ricovero \\ 
+\id 3.1 paziente coinvolto \\ 
+\id 3.2 stanza del ricovero \\ 
+\id \id 3.3 numero posti letto (da 1 a 8)\\
+\id \id 3.4 piano \\ 
+\id \id 3.5 settore \\ 
+\id \id 3.6 data ricovero \acc 
+4. Prestazione Medica \\ 
+\id 4.1 Paziente esterno coinvolto \\
+\id 4.2 data richiesta \\
+\id 4.3 specializzazione medica richiesta \\
+\id 4.4 descrizione estesa
+\newpage 
+\section{Diagramma UML delle classi}
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/UML.eps}
+\end{center}
+\newpage 
+\section{Diagramma UML degli UseCase}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/UseCase.eps}
+\end{center}
+\end{document}
