@@ -2060,7 +2060,7 @@ Il livello di collegamento può essere suddiviso in due sotto-livelli\begin{item
     \item \textbf{Data Link Control} : Si occupa di questioni comuni alle comunicazioni punto-punto e quelle 
     su un canale condiviso, fornisce controllo del flusso e degli errori, con eventuale correzione. Gestisce quindi 
     la comunicazione indipendentemente dal fatto che sia fra due singoli host o fra più host. 
-    \item \textbf{Media Acces Control} : Riguarda gli aspetti specifici dei canali broadcast, come il controllo 
+    \item \textbf{Media Access Control} : Riguarda gli aspetti specifici dei canali broadcast, come il controllo 
     dell'accesso su un canale fisico condiviso, per evitare e gestire eventuali interferenze.
 \end{itemize}
 \subsection{Controllo e Correzione degli Errori}
@@ -2475,4 +2475,178 @@ che un altro host sta già trasmettendo. \begin{center}
     \includegraphics[width=0.75\textwidth ]{images/hiddenTerminal.eps}
 \end{center}
 \subsection{Protocollo 802.11}
+Il protocollo 802.11 definisce le specifiche per le reti LAN wireless, copre sia il livello di collegamento che 
+il livello fisico, con BSS, si intende un insieme di nodi collegati ad una rete wifi, come già accennato, una rete 
+può funzionare \textit{ad hoc} o per mezzo di un AP, quest'ultima implementazione risulta più semplice e meno complessa.\acc 
+Una ESS, è un infrastruttura di rete in cui ci sono diversi BSS connessi tramite una rete cablata.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/ESS.eps}
+\end{center}
+Lo spettro delle frequenze su cui opera 802.11 ($2.4\;GHz-2.485\;Ghz$) viene suddiviso in 11 canali, essi sono 
+parzialmente sovrapposti, solo canali "lontani" non vanno in interferenza, ad esempio, i canali 1, 6 e 11. Gli access 
+point per rendersi visibili, emettono un \textit{beacon}, un segnalo "faro" che avvisa i dispositivi della propria 
+presenza, e su quale canale trasmettono.
+\subsubsection{CSMA/CA}
+Per evitare le interferenze, dovuto alla trasmissione simultanea, è possibile proseguire in due modi\begin{itemize}
+    \item \textbf{DCF} : i nodi si contendono l'accesso al canale
+    \item \textbf{PCF} : l'AP coordina i nodi nell'accesso al canale
+\end{itemize} 
+Vedremo un esempio di DCF, ossia il CSMA/CA (Collision Avoidance), si basa sempre sull'ascolto del canale, ma non 
+include la rilevazione di errori, dati i vari problemi discussi (impossibile ascoltare e trasmettere contemporaneamente, 
+hidden terminal, raggio di trasmissione limitato).\acc 
+Verranno utilizzati gli ACK insieme ad un timer per avere un riscontro della trasmissione, quando un nodo riceve un 
+pacchetto, trasmette immediatamente un ACK (quest'ultimo può essere soggetto a collisioni).\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/CSMA-CA.eps}
+\end{center}
+Con \textbf{DIFS} invece, si denota un lasso di tempo, il cui un nodo che vuole trasmettere un frame deve 
+attendere, ascoltando il canale. Quindi il mettente ascolta il canale per DIFS secondi, il destinatario lo riceve, 
+e dopo SIFS secondi invierà un ACK, ovviamente deve essere che $$\text{SIFS}<\text{DIFS}$$
+Fattualmente, dopo che il mittente ha atteso DIFS secondi, non trasmette immediatamente, bensì entra nella 
+\textbf{fase di contesa}, in cui deve attendere un ulteriore lasso di tempo in cui ascoltare il canale prima 
+di trasmettere. \acc Il nodo in fase di contesa, genera un numero casuale $R\in[0,CW]$, ed attenderà 
+$R$ unità di tempo prima di trasmettere. Questa fase è simile al backoff esponenziale, in quanto ad ogni 
+collisione (mancata ricezione dell'ACK), il valore di $CW$ raddoppierà.\acc 
+Rimane irrisolto il problema dell'hidden terminal, 802.11 introduce quindi un sistema di \textit{prenotazione del 
+canale}, basato sul concetto di pacchetti \textbf{RTS}/\textbf{CTS}. Il nodo in procinto di comunicare, invia 
+al destinatario un pacchetto RTS, rappresentante una richiesta di comunicare, essa contiene informazioni importanti, 
+come il tempo che sarà necessario per trasmettere, detto \textit{NAV}. \acc 
+Il destinatario che riceverà tale richiesta, invierà in broadcast un pacchetto CTS, rappresentante l'accettazione della 
+richiesta, in tale pacchetto, viene considerato anche il NAV letto dal RTS. Tutti i nodi 
+che riceveranno il pacchetto (escluso quello originale che doveva comunicare), leggeranno il NAV, e provvederanno 
+a non trasmettere per tale lasso di tempo, lasciando libero il canale.\acc 
+Se il mittente non riceve il CTS, saprà che vi è stata una collisione, ed attenderà un tempo di backoff prima di ritrasmettere. Solitamente, 
+per pacchetti di piccole dimensioni non si usa RTS/CTS, e può essere disabilitato.\acc 
+Il frame 802.11 assume il seguente formato :\begin{center}
+    \begin{tabular}{ccccccccc}
+        2 byte                                                                  & 2 byte                                                                & 6 byte                                                                    & 6 byte                                                                    & 6 byte                                                                    & 2 byte                                                                 & 6 byte                                                                    & da 0 a 2312 byte                                                         & 4 byte                                                                  \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} FC}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} D}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} adr 1}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} adr 2}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} adr 3}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} SC}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} adr 4}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} dati}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} FCS}} \\ \hline
+        \end{tabular}
+\end{center}\begin{itemize}
+    \item \textbf{FC} : contiene informazioni di controllo, ad esempio, il tipo di frame incapsulato 
+    \item \textbf{D} : durata della trasmissione, usata per impostare il NAV
+    \item \textbf{adr} : il frame contiene 4 diversi indirizzi MAC 
+    \item \textbf{SC} : informazioni sui frammenti o sul numero di sequenza per gli ACK
+    \item \textbf{FCS} : codice CRC \ref{CRC} a 32 bit
+\end{itemize}
+Il frame di controllo contiene svariate informazioni :\begin{center}
+    \begin{tabular}{c}
+        2 byte                                                                  \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}{\color[HTML]{000000} FC}} \\ \hline
+        \end{tabular}
+        \huge = \normalsize
+    \begin{tabular}{cccccccccc}
+        2 bit                                                                                                                               & 2 bit                                                                    & 4 bit                                                                                                                     & 1 bit                                                                                                                & 1 bit                                                                                                                  & 1 bit                                                                                                                   & 1 bit                                                                     & 1 bit                                                                                                                    & 1 bit                                                                   & 1 bit                                             \\ \hline
+        \rowcolor[HTML]{CBCEFB} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} \begin{tabular}[c]{@{}c@{}}versione \\ protocollo\end{tabular}}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} tipo}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} \begin{tabular}[c]{@{}c@{}}sotto \\ tipo\end{tabular}}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} \begin{tabular}[c]{@{}c@{}}to \\ DS\end{tabular}}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} \begin{tabular}[c]{@{}c@{}}from \\ DS\end{tabular}}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} \begin{tabular}[c]{@{}c@{}}more\\ frag\end{tabular}}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} retry}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} \begin{tabular}[c]{@{}c@{}}more \\ data\end{tabular}}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}{\color[HTML]{000000} WEP}} & \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}Rsvd} \\ \hline
+        \end{tabular}
+\end{center}
+I bit del \textit{tipo} identificano se si tratti di un frame di gestione, controllo o dati, il \textit{sotto tipo}, 
+distingue i pacchetti RTS (1011), CTS (1100) o ACK (1101). La presenza di 4 indirizzi MAC, assieme ai campi 
+\textit{to DS} e \textit{from DS}, servono ad identificare il mittente ed il destinatario, ed il loro ruolo 
+nella rete (AP o host).\begin{center}
+    \begin{tabular}{|
+        >{\columncolor[HTML]{EFEFEF}}l |
+        >{\columncolor[HTML]{EFEFEF}}l |l|l|l|l|l|}
+        \cline{1-2} \cline{4-7}
+        \cellcolor[HTML]{C0C0C0}to DS & \cellcolor[HTML]{C0C0C0}from DS &            & \cellcolor[HTML]{C0C0C0}adr 1 & \cellcolor[HTML]{C0C0C0}adr 2 & \cellcolor[HTML]{C0C0C0}adr 3 & \cellcolor[HTML]{C0C0C0}ad3 4 \\ \cline{1-2} \cline{4-7} 
+        0                             & 0                               & $\implies$ & destinazione                  & sorgente                      & BSS ID                        & NULL                          \\ \cline{1-2} \cline{4-7} 
+        0                             & 1                               & $\implies$ & destinazione                  & AP mittente                   & sorgente                      & NULL                          \\ \cline{1-2} \cline{4-7} 
+        1                             & 0                               & $\implies$ & AP destinatario               & sorgente                      & destinazione                  & NULL                          \\ \cline{1-2} \cline{4-7} 
+        1                             & 1                               & $\implies$ & AP destinatario               & AP mittente                   & destinazione                  & sorgente                      \\ \cline{1-2} \cline{4-7} 
+        \end{tabular}
+\end{center}
+\subsection{Code Division Multiple Access}
+Si è già visto come l'accesso ad un canale condiviso, può avvenire per via di suddivisione di quest'ultimo, nel FDMA, 
+ogni host ha disponibile una determinata frequenza, nel TDMA, il tempo viene suddiviso in slot, ed ogni host può trasmettere 
+solamente quando è il suo turno.\acc 
+Esiste un paradigma detto \textbf{CDMA}, che sfrutta alcune caratteristiche del FDMA senza suddividere realmente la frequenza.
+È necessaria l'assunzione che tutti i dispositivi della rete siano sincronizzati.
+\acc
+Ad ogni dispositivo della rete, viene assegnato un \textbf{codice} distinto, tale codice non è altro che una 
+sequenza di $n$ bit, tale sequenza verrà rappresentata come un vettore di $n$ componenti. Ogni stazione che vuole 
+trasmettere, moltiplicherà ogni bit del pacchetto per il codice, in tal modo, per trasmettere un pacchetto di 
+$m$ bit di informazione, saranno necessari $n\cdot m$ bit.\acc 
+Per comodità, i bit verranno codificati diversamente : $$\begin{matrix} 0\sim -1 \\ 1\sim +1\end{matrix}$$
+    Ad esempio : Il nodo $A$ ha codice $\begin{pmatrix}
+        +1\\ -1\\ +1\\ -1
+    \end{pmatrix}$, per trasmettere il bit di informazione $0\sim-1$, trasmetterà $$-1\cdot \begin{pmatrix}
+        +1\\ -1\\ +1\\ -1
+    \end{pmatrix} = \begin{pmatrix}
+        -1\\ +1\\ -1\\ +1
+    \end{pmatrix}$$
+Se $n$ nodi vogliono trasmettere 1 bit, lo moltiplicheranno per il proprio codice, per poi trasmetterlo 
+contemporaneamente, i segnali trasmessi andranno in interferenza sommandosi.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/CDMA.eps}
+\end{center}
+I vettori rappresentanti i codici, devono rispettare due proprietà\begin{itemize}
+    \item Devono essere \textit{ortogonali} fra loro $$c_i\cdot c_j = 0\;\; \forall i,j | i\ne j $$
+    \item Il prodotto scalare fra due codici distinti, deve essere uguale al numero dei dispositivi della rete 
+    $$ c_i\cdot c_i = n\;\;\forall i $$ 
+\end{itemize}
+Da ciò si deriva la seguente proprietà $$\begin{matrix}
+     ( d_1\cdot c_1 + d_2\cdot c_2\dots+d_i\cdot c_i\dots +c_n\cdot c_n ) \cdot c_i = \\ 
+     d_1\cdot c_1\cdot c_i + d_2\cdot c_2\cdot c_i \dots+d_i\cdot c_i\cdot c_i \dots +c_n\cdot c_n\cdot c_i = \\ 
+     0 + 0 \dots + d_i\cdot c_i\cdot c_i \dots + 0 =\\  d_i\cdot c_i\cdot c_i = n\cdot d_i\\
+\end{matrix}$$
+Quindi, il segnale che vorrà ascoltare il messaggio della stazione $k$, potrà moltiplicare il segnale totale per 
+il codice $c_k$, per poi dividere il risultato per il numero di stazioni, ottenendo i dati attesi $d_k$. Si veda il 
+seguente esempio:\begin{center}
+    stazione 1 vuole trasmettere $1 \sim +1$, ha codice $(+1,+1,+1,+1)$\\
+    stazione 2 vuole trasmettere $1 \sim +1$ , ha codice $(+1,-1,+1,-1)$\\
+    stazione 3 vuole trasmettere $0 \sim -1$, ha codice $(+1,+1,-1,-1)$\\
+    stazione 4 non vuole trasmettere (trasmetterà $0$), ha codice $(+1,-1,-1,+1)$\acc 
+    I dati sul canale saranno : $$ 
+    (+1)\cdot \begin{pmatrix}
+       +1\\+1\\+1\\+1
+    \end{pmatrix}+(+1)\cdot \begin{pmatrix}
+        +1\\-1\\+1\\-1
+     \end{pmatrix}+(-1)\cdot \begin{pmatrix}
+        +1\\+1\\-1\\-1
+     \end{pmatrix}+0\cdot \begin{pmatrix}
+        +1\\-1\\-1\\+1
+     \end{pmatrix}=\begin{pmatrix}
+        +1\\ -1 \\ +3 \\+1
+     \end{pmatrix}
+    $$
+    Si vuole leggere il bit trasmesso dalla stazione 2, si ha il prodotto scalare $$ 
+    \begin{pmatrix}
+        +1\\ -1 \\ +3 \\+1
+     \end{pmatrix}\cdot \begin{pmatrix}
+        +1\\-1\\+1\\-1
+     \end{pmatrix} = 4
+    $$
+    Il risultato è $4$, diviso per il numero di stazioni si ha $\nicefrac{4}{4}=1$, che è il bit 
+    trasmesso in origine dalla stazione 2.\acc 
+    \includegraphics[width=1\textwidth ]{images/CDMA2.eps}
+\end{center}
+Tutto ciò funziona a patto che le stazioni siano sincronizzate ed i segnali siano in fase, esistono delle 
+configurazioni di codici che mantengono la proprietà dell'ortogonalità anche a seguito di un leggero sfasamento.\acc 
+Per generare le sequenze ortogonali che rappresentano i codici, si utilizza una matrice quadrata detta 
+\textit{tabella di Walsh}, che viene costruita ricorsivamente:\begin{center}
+    Sia $W_1$ un codice fra $-1$ e $+1$, si ha che : 
+    $$ W_2=\begin{pmatrix}
+        W_1&W_1\\ W_1&\overline{W_1}
+    \end{pmatrix}\;\;\; W_4=\begin{pmatrix}
+        W_2&W_2\\ W_2&\overline{W_2}\end{pmatrix}=\begin{pmatrix}
+            W_1& W_1& W_1& W_1\\ 
+            W_1&\overline{ W_1}& W_1&\overline{ W_1}\\ 
+            W_1& W_1&\overline{W_1}&\overline{W_1}\\
+            W_1&\overline{ W_1} &\overline{ W_1}&W_1
+        \end{pmatrix}
+    $$
+\end{center}
+    In generale $W_n = \begin{pmatrix}
+        W_n&W_n\\ W_n&\overline{W_n}
+    \end{pmatrix}$ e le colonne della matrice sono sequenze ortognali.\acc  Esempio:
+    $$ W_1 = +1 \;\;\;\;\;\;W_2=\begin{pmatrix}
+        +1&+1\\ +1&-1
+    \end{pmatrix}\;\;\;\;\;\;W_4=
+    \begin{pmatrix}
+        1& 1& 1& 1\\ 
+        1&-1& 1&-1\\ 
+        1& 1&-1&-1\\
+        1&-1 &-1&1
+    \end{pmatrix}$$
+
 \end{document}
