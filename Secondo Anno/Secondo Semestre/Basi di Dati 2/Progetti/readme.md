@@ -2,3 +2,4 @@
 - [Travel to the moon](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/Travel%20to%20the%20moon/Travel%20to%20the%20moon.pdf)
 - [eBuy](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/eBuy/eBuy.pdf)
 - [TuTubi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/TuTubi/TuTubi.pdf)
+- [QuickHospital](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/QuickHospital/QuickHospitalPrecompilato.pdf)
