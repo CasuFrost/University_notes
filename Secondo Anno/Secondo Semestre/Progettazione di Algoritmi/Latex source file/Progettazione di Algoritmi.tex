@@ -2231,4 +2231,74 @@ $$\greybox{
     \hphantom{ident}\code{return M[n,m]}\\
     \code{\}}
 }
+\newpage
+\section{Argomenti Extra}
+\subsection{Flussi di Grafi}
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/reteIdraulica.eps}
+\end{center}
+Si vuole modellizzare il problema della rete idraulica utilizzando un grafo diretto $G$, i cui pesi sugli archi 
+rappresentano la capacità $c$, tale grafo deve rispettare le condizioni\begin{itemize}
+    \item $\forall (u,v)\in E(G)\; \exists (v,u)\in E(G)$
+    \item $\forall (u,v)\in E(G)\;\;c(u,v)=c(v,u)$
+    \item Esistono due nodi $s$ e $t$ rappresentanti la sorgente ed il pozzo della rete
+\end{itemize}\begin{center}
+    \includegraphics[width=0.42\textwidth ]{images/grafoCapacita.eps}
+\end{center}
+\textbf{Definizione} : Una funzione $f:E(G)\rightarrow \mathbb{R}$, dove $G$ è un grafo 
+con capacità sugli archi $c$, è detta un \textbf{flusso} se rispetta le seguenti proprietà\begin{enumerate}
+    \item è \textit{Skew-Simmetrico} : $f(u,v)=-f(v,u)\;\;\forall (u,v)\in E(G)$
+    \item rispetta le capacità : $f(u,v)\le c(u,v)\;\;\forall (u,v)\in E(G)$
+    \item è \textit{conservato} : $\forall u\in E(G)\backslash\{s,t\}\;\; 
+    \displaystyle \sum_{v\in V(G)}f(u,v)=\sum_{v\in V(G)}f(v,u)$
+\end{enumerate}
+La terza proprietà afferma che la somma dei flussi entranti in un vertice è identica alla somma dei flussi 
+uscenti.\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/flusso.eps}
+\end{center}
+Si definisce \textbf{valore del flusso} la somma del flusso uscente da $s$ 
+$$val(f)=\sum_{u\in E(G)}f(s,u) $$
+Nell'esempio sovrastante, il valore del flusso equivale a 3.
+\subsubsection{Grafo Residuo}
+Dato un grafo $G$ con capacità $c$, è possibile definire più funzioni $f$ che siano dei flussi, un flusso si dice 
+massimale, se massimizza $val(f)$. Ma come si può riconoscere se il valore di un flusso è massimo, ed in caso contrario, massimizzarlo?\acc 
+Dato un grafo $G$ con capacità $c$, si difeniscei il \textbf{grafo residuo} $G'$, un grafo identico a $G$, alla quale 
+vengono eliminati tutti gli archi, il cui flusso è identico alla capacità. Si definisce poi su tale grafo, la funzione 
+$\gamma : E(G')\rightarrow \mathbb{R}^+$ tale che $\gamma(u,v)=c(u,v)-f(u,v)$. \begin{center}
+    \includegraphics[width=\textwidth ]{images/grafoResiduo.eps}
+\end{center}
+La funzione $\gamma$ (indicata in verde nel grafo a sinistra nell'immagine) rappresenta la 
+\textit{capacità residua} non ancora utilizzata, sulla quale si potrebbe aumentare il flusso. Si noti come $$
+\gamma(u,v)+\gamma(v,u)=c(u,v)-f(u,v)+c(v,u)-f(v,u)=c(u,v)+c(v,u)=2\cdot c(u,v)$$
+\textbf{Proposizione} : Se esiste un cammino diretto $P$ da $s$ a $t$ nel grafo residuo, allora il valore del flusso 
+non è massimale, e può essere aumentato, cambiando il flusso sugli archi di $P$.\acc 
+Si noti come nell'esempio sovrastante il flusso è massimo, dato che non ci sono cammini diretti da $s$ a $t$. Vediamo un esempio 
+di grafo il cui flusso non è massimale.\begin{center}
+    \includegraphics[width=\textwidth ]{images/grafoResiduo2.eps}
+\end{center}
+In verde, è evidenziato il cammino diretto $P$ dal nodo $s$ al nodo $t$, in questo caso, il valore del 
+flusso risulta essere $val(f)=1.5+(-1)=0.5$, ma di quanto può essere aumentato il flusso?\acc 
+Il flusso di un grafo il cui valore non è massimale, può essere umentato di
+ $$\alpha = \min(\{\bigcup_{e\in P}\gamma(e)\})$$
+ Nell'esempio sovrastante, il grafo residuo comprende un cammino da $s$ a $t$ i cui pesi sugli archi (valori 
+ di $\gamma$) sono : $\{3.5,0.5,1.5\}$, è quindi possibile aumentare il valore del flusso di $0.5$.\acc 
+ Dato tale valore $\alpha$, è possibile considerare un nuovo flusso $f'$ tale che 
+ $$ 
+f'(u,v)=\begin{cases}
+    f(u,v)+\alpha \text{ se }(u,v)\in P \\
+    f(u,v)-\alpha \text{ se }(v,u)\in P\\
+    f(u,v) \text{ altrimenti}
+\end{cases}\;\;\;\text{ sarà vero che }\;\;\;val(f')=val(f)+\alpha
+ $$
+ \textbf{Proposizione} : $f'$ è un flusso.\acc
+ \textbf{Dimostrazione} : Bisogna dimostrare che $f'$ rispetti le 3 proprietà del flusso. \begin{enumerate}
+    \item Per costruzione, è soddisfatta, ad ogni arco $(u,v)$ per cui si incrementa il flusso di $\alpha$, si decrenenta 
+    di $\alpha$ il flusso di $(v,u)$.
+    \item La capacità è rispettata$$\begin{matrix}
+        f(u,v)+\alpha \le f(u,v)+\gamma(u,v)=f(u,v)+c(u,v)-f(u,v)\implies \\ f(u,v)+\alpha \le c(u,v) 
+        \implies \\f'(u,v) \le c(u,v) 
+    \end{matrix}$$
+    \item Sempre per costruzione, se $\exists (x,u)\in P$, allora $\exists(u,y)\in P$, se è stato aggiunto 
+    $\alpha$ a $f(x,u)$, è stato sottratto $\alpha$ da $f(u,y)$, la somma rimane quindi invariata. $\blacksquare$
+ \end{enumerate}
 \end{document}
