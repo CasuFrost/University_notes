@@ -1595,7 +1595,7 @@ che un host si auto-invia per ragioni di testing.
 \subsubsection{NAT e IPv6}
 Il protocollo IP nasce nel 1978 con lo scopo di connettere le macchine di alcuni centri di ricerca ed enti universitari, 
 venne quindi scelto uno spazio di indirizzamento a 32 bit, capace di identificare $2^{32}$ differenti interfacce di rete, mai si 
-sarebbe pensato che tale numero non sarebbe stato sufficente nel futuro, dove l'utilizzo di Internet divenne largamente utilizzato 
+sarebbe pensato che tale numero non sarebbe stato sufficente nel futuro, dove l'utilizzo di Internet divenne largamente diffuso 
 su tutto il globo.\acc 
 L'ultimo range di indirizzi IPv4 (ossia, a 32 bit) vennero assegnati nel 2011, è stato quindi necessario lo sviluppo di nuovi 
 protocolli, volti a sopperire la mancanza di indirizzi disponibili.\acc 
@@ -1693,7 +1693,7 @@ percorso "migliore" secondo determinate caratteristiche, tale scelta è influenz
 router intermedi che dovrà attraversare un pacchetto, oppure la possibile congestione su un percorso piuttosto che in un 
 altro. 
 \subsection{Algoritmi di Instradamento}
-Gli algoritmi di routing possono essere categorizzati in base a due ditinti fattori: \begin{itemize}
+Gli algoritmi di routing possono essere categorizzati in base a due distinti fattori: \begin{itemize}
     \item La centralizzazione \begin{itemize}
         \item Gli algoritmi centralizzati si dicono di tipo \textbf{link state}.
         \item Gli algoritmi distribuiti si dicono di tipo \textbf{distance vector}.
@@ -1784,12 +1784,12 @@ percorso minimo per raggiungerla.\acc
 È un algoritmo iterativo ed asincrono, che viene eseguito in maniera distribuita su ogni router, si noti come non è dipendente 
 dal tempo, bensì reagisce all'evento di ricezione di un messaggio.\acc 
 Gli algoritmi distrbuiti sono soggetti a problemi patologici, e l'algritmo di Bellman-Ford non ne è esente, di fatto in alcune 
-situazione dove il costo di un link cambia, acquisendo un valore maggiore di quello precedente, è possibile ricadere in casi 
+situazioni dove il costo di un link cambia, acquisendo un valore maggiore di quello precedente, è possibile ricadere in casi 
 di \textit{conteggio all'infinito}, a tal proposito identifichiamo due soluzioni\begin{itemize}
-    \item \textbf{split horizon} Piuttosto che notificare un nodo $x$ con tutto il vettore distanza in possesso, $x$ verrà 
+    \item \textbf{split horizon} : Piuttosto che notificare un nodo $x$ con tutto il vettore distanza in possesso, $x$ verrà 
     notificato esclusivamente con informazioni che non sono state apprese da $x$ stesso, prevenendo la nascita di 
     rotte cicliche. 
-    \item \textbf{poisoned reverse} Viene posto ad $\infty$ il costo di un percorso da $y$ ad $x$ quando vengono inviate 
+    \item \textbf{poisoned reverse} : Viene posto ad $\infty$ il costo di un percorso da $y$ ad $x$ quando vengono inviate 
     informazioni verso $x$, propagando informazione negativa nel caso una rotta diventi ciclica.
 \end{itemize}
 Vediamo un confronto fra i due tipi di algoritmi presentati\begin{itemize}
@@ -1880,7 +1880,7 @@ esecuzione sui router.\acc
 Si è già accennato al fatto che RIP non è pià in utilizzo al giorno d'oggi, il suo successore si chiama
  \textbf{OSPF (Open Shortest Path First)}, è un protocollo libero, aperto, la cui documentazione è pubblica e disponibile, 
  è basato su un algoritmo di tipo link state, ossia Dijkstra, le informazioni riguardanti i messaggi che i router devono 
- scambiarsi vengon incapsulate direttamente su IP, senza passare attraverso alcun protocollo di trasporto o applicazione,
+ scambiarsi vengono incapsulate direttamente su IP, senza passare attraverso alcun protocollo di trasporto o applicazione,
  funzionando quindi eslcusivamente a livello di rete.\acc 
  Ogni router, esegue il \textit{flooding} (condivisione delle informazioni) a tutti gli altri router dell' AS, dato che ognuno di 
  essi deve essere a conoscenza della topologia dell'intera rete prima di eseguire l'algoritmo di Dijkstra. Include anche 
@@ -1939,7 +1939,7 @@ da pià fattori\begin{itemize}
     \item criteri aggiuntivi
 \end{itemize}
 \subsection{Inoltro a più Destinazioni}
-\subsubsection{Multicast e Flooding}
+\subsubsection{Flooding}
 Utilizziamo il termine \textit{unicast} per riferirci ad una comunicazione fra una singola sorgente ed un
 singolo destinatario, si è poi parlato di \textit{broadcast}, ossia l'atto di una sorgente di voler comunicare con 
 tutti i restanti nodi disponibili, questa azione prevede l'inevitabile creazione di più pacchetti IP che dovranno 
@@ -2113,7 +2113,7 @@ al bit che è stato flippato di essere individuato e corretto.
         \end{tabular}
 \end{center}
 \subsubsection{Cyclic Redundancy Check}\label{CRC}
-Questo sistema con i pariti bit è efficace ma non infallibile, di fatto, anche se dei bit dovessero essere soggetti 
+Questo sistema con i parity bit è efficace ma non infallibile, di fatto, anche se dei bit dovessero essere soggetti 
 ad errore, la somma dei bit uguali ad uno potrebbe risultare comunque un numero pari.
 Il \textbf{CRC} è uno strumento ancora più potente e sofisticato per la rilevazione e correzione degli errori.\acc 
 Sia $D$ il numero binario definito dai bit del frame, in coda a questo, viene aggiunta una sequenza di $r$ 
@@ -2167,7 +2167,7 @@ La probabilità che un qualsiasi nodo trasmetta con successo, è quindi tale val
 $$ n\cdot p\cdot (1-p)^{n-1}  $$
 L'efficienza massima che si può ottenere dipende dal valore di $p$, sia $\tilde p$ il valore di $p$ che 
 massimizzi $ n\cdot p\cdot (1-p)^{n-1} $, per $n$ che tende ad infinito, si ottiene \textbf{l'efficenza massima} 
-raggiungibile con slotted Aloha : $$\lim_{n\rightarrow +\infty}  n\cdot\tilde p\cdot (1-\tilde p)^{n-1} = \dfrac{1}{1}\simeq 0.37 $$
+raggiungibile con slotted Aloha : $$\lim_{n\rightarrow +\infty}  n\cdot\tilde p\cdot (1-\tilde p)^{n-1} = \dfrac{1}{e}\simeq 0.37 $$
 Quindi nel migliore dei casi, il canale sarà utilizzato il 37\% del tempo.\acc 
 Il protocollo \textbf{Pure Aloha} è una versione semplificata di quello appena visto, che non considera la suddivisione 
 in slot del tempo, eliminando la sincronizzazione, e risultando più semplice nella sua implementazione. \acc ll punto è che la probabilità di collisione 
@@ -2434,7 +2434,7 @@ il seguente formato:\begin{center}
 \section{Le Reti Wireless}
 Ad oggi, le reti senza fili, come le LAN wireless, le reti cellulari e le reti Bluetooth sono largamente 
 utilizzate ovunque nel mondo. I segnali elettromagnetici sono caratterizzata dalla frequenza, e dalla copertura, 
-queste due ultime sono inversamente proporzionali, più un segnale ha un alta frequenza, meno si degraderà con 
+queste due ultime sono inversamente proporzionali, più un segnale ha un alta frequenza, più si degraderà con 
 l'allontanarsi dalla sorgente che l'ha generato. \acc 
 I pacchetti wifi, possono essere facilmente convertiti in pacchetti Ethernet, per questo molte reti sfruttano entrambi i 
 paradigmi, ed un pacchetto per giungere ad una destinazione, potrà attraversare sia un mezzo fisico come il cavo, sia 
@@ -2445,7 +2445,7 @@ I dispositivi accedono alla rete wireless per mezzo di un antenna, quest'ultima 
     \item in prossimità di un campo magnetico variabile, verrà generato un campo elettrico nell'antenna, ricevendo il segnale.
 \end{itemize}
 Possiamo immaginare i link wireless come dei cavi, anche se tale comunicazione è broadcast, cambia quindi il modo di 
-accedere al link rispetto ad un usale collegamento Ethernet. I dispositivi wireless possono accedere alle altre reti 
+accedere al link rispetto ad un usuale collegamento Ethernet. I dispositivi wireless possono accedere alle altre reti 
 per via di un mezzo condiviso chiamato \textbf{access point (AP)}. Le reti wireless possono essere di due tipi\begin{itemize}
     \item \textbf{ad hoc} : Ogni dispositivo comunica direttamente con gli altri dispositivi della rete. 
     \item \textbf{tramite AP} : I dispositivi non comunicano con la rete, ma esclusivamente con l'access point, 
@@ -2486,7 +2486,7 @@ parzialmente sovrapposti, solo canali "lontani" non vanno in interferenza, ad es
 point per rendersi visibili, emettono un \textit{beacon}, un segnalo "faro" che avvisa i dispositivi della propria 
 presenza, e su quale canale trasmettono.
 \subsubsection{CSMA/CA}
-Per evitare le interferenze, dovuto alla trasmissione simultanea, è possibile proseguire in due modi\begin{itemize}
+Per evitare le interferenze, dovute alla trasmissione simultanea, è possibile proseguire in due modi\begin{itemize}
     \item \textbf{DCF} : i nodi si contendono l'accesso al canale
     \item \textbf{PCF} : l'AP coordina i nodi nell'accesso al canale
 \end{itemize} 
@@ -2498,7 +2498,7 @@ pacchetto, trasmette immediatamente un ACK (quest'ultimo può essere soggetto a 
     \includegraphics[width=0.8\textwidth ]{images/CSMA-CA.eps}
 \end{center}
 Con \textbf{DIFS} invece, si denota un lasso di tempo, il cui un nodo che vuole trasmettere un frame deve 
-attendere, ascoltando il canale. Quindi il mettente ascolta il canale per DIFS secondi, il destinatario lo riceve, 
+attendere, ascoltando il canale. Quindi il mettente ascolta il canale per DIFS secondi e poi trasmette il pacchetto, il destinatario lo riceve, 
 e dopo SIFS secondi invierà un ACK, ovviamente deve essere che $$\text{SIFS}<\text{DIFS}$$
 Fattualmente, dopo che il mittente ha atteso DIFS secondi, non trasmette immediatamente, bensì entra nella 
 \textbf{fase di contesa}, in cui deve attendere un ulteriore lasso di tempo in cui ascoltare il canale prima 
