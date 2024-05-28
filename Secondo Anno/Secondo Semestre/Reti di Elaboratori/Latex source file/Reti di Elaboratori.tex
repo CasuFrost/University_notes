@@ -2648,5 +2648,170 @@ Per generare le sequenze ortogonali che rappresentano i codici, si utilizza una 
         1& 1&-1&-1\\
         1&-1 &-1&1
     \end{pmatrix}$$
-
+\subsection{Bluetooth}
+\color{red}da fare quando avrò tempo\color{black}
+\subsection{RFID}
+\color{red}da fare quando avrò tempo\color{black}
+\newpage 
+\section{Sicurezza nelle Reti}
+\subsection{Introduzione alla Crittografia}
+In una comunicazione su Internet, si ricerca\begin{itemize}
+    \item Riservatezza - solo il mittente ed il destinatario dovrebbero comprendere il contenuto del messaggio 
+    \item Autenticazione - il mittente ed il destinatario devono poter confermare le proprie identità 
+    \item Integrità - il mittente deve avere la garanzia che il messaggio ricevuto non sia stato manomesso 
+\end{itemize}
+Definiamo come \textbf{threat model} l'insieme delle possibile azioni che un ente malevolo può intraprendere 
+per intercettare una comunicazione, l'insieme di azioni dalla quale è necessario difendersi.\acc 
+Si vuole utilizzare la \textit{crittografia} per cifrare un messaggio, e renderlo decifrabile esclusivamente da chi 
+è in possesso di una chiave.$$ \begin{matrix}
+    K_A := \text{ chiave di cifratura}\\ 
+    K_B := \text{ chiave di decifratura}\\ 
+    m := \text{ messaggio in chiaro} \\ 
+    K_A(m) = \text{ messaggio cifrato (incomprensibile)}\\ 
+    K_B(K_A(m))=m
+\end{matrix}$$
+La chiave è quindi una funzione che dato un messaggio in chiaro, lo cifra (tramite un apposito algoritmo), rendendolo incomprensibile, facendo si che 
+si possa risalire al messaggio originale, eslcusivamente applicando la chiave di decifratura sul messaggio cifrato. La 
+chiave si dice \textbf{simmetrica} se è unica, e può essere utilizzata sia 
+per cifrare, che per decifrare : $$ K_B(K_A(m))=K_A(K_B(m))=m \implies K_A = K_B$$
+Un ente malevolo che è in possesso di un messaggio cifrato, può procedere in due modi \begin{itemize}
+    \item facendo una ricerca della chiave tramite forza bruta, provando tutte le possibili combinazioni (costoso)
+    \item facendo un analisi statistica sui messaggi cifrati, cercando di capire il funzionamento dell'algoritmo di cifratura
+\end{itemize}
+Il problema della chiave simmetrica è che i due comunicatori devono mettersi d'accordo sulla chiave da utilizzare, e non è 
+scontato che quest'ultima possa essere comunicata su un canale sicuro.\acc 
+I cifrari sono l'esempio più immediato di chiave simmetrica, si associa ad ogni lettera dell'alfabeto, un'altra lettera, solo chi è 
+a conoscenza di tale mappa può 'tradurre' i messaggi. Esistono poi cifrari più avanzati, il
+ \textit{DES (Data Encryption Standard)} identifica 
+lo standard di crittografia, dove viene utilizzata una chiave simmetrica a 56 bit, ed i messaggio in chiaro sono a 
+64 bit.\begin{itemize}
+    \item Un attacco a forza bruta su un messaggio cifrato con DES richiede circa un giorno per essere completato 
+\end{itemize}
+Essendo poco sicuro, sono nati nuovi standard come \textit{AES (Advanced Encryption Standard)}, che utilizza un testo 
+in chiaro di 128 bit, e chiavi simmetriche da 128,192 o 265 bit. Risulta estremamente più sicuro di 
+DES : \begin{quote}
+    se un attacco a forza bruta impiegherebbe 1 secondo per
+DES, impiega 149 trilioni di anni per AES
+\end{quote}
+\subsubsection{Chiave Pubblica e RSA}
+La crittografia simmetrica richiede che il mittente ed il destinatario siano d'accordo sulla chiave, ma come possono 
+accordarsi in principio su essa senza che nessuno intercetti le informazioni? La crittografia a chiave pubblica segue 
+un approccio differente, come il nome fa intuire, vi sono due chiavi:\begin{itemize}
+    \item la chiave pubblica di un individuo, resa disponibile a tutti (per cifrare)
+    \item la chiave privata, nota eslcusivamente all'individuo proprietario anche di quella pubblica  (per decifrare)
+\end{itemize}
+La chiave pubblica funge eslcusivamente da lucchetto, chiunque può cifrare un messaggio tramite questa. Ogni messaggio 
+cifrato con la chiave pubblica, potrà essere letto esclusivamente dall'individuo che l'ha resa disponibile, dato che 
+è in possesso della chiave privata, necessaria per decifrare il messaggio. \acc 
+Gli algoritmi di cifratura di questo tipo sono computazionalmente più pesanti rispetto a quelli a chiave simmetrica, 
+è quindi poco efficente utilizzare questo tipo di cifratura per grandi quantità di dati. Tali algoritmi sono funzioni 
+matematiche che operano sul messaggio come se fosse una stringa di numeri interi. Il più noto algoritmo 
+utilizzato è \textit{RSA}.\acc 
+In RSA le chiave, sono delle coppie di numeri interi, e vengono selezionate nel seguente modo:\begin{enumerate}
+    \item vengono selezionati due numeri primi $p$ e $q$. molto grandi, solitamente, numeri di 1024 bit. 
+    \item si calcola $n=p\cdot q$ \item si calcola $z=(p-1)\cdot(q-1)$
+    \item si ricerca e seleziona un numero $e$ tale che \begin{itemize}
+        \item $e<n$
+        \item $MCD(e,z)=1$ ossia $e$ e $z$ sono co-primi fra loro
+    \end{itemize}
+    \item si ricerca e seleziona un numero $d$ tale che\begin{itemize}
+        \item $e\cdot d \equiv 1 \mod{z}$
+    \end{itemize}
+    \item La chiave pubblica è $(n,e)$, la chiave privata è $(n,d)$.
+\end{enumerate}
+Date le chiavi, per cifrare un messaggio $m$, che viene interpretato come numero intero, si calcola 
+$$ \text{messaggio cifrato : } c = m^e \mod{n}$$
+Chi è in possesso della chiave privata, ossia $(n,d)$, per decifrare calcola $$ c^d\mod{n}=m$$
+Ciò funziona data l'identità $$ m=(m^e \mod{n})^d \mod{n}$$
+RSA risulta robusto in quanto, conoscendo la chiave pubblica $(e,n)$, per risalire alla chiave privata bisogna:\begin{enumerate}
+    \item fattorizzare $n$ (se $n$ è grande, richiede molto tempo) per trovare $p$ e $q$
+    \item calcolare $z=(p-1)\cdot(q-1)$
+    \item cercare il numero $d$ tale che $e\cdot d \equiv 1 \mod{z}$
+\end{enumerate}
+Inoltre, un altra proprietà di RSA è la seguente: 
+$$K_{priv}(K_{pub}(m))= m =K_{pub}(K_{priv}(m))$$
+Ciò è dato dalle proprietà dell'aritmetica modulare 
+$$\begin{matrix} (m^e \mod{n})^d \mod{n} =\\ m^{ed} \mod{n} = m^{de} \mod{n} =\\ (m^d \mod{n})^e \mod{n}\end{matrix}$$
+Essendo che la cifratura/decifratura in RSA è estremamente lenta (100 volte più lenta di DES), esso viene utilizzato 
+esclusivamente per la prima comunicazione e la creazione di un canale sicuro, dove verrà scambiata poi una 
+chiave simmetrica di sessione, che sarà utilizzata per la comunicazione.
+\subsection{Autenticazione}
+Si vuole far si che un individuo possa autenticarsi ad un altro individuo durante una comunicazione. Costruiamo uno scenario 
+esplicativo con la quale sarà possibile introdurre i vari concetti di autenticazione.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/Aut1.eps}
+\end{center}
+Ad Alice serve un modo per autenticarsi, invia un pacchetto IP a Bob, tramite l'indirizzo IP, Bob potrà verificare che 
+il pacchetto proviene da Alice. Il problema è che Trudy, facendo "Spoofing", può fingersi Alice, inviando un pacchetto IP 
+con il suo indirizzo di origine.\acc 
+A questo punto, Alice per dimostrare a Bob la sua identità, può inviare insieme al pacchetto IP una password 
+crittata, che Bob decritterà riconoscendo l'identità, per poi iniziare la comunicazione.\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/Aut2.eps}
+\end{center}
+Il problema è che Trudy, pur non conoscendo la password crittata di alice, può registrare il pacchetto 
+che essa invia a Bob per autenticarsi, in modo da falsificare la propria identità, inviando a Bob la stessa 
+identica sequenza di byte per autenticarsi.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/Aut3.eps}
+\end{center}
+Tale attacco è detto \textbf{PlayBack Attack}, e per proteggersi da esso è necessario un 
+\textbf{nonce}, ossia un numero $R$, che viene cambiato ogni volta che è necessario 
+autenticarsi, venendo utilizzato quindi una singola volta, in modo da non poter essere replicato da un playback 
+attack.\acc 
+Bob per confermare l'identità di Alice, invierà un numero nonce $R$, alice, restituirà a Bob il messaggio cifrato 
+dalla propria chiave privata, ossia $K_{priv}(R)$, dopo aver fatto ciò, alice comunica a Bob la sua chiave pubblica, 
+Bob, utilizzerà la chiave sul messaggio cifrato 
+$$ K_{pub}(K_{priv}(R))=R$$
+Ottenendo $R$, avrà la conferma che Alice non è stata impersonificata da un ente malevolo.
+\acc
+L'autenticazione \textbf{zero-knowledge} generalizza il concetto di autenticazione, si vuole costruire un sistema 
+che permetta ad un individuo, di garantire a qualcuno di essere a conoscenza di un generico "segreto", senza 
+dare informazioni sul segreto stesso".\acc 
+Supponiamo che $A$ voglia avere la garanzia che $B$ conosca il segreto.
+ $A$ sottopone $B$ ad una sfida di identificazione : Il candidato supera la sfida se conosce il segreto, oppure, può 
+ tentare un esito casuale, che potrà portarlo a superare la sfida, supponiamo che la probabilità che $B$ superi la sfida
+ senza conoscere il segreto sia $p<1$. \acc 
+ Il candidato dovrà superare svariate sfide di identità, la probabilità che superi $n$ sfide è $p^n$, risulta chiaro 
+ che un candidato, può superare tante sfide esclusivamente se è a conoscenza del segreto, dato che con $n$ grande, 
+ $p^n$ tende a zero.
+ \subsection{TLS} 
+I pacchetti TCP/UDP non includono alcuna protezione, prendono un messaggio al livello applicativo, e lo 
+incapsulano in chiaro. TLS è un protocollo standard posto fra il livello di trasporto ed il livello di 
+applicazione che fornisce\begin{itemize}
+    \item riservatezza tramite crittografia simmetrica 
+    \item integrità tramite hashing crittografico 
+    \item autenticazione tramite crittografia a chiave pubblica
+\end{itemize}
+Vengono utilizzate chiavi diverse per l'autenticazione del messaggio (MAC) e per la crittografia di esso.
+Durante l'handshake TLS, viene condivisa una chiave pubblica che verrà utilizzata per crittare e comunicarsi 
+le 4 chiavi simmetriche che verranno utilizzate durante la sessione\begin{itemize}
+    \item $K_C$ per cifrare dati dal client al server
+    \item $M_C$ chiave MAC per autenticare dati inviati dal client al server
+    \item $K_S$ per cifrare dati dal server al client
+    \item $M_S$ chiave MAC per autenticare dati inviati dal server al client
+\end{itemize}
+TLS prende il messaggio, aggiunge in coda ad esso il MAC ed in testa la lunghezza dei dati, per poi cifrare tutto 
+con la chiave, il risultato sarà incapsulato dentro TCP (l'header TCP non viene cifrato). 
+$$ K_C\Big(\begin{tabular}{
+    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l }
+    {\color[HTML]{FFFFFF} lunghezza} & {\color[HTML]{FFFFFF} dati} & {\color[HTML]{FFFFFF} MAC}
+    \end{tabular}\Big)$$
+Il MAC inoltre include dei numeri di sequenza da utilizzare piuttosto di quelli TCP, inoltre la chiave 
+MAC cambia ad ogni record per evitare i replay attack.
+$$ K_C\Big(\begin{tabular}{
+    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l }
+    {\color[HTML]{FFFFFF} lunghezza} & {\color[HTML]{FFFFFF} dati} & { $M_C($\color[HTML]{FFFFFF}MAC\color[HTML]{000000}$)$}
+    \end{tabular}\Big)$$
+Un individuo malevolo potrebbe chiudere la connessione con un \textit{truncation attack}, falsificando il 
+segmento di chiusura della connessione TCP il cui header è in chiaro, viene quindi utilizzato un campo \textit{tipo} nel 
+record crittato, per indicare se il messaggio è o non è un messaggio di chiusura.
+$$K_C\Big( \begin{tabular}{
+    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l }
+    {\color[HTML]{FFFFFF} lunghezza} & {\color[HTML]{FFFFFF} tipo} & {\color[HTML]{FFFFFF} dati} & {$M_C($\color[HTML]{FFFFFF}MAC\color[HTML]{000000}$)$}
+    \end{tabular}\Big)$$
 \end{document}
