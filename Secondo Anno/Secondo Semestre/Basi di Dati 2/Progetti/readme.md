@@ -3,3 +3,5 @@
 - [eBuy](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/eBuy/eBuy.pdf)
 - [TuTubi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/TuTubi/TuTubiPrecompilato.pdf)
 - [QuickHospital](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/QuickHospital/QuickHospitalPrecompilato.pdf)
+- [Out!](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/Out!/Out.pdf)
+- [DormoDaTe](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/DormoDaTe/DormoDaTe.pdf)
