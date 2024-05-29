@@ -2707,7 +2707,7 @@ Gli algoritmi di cifratura di questo tipo sono computazionalmente più pesanti r
 è quindi poco efficente utilizzare questo tipo di cifratura per grandi quantità di dati. Tali algoritmi sono funzioni 
 matematiche che operano sul messaggio come se fosse una stringa di numeri interi. Il più noto algoritmo 
 utilizzato è \textit{RSA}.\acc 
-In RSA le chiave, sono delle coppie di numeri interi, e vengono selezionate nel seguente modo:\begin{enumerate}
+In RSA le chiavi sono delle coppie di numeri interi, e vengono selezionate nel seguente modo:\begin{enumerate}
     \item vengono selezionati due numeri primi $p$ e $q$. molto grandi, solitamente, numeri di 1024 bit. 
     \item si calcola $n=p\cdot q$ \item si calcola $z=(p-1)\cdot(q-1)$
     \item si ricerca e seleziona un numero $e$ tale che \begin{itemize}
@@ -2768,7 +2768,7 @@ dare informazioni sul segreto stesso".\acc
 Supponiamo che $A$ voglia avere la garanzia che $B$ conosca il segreto.
  $A$ sottopone $B$ ad una sfida di identificazione : Il candidato supera la sfida se conosce il segreto, oppure, può 
  tentare un esito casuale, che potrà portarlo a superare la sfida, supponiamo che la probabilità che $B$ superi la sfida
- senza conoscere il segreto sia $p<1$. \acc 
+ senza conoscere il segreto sia $p\in [0,1)$. \acc 
  Il candidato dovrà superare svariate sfide di identità, la probabilità che superi $n$ sfide è $p^n$, risulta chiaro 
  che un candidato, può superare tante sfide esclusivamente se è a conoscenza del segreto, dato che con $n$ grande, 
  $p^n$ tende a zero.
@@ -2791,16 +2791,16 @@ le 4 chiavi simmetriche che verranno utilizzate durante la sessione\begin{itemiz
 TLS prende il messaggio, aggiunge in coda ad esso il MAC ed in testa la lunghezza dei dati, per poi cifrare tutto 
 con la chiave, il risultato sarà incapsulato dentro TCP (l'header TCP non viene cifrato). 
 $$ K_C\Big(\begin{tabular}{
-    >{\columncolor[HTML]{4CA86B}}l 
-    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l |
+    >{\columncolor[HTML]{4CA86B}}l |
     >{\columncolor[HTML]{4CA86B}}l }
     {\color[HTML]{FFFFFF} lunghezza} & {\color[HTML]{FFFFFF} dati} & {\color[HTML]{FFFFFF} MAC}
     \end{tabular}\Big)$$
 Il MAC inoltre include dei numeri di sequenza da utilizzare piuttosto di quelli TCP, inoltre la chiave 
 MAC cambia ad ogni record per evitare i replay attack.
 $$ K_C\Big(\begin{tabular}{
-    >{\columncolor[HTML]{4CA86B}}l 
-    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l |
+    >{\columncolor[HTML]{4CA86B}}l |
     >{\columncolor[HTML]{4CA86B}}l }
     {\color[HTML]{FFFFFF} lunghezza} & {\color[HTML]{FFFFFF} dati} & { $M_C($\color[HTML]{FFFFFF}MAC\color[HTML]{000000}$)$}
     \end{tabular}\Big)$$
@@ -2808,9 +2808,9 @@ Un individuo malevolo potrebbe chiudere la connessione con un \textit{truncation
 segmento di chiusura della connessione TCP il cui header è in chiaro, viene quindi utilizzato un campo \textit{tipo} nel 
 record crittato, per indicare se il messaggio è o non è un messaggio di chiusura.
 $$K_C\Big( \begin{tabular}{
-    >{\columncolor[HTML]{4CA86B}}l 
-    >{\columncolor[HTML]{4CA86B}}l 
-    >{\columncolor[HTML]{4CA86B}}l 
+    >{\columncolor[HTML]{4CA86B}}l |
+    >{\columncolor[HTML]{4CA86B}}l |
+    >{\columncolor[HTML]{4CA86B}}l |
     >{\columncolor[HTML]{4CA86B}}l }
     {\color[HTML]{FFFFFF} lunghezza} & {\color[HTML]{FFFFFF} tipo} & {\color[HTML]{FFFFFF} dati} & {$M_C($\color[HTML]{FFFFFF}MAC\color[HTML]{000000}$)$}
     \end{tabular}\Big)$$
