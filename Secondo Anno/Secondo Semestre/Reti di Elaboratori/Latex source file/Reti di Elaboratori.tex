@@ -1502,7 +1502,7 @@ fino a 100 teraByte per secondo.\begin{center}
 \subsubsection{Accodamento}
 L'accodamento interno al router (da non confondersi con l'accodamento visto nei capitoli precedenti) si verifica quando 
 i pacchetti arrivanno nelle porte di input più rapidamente di quanto la switching fabric possa smistarli nelle 
-porte di uscita. Se ciò avviene i datagrammi verrano accodati in un buffer di capienza limitata, quando raggiunge la dimensione 
+porte di uscita (\textbf{Blocco HOL - Head of Line }). Se ciò avviene i datagrammi verrano accodati in un buffer di capienza limitata, quando raggiunge la dimensione 
 massima sarà necessario eliminare dei pacchetti nel buffer secondo delle determinate politiche.\acc 
 Il buffer deve avere una capienza che non sia ne limitata ne eccessiva, le dimensioni ottimali sono date dalla 
 seguente formula empirica: $$\dfrac{ RTT\cdot c}{\sqrt{n}}$$

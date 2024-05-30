@@ -102,29 +102,38 @@ causando uno spreco di banda.\acc
  timeout ad esso associato, la secondo, è alla ricezione di 3 ACK duplicati da parte del destinatario (fast retransmit).\acc 
 
 
- \textbf{13) Quali livelli protocollari sono presenti su un router?}\\
- \color{red}Domanda riguardante argomenti
- non ancora presentati 
- nel programma oggi 07/04/2024\color{black}\acc
- Livello di rete e livello di collegamento (risposta "a sentimento").\acc 
+ \textbf{13) Quali livelli protocollari sono presenti su un router?}\acc 
+ Un router dispone sicuramente di un implementazione a livello di collegamento, in quanto possiede svariati 
+ terminali, ethernet o wifi, è quindi disposto di un indirizzo MAC, e detiene la tabella ARP con le associazioni 
+ IP-MAC. Il router è il principale dispositivo che opera al livello di rete facendo commutazione di pacchetto, dispone 
+ quindi degli algoritmi e protocolli di rete implementati (ad esempio, RIP). Anche se il router non si dovrebbe occupare 
+ del livello di trasporto, tramite il NAT, quest'ultimo deve leggere l'header di trasporto dei pacchetti per 
+ capire a quale terminale inviare un determinato pacchetto, in base al valore della porta.\acc
 
 
 
  \textbf{14) Che tipo di protocollo di routing è BGP (intra o 
- inter-autonomoussystemrouting? Distancevector/Link State/Policy Based/PathBased?}\\
- \color{red}Domanda riguardante argomenti
- non ancora presentati 
- nel programma oggi 07/04/2024\color{black}\acc\hphantom{text}\acc
- \Large  \textbf{Domande estese}\acc
- \normalsize
+ inter-autonomoussystemrouting? Distancevector/Link State/Policy Based/PathBased?}\acc
+ BGP è un protocollo di routing INTER-AS, non è ne di tipo link state ne di tipo distance vector, serve per identificare 
+ quale router gateway si deve raggiungere per spostarsi verso un altro AS, il percorso per raggiungere tali router 
+ è già calcolato con gli algoritmi INTRA-AS.\acc
 
+
+
+    
 
  \textbf{1) Si descriva in dettaglio il protocollo RIP (in quale contesto è usato? Quale 
  è l'algoritmo usato per il calcolo dei cammini minimi? Quali la metrica? Quale il funzionamento 
- del protocollo in dettaglio? Quali i problemi del funzionamento del protocollo e come sono risolti in pratica)?}\\
- \color{red}Domanda riguardante argomenti
- non ancora presentati 
- nel programma oggi 07/04/2024\color{black}\acc\hphantom{text}\acc
+ del protocollo in dettaglio? Quali i problemi del funzionamento del protocollo e come sono risolti in pratica)?}\acc
+
+ Opera al livello di algoritmo di tipo rete, piano di controllo, e Un algorit mo distance vector, dove i router,
+ Comunicano informazioni Sui vettori distanza. i pesi Sui percorsi Sono dati dagli HOP, il peso massimo è 16,
+  e rappresenta un peso infinito, i router aggiornano i loro vicini ogni $R$ secondi, dove $R$ rappresenta un timer
+   randomizzato in un range. Ci sono poi timer 2  per gestire la scadenza dei percorsi (aggiornamento informazioni,
+    costo scaduto, ecc..) ed il valore del vettore distanza. 
+    I messaggi sono incapsulati sopra UDP e possono essere di tipo REQUEST o RESPONSE.
+    Per evitare lo scambio di informazioni ridondante, un nodo $x$ non comunica informazioni apprese da $y$ ad $y$. Applica quindi sia lo split 
+    horizon che il poison reverse.\acc
 
 
  \textbf{2) Si descriva il funzionamento dell'applicazione Web(in quale livello e per cosa è usata?
