@@ -18,5 +18,7 @@
 - [Esercizi sul livello di rete](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esercizi%20sul%20livello%20di%20rete.pdf)
 - [Esercizi sul livello di collegamento](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esercizi%20sul%20livello%20di%20collegamento.pdf)
 - [Esercitazione del 26 maggio 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esercitazione%2026%20maggio%202024.pdf)
+- [Esercitazione RE-28](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esercitazione%20RE-28.pdf)
+- [Esercitazione RE-29](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esercitazione%20RE-29.pdf)
 
 
