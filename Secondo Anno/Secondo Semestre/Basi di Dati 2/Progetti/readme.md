@@ -5,4 +5,4 @@
 - [QuickHospital](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/QuickHospital/QuickHospitalPrecompilato.pdf)
 - [Out!](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/Out!/Out.pdf)
 - [DormoDaTe](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/DormoDaTe/DormoDaTe.pdf)
-- [TravelPlan](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/DormoDaTe/TravelPlan.pdf)
+- [TravelPlan](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/TravelPlan/TravelPlan.pdf)
