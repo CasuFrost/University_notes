@@ -1563,12 +1563,12 @@ loro indirizzi IP, che identifica la sottorete, quelli meno significativi identi
     a.b.c.d/$x$ \\ 
     ad esempio : 200.23.16.0/23
 \end{center}
-Dove il numero $x$ seguito dallo slash rappresenta il numero di bit fissi dell'indirizzo, mentre $32-x$ rappresenta il 
+Dove il numero $x$ preceduto dallo slash rappresenta il numero di bit fissi dell'indirizzo, mentre $32-x$ rappresenta il 
 numero di bit variabili, e conseguentemente l'insieme di indirizzi IP distinti che possono esistere in tale sottorette.
 \begin{center}
     200.23.16.0/23 $\implies$ 11001000 00010111 0001000x xxxxxxxx
 \end{center}
-La sottorete nell'esempio sovrastante può identificare $2^4=16$ indirizzi IP differenti. La maschera viene spesso 
+La sottorete nell'esempio sovrastante può identificare $2^9=512$ indirizzi IP differenti. La maschera viene spesso 
 rappresentata come maschera binaria di 32 bit, dove vi è 1 nei bit fissi, e 0 nei bit variabili 
 \begin{center}
     subnet mask 23 :\\ 11111111 11111111 11111110 00000000 = 255.255.254.0
@@ -1758,7 +1758,7 @@ Vediamo ora un esempio di un algoritmo di tipo distance vector, tali algoritmi f
 conoscere l'intera topologia della rete, \textbf{l'algoritmo di Bellman-Ford}, è costruito sopra la seguente 
 proposizione\begin{quote}
     Sia $D_x(y)$ il costo del percorso ottimale (di costo minore) dal nodo $x$ al nodo $y$, si ha che 
-    $$D_x(y) = \min\Big(\bigcup_{v\in V(G)} c_{x,v} + D_v(y)\Big) $$
+    $$D_x(y) = \min\Big(\bigcup_{(x,v)\in E(G)} c_{x,v} + D_v(y)\Big) $$
 \end{quote}  \begin{center}
     \includegraphics[width=\textwidth ]{images/BelmanFord.eps}
 \end{center}
@@ -2772,7 +2772,29 @@ Supponiamo che $A$ voglia avere la garanzia che $B$ conosca il segreto.
  Il candidato dovrà superare svariate sfide di identità, la probabilità che superi $n$ sfide è $p^n$, risulta chiaro 
  che un candidato, può superare tante sfide esclusivamente se è a conoscenza del segreto, dato che con $n$ grande, 
  $p^n$ tende a zero.
- \subsection{TLS} 
+\subsubsection{Firma Digitale}
+Quando vi è la condivisione di documenti fra enti autorevoli online è necessario un meccanismo che si comporti come 
+la "firma", un modo per autenticare la provenienza di tale documento e la non manomissione. Tale firma deve 
+essere \textit{verificabile} e \textit{non falsificabile}. Un ente $B$ che riceve un documento firmato da $A$ deve 
+poter verificare che sia stato firmato solo e soltanto da $A$.\acc 
+Si utilizza la crittografia con chiave publica, il meccanismo è semplice\begin{enumerate}
+    \item $A$ vuole inviare un messaggio $m$ e firmarlo. 
+    \item $A$ esegue la crittografia del messaggio con la sua chiave privata $K_A^-$
+    \item Il messaggio originale $m$ viene inviato insieme alla firma $K_A^-(m)$
+    \item $B$ riceve il messaggio contenente anche la firma 
+    \item $B$ utilizza la chiave pubblica di $A$, ottenendo $K_A^+(K_A^-(m))=m$
+    \item Se il messaggio decifrato è identico al messaggio in chiaro ricevuto, allora si ha la certezza che 
+    quella firma appartenga ad $A$
+\end{enumerate} 
+Questo metodo ovviamente funziona con l'assunzione che $A$ sia l'unico in possesso della sua chiave privata, senza 
+che questa sia  trapelata. Il problema di ciò è che gli algoritmi a chiave pubblica sono computazionalmente costosi, 
+soprattutto se applicati su messaggi lunghi, si utilizzano quindi le funzioni \text{hash} sui messaggi che dato 
+un input testuale $m$ restituiscono un \textit{"impronta digitale"} di dimensione fissa $H(m)$.\acc 
+Data un impronta è difficilissimo risalire al messaggio originale, e tali funzioni sono costruite in modo che un 
+minimo cambiamento nel messaggio può cambiare totalmente la sua impronta.\acc 
+Grazie all'utilizzo delle funzioni hash è possibile utilizzare la firma digitale utilizzando la chiave privata 
+per crittare tale impronta piuttosto che l'intero messaggio.
+\subsection{TLS} 
 I pacchetti TCP/UDP non includono alcuna protezione, prendono un messaggio al livello applicativo, e lo 
 incapsulano in chiaro. TLS è un protocollo standard posto fra il livello di trasporto ed il livello di 
 applicazione che fornisce\begin{itemize}

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240501151721" modified="D:20240501153640"/>
+<info created="D:20240501151721" modified="D:20240603113628"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -504,5 +504,21 @@ c_{u,x}+D_x(z),\;c_{u,w}+D_w(z),\;c_{u,v}+D_v(z)\Big)
 </text>
 <text matrix="1 0 0 1 -24 -68" transformations="translations" pos="376 752" stroke="0" type="label" width="44.542" height="7.473" depth="2.49" valign="baseline" style="math">D_u(z) = 4
 </text>
+<path stroke="black">
+172 720 m
+172 756
+192 756
+280 756
+284 756
+284 752 c
+</path>
+<path matrix="1 0 0 1 20 8" fill="white">
+156 748 m
+156 740 l
+164 740 l
+164 748 l
+h
+</path>
+<text matrix="1 0 0 1 20 8" transformations="translations" pos="160 744" stroke="black" type="label" width="4.981" height="6.42" depth="0" halign="center" valign="center">5</text>
 </page>
 </ipe>

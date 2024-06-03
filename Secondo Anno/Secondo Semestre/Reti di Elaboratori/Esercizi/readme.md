@@ -15,6 +15,7 @@
 - [Esame del 11 aprile 2016](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esame%2011%20aprile%202016.pdf)
 - [Esame del 8 giugno 2018](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esame%208%20giugno%202018.pdf)
 - [Esame del 7 giugno 2022](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esame%207%20giugno%202022.pdf)
+- [Esame del 26 maggio 2023](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esame%2026%20maggio%202023.pdf)
 - [Esercizi sul livello di rete](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esercizi%20sul%20livello%20di%20rete.pdf)
 - [Esercizi sul livello di collegamento](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esercizi%20sul%20livello%20di%20collegamento.pdf)
 - [Esercitazione del 26 maggio 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/Esonero2/Esercitazione%2026%20maggio%202024.pdf)
