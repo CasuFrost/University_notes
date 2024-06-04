@@ -1749,7 +1749,7 @@ Si ricordi come, per eseguire l'algoritmo, ogni router necessita di conoscere la
 il costo necessario per far si che ogni router ottenga le informazioni necessarie, si parla quindi di \textit{complessità di 
 comunicazione}, gravante sul traffico della rete, ogni router può "disseminare" in broadcast le informazioni in $O(n)$, la complessità 
 totale di comunicazione risulta quindi $O(n^2)$.\acc 
-Un'osservazione fondamentale da fare riguarda il costo dei link, ossia i pesi sugli archi, essi possono dipendere dal 
+C'è un'osservazione fondamentale da fare riguardo il costo dei link, ossia i pesi sugli archi, essi possono dipendere dal 
 traffico della rete o da altri fattori, e sono soggetti ad \textbf{oscillazioni}, se l'algoritmo non viene ricalcolato 
 a seguito di un cambiamento di costi, il percorso ottimale stimato in precedenza potrebbe non essere più valido. A tal proposito, 
 ultimamente come metro di misura per il costo degli archi, non viene più utilizzato il traffico sulla rete, piuttosto il 
@@ -1877,7 +1877,7 @@ RIP fornisce anche i seguenti meccanismi\begin{itemize}
 RIP risulta ambiguo in quanto è implementato come protocollo al livello di applicazione, anche se viene utilizzato nella rete 
 dai router, che dovrebbero occuparsi eslcusivamente del livello di rete, è un processo \textit{routed}, ossia costantemente in 
 esecuzione sui router.\acc 
-Si è già accennato al fatto che RIP non è pià in utilizzo al giorno d'oggi, il suo successore si chiama
+Si è già accennato al fatto che RIP non sia più in utilizzo al giorno d'oggi, il suo successore si chiama
  \textbf{OSPF (Open Shortest Path First)}, è un protocollo libero, aperto, la cui documentazione è pubblica e disponibile, 
  è basato su un algoritmo di tipo link state, ossia Dijkstra, le informazioni riguardanti i messaggi che i router devono 
  scambiarsi vengono incapsulate direttamente su IP, senza passare attraverso alcun protocollo di trasporto o applicazione,
@@ -2394,7 +2394,7 @@ Ciò risulta particolarmente scalabile, in quanto, per far si che un host cambi 
 porta alla quale è collegato ad un'altro gruppo, senza dover spostare fisicamente il collegamento, o doverne cambiare 
 l'indirizzo IP. Viene risolto il problema del flooding, in quanto gli host che dovranno comunicare in broadcast, potranno 
 isolare il traffico confinandolo allo propria sottorete di appartenenza.\acc 
-Possono essere definite delle VLAN che comprenano anche più switch tramite il una \textbf{porta trunk}, che si occupa 
+Possono essere definite delle VLAN che comprendano anche più switch tramite una \textbf{porta trunk}, che si occupa 
 di far comunicare host che appartengono alla stessa VLAN ma che sono collegati su switch fisici differenti, tale porta permette 
 di trasmettere i frame ad uno switch esterno, per poi specificare a quale delle VLAN dello switch si vuole comunicare, tramite 
 il protocollo \codee{802.1q}, che aggiunge al frame Ethernet la specifica riguardo l'id della VLAN in questione.
@@ -2433,7 +2433,7 @@ il seguente formato:\begin{center}
 \end{itemize}
 \section{Le Reti Wireless}
 Ad oggi, le reti senza fili, come le LAN wireless, le reti cellulari e le reti Bluetooth sono largamente 
-utilizzate ovunque nel mondo. I segnali elettromagnetici sono caratterizzata dalla frequenza, e dalla copertura, 
+utilizzate ovunque nel mondo. I segnali elettromagnetici sono caratterizzati dalla frequenza, e dalla copertura, 
 queste due ultime sono inversamente proporzionali, più un segnale ha un alta frequenza, più si degraderà con 
 l'allontanarsi dalla sorgente che l'ha generato. \acc 
 I pacchetti wifi, possono essere facilmente convertiti in pacchetti Ethernet, per questo molte reti sfruttano entrambi i 
@@ -2581,7 +2581,7 @@ contemporaneamente, i segnali trasmessi andranno in interferenza sommandosi.\beg
 \end{center}
 I vettori rappresentanti i codici, devono rispettare due proprietà\begin{itemize}
     \item Devono essere \textit{ortogonali} fra loro $$c_i\cdot c_j = 0\;\; \forall i,j | i\ne j $$
-    \item Il prodotto scalare fra due codici distinti, deve essere uguale al numero dei dispositivi della rete 
+    \item Il prodotto scalare fra due codici identici, deve essere uguale al numero dei dispositivi della rete 
     $$ c_i\cdot c_i = n\;\;\forall i $$ 
 \end{itemize}
 Da ciò si deriva la seguente proprietà $$\begin{matrix}
