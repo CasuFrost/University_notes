@@ -13,19 +13,22 @@ AND (ass.giorno = att.giorno OR ass.giorno = attnp.giorno));
 
 Domanda 2)
 
-(SELECT DISTINCT id,nome,cognome FROM Persona) EXCEPT (
-SELECT DISTINCT persona,NN,CC
-FROM
-	(SELECT DISTINCT per.id as persona, att.giorno as giornoLavoro, prog.nome as prog,per.nome as NN,per.cognome as CC
-	FROM Persona per, attivitaprogetto att, Progetto prog 
-	WHERE att.persona = per.id
-	AND att.progetto = prog.id) q1 
-WHERE prog<>'Pegasus' 
-AND giornolavoro < (Select fine FROM Progetto WHere nome='Pegasus')
-AND giornolavoro > (Select inizio FROM Progetto WHere nome='Pegasus')); 
+WITH inizio_fine_Pegasus as (SELECT inizio as inizio_pegasus, fine as fine_pegasus
+FROM Progetto prog
+WHERE prog.nome='Pegasus'),
 
- 
---DA RIFARE, È SBAGLIATA
+
+persone_partecipanti_durante_pegasus as (SELECT DISTINCT att.persona
+FROM  Attivitaprogetto att, inizio_fine_Pegasus ifp
+WHERE att.giorno >=ifp.inizio_pegasus
+AND att.giorno <= ifp.fine_pegasus)
+
+
+	
+SELECT personeBuone.id,nome,cognome FROM	
+	(SELECT id FROM Persona EXCEPT
+SELECT * FROM persone_partecipanti_durante_pegasus) as personeBuone join Persona per on per.id=personeBuone.id
+ORDER BY personeBuone.id ASC;
 --------------------------------------------------
 
 Domanda 3)
