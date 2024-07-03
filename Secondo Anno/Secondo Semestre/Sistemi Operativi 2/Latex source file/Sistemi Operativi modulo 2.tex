@@ -217,7 +217,7 @@ Un disco, può essere anche \textbf{partizionato}, ossia diviso in unità logich
  \textbf{inode}, contenente ogni singolo file, identificato da un codice univoco detto \textit{inode number}, fisicamente quindi 
  non vi è un implementazione ad albero/gerarchica.\acc 
  Quando un file viene eliminato, non viene realmente cancellato fisicamente, viene solamente etichettato come "libero" l'inode 
- number ad esso associata, permettendo a nuovi eventuali file di venire associati a quel numero. Il numero totale di entrate 
+ number ad esso associato, permettendo a nuovi eventuali file di venire associati a quel numero. Il numero totale di entrate 
  nell'inode è elevatissimo ma limitato, esiste quindi un limite al numero di file che possono coesistere nel sistema.\acc 
  Ogni file ha quindi un entrata nell'inode, che ne specifica il codice, ed altri \textit{metadati} utili riguardanti il file, 
  essi sono : \begin{itemize}
