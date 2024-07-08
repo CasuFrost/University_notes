@@ -105,7 +105,7 @@ Sarà usuale denotare \(m\) il numero di archi e \(n\) il numero di vertici.
 Le liste di adiacenza occupano quindi spazio $O(n+m)$,  si osservi inoltre la
 seguente identià : $$\sum_{v\in V(G)}\deg(v)=2\cdot m\text{ dove }m:=|E|$$
 \subsection{Ricerca di un Ciclo}
-\textbf{Definizione} : Un \textit{ciclo} in un grafo, non p altro che un \textit{sottografo connesso} dove
+\textbf{Definizione} : Un \textit{ciclo} in un grafo, non è altro che un \textit{sottografo connesso} dove
 ogni vertice è di grado 2. Identifica un "cammino circolare", e la ricerca dei cicli nei grafi è un
 problema molto noto.\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/ciclo.eps}
@@ -158,9 +158,9 @@ rendendo il costo dell'algoritmo \(O(n^2)\), non rispettando le specifiche inizi
 \subsection{Cammini sui Grafi}
 Un \textbf{cammino}, non è altro che una passeggiata su un grafo in cui non
 si passa mai più di una volta sullo stesso vertice, ossia una passeggiata
-senzza ripetizioni di vertici o archi. \acc
+senza ripetizioni di vertici o archi. \acc
 \textbf{Osservazione} : Siano $x$ ed $y$ due nodi di un grafo, se esiste
-una passeggiata da $x$ ad $y$, allore esiste anche un cammino.\acc
+una passeggiata da $x$ ad $y$, allora esiste anche un cammino.\acc
 Nei grafi diretti vale la stessa regola, con ovviamente il vincola che bisogna rispettare
 l'orientazione degli archi. Un grafo diretto si dice \textbf{fortemente connesso}
 se, per ogni coppia di vertici \(x,y\), esiste un cammino da \(x\) ad \(y\)
@@ -170,7 +170,7 @@ e viceversa. \begin{center}
 Un noto problema è il seguente, dato un grafo \(G\) e due veritici \(x,y\), esiste un cammino da \(x\) ad \(y\)? In generale,
 il carico di lavoro per controllare ciò, equivale al carico di lavoro necessario per controllare tutti i nodi che possono essere
 "raggiunti" partendo da \(x\).\acc
-Prendo quindi un vertici \(x\) e trovo tutti i vertici \(y\) per i quali esiste un cammino fra essi, per fare ciò, occorre
+Prendo quindi un vertice \(x\) e trovo tutti i vertici \(y\) per i quali esiste un cammino fra essi, per fare ciò, occorre
 \textbf{visitare} il grafo, e può essere fatto in due modi differenti.
 \subsubsection{Depth-First Search}
 Abbreviato \textbf{DFS}, tale algoritmo rappresenta la visita su un grafo in \textit{profondità}. Partendo da un qualsiasi
@@ -244,7 +244,7 @@ Qual'è ora il costo computazionale? Quante  volte viene eseguito il ciclo \code
 difficile, piuttosto ci si chiede quanto lavoro devo fare nel ciclo per ogni vertice? Per ognuno di essi, si
 esegue un numero limitato di volte il comando \code{S.top()}. Nello specifico, si esegue tante volte quanto è il
 grado del vertice, risulta naturale che la complessità finale sia :
-$$O(n)+O\big( \sum_{v\in V(G)}\deg(v)\big)=O(n+|E|)=O(n+m)\text{ costo lineare}$$
+$$O(n)+O\big( \sum_{v\in V(G)}\deg(v)\big)=O(n+|E|)=O(n+m)\;\;\text{ costo lineare}$$
 Lo stesso algoritmo, si presta in maniera piuttosto naturale ad essere implementato in maniera ricorsiva,
 permettendo l'omissione dell'utilizzo di uno stack.\greybox{
 \code{DFSRec(graph G, vert x,int[n] Vis)\{}\\
@@ -385,7 +385,7 @@ funzioni \(t:V(G)\rightarrow\mathbb{N}\) e \(T:V(G)\rightarrow\mathbb{N}\), sia 
 del contatore \code{cc} nel momento in cui \(v\) viene visitato per la prima volta, invece \(T(v)\) sarà uguale al valore
 del contatore \code{cc} nel momento in cui \(v\) viene visitato per l'ultima volta, ossia quando esso viene rimosso dallo stack.\acc
 \textbf{Osservazione} : \begin{itemize}
-    \item Per ogni coppia di vertici \(v,u\), si ha che \(t(v)\ne t(u)\)
+    \item Per ogni coppia di vertici distinti \(v,u\), si ha che \(t(v)\ne t(u)\)
     \item Per ogni vertice \(v\), si ha che \(t(v)\le T(V)\)
     \item Sia \(v\) un vertice, se \(t(v)=T(V)\), allora \(v\), è una foglia nell'albero di visita derivante dall'applicazione
           del DFS.
@@ -402,13 +402,13 @@ essere confrontati, e si ricade sempre in uno dei seguenti casi.\acc
     \item \(iii)\) $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$
 \end{itemize}
 \textbf{Dimostrazione} : Il quarto ed ultimo caso possibile, sarebbe un intersezione del tipo: $$
-    t(u)<t(v)\le T(u)<t(v)$$ Basta dimostrare che questa casistica non può verificarsi. Se \(u\) è stato inserito
+    t(u)<t(v)\le T(u)<T(v)$$ Basta dimostrare che questa casistica non può verificarsi. Se \(u\) è stato inserito
 nello stack prima di \(v\), si avrà che \(T(u)\ge t(v)\), questo implica che \(u\) era già nello stack quando
 \(v\) è stato inserito, ma allora è impossibile togliere \(u\) prima di \(v\), e necessariamente \(T(u)>T(v)\). \(\blacksquare\)\acc
 Adesso, consideriamo il grafo sulla quale è stato applicato il nuovo DFS con contatore, e consideriamo gli archi che \textit{non appartengono}
 all'arborescenza, ossia gli archi che non sono stati attraversati durante il DFS (nell'immagine esplicativa precedente, quelli colorati in
 azzurro). \acc
-Vi è un fatto interessante, consideriamo tutti un qualsiasi arco non facente parte dell'arborescenza, esso indica due vertici \((v,u)\),
+Vi è un fatto interessante, consideriamo  un qualsiasi arco non facente parte dell'arborescenza, esso indica due vertici \((v,u)\),
 e tali vertici posseggono gli intervalli che possono essere messi in relazione, ricadendo in uno dei 3 casi prima citati.\acc Gli archi
 non facenti parte dell'arborescenza, se considerati nell'arborescenza, potranno essere di 3 tipi, o partire da un vertice ed andare
 verso un suo antenato, o partire da un vertice ed andare
@@ -427,7 +427,7 @@ Si noti come l'arco che va dal vertice 2 al vertice 4, è un \textit{arco in ava
 vertici ricadono nel primo caso : \([2,6]\subseteq[6,6]\).\acc
 Si noti come l'arco che va dal vertice 7 al vertice 5, è un \textit{arco di attraversamento}, infatti gli intervalli dei due
 vertici ricadono nel terzo caso : \([8,9]\cap[4,5]=\emptyset\).\acc
-Se dovessi applicare lo stesso algoritmo ai grafi non diretti, non si potrebbe definire una relazione di antenato-discendente,
+Se si dovesse applicare lo stesso algoritmo ai grafi non diretti, non si potrebbe definire una relazione di antenato-discendente,
 in quanto ogni arco è percorribile per entrambe le direzioni, quindi i casi \((i)\) e \((ii)\) indicherebbero la stessa
 situazione.\acc
 Inoltre, è impossibile che, per due nodi \(u,v\) si verifichi che $[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$, quindi
@@ -462,7 +462,7 @@ gli archi in avanti, all'indietro, e di attraversamento.\greybox{
 \hphantom{ident}\code{att : list}\\
 \hphantom{ident}\code{for each (x,y)\(\in\)E(A')\{}\\
 \hphantom{ident}\hphantom{ident}\code{switch(t[x],T[x],t[y],T[y])\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$[t(v),T(v)]\subseteq[t(u),T(u)]$ : sv.append((x,y))}\comm{primo caso}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$[t(v),T(v)]\subseteq[t(u),T(u)]$ : av.append((x,y))}\comm{primo caso}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$[t(v),T(v)]\supseteq[t(u),T(u)]$ : ind.append((x,y))}\comm{secondo caso}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$[t(v),T(v)]\cap[t(u),T(u)]=\emptyset$ : att.append((x,y))}\comm{terzo caso}\\
 \hphantom{ident}\hphantom{ident}\code{\}}\\
@@ -492,8 +492,8 @@ Se esistesse un arco $(u,v)$, allora sarebbe un arco all'indietro. Sappiamo che 
 \(u,v\), se \(u\) è un discendente di \(v\), allora esiste un cammino diretto da \(v\) ad \(u\) nell'arborescenza.\acc
 \textbf{Osservazione} : Se esistesse un arco all'indietro nell'arborescenza generata dal DFS, allora
 il grafo avrebbe un ciclo.\acc
-\textbf{Proposizione 1} : Se \(G\) è un grado diretto, e tutti i suoi vertici sono raggiungibili da un
-vertice di partenza \(x\), allor, una qualsiasi applicazione del DFS partendo da \(x\) genera un
+\textbf{Proposizione 1} : Se \(G\) è un grafo diretto, e tutti i suoi vertici sono raggiungibili da un
+vertice di partenza \(x\), allora, una qualsiasi applicazione del DFS partendo da \(x\) genera un
 arco all'indietro nell'arborescenza \textit{se e solo se} esiste un ciclo in \(G\).\acc
 Assumendo che in \(G\) ci sia un ciclo, consideriamo i vertici che compongono il ciclo :
 $c_0,c_1,c_2\dots,c_k$, elencati in ordine di visita nel DFS, quindi \(c_0\) è il primo vertice del ciclo
@@ -636,12 +636,12 @@ Osservando la seguente immagine, si noti che, l'arco viola del primo grafo, è u
 secondo grafo, non lo è, rimane infatti connesso grazie all'arco arancione, che non fa parte dell'albero di
 visita, da tali considerazioni, si giunge alla seguente proposizione.\acc
 \textbf{Proposizione} : Sia $T$ un albero di visita derivante da una qualsiasi applicazione del DFS su un
-grafo connesso e non diretto, e sia $(u,v)\in E(T)$, un arco dell'albero, dove $v$ è il padre di $u$, si ha che,
-l'arco  $(u,v)$ è un ponte \textit{se e solo se} non esiste alcun arco all'indietro da un qualsiasi vertice
+grafo connesso e non diretto, e sia $(v,u)\in E(T)$, un arco dell'albero, dove $v$ è il padre di $u$, si ha che,
+l'arco  $(v,u)$ è un ponte \textit{se e solo se} non esiste alcun arco all'indietro da un qualsiasi vertice
 discendente di $u$, ad un qualsiasi vertice antenato di $v$ ($v$ compreso).\acc
 \textbf{Dimostrazione} : \boxedMath{$(1)\implies(2)$} Sia $T_u$ l'insieme dei discendenti di $u$. Se esistesse un arco da  $T_u$ all'indietro,
-allora $(u,v)$ sarebbe parte di un ciclo, e sicuramente non sarebbe un ponte. \boxedMath{$(2)\implies(1)$} Assumiamo che
-$(u,v)$ non sia un ponte, allora esiste un cammino $u\rightarrow v$ che non fa uso dell'arco in questione. Esiste sicuramente
+allora $(v,u)$ sarebbe parte di un ciclo, e sicuramente non sarebbe un ponte. \boxedMath{$(2)\implies(1)$} Assumiamo che
+$(v,u)$ non sia un ponte, allora esiste un cammino $u\rightarrow v$ che non fa uso dell'arco in questione. Esiste sicuramente
 un punto nel cammino, in cui si passa da un vertice $x$ tale che $x\notin T_u$, ad un vertice $y$ tale che
 $y\in T_u$, ma sappiamo che non esistono archi all'indietro, ciò porta ad una contraddizione. $\blacksquare$\acc
 Scriviamo adesso lo pseudocodice di un algoritmo che restituisce tutti i ponti di un grafo in tempo lineare, come prima, diamo
@@ -650,7 +650,7 @@ la definizione di \textit{punto di back}, o semplicemente \textit{back}.\acc
 vicino alla radice che è possibile raggiungere con un arco da $u$ o da uno dei suoi discendenti.\begin{center}
     \includegraphics[width=1\textwidth ]{images/back.eps}
 \end{center}
-Vogliamo quindi un algoritmo che, per un arco $(u,v)$, dove $v$ è il padre di $u$, si controlli il
+Vogliamo quindi un algoritmo che, per un arco $(v,u)$, dove $v$ è il padre di $u$, si controlli il
 back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non è un ponte, altrimenti lo è.
 \greybox{
     \code{Ponti(G : grafo connesso non diretto)\{}\comm{funzione globale}\\
@@ -1183,12 +1183,12 @@ Se $b_{k+1}$ non è presente in $Sol^\star$, allora deve esistere un punto $b_x$
 che intersecano con $b_{k+1}$, ed ovviamente $b_x \notin Sol_k$.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/dimMidPointInt..eps}
 \end{center}
-Qualsiasi intervallo $[a_j,b_j]$ dove $j\le k+1$ è coperto dai punti in $Sol_k\cup\{b_{k+1}\}$, per o restanti intervalli,
+Qualsiasi intervallo $[a_j,b_j]$ dove $j\le k+1$ è coperto dai punti in $Sol_k\cup\{b_{k+1}\}$, per i restanti intervalli,
 dove $j>k+1$\begin{itemize}
     \item Se $x\in [a_j,b_j]$
     \item Essendo che $b_j\ge b_{k+1}$
     \item E che $b_x \le b_{k+1}$
-    \item Allora $b+1\in [a_j,b_j]$
+    \item Allora $b_{k+1}\in [a_j,b_j]$
 \end{itemize}
 Ciò significa che \textbf{ogni} intervallo di $Sol^\star$ che interseca \textit{esclusivamente} con il punto $b_x$, interseca
 anche con $b_{k+1}$, questo significa che, è possibile sostituire $b_x$ con $b_{k+1}$ in $Sol^\star$
@@ -1363,7 +1363,7 @@ Valgono le seguenti:\begin{itemize}
 \subsection{Problemi sui Vettori}
 \subsubsection{Problema del Massimo Sotto-array}
 Consideriamo il seguente problema : Dato $A$ un array di numeri interi, si vuole trovare un sotto-array, della forma
-$A[i:j]$, con $j<i$, che massimizzi la somma degli elementi.\acc
+$A[i:j]$, con $j>i$, che massimizzi la somma degli elementi.\acc
 Supponiamo di voler utilizzare la "forza bruta", e di controllare ogni singolo sotto-array, ciò rientrerebbe in una complessità
 $O(n^2)$.
 \greybox{\code{Max\_sub\_vector(A : array)\{}\comm{Versione forza bruta}\\
@@ -1453,7 +1453,7 @@ Il costo è ovviamente $O(\log{n})$, verificabile anche con il teorema principal
 \subsubsection{Elemento Maggioritario}
 In un array, un \textit{elemento maggioritario}, o \textit{majority element}, è quel valore $x$ tale che,
 per più di $\nicefrac{n}{2}$ indici $i$, vale che $A[i]=x$, ossia un elemento che occorre nell'array in più di
-$\nicefrac{n}{2}$ posizioni, dove $n$ è la lunghezzadell'array.
+$\nicefrac{n}{2}$ posizioni, dove $n$ è la lunghezza dell'array.
 \begin{center}
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
         \hline
@@ -1462,7 +1462,7 @@ $\nicefrac{n}{2}$ posizioni, dove $n$ è la lunghezzadell'array.
 \end{center}
 Si vuole trovare un algoritmo di costo computazionale $O(n\cdot\log{n})$ che stabilisca se in un dato array, è
 presente o no un majority element.\acc
-\textbf{Proposizione} : Se in $A[0:n]$ è presente un valore $x$ che sia majority element, allora, anche tale $x$ sarà
+\textbf{Proposizione} : Se in $A[0:n]$ è presente un valore $x$ che sia majority element, allora,  tale $x$ sarà
 anche majority element di una delle sue metà, ossia di $A[0:\nicefrac{n}{2}]$ o $A[\nicefrac{n}{2}+1:n]$.\acc
 Data tale proposizione, sarà facile stabilire l'elemento maggioritario, dividendo in due l'array iniziale ed avviando la ricorsione
 su entrambe le metà, se esse restituiscono due majority element distinti, allora quello effettivo sarà l'elemento che occorre più volte.
@@ -1470,7 +1470,7 @@ su entrambe le metà, se esse restituiscono due majority element distinti, allor
 \code{Majority\_Element( A : array )}\{ \\
 \hphantom{ident}\code{if(A.length()==1)\{ return A[0] \}}\\
 \hphantom{ident}\code{if(A.length()==0)\{ return NULL \}}\\
-\hphantom{ident}\code{if(A.length()==)\{}\\
+\hphantom{ident}\code{if(A.length()==2)\{}\\
 \hphantom{ident}\hphantom{ident}\code{if(A[0]==A[1])\{ return A[0] \}}\\
 \hphantom{ident}\hphantom{ident}\code{else\{ return NULL \}}\\
 \hphantom{ident}\code{\}}\\
@@ -1532,7 +1532,7 @@ $\nicefrac{d}{2}\times \nicefrac{d}{2}$, nella maniera seguente:\begin{center}
 La dimostrazione è banale, se fossero contenuti nello stesso quadrante, si troverebbero anche nella
 stessa metà, e la loro distanza, può essere al più quanto la diagonale di un quadrante, che equivale
 a $\sqrt{(\nicefrac{d}{2})^2+(\nicefrac{d}{2})^2}=\dfrac{d}{\sqrt{2}}$, e tale distanza è minore di $d$, che era la
-distanza minima fra due punti nelle due metà, è quindi impossibile.\acc
+distanza minima fra due punti in una stessa metà, è quindi impossibile.\acc
 \textbf{Osservazione} : Due punti possono avere una distanza minore di $d$, esclusivamente se si trovano ad 1 oppure 2
 quadranti di distanza.\acc
 Tale osservazione segue dal fatto che i quadranti sono  $\nicefrac{d}{2}\times \nicefrac{d}{2}$, quindi due punti possono
@@ -1588,7 +1588,7 @@ capacità, ad esempio: $$ \begin{matrix}
         \text{dimensioni file }=\{2,10,13,4,8,7\}
     \end{matrix}\;\;\;\;\;\;\; \text{soluzione }=\{10,13,7\}$$
 Questo problema è \textit{np-completo}, non è possibile trovare una soluzione con un algoritmo che operi in una complessità
-polinomiale, supponiamo di voler provare a fare ricerca brutta, se $n$ è il numero di file, dovremmo provare ogni singola combinazione
+polinomiale, supponiamo di voler provare a fare ricerca bruta, se $n$ è il numero di file, dovremmo provare ogni singola combinazione
 di file, sappiamo che ci sono quindi $2^n$ sotto-insiemi possibili di file.\acc
 Considero un algoritmo ricorsivo che, partendo dall'insieme totale dei file, considera ad ogni passo due nuovi insiemi,
 uno che includa l'ultimo elemento, ed uno che non lo includa, in modo tale da controllare alla fine ogni possibile sottoinsieme.
@@ -1686,7 +1686,7 @@ $$ C=10\;\;\;\;\;\;\;\;\;\;\;\;FileSize=\{1,5,3,5,2,2\}$$\begin{center}
 \end{center}
 I colori nella matrice rappresentano l'algoritmo che,
 data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco, in questo caso \{1, 5, 4\}. \acc
-Vediamo adesso una \textbf{generalizzaziione} del problema del disco, ossia il \textit{problema dello zaino}, vi è uno zaino
+Vediamo adesso una \textbf{generalizzazione} del problema del disco, ossia il \textit{problema dello zaino}, vi è uno zaino
 di capacità $C$, e ci sono $n$ oggetti $x_1,x_2\dots,x_n$, ogni oggetto $x_i$, ha peso $p_i$ e valore $v_i$. Si vuole trovare un
 sottoinsieme di oggetti, la cui somma di pesi non è maggiore di $C$, che massimizzi la somma dei valori.\acc
 Procediamo come nel problema del disco, che è un caso particolare di questo problema, in cui i pesi ed i valori coincidono,
@@ -1759,7 +1759,7 @@ $$ w(x\rightarrow v)=\alpha + w((u,v))$$ \begin{center}
 \end{center}
 \textbf{Dimostrazione} : Sia $P$ il cammino $x\rightarrow u \cup (u,v)$, esso, è un cammino da $x$ a $v$ se e solo
 se nel percorso, il nodo $u$ compare prima di $v$, se così non fosse, esisterebbe un ciclo in $P$, ma data l'ipotesi,
-il grafo è aciclico, quindi la proposizione è dimostrata.\acc
+il grafo è aciclico, quindi la proposizione è dimostrata. $\blacksquare$\acc
 Si vuole trovare un algoritmo che sfrutti la programmazione dinamica per trovare il cammino di costo massimo in una complessità
 polinomiale, si considera, come di consueto, una matrice $T$ tale che\begin{center}
     $T[z,k]=$ peso massimo di un cammino composto da $k$ archi da un nodo sorgente $x$ al nodo $z$
@@ -1777,7 +1777,7 @@ $T[z,k+1]$, il problema risulta essere piuttosto intuitivo, sia infatti $N$ l'in
 $$ N=\{u\in V(G) | \exists (u,z)\in E(G)\}$$
 Risulta chiaro che, esiste un cammino di $k+1$ archi da $x$ a $z$, se e solo se esiste un cammino di $k$ archi da
 $x$ a $u\in N$. Il cammino di costo massimo risulta essere:
-$$ \forall u \in N,\;\; P_u=\text{ percorso da }x\text{ a }u$$
+$$ \forall u \in N,\;\; P_u=\text{ percorso da }x\text{ a }u\text{ di $k$ archi}$$
 $$ T[z,k+1]=\max\Big(\bigcup_{u\in N}w(P_u)+w(u,z)\Big)$$\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/cammCostoMax2.eps}
 \end{center}
@@ -1793,12 +1793,12 @@ tutti i cammini, con qualsiasi numero di archi da $x$ ad $y$, selezionando quell
 \hphantom{ident}\code{for (int k = 1; k<$n$; k++)\{}\\
 \hphantom{ident}\hphantom{ident}\code{for each z$\in$V(G)\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{massimo=NULL}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{for each u$\in$V(G) t.c. $\exists$(u,z)$\in$E(G)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(T[u,k-1]+w(u,z)>massimo $\lor$ massimo==NULL)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{massimo=T[u,k-1]+w(u,z)}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{for each u$\in$V(G) t.c. $\exists$(u,z)$\in$E(G)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(T[u,k-1]+w(u,z)>massimo $\lor$ massimo==NULL)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{massimo=T[u,k-1]+w(u,z)}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[z,k]=massimo}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[z,k]=massimo}\\
 \hphantom{ident}\hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{return max(T[y,k] $\forall$ k tale che T[y,k]$\ne$NULL)}\\
