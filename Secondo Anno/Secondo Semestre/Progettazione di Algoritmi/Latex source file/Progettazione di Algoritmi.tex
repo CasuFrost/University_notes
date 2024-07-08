@@ -2051,7 +2051,7 @@ Il seguente algoritmo, dato l'array $m'$ già riempito dall'algoritmo sovrastant
 \subsubsection{Sottostringa Comune Massima (LCS)}
 Si consideri il seguente problema, si hanno due stringhe $x$ ed $y$, rispettivamente 
 lunghe $n$ ed $m$ caratteri, si vuole trovare il massimo numero di 
-indici $i_1<i_2\dots <i_k$ e $j_1,j_2\dots,j_k$ tali che $x[i_l]=y[j_l]$ 
+indici $i_1<i_2\dots <i_k$ e $j_1<j_2\dots <j_k$ tali che $x[i_l]=y[j_l]$ 
 per ogni $l\in \{1,2\dots,k\}$.\acc 
 Esempio:\begin{center}
     $x$ = A L B E R O \hphantom{spaziospazio}
@@ -2101,7 +2101,7 @@ accoppiamenti di caratteri, si avrà che:
 $$M[i,j]=\max(M[i-1,j],M[i,j-1],M[i-1,j-1]) $$
 \greybox{ 
     \code{LCS(x,y)\{}\\
-    \hphantom{ident}\code{n = x-lenght()}\\
+    \hphantom{ident}\code{n = x.lenght()}\\
     \hphantom{ident}\code{m = y.length()}\\
     \hphantom{ident}\code{M = matrice n $\times$ m}\\
     \hphantom{ident}\code{if(x[0]==y[0])\{ M[0,0]=1 \}}\\
