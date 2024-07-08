@@ -1,0 +1,1 @@
+[Esercitazione 1 - 20 marzo 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esercitatore/Esercitazione%201%20-%2010%20marzo%202024.pdf)
