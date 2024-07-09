@@ -1,4 +1,6 @@
-## Progetti svolti per il corso di Basi di Dati - modulo 2
+# Esercitazioni e Progetti riguardanti il corso di Basi di Dati - modulo 2
+
+## Progetti
 - [Travel to the moon](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/Travel%20to%20the%20moon/Travel%20to%20the%20moon.pdf)
 - [eBuy](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/eBuy/eBuy.pdf)
 - [TuTubi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/TuTubi/TuTubiPrecompilato.pdf)
@@ -13,3 +15,17 @@
 - [Slimmy](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/Slimmy/Slimmy.pdf)
 - [AllenaMondo](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/AllenaMondo/AllenaMondo.pdf)
 - [EasyToll](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti/EasyToll/EasyToll.pdf)
+
+## Esercitazioni
+- [Azienda 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Azienda%201/Azienda%201.pdf)
+- [Voli aerei 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Voli%20aerei%201/Voli%20aerei%201.pdf)
+- [Voli aerei 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Voli%20aerei%202/Voli%20aerei%202.pdf)
+- [Università 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Universita%201/Universita%201.pdf)
+- [Università 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Universita%202/Universita%202.pdf)
+- [Accademia 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Accademia%201/Accademia%201.pdf)
+- [Accademia 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Accademia%202/Accademia%202.pdf)
+- [Impiegati e Studenti](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Impiegati%20e%20Studenti/Impiegati%20e%20Studenti.pdf)
+- [Go](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Go/Go.pdf)
+- [Officine 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Officine%201/Officine%201.pdf)
+- [Esercitazioni Universitarie 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/Esercitazioni%20Universitarie%201/Esercitazioni%20Universitarie%201.pdf)
+- [(FOL) Dipendenti](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni/(FOL)%20Dipendenti/(FOL)%20Dipendenti.pdf)

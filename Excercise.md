@@ -11,8 +11,7 @@
 [Esami di Basi di Dati 1](https://github.com/CasuFrost/University_notes/tree/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Esami%20Svolti) \
 [Esercizi di Calcolo delle Probabilità](https://github.com/CasuFrost/University_notes/tree/main/Secondo%20Anno/Primo%20Semestre/Calcolo%20delle%20Probabilita/Esercizi%20Ed%20Esami)
 ### Secondo Semestre 
-[Esercitazioni di Basi di Dati 2](https://github.com/CasuFrost/University_notes/tree/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Esercitazioni) \
-[Progetti di Basi di Dati 2](https://github.com/CasuFrost/University_notes/tree/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti) \
+[Esercitazioni e Progetti di Basi di Dati 2](https://github.com/CasuFrost/University_notes/tree/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti) \
 [Esercizi di Reti degli Elaboratori](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/readme.md) \
 [Esercizi di Progettazione di Algoritmi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/ex.md)
  ## Disclaimer

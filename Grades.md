@@ -1,5 +1,4 @@
 Ho deciso che terrò traccia dei voti su questo file. 
-Perché non usare direttamente Infostud per visualizzare i voti? Due motivi : Non voglio accedere continamente su Infostud, e voglio visualizzare i due moduli di basi di dati e sistemi operativi come voti separati. 
 Marcherò gli esami non ancora sostenuti con $NS$.
 
 | Esame  | Voto |

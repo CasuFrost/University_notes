@@ -358,7 +358,7 @@ in una lista per poi eliminarlo dal grafo (insieme a tutti i suoi archi associat
 ri-esegue l'operazione, inserendo ogni volta il vertice nella prima posizione della lista.\acc Tale algoritmo risulta
 parecchio utile, si pensi all'ordinamento topologico applicato al grafo di serializzazione nell'ambito
 del controllo della concorrenza
-(trattato nel corso di \href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf}{Basi di Dati 1}).
+(trattato nel corso di \color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf}{Basi di Dati 1}\color{black}).
 \greybox{
     \code{OrdinamentoTopologico(graph G)\{}\comm{il grafo è diretto}\\
     \hphantom{ident}\code{L : list}\comm{una lista vuota, sarà l'output dell'algoritmo}\\
@@ -638,7 +638,7 @@ visita, da tali considerazioni, si giunge alla seguente proposizione.\acc
 \textbf{Proposizione} : Sia $T$ un albero di visita derivante da una qualsiasi applicazione del DFS su un
 grafo connesso e non diretto, e sia $(v,u)\in E(T)$, un arco dell'albero, dove $v$ è il padre di $u$, si ha che,
 l'arco  $(v,u)$ è un ponte \textit{se e solo se} non esiste alcun arco all'indietro da un qualsiasi vertice
-discendente di $u$, ad un qualsiasi vertice antenato di $v$ ($v$ compreso).\acc
+discendente di $u$ ($u$ compreso), ad un qualsiasi vertice antenato di $v$ ($v$ compreso).\acc
 \textbf{Dimostrazione} : \boxedMath{$(1)\implies(2)$} Sia $T_u$ l'insieme dei discendenti di $u$. Se esistesse un arco da  $T_u$ all'indietro,
 allora $(v,u)$ sarebbe parte di un ciclo, e sicuramente non sarebbe un ponte. \boxedMath{$(2)\implies(1)$} Assumiamo che
 $(v,u)$ non sia un ponte, allora esiste un cammino $u\rightarrow v$ che non fa uso dell'arco in questione. Esiste sicuramente
@@ -650,7 +650,7 @@ la definizione di \textit{punto di back}, o semplicemente \textit{back}.\acc
 vicino alla radice che è possibile raggiungere con un arco da $u$ o da uno dei suoi discendenti.\begin{center}
     \includegraphics[width=1\textwidth ]{images/back.eps}
 \end{center}
-Vogliamo quindi un algoritmo che, per un arco $(v,u)$, dove $v$ è il padre di $u$, si controlli il
+Vogliamo quindi un algoritmo che, per un arco $(v,u)$, dove $v$ è il padre di $u$,  controlli il
 back di $u$, se esso è presente fra $v$ ed i suoi antenati, allora l'arco non è un ponte, altrimenti lo è.
 \greybox{
     \code{Ponti(G : grafo connesso non diretto)\{}\comm{funzione globale}\\
@@ -699,12 +699,12 @@ Si vuole un algoritmo capace di trovare le componenti fortemente connesse di un 
 $\nicefrac{G}{H}$. Si denota con $V_H$ il nuovo vertice contratto.\begin{itemize}
     \item  $V(\nicefrac{G}{H}) := (V(G)\backslash H)\cup \{V_H\}$
     \item $E(\nicefrac{G}{H}) := \{(x,y)\in E(G)| x,y\notin H\}\cup$\\
-          \hphantom{identaiden.}$\{(w,V_H)\text{ se } \exists(w,y)|w \notin V_H\land y \in V_H\}\cup$\\
-          \hphantom{identaiden.}$\{(V_H,w)\text{ se } \exists(y,w)|w \notin V_H\land y \in V_H\}$
+          \hphantom{identaiden.}$\{(w,V_H)\text{ se } \exists(w,y)|w \notin H\land y \in H\}\cup$\\
+          \hphantom{identaiden.}$\{(V_H,w)\text{ se } \exists(y,w)|w \notin H\land y \in H\}$
 \end{itemize} \begin{center}
     \includegraphics[width=0.55\textwidth ]{images/contrazione.eps}
 \end{center}
-\textbf{Proposizione} : Se $G$ è un grafo fortemente connesso ed $H$ è un sottografo connesso, allora $\nicefrac{G}{H}$ è
+\textbf{Proposizione} : Se $G$ è un grafo fortemente connesso ed $H$ è una componente fortemente connessa di $G$, allora $\nicefrac{G}{H}$ è
 ancora un grafo fortemente connesso.\begin{center}
     \includegraphics[width=0.65\textwidth ]{images/propFortCOnn.eps}
 \end{center}
@@ -718,8 +718,8 @@ da $x$ a $V_H$ e da $V_H$ ad $x$, quindi il grafo $\nicefrac{G}{H}$ è fortement
 arco $(x,y)$ per cui esiste anche un cammino da $y$ ad $x$, che insieme all'arco precedente compone il ciclo. Un ciclo inoltre
 è un sottografo fortemente connesso, se applichiamo la contrazione ricorsivamente sui cicli, otterremo le componenti connesse.
 \acc
-Se $u_1,u_2\dots,u_k$ sono fortemente connessi in $\nicefrac{G}{C}$, con
-$C$ un insieme e $V_C$ il vertice contratto, si ha che le componenti in
+Se $u_1,u_2\dots,u_k$ sono componenti fortemente connesse in $\nicefrac{G}{C}$, con
+$C$ un insieme di vertici (ciclo) e $V_C$ il vertice contratto, si ha che le componenti in
 $G$ sono $u'_1,u'_2\dots,u'_k$ con:$$
     u'_i=\begin{cases}
         u_i\text{ se }V_C\notin u_i \\
@@ -730,11 +730,11 @@ ora l'algoritmo non lineare.\greybox{
     \code{Fort(G graph)\{}\acc
     \hphantom{ident}\code{C = un ciclo in G}\\
     \hphantom{ident}\code{if (C non esiste)\{}\comm{non ci sono cicli nel grafo}\\
-    \hphantom{ident}\hphantom{ident}\code{return \{\{v\}|v $\in$ V(G)\}}\\
+    \hphantom{ident}\hphantom{ident}\code{return \{\{v\}|v $\in$ V(G)\}}\comm{ogni vertice è una componente}\\
     \hphantom{ident}\code{\}}\\
     \hphantom{ident}\code{G=$\nicefrac{G}{C}$}\\
     \hphantom{ident}\code{$V_C$ = vertice contratto}\\
-    \hphantom{ident}\code{($u_1,u_2\dots,u_k$)=Fort(G)}\\
+    \hphantom{ident}\code{($u_1,u_2\dots,u_k$)=Fort(G)}\comm{il grafo è stato modificato con una contrazione su C}\\
     \hphantom{ident}\code{for (i in 1...k)\{}\\
     \hphantom{ident}\hphantom{ident}\code{if ($V_C\notin u_i$)\{}\\
     \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{$u'_i=u_i$}\\
@@ -899,7 +899,7 @@ $dist(x,w)=d-1$. $\blacksquare$\acc
           valore nell'array nel seguente modo: \codee{Dist[y]=Dist[w]+1}, si avrà che \codee{Dist[y]=k+1}$\implies$ la distanza è
           calcolata correttamente. $\blacksquare$
 \end{itemize}
-\subsubsection{Distanza fra Insieme e Distanza tramite Vettore dei Padri}
+\subsubsection{Distanza fra Insiemi e Distanza tramite Vettore dei Padri}
 Occupiamoci adesso di presentare due problemi relativi alla ricerca in ampiezza, il primo riguarda la distanza minima fra
 due insiemi di nodi.\acc
 Siano $X$ ed $Y$ due insiemi di nodi, la loro distanza è uguale alla distanza minima nell'insieme delle distanze fra qualsiasi
