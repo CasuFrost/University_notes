@@ -1021,6 +1021,7 @@ risutla essere $O\big(n(n+m)\big)$.
 \greybox{\code{Dijkstra(G graph (pesato), x vert)\{}\\
 \hphantom{ident}\code{Dist : array lungo $n=|V(G)|$ inizializzato a $\infty$}\\
 \hphantom{ident}\code{Dist[x]=0}\\
+\hphantom{ident}\code{R : Insieme = \{x\}}\\
 \hphantom{ident}\code{P : vettore di padri, P[x]=x}\\
 \hphantom{ident}\code{H : min heap}\\
 \hphantom{ident}\code{for each v $\in$ V(G)\{}\\
@@ -1031,12 +1032,20 @@ risutla essere $O\big(n(n+m)\big)$.
 \hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{while(H$\ne\emptyset$)\{}\\
 \hphantom{ident}\hphantom{ident}\code{v=H.extract\_min()}\\
+\hphantom{ident}\hphantom{ident}\code{Dist[v]=H.key(v)}\\
+\hphantom{ident}\hphantom{ident}\code{R.add(v)}\\
 \hphantom{ident}\hphantom{ident}\code{for each u adiacente di v\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(Dist[u]>Dist[v]+w(u,v))\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(Dist[u]==$\infty$)\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Dist[u]=Dist[v]+w(u,v)}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{H.update\_key(u,Dist[u])}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{H.remove(v)}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{P[u]=v}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{else if(u$\notin$R)\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if(Dist[u]>Dist[v]+w(u,v))\{}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{Dist[u]=Dist[v]+w(u,v)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{H.update\_key(u,Dist[u])}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{P[u]=v}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\
 \hphantom{ident}\hphantom{ident}\code{\}}\\
 \hphantom{ident}\code{\}}\\
@@ -1044,7 +1053,6 @@ risutla essere $O\big(n(n+m)\big)$.
 \code{\}}}
 È possibile migliorare l'efficienza dell'algoritmo servendosi di un \textit{min heap} per la memorizzazione degli archi,
 ora la complessità, date le operazioni di aggiornamento sull'heap, risulta essere $O\big((n+m)\cdot\log{n}\big)$.
-\newpage
 \section{Gli Algoritmi Greedy}
 \subsection{Problemi sugli Intervalli}
 Con algoritmi "greedy", si intende una categoria di algoritmi che si basano sul seguente paradigma: Per trovare la soluzione
@@ -1104,7 +1112,7 @@ All'$i$-esimo passo dell'algoritmo, nel ciclo \code{for} è stato considerato $I
 $Sol_i\subseteq Sol_n$, avevamo detto che $I_i$ è disgiunto da ogni elemento di $Sol_n$, e questa condizione è sufficiente
 per far si che esso venga incluso nell'algoritmo.
 $$ \begin{cases}
-        Sol_i\subseteq Sol_n                                       \\
+        S_i\subseteq S_n                                       \\
         I_i\cap X \ne \emptyset \text{ per qualche }X\in Sol_i \\
         \forall X\in Sol_n, I_i\cap X = \emptyset
     \end{cases}\implies \text{ contraddizione }\blacksquare$$
@@ -1309,7 +1317,7 @@ con $e$, tale arco crea un singolo ciclo $C$ in $Sol^\star \cup \{e\}$
 \end{center}
 Vediamo come $C\backslash\{e\}$ è un cammino da un vertice che è in $Sol_k$, ad un vertice che ne è fuori, ciò significa
 che in $C\backslash\{e\}$ deve necessariamente esistere un arco $f=(u',v')$ tale che $$v'\notin Sol_k\;\land\;u'\in Sol_k$$
-Siccome l'arco $f$ non è ancora stato considerato nell'algoritmo, data la sua costruzione sappiamo che $w(f)\ge w(e)$, quindi
+Siccome l'arco $f$ non è ancora stato considerato nell'algoritmo, data la sua costruzione sappiamo che $w(f)\ge w(w)$, quindi
 è possibile sostituire questi due in $Sol^\star$ considerando
 $$ T=(Sol^\star\backslash\{f\})\cup\{e\}$$
 Si ha che $T$ è un albero di copertura con $w(t)\le w(Sol^\star)$, essendo $Sol^\star$ ottimale, si ha che
