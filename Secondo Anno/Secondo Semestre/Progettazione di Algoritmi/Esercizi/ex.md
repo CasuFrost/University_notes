@@ -17,12 +17,17 @@
 [Esercitazione Tutoraggio 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Tutoraggio/1.pdf) \
 [Esercitazione Tutoraggio 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Tutoraggio/2.pdf) \
 [Esercitazione Tutoraggio 3](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Tutoraggio/3.pdf) \
-[Esercitazione Tutoraggio 4](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Tutoraggio/4.pdf)
+[Esercitazione Tutoraggio 4](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Tutoraggio/4.pdf) \
+[Esercitazione Tutoraggio 5](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Tutoraggio/5.pdf) \
+[Esercitazione Tutoraggio 6](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Tutoraggio/6.pdf)
  
 ## Esercizi visti a lezione
 [Esercizi Vari](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esercizi%20lezioni.pdf)
 
 ## Esami
 [16 gennaio 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/16%20gennaio%202019.pdf) \
+[8 febbraio 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/8%20febbraio%202019.pdf) \
 [9 aprile 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/9%20aprile%202019.pdf) \
-[8 febbraio 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/8%20febbraio%202019.pdf)
+[10 giugno 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/10%20giugno%202019.pdf)
+
+ 
