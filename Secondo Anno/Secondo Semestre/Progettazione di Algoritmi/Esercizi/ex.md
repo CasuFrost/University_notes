@@ -7,7 +7,8 @@
 [Esercitazione 4 - 10 aprile 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esercitatore/Esercitazione%204%20-%2010%20aprile%202024.pdf) \
 [Esercitazione 5 - 21 aprile 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esercitatore/Esercitazione%205%20-%2021%20aprile%202024.pdf) \
 [Esercitazione 6 - 24 aprile 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esercitatore/Esercitazione%206%20-%2024%20aprile%202024.pdf) \
-[Esercitazione 7 - 10 maggio 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esercitatore/Esercitazione%207%20-%2010%20maggio%202024.pdf)
+[Esercitazione 7 - 10 maggio 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esercitatore/Esercitazione%207%20-%2010%20maggio%202024.pdf) \
+[Esercitazione 9 - 22 maggio 2024](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esercitatore/Esercitazione%209%20-%2022%20maggio%202024.pdf)
 
 
 ## Tutoraggio
@@ -28,6 +29,7 @@
 [16 gennaio 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/16%20gennaio%202019.pdf) \
 [8 febbraio 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/8%20febbraio%202019.pdf) \
 [9 aprile 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/9%20aprile%202019.pdf) \
-[10 giugno 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/10%20giugno%202019.pdf)
+[10 giugno 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/10%20giugno%202019.pdf) \
+[12 gennaio 2023](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/12%20gennaio%202023.pdf)
 
  
