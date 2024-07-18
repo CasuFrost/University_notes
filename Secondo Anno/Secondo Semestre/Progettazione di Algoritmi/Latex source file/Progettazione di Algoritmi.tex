@@ -1678,7 +1678,7 @@ $$ C=10\;\;\;\;\;\;\;\;\;\;\;\;FileSize=\{1,5,3,5,2,2\}$$\begin{center}
 \end{center}
 I colori nella matrice rappresentano l'algoritmo che,
 data la matrice già riempita $T$, restituisce l'insieme dei file da inserire su disco, in questo caso \{1, 5, 4\}. \acc
-Vediamo adesso una \textbf{generalizzazione} del problema del disco, ossia il \textit{problema dello zaino}, vi è uno zaino
+Vediamo adesso una \textit{generalizzazione} del problema del disco, ossia il \textbf{problema dello zaino}, vi è uno zaino
 di capacità $C$, e ci sono $n$ oggetti $x_1,x_2\dots,x_n$, ogni oggetto $x_i$, ha peso $p_i$ e valore $v_i$. Si vuole trovare un
 sottoinsieme di oggetti, la cui somma di pesi non è maggiore di $C$, che massimizzi la somma dei valori.\acc
 Procediamo come nel problema del disco, che è un caso particolare di questo problema, in cui i pesi ed i valori coincidono,
@@ -1707,7 +1707,7 @@ $T[k,\alpha]=T[k-1,\alpha-p_k]+v_k$, una volta riempita la matrice, il risultato
 \hphantom{ident}\code{for (int i = 1; j$\le$ $n$; i++)\{}\\
 \hphantom{ident}\hphantom{ident}\code{for (int j = 0; j$\le$ C; j++)\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{if($p_j\le$j)\{}\\
-\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=max(T[i-1,j], T[i-1,j-$p_i$]+$b_i$)}\\
+\hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=max(T[i-1,j], T[i-1,j-$p_i$]+$v_i$)}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}else\{}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\hphantom{ident}\code{T[i,j]=T[i-1,j]}\\
 \hphantom{ident}\hphantom{ident}\hphantom{ident}\code{\}}\\

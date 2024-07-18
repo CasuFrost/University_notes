@@ -30,6 +30,7 @@
 [8 febbraio 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/8%20febbraio%202019.pdf) \
 [9 aprile 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/9%20aprile%202019.pdf) \
 [10 giugno 2019](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/10%20giugno%202019.pdf) \
-[12 gennaio 2023](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/12%20gennaio%202023.pdf)
+[12 gennaio 2023](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/12%20gennaio%202023.pdf) \
+[7 luglio 2023](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/Esami/7%20luglio%202023.pdf)
 
  
