@@ -563,4 +563,15 @@ Esempio di programma che utilizza le funzioni di input ed output :
 
     }
     \end{lstlisting}
+\newpage 
+\section{Pillole di Linux e C per l'esame}
+\begin{itemize}
+    \item il comando \shelll{ln} di default crea un hard link, per un soft serve l'argomento \shelll{-s}
+    \item Il \textit{C} è stato definito  presso i laboratori di ricerca di una compagnia telefonica americana
+    \item Nel \textit{C}, il comparatore \code{==} ha la precedenza sulle operazioni logiche, come \code{\&} e \code{|}.
+    \item se \code{s} è una struttura stat per un file, per controllare se il file  è un link si vede se \code{S\_ISLINK(s) == 1}
+    \item nel PCB di un processo \textbf{non} è contenuto il campo \codee{change time}  
+    \item Richard Stallman ha descritto per primo la licenza GPL
+    \item non è possibile poter cambiare il contenuto di una directory occorre aprendola con la syscall \code{opendir}  
+\end{itemize}
 \end{document}
