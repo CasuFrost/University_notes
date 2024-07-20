@@ -209,8 +209,8 @@ Un disco, può essere anche \textbf{partizionato}, ossia diviso in unità logich
     \item Dimensione massima di un file
     \item Lunghezza massima per il nome di file o directory
  \end{itemize}
- In unix esistono due importanti file che tengono traccia dei dischi montati, il file \code{/etc/mtab} contiene informazioni 
- sui dischi montati all'avvio della macchina, \code{/etc/fstab} contiene informazioni sui dischi montati dinamicamente dall'utente, è 
+ In unix esistono due importanti file che tengono traccia dei dischi montati, il file \code{/etc/fstab} contiene informazioni 
+ sui dischi montati all'avvio della macchina, \code{/etc/mtab} contiene informazioni sui dischi montati dinamicamente dall'utente, è 
  possibile visualizzare il contenuto di questi file (come di un qualsiasi altro file) tramite il comando \shelll{cat}.
  \subsubsection{Inode e Metadati}
  Come vengono gestiti i file all'interno del file system, o meglio, quale struttura dati è impiegata? Esiste una struttura chiama 
@@ -572,6 +572,10 @@ Esempio di programma che utilizza le funzioni di input ed output :
     \item se \code{s} è una struttura stat per un file, per controllare se il file  è un link si vede se \code{S\_ISLINK(s) == 1}
     \item nel PCB di un processo \textbf{non} è contenuto il campo \codee{change time}  
     \item Richard Stallman ha descritto per primo la licenza GPL
-    \item non è possibile poter cambiare il contenuto di una directory occorre aprendola con la syscall \code{opendir}  
+    \item non è possibile poter cambiare il contenuto di una directory occorre aprendola con la syscall \code{opendir} 
+    \item La funzione \code{nfd = dup(fd)} attribuisce al nuovo file descriptor \code{nfd}, il piu' piccolo file descriptor disponibile.
+    \item  \shelll{adduser x} aggiunge un utente \shelll{x}.
+    \item \shelll{adduser x y} aggiunge l'utente \shelll{x} al gruppo \shelll{y}, se \shelll{x} non esiste, da errore.
+    \item Il comando /usr/bin/time cmd può solo mostrare il tempo (di CPU, di sistema, e reale)
 \end{itemize}
 \end{document}
