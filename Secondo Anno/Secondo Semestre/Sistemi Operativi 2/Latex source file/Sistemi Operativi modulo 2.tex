@@ -577,5 +577,26 @@ Esempio di programma che utilizza le funzioni di input ed output :
     \item  \shelll{adduser x} aggiunge un utente \shelll{x}.
     \item \shelll{adduser x y} aggiunge l'utente \shelll{x} al gruppo \shelll{y}, se \shelll{x} non esiste, da errore.
     \item Il comando /usr/bin/time cmd può solo mostrare il tempo (di CPU, di sistema, e reale)
+    \item Per mostrare il pid dei job in esecuzione in background, è necessario il comando \shelll{jobs -p}
+    \item \shelll{sudo ls  /home} e \shelll{sudo su --command='ls /home'} sono equivalenti.
+    \item Per eliminare tutte le linee duplicate in un file di testo (senza preoccuparsi dell'ordinamento delle righe) occorre
+    utilizzare il comando \shelll{uniq -u}
+    \item Il comando \shelll{type} determina il tipo di un altro comando da lanciare sulla shell, è necessario digitare \shelll{type cmd}
+    dove \shelll{cmd} è il comando del quale si vuole conoscere il tipo (ad es. Built-in).
+    \item I comandi \shelll{less} e \shelll{more} in Linux sono utilizzati per visualizzare il contenuto di file di testo, \textbf{non} possono essere 
+    terminati con \shelll{CTRL+C}
+    \item NON si può cambiare il contenuto di una directory aprendola con la syscall \code{opendir}
+    \item Nel file system di Linux esistono anche directory (denominate virtuali) che non si trovano su nessun dispositivo fisico di memoria di massa
+    \item Richard Stallman ha descritto per primo la licenza GPL
+    \item Linus Torvalds ha scritto il Kernel Linux nei primi anni 90'.
+    \item La syscall \code{unlink(file)} elimina \code{file} se è l'ultimo hard link rimasto
+    \item se  si prova ad aggiungere un utente ad un gruppo di cui fa già parte, apparirà un messaggio 
+    del tipo \textit{"messaggio del tipo "L'utente «utente1» fa già parte del gruppo «studente»"}
+    \item Per qualsiasi processo è possibile conoscere il suo ambiente di esecuzione senza effettuare alcuna syscall
+    \item La syscall \code{rename(oldpath, newpath)} ha lo stesso effetto del comando bash \\\shelll{cp oldpath newpath}
+    \item per il comando \shelll{find} \textbf{non} è obbligatorio che gli starting point siano delle directory
+    \item Per visualizzare i processi attualmente in esecuzione su una determinata bash, è sufficiente usare il comando \shelll{jobs}
+    \item È possibile usare il comando  \shelll{patch} solo se si ha l'output del comando  \shelll{diff}
+    \item La syscall \code{rename(oldpath, newpath)} \textbf{NON} ha lo stesso effetto del comando bash \shelll{cp oldpath newpath}
 \end{itemize}
 \end{document}
