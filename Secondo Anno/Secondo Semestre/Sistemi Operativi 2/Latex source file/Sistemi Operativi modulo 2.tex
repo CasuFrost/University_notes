@@ -572,7 +572,6 @@ Esempio di programma che utilizza le funzioni di input ed output :
     \item se \code{s} è una struttura stat per un file, per controllare se il file  è un link si vede se \code{S\_ISLINK(s) == 1}
     \item nel PCB di un processo \textbf{non} è contenuto il campo \codee{change time}  
     \item Richard Stallman ha descritto per primo la licenza GPL
-    \item non è possibile poter cambiare il contenuto di una directory occorre aprendola con la syscall \code{opendir} 
     \item La funzione \code{nfd = dup(fd)} attribuisce al nuovo file descriptor \code{nfd}, il piu' piccolo file descriptor disponibile.
     \item  \shelll{adduser x} aggiunge un utente \shelll{x}.
     \item \shelll{adduser x y} aggiunge l'utente \shelll{x} al gruppo \shelll{y}, se \shelll{x} non esiste, da errore.
@@ -587,16 +586,25 @@ Esempio di programma che utilizza le funzioni di input ed output :
     terminati con \shelll{CTRL+C}
     \item NON si può cambiare il contenuto di una directory aprendola con la syscall \code{opendir}
     \item Nel file system di Linux esistono anche directory (denominate virtuali) che non si trovano su nessun dispositivo fisico di memoria di massa
-    \item Richard Stallman ha descritto per primo la licenza GPL
     \item Linus Torvalds ha scritto il Kernel Linux nei primi anni 90'.
     \item La syscall \code{unlink(file)} elimina \code{file} se è l'ultimo hard link rimasto
     \item se  si prova ad aggiungere un utente ad un gruppo di cui fa già parte, apparirà un messaggio 
-    del tipo \textit{"messaggio del tipo "L'utente «utente1» fa già parte del gruppo «studente»"}
+    del tipo \textit{"L'utente «utente1» fa già parte del gruppo «studente»"}
     \item Per qualsiasi processo è possibile conoscere il suo ambiente di esecuzione senza effettuare alcuna syscall
-    \item La syscall \code{rename(oldpath, newpath)} ha lo stesso effetto del comando bash \\\shelll{cp oldpath newpath}
+    \item La syscall \code{rename(oldpath, newpath)} \textbf{NON} ha lo stesso effetto del comando bash \\\shelll{cp oldpath newpath}
     \item per il comando \shelll{find} \textbf{non} è obbligatorio che gli starting point siano delle directory
     \item Per visualizzare i processi attualmente in esecuzione su una determinata bash, è sufficiente usare il comando \shelll{jobs}
     \item È possibile usare il comando  \shelll{patch} solo se si ha l'output del comando  \shelll{diff}
-    \item La syscall \code{rename(oldpath, newpath)} \textbf{NON} ha lo stesso effetto del comando bash \shelll{cp oldpath newpath}
+    \item la \shelll{execve(2)} permette di sostituire l'immagine di un processo con quella di un file eseguibile o di uno script di shell eseguibile
+    \item \shelll{touch -at202006021200  filename} crea un file vuoto \textit{filename} e setta il tempo 
+    di ultimo accesso al "2 giugno 2020 ore 12:00"
+    \item il comando\shelll{gcc -c file.c -o file.o}  produce un file oggetto, e non un file eseguibile.
+    \item \begin{center}
+        \includegraphics[width=0.7\textwidth ]{images/domandabash.png}
+    \end{center}
+    \item La syscall \code{stat(nomefile, buf)} \textbf{non ha assolutamente}  lo stesso effetto del comando bash \shelll{stat nomefile}
+    \item i Memory mappings \textbf{non} sono preservati a seguito di una chiamata alla funzione di libreria \code{execve()}
+    \item nel comando \shelll{kill}, con l'opzione \shelll{\%} si può specificare un job id, senza opzione, si specifica un PID.
+    \item Per richiedere un lock su un file (o su una porzione di esso), NON SI PUò chiamare la syscall \code{ioctl}
 \end{itemize}
 \end{document}
