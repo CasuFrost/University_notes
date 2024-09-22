@@ -1,0 +1,132 @@
+\documentclass[10pt, letterpaper]{report}
+% !TeX program = xelatex
+%==================PREAMBOLO=======================%
+\input{../../preamble/preamble.tex}
+ %TOGLI COMMENTO SE USI XELATEX
+\usepackage{fontspec}
+\title{\jobname} %========TITOLO========%
+\author{Marco Casu}
+\date{\vspace{-5ex}}
+\begin{document}
+
+%==================COPERTINA=======================%
+\begin{titlepage}
+    \pagecolor{cop}
+\begin{center}
+    %TOGLI COMMENTO SE USI XELATEX
+    \setmainfont{Palace Script MT}\HUGE Marco Casu\acc
+    \setmainfont{Grand Casino}
+     %TOGLI COMMENTO SE USI XELATEX
+    %\setmainfont{h Halfroad}
+    \HUGE \decothreeleft\hphantom{ }{\fontsize{48}{50}\selectfont \jobname}\hphantom{ }\decothreeright
+     %TOGLI COMMENTO SE USI XELATEX
+    \setmainfont{Times New Roman}
+\end{center}
+\thispagestyle{empty}
+\begin{figure}[h]
+    \centering{
+        %l'immagine deve avere una risoluzione 2048x2048
+        \includegraphics[width=1\textwidth ]{images/copertina.jpg}
+    }
+\end{figure}
+\vfill 
+\centering \includegraphics[width=0.4\textwidth ]{../../preamble/Stemma_sapienza.png} \acc
+\centering \Large \color{sapienza}Facoltà di Ingegneria dell'Informazione,
+Informatica e Statistica\\
+Dipartimento di Informatica
+\end{titlepage}
+
+%===================FINE COPERTINA======================%
+\newpage
+\pagecolor{cartaRiciclata}\setmainfont{Algerian}\Large
+Questo documento è distribuito sotto la licenza 
+\color{blue}\href{https://www.gnu.org/licenses/fdl-1.3.txt}{GNU}\color{black},  
+è un resoconto degli appunti (eventualmente integrati con libri di testo) tratti dalle lezioni del corso di \jobname
+\hphantom{a}per la laurea 
+triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
+\newpage \setmainfont{Times New Roman}\normalsize
+\tableofcontents 
+\newpage
+
+%==================FOOTER e HEADER=======================%
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{Sezione \thesection}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Appunti di \jobname}
+\fancyfoot[R]{\setmainfont{Palace Script MT}\huge Marco Casu \setmainfont{Times New Roman}}
+%==================FOOTER e HEADER=======================%
+
+%Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
+
+%==================INIZIO======================%
+
+
+
+
+\chapter{Meccanica Degli Omozigoti}
+\section{Introduzione}
+\lipsum[1]
+\subsection{Risvolti storici}
+\lipsum[2]\acc 
+\teo{del costo unitario}ogni costo è unitario, ogni uomo ha un anima, le seguente è vera
+$$ a(x)\ne b(x)\iff a\sim e^{sin(x^2)}$$
+\dimo{}Segue dalla proposizione atomica decuplicante $\blacksquare$\acc \lipsum[2]\acc
+\prop{}Il cane è blu \flowerLine 
+\section{La nascita della Fisica Moderna}
+\lipsum[1] \ref{fig:birds} \lipsum[2]
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            xlabel = \(x\),
+            ylabel = {\(f(x)\)},
+        ]
+        %Below the red parabola is defined
+        \addplot [
+            domain=-5:5, 
+            samples=200, 
+            color=red,
+        ]
+        {sin(deg(x))*cos(deg(e^x))};
+        \addlegendentry{\(\sin(x)\cdot \cos(e^x)\)}
+        \end{axis}
+        \end{tikzpicture}
+    \caption{limite}
+    \label{fig:birds}
+\end{figure}\acc
+\lipsum[3]
+\subsection{Carico e Scarico}
+\lipsum[2]
+\eqImportante{$\displaystyle M(k)=\iint_{\R^3}\sum_{n = 1}^{k}x^2y^4z^{e^-\pi}dxdydz$}
+\lipsum[1]\acc  
+Questi sono gli appunti di \jobname.
+\flowerLine 
+\section{Cani}
+\lipsum[2]
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            xlabel = \(x\),
+            ylabel = {\(f(x)\)},
+        ]
+        %Below the red parabola is defined
+        \addplot [
+            domain=-10:10, 
+            samples=200, 
+            color=blue,
+        ]
+        {x*((1/x)*cos(deg(e^(sin(deg(x))))))};
+        \end{axis}
+        \end{tikzpicture}
+\end{figure}\acc
+\lipsum[3]\newpage
+\chapter{Disossamenti}
+\lipsum[1]\flowerLine 
+\section{Costanza e Porte}
+\lipsum[2]
+$$ \int \int \int_\Omega F = kk$$\lipsum[3] 
+\end{document}

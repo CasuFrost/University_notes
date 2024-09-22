@@ -1,0 +1,604 @@
+<?xml version="1.0"?>
+<!DOCTYPE ipe SYSTEM "ipe.dtd">
+<ipe version="70218" creator="Ipe 7.2.28">
+<info created="D:20240922192345" modified="D:20240922194551"/>
+<ipestyle name="basic">
+<symbol name="arrow/arc(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/farc(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/ptarc(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/fptarc(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="mark/circle(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</symbol>
+<symbol name="mark/disk(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+</path>
+</symbol>
+<symbol name="mark/fdisk(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+0.5 0 0 0.5 0 0 e
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</group>
+</symbol>
+<symbol name="mark/box(sx)" transformations="translations">
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</symbol>
+<symbol name="mark/square(sx)" transformations="translations">
+<path fill="sym-stroke">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+</path>
+</symbol>
+<symbol name="mark/fsquare(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+-0.5 -0.5 m
+0.5 -0.5 l
+0.5 0.5 l
+-0.5 0.5 l
+h
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="mark/cross(sx)" transformations="translations">
+<group>
+<path fill="sym-stroke">
+-0.43 -0.57 m
+0.57 0.43 l
+0.43 0.57 l
+-0.57 -0.43 l
+h
+</path>
+<path fill="sym-stroke">
+-0.43 0.57 m
+0.57 -0.43 l
+0.43 -0.57 l
+-0.57 0.43 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="arrow/fnormal(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/pointed(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/fpointed(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/linear(spx)">
+<path stroke="sym-stroke" pen="sym-pen">
+-1 0.333 m
+0 0 l
+-1 -0.333 l
+</path>
+</symbol>
+<symbol name="arrow/fdouble(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/double(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-normal(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0.5 0 m
+-0.5 0.333 l
+-0.5 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-fnormal(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0.5 0 m
+-0.5 0.333 l
+-0.5 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-pointed(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0.5 0 m
+-0.5 0.333 l
+-0.3 0 l
+-0.5 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-fpointed(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0.5 0 m
+-0.5 0.333 l
+-0.3 0 l
+-0.5 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-double(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+1 0 m
+0 0.333 l
+0 -0.333 l
+h
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/mid-fdouble(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+1 0 m
+0 0.333 l
+0 -0.333 l
+h
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<anglesize name="22.5 deg" value="22.5"/>
+<anglesize name="30 deg" value="30"/>
+<anglesize name="45 deg" value="45"/>
+<anglesize name="60 deg" value="60"/>
+<anglesize name="90 deg" value="90"/>
+<arrowsize name="large" value="10"/>
+<arrowsize name="small" value="5"/>
+<arrowsize name="tiny" value="3"/>
+<color name="blue" value="0 0 1"/>
+<color name="brown" value="0.647 0.165 0.165"/>
+<color name="darkblue" value="0 0 0.545"/>
+<color name="darkcyan" value="0 0.545 0.545"/>
+<color name="darkgray" value="0.663"/>
+<color name="darkgreen" value="0 0.392 0"/>
+<color name="darkmagenta" value="0.545 0 0.545"/>
+<color name="darkorange" value="1 0.549 0"/>
+<color name="darkred" value="0.545 0 0"/>
+<color name="gold" value="1 0.843 0"/>
+<color name="gray" value="0.745"/>
+<color name="green" value="0 1 0"/>
+<color name="lightblue" value="0.678 0.847 0.902"/>
+<color name="lightcyan" value="0.878 1 1"/>
+<color name="lightgray" value="0.827"/>
+<color name="lightgreen" value="0.565 0.933 0.565"/>
+<color name="lightyellow" value="1 1 0.878"/>
+<color name="navy" value="0 0 0.502"/>
+<color name="orange" value="1 0.647 0"/>
+<color name="pink" value="1 0.753 0.796"/>
+<color name="purple" value="0.627 0.125 0.941"/>
+<color name="red" value="1 0 0"/>
+<color name="seagreen" value="0.18 0.545 0.341"/>
+<color name="turquoise" value="0.251 0.878 0.816"/>
+<color name="violet" value="0.933 0.51 0.933"/>
+<color name="yellow" value="1 1 0"/>
+<dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
+<dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
+<dashstyle name="dashed" value="[4] 0"/>
+<dashstyle name="dotted" value="[1 3] 0"/>
+<gridsize name="10 pts (~3.5 mm)" value="10"/>
+<gridsize name="14 pts (~5 mm)" value="14"/>
+<gridsize name="16 pts (~6 mm)" value="16"/>
+<gridsize name="20 pts (~7 mm)" value="20"/>
+<gridsize name="28 pts (~10 mm)" value="28"/>
+<gridsize name="32 pts (~12 mm)" value="32"/>
+<gridsize name="4 pts" value="4"/>
+<gridsize name="56 pts (~20 mm)" value="56"/>
+<gridsize name="8 pts (~3 mm)" value="8"/>
+<opacity name="10%" value="0.1"/>
+<opacity name="30%" value="0.3"/>
+<opacity name="50%" value="0.5"/>
+<opacity name="75%" value="0.75"/>
+<pen name="fat" value="1.2"/>
+<pen name="heavier" value="0.8"/>
+<pen name="ultrafat" value="2"/>
+<symbolsize name="large" value="5"/>
+<symbolsize name="small" value="2"/>
+<symbolsize name="tiny" value="1.1"/>
+<textsize name="Huge" value="\Huge"/>
+<textsize name="LARGE" value="\LARGE"/>
+<textsize name="Large" value="\Large"/>
+<textsize name="footnote" value="\footnotesize"/>
+<textsize name="huge" value="\huge"/>
+<textsize name="large" value="\large"/>
+<textsize name="script" value="\scriptsize"/>
+<textsize name="small" value="\small"/>
+<textsize name="tiny" value="\tiny"/>
+<textstyle name="center" begin="\begin{center}" end="\end{center}"/>
+<textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
+<textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
+<tiling name="falling" angle="-60" step="4" width="1"/>
+<tiling name="rising" angle="30" step="4" width="1"/>
+</ipestyle>
+<page>
+<layer name="alpha"/>
+<view layers="alpha" active="alpha"/>
+<text layer="alpha" matrix="1 0 0 1 -12 4" transformations="translations" pos="268 764" stroke="black" type="label" width="27.362" height="17.757" depth="12.64" halign="center" valign="center" style="math">\displaystyle\sum_{n=1}^{+\infty}a_n</text>
+<path stroke="black">
+224 792 m
+224 744 l
+288 744 l
+288 792 l
+h
+</path>
+<path stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 -12 -76" transformations="translations" pos="268 764" stroke="black" type="label" width="36.336" height="8.422" depth="3.43" halign="center" valign="center" style="math">a_n=\frac{1}{n^\alpha}</text>
+<path stroke="black" arrow="normal/normal">
+256 744 m
+256 720 l
+</path>
+<path matrix="1 0 0 1 144 0" stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 132 -76" transformations="translations" pos="268 764" stroke="black" type="label" width="24.675" height="6.42" depth="0.39" halign="center" valign="center" style="math">\alpha &gt; 1</text>
+<path stroke="black" arrow="normal/normal">
+304 688 m
+352 688 l
+</path>
+<text matrix="1 0 0 1 56 -68" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<text matrix="1 0 0 1 264 -76" transformations="translations" pos="268 764" stroke="black" type="label" width="71.233" height="6.926" depth="1.93" halign="center" valign="center">la serie converge</text>
+<path matrix="1 0 0 1 32 0" stroke="black">
+456 700 m
+456 676 l
+544 676 l
+544 700 l
+h
+</path>
+<path stroke="black" arrow="normal/normal">
+448 688 m
+488 688 l
+</path>
+<text matrix="1 0 0 1 196 -68" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<text matrix="1 0 0 1 264 -12" transformations="translations" pos="268 764" stroke="black" type="label" width="64.868" height="6.926" depth="1.93" halign="center" valign="center">la serie diverge</text>
+<path matrix="1 0 0 1 32 64" stroke="black">
+456 700 m
+456 676 l
+544 676 l
+544 700 l
+h
+</path>
+<path stroke="black" arrow="normal/normal">
+400 720 m
+400 752 l
+488 752 l
+</path>
+<text matrix="1 0 0 1 144 -28" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<path matrix="1 0 0 1 0 -112" stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 -12 -188" transformations="translations" pos="268 764" stroke="black" type="label" width="34.2" height="6.625" depth="1.93" halign="center" valign="center" style="math">a_n=q^n</text>
+<text matrix="1 0 0 1 0 -120" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<path matrix="1 0 0 1 144 -112" stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 132 -188" transformations="translations" pos="268 764" stroke="black" type="label" width="46.869" height="7.473" depth="2.49" halign="center" valign="center" style="math">q\in (-1,1)</text>
+<path matrix="1 0 0 1 0 -112" stroke="black" arrow="normal/normal">
+304 688 m
+352 688 l
+</path>
+<text matrix="1 0 0 1 56 -180" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<text matrix="1 0 0 1 264 -188" transformations="translations" pos="268 764" stroke="black" type="label" width="71.233" height="6.926" depth="1.93" halign="center" valign="center">la serie converge</text>
+<path matrix="1 0 0 1 32 -112" stroke="black">
+456 700 m
+456 676 l
+544 676 l
+544 700 l
+h
+</path>
+<path matrix="1 0 0 1 0 -112" stroke="black" arrow="normal/normal">
+448 688 m
+488 688 l
+</path>
+<text matrix="1 0 0 1 196 -180" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<text matrix="1 0 0 1 248 -124" transformations="translations" pos="268 764" stroke="black" type="label" width="110.686" height="7.473" depth="2.49" halign="center" valign="center">la serie diverge se $(q\ge 1)$</text>
+<text matrix="1 0 0 1 144 -140" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<path stroke="black" arrow="normal/normal">
+256 656 m
+256 608 l
+</path>
+<text matrix="1 0 0 1 248 -140" transformations="translations" pos="268 764" stroke="black" type="label" width="128.452" height="7.473" depth="2.49" halign="center" valign="center">la serie è irregolare se $(q\le 1)$</text>
+<path stroke="black">
+448 616 m
+448 652 l
+584 652 l
+584 616 l
+h
+</path>
+<path stroke="black" arrow="normal/normal">
+400 608 m
+400 636 l
+448 636 l
+</path>
+<path matrix="1 0 0 1 0 -200" stroke="black" arrow="normal/normal">
+256 744 m
+256 720 l
+</path>
+<path matrix="1 0 0 1 0 -200" stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 -12 -276" transformations="translations" pos="268 764" stroke="black" type="label" width="51.424" height="6.912" depth="6.98" halign="center" valign="center" style="math">\displaystyle\lim_{n\rightarrow \infty}a_n=0</text>
+<text matrix="1 0 0 1 0 -228" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<text matrix="1 0 0 1 -72 -268" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<path stroke="black" arrow="normal/normal">
+208 488 m
+176 488 l
+</path>
+<path matrix="1 0 0 1 -128 -200" stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 -140 -276" transformations="translations" pos="268 764" stroke="black" type="label" width="28.954" height="6.425" depth="1.49" halign="center" valign="center" style="math">a_n\ge 0</text>
+<text matrix="1 0 0 1 -140 -336" transformations="translations" pos="268 764" stroke="black" type="label" width="64.868" height="6.926" depth="1.93" halign="center" valign="center">la serie diverge</text>
+<path matrix="1 0 0 1 -372 -260" stroke="black">
+456 700 m
+456 676 l
+544 676 l
+544 700 l
+h
+</path>
+<text matrix="1 0 0 1 -140 -216" transformations="translations" pos="268 764" stroke="black" type="label" width="82.635" height="6.926" depth="1.93" halign="center" valign="center">la serie è irregolare</text>
+<path matrix="1 0 0 1 -372 -140" stroke="black">
+456 700 m
+456 676 l
+544 676 l
+544 700 l
+h
+</path>
+<path stroke="black" arrow="normal/normal">
+128 520 m
+128 536 l
+</path>
+<path stroke="black" arrow="normal/normal">
+128 456 m
+128 440 l
+</path>
+<text matrix="1 0 0 1 -152 -236" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<text matrix="1 0 0 1 -148 -316" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<path matrix="1 0 0 1 0 -288" stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 -12 -364" transformations="translations" pos="268 764" stroke="black" type="label" width="28.954" height="6.425" depth="1.49" halign="center" valign="center" style="math">a_n\ge 0</text>
+<path matrix="1 0 0 1 0 -288" stroke="black" arrow="normal/normal">
+256 744 m
+256 720 l
+</path>
+<text matrix="1 0 0 1 0 -316" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<path matrix="1 0 0 1 144 -288" stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 132 -360" transformations="translations" pos="268 764" stroke="black" type="label" width="59.573" height="7.473" depth="2.49" halign="center" valign="center" style="math">a_n = (-1)^n b_n</text>
+<path matrix="1 0 0 1 0 -288" stroke="black" arrow="normal/normal">
+304 688 m
+352 688 l
+</path>
+<text matrix="1 0 0 1 56 -356" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<text matrix="1 0 0 1 132 -372" transformations="translations" pos="268 764" stroke="black" type="label" width="27.963" height="6.923" depth="1.49" halign="center" valign="center" style="math">b_n\ge 0</text>
+<path matrix="1 0 0 1 0 -288" stroke="black" arrow="normal/normal">
+448 688 m
+488 688 l
+</path>
+<text matrix="1 0 0 1 196 -356" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<path matrix="1 0 0 1 280 -288" stroke="black">
+256 720 m
+208 688 l
+256 656 l
+304 688 l
+256 720 l
+</path>
+<text matrix="1 0 0 1 268 -364" transformations="translations" pos="268 764" stroke="black" type="label" width="69.834" height="6.923" depth="1.49" halign="center" valign="center">$b_n$  è decrescente</text>
+<text matrix="1 0 0 1 264 -256" transformations="translations" pos="268 764" stroke="black" type="label" width="71.233" height="6.926" depth="1.93" halign="center" valign="center">la serie converge</text>
+<path stroke="black">
+488 524 m
+488 484 l
+576 484 l
+576 524 l
+h
+</path>
+<text matrix="1 0 0 1 264 -268" transformations="translations" pos="268 764" stroke="black" type="label" width="39.436" height="7.473" depth="2.49" halign="center" valign="center">(Leibniz)</text>
+<path stroke="black" arrow="normal/normal">
+536 432 m
+536 484 l
+</path>
+<text matrix="1 0 0 1 280 -312" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<text matrix="1 0 0 1 132 -432" transformations="translations" pos="268 764" stroke="black" type="label" width="68.362" height="7.473" depth="2.49" halign="center" valign="center">considerare $|a_n|$</text>
+<text matrix="1 0 0 1 132 -444" transformations="translations" pos="268 764" stroke="black" type="label" width="101.674" height="6.926" depth="1.93" halign="center" valign="center">studiare la convergenza</text>
+<text matrix="1 0 0 1 132 -456" transformations="translations" pos="268 764" stroke="black" type="label" width="34.98" height="6.918" depth="0" halign="center" valign="center">assoluta</text>
+<path matrix="1 0 0 1 -16 -4" stroke="black">
+480 352 m
+480 296 l
+356 296 l
+356 352 l
+h
+</path>
+<text matrix="1 0 0 1 -12 -504" transformations="translations" pos="268 764" stroke="black" type="label" width="84.607" height="6.658" depth="1.49" halign="center" valign="center">$a_n$ contiene termini</text>
+<path stroke="black" arrow="normal/normal">
+256 368 m
+256 288 l
+</path>
+<text matrix="1 0 0 1 0 -408" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<path matrix="1 0 0 1 0 12" stroke="black" arrow="normal/normal">
+340 312 m
+256 312 l
+</path>
+<text matrix="1 0 0 1 -12 -516" transformations="translations" pos="268 764" stroke="black" type="label" width="56.058" height="6.926" depth="1.93" halign="center" valign="center">come $n!$ o $q^n$</text>
+<path stroke="black">
+256 288 m
+316 256 l
+256 224 l
+196 256 l
+256 288 l
+</path>
+<text matrix="1 0 0 1 -148 -504" transformations="translations" pos="268 764" stroke="black" type="label" width="50.422" height="6.918" depth="0" halign="center" valign="center">criterio del </text>
+<path matrix="1 0 0 1 -412 -248" stroke="black">
+488 524 m
+488 484 l
+576 484 l
+576 524 l
+h
+</path>
+<text matrix="1 0 0 1 -148 -516" transformations="translations" pos="268 764" stroke="black" type="label" width="75.633" height="6.926" depth="1.93" halign="center" valign="center">rapporto o radice</text>
+<path stroke="black" arrow="normal/normal">
+196 256 m
+164 256 l
+</path>
+<text matrix="1 0 0 1 -84 -500" transformations="translations" pos="268 764" stroke="black" type="label" width="8.302" height="6.808" depth="0" halign="center" valign="center">Si</text>
+<text matrix="1 0 0 1 124 -504" transformations="translations" pos="268 764" stroke="black" type="label" width="50.422" height="6.918" depth="0" halign="center" valign="center">criterio del </text>
+<path matrix="1 0 0 1 -140 -248" stroke="black">
+488 524 m
+488 484 l
+576 484 l
+576 524 l
+h
+</path>
+<text matrix="1 0 0 1 124 -516" transformations="translations" pos="268 764" stroke="black" type="label" width="40.985" height="6.918" depth="0" halign="center" valign="center">confronto</text>
+<path matrix="1 0 0 1 152 0" stroke="black" arrow="normal/normal">
+164 256 m
+196 256 l
+</path>
+<text matrix="1 0 0 1 60 -500" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<path stroke="black" arrow="normal/normal">
+400 368 m
+400 348 l
+</path>
+<path stroke="black" arrow="normal/normal">
+536 368 m
+536 324 l
+464 324 l
+</path>
+<text matrix="1 0 0 1 148 -404" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+<text matrix="1 0 0 1 284 -404" transformations="translations" pos="268 764" stroke="black" type="label" width="12.453" height="6.808" depth="0" halign="center" valign="center">No</text>
+</page>
+</ipe>

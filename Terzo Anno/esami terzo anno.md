@@ -23,7 +23,7 @@ Vanno totalizzati in totale <span style="color:green">30 CFU</span> di esami a s
 ---
 La <span style="color:red">_TESI_</span> prevedo di prepararla ad inizio secondo semestre
 
-### dubbi
+### Dubbi
 Vorrei evitare di sostenere 5 esami al primo semestre, ho due opzioni : 
 * Seguire il corso di Fisica al primo semestre e sostenere l'esame nel secondo semestre
 * Eliminare l'esame di Multicore al primo semestre e sostituirlo con un esame del secondo semestre (sempre di tipo mc)
