@@ -4,6 +4,7 @@
 \input{../../../../../preamble/preamble.tex}
  %TOGLI COMMENTO SE USI XELATEX
  \usepgfplotslibrary{fillbetween}
+ 
 \title{Calcolo Integrale} %========TITOLO========%
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -629,6 +630,117 @@ se
 $$\lim_{n\rightarrow\infty} \underline{S_n} =
     \lim_{n\rightarrow\infty} \bar{S_n} \in \R$$
 Tale limite deve tendere ad un valore finito, assume la seguente notazione
-$$ \int_a^bf(x)dx$$
-
+\eqImportante{$\displaystyle\int_a^bf(x)dx$}
+Nota bene : Il concetto di integrale è un concetto molto più esteso e non riguarda esclusivamente il 
+calcolo dell'area sottesa ad una curva. Quest'ultimo, è esclusivamente il suo significato geometrico 
+per le funzioni definite (e con immagine) in $\R$. Il concetto intrinseco dell'integrale, è quello di 
+essere una somma di infiniti termini/contributi, è de facto la versione \textit{continua} di una 
+sommatoria.
+Esiste una formulazione più rigorosa di integrale, nota come \textit{integrale di Lebesgue}, ma non 
+è assolutamente argomento di questo corso introduttivo.\acc
+Vediamo adesso un esempio di calcolo di un integrale, si vuole calcolare 
+$$\int_0^1 x dx $$
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis}[
+      axis lines=center,
+      grid=major,
+      xmin=-0.5, xmax=1.5,
+   	ymin=-0.5, ymax=1.5,
+      no marks,xtick distance=0.5, ytick distance=0.5,
+      ]
+      \addplot+[smooth,magenta,name path=A, domain=-3:3] {x}; % actual curve
+      \addplot+[draw=none,name path=B] {0};     % “fictional” curve
+      \addplot+[lightgray] fill between[of=A and B,soft clip={domain=0:1}]; % filling
+    \end{axis}
+  \end{tikzpicture}
+\end{center}
+Osservando il grafico, è chiaro che tale area sarà uguale ad $\frac{1}{2}$, in quanto è la 
+metà di un quadrato di lato $1$. Verifichiamo ciò con il calcolo dell'integrale.
+È utile un osservazione : essendo la funzione monotona crescente, per ogni intervallo il suo 
+massimo è sempre il valore assunto all'estremo destro, mentre il minimo è sempre il valore 
+assunto nel suo estremo sinistro.
+$$ min_{[x_k,x_{k+1}]}(f(x))=f(x_k)=a+k\cdot \frac{b-a}{2^n}=\frac{k}{2^n}$$
+$$max_{[x_k,x_{k+1}]}(f(x))=f(x_{k+1})=a+(k+1)\cdot \frac{b-a}{2^n}=\frac{k+1}{2^n}$$
+Si calcolano adesso i valori delle somme superiori ed inferiori.
+$$\begin{matrix}
+    \displaystyle\bar{S_n}=\lim_{n\rightarrow \infty}\dfrac{b-a}{2^n}\sum_{k=0}^{2^n-1}min_{[x_k,x_{k+1}]}(f(x)) = \\
+    \displaystyle 
+    \lim_{n\rightarrow \infty}\dfrac{1}{2^n}\sum_{k=0}^{2^n-1}\frac{k}{2^n} = 
+    \lim_{n\rightarrow \infty}\dfrac{1}{2^n}\cdot \dfrac{1}{2^n}\sum_{k=0}^{2^n-1}k 
+    = \lim_{n\rightarrow \infty}\dfrac{1}{2^{2n}}\sum_{k=0}^{2^n-1}k
+\end{matrix}$$
+Si ricordi come 
+$$ \displaystyle \sum^n_{k=0}k=\frac{n\cdot(n+1)}{2}$$
+Si ha quindi 
+$$  \lim_{n\rightarrow \infty}\dfrac{1}{2^n}\cdot \dfrac{1}{2^n}\cdot \dfrac{(2^n-1)\cdot2^n}{2}
+=\lim_{n\rightarrow +\infty}\frac{2^{2n}-2^n}{2^{2n+1}}=\frac{1}{2}$$
+\subsection{Criteri di integrabilità}
+Condizione necessaria per far si che una funzione sia integrabile in un certo intervallo, è che essa, debba 
+essere limitata nell'intervallo in questione. Se una funzione è monotona, o suddivisibile in intervalli 
+monotoni, è sicuramente integrabile.\acc 
+Un altra condizione necessaria, è che la funzione sia continua, o suddivisibile in intervalli 
+continui.\acc \prop{} se $a\le b\le c$, allora $$
+\int_a^c f(x)dx=\int_a^b f(x)dx+\int_b^c f(x)dx
+$$
+\teo{(linearità dell'integrale)} Siano $f$ e $g$ due funzioni integrabili su $[a,b]$, siano $\alpha$ e 
+$\beta$ due costanti reali, vale che 
+\eqImportante{
+$
+\displaystyle \int_a^b[\alpha\cdot f(x)+\beta \cdot g(x)]\;dx=
+\alpha\cdot\int_a^bf(x)\;dx+\beta\cdot\int_a^bg(x)\;dx
+$}
+Inoltre, se $f$ e $g$ sono integrabili, allora anche il loro prodotto è integrabile, anche se l'integrale 
+del prodotto è diverso dal prodotto degli integrali 
+$$  \int_a^b [f(x)\cdot g(x)]dx 
+\ne \int_a^bf(x)dx \cdot \int_a^bg(x)dx$$
+\teo{(integrale assoluto)}$$ | \int_a^bf(x)\;dx|\le \int_a^b|f(x)|\;dx$$\acc 
+\teo{(monotonia dell'integrale)} Se $f\le g$ allora
+$$ \int_a^bf(x)\;dx \le \displaystyle \int_a^bg(x)\;dx$$
+Fino ad ora le funzioni prese in considerazione sono esclusivamente positive, quando una funzione 
+è negativa, l'area compresa fra la curva e l'asse delle ascisse sarà un contributo negativo alla 
+somma totale.\acc 
+Consideriamo una funzione $f(x)$, da integrare in $[a,b]$, intervallo in cui la funzione assume 
+valori sia positivi, che negativi. Consideriamo poi un altra funzione, ossia $f(x)+q$, dove 
+$q$ è il valore minimo da sommare alla funzione per far si che sia sempre positiva, tale $q$ è 
+il minimo della funzione nell'intervallo $[a,b]$. 
+\begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+          axis lines=center,
+          grid=major,
+          xmin=0, xmax=6,
+           ymin=-3, ymax=3,
+          no marks,xtick distance=1, ytick distance=1,
+          ]
+          \addplot[smooth,magenta,name path=A, domain=0:6] {1.5*sin(deg(2*x))}; % actual curve
+          \addlegendentry{\(f(x)\)}
+        \end{axis}
+      \end{tikzpicture}
+      \begin{tikzpicture}
+        \begin{axis}[
+          axis lines=center,
+          grid=major,
+          xmin=0, xmax=6,
+           ymin=-3, ymax=3,
+          no marks,xtick distance=1, ytick distance=1,
+          ]
+          
+          \addplot[smooth,red,name path=A, domain=0:6] {1.5*sin(deg(2*x))+1.5}; % actual curve
+          \addlegendentry{\(f(x)+q\)}
+        \end{axis}
+      \end{tikzpicture}
+    \end{center}
+Si ha che 
+$$ 
+ \int_a^b f(x)\;dx =  \int_a^b [f(x)+q]\;dx-q\cdot(b-a) 
+$$
+È come se si stesse calcolando l'integrale della funzione esclusivamente negli intervalli in cui 
+è positiva, per poi sottrarvi il valore dell'area negli intervalli in cui è negativa. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=350pt ]{images/areaNeg.eps}
+    \caption{Integrale di una funzione negativa}
+    \label{fig:areaNeg}
+\end{figure}
 \end{document}

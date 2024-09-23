@@ -3,7 +3,7 @@
 %==================PREAMBOLO=======================%
 \input{../../preamble/preamble.tex}
  %TOGLI COMMENTO SE USI XELATEX
-\usepackage{fontspec}
+%\usepackage{fontspec}
 \title{\jobname} %========TITOLO========%
 \author{Marco Casu}
 \date{\vspace{-5ex}}
@@ -14,13 +14,14 @@
     \pagecolor{cop}
 \begin{center}
     %TOGLI COMMENTO SE USI XELATEX
-    \setmainfont{Palace Script MT}\HUGE Marco Casu\acc
-    \setmainfont{Grand Casino}
+   %\setmainfont{Palace Script MT}
+   \HUGE Marco Casu\acc
+    %\setmainfont{Grand Casino}
      %TOGLI COMMENTO SE USI XELATEX
     %\setmainfont{h Halfroad}
     \HUGE \decothreeleft\hphantom{ }{\fontsize{48}{50}\selectfont \jobname}\hphantom{ }\decothreeright
      %TOGLI COMMENTO SE USI XELATEX
-    \setmainfont{Times New Roman}
+   % \setmainfont{Times New Roman}
 \end{center}
 \thispagestyle{empty}
 \begin{figure}[h]
@@ -38,13 +39,15 @@ Dipartimento di Informatica
 
 %===================FINE COPERTINA======================%
 \newpage
-\pagecolor{cartaRiciclata}\setmainfont{Algerian}\Large
+\pagecolor{cartaRiciclata}%\setmainfont{Algerian}
+\Large
 Questo documento è distribuito sotto la licenza 
 \color{blue}\href{https://www.gnu.org/licenses/fdl-1.3.txt}{GNU}\color{black},  
 è un resoconto degli appunti (eventualmente integrati con libri di testo) tratti dalle lezioni del corso di \jobname
 \hphantom{a}per la laurea 
 triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
-\newpage \setmainfont{Times New Roman}\normalsize
+\newpage %\setmainfont{Times New Roman}
+\normalsize
 \tableofcontents 
 \newpage
 
@@ -54,7 +57,8 @@ triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 \fancyhead[R]{Sezione \thesection}
 \fancyfoot[C]{\thepage}
 \fancyfoot[L]{Appunti di \jobname}
-\fancyfoot[R]{\setmainfont{Palace Script MT}\huge Marco Casu \setmainfont{Times New Roman}}
+\fancyfoot[R]{ Marco Casu}
+%\fancyfoot[R]{\setmainfont{Palace Script MT}\huge Marco Casu \setmainfont{Times New Roman}}
 %==================FOOTER e HEADER=======================%
 
 %Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
@@ -123,10 +127,11 @@ Questi sono gli appunti di \jobname.
         \end{axis}
         \end{tikzpicture}
 \end{figure}\acc
-\lipsum[3]\newpage
+\lipsum[3]
+\newpage
 \chapter{Disossamenti}
 \lipsum[1]\flowerLine 
 \section{Costanza e Porte}
 \lipsum[2]
-$$ \int \int \int_\Omega F = kk$$\lipsum[3] 
+$$ \iint _\Omega F = kk$$\lipsum[3] 
 \end{document}
