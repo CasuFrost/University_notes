@@ -13,11 +13,16 @@ Li metto pubblici per comodità, non sono gli appunti più affidabili del mondo 
 - [Appunti di Basi di Dati 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Basi%20di%20Dati%201/Latex%20source%20file/Basi%20di%20Dati%20modulo%201.pdf)
 - [Appunti di Calcolo delle Probabilità](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Calcolo%20delle%20Probabilita/Latex%20source%20file/Calcolo%20delle%20Probabilita.pdf)
 - [Appunti di Sistemi Operativi 1](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Sistemi%20Operativi%201/Latex%20source%20file/Sistemi%20Operativi%20modulo%201.pdf)
-- ### Secondo Semestre
+### Secondo Semestre
 - [Appunti di Basi di Dati 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Latex%20source%20file/Basi%20di%20Dati%20modulo%202.pdf)
 - [Appunti di Sistemi Operativi 2](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Sistemi%20Operativi%202/Latex%20source%20file/Sistemi%20Operativi%20modulo%202.pdf)
 - [Appunti di Progettazione di Algoritmi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Latex%20source%20file/Progettazione%20di%20Algoritmi.pdf)
-- [Appunti di Reti di Elaboratori](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Latex%20source%20file/Reti%20di%20Elaboratori.pdf) 
+- [Appunti di Reti di Elaboratori](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Latex%20source%20file/Reti%20di%20Elaboratori.pdf)
+## Terzo Anno
+### Primo Semestre 
+- [Appunti di Fisica](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Fisica/Fisica.pdf)
+- [Appunti di Programmazione di Sistemi Embedded e Multicore](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Programmazione%20di%20Sistemi%20Multicore/Programmazione%20di%20Sistemi%20Multicore.pdf)
+
   
 Per alcuni esercizi svolti riguardanti diversi esami del corso, peremere nel seguente link : \
 [Esercizi Svolti](https://github.com/CasuFrost/University_notes/blob/main/Excercise.md) 
