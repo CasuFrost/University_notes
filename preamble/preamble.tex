@@ -8,6 +8,7 @@
 \usepackage{moresize}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{hyperref}
+\usepackage{listings}
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -23,9 +24,11 @@
 \usepackage[paper=a4paper,left=25mm,right=25mm,bottom=25mm,top=25mm]{geometry}
 \definecolor{light-gray}{gray}{0.95}
 \definecolor{cop}{HTML}{f7ecd7}
+\definecolor{purcop}{HTML}{d0d3db}
 \definecolor{sapienza}{HTML}{660f1d}
 \definecolor{cartaRiciclata}{HTML}{fcfcf7}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\codee}[1]{\colorbox{white}{\texttt{#1}}}
 \newcommand{\K}{{\mathbb K}}
 \newcommand{\flowerLine}{ \begin{center}\decofourleft\hphantom{ }\decoone\hphantom{ }\decofourright\hphantom{}\hphantom{aa}
 \decofourleft\hphantom{ }\decoone\hphantom{ }\decofourright\hphantom{}\hphantom{aa}
@@ -80,3 +83,30 @@
 \renewcommand{\headrule}{%
 \vspace{-8pt}\hrulefill
 \raisebox{-2.1pt}{\quad\decothreeleft\decotwo\decothreeright\quad}\hrulefill}
+
+%sta roba serve per il codice C
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+%fine roba che serve per il codice C

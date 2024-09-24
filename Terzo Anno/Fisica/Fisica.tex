@@ -1,0 +1,217 @@
+\documentclass[10pt, letterpaper]{report}
+% !TeX program = xelatex
+%==================PREAMBOLO=======================%
+\input{../../preamble/preamble.tex}
+ %TOGLI COMMENTO SE USI XELATEX
+%\usepackage{fontspec}
+\title{\jobname} %========TITOLO========%
+\author{Marco Casu}
+\date{\vspace{-5ex}}
+\begin{document}
+
+%==================COPERTINA=======================%
+\begin{titlepage}
+    \pagecolor{cartaRiciclata}
+\begin{center}
+    %TOGLI COMMENTO SE USI XELATEX
+   %\setmainfont{Palace Script MT}
+   \HUGE Marco Casu\acc
+    %\setmainfont{Grand Casino}
+     %TOGLI COMMENTO SE USI XELATEX
+    %\setmainfont{h Halfroad}
+    \HUGE \decothreeleft\hphantom{ }{\fontsize{48}{50}\selectfont \jobname}\hphantom{ }\decothreeright
+     %TOGLI COMMENTO SE USI XELATEX
+   % \setmainfont{Times New Roman}
+\end{center}
+\thispagestyle{empty}
+\begin{figure}[h]
+    \centering{
+        %l'immagine deve avere una risoluzione 2048x2048
+        \includegraphics[width=1\textwidth ]{images/copertina.jpg}
+    }
+\end{figure}
+\vfill 
+\centering \includegraphics[width=0.4\textwidth ]{../../preamble/Stemma_sapienza.png} \acc
+\centering \Large \color{sapienza}Facoltà di Ingegneria dell'Informazione,
+Informatica e Statistica\\
+Dipartimento di Informatica
+\end{titlepage}
+
+%===================FINE COPERTINA======================%
+\newpage
+\pagecolor{cartaRiciclata}%\setmainfont{Algerian}
+Questo documento è distribuito sotto la licenza 
+\color{blue}\href{https://www.gnu.org/licenses/fdl-1.3.txt}{GNU}\color{black},  
+è un resoconto degli appunti (eventualmente integrati con libri di testo) tratti dalle lezioni del corso di \jobname
+\hphantom{a}per la laurea 
+triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
+\newpage %\setmainfont{Times New Roman}
+\normalsize
+\tableofcontents 
+\newpage
+
+%==================FOOTER e HEADER=======================%
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{Sezione \thesection}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Appunti di \jobname}
+\fancyfoot[R]{ Marco Casu}
+%\fancyfoot[R]{\setmainfont{Palace Script MT}\huge Marco Casu \setmainfont{Times New Roman}}
+%==================FOOTER e HEADER=======================%
+
+%Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
+
+%==================INIZIO======================%
+
+\chapter{Introduzione}
+\section{Il metodo scientifico}
+La nascita del metodo scientifico è dovuta a Galileo Galilei, se i filosofi greci stabilivano 
+leggi empiriche senza necessariamente dimostrarle, Galileo introdusse una verifica sperimentale 
+a quelle che erano le sue digressioni.\acc 
+Un \textbf{esperimento}, è una verifica sperimentale delle ipotesi, utile a ricavare valori 
+numerici oggettivi per le misure delle grandezze fisiche. L'avvento del cannocchiale permise un 
+osservazione più accurata dei corpi celesti, questi che venivano creduti perfetti, si rivelarono 
+per quello che sono, la Luna con i suoi accavallamenti e "mari", mostrava una 
+conformazione della sua crosta tutto fuorché perfetta.\acc 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=140pt]{images/Galileo.png}
+    \caption{ Galileo Galilei}
+    \label{fig:Galileo}
+\end{figure}\acc
+Oltre al già citato cannocchiale, erano necessari ulteriori strumenti per le osservazioni dei 
+corpi celesti, era necessario misurare in maniera precisa ed affidabile lo scorrere del tempo. 
+Misurare il tempo vuol dire confrontare due eventi, ad esempio, il sorgere del sole con il movimento 
+periodico riferito ad un misuratore (come l'orologio).\acc 
+Galileo per le sue misure realizzò un orologio ad acqua, utilizzando un recipiente nella quale 
+riporre un piccolo foro sul fondo, in modo tale che l'acqua cadesse a gocce a velocità costante, 
+così facendo, lo scorrere del tempo era proporzionale al volume dell'acqua perso dall recipiente.\acc 
+Una \textbf{grandezza fisica} è un entità alla quale si attribuisce una specifica definizione, utilizzabile 
+per descrivere un fenomeno fisico, per tali entità devono valere i criteri di uguaglianza e 
+sommabilità.\acc 
+Uno degli argomenti su cui si soffermò Galileo fu il \textit{moto dei gravi}, in particolare 
+il moto dei corpi in caduta libera. Secondo la fisica aristotelica del tempo, un corpo 
+tanto più pesante era, tanto più rapidamente cadeva. \acc 
+Galileo fu critico nei riguardi di questa visione, osservò che in realtà, ogni corpo 
+cade verso il suolo con la stessa accellerazione, il motivo per il quale una piuma cade 
+più rapidamente di una sfera di piombo non riguarda la loro massa, bensì la resistenza dell'aria 
+nei confronti del loro materiale e della loro forma. Trovò inoltre che la distanza percorsa 
+durante la caduta di un oggetto è proporzionale al quadrato del tempo impiegato per percorrerla.\acc 
+Galileo con un esperimento riguardante i piani osservò il seguente fatto : 
+    \textit{se si lascia scivolare un corpo su un piano inclinato ad altezza $h$ per poi 
+    farlo risalire su un altro piano inclinato, questo tendeva a risalire fino alla 
+    stessa altezza $h$}.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=500pt]{images/cadutaGraveBW.eps}
+        \caption{ caduta sul piano inclinato}
+        \label{fig:caduta}
+    \end{figure}\acc
+Inoltre, notò che questo fenomeno non è condizionato dal seno dell'angolo del piano, bensì 
+esclusivamente dall'altezza.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=500pt]{images/cadutaGrave2BW.eps}
+    \caption{ inclinazioni differenti}
+    \label{fig:caduta2}
+\end{figure}\acc
+Per osservare tale risultato dovette ridurre le azioni spurie dell'attrito dell'aria. Più 
+il percorso era liscio, più l'attrito risultava debole, e più il corpo tendeva ad 
+avvicinarsi all'altezza originale $h$. Con tale ragionamento ipotizzò che se l'attrito dovesse 
+essere stato nullo, allora il corpo sarebbe tornato precisamente all'altezza $h$.\acc 
+Dato questo per vero, riducendo il valore dell'angolo sarebbe stato possibile far percorrere 
+al corpo una distanza maggiore. Se il secondo piano avesse avuto inclinazione nulla, allora 
+il grave avrebbe continuato a muoversi in avanti a velocità costante.\begin{figure}[h!]
+    \centering
+    \includegraphics[width=330pt]{images/cadutaGrave3BW.eps}
+    \caption{ inclinazione nulla}
+    \label{fig:caduta3}
+\end{figure}\acc
+Tale principio è noto come \textbf{legge d'Inerzia}, eliminando gli attriti, lo stato di moto naturale inalterato di
+un corpo è quello di moto rettilineo
+uniforme (a velocità costante)
+indefinitamente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+\chapter{Meccanica Degli Omozigoti}
+\section{Introduzione}
+\lipsum[1]
+\subsection{Risvolti storici}
+\lipsum[2]\acc 
+\teo{del costo unitario}ogni costo è unitario, ogni uomo ha un anima, le seguente è vera
+$$ a(x)\ne b(x)\iff a\sim e^{sin(x^2)}$$
+\dimo{}Segue dalla proposizione atomica decuplicante $\blacksquare$\acc \lipsum[2]\acc
+\prop{}Il cane è blu \flowerLine 
+\section{La nascita della Fisica Moderna}
+\lipsum[1] \ref{fig:birds} \lipsum[2]
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            xlabel = \(x\),
+            ylabel = {\(f(x)\)},
+        ]
+        %Below the red parabola is defined
+        \addplot [
+            domain=-5:5, 
+            samples=200, 
+            color=red,
+        ]
+        {sin(deg(x))*cos(deg(e^x))};
+        \addlegendentry{\(\sin(x)\cdot \cos(e^x)\)}
+        \end{axis}
+        \end{tikzpicture}
+    \caption{limite}
+    \label{fig:birds}
+\end{figure}\acc
+\lipsum[3]
+\subsection{Carico e Scarico}
+\lipsum[2]
+\eqImportante{$\displaystyle M(k)=\iint_{\R^3}\sum_{n = 1}^{k}x^2y^4z^{e^-\pi}dxdydz$}
+\lipsum[1]\acc  
+Questi sono gli appunti di \jobname.
+\flowerLine 
+\section{Cani}
+\lipsum[2]
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            xlabel = \(x\),
+            ylabel = {\(f(x)\)},
+        ]
+        %Below the red parabola is defined
+        \addplot [
+            domain=-10:10, 
+            samples=200, 
+            color=blue,
+        ]
+        {x*((1/x)*cos(deg(e^(sin(deg(x))))))};
+        \end{axis}
+        \end{tikzpicture}
+\end{figure}\acc
+\lipsum[3]
+\newpage
+\chapter{Disossamenti}
+\lipsum[1]\flowerLine 
+\section{Costanza e Porte}
+\lipsum[2]
+$$ \iint _\Omega F = kk$$\lipsum[3] 
+\end{document}
