@@ -194,92 +194,176 @@ $$\begin{cases}
 (q_1,011) \vdash_D^* (q_2,\epsilon)$$
 Inoltre$$ \begin{matrix}
     \delta^*(q_1,011) = \\ 
-    \delta^*(q_1,11) 
+    \delta^*(q_1,11)  = \\ 
+    \delta^*(q_2,1) = \\ 
+    \delta^*(q_2,\epsilon) = q_2
 \end{matrix}$$
 Se non specificato diversamente, con $\epsilon$ verrà indicata 
-la stringa vuota.
-\end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\chapter{Meccanica Degli Omozigoti}
-\section{Introduzione}
-\lipsum[1]
-\subsection{Risvolti storici}
-\lipsum[2]\acc 
-\teo{del costo unitario}ogni costo è unitario, ogni uomo ha un anima, le seguente è vera
-$$ a(x)\ne b(x)\iff a\sim e^{sin(x^2)}$$
-\dimo{}Segue dalla proposizione atomica decuplicante $\blacksquare$\acc \lipsum[2]\acc
-\prop{}Il cane è blu \flowerLine 
-\section{La nascita della Fisica Moderna}
-\lipsum[1] \ref{fig:birds} \lipsum[2]
+la stringa vuota. Utilizzando le precedenti definizioni, è possibile definire formalmente 
+quali sono gli input accettati da un DFA.\acc 
+\defi{} : Sia $D=(Q,\Sigma,\delta, q_0, F)$ un DFA, e sia $x\in \Sigma^*$ una stringa, essa 
+è \textbf{accettata} da $D$ se $$ \delta^*(q_0,x)\in F$$
+Il \textbf{linguaggio riconosciuto} da $D$ è \eqImportante{$ L(D)=\{x\in \Sigma^*|\delta^*(q_0,x)\in F\}$}
+\defi{(Linguaggi Regolari)} : L'insieme dei linguaggi regolari, denotato $REG$, contiene tutti 
+i linguaggi, tali che esiste un DFA che li ha come linguaggi riconosciuti.
+\eqImportante{$ REG = \{L\;\;|\;\;\exists D=(Q,\Sigma,\delta, q_0, F) \text{ t.c. } L\in \Sigma^* \land L(D)=L\}$}
+Uno fra gli scopi di questo corso riguarda il capire come progettare automi, e capire se, 
+ogni linguaggio è regolare, o ce ne sono alcuni che non possono essere riconosciuti da 
+alcun possibile DFA. 
+\subsection{Esempi di DFA}
+Vediamo in questa sezione alcuni semplici esempi di DFA.\acc 
+\textbf{Esempio 1)} Si vuole progettare un DFA che accetti il seguente linguaggio 
+$$ \{x\in\{0,1\}^* \;|\;w_h(x)\ge 3 \}$$
+Si ricordi come 
+$$ w_h(x) = \text{ occorrenze di 1 in }x$$
 \begin{figure}[h!]
     \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines = left,
-            xlabel = \(x\),
-            ylabel = {\(f(x)\)},
-        ]
-        %Below the red parabola is defined
-        \addplot [
-            domain=-5:5, 
-            samples=200, 
-            color=red,
-        ]
-        {sin(deg(x))*cos(deg(e^x))};
-        \addlegendentry{\(\sin(x)\cdot \cos(e^x)\)}
-        \end{axis}
+    \begin{tikzpicture} [node distance = 2cm, on grid, auto]
+        \node (q0)[state, left, initial] {$q_0$};
+        \node (q1)[state, right = of q0] {$q_1$};
+        \node (q2)[state, right = of q1] {$q_2$};
+        \node (q3)[state, right = of q2, accepting] {$q_3$};
+        \path [-stealth, thick]
+        (q0) edge [loop above]  node {0}()
+        (q1) edge [loop above]  node {0}()
+        (q2) edge [loop above]  node {0}()
+        (q3) edge [loop right]  node {1,0}()
+        (q0) edge [bend left] node {1}   (q1)
+        (q1) edge [bend left] node {1}   (q2)
+        (q2) edge [bend left] node {1}   (q3);
         \end{tikzpicture}
-    \caption{limite}
-    \label{fig:birds}
-\end{figure}\acc
-\lipsum[3]
-\subsection{Carico e Scarico}
-\lipsum[2]
-\eqImportante{$\displaystyle M(k)=\iint_{\R^3}\sum_{n = 1}^{k}x^2y^4z^{e^-\pi}dxdydz$}
-\lipsum[1]\acc  
-Questi sono gli appunti di Automi, Calcolabilità e Complessità.
+        \caption{Esempio (1) di DFA}
+        \label{fig:DFAExample1}
+\end{figure}
+Una volta progettato il DFA, è anche importante dimostrarne la correttezza, ossia dare una prova 
+matematico che l'automa in questione accetti il linguaggio.\begin{itemize}
+    \item Se $x\in L(D)$ allora $D$ accetta $x$
+    \item Se $D$ accetta $x$ allora $w_h(x)\ge 3$
+\end{itemize}
+In questo, e nei seguenti casi, essendo i DFA estremamente semplici, risulta ovvio che 
+accettino il dato linguaggio, in casi più avanzati, sarà necessario fornire una dimostrazione 
+rigorosa.\acc 
+\textbf{Esempio 2)} Si vuole progettare un DFA che accetti il seguente linguaggio 
+$$ \{x\in\{0,1\}^* \;|\;x=1y \land y \in  \{0,1\}^*\}$$
+Appunto sulla notazione : Se $a\in \Sigma^*$ e $b\in \Sigma^*$, allora con $ab$ si 
+denota la concatenazione di stringhe.\acc
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture} [node distance = 2cm, on grid, auto]
+        \node (q0)[state, left, initial] {$q_0$};
+        \node (q1)[state, below = of q0] {$q_1$};
+        \node (q2)[state, right = of q0, accepting] {$q_2$};
+        \path [-stealth, thick]
+        (q1) edge [loop left]  node {0,1}()
+        (q2) edge [loop above]  node {0,1}()
+        (q0) edge [bend left] node {0}   (q1)
+        (q0) edge [bend left] node {1}   (q2);
+        \end{tikzpicture}
+        \caption{Esempio (2) di DFA}
+        \label{fig:DFAExample2}
+\end{figure}\acc 
+Nell'esempio (2), quando dallo stato $q_0$ il DFA riceve in input $0$, la computazione cade su uno stato 
+"buco nero", dalla quale non si può uscire a prescindere dall'input, l'operazione che fa 
+cadere in questo stato è da considerarsi "non definita" in quanto non porterà mai la computazione 
+a terminare su uno stato accettabile, è quindi comodo rimuovere tale stato dal diagramma.
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+        \node (q0)[state, left, initial] {$q_0$};
+        \node (q2)[state, right = of q0, accepting] {$q_2$};
+        \path [-stealth, thick]
+        (q2) edge [loop above]  node {0,1}()
+        (q0) edge [bend left] node {1}   (q2);
+        \end{tikzpicture}
+        \caption{Esempio (2.1) di DFA}
+        \label{fig:DFAExample2.1}
+\end{figure}\acc 
+Anche in questo caso la dimostrazione della correttezza risulta banale.\acc 
+\textbf{Esempio 3)} Si vuole progettare un DFA che accetti il seguente linguaggio 
+$$ \{x\in\{0,1\}^* \;|\;x=0^n1,\;\;n\in \N\}$$
+Con $0^n1$ si intende una stringa che abbia un numero naturale di di $0$ (quindi, almeno uno), e 
+che termini con $1$.
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+        \node (q0)[state, left, initial] {$q_0$};
+        \node (q1)[state, right = of q0] {$q_1$};
+        \node (q2)[state, right = of q1, accepting] {$q_2$};
+        \path [-stealth, thick]
+        (q0) edge [loop below]  node {1}()
+        (q1) edge [loop above]  node {0}()
+        (q2) edge [loop right]  node {1}()
+        (q0) edge  node {0}   (q1)
+        (q1) edge  node {1}   (q2)
+        (q2) edge [bend left] node {0}   (q1);
+        \end{tikzpicture}
+        \caption{Esempio (3) di DFA}
+        \label{fig:DFAExampl3}
+\end{figure}\acc 
+\textbf{Dimostrazione di correttezza} : Sia $x$ una stringa data in input al DFA \begin{itemize}
+    \item se $x$ ha un numero naturale di $0$, sicuramente ne ha almeno 1, quindi 
+    ad un certo punto della computazione passerà dallo stato $q_0$ allo stato $q_1$
+    \item la computazione, una volta passata per lo stato $q_1$, non tornerà più 
+    nello stato $q_0$, quindi le configurazioni successive si troveranno solamente in uno stato 
+    fra $q_1$ e $q_2$. 
+    \item supponiamo $x$ termini con $1$ : \begin{itemize}
+        \item Se la configurazione si trova su $q_1$, si ha $\delta(q_1,1)=q_2$, la computazione 
+        termina su uno stato accettabile. 
+        \item Se la configurazione si trova su $q_2$, si ha $\delta(q_2,1)=q_2$, la computazione 
+        termina su uno stato accettabile. 
+    \end{itemize}
+    In entrambi i casi, essendo che l'automa termina su uno stato accettabile, esso riconosce 
+    il linguaggio, che risulta quindi, regolare. $\blacksquare$
+\end{itemize}
 \flowerLine 
-\section{Cani}
-\lipsum[2]
-\begin{figure}[h!]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines = left,
-            xlabel = \(x\),
-            ylabel = {\(f(x)\)},
-        ]
-        %Below the red parabola is defined
-        \addplot [
-            domain=-10:10, 
-            samples=200, 
-            color=blue,
-        ]
-        {x*((1/x)*cos(deg(e^(sin(deg(x))))))};
-        \end{axis}
-        \end{tikzpicture}
-\end{figure}\acc
-\lipsum[3]
-\newpage
-\chapter{Disossamenti}
-\lipsum[1]\flowerLine 
-\section{Costanza e Porte}
-\lipsum[2]
-$$ \iint _\Omega F = kk$$\lipsum[3] 
+\section{Operazioni sui Linguaggi}
+Lo studio delle proprietà dei linguaggi regolari può fornire opportune accortezze
+utili nella progettazione di automi, siccome i linguaggi sono insiemi di stringhe costruiti 
+su un alfabeto $\Sigma$, essi godono delle operazioni insiemistiche.\acc
+Risulta utile definire formalmente la concatenazione fra stringhe, siano 
+$$ x = a_1,a_2\dots,a_n\;\;\;\;\;\;\;\;\;\;\;\;y = b_1,b_2\dots,b_n $$
+due stringhe, esse possono essere concatenate 
+$$xy=  a_1,a_2\dots,a_n,b_1,b_2\dots,b_n $$
+L'operazione di concatenazione non è commutativa, può essere definita ricorsivamente in tal 
+modo : 
+$$ x(ya) = (xy)a$$ 
+dove 
+$$x,y\in \Sigma^*\;\;\;\;\;\;\;\;\;a\in \Sigma$$
+Siano $L_1,L_2$ due 
+linguaggi regolari in $REG$ (per semplicità, definiti su uno stesso alfabeto $\Sigma$), e 
+sia $n$ un numero naturale, sono 
+definite su di essi le seguenti operazioni : \begin{itemize}
+    \item \textbf{unione} : $L_1\cup L_2 = \{x\in\Sigma^*\;|\;x\in L_1\lor x\in L_2\}$
+    \item \textbf{intersezione} : $L_1\cap L_2 = \{x\in\Sigma^*\;|\;x\in L_1\land x\in L_2\}$
+    \item \textbf{complemento} : $\lnot L_1=\{x\in\Sigma^*\;|\;x\notin L_1\}$
+    \item \textbf{concatenazione} : $L_1 \circ L_2 = \{xy\;|\;x\in L_1\land y\in L_2\}$
+    \item \textbf{potenza} : $L_1^n = \smash{\underbrace{L_1\circ L_1\circ L_1,\dots\circ L_1}_{n\ \text{volte}}}\vphantom{1}$\acc
+    \item \textbf{star} : $L_1^* = \{x_1,x_2\dots,x_k\;|\; k\in \Z^+ \land x_i \in L_1\}$ \\ 
+    Si può definire anche diversamente $$L_1^* = \bigcup_{k=0}^\infty L_1^k $$
+\end{itemize}
+Una particolarità dei linguaggi regolari $REG$, è che sono chiusi rispetto a tutte le operazioni appena elencate.
+$$\begin{matrix}
+    L_1\cup L_2 \in REG && L_1\circ L_2 \in REG &&
+    L_1\cap L_2 \in REG \\ \\ L_1^n \in REG &&
+    \lnot L_1 \in REG && L_1^* \in REG
+\end{matrix}$$
+\textit{Esempio di concatenazione e potenza} : 
+$$\Sigma= \{a,b\}\;\;\;\; L_1 = \{a,ab,ba\}\;\;\;\; L_2 = \{ab,b\}\;\;\;\; L = \{a,ab,ba\}$$
+$$L_1\circ L_2 = \{aab,ab,abab,abb,baab,bab\} $$
+$$ L^2=\{aa,aab,aba,abab,abba,baa,baba\}$$
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
