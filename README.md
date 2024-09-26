@@ -21,7 +21,7 @@ Li metto pubblici per comodità, non sono gli appunti più affidabili del mondo 
 ## Terzo Anno
 ### Primo Semestre 
 - [Appunti di Fisica](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Fisica/Fisica.pdf)
-- [Appunti di Automazione](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno\Automazione\Latex%20src%20file\Automazione.pdf)
+- [Appunti di Automazione](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automazione/Latex%20src%20file/Automazione.pdf)
 - [Appunti di Programmazione di Sistemi Embedded e Multicore](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Programmazione%20di%20Sistemi%20Multicore/Programmazione%20di%20Sistemi%20Multicore.pdf)
 - [Appunti di Automi, Calcolabilità e Complessità](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0.pdf)
   
