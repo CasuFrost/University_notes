@@ -73,13 +73,13 @@ Un \textbf{esperimento}, è una verifica sperimentale delle ipotesi, utile a ric
 numerici oggettivi per le misure delle grandezze fisiche. L'avvento del cannocchiale permise un 
 osservazione più accurata dei corpi celesti, questi che venivano creduti perfetti, si rivelarono 
 per quello che sono, la Luna con i suoi accavallamenti e "mari", mostrava una 
-conformazione della sua crosta tutto fuorché perfetta.\acc 
+conformazione della sua crosta tutto fuorché perfetta.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140pt]{images/Galileo.png}
+    \includegraphics[width=140pt]{images/Galileo2.png}
     \caption{ Galileo Galilei}
     \label{fig:Galileo}
-\end{figure}\acc
+\end{figure}
 Oltre al già citato cannocchiale, erano necessari ulteriori strumenti per le osservazioni dei 
 corpi celesti, era necessario misurare in maniera precisa ed affidabile lo scorrere del tempo. 
 Misurare il tempo vuol dire confrontare due eventi, ad esempio, il sorgere del sole con il movimento 
@@ -129,89 +129,57 @@ il grave avrebbe continuato a muoversi in avanti a velocità costante.\begin{fig
     \label{fig:caduta3}
 \end{figure}\acc
 Tale principio è noto come \textbf{legge d'Inerzia}, eliminando gli attriti, lo stato di moto naturale inalterato di
-un corpo è quello di moto rettilineo
-uniforme (a velocità costante)
-indefinitamente.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\end{document}
-\chapter{Meccanica Degli Omozigoti}
-\section{Introduzione}
-\lipsum[1]
-\subsection{Risvolti storici}
-\lipsum[2]\acc 
-\teo{del costo unitario}ogni costo è unitario, ogni uomo ha un anima, le seguente è vera
-$$ a(x)\ne b(x)\iff a\sim e^{sin(x^2)}$$
-\dimo{}Segue dalla proposizione atomica decuplicante $\blacksquare$\acc \lipsum[2]\acc
-\prop{}Il cane è blu \flowerLine 
-\section{La nascita della Fisica Moderna}
-\lipsum[1] \ref{fig:birds} \lipsum[2]
-\begin{figure}[h!]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines = left,
-            xlabel = \(x\),
-            ylabel = {\(f(x)\)},
-        ]
-        %Below the red parabola is defined
-        \addplot [
-            domain=-5:5, 
-            samples=200, 
-            color=red,
-        ]
-        {sin(deg(x))*cos(deg(e^x))};
-        \addlegendentry{\(\sin(x)\cdot \cos(e^x)\)}
-        \end{axis}
-        \end{tikzpicture}
-    \caption{limite}
-    \label{fig:birds}
-\end{figure}\acc
-\lipsum[3]
-\subsection{Carico e Scarico}
-\lipsum[2]
-\eqImportante{$\displaystyle M(k)=\iint_{\R^3}\sum_{n = 1}^{k}x^2y^4z^{e^-\pi}dxdydz$}
-\lipsum[1]\acc  
-Questi sono gli appunti di \jobname.
-\flowerLine 
-\section{Cani}
-\lipsum[2]
-\begin{figure}[h!]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines = left,
-            xlabel = \(x\),
-            ylabel = {\(f(x)\)},
-        ]
-        %Below the red parabola is defined
-        \addplot [
-            domain=-10:10, 
-            samples=200, 
-            color=blue,
-        ]
-        {x*((1/x)*cos(deg(e^(sin(deg(x))))))};
-        \end{axis}
-        \end{tikzpicture}
-\end{figure}\acc
-\lipsum[3]
-\newpage
-\chapter{Disossamenti}
-\lipsum[1]\flowerLine 
-\section{Costanza e Porte}
-\lipsum[2]
-$$ \iint _\Omega F = kk$$\lipsum[3] 
+un corpo è quello di moto rettilineo uniforme (a velocità costante) indefinitamente.\acc 
+Essendo la scienza sempre stata impiegata anche in ambito bellico, Galileo studiò il moto dei 
+proiettili, che fino a quel momento si credeva fosse costantemente orizzontale, fino al momento in 
+cui il proiettile perdeva il suo "impeto" cadendo a terra. Egli si rese conto che 
+i proiettili sono soggetti sia alla forza impressa dal colpo (orizzontale), sia a quella verticale 
+impressa verso il basso.\acc 
+La forza impressa dal colpo gli da una velocità costante, in quanto non è soggetto ad ulteriori 
+accellerazioni orizzontalmente, quella verticale invece provoca un moto uniformemente accellerato, 
+la distanza 
+percorsa in verticale è proporzionale al 
+quadrato del tempo impiegato a percorrerla, la combinazione dei due moti risulta in un arco 
+di parabola.\acc 
+Galileo, chiamò $x$ la direzione orizzontale ed $y$ quella verticale, partendo da 
+$(x,y)=(0,0)$, e sapendo che lo spazio percorso in $x$ è proporzionale ale tempo, mentre 
+quello percorso in $y$ è proporzionale al quadrato del tempo, si ha 
+$$ x=a\cdot t\;\;\;\;\;\;\;\;\;\;\;\; y = b\cdot t^2$$
+Con alcuni passaggi algebrici si trova esattamente la nota equazione della parabola
+$$ y=\frac{b}{a^2}\cdot x^2$$
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\centering\arraybackslash}m{3in}}
+		\begin{tikzpicture}[scale=0.9, transform shape]
+		\begin{axis}[
+		ymin=-6,
+		ymax = 6,
+		xmin=-6,
+		xmax = 6,
+		axis lines = center,
+		xtick distance=2, ytick distance=2,
+		grid style=dashed,
+		ymajorgrids=true,
+		xmajorgrids=true,
+		xlabel = \(\),
+		ylabel = {\(\)},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=-6:6,
+		samples=20,
+		color=blue,
+		]
+		{-(1/5)*(x^2)};
+		\addlegendentry{\(y=-\nicefrac{1}{5}\cdot x^2\)}
+		\end{axis}
+		\end{tikzpicture} &   
+		Galileo, chiamò $x$ la direzione orizzontale, ed $y$ quella verticale, partendo da 
+		$(x,y)=(0,0)$, e sapendo che lo spazio percorso in $x$ è proporzionale ale tempo, mentre 
+		quello percorso in $y$ è proporzionale al quadrato del tempo, si ha 
+		$$ x=a\cdot t\;\;\;\;\;\;\;\;\;\;\;\; y = b\cdot t^2$$
+		Con alcuni passaggi algebrici si trova esattamente la nota equazione della parabola
+		$$ y=\frac{b}{a^2}\cdot x^2$$
+		\\
+	\end{tabular}
+\end{center}
 \end{document}

@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.6)  23 SEP 2024 20:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.6)  26 SEP 2024 19:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/mcasu/OneDrive/Desktop/University_notes/Terzo Anno/template appunti/Template.tex"
-(c:/Users/mcasu/OneDrive/Desktop/University_notes/Terzo Anno/template appunti/Template.tex
+**"c:/Users/mcasu/OneDrive/Desktop/University_notes/Terzo Anno/Automazione/Latex src file/Automazione.tex"
+(c:/Users/mcasu/OneDrive/Desktop/University_notes/Terzo Anno/Automazione/Latex src file/Automazione.tex
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-16>
 (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
@@ -24,7 +24,7 @@ File: size10.clo 2024/02/08 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen141
-) (../../preamble/preamble.tex (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+) (../../../preamble/preamble.tex (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks17
 \inpenc@posthook=\toks18
@@ -546,21 +546,45 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip58
-) (C:\Program Files\MiKTeX2\tex/latex/colortbl\colortbl.sty
+) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count337
+\lst@gtempboxa=\box67
+\lst@token=\toks44
+\lst@length=\count338
+\lst@currlwidth=\dimen303
+\lst@column=\count339
+\lst@pos=\count340
+\lst@lostspace=\dimen304
+\lst@width=\dimen305
+\lst@newlines=\count341
+\lst@lineno=\count342
+\lst@maxwidth=\dimen306
+ (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2024/05/25 1.10b (Carsten Heinz)
+) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2024/05/25 1.10b (Carsten Heinz)
+\c@lstnumber=\count343
+\lst@skipnumbers=\count344
+\lst@framebox=\box68
+) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2024/05/25 1.10b listings configuration
+))
+Package: listings 2024/05/25 1.10b (Carsten Heinz)
+ (C:\Program Files\MiKTeX2\tex/latex/colortbl\colortbl.sty
 Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2024/06/14 v2.6d Tabular extension package (FMi)
-\col@sep=\dimen303
-\ar@mcellbox=\box67
-\extrarowheight=\dimen304
-\NC@list=\toks44
+\col@sep=\dimen307
+\ar@mcellbox=\box69
+\extrarowheight=\dimen308
+\NC@list=\toks45
 \extratabsurround=\skip59
 \backup@length=\skip60
-\ar@cellbox=\box68
+\ar@cellbox=\box70
 )
-\everycr=\toks45
+\everycr=\toks46
 \minrowclearance=\skip61
-\rownum=\count337
+\rownum=\count345
 )
 
 LaTeX Warning: Package "xcolor" has already been loaded: ignoring load-time
@@ -570,7 +594,7 @@ LaTeX Warning: Package "xcolor" has already been loaded: ignoring load-time
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks46
+\@emptytoks=\toks47
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
@@ -585,69 +609,69 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2021/08/26 v2.01 AMS text
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks47
-\ex@=\dimen305
+\@emptytoks=\toks48
+\ex@=\dimen309
 )) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen306
+\pmbraise@=\dimen310
 ) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count338
+\inf@bad=\count346
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count339
-\leftroot@=\count340
+\uproot@=\count347
+\leftroot@=\count348
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count341
-\DOTSCASE@=\count342
+\classnum@=\count349
+\DOTSCASE@=\count350
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
-\Mathstrutbox@=\box69
-\strutbox@=\box70
+\Mathstrutbox@=\box71
+\strutbox@=\box72
 LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
 LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen307
+\big@size=\dimen311
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count343
+\macc@depth=\count351
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count344
+\c@MaxMatrixCols=\count352
 \dotsspace@=\muskip18
-\c@parentequation=\count345
-\dspbrk@lvl=\count346
-\tag@help=\toks48
-\row@=\count347
-\column@=\count348
-\maxfields@=\count349
-\andhelp@=\toks49
-\eqnshift@=\dimen308
-\alignsep@=\dimen309
-\tagshift@=\dimen310
-\tagwidth@=\dimen311
-\totwidth@=\dimen312
-\lineht@=\dimen313
-\@envbody=\toks50
+\c@parentequation=\count353
+\dspbrk@lvl=\count354
+\tag@help=\toks49
+\row@=\count355
+\column@=\count356
+\maxfields@=\count357
+\andhelp@=\toks50
+\eqnshift@=\dimen312
+\alignsep@=\dimen313
+\tagshift@=\dimen314
+\tagwidth@=\dimen315
+\totwidth@=\dimen316
+\lineht@=\dimen317
+\@envbody=\toks51
 \multlinegap=\skip63
 \multlinetaggap=\skip64
-\mathdisplay@stack=\toks51
+\mathdisplay@stack=\toks52
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 ) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
 Package: babel 2024/08/29 v24.9 The Babel package
-\babel@savecnt=\count350
-\U@D=\dimen314
+\babel@savecnt=\count358
+\U@D=\dimen318
 \l@unhyphenated=\language79
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read3
-\bbl@dirlevel=\count351
+\bbl@dirlevel=\count359
 
 *************************************
 * Local config file bblopts.cfg used
@@ -656,9 +680,9 @@ Package: babel 2024/08/29 v24.9 The Babel package
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
 ) (C:\Program Files\MiKTeX2\tex/latex/babel-italian\italian.ldf
 Language: italian 2024/01/03 v.1.5.00 Italian support for the babel system
-\it@lettering=\count352
-\it@doublequoteactive=\count353
-\it@ISOcompliance=\count354
+\it@lettering=\count360
+\it@doublequoteactive=\count361
+\it@ISOcompliance=\count362
 )) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/it\babel-italian.tex
 Package babel Info: Importing font and identification data for italian
 (babel)             from babel-it.ini. Reported on input line 11.
@@ -671,13 +695,13 @@ Package: nicefrac 1998/08/04 v0.9b Nice fractions
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )) (C:\Program Files\MiKTeX2\tex/latex/xfrac\xfrac.sty
 Package: xfrac 2024-06-04 Split-level fractions
-\l__xfrac_slash_box=\box71
-\l__xfrac_tmp_box=\box72
-\l__xfrac_denominator_bot_sep_dim=\dimen315
-\l__xfrac_numerator_bot_sep_dim=\dimen316
-\l__xfrac_numerator_top_sep_dim=\dimen317
-\l__xfrac_slash_left_sep_dim=\dimen318
-\l__xfrac_slash_right_sep_dim=\dimen319
+\l__xfrac_slash_box=\box73
+\l__xfrac_tmp_box=\box74
+\l__xfrac_denominator_bot_sep_dim=\dimen319
+\l__xfrac_numerator_bot_sep_dim=\dimen320
+\l__xfrac_numerator_top_sep_dim=\dimen321
+\l__xfrac_slash_left_sep_dim=\dimen322
+\l__xfrac_slash_right_sep_dim=\dimen323
 \l__xfrac_slash_left_muskip=\muskip19
 \l__xfrac_slash_right_muskip=\muskip20
 
@@ -698,7 +722,7 @@ Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup6
 ) (C:\Program Files\MiKTeX2\tex/latex/titlesec\titletoc.sty
 Package: titletoc 2023/10/27 v2.16 TOC entries
-\ttl@leftsep=\dimen320
+\ttl@leftsep=\dimen324
 ) (C:\Program Files\MiKTeX2\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2024/07/23 v4.3.1 Extensive control of page headers and footers
 \f@nch@headwidth=\skip68
@@ -714,15 +738,15 @@ Package: fancyhdr 2024/07/23 v4.3.1 Extensive control of page headers and footer
 Package: expl3 2024-08-16 L3 programming layer (loader) 
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count355
-\l__pdf_internal_box=\box73
+\l__color_backend_stack_int=\count363
+\l__pdf_internal_box=\box75
 ))
 Package: l3keys2e 2024-08-16 LaTeX2e option processing using LaTeX3 keys
 )
 Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
-\g__lipsum_par_int=\count356
-\l__lipsum_a_int=\count357
-\l__lipsum_b_int=\count358
+\g__lipsum_par_int=\count364
+\l__lipsum_a_int=\count365
+\l__lipsum_b_int=\count366
  (C:\Program Files\MiKTeX2\tex/latex/lipsum\lipsum.ltd.tex)) (C:\Program Files\MiKTeX2\tex/latex/fourier\fourier-orns.sty
 Package: fourier-orns 2022/02/05 2.3 fourier-ornaments package
 ) (C:\Program Files\MiKTeX2\tex/latex/geometry\geometry.sty
@@ -730,26 +754,26 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count359
-\Gm@cntv=\count360
-\c@Gm@tempcnt=\count361
-\Gm@bindingoffset=\dimen321
-\Gm@wd@mp=\dimen322
-\Gm@odd@mp=\dimen323
-\Gm@even@mp=\dimen324
-\Gm@layoutwidth=\dimen325
-\Gm@layoutheight=\dimen326
-\Gm@layouthoffset=\dimen327
-\Gm@layoutvoffset=\dimen328
-\Gm@dimlist=\toks52
+\Gm@cnth=\count367
+\Gm@cntv=\count368
+\c@Gm@tempcnt=\count369
+\Gm@bindingoffset=\dimen325
+\Gm@wd@mp=\dimen326
+\Gm@odd@mp=\dimen327
+\Gm@even@mp=\dimen328
+\Gm@layoutwidth=\dimen329
+\Gm@layoutheight=\dimen330
+\Gm@layouthoffset=\dimen331
+\Gm@layoutvoffset=\dimen332
+\Gm@dimlist=\toks53
  (C:\Program Files\MiKTeX2\tex/latex/geometry\geometry.cfg)) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 10.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (Template.aux)
-\openout1 = `Template.aux'.
+) (Automazione.aux)
+\openout1 = `Automazione.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
@@ -771,17 +795,17 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count362
-\scratchdimen=\dimen329
-\scratchbox=\box74
-\nofMPsegments=\count363
-\nofMParguments=\count364
-\everyMPshowfont=\toks53
-\MPscratchCnt=\count365
-\MPscratchDim=\dimen330
-\MPnumerator=\count366
-\makeMPintoPDFobject=\count367
-\everyMPtoPDFconversion=\toks54
+\scratchcounter=\count370
+\scratchdimen=\dimen333
+\scratchbox=\box76
+\nofMPsegments=\count371
+\nofMParguments=\count372
+\everyMPshowfont=\toks54
+\MPscratchCnt=\count373
+\MPscratchDim=\dimen334
+\MPnumerator=\count374
+\makeMPintoPDFobject=\count375
+\everyMPtoPDFconversion=\toks55
 ) (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -793,10 +817,11 @@ Package pgfplots Warning: running in backwards compatibility mode (unsuitable ti
  on input line 10.
 
 Package hyperref Info: Link coloring OFF on input line 10.
-(Template.out) (Template.out)
+(Automazione.out) (Automazione.out)
 \@outlinefile=\write4
-\openout4 = `Template.out'.
+\openout4 = `Automazione.out'.
 
+\c@lstlisting=\count376
 LaTeX Info: Redefining \it@ocap on input line 10.
 LaTeX Info: Redefining \it@ccap on input line 10.
 
@@ -838,15 +863,15 @@ LaTeX Font Info:    Trying to load font information for U+futs on input line 22.
 (C:\Program Files\MiKTeX2\tex/latex/fourier\ufuts.fd
 File: ufuts.fd 2021/11/24 Fontinst v1.933 font definitions for U/futs.
 )
-<images/copertina.jpg, id=38, 1541.76pt x 1541.76pt>
-File: images/copertina.jpg Graphic file (type jpg)
-<use images/copertina.jpg>
-Package pdftex.def Info: images/copertina.jpg  used on input line 30.
-(pdftex.def)             Requested size: 455.24411pt x 455.23872pt.
-<../../preamble/Stemma_sapienza.png, id=39, 1204.5pt x 362.35374pt>
-File: ../../preamble/Stemma_sapienza.png Graphic file (type png)
-<use ../../preamble/Stemma_sapienza.png>
-Package pdftex.def Info: ../../preamble/Stemma_sapienza.png  used on input line 34.
+<images/Copertina.jpeg, id=18, 2055.68pt x 2055.68pt>
+File: images/Copertina.jpeg Graphic file (type jpg)
+<use images/Copertina.jpeg>
+Package pdftex.def Info: images/Copertina.jpeg  used on input line 30.
+(pdftex.def)             Requested size: 455.24411pt x 455.23088pt.
+<../../../preamble/Stemma_sapienza.png, id=19, 1204.5pt x 362.35374pt>
+File: ../../../preamble/Stemma_sapienza.png Graphic file (type png)
+<use ../../../preamble/Stemma_sapienza.png>
+Package pdftex.def Info: ../../../preamble/Stemma_sapienza.png  used on input line 34.
 (pdftex.def)             Requested size: 182.09486pt x 54.77644pt.
 
 
@@ -868,55 +893,55 @@ Non-PDF special ignored!
 <special> ps:tx@Dict begin  gsave STV CP T /ps@rot 0 def grestore  end
 Non-PDF special ignored!
 <special> ps:tx@Dict begin  gsave STV CP T /ps@refangle 0.  def grestore  e...
-{C:/Users/mcasu/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./images/copertina.jpg> <../../preamble/Stemma_sapienza.png>]
+{C:/Users/mcasu/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./images/Copertina.jpeg> <../../../preamble/Stemma_sapienza.png>]
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.49 \newpage
+l.51 \newpage
               %\setmainfont{Times New Roman} [1]
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 51.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 53.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 51.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 53.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 51.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 53.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 51.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 53.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 51.
+(Font)              <10> on input line 53.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 51.
+(Font)              <7> on input line 53.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 51.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
+(Font)              <5> on input line 53.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 53.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 53.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 51.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 53.
  (C:\Program Files\MiKTeX2\tex/latex/jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-Overfull \hbox (6.0pt too wide) in paragraph at lines 51--51
+Overfull \hbox (6.0pt too wide) in paragraph at lines 53--53
 [][] 
  []
 
-(Template.toc)
+(Automazione.toc)
 \tf@toc=\write5
-\openout5 = `Template.toc'.
+\openout5 = `Automazione.toc'.
 
 
 
@@ -925,13 +950,54 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 51--51
 ]
 Capitolo 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 71.
+(Font)              <14.4> on input line 69.
 
 
 [3
 
-{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 106.
+{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
+Package epstopdf Info: Source file: <images/semiPianoConv.eps>
+(epstopdf)                    date: 2024-09-26 18:19:07
+(epstopdf)                    size: 97335 bytes
+(epstopdf)             Output file: <images/semiPianoConv-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-09-26 18:19:11
+(epstopdf)                    size: 11645 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/semiPianoConv-eps-converted-to.pdf images/semiPianoConv.eps>
+(epstopdf)             \includegraphics on input line 108.
+Package epstopdf Info: Output file is already uptodate.
+<images/semiPianoConv-eps-converted-to.pdf, id=59, 385.44pt x 145.54375pt>
+File: images/semiPianoConv-eps-converted-to.pdf Graphic file (type pdf)
+<use images/semiPianoConv-eps-converted-to.pdf>
+Package pdftex.def Info: images/semiPianoConv-eps-converted-to.pdf  used on input line 108.
+(pdftex.def)             Requested size: 273.14923pt x 103.14134pt.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 163.
+ (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[4{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc} <./images/semiPianoConv-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <images/funRit.eps>
+(epstopdf)                    date: 2024-09-26 18:50:20
+(epstopdf)                    size: 61358 bytes
+(epstopdf)             Output file: <images/funRit-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-09-26 18:51:05
+(epstopdf)                    size: 7126 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/funRit-eps-converted-to.pdf images/funRit.eps>
+(epstopdf)             \includegraphics on input line 171.
+Package epstopdf Info: Output file is already uptodate.
+<images/funRit-eps-converted-to.pdf, id=90, 369.38pt x 145.54375pt>
+File: images/funRit-eps-converted-to.pdf Graphic file (type pdf)
+<use images/funRit-eps-converted-to.pdf>
+Package pdftex.def Info: images/funRit-eps-converted-to.pdf  used on input line 171.
+(pdftex.def)             Requested size: 273.14923pt x 107.62738pt.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 201.
  (C:\Users\mcasu\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -943,41 +1009,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[4{C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.39996pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.39996pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
-
-[5]
-Capitolo 2.
-
-
-[6
-
-] (Template.aux)
+[5 <./images/funRit-eps-converted-to.pdf>] (Automazione.aux)
  ***********
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-16>
  ***********
-Package rerunfilecheck Info: File `Template.out' has not changed.
-(rerunfilecheck)             Checksum: D414E001D35CF94E33B6E750A2B5D992;1117.
+Package rerunfilecheck Info: File `Automazione.out' has not changed.
+(rerunfilecheck)             Checksum: 6C54CA45EDE7394413579A10404518BC;491.
  ) 
 Here is how much of TeX's memory you used:
- 36157 strings out of 473899
- 825901 string characters out of 5726501
- 1943960 words of memory out of 5000000
- 58350 multiletter control sequences out of 15000+600000
- 607845 words of font info for 85 fonts, out of 8000000 for 9000
+ 37542 strings out of 473899
+ 847173 string characters out of 5726501
+ 1944960 words of memory out of 5000000
+ 59716 multiletter control sequences out of 15000+600000
+ 618446 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 101i,20n,104p,847b,2216s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Program Files/MiKTeX2/fonts/type1/public/fourier/fourier-orns.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Template.pdf (7 pages, 1318801 bytes).
+ 101i,11n,104p,863b,2089s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Program Files/MiKTeX2/fonts/type1/public/fourier/fourier-orns.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Automazione.pdf (6 pages, 773559 bytes).
 PDF statistics:
- 174 PDF objects out of 1000 (max. 8388607)
- 17 named destinations out of 1000 (max. 500000)
- 87 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 186 PDF objects out of 1000 (max. 8388607)
+ 16 named destinations out of 1000 (max. 500000)
+ 57 words of extra memory for PDF output out of 10000 (max. 10000000)
 

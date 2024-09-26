@@ -1,0 +1,211 @@
+\documentclass[10pt, letterpaper]{report}
+% !TeX program = xelatex
+%==================PREAMBOLO=======================%
+\input{../../../preamble/preamble.tex}
+ %TOGLI COMMENTO SE USI XELATEX
+%\usepackage{fontspec}
+\title{\jobname} %========TITOLO========%
+\author{Marco Casu}
+\date{\vspace{-5ex}}
+\begin{document}
+
+%==================COPERTINA=======================%
+\begin{titlepage}
+    \pagecolor{copAut}
+\begin{center}
+    %TOGLI COMMENTO SE USI XELATEX
+   %\setmainfont{Palace Script MT}
+   \HUGE Marco Casu\acc
+    %\setmainfont{Grand Casino}
+     %TOGLI COMMENTO SE USI XELATEX
+    %\setmainfont{h Halfroad}
+    \HUGE \decothreeleft\hphantom{ }{\fontsize{48}{50}\selectfont \jobname}\hphantom{ }\decothreeright
+     %TOGLI COMMENTO SE USI XELATEX
+   % \setmainfont{Times New Roman}
+\end{center}
+\thispagestyle{empty}
+\begin{figure}[h]
+    \centering{
+        %l'immagine deve avere una risoluzione 2048x2048
+        \includegraphics[width=1\textwidth ]{images/Copertina.jpeg}
+    }
+\end{figure}
+\vfill 
+\centering \includegraphics[width=0.4\textwidth ]{../../../preamble/Stemma_sapienza.png} \acc
+\centering \Large \color{sapienza}Facoltà di Ingegneria dell'Informazione,
+Informatica e Statistica\\
+Dipartimento di Informatica
+\end{titlepage}
+
+%===================FINE COPERTINA======================%
+\newpage
+\pagecolor{cartaRiciclata}%\setmainfont{Algerian}
+\Large
+Questo documento è distribuito sotto la licenza 
+\color{blue}\href{https://www.gnu.org/licenses/fdl-1.3.txt}{GNU}\color{black},  
+è un resoconto degli appunti (eventualmente integrati con libri di testo) tratti dalle lezioni del corso di \jobname
+\hphantom{a}per la laurea 
+triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.\acc 
+Nota bene : Essendo questi appunti di un corso esterno alla facoltà di Informatica, 
+è presente un capitolo "Complementi" che può risultare utile al lettore.
+\newpage %\setmainfont{Times New Roman}
+\normalsize
+\tableofcontents 
+\newpage
+
+%==================FOOTER e HEADER=======================%
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{Sezione \thesection}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Appunti di \jobname}
+\fancyfoot[R]{ Marco Casu}
+%\fancyfoot[R]{\setmainfont{Palace Script MT}\huge Marco Casu \setmainfont{Times New Roman}}
+%==================FOOTER e HEADER=======================%
+
+%Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
+
+%==================INIZIO======================%
+\chapter{Complementi}
+\section{La Trasformata di Laplace} 
+La trasformata di Laplace è una \textit{trasformata integrale}, nello specifico, è una 
+funzione che associa ad una funzione di variabile reale, una funzione di variabile 
+complessa.\acc 
+\defi{(Trasformata di Laplace)} : Sia $f$ una funzione di variabile reale, nulla 
+in $(-\infty,0)$, si chiama trasformata di Laplace di $f$ la funzione 
+$$ \mathcal{L}[f](p)=\int_0^{+\infty} e^{-px}f(x)\ dx \ \ \ \ p\in \C$$
+Essendo $p = \alpha + i\beta$ una variabile complessa, la funzione integranda si può riscrivere 
+$$\int_0^{+\infty} e^{-px}f(x)\ dx = 
+\int_0^{+\infty} e^{-(\alpha + i\beta)x}f(x)\ dx$$
+Ricordando l'identità di Eulero $$ e^{ix}=\cos(x)+i\sin(x)$$
+Si ha 
+\begin{eqnarray}
+    e^{-(\alpha + \beta i)x} = e^{-\alpha x}\cdot e^{-\beta i x} =\\ 
+    e^{-\alpha x}\cdot \Big(
+    \cos(-\beta x)+ i \sin(-\beta x)    
+    \Big) = e^{-\alpha x}\cdot \Big(
+        \cos(\beta x)- i \sin(\beta x)    
+        \Big) = \\ 
+        e^{-\alpha x}\cos(\beta x)- i e^{-\alpha x}\sin(\beta x)
+\end{eqnarray}
+Quindi $$ \mathcal{L}[f](p)=\mathcal{L}[f](\alpha + i\beta)=
+\int_0^{+\infty} e^{-(\alpha + i\beta)x}f(x)\ dx=
+$$
+$$
+\int_0^{+\infty} e^{-\alpha x}\cos(\beta x)f(x)-ie^{-\alpha x}\sin(\beta x)f(x)\ dx =$$
+$$ 
+\int_0^{+\infty} e^{-\alpha x}\cos(\beta x)f(x)\ dx-i\int_0^{+\infty}e^{-\alpha x}\sin(\beta x)f(x)\ dx
+$$
+Se l'integrale $\mathcal{L}[f](\alpha + i\beta)$ converge per un certo
+ $\alpha \in \R$, allora converge per $p = \alpha + i\beta$ per ogni altro $\beta \in \R$. Se per 
+ $f$ esiste almeno un $p\in\C$ tale che $\mathcal{L}[f](p)<\infty$, allora $f$ si dice 
+ \textit{trasformabile secondo Laplace}.\acc
+ In generale, se $\mathcal{L}[f](p)<\infty$ per $p=p_0$, allora è definita anche nel semipiano 
+ complesso $$\{p\in \C \ |\ \Re(p)>\Re(p_0)\}$$
+ Sia $\alpha_0$ l'estremo inferiore dell'insieme $\{\alpha \in \R \ |\ \mathcal{L}[f](p)<\infty\land \Re(p)>\alpha\}$, allora 
+ il semipiano $\{p\in \C \|\ \Re(p)>\alpha_0\}$ è detto \textbf{semipiano di convergenza}.
+ \begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/semiPianoConv.eps}
+ \end{center}
+ Vediamo un esempio di trasformata, si consideri $$ 
+ H(x)=\begin{cases}
+    1 \text{ se }x\ge 0\\ 0 \text{ altrimenti }
+ \end{cases}
+ $$
+ \begin{center}
+ \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=0.7, transform shape]
+        \begin{axis}[
+        ymin=-3,
+        ymax = 3,
+        xmin=-3,
+        xmax = 3,
+        axis lines = center,
+        xtick distance=1, ytick distance=1,
+        grid style=dashed,
+        ymajorgrids=true,
+        xmajorgrids=true,
+        xlabel = \(\),
+        ylabel = {\(\)},
+        ]
+        %Below the red parabola is defined
+        \addplot [
+        domain=0:3,
+        samples=20,
+        color=blue,
+        ]
+        {1};
+        \end{axis}
+        \end{tikzpicture}
+        \caption{Funzione di Heaviside}
+\end{figure}
+\end{center}
+Si calcola 
+$$ \mathcal{L}[H](p)=\int_0^{+\infty}e^{-px}\cdot 1 \ dx = 
+\lim_{T\rightarrow+\infty}\mathcal{L}[H](p)=\int_0^{T}e^{-px}\cdot 1 \ dx = 
+\lim_{T\rightarrow+\infty}\begin{bmatrix}
+    -\dfrac{e^{-px}}{p}
+\end{bmatrix}_0^T=$$
+$$\lim_{T\rightarrow+\infty} -\dfrac{e^{-pT}}{p} - \Big[-\dfrac{e^{-p0}}{p}\Big] =  
+\lim_{T\rightarrow+\infty} -\dfrac{e^{-pT}}{p} +\dfrac{1}{p}=\frac{1}{p}$$
+Il cui semipiano di convergenza risulta essere $\Re(p)>0$.
+\subsection{Proprietà della Trasformata}
+\subsubsection{Linearità}
+La trasformazione di Laplace gode della proprietà di \textit{linearità}, siano $f(p)$ e $g(p)$ due funzioni 
+trasformabili, siano $\lambda,\mu \in \C$ due costanti complesse, se la funzione 
+$\lambda \cdot f(p)+\mu \cdot g(p)$ è trasformabile, allora 
+$$ 
+\mathcal{L}[\lambda \cdot f+\mu \cdot g](p)=\lambda\mathcal{L}[f](p)+\mu\mathcal{L}[g](p)
+$$
+Il semipiano di convergenza sarà uguale all'intersezione dei due semipiani di convergenza delle funzioni 
+di partenza, più precisamente se \begin{itemize}
+    \item $f$ ha come semipiano di convergenza $\Re(p)>\alpha$
+    \item $g$ ha come semipiano di convergenza $\Re(p)>\beta$
+    \item allora $\lambda \cdot f+\mu \cdot g$ ha come semipiano di convergenza $\Re(p)>\max\{\beta,\alpha\}$
+\end{itemize}
+\subsubsection{Ritardo}
+Sia $f$ una funzione trasformabile, si consideri una costante reale $a>0$, la funzione $g(x)=f(x-a)$ è detta 
+funzione \textit{ritardata}.\begin{center}
+\begin{figure}[h!]\centering
+    \includegraphics[width=0.6\textwidth ]{images/funRit.eps}
+    \caption{funzione ritardata}
+ \end{figure}\end{center}
+Per il calcolo della trasformata di $g(x)=f(x-a)$ si considera il cambio di variabile $$\begin{matrix}
+    t=x-a\\ x=t+a
+\end{matrix} $$
+Si ricordi come, se $f$ è nulla in $(-\infty,0)$, allora $g$ sarà nulla in $(0,a)$.
+$$ 
+\mathcal{L}[g](p)=\int_0^{+\infty}e^{-px}g(x)\ dx =\int_a^{+\infty}e^{-px}f(x-a)\ dx  =
+\int_a^{+\infty}e^{-p(t+a)}f(t)\ dx = 
+$$ 
+$$ 
+\int_a^{+\infty}e^{-pt-pa}f(t)\ dx 
+= \int_a^{+\infty}e^{-pt}e^{-pa}f(t)\ dx = e^{-pa}\int_a^{+\infty}e^{-pt}f(t)\ dx = 
+e^{-pa}\mathcal{L}[f](p)$$
+Dunque si ricavano le cosiddette \textit{formule del ritardo} : 
+$$ 
+\mathcal{L}[f(x-a)](p)=e^{-pa}\mathcal{L}[f(x)](p)
+$$ $$ 
+\mathcal{L}[e^{ax}f(x)](p)=\mathcal{L}[f](p-a)
+$$
+\subsubsection{Trasformazione di una derivata e di una primitiva}
+La seguente proprietà risulta cruciale nell'utilizzo della trasformata di Laplace per la risoluzione di 
+equazioni differenziali. Le dimostrazioni dei seguenti risultati non saranno trattate in quanto non 
+sono argomento di questo corso.\acc 
+Sia $f$ una funzione derivabile, la cui derivata è continua in $[0,\infty)$. Sia inoltre $f'$ trasformabile, con 
+semipiano di convergenza $\Re(p)>\alpha$, allora anche $f$ è trasformabile, ha semipiano di 
+convergenza $\Re(p)>\max\{\alpha,0\}$, e vale la seguente identità :
+\eqImportante{$
+\mathcal{L}[f'](p)=p\mathcal{L}[f](p)-f(0)
+$}
+Si generalizza per derivate di ordine maggiore 
+$$ 
+\mathcal{L}[f''](p)=p^2\mathcal{L}[f](p)-pf(0)-f'(0)
+$$
+Analogamente, sia $F(x)=\int_0^x f(t)\ dt$, se $f$ è trasformabile ed ha semipiano di convergenza  $\Re(p)>\alpha$, 
+allora anche $F$ lo è, ha semipiano di convergenza $\Re(p)>\max\{\alpha,0\}$ e vale che 
+\eqImportante{$
+\mathcal{L}[F](p)=\dfrac{1}{p}\mathcal{L}[f](p)
+$}
+\end{document}
