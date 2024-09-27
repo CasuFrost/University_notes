@@ -281,8 +281,8 @@ a terminare su uno stato accettabile, è quindi comodo rimuovere tale stato dal 
 Anche in questo caso la dimostrazione della correttezza risulta banale.\acc 
 \textbf{Esempio 3)} Si vuole progettare un DFA che accetti il seguente linguaggio 
 $$ \{x\in\{0,1\}^* \;|\;x=0^n1,\;\;n\in \N\}$$
-Con $0^n1$ si intende una stringa che abbia un numero naturale di $0$ (quindi, almeno uno), e 
-che termini con $1$ ( \color{red} la consegna è un altra in realtà, correggere \color{black}).
+Con $0^n1$ si intende una stringa che sia composta esclusivamente da $0$, ma con un $1$ come 
+ultimo termine, ad esempio : $$0000000000000001$$\newpage
 \begin{figure}[h!]
     \centering
     \begin{tikzpicture} [node distance = 3cm, on grid, auto]
@@ -290,31 +290,13 @@ che termini con $1$ ( \color{red} la consegna è un altra in realtà, correggere
         \node (q1)[state, right = of q0] {$q_1$};
         \node (q2)[state, right = of q1, accepting] {$q_2$};
         \path [-stealth, thick]
-        (q0) edge [loop below]  node {1}()
         (q1) edge [loop above]  node {0}()
-        (q2) edge [loop right]  node {1}()
         (q0) edge  node {0}   (q1)
-        (q1) edge  node {1}   (q2)
-        (q2) edge [bend left] node {0}   (q1);
+        (q1) edge  node {1}   (q2);
         \end{tikzpicture}
         \caption{Esempio (3) di DFA}
         \label{fig:DFAExampl3}
-\end{figure}\acc 
-\textbf{Dimostrazione di correttezza} : Sia $x$ una stringa data in input al DFA \begin{itemize}
-    \item se $x$ ha un numero naturale di $0$, sicuramente ne ha almeno 1, quindi 
-    ad un certo punto della computazione passerà dallo stato $q_0$ allo stato $q_1$
-    \item la computazione, una volta passata per lo stato $q_1$, non tornerà più 
-    nello stato $q_0$, quindi le configurazioni successive si troveranno solamente in uno stato 
-    fra $q_1$ e $q_2$. 
-    \item supponiamo $x$ termini con $1$ : \begin{itemize}
-        \item Se la configurazione si trova su $q_1$, si ha $\delta(q_1,1)=q_2$, la computazione 
-        termina su uno stato accettabile. 
-        \item Se la configurazione si trova su $q_2$, si ha $\delta(q_2,1)=q_2$, la computazione 
-        termina su uno stato accettabile. 
-    \end{itemize}
-    In entrambi i casi, essendo che l'automa termina su uno stato accettabile, esso riconosce 
-    il linguaggio, che risulta quindi, regolare. $\blacksquare$
-\end{itemize}
+\end{figure}
 \flowerLine 
 \section{Operazioni sui Linguaggi}
 Lo studio delle proprietà dei linguaggi regolari può fornire opportune accortezze
@@ -341,14 +323,90 @@ definite su di essi le seguenti operazioni : \begin{itemize}
     \item \textbf{star} : $L_1^* = \{x_1,x_2\dots,x_k\;|\; k\in \Z^+ \land x_i \in L_1\}$ \\ 
     Si può definire anche diversamente $$L_1^* = \bigcup_{k=0}^\infty L_1^k $$
 \end{itemize}
-Una particolarità dei linguaggi regolari $REG$, è che sono chiusi rispetto a tutte le operazioni appena elencate.
+\textit{Esempio di concatenazione e potenza} : 
+$$\Sigma= \{a,b\}\;\;\;\; L_1 = \{a,ab,ba\}\;\;\;\; L_2 = \{ab,b\}\;\;\;\; L = \{a,ab,ba\}$$
+$$L_1\circ L_2 = \{aab,ab,abab,abb,baab,bab\} $$
+$$ L^2=\{aa,aab,aba,abab,abba,baa,baba\}$$
+\teo{(Chiusura di $REG$)} La classe dei linguaggi regolari $REG$, è chiusa rispetto a tutte le 
+operazioni appena elencate, siano $L_1$ ed $L_2$ due linguaggi regolari, allora :
 $$\begin{matrix}
     L_1\cup L_2 \in REG && L_1\circ L_2 \in REG &&
     L_1\cap L_2 \in REG \\ \\ L_1^n \in REG &&
     \lnot L_1 \in REG && L_1^* \in REG
 \end{matrix}$$
-\textit{Esempio di concatenazione e potenza} : 
-$$\Sigma= \{a,b\}\;\;\;\; L_1 = \{a,ab,ba\}\;\;\;\; L_2 = \{ab,b\}\;\;\;\; L = \{a,ab,ba\}$$
-$$L_1\circ L_2 = \{aab,ab,abab,abb,baab,bab\} $$
-$$ L^2=\{aa,aab,aba,abab,abba,baa,baba\}$$
+\dimo{} Siano $L_1$ ed $L_2$ due linguaggi regolari, considero due DFA, per semplicità, con lo stesso alfabeto
+$$ 
+D_1 = (Q_1,\Sigma,\delta,q_1,F_1)
+$$
+$$ 
+D_2 = (Q_2,\Sigma,\delta,q_2,F_2)
+$$
+tali che 
+$$ L(D_1)=L_1 \ \land \ L(D_2)=L_2$$
+Si costruisce un DFA che simula contemporaneamente l'esecuzione di $D_1$ e $D_2$, in cui gli stati possibili saranno 
+le possibili combinazioni di coppie di stati. Si definisce $D=(Q,\Sigma,\delta,q_0,F)$ tale che 
+\begin{itemize}
+    \item $Q=Q_1\times Q_2=\{(r_1,r_2) \|\ r_1\in Q_1 \land r_2\in Q_2\}$
+    \item $\delta((r_1,r_2),a)=(\delta(r_1,a),\delta(r_2,a))$ dove $a\in\Sigma$ e $(r_1,r_2)\in Q$
+    \item $q_0=(q_1,q_2)$
+    \item $F=(F_1\times Q_2)\cup (Q_1\times F_2)=\{(r_1,r_2)\|\ r_1\in F_1\lor r_2\in F_2\}$
+\end{itemize}
+Nel caso si dovesse dimostrare la proprietà dell'intersezione, si avrebbe che \begin{itemize}
+    \item $F=F_1\times F_2$
+\end{itemize}
+A questo punto risulta chiaro che 
+\begin{enumerate}[(i)] 
+    \item $x\in L_1\cup L_2\implies x\in L(D)$
+    \item $x\in L(D)\implies x\in L_1\cup L_2$
+\end{enumerate}
+Per dimostrare la proprietà di concatenazione, è necessario introdurre un nuovo concetto. 
+\flowerLine 
+\section{Non Determinismo}
+Si può generalizzare il modello di DFA, in modo tale che la lettura di un input non scaturisca il passaggio da 
+uno stato ad un'altro, ma da uno stato ad un insieme di stati, tale generalizzazione è 
+detta \textit{Non-Deterministic Finite Automa}.\acc 
+\defi{(NFA)} : Un NFA è una tupla $N=(Q,\Sigma,\delta,q_0,F)$ tale che \begin{itemize}
+    \item $Q,\Sigma,q_0,F$ condividono la definizione con i loro corrispettivi nel DFA 
+    \item $\delta : Q\times \Sigma_\epsilon\rightarrow\mathcal{P}(Q)$ \begin{itemize}
+        \item $\Sigma_\epsilon = \Sigma \cup \{\epsilon\}$
+        \item $\mathcal{P}(Q)$ è l'insieme delle parti di $Q$
+    \end{itemize}
+\end{itemize}
+Una computazione in un NFA è paragonabile ad una computazione parallela, in cui un 
+input può risultare in diversi \textit{rami} di computazione. Una funzione di transizione di un 
+$NFA$ inoltre accetta la stringa vuota $\epsilon$, se la computazione finisce in uno stato in cui è 
+presente un arco di questo tipo, verrà considerata anche una diramazione verso quell'arco a prescindere 
+dall'input. \acc 
+Una computazione si può rappresentare graficamente con un albero, se una delle diramazioni possibili termina in 
+uno stato accettabile, allora la stringa in input è accettata. 
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture} [node distance = 2cm, on grid, auto]
+        \node (q0)[state, left, initial] {$q_1$};
+        \node (q1)[state, right = of q0] {$q_2$};
+        \node (q2)[state, right = of q1] {$q_3$};
+        \node (q3)[state, right = of q2, accepting] {$q_4$};
+        \path [-stealth, thick]
+        (q0) edge [loop above]  node {0,1}()
+        (q0) edge [bend left] node {1}   (q1)
+        (q1) edge [bend left] node {0,1}   (q2)
+        (q2) edge [bend left] node {0,1}   (q3);
+    \end{tikzpicture}
+    \caption{Esempio di NFA}
+    \label{fig:NFAExample1}
+\end{figure}\acc
+Sia $N$ l'NFA mostrato in figura \ref{fig:NFAExample1}, si ha 
+$$ L(N)=\{x\in\{0,1\}^*\|\ x\text{ ha $1$ come terzultimo valore }\}$$
+Si può visualizzare il seguente albero di computazione data come input una stringa $w$ :
+$$w=10110$$\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/alberoCalc.eps}
+\end{center}
+Essendo che la traccia di sinistra accetta $w$, allora $N$ accetta $w$.\acc 
+È necessario estendere il concetto di \textit{configurazione} per gli NFA, essa, rappresentante 
+uno stato della computazione, sarà una coppia 
+$$ (q,x)\in Q\times \Sigma_\epsilon$$
+E diremo che 
+$$ (p,ax)\vdash_N (q,x)\iff q\in \delta(p,a)$$
+dove 
+$$p,q\in Q \ \ \ \ a\in \Sigma_\epsilon\ \ \ \ x\in \Sigma_\epsilon^*$$
 \end{document}

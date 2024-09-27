@@ -140,13 +140,7 @@ accellerazioni orizzontalmente, quella verticale invece provoca un moto uniforme
 la distanza 
 percorsa in verticale è proporzionale al 
 quadrato del tempo impiegato a percorrerla, la combinazione dei due moti risulta in un arco 
-di parabola.\acc 
-Galileo, chiamò $x$ la direzione orizzontale ed $y$ quella verticale, partendo da 
-$(x,y)=(0,0)$, e sapendo che lo spazio percorso in $x$ è proporzionale ale tempo, mentre 
-quello percorso in $y$ è proporzionale al quadrato del tempo, si ha 
-$$ x=a\cdot t\;\;\;\;\;\;\;\;\;\;\;\; y = b\cdot t^2$$
-Con alcuni passaggi algebrici si trova esattamente la nota equazione della parabola
-$$ y=\frac{b}{a^2}\cdot x^2$$
+di parabola.
 \begin{center}
 	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\centering\arraybackslash}m{3in}}
 		\begin{tikzpicture}[scale=0.9, transform shape]
@@ -263,6 +257,44 @@ velocità scalare  $\dfrac{d s}{d t}$, ed è il modulo della
 velocità.\acc 
 Una volta definite delle quantità come spostamento e velocità, è necessario 
 definire delle \textit{grandezze fisiche} ed introdurre delle 
-\textit{unità di misura}.
-
+\textit{unità di misura}. Il vettore $\bar r$ ha le dimensioni di una lunghezza, la dimensione 
+lunghezza $[l]$ è espressa in metri $m$, il sistema internazionale definisce  
+$$ (m,kg,s)=\text{ (metri, kilogrammi, secondi)}$$
+La dimensione del tempo $[t]$ è espressa in secondi $s$. Esistono alcune grandezze 
+dette adimensionali, un esempio sono gli angoli, misurati in gradi o radianti.
+\acc 
+La velocità, è una grandezza derivata, essendo un rapporto fra lo spostamento ed il tempo, 
+si misura in metri al secondo : $\nicefrac{m}{s}$, rappresenta, appunto la distanza in 
+metri percorsa in 1 secondo. Le grandezze possono essere convertite, ad esempio, considerando 
+i kilometri - orari si ha che 
+$$ 1\nicefrac{m}{s}= 
+\frac{10^{-3}}{\nicefrac{1}{3600}}\nicefrac{km}{h}= 
+10^{-3}\cdot 3600 \nicefrac{km}{h}=3.6\nicefrac{km}{h}$$
+Introduciamo adesso il concetto di \textbf{differenziale}, si consideri una generica funzione 
+$f(x)$ in un punto $x_0$, ed il suo rapporto incrementale per una variazione $d x$.
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\centering\arraybackslash}m{3in}}
+		\includegraphics[width=.8\linewidth]{images/differenziale1.eps} & Il segmento denotato \color{blue}$\Delta f(x)$ \color{black} rappresenta l'incremento 
+        effettivo della funzione, e vale $f(x_0+d x)-f(x_0)$.
+		\\
+	\end{tabular}
+\end{center}
+Definisco ora il \textbf{differenziale} 
+di $f$ come una  \textbf{linearizzazione} della funzione, ossia, si considera nel punto $x_0$ una 
+retta tangente alla curva di $f$.
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\centering\arraybackslash}m{3in}}
+		\includegraphics[width=.8\linewidth]{images/differenziale2.eps} &Il differenziale \color{darkgreen} $df$ \color{black}da una stima dell'incremento, considerando una funzione lineare (in questo 
+        caso bidimensionale, una retta).
+		\\
+	\end{tabular}
+\end{center}
+Denotando con $f'$ la derivata di $f$ si ha
+$$ df=f'\cdot dx$$
+$$ \frac{df}{dx}=f'$$
+Le funzioni lineari sono più semplici di quelle non lineari, il punto di tale differenziale 
+è che, quando l'incremento $d x$ tende a zero, l'incremento effettivo della funzione 
+e l'incremento "stimato" dato dal differenziale tendono allo stesso valore. $$ 
+\lim_{d x\rightarrow 0 }f(x_0+dx)=f(x_0)+f'(x_0)\cdot dx
+$$
 \end{document}
