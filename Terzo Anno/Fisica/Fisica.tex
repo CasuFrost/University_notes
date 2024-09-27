@@ -182,4 +182,87 @@ $$ y=\frac{b}{a^2}\cdot x^2$$
 		\\
 	\end{tabular}
 \end{center}
+\flowerLine 
+\section{Spostamento, Velocità e Grandezze Fisiche}
+Il \textbf{moto}, è uno dei fenomeni fisici più classici, che necessita 
+di una definizione e rappresentazione formale, è il cambiamento 
+di una posizione rispetto al tempo.\acc 
+Un classico esempio di sistema di riferimento è il piano cartesiano, 
+in cui un punto nello spazio, è identificato da tre coordinate 
+$$ (x(t),y(t),z(t))$$
+In funzione del tempo $t$. Può essere rappresentato anche da 
+un vettore posizione $\bar r(t)$, descritto dalla lunghezza 
+e dagli angoli rispetto gli assi del piano e la proiezione 
+delle sue componenti, nel caso bi-dimensionale :
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100pt]{images/vecAngolo.eps}
+    \caption{ $\bar r = (r,\theta)$}
+    \label{fig:vecAng}
+\end{figure}\acc 
+Risulta possibile passare dalle coordinate cartesiane a quelle descritte 
+con l'angolo tramite le seguenti trasformazioni 
+$$\begin{cases}
+    r\cos(\theta)=x\\ r\sin(\theta)=y
+\end{cases} $$
+Inoltre 
+$$r^2(\cos^2(\theta)+\sin^2(\theta))=x^2+y^2$$
+$$r=\sqrt{x^2+y^2}\ \ \ \ \ \ \ \ \theta = \arctan(\nicefrac{y}{x})$$
+Le componenti di $\bar r$ dipendono dal sistema di riferimento.
+Posso definire uno \textit{spostamento nel tempo}, tramite il vettore 
+$\bar r$ in un istante $t$, ed il medesimo vettore in un istante 
+$t+\Delta t$, dove $\Delta t$ rappresenta una variazione temporale. 
+Una volta definiti i vettori $\bar r (t)$ e $\bar r (t+\Delta t)$,
+ si definisce il \textbf{vettore spostamento} come la loro 
+ differenza algebrica, ossia $\Delta \bar r = \bar r (t+\Delta t)-\bar r (t)$.
+ \begin{center}
+    \centering
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[width=.5\linewidth]{images/spostamento.eps}
+    \end{minipage}%
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[width=.5\linewidth]{images/vecSpostamento.eps}
+    \end{minipage}
+\end{center}
+Si vogliono rappresentare i vettori in maniera più formale, rispetto 
+che alla classica notazione $\bar v = (x,y,z)$. Si fa uso dei versori 
+$$ \bar i = (1,0,0)\ \ \ \
+\bar j = (0,1,0)\ \ \ \  
+\bar k = (0,0,1) $$
+per definire un vettore come somma dei versori scalati con appositi 
+ coefficienti, che rappresentano le componenti del vettore : 
+ $$ \bar v = (x,y,z) = x\bar i+y\bar j+z \bar k $$
+ Ogni componente della somma è la proiezione del vettore su uno dei 
+ tre assi. Si osservi come il vettore spostamente non dipende dal sistema di riferimento.\acc 
+ Il vettore spostamento $\Delta \bar r$ varia a sua volta nel tempo, 
+ descrivendo quindi il moto di un punto, la \textbf{velocità media} di tale 
+ spostamento si definisce tramite il rapporto incrementale 
+ $$ 
+ \frac{\Delta \bar r (t)}{\Delta t}=\frac{\bar r(t+\Delta t)-\bar r(t)}{\Delta t}
+ $$
+Si può definire anche la velocità media scalare, se lo spostamento avviene 
+su un percorso già definito, e non è necessaria informazione sulla 
+direzione, è possibile rappresentarlo con uno scalare 
+$s(t)$, e $\dfrac{\Delta s}{\Delta t}$ rappresenta la velocità media 
+scalare.\acc 
+La velocità media non è molto precisa come informazione, in quanto 
+non descrive il moto di un corpo (la sua traiettoria) a pieno, 
+si vuole quindi dare una misura di una velocità \textit{istantanea}, 
+si fa quindi tendere a zero la differenza di tempo : 
+$$
+\lim_{\Delta t\rightarrow 0} \frac{\Delta \bar r (t)}{\Delta t}=
+\lim_{\Delta t\rightarrow 0} \frac{\bar r(t+\Delta t)-\bar r(t)}{\Delta t}
+$$
+Tale grandezza si denota $\dfrac{d\bar r}{d t}$, è la derivata 
+dello spostamento rispetto al tempo, verrà nominata semplicemente  
+\textbf{velocità}, rappresenta lo spostamento istantaneo ed è 
+tangente alla curva dello spostamento. Si definisce anche la 
+velocità scalare  $\dfrac{d s}{d t}$, ed è il modulo della 
+velocità.\acc 
+Una volta definite delle quantità come spostamento e velocità, è necessario 
+definire delle \textit{grandezze fisiche} ed introdurre delle 
+\textit{unità di misura}.
+
 \end{document}
