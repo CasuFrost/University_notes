@@ -334,7 +334,7 @@ $$\begin{matrix}
     L_1\cap L_2 \in REG \\ \\ L_1^n \in REG &&
     \lnot L_1 \in REG && L_1^* \in REG
 \end{matrix}$$
-\dimo{} Siano $L_1$ ed $L_2$ due linguaggi regolari, considero due DFA, per semplicità, con lo stesso alfabeto
+\dimo{(unione ed intersezione)} Siano $L_1$ ed $L_2$ due linguaggi regolari, considero due DFA, per semplicità, con lo stesso alfabeto
 $$ 
 D_1 = (Q_1,\Sigma,\delta,q_1,F_1)
 $$
@@ -357,8 +357,21 @@ Nel caso si dovesse dimostrare la proprietà dell'intersezione, si avrebbe che \
 A questo punto risulta chiaro che 
 \begin{enumerate}[(i)] 
     \item $x\in L_1\cup L_2\implies x\in L(D)$
-    \item $x\in L(D)\implies x\in L_1\cup L_2$
+    \item $x\in L(D)\implies x\in L_1\cup L_2\;\;\blacksquare$ 
 \end{enumerate}
+\dimo{(complemento)} : Sia $L$ un linguaggio regolare, e $D$ un automa che lo accetta $L(D)=L$. Si vuole dimostrare 
+che esiste un automa che accetti $L^C = \{w\in \Sigma^* \ |\ w\notin L\}$. Essendo 
+$$ D=(Q,\Sigma,\delta,q_0,F)$$
+considero 
+$$ D'=(Q,\Sigma,\delta,q_0,F^C)$$
+dove  $F^C=Q\backslash F$. Supponiamo che $w\in L^C$, allora sicuramente, se data come input a $D'$, 
+la computazione terminerà in uno stato che non è in $F$, dato che, per definizione, se terminasse in $F$, sarebbe 
+accettato da $D$, ma $L^C$ contiene tutte le stringhe che non sono accettate da $D$, quindi\begin{itemize}
+    \item $w\in L^C$
+    \item  la computazione termina in uno stato $q\in F^C$ 
+    \item $D'$ accetta $w$ 
+    \item $L^C$ è un linguaggio regolare. $\blacksquare$ 
+\end{itemize} 
 Per dimostrare la proprietà di concatenazione, è necessario introdurre un nuovo concetto. 
 \flowerLine 
 \section{Non Determinismo}
@@ -409,4 +422,35 @@ E diremo che
 $$ (p,ax)\vdash_N (q,x)\iff q\in \delta(p,a)$$
 dove 
 $$p,q\in Q \ \ \ \ a\in \Sigma_\epsilon\ \ \ \ x\in \Sigma_\epsilon^*$$
+Si considera ora la chiusura transitiva di $\vdash_N$, denotata $\vdash_N^*$, se $w$ è una stringa ed 
+$N$ un NFA, si ha che 
+$$ w\in L(N)\iff \exists q\in F \|\ (q_0,w)\vdash_N^* (q,\epsilon)$$
+Consideriamo adesso l'unione di due NFA, risulta particolarmente semplice da definire, siano $N_1$ e $N_2$ due 
+NFA, che per semplicità, condividono l'alfabeto 
+$$ 
+N_1=\{Q_1,\Sigma_\epsilon,\delta_1,q_1,F_1\}
+$$$$ 
+N_2=\{Q_2,\Sigma_\epsilon,\delta_2,q_2,F_2\}
+$$
+Definisco un nuovo NFA $N=(Q,\Sigma_\epsilon,\delta,q_0,F)$ tale che \begin{itemize}
+    \item $Q=Q_1\cup Q_2$
+    \item $F=F_1\cup F_2$
+    \item Siano $q\in Q$ e $a\in\Sigma_\epsilon$ : 
+    $$ 
+        \delta(q,a)=\begin{cases}
+            \delta_1(q,a) \text{ se }q\in Q_1\\
+            \delta_2(q,a) \text{ se }q\in Q_2\\
+            \{q_1,q_2\} \text{ se }q=q_0  \ \land\ a=\epsilon \\
+            \emptyset \text{ se }q=q_0\ \land \ a\ne \epsilon 
+        \end{cases}
+    $$
+\end{itemize}
+Si avrà che $L(N)=L(N_1)\cup L(N_2)$\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=0.6\textwidth ]{images/UnioneNFA.eps}
+        \caption{Unione di due NFA}
+        \label{fig:NFAUnion}
+    \end{figure}
+\end{center}
 \end{document}

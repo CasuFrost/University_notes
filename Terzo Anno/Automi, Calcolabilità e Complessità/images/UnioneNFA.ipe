@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240927134709" modified="D:20240928125755"/>
+<info created="D:20240928123352" modified="D:20240928124729"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -312,158 +312,86 @@ h
 </ipestyle>
 <page>
 <layer name="alpha"/>
-<layer name="beta"/>
-<view layers="alpha beta" active="alpha"/>
-<path layer="beta" matrix="1 0 0 1 0 96" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
+<view layers="alpha" active="alpha"/>
+<path layer="alpha" matrix="1.16667 0 0 1 -50.6667 0" fill="0.753" opacity="50%" stroke-opacity="opaque">
+112 656
+112 656
+112 768
+112 768
+304 768
+304 768
+304 656
+304 656 u
 </path>
-<path matrix="1 0 0 1 84 40" stroke="0.753" dash="dotted">
-240 560 m
-240 656 l
+<path matrix="1 0 0 0.833333 0 124" fill="1">
+208 720
+208 720
+208 768
+208 768
+288 768
+288 768
+288 720
+288 720 u
 </path>
-<path matrix="1 0 0 1 68 32" stroke="0.753" dash="dotted">
-240 560 m
-240 656 l
+<path matrix="1 0 0 0.833333 0 60" fill="1">
+208 720
+208 720
+208 768
+208 768
+288 768
+288 768
+288 720
+288 720 u
 </path>
-<path matrix="1 0 0 1 52 24" stroke="0.753" dash="dotted">
-240 560 m
-240 656 l
+<text matrix="1 0 0 1 -96 32" transformations="translations" pos="232 680" stroke="black" type="label" width="8.917" height="4.297" depth="1.93" halign="center" valign="center" style="math">q_0</text>
+<path matrix="1 0 0 1 -96 32" stroke="black">
+8 0 0 8 232 680 e
 </path>
-<path matrix="1 0 0 1 36 16" stroke="0.753" dash="dotted">
-240 560 m
-240 656 l
+<text matrix="1 0 0 1 -136 76" transformations="translations" pos="232 680" stroke="black" type="label" width="15.297" height="11.764" depth="0" halign="center" valign="center" size="LARGE" style="math">N</text>
+<text matrix="1 0 0 1 -48 8" transformations="translations" pos="232 680" stroke="black" type="label" width="4.044" height="4.289" depth="0" halign="center" valign="center" style="math">\epsilon</text>
+<text matrix="1 0 0 1 -48 72" transformations="translations" pos="232 680" stroke="black" type="label" width="4.044" height="4.289" depth="0" halign="center" valign="center" style="math">\epsilon</text>
+<text matrix="1 0 0 1 -136 32" transformations="translations" pos="232 680" stroke="black" type="label" width="21.903" height="6.128" depth="0" halign="center" valign="center" style="math">start</text>
+<path stroke="black" arrow="normal/normal" opacity="30%" stroke-opacity="opaque">
+108 712 m
+128 712 l
 </path>
-<path matrix="1 0 0 1 16 8" stroke="0.753" dash="dotted">
-240 560 m
-240 656 l
+<text transformations="translations" pos="232 680" stroke="black" type="label" width="8.917" height="4.297" depth="1.93" halign="center" valign="center" style="math">q_1</text>
+<path stroke="black">
+8 0 0 8 232 680 e
 </path>
-<path matrix="1 0 0 1 0 80" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
+<text matrix="1 0 0 1 0 64" transformations="translations" pos="232 680" stroke="black" type="label" width="8.917" height="4.297" depth="1.93" halign="center" valign="center" style="math">q_2</text>
+<path matrix="1 0 0 1 0 64" stroke="black">
+8 0 0 8 232 680 e
 </path>
-<path matrix="1 0 0 1 0 64" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
+<path stroke="black">
+240 680 m
+256 680 l
 </path>
-<path matrix="1 0 0 1 0 48" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
+<path stroke="black" dash="dotted">
+256 680 m
+272 680 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
+<path matrix="1 0 0 1 0 64" stroke="black">
+240 680 m
+256 680 l
 </path>
-<path matrix="1 0 0 1 0 16" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
+<path matrix="1 0 0 1 0 64" stroke="black" dash="dotted">
+256 680 m
+272 680 l
 </path>
-<path matrix="1 0 0 1 84 40" stroke="0.753" dash="dotted">
-240 560 m
-336 560 l
+<text matrix="1 0 0 1 44 76" transformations="translations" pos="232 680" stroke="black" type="label" width="12.474" height="6.812" depth="1.49" halign="center" valign="center" style="math">N_2</text>
+<text matrix="1 0 0 1 44 12" transformations="translations" pos="232 680" stroke="black" type="label" width="12.474" height="6.812" depth="1.49" halign="center" valign="center" style="math">N_1</text>
+<path stroke="black" arrow="normal/normal" opacity="50%" stroke-opacity="opaque">
+136 720 m
+136 744
+136 744
+224 744 c
 </path>
-<path matrix="1 0 0 1 68 32" stroke="0.753" dash="dotted">
-240 560 m
-336 560 l
+<path stroke="black" arrow="normal/normal" opacity="50%" stroke-opacity="opaque">
+136 704 m
+136 680
+136 680
+224 680 c
 </path>
-<path matrix="1 0 0 1 52 24" stroke="0.753" dash="dotted">
-240 560 m
-336 560 l
-</path>
-<path matrix="1 0 0 1 36 16" stroke="0.753" dash="dotted">
-240 560 m
-336 560 l
-</path>
-<path matrix="1 0 0 1 20 8" stroke="0.753" dash="dotted">
-240 560 m
-336 560 l
-</path>
-<path matrix="1 0 0 1 96 0" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
-</path>
-<path matrix="1 0 0 1 80 0" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
-</path>
-<path matrix="1 0 0 1 64 0" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
-</path>
-<path matrix="1 0 0 1 48 0" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
-</path>
-<path matrix="1 0 0 1 32 0" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
-</path>
-<path matrix="1 0 0 1 16 0" stroke="0.753" dash="dotted">
-240 560 m
-324 600 l
-</path>
-<text layer="alpha" transformations="translations" pos="340 560" stroke="0.502 0 0" type="label" width="5.694" height="4.289" depth="0" halign="center" valign="center" style="math">x</text>
-<text matrix="1 0 0 1 -12 40" transformations="translations" pos="340 560" stroke="0 0.502 0" type="label" width="5.242" height="4.297" depth="1.93" halign="center" valign="center" style="math">y</text>
-<text matrix="1 0 0 1 -100 100" transformations="translations" pos="340 560" stroke="0 0 1" type="label" width="5.071" height="4.289" depth="0" halign="center" valign="center" style="math">z</text>
-<path matrix="1 0 0 1 24 0" stroke="0" dash="dotted">
-240 560 m
-287.801 582.793 l
-</path>
-<path matrix="1 0 0 1 50.5556 24" stroke="0" dash="dotted">
-264 560 m
-240 560 l
-</path>
-<path matrix="1 0 0 1 11.1454 0" stroke="0" dash="dotted">
-240 560 m
-264.276 571.515 l
-</path>
-<path stroke="0" dash="dotted">
-276 572 m
-265.245 571.971 l
-265.245 571.971 l
-</path>
-<path stroke="0" dash="dotted">
-276 572 m
-276 644 l
-</path>
-<path matrix="1 0 0 1 2.06732 0" stroke="0" dash="dotted">
-312 584 m
-312 620 l
-</path>
-<path stroke="0" dash="dotted">
-312 620 m
-240 620 l
-</path>
-<path stroke="0" dash="dotted">
-276 640 m
-240 640 l
-</path>
-<path stroke="0 0 1" pen="heavier" arrow="normal/normal">
-240 560 m
-240 656 l
-</path>
-<path stroke="0.502 0 0" pen="heavier" arrow="normal/normal">
-240 560 m
-336 560 l
-</path>
-<path stroke="0 0.502 0" pen="heavier" arrow="normal/normal">
-240 560 m
-324 600 l
-</path>
-<text matrix="1 0 0 1 -64 88" transformations="translations" pos="340 560" stroke="0" type="label" width="32.449" height="5.234" depth="1.74" halign="center" valign="center" size="script" style="math">\bar r(t+\Delta t)</text>
-<text matrix="1 0 0 1 -26.3547 67.3817" transformations="translations" pos="340 560" stroke="0" type="label" width="13.15" height="5.234" depth="1.74" halign="center" valign="center" size="script" style="math">\bar r(t)</text>
-<use name="mark/disk(sx)" pos="314.129 584.135" size="small"/>
-<use name="mark/disk(sx)" pos="276 572" size="small"/>
-<use name="mark/disk(sx)" pos="276 640" size="normal" stroke="0.502"/>
-<use name="mark/disk(sx)" pos="314.074 620.055" size="normal" stroke="0.502"/>
-<path stroke="0" arrow="normal/normal">
-240 560 m
-276 640 l
-</path>
-<path stroke="0" arrow="normal/normal">
-240 560 m
-314.062 619.871 l
-</path>
-<use name="mark/disk(sx)" pos="240 560" size="normal"/>
 </page>
 </ipe>

@@ -208,4 +208,166 @@ allora anche $F$ lo è, ha semipiano di convergenza $\Re(p)>\max\{\alpha,0\}$ e 
 \eqImportante{$
 \mathcal{L}[F](p)=\dfrac{1}{p}\mathcal{L}[f](p)
 $}
+\subsubsection{Convoluzione}
+Siano $f$ e $g$ due funzioni integrabili secondo Riemann e nulle in $(-\infty,0)$, l'operatore $*$ detto \textbf{convoluzione} è 
+definito nel modo seguente 
+$$ (f*g)(x)=\int_0^{+\infty}f(x-t)g(t)\ dt=\int_0^{+\infty}f(t)g(x-t)\ dt$$
+Se $f$ è trasformabile, e $|g|$ lo è, nello stesso semipiano, allora $f*g$ è trasformabile e vale 
+$$ \mathcal{L}[f*g](p)=\mathcal{L}[f](p)\cdot\mathcal{L}[g](p)$$
+\subsubsection{Derivata ed Integrale della trasformata di Laplace}
+Essendo $\mathcal{L}[f](p)=\int_0^{+\infty}f(x)e^{-px}\ dx$
+si ha 
+ $$\frac{d}{dp}\mathcal{L}[f](p)=\frac{d}{dp}\int_0^{+\infty}f(x)e^{-px}\ dx$$
+  $$\frac{d}{dp}\mathcal{L}[f](p)=\int_0^{+\infty}\frac{d}{dp}(f(x)e^{-px})\ dx$$
+   $$\frac{d}{dp}\mathcal{L}[f](p)=\int_0^{+\infty}-xf(x)e^{-px}\ dx$$
+    $$\frac{d}{dp}\mathcal{L}[f](p)=\mathcal{L}[-xf(x)](p)$$
+    Generalizzando, per ogni $n\ge 0$ 
+    \eqImportante{$\displaystyle\frac{d^n}{dp^n}\mathcal{L}[f](p)=\mathcal{L}[-(1)^nx^nf(x)](p)$}
+\textbf{Esempio di calcolo} : Si vuole trovare  
+$$ \mathcal{L}[x\sin(\omega x)](p)$$
+Essendo 
+$$  \mathcal{L}[\sin(\omega x)](p) = \frac{\omega}{p^2+\omega^2}$$
+Ho che 
+$$\mathcal{L}[x\sin(\omega x)](p) = - \frac{d}{dp}\mathcal{L}[\sin(\omega x)](p) = 
+- \frac{d}{dp}\Big(\frac{\omega}{p^2+\omega^2}\Big)=\frac{2p\omega}{(p^2+\omega^2)^2}$$
+Trascurando il procedimento, la formula per l'integrale di una trasformata è la seguente 
+\eqImportante{$\displaystyle
+\int_p^{+\infty}\mathcal{L}[f](s)\ ds = \mathcal{L}[\frac{f(x)}{x}](p)
+$}
+\subsection{Trasformata inversa}
+La funzione che associa ad ogni funzione trasformabile la sua trasformata, è iniettiva, se $F(p)$ è una 
+trasformata di Laplace, esiste un unica funzione $f$ tale che $\mathcal{L}[f](p)=F(p)$. Data $F$, è possibile 
+ottenere la funzione di base su cui si è effettuata la trasformata, tale operazione è detta 
+\textit{trasformazione inversa} di Laplace, si indica con $\mathcal{L}^{-1}$
+$$ \mathcal{L}[f]=F$$
+$$ \mathcal{L}^{-1}[F]=f$$
+Le formule di trasformazione derivate dalle proprietà (raggruppate alla fine di questa sezione), se lette 
+al contrario valgono come formule di anti-trasformata.\acc 
+\textbf{Esempio di calcolo} : Ricordando che $\mathcal{L}[e^{-ax}](p)=\frac{1}{p+a}$, si vuole calcolare 
+la trasformata inversa di 
+$$\frac{2}{p+3} $$
+\begin{eqnarray}
+  \mathcal{L}^{-1}[\frac{2}{p+3}](x)=  \\ 
+  2\cdot \mathcal{L}^{-1}[\frac{1}{p+3}](x) = \\ 
+  2\cdot e^{-3x}\cdot H(x)
+\end{eqnarray}
+Una funzione risultante da un anti trasformata va moltiplicata per la funzione di Heaviside $H(x)$ in 
+quanto deve essere nulla in $(-\infty,0)$.
+\textbf{Esempio di calcolo} : Si vuole trovare l'anti trasformata di 
+$$ F(p)=\dfrac{1}{p(p^2+1)}$$
+Riscrivo la funzione 
+$$ 
+\dfrac{1}{p(p^2+1)}=\dfrac{1}{p^3+p}=\dfrac{1}{p}-\dfrac{p}{p^2+1}
+$$
+Applicando la linearità ho 
+\begin{eqnarray}\mathcal{L}^{-1}[\dfrac{1}{p}-\dfrac{p}{p^2+1}](x)= 
+\mathcal{L}^{-1}[\dfrac{1}{p}](x)-\mathcal{L}^{-1}[\dfrac{p}{p^2+1}](x)=\\ 
+H(x)-\cos(x)\cdot H(x) = H(x)(1-\cos(x))
+\end{eqnarray}
+\subsection{Trasformate note}
+\begin{center}
+    \begin{tabular}{ccc}
+        \rowcolor[HTML]{C0C0C0} 
+        Funzione & Trasformata & Semipiano di convergenza \\ 
+        \rowcolor[HTML]{EFEFEF} 
+        $1$        & $\dfrac{1}{p}$          & $\Re(p)>0$        \\ 
+        \rowcolor[HTML]{EFEFEF} 
+                &            &         \\ 
+        \rowcolor[HTML]{EFEFEF} 
+        $e^{-ax}$        & $\dfrac{1}{p+a}$            & $\Re(p)>-\Re(a)$         \\  
+        \rowcolor[HTML]{EFEFEF} 
+                &            &         \\ 
+        \rowcolor[HTML]{EFEFEF} 
+        $x$        & $\dfrac{1}{p^2}$           & $\Re(p)>0$           \\  
+        \rowcolor[HTML]{EFEFEF} 
+                &            &         \\ 
+        \rowcolor[HTML]{EFEFEF} 
+        $x^n$        &  $\dfrac{n!}{p^{n+1}}$         & $\Re(p)>0$  $n\in\N$       \\  
+        \rowcolor[HTML]{EFEFEF} 
+                &            &         \\ 
+        \rowcolor[HTML]{EFEFEF} 
+        $\sin(\omega x)$        & $\dfrac{\omega}{p^2+\omega^2}$           & $\Re(p)>0$            \\  
+        \rowcolor[HTML]{EFEFEF} 
+                &            &         \\ 
+        \rowcolor[HTML]{EFEFEF} 
+        $\cos(\omega x)$         & $\dfrac{p}{p^2+\omega^2}$                & $\Re(p)>0$            \\  
+        \rowcolor[HTML]{EFEFEF} 
+                &            &         \\ 
+        \rowcolor[HTML]{EFEFEF} 
+        $\delta$        & $1$           & $p\in\C$        \\   
+        \rowcolor[HTML]{EFEFEF} 
+                &            &         \\ 
+        \rowcolor[HTML]{EFEFEF} 
+       $\cosh(ax)$        & $\dfrac{p}{p^2-a^2}$           & $\Re(p)>|\Re(a)|$          \\  
+       \rowcolor[HTML]{EFEFEF} 
+               &            &         \\ 
+        \rowcolor[HTML]{EFEFEF} 
+        $\sinh(ax)$       &  $\dfrac{a}{p^2-a^2}$             & $\Re(p)>|\Re(a)|$         \\ 
+        \end{tabular}
+\end{center}
+\subsubsection{Funzione di trasferimento}
+Come già accennato, la trasformata di Laplace è utile nella risoluzione di equazioni differenziali. Si consideri 
+il seguente problema di Cauchy
+$$ a_0y''(t)+a_1y'(t)+a_2y(t)=b(t)\ \ \ \ \begin{cases}
+    y(0)=\alpha\\ y'(0)=\beta
+\end{cases}$$ 
+Si applica la trasformata all'equazione, ottenendo 
+$$ \mathcal{L}[a_0y''+a_1y'+a_2y](p)=\mathcal{L}[b](p)$$
+si applica la linearità 
+$$a_0\mathcal{L}[y''](p)+a_1\mathcal{L}[y'](p)+a_2\mathcal{L}[y](p)=\mathcal{L}[b](p)$$
+Chiamo $$ \mathcal{L}[y](p) = Y(p)\ \ \ \ \ \ \mathcal{L}[b](p)=B(p)$$
+ed applico le proprietà della trasformazione di una derivata 
+$$a_0(p^2Y(p)-p\alpha-\beta)+a_1(pY(p)-\alpha)+a_2Y(p)=B(p) $$
+$$a_0p^2Y(p)-a_0p\alpha-a_0\beta+a_1pY(p)-a_1\alpha+a_2Y(p)=B(p) $$
+esplicito $Y(p)$ : 
+$$ Y(p)(a_0p^2+a_1p+a_2)=B(p)+a_0p\alpha+a_0\beta+a_1\alpha $$
+$$ Y(p)=\frac{1}{(a_0p^2+a_1p+a_2)}B(p)+a_0p\alpha+a_0\beta+a_1\alpha $$
+Pongo 
+$$S(p)=\frac{1}{(a_0p^2+a_1p+a_2)} $$
+Tale $S$ è detta \textbf{funzione di trasferimento}, se le condizioni iniziali sono entrambe nulle, ossia 
+$\alpha=\beta=0$, si ha 
+$$ Y(p)=S(p)\cdot B(p)$$
+$$ \mathcal{L}[y](p)=S(p)\cdot \mathcal{L}[b](p) $$
+Ricordando la convoluzione di una trasformata, si ha che 
+$$y(t)=\mathcal{L}^{-1}[S\cdot B](t)$$ 
+$$y(t)=\mathcal{L}^{-1}[S](t)*\mathcal{L}^{-1}[B](t)$$ 
+$$y(t)=\mathcal{L}^{-1}[S](t)*b(t)$$ 
+Le seguenti formule hanno un significato fisico notevole, supponiamo che vi sia un sistema fisico 
+caratterizzato da un ingresso $b(t)$, ed un uscita $y(t)$, ad esempio, $b(t)$ è una forza, e 
+$y(t)$ il moto di una particella. Trovare esplicitamente il moto $y$ non è banale, è possibile quindi 
+applciare la trasformata, passando nel dominio complesso di Laplace, per poi risolvere l'equazione ed 
+applicare l'anti trasformata, trovando così il moto.\begin{center}
+    \begin{figure}[h!]\centering
+        \includegraphics[width=0.5\textwidth ]{images/funTrasf.eps}
+        \caption{Funzione di Trasferimento}
+     \end{figure}\end{center}
+La funzione $S(p)$ quindi caratterizza totalmente il sistema fisico nel dominio di Laplace, in quanto basta 
+moltiplicarla alla trasformata del segnale in ingresso per ottenere la trasformata del segnale in 
+uscita.\acc 
+\textbf{Esempio di calcolo} : Si consideri il seguente problema di Cauchy
+$$ y''(t)+2y'(t)+y(t)=e^{-2t}\ \ \ \ \begin{cases}
+    y(0)=1\\ y'(0)=0
+\end{cases}$$ 
+Si applica la trasformata di Laplace, ottenendo 
+$$ Y(p)(p^2+2p+1)=\frac{1}{p+2}+p+2$$
+$$ Y(p)=\frac{1}{(p^2+2p+1)}\Big(\frac{1}{p+2}+p+2\Big)$$
+ho che 
+$$ y(t)=\mathcal{L}^{-1}[\frac{1}{(p^2+2p+1)}\Big(\frac{1}{p+2}+p+2\Big)](t)$$
+Trovo l'anti trasformata : 
+$$ \mathcal{L}^{-1}[\frac{1}{(p^2+2p+1)}](t)*\mathcal{L}^{-1}[\Big(\frac{1}{p+2}+p+2\Big)](t)$$
+calcolo separatamente i due termini
+$$ 
+\mathcal{L}^{-1}[\Big(\frac{1}{p+2}+p+2\Big)](t)=
+H(t)e^{-2t}+\mathcal{L}^{-1}[p](t)+2\mathcal{L}^{-1}[1](t) = 
+$$
+$$ 
+H(t)e^{-2t}+2\delta(t)
+$$
+passo al secondo termine 
+$$
+\mathcal{L}^{-1}[\frac{1}{(p^2+2p+1)}](t)=\mathcal{L}^{-1}[\frac{1}{(p+1)(p+1)}](t)
+=H(t)te^{-t}$$
+si ha 
+$$y(t)=H(t)te^{-t}*H(t)e^{-2t}+2\delta(t)$$
+\color{red}ho sbalgiato qualcosa, procedimento da rivedere\color{black}
 \end{document}
