@@ -345,29 +345,51 @@ La funzione $S(p)$ quindi caratterizza totalmente il sistema fisico nel dominio 
 moltiplicarla alla trasformata del segnale in ingresso per ottenere la trasformata del segnale in 
 uscita.\acc 
 \textbf{Esempio di calcolo} : Si consideri il seguente problema di Cauchy
-$$ y''(t)+2y'(t)+y(t)=e^{-2t}\ \ \ \ \begin{cases}
-    y(0)=1\\ y'(0)=0
+$$ y''(t)+4y'(t)+3y(t)=0\ \ \ \ \begin{cases}
+    y(0)=0\\ y'(0)=1
 \end{cases}$$ 
-Si applica la trasformata di Laplace, ottenendo 
-$$ Y(p)(p^2+2p+1)=\frac{1}{p+2}+p+2$$
-$$ Y(p)=\frac{1}{(p^2+2p+1)}\Big(\frac{1}{p+2}+p+2\Big)$$
-ho che 
-$$ y(t)=\mathcal{L}^{-1}[\frac{1}{(p^2+2p+1)}\Big(\frac{1}{p+2}+p+2\Big)](t)$$
-Trovo l'anti trasformata : 
-$$ \mathcal{L}^{-1}[\frac{1}{(p^2+2p+1)}](t)*\mathcal{L}^{-1}[\Big(\frac{1}{p+2}+p+2\Big)](t)$$
-calcolo separatamente i due termini
-$$ 
-\mathcal{L}^{-1}[\Big(\frac{1}{p+2}+p+2\Big)](t)=
-H(t)e^{-2t}+\mathcal{L}^{-1}[p](t)+2\mathcal{L}^{-1}[1](t) = 
-$$
-$$ 
-H(t)e^{-2t}+2\delta(t)
-$$
-passo al secondo termine 
-$$
-\mathcal{L}^{-1}[\frac{1}{(p^2+2p+1)}](t)=\mathcal{L}^{-1}[\frac{1}{(p+1)(p+1)}](t)
-=H(t)te^{-t}$$
-si ha 
-$$y(t)=H(t)te^{-t}*H(t)e^{-2t}+2\delta(t)$$
-\color{red}ho sbalgiato qualcosa, procedimento da rivedere\color{black}
+Si applica la trasformazione di Laplace
+$$\mathcal{L}[y''](p)+4\mathcal{L}[y'](p)+3\mathcal{L}[y](p)=0 $$
+Chiamando $\mathcal{L}[y](p)=Y(p)$, si ha 
+$$ p^2Y(p)-py(0)-y'(0)+4pY(p)-4y(0)+3Y(p)=0$$
+$$ Y(p)(p^2+4p+3)-1=0$$
+$$ Y(p)=\frac{1}{p^2+4p+3}=\frac{1}{(p+1)(p+3)}=\frac{A}{(p+1)}+\frac{B}{(p+3)}$$
+dove $A=\frac{1}{p+1}$ se $p=-3$  e $B=\frac{1}{p+3}$ se $p=-1$, quindi 
+$$ A=\frac{1}{(-3)+1}=-\frac{1}{2}$$
+$$ B=\frac{1}{(-1)+3}=\frac{1}{2}$$
+Quindi 
+$$Y(p)=-\frac{1}{2}\frac{1}{p+3}+\frac{1}{2}\frac{1}{p+1} $$
+Si applica l'anti trasformata 
+$$y(t)=\mathcal{L}^{-1}[-\frac{1}{2}\frac{1}{p+3}+\frac{1}{2}\frac{1}{p+1}](t) $$
+$$y(t)=-\frac{1}{2}\mathcal{L}^{-1}[\frac{1}{p+3}](t)+\frac{1}{2}\mathcal{L}^{-1}[\frac{1}{p+1}](t) $$
+Ricordando che $\mathcal{L}[e^{-ax}](p)=\frac{1}{p+a}$ si ha
+$$ y(t)=(\frac{1}{2}e^{-t}-\frac{1}{2}e^{-3t})H(t)$$
+\begin{center}
+    \begin{figure}[h!]
+       \centering
+       \begin{tikzpicture}[scale=0.8, transform shape]
+           \begin{axis}[
+           ymin=0,
+           ymax = 1.25,
+           xmin=0,
+           xmax = 1.25,
+           axis lines = left,
+           xtick distance=0.25, ytick distance=0.25,
+           grid style=dashed,
+           ymajorgrids=true,
+           xmajorgrids=true,
+           xlabel = \(t\),
+           ylabel = {\(y(t)\)},
+           ]
+           %Below the red parabola is defined
+           \addplot [
+           domain=0:1.25,
+           samples=100,
+           color=magenta,
+           ]
+           {(1/2)(e^(-x))-(1/2)(e^(-3*x))};
+           \end{axis}
+           \end{tikzpicture}
+   \end{figure}
+   \end{center}
 \end{document}
