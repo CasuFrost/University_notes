@@ -2,6 +2,7 @@
 % !TeX program = xelatex
 %==================PREAMBOLO=======================%
 \input{../../../preamble/preamble.tex}
+\usetikzlibrary{petri}
  %TOGLI COMMENTO SE USI XELATEX
 %\usepackage{fontspec}
 \title{\jobname} %========TITOLO========%
@@ -152,6 +153,18 @@ Ridurre il valore del differenziale costringerebbe la temperatura ad assestarsi
 sempre di più sul valore desiderato, ma ciò, comporterebbe un'accensione/spengimento della 
 stufa più frequente, aumentando lo \textit{sforzo di controllo}, è quindi, in questo 
 caso, accettabile un differenziale di $2^\circ$.\acc 
+Tale modello di controllo è il più semplice che ci sia, esistono ovviamente altri modi di regolare un 
+segnale in modo che esso raggiunga il valore desiderato, ad esempio, calcolare l'errore $e$ (ossia la differenza 
+fra il valore desiderato ed il valore effettivo) e scalarlo ad una certa costante $K_p$ per poi utilizzare tale 
+valore nella regolazione del segnale.
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth ]{images/stufaEsempioPROP.eps}
+        \caption{Regolatore proporzionale}
+        \label{fig:regPropStuda}
+   \end{figure} 
+\end{center}
 Anche se la variazione della temperatura è continua nel tempo, il suo 
 superare una certa soglia è un evento, i PLC (controllori logici programmabili) 
 agiscono sulle misure di campo, un noto linguaggio utilizzato per descriverne 
@@ -167,6 +180,41 @@ su un nastro trasportatore :\begin{center}
         \label{fig:rulli}
    \end{figure} 
 \end{center}
+Ogni nastro ha un sensore, se un oggetto è rilevato sopra il nastro, allora il motore si attiva. Risulta più efficente 
+la soluzione con 3 nastri in quanti sarà adoperata solamente la zona del nastro in cui è rilevato l'oggetto, piuttosto 
+che l'intero nastro.\acc 
+Per la modellizzazione di sistemi autonomi verranno adoperati automi a stati finiti, ampiamente trattati nel 
+corso di 
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0.pdf}{Automi, Calcolabilità e Complessità}
+\color{black}, e \textit{Reti di Petri}. Una rete di Petri, non è altro che un grafo bipartito, in cui ogni nodo 
+appartiene ad un'insieme fra \begin{itemize}
+    \item nodi \textit{posto}
+    \item nodi \textit{transizione}
+\end{itemize}
+Inoltre, i nodi posto possono essere annotati con dei pallini neri, detti \textit{token}, essi rappresentano 
+lo stato del sistema in quanto indicano che delle risorse (in senso generale) sono disponibili in un posto, 
+permettendo eventualmente una transizione. Ogni arco del grafo collega un nodo posto ad un nodo transizione.
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \node[place,tokens=2,label=above:$p_1$]        (p1) {};
+        \node[place,label=above:$p_2$,right=of p1] (p2) {};
+        \node[place,tokens=1,label=above:$p_3$,right=of p2] (p3) {};
+        \node[place,label=above:$p_4$,below=of p3,right=of p3] (p4) {};
+        \node[place,tokens=1,label=above:$p_5$,below=of p1] (p5) {};
+       
+      
+        \node[transition,below right=of p1,label=below:$t_1$] {}
+          edge[pre]                 (p1)
+          edge[post] node[auto] {} (p2)
+          edge[post] node[auto] {} (p5);
+        \node[transition,below right=of p2,label=below:$t_2$] {}
+          edge[pre]                 (p2)
+          edge[post] node[auto] {} (p3)
+          edge[post] node[auto] {} (p4);
+      \end{tikzpicture}
+      \caption{Esempio di una rete di Petri}
+\end{figure}
 
 
 
