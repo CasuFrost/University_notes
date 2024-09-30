@@ -66,6 +66,123 @@ Nota bene : Essendo questi appunti di un corso esterno alla facoltà di Informat
 %Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
 
 %==================INIZIO======================%
+\chapter{Introduzione}
+Con il termine \textit{Automazione}, si intende la trasformazione 
+di un processo pre-esistente, al fine di renderlo autonomo, riducendo o 
+sostituendo del tutto l'intervento umano, verrà trattata l'automazione 
+dei processi industriali e manifatturieri, e del loro controllo e 
+supervisione. I sistemi presi in considerazione evolvono nel 
+tempo e reagiscono ad eventi, che ne cambiano lo stato, e scaturiscono 
+dei feedback, per un eventuale correzione dell'errore.\acc 
+Con sistema \textit{autonomo} si intende un sistema in cui viene 
+ridotto l'intervento umano. L'\textit{Automatica} si occupa di 
+sfruttare gli strumenti dell'informatica per l'automazione, acquisendo informazioni 
+dal mondo fisico tramite appositi sensori, per poi essere elaborate 
+su un sistema di controllo (calcolatore), o una rete di calcolatori, 
+che implementa dei protocolli standard per l'industria. Differentemente da 
+altri contesti, come la trasmissione (ad esempio, di un video in streaming) nelle 
+reti dell'automazione i ritardi risultano critici, e vanno ridotti al 
+minimo.
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth ]{images/CIM.eps}
+        \caption{Piramide CIM}
+        \label{fig:cim}
+   \end{figure}
+   \end{center}
+La \textit{piramide CIM}, mostrata in figura \ref{fig:cim}
+schematizza la gestione di un processo industriale e delle sue procedure, 
+ogni strato comunica con quelli adiacenti scambiandosi informazioni, nei 
+livelli più alti, le informazioni sono più \textit{raffinate} ed 
+astratte, nei livelli più bassi sono più grezze, ad esempio\begin{itemize}
+    \item Al livello azienda viene decisa la produzione di un articolo (che 
+    coinvolgerà l'utilizzo di un braccio robotico)
+    \item Al livello macchina, l'informazione che arriverà al braccio 
+    sarà semplicemente relativi ai gradi in cui i suoi giunti devono 
+    ruotare
+    \item Al livello di campo, l'informazione comprenderà semplicemente 
+    il voltaggio da applicare alla macchina in questione per avere l'effetto 
+    desiderato.
+\end{itemize}
+Con \textbf{cella}, si intende un unità composta da più macchine, in 
+cui viene scambiato e lavorato del materiale per compiere delle azioni,
+il \textit{controllo delle procedure} si occupa delle \textbf{macchine}, ed uno 
+\textbf{stabilimento} è un complesso di celle/parti e catene 
+di montaggio. nel livello di campo, vengono utilizzati vari dispositivi, 
+quali\begin{itemize}
+    \item motori elettrici, servomotori, encoder 
+    \item azionatori di valvole, dynamo tachimetrici, sensori di temperatura
+\end{itemize}
+Tali sensori presenteranno stesso un comportamento lineare, ad esempio, 
+se una tensione $x$ causa una rotazione di $y$ giri per minuti, allora 
+una tensione $2x$ causerà una  rotazione di $2y$. Anche se tali dispositivi 
+non si prestano ad un comportamento lineare, ne verrà causata una volontaria 
+linearizzazione, correggendone il comportamento.\acc 
+Argomento centrale saranno i regolatori \textit{PID}, la cui definizione, 
+come molte altre trattate in questo capitolo, sarà ripresa ed 
+approfondita in seguito. tali regolatori agiscono su delle grandezze 
+di campo.\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth ]{images/schemaPID.eps}
+        \caption{schematizzazione del regolatore PID}
+        \label{fig:schemaPID}
+   \end{figure}
+\end{center}
+Si consideri il seguente esempio di regolatore, vi è una stufa che deve 
+riscaldare una stanza, ed un sensore che ne misura la temperatura, il valore 
+da raggiungere, detto \textit{setpoint}, è di 20 gradi celcius. Si supponga che il 
+sensore, una volta rilevata la temperatura, debba accendere e spengere la stufa 
+in modo che si raggiunga la temperatura adeguata.
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth ]{images/stufaEsempio.eps}
+        \caption{Azioni sulla stufa}
+        \label{fig:stufa}
+   \end{figure} 
+\end{center}
+In figura \ref{fig:stufa}, il differenziale rappresenta un margine 
+di differenza rispetto il setpoint, quando la temperatura è 
+sotto il limite inferiore, la stufa viene accesa, quando è oltre il limite 
+superiore, viene spenta (è chiaro che la velocità con la quale la temperatura 
+cambia dipende dalle capacità della stufa e dalla dispersione del calore nella stanza).\acc 
+Ridurre il valore del differenziale costringerebbe la temperatura ad assestarsi 
+sempre di più sul valore desiderato, ma ciò, comporterebbe un'accensione/spengimento della 
+stufa più frequente, aumentando lo \textit{sforzo di controllo}, è quindi, in questo 
+caso, accettabile un differenziale di $2^\circ$.\acc 
+Anche se la variazione della temperatura è continua nel tempo, il suo 
+superare una certa soglia è un evento, i PLC (controllori logici programmabili) 
+agiscono sulle misure di campo, un noto linguaggio utilizzato per descriverne 
+il funzionamento è noto come \textit{Sequential Flow Chart (SFL)}.\acc 
+Nei sistemi di automazione industriale vengono prediletti controllori e sensori distribuiti piuttosto 
+che centralizzati, se ne vuole dare una dimostrazione pratica con il segunete 
+esempio : Si considerino i due seguenti modi per trasportare un oggetto 
+su un nastro trasportatore :\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth ]{images/rulli.eps}
+        \caption{Rulli}
+        \label{fig:rulli}
+   \end{figure} 
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \chapter{Complementi}
 \section{La Trasformata di Laplace} 
 La trasformata di Laplace è una \textit{trasformata integrale}, nello specifico, è una 
@@ -305,7 +422,7 @@ H(x)-\cos(x)\cdot H(x) = H(x)(1-\cos(x))
         $\sinh(ax)$       &  $\dfrac{a}{p^2-a^2}$             & $\Re(p)>|\Re(a)|$         \\ 
         \end{tabular}
 \end{center}
-\subsubsection{Funzione di trasferimento}
+\subsection{Funzione di trasferimento}
 Come già accennato, la trasformata di Laplace è utile nella risoluzione di equazioni differenziali. Si consideri 
 il seguente problema di Cauchy
 $$ a_0y''(t)+a_1y'(t)+a_2y(t)=b(t)\ \ \ \ \begin{cases}
