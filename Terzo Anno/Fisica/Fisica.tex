@@ -94,7 +94,7 @@ Uno degli argomenti su cui si soffermò Galileo fu il \textit{moto dei gravi}, i
 il moto dei corpi in caduta libera. Secondo la fisica aristotelica del tempo, un corpo 
 tanto più pesante era, tanto più rapidamente cadeva. \acc 
 Galileo fu critico nei riguardi di questa visione, osservò che in realtà, ogni corpo 
-cade verso il suolo con la stessa accellerazione, il motivo per il quale una piuma cade 
+cade verso il suolo con la stessa accelerazione, il motivo per il quale una piuma cade 
 più rapidamente di una sfera di piombo non riguarda la loro massa, bensì la resistenza dell'aria 
 nei confronti del loro materiale e della loro forma. Trovò inoltre che la distanza percorsa 
 durante la caduta di un oggetto è proporzionale al quadrato del tempo impiegato per percorrerla.\acc 
@@ -298,4 +298,214 @@ Le funzioni lineari sono più semplici di quelle non lineari, il punto di tale d
 e l'incremento "stimato" dato dal differenziale tendono allo stesso valore. $$ 
 \lim_{d x\rightarrow 0 }f(x_0+dx)=f(x_0)+f'(x_0)\cdot dx
 $$
+\chapter{Cinematica}
+Si è introdotto il vettore spostamento $\delta \bar r$, con la sua relativa formulazione infinitesima 
+di velocità $\bar v$, come derivata del vettore posizione $\bar r$. 
+Un'altra grandezza fondamentale nello studio del moto dei corpi è la variazione della velocità, definita 
+come il limite del rapporto incrementale di quest'ultima rispetto al tempo. 
+Tale grandezza prende il nome di \textbf{accelerazione}
+$$ \frac{d\bar v}{d t} = \bar a $$
+L'accelerazione $\bar a$, o $a$ se riferita ad una grandezza scalare, si misura in 
+$\nicefrac{m}{s^2}$, di cui l'unità, indica che ad ogni secondo, la velocità aumenta 
+di $1 \nicefrac{m}{s}$, ovviamente anche'essa può dipendere dal tempo. 
+$$\bar a=\frac{d\bar v}{dt}=\frac{d^2\bar r}{dt^2}$$
+Si consideri adesso lo spostamento in forma scalare $s(t)$, definito su una traiettoria 
+curvilinea già definita
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/accScal.eps}
+        \caption{velocità scalare}
+        \label{fig:velScal}
+    \end{figure} 
+\end{center}
+Di quest'ultima ne voglio ricavare la sua versione vettoriale, sia $\bar\tau(t)$ il versore 
+tangente alla curva prestabilita, nell'immagine \ref{fig:velScal}, evidenziato in blu. 
+Si avrà che la velocità vettoriale sarà 
+$$ \bar v(t)=\dot{s}(t)\cdot \bar\tau(t)$$
+Appunto sulla notazione :  $\dot{s}$ è la derivata prima di $s$. 
+$\ddot{s}$ è la derivata seconda di $s$. A questo punto è possibile riscrivere 
+l'accelerazione nella seguente forma :
+$$
+\bar a = \dfrac{d}{dt}\bar v(t)=\ddot{s}(t)\cdot \bar\tau(t)+\dot{s}(t)\cdot\dot{\bar\tau}(t)
+$$
+Si è quindi divisa l'accelerazione in due componenti distinte, la componente 
+$\ddot{s}(t)\cdot \bar\tau(t)$ è nota come \textbf{accelerazione tangenziale} e rappresenta 
+la variazione nel tempo del modulo della velocità. L'altra componente, verrà ripresa in seguito, 
+ha a che fare con la curvatura della traiettoria.\acc 
+\section{I Moti}
+\subsection{Rettilineo Uniforme} 
+Il moto rettilineo uniforme, secondo la legge d'Inerzia, descrive il moto naturale degli 
+oggetti quando non sono soggetti a forze. Tale moto è contraddistinto dal fatto che 
+l'accelerazione sia nulla, e la velocità costante, (per semplicità, verranno trattate 
+le grandezze in forma scalare).
+$$\frac{dv}{dt}=0\implies v = v_0 \text{ costante }$$
+Si può ricavare facilmente l'equazione dello spostamento $r$ in un 
+lasso di tempo che va da $t_0$ fissato, ad un $t$ generico
+$$ \frac{dr}{dt}=v=v_0\implies dr=vd_0t\implies\int_{r(t_0)}^{r(t)}dr=\int_{t_0}^tv_0dt $$
+$$\int_{t_0}^tv_0dt=v_0\int_{t_0}^tdt=v_0(t-t_0) $$
+Si ha che  
+$$ r(t)=r(t_0)+v_0(t-t_0)$$
+L'equazione che descrive il moto rettilineo uniforme è lineare
+\begin{center}
+    \begin{tikzpicture}[scale=0.6, transform shape]
+        \begin{axis}[
+        ymin=0,
+        ymax = 3,
+        xmin=0,
+        xmax = 3,
+        axis lines = left,
+        xtick distance=0.5, ytick distance=0.5,
+        grid style=dashed,
+        ymajorgrids=true,
+        xmajorgrids=true,
+        xlabel = \(t\),
+        ylabel = {\(r(t)\)},
+        ]
+        %Below the red parabola is defined
+        \addplot [
+        domain=0:3,
+        samples=20,
+        color=blue,
+        ]
+        {x};
+        \end{axis}
+    \end{tikzpicture}
+\end{center} 
+\subsection{Uniformemente Accelerato}
+La caratteristica del moto uniformemente accelerato è quella di avere un accelerazione costante 
+$a = a_0 $, si avrà che 
+$$ \frac{dv}{dt}=a_0\implies dv =a_0dt\implies \int_{v(t_0)}^{v(t)}dv=\int_{t_0}^tadt\implies$$
+$$v(t)=v(t_0)+a_0(t-t_0) $$
+Per semplicità, si definisce $v_0=v(t_0)$ la velocità iniziale. A questo punto, avendo nota l'equazione 
+della velocità, si ricava la legge oraria, sia $x_0=x(x)$ la posizione iniziale 
+$$ \frac{dx}{dt}=v\implies \int_{x_0}^{x(t)}dx=\int_{t_0}^t vdt = \int_{t_0}^tv_0+a_0(t-t_0)dt= 
+v_0\int_{t_0}^tdt+a_0\int_{t_0}^t(t-t_0)dt$$
+Considero $t'=t-t_0\implies dt'=dt$ 
+$$ v_0\int_{t_0}^tdt+a_0\int_{t_0}^t(t-t_0)dt= 
+v_0\int_{t_0}^tdt+a_0\int_{0}^{t-t_0}t'dt'=v_0(t-t_0)+\Big[\dfrac{1}{2}a_0t'\Big]_0^{t-t_0}$$
+La soluzione oraria è quindi 
+$$ x(t)=x_0+v_0\cdot (t-t_0)+\frac{1}{2}a_0\cdot (t-t_0)^2$$
+Essa risulta essere l'equazione della parabola, nel caso più semplice in cui la posizione 
+iniziale è 0, ed il tempo iniziale pure, si ha  
+$$ x(t)=\dfrac{1}{2}a_0t$$
+lo spazio percorso è proporzionale al tempo al 
+quadrato.
+\subsection{Caduta dei Gravi}
+La caduta degli oggetti verso il suolo è descritta dal moto uniformemente 
+        accelerato. Ogni oggetto nel campo gravitazionale terrestre, all'altezza del mare, subisce un 
+        accelerazione di gravità pari a 
+        $$ g\simeq 9.81 \nicefrac{m}{s^2}$$ 
+        diretta verso il centro della terra. 
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\centering\arraybackslash}m{3in}}
+        \includegraphics[width=0.35\textwidth]{images/oggettoLasciatoCadere.eps} & Definiamo un sistema di riferimento in cui il suolo 
+        rappresenta lo zero, ed un corpo viene lasciato cadere da un altezza $h$. Per semplicità, 
+        il tempo iniziale $t_0$ è uguale a $0$.
+		\\
+	\end{tabular}
+\end{center}
+La legge orario che descrive la posizione $y$ dell'oggetto è la segunete 
+$$ \begin{cases}
+    y(t)=h-\frac{1}{2}gt^2 \\ 
+    v(t)=\dfrac{dy}{dt}=-gt
+\end{cases}$$
+È possibile calcolare l'istante $t^*$ in cui l'oggetto toccherà il suolo : 
+\begin{eqnarray} y(t^*)=0\implies h-\frac{1}{2}g{t^*}^2 =0 \\ 
+     h=\frac{1}{2}g{t^*}^2 \\ 
+     2\frac{h}{g}={t^*}^2 \\ 
+     t^*=\sqrt{2\frac{h}{g}}
+\end{eqnarray}
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\centering\arraybackslash}m{3in}}
+        \includegraphics[width=0.35\textwidth]{images/graveCaduta2.eps} & Se l'oggetto venisse inizialmente lanciato verso l'alto, si avrebbe una velocità iniziale 
+        $v_0$ diversa da zero. La forza di gravità agirà sulla velocità dell'oggetto, facendola diminuire fino a farla 
+        diventare negativa, facendolo ricadere verso il suolo.
+		\\
+	\end{tabular}
+\end{center}
+L'equazione oraria sarebbe$$ \begin{cases}
+    y(t)=h+v_0t-\frac{1}{2}gt^2 \\ 
+    v(t)=\dfrac{dy}{dt}=v_0-gt
+\end{cases}$$
+È possibile trovare il punto più alto raggiunto dal grave, esso sarà il punto in cui la velocità 
+passerà da essere positiva (l'oggetto si allontana dal suolo) ad essere negativa (l'oggetto si avvicina al suolo), 
+raggiungerà quindi il punto più alto nell'istante $t^*$ in cui la velocità è nulla. 
+$$ v(t^*)=0\implies v_0-gt^* = 0 \implies t^*=\frac{v_0}{g}$$
+La quota massima raggiunta sarà quindi 
+\begin{eqnarray}
+    t(\nicefrac{v_0}{g}) = h+v_0\nicefrac{v_0}{g}-\frac{1}{2}g(\nicefrac{v_0}{g})^2 =\\ 
+    h+\frac{v_0^2}{g}-\frac{v_0}{2g} = \\ 
+    h+\frac{1}{2}\frac{v_0^2}{g}
+\end{eqnarray}
+È possibile riscrivere l'equazione del moto uniformemente accelerato in funzione dello 
+\textit{spazio percorso} partendo da un punto $x_0$ 
+$$ \begin{cases}
+    x=x_0+v_0t+\frac{1}{2}at^2\\ 
+    v=v_0+at
+\end{cases}\implies x-x_0=v_0t+\frac{1}{2}(v-v_0)t \implies x-x_0=\frac{1}{2}(v_0+v)t$$
+\subsection{Moto del Proiettile}
+Si vuole modellizzare la traiettoria di un proiettile, sparato con una certa angolazione, si 
+considera quindi il piano cartesiano $(x,y)$, e la legge oraria sarà descritta da un 
+vettore $\bar r(t)=(x(t),y(t))$ che ne descrive lo spostamento sui due assi.\acc 
+Il proiettile è soggetto a due forze, la prima è la velocità orizzontale, data al tempo 
+$t_0$ dallo sparo, la seconda è l'accelerazione di gravità, che gli conferisce una velocità 
+verticale uniformemente accelerata. Denotiamo $v_x$ e $v_y$ le due velocità, $(x_0,y_0)$ la 
+posizione iniziale, e $({v_y}_0,{v_x}_0)$ la velocità iniziale. Per semplicità, l'istante di inizio 
+sarà $0$.
+$$\begin{cases}
+    y(t)=y_0+{v_y}_0t-\frac{1}{2}gt^2\\ 
+    v_y(t)=v_{y_0}-gt
+\end{cases} \text{ verticalmente}$$
+$$ x(t)=x_0+v_{x_0}t\text{ orizzontalmente}$$
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/motoProiettile.eps}
+        \caption{moto del proiettile}
+        \label{fig:pro}
+    \end{figure} 
+\end{center}
+L'altezza massima si ha nell'istante $t^*$ in cui $v_y(t^*)=0\implies t^*=\frac{v_{y_0}}{g}$.
+Con il termine \textit{gittata}, si intende la distanza $R$ percorsa dal proiettile orizzontalmente, 
+essa è uguale a $R=v_{x_0}\cdot t_{tot}$, dove $t_{tot}$ è l'istante in cui il proiettile raggiunge 
+il suolo, terminando la traiettoria e vale $t_{tot}=2\frac{v_{y_0}}{g}$.
+$$ R=v_{x_0}\cdot2\frac{v_{y_0}}{g}$$ La velocità totale iniziale del proiettile, risulta 
+essere 
+$$ v_0=\sqrt{v_{x_0}^2+v_{x_y}^2}$$
+Si può esprimere la gittata in funzione dell'angolo $\theta$ in cui si lancia il proiettile rispetto 
+l'asse delle ascisse 
+$$ R(\theta)=\frac{2v_0^2\sin(\theta)\cos(\theta)}{g}$$
+A tal punto, si vuole esprimere l'angolo $\theta$ che massimizza la gittata. Essendo che $R(\theta)$ descrive 
+la variazione della gittata al variare di $\theta$, è necessario trovare l'angolo in cui la derivata 
+di $R$ si annulla, si considera 
+$$ \frac{dR}{d\theta}=\frac{2v_0^2}{g}(\cos^2(\theta)-\sin^2(\theta))$$
+Si pone a zero e si risolve per $\theta$
+\begin{eqnarray}
+    \frac{2v_0^2}{g}(\cos^2(\theta)-\sin^2(\theta))=0 \implies\\ 
+    (\cos^2(\theta)-\sin^2(\theta))=0\implies\\ 
+    \cos^2(\theta)=\sin^2(\theta)\implies \\ 
+    \theta = \frac{\pi}{4}=45^\circ
+\end{eqnarray}
+\subsection{Moto Circolare Uniforme}
+Si vuole descrivere il moto di un corpo, che rotea attorno ad un centro il cui modulo della 
+velocità è costante. È importante specificare che il modulo sia costante, in quanto la velocità 
+costante indica una non-variazione della direzione, invece nel moto circolare, la direzione 
+cambia nel tempo, quindi vi sarà un accelerazione non nulla.\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/motoCircUn.eps}
+    \end{figure} 
+\end{center}
+Sia $\bar v$ la velocità, essendo il modulo costante, denoteremo $|\bar v|=v_0$. Si considera ora 
+la velocità scalare $s$, di cui si ricorda 
+$$ \frac{ds}{dt}=v_0$$
+Inoltre, sapendo che $\frac{s}{r}=\theta$, si pone 
+$$ \frac{ds}{r}=d\theta \implies \frac{ds}{dt}=r\cdot \frac{d\theta}{dt}=v_0$$
+Denotiamo $\omega = \dfrac{d\theta}{dt}$, tale termine descrive la variazione dell'angolo nel tempo 
+ed è denominato \textbf{velocità angolare}. Il fatto che la velocità dipenda dal raggio $r$, descrive il fatto 
+che a parità di velocità angolare, un oggetto che si muove su un cerchio di raggio minore va meno veloce. 
+$$ \frac{d\theta}{dt}=\omega \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;
+\frac{ds}{dt}=r\omega \;\;\;\;\; \;\;\;\;\;\;\;\;\;\;
+v_0=r\omega$$
 \end{document}
