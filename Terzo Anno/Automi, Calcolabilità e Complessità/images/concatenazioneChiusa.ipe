@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240928123352" modified="D:20240928124729"/>
+<info created="D:20241002185526" modified="D:20241002190009"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,85 +313,157 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" matrix="1.16667 0 0 1 -50.6667 0" fill="0.753" opacity="50%" stroke-opacity="opaque">
-112 656
-112 656
-112 768
-112 768
-304 768
-304 768
-304 656
-304 656 u
+<path layer="alpha" fill="0.753">
+112 720
+284 720
+284 720
+284 612
+284 612
+112 612
+112 612
+112 720 u
 </path>
-<path matrix="1 0 0 0.833333 0 124" fill="1">
-208 720
-208 720
-208 768
-208 768
-288 768
-288 768
-288 720
-288 720 u
+<text matrix="1 0 0 1 -24 -8" transformations="translations" pos="152 720" stroke="black" type="label" width="20.562" height="6.128" depth="0" halign="center" valign="center">start</text>
+<path matrix="1 0 0 1 -24 -24" stroke="black" fill="1">
+12 0 0 12 152 696 e
 </path>
-<path matrix="1 0 0 0.833333 0 60" fill="1">
-208 720
-208 720
-208 768
-208 768
-288 768
-288 768
-288 720
-288 720 u
+<path matrix="1 0 0 1 -24 -24" stroke="black" arrow="normal/normal">
+152 732 m
+152 708 l
 </path>
-<path matrix="1 0 0 1 -96 32" stroke="black" fill="1">
-8 0 0 8 232 680 e
+<path matrix="1 0 0 1 16 -44" stroke="black" fill="1">
+12 0 0 12 152 696 e
 </path>
-<text matrix="1 0 0 1 -136 76" transformations="translations" pos="232 680" stroke="black" type="label" width="15.297" height="11.764" depth="0" halign="center" valign="center" size="LARGE" style="math">N</text>
-<text matrix="1 0 0 1 -48 8" transformations="translations" pos="232 680" stroke="black" type="label" width="4.044" height="4.289" depth="0" halign="center" valign="center" style="math">\epsilon</text>
-<text matrix="1 0 0 1 -48 72" transformations="translations" pos="232 680" stroke="black" type="label" width="4.044" height="4.289" depth="0" halign="center" valign="center" style="math">\epsilon</text>
-<text matrix="1 0 0 1 -136 32" transformations="translations" pos="232 680" stroke="black" type="label" width="21.903" height="6.128" depth="0" halign="center" valign="center" style="math">start</text>
-<path stroke="black" arrow="normal/normal" opacity="30%" stroke-opacity="opaque">
-108 712 m
-128 712 l
+<path matrix="1 0 0 1 52 -64" stroke="black" fill="1">
+12 0 0 12 152 696 e
 </path>
-<text transformations="translations" pos="232 680" stroke="black" type="label" width="8.917" height="4.297" depth="1.93" halign="center" valign="center" style="math">q_1</text>
-<path stroke="black">
-8 0 0 8 232 680 e
+<path matrix="1 0 0 1 48 -24" stroke="black" fill="1">
+12 0 0 12 152 696 e
 </path>
-<text matrix="1 0 0 1 0 64" transformations="translations" pos="232 680" stroke="black" type="label" width="8.917" height="4.297" depth="1.93" halign="center" valign="center" style="math">q_2</text>
-<path matrix="1 0 0 1 0 64" stroke="black">
-8 0 0 8 232 680 e
+<path matrix="1 0 0 1 108 -8" stroke="black" fill="1">
+12 0 0 12 152 696 e
 </path>
-<path stroke="black">
-240 680 m
-256 680 l
+<path matrix="1 0 0 1 108 -40" stroke="black" fill="1">
+12 0 0 12 152 696 e
+</path>
+<path matrix="1 0 0 1 12 -16" stroke="black" fill="1">
+8 0 0 8 248 704 e
+</path>
+<path matrix="1 0 0 1 12 -16" stroke="black" fill="1">
+8 0 0 8 248 672 e
+</path>
+<path matrix="1 0 0 1 -24 -24" stroke="black">
+164 696 m
+172 696 l
+</path>
+<path matrix="1 0 0 1 -24 -24" stroke="black" dash="dotted">
+172 696 m
+180 696 l
 </path>
 <path stroke="black" dash="dotted">
-256 680 m
-272 680 l
+168 664 m
+168 676
+180 676 c
 </path>
-<path matrix="1 0 0 1 0 64" stroke="black">
-240 680 m
-256 680 l
+<path stroke="black" dash="dotted">
+188 656 m
+204 644 l
 </path>
-<path matrix="1 0 0 1 0 64" stroke="black" dash="dotted">
-256 680 m
-272 680 l
+<path stroke="black" dash="dotted">
+212 672 m
+216 672
+212 656 c
 </path>
-<text matrix="1 0 0 1 44 76" transformations="translations" pos="232 680" stroke="black" type="label" width="12.474" height="6.812" depth="1.49" halign="center" valign="center" style="math">N_2</text>
-<text matrix="1 0 0 1 44 12" transformations="translations" pos="232 680" stroke="black" type="label" width="12.474" height="6.812" depth="1.49" halign="center" valign="center" style="math">N_1</text>
-<path stroke="black" arrow="normal/normal" opacity="50%" stroke-opacity="opaque">
-136 720 m
-136 744
-136 744
-224 744 c
+<path matrix="1 0 0 1 12 -16" stroke="black" dash="dotted" arrow="normal/normal">
+220 672 m
+236 672 l
 </path>
-<path stroke="black" arrow="normal/normal" opacity="50%" stroke-opacity="opaque">
-136 704 m
-136 680
-136 680
-224 680 c
+<path matrix="1 0 0 1 12 -16" stroke="black" dash="dotted" arrow="normal/normal">
+220 704 m
+236 704 l
 </path>
-<text matrix="1 0 0 1 -96 32" transformations="translations" pos="232 680" stroke="black" type="label" width="8.917" height="4.297" depth="1.93" halign="center" valign="center" style="math">q_0</text>
+<text matrix="1 0 0 1 -24 -92" transformations="translations" pos="152 720" stroke="black" type="label" width="16.728" height="9.805" depth="2.15" halign="center" valign="center" size="Large" style="math">N_1</text>
+<path matrix="1 0 0 1 224 0" fill="0.753">
+112 720
+284 720
+284 720
+284 612
+284 612
+112 612
+112 612
+112 720 u
+</path>
+<text matrix="1 0 0 1 200 -8" transformations="translations" pos="152 720" stroke="black" type="label" width="20.562" height="6.128" depth="0" halign="center" valign="center">start</text>
+<path matrix="1 0 0 1 200 -24" stroke="black" fill="1">
+12 0 0 12 152 696 e
+</path>
+<path matrix="1 0 0 1 200 -24" stroke="black" arrow="normal/normal">
+152 732 m
+152 708 l
+</path>
+<path matrix="1 0 0 1 240 -44" stroke="black" fill="1">
+12 0 0 12 152 696 e
+</path>
+<path matrix="1 0 0 1 276 -64" stroke="black" fill="1">
+12 0 0 12 152 696 e
+</path>
+<path matrix="1 0 0 1 272 -24" stroke="black" fill="1">
+12 0 0 12 152 696 e
+</path>
+<path matrix="1 0 0 1 332 -8" stroke="black" fill="1">
+12 0 0 12 152 696 e
+</path>
+<path matrix="1 0 0 1 332 -40" stroke="black" fill="1">
+12 0 0 12 152 696 e
+</path>
+<path matrix="1 0 0 1 236 -16" stroke="black" fill="1">
+8 0 0 8 248 704 e
+</path>
+<path matrix="1 0 0 1 236 -16" stroke="black" fill="1">
+8 0 0 8 248 672 e
+</path>
+<path matrix="1 0 0 1 200 -24" stroke="black">
+164 696 m
+172 696 l
+</path>
+<path matrix="1 0 0 1 200 -24" stroke="black" dash="dotted">
+172 696 m
+180 696 l
+</path>
+<path matrix="1 0 0 1 224 0" stroke="black" dash="dotted">
+168 664 m
+168 676
+180 676 c
+</path>
+<path matrix="1 0 0 1 224 0" stroke="black" dash="dotted">
+188 656 m
+204 644 l
+</path>
+<path matrix="1 0 0 1 224 0" stroke="black" dash="dotted">
+212 672 m
+216 672
+212 656 c
+</path>
+<path matrix="1 0 0 1 236 -16" stroke="black" dash="dotted" arrow="normal/normal">
+220 672 m
+236 672 l
+</path>
+<path matrix="1 0 0 1 236 -16" stroke="black" dash="dotted" arrow="normal/normal">
+220 704 m
+236 704 l
+</path>
+<text matrix="1 0 0 1 200 -92" transformations="translations" pos="152 720" stroke="black" type="label" width="16.728" height="9.805" depth="2.15" halign="center" valign="center" size="Large" style="math">N_2</text>
+<path stroke="black" arrow="normal/normal">
+272 688 m
+304 688
+340 676 c
+</path>
+<path stroke="black" arrow="normal/normal">
+272 656 m
+308 656
+340 668 c
+</path>
+<text matrix="1 0 0 1 152 -56" transformations="translations" pos="152 720" stroke="black" type="label" width="4.044" height="4.289" depth="0" halign="center" valign="center" style="math">\epsilon</text>
+<text matrix="1 0 0 1 152 -28" transformations="translations" pos="152 720" stroke="black" type="label" width="4.044" height="4.289" depth="0" halign="center" valign="center" style="math">\epsilon</text>
 </page>
 </ipe>

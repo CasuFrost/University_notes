@@ -453,4 +453,148 @@ Si avrà che $L(N)=L(N_1)\cup L(N_2)$\begin{center}
         \label{fig:NFAUnion}
     \end{figure}
 \end{center}
+Denotiamo $\mathcal{L}(DFA)$ l'insieme dei linguaggi accettati da un qualsiasi DFA, che per definizione è $REG$, e denotiamo, in maniera analoga 
+$\mathcal{L}(NFA)$. \acc 
+\teo{} : L'insieme dei linguaggi accettati da un qualsiasi DFA, e quello dei linguaggi accettati 
+da un qualsiasi NFA coincidono $$\mathcal{L}(DFA)=\mathcal{L}(NFA)=REG$$
+\dimo{} Il caso $\mathcal{L}(DFA)\subseteq\mathcal{L}(NFA)$ è banale e non verrà dimostrato. Si vuole dimostrare che 
+se $L$ è accettato da un generico NFA, allora esiste un DFA che accetta $L$, l'idea è quella di "simulare" un NFA 
+tramite un DFA che rappresenti ogni possibile stato di computazione.
+
+
+
+Sia $N=(Q_N,\Sigma,\delta_N,q_{0_N},F_N)$ un NFA, e sia $L=L(N)$. Si considera un DFA 
+$D=(Q_D,\Sigma,\delta_D,q_{0_D},F_D)$ tale che \begin{itemize}
+    \item $Q_D=\mathcal{P}(Q_N)$
+    \item $q_{0_D}=\{q_{0_N}\}$
+    \item $F_D=\{R\in Q_D | R\cap F_N\ne \emptyset\}$, ovvero, $D$ accetta tutti gli insiemi in cui compare almeno 
+    un elemento accettato da $N$.
+    \item Sia $R\in Q_D$ e $a\in\Sigma$, si definisce $\displaystyle\delta_D(R,a)=\bigcup_{r\in R}\delta_N(r,a)$
+\end{itemize}
+Questo caso non tiene conto di un NFA in cui sono presenti degli $\epsilon$-archi. Supponiamo che vi siano,  sia 
+$R\in Q_D$, si definisce la funzione estesa $E$ definita come segue 
+$$ E(R)=\{q\in Q_N \|\ q\text{ può essere raggiunto da un qualsiasi stato  }r\in R\text{ attraverso zero o 
+più }\epsilon\text{-archi }\}$$
+Cambia la definizione del DFA utilizzato per la dimostrazione \begin{itemize}
+    \item $q_{0_D}=E(\{q_{0_N})\}$
+    \item $\displaystyle\delta_D(R,a)=\bigcup_{r\in R}E(\delta_N(r,a))$
+\end{itemize}
+È chiaro che $D$ tiene traccia di tutte le possibili computazioni di $N$, ed accetta $L$, ossia $L(D)=L(N)$. $\blacksquare$\acc 
+\textbf{Esempio} : Si consideri l'NFA $N$ definito come segue
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture} [node distance = 2cm, on grid, auto]
+        \node (q0)[state,accepting, left, initial] {$q_1$};
+        \node (q1)[state, below = of q0] {$q_2$};
+        \node (q2)[state, right = of q1] {$q_3$};
+        \path [-stealth, thick]
+        (q1) edge [loop left]  node {$a$}()
+        (q0) edge [bend right] node {$b$}   (q1)
+        (q0) edge [bend right] node {$\epsilon$}   (q2)
+        (q2) edge [bend right] node {$a$}   (q0)
+        (q1) edge [bend right] node {$a,b$}   (q2);
+    \end{tikzpicture}
+    \caption{$N=(Q_N,\Sigma,\delta_N,q_{0_N},F_N)$}
+    \label{fig:NFAExample2}
+\end{figure}\acc
+Si costruisce un DFA $D=(Q_D,\Sigma,\delta_D,q_{0_D},F_D)$ con le seguenti specifiche (per comodità, l'elemento $\{q_i,q_j\dots,q_k\}$ verrà 
+denotato $p_{ij\dots k}$), mostrato in figura \ref{fig:DFAgenerated}
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture} [node distance = 3.5cm, on grid, auto]
+        \node (p13)[state,accepting, initial above] {$p_{13}$};
+        \node (p3)[state,left = of p13] {$p_{3}$};
+        \node (p0)[state,above = of p3] {$p_{0}$};
+        \node (p1)[state,above = of p13,accepting] {$p_{1}$};
+        \node (p2)[state,right = of p1] {$p_{2}$};
+        \node (p23)[state,right = of p13] {$p_{23}$};
+        \node (p12)[state,right = of p2,accepting] {$p_{12}$};
+        \node (p123)[state,right = of p23,accepting] {$p_{123}$};
+        \path [-stealth, thick]
+        (p0) edge [loop left]  node {$a,b$}()
+        (p13) edge [loop left]  node {$a$}()
+        (p123) edge [loop right]  node {$a$}()
+        (p1) edge [bend left] node {$b$}   (p2)
+        (p13) edge  node {$b$}   (p2)
+        (p2) edge  node {$b$}   (p3)
+        (p2) edge  node {$a$}   (p23)
+        (p123) edge [bend left] node {$b$}   (p23)
+        (p12) edge  node {$a,b$}   (p23)
+        (p23) edge [bend left, below] node {$b$}   (p3)
+        (p23) edge  node {$a$}   (p123)
+        (p3) edge [bend left] node {$b$}   (p0)
+        (p3) edge [bend right] node {$a$}   (p13)
+        (p1) edge [bend right] node {$a$}   (p0);
+    \end{tikzpicture}
+    \caption{grafico di $D$}
+    \label{fig:DFAgenerated}
+\end{figure}
+\begin{itemize}
+    \item $Q_D=\{p_0,p_1,p_2,p_3,p_{12},p_{13},p_{23},p_{123}\}$
+    \item $E(q_{0_N})=\{q_1,q_3\}\implies q_{0_D}=p_{13}$
+    \item $F_D=\{p_1,p_{12},p_{13},p_{123}\}$
+    \item la funzione $\delta_D$ si definisce osservando il grafico di $N$\begin{itemize}
+        \item $\delta_N(q_2,a)=\{q_2,q_3\}\implies \delta_D(p_2,a)=p_{23}$
+        \item $\delta_N(q_2,b)=\{q_3\}\implies \delta_D(p_2,a)=p_{3}$
+        \item $\delta_N(q_1,a)=\emptyset\implies \delta_D(p_1,a)=p_0$
+        \item $\delta_N(q_1,b)=\{q_2\}\implies \delta_D(p_1,b)=p_{2}$
+        \item etc...
+    \end{itemize}
+\end{itemize}
+
+L'introduzione degli automi non deterministici è stata necessaria in principio per la dimostrazione della chiusura 
+di $REG$ rispetto le operazioni di concatenazione e star.\acc 
+\teo{} $REG$ è chiusa per concatenazione.\acc 
+\dimo{} Siano $L_1$ ed $L_2$ due linguaggi regolari, esistono quindi due NFA 
+$$ N_1=(Q_1,\Sigma_\epsilon,\delta_1,q_0^1,F_1)\ \ \ \ \ \  
+N_2=(Q_2,\Sigma_\epsilon,\delta_2,q_0^2,F_2)$$
+tali che $L(N_1)=L_1 \ \land \ L(N_2)=L_2$. Si costruisce un NFA $N=(Q,\Sigma_\epsilon,\delta,q_0,F)$, l'idea è quella 
+di concatenare le ramificazioni di $N_1$ ad $N_2$.
+\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=1\textwidth ]{images/concatenazioneChiusa.eps}
+        \caption{schema di $N$}
+        \label{fig:concatenazioneChiusa}
+    \end{figure}
+\end{center}
+Un NFA di questo tipo computerà una stringa in $L_1$, se finirà in uno stato di $F_1$, andrà nello stato iniziale 
+di $N_2$, è chiaro che l'automa accetta solamente una concatenazione di stringhe fra $L_1$ ed $L_2$. \begin{itemize}
+    \item $Q=Q_1\cup Q_2$
+    \item $q_0=q_0^1$
+    \item $F=F_2$
+    \item per $a\in\Sigma_\epsilon$ e $q\in Q$ si ha $\delta(q,a)=\begin{cases}
+        \delta_1(q,a) \text{ se }q\in Q_1\land q\notin F_1\\ 
+        \delta_1(q,a)\text{ se }q\in F_1\land a\ne \epsilon\\ 
+        \delta_1(q,a)\cup\{q_0^2\}\text{ se }q\in F_1\land a= \epsilon\\ 
+        \delta_2(q,a)\text{ se }q\in Q_2\\
+    \end{cases}$
+\end{itemize}
+Si ha quindi che $L(N)=L_1\circ L_2$. $\blacksquare$\acc 
+\teo{} $REG$ è chiusa per star.\acc 
+\dimo{} Sia $L\in REG$ e sia $N=(Q,\Sigma_\epsilon,\delta,q_{0},F)$ un NFA tale che $L(N)=L$. Considero un NFA $N^*=(Q^*,\Sigma_\epsilon,\delta^*,q_{0}^*,F^*)$,
+ identico ad $N$, con opportune 
+modifiche, lo stato $q_0$ iniziale di $N$ non è iniziale in $N^*$, 
+ed ogni stato finale ha una $\epsilon$-arco verso $q_0$.\begin{itemize}
+    \item $Q^*=Q\cup\{q_0^*\}$
+    \item $q_0^*$ è un nuovo stato 
+    \item $F^*=F\cup\{q_0^*\}$ questo perché in $L^*$ è presente la stringa vuota
+    \item per $a\in\Sigma_\epsilon$ e $q\in Q^*$ si ha $\delta^*(q,a)=\begin{cases}
+        \delta(q,a) \text{ se }q\in Q\land q\notin F\\ 
+        \delta(q,a) \text{ se }q\in F\land a\ne \epsilon\\
+        \delta(q,a)\cup\{q_0\} \text{ se }q\in F\land a= \epsilon\\
+        \{q_0\}\text{ se }q=q_0^*\land a =\epsilon\\ 
+        \emptyset \text{ se }q=q_0^*\land a\ne \epsilon
+    \end{cases}$
+\end{itemize}
+\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=1\textwidth ]{images/starChiusa.eps}
+        \caption{schema di $N^*$}
+        \label{fig:starChiusa}
+    \end{figure}
+\end{center}
+\flowerLine 
+\section{Espressioni Regolari}
 \end{document}
