@@ -141,7 +141,7 @@ cui il proiettile perdeva il suo "impeto" cadendo a terra. Egli si rese conto ch
 i proiettili sono soggetti sia alla forza impressa dal colpo (orizzontale), sia a quella verticale 
 impressa verso il basso.\acc 
 La forza impressa dal colpo gli da una velocità costante, in quanto non è soggetto ad ulteriori 
-accellerazioni orizzontalmente, quella verticale invece provoca un moto uniformemente accellerato, 
+accelerazioni orizzontalmente, quella verticale invece provoca un moto uniformemente accelerato, 
 la distanza 
 percorsa in verticale è proporzionale al 
 quadrato del tempo impiegato a percorrerla, la combinazione dei due moti risulta in un arco 
@@ -505,12 +505,124 @@ cambia nel tempo, quindi vi sarà un accelerazione non nulla.\begin{center}
 Sia $\bar v$ la velocità, essendo il modulo costante, denoteremo $|\bar v|=v_0$. Si considera ora 
 la velocità scalare $s$, di cui si ricorda 
 $$ \frac{ds}{dt}=v_0$$
-Inoltre, sapendo che $\frac{s}{r}=\theta$, si pone 
-$$ \frac{ds}{r}=d\theta \implies \frac{ds}{dt}=r\cdot \frac{d\theta}{dt}=v_0$$
+Inoltre, sapendo che $\frac{s}{R}=\theta$, si pone 
+$$ \frac{ds}{R}=d\theta \implies \frac{ds}{dt}=R\cdot \frac{d\theta}{dt}=v_0$$
 Denotiamo $\omega = \dfrac{d\theta}{dt}$, tale termine descrive la variazione dell'angolo nel tempo 
-ed è denominato \textbf{velocità angolare}. Il fatto che la velocità dipenda dal raggio $r$, descrive il fatto 
+ed è denominato \textbf{velocità angolare}. Il fatto che la velocità dipenda dal raggio $R$, descrive il fatto 
 che a parità di velocità angolare, un oggetto che si muove su un cerchio di raggio minore va meno veloce. 
 $$ \frac{d\theta}{dt}=\omega \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;
-\frac{ds}{dt}=r\omega \;\;\;\;\; \;\;\;\;\;\;\;\;\;\;
-v_0=r\omega$$
+\frac{ds}{dt}=R\omega \;\;\;\;\; \;\;\;\;\;\;\;\;\;\;
+v_0=R\omega$$
+La velocità angolare si misura in radianti al secondo, essendo i radianti adimensionali, l'unità 
+di misura è $\nicefrac{1}{s}=1 Hz$, detta anche \textit{frequenza}. Si può esprimere 
+anche $\omega=\frac{2\pi}{t}$ dove $t$ rappresenta il tempo impiegato per fare un giro intero, 
+detto anche \textit{periodo}. Si pone  la frequenza $\frac{1}{t}=\nu$ e si ha 
+$$\frac{2\pi}{t} \nicefrac{1}{s}=2\pi\nu\ Hz$$
+Si ha quindi la velocità angolare $\omega$, si vuole però rappresentare il vettore 
+velocità $\bar v$, serve prima definire il vettore velocità angolare $\bar \omega$, ossia un vettore il cui modulo è 
+uguale alla velocità angolare 
+$$ |\bar \omega|=\omega = \frac{v}{R}$$
+Il vettore $\omega$, essendo che deve rappresentare una rotazione, deve definire \begin{itemize}
+    \item la velocità di rotazione 
+    \item il piano di rotazione 
+    \item il verso della rotazione 
+\end{itemize}
+Un piano, può essere definito dal suo \textit{vettore normale}, ossia il vettore ortogonale ai due 
+vettori le cui combinazioni lineari generano tutti i punti del piano. Inoltre, il verso di tale vettore, 
+definisce anche il verso di rotazione. 
+$$\bar \omega \times \bar r = \bar v$$
+rispetta infatti 
+$$|\bar \omega \times \bar r| = |\bar v|\implies \omega R = v$$
+Si ricordi che il vettore spostamento si muove sempre sul cerchio di raggio $R$, per questo 
+$\bar r = R$.
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/vetVelocitaAngolare.eps}
+        \caption{vettore velocità angolare}
+    \end{figure} 
+\end{center}
+Per convenzione, la rotazione avviene in senso antiorario intorno al vettore, se lo si osserva dal punto 
+diretto dal suo verso.\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/dirVetAng.eps}
+    \end{figure} 
+\end{center}
+Una volta stabilito il vettore velocità, si vuole trovare l'accelerazione, derivandola 
+$$ \bar a = \lim_{\Delta t\rightarrow 0}\dfrac{\Delta \bar v}{\Delta t}$$
+Definiamo $\Delta \theta$ l'angolo formato dal vettore $\bar r(t+\Delta t)$ con il vettore 
+$\bar r(t)$, definisce la variazione dell'angolo nel tempo, è chiaro che se 
+$\Delta t\rightarrow 0$ allora $\Delta \theta\rightarrow 0$.\acc 
+Differentemente, il vettore $\Delta \bar v=\bar v(t+\Delta t)-\bar v(t)$, tende a puntare 
+al centro del cerchio attorno a cui il punto rotea. Trovata la sua direzione, se ne vuole 
+stabilire l'intensita, ossia il suo modulo $|\bar a|=a$.
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/accAng.eps}
+    \end{figure} 
+\end{center}
+Se $\Delta t$ tende a zero, l'arco di curva è approssimabile ad una retta fra i due punti, che 
+sappiamo essere di lunghezza $|\Delta \bar r|=\Delta r$, inoltre, il rapporto fra quest'ultimo ed 
+il raggio è proprio uguale all'angolo, quindi 
+$$ \lim_{\Delta t \rightarrow 0}\frac{\Delta r}{R}=\Delta \theta $$
+Inoltre, anche considerando il vettore $\Delta \bar v$, esso rispetto al vettore velocità 
+permette di trovare il medesimo angolo 
+$$ \lim_{\Delta t \rightarrow 0}\frac{\Delta \bar v}{v}=\Delta \theta $$
+Quindi $$ |\Delta \bar v |= v\Delta \theta = \frac{\Delta r}{R}v$$
+Indicando con $v$ il modulo di $\bar v$, si ha che 
+$$ a=\lim_{\Delta t\rightarrow 0}\frac{\Delta v}{\Delta t}=
+\lim_{\Delta t\rightarrow 0} \frac{v}{R}\frac{\Delta r}{\Delta t}$$
+Appare come secondo termine proprio la derivata dello spostamento 
+$$\lim_{\Delta t\rightarrow 0} \frac{v}{R}\frac{\Delta r}{\Delta t}= 
+\frac{v}{r}(\lim_{\Delta t\rightarrow 0}\frac{\Delta r}{\Delta t})\implies  $$
+\eqImportante{$|\bar a|=a=\frac{v^2}{R}=\omega^2R$}
+\begin{center}
+        \includegraphics[width=0.2\textwidth]{images/accelerazioneNormale.eps}
+\end{center}
+Si ricordi come il vettore accelerazione può essere scritto come somma di due componenti 
+che rappresentano l'accelerazione tangenziale, ossia la variazione del modulo della velocità, e 
+\textbf{l'accelerazione normale}, che descrive il variare della direzione della velocità. Nel 
+caso del moto rettilineo uniforme, l'accelerazione ha componente tangenziale nulla, è solo 
+normale e diretta verso il centro del cerchio, ed ha intensità $\frac{v^2}{R}$.\acc 
+Quando un moto di un punto $\bar r$ segue una traiettoria curva (ma non circolare uniforme), preso un istante 
+fissato $t_0$, l'accelerazione normale è diretta verso il centro del cerchio che approssima la curva 
+nell'istante dato e che contenga $\bar r(t_0)$, come mostrato in figura \ref{cerchioOsculante}.
+\acc 
+A tal punto è possibile descrivere un moto qualsiasi definendo la sua accelerazione normale 
+e tangenziale. Il moto circolare uniforme è il particolare caso in cui l'accelerazione 
+tangenziale è nulla. $$ \begin{cases}
+    \bar v(t) = \bar \omega(t) \times \bar r(t)   \\ 
+    \bar a_t(t)  = \frac{d\bar \omega}{dt}(t)|\bar r|(t) \text{ accelerazione tangenziale} \\ 
+    \bar a_n(t) = \frac{\bar v(t)^2}{\bar r(t)}\text{ accelerazione normale}
+\end{cases}$$
+\begin{center}\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/cerchioOsculante.eps}
+    \caption{Cerchio osculatore}
+    \label{cerchioOsculante}
+\end{figure} \end{center}
+\subsection{Moto Armonico}
+Il moto armonico vuole descrivere il comportamento oscillatorio e periodico di un punto. Si può 
+descrivere come la proiezione su uno degli assi del moto circolare uniforme. 
+$$ x(t)=R\cos(\theta(t))=R\cos(\omega t)$$
+\begin{center}\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/armonica.eps}
+    \caption{$x(t)=R\cos(\omega t)$}
+    \label{cerchioOsculante}
+\end{figure} \end{center}
+La costante $R$ si chiama \textit{ampiezza} del moto, mentre $\omega$ si chiama \textit{pulsazione}.
+La funzione $x$ del moto è armonica di periodo $T$, ossia $x(t+T)=x(t)$. Essendo che l'argomento della  funzione  
+trigonometrica deve variare di $2\pi$ si ha 
+$$\omega(t+T)-\omega t = 2\pi \implies \omega = \frac{2\pi}{T}=2\pi\nu$$
+Si definisce $\nu=\frac{1}{T}$ una nuova grandezza denominata \textit{frequenza} di moto.
+\acc Si vuole trovare la velocità, ossia 
+$$ v(t)=\frac{d}{dt}R\cos(\omega t)=-R\omega\sin(\omega t)$$
+La velocità massima si ha in $-R\omega\sin(\omega t)=0\implies \sin(\omega t)=0$, ossia nei punti 
+in cui $x$ incontra l'asse delle ascisse. L'accelerazione vale 
+$$ a=\frac{dv}{dt}=\frac{d}{dt}-R\omega\sin(\omega t)=-R\omega^2\cos(\omega t)=-\omega^2x(t)$$
+Si noti come l'accelerazione dipende dalla posizione, la sua forza è proprio opposta ad essa, 
+si dice infatti che il moto oscillatorio è dettato da una \textit{forza di richiamo}.
 \end{document}

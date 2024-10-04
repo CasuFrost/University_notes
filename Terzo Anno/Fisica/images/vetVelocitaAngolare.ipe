@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241001180614" modified="D:20241004135420"/>
+<info created="D:20241004135909" modified="D:20241004144923"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,97 +313,54 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" stroke="0 0.502 0" arrow="normal/normal">
-240 704 m
-240 784 l
+<path layer="alpha" matrix="1 0 0 1.39892 0 -277.647" stroke="black" dash="dashed">
+40.1995 0 0 40.1995 248 696 e
 </path>
-<path stroke="0.502 0 0" arrow="normal/normal">
-240 704 m
-320 704 l
+<path stroke="1 0 0" dash="dash dotted" arrow="normal/normal">
+248 696 m
+352 696 l
 </path>
-<path stroke="0" dash="dashed">
-48 0 0 48 240 704 e
+<path stroke="0 0.502 0" dash="dash dotted" arrow="normal/normal">
+248 696 m
+248 784 l
 </path>
-<path matrix="0.869802 0.493402 -0.493402 0.869802 376.864 -23.9475" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<path stroke="0 0 1" dash="dash dotted" arrow="normal/normal">
+248 696 m
+176 652 l
 </path>
-<path matrix="0.541061 0.840984 -0.840984 0.541061 691.188 126.715" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<text transformations="translations" pos="180 644" stroke="0 0 1" type="label" width="5.071" height="4.289" depth="0" halign="center" valign="center" style="math">z</text>
+<use name="mark/disk(sx)" pos="248 696" size="normal" stroke="black"/>
+<text matrix="1 0 0 1 176 48" transformations="translations" pos="180 644" stroke="1 0 0" type="label" width="5.694" height="4.289" depth="0" halign="center" valign="center" style="math">x</text>
+<text matrix="1 0 0 1 76 144" transformations="translations" pos="180 644" stroke="0 0.502 0" type="label" width="5.242" height="4.297" depth="1.93" halign="center" valign="center" style="math">y</text>
+<path stroke="0.251 0 0.502" arrow="normal/normal">
+248 696 m
+284 720 l
 </path>
-<path matrix="-0.721767 0.692137 -0.692137 -0.721767 904.87 1049.92" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<text matrix="1 0 0 1 92 80" transformations="translations" pos="180 644" stroke="0.251 0 0.502" type="label" width="4.771" height="5.657" depth="0" halign="center" valign="center" style="math">\bar r</text>
+<path stroke="0.941 0.306 0" arrow="normal/normal">
+284 720 m
+276 744 l
 </path>
-<path matrix="-0.999987 0.00517577 -0.00517577 -0.999987 483.613 1404.87" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<text matrix="1 0 0 1 100 104" transformations="translations" pos="180 644" stroke="0.941 0.306 0" type="label" width="5.187" height="5.657" depth="0" halign="center" valign="center" style="math">\bar v</text>
+<path stroke="0.82 0.059 0.882" arrow="normal/normal">
+248 696 m
+308 696 l
 </path>
-<path matrix="-0.641261 -0.767324 0.767324 -0.641261 -143.24 1337.16" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<text matrix="1 0 0 1 128 60" transformations="translations" pos="180 644" stroke="0.82 0.059 0.882" type="label" width="6.559" height="5.657" depth="0" halign="center" valign="center" style="math">\bar \omega</text>
+<path fill="0.502" opacity="10%" stroke-opacity="opaque">
+316 760
+356 760
+356 760
+356 752
+356 752
+316 752
+316 752
+316 760 u
 </path>
-<path matrix="0.232786 -0.972529 0.972529 0.232786 -506.537 772.485" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path matrix="0.789499 -0.613752 0.613752 0.789499 -381.744 295.466" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<text matrix="1 0 0 1 -76 24" transformations="translations" pos="328 704" stroke="0 0.502 0.753" type="label" width="7.641" height="6.808" depth="0" halign="center" valign="center" style="math">R</text>
-<path stroke="0 0 1" dash="dotted">
-260 704 m
-20 0 0 20 240 704 253.305 718.932 a
-</path>
-<path stroke="0 0.502 0.753">
-240 704 m
-272 740 l
-</path>
-<text matrix="1 0 0 1 -76 5.79208" transformations="translations" pos="328 704" stroke="0 0 1" type="label" width="4.954" height="6.918" depth="0" halign="center" valign="center" style="math">\theta</text>
-<text matrix="1 0 0 1 -56.592 43.2" transformations="translations" pos="328 704" stroke="0.502 0 0.502" type="label" width="4.771" height="5.657" depth="0" halign="center" valign="center" style="math">\bar r</text>
-<path stroke="0.502 0 0.502" dash="dotted">
-272 740 m
-240 740 l
-</path>
-<path stroke="0.502 0 0.502" dash="dotted">
-272 740 m
-272 704 l
-</path>
-<text matrix="1 0 0 1 -56 -4" transformations="translations" pos="328 704" stroke="0.502 0 0" type="label" width="5.694" height="4.289" depth="0" halign="center" valign="center" style="math">x</text>
-<text matrix="1 0 0 1 -92 36" transformations="translations" pos="328 704" stroke="0 0.502 0" type="label" width="5.242" height="4.297" depth="1.93" halign="center" valign="center" style="math">y</text>
-<use name="mark/disk(sx)" pos="272 740" size="normal" stroke="0.502 0 0.502"/>
-<use name="mark/disk(sx)" pos="240 704" size="normal"/>
-<text matrix="1 0 0 1 39.408 7.2" transformations="translations" pos="328 704" stroke="0" type="label" width="49.272" height="7.945" depth="1.93" halign="center" valign="center" style="math">\bar r = \bar i x+\bar j y</text>
-<text matrix="1 0 0 1 35.408 -8.8" transformations="translations" pos="328 704" stroke="0" type="label" width="42.827" height="7.473" depth="2.49" halign="center" valign="center" style="math">\bar r = (R,\theta)</text>
+<text matrix="1 0 0 1 140 112" transformations="translations" pos="180 644" stroke="0.82 0.059 0.882" type="label" width="6.559" height="5.657" depth="0" halign="center" valign="center" style="math">\bar \omega</text>
+<text matrix="1 0 0 1 172 112" transformations="translations" pos="180 644" stroke="0.941 0.306 0" type="label" width="5.187" height="5.657" depth="0" halign="center" valign="center" style="math">\bar v</text>
+<text matrix="1 0 0 1 148 112" transformations="translations" pos="180 644" stroke="0" type="label" width="7.749" height="5.812" depth="0.83" halign="center" valign="center" style="math">\times</text>
+<text matrix="1 0 0 1 156 112" transformations="translations" pos="180 644" stroke="0.251 0 0.502" type="label" width="4.771" height="5.657" depth="0" halign="center" valign="center" style="math">\bar r</text>
+<text matrix="1 0 0 1 164 112" transformations="translations" pos="180 644" stroke="0" type="label" width="7.749" height="3.655" depth="0" halign="center" valign="center" style="math">=</text>
 </page>
 </ipe>

@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241001180614" modified="D:20241004135420"/>
+<info created="D:20241004174454" modified="D:20241004182347"/>
+<preamble>\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,97 +316,93 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" stroke="0 0.502 0" arrow="normal/normal">
-240 704 m
-240 784 l
+<text layer="alpha" matrix="1 0 0 1 13.4185 -2.11112" transformations="translations" pos="128 772" stroke="1 0 0" type="minipage" width="252" height="83.287" depth="78.5" valign="top">\pgfplotsset{ticks=none}
+\begin{tikzpicture}[scale=1, transform shape]
+    \begin{axis}[
+    ymin=-3,
+    ymax = 3,
+    xmin=0,
+    xmax = 6,
+    axis lines = center,
+    grid style=dashed,
+    xlabel = \(t\),
+    ylabel = {\(x(t)\)},
+    ]
+    %Below the red parabola is defined
+    \addplot [
+    domain=0:6,
+    samples=100,
+    color=blue,
+    ]
+    {2*sin(deg((2)*x))};
+    \end{axis}
+\end{tikzpicture}</text>
+<text matrix="1 0 0 1 -22.9123 -69.7917" transformations="translations" pos="268 748" stroke="1 0 0" type="label" width="7.206" height="6.808" depth="0" valign="baseline" style="math">T</text>
+<path matrix="1 0 0 1 -101.769 0" stroke="1 0 0" dash="dashed" pen="heavier">
+268.808 688.931 m
+268.82 742.523 l
+268.82 742.523 l
 </path>
-<path stroke="0.502 0 0" arrow="normal/normal">
-240 704 m
-320 704 l
+<use matrix="1 0 0 1 -101.719 0" name="mark/disk(sx)" pos="268.767 688.78" size="small" stroke="1 0 0"/>
+<use matrix="1 0 0 1 50.8903 0" name="mark/disk(sx)" pos="192.539 688.768" size="small" stroke="1 0 0"/>
+<text matrix="1 0 0 1 -111.689 -53.9046" transformations="translations" pos="268 748" stroke="1 0 0" type="label" width="8.169" height="8.694" depth="3.43" valign="baseline" style="math">\frac{T}{4}</text>
+<use matrix="1 0 0 1 -76.3948 -0.00021115" name="mark/disk(sx)" pos="268.767 688.78" size="small" stroke="1 0 0"/>
+<text matrix="1 0 0 1 -86.1235 -70.3328" transformations="translations" pos="268 748" stroke="1 0 0" type="label" width="8.169" height="8.694" depth="3.43" valign="baseline" style="math">\frac{T}{2}</text>
+<path stroke="0.502 0 1" dash="dashed" pen="heavier">
+167.191 742.582 m
+141.619 742.582 l
 </path>
-<path stroke="0" dash="dashed">
-48 0 0 48 240 704 e
+<use name="mark/disk(sx)" pos="141.677 742.542" size="small" stroke="0.502 0 1"/>
+<text matrix="1 0 0 1 -137.638 -8.16336" transformations="translations" pos="268 748" stroke="0.502 0 1" type="label" width="7.641" height="6.808" depth="0" valign="baseline" style="math">R</text>
+<path matrix="2.99649 0 0 2.99649 -282.741 -1590.15" stroke="0.502 0 1" dash="dashed" pen="heavier">
+167.191 742.582 m
+141.619 742.582 l
 </path>
-<path matrix="0.869802 0.493402 -0.493402 0.869802 376.864 -23.9475" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<use matrix="1 0 0 1 0.00038932 -107.589" name="mark/disk(sx)" pos="141.677 742.542" size="small" stroke="0.502 0 1"/>
+<text matrix="1 0 0 1 -137.638 -115.752" transformations="translations" pos="268 748" stroke="0.502 0 1" type="label" width="7.641" height="6.808" depth="0" valign="baseline" style="math">R</text>
+<text matrix="1 0 0 1 267.399 -2.11159" transformations="translations" pos="128 772" stroke="1 0 0" type="minipage" width="252" height="83.287" depth="78.5" valign="top">\pgfplotsset{ticks=none}
+\begin{tikzpicture}[scale=1, transform shape]
+    \begin{axis}[
+    ymin=-3,
+    ymax = 3,
+    xmin=0,
+    xmax = 6,
+    axis lines = center,
+    grid style=dashed,
+    xlabel = \(\omega t\),
+    ylabel = {\(x(t)\)},
+    ]
+    %Below the red parabola is defined
+    \addplot [
+    domain=0:6,
+    samples=100,
+    color=blue,
+    ]
+    {2*sin(deg((2)*x))};
+    \end{axis}
+\end{tikzpicture}</text>
+<text matrix="1 0 0 1 231.068 -69.7922" transformations="translations" pos="268 748" stroke="1 0 0" type="label" width="11.018" height="6.42" depth="0" valign="baseline" style="math">2\pi</text>
+<path matrix="1 0 0 1 152.211 -0.00047314" stroke="1 0 0" dash="dashed" pen="heavier">
+268.808 688.931 m
+268.82 742.523 l
+268.82 742.523 l
 </path>
-<path matrix="0.541061 0.840984 -0.840984 0.541061 691.188 126.715" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<use matrix="1 0 0 1 152.261 -0.00047314" name="mark/disk(sx)" pos="268.767 688.78" size="small" stroke="1 0 0"/>
+<use matrix="1 0 0 1 304.871 -0.00047314" name="mark/disk(sx)" pos="192.539 688.768" size="small" stroke="1 0 0"/>
+<text matrix="1 0 0 1 142.291 -53.9051" transformations="translations" pos="268 748" stroke="1 0 0" type="label" width="7.3" height="6.931" depth="3.43" valign="baseline" style="math">\frac{\pi}{2}</text>
+<use matrix="1 0 0 1 177.586 -0.00068429" name="mark/disk(sx)" pos="268.767 688.78" size="small" stroke="1 0 0"/>
+<text matrix="1 0 0 1 169.959 -66.7298" transformations="translations" pos="268 748" stroke="1 0 0" type="label" width="6.036" height="4.289" depth="0" valign="baseline" style="math">\pi</text>
+<path matrix="1 0 0 1 253.98 -0.00047314" stroke="0.502 0 1" dash="dashed" pen="heavier">
+167.191 742.582 m
+141.619 742.582 l
 </path>
-<path matrix="-0.721767 0.692137 -0.692137 -0.721767 904.87 1049.92" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<use matrix="1 0 0 1 253.98 -0.00047314" name="mark/disk(sx)" pos="141.677 742.542" size="small" stroke="0.502 0 1"/>
+<text matrix="1 0 0 1 116.342 -8.16383" transformations="translations" pos="268 748" stroke="0.502 0 1" type="label" width="7.641" height="6.808" depth="0" valign="baseline" style="math">R</text>
+<path matrix="2.99649 0 0 2.99649 -28.7606 -1590.15" stroke="0.502 0 1" dash="dashed" pen="heavier">
+167.191 742.582 m
+141.619 742.582 l
 </path>
-<path matrix="-0.999987 0.00517577 -0.00517577 -0.999987 483.613 1404.87" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path matrix="-0.641261 -0.767324 0.767324 -0.641261 -143.24 1337.16" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path matrix="0.232786 -0.972529 0.972529 0.232786 -506.537 772.485" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path matrix="0.789499 -0.613752 0.613752 0.789499 -381.744 295.466" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<text matrix="1 0 0 1 -76 24" transformations="translations" pos="328 704" stroke="0 0.502 0.753" type="label" width="7.641" height="6.808" depth="0" halign="center" valign="center" style="math">R</text>
-<path stroke="0 0 1" dash="dotted">
-260 704 m
-20 0 0 20 240 704 253.305 718.932 a
-</path>
-<path stroke="0 0.502 0.753">
-240 704 m
-272 740 l
-</path>
-<text matrix="1 0 0 1 -76 5.79208" transformations="translations" pos="328 704" stroke="0 0 1" type="label" width="4.954" height="6.918" depth="0" halign="center" valign="center" style="math">\theta</text>
-<text matrix="1 0 0 1 -56.592 43.2" transformations="translations" pos="328 704" stroke="0.502 0 0.502" type="label" width="4.771" height="5.657" depth="0" halign="center" valign="center" style="math">\bar r</text>
-<path stroke="0.502 0 0.502" dash="dotted">
-272 740 m
-240 740 l
-</path>
-<path stroke="0.502 0 0.502" dash="dotted">
-272 740 m
-272 704 l
-</path>
-<text matrix="1 0 0 1 -56 -4" transformations="translations" pos="328 704" stroke="0.502 0 0" type="label" width="5.694" height="4.289" depth="0" halign="center" valign="center" style="math">x</text>
-<text matrix="1 0 0 1 -92 36" transformations="translations" pos="328 704" stroke="0 0.502 0" type="label" width="5.242" height="4.297" depth="1.93" halign="center" valign="center" style="math">y</text>
-<use name="mark/disk(sx)" pos="272 740" size="normal" stroke="0.502 0 0.502"/>
-<use name="mark/disk(sx)" pos="240 704" size="normal"/>
-<text matrix="1 0 0 1 39.408 7.2" transformations="translations" pos="328 704" stroke="0" type="label" width="49.272" height="7.945" depth="1.93" halign="center" valign="center" style="math">\bar r = \bar i x+\bar j y</text>
-<text matrix="1 0 0 1 35.408 -8.8" transformations="translations" pos="328 704" stroke="0" type="label" width="42.827" height="7.473" depth="2.49" halign="center" valign="center" style="math">\bar r = (R,\theta)</text>
+<use matrix="1 0 0 1 253.981 -107.589" name="mark/disk(sx)" pos="141.677 742.542" size="small" stroke="0.502 0 1"/>
+<text matrix="1 0 0 1 116.342 -115.752" transformations="translations" pos="268 748" stroke="0.502 0 1" type="label" width="7.641" height="6.808" depth="0" valign="baseline" style="math">R</text>
 </page>
 </ipe>

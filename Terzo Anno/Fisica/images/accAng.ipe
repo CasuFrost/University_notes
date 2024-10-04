@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241001180614" modified="D:20241004135420"/>
+<info created="D:20241004142448" modified="D:20241004142719"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,97 +313,44 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" stroke="0 0.502 0" arrow="normal/normal">
-240 704 m
-240 784 l
+<text layer="alpha" matrix="1 0 0 1 264 60" transformations="translations" pos="180 644" stroke="0.251 0 0.502" type="label" width="13.15" height="5.234" depth="1.74" halign="center" valign="center" size="script" style="math">\bar r(t)</text>
+<text matrix="1 0 0 1 204 116" transformations="translations" pos="180 644" stroke="0.251 0 0.502" type="label" width="32.449" height="5.234" depth="1.74" halign="center" valign="center" size="script" style="math">\bar r(t+\Delta t)</text>
+<text matrix="1 0 0 1 264 92" transformations="translations" pos="180 644" stroke="0.925 0.302 0" type="label" width="13.472" height="5.234" depth="1.74" halign="center" valign="center" size="script" style="math">\bar v(t)</text>
+<text matrix="1 0 0 1 168 100" transformations="translations" pos="180 644" stroke="0.925 0.302 0" type="label" width="32.77" height="5.234" depth="1.74" halign="center" valign="center" size="script" style="math">\bar v(t+\Delta t)</text>
+<path stroke="1 0 0" arrow="normal/normal" opacity="30%" stroke-opacity="opaque">
+432 704 m
+384 752 l
 </path>
-<path stroke="0.502 0 0" arrow="normal/normal">
-240 704 m
-320 704 l
+<path stroke="0" dash="dashed" opacity="10%" stroke-opacity="opaque">
+432 704 m
+48 0 0 48 384 704 384 752 a
 </path>
-<path stroke="0" dash="dashed">
-48 0 0 48 240 704 e
+<path stroke="0.925 0.302 0" arrow="normal/normal">
+432 704 m
+432 736 l
 </path>
-<path matrix="0.869802 0.493402 -0.493402 0.869802 376.864 -23.9475" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
+<path stroke="0.925 0.302 0" arrow="normal/normal">
+384 752 m
+352 752 l
+</path>
+<use name="mark/disk(sx)" pos="432 704" size="tiny" stroke="0.251 0 0.502"/>
+<use name="mark/disk(sx)" pos="384 752" size="tiny" stroke="0.251 0 0.502"/>
+<path fill="1 0 0.502" opacity="30%" stroke-opacity="opaque">
+408 704 m
+24 0 0 24 384 704 384 728 a
+384 704 l
 h
 </path>
-<path matrix="0.541061 0.840984 -0.840984 0.541061 691.188 126.715" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<path stroke="0.251 0 0.502" arrow="normal/normal" opacity="10%" stroke-opacity="opaque">
+384 704 m
+432 704 l
 </path>
-<path matrix="-0.721767 0.692137 -0.692137 -0.721767 904.87 1049.92" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
+<path stroke="0.251 0 0.502" arrow="normal/normal" opacity="10%" stroke-opacity="opaque">
+384 704 m
+384 752 l
 </path>
-<path matrix="-0.999987 0.00517577 -0.00517577 -0.999987 483.613 1404.87" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path matrix="-0.641261 -0.767324 0.767324 -0.641261 -143.24 1337.16" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path matrix="0.232786 -0.972529 0.972529 0.232786 -506.537 772.485" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path matrix="0.789499 -0.613752 0.613752 0.789499 -381.744 295.466" stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<path stroke="0" fill="white">
-288 704 m
-284 700 l
-288.016 702.403 l
-292 700 l
-h
-</path>
-<text matrix="1 0 0 1 -76 24" transformations="translations" pos="328 704" stroke="0 0.502 0.753" type="label" width="7.641" height="6.808" depth="0" halign="center" valign="center" style="math">R</text>
-<path stroke="0 0 1" dash="dotted">
-260 704 m
-20 0 0 20 240 704 253.305 718.932 a
-</path>
-<path stroke="0 0.502 0.753">
-240 704 m
-272 740 l
-</path>
-<text matrix="1 0 0 1 -76 5.79208" transformations="translations" pos="328 704" stroke="0 0 1" type="label" width="4.954" height="6.918" depth="0" halign="center" valign="center" style="math">\theta</text>
-<text matrix="1 0 0 1 -56.592 43.2" transformations="translations" pos="328 704" stroke="0.502 0 0.502" type="label" width="4.771" height="5.657" depth="0" halign="center" valign="center" style="math">\bar r</text>
-<path stroke="0.502 0 0.502" dash="dotted">
-272 740 m
-240 740 l
-</path>
-<path stroke="0.502 0 0.502" dash="dotted">
-272 740 m
-272 704 l
-</path>
-<text matrix="1 0 0 1 -56 -4" transformations="translations" pos="328 704" stroke="0.502 0 0" type="label" width="5.694" height="4.289" depth="0" halign="center" valign="center" style="math">x</text>
-<text matrix="1 0 0 1 -92 36" transformations="translations" pos="328 704" stroke="0 0.502 0" type="label" width="5.242" height="4.297" depth="1.93" halign="center" valign="center" style="math">y</text>
-<use name="mark/disk(sx)" pos="272 740" size="normal" stroke="0.502 0 0.502"/>
-<use name="mark/disk(sx)" pos="240 704" size="normal"/>
-<text matrix="1 0 0 1 39.408 7.2" transformations="translations" pos="328 704" stroke="0" type="label" width="49.272" height="7.945" depth="1.93" halign="center" valign="center" style="math">\bar r = \bar i x+\bar j y</text>
-<text matrix="1 0 0 1 35.408 -8.8" transformations="translations" pos="328 704" stroke="0" type="label" width="42.827" height="7.473" depth="2.49" halign="center" valign="center" style="math">\bar r = (R,\theta)</text>
+<use name="mark/disk(sx)" pos="384 704" size="normal"/>
+<text matrix="1 0 0 1 212 68" transformations="translations" pos="180 644" stroke="0.69 0 0.345" type="label" width="10.554" height="4.843" depth="0" halign="center" valign="center" size="script" style="math">\Delta \theta</text>
+<text matrix="1 0 0 1 232 88" transformations="translations" pos="180 644" stroke="1 0 0" type="label" width="10.459" height="4.765" depth="0" halign="center" valign="center" size="script" style="math">\Delta r</text>
 </page>
 </ipe>
