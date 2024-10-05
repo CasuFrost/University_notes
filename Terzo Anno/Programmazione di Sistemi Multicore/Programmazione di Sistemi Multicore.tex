@@ -215,4 +215,260 @@ la seguente verrà adottata in tale contesto : \begin{itemize}
     \item \textit{distribuita} : diverse entità cooperative.
 \end{itemize}
 La programmazione parallela o distribuita implica che sia anche concorrente, non è vero il contrario.
+\chapter{Memoria Distribuita : MPI}
+\textit{MPI} è una libreria standard (avente varie implementazioni) necessaria allo sviluppo di codice multiprocesso 
+a memoria distribuita. Precisamente, ogni core ha una memoria privata inaccessibile dall'esterno, e la comunicazione 
+avviene attraverso una rete di interconnesione, (ad esempio, un bus), tale modello è detto \textbf{message 
+passing}.
+\section{La libreria OpenMpi}
+Alla compilazione ed avvio di un programma che sfrutta MPI, ogni core eseguirà il programma, sarà la logica 
+di esso a suddividere il carico di lavoro, tramite i costrutti decisionali. Verrà utilizzata un'implementazione 
+nota come \textit{openMpi}, è possibile installare la libreria su sistemi operativi linux tramite il comando \acc
+    \shell{sudo apt-get install libopenmpi-dev}
+\acc
+Il seguente esempio, mostra un programma che scrive sulla console una stringa, e tramite MPI, tale processo è avviato 
+su ogni core.
+\begin{lstlisting}[style=CStyle]
+    #include <stdio.h>
+    #include <mpi.h>
+    //voglio lanciare il programma su piu unita di calcolo
+    int main(int argc, char **argv){
+        int p = MPI_Init(NULL,NULL); 
+        //Il parametro in output di MPI_Init e' uno status sull'errore
+        if(p == MPI_SUCCESS){
+        
+        }else{
+            printf("qualcosa e' andato storto");
+            MPI_Abort(MPI_COMM_WORLD,p);
+            //Con MPI_Abort tutti i processi su tutti i core avviati verranno terminati 
+        }
+        printf("hello world");
+        MPI_Finalize(); //Serve per terminare la libreria
+        return 0;
+    }
+\end{lstlisting}
+I programmi MPI non vengono compilati con \shell{gcc}, ma con \shell{mpicc}\acc 
+\shell{mpicc hello\_world.c -o hello\_world.out}
+\acc
+Una volta ottenuto l'eseguibile, è possibile lanciare il programma con \shell{mpirun} specificando 
+il numero di core sulla quale verrà eseguito il programma, tale numero, se non specificato con apposite flag, 
+deve essere minore o uguale al numero di core fisici presenti sulla macchina.\acc 
+\shell{mpirun -n 4 hello\_world.out}
+\acc 
+Ogni funzione della libreria ha una dicitura che inizia con \textit{"MPI\_"}. Ogni funzione di libreria deve essere chiamata 
+fra \begin{itemize}
+    \item \code{MPI\_Init} - configurazione ed avviamento della libreria 
+    \item \code{MPI\_Finalize} - chiusura e deallocazione della memoria 
+\end{itemize}
+Tali righe stabiliscono il blocco di codice in cui verranno eseguite funzioni MPI.
+\flowerLine 
+\section{Rank e Comunicazione}
+Ogni processo MPI è univocamente identificato da un numero intero detto \textit{rank}, se $p$ processi sono 
+attivi, avranno gli identificatori $1,2\dots,p-1$.\acc  Un \textbf{comunicatore} è un insieme di processi, i quali hanno 
+la possibilità di scambiarsi messaggi, si può pensare ad un comunicatore come un etichetta, e processi con la stessa 
+etichetta possono comunicare fra loro. 
+È identificabile nel codice tramite la struttura dati \code{MPI\_Comm}, e all'avvio di MPI, viene sempre 
+definito un comunicatore di default \code{MPI\_COMM\_WORLD} che contiene tutti i processi.\acc 
+L'identificatore di ogni processo è in realtà relativo ad ogni comunicatore, due processi diversi possono condividere il 
+rank se relativo a comunicatori diversi. Ci sono due funzioni importanti che riguardano questi ultimi\begin{itemize}
+    \item \code{int MPI\_Comm\_rank(MPI\_Comm comm, int *rank)} : Prende in input un comunicatore ed un numero intero, e 
+    salva dentro tale numero il rank del processo chiamante relativo al comunicatore dato.
+    \item \code{int MPI\_Comm\_size(MPI\_Comm comm, int *size)} : Prende in input un comunicatore ed un numero intero, e 
+    salva dentro tale intero il numero di processi all'interno del comunicatore.
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+    #include <stdio.h>
+    #include <mpi.h>
+    //voglio lanciare il programma su piu unita di calcolo
+    int main(int argc, char **argv){
+        int p = MPI_Init(NULL,NULL); 
+        //Il parametro in output di MPI_Init e' uno status sull'errore
+        if(p == MPI_SUCCESS){
+        
+        }else{
+            printf("qualcosa e' andato storto");
+            MPI_Abort(MPI_COMM_WORLD,p);
+            //Con MPI_Abort tutti i processi su tutti i core avviati verranno terminati 
+        }
+        int size;
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+        int rank;
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        printf("hello world, im the process %d/%d",rank,size);
+        MPI_Finalize(); //Serve per terminare la libreria
+        return 0;
+    }
+\end{lstlisting}
+La comunicazione avviene tramite due funzioni, il cui comportamento è simile alla comunicazione tramite \code{pipe}.\acc 
+L'inzio dei messagi avviene tramite \code{int MPI\_Send}, i cui parametri sono\begin{itemize}
+    \item \code{void* msg\_buf\_p} l'area di memoria da trasferire al processo destinatario 
+    \item \code{int msg\_size} il numero di elementi (non l'occupazione in byte) del messaggio da trasferire 
+    \item \code{MPI\_Datatype msg\_type} il tipo di elemento da trasferire. Sono definiti dei tipi standard che 
+    incorporano tutti i tipi più comuni del \textit{C}
+    \item \code{int dest} il rank del processo destinatario
+    \item \code{int tag} un tag da dare al messaggio per identificarlo 
+    \item \code{MPI\_Comm communicator} il comunicatore  su cui avviene la comunicazione
+\end{itemize}
+Può dipendere dall'implementazione, ma solitamente quando un processo fa una \code{MPI\_Send}, si arresta finché 
+il messaggio inviato non viene ricevuto dal destinatario, allo stesso modo, un destinatario che si appresta a ricevere 
+un messaggio viene arrestato fino al ricevimento. Le chiamate di comunicazione MPI sono quindi bloccanti. \acc 
+Per ricevere dati, viene utilizzata la chiamata \code{MPI\_Recv}  i cui parametri sono\begin{itemize}
+    \item \code{void* msg\_buf\_p} l'area di memoria su cui verrà salvato il messaggio 
+    \item \code{int buf\_size} il numero di elementi (non l'occupazione in byte) del messaggio da ricevere 
+    \item  \code{MPI\_Datatype buf\_type} il tipo di elemento da ricevere
+    \item \code{int source} il rank del processo mittente
+    \item \code{int tag} il tag del messaggio da ricevere
+    \item \code{MPI\_Comm communicator} il comunicatore su cui avviene la comunicazione
+    \item \code{MPI\_Status* status} lo status riguardante l'esito della comunicazione
+\end{itemize}
+OpenMpi definisce la seguente lista di tipi \code{MPI\_Datatype} :\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \texttt{MPI\_CHAR }           & carattere                  \\ \hline
+        \texttt{MPI\_INT }            & intero                     \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \texttt{MPI\_FLOAT  }         & float a singola precisione \\ \hline
+        \texttt{MPI\_DOUBLE  }        & float a doppia precisione  \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \texttt{MPI\_LONG }           & intero long                \\ \hline
+        \texttt{MPI\_SHORT }          & intero short               \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \texttt{MPI\_UNSIGNED\_CHAR}  & carattere senza segno      \\ \hline
+        \texttt{MPI\_UNSIGNED\_INT }  & intero senza segno         \\ \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \texttt{MPI\_UNSIGNED\_LONG}  & intero long senza segno    \\ \hline
+        \texttt{MPI\_UNSIGNED\_SHORT} & intero short senza segno   \\ \hline
+        \end{tabular}
+\end{center}
+Il seguente programma fa si che ogni processo invii un messaggio al processo di rank 0, e quest'ultimo lo stampi 
+a schermo.
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+#include <mpi.h>
+
+int main(int argc, char **argv)
+{
+    int p = MPI_Init(NULL, NULL);
+    // Il parametro in output di MPI_Init e' uno status sull'errore
+    if (p != MPI_SUCCESS)
+    {
+        printf("qualcosa e' andato storto");
+        MPI_Abort(MPI_COMM_WORLD, p);
+        // Con MPI_Abort tutti i processi su tutti i core avviati verranno terminati
+    }
+    int size;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    int str_size = 256;
+    int rank;
+
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    if (rank == 0)
+    {
+        printf("hello world, i am process 0. I will recive and print.\n", rank, size);
+        char str[str_size];
+        for (int i = 1; i < size; i++)
+        {
+            MPI_Recv(str, str_size, MPI_CHAR, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            printf("(STRING RECIVED) : %s", str);
+        }
+    }
+    else
+    {
+        char str[str_size];
+        sprintf(str, "hello world, i am process %d of %d\n", rank, size);
+        // Si invia al processo 0
+        MPI_Send(str, str_size, MPI_CHAR, 0, 0, MPI_COMM_WORLD);
+    }
+
+    MPI_Finalize(); // Serve per terminare la libreria
+    return 0;
+}
+\end{lstlisting}
+Quando un processo esegue una \code{MPI\_Recv}, fra i vari messaggi, viene cercato quello di cui matchano il tag, il 
+comunicatore, ed il mittente, lo scopo del \code{tag} è quello di essere un ulteriore separatore logico per 
+la comunicazione. Anche i tipi dei messaggi devono combaciare, inoltre il numero di byte da ricevere deve essere 
+maggiore o uguale al numero di byte inviati 
+$$ ByteRecv\ge ByteSent$$
+Nella chiamata \code{MPI\_Recv}, i campi \code{source} e \code{tag} possono essere riempiti con, rispettivamente,
+\code{MPI\_ANY\_SOURCE} e \code{MPI\_ANY\_TAG} per non eseguire il controllo su mittente e tag nel ricevimento. 
+È comunque possibile sapere qual'è il mittente, dato che tale informazione è salvata nel campo \code{MPI\_Status}.
+\flowerLine 
+\section{Design di Programmi Paralleli}
+Data la specifica di un programma, quali sono le regole da seguire per partizionare il carico di lavoro fra i vari 
+processi? Non esistono delle regole adatte ad ogni evenienza, ma è è stata definita una metodologia largamente generica, 
+la \textbf{Foster's methodology}.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/foster.eps}
+    \caption{Foster's methodology}
+    \label{fig:foster}
+\end{figure}
+\begin{enumerate}
+    \item \textit{Partizionamento} : si identificano delle attività di base indipendenti fra loro che possono essere
+    eseguite in parallelo.
+    \item \textit{Comunicazione} : determinare quali sono le attività stabilite nel punto precedente che per essere 
+    eseguite necessitano di uno scambio di messaggi. 
+    \item \textit{Aggregazione} : identificare le attività precedentemente stabilite che devono necessariamente essere 
+    eseguite in sequenza, ed aggregarle in un unica attività.
+    \item \textit{Mapping} : assegnare ai vari processi le attività definite in precedenza in modo che il carico di 
+    lavoro sia uniformemente distribuito. Idealmente la comunicazione deve essere ridotta al minimo.
+\end{enumerate}
+\subsection{Pattern di Design Parallelo}
+La struttura di un programma parallelo può essere definita secondo due pattern, si può dire che esistono due modi 
+di \textit{parallelizzare} un programma \begin{itemize}
+    \item \textbf{GPLS (Globally Parallel, Locally Sequential)} : L'applicazione vede diversi task sequenziali venire eseguiti in parallelo. 
+    \item \textbf{GSLP (Globally Sequential, Locally Parallel)} : L'applicazione segue uno specifico "flusso" di esecuzione sequenziale, di cui 
+    alcune parti vengono eseguite in parallelo.
+\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/GPLSoGSLP.eps}
+    \caption{GPLS e GSLP}
+    \label{fig:GPLSoGSLP}
+\end{figure}
+\subsubsection{Esempi di GPLS}\begin{itemize}
+    \item \textbf{Single Program Multiple Data} : La logica dell'applicazione viene mantenuta in un unico 
+    eseguibile, tipicamente il programma segue la seguente struttura\begin{enumerate}
+        \item Inizializzazione del programma 
+        \item Ottenimento degli identificatori 
+        \item Esecuzione del programma in diverse ramificazioni in base ai core coinvolti 
+        \item Terminazione del programma
+    \end{enumerate}
+    \item \textbf{Multiple Program Multiple Data} : Quando la memoria da utilizzare è elevata è necessario suddividere 
+    il carico su più programmi, che spesso vengono eseguiti su differenti piattaforme.
+    \item \textbf{Master-Worker} : Ogni processo può essere \begin{itemize}
+    \item Worker - Esegue la computazione
+        \item Master - Gestisce il carico di lavoro e lo assegna ai processi worker, colleziona i risultati ottenuti 
+        da questi ultimi e si occupa spesso delle operazioni di I/O o interazione con l'utente.
+    \end{itemize}
+    \item \textbf{Map-Reduce} : Una versione modificata del paradigma Master-Worker, in cui i nodi 
+    worker eseguono due tipi di operazioni \begin{itemize}
+        \item Map : Esegue la computazione su un insieme di dati che risulta in un insieme di risultati parziali (ad esempio, 
+        esegue la somma su ogni elemento di un vettore) 
+        \item Reduce : Colleziona i risultati parziali e ne deriva un risultato finale (ad esempio, somma tutti gli elementi di un 
+        vettore ottenendo un unico scalare)
+    \end{itemize}
+\end{itemize}
+\subsubsection{Esempi di GSLP}\begin{itemize}
+    \item \textbf{Fork-Join} : C'è un unico "padre" in cui avviene l'esecuzione, quando necessario, 
+    tale padre potrebbe eseguire una \code{fork} generando dei nodi figli, che eseguono la computazione 
+    per poi terminare, facendo si che il padre continui.
+    \item \textbf{Loop-Parallelism} : Risulta estremamente semplice da utilizzare e viene spesso applicata 
+    quando un programma sequenziale deve essere adattato al multiprocesso. Consiste nel parallelizzare ogni 
+    esecuzione di un ciclo \code{for}, è necessario che le iterazione però siano indipendenti fra loro.
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+    //Esempio di Fork-Join
+    mergesort(A,lo,hi){
+        if lo < hi{
+            mid = lo + (hi-lo) / 2 
+            fork mergesort(A,lo,mid)
+            mergesort(A,mid,hi)
+
+            join 
+            merge(A,lo,mid,hi)
+        }
+    }
+\end{lstlisting}
 \end{document}

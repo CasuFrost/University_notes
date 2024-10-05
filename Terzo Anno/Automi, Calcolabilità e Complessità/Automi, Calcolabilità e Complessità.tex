@@ -602,4 +602,169 @@ ed ogni stato finale ha una $\epsilon$-arco verso $q_0$.\begin{itemize}
 \end{center}
 \flowerLine 
 \section{Espressioni Regolari}
+ Un espressione regolare è simile ad un espressione algebrica ma opera sulle stringhe, dato un alfabeto, un'espressione 
+ su tale alfabeto rappresenta un insieme di stringhe, un esempio è 
+ $$(0|1)0^*$$ 
+ Dove $(0|1)\equiv \{0\}\cup \{1\}=\{0,1\}$ e $0^*\equiv\{0\}^*$ quindi $(0|1)0^*\equiv \{0,1\}\circ \{0\}^*$.\acc 
+ \defi{(espressione regolare)} : Sia $\Sigma$ un alfabeto, un espressione regolare $r$ su $\Sigma$, denotata 
+ $r\in re(\Sigma)$, è definita per induzione \\ 
+ \textbf{Caso base}\begin{itemize}
+    \item $r=\emptyset\in re(\Sigma)$
+    \item $r=\epsilon\in re(\Sigma)$
+    \item $r=a\in re(\Sigma)$
+ \end{itemize}
+ \textbf{Caso induttivo}\begin{itemize}
+    \item $r=r_1\cup r_2$ dove $r_1,r_2\in re(\Sigma)$
+    \item $r=r_1\circ r_2$ dove $r_1,r_2\in re(\Sigma)$
+    \item $r=r_1^*$ dove $r_1\in re(\Sigma)$
+ \end{itemize}
+L'insieme delle stringhe definite da  $r\in re(\Sigma)$ è il \textit{linguaggio} di $r$ ed è denotato $L(r)$.\acc 
+\textbf{Esempio : } Sia $\Sigma = \{0,1\}$\begin{itemize}
+    \item $0^*10^*=\{w\ | \ w \text{ ha esattamente un }1\}$
+    \item $\Sigma^*1\Sigma^*=\{w\ | \ w \text{ ha almeno un }1\}$
+    \item $\Sigma^*001\Sigma^*=\{w\ | \ w \text{ ha la sottostringa }001\}$
+\end{itemize}
+Per convenzione si definisce $$1^*\emptyset = \emptyset \ \ \ \ \ \ \emptyset^*=\epsilon $$
+\teo{ Fondamentale} Sia $\mathcal{L}(DFA)=REG$ l'insieme dei linguaggi accettati da un qualsiasi DFA, e sia 
+$\mathcal{L}(re)$   l'insieme dei linguaggi accettati da una qualsiasi espressione regolare, è vero che 
+$$\mathcal{L}(re)=\mathcal{L}(DFA)=REG $$
+\dimo{} è necessario dimostrare due direzioni\acc
+\boxedMath{$\mathcal{L}(re)\subseteq\mathcal{L}(DFA)$} Sia $r$ un espressione regolare, si considera un DFA 
+$D_r$ definito come segue, a seconda dei casi\acc 
+\textbf{Caso base }\begin{itemize}
+    \item $r=\emptyset\implies D_r$ non accetta alcuna stringa 
+    \item $r=\epsilon\implies D_r$  accetta la stringa vuota
+    \item $r=a\implies D_r$  accetta la $a\in\Sigma$
+\end{itemize}
+\textbf{Caso induttivo}\begin{itemize}
+    \item $r=r_1\cup r_2$, esistono due automi $D_{r_1}$ e  $D_{r_2}$ che accettano rispettivamente $L(r_1)$ 
+    e $L(r_2)$, ma allora esiste necessariamente un automa $D_r$ che accetta $L(r_1)\cup L(r_2)$.
+    \item $r=r_1\circ r_2$,  esistono due automi $D_{r_1}$ e  $D_{r_2}$ che accettano rispettivamente $L(r_1)$ 
+    e $L(r_2)$, ma allora esiste necessariamente un automa $D_r$ che accetta $L(r_1)\circ L(r_2)$.
+    \item $r=r_1^*$, esiste un automa $D_{r_1}$  che accetta
+     $L(r_1^*)$, ma allora esiste necessariamente un automa $D_r$ che accetta $L(r_1)$.
+\end{itemize}
+Tali tesi sono vere dato che la classe dei linguaggi regolari è chiusa per le operazioni di star, concatenazione 
+ed unione. $\square $\acc 
+\boxedMath{$\mathcal{L}(DFA)\subseteq\mathcal{L}(re)$} Sia $L$ un linguaggio regolare, e sia $N$ l'NFA tale che 
+$L(N)=L$. Si costruisce un nuovo tipo di NFA che sarà equivalente ad $N$. Tale automa è detto \textit{GNFA}, 
+dove la G sta per "Generalizzato", tale automa ha una \textit{forma canonica}, ossia, rispetta le seguenti 
+proprietà \begin{itemize}
+    \item Lo stato iniziale, ha solo archi uscenti 
+    \item Vi è un singolo stato finale, ed ha solo archi entranti
+    \item Per ogni coppia di stati (non necessariamente distinti), c'è esattamente un arco.
+    \item Ogni arco è etichettato da un espressione regolare.
+\end{itemize}
+\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=0.4\textwidth ]{images/GNFA.eps}
+        \caption{forma di un GNFA}
+        \label{fig:GNFA}
+    \end{figure}
+\end{center}
+Più precisamente, sia $G$ un GNFA definito $G=(Q,\Sigma,\delta,q_{start},q_{acc})$ dove 
+$$ \delta : Q\backslash \{q_{acc}\} \times Q\backslash \{q_{start}\}\rightarrow re(\Sigma)$$
+Dato un generico NFA, è possibile trasformarlo in un GNFA aggiungendo al più due stati (iniziale e 
+finale), ed utilizzando gli $\epsilon$-archi per riempire le coppie di stati che non sono collegate.\acc 
+La funzione $Convert : GNFA \rightarrow GNFA$ modifica un GNFA restituendone uno equivalente, ma con uno stato in meno. 
+Tale funzione è definita in tal modo, sia $k$ il numero di archi di $G$, si esegue $Convert(G)$ \begin{itemize}
+    \item Se $k=2$, allora esiste un solo arco fra questi etichettato con un espressione regolare $r$, la funzione 
+    restituirà $r$. 
+    \item Se $k> 2$, viene selezionato un qualsiasi nodo in $Q\backslash\{q_{start},q_{acc}\}$, sia questo $q_{rip}$, 
+    si avrà $Convert(G)=G'=(Q\backslash\{Q_{rip}\},\Sigma,\delta',q_{start},q_{acc})$ dove 
+    $$ \delta' : Q\backslash \{q_{acc},q_{rip}\} \times Q\backslash \{q_{start},q_{rip}\}\rightarrow re(\Sigma)$$
+    Inoltre ogni etichetta di $G'$ viene aggiornata secondo la seguente procedura, siano $q_i\in Q\backslash \{q_{acc},q_{rip}\}$
+    e  $q_j\in Q\backslash \{q_{start},q_{rip}\}$ due stati qualsiasi 
+    $$ \delta'(q_i,q_j)=r_1r_2^*(r_3|r_4)$$
+    Dove \begin{itemize}
+        \item $r_1=\delta(q_i,q_{rip})$
+        \item $r_2=\delta(q_{rip},q_{rip})$
+        \item $r_3=\delta(q_{rip},q_j)$
+        \item $r_4=\delta(q_i,q_j)$
+    \end{itemize}
+\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture} [node distance = 2cm, on grid, auto]
+        \node (qi)[state, left] {$q_i$};
+        \node (qj)[state, right = of qi] {$q_j$};
+        \node (qrip)[state, below = of qi] {$q_{rip}$};
+        \path [-stealth, thick]
+        (qrip) edge [loop below]  node {$r_2$}()
+        (qi) edge [bend left] node {$r_4$}   (qj)
+        (qi) edge  node {$r_1$}   (qrip)
+        (qrip) edge [bend right] node {$r_3$}   (qj);
+    \end{tikzpicture}
+\end{figure}
+Bisogna ora dimostrare che un generico GNFA $G$ è equivalente a $Convert(G)$. Si dimostra per induzione su 
+$k$ numero di stati.\acc 
+  \textbf{caso base} $k=2$ : In tal caso la procedura $Convert$ restituisce l'espressione regolare 
+    $r$ sull'unico arco che descrive ogni stringa accettata da $G$. $L(r)\equiv L(G)$ \acc 
+    \textbf{passo induttivo} : si assume che $G$ è equivalente a $Convert(G)$ per $k-1$ stati.\begin{itemize}
+        \item Se $G$ accetta $w$, allora esiste un ramo di computazione $C=\{q_{start},q_1\dots, q_{accept}\}$, se 
+        $q_{rip}$ che è stato rimosso in $G'=Convert(G)$ non appartiene a $C$, allora la computazione non è 
+        alterata e $G'$ accetta $w$, altrimenti ci sarà una differente sequenza di stati, ma gli stati $q_i,q_j$ adiacenti 
+        a $q_{rip}$ sono ora uniti da un arco etichettato da un espressione regolare che comprende le stringhe per 
+        andare da $q_i$ a $q_j$ passando per $q_{rip}$.
+        \item Se $G'$ accetta $w$, anche $G$ lo accetta dato che per ogni coppia di stati in $C$ si è aggiornata 
+        l'etichetta tenendo conto della transazione che porta da uno stato all'altro passando per $q_{rip}$.
+    \end{itemize}
+Quindi $Convert$ restituisce un automa equivalente con $k-1$ stati, quindi l'asserto è vero. $\blacksquare$\newpage
+\subsection{Esempi} 
+\textbf{Esempio 1)} Si trasformi $r=(ab|a)^*$ in un NFA.\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=1\textwidth ]{images/esempio1Regex.eps}
+        \caption{Esempio 1}
+        \label{fig:es1Regex}
+    \end{figure}
+\end{center}\newpage
+\textbf{Esempio 2)} Dato il seguente automa, si trovi l'espressione regolare associata 
+\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=1\textwidth ]{images/esempio2Regex.eps}
+        \caption{Esempio 2}
+        \label{fig:es2Regex}
+    \end{figure}
+\end{center}\flowerLine \newpage 
+\section{Linguaggi non regolari}
+\subsection{Il Pumping Lemma}
+A questo punto della lettura, è naturale porsi una domanda : Tutti i linguaggi sono regolari? Esistono linguaggi che 
+non possono essere accettati da alcun DFA? Nel caso solamente un sottoinsieme dei linguaggi fosse regolare, quali proprietà 
+soddisfa? Si consideri il seguente linguaggio 
+$$ L=\{0^n1^n \ | \ n\ge 0\}$$
+Si può provare a disegnare un automa che accetti $L$, rendendosi ben presto conto che è \textit{impossibile}, $L$ non è 
+regolare, esistono quindi dei linguaggi che non sono regolari. L'automa a stati finiti è un modello semplice, non può 
+"ricordare" quanti caratteri di un certo tipo sono stati letti. \acc 
+Essendo che solamente alcune stringhe possono essere accettate da un qualsiasi automa, è importante caratterizzare tali 
+stringhe e definirne le proprietà in tal merito. \acc 
+Appunto sulla notazione : Se $w$ è una stringa, allora $|w|$ è il numero dei suoi caratteri.\acc
+\textbf{Osservzione} : Se un DFA con $n$ stati legge una stringa di $k>n$ caratteri, allora ci sarà almeno uno stato 
+che verrà considerato due volte durante la computazione. \acc 
+\teo{(Pumping Lemma)} Sia $L$ un linguaggio regolare, sia $D$ l'automa tale che $L(D)=L$, si considera una stringa 
+$w\in L(D)$, ed una sua decomposizione in 3 stringhe concatenate $w=xyz$. Esiste un intero $p\le|w|$, denotato \textit{pumping}
+ tale che \begin{enumerate}
+    \item $\forall i\ge0$, $xy^iz\in L(D)$
+    \item $|y|>0$
+    \item $|xy|\le p$
+\end{enumerate}
+\dimo{} Sia $D=(Q,\Sigma,\delta,q_{start},F)$ un automa, e sia $p=|Q|$. Sia $w$ una stringa su $\Sigma$ di $n\ge p$ caratteri definita
+$w=w_1w_2\dots w_n$. Sia $\{r_1,r_2\dots,r_{n+1}\}$ la sequenza di stati che $D$ computa su input $w$, ossia 
+$$ \delta(r_i,w_i)=r_{i+1}$$
+Tale sequenza è lunga $n+1\ge p+1$ stati, fra i primi $p+1$ elementi c'è necessariamente uno stato ripetuto, sia 
+ $r_j$ la prima occorrenza di tale stato, e sia $r_l$ la seconda.\acc 
+ Siccome la ripetizione avviene fra le prime $p+1$ computazioni, si ha che $l\le p+1$. Si consideri la seguente 
+ scomposizione di $w$\begin{itemize}
+    \item $x=w_1,w_2\dots,w_{j-1}$
+    \item $y=w_j,w_{j+1}\dots,w_{l-1}$
+    \item $z=w_l,w_{l+1}\dots,w_n$
+ \end{itemize}\begin{enumerate}
+    \item $xy^iz\in L(D)$ perché $x$ parte da $r_1=q_{start}$ e arriva a $r_j$, $y^i$ parte da $r_j$ e ritorna su $r_l$, che è 
+    lo stesso stato, e $z$ porta da $r_l$ allo stato finale di accettazione.
+    \item Essendo che $i\ne l$, $|y|>0$. 
+    \item $l\ge p+1$ ovvero $l-1=|xy|\ge p$.
+ \end{enumerate}
+ I tre punti sono dimostrati. $\blacksquare$
 \end{document}
