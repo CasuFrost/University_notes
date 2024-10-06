@@ -219,7 +219,106 @@ permettendo eventualmente una transizione. Ogni arco del grafo collega un nodo p
           edge[post] node[auto] {} (p4);
       \end{tikzpicture}
       \caption{Esempio di una rete di Petri}
-\end{figure}
+\end{figure}\acc
+Le macchine per l'automazione possono essere di vari tipi, ad esempio, comprendere un unico attuatore, e più 
+meccanismi di attuazione del moto che utilizzano una sola fonte. Un altro tipo di macchine sono quelle 
+a \textit{controllo numerico}, macchine programmate per fare compiti elementari periodicamente. \acc 
+Quando in un processo produttivo il materiale viene trasformato in maniera continuativa (come nell'industria 
+farmaceutica o alimentare) si parla di \textbf{produzione continua}. Nel caso in cui i materiali sono processati 
+in quantità finite e determinate si parla di \textbf{produzione a lotti}, le pause dovute fra la lavorazione di un lotto 
+e l'altro sono dovute al fatto 
+che è necessario trasformare solo una determinata quantità di materiale grezzo.\acc 
+L'automazione industriale fa largo utilizzo dei \textit{robot}, bracci meccanici che presentano diversi 
+gradi di libertà, ossia giunti, che possono ruotare attorno un certo asse. 
+   \begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.3\textwidth ]{images/braccioRobot.pdf} & L'organo terminale, posto alla fine 
+        del braccio (in un certo senso, la sua "mano"), può assumere una certa configurazione (posizione e direzione) a 
+        seconda della rotazione di ogni giunto del braccio. 
+        Si può dire che la posizione finale $p$ e la sua direzione sono in funzione degli angoli 
+        $\theta_1,\theta_2\dots,\theta_n$ di rotazione di ogni giunto.
+		\\
+	\end{tabular}
+\end{center}
+La procedura di comando da far eseguire al robot si traduce in una funzione nel tempo che descrive in che modo 
+deve variare la rotazione di ogni singolo giunto, quest'ultima al livello di campo, si traduce nell'attuazione 
+dei motori elettrici posti sui giunti.
+\begin{center}
+        \includegraphics[width=1\textwidth ]{images/rotBraccioRobot.eps}
+\end{center}
+Altri tipi di macchine per la movimentazione oltre i robot sono i rulli o i carrelli automatici, questi ultimi 
+inizialmente potevano muoversi seguendo un percorso stabiliti da magneti posti sul terreno, vengono dotati di 
+sensori di prossimità per evitare collisioni. I carrelli moderni non sono limitati da percorsi prestabiliti, sono 
+autonomi e possono fare percorsi arbitrari, che vengono calcolati da un elaboratore che ha la "visione" completa 
+di essi.\acc 
+Sorge spontaneo chiedersi quale sia la differenza fra Automazione e Robotica.\begin{itemize}
+    \item \textit{Analogie} : Entrambe coinvolgono l'informatica ed i calcolatori, interfacciandosi con il mondo 
+    fisico, entrambe sfruttano conoscenze e tecnologie multi-disciplinari. 
+    \item \textit{Differenze} : La robotica mostra la fattibilità di una soluzione, l'automazione si occupa di 
+    porsi delle domande riguardo tale soluzione, fra cui l'efficienza, l'ottimalità, la fattibilità e l'affidabilità.
+\end{itemize}
+Formalmente, si definisce \textbf{processo} la \textit{trasformazione} di \textit{materiali} in 
+\textit{prodotti}. Tale trasformazione richiede 
+\begin{itemize}
+    \item Energia 
+    \item Informazione 
+    \item Controllo
+\end{itemize}
+Anche la costruzione di uno strumento per la caccia da parte di un uomo primitivo è un processo, in quel caso, 
+l'energia è data dai muscoli del corpo, l'informazione viene dai sensi, quali vista e tatto, ed il controllo 
+avviene da parte del cervello.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/caveMan.eps}
+\end{center}
+Lo scopo dell'automazione nel tempo è stato quello di sostituire o eliminare l'intervento dell'uomo 
+nei processi, spesso è faticoso e pericolo fornire energia, e l'uomo non ha le capacità sufficienti per 
+gestire in maniera precisa l'informazione ed il controllo.\acc 
+Il \textbf{primo passo} di industrializzazione è stato quello di sostituire l'energia fornita dall'uomo con l'energia 
+naturale ed animale, durante la prima rivoluzione industriale, dove la produzione dipendeva da macchine 
+azionate tramite potenza meccanica derivante da fonti energetiche come mulini.\acc 
+Il \textbf{secondo passo} riguarda la sostituzione delle operazioni di controllo, un importante esempio fu il 
+\textit{regolatore di velocità} di Watt (1785), fu la prima applicazione di regolatore automatico, e sfruttava 
+la forza centrifuga di due masse in rotazione per regolare la velocità di una macchina a vapore.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth ]{images/watt.pdf}
+    \caption{regolatore di Watt}
+    \label{fig:watt}
+\end{figure} \acc
+Il funzionamento è semplice, il vapore passante per la valvola fa aumentare la velocità di rotazione del 
+regolatore, per la forza centrifuga, le masse poste sulla valvola a farfalla si allontanano, alzandosi, 
+qui la gravità oppone resistenza facendo chiudere la valvola essendo che le masse tendono ad avvicinarsi al 
+suolo, facendone diminuire la velocità di rotazione.  
+Tali automatismi sono compresi dalla teoria dei controlli automatici, che definisce l'azione di comando più efficace 
+per ottenere il comportamento desiderato a seguito di una certa misurazione fisica.\acc
+Il \textbf{terzo passo} riguarda la gestione delle informazioni mediante sistemi combinatorici/sequenziali che al 
+verificarsi di determinate condizioni reagiscono con operazioni di base. La prima generazione di controllori 
+prevedeva circuiti elettronici composti da bobine e relé, essi erano ingombranti e lenti nell'acquisizione 
+delle informazioni, inoltre la loro logica era prestabilita e ridefinirla scaturiva una modifica sostanziale 
+del circuito. \acc 
+Con l'avvento dei semiconduttori si è introdotta la seconda generazione di controllori, basati su schede 
+elettroniche stampate, riducendo i costi ed aumentando l'efficienza, non risolvendo però il problema della bassa 
+flessibilità, in quanto tali schede erano progettate per gestire una specifica logica. \acc 
+La terza generazione di controllori vede i microprocessori protagonisti, grazie all'evoluzione dell'elettronica 
+e dell'informatica sono ad oggi utilizzabili schede riprogrammabili (PLC) altamente flessibile, capaci di eseguire 
+un generico algoritmo logico sequenziale.
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{6665CD} 
+        {\color[HTML]{FFFFFF} Rivoluzione Industriale} & {\color[HTML]{FFFFFF} Periodo Temporale} & {\color[HTML]{FFFFFF} Tecnologie e Caratteristiche}                                                                                                                                                                                                                                                                                                                               \\ \hline
+        \rowcolor[HTML]{DAE8FC} 
+        prima                                          & 1785 – metà 19° secolo                   & \begin{tabular}[c]{@{}c@{}}utilizzo di macchine azionate da energia\\  meccanica (vapore, acqua)\end{tabular}                                                                                                                                                                                                                                                                     \\ \hline
+        \rowcolor[HTML]{F2F7FE} 
+        seconda                                        & fine 19°secolo – 1970                    & \begin{tabular}[c]{@{}c@{}}azionamento elettrico delle macchine e produzione\\  di massa basata sulla\\  divisione del lavoro (catene di montaggio)\end{tabular}                                                                                                                                                                                                                  \\ \hline
+        \rowcolor[HTML]{DAE8FC} 
+        terza                                          & 1970 – oggi                              & \begin{tabular}[c]{@{}c@{}}utilizzo dell’elettronica e delle tecnologie\\  del’informazione (IT) \\ per aumentare il livello di automazione di attività\\  complesse (CNC, robot e computer)\end{tabular}                                                                                                                                                                         \\ \hline
+        \rowcolor[HTML]{F2F7FE} 
+        quarta                                         & oggi – futuro                            & \begin{tabular}[c]{@{}c@{}}sviluppo di macchine sensorizzate e intelligenti,\\  interconnesse tra loro e con internet, con la raccolta,\\  analisi e uso di grandi \\ quantità di informazioni (Big data), per una\\  specializzazione di \\ massa del prodotto, l’integrazione della\\  catena produttiva \\ (supply and value chains) e una maggiore\\  efficienza\end{tabular} \\ \hline
+        \end{tabular}
+\end{center}
+
+
 
 
 

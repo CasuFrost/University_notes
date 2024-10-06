@@ -1,0 +1,116 @@
+\documentclass[10pt, letterpaper]{report}
+% !TeX program = xelatex
+%==================PREAMBOLO=======================%
+\input{../../../preamble/preamble.tex}
+\usetikzlibrary{petri}
+ %TOGLI COMMENTO SE USI XELATEX
+%\usepackage{fontspec}
+\title{Ingegneria del Software} %========TITOLO========%
+\author{Marco Casu}
+\date{\vspace{-5ex}}
+\begin{document}
+
+%==================COPERTINA=======================%
+\begin{titlepage}
+    
+\begin{center}
+    %TOGLI COMMENTO SE USI XELATEX
+   %\setmainfont{Palace Script MT}
+   \HUGE Marco Casu\acc
+    %\setmainfont{Grand Casino}
+     %TOGLI COMMENTO SE USI XELATEX
+    %\setmainfont{h Halfroad}
+    \HUGE \decothreeleft\hphantom{ }{\HUGE\selectfont Ingegneria del Software}\hphantom{ }\decothreeright
+     %TOGLI COMMENTO SE USI XELATEX
+   % \setmainfont{Times New Roman}
+\end{center}
+\thispagestyle{empty}
+\begin{figure}[h]
+    \centering{
+        %l'immagine deve avere una risoluzione 2048x2048
+        \includegraphics[width=1\textwidth ]{images/Copertina.jpg}
+    }
+\end{figure}
+\vfill 
+\centering \includegraphics[width=0.4\textwidth ]{../../../preamble/Stemma_sapienza.png} \acc
+\centering \Large \color{sapienza}Facoltà di Ingegneria dell'Informazione,
+Informatica e Statistica\\
+Dipartimento di Informatica
+\end{titlepage}
+
+%===================FINE COPERTINA======================%
+\newpage
+\pagecolor{cartaRiciclata}%\setmainfont{Algerian}
+\Large
+Questo documento è distribuito sotto la licenza 
+\color{blue}\href{https://www.gnu.org/licenses/fdl-1.3.txt}{GNU}\color{black},  
+è un resoconto degli appunti (eventualmente integrati con libri di testo) tratti dalle lezioni del corso di Ingegneria del Software
+\hphantom{a}per la laurea 
+triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
+\vfill
+\begin{figure}[h!]
+    \raggedright
+    \includegraphics[width=0.4\textwidth,right ]{../../../preamble/tomodachi.pdf} 
+\end{figure}
+\newpage %\setmainfont{Times New Roman}
+\normalsize
+\tableofcontents 
+\newpage
+
+%==================FOOTER e HEADER=======================%
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{Sezione \thesection}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Appunti di Ingegneria del Software}
+\fancyfoot[R]{ Marco Casu}
+%\fancyfoot[R]{\setmainfont{Palace Script MT}\huge Marco Casu \setmainfont{Times New Roman}}
+%==================FOOTER e HEADER=======================%
+
+%Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
+
+%==================INIZIO======================%
+\chapter{Introduzione}
+Quando si vuole produrre software complesso, non terminante e di grandi dimensioni, è 
+necessario ingegnerizzare il metodo di sviluppo ed astrarre il modello del software. 
+L'obiettivo dell'ingegneria del software non riguarda il codice stesso, ma la definizione 
+dell'architettura e delle specifiche del sistema. Vanno definiti i processi di sviluppo.\acc 
+È cruciale l'analisi dei requisiti, e la modellizazzione delle specifiche di sistema, UML è un 
+linguaggio che permette di descrivere la \textit{dinamica} ed il comportamento del modello. Una volta 
+definiti i requisiti, si affronta la fase di \textit{planning}.\acc 
+Un modello computazionale che risulterà utile prende il nome di \textit{digital twin}, ossia 
+una copia del software sulla quale è possibile testare i vari \textit{scenari operativi}, tramite la 
+generazione di test automatici. Essendo il sistema discreto, a stati non necessariamente 
+finiti, è possibile descriverlo tramite una catena di Markov. \acc 
+Nella produzione software prendono parte 3 principali attori\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/attori.eps}
+\end{center}
+\section{Modellazione}
+Il linguaggio UML è utilizzato per modellare sia i requisiti che il sistema stesso, 
+esso è composto da differenti diagrammi\begin{itemize}
+    \item activity 
+    \item use case 
+    \item sequence 
+    \item class 
+    \item state 
+    \item context
+\end{itemize}
+Si consideri il seguente esempio di un sistema di gestione di una clinica psichiatrica, 
+lo schema in figura \ref{clinica}, è il context diagram, e rappresenta l'insieme dei serivizi che il 
+sistema offre.
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.7\textwidth ]{images/context.eps}
+    \caption{context diagram}
+    \label{clinica}
+\end{figure}
+Un activity diagram descrive l'evoluzione di una certa attività/task che il sistema 
+deve poter implementare, si considere l'esempio in figura \ref{activity} riguardante 
+l'inserimento di un paziente nella clinica.
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.7\textwidth ]{images/acrivity.png}
+    \caption{activity diagram}
+    \label{activity}
+\end{figure}
+\end{document}
