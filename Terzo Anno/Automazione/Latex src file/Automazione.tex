@@ -72,7 +72,8 @@ Nota bene : Essendo questi appunti di un corso esterno alla facoltà di Informat
 %Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
 
 %==================INIZIO======================%
-\chapter{Introduzione}
+\chapter{Architetture per l'Automazione Industriale}
+\section{Introduzione}
 Con il termine \textit{Automazione}, si intende la trasformazione 
 di un processo pre-esistente, al fine di renderlo autonomo, riducendo o 
 sostituendo del tutto l'intervento umano, verrà trattata l'automazione 
@@ -317,10 +318,91 @@ un generico algoritmo logico sequenziale.
         quarta                                         & oggi – futuro                            & \begin{tabular}[c]{@{}c@{}}sviluppo di macchine sensorizzate e intelligenti,\\  interconnesse tra loro e con internet, con la raccolta,\\  analisi e uso di grandi \\ quantità di informazioni (Big data), per una\\  specializzazione di \\ massa del prodotto, l’integrazione della\\  catena produttiva \\ (supply and value chains) e una maggiore\\  efficienza\end{tabular} \\ \hline
         \end{tabular}
 \end{center}
-
-
-
-
+\flowerLine
+\section{Processi Industriali}
+I sistemi di produzione automatizzati sono composti da 
+diverse componenti\begin{itemize}
+    \item processo produttivo - movimentazioni meccaniche, attuazioni, 
+    trasformazioni fisiche e chimiche 
+    \item sistema di controllo - uno o più dispositivi messi in comunicazione 
+    con il processo produttivo, potendo agire su di esso riducendo 
+    l'intervento umano. 
+    \item impianto di produzione - macchinari, edifici, componenti
+\end{itemize}
+Si considerino i seguenti esempi di produzione industriale\begin{itemize}
+    \item \textbf{produzione di energia elettrica} \begin{itemize}
+        \item materie prime (input continuo) : combustibile fossile, ossigeno 
+        \item prodotto (output continuo) : energia elettrica misurata in Kilowatt/ore
+        \item impianto necessario : tubature, caldaia, turbine, bruciatori, pompe, valvole, camini, edifici di
+        sostegno e di contenimento, sensori
+        
+    \end{itemize}
+    \item \textbf{produzione di vernice} \begin{itemize}
+        \item materie prime (input continuo) : resine, coloranti, acqua, additivi
+        \item prodotto (output discreto) : barattoli di vernice
+        \item impianto necessario : reattori (dove avvengono le reazioni principali), miscelatori, riscaldatori,
+        tubature, pompe, valvole, edificio di sostegno e di contenimento, sensori
+    \end{itemize}
+    \item \textbf{produzione di parti meccaniche di motori} \begin{itemize}
+        \item materie prime (input discreto) : pezzo metallico grezzo
+        \item prodotto (output discreto) : componenete del motore
+        \item impianto necessario : macchina con mandrini per la meccanica (fresatura, foratura, ...), sistema di
+        controllo numerico (posizionamento corretto dell’utensile del mandrino),
+        dispositivo di cambio utensile automatico, protezioni, sistemi di scarico
+        trucioli
+    \end{itemize}
+\end{itemize}
+\subsection{Sistema di Controllo}
+Il sistema di controllo interagisce con il processo 
+attraverso \textit{sensori} e \textit{trasduttori}. Acquisiscono 
+informazioni dal mondo fisico (pressione, temperatura) e le convertono in segnali 
+facilmente analizzabili e controllabili (segnali elettrici).
+\acc 
+Un esempio di sensore per misurare la forza, consiste in un circuito il cui
+resistore viene deformato quando rilevata una pressione sul sensore, 
+variandone la resistenza.\acc 
+Una volta raccolte le informazioni, è possibile cambiare le variabili 
+di controllo del processo per ottenere il comportamento desiderato. Solitamente, 
+il segnale di controllo è a bassa potenza, non sufficiente per correggere il comportamento 
+di grossi attuatori, a tal proposito sono adoperati gli \textit{amplificatori}. Le informazioni 
+sono elaborate da un apposito calcolatore che può essere inglobato o 
+esterno alla macchina in questione.\acc
+Nei sistemi di controllo è stata definita una normativa, nota come 
+IEC61499 per normalizzare il funzionamento generale di tali 
+dispositivi. In particolare, deve un sistema di controllo deve 
+rifarsi ai seguenti punti\begin{itemize}
+    \item è un sistema informatico che elabora informazioni ed 
+    esegue/applica algoritmi.
+    \item è costituito da vari dispositivi che comunicano attraverso un'apposita 
+    rete. 
+    \item i dispositivi devono implementare delle funzionalità, denominate \textit{applicazioni}.
+    \item tali applicazioni possono essere distribuite fra i vari dispositivi. 
+    \item i dispositivi devono interfacciarsi con la rete e con il processo, 
+    inoltre le applicazioni costituiscono le loro \textit{risorse}.
+    \item in particolare, una \textit{risorsa} è costituita da\begin{itemize}
+        \item una o più applicazioni 
+        \item funzioni che collegano dati ed eventi 
+        \item funzioni di pianificazione delle attività (un sistema operativo)
+    \end{itemize}
+\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth ]{images/sistemaControllo.eps}
+    \caption{schematizzazione di un sistema di controllo}
+    \label{fig:siscon}
+\end{figure} 
+Si definisce \textbf{Manifacturing} l'insieme dei processi 
+produttivi da applicare per ottenere un prodotto finale desiderato, a partire 
+da materiali grezzi. Richiede \begin{itemize}
+    \item energia 
+    \item macchine 
+    \item intervento umano 
+    \item informazioni
+\end{itemize}
+Da un punto di vista economico, è il processo che da valore aggiunte 
+ai materiali utilizzati.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/manifacturing.eps}
+\end{center}
 
 
 
