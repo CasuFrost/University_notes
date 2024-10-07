@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241007124348" modified="D:20241007142202"/>
+<info created="D:20241007153542" modified="D:20241007160032"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,48 +313,84 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<text layer="alpha" matrix="1 0 0 1 -184 92" transformations="translations" pos="288 540" stroke="black" type="label" width="56.368" height="6.003" depth="1.74" halign="center" valign="center" size="small">materie prime</text>
-<text matrix="1 0 0 1 -32 144" transformations="translations" pos="288 540" stroke="black" type="label" width="28.698" height="6.003" depth="1.74" halign="center" valign="center" size="small">energia</text>
-<text matrix="1 0 0 1 -68 144" transformations="translations" pos="288 540" stroke="black" type="label" width="37.121" height="6.227" depth="0" halign="center" valign="center" size="small">macchine</text>
-<text matrix="1 0 0 1 4 144" transformations="translations" pos="288 540" stroke="black" type="label" width="29.237" height="6.227" depth="0" halign="center" valign="center" size="small">utensili</text>
-<text matrix="1 0 0 1 -112 144" transformations="translations" pos="288 540" stroke="black" type="label" width="38.19" height="5.518" depth="1.74" halign="center" valign="center" size="small">operatore</text>
-<text matrix="1 0 0 1 100 100" transformations="translations" pos="288 540" stroke="0" type="label" width="59.153" height="6.23" depth="1.74" halign="center" valign="center" size="small">prodotto finito</text>
-<text matrix="1 0 0 1 84 84" transformations="translations" pos="288 540" stroke="0" type="label" width="22.086" height="5.999" depth="0" halign="center" valign="center" size="small">scarti</text>
-<text matrix="1 0 0 1 -44 92" transformations="translations" pos="288 540" stroke="black" type="label" width="79.502" height="6.23" depth="1.74" halign="center" valign="center" size="small">processo produttivo</text>
-<path matrix="1.21429 0 0 1 -39.4286 0" stroke="0">
-184 648 m
-184 616 l
-276 616 l
-276 648 l
+<text layer="alpha" matrix="1 0 0 1 -4 -4" transformations="translations" pos="204 780" stroke="0" type="label" width="5.853" height="7.704" depth="0" halign="center" valign="center" size="large">1</text>
+<path matrix="0.880909 0 0 0.880909 23.802 92.4866" stroke="0 0.502 0">
+192 784 m
+192 768 l
+208 768 l
+208 784 l
 h
 </path>
-<path stroke="0" arrow="normal/normal">
-136 632 m
-184 632 l
+<text matrix="1 0 0 1 92 -4" transformations="translations" pos="204 780" stroke="0" type="label" width="5.853" height="7.704" depth="0" halign="center" valign="center" size="large">2</text>
+<path matrix="0.880909 0 0 0.880909 119.802 92.4866" stroke="0 0.502 0">
+192 784 m
+192 768 l
+208 768 l
+208 784 l
+h
 </path>
-<path matrix="1 0 0 1 20 0" stroke="0" arrow="normal/normal">
-276 640 m
-336 640 l
+<text matrix="1 0 0 1 188 -4" transformations="translations" pos="204 780" stroke="0" type="label" width="5.853" height="7.704" depth="0" halign="center" valign="center" size="large">3</text>
+<path matrix="0.880909 0 0 0.880909 215.802 92.4866" stroke="0 0.502 0">
+192 784 m
+192 768 l
+208 768 l
+208 784 l
+h
 </path>
-<path stroke="0" arrow="normal/normal">
-188 680 m
-188 648 l
+<path stroke="0.357" arrow="normal/normal">
+208 776 m
+288 776 l
 </path>
-<path stroke="0" arrow="normal/normal">
-220 680 m
-220 648 l
+<path stroke="0.357" arrow="normal/normal">
+304 776 m
+384 776 l
 </path>
-<path stroke="0" arrow="normal/normal">
-256 680 m
-256 648 l
+<path stroke="0 0 0.502" pen="ultrafat">
+248 784 m
+248 768 l
 </path>
-<path matrix="1 0 0 1 32 0" stroke="0" arrow="normal/normal">
-256 680 m
-256 648 l
+<path matrix="1 0 0 1 96 0" stroke="0 0 0.502" pen="ultrafat">
+248 784 m
+248 768 l
 </path>
-<path stroke="black" arrow="normal/normal">
-296 624 m
-356 624 l
+<path stroke="0.357" arrow="normal/normal">
+400 776 m
+428 776 l
+428 752 l
+176 752 l
+176 776 l
+192 776 l
+</path>
+<text matrix="1 0 0 1 -4 12" transformations="translations" pos="204 780" stroke="0 0.502 0" type="label" width="42.765" height="4.295" depth="1.35" halign="center" valign="center" size="script">attesa pezzo</text>
+<text matrix="1 0 0 1 92 12" transformations="translations" pos="204 780" stroke="0 0.502 0" type="label" width="37.782" height="4.843" depth="0" halign="center" valign="center" size="script">timbratura</text>
+<text matrix="1 0 0 1 188 12" transformations="translations" pos="204 780" stroke="0 0.502 0" type="label" width="54.575" height="4.849" depth="1.35" halign="center" valign="center" size="script">pistone indietro</text>
+<text matrix="1 0 0 1 44 24" transformations="translations" pos="204 780" stroke="0 0 0.502" type="label" width="50.493" height="4.295" depth="1.35" halign="center" valign="center" size="script">pezzo presente</text>
+<text matrix="1 0 0 1 140 24" transformations="translations" pos="204 780" stroke="0 0 0.502" type="label" width="71.103" height="4.849" depth="1.35" halign="center" valign="center" size="script">timbratura eseguita </text>
+<text matrix="1 0 0 1 264 0" transformations="translations" pos="204 780" stroke="0 0 0.502" type="label" width="63.436" height="4.697" depth="1.35" halign="center" valign="center" size="script">evaquazione pezzo</text>
+<path matrix="1 0 0 1 168 0" stroke="0 0 0.502" pen="ultrafat">
+248 784 m
+248 768 l
+</path>
+<path stroke="0 0.502 0">
+192 784 m
+192 768 l
+208 768 l
+208 784 l
+h
+</path>
+<path matrix="1 0 0 1 96 0" stroke="0 0.502 0">
+192 784 m
+192 768 l
+208 768 l
+208 784 l
+h
+</path>
+<path matrix="1 0 0 1 192 0" stroke="0 0.502 0">
+192 784 m
+192 768 l
+208 768 l
+208 784 l
+h
 </path>
 </page>
 </ipe>

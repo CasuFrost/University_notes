@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241007124348" modified="D:20241007142202"/>
+<info created="D:20241007144158" modified="D:20241007144756"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,48 +313,202 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<text layer="alpha" matrix="1 0 0 1 -184 92" transformations="translations" pos="288 540" stroke="black" type="label" width="56.368" height="6.003" depth="1.74" halign="center" valign="center" size="small">materie prime</text>
-<text matrix="1 0 0 1 -32 144" transformations="translations" pos="288 540" stroke="black" type="label" width="28.698" height="6.003" depth="1.74" halign="center" valign="center" size="small">energia</text>
-<text matrix="1 0 0 1 -68 144" transformations="translations" pos="288 540" stroke="black" type="label" width="37.121" height="6.227" depth="0" halign="center" valign="center" size="small">macchine</text>
-<text matrix="1 0 0 1 4 144" transformations="translations" pos="288 540" stroke="black" type="label" width="29.237" height="6.227" depth="0" halign="center" valign="center" size="small">utensili</text>
-<text matrix="1 0 0 1 -112 144" transformations="translations" pos="288 540" stroke="black" type="label" width="38.19" height="5.518" depth="1.74" halign="center" valign="center" size="small">operatore</text>
-<text matrix="1 0 0 1 100 100" transformations="translations" pos="288 540" stroke="0" type="label" width="59.153" height="6.23" depth="1.74" halign="center" valign="center" size="small">prodotto finito</text>
-<text matrix="1 0 0 1 84 84" transformations="translations" pos="288 540" stroke="0" type="label" width="22.086" height="5.999" depth="0" halign="center" valign="center" size="small">scarti</text>
-<text matrix="1 0 0 1 -44 92" transformations="translations" pos="288 540" stroke="black" type="label" width="79.502" height="6.23" depth="1.74" halign="center" valign="center" size="small">processo produttivo</text>
-<path matrix="1.21429 0 0 1 -39.4286 0" stroke="0">
-184 648 m
-184 616 l
-276 616 l
-276 648 l
+<path layer="alpha" matrix="1 0 0 1 -1.95079 0" stroke="0" fill="0.753">
+108 788
+108 788
+108 764
+108 764
+200 764
+200 764
+200 788
+200 788 u
+</path>
+<text transformations="translations" pos="152 776" stroke="0" type="label" width="85.956" height="6.926" depth="1.93" halign="center" valign="center">processo produttivo</text>
+<text matrix="1 0 0 1 -80 -8" transformations="translations" pos="152 776" stroke="0" type="label" width="59.643" height="6.13" depth="1.74" halign="center" valign="center" size="small">Input continuo</text>
+<text matrix="1 0 0 1 84 -8" transformations="translations" pos="152 776" stroke="0" type="label" width="67.067" height="6.13" depth="1.74" halign="center" valign="center" size="small">Output continuo</text>
+<text matrix="1 0 0 1 188 0" transformations="translations" pos="152 776" stroke="0" type="label" width="76.079" height="6.23" depth="1.74" halign="center" valign="center" size="small">produzione energia</text>
+<path matrix="1 0 0 1 -1.95079 -36" stroke="0" fill="0.753">
+108 788
+108 788
+108 764
+108 764
+200 764
+200 764
+200 788
+200 788 u
+</path>
+<text matrix="1 0 0 1 0 -36" transformations="translations" pos="152 776" stroke="0" type="label" width="85.956" height="6.926" depth="1.93" halign="center" valign="center">processo produttivo</text>
+<text matrix="1 0 0 1 -80 -44" transformations="translations" pos="152 776" stroke="0" type="label" width="56.646" height="6.23" depth="1.74" halign="center" valign="center" size="small">Input discreto</text>
+<text matrix="1 0 0 1 84 -44" transformations="translations" pos="152 776" stroke="0" type="label" width="64.071" height="6.23" depth="1.74" halign="center" valign="center" size="small">Output discreto</text>
+<text matrix="1 0 0 1 188 -36" transformations="translations" pos="152 776" stroke="0" type="label" width="86.802" height="6.23" depth="1.74" halign="center" valign="center" size="small">produzione manufatti</text>
+<path matrix="1 0 0 1 -1.95079 -72" stroke="0" fill="0.753">
+108 788
+108 788
+108 764
+108 764
+200 764
+200 764
+200 788
+200 788 u
+</path>
+<text matrix="1 0 0 1 0 -72" transformations="translations" pos="152 776" stroke="0" type="label" width="85.956" height="6.926" depth="1.93" halign="center" valign="center">processo produttivo</text>
+<text matrix="1 0 0 1 -80 -80" transformations="translations" pos="152 776" stroke="0" type="label" width="59.643" height="6.13" depth="1.74" halign="center" valign="center" size="small">Input continuo</text>
+<text matrix="1 0 0 1 84 -80" transformations="translations" pos="152 776" stroke="0" type="label" width="67.067" height="6.13" depth="1.74" halign="center" valign="center" size="small">Output continuo</text>
+<text matrix="1 0 0 1 188 -72" transformations="translations" pos="152 776" stroke="0" type="label" width="77.843" height="6.23" depth="1.74" halign="center" valign="center" size="small">produzione chimica</text>
+<path matrix="1 0 0 1 -1.95079 -108" stroke="0" fill="0.753">
+108 788
+108 788
+108 764
+108 764
+200 764
+200 764
+200 788
+200 788 u
+</path>
+<text matrix="1 0 0 1 0 -108" transformations="translations" pos="152 776" stroke="0" type="label" width="85.956" height="6.926" depth="1.93" halign="center" valign="center">processo produttivo</text>
+<text matrix="1 0 0 1 188 -108" transformations="translations" pos="152 776" stroke="0" type="label" width="39.421" height="6.23" depth="1.74" halign="center" valign="center" size="small">packaging</text>
+<path stroke="0">
+104 780 m
+44 780 l
+44 776 l
+104 776 l
+104 780 l
+</path>
+<path matrix="1 0 0 1 156 0" stroke="0">
+104 780 m
+44 780 l
+44 776 l
+104 776 l
+104 780 l
+</path>
+<text matrix="1 0 0 1 -80 -116" transformations="translations" pos="152 776" stroke="0" type="label" width="56.646" height="6.23" depth="1.74" halign="center" valign="center" size="small">Input discreto</text>
+<text matrix="1 0 0 1 84 -116" transformations="translations" pos="152 776" stroke="0" type="label" width="64.071" height="6.23" depth="1.74" halign="center" valign="center" size="small">Output discreto</text>
+<text matrix="1 0 0 1 -80 -88" transformations="translations" pos="152 776" stroke="0" type="label" width="24.574" height="6.227" depth="0" halign="center" valign="center" size="small">a lotti</text>
+<text matrix="1 0 0 1 84 -88" transformations="translations" pos="152 776" stroke="0" type="label" width="24.574" height="6.227" depth="0" halign="center" valign="center" size="small">a lotti</text>
+<text matrix="1 0 0 1 -80 -124" transformations="translations" pos="152 776" stroke="0" type="label" width="24.574" height="6.227" depth="0" halign="center" valign="center" size="small">a lotti</text>
+<text matrix="1 0 0 1 84 -124" transformations="translations" pos="152 776" stroke="0" type="label" width="24.574" height="6.227" depth="0" halign="center" valign="center" size="small">a lotti</text>
+<path matrix="1 0 0 1 0 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 12 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 24 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 36 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 48 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 160 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 172 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 184 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 196 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 208 4" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 0 -68" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 12 -68" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 36 -68" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 48 -68" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 160 -68" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 172 -68" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="1 0 0 1 184 -68" stroke="0">
+4 0 0 4 48 740 e
+</path>
+<path matrix="0.920869 0 0 0.920869 3.22923 53.2967" stroke="0">
+40 680
+40 680
+40 664
+40 664
+68 664
+68 664
+68 680
+68 680 u
+</path>
+<path matrix="0.920869 0 0 0.920869 40.4223 53.9117" stroke="0">
+40 680
+40 680
+40 664
+40 664
+68 664
+68 664
+68 680
+68 680 u
+</path>
+<path matrix="1.31567 0 0 0.831335 149.831 113.636" stroke="0">
+40 680
+40 680
+40 664
+40 664
+68 664
+68 664
+68 680
+68 680 u
+</path>
+<path stroke="0">
+104 708 m
+104 704 l
+84 704 l
+84 708 l
 h
 </path>
-<path stroke="0" arrow="normal/normal">
-136 632 m
-184 632 l
+<path matrix="1 0 0 1 -28 0" stroke="0">
+104 708 m
+104 704 l
+84 704 l
+84 708 l
+h
 </path>
-<path matrix="1 0 0 1 20 0" stroke="0" arrow="normal/normal">
-276 640 m
-336 640 l
+<path matrix="1 0 0 1 -56 0" stroke="0">
+104 708 m
+104 704 l
+84 704 l
+84 708 l
+h
 </path>
-<path stroke="0" arrow="normal/normal">
-188 680 m
-188 648 l
+<path matrix="1 0 0 1 172 0" stroke="0">
+104 708 m
+104 704 l
+84 704 l
+84 708 l
+h
 </path>
-<path stroke="0" arrow="normal/normal">
-220 680 m
-220 648 l
+<path matrix="1 0 0 1 144 0" stroke="0">
+104 708 m
+104 704 l
+84 704 l
+84 708 l
+h
 </path>
-<path stroke="0" arrow="normal/normal">
-256 680 m
-256 648 l
-</path>
-<path matrix="1 0 0 1 32 0" stroke="0" arrow="normal/normal">
-256 680 m
-256 648 l
-</path>
-<path stroke="black" arrow="normal/normal">
-296 624 m
-356 624 l
+<path matrix="1 0 0 1 116 0" stroke="0">
+104 708 m
+104 704 l
+84 704 l
+84 708 l
+h
 </path>
 </page>
 </ipe>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241007124348" modified="D:20241007142202"/>
+<info created="D:20241007171352" modified="D:20241007172318"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,48 +313,36 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<text layer="alpha" matrix="1 0 0 1 -184 92" transformations="translations" pos="288 540" stroke="black" type="label" width="56.368" height="6.003" depth="1.74" halign="center" valign="center" size="small">materie prime</text>
-<text matrix="1 0 0 1 -32 144" transformations="translations" pos="288 540" stroke="black" type="label" width="28.698" height="6.003" depth="1.74" halign="center" valign="center" size="small">energia</text>
-<text matrix="1 0 0 1 -68 144" transformations="translations" pos="288 540" stroke="black" type="label" width="37.121" height="6.227" depth="0" halign="center" valign="center" size="small">macchine</text>
-<text matrix="1 0 0 1 4 144" transformations="translations" pos="288 540" stroke="black" type="label" width="29.237" height="6.227" depth="0" halign="center" valign="center" size="small">utensili</text>
-<text matrix="1 0 0 1 -112 144" transformations="translations" pos="288 540" stroke="black" type="label" width="38.19" height="5.518" depth="1.74" halign="center" valign="center" size="small">operatore</text>
-<text matrix="1 0 0 1 100 100" transformations="translations" pos="288 540" stroke="0" type="label" width="59.153" height="6.23" depth="1.74" halign="center" valign="center" size="small">prodotto finito</text>
-<text matrix="1 0 0 1 84 84" transformations="translations" pos="288 540" stroke="0" type="label" width="22.086" height="5.999" depth="0" halign="center" valign="center" size="small">scarti</text>
-<text matrix="1 0 0 1 -44 92" transformations="translations" pos="288 540" stroke="black" type="label" width="79.502" height="6.23" depth="1.74" halign="center" valign="center" size="small">processo produttivo</text>
-<path matrix="1.21429 0 0 1 -39.4286 0" stroke="0">
-184 648 m
-184 616 l
-276 616 l
-276 648 l
-h
+<path layer="alpha" stroke="0" arrow="normal/normal">
+224 736 m
+336 736 l
+</path>
+<text matrix="1 0 0 1 52 -4" transformations="translations" pos="168 804" stroke="0.502 0.502 1" type="minipage" width="44" height="13.276" depth="8.31" halign="right" valign="top" size="script">costo \\
+rischio \\ incompleti</text>
+<text matrix="1 0 0 1 196 -72" transformations="translations" pos="168 804" stroke="0" type="minipage" width="44" height="12.801" depth="7.83" halign="right" valign="top" size="script">carico su una macchina</text>
+<path matrix="1 0 0 1 212 0" stroke="0" arrow="normal/normal">
+224 736 m
+224 800 l
+</path>
+<path matrix="1 0 0 1 212 0" stroke="0" arrow="normal/normal">
+224 736 m
+336 736 l
+</path>
+<text matrix="1 0 0 1 264 -4" transformations="translations" pos="168 804" stroke="0 0.502 0.251" type="minipage" width="44" height="16.853" depth="11.9" halign="right" valign="top" size="script">produttività (quindi costo) della stazione</text>
+<text matrix="1 0 0 1 408 -72" transformations="translations" pos="168 804" stroke="0" type="minipage" width="44" height="12.801" depth="7.83" halign="right" valign="top" size="script">carico su una macchina</text>
+<path stroke="0.502 0.502 1">
+224 744 m
+320 744
+336 792 c
 </path>
 <path stroke="0" arrow="normal/normal">
-136 632 m
-184 632 l
+224 736 m
+224 800 l
 </path>
-<path matrix="1 0 0 1 20 0" stroke="0" arrow="normal/normal">
-276 640 m
-336 640 l
-</path>
-<path stroke="0" arrow="normal/normal">
-188 680 m
-188 648 l
-</path>
-<path stroke="0" arrow="normal/normal">
-220 680 m
-220 648 l
-</path>
-<path stroke="0" arrow="normal/normal">
-256 680 m
-256 648 l
-</path>
-<path matrix="1 0 0 1 32 0" stroke="0" arrow="normal/normal">
-256 680 m
-256 648 l
-</path>
-<path stroke="black" arrow="normal/normal">
-296 624 m
-356 624 l
+<path matrix="1 0 0 1 32 0" stroke="0 0.502 0.251">
+412 800 m
+412 744
+508 744 c
 </path>
 </page>
 </ipe>

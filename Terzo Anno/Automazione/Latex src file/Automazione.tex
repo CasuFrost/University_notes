@@ -72,7 +72,7 @@ Nota bene : Essendo questi appunti di un corso esterno alla facoltà di Informat
 %Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
 
 %==================INIZIO======================%
-\chapter{Architetture per l'Automazione Industriale}
+\chapter{L'Automazione Industriale}
 \section{Introduzione}
 Con il termine \textit{Automazione}, si intende la trasformazione 
 di un processo pre-esistente, al fine di renderlo autonomo, riducendo o 
@@ -403,11 +403,190 @@ Da un punto di vista economico, è il processo che da valore aggiunte
 ai materiali utilizzati.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/manifacturing.eps}
 \end{center}
-
-
-
-
-
+Spesso di questi processi produttivi ce ne sono molteplici messi a catena, in modo che l'output di un 
+processo sia l'input di un altro. Si consideri il seguente esempio che schematizza un sistema di produzione del cemento.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth ]{images/cementificio.pdf}
+    \caption{Cementificio : schema}
+    \label{fig:cementificio}
+\end{figure} 
+Il cemento viene prodotto a partire da calcari pure ed argilla, viene mandato nel frantoio per essere 
+tritati, ciò che ne esce viene miscelato per poi venire accumulato in un silos. Quest'ultimo, funge 
+da \textit{buffer}, ossia un accumulo del prodotto non ancora terminate durante la sequenza di produzione, utile 
+nel sincronizzare la catena, qui 
+viene riempito totalmente prima di passare allo step successivo. Il primo mulino esegue una fase 
+di pre riscaldamento, il calore utilizzato deriva dall'energia termica scartata dal forno principale 
+ad alte temperature. \acc 
+Il processo consiste in una \textit{sequenza} di \textit{operazioni elementari} di varia natura \begin{itemize}
+    \item lavorazione  e assemblaggio
+    \item trasporto e stoccaggio 
+    \item verifica, test, e coordinamento
+\end{itemize}
+Fin'ora è stato evidenziato se le materie prime o il prodotto finale di un certo processo fossero 
+numerabili oppure no, a tal proposito, è possibile classificare i processi produttivi nel seguente 
+modo
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/classificazioneProcProd.eps}
+\end{center}
+\begin{itemize}
+    \item\textbf{processi continui} : Trattano la trasformazione continua nel tempo della materia, energia 
+    e quantità di moto. L'obiettivo è mantenere uniforme nel tempo la qualità del prodotto, gli scambi 
+    avvengono sulle variabili fisiche.
+    \item\textbf{processi a lotti} : Possono essere sia continui che discreti, il prodotto finale necessita 
+    di una specifica, e finita, quantità di materia prima per essere prodotto. Segue una specifica 
+    sequenza di lavorazione detta \textit{ricetta}, il processo si intorrempo fra un lotto ed un 
+    altro. Obbiettivo dell'automazione è la definizione delle ricette, garantire un uso corretto delle 
+    risorse e realizzare tale sistemi in modo che siano ripetibili.
+    \item\textbf{processi semi continui} : \redText{TODO} 
+    \item \textbf{processi discreti} : Si lavora su singoli prodotti, materiali numerabili, è una 
+    produzione tipica dell'industria manifatturiera.
+\end{itemize}
+I sistemi di controllo dei processi prevedono azioni di tipo \textit{logico} oppure \textit{diretto}\begin{center}
+    \begin{tabular}{
+        >{\columncolor[HTML]{ECF4FF}}c |
+        >{\columncolor[HTML]{FFFFFF}}c |
+        >{\columncolor[HTML]{FFFFFF}}c |}
+        \cline{2-3}
+        \cellcolor[HTML]{FFFFFF}                                        & \cellcolor[HTML]{ECF4FF}Controllo logico                                                                                                                                    & \cellcolor[HTML]{ECF4FF}Controllo diretto                                                                                                                                           \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}Processi continui} & \begin{tabular}[c]{@{}c@{}}coordinamento complessivo\\  avviamento\\  e spegnimento guasti e emergenze\end{tabular}                                                         & \begin{tabular}[c]{@{}c@{}}controlli primari \\ (livelli, temperature, pressioni)\\  controlli asserviti (portata pompe, \\ posizione valvole)\end{tabular}                         \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}Processi a lotti}  & \begin{tabular}[c]{@{}c@{}}controllo delle ricette\\  supervisione impianto\\  avviamento e  spegnimento guasti\\  e emergenze \\ allocazione risorse impianto\end{tabular} & \cellcolor[HTML]{FFFFFF}\begin{tabular}[c]{@{}c@{}}controlli primari (livelli,\\  temperature, pressioni)\\  controlli asserviti (portata pompe, \\ posizione valvole)\end{tabular} \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}Processi discreti} & \begin{tabular}[c]{@{}c@{}}controllo sequenze di lavoro \\ delle singole macchine \\ supervisione impianto \\ avviamento e spegnimento \\ guasti e emergenze\end{tabular}   & \begin{tabular}[c]{@{}c@{}}controlli asserviti (posizionamento,\\  velocità \\ motori elettrici)\end{tabular}                                                                       \\ \hline
+        \end{tabular}
+\end{center}
+\begin{itemize}
+    \item \textit{regolazione} : Portare un segnale ad un determinato valore di riferimento 
+    \item \textit{asserimento} : Far si che il segnale segua una certa dinamica nel tempo
+\end{itemize}
+Il \textit{controllo diretto} riguarda il rilevamento di grandezze fisiche analogiche da parte di 
+sensori posti sul campo, tali valori continui nel tempo vengono 
+convertiti in segnali digitali, confrontandoli poi con il valore di riferimento, dando l'azione di comando 
+per correggere il comportamento delle variabili.\begin{enumerate}
+    \item I sensori forniscono un segnale \textbf{analogico} $x(t)$ continuo nel tempo (temperatura, posizione)
+    \item Tale segnale viene \textbf{quantizzato}, denotato $x_q(t)$, costringendolo ad assumere un numero limitato di 
+    valori prestabiliti $\Delta$, separati da un ampiezza $q$, il numero di bit necessari 
+    a rappresentare i valori del segnale sarà $n=\log_{2}(\nicefrac{\Delta}{q})$
+    $$ x_q(t)=\lfloor\frac{x(t)}{q}\rfloor\cdot q$$
+    \item Il segnale analogico quantizzato viene poi \textbf{campionato}, ossia, viene valutato 
+    eslcusivamente in determinati intervalli di tempo separati da un tempo di campionamento $T_C$ 
+    $$x_q(t) \longrightarrow  x_q(kT_C)\ \ \ \ t\in\R \ \ k\in\mathbb{Z}$$
+    \item A tal punto si ha un \textbf{segnale digitale} codificato in numeri binari che può essere 
+    elaborato su un sistema di controllo digitale.
+\end{enumerate}
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/segnale.eps}
+\end{center}
+Le variabili logiche, ad esempio quelle booleane, assumono valori in un insieme numerabile, e su di esse 
+è possibile eseguire operazioni logiche, si consideri il seguente esempio : \begin{quote}
+    \color{gray}
+    Il comando $M$ è una variabile booleana che se vera aziona il moto di un motore elettrico. 
+    Il sensore di prossimità è descritto una variabile booleana $P$ che è vera se ci sono 
+    ostacoli nelle vicinanze, la variabile $C$ descrive il consenso nel voler attivare il motore.\acc 
+    Risulta chiaro che $$ M= C \land \lnot P$$\color{black}
+\end{quote}
+Il seguente SFC (Sequential Functional Chart) descrive il comportamento logico di una timbratrice 
+automatica.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/timbratrice.eps}
+\end{center}
+\flowerLine 
+\section{Analisi dei Sistemi di Produzione}
+Si considerino i sistemi di produzione manifatturiera, quindi, discreti. Essi possono seguire diverse strutture, 
+fra le più importanti vi sono\begin{itemize}
+    \item \textbf{linea di trasferta } : La produzione avviene secondo una specifica sequenza, rigida e non 
+    flessibile. Un esempio tipico è la classica catena di montaggio introdotta da Ford. 
+    \item \textbf{flow shop} : Vi sono diversi macchinari, e più flussi di produzione che si 
+    alternano i macchinari diversi. 
+    \item \textbf{job shop} : Ci sono differenti percorsi, intrecciati e complessi fra i diversi macchinari 
+    e reparti dell'impianto di produzione. 
+    \item  \textbf{celle di produzione} : Le singole celle contengono più macchinari, ed ognuna di queste 
+    si occupa della produzione (dall'inizio alla fine) di un singolo prodotto, mantenendola concentrata 
+    nella celle, senza che essa sia dislocata nell'impianto. 
+    \item \textbf{FMS} : Diversi flussi fra le varie celle.
+\end{itemize}
+Vanno considerati vari aspetti nell'analisi dei sistemi di produzione, come la trattazione dei tempi di 
+attesa, il \textit{WIP - work in process}, è un termine utilizzato per indicare il numero di pezzi che vengono 
+lavorati contemporaneamente.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth ]{images/lineaFlowJob.eps}
+    \caption{sistemi di produzione}
+    \label{fig:sisprod}
+\end{figure} 
+\subsection{Linee di Trasferta}
+Verrà trattata in questa sezione la modellizzazione delle linee di trasferta, e verranno analizzati 
+alcuni parametri che le caratterizzano. Una linea di trasferta consiste in una serie di macchine o stazioni 
+(macchinari adatti a più compiti) connessi sequenzialmente da un sistema di trasporto. La sequenza di produzione 
+è rigida ed i pezzi vengono processati continuamente nel tempo senza interruzioni. Le linee possono essere 
+sincrone e (i pezzi avanzano alla stessa velocità) oppure asincrone, tramite l'installazione di appositi 
+buffer fra una macchina e l'altra.\begin{itemize}
+    \item \textit{pro} : La produzione avviene per un singolo prodotto, risulta molto efficiente, il WIP è 
+    ridotto ed il trasporto dei pezzi è semplice, dato che segue un unica direzione. I tempi di avvio sono brevi. 
+    \item \textit{contro} : La produzione è poco flessibile ed è a rischio obsolescenza, il malfunzionamento 
+    di una macchina può causare l'interruzione dell'intera linea (single point of failure).
+\end{itemize}
+\teo{(Legge di Little)} Data una linea di trasferta, ed i seguenti parametri \begin{itemize}
+    \item $p$ : tasso di produzione misurato in pezzi per unità di tempo 
+    \item $T_a$ : tempo necessario per l'attraversamento di una linea 
+    \item $WIP$ il work in process,  il numero di pezzi che vengono 
+    lavorati contemporaneamente
+\end{itemize}
+Vale la seguente relazione $$ WIP = p\cdot T_a$$
+La legge si riferisce ad un sistema a regime permanente, quindi non considera l'avvio della linea, dato quindi 
+un tasso $p$ fisso, per ridurre il $WIP$ è necessario ridurre il  tempo necessario 
+per l'attraversamento della linea. 
+\subsubsection{Esempio}
+Verrà considerata una linea di trasferta composta da 3 macchine $M_1,M_2$ e $M_3$, i cui tempi di 
+lavoro sono uguali e costanti $T_1=T_2=T_3=2$. Tale analisi è fatta a $WIP$ costante.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/WIP1.eps}
+\end{center}
+In questo contesto, il WIP è 1, ciò significa che solamente un pezzo (indicato con una pallina verde) può 
+occupare le 3 macchine contemporaneamente. Ogni 2 unità di tempo, il pezzo viene processato da una 
+macchina all'altra, ci vogliono 6 unità di tempo per produrre un pezzo, $T_a=6$. 
+$$T_a=6 \land WIP = 1 \implies p = \frac{1}{6} \text{ un pezzo ogni 6 unità di tempo}$$
+\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/WIP2.eps}
+\end{center}
+Si noti come nonostante il WIP aumenti, nel caso $WIP=4$ il tasso di produzione rimane invariato, 
+risulta quindi fondamentale trovare il valore di WIP ottimale che minimizzi $T_a$ e 
+massimizzi $p$. 
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth ]{images/WIP3.eps}
+        \caption{$ T_1 = 1\ \ \ \ \ T_2 = 2 \ \ \ \ \ T_3 = 3$}
+        \label{fig:wip3}
+    \end{figure}
+\end{center}
+L'esempio proposto in figura \ref{fig:wip3} è simile a quello precedente, ma in questo caso le macchine hanno tempi 
+di lavoro differenti, precisamente, aumentano in ordine crescente. 
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth ]{images/analisiWIP.eps}
+        \caption{Analisi in funzione del $WIP$}
+        \label{fig:wipAnalysis}
+    \end{figure}
+\end{center}
+Con \textbf{Dimensionamento} e \textbf{Bilanciamento} di una linea di trasferta, si intende la ricerca del 
+compromesso ideale fra l'aumento della produttività (utilizzo di più macchine) e la riduzione dei costi, 
+a parità di tempo totale di lavorazione. Le curve in figura \ref{fig:carico}, descrivono l'allocazione delle 
+lavorazioni (distribuzione del carico) in un numero fissato di $N$ stazioni/macchine.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth ]{images/carico.eps}
+    \caption{Analisi in funzione del carico su una singola macchina}
+    \label{fig:carico}
+\end{figure}
+\begin{itemize}
+    \item maggiore è il numero di stazioni utilizzate, minore sarà il carico medio delle
+    stazioni e maggiore il costo unitario del singolo pezzo prodotto
+    \item minore è il numero di stazioni utilizzate, maggiore sarà il carico medio delle
+    stazioni e maggiore il costo del rischio di effettuare lavorazioni incomplete, 
+    a causa della elevata saturazione nell'impiego dei macchinari della stazione
+\end{itemize}
+Il problema del bilanciamento di una linea di trasferta è NP-completo, per questo vengono utilizzate 
+delle euristiche di soluzione, che garantiscono una soluzione prossima a quella ottimale.
 
 
 

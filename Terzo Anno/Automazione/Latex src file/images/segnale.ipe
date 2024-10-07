@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241007124348" modified="D:20241007142202"/>
+<info created="D:20241007151955" modified="D:20241007152828"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,48 +313,195 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<text layer="alpha" matrix="1 0 0 1 -184 92" transformations="translations" pos="288 540" stroke="black" type="label" width="56.368" height="6.003" depth="1.74" halign="center" valign="center" size="small">materie prime</text>
-<text matrix="1 0 0 1 -32 144" transformations="translations" pos="288 540" stroke="black" type="label" width="28.698" height="6.003" depth="1.74" halign="center" valign="center" size="small">energia</text>
-<text matrix="1 0 0 1 -68 144" transformations="translations" pos="288 540" stroke="black" type="label" width="37.121" height="6.227" depth="0" halign="center" valign="center" size="small">macchine</text>
-<text matrix="1 0 0 1 4 144" transformations="translations" pos="288 540" stroke="black" type="label" width="29.237" height="6.227" depth="0" halign="center" valign="center" size="small">utensili</text>
-<text matrix="1 0 0 1 -112 144" transformations="translations" pos="288 540" stroke="black" type="label" width="38.19" height="5.518" depth="1.74" halign="center" valign="center" size="small">operatore</text>
-<text matrix="1 0 0 1 100 100" transformations="translations" pos="288 540" stroke="0" type="label" width="59.153" height="6.23" depth="1.74" halign="center" valign="center" size="small">prodotto finito</text>
-<text matrix="1 0 0 1 84 84" transformations="translations" pos="288 540" stroke="0" type="label" width="22.086" height="5.999" depth="0" halign="center" valign="center" size="small">scarti</text>
-<text matrix="1 0 0 1 -44 92" transformations="translations" pos="288 540" stroke="black" type="label" width="79.502" height="6.23" depth="1.74" halign="center" valign="center" size="small">processo produttivo</text>
-<path matrix="1.21429 0 0 1 -39.4286 0" stroke="0">
-184 648 m
-184 616 l
-276 616 l
-276 648 l
-h
+<path layer="alpha" matrix="1 0 0 1 -128 0" stroke="0" arrow="normal/normal">
+176 720 m
+304 720 l
 </path>
-<path stroke="0" arrow="normal/normal">
-136 632 m
-184 632 l
+<path matrix="1 0 0 1 -128 0" stroke="0">
+176 720 m
+168 720 l
 </path>
-<path matrix="1 0 0 1 20 0" stroke="0" arrow="normal/normal">
-276 640 m
-336 640 l
+<path matrix="1 0 0 1 -128 0" stroke="0">
+176 720 m
+176 712 l
 </path>
-<path stroke="0" arrow="normal/normal">
-188 680 m
-188 648 l
+<path matrix="1 0 0 1 -128 0" stroke="0 0 1">
+176 780 m
+204 752
+244 732
+264 768
+304 768 c
 </path>
-<path stroke="0" arrow="normal/normal">
-220 680 m
-220 648 l
+<text matrix="1 0 0 1 -128 0" transformations="translations" pos="304 712" stroke="0" type="label" width="3.598" height="6.128" depth="0" halign="center" valign="center" style="math">t</text>
+<text matrix="1 0 0 1 -272 96" transformations="translations" pos="304 712" stroke="0" type="label" width="17.04" height="7.473" depth="2.49" halign="center" valign="center" style="math">x(t)</text>
+<path matrix="1 0 0 1 36 0" stroke="0" arrow="normal/normal">
+176 720 m
+304 720 l
 </path>
-<path stroke="0" arrow="normal/normal">
-256 680 m
-256 648 l
+<path matrix="1 0 0 1 36 0" stroke="0">
+176 720 m
+168 720 l
 </path>
-<path matrix="1 0 0 1 32 0" stroke="0" arrow="normal/normal">
-256 680 m
-256 648 l
+<path matrix="1 0 0 1 36 0" stroke="0">
+176 720 m
+176 712 l
 </path>
-<path stroke="black" arrow="normal/normal">
-296 624 m
-356 624 l
+<path matrix="1 0 0 1 36 0" stroke="0 0 1" dash="dotted">
+176 780 m
+204 752
+244 732
+264 768
+304 768 c
 </path>
+<text matrix="1 0 0 1 36 0" transformations="translations" pos="304 712" stroke="0" type="label" width="3.598" height="6.128" depth="0" halign="center" valign="center" style="math">t</text>
+<text matrix="1 0 0 1 -108 96" transformations="translations" pos="304 712" stroke="0" type="label" width="21.44" height="7.472" depth="2.85" halign="center" valign="center" style="math">x_q(t)</text>
+<path matrix="1 0 0 1 -128 -52" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 -128 -40" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 -128 -28" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 -128 -16" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 -128 -4" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 -128 8" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<text matrix="1 0 0 1 -96 20" transformations="translations" pos="304 712" stroke="0.502 0 1" type="label" width="3.461" height="2.153" depth="0.96" halign="center" valign="center" size="tiny" style="math">q</text>
+<text matrix="1 0 0 1 -96 32" transformations="translations" pos="304 712" stroke="0.502 0 1" type="label" width="6.851" height="3.219" depth="0.96" halign="center" valign="center" size="tiny" style="math">2q</text>
+<path matrix="1 0 0 1 -128 0" stroke="1 0 0" pen="heavier">
+340 768 m
+352 768 l
+352 756 l
+368 756 l
+368 744 l
+424 744 l
+424 756 l
+452 756 l
+460 756 l
+460 768 l
+464 768 l
+</path>
+<path matrix="1 0 0 1 -128 0" stroke="0" arrow="normal/normal">
+176 720 m
+176 800 l
+</path>
+<path matrix="1 0 0 1 36 0" stroke="0" arrow="normal/normal">
+176 720 m
+176 800 l
+</path>
+<path matrix="1 0 0 1 196 0" stroke="0" arrow="normal/normal">
+176 720 m
+304 720 l
+</path>
+<path matrix="1 0 0 1 196 0" stroke="0">
+176 720 m
+168 720 l
+</path>
+<path matrix="1 0 0 1 196 0" stroke="0">
+176 720 m
+176 712 l
+</path>
+<path matrix="1 0 0 1 196 0" stroke="0 0 1" dash="dotted">
+176 780 m
+204 752
+244 732
+264 768
+304 768 c
+</path>
+<text matrix="1 0 0 1 196 0" transformations="translations" pos="304 712" stroke="0" type="label" width="3.598" height="6.128" depth="0" halign="center" valign="center" style="math">t</text>
+<text matrix="1 0 0 1 52 96" transformations="translations" pos="304 712" stroke="0" type="label" width="35.865" height="7.472" depth="2.85" halign="center" valign="center" style="math">x_q(kT_C)</text>
+<path matrix="1 0 0 1 32 -52" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 32 -40" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 32 -28" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 32 -16" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 32 -4" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 32 8" stroke="0.502 0 1" dash="dashed">
+340 784 m
+468 784 l
+</path>
+<path matrix="1 0 0 1 32 0" stroke="1 0 0" dash="dotted">
+340 768 m
+352 768 l
+352 756 l
+368 756 l
+368 744 l
+424 744 l
+424 756 l
+452 756 l
+460 756 l
+460 768 l
+464 768 l
+</path>
+<path matrix="1 0 0 1 196 0" stroke="0" arrow="normal/normal">
+176 720 m
+176 800 l
+</path>
+<path stroke="1 0 0.502" dash="dashed">
+388 792 m
+388 720 l
+</path>
+<path matrix="1 0 0 1 16 0" stroke="1 0 0.502" dash="dashed">
+388 792 m
+388 720 l
+</path>
+<path matrix="1 0 0 1 32 0" stroke="1 0 0.502" dash="dashed">
+388 792 m
+388 720 l
+</path>
+<path matrix="1 0 0 1 48 0" stroke="1 0 0.502" dash="dashed">
+388 792 m
+388 720 l
+</path>
+<path matrix="1 0 0 1 64 0" stroke="1 0 0.502" dash="dashed">
+388 792 m
+388 720 l
+</path>
+<path matrix="1 0 0 1 80 0" stroke="1 0 0.502" dash="dashed">
+388 792 m
+388 720 l
+</path>
+<path matrix="1 0 0 1 96 0" stroke="1 0 0.502" dash="dashed">
+388 792 m
+388 720 l
+</path>
+<text matrix="1 0 0 1 84 4" transformations="translations" pos="304 712" stroke="1 0 0.502" type="label" width="9.944" height="3.402" depth="1.69" halign="center" valign="center" size="tiny" style="math">T_C</text>
+<text matrix="1 0 0 1 100 4" transformations="translations" pos="304 712" stroke="1 0 0.502" type="label" width="13.335" height="3.402" depth="1.69" halign="center" valign="center" size="tiny" style="math">2T_C</text>
+<text matrix="1 0 0 1 116 4" transformations="translations" pos="304 712" stroke="1 0 0.502" type="label" width="13.335" height="3.402" depth="1.69" halign="center" valign="center" size="tiny" style="math">3T_C</text>
+<use name="mark/disk(sx)" pos="388 756" size="normal" stroke="0 0.502 0"/>
+<use name="mark/disk(sx)" pos="404 744" size="normal" stroke="0 0.502 0"/>
+<use name="mark/disk(sx)" pos="420 744" size="normal" stroke="0 0.502 0"/>
+<use name="mark/disk(sx)" pos="436 744" size="normal" stroke="0 0.502 0"/>
+<use name="mark/disk(sx)" pos="452 744" size="normal" stroke="0 0.502 0"/>
+<use name="mark/disk(sx)" pos="468 756" size="normal" stroke="0 0.502 0"/>
+<use name="mark/disk(sx)" pos="484 756" size="normal" stroke="0 0.502 0"/>
+<use name="mark/disk(sx)" pos="492 768" size="normal" stroke="0 0.502 0"/>
 </page>
 </ipe>
