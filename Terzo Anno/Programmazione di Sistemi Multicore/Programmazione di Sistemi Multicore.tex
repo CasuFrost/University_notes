@@ -471,4 +471,204 @@ di \textit{parallelizzare} un programma \begin{itemize}
         }
     }
 \end{lstlisting}
+\flowerLine 
+\section{Comunicazione  non Bloccante e Comunicazione Collettiva}
+Il contesto canonico di utilizzo di MPI è su un'insieme di server connessi fra loro (memoria privata), quando un 
+processo esegue una \code{MPI\_Send}, il buffer in cui è contenuto il messaggio viene copiato e salvato dalla memoria 
+principale alla memoria dell'interfaccia di rete (NIC Memory), per poi venire trasferito attraverso la rete verso la memoria 
+NIC del destinatario, da li, verrà poi trasferita nella memoria principale di quest'ultimo. \acc 
+L'utilizzo di una \code{MPI\_Send} è quindi dispendioso dal punto di vista computazionale, in quanto sono coinvolte 
+molteplici operazioni di scrittura e chiamate di sistema, è quindi buona regola, eseguire il minor numero di 
+\code{MPI\_Send} possibile\begin{quote}
+    \color{gray}
+    Ad esempio, è più conveniente eseguire una sola chiamata in cui si trasferiscono 200 byte piuttosto che due chiamate 
+    in cui si trasferiscono 100 byte ciascuna.
+    \color{black}
+\end{quote}
+Si è detto in precedenza che \code{MPI\_Send} è bloccante, in realtà, MPI utilizza, se non specificato diversamente, 
+una metodologia di comunicazione standard, se il messaggio da trasferire è piccolo, è probabile che venga immediatamente 
+trasferito venendo salvato su un buffer del destinatario. Diversamente, nel caso di un messaggio grande, la chiamata 
+sarà bloccante in quanto MPI deve assicurarsi che il destinatario abbia allocato la memoria sufficente per riceverlo.\acc 
+In entrambi i casi, MPI si assicura che il messaggio da inviare non vada perso, il programmma riottiene il controllo 
+solo quando il buffer utilizzato per contenere il messaggio è di nuovo disponibile, si dice che la \code{MPI\_Send} 
+è \textit{locally blocking}. Oltre la comunicazione standard, vi sono altri modi di inviare messaggi\begin{itemize}
+    \item \textbf{Buffered} : Tramite la chiamata \code{MPI\_Bsend}, l'operazione è sempre locally blocking, ma l'utente deve fornire manualmente un 
+    buffer in cui salvare il messaggio da inviare. 
+    \item \textbf{Sincrona} : Tramite la chiamata \code{MPI\_Ssend}, l'operazione è globalmente bloccante, il controllo 
+    viene restituito esclusivamente quando il destinatario ha ricevuto il messaggio chiamando \code{MPI\_Recv}. Risulta 
+    utile per far si che un processo attenda che un altro arrivi ad un certo punto della computazione. 
+    \item \textbf{Ready} : Tramite la chiamata \code{MPI\_Rsend}, se il destinatario non ha già effettuato una 
+    \code{MPI\_Recv}, tale chiamata fallisce, è quindi necessario che esso sia già in attesa di ricevere.
+\end{itemize}
+\subsection{Send e Recv Immediate}
+Le chiamate \code{MPI\_Recv} e \code{MPI\_Send} sono considerate poco performanti in quanto il processo chiamante 
+potrebbe bloccare la sua esecuzione, in alcuni casi può essere utile una chiamata non bloccante per la trasmissione 
+dei dati, soprattutto quando il mancato ricevimento di essi non causa errori nell'esecuzione del programma. Le funzioni non 
+bloccanti messe a disposizione da MPI sono dette \textbf{funzioni immediate}, e permettono l'overlap fra 
+computazione e comunicazione. Se al momento di una chiamata di ricevimento non ci sono dati da leggere, il programmatore 
+dovrà gestire esplicitamente la situazione.\acc 
+La chiamata \code{MPI\_Isend} ha gli stessi parametri della funzione non immediata, eccetto un parametro aggiuntivo, 
+\code{MPI\_Request *req}, necessario per avere informazioni sullo status della chiamata.\acc 
+La chiamata \code{MPI\_Irecv} ha gli stessi parametri della funzione non immediata, eccetto per l'assenza del 
+parametro sullo status originario, e l'aggiunta del parametro 
+\code{MPI\_Request *req}, necessario per avere informazioni sullo status della chiamata.\acc 
+La funzione \code{int MPI\_Wait(MPI\_Request *request, MPI\_Status *status)} fa si che il processo si blocchi 
+finché un invio o una ricezione non è andato a buon termine. È una chiamata bloccante.\acc 
+La funzione \code{int MPI\_Test(MPI\_Request *request, int *flag, MPI\_Status *status)} controlla se una 
+chiamata di invio o ricezione è andata o no a buon fine, salvando l'esito del risultato nel campo \code{flag}.\acc 
+Esistono altre varianti di \code{Wait} e \code{Test} \begin{itemize}
+    \item \code{Waitall} 
+    \item \code{Waitany} 
+    \item \code{Testany}
+    \item etc...
+\end{itemize}
+\subsection{Esempi di Applicazione}
+Il seguente esempio mostra un programma in cui $n$ processi (in questo caso 4) si scambiano informazioni 
+in una configurazione "ad anello", in cui ognuno invia e riceve a/da i suoi vicini, l'utilizzo di chiamate non bloccanti 
+è utile per evitare situazioni di deadlock.
+\begin{lstlisting}[style=CStyle]
+#include "mpi.h" 
+#include <stdio.h> 
+int main(void) { 
+    int numtasks, rank, next, prev, buf[2]; 
+    MPI_Request reqs[4]; // variabili necessarie per le chiamate Irecv e Isend
+    MPI_Status stats[4]; // variabili necessarie per Waitall  
+    MPI_Init(NULL, NULL); 
+    MPI_Comm_size(MPI_COMM_WORLD, &numtasks); 
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    // Determina vicino a sinistra e a destra
+    prev = (rank-1) % numtasks; 
+    next = (rank+1) % numtasks; 
+    // Operazioni di comunicazione
+    MPI_Irecv(&buf[0], 1, MPI_INT, prev, 0, MPI_COMM_WORLD, &reqs[0]); 
+    MPI_Irecv(&buf[1], 1, MPI_INT, next, 0, MPI_COMM_WORLD, &reqs[1]); 
+    MPI_Isend(&rank, 1, MPI_INT, prev, 0, MPI_COMM_WORLD, &reqs[2]); 
+    MPI_Isend(&rank, 1, MPI_INT, next, 0, MPI_COMM_WORLD, &reqs[3]); 
+    // Qui puo' essere eseguita computazione nel mentre che gli altri processi comunicano
+    // Attende la fine delle operazioni non bloccanti
+    MPI_Waitall(4, reqs, stats); 
+    MPI_Finalize(); 
+}
+\end{lstlisting}
+\begin{center}
+    \begin{figure}[h!]
+        \center
+        \includegraphics[width=0.5\textwidth]{images/ring.eps}
+        \caption{configurazione ad anello}
+        \label{fig:ring}
+    \end{figure}
+\end{center}
+\subsubsection{Integrazione numerica}
+Si consideri adesso il seguente esempio, si vuole scrivere un programma che esegua l'integrazione numerica 
+di una generica funzione $f(x)$ tramite la regola del trapezoide. Tale metodo consiste nel dividere l'intervallo 
+di integrazione in $n$ intervalli $$\{(x_0,x_1),(x_1,x_2),(x_2,x_3)\dots (x_{n-1},x_n)\}$$ lunghi $h$,
+ di cui verrà calcolata l'area approssimandola ad un trapezio.
+ \begin{center}
+    \includegraphics[width=0.8\textwidth]{images/trapezio.eps}
+ \end{center}
+L'integrale approssimato sarà la somma totale di tutti i trapezoidi 
+$$ \frac{h}{2}\Big[[f(x_1)+f(x_{2})]+[f(x_2)+f(x_{3})]+\dots +[f(x_{n-1})+f(x_{n})]\Big]$$
+\begin{lstlisting}[style=CStyle]
+/* Input : a, b, n */
+h = (b-a)/n;
+approx = (f(a)+f(b))/2;
+for(i=1;i<=n-1;i++){
+    x_i = a+i*h; 
+    approx += f(x_i);
+}
+approx=h*approx;
+\end{lstlisting}
+Se ne vuole dare un'implementazione parallela in cui i vari processi eseguiranno il calcolo di un 
+trapezio, le somme parziali verranno inviate al processo di rank 0 che si occuperà di calcolare 
+la somma totale (paradigma MAP REDUCE).
+\begin{lstlisting}[style=CStyle]
+double Trap(double left, double right, int count, double base_len){
+
+    double esitmate, x;
+    // f e' la funzione integranda
+    esitmate = (f(left)+f(right))/2.0;
+    for(int i = 1; i<=count-1; i++){
+        x=left+i*base_len;
+        estimate+=f(x);
+    }
+    return estimate*base_len;
+}
+\end{lstlisting}
+\begin{lstlisting}[style=CStyle]
+int main(void){
+
+    int my_rank; 
+    int comm_size;
+    int n = 1024; //numero di intervalli, piu' e' grande, piu' la stima sara' precisa 
+    double a = 0.0; //estremo sinistro di integrazione
+    double b = 3.0; //estremo destro di integrazione
+    double h; //lunghezza intervalli; 
+    double local_a, local b;
+    double local_sum;
+    double total_sum;
+    int source;
+
+    MPI_Init(NULL,NULL);
+    MPI_Comm_rank(MPI_COMM_WORLD,&my_rank);
+    MPI_Comm_size(MPI_COMM_WORLD,&comm_size);
+
+    h=(b-a)/n; 
+    local_n = n/comm_size; //numero di trapezoidi per ogni processo 
+
+    local_a = a+my_rank*local_n*h;
+    local_b=local_a+local_n*h;
+    local_sum = Trap(local_a, local_b, local_n, h); //calcolo somma parziale
+
+    if(my_rank!=0){
+        //Invio la somma parziale al processo con rank 0
+        MPI_Send(&local_sum, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+    }
+    else{
+        total_sum = local_sum;
+        for(source = 1;source<comm_sz; source++){
+            MPI_Recv(&local_sum, 1, MPI_DOUBLE, source, 0,
+                         MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            total_sum+=local_sum
+        }
+
+        printf("con n = %d trapezoidi, la somma approssimata della funzione\n  
+               da %f a %f e' %.15e .\n", n, a, b, total_sum);
+    }
+
+    MPI_Finalize();
+    return 0;
+}
+\end{lstlisting}
+\subsection{Operazioni Collettive}
+Qual'è il problema con l'implementazione del trapezoide appena mostrata? Il processo di rank zero ha un carico di lavoro superiore 
+rispetto ogni altro processo, infatti, quest'ultimo oltre la somma dei suoi trapezi locali, deve calcolare 
+la somma totale, inoltre deve occuparsi di ricevere i dati da tutti gli altri processi. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=450pt]{images/tree2.eps}
+    \caption{alberi differenti (entrambi validi)}
+    \label{fig:tree_cores2}
+\end{figure}\acc
+Si può pensare di 
+suddividere il carico di lavoro ad albero, come già visto in figura 
+\ref{fig:tree_cores}, facendo si che il suo carico di lavoro sia logaritmico in funzione del numero dei rank. 
+Nell'esempio visto, ogni processo condivide i suoi dati parziali con quello adiacente (da un punto di vista 
+di numero di identificazione), ma nulla vieta agli ultimi processi di condividere i dati con i primi, come in figura 
+\ref{fig:tree_cores2}.
+L'ottimalità di una soluzione piuttosto che di un altra può dipendere da diversi fattori non sempre analizzabili, come 
+la topologia fisica della reta attraverso cui sono collegate le macchine che eseguono i processi.\acc 
+A tal proposito, MPI fornisce una funzionalità che permette di eseguire operazioni di aggregazione di risultati 
+senza preoccuparci della logica di comunicazione per il trasferimento dei dati parziali. La funzione in questione è 
+\code{int MPI\_Reduce}, con i seguenti parametri
+\begin{itemize}
+    \item \code{void* input\_data\_o} è il puntatore alla variabile in ingresso (somma parziale)
+    \item \code{void* output\_data\_o} è il puntatore al valore che sarà riempito con il valore totale aggregato
+    \item \code{int count} è il numero di elementi da aggregare
+    \item \code{MPI\_Datatype datatype} è il tipo dei valori in questione
+    \item \code{MPI\_Op operator} è l'operazione di aggregazione (somma, moltiplicazione, XOR, etc...) 
+    \item \code{int dest\_process} è il rank del processo che riceverà il risultato
+    \item \code{MPI\_Comm comm} il comunicatore in questione
+\end{itemize}
+
+
 \end{document}
