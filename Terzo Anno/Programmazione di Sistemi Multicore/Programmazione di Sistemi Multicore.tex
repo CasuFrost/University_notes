@@ -558,7 +558,7 @@ int main(void) {
         \label{fig:ring}
     \end{figure}
 \end{center}
-\subsubsection{Integrazione numerica}
+\subsubsection{Integrazione numerica}\label{integrale}
 Si consideri adesso il seguente esempio, si vuole scrivere un programma che esegua l'integrazione numerica 
 di una generica funzione $f(x)$ tramite la regola del trapezoide. Tale metodo consiste nel dividere l'intervallo 
 di integrazione in $n$ intervalli $$\{(x_0,x_1),(x_1,x_2),(x_2,x_3)\dots (x_{n-1},x_n)\}$$ lunghi $h$,
@@ -669,6 +669,179 @@ senza preoccuparci della logica di comunicazione per il trasferimento dei dati p
     \item \code{int dest\_process} è il rank del processo che riceverà il risultato
     \item \code{MPI\_Comm comm} il comunicatore in questione
 \end{itemize}
-
+Le operazioni di aggregazione supportate da MPI sono le seguenti \begin{center}
+    \begin{tabular}{|l|l|}
+        \hline
+        \rowcolor[HTML]{6434FC} 
+        {\color[HTML]{FFFFFF} Operazione}     & {\color[HTML]{FFFFFF} Significato} \\ \hline
+        \texttt{MPI\_MAX}    & Massimo                            \\ \hline
+        \texttt{MPI\_MIN}    & Minimo                             \\ \hline
+        \texttt{MPI\_SUM}    & Somma                              \\ \hline
+        \texttt{MPI\_PROD}   & Prodotto                           \\ \hline
+        \texttt{MPI\_LAND}   & AND logico                         \\ \hline
+        \texttt{MPI\_BAND}   & AND bit a bit                      \\ \hline
+        \texttt{MPI\_LOR}    & OR logico                          \\ \hline
+        \texttt{MPI\_BOR}    & OR bit a bit                       \\ \hline
+        \texttt{MPI\_LXOR}   & XOR logico                         \\ \hline
+        \texttt{MPI\_BXOR}   & XOR bit a bit                      \\ \hline
+        \texttt{MPI\_MAXLOC} & Massimo insieme al suo indice      \\ \hline
+        \texttt{MPI\_MINLOC} & Minimo insieme al suo indice       \\ \hline
+        \end{tabular}
+\end{center}
+È possibile anche definire delle operazioni personalizzate tramite la chiamata \code{MPI\_Op\_create}.\acc 
+Quando viene chiamata una funzione collettiva, è importante che ogni processo del comunicatore la chiami, altrimenti 
+l'esecuzione rimane bloccata in uno stato di attesa, dato che ogni processo attende che tutti gli altri siano arrivati 
+a tale operazione. Ovviamente, tutti i processi che eseguono un'operazione di questo tipo devono definire lo 
+stesso processo che riceverà l'output. Tutti i processi escluso quello di destinazione, nel campo 
+\code{void* output\_data\_o} possono specificare qualsiasi valore.\acc 
+Non essendo presente alcun tag, nella comunicazione collettiva, le operazioni verranno matchate in base all'ordine 
+di esecuzione. Nell'esempio del trapezoide \ref{integrale} vi è un problema, nel caso si volesse decidere arbitrariamente 
+l'intervallo di integrazione, o il numero di trapezi, il processo di rank 0 dovrà occuparsi di leggere i dati da stdin, per poi 
+condividerli ad ogni altro processo.\begin{quote}
+    \color{gray}Si ricordi che in MPI, esclusivamente il processo di rank 0 può interagire con lo stdin.\color{black}
+\end{quote}
+È chiaro che su di esso sia riportato un carico di lavoro maggiore, è quindi possibile suddividere il carico facendo si 
+che il processo 0 condivida i dati con due altri processi, e questi due li condividano a loro volta con altri due processi ciascuno, 
+creando un albero di condivisione.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/tree3.eps}
+\end{center}
+Anche in questo caso, la logica con la quale scambiarsi le informazioni può variare, e quella ottimale può dipendere 
+dalle condizioni della rete ed altri fattori difficilmente analizzabili, per questo MPI fornisce una funzione, 
+\code{MPI\_Bcast} che si occupa di eseguire il broadcast da un processo verso tutti gli altri. I parametri sono 
+i seguenti : \begin{itemize}
+    \item \code{void* data\_p} è il puntatore alla variabile da condividere
+    \item \code{int count} è il numero di elementi da condividere
+    \item \code{MPI\_Datatype datatype} è il tipo dei valori in questione
+    \item \code{int source\_process} è il rank del processo che condivide il valore
+    \item \code{MPI\_Comm comm} il comunicatore in questione
+\end{itemize}
+Il parametro \code{void* data\_p} fungerà sia da input, che da output, nel caso il processo chiamante sia 
+colui che condivide il valore, in \code{data\_p} sarà presente il valore condiviso, altrimenti, in \code{data\_p}  
+sarà presente il valore ricevuto.\acc 
+Esempio di funzione per leggere input da tastiera 
+\begin{lstlisting}[style=CStyle]
+    void Get_input(int my_rank, a, int b, int n){
+        if(my_rank==0){
+            printf("enter input:\n");
+            scanf("%d %d %d",a , b, n);
+        }
+        MPI_Bcast(a, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Bcast(b, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Bcast(n, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    }
+\end{lstlisting}
+A questo punto, si supponga di voler fare un operazione di aggregato, per poi avere il risultato condiviso fra tutti 
+i processi, concettualmente, ciò equivale ad eseguire una \code{MPI\_Reduce} seguita da una \code{MPI\_Bcast}. MPI 
+fornisce una funzione a tal proposito, ottimizzata a dovere, ossia \code{MPI\_Allreduce}, con i seguenti parametri\begin{itemize}
+    \item \code{void* input\_data\_o} è il puntatore alla variabile in ingresso (somma parziale)
+    \item \code{void* output\_data\_o} è il puntatore al valore che sarà riempito con il valore totale aggregato
+    \item \code{int count} è il numero di elementi da aggregare
+    \item \code{MPI\_Datatype datatype} è il tipo dei valori in questione
+    \item \code{MPI\_Op operator} è l'operazione di aggregazione (somma, moltiplicazione, XOR, etc...) 
+    \item \code{MPI\_Comm comm} il comunicatore in questione
+\end{itemize}
+I parametri sono identici alla \code{MPI\_Reduce},  eccetto per l'assenza del processo di destinazione, dato che 
+in questo caso, ogni processo avrà il risultato.\acc 
+Le operazioni collettive sono diventate particolarmente importanti nell'ultimo periodo in quanto sono 
+utilizzate nella stragrande maggioranza dei programmi paralleli che vengono eseguiti per il training delle 
+reti neurali odierne. Le grosse aziende di informatica, hanno iniziato a produrre delle proprie librerie 
+proprietarie\begin{itemize}
+    \item NCCL (\textit{Nvidia})
+    \item RCCL (\textit{AMD})
+    \item OneCCL (\textit{Intel})
+    \item MSCCL (\textit{Microsoft})
+\end{itemize}
+MPI durante le operazioni aggregate utilizza delle euristiche per stimare quale sia il miglior modo di condividere 
+i dati fra i nodi, è possibile forzare tale decisione attraverso delle opportune variabili d'ambiente. Il punto è che MPI
+non è consapevole dell'hardware sul quale i processi sono eseguiti, per questo le aziende hanno iniziato a 
+produrre librerie proprietarie, appositamente ottimizzate per girare sulle piattaforme dedicate.
+\subsubsection{Stima del $\pi$}
+Si vuole scrivere un programma che tramite il metodo di Montecarlo calcoli il valore stimato di $\pi$ distribuendo il 
+lavoro su più processi tramite MPI. L'algoritmo utilizzato per il calcolo è semplice, si consideri un cerchio di 
+raggio unitario, inscritto in un quadrato $2\times 2$.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/cerchio.eps}
+\end{center}
+L'area del cerchio, è uguale a $\pi r^2\implies \pi$, l'area del quadrato è $4$. Sia $A_c$ l'insieme di tutti i 
+punti compresi nel cerchio, e sia $A_q$ l'insieme di tutti i punti compresi nel quadrato. Risulta che il numero di punti 
+nell'area del cerchio stanno all'area $\pi$, come il numero di punti che stanno nell'area del quadrato stanno a $4$.
+$$ \dfrac{|A_c|}{\pi}=\dfrac{|A_q|}{4}$$
+In realtà, non ha senso considerare la cardinalità di $|A_c|$ o di $|A_q|$, in quanto sono insiemi infiniti, supponiamo allora 
+che tali insiemi siano finiti e di cardinalità $n$, si denotano $A_c^n$ e $A_q^n$, chiaramente $A_c^n\subseteq A_q^n$. 
+Si ha che 
+$$ \lim_{n\rightarrow \infty} 4\cdot \dfrac{|A_c^n|}{|A_q^n|} = \pi$$
+L'algoritmo consiste nel calcolare un numero $n$ di punti casuali, sia $c$ il numero di punti interni al cerchio, ossia 
+i punti $(x,y)$ tali da rispettare $x^2+y^2\le 1$. Numericamente, $4\dfrac{n}{c}$ approssimerà $\pi$, con una precisione 
+sempre maggiore all'aumentare di $n$.\acc 
+L'algoritmo si renderà parallelo, distribuendo equamente il numero di punti da calcolare a tutti i processi presenti.
+\begin{lstlisting}[style=CStyle]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <mpi.h>
+    #include <time.h>
+    
+    int main(int argc, char **argv)
+    {
+    
+        int precision = 1000; // Numero di punti generati casualmente
+    
+        if (argc > 1)
+        {
+            precision = atoi(argv[1]);
+        }
+    
+        MPI_Init(NULL, NULL);
+        srand(time(NULL));
+    
+        int my_rank;
+        int my_size;
+        MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &my_size);
+    
+        int local_precision = precision / my_size; /* Numero di punto da generare per
+                                                      ogni processo */
+        int local_circle_point = 0;
+    
+        for (int i = 0; i <= local_precision; i++)
+        {
+            double x = (double)rand() / RAND_MAX * 2.0 - 1.0; // Generazione punto
+            double y = (double)rand() / RAND_MAX * 2.0 - 1.0;
+            if (x * x + y * y < 1) // Controllo se il punto e' nel cerchio
+                local_circle_point++;
+        }
+    
+        int total_circle_point = 0;
+        MPI_Reduce(&local_circle_point, &total_circle_point, 1, MPI_INT, MPI_SUM,
+                                                               0, MPI_COMM_WORLD);
+    
+        if (my_rank == 0)
+        {
+            double esteem = ((double)total_circle_point / precision * 4);
+            printf("Su %d precision, la stima del pi greco e' : %lf\n",
+                                                    precision, esteem);
+        }
+    
+        MPI_Finalize();
+        return 0;
+    }
+\end{lstlisting}\large\begin{center}
+    \begin{tabular}{ll}
+        \rowcolor[HTML]{FFFFFF} 
+        \multicolumn{2}{c}{\cellcolor[HTML]{FFFFFF}Risultati della Computazione}                                                              \\
+        \rowcolor[HTML]{CBCEFB} 
+        \multicolumn{1}{c|}{\cellcolor[HTML]{CBCEFB}Numero punti generati} & \multicolumn{1}{c}{\cellcolor[HTML]{CBCEFB}Valore $\pi$ stimato} \\
+        \rowcolor[HTML]{ECF4FF} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{ECF4FF}100}                   & 4.08                                                             \\
+        \rowcolor[HTML]{DAE8FC} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}1000}                  & 3.408                                                            \\
+        \rowcolor[HTML]{ECF4FF} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{ECF4FF}10000}                 & 3.1031                                                           \\
+        \rowcolor[HTML]{DAE8FC} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}100000}                & 3.13416                                                          \\
+        \rowcolor[HTML]{ECF4FF} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{ECF4FF}1000000}               & 3.143736                                                         \\
+        \rowcolor[HTML]{DAE8FC} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}100000000}             & 3.141725                                                        
+        \end{tabular}
+\end{center}\normalsize 
 
 \end{document}

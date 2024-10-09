@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.6)  8 OCT 2024 18:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.6)  9 OCT 2024 18:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1232,13 +1232,11 @@ Package epstopdf Info: Source file: <images/tree2.eps>
 (epstopdf)                    date: 2024-10-08 18:32:32
 (epstopdf)                    size: 32008 bytes
 (epstopdf)             Output file: <images/tree2-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-10-08 18:32:43
+(epstopdf)                    size: 7657 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/tree2-eps-converted-to.pdf images/tree2.eps>
 (epstopdf)             \includegraphics on input line 648.
-runsystem(miktex-epstopdf --outfile=images/tree2-eps-converted-to.pdf images/tree2.eps)...executed safely (allowed).
-
-Package epstopdf Info: Result file: <images/tree2-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-10-08 18:32:43
-(epstopdf)                    size: 7657 bytes.
+Package epstopdf Info: Output file is already uptodate.
 <images/tree2-eps-converted-to.pdf, id=413, 596.2275pt x 181.67876pt>
 File: images/tree2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/tree2-eps-converted-to.pdf>
@@ -1254,6 +1252,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [15 <./images/tree2-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <images/tree3.eps>
+(epstopdf)                    date: 2024-10-09 18:10:26
+(epstopdf)                    size: 22206 bytes
+(epstopdf)             Output file: <images/tree3-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-10-09 18:10:51
+(epstopdf)                    size: 5153 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/tree3-eps-converted-to.pdf images/tree3.eps>
+(epstopdf)             \includegraphics on input line 706.
+Package epstopdf Info: Output file is already uptodate.
+<images/tree3-eps-converted-to.pdf, id=471, 271.0125pt x 158.5925pt>
+File: images/tree3-eps-converted-to.pdf Graphic file (type pdf)
+<use images/tree3-eps-converted-to.pdf>
+Package pdftex.def Info: images/tree3-eps-converted-to.pdf  used on input line 706.
+(pdftex.def)             Requested size: 227.62206pt x 133.20467pt.
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1262,7 +1275,56 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[16] (Programmazione di Sistemi Multicore.aux)
+[16]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[17 <./images/tree3-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <images/cerchio.eps>
+(epstopdf)                    date: 2024-10-09 18:34:12
+(epstopdf)                    size: 32450 bytes
+(epstopdf)             Output file: <images/cerchio-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-10-09 18:34:30
+(epstopdf)                    size: 4955 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/cerchio-eps-converted-to.pdf images/cerchio.eps>
+(epstopdf)             \includegraphics on input line 762.
+Package epstopdf Info: Output file is already uptodate.
+<images/cerchio-eps-converted-to.pdf, id=495, 128.48pt x 128.48pt>
+File: images/cerchio-eps-converted-to.pdf Graphic file (type pdf)
+<use images/cerchio-eps-converted-to.pdf>
+Package pdftex.def Info: images/cerchio-eps-converted-to.pdf  used on input line 762.
+(pdftex.def)             Requested size: 227.62206pt x 227.6409pt.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[18 <./images/cerchio-eps-converted-to.pdf>]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 827.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 827.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 827.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[19] (Programmazione di Sistemi Multicore.aux)
  ***********
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-16>
@@ -1271,17 +1333,17 @@ Package rerunfilecheck Info: File `"Programmazione di Sistemi Multicore".out' ha
 (rerunfilecheck)             Checksum: D3F756517904762E8000BCD7B7D9E787;2236.
  ) 
 Here is how much of TeX's memory you used:
- 39118 strings out of 473899
- 866484 string characters out of 5726501
- 2220960 words of memory out of 5000000
- 61019 multiletter control sequences out of 15000+600000
- 612505 words of font info for 85 fonts, out of 8000000 for 9000
+ 39260 strings out of 473899
+ 868764 string characters out of 5726501
+ 2344960 words of memory out of 5000000
+ 61091 multiletter control sequences out of 15000+600000
+ 625035 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,12n,104p,893b,2088s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Program Files/MiKTeX2/fonts/type1/public/fourier/fourier-orns.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on "Programmazione di Sistemi Multicore.pdf" (17 pages, 874984 bytes).
+<C:/Program Files/MiKTeX2/fonts/type1/public/fourier/fourier-orns.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
+Output written on "Programmazione di Sistemi Multicore.pdf" (20 pages, 914326 bytes).
 PDF statistics:
- 608 PDF objects out of 1000 (max. 8388607)
- 257 named destinations out of 1000 (max. 500000)
- 164 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 716 PDF objects out of 1000 (max. 8388607)
+ 321 named destinations out of 1000 (max. 500000)
+ 174 words of extra memory for PDF output out of 10000 (max. 10000000)
 
