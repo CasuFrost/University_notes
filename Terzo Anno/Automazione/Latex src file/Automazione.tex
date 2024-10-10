@@ -586,7 +586,202 @@ lavorazioni (distribuzione del carico) in un numero fissato di $N$ stazioni/macc
     a causa della elevata saturazione nell'impiego dei macchinari della stazione
 \end{itemize}
 Il problema del bilanciamento di una linea di trasferta è NP-completo, per questo vengono utilizzate 
-delle euristiche di soluzione, che garantiscono una soluzione prossima a quella ottimale.
+delle euristiche di soluzione, che garantiscono una soluzione prossima a quella ottimale. \acc 
+\subsubsection{Modello del Problema del Dimensionamento}
+Vi è una linea di trasferta con $n$ macchine/stazioni, ogni macchina $i$-esima, ha un carico di lavoro 
+$C_i$ esepresso in unità di tempo. La linea deve soddisfare un certo tasso di produzione $p$ espresso in 
+pezzi per unità di tempo. Il valore $CMT=\frac{1}{p}$ rappresenta il \textit{carico massimo teorico}, è 
+chiaro che se una qualsiasi stazione ha un carico $C_i>CMT$, allora il tasso di produzione $p$ non è 
+rispettato.\begin{quote}
+    Un tasso $p=7200\frac{\text{pezzi}}{\text{mese}}=10\frac{\text{pezzi}}{\text{ora}}$ implica un 
+    carico di lavoro massimo pari a $6$ minuti per pezzo. 
+\end{quote}
+Sarebbe ideale inoltre ridurre il numero delle macchine $n$, dato che più macchine, equivale a dire un costo 
+di manutenzione maggiore. Nella linea di trasferta, le varie lavorazioni da eseguire possono avere 
+delle \textit{dipendenze} (una lavorazione $i$ può essere eseguita esclusivamente dopo una lavorazione 
+$j$), si possono quindi rappresentare tali dipendeze attraverso un grafo orientato. \acc 
+Dato quindi un insieme di lavorazioni, si vuole trovare \begin{itemize}
+    \item una sequenza di produzione in cui il carico di lavoro per ogni macchina sia minore del carico di lavoro massimo teorico (ammissibilità)
+    \item tale sequenza, deve rispettare le dipendenze (ammissibilità)
+    \item che minimizzi il numero $n$ di macchine/stazioni
+\end{itemize}
+\textbf{Esempio}\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        Lavorazione                                                       & A  & B  & C  & D  & E  & F  & G                                                 & H                                                    & I  & J  & K  & L  & M  & N                                                    \\ \hline
+        \begin{tabular}[c]{@{}c@{}}Tempo $T_i$ \\ in secondi\end{tabular} & 55 & 30 & 50 & 42 & 20 & 25 & 45                                                & 60                                                   & 36 & 42 & 30 & 40 & 36 & 40                                                   \\ \hline
+        \begin{tabular}[c]{@{}c@{}}lavorazioni \\ necessarie\end{tabular} &    & A  & A  & A  &    &    & \begin{tabular}[c]{@{}c@{}}A, E,\\ F\end{tabular} & \begin{tabular}[c]{@{}c@{}}B, C,\\ D, G\end{tabular} & H  & H  & H  & J  & J  & \begin{tabular}[c]{@{}c@{}}I, K,\\ L, M\end{tabular} \\ \hline
+        \end{tabular}\end{center}\begin{center}
+        \includegraphics[width=0.7\textwidth ]{images/grafoDimensionamento.eps}
+\end{center}
+La specifica del tasso di produzione è $$p=300 \frac{pezzi}{7h}=\frac{300}{7}\frac{pezzi}{h}=
+\frac{300}{3600*7}\frac{pezzi}{s}=\frac{1}{84}\frac{pezzi}{s}$$
+Il carico massimo teorico è quindi $$CMT=p^{-1}=84\text{ secondi a pezzo }$$
+Essendo il tempo totale per la lavorazione di un pezzo uguale a $551$ secondi, si ha che, al minimo, 
+il numero di macchine presenti deve essere $n=\lceil\nicefrac{T_{tot}}{CMT}\rceil=\lceil\nicefrac{551}{84}\rceil=7$. Per trovare 
+una sequenza ammissibile ed ottimale, sarebbe necessaria una procedura non polinomiale, esistono quindi degli algoritmi che 
+forniscono una soluzione ammissibile (quando possibile) tramite delle euristiche.
+\subsubsection{Ranked Positional Weight Technique}
+L'algoritmo consiste nell'assegnare ad ogni lavorazione $i$ un peso $PW_i$, che consiste nel suo tempo necessario 
+$T_i$ sommato ai tempi di tutte le lavorazioni che dipendono da esso, direttamente ed indirettamente. In seguito, si ordinano 
+le lavorazioni in base a tali pesi, in ordine decrescente, nell'esempio precedente si ha \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        Lavorazione & A                                                         & B                                                     & C                                                     & D                                                     & E                                                        & F                                                        & G                                                    & H      & I  & J                                                 & K  & L  & M  & N  \\ \hline
+        $T_i$       & 55                                                        & 30                                                    & 50                                                    & 42                                                    & 20                                                       & 25                                                       & 45                                                   & 60     & 36 & 42                                                & 30 & 40 & 36 & 40 \\ \hline
+        precedenti  & \begin{tabular}[c]{@{}c@{}}B, C, D\\ G..., N\end{tabular} & \begin{tabular}[c]{@{}c@{}}H, I\\ ..., N\end{tabular} & \begin{tabular}[c]{@{}c@{}}H, I\\ ..., N\end{tabular} & \begin{tabular}[c]{@{}c@{}}H, I\\ ..., N\end{tabular} & \begin{tabular}[c]{@{}c@{}}G, H ,\\ I,... N\end{tabular} & \begin{tabular}[c]{@{}c@{}}G, H ,\\ I,... N\end{tabular} & \begin{tabular}[c]{@{}c@{}}H, I\\ ...,N\end{tabular} & I...,N & N  & \begin{tabular}[c]{@{}c@{}}L, M,\\ N\end{tabular} & N  & N  & N  &    \\ \hline
+        $PW_i$      & 506                                                       & 314                                                   & 334                                                   & 326                                                   & 349                                                      & 354                                                      & 329                                                  & 284    & 76 & 158                                               & 70 & 80 & 76 & 40 \\ \hline
+        \end{tabular}
+\end{center}
+A tal punto si ordinano secondo $PW_i$ : $$A\rightarrow F \rightarrow  E \rightarrow  C \rightarrow  G 
+\rightarrow D \rightarrow  B \rightarrow  H \rightarrow  J \rightarrow  L 
+\rightarrow  I \rightarrow  M \rightarrow  K \rightarrow  N $$
+Si iniziano poi a considerare le lavorazioni in quest'ordine una dopo l'altra, sommandone i tempi necessari fino 
+a ché sono minori di $CMT$, ad esempio 
+\begin{itemize}
+    \item Considero A, che ha tempo di lavorazione $55$, lo assegno alla prima stazione. \\$\diamond $ Carico della stazione 1 : $C_1=55\le CMT$
+    \item Considero F, che ha tempo di lavorazione $25$, lo assegno alla prima stazione. \\$\diamond $ Carico della stazione 1 : $C_1=80\le CMT$
+    \item Considero E, che ha tempo di lavorazione $20$, non posso assegnarlo alla prima stazione, dato che il carico sarebbe 
+    maggiore di $CMT=84$, quindi è necessaria una nuova stazione alla quale assegno E. \\$\diamond $ Carico della stazione 2 : $C_2=20\le CMT\le CMT$
+    \item Considero C, che ha tempo di lavorazione $50$, lo assegno alla seconda stazione. \\$\diamond $ Carico della stazione 2 : $C_2=70\le CMT\le CMT$
+    \item ...e così via
+\end{itemize}
+Al termine, si avrà la seguente assegnazione\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/bilanciamentoLineaEs.eps}
+\end{center}
+Il termine $CMT-C_i$ è detto \textit{sbilanciamento}, lo sbilanciamento medio equivale  
+alla somma degli sbilanciamenti diviso il numero di stazioni, in questo caso $\nicefrac{111}{8}=13.875$ secondi, 
+si misura in percentuale rispetto il $CMT$, in questo caso, si ha uno sbilanciamento di circa $16.5\%$.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/gantt.png}
+\end{center}
+\subsection{Flow Shop}
+Un'altro tipo di struttura per un sistema industriale è il già citato flow shop, dove vi è la produzione 
+di diversi prodotti, che devono seguire un determinato percorso fra le macchine presenti. Ogni prodotto 
+deve vedere $m$ lavorazioni, e differenti prodotti, possono passare per la stessa macchina, ma 
+necessitando di tempi differenti, quindi, sarà assegnato un tempo di lavorazione ad ogni 
+coppia (lavorazione, prodotto). Il tempo totale di completamento $T_{max}$, detto \textbf{makespan}, è il 
+valore da minimizzare, possono essere presenti dei buffer nella struttura.\acc Il problema si complica 
+rispetto la linea di trasferta, in questo caso però, date per assunte delle condizioni, vi è una regola che permette 
+di stabilire una sequenza ottimale.\acc 
+\teo{(Regola di Jhonson)}
+Assunzione : Ci sono esclusivamente 2 macchine/stazioni, denotate $M_1$ e $M_2$.\\
+Sia $L=\{l_1,l_2\dots,l_n\}$ un insieme di lavorazioni, i  cui tempi per $M_1$ sono 
+$\{t_{1_1},t_{2_1}\dots,t_{n_1}\}$, e i tempi per $M_1$ sono 
+$\{t_{1_2},t_{2_2}\dots,t_{n_2}\}$. dove $\forall i, \ t_{i_1}>0\land t_{i_2}>0$. Nella \textbf{soluzione ottimale}, 
+la lavorazione $l_i$ precede la lavorazione $l_j$ se e solo se 
+$$ \min(t_{i_1},t_{j_2})<\min(t_{j_1},t_{i_2})$$
+Tale teorema fornisce una procedura per trovare una soluzione ottimale, i passi sono i seguenti \begin{enumerate}
+    \item si costruisce $S1=\{l_i\in L \ | \ t_{i_1}<t_{i_2}\}$
+    \item si costruisce $S2=S1^C=\{l_i\in L \ | \ l_i\notin S1\}$
+    \item Vengono schedulate le lavorazioni secondo la regola\begin{itemize}
+        \item prima si eseguono tutte le lavorazioni di $S1$ in ordine crescente secondo $t_{i_1}$
+        \item poi si eseguono tutte le lavorazioni di $S2$ in ordine decrescente secondo $t_{i_2}$
+    \end{itemize}
+\end{enumerate}
+\subsubsection{Esempio di Applicazione per 2 Macchine}
+Si hanno le seguenti lavorazioni \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        Lavorazione & A & B & C & D  & E  & $T_{tot}$ \\ \hline
+        $t_{i_1}$   & 5 & 3 & 8 & 10 & 7  & 33        \\ \hline
+        $t_{i_2}$   & 2 & 6 & 4 & 7  & 12 & 31        \\ \hline
+        \end{tabular}
+\end{center}
+Si costruiscono i due insiemi\begin{itemize}
+    \item $S1=\{B, E\}$
+    \item $S2=\{A, C, D\}$
+\end{itemize}
+Si ordinano secondo i criteri della procedura ottenendo la sequenza $$ S^* = 
+B\rightarrow E\rightarrow D \rightarrow C \rightarrow A$$\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/jhonson.eps}
+\end{center}
+Gli intervalli rossi nella linea del tempo rappresentano il \textit{tempo sprecato},
+all'istante $t=20$, la lavorazione D termina su $M_1$, ed è pronta ad essere schedulata 
+su $M_2$, ma quest'ultima è ancora impegnata nella lavorazione di E, per questo il prodotto 
+che ha appena terminato D dovrà attendere, sarà quindi necessaria la presenza di un buffer. Situazione analoga 
+per la lavorazione C nell'istante 28. \acc 
+Non ci sono attese sulla macchina 1, le attese sulla macchina 2 sono inevitabili, ma tale procedura 
+le minimizza. La macchina 1 è costantemente carica, si dice che $T_{idle,1}=0$ (non ci sono tempi di attesa). 
+Differente è la situazione per la macchina 2 : $T_{idle,2}=4$. Il tempo di lavorazione totale è $T_{max}=35$.
+\subsubsection{Generalizzazione con 3 Macchine}
+Sotto ulteriori ipotesi, è possibile trovare una soluzione ottimale anche in un contesto con 3 macchine/stazioni $M_1,M_2,M_3$, 
+con relativi tempi di lavorazione $t_{i_1},t_{i_2},t_{i_3}$ con $i\in\{1,2\dots ,n\}$ dove $n=$numero 
+lavorazioni. Per poter 
+trovare tale soluzione, è necessario che venga soddisfatta la seguente condizione 
+$$ \max_{i\in\{1,2\dots ,n\}}(t_{i_2})\le \min_{i\in\{1,2\dots ,n\}}(t_{i_1}) \ \lor  
+\max_{i\in\{1,2\dots ,n\}}(t_{i_2}) \le \min_{i\in\{1,2\dots ,n\}}(t_{i_3}) $$
+Se tale condizioni è avverata, è possibile considerare una struttura flow shop a due macchine, precisamente $M'_1,M'_2$, con le 
+medesime lavorazioni, la cua soluzione è identica alla soluzione del sistema originale con 3 macchine.\acc 
+Nel nuovo sistema, i nuovi tempi di lavorazione $t'_{i_1},t'_{i_2}$ vanno definiti come segue \begin{itemize}
+    \item $t'_{i_1}=t_{i_1}+t_{i_2}$
+    \item $t'_{i_2}=t_{i_2}+t_{i_3}$
+\end{itemize}
+\subsubsection{Esempio di Applicazione per 3 Macchine}
+Si hanno le seguenti lavorazioni \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Lavorazione & A & B & C & D \\ \hline
+        $t_{i_1}$   & 4 & 1 & 5 & 2 \\ \hline
+        $t_{i_2}$   & 3 & 2 & 3 & 3 \\ \hline
+        $t_{i_3}$   & 3 & 4 & 5 & 3 \\ \hline
+        \end{tabular}
+\end{center}
+La condizione $\max_{i\in\{1,2\dots ,n\}}(t_{i_2}) \le \min_{i\in\{1,2\dots ,n\}}(t_{i_3}) $ è soddisfatta, 
+quindi posso ridurre il sistema ad uno equivalente \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Lavorazione & A & B & C & D \\ \hline
+        $t_{i'_1}$   & 7 & 3 & 8 & 5 \\ \hline
+        $t_{i'_2}$   & 6 & 6 & 8 & 7 \\ \hline
+        \end{tabular}
+\end{center}
+Si applica la regola di Jhonson, trovando la sequenza $S^*=B\rightarrow D\rightarrow C\rightarrow A$, che verrà 
+applicata al sistema originale con 3 macchine.\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/jhonson2.eps}
+\end{center}
+Un altra struttura è la \textbf{produzione per reparti}, già accennata con il nome di \textbf{job shop},
+in cui l'impianto è suddiviso in reparti contenenti stazioni, ed i vari prodotti devono essere passati fra i 
+reparti attraverso sistemi di trasporto che seguono un percorso 
+prefissato, è quindi necessario considerare il routing dei prodotti fra i reparti. Il modello job shop è caratterizzato 
+da \begin{itemize}
+    \item vaste categorie di prodotti, che subiscono lavorazioni con sequenze differenti 
+    \item operazioni non ripetitive ed alta flessibilità 
+    \item un maggiore work in process, i flussi lavorativi sono intricati 
+    \item elevati tempi di attraversamento, e qualità dei prodotti non sempre omogenea
+\end{itemize}
+Quando è possibile individuare famiglie di prodotti simili con cicli di lavorazione omogenei si identificano delle 
+celle contenenti gruppi di macchine adatti a tale famiglia di prodotti, tale \textbf{produzione per celle} semplifica 
+i flussi di produzione, il trasporto e la gestione, le varie celle sono indipendenti fra loro.\acc
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.65\textwidth ]{images/celleReparti.png}
+    \caption{job shop e celle di produzione}
+\end{figure}
+Quando si implementa il trasporto automatico ed un controllo tramite calcolatore nelle celle di produzione si 
+parla di \textbf{Flexible Manufacturing/Assembly Systems (FMS/FAS)}, sono sistemi dotati di elevata 
+ flessibilità riguardo alle diverse sequenza delle lavorazioni 
+ e/o all'assegnamento di operazioni alle risorse. Sono caratterizzati da \begin{itemize}
+    \item diversi prodotti 
+    \item lavorazioni eseguite su più macchine 
+    \item assegnazione delle risorse tramite routing dei flussi 
+    \item problemi di sequenziamento locale dell'impiego delle risorse 
+    \item alto grado di automazione
+ \end{itemize}
+È possibile individuare tre tipi di automazione industriale\begin{itemize}
+    \item \textit{Automazione rigida} : La sequenza delle operazioni è fissata, sono sistemi poco 
+     flessibili (come le linee di trasferta) destinati a grandi produzioni con poca varietà di prodotto.
+    \item \textit{Automazione programmabile} : Si può cambiare la configurazione del flusso di produzione in modo 
+    da variare il prodotto, tipico delle industrie con produzione discreta a lotti. Vi è un tempo di attesa 
+    fra un lotto ed un altro per la riconfigurazione del flusso.
+    \item \textit{Automazione flessibile} : estensione dell'automazione programmabile in 
+    cui è possibile diversificare la produzione senza avere tempi morti di 
+    conversione dell'impianto,  i macchinari utilizzati sono caratterizzati sono altamente configurabili.
+\end{itemize}
+In generale, per i sistemi di automazione, esiste una correlazione qualitativa fra la quantità di prodotto fabbricata, ed il 
+numero di prodotti distinti.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/quantitVarieta.eps}
+\end{center}
 
 
 
