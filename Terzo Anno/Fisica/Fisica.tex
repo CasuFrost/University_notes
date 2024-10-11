@@ -625,4 +625,75 @@ in cui $x$ incontra l'asse delle ascisse. L'accelerazione vale
 $$ a=\frac{dv}{dt}=\frac{d}{dt}-R\omega\sin(\omega t)=-R\omega^2\cos(\omega t)=-\omega^2x(t)$$
 Si noti come l'accelerazione dipende dalla posizione, la sua forza è proprio opposta ad essa, 
 si dice infatti che il moto oscillatorio è dettato da una \textit{forza di richiamo}.
+\flowerLine
+\section{Moti Relativi}
+La velocità è relativa, le caratteristiche di un punto sono legate al suo sistema di riferimento, e 
+al suo sistema di coordinate. Il moto di un punto può essere osservato diversamente da due sistemi 
+di riferimento differenti.\acc 
+Si considerino due sistemi di riferimento $O$ e $O'$, per semplicità, siano il piano cartesiano, di 
+cordinate (rispettivamente) $x,y$ e $x',y'$. Supponiamo inoltre, che all'origine dei tempi, essi 
+si trovino nella stessa posizione, e che il sistema $O'$ si muova con velocità costante $\bar v = (v_0^x,0)$.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/sistemiRif.eps}
+    \end{center}
+Vi è poi un punto nello spazio, che secondo il sistema di riferimento $O$, è fermo, ed ha cordinate $x_0$. 
+Si vuole trovare tale punto nel sistema di riferimento $O'$. Tale sistema, si allontana da $O$ ad una 
+velocità costante $v_0^x$, intuitivamente, avendo $O$ una velocità "assoluta" nulla,
+ vedrà allontanarsi il punto $x_0$ a velocità $v_0^x$. La velocità è de facto relativa al sistema di riferimento, 
+ non esiste quindi una velocità assoluta, ma si sceglie arbitrariamente un sistema di riferimento 
+ da considerare fisso, l'altro sistema sarà detto "mobile", ed il moto in esso, sarà 
+ detto "relativo". 
+ $$x_0'=x_0-v_0^xt$$
+In generale, la formula per il \textit{passaggio di coordinate} è la seguente
+$$\begin{cases}
+    x\\ y\\ z\\ t
+\end{cases} \implies \begin{cases}
+    x' = x-v_0^x t\\ 
+    y' = y-v_0^y t\\ 
+    z' = z-v_0^z t\\ 
+    t'=t \text{ il tempo è assoluto}
+\end{cases}$$
+Dove $\bar v_0=(v_0^x,v_0^y,v_0^z)$ è la velocità del secondo sistema di riferimento, in forma scalare.
+\acc 
+Il moto del punto nel sistema di riferimento fisso, visto dal sistema di riferimento relativo, è 
+detto \textit{moto di trascinamento}, nell'esempio trattato, tale moto è una traslazione, si dice 
+infatti moto di trascinamento traslatorio. Denoteremo $$ \begin{matrix}
+    \bar v_a \text{ velocità assoluta }\\ 
+    \bar v_r \text{ velocità relativa }\\ 
+    \bar v_t \text{ velocità traslatoria }
+\end{matrix}$$ 
+$$\bar v_a(t)=\bar v_r(t)+\bar v_t \ \ \ \ \ \textbf{composizione delle velocità}$$ 
+Ne consegue che 
+$$a_a(t)=\frac{d}{dt}v_a(t)=\frac{d}{dt}v_r(t)+v_t=a_r $$ 
+Se la velocità è costante, l'accelerazione assoluta, come quella relativa risulterà nulla, in tale 
+configurazione il sistema è detto \textbf{inerziale}.\acc 
+\textbf{Esempio (nuotatore)} : Si consideri un fiume in cui una corrente spinge chiunque vi sia all'interno 
+con una velocità costante $\bar v_t$, un nuotatore, vuole attraversare il fiume in linea retta, 
+la sua velocità è $\bar v_r$, tale che $|\bar v_r|>|\bar v_t|$.\acc 
+Partendo da una sponda, il nuotatore deve decidere in che direzione nuotare per far si che 
+la sua velocità si bilanci con la corrente del fiume, facendo risultare il suo moto 
+assoluto $\bar v_a$ in modo che attraversi il fiume in linea retta.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/nuotatore.eps}
+\end{center}
+Si vuole trovare l'angolo $\alpha$ fra la velocità relativa e quella di trascinamento per far 
+si che la velocità assoluta sull'asse delle parallelo alle sponde sia nulla.
+$$ v_r \sin(\alpha)=- v_t \implies \alpha = -\arcsin(\frac{v_t}{v_r}) $$ 
+Si consideri ora un sistema non inerziale, ossia in cui la velocità di trascinamento dipende dal tempo 
+$$\bar v_a(t) = \bar v_r(t) + \bar v_t(t) $$
+Ne consegue che l'accelerazione di trascinamento non è nulla. 
+$$\bar a_a = \bar a_r + \bar a_t + \bar a_c $$
+Il termine $\bar a_c$ risulta ambiguo, essa è detta \textit{forza di Coriolis} è una 
+forza apparente (si tratteranno in seguito), e si manifesta 
+quando il sistema di riferimento sta ruotando, si ha che 
+$$\bar a_c = 2\bar \omega \times \bar v_r $$
+Dove $\bar \omega$ è il vettore velocità angolare del sistema in rotazione. Un tipico esempio di 
+manifestazione di tale accelerazione è il seguente : Ci si trova su una giostra che sta ruotando, 
+si lancia un oggetto davanti a se, la traiettoria di tale oggetto non sarà dritta come 
+voluto, ma curverà verso l'esterno della giostra.\begin{center}\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/Coriolis.eps}
+    \caption{Forza di Coriolis}
+    \label{fig:Coriolis}
+\end{figure} \end{center}
 \end{document}
