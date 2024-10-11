@@ -767,4 +767,85 @@ Tale sequenza è lunga $n+1\ge p+1$ stati, fra i primi $p+1$ elementi c'è neces
     \item $l\le p+1$ ovvero $l-1=|xy|\le p$.
  \end{enumerate}
  I tre punti sono dimostrati. $\blacksquare$
+ \prop{} Se $L$ è un linguaggio regolare, ed $L^*$ un sottoinsieme di 
+ $L$, allora $L^*$ non è necessariamente regolare.
+ \flowerLine 
+ \section{Grammatiche Acontestuali}
+ Lo scopo delle grammatiche acontestuali è quello di estendere  
+ l'automa a stati finiti per ottenere un modello di computazione più 
+ potente. Tale automa al quale corrispondono le gramamtiche è 
+ detto \textit{PDA}. Le grammatiche hanno applicazioni fondamentali, 
+ nei linguaggi di programmazione, precisamente, nel funzionamento 
+ dei compilatori.\acc 
+ Una definizione informale può essere la seguente : Una grammatica è 
+composta da un insieme di \textit{regole} su un alfabeto e delle variabili, tali 
+regole sono annotate come segue $$\begin{cases}
+    A\longrightarrow 0A1\\ 
+    A \longrightarrow B \\
+    B \longrightarrow \#
+\end{cases}\ \ \ \ \Sigma = \{0,1,\#\} $$
+Ciascuna regola contiene una variabile alla quale viene associata una stringa, 
+composta da variabili e \textit{terminali}, ossia i caratteri dell'alfabeto $\Sigma$.
+Una variabile è considerata iniziale, e per convenzione, è sempre quella 
+presente nella prima regola.\acc 
+Precisamente, una grammatica può generare stringhe\begin{enumerate}
+    \item Si scrive la variabile iniziale 
+    \item Si sostituisce applicando una delle regole 
+    \item Si ripete ricorsivamente il procedimento finché la stringa contiene 
+    solo terminali.
+\end{enumerate}
+\textbf{Esempio} : Considerando la grammatica con le regole prima elencate :\begin{enumerate}
+    \item $A$ si applica $A\longrightarrow 0A1$
+    \item $0A1$ si applica $A\longrightarrow 0A1$ 
+    \item $00A11$ si applica $A\longrightarrow 0A1$ 
+    \item $000A111$ si applica $A\longrightarrow B$
+    \item $000B111$ si applica $B\longrightarrow \#$
+    \item $000\#111$
+\end{enumerate}
+Applicando le regole secondo un ordine arbitrario, è possibile 
+generare qualsiasi stringa del tipo $0^n\#1^n$, ad una grammatica quindi 
+corrisponde un linguaggio. Una 'computazione' di una grammatica può 
+essere rappresentata con un albero sintattico. \ref{fig:alsint}\acc
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.2\textwidth ]{images/alberoSintattico.eps}
+    \caption{Albero Sintattico}
+    \label{fig:alsint}
+\end{figure}\acc
+Con una grammatica è anche possibile rappresentare una qualsiasi 
+espressione algebrica 
+$$ 
+\begin{cases}
+    E \longrightarrow E + E \\ 
+    E \longrightarrow  E \times E \\ 
+    E \longrightarrow (E)\\ 
+    E \longrightarrow 0 \lor 1 \lor 2 \dots, \lor \ 9 
+\end{cases} \ \ \ \ \Sigma=\{0,1,2,3\dots,9\}
+$$
+\defi{(Grammatica Acontestuale)} Una \textbf{CFG} (Context Free Grammar) 
+è una tupla $G=(V,\Sigma, R, S)$ dove\begin{itemize}
+    \item $V$ è un insieme di simboli dette variabili 
+    \item $\Sigma$ è un insieme di simboli detti terminali 
+    \item $V\cap \Sigma = \emptyset$
+    \item $S\in V$ è la variabile iniziale 
+    \item $R$ è un insieme di regole
+\end{itemize}
+Le regole $R$ possono essere rappresentate come una funzione 
+$R : V \rightarrow (V\cup \Sigma)^*$, associa ad ogni variabile una 
+stringa composta da terminali, variabili, o entrambe.\acc 
+Sia $uAv$ u8na stringa tale che $A\in V, \ \ u,v\in \Sigma \cup V$, e sia 
+$w\in \Sigma \cup V$ diremo che 
+$uAv$ \textbf{produce} $uwv$, e denoteremo $uAv \Rightarrow  uwv$ se e solo se
+ $$ A\longrightarrow w \in R$$
+ Il simbolo $ \Rightarrow $ rappresenta una relazione su $\Sigma \cup V$.
+ Si può considerare la sua chiusura transitiva $\Rightarrow^*$
+
+ $$u\Rightarrow^* v \iff \exists \{u_1,u_2\dots,u_k\} \ | \  
+ u\Rightarrow u_1 \Rightarrow u_2 \dots \Rightarrow u_k \Rightarrow v$$ 
+Sia $G=(V,\Sigma, R, S)$ una CFG, $L(G)$ è il \textbf{linguaggio della grammatica}, 
+definito come segue 
+$$L(G)= \{w\in\Sigma^*\ | \ S\Rightarrow^* w\}$$
+
+
+
 \end{document}
