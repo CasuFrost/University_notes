@@ -766,9 +766,11 @@ Tale sequenza è lunga $n+1\ge p+1$ stati, fra i primi $p+1$ elementi c'è neces
     \item Essendo che $i\ne l$, $|y|>0$. 
     \item $l\le p+1$ ovvero $l-1=|xy|\le p$.
  \end{enumerate}
- I tre punti sono dimostrati. $\blacksquare$
+ I tre punti sono dimostrati. $\blacksquare$    \acc
  \prop{} Se $L$ è un linguaggio regolare, ed $L^*$ un sottoinsieme di 
- $L$, allora $L^*$ non è necessariamente regolare.
+ $L$, allora $L^*$ non è necessariamente regolare.\acc 
+ Alcuni esercizi al seguente link : 
+ \color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0/EsLinguaggiRegolari.pdf}{Esercizi Linguaggi Regolari}\color{black}.
  \flowerLine 
  \section{Grammatiche Acontestuali}
  Lo scopo delle grammatiche acontestuali è quello di estendere  
@@ -845,7 +847,176 @@ $uAv$ \textbf{produce} $uwv$, e denoteremo $uAv \Rightarrow  uwv$ se e solo se
 Sia $G=(V,\Sigma, R, S)$ una CFG, $L(G)$ è il \textbf{linguaggio della grammatica}, 
 definito come segue 
 $$L(G)= \{w\in\Sigma^*\ | \ S\Rightarrow^* w\}$$
-
-
-
+\subsubsection{Unione}
+Si consideri il seguente insieme di grammatiche 
+$$ \{G_i=(V_i,\Sigma_i,R_i,S_i)\}\ \ \ \ \ i\in\{1,2,3\dots,n\}$$
+È possibile considerare \textit{l'unione delle grammatiche}, definita come segue
+$$G=(\bigcup_i\{V_i\}\cup \{S\},\bigcup_i\Sigma_i,R,S) $$
+Dove\begin{itemize}
+    \item $S$ è una nuova variabile 
+    \item $R=\{\bigcup_iR_i\}\cup\{S\rightarrow S_1\lor S\rightarrow S_2 \dots\lor S\rightarrow S_n\}$
+\end{itemize}
+\prop{} $L(G)=\bigcup_i L(G_i)$
+\subsubsection{Ambiguità}
+Una CFG soddisfa la proprietà di ambiguità se, una stessa stringa può essere generata seguendo 
+sequenze di regole differenti. L'ambiguità di una grammatica può risultare problematica nelle applicazioni.\acc 
+\defi{} Una stringa di una CFG ha una \textit{derivazione a sinistra} se può essere ottenuta 
+sostituendo ad ogni passo di produzione (applicazione delle regole) la variabile che si trova più a sinistra. Una 
+stringa è \textit{derivata ambiguamente} se ha 2 o più derivazioni a sinistra. Una CFG è ambigua se ha almeno una 
+stringa derivata ambiguamente. 
+\subsection{Forma Normale}
+In questa sezione verrà definita una forma canonica per le grammatiche, tale forma è fondamentale, soprattutto nelle applicazioni, 
+se una grammatica è in tale forma, è possibile stabilire un tetto minimo di operazioni da eseguire per ottenere una 
+determinata stringa.\acc 
+\defi{} Una CFG $G=(V,\Sigma, R, S)$ è in \textbf{forma normale Chomsky} ( o più comunemente, in forma normale) se ogni sua 
+regola è della forma $$\begin{matrix}
+    A\longrightarrow BC \\ 
+    A \longrightarrow a
+\end{matrix} $$
+Dove \begin{itemize}
+    \item $a\in\Sigma$
+    \item $A,B,C \in V$
+    \item $B\ne S, \ \ \ C\ne S$
+    \item La regola $S\longrightarrow\epsilon$ è permessa.
+\end{itemize}
+La variabile iniziale $S$ non può mai essere nel termine destro di una regola.\acc 
+\teo{} Per ogni CFG, esiste una CFG equivalente (che genera lo stesso linguaggio) in forma normale.\acc 
+\dimo{} La dimostrazione consiste in una procedura, in cui vengono applicate delle trasformazioni alle regole di una 
+generica CFG in modo che soddisfino la forma normale. Sia $G=(V,\Sigma, R, S)$ una CFG, non 
+necessariamente in forma normale\begin{itemize}
+    \item Si definisce una nuova variabile $S_0$, essa sarà considerata la nuova variabile iniziale della grammatica 
+    $G$, e verrà aggiunta la regola $S_0\rightarrow S$, ciò garantisce che la variabile iniziale non compare mai 
+    come termine destro. 
+    \item Data una $\epsilon$-regola, ossia le regole della forma 
+    $$ A\longrightarrow \epsilon \ \ \ \ \ \ A\in V$$
+    Si considera ogni occorrenza di $A$ nel termine destro di una regola, e si definisce una nuova regola 
+    identica, dove $A$ è assente. Infine, $A\longrightarrow \epsilon$ viene rimossa dalle regole 
+    $$ \begin{cases}
+        A\longrightarrow \epsilon \\ 
+        B\longrightarrow xAyA
+    \end{cases} \Longrightarrow  \text{(diventa)}\begin{cases}
+        B\longrightarrow xAyA\\ 
+        B\longrightarrow xyA \text{ (aggiunta)}\\ 
+        B\longrightarrow xAy \text{ (aggiunta)}
+    \end{cases}\ \ \ \ \ \ \begin{matrix}
+        B\in V\\ x,y\in (\Sigma\cup V)^*
+    \end{matrix}$$
+    \item Si considerano poi tutte le regole unitarie, ossia del tipo $$ A\longrightarrow B$$ con $B\in V$, una 
+    volta rimossa, per ogni altra regola $B\rightarrow u$, si aggiunge la regola $A\rightarrow u$, con 
+    $u\in(\Sigma\cup V)^*$, ripetendo ricorsivamente il procedimento. 
+    \item Infine si considerano le regole del tipo 
+    $$A\longrightarrow u_1u_2\dots,u_k \ \ \ \ \begin{matrix}u_i\in(\Sigma\cup V)\\k\ge 3 \end{matrix}$$
+    Tale regola viene rimossa, e vengono spezzate in un set di regole come segue $$\begin{cases}
+        A\longrightarrow u_1A_1 \ \ \ \ \text{ nuova variabile $A_1$ aggiunta a $V$}\\ 
+        A_1\longrightarrow u_2A_2 \ \ \ \ \text{ nuova variabile $A_2$ aggiunta a $V$}\\ 
+        A_2\longrightarrow u_3A_3 \ \ \ \ \text{ nuova variabile $A_3$ aggiunta a $V$}\\ 
+        \vdots \\ 
+        A_{k-2}\longrightarrow u_{k-1}u_k \ \ \ \ \text{ nuova variabile $A_{k-2}$ aggiunta a $V$}\\ 
+    \end{cases} $$
+    Una volta fatto ciò, per ogni regola $A_i\longrightarrow u_jA_j$ in cui $u_j$ è un 
+    terminale, si definisce una nuova variabile $U_j$ ed una 
+    nuova regola $U_j\longrightarrow u_j$. Ad esempio, se $u_1$ è un terminale, viene rimossa $A\longrightarrow u_1A_1$, 
+    e vengono definite le nuove regole $$\begin{cases}
+        A\longrightarrow U_1A_1\\ 
+        U_1\longrightarrow u_1
+    \end{cases}$$ 
+\end{itemize}
+Una volta eseguite le procedure, la nuova CFG sarà equivalente a quella originale, e sarà in forma normale Chomsky. $\blacksquare$ 
+\subsubsection{Esempio}
+Si consideri la seguente grammatica $G$ $$\begin{cases}
+    S\longrightarrow ASA\lor aB \\ 
+    A \longrightarrow A\lor S  \\ 
+    B \longrightarrow b\lor \epsilon
+\end{cases} \text{ si può scrivere anche  } \ \begin{cases}
+    S\longrightarrow ASA | aB \\ 
+    A \longrightarrow B| S  \\ 
+    B \longrightarrow b| \epsilon
+\end{cases} $$\begin{itemize}
+    \item Passo 1 : variabile iniziale
+    $$ \begin{cases}
+        S\longrightarrow ASA | aB \\ 
+        A \longrightarrow B| S  \\ 
+        B \longrightarrow b| \epsilon
+    \end{cases} \Longrightarrow \begin{cases}
+        S_0 \longrightarrow S\\
+        S\longrightarrow ASA | aB \\ 
+        A \longrightarrow B| S  \\ 
+        B \longrightarrow b| \epsilon
+    \end{cases} $$
+    \item Passo 2 : $\epsilon$-regole $$ 
+    \begin{cases}
+        S_0 \longrightarrow S\\
+        S\longrightarrow ASA | aB \\ 
+        A \longrightarrow B| S  \\ 
+        B \longrightarrow b| \epsilon
+    \end{cases}\Longrightarrow
+    \begin{cases}
+        S_0 \longrightarrow S\\
+        S\longrightarrow ASA |  aB  \\ 
+        A \longrightarrow B| S  | \epsilon \\ 
+        B \longrightarrow b
+    \end{cases}
+    $$
+    $$\begin{cases}
+        S_0 \longrightarrow S\\
+        S\longrightarrow ASA |  aB  \\ 
+        A \longrightarrow B| S  | \epsilon \\ 
+        B \longrightarrow b
+    \end{cases}\Longrightarrow 
+    \begin{cases}
+        S_0 \longrightarrow S\\
+        S\longrightarrow ASA |  aB | SA |AS | S  \\ 
+        A \longrightarrow B| S \\ 
+        B \longrightarrow b
+    \end{cases}$$
+\item passo 3 : regole unitarie
+\\ si rimuove $S\longrightarrow S$
+$$\begin{cases}
+    S_0 \longrightarrow S\\
+    S\longrightarrow ASA |  aB | SA |AS | S  \\ 
+    A \longrightarrow B| S \\ 
+    B \longrightarrow b
+\end{cases}\Longrightarrow 
+\begin{cases}
+    S_0 \longrightarrow ASA |  aB | SA |AS \\
+    S\longrightarrow ASA |  aB | SA |AS   \\ 
+    A \longrightarrow B| S \\ 
+    B \longrightarrow b
+\end{cases}$$
+si rimuovono $A\longrightarrow B$ e $A\longrightarrow S$
+$$ 
+\begin{cases}
+    S_0 \longrightarrow ASA |  aB | SA |AS \\
+    S\longrightarrow ASA |  aB | SA |AS   \\ 
+    A \longrightarrow B| S \\ 
+    B \longrightarrow b
+\end{cases}
+\Longrightarrow 
+\begin{cases}
+    S_0 \longrightarrow ASA |  aB | SA |AS \\
+    S\longrightarrow ASA |  aB | SA |AS   \\ 
+    A \longrightarrow b \\
+    A\longrightarrow ASA |  aB | SA |AS \\ 
+    B \longrightarrow b
+\end{cases}
+$$
+\item passo 4 : convertire le ultime regole nella forma corretta $$
+\begin{cases}
+    S_0 \longrightarrow ASA |  aB | SA |AS \\
+    S\longrightarrow ASA |  aB | SA |AS   \\ 
+    A \longrightarrow b \\
+    A\longrightarrow ASA |  aB | SA |AS \\ 
+    B \longrightarrow b
+\end{cases}\Longrightarrow 
+\begin{cases}
+    U\longrightarrow a\\
+    S_0 \longrightarrow AA_1 |  UB | SA |AS \\
+    A_1 \longrightarrow SA \\
+    S\longrightarrow AA_1 |  UB | SA |AS   \\ 
+    A \longrightarrow b \\
+    A\longrightarrow AA_1 |  UB | SA |AS \\ 
+    B \longrightarrow b
+\end{cases} \ \ \ \ \ \text{variabili aggiunte : }A_1,\ U
+$$
+\end{itemize}
 \end{document}
