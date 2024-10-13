@@ -113,4 +113,131 @@ l'inserimento di un paziente nella clinica.
     \caption{activity diagram}
     \label{activity}
 \end{figure}
+\chapter{Planning del Progetto}
+Il planning di un progetto, consiste nel suddividere il carico di lavoro in diverse 
+parti, da assegnare ai vari membri del team, cercando di prevedere possibili problemi 
+che potrebbero insorgere durante lo sviluppo, pensando e preparando eventuali modi per 
+risolverli.\acc 
+Il \textit{piano del progetto} viene preparato all'inizio dei lavori, viene utilizzato per 
+comunicare ai vari membri del team ed al cliente come esso è stato suddiviso. Le fasi in cui 
+il planning viene definito sono \begin{itemize}
+    \item Durante la proposta, quando avviene la contrattazione con il cliente riguardo lo sviluppo del 
+    software 
+    \item Durante la fase di avvio dei lavori, quando si decide come e a chi assegnare il lavoro, e 
+    quali risorse dovranno essere allocate 
+    \item Periodicamente durante lo sviluppo, monitorando ed appositamente modificando i piani in base 
+    all'andamento del progetto e alle esperienze pregresse
+\end{itemize}
+Lo scopo del planning è quello di avere un idea chiara sul progetto in modo che si possa decidere 
+un prezzo d'accordo con il cliente, valutando e stimando quanto denaro sarà necessario per 
+lo sviluppo considerando variabili del tipo \begin{itemize}
+    \item costo dei dipendenti 
+    \item costo dell'hardware necessario 
+    \item costo del software
+\end{itemize}
+Durante la fase di planning, sono noti i requisiti del sistema, ma non è ancora chiara la 
+struttura del software, tanto meno la sua implementazione, il planning deve essere 
+preciso a sufficienza per far si che sia possibile definire il budget e lo staff necessario. 
+Inoltre bisogna definire i meccanismi con la quale verrà monitorato lo sviluppo.
+\flowerLine
+\section{Sviluppo Plan-Driven}
+Con \textit{plan driven development}, si intende un approccio all'ingegneria del software in cui 
+i processi di sviluppo sono programmati in principio, in maniera dettagliata. Si basa sulle tecniche di 
+gestione, tipiche dei progetti ingegneristici, e sulle tecniche "classiche" di gestione di grandi 
+progetti software.\acc 
+Un project plan ha l'obiettivo di definire e monitorare il lavoro da svolgere, in che modo 
+deve essere svolto, da chi, e quali prodotti sono necessari. È scopo del manager, servirsi di un project 
+plan (che da ora chiameremo semplicemente "piano") 
+per supportare le decisioni da prendere durante lo sviluppo, e per misurarne il progresso.\begin{itemize}
+    \item Un lato favorevole di tale approccio, è che una pianificazione a monte permette di 
+    aggirare problemi organizzativi in principio, determinando potenziali problemi e dipendenze 
+    da soddisfare prima che il progetto sia avviato, piuttosto che durante la lavorazione. \begin{quote}
+        \textit{meglio prevenire che curare}
+    \end{quote}
+    \item Un lato sfavorevole, è che molte decisioni prese in principio vanno riviste dati possibili 
+    cambiamenti dell'ambiente in cui il software deve essere adoperato.
+\end{itemize}
+Un piano deve definire, le risorse disponibili per il progetto, la suddivisione 
+del carico di lavoro, una schedule per portare a termine il lavoro. Precisamente, un piano consiste 
+nelle seguenti sezioni\begin{enumerate}
+    \item introduzione 
+    \item organizzazione del progetto 
+    \item analisi dei rischi 
+    \item risorse hardware e software necessarie 
+    \item struttura di scomposizione del lavoro
+    \item schedule del progetto 
+    \item meccanismi di monitoraggio e report
+\end{enumerate}
+Ci sono inoltre altri tipi di "piano" che possono essere aggiunti a quello principale come supporto:
+\begin{center}
+    \begin{tabular}{cc}
+        \rowcolor[HTML]{9698ED} 
+        Piano                                           & Descrizione                                                                                                                                                                                                                                                              \\
+                                                        &                                                                                                                                                                                                                                                                          \\
+        \rowcolor[HTML]{DAE8FC} 
+        \textbf{Configuration managment plan}           & \begin{tabular}[c]{@{}c@{}}descrive la configurazione delle \\ procedure di gestione, la loro \\ struttura ed il loro utilizzo\end{tabular}                                                                                                                              \\
+        \rowcolor[HTML]{ECF4FF} 
+        {\color[HTML]{000000} \textbf{Deployment plan}} & {\color[HTML]{000000} \begin{tabular}[c]{@{}c@{}}descrive come il software deve \\ essere integrato con l'apposito \\ hardware di riferimento del cliente, \\ con eventuali piani di migrazione dei \\ dati in uso su sistemi precedentemente \\ adoperati\end{tabular}} \\
+        \rowcolor[HTML]{DAE8FC} 
+        \textbf{Maintenance plan}                       & \begin{tabular}[c]{@{}c@{}}predizione dei requisiti, costi e lavoro \\ per la manutenzione del software\end{tabular}                                                                                                                                                     \\
+        \rowcolor[HTML]{ECF4FF} 
+        {\color[HTML]{000000} \textbf{Quality plan}}    & {\color[HTML]{000000} \begin{tabular}[c]{@{}c@{}}descrizione delle procedure e standard di \\ qualità utilizzati nel progetto\end{tabular}}                                                                                                                              \\
+        \rowcolor[HTML]{DAE8FC} 
+        \textbf{Validation plan}                        & \begin{tabular}[c]{@{}c@{}}descrizione degli approcci, risorse e schedule \\ utilizzati per la convalida del sistema\end{tabular}                                                                                                                                       
+        \end{tabular}
+\end{center}
+Il planning del progetto è un processo \textit{iterativo} che viene sottoposto 
+ad inevitabili cambiamenti durante lo sviluppo progressivo. Con l'aumentare delle informazioni 
+relative al sistema durante lo sviluppo, è doveroso revisionare i requisiti iniziali,  
+dei cambiamenti nel business possono portare a grandi cambiamenti nei requisiti del progetto, portando 
+ad un eventuale ri-pianificazione totale.
+\subsubsection{Assuzioni del planning}\begin{itemize}
+    \item Le assunzioni da fare durante la definizione del project plan 
+    non devono essere ottimistiche, bensì 
+    realistiche.
+    \item Durante lo sviluppo insorgeranno inevitabilmente dei problemi che causeranno dei ritardi 
+    nella consegna. 
+    \item Le assunzioni iniziali e lo scheduling saranno inevitabilmente soggetti a problemi inaspettati.
+    \item Bisogna sempre considerare ogni imprevisto, in modo che eventuali problemi non 
+    siano troppo gravanti sulla schedule.
+\end{itemize}\begin{center}
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=1\textwidth ]{images/projectPlanning.eps}
+    \caption{Processi del project planning}
+\end{figure}\end{center}
+In caso di seri problemi durante lo sviluppo, è necessario applicare delle procedure di 
+\textit{mitigazione del rischio}, onde evitare il fallimento del progetto. In congiunzione a ciò, 
+può essere necessaria la ripianificazione del progetto.\\ 
+Ciò può comportare la rinegoziazione con il cliente dei risultati attesi 
+e dei vincoli da rispettare. Una nuova schedule, e data di consegna dovrà essere definita in modo 
+da stabilire un accordo con il cliente.
+\flowerLine 
+\section{Scheduling del Progetto}
+\defi{} : Con \textit{scheduling del progetto} si intende il processo di decisione riguardante 
+il come il carico di lavoro di un progetto deve essere organizzato in differenti attività, ed 
+in che ordine queste attività devono essere eseguite.\acc 
+Viene stimato un calendario con i tempi necessari al completamento delle attività, lo sforzo 
+necessario ed il personale al quale delegarlo. È anche necessaria una stima delle risorse 
+necessarie, come lo spazio su disco necessario per il software, ed il budget da 
+muovere.\begin{enumerate}
+    \item Suddivisione del progetto in varie attività e stima delle risorse per ognuna di esse 
+    \item Organizzazione delle attività da eseguire in concorrenza per ottimizzare i tempi 
+    \item Minimizzazione delle dipendenze fra le varie attività, in modo da ridurre i 
+    ritardi dovuti ad attese 
+\end{enumerate}
+Questi ultimi fattori dipendono anche dall'intuizione e dalla esperienza del project manager.
+\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=1\textwidth ]{images/projectScheduling.pdf}
+        \caption{Scheduling}
+    \end{figure}\end{center}
+\subsubsection{Problemi nello scheduling}\begin{itemize}
+    \item Stimare la difficoltà del lavoro ed i costi di sviluppo è molto difficile 
+    \item La produttività non è proporzionale al numero di persone coinvolte nel lavoro 
+    \item L'aggiunta di personale a progetto già avviato può causare ritardi  
+    \item Accade sempre l'inaspettato, bisogna considerare ogni evenienza nel planning
+\end{itemize}
+\redText{continua dalle slide "Ch23 Project planning" - pagina 28}
 \end{document}
