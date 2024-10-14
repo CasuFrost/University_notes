@@ -781,7 +781,307 @@ parla di \textbf{Flexible Manufacturing/Assembly Systems (FMS/FAS)}, sono sistem
 In generale, per i sistemi di automazione, esiste una correlazione qualitativa fra la quantità di prodotto fabbricata, ed il 
 numero di prodotti distinti.\begin{center}
     \includegraphics[width=1\textwidth ]{images/quantitVarieta.eps}
+\end{center}\flowerLine 
+\section{Sistema di Supporto}
+Un sistema di supporto consiste in un insieme di attività legate all'impiano di produzione, in particolare\begin{itemize}
+    \item attività di business, quali gestione degli ordini, marketing del prodotto e considerazioni economiche 
+    \item progettazione del prodotto sulla base delle esigenze del mercato 
+    \item pianificazione ("planning") della produzione, definizione della sequenza di lavorazione, politiche 
+    di stoccaggio e rifornimento 
+    \item controllo delle attività (gestione e supervisione)
+\end{itemize}
+Tali attività si re-iterano in un ciclo di produzione, cosiddetto "agile".
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/sistSupp.pdf}
 \end{center}
+In supporto delle attività di business vi sono \begin{itemize}
+    \item \textbf{Enterprise Resource Planning (ERP)} : Un insieme di software volti all'automazione 
+    dell'amministrazione, della logistica, della produzione e delle risorse umane. 
+    \item \textbf{Decision Support System (DSS)} : Sistemi che hanno lo scopo, dato un insieme di dati 
+    e dei vincoli da rispettare, di migliorare il processo decisionale nell'impianto.
+\end{itemize}
+Inoltre le macchine sul campo vengono supportate da sensori che hanno lo scopo di raccogliere dati ed informazioni 
+in maniera massiva, in modo da poter essere utilizzati per i modelli di intelligenza artificiale e machine learning, 
+sfruttando appunto,  tali dati per effettuare previsioni con maggiore precisione.
+\acc In supporto alle attività di progettazione vi sono \begin{itemize}
+    \item \textbf{Computer Aided Design (CAD)} : Un insieme di strumenti informatici utili nella progettazione. 
+    \item \textbf{Computer Aided Engineering (CAE)} : Un insieme di strumenti informatici utili nella verifica 
+    delle funzionalità tramite simulazioni e modelli matematici.
+    \item \textbf{Computer Aided Manufacturing (CAM)} : Un insieme di software utili nell'automatizzazione ed 
+    organizzazione delle sequenze di operazioni nella produzione.  
+    \item \textbf{Computer Aided Process Planning (CAPP)} : software che 
+    permette di automatizzare/ottimizzare il planning della produzione
+\end{itemize}
+È possibile utilizzare un modello CAD per ottenere un programma da eseguire su una CNC (macchina a controllo numerico)\begin{itemize}
+    \item Caricamento di un modello CAD 
+    \item Impostazione del sistema di coordinate 
+    \item Impostazione di parametri 
+    \item Generazione delle istruzioni per la macchina in questione 
+    \item Invio dei dati al controllo numerico
+\end{itemize}
+\flowerLine 
+\section{La Piramide CIM}
+Quello della piramide CIM è un modello teorico che descrive la struttura di un processo produttivo, integrata 
+con i sistemi di automazione ed i sistemi informatici gestionali, tale modello propone diversi vantaggi\begin{itemize}
+    \item miglioramento della qualità di produzione 
+    \item tempi e costi ridotti 
+    \item aumento della flessibilità 
+    \item diminuzione degli scarti e manutenzione predittiva 
+    \item fondamentale per conformarsi a leggi e regolamenti sulla 
+    sicurezza del processo produttivo, sulla qualità del prodotto e sulla riduzione dell'impatto ambientale
+\end{itemize}
+Il modello CIM è gerarchico e suddivide il processo di produzione su vari livelli, i cui elementi comunicano 
+orizzontalmente con quelli adiacenti. Ogni livello assume che l'automazione nel livello inferiore sia 
+ideale, nessun livello è privilegiato rispetto ad un altro.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/cim.pdf}
+\end{center}
+Dai livelli superiori le informazioni sono più elaborate e di minore quantità, ed i comandi vengono dati con minore 
+frequenza, nei livelli inferiori, ci sono 
+più informazioni, ma sono semplici, ed i comandi vengono dati con maggiore 
+frequenza. La comunicazione verticala è privilegiata, se più dispositivi di campo devono 
+comunicare, devono farlo attraverso il sistema di controllo della macchina di cui fanno parte. \acc 
+Al livello di macchina e campo il controllo può essere sia \textit{logico} che \textit{diretto} (real time), 
+attuato da microprocessori, con il salire dei livelli nella piramide il controllo assume sempre più un carattere 
+logico, dettato da eventi.
+\subsection{Livelli della Piramide}
+\subsubsection{Livello di Campo}
+Tale livello contiene dispositivi quali sensori ed attuatori, in generale,  i componenti hardware che 
+eseguono le attività di produzione e controllo. Tali dispositivi interfacciano il livello superiore al livello 
+fisico tramite segnali di ingresso ed uscita, possono inoltre comunicare informazioni sul proprio 
+stato (auto diagnosi), oltre a ciò, sono generalmente semplici.\acc 
+Sono raggruppati in semplici sistemi di controllo e i livelli superiori li assumono come dispositivi 
+ideali, sono attrezzati di apposito hardware di controllo, quali sistemi digitali a microprocessori/sistemi 
+embedded.
+\subsubsection{Livello di Macchina}
+Una macchina raggruppa più dispositvi di campo volti al fornire una determinata funzionalità. Ad esempio, 
+diversi motori elettrici (dispositivi di campo) possono costituire un braccio robotico (macchina) volto allo 
+spostamento di oggetti.\acc 
+Tali componenti vengono controllati tramite dei controllori logici programmabili (PLC), tramite la regolazione 
+di variabili analogiche e la realizzazione di sequenze di operazioni.\begin{quote}
+    \color{gray}
+    esempio: a livello di campo si controllano le posizioni dei singoli giunti; a livello di macchina 
+viene pianificato il movimento del robot nello spazio operativo e la sequenza delle azioni che 
+deve effettuare
+\color{black}\end{quote}
+\subsubsection{Livello di Cella}
+Diverse macchine vengono ragruppate insieme formando delle celle di produzione, atte a produrre prodotti, anche 
+diversi ma tecnologicamente affini, le macchine sono interconnesse fisicamente da un sistema locale di trasporto 
+e stoccaggio. Nonostante il vincolo real time sia presente, il livello di controllo è quasi 
+esclusivamente logico, e coordinano le macchine della cella. 
+\subsubsection{Livello di Stabilimento}
+Racchiude più celle e linee produttive di un impianto industriale, riceve istruzioni dal livello gestionale e le 
+attua sotto forma di piani operativi per la produzione. I sistemi di controllo a tale livello sono denominati 
+\textit{SCADA (Supervisory Control And Data Acquisition)}, tipicamente implementati in workstation. Sono sistemi di 
+controllo che dispongono di\begin{itemize}
+    \item Un interfaccia con l'operatore, assente nei microcontrollori e nei PLC 
+    \item Gestione di allarmi e ricette 
+    \item Programmazione dei lavori e basi di dati del processo produttivo 
+    \item Controllo statistico e supporto alla manutenzione, potendo fare previsioni e rapporti
+\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.65\textwidth ]{images/centrale (2).png}
+    \caption{sala di controllo di una centrale elettrica}
+\end{figure}
+\subsubsection{Livello di Azienda}
+Si occupa dei processi gestionali, il sistema non è di controllo ma \textit{decisionale}, costituito da un 
+infrastruttura software connessa al mainframe aziendale, non esistono vincoli di tipo temporale.\acc 
+Esiste uno standard (ANSI/ISA-S88.01-1995) che normalizza lo schema generale di controllo su 3 livelli gerarchici.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth ]{images/standardControlModel.pdf}
+    \caption{modello delle attività di controllo}
+\end{figure}
+\begin{itemize}
+    \item \textbf{controllo di campo} : controllo che agisce sui dispositivi di campo, in particolare, 
+    su variabili continue, ed è impelentato su dispositivi dedicati. Le informazioni sono semplici 
+    e trasmesse ad alta frequenza. 
+    \item \textbf{controllo di procedure} : riguarda il controllo dei livelli di macchina e cella della 
+    piramide, riguarda gruppi strutturati di componenti di campo, a tale livello vengono svolte funzioni di 
+    auto-diagnostica, è implementato su schede dedicate o anche su pc industriali. Prevede 
+    algoritmi più complessi di quelli del controllo di campo. Il controllo è \begin{itemize}
+        \item \textit{diretto} : riguarda il controllo di 
+        gruppi di variabili continue o funzioni più avanzate 
+        \item \textit{logico} : coordinamento dei sistemi di campo sulla base della lista 
+        di operazioni sequenziali
+    \end{itemize}
+    \item \textbf{controllo di coordinamento} : si pone al livello dello stabilimento ed opera su dati 
+    strutturati a bassa frequenza, riguarda il coordinamento e la gestione delle varie celle di produzione, vincoli 
+    temporali molto laschi.
+\end{itemize}
+\begin{center}
+        \includegraphics[width=0.7\textwidth ]{images/cim2.pdf}
+\end{center}
+Lo standard definisce anche un diagramma logico delle transizioni tra stati di un processo. Si noti come 
+i due stati \textit{Held} e  \textit{Paused} sono differenti: \begin{itemize}
+    \item \textit{Paused} : è scaturita da un operatore esterno (esempio : causa operazioni di verifica) 
+    \item \textit{Held} : il processo è in attesa di un evento e viene bloccato
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/statiProcesso.pdf}
+\end{center}
+\subsection{Auto-diagnostica}
+I sistemi di controllo devono avere la possibilità di generare segnali ausiliari che danno allarme di eventuali guasti 
+nei dispositivi soggetti ad usura. Occorre individuare dei segnali dal dispositivo che possono essere 
+valutati secondo appropriati modelli matematici. \acc 
+Con \textit{signature}, si definisce una firma del guasto, ossia una sua manifestazione sottoforma di segnale, un esempio 
+può essere la misura tramite un accelerometro di vibrazioni in un sistema meccanico. Si sviluppano algoritmi atti 
+all'analisi dei segnali (basati ad esempio sulla trasformata di Fourier).\acc 
+Definiamo \textit{fault} i guasti, e li denotiamo $f$, su di essi si formulano\begin{itemize}
+    \item \textit{fault detection} : rilevamento dei guasti sul sistema fisico o software 
+    \item \textit{fault isolation} : classificazione del guasto, e distinzione di esso rispetto ad altri 
+    \item \textit{fault identification} : determinazione del profilo temporale del guasto $f$ 
+    \item \textit{fault accomodation} : riconfigurazione a seguito del guasto, coinvolge modifiche hardware o software
+\end{itemize}
+\subsubsection{Rilevazione ed Isolazione }
+Quando un sistema dinamico è soggetto ad un possibile guasto, si definisce un sistema ausiliario detto 
+\textbf{generatore di residuo}, il cui segnale in uscita dipenderà dalla presenza di un particolare guasto 
+$f$. \begin{quote}
+    Un residuo $r$ dipende da un guasto $f$
+\end{quote}
+Nel caso in cui possono esserci più guasti, si definisce un vettore $\bar r$ di residui, in cui $r_i$ dipende 
+da $f_i$. Tipicamente il residuo riproduce approssimatamente l'evoluzione temporale del guasto. Con FDI si intende l'operazione 
+di "Fault Detection Isolation", queste ultime due possono avvenire in contemporanea, vi sono differenti modelli proposti\begin{itemize}
+    \item \textit{model-based} : si definisce un sistema dinamico che rappresenta il guasto (generatore di residuo)
+    \item \textit{signal-based} : si utilizzano esclusivamente i segnali provenienti da misure del sistema, la loro 
+    elaborazione può far luce su eventuali guasti 
+    \item \textit{ibrido} : si combinano entrambe le tecniche
+\end{itemize}
+\subsubsection{Esempio di Residuo}
+Vi è un processo (soggetto a guasto) modellato dal seguente sistema dinamico$$\begin{cases}
+    \dot{x}=ax+bu+ef\\y=cx
+\end{cases} $$
+Dove $f$ è il generico fault. Il residuo $r$ viene implementato come osservatore di un disturbo, o di un 
+segnale non noto (che in questo caso è $f$). 
+$$ r(t)=\frac{k}{e}\Big[
+\frac{y(t)}{c}-\int_0^t[ax(\tau)+bu(\tau)+er(\tau)d\tau]\Big] \ \  \text{ con }\ \ \begin{matrix}
+    k>0\\ r(0)=0
+\end{matrix}    
+$$
+L'evoluzione nel tempo del residuo è data da 
+\begin{eqnarray}
+    \dot{r}=\frac{k}{e}\Big[ \frac{\dot{y}}{c}-[ax+bu+er] \Big] = \\
+    \frac{k}{e}\Big[ \frac{c[ax+bu+ef]}{c}-[ax+bu+er] \Big] = \\
+    \frac{k}{e}e[f-r] = k[f-r]
+\end{eqnarray}
+Si ha quindi l'equazione lineare del primo ordine 
+$$ kr+\dot{r}-kf=0$$
+Si porta nel dominio di Laplace 
+$$\mathcal{L}[kr+\dot{r}-kf](s)= $$ $$ 
+k\mathcal{L}[r](s)+
+\mathcal{L}[\dot{r}](s)-
+k\mathcal{L}[f](s) = 
+$$$$ 
+k\mathcal{L}[r](s)+
+s\mathcal{L}[r](s)-r(0)-
+k\mathcal{L}[f](s) = 
+$$
+Si ricordi come $r(0)=0$. Denoto $\mathcal{L}[f]=F$ e $\mathcal{L}[r]=R$
+$$ 
+kR(s)+sR(s)-kF(s)=0\implies 
+$$ $$ 
+R(s)[k+s]=kF(s)
+$$ 
+$$
+R(s)=\frac{kF(s)}{k+s} \implies 
+$$ 
+$$ \frac{R(s)}{F(s)}=\frac{k}{k+s}=\frac{1}{1+\frac{1}{k}s} $$
+Nel caso il guasto fosse costante $f(t)=f_0$, nel dominio del tempo si avrebbe 
+$$ r(t)=f_0[1-e^{-kt}]$$
+\subsection{Architetture per il Controllo}
+Il controllo è gestito da dispositivi elettronici ed informatici, è possibile individuare 3 tipi di 
+sistemi\begin{itemize}
+    \item \textbf{controllori embedded} - per il controllo di campo 
+    \item \textbf{architettura a bus} - per il controllo di procedure 
+    \item \textbf{PC-based}
+\end{itemize}
+\subsubsection{Sistemi Embedded}
+Tali sistemi di controllo sono "fusi" alle funzionalità del dispositivo, e sono adoperati per un unico, specifico e 
+predeterminato compito. Sono piattaforme hardware create "ad hoc", e la loro progettazione dipende dalla conoscenza dei 
+compiti che dovranno svolgere. La realizzazione può avvenire in due modi \begin{itemize}
+    \item singolo chip integrato (microcontrollori)
+    \item singola scheda (DSP o FPGA)
+\end{itemize}
+L'hardware è semplice, vi è una CPU per gli algoritmi, una memoria per i dati ed i programmi e dei circuiti per 
+gestire input ed output (analogici o digitali, con eventuali convertitori). Hanno un software integrato molto 
+semplice ed è orientato all'automazione, vi è una gestione a basso livello delle risorse e delle comunicazioni.
+\subsubsection{Microcontrollori}
+I microcontrollori (a singolo chip) sono nati a seguito della miniaturizzazione dell'elettronica, sono 
+utilizzati in una grandissima varietà di applicazioni e possono essere integrati con un sistema di sviluppo 
+per la loro programmazione.\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth ]{images/auto.png}
+    \caption{Sistemi di controllo embedded in automotive}
+\end{figure}\acc
+Caratteristiche ed impieghi : \begin{itemize}
+    \item applicazioni semplici 
+    \item basso consumo ed poco spazio occupato 
+    \item numero limitato di segnali da gestire. Interfaccia utente assente 
+    \item scarsa integrazione con dispositivi simili, difficile espansione
+\end{itemize}
+\subsubsection{Singola Scheda}
+Prevedono più componenti standard integrati su una singola scheda, fra questi vi sono\begin{itemize}
+    \item DSP (Digital Signal Processor) : processori atti al trattamento dei segnali ed esecuzione di funzioni su numeri interi o reali 
+    \item FPGA (Field Programmable Gate Array) : circuiti integrati riconfigurabili dall’utente per realizzare 
+    funzioni logiche complesse tramite blocchi logici e elementi di memoria
+\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth ]{images/cellaLogica.eps}
+    \caption{cella logica elementare in un FPGA}
+\end{figure}
+Rispetto i microcontrollori hanno una maggiore capacità di elaborazione e possono gestire un maggior numero 
+di segnali.\acc 
+Ricapitolando, i sistemi di controllo embedded prevedono i seguenti:\begin{itemize}
+    \item \textbf{PRO}\begin{itemize}
+        \item combinazione hardware/software specificamente studiata 
+        \item ottimizzazione spaziale e di complessità
+        \item minori ingombri, basso consumo 
+        \item minori costi
+    \end{itemize}
+    \item \textbf{CONTRO}\begin{itemize}
+        \item interfaccia uomo-macchina poco evoluta
+        \item  gestione di un numero limitato di segnali in input/output 
+        \item  costi di progettazione (hardware e software) non irrilevanti 
+        \item poca flessibilità: modifiche ai compiti da svolgere possono 
+        rendere necessaria la progettazione di un nuovo dispositivo 
+    \end{itemize}
+    Utili quando i compiti di controllo sono noti a priori.
+\end{itemize}
+\subsubsection{Architettura a Bus}
+Con \textit{bus} si intende una linea elettrica che mette in comunicazione più dispositivi, vi è una scheda madre 
+con un bus a cui si connettono più schede, in modo da rendere modulare il sistema. Un bus è composto da diverse 
+linee\begin{itemize}
+    \item linee dati 
+    \item linee indirizzi 
+    \item linee di alimentazione 
+    \item linee per la comunicazione
+\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth ]{images/bus.png}
+    \caption{Modularità dell'architettura a bus}
+\end{figure}
+\begin{itemize}
+    \item \textbf{PRO}\begin{itemize}
+        \item flessibilità di progettazione 
+        \item scelta dei moduli secondo le funzionalità da implementare
+    \end{itemize}
+    \item \textbf{CONTRO}\begin{itemize}
+        \item Sistema Operativo più complesso
+        \item  gestione dei moduli interconnessi e delle comunicazioni
+        \item  vincoli real-time  
+    \end{itemize}
+\end{itemize}
+\subsubsection{PC-Based}
+Ultimamente, anche i comuni computer (corazzati per resistere alle condizioni 
+sfavorevoli degli impiandi) sono adoperati  come sistemi di controllo, sono sistemi informatici con architettura  
+a bus ed implementano una semplice interfaccia uomo macchina, e sono semplici da connettere alle reti informatiche.\acc 
+Per far si che risultino efficaci come sistemi di controllo, esistono appositi sistemi operativi atti 
+all'utilizzo real time (ad esempio, RTAI-Linux). Implementano 
+moduli/schede per l'interconnessione con un elevato numero di 
+segnali input/output, inoltre, esistono appositi protocolli per la comunicazione fra PC e PLC.
+
 
 
 
