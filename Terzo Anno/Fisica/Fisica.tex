@@ -696,4 +696,224 @@ voluto, ma curverà verso l'esterno della giostra.\begin{center}\begin{figure}[h
     \caption{Forza di Coriolis}
     \label{fig:Coriolis}
 \end{figure} \end{center}
+\flowerLine
+\section{Esercizi sul Punto Materiale}
+\subsubsection{Esercizio 1)}
+Un punto materiale si muove su una traiettoria rettilinea con un accelerazione 
+$a=-4t\nicefrac{m}{s^2}$, all'istante $t=0$, ha una velocità iniziale di $v_0=2\nicefrac{m}{s}$. 
+Quanto spazio percorrerà prima di fermarsi?\\ 
+Si vuole trovare la legge della velocità 
+$$v(t)=\int_0^t a  \ dt + v_0=-2t^2+v_0$$
+La legge oraria dello spostamento sarà 
+$$ s(t)=\int_0^t v \ dt = v_0t-\frac{2}{3}t^3$$
+Il punto si fermerà quando la velocità sarà uguale a zero, sia $t_1$ l'istante in cui ciò avviene 
+$$ v(t_1)=0\implies -2{t_1}^2+v_0=0\implies t_1=\sqrt{\frac{v_0}{2}}$$
+All'istante $t_1$, lo spazio percorso sarà 
+$$ s(t_1)=v_0t_1-\frac{2}{3}{t_1}^3=
+v_0\sqrt{\frac{v_0}{2}}-\frac{2}{3}{(\sqrt{\frac{v_0}{2}})}^3$$Sapendo che $v_0=2\nicefrac{m}{s}$
+$$
+2\sqrt{\frac{2}{2}}-\frac{2}{3}{(\sqrt{\frac{2}{2}})}^3=\frac{4}{3} m
+$$
+\subsubsection{Esercizio 2)}
+All'istante $t=0s$ un punto materiale parte da fermo e si mette in moto su una traiettoria circolare 
+di raggio $R=225m$, continua il suo moto fino all'istante $t_1=10s$, la velocità del punto, cresce 
+linearmente con il tempo, e all'istante $t_1$ lo spazio percorso è di $150m$. Si determini il modulo dell'accelerazione 
+all'istante $t_1$.\\ 
+Se la velocità cresce linearmente con il tempo, il suo modulo sarà del tipo 
+$$ v(t)=v(0)+a_tt=0+a_tt=a_tt$$
+dove con $a_t$ si definisce l'accelerazione tangenziale. La legge dello spostamento  è 
+$$s(t)=s(0)+\int_0^ta_ttdt=\frac{1}{2}a_tt^2$$
+L'accelerazione tangenziale è quindi 
+$$ a_t=2\frac{s(t)}{t^2}$$
+All'istante $t_1$, l'accelerazione tangenziale sarà 
+$$a_t(t_1) = 2\frac{s(t_1)}{(t_1)^2}=2\frac{150}{(10)^2}=3\nicefrac{m}{s^2}$$
+È nota la formula dell'accelerazione normale 
+$$ a_n(t_1)=\frac{v(t_1)^2}{R}=\frac{{v(10)}^2}{225}=\frac{{3\cdot 10}^2}{225}=\frac{900}{225}=4\nicefrac{m}{s^2}$$
+L'accelerazione sarà quindi 
+$$a(t_1)=\sqrt{a_t^2(t_1)+a_n^2(t_1)}=\sqrt{9+16}=5\nicefrac{m}{s^2}$$ 
+\subsubsection{Esercizio 3)}
+Un aereo vola con velocità costante $v_0$, seguendo una rotta rettilinea inclinata verso
+ il basso di un angolo $\alpha$ rispetto all'orizzonte. Se il pilota volesse
+  centrare un bersaglio a terra sganciando una massa puntiforme da una quota $h$,
+   a quale distanza $d$ dal bersaglio dovrebbe sganciarla?\acc
+Ci si vuole assicurare che, la bomba, la cui velocità dipenderà da quella iniziale data 
+dall'aereo, e dall'accelerazione di gravità, incroci l'asse delle ascisse nel punto del bersaglio, che 
+dista $d$ dall'aereo. Si vuole far si che tale bomba percorrà una distanza $d$ sull'asse delle ascisse, ed 
+una distanza $h$ sull'asse delle ordinate. La velocità $\bar v=(v_x,v_y)$ di tale bomba risulta essere 
+$$\begin{cases}
+    v_x(t)=v_0\cos\alpha\\ 
+    v_y(t)=v_0\sin\alpha+gt
+\end{cases} $$
+   \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/es3.eps}
+    \caption{schema esercizio 3}
+\end{figure}
+Lo spostamento sarà rispettivamente 
+$$ \begin{cases}
+    x(t)=v_0\cos\alpha t\\ 
+    y(t)= v_0\sin\alpha+\dfrac{gt^2}{2}
+\end{cases}$$
+Sia $t^*$ l'istante in cui la bomba colpisce il bersaglio 
+$$ x(t^*)=d=v_0\cos\alpha t^*$$ 
+$$ y(t^*)=h= v_0\sin\alpha+\frac{g{t^*}^2}{2}$$
+Si risolve il sistema per trovare tale istante 
+$$ \begin{cases}
+    v_0\sin\alpha+\dfrac{g{t^*}^2}{2}=h\\ 
+    v_0\cos\alpha t^=d*
+\end{cases}\implies 
+t^*=-\frac{v_0}{g}\sin\alpha+\sqrt{\frac{v_0^2}{g^2}\sin^2\alpha+\frac{2h}{g}}$$
+Quindi 
+$$ 
+d=v_0\cos\alpha\Bigg(
+    -\frac{v_0}{g}\sin\alpha+\sqrt{\frac{v_0^2}{g^2}\sin^2\alpha+\frac{2h}{g}}\     
+\Bigg)
+$$
+\chapter{Dinamica}
+\section{Forze}
+Newton considerò il principio di inersia e lo fece suo, definì i 3 principi della dinamica
+\subsubsection{Primo Principio}
+Lo stato naturale di un corpo in assenza di perturbazioni è quello di moto rettilineo uniforme 
+\subsubsection{Secondo Principio}
+\defi{} Si definisce \textit{quantità di moto} il prodotto della velocità di un corpo per la sua massa 
+$$ \bar p = m\cdot \bar v$$ 
+Definiamo \textit{forza} il fenomeno capace di perturbare i corpi, ed equivale alla derivata rispetto al tempo 
+della quantità di moto. 
+\eqImportante{$\bar F = \dfrac{d\bar p}{dt}$} 
+\subsubsection{Terzo Principio}
+\textit{Ad ogni azione corrisponde una reazione uguale e contraria}. Quando un corpo in un punto $A$ esercita una forza 
+su un altro corpo in un punto $B$, esso subisce una reazione uguale in intensità e diretta lungo la 
+congiungente dei due punti.\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/terzoPrincipio.eps}
+\end{center}
+$\bar F$ modellizza una generica forza, la massa $m$ che compare nella sua formula è detta 
+massa inerziale. Una forza di cui risente ogni abitante sulla terra è la forza peso 
+$$ \bar F \equiv m_g\bar g$$
+dove $m_g$ è detta massa gravitazionale, nel caso in cui dovesse coincidere con quella 
+inerziale, si avrebbe che $\bar a = \bar g$. La legge di gravitazione universale, da cui si ricava la 
+forza peso, descrive la forza che attrae un corpo di massa $m$ verso un altro di massa $M$
+$$ \bar F = -G\frac{mM}{|\bar r|^2}\bar r$$
+Dove $\bar r$ è il vettore che congiunge i due corpi. La forza di gravità è quindi proporzionale alle masse dei 
+corpi, e diminiusce con l'aumentare della distanza al quadrato.
+\subsection{Forza Elastica}
+Un'altra forza presente nella vita quotidiana è quella elastica, modellizza macroscopicamente, il comportamento 
+di una molla. $$ \bar F = k(\bar r - \bar r_0)$$
+Dove $\bar r$ è la posizione del corpo che subisce la forza, $\bar r_0$ è uno specifico punto nello spazio 
+detto equilibrio, e $k$ è una costante detta \textit{costante di elasticità}, scriviamo nel caso unidimensionale 
+$$ F=k\cdot(x-x_0)$$
+Più ci si allontana dal punto di equilibrio, più la forza aumenta, ed essa è nulla proprio in 
+tale punto. Si vuole descrivere il moto di un corpo soggetto a forza 
+elastica. Per semplicità, si consideri $x_0=0$
+$$ \begin{matrix}F=-kx\\ \\ F=m\dfrac{d^2x}{dt^2} 
+\end{matrix}\implies 
+\frac{d^2x}{dt^2}{}+\frac{k}{m}x=0$$
+La soluzione dell'equazione differenziale, ossia la legge oraria di un corpo soggetto a forza elastica, 
+è la seguente 
+$$ A\cos(\omega_0t+\phi)$$
+$A$ e $\phi$ sono due costanti che dipendono dalle condizioni iniziali $x(0)$ e $v(0)$. La relazione è la seguente 
+$$ x(0)=A\cos\phi$$
+La legge della velocità si ottiene derivando $x$
+$$ v(t)=-A\omega_0\sin(\omega_0t+\phi)$$
+Quindi 
+$$ v(0)=-A\omega_0\sin\phi\implies \frac{v(0)}{\omega_0}=-A\sin\phi$$
+Si considerino i quadrati 
+$$\begin{cases}
+    x(0)^2=(A\cos\phi)^2\\ 
+   ( \frac{v(0)}{\omega_0})^2=(-A\sin\phi)^2
+\end{cases}\implies \begin{cases}
+    \phi=-\arctan(\dfrac{v(0)}{w_0x(0)})\\ 
+    A = \sqrt{x(0)^2+(\dfrac{v(0)}{w_0})^2}
+\end{cases}$$
+\subsection{Reazione Normale}
+Si consideri un corpo di massa $m$ posto su un piano inclinato di un angolo $\alpha$ rispetto 
+l'orizzonte (il cui attrito è nullo). Il corpo è soggetto alla forza peso, perché allora non sfonda il piano cadendo verso il 
+centro della terra? Esso è soggetto ad una reazione normale $\bar{R_n}$, ossia una forza la cui direzione è la normale 
+della superficie su cui poggia. Il piano costituisce un vincolo, si parla infatti di \textit{reazione vincolare}.
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/reazionenormale.eps}
+\end{center}
+Il corpo, sarà soggetto alla somma delle due forze 
+$$ \bar F = m\bar a = m\bar g + \bar{R_n}$$
+Tenedrà quindi ad accelerare lungo l'asse del piano, si vuole trovare il moto di tale corpo. Consideriamo un 
+sistema di riferimento in cui l'asse delle $y$ è parallela alla reazione normale, e l'asse delle $x$ 
+forma un angolo $\alpha$ con l'orizzonte.
+\begin{center}
+    \includegraphics[width=0.55\textwidth]{images/reazionenormale2.eps}
+\end{center}
+Si vuole quindi trovare l'accelerazione lungo $x$, bisogna proiettare entrambe le forze su tale asse. 
+Come si può vedere dall'immagine, la reazione normale non esercita alcuna forza su tale asse, ma esclusivamente sull'asse 
+delle $y$ 
+$$ |\bar R_n|=\sin\alpha|\bar R_n| $$
+in particolare, una forza che controbilancia quella peso, e fa si che il suo spostamento sull'asse $y$ sia nullo. 
+$$ -m|\bar g|\sin \alpha +|\bar R_n|=0$$
+Lungo l'asse delle ascisse, la proiezione della forza sarà 
+$$ F_x=mg\cos\alpha\implies ma_x=mg\cos\alpha=a_x=g\cos\alpha$$
+A questo punto si può trovare il moto del corpo sull'asse delle $x$
+$$ x(t)=\frac{1}{2}g\sin\alpha t^2$$
+\subsection{Attrito}
+Nell'esempio precedente del piano inclinato si è trascurato l'attrito, tale forza si manifesta a seguito di uno 
+strusciamento fra due corpi, ed è dovuta all'asperità dei materiali a livello microscopico. È fondamentale considerarlo 
+quando si devono calcolare le forze in una situazione reale.\\
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/attrito}
+    \caption{asperità dei materiali}
+\end{figure}\acc
+L'attrito si presenta sotto due aspetti\begin{itemize}
+    \item \textbf{attrito statico} : Forza esercitata su un corpo fermo su una superficie, che subisce una forza 
+    \item \textbf{attrito dinamico} : Forza esercitata su un corpo in movimento che si sposta strisciando su una superficie
+\end{itemize}
+La modellizzazione dell'attrito prevede tale suddivisione, quando un corpo su una superficie subisce 
+una forza $\bar F$, è anche soggetto ad una forza di attrito statico $\bar F_s$, essa si oppone alla prima, 
+de facto è uguale in intensità e direzione, ma il verso è contrario. Se la forza applicata varia, l'attrito 
+varierà con essa.\acc 
+In una situazione reale però, quando si spinge un oggetto, aumentando l'intensità il corpo inizierà a muoversi, 
+esiste quindi una forza di soglia sotto il quale l'attrito statico vale, una volta raggiunta tale soglia, 
+il corpo si muoverà, e sarà soggetto ad attrito dinamico. In generale, tale soglia è descritta da 
+$$ F_s\le \mu_s\cdot R_n$$
+Dove $R_n$ è il modulo della reazione normale che subisce il corpo che poggia sulla superficie, e 
+$\mu_s$ è il \textit{coefficente di attrito statico}, e dipende dal materiale dei corpi. Essendo tale attrito 
+proporzionale alla reazione normale, risulta chiaro ora il perché gli oggetti posti su un piano inclinato necessitano
+ di meno forza per essere spostati.\acc 
+ Quindi $F_s$ è sempre uguale alla forza applicata sul corpo ma contraria di verso finché il suo modulo è minore 
+ di $\mu_s\cdot R_n$. Se tale modulo è maggiore, allora il corpo sarà soggetto ad un 
+ attrito dinamico $\bar F_d$
+ $$ \bar F_d = -\mu_d\cdot R_n\cdot \bar \tau$$
+$\mu_d$ è il coefficiete di attrito dinamico, tipicamente, per uno stesso materiale $\mu_s>\mu_d$. $\tau$ è il 
+versore parallelo alla velocità del corpo che subisce tale attrito. La decelerazione che subirà 
+il corpo che si muove su una superficie sarà
+$$ m\bar a = -\mu_dR_n\bar \tau\implies m\bar a = -\mu_dmg\bar \tau \implies |\bar a| = -\mu_d g$$
+Nella formula, si è sostituito $R_n$ ad $mg$, in quanto il modulo di tali forze è lo stesso, come già visto 
+$$ R_n-mg=0$$
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/attritoDinamico.eps}
+\end{center}
+Si noti come la decelerazione subita non dipende dalla massa del corpo, ma esclusivamente dalla reazione 
+normale e dalla costante di attrito dinamico. Si ricavano le leggi della velocità e dello spostamento (nel caso 
+unidimensionale) 
+$$ v=v_0-\mu_dgt$$ 
+$$ x=v_0t-\frac{1}{2}\mu_dgt^2$$
+Il corpo si fermerà nell'istante $t_1$ in cui $v(t_1)=0$
+$$ v(t_1)=0\implies v_0-\mu_dgt_1=0\implies t_1=\frac{v_0}{\mu_dg}$$
+E lo spazio percorso sarà 
+$$ x(t_1)=v_0t_1--\frac{1}{2}\mu_dg{t_1}^2=
+v_0(\frac{v_0}{\mu_dg})-\frac{1}{2}\mu_dg{(\frac{v_0}{\mu_dg})}^2=\frac{v_0^2}{2\mu_dg}
+$$
+\subsubsection{Misuratore di Attrito}
+Il seguento esempio, mostra com'è possibile sfruttare un piano inclinato, la cui inclinazione 
+$\alpha$ è variabile, per misurare la costante di attrito statico e dinamico di un corpo. Supponiamo quindi, di posare un 
+corpo su tale piano, la cui inclinazione iniziale è nulla. Cominciando a sollevare il piano (variando $\alpha$), il corpo 
+rimarrà in uno stato di quiete, finché non avrà forza a sufficienza da superare l'attrito statico. Tale 
+soglia equivale a $$mg\sin\alpha $$
+L'attrito statico è limitato da tale valore, sia $\alpha_1$ il massimo valore dell'angolo per cui 
+il corpo non si muove, in tal caso si ha 
+$$ mg\sin\alpha_1=\mu_smg\cos\alpha_1\implies\mu_s=\tan\alpha_1$$
+Si consideri adesso l'insieme dei valori $\alpha>\alpha_1$, per cui il corpo si muove ed è soggetto 
+ad attrito dinamico. In particolare la sua forza sarà 
+$$ma=m\sin\alpha-\mu_dR_n $$
+Si varia l'angolo $\alpha$ per trovare il punto in cui il corpo non subisce più accelerazione, ossia $a=0$. Sia 
+$\alpha_2$ tale valore 
+$$ mg\sin\alpha_2-\mu_dR_n=0$$
+Si ricordi $R_n=mg\cos\alpha_2$
+$$ mg\sin\alpha_2=\mu_dmg\cos\alpha_2\implies \mu_d=\tan\alpha_2$$
 \end{document}
