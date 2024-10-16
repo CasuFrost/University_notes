@@ -843,5 +843,22 @@ L'algoritmo si renderà parallelo, distribuendo equamente il numero di punti da 
         \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}100000000}             & 3.141725                                                        
         \end{tabular}
 \end{center}\normalsize 
-
+\flowerLine 
+\section{Valutazione del Tempo}
+Valutare il tempo di esecuzione di un programma multicore 
+non è banale. MPI fornisce una funzione \code{double MPI\_Wtime}, 
+ritorna un valore che rappresenta il tempo passato da un certo 
+riferimento fisso. Basta valutare questo tempo in due punti diversi 
+del codice e farne la differenza.
+\begin{lstlisting}[style=CStyle]
+    double start,finish;
+    start=MPI_Wtime();
+    /*codice*/
+    finish=MPI_Wtime();
+    printf("%d",finish-start);
+\end{lstlisting}
+Ogni processo, seguirà un evoluzione dello stesso codice differente, e 
+non contemporanea fra gli altri. Se verrà calcolato il tempo 
+trascorso per l'esecuzione di una sezione di codice, ogni processo 
+resituirà un tempo diverso.
 \end{document}
