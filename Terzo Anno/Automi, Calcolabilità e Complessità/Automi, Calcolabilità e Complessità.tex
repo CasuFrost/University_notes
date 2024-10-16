@@ -1019,4 +1019,168 @@ $$
 \end{cases} \ \ \ \ \ \text{variabili aggiunte : }A_1,\ U
 $$
 \end{itemize}
+\flowerLine 
+\section{Push Down Automata}
+Si considera adesso un nuovo modello di computazione che estende il concetto di automa, vedremo in seguito 
+che, i linguaggi regolari stanno agli NFA, come le grammatiche acontestuali stanno ai PDA. Introdurremo alcune 
+caratteristiche dei PDA in modo informale, per poi darne la definizione.\acc 
+Innanzitutto un PDA è sempre un automa, non deterministico, in particolare si differenzia dagli NFA/DFA per la 
+presenza di una \textbf{pila} (di dimensione potenzialmente infinita) detta anche \textit{stack}, il cui contenuto evolve dinamicamente 
+durante la computazione, tale pila permette all'automa di \textit{memorizzare}. L'accesso ad essa è limitato, 
+esclusivamente LIFO, è possibile scrivere sulla pila una serie di caratteri appartenenti ad un determinato insieme, 
+su di essa è possibile eseguire operazioni di \begin{itemize}
+    \item pop 
+    \item top 
+    \item push
+\end{itemize}
+Se un NFA ha un solo alfabeto $\Sigma$, un PDA avrà due alfabeti, $\Sigma$ e $\Gamma$, denotati \textit{input} e 
+\textit{pila}. Anche la funzione $\delta$ sarà differente, infatti gli archi saranno marcati nel seguente modo 
+\begin{center}
+    \begin{tikzpicture} [node distance = 6cm, on grid, auto]
+        \node (q1)[state, left] {$q_1$};
+        \node (q2)[state, right = of aperta] {$q_2$};
+        \path [-stealth, thick]
+        (q1) edge  node {$a;b\rightarrow c$}   (q2);
+    \end{tikzpicture}
+\end{center} 
+Dove $b$ e $c$ sono elementi di $\Gamma_{\epsilon}=\Gamma\cup\{\epsilon\}$, ed $a$ è un elemento di $\Sigma_{\epsilon}$.
+In particolare, la freccia in figura indica che : \begin{quote}
+    Se l'automa è nello stato $q_1$, legge in input $a$, ed in cima alla pila 
+    si trova $b$, allora si sposterà nello stato $q_2$, verrà rimosso $b$ dalla pila 
+    e verrà aggiunto $c$
+\end{quote}
+Il dominio della funzione di transizione sarà quindi $Q\times\Sigma_\epsilon\times \Gamma_\epsilon$, mentre il codominio 
+sarà l'insieme delle parti di $Q\times\Gamma_\epsilon$. Essendo non deterministico, ad ogni ramo di computazione 
+sarà associata una differente evoluzione della pila.\acc 
+\defi{(PDA)} Un \textit{Push Down Automata} è una tupla $P=(Q,\Sigma,\Gamma,\delta,q_0,F)$ dove \begin{itemize}
+    \item $Q,\Sigma,q_0,F$ sono definiti identicamente agli NFA/DFA 
+    \item $\Gamma$ è un alfabeto finito rappresentante gli elementi che possono essere nello stack 
+    \item $\delta : Q\times\Gamma_\epsilon\times\Sigma_\epsilon\rightarrow\mathcal{P}(Q\times\Gamma_\epsilon)$
+\end{itemize}
+Considerato un PDA, supponiamo che 
+$$ (q,c)\in\delta(p,a,b) \ \ \ \text{ con } \ \ \  
+\begin{cases}
+    q,p\in Q \\ a\in \Sigma_\epsilon \\ c,b \in \Sigma_\epsilon
+\end{cases} $$
+Allora, a seconda dei valori di $a,b$ e $c$, lo step di computazione assume il seguente significato\begin{itemize}
+    \item $a,b,c\ne\epsilon\implies$ il PDA legge $a$, passa dallo stato $p$ allo stato $q$ e sostituisce 
+    $b$ (che si trova nel top dello stack) con $c$. 
+    \item $a,c\ne\epsilon\land b=\epsilon\implies $ il PDA legge $a$, passa dallo stato $p$ allo stato $q$ 
+    indipendentemente dal valore del top dello stack, su cui andrà ad inserire $c$ 
+    \item $a,b\ne\epsilon\land c=\epsilon\implies $ il PDA legge $a$, passa dallo stato $p$ allo stato $q$ ed 
+    eseguo una pop sullo stack rimuovendo $b$.
+\end{itemize}
+Passiamo alla descrizione di come viene \textit{eseguita la computazione} su un PDA, si consideri una stringa $w$ in input, 
+composta dai caratteri $$w=w_0w_1\dots w_n \text{ con } w_i\in\Sigma$$ consideriamo ora gli stati che 
+verranno attraversati nella computazione : $$r_0,r_1,r_2\dots, r_{n+1}$$
+e si considerino le stringhe 
+$$ s_1,s_2\dots, s_n \text{ con } s_i\in\Gamma^*$$
+Lo stato $r_0=q_0$ sarà lo stato iniziale, ed $s_0=\epsilon$ rappresenterà la pila vuota, inoltre, 
+$\forall i = 0,1\dots, n$ si avrà che  
+$$ (r_{i+1},a)\in\delta(r_i,w_{i+1},b)$$
+Dove $s_i$ rappresenterà lo stack nel momento in cui si è nello stato $r_i$, ed $s_{i+1}$
+rappresenterà lo stack nel momento in cui si è nello stato $r_{i+1}$, si avrà infatti che \begin{itemize}
+    \item $s_i = bT$ 
+    \item $s_{i+1}= aT$ 
+    \item $T\in \Gamma_\epsilon^*$
+    \item In breve, nello stack è stata sostituito il simbolo $b$ con $a$
+\end{itemize}
+La computazione sarà andata a buon fine se e solo se $r_n\in F$, ossia lo stato finale è di accettazione.\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=0.85\textwidth ]{images/pda1.eps}
+        \caption{Lo stato verde rappresenta la computazione corrente}
+        \label{fig:pdaComp}
+    \end{figure}
+\end{center}
+Gli stati consistenti nella computazione sono in relazione 
+$$ (p,ax,by)\vdash (q,x,cy)\iff (q,c)\in\delta(p,a,b)$$
+$$ p,q\in Q\  \ b,c\in\Gamma_\epsilon\ \ a\in\Sigma_\epsilon\ \ x\in\Sigma^* \ \ y\in\Gamma^*$$
+La chiusura transitiva $\vdash^*$ definisce la relazione di transizione estesa, utile per la seguente 
+definizione.\acc 
+\defi{} Sia $P=(Q,\Sigma,\Gamma,\delta,q_0,F)$ un PDA, definiamo \textbf{linguaggio di }$P$, e denotiamo $L(P)$, 
+l'insieme $$L(P)=\{w\in\Sigma^* \ | \ (q_0,w,\epsilon)\vdash^* (q,\epsilon,y) \land q\in F\land y\in\Gamma^*\} $$
+Si può definire in manire equivalente assumendo che la computazione termini sempre 
+con lo stack vuoto 
+$$L(P)=\{w\in\Sigma^* \ | \ (q_0,w,\epsilon)\vdash^* (q,\epsilon,\epsilon) \land q\in F\land\} $$
+Il fatto che le due definizioni siano equivalenti, implica che ogni PDA può essere trasformato in un PDA equivalente 
+in cui ogni stringa accettata termini la computazione con lo stack vuoto.
+\subsection{Esempi}
+\subsubsection{Esempio 1}
+Sia $L=\{0^n1^n | n\ge 0\}$ un linguaggio, si vuole determinare un PDA $P$ tale che $L(P)=L$. \acc 
+L'idea è quella di utilizzare lo stack, aggiungendo un valore ogni volta che si legge uno zero, e togliendone 
+uno ogni volta che si legge un 1, se al termine la pila sarà vuota, allora la stringa letta apparterrà al 
+linguaggio $L$. Definiamo $\Gamma=\{0,\$\}$, il simbolo $\$$ è utile per marcare il fondo dello stack, verrà 
+aggiunto automaticamente all'inizio.
+\begin{center}
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+        \node (q1)[initial, state, left] {$q_1$};
+        \node (q2)[state, right = of q1] {$q_2$};
+        \node (q3)[state, below = of q2] {$q_3$};
+        \node (q4)[state, below = of q1, accepting] {$q_4$};
+        \path [-stealth, thick]
+        (q3) edge  node {$\epsilon;\$\rightarrow \epsilon$}   (q4)
+        (q2) edge  node {$1;0\rightarrow \epsilon$}   (q3)
+        (q2) edge [loop right]  node {$0;\epsilon\rightarrow 0$}()
+        (q3) edge [loop right]  node {$1;0\rightarrow \epsilon$}()
+        (q1) edge  node {$\epsilon;\epsilon\rightarrow \$$}   (q2);
+    \end{tikzpicture}
+\end{center} 
+\subsubsection{Esempio 2}
+Data una stringa $w$, definiamo $w^R$ la stringa $w$ specchiata, ad esempio $$ w=a12hgf \implies w^R=fgh21a$$
+Sia $L=\{w\&w^R|w\in\{0,1\}^*\}$, ossia l'insieme di tutte le stringhe binarie palindrome, al cui centro 
+è presente il carattere $\&$. 
+\begin{center}
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+        \node (q1)[initial, state, left] {$q_1$};
+        \node (q2)[state, right = of q1] {$q_2$};
+        \node (q3)[state, below = of q2] {$q_3$};
+        \node (q4)[state, below = of q1, accepting] {$q_4$};
+        \path [-stealth, thick]
+        (q3) edge  node {$\epsilon;\$\rightarrow \epsilon$}   (q4)
+        (q2) edge  node {$\&;\epsilon\rightarrow \epsilon$}   (q3)
+        (q2) edge [loop right]  node {$\begin{matrix}
+            0;\epsilon\rightarrow 0\\1;\epsilon\rightarrow 1
+        \end{matrix}$}()
+        (q3) edge [loop right]  node {$\begin{matrix}
+            0;0\rightarrow \epsilon\\1;1\rightarrow \epsilon
+        \end{matrix}$}()
+        (q1) edge  node {$\epsilon;\epsilon\rightarrow \$$}   (q2);
+    \end{tikzpicture}
+\end{center}
+\subsection{PDA e Linguaggi Acontestuali}
+Tale sezione si concentrerà sul seguente teorema.\acc 
+\teo{} Un linguaggio è acontestuale (generato da una CFG) se e solo se esiste un PDA che lo riconosce.
+Per rendere più leggibile e chiara la dimostrazione del teorema, essa verrà scomposta in due lemma, che rappresentano le due implicazioni della 
+dimostrazione. \acc 
+\lemma{[$\implies$]}  Se un linguaggio è acontestuale, esiste un PDA che lo riconosce. \acc 
+\dimo{[$\implies$]} Sia $G=(V,\Sigma, R, S)$ una generica CFG, il cui linguaggio è $L(G)$. L'idea è quella di costruire un PDA  $P$
+che sfrutti il non determinismo per accettare una generica stringa $w\in L(G)$ usando tutte le possibili 
+derivazioni (applicazioni delle regole) di $G$.\acc 
+Lo stack di $P$ conterrà le variabili ed i terminali di $G$ che verranno appositamente sostituiti con le regole.\\ 
+Possono esserci differenti alberi di computazione, il comportamento del PDA può essere scritto dal seguente 
+algoritmo 
+\greybox{
+    $\diamond $ si inserisce $\$$ nella pila \\ \\\color{blue}
+    $\diamond $ while(true)\{\\\\\color{black}
+    \hphantom{ident}$\diamond $ Se nel top dello stack vi è una variabile, si eseguono varie diramazioni in base a tutte 
+    \\ \hphantom{ident}le regole che  comprendono tale variabile\\ \\
+    \hphantom{ident}$\diamond $ Se nel top dello stack c'è un terminale, viene rimosso dallo stack e si confronta 
+    con il\\\hphantom{ident} prossimo carattere in input, se identici la computazione continua, altrimenti rifiuta.\\\\ 
+    \hphantom{ident}$\diamond $ Se nel top dello stack c'è $\$$ (la pila è svuotata), si accetta se e solo se 
+    è stata \\\hphantom{ident}letta tutta la stringa in input.\\\\
+    \color{blue}
+    $\diamond $ \}\color{black}
+}
+
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.6\textwidth ]{images/esempioCFGPDA.eps}
+    \caption{Esempio di computazione}
+    \label{fig:esePDACGF}
+\end{figure}
+
+
+
+
 \end{document}
