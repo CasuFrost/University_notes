@@ -860,5 +860,56 @@ del codice e farne la differenza.
 Ogni processo, seguirà un evoluzione dello stesso codice differente, e 
 non contemporanea fra gli altri. Se verrà calcolato il tempo 
 trascorso per l'esecuzione di una sezione di codice, ogni processo 
-resituirà un tempo diverso.
+resituirà un tempo diverso. Il tempo totale del programma, sarà 
+dato dal massimo dei tempi forniti da ogni processo. Si può usare 
+l'operazione collettiva 
+\begin{lstlisting}[style=CStyle]
+    double local_start,local_finish,local_elapsed,elapsed;
+    local_start=MPI_Wtime();
+    /*codice*/
+    local_finish=MPI_Wtime();
+    local_elapsed=local_finish-local_start;
+    MPI_Reduce(&local_elapsed,&elapsed,1,MPI_DOUBLE,MPI_MAX,0,comm);
+    printf("%d",elapsed);
+\end{lstlisting}
+Ovviamente, tale metodo è valido con l'assunzione che tutti i processi 
+inizino nello stesso momento (in particolare, la valutazione del 
+tempo di inizio), un'esecuzione reale però è sfasata, e 
+ciò porterebbe ad un tempo di esecuzione che non corrisponde a quello 
+effettivo.\acc 
+Quando si esegue un'operazione di reduce, tutti i processi 
+devono arrivare ad uno punto comune nel codice, "sincronizzandosi", 
+esiste un'operazione, \code{MPI\_Barrier}, il cui unico scopo è attendere che tutti i processi 
+la eseguano prima di continuare nell'esecuzione. Tale operazione comunque, 
+non garantisce che i processi si sincronizzino una volta eseguita, quindi 
+approssima il comportamento sincronizzato. Nella pratica, è molto 
+complesso garantire tale proprietà.\acc 
+La misurazione del tempo impiegato da un processo è 
+non deterministica, in quanto quest'ultimo è 
+soggetto alle interruzioni del sistema operativo ed ai cambi di 
+contesto, che possono variare in maniera apparentemente aleatoria. Nel 
+caso in cui il programma venga eseguito in rete, tale \textit{rumore} 
+(il tempo casuale aggiunto all'esecuzione normale di un processo) è ancora maggiore.
+\acc Generalmente, è corretto eseguire più volte un processo misurando 
+i tempi ad ogni esecuzione, per avere una misura statistica. Il minimo 
+corrisponderà al caso ideale, il massimo al caso peggiore, la mediana al caso più 
+frequente, è corretto fornire i dati di ogni esecuzione per avere 
+un quadro chiaro dei tempi effettivi. In breve per valutare il tempo \begin{enumerate}
+    \item Si mette una funzione barriera all'inizio dell'esecuzione 
+    \item Si trova il massimo dei tempi di ogni processo 
+    \item Si provano diverse esecuzioni ottenendo una distribuzione
+\end{enumerate}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/distribuzioni.eps}
+\end{center}
+Le interferenze ed i rumori sono stati grande oggetto di studio 
+nella valutazione dei tempi, in particolare, si è osservato un rapporto 
+di proporzionalità diretta fra il rumore ed il numero di processi 
+impiegati in un calcolo, esiste quindi un limite, in cui 
+l'aumento dei nodi volti ad un calcolo non garantisce un 
+miglioramento dei tempi di esecuzione, bensì il contrario.
+
+
+
+
 \end{document}
