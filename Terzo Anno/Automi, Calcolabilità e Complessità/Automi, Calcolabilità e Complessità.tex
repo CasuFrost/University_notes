@@ -1172,15 +1172,111 @@ algoritmo
     \color{blue}
     $\diamond $ \}\color{black}
 }
-
 \begin{figure}[h!]
     \centering 
     \includegraphics[width=0.6\textwidth ]{images/esempioCFGPDA.eps}
     \caption{Esempio di computazione}
     \label{fig:esePDACGF}
 \end{figure}
-
-
-
-
+\textbf{Notazione} : Per comodotià, verrà utilizzata una notazione ridotta nel diagramma del PDA in questione, 
+in particolare, si introduce l'inserimento di una stringa nello stack, piuttosto che di un solo carattere, ovviamente 
+un push down di questo tipo equivale a più push down, che richiedono stati intermedi che verranno omessi.
+\begin{center}
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+        \node (q1)[ state, left] {$q$};
+        \node (q2)[state, right = of q1] {$r$};
+        \path [-stealth, thick]
+        (q1) edge  node {$a;S\rightarrow xyz$}   (q2);
+    \end{tikzpicture}\\equivale a\acc
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+        \node (q)[ state, left] {$q$};
+        \node (q1)[state, right = of q] {};
+        \node (q2)[state, right = of q1] {};
+        \node (r)[state, right = of q2] {$r$};
+        \path [-stealth, thick]
+        (q2) edge  node {$a;\epsilon\rightarrow x$}   (r)
+        (q1) edge  node {$a;\epsilon\rightarrow y$}   (q2)
+        (q) edge  node {$a;S\rightarrow z$}   (q1);
+    \end{tikzpicture}
+\end{center}
+Sia $P=(Q,\Sigma,\Gamma,\delta,q_{start},F)$ l'automa che deve accettare il linguaggio $L(G)$, l'insieme 
+degli stati sarà 
+$$ Q=\{q_{start},q_{loop},q_{accept}\}\cup E$$
+Dove $E$ è l'insieme degli stati intermedi, ossia quelli che verranno omessi nella notazione.
+Siano\begin{itemize}
+    \item $a\in \Sigma$ un carattere generico della grammatica e dell'alfabeto del PDA corrispondente
+    \item $A\in V$ una generica variabile della grammatica 
+\end{itemize}
+Si ricordi che gli elementi del codominio di $\delta$ sono insiemi, dato che il 
+PDA è non deterministico. La funzione di transizione del PDA $P$ sarà definita come segue\begin{itemize}
+    \item $\delta(q_{start},\epsilon,\epsilon)=\{(q_{loop},S\$)\}$ si ricordi che $S$ è la variabile iniziale 
+    della grammatica e $\$$ è il simbolo per marcare il fondo dello stack
+    \item $\delta(q_{loop},\epsilon,A)=\{(q_{loop},W)\ |\ A\rightarrow W \in R\}$, ossia  
+    $A\longrightarrow W \in R$ è una generica regola della grammatica 
+    \item $\delta(q_{loop},a,a)=\{(q_{loop},\epsilon)\}$
+    \item $\delta(q_{loop},\epsilon,\$)=\{(q_{accept},\epsilon)\}$
+\end{itemize}
+In generale (ignorando gli stati in $E$, in notazione abbreviata), il PDA assumerà una forma canonica del tipo
+\begin{center}
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+        \node (q0)[ state, left] {$q_{start}$};
+        \node (q1)[state, right = of q] {$q_{loop}$};
+        \node (q2)[state, right = of q1] {$q_{accept}$};
+        \path [-stealth, thick]
+        (q1) edge [loop below]  node {$\begin{matrix}
+            0;0\rightarrow \epsilon\\1;1\rightarrow \epsilon
+        \end{matrix}$}()
+        (q0) edge  node {$\epsilon;A\rightarrow W\$ $}   (q1)
+        (q1) edge  node {$\epsilon;a\rightarrow \epsilon$}   (q2);
+    \end{tikzpicture}\\
+    \hfill $\blacksquare$
+\end{center}
+\subsubsection{Esempio} 
+Si consideri la seguente grammatica 
+$$ \begin{cases}
+    S\longrightarrow aTb|b\\ 
+    T\longrightarrow Ta|\epsilon 
+\end{cases} \ \ \ \ \ \ \ \ \ \ \begin{matrix}
+    \Sigma = \{a,b\}\\ V=\{S,T\}
+\end{matrix}$$
+Il PDA corrispondente avrà pila $\Gamma = \{\$, S, a, T, b\}$, precisamente\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/PDA2.eps}
+\end{center}
+Gli stati $E=\{q_1,1_2,q_3,q_4\}$ sono quelli di transizione che nella notazione abbreviata verrebbero 
+omessi, sostituendo le etichette con gli archi.
+\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/PDA2.2.eps}
+\end{center}
+\lemma{[$\impliedby$]}  Dato un PDA, esiste una CGF le cui stringhe generate sono il linguaggio del PDA.\acc 
+\dimo{[$\impliedby$]} Sia $P=(Q,\Sigma,\Gamma,\delta,q_0,F)$ il PDA in questione. L'idea è quella di considerare,
+ per ogni coppia di stati $p,q$ in $Q$, una variabile denotata $A_{pq}$ che genera tutte le stringhe 
+ che permettono al PDA di passare da $p$ a $q$ lasciando la pila vuota, come nell'esempio in figura \ref{fig:dimopda1}.
+ \begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=0.8\textwidth ]{images/dimopda1.eps}
+        \caption{esempio}
+        \label{fig:dimopda1}
+    \end{figure}
+\end{center}\sapbox{
+\textbf{Forma Canonica} : Durante la dimostrazione, si assumerà che $P$ soddisfi certe proprietà, ossia che assuma una 
+\textit{forma canonica}, tale forma non fa perdere di generalità alla dimostrazione in quanto ogni PDA 
+può essere trasformato in un PDA in tale forma lasciando invariato il linguaggio che accetta. Un PDA è nella forma canonica 
+se\begin{enumerate}
+    \item Inizia con la pila vuota, ed termina la computazione sempre con la pila vuota 
+    \item Ha un solo stato accettante $|F|=1$
+    \item Il PDA ad ogni passo computazionale, non sostituisce mai un elemento della pila con un altro, o ne elimina 
+    uno, o ne aggiunge uno, la sostituzione non avviene mai in un solo passo di computazione, formalmente, cambia la 
+    definizione della funzione di transizione 
+    $$\delta_1 : Q\times\Gamma_\epsilon\times\Sigma_\epsilon\rightarrow\mathcal{P}(Q\times\{\epsilon\})$$
+    $$\delta_2 : Q\times\{\epsilon\}\times\Sigma_\epsilon\rightarrow\mathcal{P}(Q\times\Gamma_\epsilon)$$
+    $$\delta = \delta_1\cup \delta_2$$
+\end{enumerate}
+È chiaro che ogni PDA può essere portato in tale forma, se ci sono più stati di accettazione, si creerà un nuovo stato 
+alla quale tutti rimandano, rendendolo l'unico stato di accettazione. Quest'ultimo stato inoltre si occuperà 
+di svuotare la pila automaticamente grazie agli $\epsilon$-archi. Inoltre, ogni arco che esegue una sostituzione 
+nello stack sarà diviso in due archi che eseguono in sequenza un pop ed un push, facendo uso di uno stato 
+intermedio.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/pdacanonico.eps}
+\end{center}}
 \end{document}

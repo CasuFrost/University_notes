@@ -29,6 +29,7 @@
 \definecolor{copAut}{HTML}{c3c3e6}
 \definecolor{purcop}{HTML}{d0d3db}
 \definecolor{sapienza}{HTML}{660f1d}
+\definecolor{lightSapienza}{HTML}{e3d3d5}
 \definecolor{darkgreen}{HTML}{008000}
 \definecolor{cartaRiciclata}{HTML}{fcfcf7}
 \newcommand{\redText}[1]{\color{red}#1\color{black}}
@@ -54,6 +55,13 @@
 \newcommand\greybox[1]{%
   \vskip\baselineskip%
   \par\noindent\colorbox{light-gray}{%
+    \begin{minipage}{\textwidth}#1\end{minipage}%
+  }%
+  \vskip\baselineskip%
+}
+\newcommand\sapbox[1]{%
+  \vskip\baselineskip%
+  \par\noindent\colorbox{lightSapienza}{%
     \begin{minipage}{\textwidth}#1\end{minipage}%
   }%
   \vskip\baselineskip%
