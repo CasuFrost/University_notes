@@ -943,7 +943,22 @@ $$ \frac{I}{\Delta t}=\frac{\Delta \bar p}{\Delta t}
 Risulta utile nella descrizione dei fenomeni che agiscono in 
 un breve lasso di tempo con una certa intensità, come gli urti, dette 
 forze impulsive.\acc 
-\redText{esempio chiodo}\acc
+\textbf{Esempio} : Quando si vuole inserire un chiodo in una tavola di legno, si colpisce 
+con un martello il chiodo. Se provassimo a salire sul chiodo applicheremmo una forza pari al nostro peso, che è 
+di gran lunga superiore al peso del martello, ciònonostante, il chiodo non entrerebbe nella fessura, la forza non sarebbe 
+necessaria.\acc 
+Quanta forza viene trasmessa allora al colpo del chiodo sul martello? Supponiamo che il chiodo non assorba 
+forza, e la rifletta completamente, ciò significa che rifletterà una quantità di moto pari alla quantità 
+di moto applicata. Sia $mv$ la quantità di moto iniziale, il martello una volta colpito il chiodo avrà una 
+quantità di moto $-mv$, la differenza sarà quindi $\Delta p=2mv$.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/chiodo.eps} 
+\end{center}
+Supponiamo che il martello pesi $0.5kg$, che arrivi sul chiodo ad una velocità pari a $5\frac{m}{s}$, la sua quantità 
+di moto sarà quindi $0.5\cdot 5=2.5kg\frac{m}{s}$. L'evoluzione della forza nel tempo in cui colpisce il chiodo non è 
+nota, ma è possibile stabilire la forza media tramite l'espressione $\frac{\Delta p}{\Delta t}$, supponiamo che 
+il lasso di tempo in cui il martello colpisce il chiodo sia di $10^{-3}s$. Allora la forza media sarebbe 
+$$ \frac{2.5}{10^{-3}}kg\frac{m}{s^2}=2500N$$
+\subsection{Lavoro ed Energia Potenziale}
 Quindi l'impulso deriva dall'integrazione della forza rispetto al 
 tempo, essa può essere derivata anche rispetto allo spazio.
 Supponiamo che vi siano una curva che unisce i punti $A$ e $B$, 
@@ -1008,9 +1023,84 @@ analogo per $y(B)$.\begin{center}
 $$ -mg\int_{y(A)}^{y(B)}dy=mgy(A)-mgy(B)$$
 Definiamo $mgy=U(y)$ \textbf{energia potenziale}
 $$ L=-mg\int_{y(A)}^{y(B)}dy=U(A)-U(B)=-\Delta U$$
+\begin{quote}
+    Nelle forze conservative, il lavoro su una curva che congiunge i punti $A,B$ è pari alla differenza
+     dell'energia potenziale calcolata sui due punti.
+\end{quote}
 L'energia potenziale $U$ è definita anche per le altre forze, non esclusivamente 
 per la forza di gravità, che in tal caso è servita come esempio. La gravità 
 è una forza \textit{uniforme}\begin{quote}
     tutte le forze uniformi sono conservative
 \end{quote}
+Anche la forza gravitazionale definita da Newton è conservativa 
+$$ \bar F_G=-G\frac{Mm}{r^2}\hat r$$
+Dove $\hat r$ è il versore che va dal corpo di massa $m$ a quello di massa $M$, ed $r$ è la distanza fra i due corpi. Tale 
+forza è detta \textit{centrale}, in ogni punto è diretta verso un punto $O$, l'intensità dipende 
+solamente dalla distanza $r$ dal puntoi. Il lavoro su una curva 
+che congiunge i punti $A,B$ risulta essere 
+$$ \int_A^B\bar F_Gd\bar s=\int_A^B-G\frac{Mm}{r^2}\hat rd\bar s=
+-GMm\int_A^B\frac{\hat r}{r^2} d\bar s$$
+$\hat r$ ed $r^2$ non possono essere portati fuori dall'integrale dato che sono variabili e dipendono dalla 
+posizione. Sia $OP$ il vettore che va dal punto $P$, posizione del corpo soggetto alla forza, all'origine della forza $O$, ossia 
+il vettore di lunghezza $r$. In tal caso si ridefinisce $\hat r = \dfrac{OP}{|OP|}$. \acc 
+Sia $F_G(r)$ il modulo della forza, esso dipende da $r$, tale che 
+$$ \bar F_G(r)=F_G(r)\hat r$$
+Si consideri un percorso qualsiasi $C$ che congiunga due punti $P_1$ e $P_2$, in corrispondenza di uno 
+spostamento infinitesimo $d\bar s$ lungo tale percorso a partire da una posizione $P$, 
+il lavoro infinitesimo sarà 
+$$ dL=\bar F_Gd\bar s = F_G(r)dr$$
+Dove $dr$ è la proiezione di $d\bar s$ su $OP$. 
+$$ \hat r \cdot d\bar s=dr$$ 
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/forzaCentrale.eps}
+\end{center}
+$$ 
+-GMm\int_A^B\frac{\hat r}{r^2} d\bar s=
+-GMm\int_{r_A}^{r_B}\frac{dr}{r^2}
+$$
+Dove $r_A$ ed $r_B$ sono le distanze dall'origine dei punti $A$ e $B$
+$$-GMm\int_{r_A}^{r_B}\frac{dr}{r^2}=GMm\frac{1}{r_B}-GMm\frac{1}{r_A} $$
+$$ U(r)=-\frac{GMm}{r} \ \  \textbf{ energia potenziale gravitazionale}$$
+Inoltre 
+$$ \lim_{r\rightarrow \infty}-\frac{GMm}{r}=0\implies U(\infty)=0$$
+La forza di gravitazione a distanza infinita non compie lavoro.\begin{center}
+    \begin{tikzpicture}[scale=1, transform shape]
+		\begin{axis}[
+		ymin=-10,
+		ymax = 10,
+		xmin=-10,
+		xmax = 10,
+		axis lines = center,
+		xtick distance=500, ytick distance=500,
+		grid style=dashed,
+		ymajorgrids=true,
+		xmajorgrids=true,
+		xlabel = \(r\),
+		ylabel = {\(U(r)\)},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=0:10,
+		samples=100,
+		color=blue,
+		]
+		{-5/x};
+		\end{axis}
+		\end{tikzpicture}
+\end{center}
+Anche la forza elastica è conservativa, consideriamo il caso unidimensionale (per semplicità, il punto di equilibrio 
+è 0)
+ $$ \bar F = -kx\hat x$$
+ $$L=-k\int_{x_1}^{x_2}x\hat x d\bar s =  -k\int_{x_1}^{x_2}xdx=\frac{1}{2}k(x_1^2-x_2^2)$$
+ $$ U(x)=\frac{1}{2}kx^2 \ \  \textbf{ energia potenziale elastica}$$
+ Abbiamo definito il lavoro come 
+ $$ L=\Delta T$$
+ Ed il lavoro per le forze conservative come 
+ $$L=-\Delta U$$
+Perché le forze si dicono \textit{conservative}? Se una forza è conservativa, si ha 
+$$ \Delta T+\Delta U = 0 \implies \Delta(T+U)=0$$
+Si pone $E_{m}=T+U$, essa è detta \textbf{energia meccanica}, quindi 
+$$ \Delta E_m=0$$
+Il nome "conservativo" deriva dal fatto che tali forze \textit{conservano l'energia meccanica}, infatti 
+la variazione di essa è nulla.
 \end{document}
