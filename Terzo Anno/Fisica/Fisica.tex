@@ -916,4 +916,101 @@ $\alpha_2$ tale valore
 $$ mg\sin\alpha_2-\mu_dR_n=0$$
 Si ricordi $R_n=mg\cos\alpha_2$
 $$ mg\sin\alpha_2=\mu_dmg\cos\alpha_2\implies \mu_d=\tan\alpha_2$$
+\flowerLine 
+\section{Impulso e Lavoro}
+Si è visto come la dinamica permette di descrivere le equazioni 
+del moto tramite le forze, in certi casi, non è chiara l'evoluzione 
+nel tempo di una determinata forza, ma è comunque possibile 
+avere informazioni globali sul suo comportamento grazie ad un
+ integrazione. Si consideri l'integrazione della forza nel tempo in un dato 
+ intervallo $[t_1,t_2]$
+ $$ \int_{t_1}^{t_2}\bar F dt$$
+ Le dimensioni sono espresse in $mv$, massa per velocità. Precisamente 
+\begin{eqnarray}
+    \int_{t_1}^{t_2}\bar Fdt =\\ 
+    \int_{t_1}^{t_2} = m\dfrac{d\bar v}{dt}dt =\\ 
+    m\int_{ \bar v_1}^{ \bar v_2}d\bar v = m\bar v_2-m\bar v_1=\\
+    m(\bar \bar v_2-\bar v_1)
+\end{eqnarray}
+Risulta essere la variazione della quantità di moto, tale grandezza 
+è nota come \textbf{impulso}
+\eqImportante{$I=\Delta\bar p$}
+Se la forza non è nota analiticamente, è possibile 
+considerare la \textit{forza media} come il rapporto fra l'impulso 
+e la variazione nel tempo, sia $t_2=t_1+\Delta t$
+$$ \frac{I}{\Delta t}=\frac{\Delta \bar p}{\Delta t}
+=\frac{1}{\Delta t}\int_{t_1}^{t_2}\bar F dt$$
+Risulta utile nella descrizione dei fenomeni che agiscono in 
+un breve lasso di tempo con una certa intensità, come gli urti, dette 
+forze impulsive.\acc 
+\redText{esempio chiodo}\acc
+Quindi l'impulso deriva dall'integrazione della forza rispetto al 
+tempo, essa può essere derivata anche rispetto allo spazio.
+Supponiamo che vi siano una curva che unisce i punti $A$ e $B$, 
+definiamo \textbf{lavoro} l'integrale 
+$$ L=\int_A^B\bar Fd\bar s$$
+Dove $d\bar s$ rappresenta lo spostamento infinitesimo lungo la curva, e 
+$\bar Fd\bar s$ è il prodotto scalare, di cui 
+$$ |\bar Fd\bar s|=Fds\cos\theta$$\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/lavoro.eps}
+\end{center}
+Le dimensioni del lavoro sono $ml^2t^{-2}$, l'unità di misura 
+è il \textit{joule} e si denota $J$. Il lavoro può 
+essere descritto come segue (si assuma che la massa della forza 
+sia costante) 
+\begin{eqnarray}
+    L=\int_A^B\frac{dm\bar v}{dt}d\bar s = \\ 
+    \int_A^Bmd\bar v\frac{d\bar s}{dt}
+\end{eqnarray}
+essendo $\frac{d\bar s}{dt}=\bar v$
+\begin{eqnarray}
+    \int_A^Bm\bar vd\bar v
+\end{eqnarray}
+Tralasciando momentaneamente l'espressione del lavoro, si noti come 
+\begin{eqnarray}
+    \bar v \cdot \bar v =  v^2 \text{ differenziando}\\ 
+    \bar vd\bar v+\bar d\bar v\bar v=d v^2 \implies \\ 
+    2d\bar v \cdot \bar v =d\bar v \bar v = \frac{1}{2}dv^2
+\end{eqnarray}
+quindi, tornando al lavoro
+$$
+    \int_A^Bm\bar vd\bar v=\int_{v_1^2}^{v_2^2}dv^2
+$$
+Dove $v_1$ e $v_2$ sono le velocità, rispettivamente, in $A$ ed 
+in $B$ (velocità iniziale e velocità finale)$$ 
+\int_{v_1^2}^{v_2^2}dv^2=\frac{1}{2}mv_2^2-\frac{1}{2}mv_1^2
+$$
+Definiamo $T=\frac{1}{2}mv^2$ \textbf{energia cinetica}, quindi 
+$$ L=\Delta T$$
+Il lavoro è \textit{la variazione dell'energia cinetica}.
+\subsection{Forze Conservative}
+Vediamo ora una particolare classe di forze, ossia quelle 
+\textit{conservative}.\acc 
+\defi{} Una forza è detta \textbf{conservativa} se il lavoro 
+valutato su una curva fra due punti $A$ e $B$ è indipendente dal 
+percorso considerato. Siano $\delta_1$ e $\delta_2$ due curve 
+differenti, che però hanno entrambe $A$ e $B$ come punti di 
+congiunzione, $\bar F$ è conservativa se 
+$$ \int_{\delta_1}\bar Fd\bar s=\int_{\delta_2}\bar Fd\bar s$$
+Un esempio di forza conservativa è la forza di gravità
+ $\bar F_g=m\bar g$, che riscreveremo $-mg\hat y$
+ $$ L=\int_{A}^B -mg\hat y d\bar s = -mg\int_A^B \hat y d \bar s$$
+Si consideri il termine $\hat y d\bar s$, il modulo di $d\bar s$ 
+è infinitesimo, mentre il modulo di $\hat y$ è 1. Il loro prodotto 
+scalare non è altro che lo spostamento infinitesimo lungo l'asse $y$
+$$
+-mg\int_A^B \hat y d \bar s = -mg\int_{y(A)}^{y(B)}dy
+$$
+Definiamo $y(A)$ come la coordinata $y$ del punto $A$,
+analogo per $y(B)$.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/gravitaConservativa.eps}
+\end{center}
+$$ -mg\int_{y(A)}^{y(B)}dy=mgy(A)-mgy(B)$$
+Definiamo $mgy=U(y)$ \textbf{energia potenziale}
+$$ L=-mg\int_{y(A)}^{y(B)}dy=U(A)-U(B)=-\Delta U$$
+L'energia potenziale $U$ è definita anche per le altre forze, non esclusivamente 
+per la forza di gravità, che in tal caso è servita come esempio. La gravità 
+è una forza \textit{uniforme}\begin{quote}
+    tutte le forze uniformi sono conservative
+\end{quote}
 \end{document}
