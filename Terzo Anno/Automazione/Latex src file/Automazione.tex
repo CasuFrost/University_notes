@@ -256,7 +256,7 @@ Sorge spontaneo chiedersi quale sia la differenza fra Automazione e Robotica.\be
     \item \textit{Analogie} : Entrambe coinvolgono l'informatica ed i calcolatori, interfacciandosi con il mondo 
     fisico, entrambe sfruttano conoscenze e tecnologie multi-disciplinari. 
     \item \textit{Differenze} : La robotica mostra la fattibilità di una soluzione, l'automazione si occupa di 
-    porsi delle domande riguardo tale soluzione, fra cui l'efficienza, l'ottimalità, la fattibilità e l'affidabilità.
+    porsi delle domande riguardo tale soluzione, fra cui l'efficenza, l'ottimalità, la fattibilità e l'affidabilità.
 \end{itemize}
 Formalmente, si definisce \textbf{processo} la \textit{trasformazione} di \textit{materiali} in 
 \textit{prodotti}. Tale trasformazione richiede 
@@ -298,7 +298,7 @@ prevedeva circuiti elettronici composti da bobine e relé, essi erano ingombrant
 delle informazioni, inoltre la loro logica era prestabilita e ridefinirla scaturiva una modifica sostanziale 
 del circuito. \acc 
 Con l'avvento dei semiconduttori si è introdotta la seconda generazione di controllori, basati su schede 
-elettroniche stampate, riducendo i costi ed aumentando l'efficienza, non risolvendo però il problema della bassa 
+elettroniche stampate, riducendo i costi ed aumentando l'efficenza, non risolvendo però il problema della bassa 
 flessibilità, in quanto tali schede erano progettate per gestire una specifica logica. \acc 
 La terza generazione di controllori vede i microprocessori protagonisti, grazie all'evoluzione dell'elettronica 
 e dell'informatica sono ad oggi utilizzabili schede riprogrammabili (PLC) altamente flessibile, capaci di eseguire 
@@ -315,7 +315,7 @@ un generico algoritmo logico sequenziale.
         \rowcolor[HTML]{DAE8FC} 
         terza                                          & 1970 – oggi                              & \begin{tabular}[c]{@{}c@{}}utilizzo dell’elettronica e delle tecnologie\\  del’informazione (IT) \\ per aumentare il livello di automazione di attività\\  complesse (CNC, robot e computer)\end{tabular}                                                                                                                                                                         \\ \hline
         \rowcolor[HTML]{F2F7FE} 
-        quarta                                         & oggi – futuro                            & \begin{tabular}[c]{@{}c@{}}sviluppo di macchine sensorizzate e intelligenti,\\  interconnesse tra loro e con internet, con la raccolta,\\  analisi e uso di grandi \\ quantità di informazioni (Big data), per una\\  specializzazione di \\ massa del prodotto, l’integrazione della\\  catena produttiva \\ (supply and value chains) e una maggiore\\  efficienza\end{tabular} \\ \hline
+        quarta                                         & oggi – futuro                            & \begin{tabular}[c]{@{}c@{}}sviluppo di macchine sensorizzate e intelligenti,\\  interconnesse tra loro e con internet, con la raccolta,\\  analisi e uso di grandi \\ quantità di informazioni (Big data), per una\\  specializzazione di \\ massa del prodotto, l’integrazione della\\  catena produttiva \\ (supply and value chains) e una maggiore\\  efficenza\end{tabular} \\ \hline
         \end{tabular}
 \end{center}
 \flowerLine
@@ -1083,6 +1083,117 @@ moduli/schede per l'interconnessione con un elevato numero di
 segnali input/output, inoltre, esistono appositi protocolli per la comunicazione fra PC e PLC.
 \flowerLine
 \section{Industria 4.0}
+La seconda rivoluzione industriale, agli inizi del $XX^\circ$ secolo ha introdotto la produzione di massa e la catena 
+di montaggio classica (Ford), nei primi anni 70 l'avvento dei computer ed in particolare dei robot ha sondato la 
+terza rivoluzione industriale, ad oggi vige l'industria 4.0 in cui le tecnologie ICT (Information and Communication Technology)
+pervadono i processi produttivi. Anche la presenza di dispositivi intelligenti (IOT) capaci di fornire dati 
+sulla rete tramite sensori e comunicare in tempo reale ha modificato il modo di produrre.\acc 
+\textbf{Industria 4.0}:\begin{quote}
+    \textit{“the comprehensive transformation of the whole sphere of
+industrial production through the merging of digital technology and
+the internet with conventional industry”} \\(Angela Merkel - Organization for
+Economic Cooperation and Development, 19 Febbraio 2014)
+\end{quote}
+L'avvento di tali tecnologie ha portato un cambiamento industriale ma  anche sociale, e sono diventate necessarie 
+diverse figure professionali che richiedono abilità trasversali per gestire le nuovo tecnologie. Definiamo le seguenti, 
+\textbf{tecnologie abilitanti}\begin{itemize}
+    \item \textit{Soluzioni manufatturiere avanzate} : utilizzo dei robot interconnessi e riprogrammabili 
+    nell'automazione di attività precedentemente non automatizzabili.
+    \item \textit{Additive manifacturing} : produzione per "addizione" di materiale, resa possibile dalle stampanti 
+    3D connesse ai sistemi CAD. 
+    \item \textit{Realtà aumentata} : l'uso della realtà aumentata e della realtà virtuale ha permesso la 
+     simulazione di processi fisici a supporto dei processi produttivi. 
+     \item \textit{Simulazione} : Simulazione in tempo reale del sistema di produzione in grado di 
+        migliorare il processo decisionale e predittivo tramite l'uso dei digital twin.
+    \item \textit{Integrazione orizzontale/verticale} : Integrazione di informazioni lungo la catena del valore, dal consumatore 
+    al fornitore. 
+    \item \textit{Internet industriale} : Comunicazione multidirezionale diffusa tra processi produttivi e prodotti. 
+    \item \textit{Cloud} : Uso del cloud per la raccolta dei dati in maniera distribuita.  
+    \item \textit{Sicurezza} : Metodologie di difesa alle minaccie informatiche alla quale sono soggetti i 
+    sistemi aperti ed interconnessi.  
+    \item \textit{Big data} : Uso dei modelli volti all'analisi statistica dalle grandi quantità di dati 
+    disponibili allo scopo di estrarne informazioni. 
+\end{itemize}
+L'uso delle tecnologie abilitanti porta vari benefici\begin{itemize}
+    \item Flessibilità nella produzione di piccoli lotti ai costi della grande scala 
+    \item Maggiore velocità della progettazione e produzione dei prodotti 
+    \item Maggiore produttività e riduzione dei tempi morti (tempi di setup, errori e fermi macchina)
+    \item Migliore qualità del prodotto e riduzione degli scarti grazie a sensori che monitorano la produzione in tempo reale  
+\end{itemize}
+I sistemi ICT hanno permesso la creazione di modelli di business favoriti e definiti da 
+apposite linee guida di sviluppo.\subsection{Tecnologie Abilitanti}
+I \textbf{collaborative robots}, o più semplicemente \textit{cobots}, permettono la collaborazione 
+fisica fra robot ed operatori rimuovendo le barriere dell'area di lavoro, questi ultimi entrano in contatto 
+diretto, sono sensibili all'ambiente circostante grazie a sensori laser e sistemi di visione, ed appositi sistemi di controllo programmati 
+per il riconoscimento e rilevamento di possibili urti con gli operatori. Presentano spesso strutture leggere e sono 
+dotati di cedevolezza nei giunti, in grado di assorbire energia da urti esterni. Lo spazio di lavoro condiviso apre 
+le possibilità a nuove applicazioni. \\\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth ]{images/cobot.png}
+    \caption{Robot collaborativo}
+\end{figure}\\
+L'\textbf{additive manifacturing} permette la produzione di oggetti tridimensionali di varia forma a partire da 
+un modello digitale CAD, la loro produzione richiede il materiale strettamente necessario per la stampa diminuendo i 
+residui.\\\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \pie{3.8/architettura, 4.5/altro, 17.3/veicoli, 12.3/aereospazio, 18.5/macchine industriali,
+        6.4/uso militare, 18/elettronica, 
+        13.7/apperecchiatura medica, 6.4/uso accademico}
+    \end{tikzpicture}
+    \caption{Uso della stampa 3D}
+\end{figure}\\
+I \textbf{digital twin} definiscono la programmazione e previsione dei sistemi tramite simulazioni digitali, utili durante la 
+progettazione della linea di produzione, inoltre, in fase di esecuzione di essa è possibile eseguire in contemporanea il modello 
+digitale in modo da supervisionare il processo.\acc 
+Le tecniche di \textbf{machine learning} permettono il processamento di informazioni al fine di migliorare la qualità del 
+prodotto grazie alla manutenzione predittiva.\acc 
+L'\textbf{IOT} (Internet Of Things) riguarda i dispositivi capaci di rilevare e processare dati 
+dal mondo fisico (temperatura,
+illuminazione, umidità, ...) ha applicazioni di notevole impatto, ad esempio, in ambito medico, tali dispositivi 
+condividono informazioni e comunicano con gli altri dispositivi e macchine connesse in rete.\\\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth ]{images/iot.jpg}
+    \caption{Un'illustrazione di come questa rivoluzione 
+    nella medicina apparirà in un tipico ospedale che fa uso di IOT}
+\end{figure}\\
+Le diverse tecnologie vengono incanalate in determinate linee guida di sviluppo, i sistemi distribuiti che permettono 
+la circolazione rapida di informazioni sono combinati ad una centralizzazione della gestione di essi, garantendo la possibilità 
+di controllare e monitorare in modo efficiente dati e risorse da e in qualsiasi parte dell'azienda.\acc Nonostante le 
+macchine moderne siano indipendenti da un intervento continuo, devono essere supervisionate da un operatore umano, 
+quest'ultimo deve avere la possibilità di intergarie con esse in maniere intuitiva, la branca che si occupa di rendere 
+semplice tale operazione è denominata \textit{interazione uomo macchina}.
+\subsection{Modelli di Business}
+2 aspetti sono fondamentali nell'industria 4.0\begin{itemize}
+    \item Qualità delle aziende migliorate grazie all'uso delle nuove tecnologie 
+    \item Nuovi schemi di competizione del mercato basati sui nuovi modelli di business 
+\end{itemize}
+Tali modelli di business si sono sviluppati solo dopo l'avvento delle tecnologie abilitanti che li hanno resi 
+realizzabili.\begin{itemize}
+    \item \textbf{Centralità del cliente} : al centro della catena del valore dell'industria, c'è il cliente, il 
+    consumatore, e le aziende puntano al soddisfare le richieste di quest'ultimo, talvolta anticipandone le necessità e le 
+    richieste di servizio.
+    \item \textbf{Economia circolare} : risponde alla necessità di passare ad un modello circolare di produzione, in 
+    cui i prodotti ed i processi manifatturieri vanno improntati al riutilizzo.\begin{center}
+        progetta $\longrightarrow$ usa $\longrightarrow$ ricicla $\longrightarrow$ riusa
+    \end{center}
+    Tale modello porta un risparmio dovuto alla riduzione degli scarti e ai minori costi di approvvigionamento, nonché 
+    una notevole riduzione dell'impatto ambientale.
+    \item \textbf{Strategie basate su ICT} : emergono nuove strategia di mercato che hanno lo scopo di portare il prodotto 
+    più vicino al consumatore, le tecnologie alla base dell'industria 4.0 mettono a disposizione una grande mole di dati 
+    utili al miglioramente dell'efficenza dell'azienda. \begin{itemize}
+        \item negozi online 
+        \item servizi ad abbonamento 
+        \item affitto di infrastrutture informatiche 
+    \end{itemize}
+    \item \textbf{Economia della condivisione} : modelli di condivisione di beni e servizi tramite piattaforme digitali, come 
+    i servizi di car sharing o bike sharing, irrealizzabili senza un infrastruttura informatica, che permette il monitoraggio 
+    dello stato dei veicoli.
+    \item \textbf{Economia del fare} : le stampanti 3D, grazie alla prototipazione rapida, hanno permesso l'insorgere di un "artigianato digitale" 
+    autoprodotto a basso costo, con uso di materiali  plasmabili e anche di robot programmati.
+\end{itemize}
+
+
 
 
 

@@ -730,7 +730,7 @@ Quindi $Convert$ restituisce un automa equivalente con $k-1$ stati, quindi l'ass
     \end{figure}
 \end{center}\flowerLine \newpage 
 \section{Linguaggi non regolari}
-\subsection{Il Pumping Lemma}
+\subsection{Il Pumping Lemma per i Linguaggi Regolari}
 A questo punto della lettura, è naturale porsi una domanda : Tutti i linguaggi sono regolari? Esistono linguaggi che 
 non possono essere accettati da alcun DFA? Nel caso solamente un sottoinsieme dei linguaggi fosse regolare, quali proprietà 
 soddisfa? Si consideri il seguente linguaggio 
@@ -1279,4 +1279,133 @@ nello stack sarà diviso in due archi che eseguono in sequenza un pop ed un push
 intermedio.\begin{center}
     \includegraphics[width=1\textwidth ]{images/pdacanonico.eps}
 \end{center}}
+Bisogna definire le regole dela grammatica, la variabile iniziale $S$ sarà $A_{q_0q_{accept}}$, quindi per 
+definizione $S$ genererà tutte le stringhe che accetta il PDA. L'insieme delle regole $R$ della grammatica $G$ sarà 
+definito come segue \begin{itemize}
+    \item Siano $p,q,r,s\in Q$, $u\in\Gamma$, $a,b\in\Sigma_\epsilon$, se $$ (r,u)\in\delta(p.a.\epsilon)\land  
+    (q,\epsilon)\in\delta(s,b,u)$$ allora ci sarà la regola $$A_{pq}\longrightarrow aA_{rs}b $$\begin{center}\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth ]{images/dimoPDACFG1.eps}
+        \caption{situazione del PDA}
+        \label{fig:dimoPDACFG1}
+    \end{figure}\end{center}
+    È ovvio che che si possa arrivare da $p$ a $q$ in tal modo, il carattere $a$ porta da $p$ ad $r$ (aggiungendo $u$), il 
+    carattere $b$ porta da $s$ a $q$ (rimuovendo $u$), la variabile $A_{rs}$ deriva\footnote{
+        con \textit{deriva}, si intende l'atto di generare tale stringa attraverso diverse produzioni, ossia la 
+        chiusura transitiva della relazione di produzione, precedentemente denotata $\Rightarrow^*$
+    } i caratteri che portano da $r$ ad $s$ con pila vuota.
+    \item Per ogni tripla $p,q,r\in Q$ si pone la regola $A_{pq}\longrightarrow A_{pr}A_{rq}$. 
+    \item Per ogni $p\in Q$, si pone la regola $A_{pp}\longrightarrow \epsilon$
+\end{itemize}
+La prova della dimostrazione segue dal fatto che $A_{pq}$ genera $x$ \textit{se e solo se} $x$ porta l'automa $P$ da 
+$p$ a $q$ con pila vuota, ne segue che, se $S=A_{q_0q_{accept}}$ deriva $x$, allora $x\in L(P)$. Tale dimostrazione sarà 
+suddivisa in due claim.\acc 
+\claim{1} Se $A_{pq}$ deriva $x$, allora $x$ porta da $p$ a $q$ con pila vuota. \acc 
+\dimo{ claim 1} Verrà dimostrato per induzione sul numero di produzioni di $x$ in $G$.\begin{itemize}
+    \item \textbf{caso base} : $x$ è generata da una regola di $G$ per $k=1$ produzione, allora l'unica regola 
+    che può generare $x$ è del tipo $A_{pp}\longrightarrow \epsilon$, allora $x=\epsilon$, e la stringa vuota porta 
+    l'automa $P$ da $p$ a $p$ con pila vuota. 
+    \item \textbf{ipotesi induttiva} : Per ogni $x$ generata da una regola di $G$ per $k>1$ produzioni, tale stringa 
+    congiunga i due stati in questione lasciando la pila vuota. 
+    \item \textbf{passo induttivo} : Supponiamo che $A_{pq}$ produca $x$ in $k+1$ produzioni, allora, data la definizione 
+    delle regole di $G$, la regola in questione può essere di due tipi : \begin{itemize}
+        \item La regola in questione è $A_{pq}\longrightarrow aA_{rs}b$, allora $x$ ha la forma $ayb$, ne consegue che 
+        $A_{rs}$ deriva $y$ in al più $k$ passi, quindi, per ipotesi, la stringa $y$ porta l'automa $P$ dallo stato
+        $r$ allo stato $s$ lasciando la pila vuota. Inoltre, per definizione delle regole è vero che 
+        $$ (r,u)\in\delta(p,a,\epsilon)\land (q,\epsilon)\in\delta(s,b,u) \ \ \text{ per qualche }u\in\Gamma$$
+        Quindi è chiaro che $x$ porti $P$ da $p$ a $q$ lasciando la pila vuota. 
+        \item La regola in questione è $A_{pq}\longrightarrow A_{pr}A_{rq}$,, allora la stringa $x$ sarà del tipo 
+        $yz$, quindi $A_{pr}$ deriva $y$, mentre $A_{rq}$ deriva $z$. Se $A_{pq}$ deriva $x$ in $k+1$ produzioni, allora 
+        le derivazioni di $y$ e $z$ avvengono in al più $k$ produzioni, ma allora per ipotesi$$\begin{cases}
+            y\text{ porta $P$ da $p$ a $r$ lasciando la pila vuota}\\ 
+            z\text{ porta $P$ da $r$ a $q$ lasciando la pila vuota}
+        \end{cases}\implies x=yz\text{ porta $P$ da $p$ a $q$ lasciando la pila vuota} $$
+    \end{itemize}
+    \hfill $\square$
+\end{itemize}
+\claim{ 2 } Se $x$ porta da $p$ a $q$ con pila vuota, allora $A_{pq}$ deriva $x$.\acc
+\dimo{ claim 2} Verrà dimostrato per induzione sul numero di passi di computazione dell'automa $P$.\begin{itemize}
+    \item \textbf{caso base} : L'automa compie 0 passi, la computazione inizia e finisce in $p$, l'input $x$ è quindi 
+    la stringa vuota, siccome per definizione delle regole, $G$ ha la regola $A_{pp}\longrightarrow\epsilon$, allora 
+    $A_{pp}$ deriva $x$. 
+    \item \textbf{ipotesi induttiva} : Si ipotizza che per ogni computazione  di $k>0$ passi (che lasci vuota 
+    la pila) da $p$ a $q$ con stringa in input 
+    $x$, la regola $A_{pq}$ deriva $x$.  
+    \item \textbf{passo induttivo} : Supponiamo che $x$ porti da $p$ a $q$ lasciando la pila vuota in $k+1$ passi di 
+    computazione, precisamente, ci sono due possibili casi \begin{itemize}
+        \item La pila è vuota solo negli stati $p$ e $q$, negli stati intermedi è stata riempita dal primo passo, e verrà 
+        poi svuotata all'ultimo passo. Sia $u$, tale carattere inserito all'inizio e rimosso al termine, e sia $a$
+        il simbolo che porta $p$ allo stato successivo $r$ (primo passo di computazione), e $b$ il simbolo che porta dal 
+        penultimo stato $s$ a $q$ (ultimo passo di computazione), proprio come mostrato in figura \ref{fig:dimoPDACFG1}. Per 
+        definizione, la grammatica $G$ contiene la regola $A_{pq}\longrightarrow aA_{rs}b$, quindi $x$ è del tipo 
+        $ayb$. La variabile $A_{rs}$ deriva $y$, quindi $y$ porta da $r$ a $s$ lasciando la pila vuota con al più 
+        $k-1$ passi. Ricapitolando\begin{itemize}
+            \item $a$ porta da $p$ ad $r$ aggiungendo $u$
+            \item $y$ porta da $r$ ad $s$ senza fare operazioni sulla pila 
+            \item $b$ porta da $s$ a $q$ rimuovendo $u$
+            \item $x=ayb$ porta da $p$ a $q$ lasciando la pila vuota 
+            \item $A_{pq}$ deriva $x$.
+        \end{itemize}
+        \item La pila viene svuotata negli stati intermedi fra $p$ e $q$, sia $r$ lo stato in cui la pila 
+        si svuota, essendo che la computazione da $p$ a $q$ richiede $k+1$ passi, allora le computazioni da 
+        $p$ ad $r$ e da $r$ a $q$ richiederanno al più $k$ passi. Sia $x=yz$, $y$ porta da  $p$ ad $r$, e 
+        $z$ porta da $r$ a $q$, per ipotesi $A_{pr}$ deriva $y$ e $A_{rq}$ deriva $z$, 
+        ma allora, essendo che esiste la regola $A_{pq}\longrightarrow A_{pr}A_{rq}$ ne consegue che 
+        $A_{pq}$ deriva $x=yz$.\begin{center}
+            \includegraphics[width=0.8\textwidth ]{images/dimoPDACFG2.eps}
+        \end{center}
+    \end{itemize}
+    \hfill $\square$
+\end{itemize}
+I due claim dimostrano il lemma $\impliedby$.\hfill $\blacksquare$\\
+Essendo entrambi i lati dimostrati, il teorema sull'equivalenza fra PDA e CFG è dimostrato.
+\subsection{Il Pumping Lemma per le Grammatiche Acontestuali} 
+Il teorema presentato in questa sezione mostra che esistono anche dei linguaggi non acontestuali, ossia, per i quali non 
+esiste alcuna grammatica che li genera. Un esempio di linguaggio acontestuale è il seguente 
+$$ L=\{0^n1^n2^n\ | \ n\ge 1\}$$
+Prima di presentare il teorema, è necessario introdurre il seguente fatto.\acc
+\claim{} Sia $G$ una CFG in forma normale Chomsky, data la forma delle regole, ogni 
+albero di derivazione di $G$ è binario, da ciò ne deriva che, preso un qualsiasi albero, se il cammino 
+più lungo di tale albero è lungo $i$, allora  allora la stringa generata sarà 
+lunga al più $2^{i-1}$.\acc 
+\dimo{ claim } Si dimostra per induzione su $i$\begin{itemize}
+    \item \textbf{caso base} : $i=1$, allora la derivazione è composta da una sola produzione, la stringa 
+    è lunga 1, infatti $2^{i-1}=2^{1-1}=2^0=1$. 
+    \item \textbf{ipotesi induttiva} : si assume sia vero per un generico $i>1$. 
+    \item \textbf{passo induttivo} : si consideri un cammino lungo $k=i+1 =  (i>1)+1 \ge 3$, la prima regola applicata 
+    deve essere necessariamente del tipo $$S\longrightarrow BC$$ i sotto alberi generati da $B$ e $C$ hanno il 
+    cammino più lungo (denominato da ora in poi \textit{altezza}) grande al più $i$, generano quindi stringhe 
+    lunghe al più $2^{-1}$, quindi $S$ genera stringhe lunghe al più $2\cdot 2^{i-1}=2^i=2^{k-1}$.\hfill$\blacksquare$
+\end{itemize}
+\teo{( Pumping Lemma per le CFG )} : Sia $L$ un linguaggio acontestuale, allora esiste un numero $p$ tale che, presa 
+una qualsiasi stringa $w$ lunga almeno $p$, ($|w|\ge p$), esiste una sua suddivisione $$w=uvxyz$$ tale che\begin{enumerate}
+    \item $\forall i\ge 0 \ \ \ uv^ixy^iz\in L$
+    \item $|vy|>0$
+    \item $|vxy|\ge p$
+\end{enumerate}
+\dimo{( Pumping Lemma per le CFG )} Sia $G=(V,\Sigma, R, S)$ la CFG associata ad $L$, ossia $L(G)=L$, si assume che $G$ sia in forma 
+normale Chomsky (senza perdita di generalità), quindi ogni suo albero di derivazione sarà binario. Sia $m=|V|$ il numero 
+di variabili distinte di $G$, identifichiamo come \textit{pumping} il numero $p=2^m$. Sia $w$ una generica stringa tale 
+che $|w|\ge p = 2^m$, allora $w$ avrà un albero di derivazione di altezza almeno $m+1$, ed il numero di nodi 
+nell'albero sarà almeno $m+2$, di cui 1 nodo è necessariamente un terminale, e gli altri $m+1$ sono variabili.\acc 
+Sia $w=uvxyz$, siccome le variabili distinte sono $m$, esiste una variabile $A_i$ che si ripete nell'albero, in particolare \begin{itemize}
+    \item L'albero con radice $A_i$ genera $vxy$
+    \item L'albero con radice $A_j=A_i$ genera $x$
+\end{itemize}
+Mentre $u$ e $z$ sono generate nella derivazione da $S$ ad $A_i$.\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/alberoDer1.eps}
+\end{center}
+Siccome $G$ è in forma normale, un sotto albero contiene, o un singolo terminale, o due variabili. Quindi, essendo che il 
+sotto albero di $A_i$ non può essere un terminale, avendo $A_j$, sarà composto da due variabili. 
+$$A_i\longrightarrow BC\in R $$
+Una delle due variabili fra $B$ e $C$ genererà $A_j$ che a sua volta deriverà $x$. L'altra variabile deriverà 
+$vy$, quindi $vxy\ne x$, ciò implica che necessariamente $|vy|>0$ (punto $(ii)$ dimostrato).\acc 
+Essendo che il cammino più lungo nell'albero ha lunghezza $m+1$, le stringhe generate avranno lunghezza 
+minore o uguale a $2^{(m+1)-1}=2^m=p$, quindi $|vxy|\ge p$  (punto $(iii)$ dimostrato).\acc 
+Le variabili $A_i$ e $A_j$ possono essere sostituite nell'albero di computazione.
+\begin{center}
+    \includegraphics[width=0.85\textwidth ]{images/alberoDer2.eps}
+\end{center}
+In generale, è chiaro come $\forall i \ uv^ixy^iz\in L$. (punto $(i)$ dimostrato), la dimostrazione del 
+teorema è completa.\hfill$\blacksquare$
 \end{document}
