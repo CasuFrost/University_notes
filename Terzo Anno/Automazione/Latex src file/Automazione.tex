@@ -1192,10 +1192,94 @@ realizzabili.\begin{itemize}
     \item \textbf{Economia del fare} : le stampanti 3D, grazie alla prototipazione rapida, hanno permesso l'insorgere di un "artigianato digitale" 
     autoprodotto a basso costo, con uso di materiali  plasmabili e anche di robot programmati.
 \end{itemize}
-
-
-
-
+\subsubsection{Cloud Automation}
+I robot di servizio nei centri di \textit{Amazon} che si occupano dello stoccaggio 
+dei prodotti funzionano grazie a degli algoritmi di instradamento che 
+ne determinano i percorsi ottimali, tali algoritmi molto spesso risultano 
+costosi da un punto di vista computazionale, de facto, i robot di questo tipo 
+inviano i dati ad un server centralizzato che si occupa di eseguire gli algoritmi per 
+poi restituire i risultati ai robot.\acc 
+Un aspetto fondamentale dell'industria 4.0 è il processo di 
+\textbf{trasformazione digitale} nelle aziende tramite l'inclusione delle 
+tecnologie ICT, in particolare, sono identificati 6 passi 
+fondamentali nella trasformazione, che incrementano il valore 
+dell'azienda e del prodotto finale.
+\\\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth ]{images/trasformazioneDigitale.png}
+    \caption{i 6 passi della trasformazione digitale}
+\end{figure}\\
+ Ovviamente tale processo ha dei costi da sostenere, banalmente 
+ l'implementazione di hardware e software, inoltre,è soggetto 
+ ad errori che possono comportare rischi non di poco conto, i quali\begin{itemize}
+    \item mancanza di una strategia chiara 
+    \item mancanza di consenso ed impegno nella leadership
+    \item concentrazione sulle tecnologie piuttosto che sulle persone 
+    \item farsi guidare dalle tendenze senza avere una visione
+    \item trascurare il contributo dei clienti
+    \item voler organizzare il processo in autonomia 
+    \item sottovalutare le competenze interne 
+    \item non considerare la sicurezza dei dati 
+    \item mancanza di flessibilità 
+    \item carenza di comunicazione 
+    \item sottovalutazione delle complessità
+ \end{itemize}
+\redText{Continuare da slide Automazione\_industria4.0 pagina 33}
+\chapter{Reti per l'Automazione}
+Le informazioni vengono condivise orizzontalmente e verticalmente 
+fra i livelli della piramide CIM, in particolare\begin{itemize}
+    \item si acquisiscono informazioni 
+    \item si elaborano strategie 
+    \item si attuano azioni correttive
+\end{itemize}
+I sistemi di comunicazione devono essere adeguati 
+al garantire il flusso di informazioni fra i vari livelli della 
+rete che differiscono nelle caratteristiche\begin{itemize}
+    \item tipologie di dati differenti 
+    \item differenti vincoli di comunicazione (ad es. il livello di campo 
+    avrà dei vincoli real time)
+\end{itemize}
+È necessaria una standardizzazione dei protocolli di comunicazione digitale.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/reti.png}
+\end{center}
+Gli elementi base di una rete sono \begin{itemize}
+    \item Un mittente 
+    \item Un destinatario 
+    \item Un mezzo fisico sul quale viaggerà l'informazione 
+\end{itemize}
+I dati sono sul mezzo delle informazioni fisiche (luce, tensioni 
+elettriche), i segnali possono essere analogici o digitali, 
+in base alla definizione del protocollo. Il tipo di 
+trasmissione può variare a seconda di diversi fattori, 
+quali la \textbf{direzione}\begin{itemize}
+    \item \textit{Simplex} : la trasmissione è unidirezionale 
+    \item \textit{half duplex} : la trasmissione è bidirezionale ma 
+    alternata, non si può trasmettere informazione in entrambe le direzioni 
+    nello stesso momento
+    \item \textit{full duplex} : bidirezionale simultanea 
+\end{itemize}
+il posizionamento dei bit\begin{itemize}
+    \item \textit{parallela} : i bit di un byte vengono trasmessi 
+    in parallelo su più canali, viene usata su distanze ridotte causa la 
+    facile interferenza alla quale son soggetti.
+    \item \textit{seriale} : il mezzo fisico è tipicamente 
+    suddiviso in "invio","ricezione" e "massa", ed i bit di un byte 
+    sono trasmessi in sequenza uno dopo l'altro. Quest'ultima può 
+    a sua volta essere\begin{itemize}
+        \item sincrona : i dati sono trasmessi continuamente insieme 
+        ad un segnale di sincronizzazione 
+        \item i dati sono trasmessi in modo irregolare a frequenza costante, 
+        con bit di sincronizzazioni incapsulati nei dati 
+    \end{itemize}
+\end{itemize}
+Le reti industriali prevedono solitamente una trasmissione digitale 
+half duplex, seriale ed asincrona.\\\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth ]{images/protocolliReti.pdf}
+    \caption{tipi di reti e protocolli industriali}
+\end{figure}\\
+\redText{Continua da slide Automazione\_RetiAutomazione pagina 7}
 
 
 
