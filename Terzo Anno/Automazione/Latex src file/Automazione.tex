@@ -1224,8 +1224,59 @@ dell'azienda e del prodotto finale.
     \item carenza di comunicazione 
     \item sottovalutazione delle complessità
  \end{itemize}
-\redText{Continuare da slide Automazione\_industria4.0 pagina 33}
+La \textit{McKinsey} nel 2017 ha rilasciato un rapporto riguardante le attività lavorative ed il possibile 
+grado di automatizzazione di queste, in particolare, si hanno i seguenti risultati, su un analisi che ha coinvolto 
+circa 2000 attività lavorative relative a circa 800 occupazioni\begin{itemize}
+    \item Storicamente l'automazione ha aumentato la produttività del (circa) $1\%$ all'anno
+    \item Con le attuali tecnologie (in riferimento al 2017), è possibile automatizzare circa la metà delle 
+    attività lavorative 
+    \item Le attività che si prestano maggiormente ad essere automatizzate, son quelle che caratterizzano lavori 
+    fisici, prevedibili e ripetitivi, che richiedono tipicamente un basse capacità cognitive. Costituiscono circa 
+    il 51\% delle attività negli USA
+    \item Le occupazioni le cui attività possono essere completamente automatizzate sono circa il 5\% 
+    \item Nel 60\% delle occupazioni, circa il 30\% delle attività può essere atuomatizzato 
+    \item Il lavoro umano affiancato ai robot è necessario a garantire la crescita del PIL
+\end{itemize}\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/attivitaAutomatizzabili.pdf}
+\end{center}\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth ]{images/andamentoLavori.eps}
+    \caption{Andamento dei posti di lavoro in base al livello di educazione}
+\end{figure}
+\subsection{Industria 5.0}
+La commissione Europea ha trattato un rapporto sull'industria 5.0, che mira a sviluppare  il modello dell'industria 
+4.0 verso un'industria europea sostenibile, resiliente e centrata sulla persona. Il progetto di 
+ricerca \textit{Horizone Europe} punta ad investire sui progetti di ricerca che incorporino tali modelli, in Italia, 
+il \textbf{PNNR} è un insieme di iniziative che puntano alla trasformazione dei sistemi di produzione, in particolare\begin{enumerate}
+    \item digitalizzazione, innovazione, cultura 
+    \item transazione al verde 
+    \item infrastrutture per una mobilità sostenibile 
+    \item istruzione e ricerca 
+    \item coesione ed inclusione sociale 
+    \item salute
+\end{enumerate}
+Come già accennato, le parole chiave dell'industria 5.0 sono le seguenti\begin{itemize}
+    \item \textbf{resilienza} : gestire i cambiamenti desiderati e non (ad esempio, pandemie) con una 
+    produzione  industriale
+    dotata di supporti per le
+    infrastrutture critiche e
+    resistente a "interruzioni".
+    \item \textbf{centralità della persona} : mettere l'essere umano al primo posto e chiedersi cosa 
+    può fare la tecnologia per noi, e non cosa possiamo fare noi per la tecnologia, in particolare, adottarla 
+    per adattare i processi produttivi alle necessità dei lavoratori.
+    \item \textbf{sostenibilità} : economia circolare, riduzione dei rifiuti e dell'impatto ambientale, assicurare 
+    i bisogni odierni senza mettere
+    a repentaglio le future
+    generazioni.
+\end{itemize}
+
+
+
 \chapter{Reti per l'Automazione}
+Molti dei concetti trattati in questo capitolo, sono considerati più approfonditamente negli appunti del 
+corso di 
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Latex%20source%20file/Reti%20di%20Elaboratori.pdf}{Reti di Elaboratori}\color{black}.
+\section{Sistemi di Comunicazione}
 Le informazioni vengono condivise orizzontalmente e verticalmente 
 fra i livelli della piramide CIM, in particolare\begin{itemize}
     \item si acquisiscono informazioni 
@@ -1241,7 +1292,7 @@ rete che differiscono nelle caratteristiche\begin{itemize}
 \end{itemize}
 È necessaria una standardizzazione dei protocolli di comunicazione digitale.
 \begin{center}
-    \includegraphics[width=1\textwidth ]{images/reti.png}
+    \includegraphics[width=0.8\textwidth ]{images/reti.png}
 \end{center}
 Gli elementi base di una rete sono \begin{itemize}
     \item Un mittente 
@@ -1276,10 +1327,181 @@ il posizionamento dei bit\begin{itemize}
 Le reti industriali prevedono solitamente una trasmissione digitale 
 half duplex, seriale ed asincrona.\\\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\textwidth ]{images/protocolliReti.pdf}
+    \includegraphics[width=0.85\textwidth ]{images/protocolliReti.pdf}
     \caption{tipi di reti e protocolli industriali}
 \end{figure}\\
-\redText{Continua da slide Automazione\_RetiAutomazione pagina 7}
+Le \textit{Rete Enterprise} sono adottate per le informazioni gestionali e seguono il classico 
+modello client-server, non hanno vincoli di real-time, più che la "robustezza" dell'informazione rispetto 
+ai disturbi ambientali (che possono essere presenti in una cella), è importante 
+la sicurezza e la riservatezza di esse. Tali reti seguono lo standard Ethernet, e sfruttano i 
+protocolli di rete e di trasporto (ossia, IP e TCP) per garantire la ritrasmissione sicura dei dati 
+in caso di perdite di pacchetti.\acc 
+Le reti al livello di \textit{Controllo e Campo} invece gestiscono le informazioni nelle celle 
+e fra le varie macchine, i dispositivi comunicanti spesso non sono standard, ma sono PLC, controllori embedded, 
+e dispositivi di campo, quindi è importante che i protocolli in tale livello siano flessibili ed 
+adattabili all'eterogeneità dei client.\acc  Qui i dati trasmessi hanno piccole dimensioni, ma la 
+frequenza di trasmissione è alta, e deve soddisfare i vincoli real time, per questo Ethernet non è 
+appropriato e si utilizzano soluzioni apposite. Essendo l'ambiente industriale "ostile", i mezzi di 
+trasmissione devono essere robusti, i ritardi nella trasmissione nella struttura ad anello dei controllori 
+possono causare un degrado nelle prestazioni non trascurabile, è più che mai necessario \textit{determinismo} nella 
+trasmissione.
+\flowerLine 
+\section{Classificazione ed Architetture delle Reti}
+Nel livello di campo, esistono due possibili architetture della rete da adottare che si 
+differenziano nella topologia della rete ed altri fattori. In particolare\begin{itemize}
+    \item \textbf{Architettura tradizionale} : Un architettura centralizzata in cui il controllore 
+    prevede un collegamento punto-punto con ogni altri dispositivo di campo.\acc 
+    \textit{Vantaggi}\begin{itemize}
+        \item sistema affidabile e collaudato 
+        \item disponibilità di tutte le tipologie di
+        strumentazione sul mercato
+    \end{itemize}
+    \textit{Svantaggi}\begin{itemize}
+        \item elevato numero di collegamenti 
+        \item cablaggio costoso 
+        \item lavoro di stesura e protezione dei fili critico
+    \end{itemize}
+    \item \textbf{Architettura a bus di campo (fieldbus)} : Un architettura che prevede la presenza di 
+    un bus centrale (la cui comunicazione è digitale)
+     alla quale ogni dispositivo si connette direttamente.\acc
+     \textit{Vantaggi}\begin{itemize}
+        \item installazione più economica 
+        \item modularità : è facile aggiungere e rimuovere dispositivi 
+        \item tolleranza ai guasti 
+        \item condivisione delle risorse
+    \end{itemize}
+    \textit{Svantaggi}\begin{itemize}
+        \item i dispositivi comunicano sullo stesso mezzo, è quindi necessario un protocollo di 
+        accesso al mezzo 
+        \item difficile da installare in aree pericolose
+    \end{itemize}
+\end{itemize}\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth ]{images/tradVSfieldbus.eps}
+    \caption{soluzioni a livello di campo}
+\end{figure}
+\subsection{Tipologie di Reti}
+Una rete può essere\begin{itemize}
+    \item \textbf{broadcast} : vi è un unico canale di comunicazione condiviso da ogni macchina 
+    sulla rete, i messaggi arrivano ad ogni nodo, i nodi scarteranno i messaggi di cui non sono 
+    destinatari. Queste possono essere a loro volta\begin{itemize}
+        \item \textit{reti a bus} : canale condiviso, in ogni istante un solo nodo può trasmettere 
+        contemporaneamente, è necessario arbitraggio. 
+        \item \textit{reti ad anello} : i pacchetti circolano in serie su un anello, necessario 
+        arbitraggio per accessi simultanei
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.85\textwidth ]{images/anelloEbus.eps}
+    \end{center}
+    \item \textbf{peer-to-peer} : per ogni coppia di nodi vi è una connessione dedicata, 
+    se due macchine non sono connesse fisicamente, è necessario definire un cammino fra di esse tramite 
+    appositi algoritmi di routing, 
+    se più pacchetti relativi allo stesso messaggio seguono cammini diversi, è
+    necessario gestire anche la sequenza con cui essi vengono ricevuti. Vengono applicate a reti di dimensioni maggiori, normalmente 
+    più reti LAN sono connnesse in tal modo.\begin{center}
+        \includegraphics[width=0.85\textwidth ]{images/puntopunto.eps}
+    \end{center}
+    \item Nella maggioranza delle applicazioni più complesse, la soluzione più frequente 
+    ricade in \textbf{reti ibride}.
+\end{itemize}
+Esiste una scala di classificazione delle reti :\begin{center}
+    \begin{tabular}{|
+            >{\columncolor[HTML]{EFEFEF}}c |
+            >{\columncolor[HTML]{FFFFFF}}c |c|
+            >{\columncolor[HTML]{FFFFFF}}c |}
+        \hline
+        \cellcolor[HTML]{9AFF99}{\color[HTML]{000000} Scala} & \cellcolor[HTML]{9AFF99}Tipo & \cellcolor[HTML]{9AFF99}Nome completo & \cellcolor[HTML]{9AFF99}Esempio \\ \hline
+        Distanza ravvicinata                                 & PAN                          & Personal Area Network                 & Bluetooth                       \\ \hline
+        Edificio                                             & LAN                          & Local Area Network                    & WiFi, Ethernet                  \\ \hline
+        Città                                                & MAN                          & Metropolitan Area Network             & Cablata, DSL                    \\ \hline
+        Paese                                                & WAN                          & Wide Area Network                     & Grandi ISP                      \\ \hline
+        Pianeta                                              & Internet                     & La rete di tutte le reti              & L'Internet                      \\ \hline
+    \end{tabular}
+\end{center}
+La \textbf{LAN} è la rete locale, come una rete domestica, è una rete privata ed ogni terminale connesso ad essa è identificato
+da un indirizzo distinto dagli altri, può essere a \textit{cavo condiviso} oppure a \textit{commutazione} con uno switch.
+In tale modello di cavo condiviso il pacchetto inviato ad un dispositivo viene ricevuto da tutti, solo il destinatario lo
+elaborerà, tutti i restanti host lo ignoreranno.\acc
+Quest'ultimo a commutazione è il più utilizzato tutt'oggi, ogni dispositivo è direttamente collegato allo switch, ed esso è
+in grado di riconoscere gli host ed inviare i pacchetti esclusivamente al destinatario, riduce il traffico nella LAN.\acc
+Le reti \textbf{WAN} sono reti geografiche, vengono interconnessi dispositivi di comunicazione, necessari a città, regioni o
+perfino nazioni. I dispositivi in questione sono switch, router e modem, tale rete è gestita da un grande operatore/ente di
+telecomunicazioni detto IPS (Internet Service Provider) che fornisce i servizi alle organizzazioni.\acc Una WAN può vedere i suoi
+dispositivi di comunicazione connessi punto-punto, oppure a commutazione, con più punti di terminazione (usata nelle dorsali di
+Internet), tutt'oggi è raro trovare LAN o WAN isolate, spesso sono connesse fra loro per formare una internetwork (internet), per
+mettere in comunicazione due LAN in città differenti tramite una WAN.
+\subsubsection{Dispositivi di Interconnessione}
+Per il collegamento fra tratti di una stessa rete, oppure fra reti diverse, sono coinvolti vari dispositivi\begin{itemize}
+    \item \textbf{repeater (ripetitore)} : amplifica e ricostituisce il segnale originale su segmenti analoghi della
+    stessa rete [repeater RS485]
+    \item   \textbf{hub (concentratore)} : estende una rete a stella, amplifica e ricostituisce lo stesso segnale su
+    tutte le porte, non riduce le collisioni [Ethernet hub] 
+    \item  \textbf{switch (interruttore)} : come un hub, ma su una singola porta per volta, può ridurre le
+    collisioni [Ethernet switch]
+    \item \textbf{transceiver (ricetrasmettitore)} : connette a una stessa rete segmenti di diversa tipologia
+    [RS232/RS485 transceiver]
+    \item \textbf{bridge (ponte)} : connette due reti che usano lo stesso protocollo ma che hanno layer
+    differenti al livello inferiore [Modbus RS485 / Ethernet TCP-IP bridge]
+    \item  \textbf{router (instradatore)} : connette due reti dello stesso tipo [Ethernet TCP-IP router] 
+    \item \textbf{gateway (portale)} : connette due reti di tipo diverso [Ethernet / Modbus gateway] 
+\end{itemize}
+Nelle reti broadcast, l'accesso al canale può venire per vie di allocazione \begin{itemize}
+    \item \textbf{statica} :  il tempo viene suddiviso in time slices (quanti) e ad ogni nodo 
+    viene dedicato un intervallo periodico in cui può comunicare, nel caso non abbia nulla 
+    da trasmettere, il canale resta inutilizzato (spreco di banda). 
+    \item \textbf{dinamica} : Si suddivide in \begin{itemize}
+        \item controllo centralizzato : un nodo \textit{master} determina il prossimo 
+        dispositivo che potrà comunicare tramite strategie di polling. 
+        \item controllo decentralizzato : ogni nodo decide autonomamente se trasmettere o no. 
+        \item sistemi a collisione : i nodi possono trasmettere, se capita che due di essi 
+        trasmettano contemporaneamente, vi sarà una \textit{collisione} che verrà 
+        rilevata ed eventualmente risolta.
+    \end{itemize}
+\end{itemize}
+\subsubsection{Architettura Software}
+I 5 macro-livelli sulla quale si fonda la comunicazione sono i seguenti :
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/livelli.eps}
+\end{center}
+Sino ad ora i dati incapsulati che vengono comunicati sulla rete sono stati chiamati generalmente
+"pacchetti", vedremo che questi assumono una denominazione diversa per ogni livello. Ogni protocollo
+fa parte di un livello, ed anche se esistono più protocolli per un livello, ogni pacchetto
+che viene trasmesso usufruisce di un solo protocollo per livello. I nomi dei protocolli citati in
+seguito, verranno approfonditi e caratterizzati in seguito.
+\begin{enumerate}
+    \item Il livello di \textbf{applicazione} è dove risiedono le applicazioni di rete che
+          usufruiscono dei servizi di Internet, alcuni dei protocolli presenti in questo livello
+          sono \textit{HTTP,SMTP,FTP,DNS}, in questo livello, i pacchetti sono chiamati
+          \textg{messaggi}.
+    \item Il livello di \textbf{trasporto} si occupa del trasferimento dei messaggi  dal livello di
+          applicazione di un client al livello di applicazione del server, alcuni protocolli sono
+          \textit{TCP} e \textit{UDP}, in questo livello, i pacchetti sono chiamati
+          \textg{segmenti}.
+    \item Il livello di \textbf{rete} riguarda l'instradamento dei segmenti dall'origine alla
+          destinazione, un noto protocollo è l'\textit{IP}, i pacchetti in questo livello sono detti
+          \textg{datagrammi}.
+    \item Il livello di \textbf{collegamento} si occupa della trasmissione dei datagrammi da un
+          nodo della rete al nodo successivo sul percorso, alcuni protocolli sono \textit{Ethernet,Wi-Fi e
+              PPP}, lungo un percorso sorgente-destinazione, un datagramma può essere gestito anche da
+          differenti protocolli, i pacchetti qui sono detti \textg{frame}.
+    \item Il livello \textbf{fisico} riguarda il trasferimento dei singoli \textbf{bit} sul canale
+          fisico, tramite elettricità nei cavi, oppure onde elettromagnetiche.
+\end{enumerate}
+Durante la comunicazione, non tutti i sistemi intermedi richiedono che il messaggio venga processato
+su tutti i livelli, alcuni dispositivi richiedono solo alcuni layer, riducendo la complessità.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/comunicazioneProtocolli.eps}
+\end{center}
+Lo strato di un livello ha una comunicazione logica/virtuale con lo stesso livello su un altro
+computer, ma i dati non sono trasferiti direttamente da uno strato all'altro, passano per tutti i livelli
+inferiori, un \textit{protocollo} è quindi un insieme di regole che controllano il formato ed il
+significato dei pacchetti scambiati tra le entità \textit{pari} all'interno di uno strato, un
+\textit{servizio} invece è un insieme di primitive che uno strato offre a quello superiore, ossia :\begin{itemize}
+    \item Quali operazioni fornisce (senza dire nulla sull'implementazione).
+    \item Posto come interfaccia fra due strati, quello inferiore fornisce il servizio, quello superiore ne
+          usufruisce.
+\end{itemize}
+
 
 
 

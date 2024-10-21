@@ -1,22 +1,22 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="24.8.0">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.7.17">
   <diagram name="Pagina-1" id="UGA1IEgH80nTBHACCfYq">
-    <mxGraphModel dx="294" dy="172" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="719" dy="374" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-1" value="controllo processo" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-1" value="controllo processo" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="400" y="90" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-2" value="controllo macchina" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-2" value="controllo macchina" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="400" y="202.5" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-5" value="semplice&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-5" value="semplice&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="500" y="270" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-7" value="sofisticata" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-7" value="sofisticata" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="800" y="270" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-8" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-8" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="880" y="260" as="sourcePoint" />
             <mxPoint x="480" y="50" as="targetPoint" />
@@ -25,17 +25,17 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-9" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;bus per sensori ed attuatori : &lt;font style=&quot;font-size: 8px;&quot; color=&quot;#ff4529&quot;&gt;master-slave&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="500" y="202.5" width="90" height="45" as="geometry" />
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-9" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;bus per sensori ed attuatori : &lt;font style=&quot;font-size: 10px;&quot; color=&quot;#ff4529&quot;&gt;master-slave&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="490" y="190" width="100" height="57.5" as="geometry" />
         </mxCell>
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-10" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;fieldbus,(rete di campo) : &lt;font style=&quot;font-size: 8px;&quot; color=&quot;#ff4529&quot;&gt;CANopen, device net,&amp;nbsp;&lt;/font&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 8px;&quot;&gt;&lt;font style=&quot;font-size: 8px;&quot; color=&quot;#ff4529&quot;&gt;profilbus, modbus&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="570" y="147.5" width="110" height="55" as="geometry" />
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-10" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;fieldbus,(rete di campo) : &lt;font style=&quot;font-size: 10px;&quot; color=&quot;#ff4529&quot;&gt;CANopen, device net,&amp;nbsp;&lt;/font&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot; color=&quot;#ff4529&quot;&gt;profilbus, modbus&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="590" y="140" width="110" height="72.5" as="geometry" />
         </mxCell>
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-11" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;controlbus(LAN) : &lt;font color=&quot;#ff4529&quot;&gt;&amp;nbsp;ethernet, TCP, modbus&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="670" y="100" width="110" height="55" as="geometry" />
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-11" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;controlbus(LAN) : &lt;font style=&quot;font-size: 10px;&quot; color=&quot;#ff4529&quot;&gt;&amp;nbsp;ethernet, TCP, modbus&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="690" y="100" width="110" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="IYiWlAmj5kYA9mnkdgAs-12" value="&lt;span style=&quot;font-size: 8px;&quot;&gt;Enterpries :&amp;nbsp;&lt;font color=&quot;#256be6&quot;&gt;Ethernet/TCP/IP/FTP/HTTP&lt;/font&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="770" y="60" width="110" height="55" as="geometry" />
+        <mxCell id="IYiWlAmj5kYA9mnkdgAs-12" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;Enterprise :&lt;/span&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp;&lt;font style=&quot;font-size: 10px;&quot; color=&quot;#256be6&quot;&gt;Ethernet/TCP/IP/&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot; color=&quot;#256be6&quot;&gt;FTP/HTTP&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="790" y="60" width="110" height="55" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
