@@ -1843,4 +1843,88 @@ $$ y(t)=(\frac{1}{2}e^{-t}-\frac{1}{2}e^{-3t})H(t)$$
            \end{tikzpicture}
    \end{figure}
    \end{center}
+\subsection{Zeri e Poli}
+Riprendiamo in analisi la seguente EDO che descrive un sistema 
+$$ a_0{y''(t)}+ a_1{y'(t)}+a_2y(t)=0 \ \ \begin{cases}
+    y(0)=y_0   \\ y'(0)=0
+\end{cases}$$
+Nella seguente notazione, verrà utilizzata $s$ per 
+la variabile complessa, applicando la trasformata si ottiene 
+$$a_0(s^2Y(s)-sy_0)+a_1(sY(s)-y_0)+a_2Y(s)=0$$ 
+$$ a_0s^2Y(s)-a_0sy_0+a_1sY(s)-a_1y_0+a_2Y(s)=0$$
+Si risolve per $Y(s)$
+$$ 
+Y(s)=\frac{y_0(a_0s+a_1)}{(a_0s^2+a_1s+a_2)}=\frac{p(s)}{q(s)}
+$$
+Il polinomio al denominatore $q(s)=(a_0s^2+a_1s+a_2)$ si dice \textbf{equazione caratteristica} e le sue 
+radici, dette \textbf{poli}, determinano il carattere della risposta nel tempo del sistema. Le radici del 
+numeratore $p(s)$ sono dette \textbf{zeri} del sistema. Ai poli, la funzione $Y(s)$ va all'infinito, 
+sugli zeri invece va a zero. Il numero di zeri è sempre minore o uguale al numero dei poli.\acc 
+\textbf{Esempio} : Supponiamo che $a_0=1$, $a_2=2$ e $a_1=3$, l'equazione diventa 
+$$ 
+Y(s)=\frac{y_0(s+3)}{(s^2+3s+2)} = \frac{y_0(s+3)}{(s+1)(s+2)}
+$$\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/polizeri.eps}
+\end{center}
+Dato un sistema descritto da un EDO,
+una volta ottenuta la sua evoluzione nel tempo grazie alla trasformazione di 
+Laplace, è utile studiare il \textit{valore finale} della risposta, detto anche 
+\textit{stato stazionario}, sia $y(t)$ tale risposta, si vuole determinare l'evoluzione 
+del sistema per $t$ che tende ad infinito. \acc 
+\teo{(valore finale)} : Sia $y(t)$ una funzione e $Y(s)$ la sua trasformata di Laplace, 
+se $\lim_{t\rightarrow \infty}y(t)<\infty$ allora
+ \eqImportante{$\displaystyle\lim_{t\rightarrow \infty}y(t)=\lim_{s\rightarrow 0}sY(s)$}
+ \defi{(Stabilità)} Un sistema dinamico è \textit{stabile} se e solo se tutti i poli della sua funzione di 
+ trasferimento hanno parte reale negativa.
+\subsection{Coefficiente di Smorzamento e Pulsazione Naturale}
+Il coefficiente di smorzamento $\zeta$ e la pulsazione naturale $\omega_n$
+sono due parametri fondamentali che caratterizzano il comportamento 
+di un sistema dinamico, e sono strettamente legati alla posizione dei
+poli nel piano complesso s della funzione di trasferimento.\acc Una EDO del secondo ordine, se analizzata 
+nel dominio di Laplace, avrà al più due poli.\acc 
+\claim{} La trasformata di Laplace di una EDO di ordine $n$ avrà al più $n$ poli.\acc 
+La generica trasformazione di Laplace di una EDO omogenea di ordine 2 ha la seguente forma 
+$$ Y(s)=\frac{a_0s\alpha+a_0\beta+a_1\alpha}{(a_0s^2+a_1s+a_2)}$$
+La funzione caratteristica ha $a_0s^2+a_1s+a_2$ due poli, siano questi $s_1,s_2$, si pongono 
+$$ \begin{matrix}
+    s_1=-\zeta\omega_n+\omega_n\sqrt{\zeta^2-1}\\ 
+    s_2=-\zeta\omega_n-\omega_n\sqrt{\zeta^2-1}
+\end{matrix}$$
+I termini $\zeta$ e $\omega_n$ sono, rispettivamente, Il coefficiente di smorzamento e la pulsazione naturale del 
+sistema descritto dalla EDO. In generale, una tipica funzione di trasferimento del secondo ordine 
+è della forma 
+$$ 
+G(S)=K\frac{1}{s^2+2\zeta\omega_ns+\omega_n^2}
+$$
+Il calcolo di tali termini avviene confrontando i valori del denominatore a quelli della funzione 
+generica.\subsubsection{Esempio}  Si ha la seguente funzione di trasferimento 
+$$ 10\frac{1}{s^2+4s+16}$$
+Si ha 
+$$\begin{matrix}
+    K=10\\ 2\zeta\omega_n=4\\\omega_n^2=16
+\end{matrix} $$
+Allora\begin{eqnarray}
+    \omega_n=\sqrt{16}=4\implies \\ 
+    2\zeta\cdot 4=4\implies 2\zeta=1 \implies \zeta  = \frac{1}{2}
+\end{eqnarray}
+Un sistema può essere\begin{itemize}
+    \item \textbf{sotto smorzato} se $\zeta<1$
+    \item \textbf{criticamente smorzato}  se $\zeta=1$
+    \item \textbf{sovra smorzato} se $\zeta>1$
+\end{itemize}
+Soffermiamoci sulla rappresentazione polare dei poli della funzione di trasferimento, $\omega_n$ e 
+$\zeta$ sono numeri reali, i poli quindi, per definizione, saranno valori 
+reali se $\zeta\ge1$, in quanto il termine sotto radice nella definizione di questi si annullerebbe, 
+differentemente, se $\zeta=0$, il termine a sinistra si annullerebbe, e rimarrebbe 
+esclusivamente il valore immaginario.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/zetaomega.eps}
+\end{center} 
+\begin{itemize}
+    \item finché $\zeta$ è minore di 1, i poli, definiti $-\zeta\omega_n\pm\omega_n\sqrt{\zeta^2-1}$ avranno 
+    parte immaginaria, e si troveranno sul semicerchio di circonferenza $\omega_n$ 
+    \item se $\zeta=0$, allora i poli avranno parte reale nulla e si troveranno sull'asse immaginario
+    \item se $\zeta\ge 1$, allora il termine sotto radice non sarà immaginario quindi i poli 
+    vivranno sull'asse reale. Se ciò avviene, il sistema è stabile.
+\end{itemize}
+
 \end{document}
