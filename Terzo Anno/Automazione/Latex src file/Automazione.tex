@@ -2,6 +2,14 @@
 % !TeX program = xelatex
 %==================PREAMBOLO=======================%
 \input{../../../preamble/preamble.tex}
+\usepackage{circuitikz}
+\ctikzset{bipoles/thickness=1.2}
+
+\newcommand{\midlabelline}[3]{
+   \node (midlabel) at ($ (#1)!.5!(#2) $) {#3};
+   \draw[latex-] (#1) --  (midlabel);
+   \draw[-latex] (midlabel) -- (#2);
+}
 \usetikzlibrary{petri}
  %TOGLI COMMENTO SE USI XELATEX
 %\usepackage{fontspec}
@@ -1918,7 +1926,10 @@ reali se $\zeta\ge1$, in quanto il termine sotto radice nella definizione di que
 differentemente, se $\zeta=0$, il termine a sinistra si annullerebbe, e rimarrebbe 
 esclusivamente il valore immaginario.\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/zetaomega.eps}
-\end{center} 
+\end{center} \begin{quote}
+    
+    I poli sono, o entrambi reali, oppure complessi e coniugati.
+\end{quote}
 \begin{itemize}
     \item finché $\zeta$ è minore di 1, i poli, definiti $-\zeta\omega_n\pm\omega_n\sqrt{\zeta^2-1}$ avranno 
     parte immaginaria, e si troveranno sul semicerchio di circonferenza $\omega_n$ 
@@ -1926,5 +1937,156 @@ esclusivamente il valore immaginario.\begin{center}
     \item se $\zeta\ge 1$, allora il termine sotto radice non sarà immaginario quindi i poli 
     vivranno sull'asse reale. Se ciò avviene, il sistema è stabile.
 \end{itemize}
-
+\subsection{Espansione in Fratti Semplici}
+Consideriamo una generica funzione di trasferimento di un sistema, nella forma 
+$$ F(S)=\frac{N(s)}{D(s)}$$
+Tali funzioni saranno sempre di tale forma, $N(s)$ e $D(s)$ sono i polinomi, sia 
+$r$ il grado di $N$ e sia $q$ il grado di $D$, si avranno\begin{itemize}
+    \item $r$ zeri $z_1,z_2\dots,z_r\in\C$\begin{itemize}
+        \item di molteplicità $m_j$ con $j=1\dots, r$
+    \end{itemize}
+    \item $q$ poli $p_1,p_2\dots,p_q\in\C$\begin{itemize}
+        \item di molteplicità $n_i$ con $i=1\dots, q$
+    \end{itemize}
+ \end{itemize}
+La funzione $F(S)$ può essere scritta nella forma 
+$$ F(S)=K\frac{(s-z_1)^{m_1}(s-z_2)^{m_2}\dots (s-z_r)^{m_r}}{(s-p_1)^{n_1}(s-p_2)^{n_2}\dots (s-p_r)^{n_q}}$$
+Applicare l'anti-trasformata ad una funzione di questo tipo è difficile, infatti è possibile 
+riscrivere $F(s)$ come segue 
+$$ F(S)=\begin{matrix}\displaystyle
+    \frac{C_{1,1}}{(s-p_1)}+\dots+\frac{C_{1,{n_1}}}{(s-p_1)^{n_1}}+\dots \\ \\
+    \displaystyle\frac{C_{2,1}}{(s-p_2)}+\dots+\frac{C_{2,{n_2}}}{(s-p_2)^{n_2}}+\dots \\ 
+    \vdots \\ 
+    \displaystyle\frac{C_{q,1}}{(s-p_q)}+\dots+\frac{C_{q,{n_q}}}{(s-p_q)^{n_q}}+\dots \\ 
+\end{matrix}$$
+In tale forma è semplice calcolare l'anti trasformata grazie alla proprietà di linearità, infatti, il 
+risultato è noto 
+$$ \mathcal{L}^{-1}\Bigg[\frac{C_{i,j}}{(s-p_i)^j}\Bigg](t)=\frac{C_{i,j}}{(j-1)!}t^{j-1}e^{p_it}\cdot H(t)$$
+A questo punto è necessario poter calcolare i coefficienti $C_{i,j}$.
+\redText{da continuare}
+\flowerLine 
+\section{Elementi di Teoria dei Sistemi}
+Possiamo rappresentare un sistema dinamico (a tempo continuo) come un processo 
+che date $m$ entrate restituisce $p$ uscite, convenzionalmente, definiamo $u$ l'entrata del sistema 
+e $y$ l'uscita.
+$$ \bar u(t)=\begin{bmatrix}
+    u_1(t)\\\vdots \\ u_m(t)
+\end{bmatrix} \ \ \ \ 
+\bar y(t)=\begin{bmatrix}
+    y_1(t)\\\vdots \\ y_p(t)
+\end{bmatrix} $$ \begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/sistema.eps}
+\end{center}
+Verranno trattati i sistemi a dimensione finita, essi sono caratterizzati 
+da delle cosiddette \textit{variabili di stato} (o da un vettore di stato)
+$$ \bar x(t)=\begin{bmatrix}
+    x_1(t)\\\vdots \\ x_n(t)
+\end{bmatrix}\in \R^n$$ 
+Un sistema ad $n$ variabili di stato è detto di ordine $n$.\acc 
+Un sistema verrà analizzato per un intervallo di tempo $t\ge t_0$, quindi a partire da un istante 
+di partenza $t_0$, per poter calcolare $y(t)$ per $t>t_0$ è \textit{necessario} conoscere 
+$\bar x (t_0)$. Un sistema dinamico è rappresentato come segue 
+$$ \begin{cases}
+    \dot{x}(t)=f(x(t),u(t),t)\\ 
+    y(t)=g(x(t),u(t),t)
+\end{cases}$$
+nel caso scalare, $f$ e $g$ descrivono il comportamento del sistema, generalmente sono grandezze associate 
+ad accumuli di energie, masse ecc... Per brevità di notazione 
+verrà scritto 
+$$ \begin{cases}
+    \dot{x}=f(x,u,t)\\ y=g(x,u,t)
+\end{cases}$$
+Il sistema si dice \textbf{tempo invariante} se $f$ e $g$ non dipendono da $t$. \\ 
+Il sistema si dice \textbf{lineare} se $f$ e $g$ sono lineari in $x,u$.\\
+Il sistema si dice \textbf{monovariabile} se l'ingresso e l'uscita sono funzioni ad una variabile. Altrimenti 
+si dice multivariabile.
+\acc 
+Ci occuperemo di sistemi \textbf{LTI}, ossia lineari e tempo invarianti. L'andamento delle variabili 
+di stato $\bar x$ è detto \textit{movimento dello stato}, mentre l'andamento delle variabili 
+$\bar y$ è il \textit{movimento dell'uscita}. Per i sistemi stazionari è lecito assumere che 
+l'istante iniziale $t_0$ sia $0$.
+\subsubsection{Esempio}
+Si consideri il circuito $RLC$ mostrato in figura\begin{center}
+\begin{circuitikz}
+    \draw (0,0) to [short] ++(0,1) node [right] {$-$}
+    to [open, v^>=$v(t)$, o-o] ++(0,1) node [right] {$+$}
+    to [short] ++(0,1)
+    to [R=$R$, i>^=$i(t)$, resistors/zigs=6] ++(4,0)
+    to [curved capacitor, l_=$C$, capacitors/thickness=8] ++(0,-3)
+    to [cute inductor, l_=$L$, mirror] ++(-4,0);
+\end{circuitikz}\end{center}
+le tensioni ai margini della resistenza, del condensatore e dell'induttore sono precisamente 
+$$ \begin{matrix}
+    v_L(t)=Li'(t)\\ 
+    v_R(t)=Ri(t)\\ 
+    \displaystyle v_C(t)=\frac{1}{C}\int_0^ti(t)dt
+\end{matrix}$$ 
+La legge di Kirchoff delle tensioni stabilisce che $$v(t)=v_L(t)+v_R(t)+v_C(t)$$
+quindi 
+$$ v(t)=Li'(t)+Ri(t)+\frac{1}{C}\int_0^ti(t)dt$$
+derivando rispetto a $t$ si ottiene 
+$$ \begin{cases}v'(t)=Li''(t)+Ri'(t)+\frac{1}{C}i(t)\\ 
+    y(t)=i(t) \ \ \text{ uscita }
+    
+    \end{cases} v$$
+Tale modello è quello di un sistema lineare tempo invariante, la tensione rappresenta 
+l'ingresso del sistema ed in base a questa è possibile ricavarne la corrente.Consideriamo una tensione costante di $v(t)=v_0$
+$$ 0=Li''(t)+Ri'(t)+\frac{1}{C}i(t)$$
+Si pongono i termini 
+$$ \alpha=\frac{R}{2L} \ \ \ \omega_0=\frac{1}{\sqrt{LC}} \ \ \ \zeta=\frac{R}{2}\sqrt{\frac{C}{L}}$$
+$$ \omega_n=\omega_0\sqrt{1-\zeta^2}$$
+La soluzione di tale equazione è nota
+$$ i(t)=i_0e^{-\alpha t}\sin(\omega_n t)$$
+\subsection{Equilibrio}
+Consideriamo il generico sistema $$ \begin{cases}
+    \dot{x}=f(x,u)\\ 
+    y=g(x,u)
+\end{cases}$$
+Se esiste un'ingresso $u(t)=u_0$ costante per cui il movimento dello stato è 
+costante $x(t)=x_0$, allora $x_0$ è detto \textit{stato di equilibrio}. Tutti gli stati di equilibrio 
+si trovano al variare di $u_0$. Analogamente per le \textit{uscite di equilibrio} in cui 
+$y(t)=y_0$ per un ingresso costante $u(t)=u_0$. Per trovare l'equilibrio di un sistema 
+si risolve l'equazione $$f(x,u_0)=0$$ trovando $x_0$, per poi sostituire $x_0$ e $u_0$ nella 
+variabile d'uscita $$y_0=g(x_0,u_0) $$
+\subsection{Rappresentazione con Matrici}
+Un sistema dinamico monovariabile (SISO) con $n$ variabili di 
+stato $x_1,x_2\dots,x_n$ è rappresentato (nel caso generale) come segue
+$$\begin{cases}
+    \dot{x}_1=a_{1_1}x_1+a_{1_2}x_2+\dots + a_{1_n}x_n+b_1u\\
+    \dot{x}_2=a_{2_1}x_1+a_{2_2}x_2+\dots + a_{2_n}x_n+b_1u\\ 
+    \vdots \\ 
+    \dot{x}_n=a_{n_1}x_1+a_{n_2}x_2+\dots + a_{n_n}x_n+b_1u\\ 
+    y=c_1x_1+c_2x_2+\dots + c_nx_n + du
+\end{cases}$$
+L'uscita è una combinazione lineare di variabili di stato e dell'ingresso (chiameremo anche "controllo" 
+la variabile di ingresso $u$). Per comodità si può rappresentare il sistema in forma matriciale 
+$$ A=\begin{bmatrix}
+    a_{1_1}&\dots& a_{1_n}\\ 
+    \vdots &\ddots  &\vdots\\ 
+    a_{n_1}&\dots&a_{n_n}
+\end{bmatrix}\in Mat(n\times n) \ \ \ \ B=\begin{bmatrix}
+    b_1\\ \vdots \\ b_n 
+\end{bmatrix}$$
+$$ C=\begin{bmatrix}
+    c_1&\dots&c_n
+\end{bmatrix}\ \ \ \ D = d\in\R$$
+Il sistema si scrive in forma compatta 
+$$ \begin{cases}
+    \dot{x}=Ax+Bu\\ y=Cx+Du
+\end{cases}$$
+L'equilibrio si pone con $u(t)=u_0$ $$ Ax+Bu_0=0\implies Ax=-Bu_0$$
+Se il determinante della matrice $A$ è diverso da zero, allora esiste un unico stato di equilibrio 
+$$ \det(A)\ne 0\implies x_0=-A^{-1}Bu_0$$
+Quindi, sostituendo l'ingresso costante e lo stato di equilibrio all'uscita si ottiene 
+l'unica uscita costante $y_0$
+$$y_0=Cx_0+Du_0 = C(-A^{-1})Bu_0+Du_0=\\ 
+(-CA^{-1}B+D)u_0=\mu u_0$$
+Il termine $\mu=(-CA^{-1}B+D)$ è detto \textbf{guadagno statico}. 
+È un numero reale in quanto \begin{itemize}
+    \item $-CA^{-1} \text{è il prodotto fra una matrice }n\times 1 \text{ con una matrice $n\times n$, quindi è una matrice }n\times 1
+$ \item $-CA^{-1}B$ è il prodotto di una matrice $n\times 1$ con una matrice $1\times n$, è quindi uno scalare.
+\item $-CA^{-1}B\cdot D$ è il prodotto di due scalari
+\end{itemize}\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/guadagnoStatico.eps}
+\end{center}
 \end{document}

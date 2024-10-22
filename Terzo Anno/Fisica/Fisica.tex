@@ -1102,5 +1102,190 @@ $$ \Delta T+\Delta U = 0 \implies \Delta(T+U)=0$$
 Si pone $E_{m}=T+U$, essa è detta \textbf{energia meccanica}, quindi 
 $$ \Delta E_m=0$$
 Il nome "conservativo" deriva dal fatto che tali forze \textit{conservano l'energia meccanica}, infatti 
-la variazione di essa è nulla.
+la variazione di essa è nulla.\acc 
+Si vuole calcolare l'energia meccanica totale di un corpo di massa $m$ che si trova in un orbita circolare 
+di un pianeta di massa $M$ a distanza $R$, l'energia meccanica è la somma dell'energia potenziale e dell'energia 
+cinetica. $$ U=-\frac{GmM}{R}\ \ T=\frac{1}{2}mv^2=\frac{GMm}{2R}\implies E_{mecc}=\frac{GMm}{2R}-\frac{GmM}{R}=-\frac{GmM}{2R}$$
+\defi{( velocità di fuga )} La velocità di fuga di un corpo, è la velocità necessaria (a partire da una distanza $R$ dal corpo) per 
+poter allontanarsi all'infinito con velocità zero. \acc 
+Sia $v_f$ tale velocità, l'energia cinetica del corpo deve eguagliare il potenziale gravitazionale 
+$$ \frac{1}{2}mv_f^2-\frac{GMm}{R}=0\implies v_f=\sqrt{\frac{2GM}{R}}$$
+La velocità di fuga non dipende dalla massa del corpo che deve raggiungere l'infinito. Supponiamo di voler calcolare la 
+velocità di fuga per il pianeta terra partendo dalla superficie 
+$$ R=6370 km \simeq 6370000 m \ \ \ 
+ M \simeq 5.972 \cdot 10^{24}kg \ \ \ 
+ G\simeq 6.67\cdot 10^{-11}$$
+$$v_f(\text{terra}) \simeq \sqrt{\frac{2\cdot 6.67\cdot 10^{-11}\cdot 5.972 \cdot 10^{24}}{6370000}} \simeq 11183 \nicefrac{m}{s}$$
+Consideriamo un punto materiale soggetto a forze, esse possono essere conservative oppure non conservative, il 
+lavoro totale sarà uguale alla somma dei lavori delle forze. Indichiamo con $L_c$ la somma dei lavori delle forze conservative 
+e con $L_{nc}$ la somma dei lavori delle forze non conservative 
+$$ L_{tot}=L_c+L_{nc}$$
+Sappiamo essere uguale alla differenza dell'energia cinetica 
+$$L_c+L_{nc}=\Delta T $$
+Sappiamo inoltre che il lavoro delle forze conservative è pari a $-\Delta U$
+$$ -\Delta U+L_{nc}=\Delta T\implies L_{nc}=\Delta T+\Delta U = \Delta(T+U)=\Delta(E_{mecc})$$
+Ne consegue che
+\sapbox{\begin{quote}
+    il lavoro totale svolto dalle forze non conservative è pari alla variazione dell'energia meccanica
+\end{quote}}
+\textbf{Esercizio} : Bisogna lanciare  un razzo di massa $m$ in orbita partendo dall'equatore, quant'è il lavoro totale che 
+deve fare il motore? \\ Sappiamo che il lavoro del motore è $$L_{mot}=\Delta(T+U)=(T_f-T_i)+(U_f-U_i)$$
+L'energia cinetica iniziale è quella posta all'equatore, la velocità di rotazione è circa
+ $v_{eq}=1674\nicefrac{km}{h}$, l'energia cinetica iniziale sarà quindi $$T_i=\frac{1}{2}mv_{eq}^2$$ 
+ L'energia potenziale gravitazionale è nota, sia $R_t$ il raggio della terra, e sia $R$ la distanza dell'orbita dal centro 
+ $$ U_i=U(R_{t})=-\frac{GM_{terra}m}{R_{t}}$$ 
+ $$ U_f=U(R)=-\frac{GM_{terra}m}{R}$$ 
+Per trovare l'energia cinetica finale $T_f$ bisogna trovare la velocità necessaria per stare in orbita
+$$ v_{orb}=\sqrt{\frac{MG}{R}}$$
+Quindi 
+$$ T_f=\frac{1}{2}m(\sqrt{\frac{MG}{R}})^2=\frac{GMm}{2R}$$
+Il lavoro totale del motore sarà quindi 
+$$ L_{mot}=\frac{GMm}{2R}-\frac{1}{2}mv_{eq}^2-\frac{GMm}{R}+\frac{GMm}{R_t}$$
+\subsection{Potenza}
+Per un essere umano medio, sollevare un peso di 10 kg non è un'impresa faticosa, a patto che il tempo in cui egli
+impiega per sollevarlo sia abbastanza lasco. Sarebbe impossibile per chiunque infatti, sollevare un peso di 10kg in 
+un tempo pari a $10^{-3}$ secondi, la potenza necessaria sarebbe troppo elevata.\acc 
+\defi{(Potenza)} : Definiamo \textbf{potenza} la derivata del lavoro rispetto al tempo \eqImportante{$\displaystyle P=\frac{dL}{dt}$}
+Si misura in \textit{Watt} : $W=\frac{J}{s}$.
+Ricordando che $L=\int_\delta \bar F\cdot d\bar s$, la potenza si può scrivere anche 
+$$ P=\bar F\cdot \frac{d\bar s}{dt}=\bar F\cdot \bar v$$
+Consideriamo un razzo nello spazio (assenza di attrito dell'aria), il cui motore fornisce una 
+\textit{potenza costante} $P_0$, in tal caso, qual'è il moto del razzo? La forza sarà pari a 
+$$ F=\frac{P_0}{v}$$
+Quindi 
+$$ \frac{P_0}{v}=m\frac{dv}{dt}$$
+Si risolve l'equazione differenziale 
+$$ \int_0^t\frac{P_0}{m}dt=\int_{v(0)}^{v(t)}vdv\implies \frac{P_0}{m}t=\frac{v^2}{2}\implies v = \sqrt{\frac{2P_0}{m}}\sqrt{t}$$
+\begin{figure}[h!]\centering
+    \begin{tikzpicture}[scale=0.9, transform shape]
+		\begin{axis}[
+		ymin=0,
+		ymax = 6,
+		xmin=0,
+		xmax = 6,
+		axis lines = left,
+		xtick distance=2, ytick distance=2,
+		grid style=dashed,
+		ymajorgrids=true,
+		xmajorgrids=true,
+		xlabel = \(t\),
+		ylabel = {\(v(t)\)},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=0:6,
+		samples=40,
+		color=red,
+		]
+		{sqrt(x)};
+		\end{axis}
+		\end{tikzpicture}\caption{andamento della velocità a potenza costante}
+\end{figure}
+\subsubsection{Velocità Limite}
+La forza impressa dall'attrito dell'aria cresce di intensità insieme alla velocità del corpo che la subisce. Essa 
+è modellizzabile come segue $$ \bar F_a=-\bar vb$$
+Dove $\bar v$ è la velocità del corpo che la subisce, e $b$ è un coefficiente che dipende da vari fattori (ad esempio, 
+la forma del corpo). Si consideri un oggetto che viene lasciato cadere da una certa altezza da fermo. Su di esso 
+agiranno due forze : l'attrito dell'aria e la forza di gravità 
+$$ \bar F = m\bar g - b\bar v$$
+Per semplicità, si considera la forma scalare 
+$$ m\frac{dv}{dt}=mg-bv$$
+Si vuole risolvere l'equazione differenziale, per sostituzione, chiamo 
+$$ x=mg-bv \implies dv=\frac{1}{b}dx$$
+Quindi si ha $$ x=-\frac{m}{b}\frac{dx}{dt}$$ si integra 
+$$ -\frac{b}{m}\int_0^tdt=\int_{x(0)}^{x(t)}\frac{1}{x}dx$$
+$$ -\frac{b}{m}t=\ln(\frac{t}{x(0)})$$
+$$ x=x(0)e^{-\frac{b}{m}t}\implies v=\frac{mg}{b}(1-e^{-\frac{b}{m}t})$$
+Per $t\rightarrow \infty$ il termine dentro la parentesi tende ad 1, la velocità limite è $\frac{mg}{b}$\begin{figure}[h!]\centering
+    \begin{tikzpicture}[scale=0.9, transform shape]
+		\begin{axis}[
+		ymin=0,
+		ymax = 8,
+		xmin=0,
+		xmax = 8,
+		axis lines = left,
+		xtick distance=2, ytick distance=2,
+		grid style=dashed,
+		ymajorgrids=true,
+		xmajorgrids=true,
+		xlabel = \(t\),
+		ylabel = {\(v(t)\)},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=0:8,
+		samples=40,
+		color=green,
+		]
+		{4*(1-exp(-x))};
+		\end{axis}
+		\end{tikzpicture}\caption{velocità limite (in questo caso è 4)}
+\end{figure}
+\flowerLine 
+\section{Forze Apparenti}
+Abbiamo visto come, le velocità si compongono in sistemi di riferimento diversi 
+$$ v_a=v_r+v_t \text{ velocità assoluta, relativa e di trascinamento}$$
+Per l'accelerazione 
+$$ a_a=a_r+a_t+a_c \text{ l'ultimo termine è l'accelerazione di Coriolis}$$
+Le leggi della dinamica sono valide nei sistemi di riferimento non inerziali 
+$$ F=ma$$
+In quelli non inerziali sono presenti le altre componenti dell'accelerazione
+$$ F=ma_a=ma_r+ma_t+ma_c$$
+Ma in un sistema di riferimento non vi è alcuna forza visibile che determina le accelerazioni 
+di trascinamento e di Coriolis. Definiamo la componente 
+$$ ma_a$$ 
+\textbf{forza reale}, in quanto è determinata da un accelerazione nel sistema di riferimento assoluto, le 
+altre forze $ma_t+ma_c$ sono dette \textbf{forze apparenti}, se presenti, si è necessariamente in un 
+sistema di riferimento non inerziale. Il concetto verrà esplicitato nel seguente esempio.\acc 
+Vi è una corda lunga $R$ che tiene una pallina di massa $m$ che sta ruotando a velocità tangenziale $v$. La 
+corda applica una forza $T$ sulla pallina detta tensione che impedisce che la pallina esca dalla traiettoria circolare.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/forzaCent.eps}
+\end{center}
+Per far si che la pallina non scappi, la corda deve esercitare una tensione $T=m\frac{v^2}{R}$. Si ipotizzi ora 
+di prendere come sistema di riferimento la pallina : Ci si trova su di essa, e non si avverte nessuno spostamento, 
+la velocità assoluta è nulla. Si nota però, che vi è la corda che sta esercitando una forza, quindi anche un accelerazione, ma 
+ma la forza percepita è nulla. 
+$$ F=0$$
+$$ T = \frac{mv^2}{R}\textit{ : forza esercitata sulla pallina }$$
+Deve \textit{necessariamente} esistere una forza apparente $F_{app}$ che controbilancia la tensione della corda 
+$$ \frac{mv^2}{R} + F_{app} = 0 \implies F_{app}=-\frac{mv^2}{R} $$
+La forza alla quale è soggetta la pallina è contraria alla tensione, spinge verso "l'esterno" della curva ed 
+è la \textit{forza centrifuga}.\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/forzaCent2.eps}
+\end{center}
+\subsubsection{Esercizio sulla forza centrifuga}
+Vi è una piattaforma circolare che ruota, sulla quale è riposta una moneta ad una distanza di $R=30cm$ dal centro 
+della piattaforma. La piattaforma inizia ad accelerare, e la moneta risente dell'accelerazione, ma rimane 
+ferma grazie all'attrito statico. Quando la piattaforma raggiunge una velocità 
+tangenziale di $50\nicefrac{cm}{s}$, la moneta si stacca dalla piattaforma. Si vuole trovare il coefficiente 
+di attrito statico $\mu_s$.\acc 
+Sulla moneta agiscono due forze, una forza centrifuga che tende a spostarla verso l'esterno, ed una forza di 
+attrito statico che si oppone ad essa. \begin{itemize}
+\item attrito statico $\bar F_s=\mu_s\bar R_n=\mu_s mg$
+\item forza centrifuga $\bar F_c=m\frac{v_0^2}{d}$
+\end{itemize}\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/forzaCent3.eps}
+\end{center}
+Si risolve per l'attrito statico 
+$$ \mu_s=m\frac{v_0^2}{dg}$$
+La velocità alla quale la pallina parte e la distanza dal centro sono note 
+$$ \mu_s=\frac{50 \nicefrac{cm}{s}}{30cm\cdot g\nicefrac{m}{s^2}}=\frac{5}{3}g$$
+\subsubsection{Esercizio sul piano inclinato in movimento}
+Si consideri un piano inclinato (di angolo $\alpha$ e di massa $M$) in movimento  su una superficie scabra di attrito $\mu_d$.
+Su di esso, è riposto un oggetto approssimabile ad un punto materiale di massa $m$. Il piano è spinto da una 
+forza $\bar F$. Si vuole trovare il valore di $\bar F$ per cui l'oggetto posto sul piano scivoli su di esso a velocità 
+costante.\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/pianiInMovimento.eps}
+    \caption{Diagramma delle forze subite dal corpo che scivola sul piano}
+\end{figure}
+Il corpo risente di una forza apparente $\bar F_{app}=m\bar a$, se esso scivola a velocità costante, la somma delle forze dovrà 
+essere nulla 
+$$ \bar F_{att}+m\bar a+\bar R_n+m\bar g=0$$
+Dato il sistema di riferimento mostrato in figura, si esegue la proiezione delle forze sugli assi 
+$$ \begin{cases}
+    -\mu_dR_n-ma\cos\alpha+mg\sin\alpha=0 \\ 
+    R_n-ma\sin\alpha-mg\cos\alpha=0
+\end{cases}$$
+\redText{Da continuare : Capire bene la proiezione delle forze (esercizio scritto sul quaderno)}
 \end{document}
