@@ -2089,4 +2089,141 @@ $ \item $-CA^{-1}B$ è il prodotto di una matrice $n\times 1$ con una matrice $1
 \end{itemize}\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/guadagnoStatico.eps}
 \end{center}
+Se il determinante della matrice $A$ è uguale a 0, allora 
+il sistema ricade in uno dei seguenti casi\begin{itemize}
+    \item esistono infiniti stati ed uscite di equilibrio 
+    \item non esistono stati o uscite di equilibrio
+\end{itemize}
+Un sistema SISO di ordine 1 (caso scalare) ammette 
+una soluzione nota, il sistema
+$$ \begin{cases}
+    \dot{x}(t)=ax(t)+bu(t)\\ y(t)=cx(t)+du(t)
+\end{cases}$$
+Dato $x(0)=x_0$ e $t\ge 0$ 
+ha variabile di stato 
+$$ x(t)=x_0\cdot e^{at}+\int_0^te^{(at-\tau)}bu(\tau)d\tau$$
+Nel caso generale di un sistema SISO di ordine $n$, ossia 
+$$ \begin{cases}
+    \dot{x}(t)=Ax(t)+Bu(t)\\ y(t)=Cx(t)+Du(t)
+\end{cases} \ \ \text{ con }\ \ \begin{matrix}
+    A\in mat(n\times n) & B\in mat(n\times 1)\\ 
+    C\in mat(1\times n) &  D\in \R
+\end{matrix}$$
+Dato $x(0)=\bar x_0\in  mat(n\times 1)$ e per $t\ge 0$ il vettore 
+di stato vale 
+$$ x(t)=\bar x_0\cdot e^{At}+\int_0^te^{(At-\tau)}Bu(\tau)d\tau$$
+Può sembrare complicato, analizziamo i singoli termini della formula\begin{itemize}
+    \item $A\cdot t$ è il prodotto di uno scalare per una matrice $n\times n$, ogni entrata 
+    della matrice sarà moltiplicata alla variabile $t$, è quindi a sua volta 
+    una matrice $n\times n$. 
+    \item l'esponenziale di una matrice verrà definito a breve, se $A$ è una 
+    matrice $n\times n$, allora anche $e^A$ lo è.
+    \item $Bu(t)$ è il prodotto di una matrice $n\times 1$ con uno 
+    scalare $u(t)$, quindi $B$ vedrà ogni entrata moltiplicata per 
+    $u(t)$. $Bu(t)$ è una matrice $n\times 1$.
+    \item $e^{(At-\tau)}$ è una matrice $n\times n$ e viene moltiplicata per 
+     $Bu(t)$ che è una matrice  $n\times 1$, quindi
+      $e^{(At-\tau)}\cdot Bu(t)$ sarà una matrice $n\times 1$. Analogamente, 
+      anche $\bar x_0\cdot e^{At}$ lo sarà. 
+      \item $x(t)$ sarà quindi una somma di due matrici $n\times 1$.
+\end{itemize}
+\defi{(Matrice esponenziale)} Sia $A$ una matrice, si definisce 
+la \textit{matrice esponenziale} $e^A$ come segue
+$$ e^A=\sum_{i=0}^\infty \dfrac{A^k}{k!}=I+\frac{A^2}{2}+\frac{A^3}{6}+\dots$$
+dove $I=A^0$ è la matrice identità (tutte le entrate sono 1).\acc 
+Nella formula compare il termine $e^{At}$, la sua espressione segue dalla 
+definizione appena data 
+$$ e^{At}=\sum_{i=0}^\infty \dfrac{A^kt^k}{k!}=I+\frac{A^2t^2}{2}+\frac{A^3t^3}{6}+\dots$$
+L'evoluzione dello stato può essere rappresentata anche come segue 
+$$ x(t)=x_l(t)+x_f(t)$$
+dove 
+$$ \begin{matrix}
+    x_l(t)=\bar x_0\cdot e^{At}\\ 
+    \\  x_f(t)=\int_0^te^{(At-\tau)}Bu(\tau)d\tau
+\end{matrix}$$
+Il termine $x_l(t)$ è detto \textbf{movimento libero} e rappresenta 
+l'evoluzione "autonoma" del sistema quando l'ingresso $u(t)$ è nullo. Dipende 
+linearmente da $\bar x_0$.\acc 
+Il termine $x_f(t)$ è detto \textbf{movimento forzato} e 
+rappresenta il comportamento del sistema influenzato dall'ingresso 
+$u(t)$, da cui appunto, dipende linearmente.\acc 
+Lo stesso concetto si applica per l'uscita del sistema $y$, questa infatti 
+può essere un \textit{uscita libera} (l'ingresso è nulla)
+o un uscita \textit{forzata}.
+$$ y(t)=y_l(t)+y_f(t)$$
+$$\begin{matrix}
+    \displaystyle y(t)=\bar Cx_0\cdot e^{At}+\int_0^tCe^{(At-\tau)}Bu(\tau)d\tau+Du(t)\\
+    \\ y_l(t)=\bar Cx_0\cdot e^{At}\\ \\
+    \displaystyle y_f(t)=\int_0^tCe^{(At-\tau)}Bu(\tau)d\tau+Du(t)
+\end{matrix} $$
+Ovviamente i sistemi possono avere anche più ingressi e più uscite, nel caso 
+generale di un sistema \textit{MIMO} di ordine $n$ con $m$ ingressi e $p$
+uscite si ha
+$$ \begin{cases}
+    \dot{x}(t)=Ax(t)+Bu(t)\\ y(t)=Cx(t)+Du(t)
+\end{cases} $$ dove
+$$\begin{matrix} x\in \R^n \\ u\in \R^m \\  y\in \R^p\end{matrix}
+$$ e 
+$$ \begin{matrix}
+    
+    A= \begin{bmatrix}
+        a_{1_1} & \dots & a_{1_n}\\ 
+        \vdots & \ddots & \vdots \\ 
+        a_{n_1} & \dots & a_{n_n}
+    \end{bmatrix} \in Mat(n\times n)
+    & &
+    B=\begin{bmatrix}
+        b_{1_1} & \dots & b_{1_m}\\ 
+        \vdots & \ddots & \vdots \\ 
+        b_{n_1} & \dots & b_{n_m}
+    \end{bmatrix} \in Mat(n\times m)
+    \\ \\ 
+    C=\begin{bmatrix}
+        c_{1_1} & \dots & c_{1_n}\\ 
+        \vdots & \ddots & \vdots \\ 
+        c_{p_1} & \dots & c_{p_n}
+    \end{bmatrix} \in Mat(p\times n)
+    & &
+    D=\begin{bmatrix}
+        d_{1_1} & \dots & d_{1_m}\\ 
+        \vdots & \ddots & \vdots \\ 
+        d_{p_1} & \dots & d_{p_m}
+    \end{bmatrix} \in Mat(p\times m)
+\end{matrix}$$
+\subsection{Stabilità di un Sistema}
+La \textit{stabilità} è una proprietà associata ai sistemi dinamici, in 
+particolare ci occuperemo di \begin{itemize}
+    \item stabilità dell'equilibrio 
+    \item stabilità del sistema 
+\end{itemize}
+La stabilità dell'equilibrio è una proprietà che possono avere 
+gli stati di equilibrio di un sistema. 
+Informalmente, Uno stato di equilibrio si
+ dice stabile se, dopo una piccola perturbazione, 
+ il sistema tende spontaneamente a ritornare alla sua
+  condizione iniziale. In altre parole, le piccole deviazioni
+   dall'equilibrio vengono corrette automaticamente.
+   \acc Sia
+$x_0$ uno stato di equilibrio, esso è stabilie \textit{se e solo se}
+$$ \begin{matrix}\forall \epsilon>0 \ \exists \delta(\epsilon) > 0 \text{ tale che }\\ 
+    \left\lVert x'-x_0\right\rVert  \le \delta(\epsilon) \implies 
+    \left\lVert x(t)-x_0\right\rVert\le\epsilon, \ \forall t\ge 0
+ \end{matrix} $$
+ $\delta(\epsilon)$ è un intorno più piccolo di $\epsilon$.
+ \begin{quote}
+    Per ogni valore infinitesimale $\epsilon$, se esiste un istante $t^*$
+    in cui lo stato del sistema $x(t^*)=x'$ ha una distanza
+    $\delta(\epsilon)<\epsilon$  da un punto di equilibrio 
+    $x_0$, allora la distanza fra ogni possibile valore dello stato 
+    $x$ avrà una distanza minore o uguale ad $\epsilon$ dal punto di 
+    equilibrio.
+    
+ \end{quote}
+ Informalmente, vuol dire che scegliendo un punto $x'$
+ necessariamente vicino a un punto di equilibrio $x_0$, c'è 
+stabilità semplice se $x'$
+ resta “vicino” a $x_0$
+ per tutta l'evoluzione del sistema nel tempo. \\
+\redText{disegno stabilità}
+
 \end{document}
