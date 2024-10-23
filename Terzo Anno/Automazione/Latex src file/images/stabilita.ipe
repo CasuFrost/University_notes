@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241023130325" modified="D:20241023130325"/>
+<info created="D:20241023130325" modified="D:20241023200304"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -317,6 +317,47 @@ h
 224 784 m
 224 704 l
 304 704 l
+</path>
+<text matrix="1 0 0 1 4 0" transformations="translations" pos="308 704" stroke="black" type="label" width="10.163" height="4.294" depth="1.49" halign="center" valign="center" style="math">x_1</text>
+<text matrix="1 0 0 1 -84 84" transformations="translations" pos="308 704" stroke="black" type="label" width="10.163" height="4.294" depth="1.49" halign="center" valign="center" style="math">x_2</text>
+<text matrix="1 0 0 1 -44 100" transformations="translations" pos="308 704" stroke="black" type="label" width="119.277" height="6.726" depth="2.24" halign="center" valign="center" size="small">vettore di stato : $x=(x_1,x_2)$</text>
+<text matrix="1 0 0 1 -44 48" transformations="translations" pos="308 704" stroke="black" type="label" width="8.406" height="3.009" depth="0.99" halign="center" valign="center" size="script" style="math">x_0</text>
+<text matrix="1 0 0 1 -24 8" transformations="translations" pos="308 704" stroke="1 0.502 0.251" type="label" width="3.321" height="3.003" depth="0" halign="center" valign="center" size="script" style="math">\epsilon</text>
+<text matrix="1 0 0 1 -16 44" transformations="translations" pos="308 704" stroke="0 0 1" type="label" width="11.872" height="3.741" depth="1.24" halign="center" valign="center" size="tiny" style="math">\delta(\epsilon)</text>
+<text matrix="1 0 0 1 -56 40" transformations="translations" pos="308 704" stroke="1 0 0.502" type="label" width="7.213" height="5.774" depth="0" halign="center" valign="center" size="script" style="math">x&apos;</text>
+<use name="mark/disk(sx)" pos="252 740" size="tiny" stroke="1 0 0.502"/>
+<path stroke="1 0 0.502">
+252 740 m
+264 720
+288 732
+276 756
+288 768
+260 776
+240 764
+236 744
+240 732
+252 724 c
+</path>
+<path stroke="0 0 1">
+20 0 0 20 264 748 e
+</path>
+<path stroke="1 0.502 0.251">
+36 0 0 36 264 748 e
+</path>
+<path stroke="1 0.502 0.251" dash="dotted">
+264 748 m
+280 716 l
+</path>
+<path stroke="0 0 1" dash="dotted">
+264 748 m
+284 748 l
+</path>
+<use name="mark/disk(sx)" pos="264 748" size="small" stroke="black"/>
+<path stroke="1 0 0.502" dash="dotted">
+252 724 m
+259.81 718.464
+264.576 717.062
+267.52 717.016 c
 </path>
 </page>
 </ipe>

@@ -908,8 +908,320 @@ di proporzionalità diretta fra il rumore ed il numero di processi
 impiegati in un calcolo, esiste quindi un limite, in cui 
 l'aumento dei nodi volti ad un calcolo non garantisce un 
 miglioramento dei tempi di esecuzione, bensì il contrario.
+\acc 
+La seguente tabella, raccoglie i tempi di esecuzione in secondi di un algoritmo 
+che esegue il prodotto fra matrici quadrate.\begin{center}
+    \begin{tabular}{c|ccccc|}
+        \cline{2-6}
+        tempo (sec)                                                              & \multicolumn{5}{c|}{\cellcolor[HTML]{ECF4FF}ordine della matrice}                                                                                                                                                     \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}numero processi} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}1024} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}2048} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}4096} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}8192} & 16384 \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}1}               & \multicolumn{1}{c|}{4.1}                          & \multicolumn{1}{c|}{16}                           & \multicolumn{1}{c|}{64}                           & \multicolumn{1}{c|}{270}                          & 1100  \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}2}               & \multicolumn{1}{c|}{2.3}                          & \multicolumn{1}{c|}{8.5}                          & \multicolumn{1}{c|}{33}                           & \multicolumn{1}{c|}{140}                          & 560   \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}4}               & \multicolumn{1}{c|}{2}                            & \multicolumn{1}{c|}{5.1}                          & \multicolumn{1}{c|}{18}                           & \multicolumn{1}{c|}{70}                           & 280   \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}8}               & \multicolumn{1}{c|}{1.7}                          & \multicolumn{1}{c|}{3.3}                          & \multicolumn{1}{c|}{9.8}                          & \multicolumn{1}{c|}{36}                           & 140   \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}16}              & \multicolumn{1}{c|}{1.7}                          & \multicolumn{1}{c|}{2.6}                          & \multicolumn{1}{c|}{5.9}                          & \multicolumn{1}{c|}{19}                           & 71    \\ \hline
+        \end{tabular}
+\end{center}
+Ovviamente, con l'aumento delle dimensioni dell'input, aumenta anche il tempo di esecuzione, e quest'ultimo 
+decresce con l'aumentare del numero di processi. Questo fattore di proporzionalità inversa non è però 
+valido per un arbitrario numero di processo, de facto, ci sarà un limite per cui vale, ad un certo punto, 
+l'aumentare dei processi non migliorerà il tempo di esecuzione. Per la stima dei tempi si definiscono le 
+seguenti variabili \begin{itemize}
+    \item $T_s(n)$ è il tempo di esecuzione di un programma se eseguito in maniera sequenziale, con un 
+    input di dimensione $n$. 
+    \item $T_p(n,p)$ è il tempo di esecuzione di un programma se eseguito in maniera parallela con $p$ processi,
+    e con un 
+    input di dimensione $n$. 
+    \item $S(n,p)=\dfrac{T_s(n)}{T_p(n,p)}$ è detto \textbf{speed up} dell'applicazione e misura il margine di 
+    miglioramento di un programma quando si esegue in parallelo piuttosto che in sequenziale.
+\end{itemize}
+Ovviamente nel rapporto dello speed up i tempi sequenziali e paralleli vanno misurati sullo stesso 
+hardware. L'ideale sarebbe uno speed up lineare, nell'effettivo, l'aumentare dei processi 
+fa diminuire lo speed up, invece l'aumentare dell'input lo fa aumentare. La seguente tabella riporta i valori 
+dello speed up del programma che esegue il prodotto fra matrici.\begin{center}
+    \begin{tabular}{c|ccccc|}
+        \cline{2-6}
+        speed up                                                      & \multicolumn{5}{c|}{\cellcolor[HTML]{ECF4FF}ordine della matrice}                                                                                                                                                     \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}numero processi} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}1024} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}2048} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}4096} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}8192} & 16384 \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}1}               & \multicolumn{1}{c|}{1}                            & \multicolumn{1}{c|}{1}                            & \multicolumn{1}{c|}{1}                            & \multicolumn{1}{c|}{1}                            & 1     \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}2}               & \multicolumn{1}{c|}{1.8}                          & \multicolumn{1}{c|}{1.9}                          & \multicolumn{1}{c|}{1.9}                          & \multicolumn{1}{c|}{1.9}                          & 2     \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}4}               & \multicolumn{1}{c|}{2.1}                          & \multicolumn{1}{c|}{3.1}                          & \multicolumn{1}{c|}{3.6}                          & \multicolumn{1}{c|}{3.9}                          & 3.9   \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}8}               & \multicolumn{1}{c|}{2.4}                          & \multicolumn{1}{c|}{4.8}                          & \multicolumn{1}{c|}{6.5}                          & \multicolumn{1}{c|}{7.5}                          & 7.9   \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}16}              & \multicolumn{1}{c|}{2.4}                          & \multicolumn{1}{c|}{6.2}                          & \multicolumn{1}{c|}{10.8}                         & \multicolumn{1}{c|}{14.2}                         & 15.5  \\ \hline
+        \end{tabular}
+\end{center}
+Nota bene : $T_p(n,1)\ne T_s(n)$, generalmente il tempo di esecuzione parallela con 1 processo è maggiore del tempo 
+di esecuzione sequenziale (dato che il setup dell'ambiente per il calcolo parallelo ha un costo).\acc 
+La \textbf{scalabilità} di un processo è definita come segue 
+$$ Sc(n,p)=\frac{T_p(n,1)}{T_p(n,p)}$$
+L'\textbf{efficienza} invece è un valore compreso fra zero ed 1 definito come segue 
+$$ E(n,p)=\frac{S(n,p)}{p}\in(0,1]$$\begin{center}
+    \begin{tabular}{c|ccccc|}
+        \cline{2-6}
+        efficienza                                                    & \multicolumn{5}{c|}{\cellcolor[HTML]{ECF4FF}ordine della matrice}                                                                                                                                                     \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}numero processi} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}1024} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}2048} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}4096} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}8192} & 16384 \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}1}               & \multicolumn{1}{c|}{1}                            & \multicolumn{1}{c|}{1}                            & \multicolumn{1}{c|}{1}                            & \multicolumn{1}{c|}{1}                            & 1     \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}2}               & \multicolumn{1}{c|}{0.89}                         & \multicolumn{1}{c|}{0.94}                         & \multicolumn{1}{c|}{0.97}                         & \multicolumn{1}{c|}{0.96}                         & 0.98  \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}4}               & \multicolumn{1}{c|}{0.51}                         & \multicolumn{1}{c|}{0.78}                         & \multicolumn{1}{c|}{0.89}                         & \multicolumn{1}{c|}{0.96}                         & 0.98  \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}8}               & \multicolumn{1}{c|}{0.3}                          & \multicolumn{1}{c|}{0.61}                         & \multicolumn{1}{c|}{0.82}                         & \multicolumn{1}{c|}{0.94}                         & 0.98  \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFFC7}16}              & \multicolumn{1}{c|}{0.15}                         & \multicolumn{1}{c|}{0.39}                         & \multicolumn{1}{c|}{0.68}                         & \multicolumn{1}{c|}{0.89}                         & 0.97  \\ \hline
+        \end{tabular}
+\end{center}
+Chiaramente, se le dimensioni dell'input sono modeste, l'utilizzo di tanti processi risulta inutile, 
+l'efficienza è quindi bassa. L'utilizzo del multi processo ha senso quando l'input è di grande dimensione, 
+e si presta ad essere diviso e computato da nodi paralleli.
+\subsection{Scalabilità Forte e Scalabilità Debole}
+Un programma si dice \textbf{strongly scalable} (fortemente scalabile) se, data una dimensione 
+fissa dell'input $n$,  lo speed up ha una buona crescita all'aumentare dei processi. È invece 
+\textbf{weakly scalable} (debolmente scalabile) se, l'aumentare dell'input, e l'aumentare del numero dei processi, 
+il tempo di esecuzione varia di poco.\acc 
+Rendere un applicazione strongly scalable è estremamente difficile, per questo nell'effettivo viene considerato 
+sempre il weak scaling quando si vuole parallelizzare un compito. È possibile avere una stima approssimativa
+ di quanto un'applicazione possa scalare? Dato un programma, si definisce \textbf{frazione seriale} 
+ la porzione di esso che è impossibile da parallelizzare, e viene espressa come un valore fra 0 ed 1. 
+ Tale parte non potrà essere influenzata dalla parallelizzazione, la \textbf{legge di Amdahl} stabilisce che lo 
+ scaling di un'applicazione è limitato dalla frazione seriale. Per un $n$ dimensione in input fissata, si ha
+ $$ T_p(p)=(1-\alpha)T_s+\alpha\frac{T_s}{p}$$
+ Dove $\alpha\in[0,1]$ rappresenta la frazione parallelizzabile, e $1-\alpha$ la frazione seriale. Lo speed up 
+ sarà quindi 
+ $$ S(p)=T_s\frac{1}{(1-\alpha)T_s+\alpha\frac{T_s}{p}}$$
+ Il valore dello speed up è limitato superiormente, infatti all'aumentare dei processi :
+\begin{eqnarray}
+    \lim_{p\rightarrow\infty}S(p) = \\ 
+    \lim_{p\rightarrow\infty}T_s\frac{1}{(1-\alpha)T_s+\alpha\frac{T_s}{p}} = \\ 
+    \frac{T_s}{(1-\alpha)T_s}=\frac{1}{1-\alpha}
+\end{eqnarray}\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/Amdahls.png}
+\end{center}
+Questa legge non tiene conto del week scaling e decreta un comportamento ideale/approssimato. La \textbf{legge 
+di Gustafson} tiene conto del week scaling 
+$$ S(n,p)=(1-\alpha)+\alpha p$$
+Nel caso reale, l'aumentare del numero di processi potrebbe far incrementare la frazione seriale.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/speedUp.eps}
+\end{center}
+\flowerLine
+\section{Operazioni su Vettori e Matrici}
+\subsection{Scatter e Gather}
+Consideriamo un algoritmo sequenziale che calcoli la somma di due vettori dati in input 
+\begin{lstlisting}[style=CStyle]
+void vector_sum(double x[], double y[], double z[], int n){
+    for(int i=0; i<n; i++){
+        z[i]=x[i]+y[i];
+    }
+}
+\end{lstlisting}
+Come si può distribuire tale compito su diversi processi? Si da l'assunzione che i vettori da 
+sommare siano stati letti da standard input, quindi sono presenti nella memoria del processo con 
+rank 0. Si vuole dividere il vettore equamente fra i diversi processi.\acc 
+A tal proposito, esiste la funzione collettiva \code{int MPI\_Scatter}, che si occupa di prendere un 
+vettore e di dividerlo equamente fra tutti i processi di un dato comunicatore.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/scatter.eps}
+\end{center}
+I parametri della funzione sono i seguenti\begin{itemize}
+    \item \code{void *send\_buf\_p} il buffer contenente il vettore da dividere
+    \item  \code{int send\_count} il numero di elementi da inviare ad ogni processo, non il numero di elementi 
+    totali del vettore
+    \item  \code{MPI\_Datatype send\_type} il tipo degli elementi del vettore 
+    \item  \code{void *recv\_buf\_p} il buffer che conterrà la frazione di vettore ricevuta, per il mittente, può 
+    coincidere con il buffer di invio 
+    \item  \code{int recv\_count} analogo a \codee{send\_count}
+    \item  \code{MPI\_Datatype recv\_type} analogo a codee{send\_type}
+    \item  \code{int src\_proc} il rank del processo che condividerà il vettore 
+    \item \code{MPI\_Comm comm} il comunicatore in questione
+\end{itemize}
+La funzione assume che il numero di elementi da condividere sia divisibile per il numero di processi, l'ordine 
+di condivisione avviene in base al rank. Il nodo che condivide il vettore può specificare la macro 
+\code{MPI\_IN\_PLACE} come buffer di destinazione, e manterrà i valori nel vettore originale.\acc 
+La funzione collettiva \code{int MPI\_Gather} è l'inversa della \code{scatter}, ogni nodo definisce un vettore, 
+e ne verrà eseguita la concatenazione, per poi essere inviata ad un processo.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/gather.eps}
+\end{center}
+L'ordine di concatenazione è sempre dato dal rank. I parametri sono pressocché identici alla \code{scatter}\begin{itemize}
+    \item \code{void *send\_buf\_p} il buffer contenente il vettore parziale da inviare
+    \item  \code{int send\_count} il numero di elementi contenuti nel vettore parziale
+    \item  \code{MPI\_Datatype send\_type} il tipo degli elementi del vettore 
+    \item  \code{void *recv\_buf\_p} il buffer che conterrà il vettore finale composta dalla concatenazione dei 
+    vettori parziali 
+    \item  \code{int recv\_count} analogo a \codee{send\_count}
+    \item  \code{MPI\_Datatype recv\_type} analogo a codee{send\_type}
+    \item  \code{int dest\_proc} il rank del processo che riceverà il vettore
+    \item \code{MPI\_Comm comm} il comunicatore in questione
+\end{itemize}
+\textbf{Esempio di codice} : Il seguente programma, fa si che il processo di rank 0 generi 
+due vettori con valori casuali, che verranno divisi fra i vari processi che eseguiranno delle somme parziali, 
+trovando sezioni parziali del vettore somma, che verrà poi ri-unito con l'operazione collettiva.
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <mpi.h>
+
+void print_vector(int n, int *v, char name)
+{
+    printf("%c = [ ", name);
+    for (int i = 0; i < n - 1; i++)
+    {
+        printf("%d, ", v[i]);
+    }
+    printf("%d ]\n", v[n - 1]);
+}
+
+int main(int argc, char **argv)
+{
+    MPI_Init(NULL, NULL);
+
+    int my_rank;
+    int size;
+    int local_size = 3;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    int local_vector[size];
+    int local_vector2[size];
+    MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+
+    if (my_rank == 0)
+    {
+
+        int inputVector[local_size * size];
+        int inputVector2[local_size * size];
+        srand(time(NULL));
+        for (int i = 0; i < local_size * size; i++)
+        {
+            inputVector[i] = rand() % 100;
+            inputVector2[i] = rand() % 100;
+        }
+        print_vector(local_size * size, inputVector, 'A');
+        print_vector(local_size * size, inputVector2, 'B');
+        printf("\n");
+        MPI_Scatter(inputVector, local_size, MPI_INT, local_vector, local_size,
+                     MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Scatter(inputVector2, local_size, MPI_INT, local_vector2, local_size,
+                     MPI_INT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+        MPI_Scatter(NULL, local_size, MPI_INT, local_vector, local_size,
+                     MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Scatter(NULL, local_size, MPI_INT, local_vector2, local_size,
+                     MPI_INT, 0, MPI_COMM_WORLD);
+    }
+    printf("process %d :\n     A_%d = [ ", my_rank, my_rank);
+    for (int i = 0; i < local_size - 1; i++)
+    {
+        printf("%d, ", local_vector[i]);
+    }
+    printf("%d ]\n     B_%d = [", local_vector[local_size - 1], my_rank);
+    for (int i = 0; i < local_size - 1; i++)
+    {
+        printf("%d, ", local_vector2[i]);
+    }
+    printf("%d ]\n A_%d+B_%d = [", local_vector2[local_size - 1], my_rank, my_rank);
+    for (int i = 0; i < local_size - 1; i++)
+    {
+        printf("%d, ", local_vector2[i] + local_vector[i]);
+    }
+    printf("%d ]\n\n", local_vector2[local_size - 1] + local_vector[local_size - 1]);
+
+    int vec_sum[local_size];
+    for (int i = 0; i < local_size; i++)
+    {
+        vec_sum[i] = local_vector2[i] + local_vector[i];
+    }
+
+    if (my_rank == 0)
+    {
+        int outVector[local_size * size];
+        MPI_Gather(vec_sum, local_size, MPI_INT, outVector, local_size,
+                    MPI_INT, 0, MPI_COMM_WORLD);
+        print_vector(local_size * size, outVector, 'O');
+    }
+    else
+    {
+        MPI_Gather(vec_sum, local_size, MPI_INT, NULL, local_size,
+                    MPI_INT, 0, MPI_COMM_WORLD);
+    }
+
+    MPI_Finalize();
+
+    exit(0);
+}
+\end{lstlisting}
+Le operazioni collettive sui vettori possono essere eseguite anche sulle matrici, anche se ciò dipende 
+dall'allocazione di esse. Quando si dichiara una matrice di dimensioni 
+statiche nel seguente modo \begin{quotation}
+    \code{int matrix[n][n];}
+\end{quotation}
+essa viene allocata in maniera contigua in memoria.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/matrixDeclaration.eps}
+\end{center}
+In tal caso, le operazioni collettive di \textit{reduce} funzioneranno senza problemi dato che 
+agiscono su blocchi di memoria contigui. Il punto è che una dichiarazione di questo tipo ha senso 
+esclusivamente se è nota a priori la dimensione della matrice, nel caso più generale, una matrice 
+si dichiara dinamicamente come un puntatore di puntatori di interi.
+\begin{lstlisting}[style=CStyle]
+int** a;
+a = (int**) malloc(sizeof(int*)*num_rows);
+for(int i = 0; i < num_rows; i++){
+    a[i] = (int*) malloc(sizeof(int)*num_cols);
+}
+\end{lstlisting}
+Le righe della matrice in questo caso \textit{non} sono contigue in memoria, non è quindi possibile 
+utilizzare operazioni di \textit{reduce}, per far ciò, bisogna collassare la matrice in un 
+array bidimensionale regolando l'accesso degli indici. Su una matrice statica, l'accesso avviene 
+per mezzo di due indici \code{matrix[i][j]}, se la matrice è collassata in un 
+array, un solo indice deve codificare entrambi gli indici della matrice, nella pratica, si fa così\begin{quote}
+    \code{matrix[i*num\_col+j]}
+\end{quote}
+Una matrice allocata dinamicamente come un unico array può essere soggetta alle operazioni di \textit{reduce}.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/matrixDeclaration2.eps}
+\end{center}
+\subsubsection{Prodotto fra Vettori e Matrici}
+Come visto nel corso di 
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Algebra/Latex%20source%20file/Algebra.pdf}{Algebra}\color{black}, 
+il prodotto scalare fra due vettori è definito come segue 
+$$ \begin{bmatrix}
+    a_1&a_2&\dots&a_n
+\end{bmatrix}\cdot \begin{bmatrix}
+    b_1\\b_2\\\dots\\b_n
+\end{bmatrix}=a_1\cdot b_1 + a_2\cdot b_2+\dots + a_n\cdot b_n$$
+Il prodotto fra una matrice $n\times n$ ed un vettore $\bar b$ di $n$ componenti, è un vettore sempre di 
+$n$ componenti, di cui ogni $i$-esimo componente è il prodotto scalare fra la $i$-esima riga della matrice 
+ed il vettore $\bar b$. 
+$$ \begin{bmatrix}
+    a_{1_1}&a_{1_2}&\dots&a_{1_n}\\ 
+    a_{2_1}&a_{2_2}&\dots&a_{2_n}\\ 
+    \vdots & \vdots &\ddots & \vdots\\ 
+    a_{n_1}&a_{n_2}&\dots&a_{n_n}
+\end{bmatrix}\cdot \begin{bmatrix}
+    b_1\\b_2\\\dots\\b_n
+\end{bmatrix}=\begin{bmatrix}
+    a_{1_1}b_1+a_{1_2}b_2+\dots+a_{1_n}b_n\\
+    a_{2_1}b_1+a_{2_2}b_2+\dots+a_{2_n}b_n\\
+    \vdots\\
+    a_{n_1}b_1+a_{n_2}b_2+\dots+a_{n_n}b_n
+\end{bmatrix}$$
+\begin{lstlisting}[style=CStyle]
+int A[n][n]; //matrice 
+int b[n]; //vettore input
+int y[n]; //vettore risultato
+for(i=0;i<n;i++){
+    for(j=0;j<n;j++){
+        y[i]=A[i][j]*b[j] //prodotto scalare implicitamente definito
+    }
+}
+\end{lstlisting}
 
 
 
 
+
+
+
+
+\newpage\subsection{Ultime Collettive di tipo "All"}
 \end{document}

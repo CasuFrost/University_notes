@@ -2203,27 +2203,261 @@ Informalmente, Uno stato di equilibrio si
  il sistema tende spontaneamente a ritornare alla sua
   condizione iniziale. In altre parole, le piccole deviazioni
    dall'equilibrio vengono corrette automaticamente.
-   \acc Sia
+   \acc \defi{(Satbilità)}Sia
 $x_0$ uno stato di equilibrio, esso è stabilie \textit{se e solo se}
 $$ \begin{matrix}\forall \epsilon>0 \ \exists \delta(\epsilon) > 0 \text{ tale che }\\ 
-    \left\lVert x'-x_0\right\rVert  \le \delta(\epsilon) \implies 
+    \left\lVert x(0)-x_0\right\rVert  \le \delta(\epsilon) \implies 
     \left\lVert x(t)-x_0\right\rVert\le\epsilon, \ \forall t\ge 0
  \end{matrix} $$
  $\delta(\epsilon)$ è un intorno più piccolo di $\epsilon$.
  \begin{quote}
-    Per ogni valore infinitesimale $\epsilon$, se esiste un istante $t^*$
-    in cui lo stato del sistema $x(t^*)=x'$ ha una distanza
+    Per ogni valore infinitesimale $\epsilon$, se $x(0)=x(t_0)$ (il vettore di stato 
+    nell'istante iniziale) ha una distanza
     $\delta(\epsilon)<\epsilon$  da un punto di equilibrio 
     $x_0$, allora la distanza fra ogni possibile valore dello stato 
-    $x$ avrà una distanza minore o uguale ad $\epsilon$ dal punto di 
+    $x(t)\ \forall t\ge 0$ avrà una distanza minore o uguale ad $\epsilon$ dal punto di 
     equilibrio.
     
  \end{quote}
- Informalmente, vuol dire che scegliendo un punto $x'$
- necessariamente vicino a un punto di equilibrio $x_0$, c'è 
-stabilità semplice se $x'$
- resta “vicino” a $x_0$
- per tutta l'evoluzione del sistema nel tempo. \\
-\redText{disegno stabilità}
+ In termini più
+qualitativi, un punto di equilibrio è localmente stabile se qualunque evoluzione
+che nasce da uno stato iniziale vicino rimane vicina per tutti gli istanti successivi,
+ comunque si scelga il massimo scostamento ammesso dall'equilibrio
+ per tutta l'evoluzione del sistema nel tempo. A perturbazioni limitate corrispondono variazioni 
+ limitate dell'evoluzione.
+ \begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth ]{images/stabilita.eps}
+        \caption{vettore di stato in un sistema stabile di ordine 2}
+   \end{figure}
+   \end{center}
+Se la condizione non è verificata, il punto di equilibrio $x_0$ si definisce \textbf{instabile}. La distanza 
+iniziale fra $x(0)$ ed il punto di equilibrio $x_0$ rappresenta la \textit{perturbazione}.\acc 
+Un punto di equilibrio può essere anche \textbf{asintoticamente stabile} se, si verifica la condizione di 
+stabilità, ed in più è anche vero che al passare del tempo l'evoluzione dello stato converge al punto di 
+equilibrio. 
+$$ \exists \delta_a>0 \ | \   \left\lVert x(0)-x_0 \right\rVert<\delta_a\implies 
+\lim_{t\rightarrow +\infty} \left\lVert x(0)-x_0 \right\rVert=0$$
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth ]{images/stabilita2.eps}
+        \caption{vettore di stato in un sistema stabile asintoticamente di ordine 2}
+   \end{figure}
+   \end{center}
+Le condizioni introdotte devono essere verificate per un qualsiasi valore iniziale $x(0)$, ed una 
+volta definito l'intorno di $\delta(\epsilon)$ (o $\delta_a$ nel caso asintotico), qualunque scelta 
+di $x(0)$ (ossia, qualunque perturbazione) deve comportare le condizioni di soddisfacimento.
+\sapbox{ La stabilità non è un valore correlato ad uno stato di equilibrio ma è una caratteristica del sistema 
+nella sua globalità}
+Il sistema è in una  \textbf{condizione di equilibrio} se, dato un ingresso costante 
+$u(t)=u_0$ ed uno stato di equilibrio $x_0$, all'istante iniziale non riceve perturbazione, ossia 
+il valore del vettore di stato all'inizio è già quello dello stato di equilibrio. 
+ 
 
+$$ \begin{matrix}
+   x_0 \text{ è uno stato di equilibrio} \\ x(0)=x_0 \\ u(t)=u_0 \text{ è l'ingresso che causa lo stato di equilibrio}
+\end{matrix}$$
+In tal caso il sistema \textit{stabile}, non essendo perturbato rimane nello stato di equilibrio 
+$$ x(t)= x_0\cdot e^{At}+\int_0^te^{(At-\tau)}Bu_0d\tau \ \ \ \forall t\ge 0$$
+Il sistema parte in \textbf{condizioni di perturbazione} quando lo stato 
+iniziale $x(0)$ dista di un certo valore $\delta x$ dallo stato di equilibrio $x_0$
+$$ x(0)=x_0+\delta x$$
+Il movimento è perturbato e si avrà che $x(t)\ne x_0 \ \ \forall t\ge 0$
+$$x(t)=e^{At}(x_0+\delta x)+\int_0^te^{A(t-\tau)}Bu_0d\tau =$$
+$$e^{At}\delta x+e^{At}x_0+\int_0^te^{A(t-\tau)}Bu_0d\tau =$$ 
+i due termini a destra della somma sono quelli della condizione di equilibrio : \\$e^{At}x_0+\int_0^te^{A(t-\tau)}Bu_0d\tau=x_0$
+\\quindi si avrà che
+$$x(t)= e^{At}\delta x+x_0$$
+\eqImportante{$x(t)-x_0 =e^{At}$}
+Quest'ultima equazione rende chiaro il concetto che \textit{la stabilità dipende da }$e^{At}$.\begin{itemize}
+    \item \textbf{stabilità} : se $e^{At}$ è limitata, allora $\displaystyle\lim_{t\rightarrow\infty}x(t)-x_0$ 
+    sarà un valore finito, quindi l'evoluzione dello stato non si scosta di più di un certo valore dallo stato 
+    di equilibrio. 
+    \item \textbf{stabilità asintotica} : se $\displaystyle\lim_{t\rightarrow\infty}e^{At}=0$, allora 
+     $\displaystyle\lim_{t\rightarrow\infty}x(t)-x_0=0$, quindi l'evoluzione dello stato tenderà ad avvicinarsi 
+     sempre di più al valore di equilibrio.
+     \item \textbf{instabilità} : se $e^{At}$ diverge, allora per $t\rightarrow\infty$ lo stato del sistema 
+     si allontanerà sempre di più dallo stato di equilibrio.
+\end{itemize}
+\subsubsection{Proprietà dei sistemi asintoticamente stabili}
+\begin{enumerate}
+    \item Un sistema asintoticamente stabile, se spostato dallo stato di equilibrio (perturbazione), 
+    tende a tornarci. 
+    \item Ha un \textit{unico stato di equilibrio}  ed il determinante di $A$ è 0.
+    \item Il movimento libero del sistema tende a zero e si annulla (dato che la matrice 
+    $e^{At}$ tende a zero)  quindi il movimento 
+    dello stato dipende \textit{asintoticamente} solo dall'ingresso $u(t)$ 
+    $$\lim_{t\rightarrow \infty}x(t)=x_f(t) $$
+    \item Se l'ingresso è nullo $u(t)=0$, allora, per un qualsiasi stato iniziale $x(0)$
+    \begin{eqnarray}
+        \lim_{t\rightarrow\infty}x(t)= \lim_{t\rightarrow\infty}
+        x(0)\cdot e^{At}+\int_0^te^{(At-\tau)}B0d\tau = \\
+        \lim_{t\rightarrow\infty} x(0)\cdot e^{At} = 0
+    \end{eqnarray}
+    Quindi 
+    $$  \lim_{t\rightarrow\infty}x(t)=0$$
+    $$  \lim_{t\rightarrow\infty}y(t)=0$$
+    La condizione si verifica anche se $u$ è del tipo $u(t)=\begin{cases} \text{ qualsiasi se }0\le t<t^*\\
+        0\text{ se }t\ge t^*
+    \end{cases}$
+    \item Se l'ingresso è costante allora $u(t)=u_0$ allora l'uscita $y(t)$ tende a
+     $$y_0=\mu u_0=(-CA^{-1}B+D)u_0$$
+    $$  \lim_{t\rightarrow\infty}y(t)=\mu u_0$$
+    \begin{center}
+        \begin{figure}[h!]
+           \centering
+           \begin{tikzpicture}[scale=1, transform shape]
+               \begin{axis}[
+               ymin=1,
+               ymax = 3,
+               xmin=0,
+               xmax = 5,
+               axis lines = left,
+               xtick distance=1, ytick distance=0.5,
+               grid style=dashed,
+               ymajorgrids=true,
+               xmajorgrids=true,
+               xlabel = \(t\),
+               ]
+               %Below the red parabola is defined
+               \addplot [
+               domain=0:5,
+               samples=70,
+               color=magenta,
+               ]
+               {2+(sin(deg(7*x))*exp(-x))};
+               \addlegendentry{\(y(t)\)}
+               \addplot [
+               domain=0:5,
+               samples=2,
+               color=red,
+               ]
+               {2};
+               \addlegendentry{\(\mu u_0\)}
+               \end{axis}
+               \end{tikzpicture}
+       \end{figure}
+       \end{center}
+       \item Se l'ingresso $u(t)$ è limitato, allora anche l'uscita $y(t)$ è limitata.
+       $$  \left\lVert u(t) \right\rVert<K \implies \exists H \ | \  \left\lVert y(t) \right\rVert<H$$
+       tale proprietà è detta \textit{stabilità esterna} e tutti i sistemi asintoticamente stabili ne godono. 
+       Un sistema però, può godere della proprietà di stabilità esterna anche senza essere asintoticamente stabile 
+       \begin{quote}
+        stabilità asintotica $\implies$ stabilità esterna \\ 
+        stabilità esterna $\notimplies$ stabilità asintotica
+       \end{quote}
+\end{enumerate}
+\subsection{Studio di $e^{At}$ per la Stabilità}
+Consideriamo il generico sistema dinamico 
+$$ \begin{cases}
+    \dot{x}(t)=Ax(t)+Bu(t)\\ y(t)=Cx(t)+Du(t)
+\end{cases}$$
+Le proprietà della matrice $A$ decretano la stabilità del sistema. Si individuano 4 casi distinti. 
+\subsubsection{Caso 1 : $A$ diagonale}
+Supponiamo che $A$ sia una matrice diagonale 
+$$ A=\begin{bmatrix}
+    s_1 &\dots &0\\ 
+    \vdots & \ddots & \vdots \\ 
+    0 & \dots & s_n 
+\end{bmatrix}$$
+I termini $s_1,s_2\dots,s_n$ sono gli autovalori di $s$, allora 
+$$ e^{At}=\begin{bmatrix}
+    e^{s_1t} &\dots &0\\ 
+    \vdots & \ddots & \vdots \\ 
+    0 & \dots &  e^{s_nt}
+\end{bmatrix}$$
+Allora \begin{itemize}
+    \item $\forall i, \ \ s_i\ge 0$ se tutte le entrate della matrice sono $e^{s_it}$ ed $s_i$ è minore o uguale a 
+    zero, allora per $t\rightarrow \infty$ ogni termine $e^{s_it}$ tenderà ad un valore finito, quindi il 
+    sistema è \textbf{stabile}. 
+    \item $\forall i, \ \ s_i< 0$ se tutte le entrate della matrice sono $e^{s_it}$ ed $s_i$ è strettamente 
+    minore di 0, allora ogni termine della matrice tenderà a zero, quindi $A$ tenderà a zero, allora il sistema 
+    è \textbf{asintoticamente stabile}. 
+    \item $\exists i \ | \ s_i>0$ se un singolo termine $s_i$ è maggiore di zero, allora $e^{s_it}$ tenderà ad infinito, 
+    la matrice non è limitata quindi il sistema è \textbf{instabile}.
+\end{itemize}
+\subsubsection{Caso 2 : $A$ ha autovalori reali distinti}
+Siano $s_1,s_2\dots s_n$ gli autovalori di $A$, sono tutti distinti quindi $$ s_1\ne s_2 \ne \dots \ne s_n$$
+Sappiamo allora che esiste una matrice $M$ per cui 
+$$ A=M\tilde A M^{-1}  \ \ \text{ dove } \ \ \tilde A = \begin{bmatrix}
+    s_1 &\dots &0\\ 
+    \vdots & \ddots & \vdots \\ 
+    0 & \dots & s_n 
+\end{bmatrix}$$
+Allora si studia l'andamento della matrice $M\tilde A M^{-1}$.\acc 
+\textbf{Esempio} : Si ha il sistema 
+$$ \begin{cases}
+    \dot{x_1}=-2x_1+6x_2\\ \dot{x_2}=-2x_1+5x_2
+\end{cases} \ \ \ A=\begin{bmatrix}
+    -2&6\\-2&5
+\end{bmatrix}$$
+trovo gli autovalori 
+$$ P(\lambda)=\det(sI-A)=\det\begin{bmatrix}
+    s+2&-6\\2&s-5
+\end{bmatrix}=(s+2)(s-5)+12=(s-2)(s-1)\implies \begin{cases}
+    s_1=1\\ s_2=2
+\end{cases}$$ 
+Bisogna trovare la matrice $M$, si ricordi essere la matrice le cui righe sono gli autovettori $v,u$ di $A$  
+$$
+\begin{bmatrix}
+    -2&6\\-2&5
+\end{bmatrix}\begin{bmatrix}
+    v_1\\v_2
+\end{bmatrix}=s_1\begin{bmatrix}
+    v_1\\v_2
+\end{bmatrix}\implies \begin{cases}
+    -2v_1+6v_2=v_1\\ -2v_1+5v_2=v_2
+\end{cases}\implies 
+    2v_2=v_1 \implies v = \begin{bmatrix}
+        2\\1
+    \end{bmatrix}
+$$
+$$
+\begin{bmatrix}
+    -2&6\\-2&5
+\end{bmatrix}\begin{bmatrix}
+    u_1\\u_2
+\end{bmatrix}=s_2\begin{bmatrix}
+    u_1\\u_2
+\end{bmatrix}\implies \begin{cases}
+    -2u_1+6u_2=2u_1\\ -2u_1+5u_2=2u_2
+\end{cases}\implies 
+    u_1=\nicefrac{3}{2}u_2 \implies u = \begin{bmatrix}
+        3\\2
+    \end{bmatrix}
+$$
+$$ M=\begin{bmatrix}
+    2&3\\1&2
+\end{bmatrix}\ \ \ M^{-1}=\begin{bmatrix}
+    2&-3\\-1&2
+\end{bmatrix}$$  
+$$\hat A = M^{-1}AM= \begin{bmatrix}
+    2&-3\\-1&2
+\end{bmatrix} 
+\begin{bmatrix}
+    -2&6\\-2&5
+\end{bmatrix}
+\begin{bmatrix}
+2&3\\1&2
+\end{bmatrix}=\begin{bmatrix}
+    1&0\\0&2
+\end{bmatrix}$$
+quindi 
+$$ e^{At}=Me^{\hat At}M^{-1}=
+\begin{bmatrix}
+    2&3\\1&2
+    \end{bmatrix}
+    \begin{bmatrix}
+        e^t&0\\0&e^{2t}
+    \end{bmatrix}
+\begin{bmatrix}
+    2&-3\\-1&2
+\end{bmatrix}= \begin{bmatrix}
+    4e^t-3e^{2t}&-6e^t+6e^{2t}\\ 
+    2e^t-2e^{2t} & -3e^t+4e^{2t}
+\end{bmatrix} $$
+Il sistema è instabile.
+\subsubsection{Caso 3 : $A$ ha autovalori reali complessi}
 \end{document}
