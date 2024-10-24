@@ -2260,7 +2260,7 @@ $$ \begin{matrix}
    x_0 \text{ è uno stato di equilibrio} \\ x(0)=x_0 \\ u(t)=u_0 \text{ è l'ingresso che causa lo stato di equilibrio}
 \end{matrix}$$
 In tal caso il sistema \textit{stabile}, non essendo perturbato rimane nello stato di equilibrio 
-$$ x(t)= x_0\cdot e^{At}+\int_0^te^{(At-\tau)}Bu_0d\tau \ \ \ \forall t\ge 0$$
+$$ x(t)= x_0\cdot e^{At}+\int_0^te^{(At-\tau)}Bu_0d\tau =x_0\ \ \ \forall t\ge 0$$
 Il sistema parte in \textbf{condizioni di perturbazione} quando lo stato 
 iniziale $x(0)$ dista di un certo valore $\delta x$ dallo stato di equilibrio $x_0$
 $$ x(0)=x_0+\delta x$$
@@ -2362,14 +2362,14 @@ $$ A=\begin{bmatrix}
     \vdots & \ddots & \vdots \\ 
     0 & \dots & s_n 
 \end{bmatrix}$$
-I termini $s_1,s_2\dots,s_n$ sono gli autovalori di $s$, allora 
+I termini $s_1,s_2\dots,s_n$ sono gli autovalori di $A$, allora 
 $$ e^{At}=\begin{bmatrix}
     e^{s_1t} &\dots &0\\ 
     \vdots & \ddots & \vdots \\ 
     0 & \dots &  e^{s_nt}
 \end{bmatrix}$$
 Allora \begin{itemize}
-    \item $\forall i, \ \ s_i\ge 0$ se tutte le entrate della matrice sono $e^{s_it}$ ed $s_i$ è minore o uguale a 
+    \item $\forall i, \ \ s_i\le 0$ se tutte le entrate della matrice sono $e^{s_it}$ ed $s_i$ è minore o uguale a 
     zero, allora per $t\rightarrow \infty$ ogni termine $e^{s_it}$ tenderà ad un valore finito, quindi il 
     sistema è \textbf{stabile}. 
     \item $\forall i, \ \ s_i< 0$ se tutte le entrate della matrice sono $e^{s_it}$ ed $s_i$ è strettamente 
@@ -2459,5 +2459,5 @@ $$ e^{At}=Me^{\hat At}M^{-1}=
     2e^t-2e^{2t} & -3e^t+4e^{2t}
 \end{bmatrix} $$
 Il sistema è instabile.
-\subsubsection{Caso 3 : $A$ ha autovalori reali complessi}
+\subsubsection{Caso 3 : $A$ ha autovalori complessi distinti}
 \end{document}
