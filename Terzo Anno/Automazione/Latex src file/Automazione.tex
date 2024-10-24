@@ -2460,4 +2460,82 @@ $$ e^{At}=Me^{\hat At}M^{-1}=
 \end{bmatrix} $$
 Il sistema è instabile.
 \subsubsection{Caso 3 : $A$ ha autovalori complessi distinti}
+Consideriamo il caso in cui $A$ è una matrice 
+$2\times 2$, i suoi autovalori $s_1,s_2$ sono del 
+tipo 
+$$ s_1=\sigma+j\omega  \ \ \ \ \ s_2=\sigma-j\omega$$ 
+Si ricordi che \begin{quote}
+    se una matrice quadrata a valori reali ha autovalori 
+    complessi, allora essi compaiono come coppie di 
+    complessi coniugati.
+\end{quote}
+In tal caso, ci sono 3 possibili casi\begin{enumerate}
+    \item $Re(s_i)\le 0, \ \forall i$ Se ogni autovalore ha parte 
+    reale minore o uguale a zero, il sistema è stabile.
+    \item $Re(s_i)< 0, \ \forall i$ Se ogni autovalore ha parte 
+    reale strettamente minore di zero, il sistema è asintoticamente stabile.
+    \item $\exists i | Re(s_i)>0$ se esiste un solo autovalore con parte 
+    reale positiva il sistema è instabile.
+\end{enumerate}
+\subsubsection{Caso 4 : $A$ ha autovalori multipli}
+Supponiamo che $A$ abbia degli autovalori multipli, 
+ossia, esistono almeno due autovalori identici, prendiamo in 
+esame una matrice diagonale
+$$ A=\begin{bmatrix}
+    \alpha & 0 \\ 0 &\alpha 
+\end{bmatrix}\ \ \ s_1=s_2=\alpha$$ 
+L'andamento di $e^{At}$ dipende da $\alpha$, consideriamo 
+una matrice non diagonalizzabile 
+$$ A=\begin{bmatrix}
+    \alpha & 1 \\ 0 &\alpha 
+\end{bmatrix}\ \ \ s_1=s_2=\alpha$$
+Allora 
+$$ e^{At}=\begin{bmatrix}
+    1 & 0 \\ 0 & 1
+\end{bmatrix}+ 
+\begin{bmatrix}
+    \alpha & 1 \\ 0 & \alpha
+\end{bmatrix}t+ \begin{bmatrix}
+    \alpha^2 & 2\alpha \\ 0 & \alpha^2
+\end{bmatrix}\frac{t^2}{2!}+\dots$$ 
+La matrice conterrà termini del tipo $e^{\alpha t}$ o 
+$te^{\alpha t}$, quindi la stabilità dipenderà da $\alpha$
+\begin{enumerate}
+    \item $\alpha=0$ instabilità 
+    \item $\alpha<0$ stabile asintoticamente 
+    \item $\alpha > 0 $ instabilità
+\end{enumerate}
+Generalizzando ad una matrice $n\times n$, ci saranno 
+autovalori multipli con diverse molteplcità, 
+e la matrice conterrà termini del tipo 
+$$t^ke^{sk}$$ 
+dove $k$ dipende dalla molteplicità di $s$, anche 
+in questo caso \begin{itemize}
+    \item  $Re(s_i)< 0, \ \forall i$ Se ogni autovalore ha parte 
+    reale strettamente minore di zero, il sistema è asintoticamente stabile.
+    \item $\exists i | Re(s_i)>0$ se esiste un solo autovalore con parte 
+    reale positiva il sistema è instabile.
+    \item nel caso gli autovalori hanno tutti parte reale 
+    minore di zero, ma ce ne sta uno con parte reale uguale a 
+    zero, il sistema potrebbe essere stabile (non asintoticamente) 
+    oppure instabile.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/regioneStab.eps}
+\end{center}
+Esistono anche altri criteri per lo studio della stabilità basati sullo studio della 
+matrice $A$\begin{itemize}
+    \item \textbf{criterio 1} : Se $A$ è triangolare il sistema è stabile asintoticamente 
+    \item \textbf{criterio 2} : Se la traccia di $A$ è negativa il sistema è stabile asintoticamente, se 
+    invece è positiva il sistema è instabile. 
+    \item \textbf{criterio 3} : Se il determinante di $A$ è 
+    diverso da zero allora il sistema è asintoticamente stabile.
+\end{itemize}
+\sapbox{In generale, se $A$ ha tutti gli autovalori con parte reale 
+strettamente negativa, il sistema è asintoticamente stabile.}
+\subsubsection{Criterio di Routh}
+Il criterio esposto in questa sezione permette lo 
+studio della stabilità di un sistema tramite la costruzione 
+di una apposita tabella.
+
 \end{document}
