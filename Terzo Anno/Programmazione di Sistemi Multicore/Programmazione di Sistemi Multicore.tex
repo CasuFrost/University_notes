@@ -1215,13 +1215,92 @@ for(i=0;i<n;i++){
     }
 }
 \end{lstlisting}
-
-
-
-
-
-
-
-
-\newpage\subsection{Ultime Collettive di tipo "All"}
+\subsection{Ultime Collettive di tipo "All"}
+La collettiva \code{int MPI\_Allgather} si occupa di 
+unire i dati di un vettore come la normale funzione di 
+\textit{gather}, per poi condividere i dati con tutti i 
+processi di un comunicatore, logicamente, equivale ad una 
+gather seguita da una broadcast, ma è implementata in 
+maniera più efficiente.
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/allgather.eps}
+\end{center}\begin{itemize}
+    \item     \code{void *send\_buf\_p}
+    \item     \code{int send\_count}
+    \item     \code{MPI\_Datatype send\_type}
+    \item     \code{int recv\_count}
+    \item     \code{MPI\_Datatype recv\_type}
+    \item     \code{MPI\_Comm comm}
+\end{itemize}
+La collettiva \code{MPI\_Allscatter} equivale ad una 
+reduce seguita da una scatter.
+$$ 
+\begin{bmatrix}
+    a_1 \\ a_2 \\ \vdots\\ a_n
+\end{bmatrix} \ \ 
+\begin{bmatrix}
+    b_1 \\ b_2 \\ \vdots\\  b_n
+\end{bmatrix}\ \ 
+\begin{bmatrix}
+    c_1 \\ c_2 \\ \vdots\\  c_n
+\end{bmatrix} =\text{Allscatter}\Rightarrow
+\begin{bmatrix}
+    a_1+b_1+c_1 \\ 0\\ \vdots\\ 0
+\end{bmatrix} \ \ 
+\begin{bmatrix}
+    0 \\ a_2+b_2+c_2 \\ \vdots\\  0
+\end{bmatrix}\ \ 
+\begin{bmatrix}
+    0 \\ 0 \\ \vdots\\  a_n+b_n+c_n
+\end{bmatrix} 
+$$\flowerLine
+\section{Tipi di Dato Custom}
+Abbiamo visto come MPI implementi il tipo 
+\code{MPI\_Datatype} per riferirsi ai tipi di dato presenti 
+nel C. In C, è però possibile creare dei tipi di dato 
+aggiuntivi (struct).
+\begin{lstlisting}[style=CStyle]
+struct t{
+    float a,
+    float b,
+    int n
+};
+    \end{lstlisting}
+Cosa va definito nel capo \code{data\_type} quando si 
+intente inviare tramite una funzione MPI una struttura? 
+MPI permette di creare dei tipi custom, è possibili 
+definire \textbf{tipi derivati}, che equivalgano (in quanto 
+disposizione in memoria) alla struct in questione. Un tipo 
+derivato non è altro che una sequenza di 
+datatype di base alla quale è assengata una certa 
+disposizione in memoria. \begin{quote}
+    \code{{(MPI\_DOUBLE,0), (MPI\_DOUBLE,16),(MPI\_INT,24)}}
+\end{quote}
+Un tipo derivato va definito tramite la funzione 
+\code{int MPI\_Type\_create\_struct}:\begin{itemize}
+    \item \code{int count} il numero di elementi distinti nel tipo derivato 
+    \item \code{int array\_of\_blocklengths[]} ogni elemento potrebbe essere un vettore, va 
+    quindi specificata la lunghezza di ogni elemento della struct.
+    \item \code{MPI\_Aint array\_of\_displacements} la disposizione degli elementi della 
+    struct in memoria 
+    \item \code{MPI\_Datatype *new\_type\_p} il tipo degli elementi della nuova struttura  
+\end{itemize}
+Per ottenere la disposizione è possibile usare il puntatore del valore,  
+è pero auspicabile utilizzare la funzione di liberia 
+\code{MPI\_Get\_address}, in quanto in alcuni sistemi (seppur pochi) i puntatori potrebbero 
+non rappresentare un indirizzo di memoria.
+\begin{lstlisting}[style=CStyle]
+MPI\_Aint a_addr, b_addr, n_addr;
+MPI_Get_address(&a, &a_addr);
+array_of_displacements[0]=0;
+MPI_Get_address(&b, &b_addr);
+array_of_displacements[1]=b_addr-a_addr;
+MPI_Get_address(&n, &n_addr);
+array_of_displacements[2]=n_addr-a_addr;
+\end{lstlisting}
+Una volta creata tale struttura, bisogna eseguire 
+la funzione \code{MPI\_Type\_commit} che, eseguendo opportune ottimizzazioni,
+ decide il metodo di salvataggio della struttura in memoria. 
+ Quando non è più necessario quel datatype,
+  si può chiamare la funzione \code{MPI\_Type\_free}.
 \end{document}
