@@ -1299,9 +1299,9 @@ Dato il sistema di riferimento mostrato in figura, si esegue la proiezione delle
 -\mu_dma\sin\alpha-\mu_dmg\cos\alpha-ma\cos\alpha+mg\sin\alpha=0\\
 ma(-\mu_d\sin\alpha-\cos\alpha)-\mu_dmg\cos\alpha+mg\sin\alpha=0\\
 ma(-\mu_d\sin\alpha-\cos\alpha)=\mu_dmg\cos\alpha+mg\sin\alpha\\ 
-ma=\frac{1}{(-\mu_d\sin\alpha-\cos\alpha)}\mu_dmg\cos\alpha+mg\sin\alpha
+ma=\frac{1}{(-\mu_d\sin\alpha-\cos\alpha)}\mu_dmg\cos\alpha+mg\sin\alpha\text{\redText{ sbagliato, da sistemare }}
 \end{eqnarray}
-\redText{Da sistemare, sbagliato}
+
 \flowerLine 
 \section{Momento}
 Si vuole modellizzare la rotazione di un corpo secondo le 
@@ -1331,4 +1331,35 @@ $$\frac{d\bar b}{dt}=\frac{d}{dt}\bar R \times m\bar v=
 \frac{d}{dt}\bar R \times m\bar v + \bar M $$
 quindi 
 $$\bar M=\frac{d\bar b}{dt}-\frac{d\bar R}{dt}\times m \bar v$$ 
+Il vettore $\bar R$ indica la distanza assoluta fra il polo ed il corpo, tale distanza dipende 
+dalla posizione del polo (distanza di trascinamento) e dalla posizione del corpo (distanza relativa).
+$$ \bar R = \bar R_r + \bar R_t$$
+quindi 
+$$\frac{d\bar R}{dt}=\frac{d\bar R_r}{dt}+\frac{d\bar R_t}{dt} = \bar v - \bar v_0$$
+Indichiamo con $\bar v$ la velocità del corpo e con $\bar v_0$ la velocità del polo, 
+il momento si può quindi riscrive
+$$\bar M=\frac{d\bar b}{dt}-\frac{d\bar R}{dt}\times m \bar v\implies $$
+$$ \bar M = \frac{d\bar b}{dt} -  ( \bar v - \bar v_0)\times m \bar v=
+\frac{d\bar b}{dt} -   \bar v\times m \bar v + \bar v_0\times m \bar v 
+$$
+quindi
+$$\bar M =  \frac{d\bar b}{dt} + \bar v_0\times m \bar v =\frac{d\bar b}{dt}+\bar v_0\times \bar p$$
+Il momento della quantità di moto $\bar b$ \textit{si conserva}, si consideri una sfera 
+attaccata ad una corda che ruota attorno ad un polo al tempo $t_0$, esso avrà una quantità di moto di modulo
+$ |\bar b_0| = R_0mv_0$. Si ipotizzi che al tempo $t_1$ la corda si sia accorciata, avvicinando la 
+pallina al polo, essa ha quindi subito una forza $\bar T$ diretta verso il polo, il modulo del momento 
+della quantità di moto sarà ora $|\bar b_1|=R_0mv_0$ con $R_0>R_1$. Essendo $\bar T$   parallela 
+ al vettore $\bar R(t)$, non influisce sul momento.\begin{center}
+    \includegraphics[width=0.65\textwidth]{images/conservMomento.eps}
+ \end{center}
+ $$ R_0mv_0=R_1mv_1\implies R_0v_0=R_1v_1\implies v_1=\frac{R_0}{R_1}$$
+Il momento non cambia dato che il momento di $\bar T$ rispetto al polo 
+è nullo $\bar T \times \bar R =0$ , ma variando la distanza, dovrà aumentare la velocità di rotazione.\acc 
+La velocità tangenziale di un corpo che rotea attorno ad un polo può essere espressa come $\bar v=\bar omega \times \bar R$, 
+quindi si ha 
+$$ \bar b = \bar R \times m \bar \omega\times  \bar R=m\bar R^2 \bar \omega = I\bar \omega$$
+Definiamo $(mR^2)$ \textbf{momento di inerzia}. 
+$$ \bar M = \frac{d\bar b }{dt}=\frac{d}{dt}(I\bar \omega)$$
+Assumendo che $I$ sia costante (la massa non varia e la distanza dal polo è sempre la stessa)
+$$ \bar M = I\dot{\bar \omega}$$
 \end{document}

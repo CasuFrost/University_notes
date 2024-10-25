@@ -1521,6 +1521,82 @@ significato dei pacchetti scambiati tra le entità \textit{pari} all'interno di 
 
 
 
+\chapter{Sistemi di Controllo Real Time}
+Nell'ambito dell'automazione, è fondamentale definire un sistema di controllo che agisca in tempo reale, che 
+implementi un algoritmo con lo scopo di eseguire i generici task di un processo produttivo, lo scopo dell'algoritmo 
+è quello di \textit{sequenziare} le varie operazioni in modo che rispettino dei vincoli temporali.\acc 
+In un processo vi è un insieme diffusi di singoli componenti (come sensori o attuatori) che comunicano con il 
+sistema di controllo che gestisce i riferimenti dei segnali, i valori di riferimento sono determinati 
+dall'\textit{algoritmo} in questione, che viene implementato attraverso gli strumenti dell'informatica.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/algoritmoControllo.pdf}
+\end{center}
+L'algoritmo si definisce \textbf{logicamente corretto} se, definiti i dati in ingresso ed i dati in uscita, fornisce i 
+risultati attesi. Si dice \textbf{temporalmente corretto} se i risultati forniti rispettano i vincoli di tempo (deadline) 
+imposti. Un sistema \textit{real time} deve essere logicamente e temporalmente corretto.\acc 
+Erroneamente, si può pensare che per far si che un sistema sia real time (rispetti i vincoli di tempo), basti 
+rendere il sistema più veloce aumentando la potenza di calcolo, ciò non è in realtà sufficiente, è necessario 
+che l'unità di calcolo si dedichi esclusivamente all'algoritmo di controllo, è quindi importante che sia 
+correttamente configurato. \acc 
+Un sistema deputato al real time deve dare \textit{massima priorità} all'algoritmo di controllo, per questo i 
+sistemi real time sono sistemi dedicati realizzati ad hoc, e non vengono utilizzati i sistemi come 
+windows o linux, in quanto essendo general purpose, prevedono molte funzionalità (ad esempio, la gestione dell'I/O) che 
+possono ritardare l'esecuzione dell'algoritmo.\acc 
+Un sistema real time deve quindi essere \textit{prevedibile} e \textit{deterministico}, possiamo suddividere 
+i task da sequenziare in due categorie \begin{itemize}
+    \item relativi alla sicurezza 
+    \item nice to have
+\end{itemize}
+I task responsabili (direttamente o indirettamente) della sicurezza fisica delle persone devono avere 
+massima priorità e la loro esecuzione deve essere strettamente deterministica, un esempio di task di questo tipo, 
+è l'azionamento del freno di un ascensore. I task nice to have invece, "prenotano" l'esecuzione ma potrebbero 
+dover dare la priorità ai task più importanti, un esempio di task di questo tipo può essere l'attivazione 
+dello stereo in un automobile (nice to have = gradibile, ma non fondamentale).\acc 
+Introduciamo a tal proposito due coefficienti, siano \begin{itemize}
+    \item $r_c$ : risultati corretti 
+    \item $r_e$ : risultati elaborati 
+    \item $r_t$ : risultati ottenuti rispettando i vincoli \end{itemize}Si hanno\begin{itemize}
+    \item \textbf{coefficiente logico} : $C_l=\dfrac{r_c}{r_e}$
+    \item  \textbf{coefficiente temporale} : $C_t=\dfrac{r_t}{r_e}$
+\end{itemize}
+Un sistema si dice \textbf{hard real time} se entrambi i coefficienti sono uguali ad 1. I già accennati task 
+che hanno a che fare con l'incolumità delle persone devono essere hard real time. I sistemi \textbf{soft real time} 
+garantiscono la correttezza temporale solamente per una certa percentuale di task. 
+\begin{itemize}
+    \item hard real time  : $\min(C_l,C_t)=1$ 
+    \item soft real time :  $\min(C_l,C_t)<1$
+\end{itemize}
+Per un generico task denotiamo $T_i$ il tempo minimo necessario per eseguirlo, e denotiamo $d_i$ la 
+sua deadline (tempo massimo in cui va eseguito), il \textit{vincolo real time} $\nicefrac{T_i}{d_i}$
+da una misura sul margine di tempo rimanente fra il completamento di un task e la sua deadline, deve essere 
+auspicabilmente minore di 1. Se è molto minore di 1, si dice che il vincolo è \textit{largo}, se è prossimo all'unità, 
+allora è \textit{stretto} ed implica una programmazione sistematica.\flowerLine 
+\section{Parallelismo e Programmazione Concorrente}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
