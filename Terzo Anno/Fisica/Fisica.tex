@@ -1302,5 +1302,33 @@ ma(-\mu_d\sin\alpha-\cos\alpha)=\mu_dmg\cos\alpha+mg\sin\alpha\\
 ma=\frac{1}{(-\mu_d\sin\alpha-\cos\alpha)}\mu_dmg\cos\alpha+mg\sin\alpha
 \end{eqnarray}
 \redText{Da sistemare, sbagliato}
-
+\flowerLine 
+\section{Momento}
+Si vuole modellizzare la rotazione di un corpo secondo le 
+regole della dinamica, definiamo \textit{polo} il punto 
+intorno alla quale rotea il corpo. Una generica forza in presenza di un 
+polo può essere rappresentata con due componenti.\begin{center}
+    \includegraphics[width=0.35\textwidth]{images/momento1.eps}
+\end{center}
+La componente $\bar R$ è il vettore che va dal polo al corpo su cui 
+si applica la forza, l'altra componente è la proiezione 
+della forza sul vettore ortogonale al vettore $R$.
+Dato un polo, definiamo il vettore 
+$$ \bar M = \bar R \times \bar F\sin\alpha$$
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{images/momentoAngolare.eps}
+\end{center}
+Il vettore $\bar M$ è detto \textbf{momento} e la sua direzione è 
+normale al piano di rotazione, si misura in Newton per metro $N\cdot m$.
+Se dovessimo scriverlo in analogia con la formula della forza $\bar F = m\bar a$, si 
+può scrivere 
+$$ \bar M = \bar R \times \frac{d\bar m\bar v}{dt}$$
+Si definisce \textbf{momento della quantità di moto } la grandezza 
+$$ \bar b = \bar R\times m\bar v$$
+Derivando il momento della quantità di moto si ha 
+$$\frac{d\bar b}{dt}=\frac{d}{dt}\bar R \times m\bar v=
+\frac{d}{dt}\bar R \times m\bar v + \bar R \times \frac{d}{dt}m\bar v = 
+\frac{d}{dt}\bar R \times m\bar v + \bar M $$
+quindi 
+$$\bar M=\frac{d\bar b}{dt}-\frac{d\bar R}{dt}\times m \bar v$$ 
 \end{document}
