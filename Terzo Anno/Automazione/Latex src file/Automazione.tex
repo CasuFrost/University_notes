@@ -1571,11 +1571,74 @@ da una misura sul margine di tempo rimanente fra il completamento di un task e l
 auspicabilmente minore di 1. Se è molto minore di 1, si dice che il vincolo è \textit{largo}, se è prossimo all'unità, 
 allora è \textit{stretto} ed implica una programmazione sistematica.\flowerLine 
 \section{Parallelismo e Programmazione Concorrente}
-
-
-
-
-
+I task verranno rappresentati tramite un diagramma che prevede un asse temporale e dei blocchi 
+rappresentanti la "vita" di tali task nel tempo.
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/diagrammaTask.eps}
+\end{center}
+Un \textit{evento} avviene in un certo istante di tempo e sancisce il momento in cui il task 
+può cominciare, tale diagramma individua l'intervallo temporale in cui il task è pronto per 
+essere eseguito fino al momento in cui deve essere terminato. Può accadere che i timescope di due task si 
+intersechino necessitando di un esecuzione \textit{parallela}.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/diagrammaTaskParalleli.eps}
+\end{center}
+Un sistema di controllo con $n$ processori permette il \textit{parallelismo reale}, in cui 
+nello stesso istante più task vengono eseguiti in parallelo su differenti unità di calcolo. Dato che in genere, il numero dei task 
+è sempre maggiore del numero dei processori, è necessaria la gestione del \textbf{parallelismo logico}, in cui più 
+task vanno alternati su un singolo processore, varrà quindi l'ipotesi che l'unità di calcolo dei sistemi di controllo 
+trattati in questo corso sia unica.\acc 
+L'obiettivo è quello di disegnare un \textbf{algoritmo di scheduling}, che si occupi di decidere in che modo i 
+task vanno sequenziati nel tempo. Molti dei concetti presenti sono ampliamente trattati negli appunti del corso di 
+\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Sistemi%20Operativi%201/Latex%20source%20file/Sistemi%20Operativi%20modulo%201.pdf}{Sistemi Operativi 1}.\color{black}
+\subsubsection{Caratteristiche di un Task}
+Ogni task nell'ambiente del sistema di controllo, in un preciso istante può trovarsi in uno dei seguenti stati\begin{itemize}
+    \item \textit{attivo} : L'evento che lo ha scaturito è precedente all'istante attuale, e la sua deadline è futura 
+    all'istante attuale. Un task attivo inoltre può essere \begin{itemize}
+        \item \textit{pronto} : attivo, ma in attesa di essere eseguito sul processore. 
+        \item \textit{in esecuzione} : in esecuzione sul processore.
+    \end{itemize} 
+    \item \textit{Inattivo} : Il contrario di attivo.
+\end{itemize}
+Inoltre per ogni task $i$ sono definiti i seguenti istanti che lo caratterizzano \begin{itemize}
+    \item \textit{activation time}  $a_i$ : L'istante in cui avviene l'evento che lo scaturisce. 
+    \item \textit{start time} $s_i$ : L'istante in cui viene eseguito sul processore per la prima volta. 
+    \item \textit{end time} $e_i$ : L'istante in cui l'esecuzione è terminata. 
+    \item \textit{deadline} $d_i$ : L'istante in cui la vita del processo non può protrarsi oltre.
+    Inoltre, dati gli istanti presentati, si identificano 4 intervalli di tempo relativi ad un task $i$ :\begin{itemize}
+        \item \textit{computation time}  $C_i = e_i-s_i$ : il tempo effettivo impiegato sul processore.  
+        \item \textit{deadline relativa} $D_i=d_i-a_i$ : la durata del suo timescope.  
+        \item \textit{response time} $R_i = e_i-a_i$ : tempo impiegato per completare il task.  
+        \item \textit{lateness} $L_i=e_i-d_i$ : il ritardo fra la deadline e la terminazione del processo, se 
+        tale valore è maggiore di 0 si parla di soft real time, deve auspicabilmente essere minore di 0. 
+    \end{itemize}
+\end{itemize}\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/istantiDelTask.eps}
+\end{center}
+Lo scheduler (unità logica che applica l'algoritmo di scheduling) deve attuare una strategia che \begin{itemize}
+    \item Rispetti i vincoli delle risorse 
+    \item Rispetti le priorità dei task 
+    \item Massimizzi opportuni indici prestazionali 
+\end{itemize}
+Quando un evento genera un task, questo viene messo nella \textit{ready queue}, ossia la coda 
+dei task pronti per essere eseguiti, l'algoritmo deve selezionare dalla coda il task successivo che 
+verrà eseguito sull'unità di calcolo (dispatching), inoltre uno scheduler può essere \textbf{preemptive} : \begin{quote}
+    Se vi è un processo $A$ in esecuzione e ne arriva nella ready queue uno nuovo $B$ di priorità maggiore, lo scheduler 
+    \textit{ preemptive} bloccherà l'esecuzione del processo $A$ per eseguire il processo $B$, una volta terminato, $A$ 
+    potrà tornare in esecuzione.
+\end{quote}
+I task, possono richiedere l'accesso a delle risorse \begin{quote}
+    Ad esempio, un task che si occupa della stampa di un foglio può richiedere accesso alla stampante
+\end{quote}
+Inoltre queste risorse possono essere condivise fra più task, l'accesso a queste deve essere \textbf{mutualmente 
+esclusivo}, quando un task sta utilizzando una risorsa, nessun task che la necessita può essere eseguito. 
+I task pronti ad essere eseguiti, ma che richiedono una risorsa già in uso, vengono messi in una 
+\textit{blocked queue}, e saranno "bloccati" finché la risorsa di cui necessitano non tornerà disponibile.\begin{center}
+   \begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth ]{images/scheduler.pdf}
+    \caption{modello generico di scheduling}
+   \end{figure}
+\end{center}
 
 
 

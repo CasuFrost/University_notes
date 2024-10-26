@@ -1435,7 +1435,7 @@ La rimozione di $vy$ comporta il cambio del numero di occorrenze di 1 (oppure 2)
 $w$, quindi $\hat w$ avrà 1 (oppure 2) simboli le cui occorrenze differiscono dal/dai restante/restanti, ma allora 
 non è del tipo $0^n1^n2^n, \ \ n \ge 1$, quindi non è in $L$, ma allora non è vero che 
 $L$ è acontestuale.
-\subsubsection{Esercizio 2}
+\subsubsection{Esercizio 2}\label{es2}
 Si consideri il linguaggio 
 $$ L=\{ww \ | \  w\in\{0,1\}^* \}$$
 Tale linguaggio non è acontestuale, non esiste nessuna CFG che lo genera. Per assurdo, si assuma che $L$ sia 
@@ -1471,5 +1471,226 @@ $$ \hat w = \smash{\underbrace{00\dots 0}_{p\ \text{volte}}} \
 \smash{\underbrace{11\dots 1}_{p\ \text{volte}}} $$\\ $$k\ne p\lor j\ne p $$
 \\Ma allora $\hat w \notin L$.
 \end{itemize}
-\redText{da continuare}
+Durante dimostrazioni di questo tipo può risultare utile l'applicazione di una proprietà delle CFG, ossia la loro 
+\textbf{chiusura per concatenazione}, siano $G_1=(V_1,\Sigma, R_1, S_1)$ e $G_2=(V_2,\Sigma, R_2, S_2)$ due CFG, la grammatica 
+$G=(V_1\cup V_2,\Sigma, R, S)$ dove \begin{itemize}
+    \item $S$ è un nuovo stato 
+    \item $R=R_1\cup R_2\cup\{S\rightarrow S_1S_2\}$
+\end{itemize}
+é ancora una CFG.
+\acc 
+Differentemente, le CFG non sono chiuse per intersezione, basta dare un singolo contro esempio per dimostrare la tesi, si 
+considerino i seguenti linguaggi 
+$$ \begin{matrix}
+    L_1=\{0^n1^n2^i \ | \ n\ge 0\land i\ge 0\}\\ 
+    L_2=\{0^k1^n2^n \ | \ n\ge 0\land k\ge 0\}
+\end{matrix}$$
+Entrambi i linguaggi sono acontestuali, infatti sono generati dalle regole 
+$$ R_1=\begin{cases}
+    S\longrightarrow S_1S_2\\ 
+    S_1\longrightarrow0S_1 1|\epsilon\\ 
+    S_2 \longrightarrow 2S_2|\epsilon
+\end{cases} \ \ \ \ \ \ \ \ R_2=\begin{cases}
+    S\longrightarrow S_1S_2\\ 
+    S_1\longrightarrow0S_1 |\epsilon\\ 
+    S_2 \longrightarrow 1S_22|\epsilon
+\end{cases}$$
+L'intersezione dei due linguaggi $L=L_1\cup L_2 = \{0^n1^n2^n \ | \ n\ge 0\}$ sappiamo essere un linguaggio acontestuale, 
+quindi le CFG \textbf{non sono chiuse per intersezione}.
+\subsubsection{Esercizio 4}
+Si consideri il seguente linguaggio $$ L=\{a,b\}^* \ \backslash \ \{ww\ | \ w\in\{a,b\}^*\}$$
+Comprende tutte le stringhe che non possono essere scritte come una stessa stringa ripetuta due volte. Nell'esercizio 
+\ref{es2} si è visto 
+che il complementare di $L$, non è un linguaggio acontestuale, si vuole dimostrare che invece $L$ lo è. Sicuramente, 
+tutte le stringhe di cardinalità dispari saranno in $L$. Le regole che generano il linguaggio sono le seguenti$$ 
+R=\begin{cases}
+    S\longrightarrow A|B|AB|BA\\ 
+    A\longrightarrow a|aAa|aAb|bAa|bAb 
+    B\longrightarrow b|aBa|aBb|bBa|bBb 
+\end{cases}
+$$\begin{itemize}
+    \item $A$ genera le stringhe dispari con una $a$ al centro
+    \item $B$ genera le stringhe dispari con una $b$ al centro
+\end{itemize}
+\dimo{} : Si vuole dimostrare che le stringhe di lunghezza pari generate da $R$ sono in $L$. Si dimostreranno entrambi i 
+versi.\acc 
+\boxedMath{$\implies$} Se $x\in L$, allora $S\Rightarrow^* x$. Se $x\in L$, allora esiste almeno una lettera che si differenzia fra le due sotto stringhe di eguale 
+lunghezza che compongono $x$, sia $n=|x|$
+$$\exists \ i \ | \ x_i\ne x_{\nicefrac{n}{2}+1} $$
+$x$ può essere scritta come unione di due 
+stringhe di lunghezza dispari $x=uv$. Si pongono \begin{itemize}
+    \item $u=x_1x_2\dots x_{2i-1}$
+    \item $v=x_{2i}x_{2i+1}\dots x_n$
+\end{itemize}
+$S\longrightarrow AB$ e $A\longrightarrow u \land B\longrightarrow v \implies S\Rightarrow^* x$.\acc 
+\boxedMath{$\impliedby$} Se $S\Rightarrow^* x$ allora $x\in L$. 
+Siccome $|x|=n=0\mod 2$, può essere generata a partire da $S\longrightarrow AB$ oppure $S\longrightarrow BA$, si suppone che 
+sia generata dalla prima (il procedimento è analogo), 
+allora $x=uv$ con $u\ne v$ e \begin{itemize}
+    \item $A\Rightarrow^* u$
+    \item $B\Rightarrow^* v$
+\end{itemize}
+Sia $|u|=l$ e $|v|=n-l$, le lettere centrali di $u$ e $v$ sono \begin{itemize}
+    \item $u_{\frac{l+1}{2}}$
+    \item $v_{\frac{n-2+1}{2}}$
+    \item dove $u_{\frac{l+1}{2}}\ne v_{\frac{n-2+1}{2}}$
+\end{itemize}
+Scrivendo le lettere in funzione di $x$ si ha 
+$$ u_{\frac{l+1}{2}}=x_{\frac{l+1}{2}} \ \ \ \  \  v_{\frac{n-2+1}{2}}=x_{\frac{n+l+1}{2}}
+$$
+\redText{dimostrazione non completa}
+\chapter{Calcolabilità}
+\section{Macchina di Turing e Decidibilità}
+Esistono linguaggi che nessuna CFG può accettare, si vuole estendere il modello di calcolo ad uno più 
+potente. Negli anni 30' del ventesimo secolo fu introdotta la \textbf{Macchina di Turing} (alla quale ci 
+riferiremo come TM), estendendo gli automi dandogli una memoria illimitata, tale modello è una semplice 
+astrazione dei calcolatori odierni, e corrisponde alla nozione di algoritmo.\subsubsection{Caratteristiche di una TM}\begin{itemize}
+    \item Una TM possiede un \textit{nastro di lavoro}, rappresenta una memoria (illimitata) sulla quale il modello 
+    può scrivere dei caratteri. 
+    \item Una \textit{testina di lettura} che identifica la precisa posizione attuale sul nastro, che può spostarsi 
+    a destra o a sinistra. 
+    \item Vi sono poi degli \textit{stati di accettazione} (la stringa in input è accettata dalla TM) e degli 
+    \textit{stati di rifiuto} (la stringa in input è rifiutata dalla TM). Quando la TM passa su uno stato di rifiuto, 
+    la computazione è immediatamente terminata. 
+    \item È possibile che per alcuni input una TM entri in uno stato di \textit{loop} in cui non termina.
+\end{itemize}
+\defi{(Turing Machine)} Una TM $T=(Q,\Sigma,\Gamma,\delta,q_0,q_{acc},q_{rej})$ è una tupla tale che \begin{itemize}
+    \item $Q$ è l'insieme degli stati 
+    \item $\Sigma$ è l'alfabeto delle stringhe in input 
+    \item $\Gamma$ è l'insieme dei caratteri che possono essere scritti sul nastro, solitamente $\Sigma\subseteq \Gamma$. Inoltre 
+    in $\Gamma$ vi è sempre un carattere speciale $\blank$ (denominato "blank") che rappresenta il carattere vuoto.
+    Inoltre $\blank\notin\Sigma$.
+    $\delta$ è la funzione di transizione definita $$ \delta : Q\times \Gamma \rightarrow Q\times \Gamma \times \{L,R\}$$
+    L'insieme $\{L,R\}$ rappresenta i possibili spostamenti della testina a sinistra o a destra
+    \item $q_0$ è lo stato iniziale 
+    \item  $q_{acc}$ è lo stato (unico) di accettazione 
+    \item $q_{rej}$ è lo stato (unico) di rifiuto 
+\end{itemize}
+Canonicamente, la configurazione iniziale di una TM prevede l'intera stringa in input contenuta nel nastro, seguita 
+dal carattere $\blank$.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/turingMachine.eps}
+\end{center}
+Una TM computa la stringa in input seguendo le regole definite dalla $\delta$, come per gli automi, per una 
+TM è defintia la configurazione ad un certo passo nella configurazione, essa determina il contenuto del nastro, la 
+posizione della testina, e lo stato attuale. Una configurazione si denota $$ uqav$$ dove \begin{enumerate}
+    \item $u,v\in\Gamma^*$
+    \item $q\in Q$
+    \item $uav$ è il contenuto del nastro, $a\in\Gamma$ è il carattere su cui si trova la testina.
+\end{enumerate}
+Data in input una stringa $w$, la configurazione iniziale sarà $q_0w$. Si può rappresentare graficamente una 
+configurazione come segue\begin{center}\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.8\textwidth ]{images/confTM.eps}
+    \caption{la testina è sul carattere $w_i$ e lo stato attuale è $q$}
+\end{figure}
+\end{center}
+Per definire il concetto di accettazione, bisogna stabilire la relazione di \textit{produzione} :
+ $$\begin{matrix}
+    uaq_ibv \text{ produce }uq_jacv \\ \text{se e solo se}\\ 
+    \delta(q_i,b)=(q_j,c,L)
+ \end{matrix} $$
+Vuol dire che la TM, nello stato $q_i$, leggendo con la testina il carattere $b$ si sposta a sinistra. Può 
+essere analogamente definito per lo spostamento a destra.
+$$\begin{matrix}
+    uaq_ibv \text{ produce }uacq_jv \\ \text{se e solo se}\\ 
+    \delta(q_i,b)=(q_j,c,R)
+ \end{matrix} $$
+ Diremo che una TM \textbf{accetta} $w$ se e solo se esiste una sequenza di configurazioni 
+ $$ C_1\rightarrow C_2\rightarrow C_3\dots\rightarrow C_k$$
+ dove \begin{itemize}
+    \item $C_1=q_0w$ 
+    \item $\forall i \ \ \ C_i$ produce $C_j$
+    \item lo stato della configurazione $C_k$ è lo stato accettante $C_k=uq_{acc}av$
+ \end{itemize}
+ \defi{(Riconoscibilità)} Un linguaggio $L$ è \textbf{turing riconoscibile} se esiste una TM $M$ che 
+ \textit{accetta} ogni sua stringa, si dice che $L$ è il linguaggio di $M$.\acc 
+ Se una TM deve computare una stringa che non è nel suo linguaggio, può \begin{itemize}
+    \item rifiutare 
+    \item andare in loop
+ \end{itemize}
+ Una TM $M$ per cui, data una qualsiasi stringa, non vai mai in loop, viene detta \textbf{decisore}.\acc 
+ \defi{(Decidibilità)} Un linguaggio $L$ è \textbf{turing decidibile} se esiste una TM $M$ che è un 
+ decisore per $L$, ossia, per ogni sua stringa, non va mai in loop. Si dice che $M$ \textit{decide} $L$.\acc 
+Data una TM $M$ si hanno gli insiemi \begin{itemize}
+    \item $L(M)=\{w\in\Sigma^* \ | \ M\text{ accetta }w \}$
+    \item $R(M)=\{w\in\Sigma^* \ | \ M\text{ rifiuta }w \}$
+    \item Generalmente $L(M)\cup R(M)\subseteq \Sigma^*$
+    \item Se $L(M)\cup R(M)= \Sigma^*$ allora $M$ è un decisore.
+ \end{itemize}
+ Un linguaggio che non ha decisori \textit{non è decidibile}, la definizione di decidibilità stabilisce i limiti della 
+ computabilità, esistono infatti dei linguaggi (astrando, dei problemi) che non possono essere decisi (non possono essere 
+ risolti), ciò si lega inevitabilmente con i \textit{teoremi di incompletezza} di Gödel, esisteranno sempre 
+ delle proposioni per cui è \textit{impossibile} stabilire se sono vere o false. 
+ \subsection{Esempi di TM}
+ Le TM verranno rappresentato in maniera compatta sottoforma di grafi proprio come per gli automi.
+ \begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \begin{tikzpicture} [node distance = 5cm, on grid, auto]
+            \node (q1)[state, left] {$q_1$};
+            \node (q2)[state, right = of aperta] {$q_2$};
+            \path [-stealth, thick]
+            (q1) edge  node {$a\rightarrow b,R$}   (q2);
+        \end{tikzpicture} & Il grafo rappresentato in figura descrive la seguente situazione : Se la TM si trova 
+        nello stato $q_1$, e la testina si trova sul carattere $a$, allora si sostituisce il carattere 
+        $a$ nel nastro con il carattere $b$, si sposta la testina a destra (se al posto di $R$ ci fosse 
+        stato $L$ si sarebbe andati a sinistra) e la TM si sposta nello stato $q_2$.
+		\\
+	\end{tabular}
+\end{center}
+\subsubsection{Esempio 1}
+Si consideri il seguente linguaggio $L=\{01^*0\}$. La TM che decide $L$ è la seguente\begin{center}
+    \begin{tikzpicture} [node distance = 4cm, on grid, auto]
+        \node (q0)[state, initial, left] {$q_0$};
+        \node (B)[state, right = of q0] {$B$};
+        \node (C)[state, right = of B] {$C$};
+        \node (rej)[state, below = of B] {$q_{rej}$};
+        \node (acc)[state,accepting, below = of C] {$q_{acc}$};
+        \path [-stealth, thick]
+        (B) edge [loop above]  node {$1\rightarrow y, R$}()
+        (q0) edge  node {$0\rightarrow x,R$}  (B)
+        (q0) edge [bend right]  node[left] {$\begin{matrix}\\1\rightarrow 1,R \ \ \\\blank\rightarrow \blank,R\ \ \end{matrix}$}  (rej)
+        (B) edge  node {$0\rightarrow x,R$}  (C)
+        (C) edge  node {$\blank\rightarrow \blank,R$}  (acc)
+        (C) edge  node {$\begin{matrix}1\rightarrow 1,R\\0\rightarrow 0,R\end{matrix}$}  (rej)
+        (B) edge  node {$\blank\rightarrow \blank,R$}  (rej);
+    \end{tikzpicture}
+\end{center}
+Esempio di computazione su una stringa di $L$:$$ 
+\begin{matrix}
+    \bar 0 1 1 1 0 \blank & & x\bar 1 1 1 0 \blank&& xy\bar 1 1 0 \blank\\ xyy\bar 10\blank & & xyyy\bar 0\blank && xyyyx\bar \blank
+\end{matrix} 
+$$
+\subsubsection{Esempio 2}\label{esempioTM2}
+Si consideri il seguente linguaggio $L=\{0^n1^n \ | \ n\ge 0\}$. La TM che decide $L$ è la seguente (stato di 
+rifiuto omesso)\begin{center}
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+        \node (A)[state, initial, left] {$A$};
+        \node (B)[state, right = of A] {$B$};
+        \node (C)[state, right = of B] {$C$};
+        \node (D)[state, below = of A] {$D$};
+        \node (acc)[state,accepting, below = of D] {$q_{acc}$};
+        \path [-stealth, thick]
+        (B) edge [loop below]  node {$\begin{matrix}y\rightarrow y,R\\0\rightarrow 0,R\end{matrix}$}()
+        (D) edge [loop right]  node {$y\rightarrow y,R$}()
+        (C) edge [loop right]  node {$\begin{matrix}y\rightarrow y,L\\0\rightarrow 0,L\end{matrix}$}()
+        (A) edge  node[below] {$0\rightarrow x,R$}  (B)
+        (A) edge [bend right] node[left] {$\blank\rightarrow \blank,R$}  (acc)
+        (A) edge  node {$y\rightarrow y,R$}  (D)
+        (D) edge  node {$\blank\rightarrow \blank,L$}  (acc)
+        (B) edge  node[below] {$1\rightarrow y,L$}  (C)
+        (C) edge [bend right] node[above] {$x\rightarrow x,R$}  (A);
+    \end{tikzpicture}
+\end{center}
+Nel capitolo precedente si è visto come il linguaggio $L=\{0^n1^n2^n \ | \ n\ge 0\}$  non è acontestuale, 
+è possibile computarlo tramite le TM, de facto, basterà unire 2 TM che si comportino come 
+quella vista nell'esempio \ref{esempioTM2}, infatti nella prima computazione si occuperà di controllare 
+che la stringa in input abbia i primi $2n$ caratteri del tipo $0^n1^n$.$$
+00\dots 0 \  \ 11\dots 1 \ \ 22\dots 2  \ \ \text{ viene trasformata } \ \ xx\dots x \ \ yy\dots y \ \ 22\dots 2$$
+La seconda TM si occuperà di controllare se gli ultimi $2n$ caratteri sono del tipo $y^n2^n$. $$
+xx \dots x \ \ yy\dots y\  \ 22\dots 2 \ \ \text{ viene trasformata }  \  \ xx\dots x \ \  xx \dots x  \ \ yy \dots y
+$$
+Senza perdita di generalità, è possibile astrarre le TM considerano due nuovi modelli equivalenti\begin{itemize}
+    \item \textbf{TM multinastro}
+    \item \textbf{TM non deterministica}
+\end{itemize}
 \end{document}
