@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.3">
+  <diagram name="Pagina-1" id="C1P9-O9p7LKKtS-s14k6">
+    <mxGraphModel dx="1091" dy="571" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-1" value="\(\frac{1}{s-1}\)" style="rounded=0;whiteSpace=wrap;html=1;fontSize=21;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="230" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-2" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="249.66" as="sourcePoint" />
+            <mxPoint x="230" y="249.66" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="180" y="249.66" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-3" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="350" y="249.65999999999997" as="sourcePoint" />
+            <mxPoint x="430" y="249.65999999999997" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="380" y="249.65999999999997" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-4" value="\(u(t)\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="160" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-6" value="\(\frac{s-1}{s+2}\)" style="rounded=0;whiteSpace=wrap;html=1;fontSize=21;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-7" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="249.65999999999997" as="sourcePoint" />
+            <mxPoint x="630" y="249.65999999999997" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="580" y="249.65999999999997" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-8" value="\(y(t)\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="570" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-9" value="\(G(S)=\dfrac{s-1}{(s-1)(s+2)}=\dfrac{1}{s+2}\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="650" y="215" width="310" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="Pgu8GOugqCbjUvskAC0Z-10" value="Il sistema è instabile anche se \(G(s)\) mostra una dinamica asintoticamente stabile." style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="337" y="300" width="490" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -2104,7 +2104,7 @@ $$ \mathcal{L}^{-1}\Bigg[\frac{C_{i,j}}{(s-p_i)^j}\Bigg](t)=\frac{C_{i,j}}{(j-1)
 A questo punto è necessario poter calcolare i coefficienti $C_{i,j}$.
 \redText{da continuare}
 \flowerLine 
-\section{Elementi di Teoria dei Sistemi}
+\section{Elementi di Teoria dei Sistemi e Controlli Automatici}
 Possiamo rappresentare un sistema dinamico (a tempo continuo) come un processo 
 che date $m$ entrate restituisce $p$ uscite, convenzionalmente, definiamo $u$ l'entrata del sistema 
 e $y$ l'uscita.
@@ -2676,5 +2676,215 @@ strettamente negativa, il sistema è asintoticamente stabile.}
 Il criterio esposto in questa sezione permette lo 
 studio della stabilità di un sistema tramite la costruzione 
 di una apposita tabella.
+\newpage 
+\subsection{Raggiungibilità e Osservabilità}
+\defi{(raggiungibilità)} Con \textit{raggiungibilità} si definisce la proprietà di un sistema dinamico 
+di poter assumere un prefissato valore agendo sull'ingresso. \acc 
+Si consideri un generico sistema lineare, uno stato $\tilde x$ si dirà \textit{raggiungibile} se 
+esiste un ingresso $\tilde u(t)$ tale che il movimento forzato del sistema con tale 
+ingresso risulti proprio $\tilde x$. La raggiungibilità dipende esclusivamente dall'equazione di stato e non ha 
+nulla a che vedere con l'uscita $y$.\acc 
+Dato un sistema $$ \dot{x}=Ax+Bu$$
+Sia $n$ l'ordine (quindi l'ordine di $A$), la \textbf{matrice di raggiungibilità} associata al sistema è 
+$$ R=\begin{bmatrix}
+    B&AB&A^2B&A^3 B &\dots & A^{n-2}B & A^{n-1}B
+\end{bmatrix}$$
+Se la matrice $B$ ha dimensione $n\times m$ (dove $m$ è il numero di 
+ingressi), La matrice di raggiungibilità $R$ avrà dimensione $n\times nm$.$R$ è la matrice 
+la cui immagine è l'insieme di tutti gli stati raggiungibili, definiamo quindi $X^R$ lo \textit{spazio di 
+raggiungibilità}. $$ X^R=Im(R)$$ 
+Il sistema si dice \textbf{completamente raggiungibile} se il rango di $R$ è uguale ad $n$, in tal caso, 
+ogni possibile stato del sistema è raggiungibile. 
+$$ \forall \tilde x\in\R^n\ \exists \tilde u \text{ t.c. } x(t)=x_0\cdot e^{at}+\int_0^te^{(at-\tau)}b\tilde u(\tau)d\tau=\tilde x$$
+Se $m=1\implies 
+R$ è quadrata, sarà sufficiente che $\det(R)\ne 0$. Se il sistema non è completamente 
+raggiungibile, il rango di $R$ (denotato $n_r$) sarà inferiore ad $n$.
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/matriceRaggiungibilità.eps}
+\end{center}
+Quando un sistema non è completamente raggiungibile, è possibile 
+\textit{isolare} la sua componente raggiungibile. Bisogna operare 
+un \textit{cambio di variabili} di stato per mezzo di un'apposita matrice di 
+trasformazione $T_r$, si definisce
+$$\hat x(t) = T_rx(t) $$
+L'equazione del movimento dello stato si modificherà 
+$$ \hat{\dot{x}}=\hat A\hat x+\hat Bu $$
+Quindi verranno modificate anche le matrici $A$ e $B$. Come saranno fatte queste nuove matrici?$$ \begin{matrix}
+    \hat A = T_rAT_r^{-1}\\ 
+    \hat B = T_r B
+\end{matrix}$$
+La matrice $T_r$ deve essere invertibile, dovrà avere dimensione $n\times n$. Le prime $n_r$ colonne 
+di $T_r$ saranno composte da $n_r$ vettori linearmente indipendenti della matrice di raggiungibilità 
+$R$, le restanti colonne saranno un completamento, ossia la matrice $T_r$  deve avere le colonne 
+tutte linearmente indipendenti (il determinante deve essere diverso da zero).
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/matriceT.eps}
+\end{center}
+\redText{Continuare}\newpage 
 
+
+
+
+
+
+
+\subsection{Schemi a Blocchi}
+Gli schemi a blocchi costituiscono una rappresentazione grafica e schematica dei sistemi dinamici 
+costituiti da più sistemi interconnessi fra loro, mettendone in relazione le 
+interazioni fra essi. Durante la sezione, se $x(t)$ è una generica funzione nel tempo, rappresenteremo
+con $X(s)$ la sua trasformata di Laplace (lettera maiuscola e variabile complessa $s$). Gli elementi di base 
+degli schemi a blocchi sono i seguenti
+\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/schemiBlocchiElementi.pdf}
+\end{center}
+In base alla disposizione degli elementi negli schemi a blocchi esistono diverse regole di elaborazione 
+al fine di manipolare e trovare la funzione di trasferimento globale del sistema.
+\subsubsection{Blocchi in Serie}
+Quando sono presenti due blocchi in serie :
+\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/blocchiInSerie.pdf}
+\end{center}
+L'uscita globale del sistema segue la seguente formulazione 
+$$ Y_2(s)=G_2(s)U_2(s)=G_2(s)Y_1(s)=G_2(s)G_1(s)U_1(s)$$
+La funzione di trasferimento \textit{globale} del sistema è data dal prodotto delle 
+due funzioni di trasferimento $$ \begin{matrix}
+    G(s)=G_1(s)G_2(s)\\ Y_2(s)=U(s)G(s)
+\end{matrix}$$
+\subsubsection{Blocchi in Parallelo}
+Quando sono presenti due blocchi in parallelo, come mostrato in figura 
+\ref{fig:parallelo}, l'uscita globale del sistema segue la seguente formulazione 
+$$ Y(S)=Y_1(s)+Y_2(s)=U(s)G_1(s)+U(s)G_2(s)=U(s)[G_1(s)+G_2(s)]$$\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.65\textwidth ]{images/blocchiInParallelo.pdf}
+        \caption{blocchi in parallelo}
+        \label{fig:parallelo}
+    \end{figure}
+\end{center}
+\subsubsection{Blocchi in Retroazione}
+Uno schema a \textit{retroazione}, anche detto ad \textit{anello chiuso} è fondamentale nella teoria 
+dei controlli automatici, modella l'azione del misurare un errore presente fra un valore che si vuole 
+far assumere ad una variabile (riferimento) ed il suo valore effettivo (uscita del sistema). 
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.65\textwidth ]{images/blocchiInRetroazione.pdf}
+        \caption{blocchi in retroazione}
+        \label{fig:retroazione}
+    \end{figure}
+\end{center}
+Si osservi la figura \ref{fig:retroazione}, la funzione di trasferimento globale è 
+formulata come segue 
+$$ 
+Y(s)=E(s)G_1(s)=G_1(s)[U(s)\pm Y_2(s)] = G_1(s)[U(s)\pm G_2(s)Y(s)]\implies 
+$$
+$$ Y(s)[1\pm G_1(s)G_2(s)]=G_1(s)U(s)\implies $$
+$$ Y(s)=\frac{G_1(s)}{1\pm G_1(s)G_2(s)}U(s)$$
+\subsubsection{Regole di Elaborazione}
+In questa sezione segue una lista di regole di elaborazione degli schemi a blocchi, 
+che ne modificano il diagramma lasciandolo equivalente a quello originale.
+    \begin{figure}[h!]\centering 
+        \includegraphics[width=0.7\textwidth ]{images/regola1.pdf}
+        \caption{regole sullo spostamento del nodo sommatore}
+    \end{figure}
+    \begin{figure}[h!]\centering 
+        \includegraphics[width=0.8\textwidth ]{images/regole2.pdf}
+        \caption{regole sullo spostamento della diramazione}
+    \end{figure}\\
+La rielaborazione dello schema è lecita soltanto ai fini del calcolo della funzione di trasferimento  
+complessiva.
+\subsubsection{Analisi della Stabilità nei Sistemi Interconnessi}
+Si consideri un sistema composto da due blocchi in serie con le funzioni di trasferimento 
+$$ G_1(s)=\frac{N_1(s)}{D_1(s)} \ \ \  G_2(s)=\frac{N_2(s)}{D_2(s)} $$
+La funzione di trasferimento complessiva sappiamo essere 
+$$ G(s)=G_1(s)G_2(s)=\frac{N_1(s)N_2(s)}{D_1(s)D_2(s)}=\frac{N(s)}{D(s)}$$
+In generale
+i poli della funzione $G$ è l'insieme dei poli di entrambe le funzioni, ciò implica che, se 
+entrambe le funzioni $G_1,G_2$ sono asintoticamente stabili (la parte reale di ogni polo è 
+negativa), allora anche $G$ sarà asintoticamente stabile.\acc 
+Può accadere però, che vi siano delle cancellazioni, se ad esempio ci sono fattori in comune fra 
+$N_1(s),D_2(s)$ oppure fra $N_2(s),D_1(s)$ \begin{quote}
+    esempio $$ \begin{matrix}
+        G_1(s)=\dfrac{s+3}{(s+1)s} \\ \\
+        G_2(s)=\dfrac{1}{(s+3)(s+\pi)}
+    \end{matrix}\implies G(s)=\frac{(s+3)}{(s+3)(s+\pi)(s+1)s}=\frac{1}{(s+\pi)(s+1)s}$$
+    Anche se $s_1=-3$ era il polo di una delle due funzioni, non lo è di quella complessiva
+\end{quote}
+In generale, la dinamica del sistema complessivo è "nascosta", se un polo con parte reale positiva è stato 
+cancellato, il sistema è comunque non asintoticamente stabile anche se la funzione complessiva non presenta poli con parte 
+reale positiva.\begin{itemize}
+    \item Se vengono cancellati poli con parte reale positiva il sistema 
+    non è asintoticamente stabile 
+    \item Se vengono cancellati solo poli con parte reale negativa e $G(s)$ non ha poli con parte 
+    reale positiva il sistema è asintoticamente stabile
+\end{itemize}\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/instabilitàNascosta.pdf}
+\end{center}
+In conclusione, il sistema complessivo è stabile se tutti i sotto sistemi sono stabili, gli autovalori del 
+sistema complessivo sono l'unione degli autovalori dei sottosistemi.\acc 
+Si consideri un sistema composto da due blocchi in serie con le funzioni di trasferimento 
+$$ G_1(s)=\frac{N_1(s)}{D_1(s)} \ \ \  G_2(s)=\frac{N_2(s)}{D_2(s)} $$
+La funzione di trasferimento complessiva sappiamo essere 
+$$ G(s)=G_1(s)+G_2(s)=\frac{N_1(s)D_2(s)+N_2(s)D_1(s)}{D_1(s)D_2(s)}=\frac{N(s)}{D(s)}$$
+Le radici del polinomio $D_1(s)D_2(s)$ sono l'unione delle radici dei singoli polinomi, 
+è quindi vero che i poli di $G(s)$ sono l'unione dei poli di $G_1(s)$ e $G_2(s)$.  Anche in questo caso 
+però possono verificarsi delle situazioni di instabilità nascosta.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/instabilitàNascosta2.pdf}
+\end{center}
+In conclusione, proprio come per le interconnessioni in serie, il sistema complessivo è stabile se tutti i sotto sistemi sono stabili, gli autovalori del 
+sistema complessivo sono l'unione degli autovalori dei sottosistemi.\acc 
+Passiamo infine al caso della connessione in retroazione, date le funzioni di trasferimento 
+$$ G_1(s)=\frac{N_1(s)}{D_1(s)} \ \ \  G_2(s)=\frac{N_2(s)}{D_2(s)} $$
+La funzione di trasferimento complessiva sappiamo essere 
+$$ G(s)=\frac{G_1(s)}{1+G_1(s)G_2(s)}=\frac{\frac{N_1(s)}{D_1(s)}}{1+\frac{N_1(s)N_2(s)}{D_1(s)D_2(s)}}
+=\frac{N_1(s)D_2(s)}{D_1(s)D_2(s)+N_1(s)N_2(s)}$$
+I poli della funzione complessiva $G(s)$ sono le radici del polinomio $D_1(s)D_2(s)+N_1(s)N_2(s)$, 
+non è quindi più vero che i poli di $G(s)$ sono l'unione dei poli di $G_1(s)$ e $G_2(s)$. La stabilità 
+asintotica dei sottosistemi non implica la stabilità asintotica del sistema complessivo, e 
+la stabilità asintotica del sistema complessivo non implica la stabilità 
+asintotica dei sottosistemi.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/instabilitàNascosta3.pdf}
+\end{center}
+\subsection{Risposta allo Scalino}
+Dato un sistema dinamico, la sua funzione di trasferimento presenta dei parametri che descrivono 
+l'evoluzione dell'uscita del sistema, quando viene dato come ingresso la funzione scalino 
+$$ H(t)=\begin{cases}
+    1 \text{ se } t\ge 0 \\
+    0 \text{ se } t<0
+\end{cases}$$ 
+In generale, la risposta ad un ingresso che varia istantaneamente da un valore costante ad un altro.
+$$ u(t)=\begin{cases}
+    u_1 \text{ se } t\ge t^* \\
+    u_2 \text{ se } t<t^*
+\end{cases}$$ 
+Nei sistemi asintoticamente stabili, la risposta allo scalino descrive una \textit{transizione} da 
+uno stato di equilibrio a un altro (\textbf{risposta indiciale}).\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/scalino.eps}
+\end{center}
+Denominiamo l'uscita del sistema \textbf{a regime} per $t\rightarrow\infty$ 
+$$ \lim_{t\rightarrow+\infty}y(t)=y(\infty)=\bar y$$
+Si definisce poi \textit{risposta all'impulso} la risposta del sistema se l'ingresso è la 
+delta di diraq $\delta$. E si definisce \textit{risposta alla rampa} la risposta del sistema 
+alla funzione rampa $u(t)=t$. \begin{itemize}
+    \item l'impulso è la derivata dello scalino, quindi la risposta all'impulso è la derivata 
+della risposta allo scalino. 
+\item la rampa è l'integrale dello scalino, la risposta alla rampa è l'integrale della risposta allo 
+scalino.
+\end{itemize}\begin{center}
+    \begin{tabular}{llll}
+        \rowcolor[HTML]{DAE8FC} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}funzione}    & \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}$\delta(t)$} & \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}$H(t)$}         & $H(t)\cdot t$    \\
+                                                                 &                                                          &                                                             &                  \\
+        \rowcolor[HTML]{FFFFC7} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFC7}trasformata} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFC7}1}           & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFC7}$\dfrac{1}{s}$} & $\dfrac{1}{s^2}$
+        \end{tabular}
+\end{center}
+Si consideri un sistema del primo ordine (una variabile di stato), 
+avrà una funzione di trasferimento della forma 
+$$ G(s)=\frac{\mu}{1+s\tau}$$
+Asinstoticamente stabile se $\tau>0$. L'andamento nel tempo di tale sistema quando l'ingresso è 
+lo scalino risulta essere 
+$$ \mathcal{L}^{-1}\Big[\frac{1}{s}\frac{\mu}{1+s\tau}\Big]=
+=\mathcal{L}^{-1}\Big[\frac{\mu}{1+s\tau}+\frac{\mu}{s}\Big]=
+\mu(1-e^{-\nicefrac{t}{\tau}})$$
 \end{document}
