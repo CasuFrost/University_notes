@@ -1639,10 +1639,286 @@ I task pronti ad essere eseguiti, ma che richiedono una risorsa già in uso, ven
     \caption{modello generico di scheduling}
    \end{figure}
 \end{center}
-
-
-
-
+\flowerLine 
+\section{Il Problema dello Scheduling}
+Lo scheduling viene applicato a livello di coordinamento per la sequenziazione dei task, 
+in particolare, il problema consiste nel sequenziare $n$ task, a cui sono associati i rispettivi 
+vincoli temporali e di accesso alle risorse, ci si impone una percentuale $\pi$ di task che 
+rispettino la correttezza temporale, e che eventualmente rispettino i vincoli di mutua 
+esclusione nell'accesso alle risorse.\acc 
+\defi{} Dato un insieme di task, esso è \textit{schedulabile} se esiste almeno un algoritmo 
+di scheduling che lo \textit{risolve} (ne trova una sequenziazione ammissibile, ossia che 
+rispetti i vincoli).\acc s
+Si consideri il seguente esempio, vi sono due task $(A_1,A_2)$, con i rispettivi vincoli 
+temporali
+$$\begin{matrix}
+    a_1=35 & C_1=55 & D_1=80&d_1=115\\ 
+    a_2=10 & C_2=60 & D_2=145&d_2=155
+\end{matrix}$$
+Il tempo è misurato in generiche unità di tempo $t.u.$. Per lo scheduling di questi task, si tenta un 
+approccio \textbf{First In First Out (FIFO)}, ossia, si schedulano i task in ordine di 
+arrivo.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/esempioFIFO.eps}
+\end{center}
+Come si vede dalla traccia dello scheduling, l'algoritmo FIFO non risolve il problema in quanto fa 
+si che il task $A_1$ termini all'istante $125$ nonostante la sua dead line assoluta fosse $115$. Si prova 
+allora uno scheduling FIFO ma di tipo preemptive, in cui si da priorità al task con tempo di completamento 
+minore.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/esempioFIFOPreemptive.eps}
+\end{center}
+Questa serializzazione dei task è ammissibile dato che i vincoli temporali sono rispettati, l'algoritmo 
+FIFO Preemptive risolve l'insieme $(A_1,A_2)$.\acc 
+Ci si pone la domanda : Esiste un algoritmo generale che, dato un arbitrario numero di task con 
+rispettivi vincoli temporali, ne trovi una serializzazione ammissibile? Si è dimostrato che il problema 
+dello scheduling è NP-completo, non è possibile trovare una soluzione in maniera efficiente. Nell'ambito dell'automazione 
+industriale però, è possibile concedersi ipotesi largamente semplificate che permettono di 
+adoperare degli algoritmi che risolvino gli insiemi di task trattati in tali contesti.
+\subsection{Classificazione degli Algoritmi}
+Gli algoritmi di scheduling si classificano secondo 5 differenti parametri. Un algoritmo può essere\begin{itemize}
+    \item \textbf{best effort} : non è hard real time, $\pi<1$
+    \item \textbf{guaranteed} : è hard real time, $\pi=1$, rispetta sempre i vincoli temporali, per garantire 
+    la correttezza si basa su alcuni "test" di garanzia, quando evento genera un task, vi è una fase di 
+    \textit{admission control} in cui il task viene accettato nella ready queue solo se, la sua aggiunta 
+    all'insieme dei task lo rende ancora un insieme schedulabile.\begin{center}
+        \includegraphics[width=1\textwidth ]{images/admissionControl.pdf}
+    \end{center}
+\end{itemize}
+Un altro criterio di classificazione è il seguente, uno algoritmo può essere\begin{itemize}
+    \item \textbf{mono processore} (verranno trattati questi)
+    \item \textbf{multi processore}
+\end{itemize}
+Può essere inoltre \begin{itemize}
+    \item \textbf{preemptive} : se esso è in grado di interrompere l'esecuzione in una delle unità di
+    calcolo di un task a minor priorità a favore dell'esecuzione di un task a maggior
+    priorità.
+    \item \textbf{non preemptive} :  se esso non è in grado di interrompere l'esecuzione di un task
+    quando esso è stato inviato ad una delle unità di calcolo.
+\end{itemize}
+Un importante distinzione è la seguente\begin{itemize}
+    \item \textbf{offline} : Se le decisioni di scheduling sono prese prima dell'attivazione dei task, 
+    quindi la sequenza è nota a priori. 
+    \item \textbf{online} : Se le decisioni dipendono dall'ordine di arrivo dei task. 
+\end{itemize}
+L'algoritmo FIFO è online perché le decisioni dipendono dagli activation time. L'ultima distinzione 
+è la seguente\begin{itemize}
+    \item \textbf{dinamico} :  I parametri sulla quale si basa il dispatching (priorità) possono 
+    variare nel tempo.
+    \item \textbf{statico} : I parametri sulla quale si basa il dispatching (priorità) sono costanti.
+\end{itemize}
+FIFO è un algoritmo statico che basa le priorità sull'activation time.\acc 
+\prop{}  Un algoritmo offline è anche necessariamente statico. \acc
+\dimo{}  Supponiamo per assurdo che un algoritmo offline sia dinamico, ad un certo istante 
+$t$, un generico evento $E$ comporta un cambio nei parametri su cui si basa lo scheduling, 
+facendo cambiare l'ordine di serializzazione, tale ordine non era però noto a priori in quanto è 
+dipeso dall'evento $E$, quindi è impossibile che l'algoritmo sia offline.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/diagrammaSinottico.pdf}
+\end{center}
+In generale, gli algoritmi guaranteed sono dinamici e online (hanno più gradi di libertà), ma sono anche 
+computazionalmente più  complessi.
+\subsection{Scheduling di Task Periodici}
+Nel controllo dell'automazione industriale, i task presentano delle proprietà comuni, è possibile 
+identificare nel processo produttivo dei \textit{cicli di lavoro} che si ripetono periodicamente. L'ipotesi 
+di periodicità che a breve verrà definita, ha notevole impatto sulla risoluzione dei task. 
+Come prima ipotesi, si assume che vi è un insieme finito di $n$ task, che possono ripetersi nel tempo, 
+ossia possono esistere più istanze dello stesso task in istanti diversi, il generico task $A_i$ verrà 
+ora denotato $A_i^k$, dove $k$ rappresenta la sua $k$-esima apparizione. Anche i parametri già definiti 
+dipenderanno da $k$ 
+$$ \begin{matrix}
+    \text{parametri}&&&\text{intervalli}\\
+    a_i(k) & & & C_i(k) \\ 
+    s_i(k) && & D_i(k)\\
+    e_i(k)&& & R_i(k)\\ 
+    d_i(k)&& &L_i(k)
+\end{matrix}$$
+\textbf{Osservazione} : Quando si tratta il completation time, si intende sempre il tempo di lavoro minimo 
+possibile per completare un task. La riduzione del completation time di un task rappresenta nel mondo reale 
+l'utilizzo di una strumentazione differente capace di eseguire lo stesso task in tempo minore. D'altro canto, 
+l'aumento del completation time rappresenta l'acquisto di una strumentazione \textit{più economica} 
+che esegue lo stesso task in tempo maggiore.\acc
+\defi{} Dato un task $A_i$ di un insieme di task, si definisce \textbf{activation period} (oppure 
+periodo di attivazione) il valore (in funzione della $k$-esima occorrenza) : 
+$$ T_i(k)=a_i(k+1)-a_i(k)$$ 
+rappresenta il periodo che intercorre fra la $k$-esima attivazione di un task e la sua $k+1$-esima 
+attivazione. Diremo che il task $A_i$ è \textbf{periodico} se per ogni $k$, l'activation period è 
+costante \eqImportante{$T_i(k)=T_i(k+1) \ \ \ \ \forall k\in\N$}
+Vuol dire che il task si ripete periodicamente scandito da un certo periodo.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/taskPeriodico.eps}
+\end{center}
+Inoltre, verranno formulate \textit{ulteriori ipotesi} che da questo punto in poi devono considerarsi vere 
+nell'ambito dei task periodici.\begin{enumerate}
+    \item La deadline relativa di un task periodico sarà uguale al suo periodo di attivazione.
+    \item I task sono fra loro indipendenti (non ci sono blocking queue)
+    \item Il computation time $C_i$ di un task è costante per tutte le sue istanze 
+    \item Tutti i task condividono il primo activation time : $\forall i,j\in[1\dots, n] \ \ a_j(1)=a_i(1)$
+\end{enumerate}
+Definiamo adesso i parametri in gioco quando si tratta dello scheduling di task periodici. Il generico problema 
+di scheduling prevede \begin{itemize}
+    \item Un insieme di $n$ task periodici $(A_1,A_2,A_3\dots,A_n)$ 
+    \item I \textit{Requisiti}, ossia i periodi di attivazione per ogni task $(T_1,T_2,T_3\dots,T_n)$
+    \item I \textit{Vincoli}, ossia i completation time per ogni task $(C_1,C_2,C_3\dots,C_n)$
+\end{itemize}
+\defi{} Dato un insieme di $n$ task periodici con rispettivi requisiti e vincoli, si definisce 
+\textbf{fattore di utilizzazione} il coefficiente $$ 
+U=\sum_{i=1}^n\frac{C_i}{T_i}
+$$
+Il denominatore di $U$, ossia il minimo comune multiplo dei periodi 
+$$ \mcm(T_1,T_2\dots,T_n)$$
+rappresenta il \textit{periodo totale del sistema}, ossia il periodo con cui l'intero insieme 
+di task si ripete ciclicamente. È quindi opportuno restringere lo scheduling solo per le 
+prime $\mcm(T_1,T_2\dots,T_n)$ unità di tempo, in quanto per le successive sarà semplicemente 
+una ripetizione di queste. Il numeratore di $U$ invece rappresenta le unità di tempo in cui 
+il processore è effettivamente utilizzato.\acc 
+Dato un problema di scheduling, la \textbf{condizione necessaria} affinché sia risolvibile è che 
+il fattore di utilizzazione sia minore o uguale ad 1. $$ \begin{cases}
+    U\le 1 \text{ possibilmente risolvibile }\\ 
+    U>1 \text{ non risolvibile}
+\end{cases}$$
+Si prenda in esempio la coppia di task $$ 
+\begin{matrix}
+    A_1 & & & T_1=8 & & & C_1 =2\\ 
+    A_2 & & & T_2=12 & & & C_2=8
+\end{matrix}
+$$
+Si ha 
+$$ U=\frac{2}{8}+\frac{8}{12}=\frac{22}{24}\simeq 0.917 < 1$$
+L'insieme potrebbe essere schedulabile. Verrà applicato un algoritmo preemptive che 
+assegna maggiore priorità al task il cui activation period è minore. Verrà quindi sempre favorito il 
+task $A_1$.\begin{center}
+\includegraphics[width=1\textwidth ]{images/schedulingCondt.eps}
+\end{center}
+Si noti come nella traccia dello scheduling il lavoro effettivo sia durato 22 t.u., proprio come 
+il numeratore del fattore $U$, sono infatti rimaste 2 t.u. (evidenziate in grigio) in cui 
+la ready queue era vuota e non c'era nulla da schedulare. 
+\subsection{Utilizzo del Processore}
+Si è definito il fattore di utilizzazione $U$, esso dipende dai completation time $C_i$, 
+tale valore $U$ può essere eventualmente massimizzato. Cosa vuol dire massimizzare $U$? Renderlo 
+il più possibile vicino ad 1, finché è minore o uguale all'unità, lo scheduling è ammissibile, 
+è quindi possibile cercare di aumentare i valori $C_i$, l'aumento di tali tempi equivale ad un 
+utilizzo di una strumentazione più lenta (quindi economica) nello svolgimento dei task. È quindi di intersse 
+del progettista cercare di "spremere" il più possibile uno scheduling cercando di massimizzare $U$.\acc 
+Dato un algoritmo $F$, un insieme di $n$ task, e rispettivi requisiti $T_i$, si definisce il 
+\textbf{fattore di utilizzazione massimo} 
+$$ U_{max}(n,T_i,F)=\max_{C_i\in\R^+}^{F \text{ soluzione}}(n,T_i)=\max_{C_i\in\R^+}^{F \text{ soluzione}}\sum_{i=1}^n\frac{C_i}{T_i}  \ \ \text{ tale che }U_{max}\ge1 $$
+\defi{} Dato un algoritmo di scheduling diremo che il processore è \textbf{completamente utilizzato} 
+se, l'aumento di un qualsiasi $C_i$ di un valore positivo qualsiasi $\varepsilon$ rende lo scheduling 
+inammissibile ($U>1$).\acc 
+\prop{} Dato un algoritmo di scheduling, se il processore è completamente utilizzato allora il suo fattore 
+di utilizzazione è massimale : $U=U_{max}$. (la dimostrazione è banale)\acc 
+Nell'esempio con i due task $(A_1,A_2)$ visto in precedenza, il processore è completamente utilizzato. 
+infatti all'istante 12, il task $A_2$ termina esattamente in pari con la sua deadline, l'aumentare di un 
+qualsiasi valore $\varepsilon$ di un completation time di uno dei due task 
+renderebbe lo scheduling inammissibile.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/schedulingCondtInamm.eps}
+\end{center}
+Esiste un altro coefficiente che caratterizza l'efficacia di un algoritmo di 
+scheduling, ossia il \textbf{limite superiore minimo del fattore di utilizzazione}, 
+dato uno scheduling $F$, esso è il minimo fra tutti i massimi fattori di utilizzazione calcolati 
+al variare di un qualsiasi possibile insieme di task periodici.
+$$ U_{lsm}(F)=\min_{\begin{matrix}
+n\in\N \\ T_i\in\R^+
+\end{matrix}}\Big(U_{max}(n,T_i,F)\Big)= 
+\min_{\begin{matrix}
+    n\in\N \\ T_i\in\R^+
+    \end{matrix}}\Big(
+        \max_{C_i\in\R^+}^{F \text{ soluzione}}\sum_{i=1}^n\frac{C_i}{T_i}
+    \Big)$$
+Descrive il carico computazionale massimo che può essere sicuramente gestito, infatti si ha la seguente proposizione.\acc 
+\prop{} Dati $n$ task con rispettivi vincoli e requisiti, essi sono sicuramente schedulabili 
+se esiste un algoritmo $F$ tale che $U\le U_{lsm}(F)$. Tale condizione è \textit{sufficiente} per 
+rendere l'insieme schedulabile.\flowerLine 
+\section{Gli Algoritmi di Scheduling}
+In questa sezione verranno presentati diversi algoritmi per lo scheduling di task, diffrenti da un 
+punto di vista della loro classificazione.
+\subsection{Rate Monotoning Priority Ordering (RMPO)}
+L'RMPO è un algoritmo che funziona esclusivamente se i task in questione sono tutti periodici, 
+de facto, è un algoritmo preemptive che assegna la proporzionalità in modo inversamente 
+proporzionale all'activation period dei task. Tale priorità non varia, lo rende quindi un 
+algoritmo online statico. Vediamo subito un esempio di applicazione, si consideri il seguente insieme 
+di task
+$$ 
+\begin{matrix}
+    A_1 & & & T_1=8 & & & C_1 =2\\ 
+    A_2 & & & T_2=16 & & & C_2=3 \\ 
+    A_3 & & &T_3=12 &&& C_3=5
+\end{matrix}
+$$
+Il fattore di utilizzazione è $$ U=\frac{2}{8}+\frac{3}{16}+\frac{5}{12}=\frac{41}{48}\simeq 8.8542<1$$
+La condizione necessaria è soddisfatta. Il task $A_1$ avrà sempre priorità sugli altri, si procede nel 
+disegnare la traccia dello scheduling.\begin{center}
+    \includegraphics[width=1.1\textwidth ]{images/esempioRMPO.eps}
+\end{center}
+\subsubsection{Proprietà dell'algoritmo}
+\prop{1} l'algoritmo RMPO è il miglior algoritmo statico per lo scheduling di task periodici. Se un insieme 
+di questo tipo non è schedulabile con RMPO, non esiste alcun altro algoritmo statico capace di risolverlo.\acc 
+\prop{2} per l'RMPO, dato un numero $n$ di task, si ha che 
+$$ U_{lsm}(\text{RMPO})=n(2^{\frac{1}{n}}-1)$$
+Si può tracciare il grafico di tale fattore al variare di $n$.
+\begin{center}
+    \begin{figure}[h!]
+       \centering
+       \begin{tikzpicture}[scale=1, transform shape]
+           \begin{axis}[
+           ymin=0.5,
+           ymax = 1,
+           xmin=0,
+           xmax = 20,
+           axis lines = left,
+           xtick distance=4, ytick distance=0.693,
+           grid style=dashed,
+           ymajorgrids=true,
+           xmajorgrids=true,
+           xlabel = \(n\),
+           ylabel = {\(U_{lsm}\)},
+           ]
+           %Below the red parabola is defined
+           \addplot [
+           domain=1:20,
+           samples=20,
+           color=blue,
+           ]
+           {x*(2^(1/x)-1)};
+           \addplot [
+            only marks,
+           domain=1:20,
+           samples=20,
+           color=red,
+           ]
+           {x*(2^(1/x)-1)};
+           \addplot [
+           domain=0:30,
+           samples=2,
+           dashed,
+           color=magenta,
+           ]
+           {0.693};
+           \end{axis}
+           \end{tikzpicture}
+   \end{figure}
+   \end{center}
+Si calcola il limite per $n$ che tende ad infinito 
+\begin{eqnarray}
+    \lim_{n\rightarrow +\infty}n(2^{\frac{1}{n}}-1)=\lim_{n\rightarrow +\infty}\frac{2^{\nicefrac{1}{n}}-1}{\nicefrac{1}{n}} =  \\ 
+    \text{de l'Hôpital }\implies  
+    \lim_{n\rightarrow +\infty}\frac{\frac{d}{dn}(2^{\nicefrac{1}{n}}-1)}{\frac{d}{dn}(\nicefrac{1}{n})}= \\ 
+    \lim_{n\rightarrow +\infty}\frac{2^{\nicefrac{1}{n}}\ln(2)(-\nicefrac{1}{n^2})}{-\nicefrac{1}{n^2}}
+    = \\\lim_{n\rightarrow +\infty}2^{\nicefrac{1}{n}}\ln(2)=\ln(2)\simeq 0.693
+\end{eqnarray}
+\textbf{Osservazione} : Dato un qualsiasi insieme di task periodici, se il fattore di 
+utilizzazione è minore di $\ln(2)$, allora l'insieme è sicuramente risolvibile con RMPO (condizione 
+sufficiente).\acc
+\defi{(Relazioni Armoniche)} : Dato un insieme di $n$ task, essi sono \textit{legati da relazioni 
+armoniche} se esiste un task $i$ il cui periodo di attivazioni è multiplo di tutti gli altri 
+periodi di attivazione.
+$$ \exists i\in[1,2\dots,n] \ | \ \forall j\in[1,2\dots,n] \  k_j T_j=T_i \text{ per qualche }k_j\in\Z$$ 
+\prop{3} Se un insieme di task è legato da relazioni armoniche, allora RMPO lo risolve (condizione 
+sufficiente).\acc 
+In conclusione, si è visto come RMPO sia il migliore algoritmo statico, nonostante ciò, per 
+tutti gli insiemi di $n$ task periodici che non sono legati da relazioni armoniche, e per cui 
+il loro valore di utilizzazione è $$ n(2^{\frac{1}{n}}-1)<U\le 1$$
+non è garantita la correttezza temporale (e va verificato con la traccia dello scheduling). 
+Esiste un algoritmo le cui assunzioni per garantire la correttezza sono più larghe, ma non è 
+un algoritmo statico bensì dinamico.
+\subsection{Earliest Deadline First (EDF)}
 
 
 
@@ -2344,17 +2620,17 @@ Informalmente, Uno stato di equilibrio si
    dall'equilibrio vengono corrette automaticamente.
    \acc \defi{(Satbilità)}Sia
 $x_0$ uno stato di equilibrio, esso è stabilie \textit{se e solo se}
-$$ \begin{matrix}\forall \epsilon>0 \ \exists \delta(\epsilon) > 0 \text{ tale che }\\ 
-    \left\lVert x(0)-x_0\right\rVert  \le \delta(\epsilon) \implies 
-    \left\lVert x(t)-x_0\right\rVert\le\epsilon, \ \forall t\ge 0
+$$ \begin{matrix}\forall \varepsilon>0 \ \exists \delta(\varepsilon) > 0 \text{ tale che }\\ 
+    \left\lVert x(0)-x_0\right\rVert  \le \delta(\varepsilon) \implies 
+    \left\lVert x(t)-x_0\right\rVert\le\varepsilon, \ \forall t\ge 0
  \end{matrix} $$
- $\delta(\epsilon)$ è un intorno più piccolo di $\epsilon$.
+ $\delta(\varepsilon)$ è un intorno più piccolo di $\varepsilon$.
  \begin{quote}
-    Per ogni valore infinitesimale $\epsilon$, se $x(0)=x(t_0)$ (il vettore di stato 
+    Per ogni valore infinitesimale $\varepsilon$, se $x(0)=x(t_0)$ (il vettore di stato 
     nell'istante iniziale) ha una distanza
-    $\delta(\epsilon)<\epsilon$  da un punto di equilibrio 
+    $\delta(\varepsilon)<\varepsilon$  da un punto di equilibrio 
     $x_0$, allora la distanza fra ogni possibile valore dello stato 
-    $x(t)\ \forall t\ge 0$ avrà una distanza minore o uguale ad $\epsilon$ dal punto di 
+    $x(t)\ \forall t\ge 0$ avrà una distanza minore o uguale ad $\varepsilon$ dal punto di 
     equilibrio.
     
  \end{quote}
@@ -2386,7 +2662,7 @@ $$ \exists \delta_a>0 \ | \   \left\lVert x(0)-x_0 \right\rVert<\delta_a\implies
    \end{figure}
    \end{center}
 Le condizioni introdotte devono essere verificate per un qualsiasi valore iniziale $x(0)$, ed una 
-volta definito l'intorno di $\delta(\epsilon)$ (o $\delta_a$ nel caso asintotico), qualunque scelta 
+volta definito l'intorno di $\delta(\varepsilon)$ (o $\delta_a$ nel caso asintotico), qualunque scelta 
 di $x(0)$ (ossia, qualunque perturbazione) deve comportare le condizioni di soddisfacimento.
 \sapbox{ La stabilità non è un valore correlato ad uno stato di equilibrio ma è una caratteristica del sistema 
 nella sua globalità}
