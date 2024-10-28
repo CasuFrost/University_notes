@@ -2879,7 +2879,16 @@ scalino.
         \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFC7}trasformata} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFC7}1}           & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFC7}$\dfrac{1}{s}$} & $\dfrac{1}{s^2}$
         \end{tabular}
 \end{center}
-Si consideri un sistema del primo ordine (una variabile di stato), 
+Si considereranno adesso differenti casi di sistemi, in particolare del 
+primo e del secondo ordine, ed in base ai parametri della funzione di trasferimento, essi 
+manifesteranno differenti comportamenti nella risposta. 
+\subsubsection{Sistemi del primo ordine}
+\defi{} Un sistema dinamico si dice \textbf{strettamente proprio} 
+se, la sua funzione di trasferimento ha il numeratore di grado 
+strettamente inferiore al grado del denominatore. 
+Tale proprietà da informazione sulla velocità di risposta 
+del sistema.\acc
+Si consideri un sistema strettamente proprio del primo ordine (una variabile di stato), 
 avrà una funzione di trasferimento della forma 
 $$ G(s)=\frac{\mu}{1+s\tau}$$
 Asinstoticamente stabile se $\tau>0$. L'andamento nel tempo di tale sistema quando l'ingresso è 
@@ -2887,4 +2896,158 @@ lo scalino risulta essere
 $$ \mathcal{L}^{-1}\Big[\frac{1}{s}\frac{\mu}{1+s\tau}\Big]=
 =\mathcal{L}^{-1}\Big[\frac{\mu}{1+s\tau}+\frac{\mu}{s}\Big]=
 \mu(1-e^{-\nicefrac{t}{\tau}})$$
+Definiamo \textbf{tempo di assestamento} il 
+tempo necessario al movimento dell'uscita per 
+assestarsi all'interno di un intervallo nella quale continuerà 
+ad oscillare senza uscirne.\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[scale=1, transform shape]
+            \begin{axis}[
+            ymin=-0.7,
+            ymax = 0.2,
+            xmin=0,
+            xmax = 5,
+            axis lines = left,
+            xtick distance=1, ytick distance=0.5,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(t\),
+            ylabel = {\(y(t)\)},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:5,
+            samples=20,
+            color=blue,
+            ]
+            {(-1/2)*(1-exp(-(x/2)))};
+            \addlegendentry{\(\tau = 2\)}
+            \addplot [
+            domain=0:5,
+            samples=20,
+            color=red,
+            ]
+            {(-1/2)*(1-exp(-(x)))};
+            \addlegendentry{\(\tau = 1\)}
+            \addplot [
+            domain=0:5,
+            samples=20,
+            color=green,
+            ]
+            {(-1/2)*(1-exp(-(x/4)))};
+            \addlegendentry{\(\tau = 4\)}
+            \addplot [
+            domain=0:5,
+            samples=2,
+            color=magenta,
+            dashed
+            ]
+            {-0.5};
+            \addlegendentry{\(\mu\)}
+            \end{axis}
+            \end{tikzpicture}
+            \caption{risposta allo scalino nel caso $\mu = -0.5$}
+    \end{figure}
+    \end{center}
+Il polo della funzione è $-\dfrac{1}{\tau}$, più $\tau$ è 
+piccolo, più il tempo di assestamento sarà minore. Se il valore 
+di $\tau$ è negativo, il polo sarà positivo quindi 
+non ci sarà assestamento dato che il sistema è instabile
+(ovviamente $e^{-\frac{t}{\tau}}$ diverge in questo caso).
+\acc
+Un sistema che \textit{non è} strettamente proprio ha la trasformata di Laplace 
+della forma 
+$$ \mu\frac{1+sT}{1+s\tau}$$
+Il suo andamento nel tempo è 
+$$\mathcal{L}^{-1}\Big[ \frac{1}{s}\mu\frac{1+sT}{1+s\tau}\Big]=
+\mathcal{L}^{-1}\Big[
+\frac{\mu}{s}+\frac{\mu(T-\tau)}{1+s\tau}    
+\Big]=
+\mu\Big(1+\frac{T-\tau}{\tau}e^{-\frac{t}{\tau}}\Big)$$
+Si pone in questo caso il fattore $\alpha$ tale che 
+$$ \alpha\tau=T$$
+Allora il movimento dell'uscita è 
+$$ y(t)=\mu\Big[
+1+(\alpha-1)e^{-\frac{t}{\tau}}    
+\Big]$$
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[scale=1, transform shape]
+            \begin{axis}[
+            ymin=-2,
+            ymax = 2,
+            xmin=0,
+            xmax = 5,
+            axis lines = left,
+            xtick distance=1, ytick distance=1,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(t\),
+            ylabel = {\(y(t)\)},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:5,
+            samples=20,
+            color=blue,
+            ]
+            {(-1)*(1+(2-1)*exp(-x))};
+            \addlegendentry{\( \alpha = 2\)}
+            \addplot [
+            domain=0:5,
+            samples=20,
+            color=red,
+            ]
+            {(-1)*(1+(-2-1)*exp(-x))};
+            \addlegendentry{\( \alpha = -2\)}
+            \addplot [
+            domain=0:5,
+            samples=20,
+            color=green,
+            ]
+            {(-1)*(1+(-1)*exp(-x))};
+            \addlegendentry{\( \alpha = 0\)}
+            \addplot [
+            domain=0:5,
+            samples=2,
+            color=magenta,
+            dashed
+            ]
+            {-1};
+            \addlegendentry{\(\mu\)}
+            \end{axis}
+            \end{tikzpicture}
+            \caption{risposta allo scalino nel caso $\mu = -1, \ \tau=1$}
+    \end{figure}
+    \end{center}
+Lo stato iniziale del sistema è $\alpha\mu$ differentemente dal 
+caso del sistema strettamente proprio in cui il valore 
+iniziale è 0.
+La velocità di assestamento dipenderà sia da tale stato 
+iniziale, che 
+dal valore di $\tau$.
+\subsubsection{Sistemi del secondo ordine}
+Consideriamo adesso un sistema del secondo 
+ordine (vettore di stato $x\in\R^2$), si vuole dare una 
+descrizione del comportamento dell'uscita in base 
+ad alcuni parametri della sua funzione di trasferimento. In tal 
+caso, indetifichiamo 4 differenti casi, la 
+funzione di trasferimento può 
+avere
+\begin{itemize}
+    \item Poli reali e nessuno zero 
+    \item Poli reali ed uno zero 
+    \item Poli complessi e nessuno zero 
+    \item Poli complessi ed uno zero
+\end{itemize}
+\subsubsection{Poli reali e nessuno zero}
+La funzione di trasferimento è del tipo 
+$$ G(s)=\frac{\mu}{(1+s\tau_1)(1+s\tau_2)}$$
+Si ricordi che la condizione di stabilità 
+asintotica si ha quando i poli hanno parte reale negativa, 
+ossia $\tau_1>0\land \tau_2>0$.
 \end{document}
