@@ -1355,11 +1355,190 @@ della quantità di moto sarà ora $|\bar b_1|=R_0mv_0$ con $R_0>R_1$. Essendo $\
  $$ R_0mv_0=R_1mv_1\implies R_0v_0=R_1v_1\implies v_1=\frac{R_0}{R_1}$$
 Il momento non cambia dato che il momento di $\bar T$ rispetto al polo 
 è nullo $\bar T \times \bar R =0$ , ma variando la distanza, dovrà aumentare la velocità di rotazione.\acc 
-La velocità tangenziale di un corpo che rotea attorno ad un polo può essere espressa come $\bar v=\bar omega \times \bar R$, 
+La velocità tangenziale di un corpo che rotea attorno ad un polo può essere espressa come $\bar v=\bar \omega \times \bar R$, 
 quindi si ha 
 $$ \bar b = \bar R \times m \bar \omega\times  \bar R=m\bar R^2 \bar \omega = I\bar \omega$$
 Definiamo $(mR^2)$ \textbf{momento di inerzia}. 
 $$ \bar M = \frac{d\bar b }{dt}=\frac{d}{dt}(I\bar \omega)$$
 Assumendo che $I$ sia costante (la massa non varia e la distanza dal polo è sempre la stessa)
 $$ \bar M = I\dot{\bar \omega}$$
+\subsubsection{Seconda legge di Keplero}
+La seconda legge di Keplero afferma che, in un orbita ellittica, a parità di 
+aree formate dagli archi percorsi sull'ellisse, il tempo impiegato per percorrerli 
+è identico.\acc \begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.4\textwidth ]{images/areePercorse.eps}
+    }
+    \caption{Aree percorse}
+    \label{fig:areePer}
+\end{figure}
+Si osservi l'immagine \ref{fig:areePer}, se l'area $A_1$ coincide 
+con l'area $A_2$, allora il corpo in orbita sull'ellisse impiegherà lo 
+stesso tempo per percorrere gli archi $a_1$ e $a_2$.
+\acc 
+Definiamo la \textbf{velocità aereolare} il rapporto fra 
+l'area della sezione di ellissa data da un arco 
+percorso ed il tempo per percorrere l'arco.
+$$ A=\frac{area}{t}$$
+Si consideri uno spostamento infinitesimo in un tempo 
+$dt$ sul percorso, 
+in tal caso, l'arco è approssimabile ad una retta, l'area 
+percorsa è quindi uguale alla metà dell'area del rombo composta dal vettore 
+spostamento con il vettore velocità.
+$$ dA=\bar r \times \bar v dt$$
+\begin{center}
+    \includegraphics[width=0.28\textwidth ]{images/spostInfinitesimo.eps}
+\end{center}
+Ma $\bar r\times \bar v$ è proprio il momento della quantità di moto $\bar b$
+$$ dA=\bar b dt$$
+Si divide per $dt$ 
+$$ \dfrac{dA}{dt}=\bar b $$
+Ma il momento della quantità di moto si conserva, quindi 
+la derivata della velocità aereolare è costante.
+\flowerLine 
+\section{Sistemi di Punti Materiali}
+Consideriamo un sistema in cui sono presenti $n$ punti materiali, ogni singolo punto 
+$i$-esimo ha una massa $m_i$ ed una velocità $v_i$. Il moto di ogni 
+punto del sistema è descritto dalle equazioni 
+$$ \begin{cases}
+    F_1 = m_1a_1\\ 
+    F_2 = m_2a_2\\ 
+    \vdots \\
+    F_n = m_na_n
+\end{cases}$$
+Descrivere il moto di ogni singolo punto è 
+molto complicato, ogni punto può generare forze che interagiscono con 
+i restanti punti (ad esempio, cariche positive su negative) e 
+trovare una soluzione analitica dei moti di ogni punto è impossibile.
+Si applicano quindi opportune semplificazioni, innanzitutto è possibile 
+scrivere 
+$$ \sum_{i=1}^n F_i = \sum_{i=1}^n m_ia_i$$
+Conviene dividere le forze in forze esterne (derivanti dall'esterno del 
+sistema, ad esempio : gravità) e forze interne (derivanti da fenomeni 
+interni del sistema, ad esempio : urti fra i punti).
+$$ \sum_{i=1}^n F_i^{(est)} +  \sum_{i=1}^n F_i^{(int)}  = \sum_{i=1}^n m_ia_i$$
+Inoltre, la somma delle forze interne del sistema è zero (ad esempio, una particella carica 
+positivamente applica una forza $E$ su una carica negativamente, e a sua volta 
+risente di una forza $-E$).
+$$ \sum_{i=1}^n F_i^{(est)}  = \sum_{i=1}^n m_ia_i = F^{(est)}$$
+Definiamo ora una gradezza relativa ad un sistema di punti, 
+ossia il \textbf{centro di massa} definito come segue 
+$$ \bar r_c= 
+ \sum_{i=1}^n m_i\bar r_i \cdot \frac{1}{\sum_{i=1}^n m_i}$$
+Non è altro che la somma dei vettori posizione di ogni punto pesata per la massa 
+di ognuno di essi.
+\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/centrodimassa.eps}
+\end{center}
+Considero anche la derivata del centro di massa, che rappresenta 
+la velocità di esso, quindi dell'intero sistema di punti 
+$$ \frac{d\bar r_c}{dt}=\bar v_c$$
+Sia $M$ la somma delle masse di ogni punto, si ha la 
+quantità di moto del sistema : 
+$$ \bar p_c = M\bar v_c = \sum_{i=1}^n m_i\bar v_i $$
+La sua derivata è proprio uguale alla somma delle forze esterne agenti sul 
+sistema 
+$$ \frac{d}{dt}\Big(\sum_{i=1}^n m_i\bar v_i \Big)=\sum_{i=1}^n m_i\bar a_i = F^{(est)} $$
+Se le forze esterne sono assenti, allora la quantità di moto dell'intero sistema 
+si conserva (la sua derivata è nulla, è quindi costante nel tempo). 
+\subsection{Urti}
+La conservazione della quantità di moto permette di analizzare 
+gli urti fra i corpi, il fenomeno in cui avviente un interazione da cui 
+si trasferisce un impulso. Esistono due tipi di urti\begin{itemize}
+    \item \textbf{urti elastici} : L'energia cinetica si conserva, la quantità di 
+    moto trasferita è identica a quella scaricata (no dissipazione). 
+    \item \textbf{urti anelastici} : Dell'energia viene assorbita (i corpi 
+    subiscono delle deformazioni) oppure dissipata.
+\end{itemize}
+Quando si analizza un urto, esso avviene in un istante brevissimo in 
+cui è possibile 
+trascurare le forze esterne. Consideriamo un urto elastico fra due 
+corpi, siano $v_1,v_2$ le velocità dei corpi prima dell'urto e 
+$V_1,V_2$ le velocità dei corpi dopo l'urto, siano $m_1,m_2$ le masse. Sapendo che quantità di moto ed 
+energia cinetica si conservano, è possibile scrivere il sistema di equazioni 
+$$ \begin{cases}
+    \frac{1}{2}m_1v_1^2+\frac{1}{2}m_2v_2^2 =  \frac{1}{2}m_1V_1^2+\frac{1}{2}m_2V_2^2   \ \ \ \text{ cons. energia cinetica }\\
+    m_1v_1-m_2v_2 = m_1V_1+m_2V_2 \ \ \ \text{ cons. quantità di moto }
+\end{cases}$$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/urti.eps}
+\end{center}
+Si vuole calcolare esplicitamente, date le velocità e le masse iniziali, le 
+velocità dei due corpi dopo l'urto, si consideri un \textbf{caso semplificato} 
+in cui uno dei due corpi ha velocità iniziale nulla, quindi : 
+$$ \begin{cases}
+    \frac{1}{2}m_1v_1^2=   \frac{1}{2}m_1V_1^2+\frac{1}{2}m_2V_2^2 \\
+    m_1v_1 = m_1V_1+m_2V_2 
+\end{cases}$$
+Si risolve il sistema 
+$$\begin{matrix}
+    \begin{cases}
+        m_1v_1^2=\frac{m_2^2}{m_1}V_2^2+m_1v_1^2-2m_2V_2v_1+m_2V_2^2
+        \\
+        V_1=\frac{m_2}{m_1}V_2-v_1 
+    \end{cases} \\ \\
+    \begin{cases}
+        V_2^2(\frac{m_2^2}{m_1}+m_2)=2m_2v_1V_2
+        \\
+        V_1=\frac{m_2}{m_1}V_2-v_1 
+    \end{cases}\\ \\
+    \begin{cases}
+        V_2=\frac{2m_1v_1}{m_1+m_2}
+        \\
+        V_1=\frac{m_2}{m_1}V_2-v_1 
+    \end{cases}\\ \\
+    \begin{cases}
+        V_2=\frac{2m_1v_1}{m_1+m_2}
+        \\
+        V_1=\frac{m_2}{m_1}(\frac{2m_1v_1}{m_1+m_2})-v_1 
+    \end{cases}\\ \\
+    \begin{cases}
+        V_2=\dfrac{2m_1v_1}{m_1+m_2}
+        \\ \\
+        V_1=\dfrac{m_2-m_1}{m_1+m_2}v_1
+    \end{cases}
+\end{matrix}$$
+Un qualsiasi caso in cui entrambi i corpi si muovono può essere 
+generalizzato a questo imponendo un sistema di riferimento 
+assoluto per uno dei due corpi. Si pone $\gamma=\frac{m_1}{m_2}$ e si ha 
+$$ 
+\begin{cases}
+    V_1=\dfrac{\gamma-1}{\gamma+1}v_1
+    \\ \\
+    V_2=\dfrac{2\gamma v_1}{\gamma+1}
+\end{cases}
+$$
+Nello scambio di impulsi è caratterizzante la discrepanza fra le due masse, in generale 
+il fattore $\gamma$ rappresenta tale discrepanza e tale procedimento è analogo anche 
+ad altri contesti della fisica, $\gamma$ è il \textit{rapporto fra le 
+impedenze}. Se $\gamma=1$, vi è una completa trasmissione, il corpo inizialmente 
+in moto verrà frentato dall'urto, ed il corpo inizialmente fermo 
+inizierà a muoversi con la stessa velocità che il primo corpo aveva in origine.
+\subsubsection{Il Pendolo}
+Si vuole descrivere il moto di un pendolo, tale pendolo è 
+caratterizzato da un filo di lunghezza $l$ che applica su 
+una sfera di massa $m$ una tensione $T$ costringendolo ad oscillare 
+per via della forza $g$ di gravità. \acc Si considera un sistema 
+di riferimento curvilineo sempre ortogonale al vettore $T$, il cui 
+angolo con il vettore gravità $g$ è $\theta$.\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/pendolo.eps}
+\end{center}
+Il moto sulla traiettoria $S$ della sfera è 
+$$ -mg\sin\theta=-m\dfrac{d^2S}{dt^2}$$
+Se $l$ è la lunghezza del filo, allora $\theta = \frac{S}{l}$
+$$ -mg\sin(\frac{S}{l})=-m\dfrac{d^2S}{dt^2}$$
+L'equazione differenziale non è lineare è quindi difficile trovare 
+una soluzione analitica, si può però approssimare il moto 
+per piccole variazioni di angolo 
+$$ \sin(\frac{S}{l})\simeq \frac{S}{l}$$
+Quindi 
+$$ -mg\frac{S}{l}=-m\dfrac{d^2S}{dt^2}$$
+$$ \dfrac{d^2S}{dt^2}+\frac{g}{l}S=0$$
+è l'equazione del moto armonico 
+$$S=A\cos(\omega t+\phi) $$
+Dove $A$ e $\phi$ dipendono dalle condizioni iniziali, e 
+$$ \omega = \sqrt{\frac{g}{l}}$$
+\subsubsection{Esercizio : Carrucola e piano inclinato}
+
+
 \end{document}
