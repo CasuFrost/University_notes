@@ -1535,10 +1535,56 @@ Quindi
 $$ -mg\frac{S}{l}=-m\dfrac{d^2S}{dt^2}$$
 $$ \dfrac{d^2S}{dt^2}+\frac{g}{l}S=0$$
 è l'equazione del moto armonico 
-$$S=A\cos(\omega t+\phi) $$
-Dove $A$ e $\phi$ dipendono dalle condizioni iniziali, e 
+$$S=A\cos(\omega t+\varphi) $$
+Dove $A$ e $\varphi$ dipendono dalle condizioni iniziali, e 
 $$ \omega = \sqrt{\frac{g}{l}}$$
 \subsubsection{Esercizio : Carrucola e piano inclinato}
-
-
+Si consideri un piano inclinato (di un angolo $\alpha$) su cui è presente un corpo di massa 
+$m_2$, attaccato ad una corda che lo congiunge ad un altro corpo di massa $m_1$ tramite una 
+carrucola, proprio come mostrato in figura \ref{fig:carrucola}. Inoltre, la tensione che il filo applica 
+sul primo corpo è $T_1$, quella che applica sul secondo corpo è $T_2$. Il corpo sul piano inoltre (se in movimento) 
+è sottoposto ad un'attrito dinamico $\mu_d$.\acc 
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.7\textwidth ]{images/carrucola.eps}
+    }
+    \caption{Schema delle forze}
+    \label{fig:carrucola}
+\end{figure}
+Si ipotizzi che il corpo di massa $m_1$ cada verso il basso, spostando il corpo di massa $m_2$ verso sinistra.
+Per il primo corpo, si considera un sistema di riferimento in cui l'asse delle ordinate è parallelo alla 
+direzione della gravità, per il secondo corpo si considera un sistema di riferimento in cui 
+l'asse delle ascisse forma un angolo $\alpha$ con la linea dell'orizzone. \acc 
+Analizziamo il moto del primo corpo, la sua forza avrà componente nulla sull'asse 
+delle ascisse, sull'asse delle ordinate sarà 
+$$ T_1-m_1g=m_1a_1$$
+Il secondo corpo, si sposterà solamente lungo il piano, la sua forza avrà componente nulla sull'asse 
+delle ordinate. 
+$$\begin{cases}
+    T_2-F_d+m_2g\sin\alpha=m_2a_2 \\ 
+    R_n-m_2g\cos\alpha = 0
+\end{cases}$$
+Si ricordi che $F_d=\mu_dR_n$
+$$\begin{cases}
+    T_2-\mu_dR_n+m_2g\sin\alpha=m_2a_2 \\ 
+    R_n-m_2g\cos\alpha = 0
+\end{cases}$$
+A tal punto si considerano due ulteriori ipotesi\begin{itemize}
+    \item La massa del filo è trascurabile, quindi $T_1=T_2=T$ 
+    \item Il filo è inesensibile, quindi $a_1=a_2=a$
+\end{itemize}
+Allora si può riscrivere il sistema per trovare $a$ 
+$$\begin{cases}
+    T-m_1g=m_1a \\
+    T-\mu_dR_n+m_2g\sin\alpha=m_2a \\ 
+    R_n-m_2g\cos\alpha = 0
+\end{cases}$$$$\begin{cases}
+    T=m_1(g+a) \\
+    T-\mu_d(m_2g\cos\alpha )+m_2g\sin\alpha=m_2a \\ 
+    R_n=m_2g\cos\alpha 
+\end{cases}$$ 
+A questo punto si risolve per $a$
+$$ -m_1(g+a)-\mu_d(m_2g\cos\alpha )+m_2g\sin\alpha=m_2a$$
+$$ a=\frac{m_2g\sin\alpha-\mu_dm_2g\cos\alpha-m_1g}{m_1+m_2}$$
+è l'accelerazione del corpo 1 sull'asse verticale e del corpo 2 sul piano.
 \end{document}
