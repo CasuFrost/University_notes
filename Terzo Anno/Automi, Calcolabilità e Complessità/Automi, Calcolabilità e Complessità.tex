@@ -1693,4 +1693,121 @@ Senza perdita di generalità, è possibile astrarre le TM considerano due nuovi 
     \item \textbf{TM multinastro}
     \item \textbf{TM non deterministica}
 \end{itemize}
-\end{document}
+Prima di introdurli, si consideri il seguente esempio di 
+astrazione di una TM, ossia di una macchina che, ad ogni passo di 
+computazione, piuttosto che spostarsi necessariamente a destra o 
+a sinistra, può rimanere ferma, la denominiamo STM. \acc 
+La definiamo $M'$, e la sua funzione di transizione sarà del tipo 
+$$ \delta':Q\times\Gamma \rightarrow Q\times\Gamma\times \{L,R,S\}$$
+Dove $S$ (che sta per 'stay') indica l'azione del restare fermi senza 
+muovere la testina.\acc 
+\prop{} Per ogni STM esiste una TM classica equivalente. \acc 
+\dimo{} ,Sia $M'$ la STM, l'idea è quella di considerare una TM $M$ 
+che gestisca le transizioni di stato in cui la testina 
+non si muove, a tal scopo, basta simulare tale azione tramite 
+una sequenza di 2 movimenti che fanno uso di uno stato ausiliario $q_s$. 
+\begin{center}
+    $ \delta'(q,a)=(p,b,S)$
+    \\ è equivalente alle azioni \\ 
+    $\begin{cases}
+        \delta(q,a)=(p,q_s,L)\\ 
+        \delta(q_s,*)=(p,*,R)
+        
+    \end{cases}$
+\end{center}
+dove $*$ rappresenta un qualsiasi elemento di $\Gamma$.
+\subsection{TM multi nastro}
+Introduciamo la macchina di Turing con più nastri, che verrà 
+denotata MTM, 
+sia $k$ il numero di nastri, ogni nastro avrà 
+una testina proprietaria, uno stato sarà quindi rappresentato 
+dalle stringhe scritte su tutti e $k$ i nastri, e la relativa 
+posizione delle testine. \acc 
+La funzione di transizione prenderà le decisioni valutando le posizioni 
+ed il valore di tutte le testine 
+$$ \delta : Q\times\Gamma^k\rightarrow Q\times\Gamma^k\times \{L,R\}^k$$
+\teo{(MTM$\equiv$TM)} Per ogni MTM esiste una TM equivalente.\acc 
+\dimo{} La dimostrazione, piuttosto che formale, mostrerà la costruzione di una 
+TM che si comporta come la generica MTM.\acc 
+Sia $MM$ la macchina multi nastro, ed $M$ la macchina classica 
+ che deve simularla, si introduce un nuovo carattere $\#\notin \Gamma$
+ che verrà utilizzato nel nastro di $M$ come separatore per i 
+differenti nastri originari di $MM$.\begin{center}
+    \includegraphics[width=\textwidth ]{images/multinastro.eps}
+\end{center}
+Per simulare le $k$ testine, si implementa la possibilità per $M$ 
+di \textit{marcare} i caratteri (in tal caso, con un punto come 
+apice). I caratteri marcati indicano che la testina è posta su di essi. Sia $\Gamma'$ l'alfabeto dei nastri di $MM$, e 
+$\Gamma$ l'alfabeto del nastro di $M$.
+$$\forall a\in\Gamma', \ \ \ \exists \dot{a} \in\Gamma$$
+Si descrive ora la computazione di $M$, data una stringa 
+in input $w$ la configurazione iniziale è la seguente: 
+$$\#\dot{w_1}w_2w_3\dots,w_n\# 
+\smash{\underbrace{\dot{\blank}\#\dot{\blank}\dots \#\dot{\blank}}_{k-1\ \text{volte}}}
+$$
+\\ 
+Nel \textit{passo di computazione}, 
+si scansiona una prima volta il nastro 
+partendo dal primo simbolo $\#$, leggendo tutti i 
+caratteri marcati, considerando poi la funzione di 
+transizione, si esegue una seconda scansione aggiornando i 
+valori delle testine (le marcature dei caratteri) ed il contenuto 
+dei $k$ caratteri in questione. Se la testina su uno dei nastri deve 
+spostarsi su $\#$, allora $M$ sposta il contenuto dell'intero nastro a destra di 1 posizione.\acc 
+\textbf{Corollario} : $L$ è turing riconoscibile/decidibile se e solo se esiste una MTM che lo riconosce/decide.
+\subsection{TM non deterministiche}
+Si arricchisce il modello della macchina di turing introducendo il non determinismo, denotandolo NTM, la funzione di transizione cambia definizione 
+$$ \delta : Q\times\Gamma \rightarrow \mathcal{P}(Q\times \Gamma \times \{L,R\})$$
+Per ogni input si diramano più vie di computazione, una NTM accetta una stringa in input se almeno un ramo di computazione è accettante.\acc 
+\teo{(NTM$\equiv$TM)} Per ogni NTM esiste una TM equivalente.\acc 
+\dimo{} La dimostrazione, piuttosto che formale, mostrerà la costruzione di una 
+TM che si comporta come la generica NTM.\acc Sia $N$ la NTM in questione, e sia $M$ la TM classica che la vuole 
+simulare. $M$, per essere equivalente, dovrà esplorare ogni ramo di computazione, precisamente, deve esplorarlo in altezza. L'esplorazione in profondità in presenza di un loop su un ramo di computazione, comporterà il loop su $M$, anche se l'originaria $N$ aveva uno stato accettante su un differente ramo. \begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/loopEAccettante.eps} 
+\end{center}
+\textbf{Idea algoritmica} : $M$ utilizzerà 3 nastri\begin{enumerate}
+    \item il primo nastro conterrà la stringa in input che non verrà modificata (il riferimento va mantenuto)
+    \item il secondo nastro sarà il nastro di lavoro che verrà modificato per esplorare un cammino emulando la NTM.
+    \item il terzo nastro conterrà l'indirizzo del nodo 
+    dell'albero che si sta esplorando.
+\end{enumerate}
+Nell'$i$-esimo step, identificato da una tripla 
+$$ (M,w,i)$$
+usando l'input del primo nastro si percorre il ramo simulando $N$, se viene trovato uno stato accettante, 
+$M$ accetta, altrimenti si incremente l'indice $i$
+ e si ripercorre.
+ \begin{itemize}
+    \item Se un ramo di $N$ è accettante, $M$ accetta 
+    \item Se ogni ramo di $N$ rifiuta, $M$ rifiuta 
+    \item Se almeno un ramo di $N$ va in loop, e nessun 
+    ramo accetta, $M$ va in loop.
+ \end{itemize}
+ \begin{quote}
+    Se una NTM è un decisore, tutti i cammini hanno lunghezza finita
+ \end{quote}
+ \hfill$\blacksquare$
+ \subsection{L'Enumeratore}
+ L'enumeratore è un modello (in particolare, una variante di una TM) capace di generare un preciso insieme di stringhe, in un qualsiasi ordine e con eventuali ripetizioni, in particolare, per ogni linguaggio turing-riconoscibile, esiste un enumeratore che lo genera.\acc
+Un enumeratore è una TM che "stampa" delle stringhe, eventualmente, infinite.\acc 
+\teo{} Un linguaggio è turing riconoscibile se e solo se esiste un enumeratore che lo genera.\acc 
+\dimo{} Si dimostrano separatamente le due direzioni.\acc 
+\boxedMath{$\impliedby$} Dato un enumeratore $E$, definiamo una TM $M$ come segue (sia $w$ l'input)\begin{itemize}
+    \item Si esegue $E$, se stampa una stringa, si confronta con $w$
+    \item Se $w$ è uguale ad una stringa stampata da $E$, allora $M$ accetta.
+\end{itemize}
+\boxedMath{$\implies$} Sia $M$ una TM, si considera un enumeratore $E$ che deve 
+stampare $L(M)$. Sia $\Sigma$ l'alfabeto di 
+$L(M)$, identifichiamo come segue 
+$$ \Sigma^*=\{\epsilon,s_1,s_2\dots\}$$
+la lista di tutte le possibile stringhe su tale alfabeto. $E$ sarà definito come segue 
+\begin{itemize}
+    \item Si ripetono i passi per $i=1,2\dots$\begin{itemize}
+        \item Si esegue $M$ per $i$ passi su ogni input $s_1,s_2\dots s_i$
+        \item Se una qualsiasi computazione su $s_j$ accetta, $E$ stampa 
+        $s_j$
+    \end{itemize}
+\hfill$\blacksquare$\end{itemize}\flowerLine 
+\section{Indecidibilità}
+Come esistono linguaggi non regolari e linguaggi non acontestuali, risulta naturale porsi la domanda : Esistono dei linguaggi non turing riconosibili? Il modello della TM corrisponde al concetto di algoritmo, un linguaggio non riconoscibile corrisponde ad un problema che \textit{nessun} algoritmo può risolvere.\acc 
+Una TM può ricevere in input un qualsiasi oggetto matematico, come un polinomio, un DFA, o direttamente un'altra TM, è importante che tale oggetto $O$, venga \textbf{codificato} in binario, denotandolo $<O>$ prima di essere computato dalla TM.
+ \end{document}

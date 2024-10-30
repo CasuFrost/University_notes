@@ -2484,8 +2484,8 @@ Si consideri il circuito $RLC$ mostrato in figura\begin{center}
     \draw (0,0) to [short] ++(0,1) node [right] {$-$}
     to [open, v^>=$v(t)$, o-o] ++(0,1) node [right] {$+$}
     to [short] ++(0,1)
-    to [R=$R$, i>^=$i(t)$, resistors/zigs=6] ++(4,0)
-    to [curved capacitor, l_=$C$, capacitors/thickness=8] ++(0,-3)
+    to [R=$R$, i>^=$i(t)$, resistors/zigs=4] ++(4,0)
+    to [ capacitor, l_=$C$, capacitors/thickness=1] ++(0,-3)
     to [cute inductor, l_=$L$, mirror] ++(-4,0);
 \end{circuitikz}\end{center}
 le tensioni ai margini della resistenza, del condensatore e dell'induttore sono precisamente 
@@ -3589,5 +3589,29 @@ $$\begin{center}
         \end{tikzpicture}
 \end{figure}
 \end{center}
-\subsubsection{Esempio circuito RLC}
+\subsubsection{Esempio circuito RLC}Si consideri il circuito $RLC$ mostrato in figura\begin{center}
+    \begin{circuitikz}
+        \draw (0,0) to [short] ++(0,1) node [right] {$-$}
+        to [open, v^>=$v(t)$, o-o] ++(0,1) node [right] {$+$}
+        to [short] ++(0,1)
+        to [R=$R$, i>^=$i(t)$, resistors/zigs=4] ++(4,0)
+        to [ capacitor, l_=$C$, capacitors/thickness=1] ++(0,-3)
+        to [cute inductor, l_=$L$, mirror] ++(-4,0);
+    \end{circuitikz}\end{center}
+Il sistema dinamico equivalente è il seguente
+$$ 
+\begin{cases}
+    C\dot{x_1}=v-x_2\\ 
+    L\dot{x_2}=x_1-Rx_2\\ 
+    y=Rx_2
+\end{cases}
+$$
+La funzione di trasferimento equivalente è la seguente 
+$$ 
+G(s)=\frac{1}{s^2+\frac{R}{L}s+\frac{1}{LC}}\frac{R}{LC}
+$$
+Si hanno pulsazione naturale e fattore di smorzamento 
+$$ \omega_n=\frac{1}{\sqrt{LC}} \ \ \ \ \ \ \ \  
+\xi = \frac{R}{2}\sqrt{\frac{C}{L}}\ \ \ \ \ \ \ \ 
+\mu=R$$
 \end{document}
