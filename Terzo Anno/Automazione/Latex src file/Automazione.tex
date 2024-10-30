@@ -3614,4 +3614,117 @@ Si hanno pulsazione naturale e fattore di smorzamento
 $$ \omega_n=\frac{1}{\sqrt{LC}} \ \ \ \ \ \ \ \  
 \xi = \frac{R}{2}\sqrt{\frac{C}{L}}\ \ \ \ \ \ \ \ 
 \mu=R$$
+\subsubsection{Poli Dominanti ed Equivalenti}
+In una funzione di trasferimento, i poli detti \textit{dominanti} sono quelli che forniscono il 
+contributo maggiore nella risposta del sistema. Consideriamo una generica funzione di trasferimento 
+(per semplicità, con poli reali e distinti) 
+$$ Y(s)=G(s)\frac{1}{s}=\frac{\alpha_0}{s}+\frac{\alpha_1}{1+s\tau_1}\dots +\frac{\alpha_n}{1+s\tau_n}$$
+L'andamento nel tempo è 
+$$y(t)=\alpha_0+\frac{\alpha_1}{\tau_1}e^{-\frac{t}{\tau_1}}+\dots +\frac{\alpha_n}{\tau_n}e^{-\frac{t}{\tau_n}}$$ 
+Sia $\tau_i$ lo specifico valore per cui $\tau_i>\tau_j \ \ \forall j$, allora la componente
+$$ \frac{\alpha_i}{\tau_i}e^{-\frac{t}{\tau_i}}$$
+Darà il maggior contributo all'andamento dell'uscita 
+$$ y(t)\simeq\alpha_0+\frac{\alpha_i}{\tau_i}e^{-\frac{t}{\tau_i}}$$
+Il polo dominante $-\frac{1}{\tau_i}$ sarà quello più vicino all'asse immaginario. Nel caso di poli complessi 
+e coniugati, saranno entrambi dominanti.
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[scale=1, transform shape]
+            \begin{axis}[
+            ymin=0,
+            ymax = 3,
+            xmin=0,
+            xmax = 3,
+            axis lines = left,
+            xtick distance=1, ytick distance=1.5,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(t\),
+            ylabel = {},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:3,
+            samples=50,
+            color=green,
+            ]
+            {(1)+(1/0.3)*exp(-(x/0.3))};
+            \addlegendentry{comp. debole}
+            \addplot [
+            domain=0:3,
+            samples=50,
+            color=red,
+            ]
+            {(1)+(2/3)*exp(-(x/3))};
+            \addlegendentry{comp. forte}
+            \addplot [
+            domain=0:3,
+            samples=50,
+            color=blue,
+            ]
+            {(1)+(2/3)*exp(-(x/3))+(2/0.5)*exp(-(x/0.5))+(1/0.3)*exp(-(x/0.3))};
+            \addlegendentry{$y(t)$}
+            \end{axis}
+            \end{tikzpicture}
+    \end{figure}
+    \end{center}
+    È inoltre possibile approssimare una funzione di trasferimento 
+    con un \textit{polo equivalente}, si consideri la seguente funzione (nell'ipotesi che i 
+    poli siano tutti reali negativi)
+    $$ G(s)=\frac{\mu}{(1+s\tau_1)(1+s\tau_2)\dots (1+s\tau_n)} \ \ \ \tau_i>0$$
+Si considera 
+$$ \tau_e :=\sum_{i=1}^{n}\tau_i$$
+La funzione approssimata al polo equivalente sarà 
+$$ G_e(s)=\frac{\mu}{(1+s\tau_e)}$$
+Ad esempio, si consideri 
+$$ G(s)=\frac{1}{(1+s)(1+0.1s)(1+0.5s)}$$
+Si ha 
+$$ G_e(s)=\frac{1}{1+1.6s}$$
+La funzione approssimata al polo dominante è invece 
+$$ G_d(s)=\frac{1}{1+s}$$
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[scale=1, transform shape]
+            \begin{axis}[
+            ymin=0,
+            ymax = 0.6,
+            xmin=0,
+            xmax = 4,
+            axis lines = left,
+            xtick distance=1, ytick distance=0.3,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(t\),
+            ylabel = {},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:4,
+            samples=50,
+            color=blue,
+            ]
+            {(2.27)*exp(-10*x)-(2.5)*exp(-2*x)+2.222*exp(-x)};
+            \addlegendentry{$G(s)$}
+            \addplot [
+            domain=0:4,
+            samples=50,
+            color=red,
+            ]
+            {exp(-x)};
+            \addlegendentry{$G_d(s)$}
+            \addplot [
+            domain=0:4,
+            samples=50,
+            color=green,
+            ]
+            {0.625*exp(-0.625*x)};
+            \addlegendentry{$G_e(s)$}
+            \end{axis}
+            \end{tikzpicture}
+    \end{figure}
+    \end{center}
 \end{document}
