@@ -1979,10 +1979,77 @@ RMPO non funziona, si tenta con EDF
 Essendo il fattore di utilizzazione minore di 1 era certo che EDF sarebbe 
 riuscito a schedulare l'insieme, lasciando l'ultima unità temporale 
 libera.
-
-
-
-
+\subsection{Deadline Monotoning Priority Ordering (DMPO)}
+Fin'ora l'ipotesi dei task periodici ha permesso la formulazione di algoritmi efficienti capaci 
+di schedulare un qualsiasi insieme di task che rispetti determinati requisit, più o meno laschi. \acc 
+Si considera adesso un insieme di task \textbf{periodici generalizzati}, che differiscono dai task periodici 
+classici per un vincolo : Non è necessariamente vero che la deadline relativa ed il activation period coincidano.
+Un insieme di task rispetta ora le seguenti ipotesi
+\begin{enumerate}
+    \item La deadline relativa di un task periodico sarà \textbf{minore o uguale} al suo periodo di attivazione.
+    \item I task sono fra loro indipendenti (non ci sono blocking queue)
+    \item Il computation time $C_i$ di un task è costante per tutte le sue istanze 
+    \item Tutti i task condividono il primo activation time : $\forall i,j\in[1\dots, n] \ \ a_j(1)=a_i(1)$
+\end{enumerate}
+$$ T_i\ge D_i$$\begin{center}
+    \includegraphics[width=0.85\textwidth ]{images/periodicoGeneralizzato.eps}
+\end{center}
+Bisogna definire il \textit{coefficiente di utilizzazione relativo} :
+$$ U_{rel}=\sum_{i=1}^{n}\frac{C_i}{D_i}\ge  U=\sum_{i=1}^{n}\frac{C_i}{T_i}$$
+L'algoritmo \textit{DMPO} generalizza l'RMPO, opera nel campo dei task periodici generalizzati 
+ed assegna un valore di priorità inversamente proporzionale 
+alla deadline relativa di ogni processo. È un algoritmo preemptive e statico perché le deadline relative sono 
+costanti.\acc 
+\prop{1} È il migliore algoritmo statico per i task periodici generalizzati. \acc 
+\prop{2} Se un algoritmo statico risolve un insieme di task periodici generalizzati, anche DMPO lo risolve.\acc 
+\prop{3} (Condizione sufficiente) un insieme di $n$ task periodici generalizzati è \textit{sicuramente schedulabile} se 
+$$ U_{rel}\le n(2^{\nicefrac{1}{n}}-1)$$
+\textbf{Osservazione} : La condizione sufficiente di schedulabilità è più stretta rispetto 
+a quella del RMPO dato che $U\le U_{rel}$ $$\begin{cases}
+    U\le n(2^{\nicefrac{1}{n}}-1) \text{ condizione RMPO }\\ 
+    U_{rel}\le n(2^{\nicefrac{1}{n}}-1) \text{ condizione DMPO }
+\end{cases}  \ \ \ U\le n(2^{\nicefrac{1}{n}}-1) \notimplies U_{rel} \le n(2^{\nicefrac{1}{n}}-1)$$
+DMPO può fallire dove RMPO riesce.
+\subsection{Time Scheduling (TS)}
+L'algoritmo TS opera nel campo dei task periodici classici ($T_i=D_i$) ed è un algoritmo 
+offline e non preemptive, è quindi estremamente semplice in termini di complessità computazionale e 
+garantisce un alto grado di determinismo. \acc 
+L'algoritmo prevede una \textit{discretizzazione} dell'asse temporale in intervalli di tempo regolari 
+chiamati \textbf{time slices}.
+\begin{center}
+    \includegraphics[width=0.85\textwidth ]{images/timeSlices.eps}
+\end{center}
+Si definiscono due coefficienti\begin{itemize}
+    \item \textbf{minor cycle} : $\MCD(T_i)$ 
+    \item \textbf{major cycle} : $\mcm(T_i)$ 
+\end{itemize}
+\textbf{Nota} : Ha senso parlare di MCD e mcm nel contesto degli activation period che sono 
+intervalli temporali? Anche se nel mondo fisico $T_i\in\R^+$, è più che ammissibile permettersi un 
+rilassamento ingegneristico e trattare i periodi temporali come numeri in $\N$, tutti i periodi saranno 
+multipli interi di una determinata time unit.\acc 
+Per applicare TS, è necessario che 
+$$ \forall i \ \ C_i\le \MCD(T_1,T_2\dots , T_n)$$
+L'asse temporale viene suddiviso in time slices grandi quanto il minor cycle, una volta fatto ciò, 
+è possibile \textit{schedulare in maniera arbitraria} i task sulle time slices in modo tale che \begin{itemize}
+    \item ogni time slices ha almeno uno o più task 
+    \item un task viene interamente schedulato su una singola time slices, non può essere suddiviso
+\end{itemize}
+Lo scheduling dell'intero insieme sarà periodico, di periodo uguale al major cycle.
+\textbf{Esempio}
+$$ 
+\begin{matrix}
+    A_1 & & & T_1=8 & & & C_1 =2\\ 
+    A_2 & & & T_2=16 & & & C_2=4 \\ 
+    A_3 & & &T_3=32 &&& C_3=6
+\end{matrix} \ \ \ U=\frac{22}{32}<\ln(2)\text{ RMPO lo risolve}
+$$
+Si vuole applicare TS, si ha che il minor cycle è $\MCD(8,16,32)=8$ ed il major cycle 
+è $\mcm(8,16,32)=32$.\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/TS.eps}
+\end{center}
+Esistono più scheduling equivalenti, quello corretto non è univoco.\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/TS2.eps}
+\end{center}
 
 
 
