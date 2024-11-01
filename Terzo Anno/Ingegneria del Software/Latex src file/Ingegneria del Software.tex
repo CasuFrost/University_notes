@@ -113,6 +113,127 @@ l'inserimento di un paziente nella clinica.
     \caption{activity diagram}
     \label{activity}
 \end{figure}
+\flowerLine 
+\section{Catene di Markov per la Progettazione}
+La moderna progettazione di sistemi complessi si basa sul concetto di digital twin, in modo da poter  
+definire un modello che simula il sistema su cui verranno eseguiti determinati esperimenti al fine 
+di collaudo prima della progettazione vera e propria. Questo capitolo si concetra sull'aspetto \textit{predittivo} 
+dei digital twin : Si vuole utilizzare il modello per fare predizioni sull'andamento della 
+progettazione.\acc
+\defi{(DTMC)} Una \textbf{Catena di Markov Discreta} è una tupla $(U,X,Y,p,g)$ tale che \begin{itemize}
+    \item $U$ è un insieme (possibilmente vuoto, finito o non) denotato \textit{input/ingresso} del sistema.
+    \item $X$ è un insieme non vuoto  (finito o non) denotato \textit{stato} del sistema.
+    \item $Y$ è un insieme non vuoto (finito o non) denotato \textit{output/uscita} del sistema.
+    \item $p$ è la \textit{probabilità di transizione}, è una funzione $$p:X\times X\times U\rightarrow[0,1]$$
+    tale che $p(x'|x,u)$ rappresenta la probabilità che la DTMC si sposti dallo stato $x$ allo 
+    stato $x'$ quando l'ingresso è $u$. Inoltre, per ogni $\tilde x\in X$ e per ogni $\tilde u\in U$, 
+    si ha che $$ \int_{x'\in X}p(x'|\tilde x,\tilde u)=1$$
+    informalmente, per ogni possibile coppia stato-ingresso, esiste uno stato successivo. 
+    \item $g$ è una funzione $$g:X\rightarrow Y$$ detta \textit{funzione di output}.
+\end{itemize}
+Data una catena di markov $M$, denotiamo $M(U), M(X), M(Y)$ rispettivamente : gli ingressi, gli stati 
+e le uscite.\acc 
+\textbf{Esempio tempi di completamento} : Si consideri il processo di sviluppo mostrato in figura \ref{esempioDTMC}, si vuole 
+calcolare la probabilità che il processo termini in esattamente 10 mesi.\acc 
+Si identificano i possibili cammini la cui somma dei sotto processi impiega 10 mesi 
+$$ \begin{matrix}
+    0\rightarrow 1 \rightarrow  1 \rightarrow2\rightarrow3\rightarrow4 \\
+    0\rightarrow 1  \rightarrow2\rightarrow3\rightarrow3\rightarrow4 \\ 
+\end{matrix}$$
+La probabilità che ciò accada è la somma delle probabilità sui due percorsi 
+$$ \begin{matrix}
+    1\cdot 0.3 \cdot 0.7 \cdot 0.6 \cdot 0.6 = 0.0756 \\ 
+    1\cdot  0.7 \cdot0.6 \cdot0.1 \cdot0.6 = 0.02520
+\end{matrix} \implies p(\text{finire in 10 mesi})=0.1008$$
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=1\textwidth ]{images/esempioDTMC.pdf}
+    \caption{Esempio 1}
+    \label{esempioDTMC}
+\end{figure}\acc 
+Qual'è invece la probabilità di finire il processo in esattamente 12 mesi? Si identificano i cammini 
+$$ \begin{matrix}
+    0\rightarrow1\rightarrow1\rightarrow1\rightarrow2\rightarrow3\rightarrow4\\ 
+    0\rightarrow1\rightarrow1\rightarrow2\rightarrow3\rightarrow3\rightarrow4 \\ 
+    0\rightarrow1\rightarrow2\rightarrow2\rightarrow3\rightarrow4\\ 
+    0\rightarrow1\rightarrow2\rightarrow3\rightarrow3\rightarrow3\rightarrow4
+\end{matrix}$$
+la probabilità è 
+$$\begin{matrix} 1 \cdot 0.3 \cdot 0.3 \cdot 0.7 \cdot 0.6 \cdot 0.6 
+    + \\1 \cdot 0.3 \cdot 0.7 \cdot 0.6 \cdot 0.1 \cdot 0.6 +\\
+1 \cdot 0.7 \cdot 0.2 \cdot 0.6 \cdot 0.6 + \\
+1 \cdot 0.7 \cdot 0.6 \cdot 0.1 \cdot 0.1 \cdot 0.6 =\\
+0.022680 + 0.007560 \cdot 0.05040 \cdot 0.002520 =
+0.08316\end{matrix}$$
+\textbf{Esempio costi di completamento} : Si consideri il processo di sviluppo mostrato in figura \ref{esempioDTMC2}, si vuole 
+calcolare la probabilità che il processo abbia un costo toale di esattamente 80.000 euro.\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=1\textwidth ]{images/esempioDTMC2.pdf}
+    \caption{Esempio 2}
+    \label{esempioDTMC2}
+\end{figure}\acc 
+L'unico cammino possibile è$$ \begin{matrix}
+    0\rightarrow1\rightarrow2\rightarrow3\rightarrow4
+\end{matrix}$$ 
+La probabilità è 
+$$ 1\cdot 0.7\cdot 0.7 \cdot 0.7 = 0.343$$
+\textbf{Esempio costi di design} : Si consideri il processo di sviluppo 
+mostrato in figura \ref{esempioDTMC3}, quale deve essere il minimo valore di $p$ tale che 
+la probabilità che il processo termini in esattamente 8 mesi sia almeno 0.5?\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=1\textwidth ]{images/esempioDTMC3.pdf}
+    \caption{Esempio 3}
+    \label{esempioDTMC3}
+\end{figure}\acc
+L'unico cammino possibile è $$ \begin{matrix}
+    0\rightarrow1\rightarrow2\rightarrow3\rightarrow4
+\end{matrix}$$ 
+la cui probabilità deve essere
+$$ 1\cdot p\cdot 0.8 \cdot 0.7 \ge 0.5\implies $$
+$$ p\ge \frac{0.5}{0.8\cdot 0.7}=0.8928$$
+Una \textbf{rete di catene di Markov} è un insieme di catene di Markov interconnesse 
+tramite gli ingressi e le uscite.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/cateneInterconnesse.pdf}
+\end{center}
+Inoltre, una rete di catene di Markov è rappresentabile come 
+una catena di Markov singola, si considerino le catene di Markov $K,P$ in figura 
+\ref{cateneInterconnesse}, formalmente
+$$ \begin{matrix}
+    K=(U_1\times V, X_1,Y_1,p_1,g_1)\\ 
+    P=(U_2, X_2,W\times Z,p_2,(g_{2_w},g_{2_z}))
+\end{matrix}$$
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.7\textwidth ]{images/cateneInterconnesse2.pdf}
+    \caption{$K$ e $P$ interconnesse}
+    \label{cateneInterconnesse}
+\end{figure}\acc
+Nota : $u_1$ rappresenta un elemento dell'insieme $U_1$ (ingresso di $K$), $v\in V$, $y_1\in Y_1\dots$ analogo 
+per gli altri elementi.\acc
+Un ingresso di $K$ è un uscita di $P$ $$ M_1(U_1)=M_2(W)$$ 
+e l'ingresso di $P$ è l'uscita di $K$ $$ M_2(U_2)=M_1(Y_1)$$
+Si può definire il sistema globale equivalente 
+$$M=(V,X_1\times X_2,Z,p,g) $$
+Dove \begin{itemize}
+    \item $p((x_1',x_2')|(x_1,x_2),v)=p_1(x_1'|x_1,(g_{2_w}(x_2),v))\cdot p_2(x_2'|x_2,g_1(x_1))$ 
+    \item $g(x_1,x_2)=g_{2_z}(x_2)$\begin{center}
+        \includegraphics[width=0.4\textwidth ]{images/vmz.pdf}
+    \end{center}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \chapter{Planning del Progetto}
 Il planning di un progetto, consiste nel suddividere il carico di lavoro in diverse 
 parti, da assegnare ai vari membri del team, cercando di prevedere possibili problemi 
@@ -260,13 +381,161 @@ rappresentare un momento in cui si valuta la progressione del
 progetto.\acc 
 Con \textbf{deliverables} si definiscono dei risultati ottenuti 
 durante la lavorazione da presentare al cliente.
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \rowcolor[HTML]{CBCEFB} 
+        task & \begin{tabular}[c]{@{}c@{}}personale necessario \\ (persone/giorno)\end{tabular} & durata in giorni & dipendenze    \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        T1   & 15                                                                               & 10               &               \\ \hline
+        T2   & 8                                                                                & 15               &               \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        T3   & 20                                                                               & 15               & T1 (M1)       \\ \hline
+        T4   & 5                                                                                & 10               &               \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        T5   & 5                                                                                & 10               & T2,T4 (M3)    \\ \hline
+        T6   & 10                                                                               & 5                & T1,T2 (M4)    \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        T7   & 25                                                                               & 20               & T1 (M1)       \\ \hline
+        T8   & 75                                                                               & 25               & T4 (M2)       \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        T9   & 10                                                                               &                  & T3,T6 (M5)    \\ \hline
+        T10  & 20                                                                               & 15               & T7,T8 (M6)    \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        T11  & 10                                                                               & 10               & T9 (M7)       \\ \hline
+        T12  & 20                                                                               & 10               & T10, T11 (M8) \\ \hline
+        \end{tabular}
+\end{center}
+Nella tabella sopramostrata, sono riportate diverse attività di un processo 
+di sviluppo, ogni attività $T_i$ (o task) ha associato un certo numero di persone necessarie ed 
+una durata in giorni. Inoltre, un task può dipendere da uno o più task. Con $M_i$ si 
+identificano le milestones.
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.45\textwidth ]{images/barChart.png} &
+        \includegraphics[width=0.5\textwidth ]{images/staffChart.png}
+	\end{tabular}
+\end{center}
+Un \textit{activity bar chart} è un diagramma in cui sull'asse temporale vengono rappresentate 
+le varie attività ed il loro scheduling, in modo che le varie dipendenze siano rispettate.\acc 
+Analogamente, uno \textit{staff allocation chart} mostra la distribuzione del personale 
+suddiviso nelle varie settimane, indicando il progetto alla quale lavorano.\flowerLine 
+\section{Sviluppo Agile}
+Con sviluppo agile, si denota una metodologia di approccio iterativa in cui il processo di sviluppo ed i 
+requisiti vengono rimodellati dinamicamente, in quanto il progetto in fase di sviluppo viene 
+considerato dal cliente prima del suo completamento. Diversamente dallo sviluppo plan driven, 
+questo approccio non è predeterminato e le decisioni vengono prese durante lo sviluppo, 
+possibile aggiunte o rimozioni dipendono da come il progetto procede e dalle nuove priorità del 
+cliente.\begin{quote}
+    Le priorità e le esigenze del cliente cambiano, quindi ha senso avere un piano flessibile che possa accogliere questi cambiamenti.
+\end{quote}
+Lo sviluppo agile prevede due stadi\begin{itemize}
+    \item \textit{Release planning} : prevede la pianificazione a lungo termine 
+    delle funzionalità che dovranno essere implementate nei mesi a venire.
+    \item \textit{Iteration planning} : ci si concentra sugli incrementi a breve termine del 
+    sistema, tipicamente si tratta di aggiunte che richiedono dalle 2 alle 4 settimane.
+\end{itemize}
+Una delle metodologie dello sviluppo agile è la 
+ pianificazione basata su storie (\textbf{story-based planning}). 
+ Consiste nel suddividere le funzionalità di un sistema in piccole unità chiamate 
+ "storie utente" (\textit{user stories}). In particolare, sono previsti i seguenti step\begin{enumerate}
+    \item Creazione delle storie: Le storie utente sono brevi descrizioni 
+    di una funzionalità del sistema dal punto di vista dell'utente finale. 
+    Solitamente seguono un formato semplice: "Come utente, voglio [azione] in modo
+     da [obiettivo]".
+     \item Stima dello sforzo: Il team di sviluppo stima 
+     il tempo necessario per implementare ciascuna storia, 
+     assegnandole un valore numerico (effort points) che riflette 
+     la complessità e la dimensione della storia.
+     \item Prioritizzazione: Le storie vengono ordinate in base alla priorità, tenendo 
+     conto di fattori come il valore commerciale, l'urgenza e le dipendenze.
+     \item Pianificazione delle iterazioni: Le storie prioritarie vengono 
+     raggruppate in iterazioni (sprint) di durata definita.
+     \item Misurazione della velocità: Viene calcolata la "velocità" del team, 
+     ovvero la quantità di lavoro
+      (misurata in effort points) che il team riesce a completare in un'iterazione.
+      \item Previsione: Sulla base della velocità, il team può stimare il tempo totale 
+      necessario per completare il progetto.
+ \end{enumerate}
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/planningGame.pdf}
+\end{center}
+Il  Release Planning si occupa di selezionare e raffinare le storie utente 
+(features) che verranno implementate in una specifica versione (release) del prodotto. 
+Questo processo definisce quali funzionalità saranno incluse nel rilascio e l'ordine in cui 
+verranno sviluppate.\acc 
+L'Iteration planning si concentra sulla scelta delle storie utente che verranno implementate 
+in ciascuna iterazione (spesso chiamate sprint), che sono periodi di tempo fissi 
+(solitamente 2 o 3 settimane) durante i quali il team si impegna a completare un
+ insieme di lavoro. Il numero di storie scelte per ogni iterazione dipende dalla capacità del 
+team (velocità) di completare il lavoro.\acc 
+Durante la fase di pianificazione dei task, gli sviluppatori suddividono le 
+storie utente in compiti di sviluppo più piccoli.\begin{itemize}
+    \item Un task di sviluppo dovrebbe richiedere tra le 4 e le 16 ore.
+    \item Tutti i task necessari per completare tutte le storie di quell'iterazione vengono elencati.
+    \item I singoli sviluppatori si offrono volontari per i task specifici che desiderano implementare.
+\end{itemize}
+Benefici di questo approccio:
+\begin{itemize}
+    \item L'intero team ha una visione d'insieme dei task da completare in un'iterazione.
+    \item Gli sviluppatori si sentono responsabili dei loro task e questo li motiva a completarli.
+\end{itemize}
+Un incremento del software\footnote{
+    un incremento del software rappresenta una porzione funzionante
+     e valutabile del prodotto software che viene consegnata alla fine di ogni iterazione
+} viene sempre consegnato alla fine di ogni iterazione del progetto.
+Se le funzionalità da includere nell'incremento non possono essere completate nel tempo
+ previsto, si riducono gli obbiettivi prefissati del lavoro, ma
+la tempistica di consegna non viene mai prolungata.\acc
+Svantaggi dell'agile planning\begin{itemize}
+    \item La pianificazione Agile dipende fortemente 
+    dal coinvolgimento e dalla disponibilità del cliente.
+    \item può essere difficile da organizzare, poiché i  clienti devono spesso dare priorità ad
+     altro lavoro e non sono sempre disponibili per le sessioni di pianificazione.
+     \item alcuni clienti potrebbero essere più abituati ai piani di progetto tradizionali e trovare 
+     difficile partecipare a un processo di pianificazione agile.
+\end{itemize}
+La pianificazione agile funziona bene con team di sviluppo piccoli e stabili che 
+possono riunirsi e discutere le storie da implementare.
+Tuttavia, quando i team sono grandi e/o geograficamente distribuiti, o quando
+ la composizione del team cambia frequentemente, è praticamente impossibile coinvolgere
+  tutti nella pianificazione collaborativa che è essenziale per la gestione agile di un progetto.
+\begin{quote}
+    Lo sviluppo agile è un approccio molto efficace per 
+    team piccoli e coesi, richiede adattamenti e strumenti specifici 
+    per funzionare bene in contesti più grandi e complessi.
+\end{quote}
+\chapter{Processi Software}
+\section{Definizione e Modelli}
+\defi{}  Il processo software è un insieme strutturato di attività necessarie per 
+sviluppare un sistema software.
+Esistono diversi processi software, ma tutti coinvolgono specifiche, progettazione e 
+implementazione, validazione ed evoluzione del sistema per rispondere ai bisogni dei clienti.\acc 
+Quando descriviamo e discutiamo di processi, di solito parliamo delle attività che 
+li compongono, ad esempio, la specifica di un modello di dati, 
+la progettazione dell'interfaccia utente, ecc., e dell'ordine in cui queste attività vengono eseguite.
+Le descrizioni dei processi possono includere anche:\begin{itemize}
+    \item Prodotti: ovvero i risultati di un'attività del processo;
+    \item Ruoli: che riflettono le responsabilità delle persone coinvolte nel processo;
+    \item Pre-condizioni e post-condizioni: ossia affermazioni che sono vere prima e dopo che un'attività del processo è stata eseguita o un prodotto è stato creato.
+\end{itemize}
+Come già accennato, i processi software possono essere di due tipi\begin{itemize}
+    \item \textbf{processi plan-driven} : Sono processi in cui tutte le attività vengono
+     pianificate in anticipo e l'avanzamento del progetto viene misurato in base a 
+     questo piano iniziale. È come seguire una ricetta precisa, dove ogni passo è 
+     definito fin dall'inizio 
+     \item \textbf{processi agili} : In questi processi, la pianificazione è più flessibile
+      e si adatta ai cambiamenti. Si lavora a iterazioni brevi (sprint) e si può modificare 
+      il piano di volta in volta in base alle nuove esigenze del cliente. È come cucinare 
+      senza una ricetta precisa, ma adattando i piatti ai gusti degli ospiti man mano che 
+      si procede.
+\end{itemize}
+Nella pratica La maggior parte dei progetti software combina elementi di entrambi gli approcci. A volte è necessario un piano dettagliato per le fasi iniziali, mentre in altre si può essere più flessibili.
 
 
 
 
 
 
-
-
-\redText{continua dalle slide "Ch23 Project planning" - pagina 30}
+\redText{continua dalle slide "Ch2 SW Processes" - dalla slide 7 fino alla slide 19 }
 \end{document}

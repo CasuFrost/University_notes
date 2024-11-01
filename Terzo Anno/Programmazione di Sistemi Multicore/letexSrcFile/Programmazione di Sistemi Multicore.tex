@@ -1303,4 +1303,383 @@ la funzione \code{MPI\_Type\_commit} che, eseguendo opportune ottimizzazioni,
  decide il metodo di salvataggio della struttura in memoria. 
  Quando non è più necessario quel datatype,
   si può chiamare la funzione \code{MPI\_Type\_free}.
+\chapter{Memoria Condivisa : Posix Threads}
+\section{Introduzione ai Thread}
+In MPI, un insieme di nodi comunica tramite lo scambio di messaggi su un apposito canale, all'interno di ogni 
+nodo, sono presenti delle unità di calcolo con più cores, ossia più sotto-unità che comunicano ed operano 
+contemporaneamente su una memoria condivisa.\acc 
+Se MPI si occupa della comunicazione fra più nodi, è necessario un paradigma volto alla comunicazione dei differenti core 
+di un'unità di calcolo che possono accedere ad una memoria comune. \acc 
+Un processo è un istanza di un programma (in esecuzione) che viene caricata sulla CPU, possiamo identificare 
+i \textit{singoli flussi indipendenti di computazione} di un processo, denominati \textbf{thread}, 
+analoghi ai processi ma più "leggeri" nella loro creazione e gestione, due thread appartenenti ad uno 
+stesso processo hanno differenti program counter e stack ma condividono lo stesso spazio di indirizzamento 
+dinamic (heap), la comunicazione è semplice, in quanto basta scrivere sulla stessa area di memoria.\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/thread..eps}
+\end{center} 
+Lo standard \textbf{Posix Threads (Pthreads)} è implementato con una libreria in C e specifica l'API per 
+l'interazione fra i thread, è necessario specificare nel codice la direttiva di inclusione\begin{quote}
+    \code{\# include <pthread.h>}
+\end{quote}
+La libreria fornisce il tipo di dato \code{pthread\_t}, non è importante la sua struttura interna, basti 
+sapere che tale tipo identifica univocamente un thread all'interno di un processo, a volte viene 
+denotato \textit{thread handler}. La creazione di un thread avviene tramite la chiamata di libreria
+\code{int pthread\_create}, i cui parametri sono\begin{itemize}
+    \item \code{pthread\_t* thread\_p} verrà assegnato l'identificatore del thread creato. 
+    \item \code{const pthread\_attr\_t* attr\_p} attributi in input che per adesso verranno ignorati. 
+    \item \code{void* (*start\_routine ) ( void* )} la funzione che verrà eseguita dal thread creato. 
+    \item \code{void* arg\_p} i parametri della funzione sopracitata.
+\end{itemize}
+All'avvio di un thread è quindi necessario specificarne la funzione da eseguire, una funzione può 
+essere passata in input in quanto rappresenta un puntatore alla zona di memoria in cui è contenuta 
+la procedura da eseguire.
+\begin{lstlisting}[style=CStyle]
+void func(int a){
+    /*codice*/
+}
+
+void(*func_ptr)(int)=func; /*puntatore a funzione in cui se ne specifica anche il tipo 
+                           [int] del parametro*/
+\end{lstlisting}
+Convenzionalmente, la funzione del thread è di tipo puntatore a void ed ha come parametro di ingresso 
+un puntatore a void (caso più generale possibile) che verrà eventualmente castato.\begin{quote}
+    \code{void *thread\_function(void *args\_p);}
+\end{quote}
+Per attendere la terminazione di un thread da parte del processo principale è necessario utilizzare 
+la funzione \code{pthread\_join}, valida per un singolo thread, i parametri sono\begin{itemize}
+    \item \code{pthread\_t thread} l'identificatore del thread di cui attendere la terminazione 
+    \item \code{void **value\_ptr} il valore di ritorno del thread
+\end{itemize}
+La funzione \code{pthread\_self} ritorna l'identificatore del thread chiamante. Il seguente esempio mostra 
+la creazione di diversi thread che stampano a schermo una stringa.
+\begin{lstlisting}[style=CStyle]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <pthread.h>
+    #define THREAD_COUNT 4
+    
+    void *Hello(void *rank)
+    {
+        int my_rank = rank;
+        printf("hello from thread %ld\n", my_rank);
+        return NULL;
+    }
+    
+    int main()
+    {
+        pthread_t thread_handles[THREAD_COUNT];
+        for (int i = 0; i < THREAD_COUNT; i++) /*creazione dei thread*/
+            pthread_create(&thread_handles[i], NULL, Hello, (void *)i);
+        printf("hello from main thread\n");
+        for (int i = 0; i < THREAD_COUNT; i++) /*terminazione dei thread*/
+            pthread_join(thread_handles[i], NULL);
+        return 0;
+    }
+\end{lstlisting}
+Riguardo il numero dei thread, sarebbe corretto considerare tanti thread quanti sono i core fisici sulla 
+macchina che esegue il programma. Se si vogliono passare \textit{molteplici} parametri ad un thread è necessario 
+definire un'apposita struct che li comprenda.
+\subsection{Prodotto Matrice-Vettore con Pthread}
+Si vuole eseguire il calssico algoritmo di moltiplicazione di una matrice per un vettore, la cui 
+computazione seriale si ricorda essere
+\begin{lstlisting}[style=CStyle]
+/* m := righe di A*/
+/* n := elementi di di x*/
+/* y := vettore output*/
+for(int i = 0;i<m;i++){
+    y[i]=0.0;
+    for(int j=0;j<n;j++){
+        y[i]+=A[i][j]*x[j];
+    }
+}
+\end{lstlisting}
+Si vuole parallelizzare l'esecuzione fra più thread, come prima cosa, si supponga di avere tanti thread 
+quante sono le righe della matrice in input (quindi, gli elementi del vettore in output), e di far calcolare 
+ad ogni thread $i$ il valore dell'$i$-esimo elemento del vettore in output.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/threadMatProd.eps}
+\end{center} 
+In generale, se il numero di thread è $t<m$, ogni $q$-esimo thread computerà $\frac{m}{t}$ righe, ossia dalle \begin{itemize}
+    \item \color{teal}$q\cdot\nicefrac{m}{t}$\color{black}-esima riga 
+    \item alla \color{teal}$(q+1)\nicefrac{m}{t}-1$\color{black}-esima riga
+\end{itemize}
+Si ha il seguente codice
+\begin{lstlisting}[style=CStyle]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <pthread.h>
+    
+    #define MAT_ORDER 6
+    #define THREAD_COUNT 6
+    
+    /*Siano A la matrice, x il vettore in input ed y il vettore in output*/
+    
+    void *mat_vec_product(void *rank)
+    {
+        int my_rank = rank;
+        int local_m = MAT_ORDER / THREAD_COUNT;
+        int first_row = my_rank * local_m;
+        int last_row = ((my_rank + 1) * local_m) - 1;
+    
+        for (int i = first_row; i <= last_row; i++)
+        {
+            y[i] = 0;
+    
+            for (int j = 0; j < MAT_ORDER; j++)
+            {
+                y[i] += A[i][j] * x[j];
+            }
+        }
+    }
+    
+    int main()
+    {
+        pthread_t handler[THREAD_COUNT];
+        for (int i = 0; i < THREAD_COUNT; i++)
+            pthread_create(&handler[i], NULL, mat_vec_product, (void *)i);
+        for (int i = 0; i < THREAD_COUNT; i++)
+            pthread_join(handler[i], NULL);
+        return 0;
+    }
+\end{lstlisting}\flowerLine 
+\section{Sezioni Critiche}
+Si consideri il seguente scenario : Vi è una variabile (intera) \texttt{x} inizializzata a 0 
+ condivisa da due thread, 
+entrambi si adoperano per incrementare la variabile di 1, ci si aspetta, che dopo l'esecuzione la 
+variabile \texttt{x} sia uguale a 2. Il punto è che l'incremento di una variabile (somma) in C, equivale ad 
+una sequenza di istruzioni assembly che possono essere intergogliate dai due thread.\begin{center}
+    \begin{tabular}{ccc}
+        \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{EFEFEF}istanti di tempo} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}thread 0}                                                                                                             & \multicolumn{1}{c|}{\cellcolor[HTML]{FFFFC7}thread 1}                                                                                                             \\ \hline
+        \multicolumn{1}{l}{}                                           & \multicolumn{1}{l}{}                                                                                                                                              & \multicolumn{1}{l}{}                                                                                                                                              \\ \hline
+        \multicolumn{1}{|c|}{1}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}inizalizzato dal \\ main thread\end{tabular}}                                                                      & \multicolumn{1}{c|}{}                                                                                                                                             \\ \hline
+        \multicolumn{1}{|c|}{2}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}legge la variabile \texttt{x=0}\\ e la carica nel registro r1\end{tabular}}                       & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}inizalizzato dal \\ main thread\end{tabular}}                                                                      \\ \hline
+        \multicolumn{1}{|c|}{3}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}incrementa il registro r1=0  di 1, \\ avendo r1=1\end{tabular}}                                                    & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}legge la variabile \texttt{x=0}\\ e la carica nel registro r2\end{tabular}}                       \\ \hline
+        \multicolumn{1}{|c|}{4}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}salva il valore del registro in \texttt{x}, \\ si ha  \texttt{x=1}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}incrementa il registro r2=0  di 1, \\ avendo r2=1\end{tabular}}                                                    \\ \hline
+        \multicolumn{1}{|c|}{5}                                        & \multicolumn{1}{c|}{termina}                                                                                                                                      & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}salva il valore del registro in \texttt{x}, \\ si ha  \texttt{x=1}\end{tabular}} \\ \hline
+        \multicolumn{1}{|c|}{6}                                        & \multicolumn{1}{c|}{}                                                                                                                                             & \multicolumn{1}{c|}{termina}                                                                                                                                      \\ \hline
+        \end{tabular}
+\end{center}
+Alla fine dell'esecuzione la variabile \texttt{x} sarà uguale ad 1 perché i due thread non si sono 
+sincronizzati correttamente. Tale problema è noto come \textbf{race condition} ed ha comportato la nascita di 
+una vasta teoria riguardante la sincronizzazione dei processi paralleli che accedono a risorse condivise, in questa sezione 
+verranno presentate delle possibili soluzioni.
+\subsection{Busy Waiting e Mutex}
+Il tema centrale è la mutua esclusività delle variabili, l'accesso ad esse non può venire contemporaneamente da parte 
+di più thread, con \textbf{busy waiting}, si denota una metodologia che consiste nel far attendere un processo che tenta 
+di accedere ad una variabile già in uso, lasciandolo bloccato in un ciclo in cui ad ogni iterazione 
+controlla la disponibilità della risorsa.\acc 
+Nel seguente esempio, ogni thread viene bloccato in un ciclo finché la variabile \code{flag} non 
+diventa uguale al loro rank. A seguito dell'utilizzo dovranno incrementare la variabile per permettere 
+al prossimo thread di accedere.
+\begin{lstlisting}[style=CStyle]
+    while(flag!=my_rank);
+    x+=1;
+    flag++;
+\end{lstlisting}
+Il busy waiting, seppur semplice nella sua implementazione, comporta svantaggi difficilmente trascurabili\begin{itemize}
+    \item un processo in attesa occuperà inutilmente la CPU comportando uno spreco di computazione 
+    \item Il compilatore, se nota un indipendenza apparente fra due istruzioni, potrebbe invertirne l'ordine, ad esempio, 
+    trasformando il codice come segue
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+    x+=1;
+    while(flag!=my_rank); /* sequenza di istruzioni errata */
+    flag++;
+\end{lstlisting}
+Tale riarrangiamento è parte di una serie di ottimizzazioni che fa il compilatore. Disattivare tali ottimizzazioni 
+comporterebbe un uso meno efficiente dei registri per tutte le altre istruzioni.\acc 
+Le \textbf{Mutex} permettono una gestione più sofisticata degli accessi alle risorse mutualmente 
+esclusive, una Mutex è una variabile utilizzata per restringere l'accesso ad una risorsa, per poi 
+rilasciarla una volta utilizzata.\acc 
+Una mutex viene gestita dal tipo di dato \code{pthread\_mutex\_t}, una volta definita, va inizializzata 
+tramite la funzione \code{int pthread\_mutex\_init}, 
+assegnandole la variabile il cui accesso deve essere regolamentato. La funzione ha i seguenti 
+parametri\begin{itemize}
+    \item \code{pthread\_mutex\_t *mutex\_p} la mutex a cui si riferisce 
+    \item \code{const pthread\_mutexattr\_t *attr\_p} degli attributi che per adesso saranno ignorati.
+\end{itemize}
+Quando si vuole accedere ad una variabile protetta da una mutex bisogna controllarne lo stato, che può 
+essere \textit{bloccato} o \textit{libero}. Si richiede l'accesso alla variabile tramite la chiamata 
+\begin{quote}
+    \code{int pthread\_mutex\_lock(pthread\_mutex\_t *mutex\_p)}
+\end{quote} 
+Se l'accesso è libero, il thread continuerà la sua esecuzione, altrimenti verrà \textit{sospeso} (senza 
+occupare tempo sulla CPU), e potrà continuare la sua esecuzione solo quando la lock sarà rilasciata.\acc 
+Una volta che un thread ha terminato l'accesso alla variabile, deve rilasciare la lock con la chiamata 
+\begin{quote}
+    \code{int pthread\_mutex\_unlock(pthread\_mutex\_t *mutex\_p)}
+\end{quote} 
+Una volta terminata l'utilità di una mutex, va eliminata con la chiamata \begin{quote}
+    \code{int pthread\_mutex\_destroy(pthread\_mutex\_t *mutex\_p)}
+\end{quote}
+Il fenomeno della \textbf{Starvation} si verifica quando l'esecuzione di un thread o di un
+ processo viene sospesa o impedita per un tempo indefinito, anche se è in grado di continuare 
+ l'esecuzione. È tipicamente associata all'imposizione di priorità o alla mancanza di equità nella 
+ pianificazione o nell'accesso alle risorse.
+Se una mutex è bloccata, il thread viene bloccato e inserito in una coda di thread in attesa. Se la coda è FIFO, non si verificherà starvation.
+\acc 
+Un \textbf{Deadlock} invece identifica una situazione di attesa circolare in cui ogni elemento di un insieme 
+di thread è sia in attesa del rilascio di una lock, sia in possesso di una lock necessaria agli altri thread. 
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+    \begin{lstlisting}[style=CStyle]
+            pthread_mutex_lock(&a); 
+            pthread_mutex_unlock(&b);
+            /*in attesa di a per 
+            rilasciare b*/
+        \end{lstlisting}&
+        \begin{lstlisting}[style=CStyle]
+            pthread_mutex_lock(&b); 
+            pthread_mutex_unlock(&a);
+            /*in attesa di b per 
+            rilasciare a*/
+        \end{lstlisting}
+	\end{tabular}
+\end{center}
+In termini di prestazioni il Mutex mostra performance più elevate rispetto il busy 
+waiting quando il numero di thread 
+è superiore al numero di core fisici, si osservi la seguente tabella che riporta i tempi 
+impiegati (in secondi) per stimare il valore di $\pi$ su una macchiana con 8 core.\begin{center}
+    \begin{tabular}{c|c|c}
+        \rowcolor[HTML]{FFFFC7} 
+        num. thread & busy waiting & mutex \\ \hline
+        \rowcolor[HTML]{ECF4FF} 
+        1           & 2.9          & 2.9   \\
+        \rowcolor[HTML]{EFEFEF} 
+        2           & 1.45         & 1.45  \\
+        \rowcolor[HTML]{ECF4FF} 
+        4           & 0.73         & 0.73  \\
+        \rowcolor[HTML]{EFEFEF} 
+        8           & 0.38         & 0.38  \\
+        \rowcolor[HTML]{ECF4FF} 
+        16          & 0.5          & 0.38  \\
+        \rowcolor[HTML]{EFEFEF} 
+        32          & 0.8          & 0.4   \\
+        \rowcolor[HTML]{ECF4FF} 
+        64          & 3.56         & 0.38 
+        \end{tabular}
+\end{center}
+\subsection{Semafori, Barriere e Variabili di Condizione}
+Il busy waiting permette l'accesso esclusivo ai thread imponendo anche un certo ordine, ma presenta 
+degli svantaggi considerevoli, che però non presenta l'utilizzo delle mutex, seppur quest'ultimo 
+lascia l'ordine di accesso indeterminatoe deciso dal sistema operativo, ci sono situazioni in cui 
+si vuole un accesso ordinato senza dover subire i problemi del busy waiting.\acc 
+Lo standard Posix definisce un costrutto simile al mutex ma più elaborato : i \textbf{Semafori}, che rappresentano 
+delle mutex \textit{non binarie}. Per utilizzarli, si include la direttiva\begin{quotation}
+    \code{\# include <semaphore.h>}
+\end{quotation}
+L'handler dei semafori è il tipo \code{sem\_t}, un semaforo viene inizializzato con \code{int sem\_init} i cui 
+parametri sono\begin{itemize}
+    \item \code{sem\_t* semaphore\_p}
+    \item \code{int shared} se uguale ad 1, sarà condiviso anche fra diversi processi 
+    \item \code{unsigned initial\_val} il numero intero con il quale è inizializzato un semaforo
+\end{itemize}
+Il funzionamento è il seguente, quando un thread vuole accedere ad una sezione, chiama la funzione 
+\code{sem\_wait(sem\_t *sem)}, ad ogni semaforo è associato un numero intero, se tale numero è maggiore 
+di zero al momento della chiamata, il processo potrà procedere, e decrementerà di 1 il valore del semaforo. \acc 
+Se il valore è uguale a zero, il processo si arresterà entrando in una 
+coda di attesa, attendendo il via libera per ripartire.\acc 
+Quando un thread termina con l'utilizzo del semaforo, può chiamare la funzione \code{sem\_post(sem\_t * sem)} che 
+farà procedere un thread in attesa del semaforo nell'esecuzione. Se la coda è vuota, il valore del semaforo verrà incrementato 
+di 1.\begin{center}
+    \includegraphics[width=1\textwidth]{images/sem.eps}
+\end{center}
+Con \textbf{barriera} si intende un costrutto che viene inserito in un certo punto del codice, in cui 
+ogni thread che lo esegue, per poter continuare l'esecuzione oltre tale punto deve attendere che ogni altro thread 
+vi sia arrivato, serve a risincronizzare l'esecuzione dei thread facendoli ripartire da un punto comune. Un tipico esempio 
+può essere quello di voler far noto in fase di debug che tutti thread hanno raggiunto un certo punto 
+del codice.
+\begin{lstlisting}[style=CStyle]
+    /*punto comune del programma*/
+    barriera;
+    if(my_rank==0){
+        printf("tutti i thread hanno raggiunto questo punto \n");
+        fflush(stdout);
+    }
+\end{lstlisting}
+L'implementazione di una barriera tramite l'uso del busy waiting e delle mutex è intiuitiva, 
+si utilizza un contatore condiviso inizializzato a zero (il cui accesso è protetto da mutex) e si incrementa di 1 
+per ogni thread che arriva a tal punto. Ogni thread sarà in busy waiting finché il contatore non sarà uguale al 
+numero dei thread.
+\begin{lstlisting}[style=CStyle]
+    int counter = 0;
+    int thread_number;
+    pthread_mutex barrier_mutex;
+
+    void *thread_function(void *arg_p){
+        ...
+        /*implementazione della barriera*/
+        pthread_mutex_lock(&barrier_mutex);
+        counter++;
+        pthread_mutex_unlock(&barrier_mutex);
+        while(counter<thread_number);
+        /*fine della barriera*/
+        ...
+    }
+\end{lstlisting}
+Una barriera può anche essere implementata con un semaforo. L'implementazione mostrata presenta un problema, 
+se fosse necessario riutilizzare tale barriera, bisognerebbe resettare la variabile \code{counter} a 
+zero. Tale reset però deve avvenire solo \textit{in seguito} al passaggio di tutti i thread 
+della barriera, potrebbe capitare che un thread non si sia reso conto che la variabile counter 
+avesse raggiunto il valore sufficiente per proseguire, rimanendo bloccato nella barriera. Questo problema, 
+nonostante possa sembrare banale, è in realtà un intralcio considerevole e non ha soluzioni immediate.\acc 
+Può essere di aiuto l'uso di una \textbf{variabile di condizione}, queste ultime sono un \textit{oggetto} 
+associato ad una mutex, che permettono ad un thread di sospendere la sua esecuzione fino all'accadere di un 
+determinato \textit{evento}, si definiscono con il tipo 
+\code{pthread\_cond\_t}. A seguito di tale evento, il thread può essere svegliato con un apposito 
+segnale. Una variabile di condizione descrive un \textit{evento}.
+\begin{center}
+    \begin{lstlisting}[style=CStyle]
+    lock mutex;
+    if CONDIZIONE SI AVVERA : /* avvisa i thread che la condizione si e' avverata*/
+        signal thread(s); 
+    else : /*se non e' verificata, si libera la lock e si attende la condizione*/
+        unlock mutex
+        SOSPENSIONE ESECUZIONE 
+    unlock mutex;
+    \end{lstlisting}
+\end{center}
+In seguito, l'implementazione di una barriera con delle variabili di condizione.
+\begin{lstlisting}[style=CStyle]
+    int counter = 0; /*variabile condivisa*/
+    pthread_mutex_t mutex;
+    pthread_cond_t cond_var;
+    ... 
+
+    void *thread\_function(void *args_p){
+        ... 
+        /*barriera*/
+        ptrhead_mutex_lock(&mutex);
+        counter++;
+        if(counter==thread_count){
+            counter=0;
+            pthread_cond_broadcast(&cond_var); /*avvisa tutti i thread che 
+                                                 la condizione si e' avverata*/
+        }else{
+            while(pthread_cond_wait(&cond_var,&mutex)!=0); 
+        }
+        ptrhead_mutex_unlock(&mutex);
+    }
+\end{lstlisting}
+Si osservi la riga di codice 16\begin{quote}
+    \code{while(pthread\_cond\_wait(\&cond\_var,\&mutex)!=0); }
+\end{quote}
+La chiamata \code{pthread\_cond\_wait} sospende il processo, perché allora è necessario inserirla 
+all'interno di un while come se andasse verificato periodicamente? È buona norma dato che il sistema operativo 
+potrebbe inaspettatamente svegliare un processo dallo stato di attesa prima che la condizione si avveri, queste 
+\textit{sveglie spurie} vanno quindi gestite.\begin{itemize}
+    \item \code{pthread\_cond\_signal(pthread\_cond\_t* cond\_var\_p);} sveglia un thread in attesa
+    \item \code{pthread\_cond\_broadcast(pthread\_cond\_t* cond\_var\_p);} sveglia tutti i thread in attesa
+    \item \code{pthread\_cond\_init(pthread\_cond\_t*  cond\_p, \\ 
+    pthread\_condattr\_t* cond\_attr\_p)} inizializza una variabile di condizione
+    \item \code{pthread\_cond\_destroy(pthread\_cond\_t*  cond\_p)} termina una variabile di condizione
+    \item La funzione\begin{quote}
+        \code{pthread\_cond\_wait(pthread\_cont\_t* cond\_var\_p, 
+        pthread\_mutex\_t mutex\_p)}
+    \end{quote} si occupa di \begin{enumerate}
+        \item   fare l'unlock della mutex 
+        \item   sospendere il thread finché non arriva un segnale di risveglio  
+        \item fare la lock della mutex una volta svegliato il thread
+    \end{enumerate}
+\end{itemize}
 \end{document}

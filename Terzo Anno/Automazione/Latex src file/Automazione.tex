@@ -2050,11 +2050,57 @@ Si vuole applicare TS, si ha che il minor cycle è $\MCD(8,16,32)=8$ ed il major
 Esistono più scheduling equivalenti, quello corretto non è univoco.\begin{center}
     \includegraphics[width=0.9\textwidth ]{images/TS2.eps}
 \end{center}
-
-
-
-
-
+L'algoritmo time scheduling è estremamente semplice ed immediato nella computazione, è però caratterizzato 
+anche da \textbf{poca flessibilità} e \textbf{poca robustezza}, essendo lo scheduling deciso a priori un 
+cambiamento nella trama dovuto a ritardi non prevedibili di task potrebbe causare la violazione del vincolo 
+di correttezza temporale, è quindi un algoritmo da applicare in contesti \textit{strettamente deterministici} e gestisce 
+esclusivamente task periodici. 
+\flowerLine 
+\section{Scheduling di Task Misti}
+Riguardo la piramide CIM : è vero che nel livello di campo i task sono relativi ad attuazioni e rilevazioni da 
+parte di macchine e sensori, task strettamente rigidi, deterministici, immersi in un ciclo di 
+produzione che li rende strettamente periodici.\acc 
+Salendo sulla piramide, i tempi di reazione si allargano ed i task assumono una 
+connotazione di controllo e gestione piuttosto che azionamento meccanico/elettrico, 
+persistono sempre cicli periodici, ma potrebbero essere inclusi anche dei task 
+\textbf{aperiodici}, il cui avvenimento può essere condizionale ed asincrono, quindi 
+non predeterminato. Un esempio di task aperiodico può essere la gestione di un 
+allarme oppure la gestione dell'input da parte di un utente.\acc 
+Un insieme di task può quindi contenere task periodici e task aperiodici, si dice che 
+l'insieme di task è \textit{misto}, come prima cosa, in base alla natura del task, bisogna suddividere 
+i task aperiodici in \begin{itemize}
+    \item aperiodici hard real  time (Es. gestione di allarmi riguardanti l'incolumità fisica degli operatori)
+    \item aperiodici soft real  time (Es. interazione con il display da parte dell'utente)
+\end{itemize}\begin{quote}
+    \textbf{Idea} : Si vogliono trasformare i task aperiodici in task periodici equivalenti
+\end{quote}
+\textbf{Ipotesi} :
+\begin{enumerate}
+    \item Dato un task aperiodico hard real time $A_i$, si assume di conoscere il \textit{minimo intervallo di 
+    occorrenza} di esso denotato $T_i^{min}$, è impossibile che $A_i$ entri due volte nella coda 
+    dei task pronti in due istanti che distano meno di $T_i^{min}$. 
+    \item Si assume inoltre di essere a conoscenza del \textit{massimo tempo di computazione} $C_i^{max}$, è 
+     impossibile che il task occupi la CPU per più di $C_i^{max}$ t.u.
+\end{enumerate}
+Dati dei task periodici 
+$$ \begin{matrix}(n,T_1\dots ,T_n)\\
+    (C_1\dots ,C_n)
+\end{matrix}$$
+e dei task aperiodici trasformati in periodici
+$$ \begin{matrix}(m,T_1^{min}\dots ,T_m^{min})\\
+    (C_1^{max}\dots ,C_m^{max})
+\end{matrix}$$
+Si considera l'insieme dei task che rappresenta un problema equivalentemente periodic
+$$ \begin{matrix}(n+m,T_1\dots ,T_n,T_1^{min}\dots ,T_m^{min})\\
+    (C_1\dots ,C_n,C_1^{max}\dots ,C_m^{max})
+\end{matrix}$$
+\begin{quote}
+    i task aperiodici hard real time vengono resi task periodici equivalenti
+\end{quote}
+È chiaro che la CPU dedicherà delle unità di tempo a task aperiodici come se fossero periodici, casuando 
+un inevitabile spreco di computazione nel caso questi non dovessero sussistere.\acc 
+I task soft real time (che sono altrettanto diffusi) possono essere gestiti in maniera 
+best effort. 
 
 
 
