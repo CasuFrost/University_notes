@@ -219,13 +219,319 @@ Dove \begin{itemize}
     \item $g(x_1,x_2)=g_{2_z}(x_2)$\begin{center}
         \includegraphics[width=0.4\textwidth ]{images/vmz.pdf}
     \end{center}
+\end{itemize}\flowerLine 
+\section{Implementazione delle DTMC}
+In questa sezione verrà trattata una possibile implementazione delle DTMC in \textit{C++}. Si assume che il lettore sia a conoscenza delle regole di scrittura e strutturazione degli header e file C. \acc 
+Una DTMC sarà implementata in due file \\
+\shell{dtmc.h}\\ 
+\shell{dtmc.cpp}\\
+Nel file \code{dtmc.h} come prima cosa, si definisce il \textit{tipo} delle variabili di ingresso, stato, e 
+uscita, tramite il costrutto \code{typedef}.\begin{lstlisting}[style=CppStyle,language=C++]
+typedef double state_type;
+typedef double input_type;
+typedef double output_type;
+\end{lstlisting}
+Va poi definita la classe \code{DTMC} le cui istanze rappresenteranno proprio le catene di Markov, gli elementi privati di tale classe saranno 2\begin{itemize} 
+    \item Un puntatore ad una classe \code{RandGen} definita in un'apposito file \code{randgen.cpp}
+    \item Una funzione \code{dtmc\_body} che verrà definita nel file \code{dtmc.cpp}
 \end{itemize}
+\begin{lstlisting}[style=CppStyle,language=C++]
+class DTMC {
+
+private:
+    RandGen *p;  // pointer to random generator class 
+    void dtmc_body(RandGen *p);
+\end{lstlisting}
+Fra gli elementi pubblici della classe ci saranno poi le dimensioni dei vettori di ingresso, stato ed uscita [di default, assumeremo che tali vettori siano in $\R^2$], insieme a delle variabili che rappresentano lo stato corrente, l'ingresso e l'uscita. Ci saranno poi due costruttori, uno più esplicito dell'altro\begin{itemize}
+    \item Il primo costruttore riceve in ingresso esclusivamente il puntatore all'oggetto di tipo 
+    \code{RandGen}, lasciando invariate le dimensioni dei vettori di stato, ingresso ed uscita a 2. 
+    \item Il secondo costruttore è più esplicito e permette la modifica delle dimensioni dei vettori di stato, ingresso ed uscita.
+\end{itemize}
+\begin{lstlisting}[style=CppStyle,language=C++]
+public:
+    int STATE_SIZE = 2; // state size
+    int INPUT_SIZE = 2; // input size
+    int OUTPUT_SIZE = 2; // output size
+  
+    state_type *x;  // present state
+    input_type *u;  // input
+    output_type *y;  // output
+  
+    DTMC(RandGen *p);
+    DTMC(int xsize, int usize, int ysize, RandGen *p);  
+\end{lstlisting}
+Ci sono poi le varie funzioni della classe, precisamente per \begin{itemize}
+    \item inizializzare la catena con lo stato iniziale 
+    \item calcolare il prossimo stato dato lo stato attuale e l'ingresso 
+    \item dato uno stato restituisce l'uscita del sistema
+\end{itemize}
+Ci sono poi due funzioni di servizio per la visualizzazione dello stato in console (oppure su un file).
+\begin{lstlisting}[style=CppStyle,language=C++]
+    // define initial state
+    void init();
+  
+    // update state
+    void next();
+    
+    // update output
+    void output();
+  
+    // print log on stdout
+    void printlog(int t);
+  
+    // print log on file
+    void fprintflog(FILE *fp, int t);
+\end{lstlisting}
+Verrà considerata adesso la definizione delle funzioni dichiarate, precisamente, nel file \code{dtmc.cpp}. Ovviamente vanno incluse le dichiarazioni.
+\begin{lstlisting}[style=CppStyle,language=C++]
+#include "dtmc.h"
+using namespace std;
+\end{lstlisting}
+La funzione \code{dtmc\_body} verrà richiamata dai costruttori per definire ed inizializzare la catena di Markov. Deve ricevere in input il puntatore al generatore di numeri casuali ed assegnarlo alla variabile interna (privata). Dopo aver fatto ciò 
+viene fatto un controllo sulle dimensioni del vettore di stato che devono essere strettamente 
+maggiori di zero.
+\begin{lstlisting}[style=CppStyle,language=C++]
+void dtmc_body(RandGen *myp) {
+    p = myp;
+    if (STATE_SIZE <= 0)
+    {
+     fprintf(stderr, "DTMC(): Error: state size cannot be 0\n");
+     exit(1);
+    }
+\end{lstlisting}
+A questo punto, bisogna inizializzare il vettore di stato, dato che le dimensioni non sono note 
+a priori, sarà necessario allocare dinamicamente lo spazio. 
+\begin{lstlisting}[style=CppStyle,language=C++]
+    x = (state_type *) malloc(sizeof(state_type)*STATE_SIZE);
+
+    if (x == NULL)
+        {
+        fprintf(stderr, "DTMC(): memory allocation for state failed\n");
+        exit(1);
+    }
+\end{lstlisting}
+Si prosegue analogamente con l'ingresso e l'uscita, si ricordi che una DTMC può avere ingresso nullo, ma deve necessariamente esserci un uscita.
+\begin{lstlisting}[style=CppStyle,language=C++]
+    if (INPUT_SIZE <= 0)
+    {
+        u = NULL;
+    }
+    else
+    {
+        u = (input_type *) malloc(sizeof(input_type)*INPUT_SIZE);
+        if (u == NULL)
+        {
+            fprintf(stderr, "DTMC(): memory allocation 
+                                for input failed\n");
+            exit(1);
+        }
+    }
+    
+    if (OUTPUT_SIZE <= 0)
+    {
+        fprintf(stderr, "DTMC(): Error: output size cannot be 0\n");
+        exit(1);
+    }
+
+    y = (output_type *) malloc(sizeof(output_type)*OUTPUT_SIZE);
+    if (y == NULL)
+    {
+        fprintf(stderr, "DTMC(): memory allocation 
+                            for output failed\n");
+        exit(1);
+    }
+}
+\end{lstlisting}
+A tal punto i due costruttori possono richiamare tale funzione per inizializzare la catena.
+\begin{lstlisting}[style=CppStyle,language=C++]
+DTMC(RandGen *myp)  {
+    dtmc_body(myp);
+}
+          
+DTMC(int xsize, int usize, int ysize, RandGen *myp)  {    
+    STATE_SIZE = xsize;
+    INPUT_SIZE = usize;
+    OUTPUT_SIZE = ysize;
+    dtmc_body(myp);
+}
+\end{lstlisting}
+La funzione di inizializzazione inizializza a zero il vettore di stato.
+\begin{lstlisting}[style=CppStyle,language=C++]
+void init() {
+    /* initial state */
+    for (int i = 0; i < STATE_SIZE; i++)
+    {
+        x[i] = 0;
+    }
+}
+\end{lstlisting}
+La funzione \code{next} dovrà calcolare lo stato successivo
+\begin{lstlisting}[style=CppStyle,language=C++]
+void next() {
+    /* initial state */
+    for (int i = 0; i < STATE_SIZE; i++)
+    {
+        x[i] = p -> get_random_double();
+    }
+}
+\end{lstlisting}
+La funzione \code{get\_random\_double} è definita in \code{RandGen} e restituisce un double casuale compreso fra 0 e 1. In questo caso specifico, lo stato è un vettore di numeri reali, quindi è una DTMC a stati infiniti. Si definisce poi la funzione in output, in questo specifico caso, l'output sarà identico allo stato.
+\begin{lstlisting}[style=CppStyle,language=C++]
+void output() {
+    /* initial state */
+    for (int i = 0; i < OUTPUT_SIZE; i++)
+    {
+        y[i] = x[i];
+    }
+}
+\end{lstlisting}
+Ovviamente le dimensioni devono combaciare. Si definiscono poi le funzioni di servizio che 
+si occuperanno di eseguire un print dello stato della catena di Markov in formato CSV, così poi 
+da rendere facile la generazione di un grafico.
+\begin{lstlisting}[style=CppStyle,language=C++]
+void printlog(int t) {
+    /* t e' il tempo corrente */
+    int i;
+    printf("%d ", t);
+    for (i = 0; i < STATE_SIZE; i++)
+    {
+        printf("%lf ", x[i]);
+    }
+    for (i = 0; i < OUTPUT_SIZE; i++)
+    {
+        printf("%lf ", y[i]);
+    }
+    for (i = 0; i < INPUT_SIZE; i++)
+    {
+        printf("%lf ", u[i]);
+    }
+    printf("\n");
+} 
+\end{lstlisting}
+La funzione \code{fprintflog} è analoga ma scrive su un file.
+\\\redText{continua da lez. 2024-10-16 minuto 00:43:54}
 
 
 
 
 
 
+
+
+
+
+
+%FILE CODICE
+\newpage 
+\section{Raccolta dei File}
+\subsection{\code{main.h}}
+\begin{lstlisting}[style=CppStyle,language=C++]
+#ifndef main_h
+#define main_h
+    
+using namespace std;
+    
+#include <iostream>
+#include <random>
+    
+#include "randgen.h"
+#include "dtmc.h"
+#include "simulator.h"
+    
+#if 0
+#include "clock.h"
+#include "logger.h"
+#include "gtime.h"
+#include "timer.h"
+#include "basic.h"
+#include "system.h"
+    
+#include "ctr.h"
+#include "plant.h"
+#include "root.h"
+#endif
+     
+#define DEBUG 1000
+    
+#define HORIZON 10
+    
+#if 0
+extern Logger val2log;
+extern GlobalTime gtime;
+extern Clock ck;
+extern random_device myRandomDevice;
+extern unsigned int seed;
+extern default_random_engine myRandomEngine;
+extern uniform_int_distribution<int> myUnifIntDist;
+extern uniform_real_distribution<double> myUnifRealDist;
+#endif
+    
+#if 0
+    random_device myRandomDevice;
+    unsigned int seed = myRandomDevice();  
+// Initialize a default_random_engine with the seed
+    default_random_engine myRandomEngine(seed);
+// Initialize a uniform_int_distribution to produce values between -10 and 10
+    uniform_int_distribution<int> myUnifIntDist(-10, 10);
+// Initialize a uniform_real_distribution to produce values between 0 and 1
+    uniform_real_distribution<double> myUnifRealDist(0.0, 1.0);
+#endif 
+#endif
+\end{lstlisting}
+
+\newpage 
+\subsection{\code{dtmc.h}}
+\begin{lstlisting}[style=CppStyle,language=C++]
+#ifndef dtmc_h
+#define dtmc_h
+    
+#include "main.h" /*include il file dove e'
+                     definita la classe RandGen*/
+    
+typedef double state_type;
+typedef double input_type;
+typedef double output_type;
+    
+class DTMC {
+    
+private:
+    
+    RandGen *p;  // pointer to random generator class
+      
+    void dtmc_body(RandGen *p);
+    
+public:
+    
+    int STATE_SIZE = 2; // state size
+    int INPUT_SIZE = 2; // input size
+    int OUTPUT_SIZE = 2; // output size
+    
+    state_type *x;  // present state
+    input_type *u;  // input
+    output_type *y;  // output
+    
+    DTMC(RandGen *p);
+    DTMC(int xsize, int usize, int ysize, RandGen *p);
+    
+    // define initial state
+    void init();
+    
+    // update state
+    void next();
+      
+    // update output
+    void output();
+    
+    // print log on stdout
+    void printlog(int t);
+    
+    // print log on file
+    void fprintflog(FILE *fp, int t);
+};
+    
+#endif
+\end{lstlisting}
+%FINE FILE CODICE
 
 
 
@@ -530,12 +836,76 @@ Come già accennato, i processi software possono essere di due tipi\begin{itemiz
       senza una ricetta precisa, ma adattando i piatti ai gusti degli ospiti man mano che 
       si procede.
 \end{itemize}
-Nella pratica La maggior parte dei progetti software combina elementi di entrambi gli approcci. A volte è necessario un piano dettagliato per le fasi iniziali, mentre in altre si può essere più flessibili.
-
-
-
-
-
-
-\redText{continua dalle slide "Ch2 SW Processes" - dalla slide 7 fino alla slide 19 }
+Nella pratica La maggior parte dei progetti software combina elementi di entrambi gli approcci. A volte è necessario un piano dettagliato per le fasi iniziali, mentre in altre si può essere più flessibili.\acc 
+Il processo software vive attraverso differenti formulazioni, o \textit{modelli}, precisamente verranno trattati i seguenti\begin{itemize}
+    \item \textit{waterfall model} 
+    \item \textit{incremental development}
+    \item \textit{integration and configuration}
+\end{itemize}
+Nella pratica, i sistemi di grandi dimensioni incorporano elementi da più modelli.
+\subsubsection{Waterfall Model}
+È uno dei modelli di sviluppo software più antichi e tradizionali è di tipo plan driven e consiste nell'individuare e separare le distinte fasi di  
+specifica e sviluppo. Tali fasi sono\begin{itemize}
+    \item analisi e definizione dei requisiti 
+    \item progettazione del sistema e del software 
+    \item implementazione e collaudo 
+    \item integrazione e deployment del sistema 
+    \item mantenimento
+\end{itemize}
+Gli svantaggi di tale modello risiedono nella poca flessibilità e robustezza nell'accomodare 
+richieste di cambiamento una volta che il progetto è indirizzato su una certa via. 
+Generalmente, è necessario terminare una fase prima di passare alla successiva.
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.7\textwidth ]{images/waterfallModel.pdf}
+    \caption{Il modello waterfall}
+\end{figure}
+Il modello a cascata divide il progetto in fasi distinte e rigide, rendendo difficile adattarsi ai cambiamenti nei requisiti del cliente.\begin{itemize}
+    \item Limitazioni nei requisiti: Questo modello è adatto solo quando i requisiti sono ben definiti all'inizio del progetto e non si prevedono grandi modifiche durante lo sviluppo.
+    \item Instabilità dei requisiti: Nella maggior parte dei casi, i requisiti dei sistemi informatici non sono statici, ma cambiano nel tempo.
+\end{itemize}
+Il modello a cascata viene spesso utilizzato in progetti di ingegneria software su larga scala, dove il sistema viene sviluppato in più sedi.  In questi casi, la natura pianificata del modello a cascata aiuta a coordinare le attività tra i diversi team di sviluppo.
+\subsubsection{Incremental Development}
+Tale modello di \textit{sviluppo incrementale} punta alla riduzione dei costi necessari per 
+accomodare le nuove richieste del cliente che insorgono a progetto già avviato. La quantità di analisi e documentazione da rifare è molto inferiore rispetto al modello a cascata : si riduce la necessità di ricominciare da capo se i requisiti cambiano, risparmiando tempo e risorse. 
+\begin{itemize}
+    \item \textit{È più facile ottenere feedback dal cliente sul lavoro di sviluppo svolto} : Il cliente può vedere e provare il software in fase di sviluppo e fornire un feedback diretto, contribuendo a migliorare il prodotto finale. 
+    \item \textit{È possibile una consegna e un deployment più rapidi del software utile per il cliente} : Il cliente può iniziare a utilizzare il software prima rispetto al modello a cascata, ottenendo così un beneficio più rapido dal prodotto.
+\end{itemize}\begin{center}
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.8\textwidth ]{images/IncrementalDevelopment.pdf}
+    \caption{Incremental Development}
+\end{figure}\end{center}
+Il modello comporta alcuni svantaggi\begin{itemize}
+    \item \textbf{Mancanza di visibilità per i manager}: I manager spesso necessitano di deliverable regolari per misurare l'avanzamento del progetto. In uno sviluppo incrementale rapido, produrre documentazione dettagliata per ogni versione può risultare costoso e inefficiente. La natura iterativa dello sviluppo incrementale può rendere complesso tracciare tutti i cambiamenti apportati al sistema nel tempo.
+    \item \textbf{Degradazione della struttura del sistema}: L'aggiunta continua di nuove funzionalità senza una adeguata manutenzione può portare al degrado della struttura del codice, rendendolo più complesso e meno manutenibile. Man mano che il sistema cresce, diventa sempre più difficile apportare modifiche senza introdurre nuovi bug o impatti negativi su altre parti del sistema.
+\end{itemize}
+\subsubsection{Integration and configuration}
+È un modello basato sul riutilizzo del software: I sistemi vengono costruiti combinando componenti software preesistenti o sistemi applicativi già pronti all'uso (spesso chiamati COTS - Commercial-off-the-shelf). Spesso avviene una riconfigurazione degli elementi riutilizzati, tali componenti possono essere personalizzati per adattarsi alle specifiche esigenze dell'utente. \acc Il riutilizzo del software è diventato il metodo più comune per sviluppare molti tipi di sistemi aziendali, verrà trattato approfonditamente in seguito. Esistono diversi tipi di \textbf{software riutilizzabile}\begin{itemize}
+    \item Sistemi applicativi autonomi (a volte chiamati COTS) che vengono configurati per l'uso in un ambiente specifico.
+    \item Collezioni di oggetti sviluppati a mò di pacchetto da integrare in un framework di componenti come .NET o J2EE. 
+    \item Servizi web sviluppati secondo standard e disponibili per essere integrati remotamente.
+\end{itemize}
+Le fasi chiave del processo sono\begin{enumerate}
+    \item Specifica dei requisiti 
+    \item Definizione e valutazione del software 
+    \item Raffinamento dei requisiti 
+    \item Configurazione del sistema 
+    \item Adattamento e integrazione dei componenti
+\end{enumerate}
+Vantaggi\begin{itemize}
+    \item Costi e rischi ridotti, poiché si sviluppa meno software da zero 
+    \item Consegna e implementazione più rapida del sistema
+\end{itemize}
+Svantaggi\begin{itemize}
+    \item  sono inevitabili dei compromessi sui requisiti, quindi il sistema potrebbe non soddisfare pienamente le esigenze degli utenti 
+    \item Perdita di controllo sull'evoluzione degli elementi del sistema riutilizzati, Non avendo il controllo completo sul codice sorgente dei componenti riutilizzati
+\end{itemize}
+\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=1\textwidth ]{images/IngegneriaRiuso.pdf}
+        \caption{Ingegneria del software orientata al riciclo}
+    \end{figure}\end{center}
 \end{document}

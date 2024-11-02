@@ -2,7 +2,6 @@
 \usepackage{psvectorian}
 \usepackage{pgfplots}
 \usepackage[Rejne]{fncychap}
-\usepackage{adforn}
 \usepackage[export]{adjustbox}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -134,5 +133,32 @@
     showtabs=false,                  
     tabsize=2,
     language=C
+}
+\lstdefinestyle{CppStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen}\ttfamily,
+    morecomment=[l][\color{magenta}]{\#}
+    keywordstyle=\color{blue}\ttfamily,
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{red}\ttfamily,
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+\lstset{language=C++,
+                basicstyle=\ttfamily,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{green}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}
 }
 %fine roba che serve per il codice C
