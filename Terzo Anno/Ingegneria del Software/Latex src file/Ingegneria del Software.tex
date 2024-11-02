@@ -408,17 +408,45 @@ void printlog(int t) {
     printf("\n");
 } 
 \end{lstlisting}
-La funzione \code{fprintflog} è analoga ma scrive su un file.
-\\\redText{continua da lez. 2024-10-16 minuto 00:43:54}
+La funzione \code{fprintflog} è analoga ma scrive su un file.\acc 
+Si da ora una descrizione della classe \code{RandGen}, definita nei file\\
+\shell{randgen.h}\\ 
+\shell{randgen.cpp}\\
+Il file header è molto semplice, contiene la dichiarazione del costruttore, una variabile (seed) e due funzioni per la generazione di numeri double e interi.
+\begin{lstlisting}[style=CppStyle,language=C++]
+class RandGen{
+public:
+    RandGen();
+    unsigned int seed;
+    double get_random_double();
+    int get_random_int();
+}
+\end{lstlisting}
+Il seed è un intero che condiziona la generazione dei valori. Il file \code{randgen.cpp} contiene ovviamente le definizioni ed utilizza una serie di funzioni già preesistenti del C++ definite nella libreria matematica. Oltre ad includere il file header, si utilizza un oggetto già definito per la generazione del seed. Dopo di ciò, si inizializzano arbitrariamente delle distribuzioni. Nell'esempio 
+seguente, per i double i valori che possono essere estratti sono compresi fra 0 ed 1, per gli interi da -10 a 10.
+\begin{lstlisting}[style=CppStyle,language=C++]
+#include "randgen.h"
+random_device myRandomDevice;
+unsigned int myseed = myRandomDevice();
 
+default_random_engine myRandomEngine(myseed);
+uniform_int_distribution<int> myUnifIntDist(-10,10);
+uniform_real_distribution<double> myUnifRealDist(0.0,1.0);
+RandGen(){
+    seed=myseed;
+}
+\end{lstlisting}
+Si definiscono poi le funzioni che generano il numero casuale.
+\begin{lstlisting}[style=CppStyle,language=C++]
+double get_random_double() {
+  return(myUnifRealDist(myRandomEngine));
+} 
 
-
-
-
-
-
-
-
+int RandGen::get_random_int() {
+  return(myUnifIntDist(myRandomEngine));
+} 
+\end{lstlisting}
+\redText{continua da lezione 2024-10-16 minuto 47 circa sul file simulator}
 
 
 %FILE CODICE
@@ -531,6 +559,160 @@ public:
     
 #endif
 \end{lstlisting}
+
+
+\newpage 
+\subsection{\code{dtmc.cpp}}
+\begin{lstlisting}[style=CppStyle,language=C++]
+#include "main.h"
+#include "dtmc.h"
+
+void dtmc_body(RandGen *myp) {
+    p = myp;
+    if (STATE_SIZE <= 0)
+    {
+        fprintf(stderr, "DTMC(): Error: state size cannot be 0\n");
+        exit(1);
+    } 
+    x = (state_type *) malloc(sizeof(state_type)*STATE_SIZE);
+    if (x == NULL)
+    {
+        fprintf(stderr, "DTMC(): memory allocation for state failed\n");
+        exit(1);
+    }
+    if (INPUT_SIZE <= 0)
+    {
+        u = NULL;
+    }
+    else
+    {
+        u = (input_type *) malloc(sizeof(input_type)*INPUT_SIZE);
+        if (u == NULL)
+        {
+            fprintf(stderr, "DTMC(): memory allocation 
+                             for input failed\n");
+            exit(1);
+        }
+    } 
+    if (OUTPUT_SIZE <= 0)
+    {
+        fprintf(stderr, "DTMC(): Error: output size cannot be 0\n");
+        exit(1);
+    }
+    y = (output_type *) malloc(sizeof(output_type)*OUTPUT_SIZE);
+    if (y == NULL)
+    {
+        fprintf(stderr, "DTMC(): memory allocation 
+                         for output failed\n");
+        exit(1);
+    } 
+}
+
+
+DTMC(RandGen *myp)  {
+    dtmc_body(myp);
+}
+
+DTMC(int xsize, int usize, int ysize, RandGen *myp)  {
+    STATE_SIZE = xsize;
+    INPUT_SIZE = usize;
+    OUTPUT_SIZE = ysize;
+    dtmc_body(myp);  
+}
+
+void init() {
+    int i;
+    for (i = 0; i < STATE_SIZE; i++)
+        x[i] = 0;
+}  
+void next() {
+    int i;
+    for (i = 0; i < STATE_SIZE; i++)
+        x[i] = p -> get_random_double();
+}
+void output() {
+    int i;
+    for (i = 0; i < OUTPUT_SIZE; i++)
+        y[i] = x[i];
+}
+
+void printlog(int t) {
+    int i;
+    printf("%d ", t);
+    for (i = 0; i < STATE_SIZE; i++)
+    {
+        printf("%lf ", x[i]);
+    }
+    for (i = 0; i < OUTPUT_SIZE; i++)
+    {
+        printf("%lf ", y[i]);
+    }
+    for (i = 0; i < INPUT_SIZE; i++)
+    {
+        printf("%lf ", u[i]);
+    }
+    printf("\n");
+} 
+
+void fprintflog(FILE *fp, int t) {
+    FILE *fp;
+    int i;
+    fp = fopen(filename, "w");
+    fprintf(fp, "%d ", t);
+    for (i = 0; i < STATE_SIZE; i++)
+    {
+        fprintf(fp, "%lf ", x[i]);
+    }
+    for (i = 0; i < OUTPUT_SIZE; i++)
+    {
+        fprintf(fp, "%lf ", y[i]);
+    }
+    for (i = 0; i < INPUT_SIZE; i++)
+    {
+        fprintf(fp, "%lf ", u[i]);
+    }
+    fprintf(fp, "\n");
+}
+\end{lstlisting} 
+
+
+\newpage 
+\subsection{\code{randgen.h}}
+\begin{lstlisting}[style=CppStyle,language=C++]
+#ifndef randgen_h
+#define randgen_h
+#include "main.h"
+
+class RandGen {
+public:
+    RandGen();
+    unsigned int seed;
+    double get_random_double();
+    int get_random_int(); 
+};
+#endif
+\end{lstlisting} 
+\subsection{\code{randgen.cpp}}
+\begin{lstlisting}[style=CppStyle,language=C++]
+#include "main.h"
+#include "randgen.h"
+
+random_device myRandomDevice;
+unsigned int myseed = myRandomDevice();
+
+default_random_engine myRandomEngine(myseed);
+uniform_int_distribution<int> myUnifIntDist(-10, 10);
+uniform_real_distribution<double> myUnifRealDist(0.0, 1.0);
+RandGen() { seed = myseed; }
+
+double get_random_double() {
+    return(myUnifRealDist(myRandomEngine));
+} 
+
+int get_random_int() {
+    return(myUnifIntDist(myRandomEngine)); 
+} 
+\end{lstlisting} 
 %FINE FILE CODICE
 
 
