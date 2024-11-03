@@ -114,7 +114,7 @@ astratte, nei livelli più bassi sono più grezze, ad esempio\begin{itemize}
     \item Al livello azienda viene decisa la produzione di un articolo (che 
     coinvolgerà l'utilizzo di un braccio robotico)
     \item Al livello macchina, l'informazione che arriverà al braccio 
-    sarà semplicemente relativi ai gradi in cui i suoi giunti devono 
+    sarà semplicemente relativa ai gradi in cui i suoi giunti devono 
     ruotare
     \item Al livello di campo, l'informazione comprenderà semplicemente 
     il voltaggio da applicare alla macchina in questione per avere l'effetto 
@@ -127,10 +127,10 @@ il \textit{controllo delle procedure} si occupa delle \textbf{macchine}, ed uno
 di montaggio. nel livello di campo, vengono utilizzati vari dispositivi, 
 quali\begin{itemize}
     \item motori elettrici, servomotori, encoder 
-    \item azionatori di valvole, dynamo tachimetrici, sensori di temperatura
+    \item azionatori di valvole, dinamo tachimetriche, sensori di temperatura
 \end{itemize}
-Tali sensori presenteranno stesso un comportamento lineare, ad esempio, 
-se una tensione $x$ causa una rotazione di $y$ giri per minuti, allora 
+Tali sensori presenteranno un comportamento lineare, ad esempio, 
+se una tensione $x$ causa una rotazione di $y$ giri per minuto, allora 
 una tensione $2x$ causerà una  rotazione di $2y$. Anche se tali dispositivi 
 non si prestano ad un comportamento lineare, ne verrà causata una volontaria 
 linearizzazione, correggendone il comportamento.\acc 
@@ -147,8 +147,8 @@ di campo.\begin{center}
 \end{center}
 Si consideri il seguente esempio di regolatore, vi è una stufa che deve 
 riscaldare una stanza, ed un sensore che ne misura la temperatura, il valore 
-da raggiungere, detto \textit{setpoint}, è di 20 gradi celcius. Si supponga che il 
-sensore, una volta rilevata la temperatura, debba accendere e spengere la stufa 
+da raggiungere, detto \textit{setpoint}, è di 20 gradi celsius. Si supponga che il 
+sensore, una volta rilevata la temperatura, debba accendere e spegnere la stufa 
 in modo che si raggiunga la temperatura adeguata.
 \begin{center}
     \begin{figure}[h!]
@@ -164,7 +164,7 @@ sotto il limite inferiore, la stufa viene accesa, quando è oltre il limite
 superiore, viene spenta (è chiaro che la velocità con la quale la temperatura 
 cambia dipende dalle capacità della stufa e dalla dispersione del calore nella stanza).\acc 
 Ridurre il valore del differenziale costringerebbe la temperatura ad assestarsi 
-sempre di più sul valore desiderato, ma ciò, comporterebbe un'accensione/spengimento della 
+sempre di più sul valore desiderato, ma ciò, comporterebbe un'accensione/spegnimento della 
 stufa più frequente, aumentando lo \textit{sforzo di controllo}, è quindi, in questo 
 caso, accettabile un differenziale di $2^\circ$.\acc 
 Tale modello di controllo è il più semplice che ci sia, esistono ovviamente altri modi di regolare un 
@@ -182,11 +182,11 @@ valore nella regolazione del segnale.
 Anche se la variazione della temperatura è continua nel tempo, il suo 
 superare una certa soglia è un evento, i PLC (controllori logici programmabili) 
 agiscono sulle misure di campo, un noto linguaggio utilizzato per descriverne 
-il funzionamento è noto come \textit{Sequential Flow Chart (SFL)}.\acc 
+il funzionamento è noto come \textit{Sequential Flow Chart (SFC)}.\acc 
 Nei sistemi di automazione industriale vengono prediletti controllori e sensori distribuiti piuttosto 
-che centralizzati, se ne vuole dare una dimostrazione pratica con il segunete 
-esempio : Si considerino i due seguenti modi per trasportare un oggetto 
-su un nastro trasportatore :\begin{center}
+che centralizzati, se ne vuole dare una dimostrazione pratica con il seguente 
+esempio : Siano dati i due modi per trasportare un oggetto 
+su un nastro trasportatore\begin{center}
     \begin{figure}[h!]
         \centering
         \includegraphics[width=0.6\textwidth ]{images/rulli.eps}
@@ -194,8 +194,8 @@ su un nastro trasportatore :\begin{center}
         \label{fig:rulli}
    \end{figure} 
 \end{center}
-Ogni nastro ha un sensore, se un oggetto è rilevato sopra il nastro, allora il motore si attiva. Risulta più efficente 
-la soluzione con 3 nastri in quanti sarà adoperata solamente la zona del nastro in cui è rilevato l'oggetto, piuttosto 
+Ogni nastro ha un sensore, se un oggetto è rilevato sopra il nastro, allora il motore si attiva. Risulta più efficiente 
+la soluzione con 3 nastri in quanto sarà adoperata solamente la zona del nastro in cui è rilevato l'oggetto, piuttosto 
 che l'intero nastro.\acc 
 Per la modellizzazione di sistemi autonomi verranno adoperati automi a stati finiti, ampiamente trattati nel 
 corso di 
@@ -234,7 +234,7 @@ meccanismi di attuazione del moto che utilizzano una sola fonte. Un altro tipo d
 a \textit{controllo numerico}, macchine programmate per fare compiti elementari periodicamente. \acc 
 Quando in un processo produttivo il materiale viene trasformato in maniera continuativa (come nell'industria 
 farmaceutica o alimentare) si parla di \textbf{produzione continua}. Nel caso in cui i materiali sono processati 
-in quantità finite e determinate si parla di \textbf{produzione a lotti}, le pause dovute fra la lavorazione di un lotto 
+in quantità finite e determinate si parla di \textbf{produzione a lotti}, le pause fra la lavorazione di un lotto 
 e l'altro sono dovute al fatto 
 che è necessario trasformare solo una determinata quantità di materiale grezzo.\acc 
 L'automazione industriale fa largo utilizzo dei \textit{robot}, bracci meccanici che presentano diversi 
@@ -256,7 +256,7 @@ dei motori elettrici posti sui giunti.
         \includegraphics[width=1\textwidth ]{images/rotBraccioRobot.eps}
 \end{center}
 Altri tipi di macchine per la movimentazione oltre i robot sono i rulli o i carrelli automatici, questi ultimi 
-inizialmente potevano muoversi seguendo un percorso stabiliti da magneti posti sul terreno, vengono dotati di 
+inizialmente potevano muoversi seguendo un percorso stabilito da magneti posti sul terreno, vengono dotati di 
 sensori di prossimità per evitare collisioni. I carrelli moderni non sono limitati da percorsi prestabiliti, sono 
 autonomi e possono fare percorsi arbitrari, che vengono calcolati da un elaboratore che ha la "visione" completa 
 di essi.\acc 
@@ -264,7 +264,7 @@ Sorge spontaneo chiedersi quale sia la differenza fra Automazione e Robotica.\be
     \item \textit{Analogie} : Entrambe coinvolgono l'informatica ed i calcolatori, interfacciandosi con il mondo 
     fisico, entrambe sfruttano conoscenze e tecnologie multi-disciplinari. 
     \item \textit{Differenze} : La robotica mostra la fattibilità di una soluzione, l'automazione si occupa di 
-    porsi delle domande riguardo tale soluzione, fra cui l'efficenza, l'ottimalità, la fattibilità e l'affidabilità.
+    porsi delle domande riguardo tale soluzione, fra cui l'efficienza, l'ottimalità, la fattibilità e l'affidabilità.
 \end{itemize}
 Formalmente, si definisce \textbf{processo} la \textit{trasformazione} di \textit{materiali} in 
 \textit{prodotti}. Tale trasformazione richiede 
@@ -280,7 +280,7 @@ avviene da parte del cervello.
     \includegraphics[width=0.5\textwidth ]{images/caveMan.eps}
 \end{center}
 Lo scopo dell'automazione nel tempo è stato quello di sostituire o eliminare l'intervento dell'uomo 
-nei processi, spesso è faticoso e pericolo fornire energia, e l'uomo non ha le capacità sufficienti per 
+nei processi, spesso è faticoso e pericoloso fornire energia, e l'uomo non ha le capacità sufficienti per 
 gestire in maniera precisa l'informazione ed il controllo.\acc 
 Il \textbf{primo passo} di industrializzazione è stato quello di sostituire l'energia fornita dall'uomo con l'energia 
 naturale ed animale, durante la prima rivoluzione industriale, dove la produzione dipendeva da macchine 
@@ -300,16 +300,16 @@ qui la gravità oppone resistenza facendo chiudere la valvola essendo che le mas
 suolo, facendone diminuire la velocità di rotazione.  
 Tali automatismi sono compresi dalla teoria dei controlli automatici, che definisce l'azione di comando più efficace 
 per ottenere il comportamento desiderato a seguito di una certa misurazione fisica.\acc
-Il \textbf{terzo passo} riguarda la gestione delle informazioni mediante sistemi combinatorici/sequenziali che al 
+Il \textbf{terzo passo} riguarda la gestione delle informazioni mediante sistemi combinatori/sequenziali che al 
 verificarsi di determinate condizioni reagiscono con operazioni di base. La prima generazione di controllori 
 prevedeva circuiti elettronici composti da bobine e relé, essi erano ingombranti e lenti nell'acquisizione 
 delle informazioni, inoltre la loro logica era prestabilita e ridefinirla scaturiva una modifica sostanziale 
 del circuito. \acc 
 Con l'avvento dei semiconduttori si è introdotta la seconda generazione di controllori, basati su schede 
-elettroniche stampate, riducendo i costi ed aumentando l'efficenza, non risolvendo però il problema della bassa 
+elettroniche stampate, riducendo i costi ed aumentando l'efficienza, non risolvendo però il problema della bassa 
 flessibilità, in quanto tali schede erano progettate per gestire una specifica logica. \acc 
 La terza generazione di controllori vede i microprocessori protagonisti, grazie all'evoluzione dell'elettronica 
-e dell'informatica sono ad oggi utilizzabili schede riprogrammabili (PLC) altamente flessibile, capaci di eseguire 
+e dell'informatica sono ad oggi utilizzabili schede riprogrammabili (PLC) altamente flessibili, capaci di eseguire 
 un generico algoritmo logico sequenziale.
 \begin{center}
     \begin{tabular}{|c|c|c|}
@@ -321,9 +321,9 @@ un generico algoritmo logico sequenziale.
         \rowcolor[HTML]{F2F7FE} 
         seconda                                        & fine 19°secolo – 1970                    & \begin{tabular}[c]{@{}c@{}}azionamento elettrico delle macchine e produzione\\  di massa basata sulla\\  divisione del lavoro (catene di montaggio)\end{tabular}                                                                                                                                                                                                                  \\ \hline
         \rowcolor[HTML]{DAE8FC} 
-        terza                                          & 1970 – oggi                              & \begin{tabular}[c]{@{}c@{}}utilizzo dell’elettronica e delle tecnologie\\  del’informazione (IT) \\ per aumentare il livello di automazione di attività\\  complesse (CNC, robot e computer)\end{tabular}                                                                                                                                                                         \\ \hline
+        terza                                          & 1970 – oggi                              & \begin{tabular}[c]{@{}c@{}}utilizzo dell’elettronica e delle tecnologie\\  dell’informazione (IT) \\ per aumentare il livello di automazione di attività\\  complesse (CNC, robot e computer)\end{tabular}                                                                                                                                                                         \\ \hline
         \rowcolor[HTML]{F2F7FE} 
-        quarta                                         & oggi – futuro                            & \begin{tabular}[c]{@{}c@{}}sviluppo di macchine sensorizzate e intelligenti,\\  interconnesse tra loro e con internet, con la raccolta,\\  analisi e uso di grandi \\ quantità di informazioni (Big data), per una\\  specializzazione di \\ massa del prodotto, l’integrazione della\\  catena produttiva \\ (supply and value chains) e una maggiore\\  efficenza\end{tabular} \\ \hline
+        quarta                                         & oggi – futuro                            & \begin{tabular}[c]{@{}c@{}}sviluppo di macchine sensorizzate e intelligenti,\\  interconnesse tra loro e con internet, con la raccolta,\\  analisi e uso di grandi \\ quantità di informazioni (Big data), per una\\  specializzazione di \\ massa del prodotto, l’integrazione della\\  catena produttiva \\ (supply and value chains) e una maggiore\\  efficienza\end{tabular} \\ \hline
         \end{tabular}
 \end{center}
 \flowerLine
@@ -333,7 +333,7 @@ diverse componenti\begin{itemize}
     \item processo produttivo - movimentazioni meccaniche, attuazioni, 
     trasformazioni fisiche e chimiche 
     \item sistema di controllo - uno o più dispositivi messi in comunicazione 
-    con il processo produttivo, potendo agire su di esso riducendo 
+    con il processo produttivo, che possono agire su di esso riducendo 
     l'intervento umano. 
     \item impianto di produzione - macchinari, edifici, componenti
 \end{itemize}
@@ -353,7 +353,7 @@ Si considerino i seguenti esempi di produzione industriale\begin{itemize}
     \end{itemize}
     \item \textbf{produzione di parti meccaniche di motori} \begin{itemize}
         \item materie prime (input discreto) : pezzo metallico grezzo
-        \item prodotto (output discreto) : componenete del motore
+        \item prodotto (output discreto) : componente del motore
         \item impianto necessario : macchina con mandrini per la meccanica (fresatura, foratura, ...), sistema di
         controllo numerico (posizionamento corretto dell’utensile del mandrino),
         dispositivo di cambio utensile automatico, protezioni, sistemi di scarico
@@ -377,7 +377,7 @@ sono elaborate da un apposito calcolatore che può essere inglobato o
 esterno alla macchina in questione.\acc
 Nei sistemi di controllo è stata definita una normativa, nota come 
 IEC61499 per normalizzare il funzionamento generale di tali 
-dispositivi. In particolare, deve un sistema di controllo deve 
+dispositivi. In particolare,  un sistema di controllo deve 
 rifarsi ai seguenti punti\begin{itemize}
     \item è un sistema informatico che elabora informazioni ed 
     esegue/applica algoritmi.
@@ -387,7 +387,7 @@ rifarsi ai seguenti punti\begin{itemize}
     \item tali applicazioni possono essere distribuite fra i vari dispositivi. 
     \item i dispositivi devono interfacciarsi con la rete e con il processo, 
     inoltre le applicazioni costituiscono le loro \textit{risorse}.
-    \item in particolare, una \textit{risorsa} è costituita da\begin{itemize}
+    \item in generale, una \textit{risorsa} è costituita da\begin{itemize}
         \item una o più applicazioni 
         \item funzioni che collegano dati ed eventi 
         \item funzioni di pianificazione delle attività (un sistema operativo)
@@ -399,7 +399,7 @@ rifarsi ai seguenti punti\begin{itemize}
     \caption{schematizzazione di un sistema di controllo}
     \label{fig:siscon}
 \end{figure} 
-Si definisce \textbf{Manifacturing} l'insieme dei processi 
+Si definisce \textbf{Manufacturing} l'insieme dei processi 
 produttivi da applicare per ottenere un prodotto finale desiderato, a partire 
 da materiali grezzi. Richiede \begin{itemize}
     \item energia 
@@ -407,7 +407,7 @@ da materiali grezzi. Richiede \begin{itemize}
     \item intervento umano 
     \item informazioni
 \end{itemize}
-Da un punto di vista economico, è il processo che da valore aggiunte 
+Da un punto di vista economico, è il processo che da valore aggiunto
 ai materiali utilizzati.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/manifacturing.eps}
 \end{center}
@@ -420,8 +420,8 @@ processo sia l'input di un altro. Si consideri il seguente esempio che schematiz
     \label{fig:cementificio}
 \end{figure} 
 Il cemento viene prodotto a partire da calcari pure ed argilla, viene mandato nel frantoio per essere 
-tritati, ciò che ne esce viene miscelato per poi venire accumulato in un silos. Quest'ultimo, funge 
-da \textit{buffer}, ossia un accumulo del prodotto non ancora terminate durante la sequenza di produzione, utile 
+tritato, ciò che ne esce viene miscelato per poi venire accumulato in un silos. Quest'ultimo, funge 
+da \textit{buffer}, ossia un accumulo del prodotto non ancora terminato durante la sequenza di produzione, utile 
 nel sincronizzare la catena, qui 
 viene riempito totalmente prima di passare allo step successivo. Il primo mulino esegue una fase 
 di pre riscaldamento, il calore utilizzato deriva dall'energia termica scartata dal forno principale 
@@ -431,8 +431,8 @@ Il processo consiste in una \textit{sequenza} di \textit{operazioni elementari} 
     \item trasporto e stoccaggio 
     \item verifica, test, e coordinamento
 \end{itemize}
-Fin'ora è stato evidenziato se le materie prime o il prodotto finale di un certo processo fossero 
-numerabili oppure no, a tal proposito, è possibile classificare i processi produttivi nel seguente 
+Fin'ora è stata evidenziata la \textit{numerabilità} delle materie prime o del prodotto finale di un certo 
+processo, a tal proposito, è possibile classificare i processi produttivi nel seguente 
 modo
 \begin{center}
     \includegraphics[width=0.7\textwidth ]{images/classificazioneProcProd.eps}
@@ -441,12 +441,12 @@ modo
     \item\textbf{processi continui} : Trattano la trasformazione continua nel tempo della materia, energia 
     e quantità di moto. L'obiettivo è mantenere uniforme nel tempo la qualità del prodotto, gli scambi 
     avvengono sulle variabili fisiche.
-    \item\textbf{processi a lotti} : Possono essere sia continui che discreti, il prodotto finale necessita 
-    di una specifica, e finita, quantità di materia prima per essere prodotto. Segue una specifica 
-    sequenza di lavorazione detta \textit{ricetta}, il processo si intorrempo fra un lotto ed un 
+    \item\textbf{processi a lotti} : Possono essere sia continui che discreti, il lavorato finale necessita 
+    di una specifica, e finita, quantità di materia prima per essere prodotto. Segue una determinata 
+    sequenza di lavorazione detta \textit{ricetta}, il processo si intorrempe fra un lotto ed un 
     altro. Obbiettivo dell'automazione è la definizione delle ricette, garantire un uso corretto delle 
     risorse e realizzare tale sistemi in modo che siano ripetibili.
-    \item\textbf{processi semi continui} : \redText{TODO} 
+    \item\textbf{processi semi continui} : La produzione avviene in lotti o batch, con fasi di lavorazione continue intervallate da pause per il cambio di prodotto o la pulizia dell'impianto
     \item \textbf{processi discreti} : Si lavora su singoli prodotti, materiali numerabili, è una 
     produzione tipica dell'industria manifatturiera.
 \end{itemize}
@@ -464,7 +464,7 @@ I sistemi di controllo dei processi prevedono azioni di tipo \textit{logico} opp
 \end{center}
 \begin{itemize}
     \item \textit{regolazione} : Portare un segnale ad un determinato valore di riferimento 
-    \item \textit{asserimento} : Far si che il segnale segua una certa dinamica nel tempo
+    \item \textit{asservimento} : Far si che il segnale segua una certa dinamica nel tempo
 \end{itemize}
 Il \textit{controllo diretto} riguarda il rilevamento di grandezze fisiche analogiche da parte di 
 sensori posti sul campo, tali valori continui nel tempo vengono 
@@ -476,7 +476,7 @@ per correggere il comportamento delle variabili.\begin{enumerate}
     a rappresentare i valori del segnale sarà $n=\log_{2}(\nicefrac{\Delta}{q})$
     $$ x_q(t)=\lfloor\frac{x(t)}{q}\rfloor\cdot q$$
     \item Il segnale analogico quantizzato viene poi \textbf{campionato}, ossia, viene valutato 
-    eslcusivamente in determinati intervalli di tempo separati da un tempo di campionamento $T_C$ 
+    esclusivamente in determinati intervalli di tempo separati da un tempo di campionamento $T_C$ 
     $$x_q(t) \longrightarrow  x_q(kT_C)\ \ \ \ t\in\R \ \ k\in\mathbb{Z}$$
     \item A tal punto si ha un \textbf{segnale digitale} codificato in numeri binari che può essere 
     elaborato su un sistema di controllo digitale.
@@ -487,7 +487,7 @@ per correggere il comportamento delle variabili.\begin{enumerate}
 Le variabili logiche, ad esempio quelle booleane, assumono valori in un insieme numerabile, e su di esse 
 è possibile eseguire operazioni logiche, si consideri il seguente esempio : \begin{quote}
     \color{gray}
-    Il comando $M$ è una variabile booleana che se vera aziona il moto di un motore elettrico. 
+    Il comando $M$ è una variabile booleana che, se vera, aziona il moto di un motore elettrico. 
     Il sensore di prossimità è descritto una variabile booleana $P$ che è vera se ci sono 
     ostacoli nelle vicinanze, la variabile $C$ descrive il consenso nel voler attivare il motore.\acc 
     Risulta chiaro che $$ M= C \land \lnot P$$\color{black}
@@ -525,7 +525,7 @@ Verrà trattata in questa sezione la modellizzazione delle linee di trasferta, e
 alcuni parametri che le caratterizzano. Una linea di trasferta consiste in una serie di macchine o stazioni 
 (macchinari adatti a più compiti) connessi sequenzialmente da un sistema di trasporto. La sequenza di produzione 
 è rigida ed i pezzi vengono processati continuamente nel tempo senza interruzioni. Le linee possono essere 
-sincrone e (i pezzi avanzano alla stessa velocità) oppure asincrone, tramite l'installazione di appositi 
+sincrone (i pezzi avanzano alla stessa velocità) oppure asincrone, tramite l'installazione di appositi 
 buffer fra una macchina e l'altra.\begin{itemize}
     \item \textit{pro} : La produzione avviene per un singolo prodotto, risulta molto efficiente, il WIP è 
     ridotto ed il trasporto dei pezzi è semplice, dato che segue un unica direzione. I tempi di avvio sono brevi. 
@@ -597,7 +597,7 @@ Il problema del bilanciamento di una linea di trasferta è NP-completo, per ques
 delle euristiche di soluzione, che garantiscono una soluzione prossima a quella ottimale. \acc 
 \subsubsection{Modello del Problema del Dimensionamento}
 Vi è una linea di trasferta con $n$ macchine/stazioni, ogni macchina $i$-esima, ha un carico di lavoro 
-$C_i$ esepresso in unità di tempo. La linea deve soddisfare un certo tasso di produzione $p$ espresso in 
+$C_i$ espresso in unità di tempo. La linea deve soddisfare un certo tasso di produzione $p$ espresso in 
 pezzi per unità di tempo. Il valore $CMT=\frac{1}{p}$ rappresenta il \textit{carico massimo teorico}, è 
 chiaro che se una qualsiasi stazione ha un carico $C_i>CMT$, allora il tasso di produzione $p$ non è 
 rispettato.\begin{quote}
@@ -607,7 +607,7 @@ rispettato.\begin{quote}
 Sarebbe ideale inoltre ridurre il numero delle macchine $n$, dato che più macchine, equivale a dire un costo 
 di manutenzione maggiore. Nella linea di trasferta, le varie lavorazioni da eseguire possono avere 
 delle \textit{dipendenze} (una lavorazione $i$ può essere eseguita esclusivamente dopo una lavorazione 
-$j$), si possono quindi rappresentare tali dipendeze attraverso un grafo orientato. \acc 
+$j$), si possono quindi rappresentare tali dipendenze attraverso un grafo orientato. \acc 
 Dato quindi un insieme di lavorazioni, si vuole trovare \begin{itemize}
     \item una sequenza di produzione in cui il carico di lavoro per ogni macchina sia minore del carico di lavoro massimo teorico (ammissibilità)
     \item tale sequenza, deve rispettare le dipendenze (ammissibilità)
@@ -650,8 +650,8 @@ a ché sono minori di $CMT$, ad esempio
     \item Considero A, che ha tempo di lavorazione $55$, lo assegno alla prima stazione. \\$\diamond $ Carico della stazione 1 : $C_1=55\le CMT$
     \item Considero F, che ha tempo di lavorazione $25$, lo assegno alla prima stazione. \\$\diamond $ Carico della stazione 1 : $C_1=80\le CMT$
     \item Considero E, che ha tempo di lavorazione $20$, non posso assegnarlo alla prima stazione, dato che il carico sarebbe 
-    maggiore di $CMT=84$, quindi è necessaria una nuova stazione alla quale assegno E. \\$\diamond $ Carico della stazione 2 : $C_2=20\le CMT\le CMT$
-    \item Considero C, che ha tempo di lavorazione $50$, lo assegno alla seconda stazione. \\$\diamond $ Carico della stazione 2 : $C_2=70\le CMT\le CMT$
+    maggiore di $CMT=84$, quindi è necessaria una nuova stazione alla quale assegno E. \\$\diamond $ Carico della stazione 2 : $C_2=20\le CMT$
+    \item Considero C, che ha tempo di lavorazione $50$, lo assegno alla seconda stazione. \\$\diamond $ Carico della stazione 2 : $C_2=70\le CMT$
     \item ...e così via
 \end{itemize}
 Al termine, si avrà la seguente assegnazione\begin{center}
@@ -672,16 +672,16 @@ coppia (lavorazione, prodotto). Il tempo totale di completamento $T_{max}$, dett
 valore da minimizzare, possono essere presenti dei buffer nella struttura.\acc Il problema si complica 
 rispetto la linea di trasferta, in questo caso però, date per assunte delle condizioni, vi è una regola che permette 
 di stabilire una sequenza ottimale.\acc 
-\teo{(Regola di Jhonson)}
-Assunzione : Ci sono esclusivamente 2 macchine/stazioni, denotate $M_1$ e $M_2$.\\
+\teo{(Regola di Johnson)}
+Si considera l'assunzione per cui ci sono esclusivamente 2 macchine/stazioni, denotate $M_1$ e $M_2$.\\
 Sia $L=\{l_1,l_2\dots,l_n\}$ un insieme di lavorazioni, i  cui tempi per $M_1$ sono 
-$\{t_{1_1},t_{2_1}\dots,t_{n_1}\}$, e i tempi per $M_1$ sono 
+$\{t_{1_1},t_{2_1}\dots,t_{n_1}\}$, e i tempi per $M_2$ sono 
 $\{t_{1_2},t_{2_2}\dots,t_{n_2}\}$. dove $\forall i, \ t_{i_1}>0\land t_{i_2}>0$. Nella \textbf{soluzione ottimale}, 
 la lavorazione $l_i$ precede la lavorazione $l_j$ se e solo se 
 $$ \min(t_{i_1},t_{j_2})<\min(t_{j_1},t_{i_2})$$
 Tale teorema fornisce una procedura per trovare una soluzione ottimale, i passi sono i seguenti \begin{enumerate}
-    \item si costruisce $S1=\{l_i\in L \ | \ t_{i_1}<t_{i_2}\}$
-    \item si costruisce $S2=S1^C=\{l_i\in L \ | \ l_i\notin S1\}$
+    \item si costruisce $S1=\{l_i\in L \ | \ t_{i_1}<t_{i_2}\}$ (lavorazioni più rapide su $M_1$)
+    \item si costruisce $S2=S1^C=\{l_i\in L \ | \ l_i\notin S1\}$ (lavorazioni più rapide su $M_2$)
     \item Vengono schedulate le lavorazioni secondo la regola\begin{itemize}
         \item prima si eseguono tutte le lavorazioni di $S1$ in ordine crescente secondo $t_{i_1}$
         \item poi si eseguono tutte le lavorazioni di $S2$ in ordine decrescente secondo $t_{i_2}$
@@ -713,7 +713,7 @@ Non ci sono attese sulla macchina 1, le attese sulla macchina 2 sono inevitabili
 le minimizza. La macchina 1 è costantemente carica, si dice che $T_{idle,1}=0$ (non ci sono tempi di attesa). 
 Differente è la situazione per la macchina 2 : $T_{idle,2}=4$. Il tempo di lavorazione totale è $T_{max}=35$.
 \subsubsection{Generalizzazione con 3 Macchine}
-Sotto ulteriori ipotesi, è possibile trovare una soluzione ottimale anche in un contesto con 3 macchine/stazioni $M_1,M_2,M_3$, 
+Sotto ulteriori ipotesi, è possibile trovare una soluzione ottimale anche in un contesto con 3 macchine (o stazioni) $M_1,M_2,M_3$, 
 con relativi tempi di lavorazione $t_{i_1},t_{i_2},t_{i_3}$ con $i\in\{1,2\dots ,n\}$ dove $n=$numero 
 lavorazioni. Per poter 
 trovare tale soluzione, è necessario che venga soddisfatta la seguente condizione 
@@ -736,7 +736,7 @@ Si hanno le seguenti lavorazioni \begin{center}
         \end{tabular}
 \end{center}
 La condizione $\max_{i\in\{1,2\dots ,n\}}(t_{i_2}) \le \min_{i\in\{1,2\dots ,n\}}(t_{i_3}) $ è soddisfatta, 
-quindi posso ridurre il sistema ad uno equivalente \begin{center}
+quindi è possibile ridurre il sistema ad uno equivalente \begin{center}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Lavorazione & A & B & C & D \\ \hline
@@ -744,7 +744,7 @@ quindi posso ridurre il sistema ad uno equivalente \begin{center}
         $t_{i'_2}$   & 6 & 6 & 8 & 7 \\ \hline
         \end{tabular}
 \end{center}
-Si applica la regola di Jhonson, trovando la sequenza $S^*=B\rightarrow D\rightarrow C\rightarrow A$, che verrà 
+Si applica la regola di Johnson, trovando la sequenza $S^*=B\rightarrow D\rightarrow C\rightarrow A$, che verrà 
 applicata al sistema originale con 3 macchine.\begin{center}
     \includegraphics[width=0.9\textwidth ]{images/jhonson2.eps}
 \end{center}
@@ -758,7 +758,7 @@ da \begin{itemize}
     \item un maggiore work in process, i flussi lavorativi sono intricati 
     \item elevati tempi di attraversamento, e qualità dei prodotti non sempre omogenea
 \end{itemize}
-Quando è possibile individuare famiglie di prodotti simili con cicli di lavorazione omogenei si identificano delle 
+Quando è possibile individuare famiglie di prodotti simili con cicli di lavorazione omogenei, si identificano delle 
 celle contenenti gruppi di macchine adatti a tale famiglia di prodotti, tale \textbf{produzione per celle} semplifica 
 i flussi di produzione, il trasporto e la gestione, le varie celle sono indipendenti fra loro.\acc
 \begin{figure}[h!]
@@ -768,7 +768,7 @@ i flussi di produzione, il trasporto e la gestione, le varie celle sono indipend
 \end{figure}
 Quando si implementa il trasporto automatico ed un controllo tramite calcolatore nelle celle di produzione si 
 parla di \textbf{Flexible Manufacturing/Assembly Systems (FMS/FAS)}, sono sistemi dotati di elevata 
- flessibilità riguardo alle diverse sequenza delle lavorazioni 
+ flessibilità riguardo alle diverse sequenze delle lavorazioni 
  e/o all'assegnamento di operazioni alle risorse. Sono caratterizzati da \begin{itemize}
     \item diversi prodotti 
     \item lavorazioni eseguite su più macchine 
@@ -784,14 +784,14 @@ parla di \textbf{Flexible Manufacturing/Assembly Systems (FMS/FAS)}, sono sistem
     fra un lotto ed un altro per la riconfigurazione del flusso.
     \item \textit{Automazione flessibile} : estensione dell'automazione programmabile in 
     cui è possibile diversificare la produzione senza avere tempi morti di 
-    conversione dell'impianto,  i macchinari utilizzati sono caratterizzati sono altamente configurabili.
+    conversione dell'impianto,  i macchinari utilizzati sono caratterizzati da un alta configurabilità.
 \end{itemize}
 In generale, per i sistemi di automazione, esiste una correlazione qualitativa fra la quantità di prodotto fabbricata, ed il 
 numero di prodotti distinti.\begin{center}
     \includegraphics[width=1\textwidth ]{images/quantitVarieta.eps}
 \end{center}\flowerLine 
 \section{Sistema di Supporto}
-Un sistema di supporto consiste in un insieme di attività legate all'impiano di produzione, in particolare\begin{itemize}
+Un sistema di supporto consiste in un insieme di attività legate all'impianto di produzione, in particolare\begin{itemize}
     \item attività di business, quali gestione degli ordini, marketing del prodotto e considerazioni economiche 
     \item progettazione del prodotto sulla base delle esigenze del mercato 
     \item pianificazione ("planning") della produzione, definizione della sequenza di lavorazione, politiche 
@@ -846,7 +846,7 @@ ideale, nessun livello è privilegiato rispetto ad un altro.\begin{center}
 Dai livelli superiori le informazioni sono più elaborate e di minore quantità, ed i comandi vengono dati con minore 
 frequenza, nei livelli inferiori, ci sono 
 più informazioni, ma sono semplici, ed i comandi vengono dati con maggiore 
-frequenza. La comunicazione verticala è privilegiata, se più dispositivi di campo devono 
+frequenza. La comunicazione verticale è privilegiata, se più dispositivi di campo devono 
 comunicare, devono farlo attraverso il sistema di controllo della macchina di cui fanno parte. \acc 
 Al livello di macchina e campo il controllo può essere sia \textit{logico} che \textit{diretto} (real time), 
 attuato da microprocessori, con il salire dei livelli nella piramide il controllo assume sempre più un carattere 
@@ -861,7 +861,7 @@ Sono raggruppati in semplici sistemi di controllo e i livelli superiori li assum
 ideali, sono attrezzati di apposito hardware di controllo, quali sistemi digitali a microprocessori/sistemi 
 embedded.
 \subsubsection{Livello di Macchina}
-Una macchina raggruppa più dispositvi di campo volti al fornire una determinata funzionalità. Ad esempio, 
+Una macchina raggruppa più dispositivi di campo volti al fornire una determinata funzionalità. Ad esempio, 
 diversi motori elettrici (dispositivi di campo) possono costituire un braccio robotico (macchina) volto allo 
 spostamento di oggetti.\acc 
 Tali componenti vengono controllati tramite dei controllori logici programmabili (PLC), tramite la regolazione 
@@ -872,7 +872,7 @@ viene pianificato il movimento del robot nello spazio operativo e la sequenza de
 deve effettuare
 \color{black}\end{quote}
 \subsubsection{Livello di Cella}
-Diverse macchine vengono ragruppate insieme formando delle celle di produzione, atte a produrre prodotti, anche 
+Diverse macchine vengono raggruppate insieme formando delle celle di produzione, atte a produrre prodotti, anche 
 diversi ma tecnologicamente affini, le macchine sono interconnesse fisicamente da un sistema locale di trasporto 
 e stoccaggio. Nonostante il vincolo real time sia presente, il livello di controllo è quasi 
 esclusivamente logico, e coordinano le macchine della cella. 
@@ -902,7 +902,7 @@ Esiste uno standard (ANSI/ISA-S88.01-1995) che normalizza lo schema generale di 
 \end{figure}
 \begin{itemize}
     \item \textbf{controllo di campo} : controllo che agisce sui dispositivi di campo, in particolare, 
-    su variabili continue, ed è impelentato su dispositivi dedicati. Le informazioni sono semplici 
+    su variabili continue, ed è implementato  su dispositivi dedicati. Le informazioni sono semplici 
     e trasmesse ad alta frequenza. 
     \item \textbf{controllo di procedure} : riguarda il controllo dei livelli di macchina e cella della 
     piramide, riguarda gruppi strutturati di componenti di campo, a tale livello vengono svolte funzioni di 
@@ -948,7 +948,7 @@ $f$. \begin{quote}
     Un residuo $r$ dipende da un guasto $f$
 \end{quote}
 Nel caso in cui possono esserci più guasti, si definisce un vettore $\bar r$ di residui, in cui $r_i$ dipende 
-da $f_i$. Tipicamente il residuo riproduce approssimatamente l'evoluzione temporale del guasto. Con FDI si intende l'operazione 
+da $f_i$. Tipicamente il residuo riproduce approssimativamente  l'evoluzione temporale del guasto. Con FDI si intende l'operazione 
 di "Fault Detection Isolation", queste ultime due possono avvenire in contemporanea, vi sono differenti modelli proposti\begin{itemize}
     \item \textit{model-based} : si definisce un sistema dinamico che rappresenta il guasto (generatore di residuo)
     \item \textit{signal-based} : si utilizzano esclusivamente i segnali provenienti da misure del sistema, la loro 
@@ -960,12 +960,14 @@ Vi è un processo (soggetto a guasto) modellato dal seguente sistema dinamico$$\
     \dot{x}=ax+bu+ef\\y=cx
 \end{cases} $$
 Dove $f$ è il generico fault. Il residuo $r$ viene implementato come osservatore di un disturbo, o di un 
-segnale non noto (che in questo caso è $f$). 
+segnale non noto (che in questo caso è $f$).  Rappresenta proprio la stima del disturbo al tempo $t$.
 $$ r(t)=\frac{k}{e}\Big[
 \frac{y(t)}{c}-\int_0^t[ax(\tau)+bu(\tau)+er(\tau)d\tau]\Big] \ \  \text{ con }\ \ \begin{matrix}
     k>0\\ r(0)=0
 \end{matrix}    
 $$
+L'integrale indica che la stima del disturbo viene calcolata tenendo conto di tutti i valori passati del disturbo stesso.\acc 
+Il parametro $k$ è un guadagno che determina quanto "velocemente" l'osservatore reagisce ai cambiamenti del disturbo. Un valore di $k$ più alto significa una risposta più rapida, ma può anche introdurre più rumore nella stima.
 L'evoluzione nel tempo del residuo è data da 
 \begin{eqnarray}
     \dot{r}=\frac{k}{e}\Big[ \frac{\dot{y}}{c}-[ax+bu+er] \Big] = \\
@@ -1023,7 +1025,7 @@ per la loro programmazione.\begin{figure}[h!]
 \end{figure}\acc
 Caratteristiche ed impieghi : \begin{itemize}
     \item applicazioni semplici 
-    \item basso consumo ed poco spazio occupato 
+    \item basso consumo e poco spazio occupato 
     \item numero limitato di segnali da gestire. Interfaccia utente assente 
     \item scarsa integrazione con dispositivi simili, difficile espansione
 \end{itemize}
@@ -1033,11 +1035,6 @@ Prevedono più componenti standard integrati su una singola scheda, fra questi v
     \item FPGA (Field Programmable Gate Array) : circuiti integrati riconfigurabili dall’utente per realizzare 
     funzioni logiche complesse tramite blocchi logici e elementi di memoria
 \end{itemize}
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth ]{images/cellaLogica.eps}
-    \caption{cella logica elementare in un FPGA}
-\end{figure}
 Rispetto i microcontrollori hanno una maggiore capacità di elaborazione e possono gestire un maggior numero 
 di segnali.\acc 
 Ricapitolando, i sistemi di controllo embedded prevedono i seguenti:\begin{itemize}
@@ -1056,6 +1053,11 @@ Ricapitolando, i sistemi di controllo embedded prevedono i seguenti:\begin{itemi
     \end{itemize}
     Utili quando i compiti di controllo sono noti a priori.
 \end{itemize}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth ]{images/cellaLogica.eps}
+    \caption{cella logica elementare in un FPGA}
+\end{figure}
 \subsubsection{Architettura a Bus}
 Con \textit{bus} si intende una linea elettrica che mette in comunicazione più dispositivi, vi è una scheda madre 
 con un bus a cui si connettono più schede, in modo da rendere modulare il sistema. Un bus è composto da diverse 
@@ -1083,7 +1085,7 @@ linee\begin{itemize}
 \end{itemize}
 \subsubsection{PC-Based}
 Ultimamente, anche i comuni computer (corazzati per resistere alle condizioni 
-sfavorevoli degli impiandi) sono adoperati  come sistemi di controllo, sono sistemi informatici con architettura  
+sfavorevoli degli impianti) sono adoperati  come sistemi di controllo, sono sistemi informatici con architettura  
 a bus ed implementano una semplice interfaccia uomo macchina, e sono semplici da connettere alle reti informatiche.\acc 
 Per far si che risultino efficaci come sistemi di controllo, esistono appositi sistemi operativi atti 
 all'utilizzo real time (ad esempio, RTAI-Linux). Implementano 
@@ -1107,7 +1109,7 @@ diverse figure professionali che richiedono abilità trasversali per gestire le 
 \textbf{tecnologie abilitanti}\begin{itemize}
     \item \textit{Soluzioni manufatturiere avanzate} : utilizzo dei robot interconnessi e riprogrammabili 
     nell'automazione di attività precedentemente non automatizzabili.
-    \item \textit{Additive manifacturing} : produzione per "addizione" di materiale, resa possibile dalle stampanti 
+    \item \textit{Additive manufacturing} : produzione per "addizione" di materiale, resa possibile dalle stampanti 
     3D connesse ai sistemi CAD. 
     \item \textit{Realtà aumentata} : l'uso della realtà aumentata e della realtà virtuale ha permesso la 
      simulazione di processi fisici a supporto dei processi produttivi. 
@@ -1140,14 +1142,14 @@ le possibilità a nuove applicazioni. \\\begin{figure}[h!]
     \includegraphics[width=0.6\textwidth ]{images/cobot.png}
     \caption{Robot collaborativo}
 \end{figure}\\
-L'\textbf{additive manifacturing} permette la produzione di oggetti tridimensionali di varia forma a partire da 
+L'\textbf{additive manufacturing} permette la produzione di oggetti tridimensionali di varia forma a partire da 
 un modello digitale CAD, la loro produzione richiede il materiale strettamente necessario per la stampa diminuendo i 
 residui.\\\begin{figure}[h!]
     \centering
     \begin{tikzpicture}
-        \pie{3.8/architettura, 4.5/altro, 17.3/veicoli, 12.3/aereospazio, 18.5/macchine industriali,
+        \pie{3.8/architettura, 4.5/altro, 17.3/veicoli, 12.3/aerospazio, 18.5/macchine industriali,
         6.4/uso militare, 18/elettronica, 
-        13.7/apperecchiatura medica, 6.4/uso accademico}
+        13.7/apparecchiatura medica, 6.4/uso accademico}
     \end{tikzpicture}
     \caption{Uso della stampa 3D}
 \end{figure}\\
@@ -1169,17 +1171,16 @@ Le diverse tecnologie vengono incanalate in determinate linee guida di sviluppo,
 la circolazione rapida di informazioni sono combinati ad una centralizzazione della gestione di essi, garantendo la possibilità 
 di controllare e monitorare in modo efficiente dati e risorse da e in qualsiasi parte dell'azienda.\acc Nonostante le 
 macchine moderne siano indipendenti da un intervento continuo, devono essere supervisionate da un operatore umano, 
-quest'ultimo deve avere la possibilità di intergarie con esse in maniere intuitiva, la branca che si occupa di rendere 
+quest'ultimo deve avere la possibilità di interagire  con esse in maniere intuitiva, la branca che si occupa di rendere 
 semplice tale operazione è denominata \textit{interazione uomo macchina}.
 \subsection{Modelli di Business}
 2 aspetti sono fondamentali nell'industria 4.0\begin{itemize}
-    \item Qualità delle aziende migliorate grazie all'uso delle nuove tecnologie 
+    \item Qualità delle aziende migliorata grazie all'uso delle nuove tecnologie 
     \item Nuovi schemi di competizione del mercato basati sui nuovi modelli di business 
 \end{itemize}
 Tali modelli di business si sono sviluppati solo dopo l'avvento delle tecnologie abilitanti che li hanno resi 
 realizzabili.\begin{itemize}
-    \item \textbf{Centralità del cliente} : al centro della catena del valore dell'industria, c'è il cliente, il 
-    consumatore, e le aziende puntano al soddisfare le richieste di quest'ultimo, talvolta anticipandone le necessità e le 
+    \item \textbf{Centralità del cliente} : al centro della catena del valore dell'industria, c'è  il  consumatore, e le aziende puntano a soddisfare le richieste di quest'ultimo, talvolta anticipandone le necessità e le 
     richieste di servizio.
     \item \textbf{Economia circolare} : risponde alla necessità di passare ad un modello circolare di produzione, in 
     cui i prodotti ed i processi manifatturieri vanno improntati al riutilizzo.\begin{center}
@@ -1189,13 +1190,13 @@ realizzabili.\begin{itemize}
     una notevole riduzione dell'impatto ambientale.
     \item \textbf{Strategie basate su ICT} : emergono nuove strategia di mercato che hanno lo scopo di portare il prodotto 
     più vicino al consumatore, le tecnologie alla base dell'industria 4.0 mettono a disposizione una grande mole di dati 
-    utili al miglioramente dell'efficenza dell'azienda. \begin{itemize}
+    utili al miglioramento dell'efficienza dell'azienda. \begin{itemize}
         \item negozi online 
         \item servizi ad abbonamento 
         \item affitto di infrastrutture informatiche 
     \end{itemize}
     \item \textbf{Economia della condivisione} : modelli di condivisione di beni e servizi tramite piattaforme digitali, come 
-    i servizi di car sharing o bike sharing, irrealizzabili senza un infrastruttura informatica, che permette il monitoraggio 
+    i servizi di car sharing o bike sharing, irrealizzabili senza un'infrastruttura informatica, che permette il monitoraggio 
     dello stato dei veicoli.
     \item \textbf{Economia del fare} : le stampanti 3D, grazie alla prototipazione rapida, hanno permesso l'insorgere di un "artigianato digitale" 
     autoprodotto a basso costo, con uso di materiali  plasmabili e anche di robot programmati.
@@ -1214,7 +1215,7 @@ fondamentali nella trasformazione, che incrementano il valore
 dell'azienda e del prodotto finale.
 \\\begin{figure}[h!]
     \centering
-    \includegraphics[width=1\textwidth ]{images/trasformazioneDigitale.png}
+    \includegraphics[width=1\textwidth ]{images/trasformazioneDigitale.pdf}
     \caption{i 6 passi della trasformazione digitale}
 \end{figure}\\
  Ovviamente tale processo ha dei costi da sostenere, banalmente 
@@ -1242,7 +1243,7 @@ circa 2000 attività lavorative relative a circa 800 occupazioni\begin{itemize}
     fisici, prevedibili e ripetitivi, che richiedono tipicamente un basse capacità cognitive. Costituiscono circa 
     il 51\% delle attività negli USA
     \item Le occupazioni le cui attività possono essere completamente automatizzate sono circa il 5\% 
-    \item Nel 60\% delle occupazioni, circa il 30\% delle attività può essere atuomatizzato 
+    \item Nel 60\% delle occupazioni, circa il 30\% delle attività può essere automatizzato  
     \item Il lavoro umano affiancato ai robot è necessario a garantire la crescita del PIL
 \end{itemize}\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/attivitaAutomatizzabili.pdf}
@@ -1254,7 +1255,7 @@ circa 2000 attività lavorative relative a circa 800 occupazioni\begin{itemize}
 \subsection{Industria 5.0}
 La commissione Europea ha trattato un rapporto sull'industria 5.0, che mira a sviluppare  il modello dell'industria 
 4.0 verso un'industria europea sostenibile, resiliente e centrata sulla persona. Il progetto di 
-ricerca \textit{Horizone Europe} punta ad investire sui progetti di ricerca che incorporino tali modelli, in Italia, 
+ricerca \textit{Horizon Europe} punta ad investire sui progetti di ricerca che incorporino tali modelli, in Italia, 
 il \textbf{PNNR} è un insieme di iniziative che puntano alla trasformazione dei sistemi di produzione, in particolare\begin{enumerate}
     \item digitalizzazione, innovazione, cultura 
     \item transazione al verde 
@@ -1264,7 +1265,7 @@ il \textbf{PNNR} è un insieme di iniziative che puntano alla trasformazione dei
     \item salute
 \end{enumerate}
 Come già accennato, le parole chiave dell'industria 5.0 sono le seguenti\begin{itemize}
-    \item \textbf{resilienza} : gestire i cambiamenti desiderati e non (ad esempio, pandemie) con una 
+    \item \textbf{resilienza} : gestire i cambiamenti desiderati e non (ad esempio, epidemie) con una 
     produzione  industriale
     dotata di supporti per le
     infrastrutture critiche e
@@ -1515,12 +1516,6 @@ significato dei pacchetti scambiati tra le entità \textit{pari} all'interno di 
 
 
 
-
-
-
-
-
-
 \chapter{Sistemi di Controllo Real Time}
 Nell'ambito dell'automazione, è fondamentale definire un sistema di controllo che agisca in tempo reale, che 
 implementi un algoritmo con lo scopo di eseguire i generici task di un processo produttivo, lo scopo dell'algoritmo 
@@ -1550,7 +1545,7 @@ I task responsabili (direttamente o indirettamente) della sicurezza fisica delle
 massima priorità e la loro esecuzione deve essere strettamente deterministica, un esempio di task di questo tipo, 
 è l'azionamento del freno di un ascensore. I task nice to have invece, "prenotano" l'esecuzione ma potrebbero 
 dover dare la priorità ai task più importanti, un esempio di task di questo tipo può essere l'attivazione 
-dello stereo in un automobile (nice to have = gradibile, ma non fondamentale).\acc 
+dello stereo in un automobile (nice to have = godibile, ma non fondamentale).\acc 
 Introduciamo a tal proposito due coefficienti, siano \begin{itemize}
     \item $r_c$ : risultati corretti 
     \item $r_e$ : risultati elaborati 
@@ -1588,7 +1583,7 @@ nello stesso istante più task vengono eseguiti in parallelo su differenti unit�
 task vanno alternati su un singolo processore, varrà quindi l'ipotesi che l'unità di calcolo dei sistemi di controllo 
 trattati in questo corso sia unica.\acc 
 L'obiettivo è quello di disegnare un \textbf{algoritmo di scheduling}, che si occupi di decidere in che modo i 
-task vanno sequenziati nel tempo. Molti dei concetti presenti sono ampliamente trattati negli appunti del corso di 
+task vanno sequenziati nel tempo. Molti dei concetti presenti sono ampiamente trattati negli appunti del corso di 
 \color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Sistemi%20Operativi%201/Latex%20source%20file/Sistemi%20Operativi%20modulo%201.pdf}{Sistemi Operativi 1}.\color{black}
 \subsubsection{Caratteristiche di un Task}
 Ogni task nell'ambiente del sistema di controllo, in un preciso istante può trovarsi in uno dei seguenti stati\begin{itemize}
@@ -1672,7 +1667,7 @@ Ci si pone la domanda : Esiste un algoritmo generale che, dato un arbitrario num
 rispettivi vincoli temporali, ne trovi una serializzazione ammissibile? Si è dimostrato che il problema 
 dello scheduling è NP-completo, non è possibile trovare una soluzione in maniera efficiente. Nell'ambito dell'automazione 
 industriale però, è possibile concedersi ipotesi largamente semplificate che permettono di 
-adoperare degli algoritmi che risolvino gli insiemi di task trattati in tali contesti.
+adoperare degli algoritmi che risolvano gli insiemi di task trattati in tali contesti.
 \subsection{Classificazione degli Algoritmi}
 Gli algoritmi di scheduling si classificano secondo 5 differenti parametri. Un algoritmo può essere\begin{itemize}
     \item \textbf{best effort} : non è hard real time, $\pi<1$
@@ -1730,10 +1725,10 @@ $$ \begin{matrix}
     e_i(k)&& & R_i(k)\\ 
     d_i(k)&& &L_i(k)
 \end{matrix}$$
-\textbf{Osservazione} : Quando si tratta il completation time, si intende sempre il tempo di lavoro minimo 
-possibile per completare un task. La riduzione del completation time di un task rappresenta nel mondo reale 
+\textbf{Osservazione} : Quando si tratta il computation time, si intende sempre il tempo di lavoro minimo 
+possibile per completare un task. La riduzione del computation time di un task rappresenta nel mondo reale 
 l'utilizzo di una strumentazione differente capace di eseguire lo stesso task in tempo minore. D'altro canto, 
-l'aumento del completation time rappresenta l'acquisto di una strumentazione \textit{più economica} 
+l'aumento del computation time rappresenta l'acquisto di una strumentazione \textit{più economica} 
 che esegue lo stesso task in tempo maggiore.\acc
 \defi{} Dato un task $A_i$ di un insieme di task, si definisce \textbf{activation period} (oppure 
 periodo di attivazione) il valore (in funzione della $k$-esima occorrenza) : 
@@ -1755,7 +1750,7 @@ Definiamo adesso i parametri in gioco quando si tratta dello scheduling di task 
 di scheduling prevede \begin{itemize}
     \item Un insieme di $n$ task periodici $(A_1,A_2,A_3\dots,A_n)$ 
     \item I \textit{Requisiti}, ossia i periodi di attivazione per ogni task $(T_1,T_2,T_3\dots,T_n)$
-    \item I \textit{Vincoli}, ossia i completation time per ogni task $(C_1,C_2,C_3\dots,C_n)$
+    \item I \textit{Vincoli}, ossia i computation time per ogni task $(C_1,C_2,C_3\dots,C_n)$
 \end{itemize}
 \defi{} Dato un insieme di $n$ task periodici con rispettivi requisiti e vincoli, si definisce 
 \textbf{fattore di utilizzazione} il coefficiente $$ 
@@ -1790,11 +1785,11 @@ Si noti come nella traccia dello scheduling il lavoro effettivo sia durato 22 t.
 il numeratore del fattore $U$, sono infatti rimaste 2 t.u. (evidenziate in grigio) in cui 
 la ready queue era vuota e non c'era nulla da schedulare. 
 \subsection{Utilizzo del Processore}
-Si è definito il fattore di utilizzazione $U$, esso dipende dai completation time $C_i$, 
+Si è definito il fattore di utilizzazione $U$, esso dipende dai computation time $C_i$, 
 tale valore $U$ può essere eventualmente massimizzato. Cosa vuol dire massimizzare $U$? Renderlo 
 il più possibile vicino ad 1, finché è minore o uguale all'unità, lo scheduling è ammissibile, 
 è quindi possibile cercare di aumentare i valori $C_i$, l'aumento di tali tempi equivale ad un 
-utilizzo di una strumentazione più lenta (quindi economica) nello svolgimento dei task. È quindi di intersse 
+utilizzo di una strumentazione più lenta (quindi economica) nello svolgimento dei task. È quindi di interesse 
 del progettista cercare di "spremere" il più possibile uno scheduling cercando di massimizzare $U$.\acc 
 Dato un algoritmo $F$, un insieme di $n$ task, e rispettivi requisiti $T_i$, si definisce il 
 \textbf{fattore di utilizzazione massimo} 
@@ -1806,7 +1801,7 @@ inammissibile ($U>1$).\acc
 di utilizzazione è massimale : $U=U_{max}$. (la dimostrazione è banale)\acc 
 Nell'esempio con i due task $(A_1,A_2)$ visto in precedenza, il processore è completamente utilizzato. 
 infatti all'istante 12, il task $A_2$ termina esattamente in pari con la sua deadline, l'aumentare di un 
-qualsiasi valore $\varepsilon$ di un completation time di uno dei due task 
+qualsiasi valore $\varepsilon$ di un computation time di uno dei due task 
 renderebbe lo scheduling inammissibile.\begin{center}
     \includegraphics[width=1\textwidth ]{images/schedulingCondtInamm.eps}
 \end{center}
@@ -1827,7 +1822,7 @@ Descrive il carico computazionale massimo che può essere sicuramente gestito, i
 se esiste un algoritmo $F$ tale che $U\le U_{lsm}(F)$. Tale condizione è \textit{sufficiente} per 
 rendere l'insieme schedulabile.\flowerLine 
 \section{Gli Algoritmi di Scheduling}
-In questa sezione verranno presentati diversi algoritmi per lo scheduling di task, diffrenti da un 
+In questa sezione verranno presentati diversi algoritmi per lo scheduling di task, differenti da un 
 punto di vista della loro classificazione.
 \subsection{Rate Monotoning Priority Ordering (RMPO)}
 L'RMPO è un algoritmo che funziona esclusivamente se i task in questione sono tutti periodici, 
@@ -1922,7 +1917,7 @@ un algoritmo statico bensì dinamico.
 Si tratta di una algoritmo dinamico in cui il task con maggiore priorità è 
 quello la cui deadline è più prossima nel tempo, quindi inversamente 
 proporzionale alla deadline assoluta. In caso di deadline 
-assolutata identica fra 2 task, favorisce quello che è 
+assoluta identica fra 2 task, favorisce quello che è 
 stato attivato prima. Si consideri il seguente esempio : 
 $$\begin{matrix}
     A_1&&T_1=8&&C_1=4\\ 
@@ -2097,10 +2092,10 @@ $$ \begin{matrix}(n+m,T_1\dots ,T_n,T_1^{min}\dots ,T_m^{min})\\
 \begin{quote}
     i task aperiodici hard real time vengono resi task periodici equivalenti
 \end{quote}
-È chiaro che la CPU dedicherà delle unità di tempo a task aperiodici come se fossero periodici, casuando 
+È chiaro che la CPU dedicherà delle unità di tempo a task aperiodici come se fossero periodici, causando 
 un inevitabile spreco di computazione nel caso questi non dovessero sussistere.\acc 
 I task soft real time (che sono altrettanto diffusi) possono essere gestiti in maniera 
-best effort. 
+best effort.  
 
 
 

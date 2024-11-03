@@ -17,14 +17,11 @@ void *thread_function(void *arg_p)
     int local_circle_point = 0;
     for (int i = 0; i <= precision; i++)
     {
-        double x = (double)rand() / RAND_MAX * 2.0 - 1.0;
+        double x = (double)rand() / RAND_MAX * 2.0 - 1.0; /*Generazione punto casuale*/
         double y = (double)rand() / RAND_MAX * 2.0 - 1.0;
-        if (x * x + y * y < 1)
-        {
-            local_circle_point++;
-        }
+        local_circle_point += (x * x + y * y < 1); /*Controllo se è nel cerchio*/
     }
-
+    /*L'accesso alla variabile condivisa deve essere mutualmente esclusivo*/
     pthread_mutex_lock(&mutex);
     point_in_center += local_circle_point;
     pthread_mutex_unlock(&mutex);
@@ -32,6 +29,7 @@ void *thread_function(void *arg_p)
 
 int main(int argc, char **argv)
 {
+    srand(time(NULL));
     if (argc > 1)
     {
         precision = atoi(argv[1]);
@@ -52,6 +50,5 @@ int main(int argc, char **argv)
 
     double esteem = ((double)point_in_center / (double)(total_tosses)) * 4;
     printf("valore di pi greco stimato : %lf\n", esteem);
-
-    srand(time(NULL));
+    return 0;
 }

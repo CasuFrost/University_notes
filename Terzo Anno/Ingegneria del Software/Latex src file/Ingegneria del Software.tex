@@ -446,9 +446,73 @@ int RandGen::get_random_int() {
   return(myUnifIntDist(myRandomEngine));
 } 
 \end{lstlisting}
-\redText{continua da lezione 2024-10-16 minuto 47 circa sul file simulator}
+A questo punto, si è definita in tutto e per tutto una catena di markov a tempo discreto, si vuole scrivere un \textit{simulatore} che si occupi di istanziare la classe e di eseguire dei test. Si definiscono quindi due file\\
+\shell{simulator.h}\\ 
+\shell{simulator.cpp}\\
+Come prima cosa nel file header si definisce la classe \code{Simulator} i cui oggetti faranno "muovere" la/le catena/e di Markov. È una classe con una sola funzione pubblica.
+\begin{lstlisting}[style=CppStyle,language=C++]
+#include "main.h"
+class Simulator {
+public:
+  // run simulation with horizon T
+  void run(int T);
+};
+\end{lstlisting}
+La funzione \code{run} prende come argomento "l'orizzonte", ossia il numero di step finiti che la catena di Markov deve compiere.\acc  Il simulatore è in tutto e per tutto la funzione \code{run} definita nel file \code{simulator.cpp}, che definisce come prima cosa gli elementi necessari alla DTMC.
+\begin{lstlisting}[style=CppStyle,language=C++]
+void Simulator(int T){
+    RandGen p; 
+    DTMC mc1(&p);
+    int t=0;
+    FILE *fp;
+    printf("seed : %u\n",p.seed); //servizio
+    printf("inizialization : t=  %d\n",t); //servizio
+    mc1.init();
+    fp=fopen("logfile.csv","w");
+\end{lstlisting}
+Il tempo \code{t} si inizializza a zero. Il file \code{fp} sarà quello in cui verrà scritto il log della catena. A tal punto va eseguita la simulazione vera e propria eseguendo precisamente \code{T} step sulla catena di Markov, scrivendo lo stato sul log ad ogni passo.
+\begin{lstlisting}[style=CppStyle,language=C++]
+    for (t = 0; t <= T; t++)
+    {
+        mc1.output();
+        mc1.u[0] = t;  mc1.u[1] = mc1.y[1] + 1;
+        mc1.printlog(t);
+        mc1.fprintflog(fp, t);
+        mc1.next(); 
+        #if 0
+            printf("get state of system at time %d\n", t);
+            printf("get output of system at time %d\n", t);
+            printf("update inputs with outputs at time %d\n", t);
+            printf("update state of system with
+                    inputs at time %d\n\n", t);
+        #endif  
+    }  
+    fclose(fp);
+    }  
+\end{lstlisting}
+Ad ogni passo, il vettore in input assume il valore (tempo,uscita + 1). L'output si ricordi essere funzione esclusivamente dello stato e non dell'input, è quindi perfettamente legittimo utilizzare come input l'uscita del sistema, in tal modo detto "a retroazione".
+$$ u(t)=\begin{bmatrix}
+    t \\ 
+    y(t-1)+1
+\end{bmatrix}$$
+Il progetto può essere poi compilato con un makefile, un possibile makefile generico è il seguente.
+\begin{lstlisting}[language=make]
+CC=g++
+#CFLAGS=-std=c++11 -lm -I. -I/usr/include/postgresql -lpq 
+#CFLAGS=-std=c++11 -I. -I/usr/include/postgresql -lpq -lm 
+CFLAGS=-std=c++11 -I.  -lm 
+DEPS = $(wildcard *.h)
+objects := $(patsubst %.cpp,%.o,$(wildcard *.cpp))
+%.o:	%.cpp $(DEPS)
+    $(CC) -c -o $@ $< $(CFLAGS)
 
-
+main: 	$(objects)
+    $(CC) -o main $(objects) $(CFLAGS)
+clear:
+    rm *.o 
+clearall:
+    rm main ; rm *.o 
+\end{lstlisting}
 %FILE CODICE
 \newpage 
 \section{Raccolta dei File}
