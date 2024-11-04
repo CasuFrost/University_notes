@@ -2106,6 +2106,303 @@ best effort.
 
 
 
+
+
+\chapter{Attuazione e Controllo del Moto}
+In questo capitolo verranno affrontati gli azionatori elettromeccanici, definiamo \textbf{trasduttore} un dispositivo che converte energia da una forma ad un altra (ad esempio, da elettrica a meccanica), i \textit{sensori} eseguono delle misurazioni convertendo grandezze fisiche (come la temperatura) in segnali elettrici, gli \textit{attuatori} trasformano segnali di comando in moto meccanico.\acc 
+Vedremo in particolare i \textbf{trasduttori elettromeccanici}\begin{itemize}
+    \item \textit{generatore} : trasforma energia meccanica in energia elettrica 
+    \item \textit{motore} : trasforma energia elettrica in energia meccanica
+\end{itemize}
+Nella trasformazione di energia da un dominio all'altro, varrà che la \textit{potenza rimarrà costante}, qeust'ultima può essere elettrica o meccanica, l'equazione di coppia descrive tale 
+identità.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/eqCoppia.pdf}
+\end{center}
+Lo scopo degli \textit{azionamenti elettrici} è la conversione \underline{controllata} di energia elettrica in energia meccanica, si vuole \textit{imporre} del moto ad un carico meccanico. Tali azionamenti sono composti da 3 elementi fondamentali\begin{itemize}
+    \item \textbf{Amplificatori} : Essendo che il segnale di controllo non è necessariamente forte per azionare un carico, è necessaria un amplificazione tramite semplici amplificatori analogici lineari. Nel caso il motore necessiti di grande potenza, sarà necessario un circuito di tipo switching con apposite tecniche di modulazione (PWM)
+    \item \textbf{motore elettrico} : Ce ne sono di diverse tipologie, alimentato in corrente continua (DC) o alternata (AC), brushless, passo-passo (stepper), asincrono (a induzione), sincrono ed altre. 
+    \item \textbf{controllore} : L'unità che si occupa della regolazione tramite leggi a feedback e generazione di riferimenti/comandi.
+\end{itemize}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/schemaAzionamento.pdf}
+\end{center}
+Il motore dovrà spostare un carico cinematico, il cui peso si opporrà al moto, costituendo una 
+\textit{coppia in opposizione} che nel modello matematico potrà essere trattata come un \textit{disturbo}. I motori sono provvisti di un encoder per la misurazione della posizione angolare. Il controllore è tipicamente digitale e si occupa della regolazione e dell'asservimento di riferimenti, costanti o variabili. 
+\subsection{Amplificazione PWM}
+Si vuole dedicare questa breve sezione alla \textbf{Pulse Width Modulation (PWM)}, ossia una tecnica per l'amplificazione e conversione di potenza con componenti elettronici di tipo switching. È un sistema elettronico di potenza che, grazie all'energia della rete elettrica permette di attuare la tensione richiesta dall'unità di controllo.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/PWM.pdf}
+\end{center}
+Il rendimento degli amplificatori di tipo switching è superiore a quello degli amplificatori analogici. Nell'immagine sovrastante, il motore elettrico (carico) è connesso alla corrente $E$ e controllato da quattro switch pilotati da due segnali A e B, che sono onde quadre di periodo $T$ 
+fra loro in contro fase. \begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/pwmOndeQuadre.eps}
+\end{center}
+La tensione media $V_m$ è pari a $k\cdot E$ dove $k$ è un certo valore che dipende dal rapporto 
+tra il periodo in cui il segnale A è uguale ad 1 e $T$, tale rapporto è detto \textbf{duty cycle}.
+Ricapitolando : Facendo variare il segnale A è possibile far assumere alla tensione il valore desiderato. Ci sono varie implementazioni di schemi PWM, ad esempio, il \textbf{metodo delta}, dato un \textit{offset} (ossia un valore limite di differenza dal segnale di riferimento), commuta l'uscita PWM fra ON ed OFF ogni volta che si raggiunge un limite. Il segnale riprodotto si ottiene integrando tale uscita.
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/DeltaPWM.png}
+\end{center}
+\flowerLine 
+\section{Il Motore a Corrente Continua}
+Quando si parla di motore elettrico, esistono due schemi realizzativi\begin{itemize}
+    \item \textit{con spazzole alimentato da corrente continua} 
+    \item \textit{brushless pilotato con elettronica switching}
+\end{itemize}
+Il motore a corrente continua ha una costruzione complessa, ma il modello matematico che lo descrive è semplice. Il rotore (parte che rotea) comprende degli avvolgimenti (spire) di rame su cui circola la corrente in una determinata direzione, l'alimentazione avviene grazie al contatto delle spazzole che strusciano sul motore. Il tutto è immerso in un campo magnetico fornito da magneti permanenti.\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/motore1.eps}
+\end{center}
+Gli elettroni si muoveranno in direzione della corrente $\bar i$, essendo presente un campo magnetico $\bar B$, saranno soggetti alla \textbf{forza di Lorentz} 
+$$ \bar F = (\bar i \times \bar B)$$
+In questo modo verrà generata una coppia facendo ruotare il circuito. Le spazzole, colorate in giallo nella figura, con il contatto fanno si che la corrente circoli, si noti come l'anello collettore 
+è diviso in due parti, funge da \textit{commutatore}, tale costruzione permette alla corrente di alternare il verso ad ogni mezzo giro, se così non fosse, la forza di Lorentz si alternerebbe facendo oscillare il rotore fino a fermarsi senza farlo roteare.
+\begin{center}
+    \begin{figure}[h!]
+       \centering
+       \begin{tikzpicture}[scale=0.7, transform shape]
+           \begin{axis}[
+           ymin=-2,
+           ymax = 2,
+           xmin=0,
+           xmax = 7,
+           axis lines = left,
+           xtick distance=1, ytick distance=1,
+           grid style=dashed,
+           ymajorgrids=true,
+           xmajorgrids=true,
+           xlabel = \(t\),
+           ylabel = {\(\tau\)},
+           ]
+           %Below the red parabola is defined
+           \addplot [
+           domain=0:7,
+           samples=20,
+           color=blue,
+           ]
+           {cos(deg(x))};
+           \addlegendentry{senza commutatore}
+           \end{axis}
+           \end{tikzpicture}
+           \begin{tikzpicture}[scale=0.7, transform shape]
+            \begin{axis}[
+            ymin=-2,
+            ymax = 2,
+            xmin=0,
+            xmax = 7,
+            axis lines = left,
+            xtick distance=1, ytick distance=1,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(t\),
+            ylabel = {\(\tau\)},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:7,
+            samples=50,
+            color=red,
+            ]
+            {abs(cos(deg(x)))};
+            \addlegendentry{con commutatore}
+            \end{axis}
+            \end{tikzpicture}
+           \caption{andamento della coppia $\tau$}
+   \end{figure}
+   \end{center}
+Il \textbf{momento torcente (coppia)} vale 
+$$ \bar T = (\bar r_1 \times  \bar F_1 + \bar r_2 \times  \bar F_2)$$
+Verrà utilizzato il simbolo $\tau = \pm|\bar T|$ per denotare la \textit{coppia scalare}.
+\begin{center}
+    \includegraphics[width=0.25\textwidth ]{images/momento.eps}
+\end{center}
+La forza $\bar F$ dipende dall'angolo $\theta$ di rotazione del motore, in quanto lo spostamento della direzione della corrente $\bar i$ può far attenuare la forza. La coppia si azzera ogni volta che 
+l'angolo fra la forza generata ed il braccio di rotazione è di $k\pi$ con $k\in\N$.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/variazioneCoppia.eps}
+\end{center}
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.33\textwidth ]{images/variazioneCoppia2.eps} & Per via di questo, la coppia ha un andamento oscillatorio e non è costante, tale fenomeno è denominato \textbf{ripple}, per limitare ciò (ed aumentare la coppia) si possono aggiungere più spire in modo tale che, nell'istante in cui una spira produce coppia nulla, un altra spira produce coppia massima.
+		\\
+	\end{tabular}
+\end{center}
+\begin{center}
+    \begin{figure}[h!]
+       \centering
+       \begin{tikzpicture}[scale=1, transform shape]
+           \begin{axis}[
+           ymin=0,
+           ymax = 3,
+           xmin=0,
+           xmax = 7,
+           axis lines = left,
+           xtick distance=1, ytick distance=1,
+           grid style=dashed,
+           ymajorgrids=true,
+           xmajorgrids=true,
+           xlabel = \(t\),
+           ylabel = {\(\tau\)},
+           ]
+           %Below the red parabola is defined
+           \addplot [
+           domain=0:7,
+           samples=40,
+           color=blue,
+           ]
+           {abs(cos(deg(x)))};
+           \addlegendentry{$\tau_1$}
+           \addplot [
+            domain=0:7,
+            samples=40,
+            color=red,
+            ]
+            {abs(cos((deg(x+((3/4)*pi)))))};
+            \addlegendentry{$\tau_2$}
+            \addplot [
+            domain=0:7,
+            samples=40,
+            color=green,
+            ]
+            {abs(cos(deg(x+(pi/4))))};
+            \addlegendentry{$\tau_3$}
+            \addplot [
+            domain=0:7,
+            samples=40,
+            color=magenta,
+            ]
+            {abs(cos(deg(x+(pi/2))))};
+            \addlegendentry{$\tau_4$}
+            \addplot [
+            domain=0:7,
+            samples=60,
+            color=black,
+            ]
+            {abs(cos(deg(x+(pi/2))))+abs(cos(deg(x+(pi/4))))+abs(cos(deg(x+((3/4)*pi))))+abs(cos(deg(x)))};
+            \addlegendentry{$\tau$}
+           \end{axis}
+           \end{tikzpicture}
+           \caption{Coppia generata da più spire}
+        \end{figure}
+    \end{center}
+Più è il numero di spire incluse, più la coppia si "spiana" tendendo ad un andamento costante.
+\subsection{Modello del Motore DC}
+Il modello del motore DC ha una componente elettromagnetica (la cui dinamica è dettata dalle leggi dell'elettronica sulle tensioni) ed una componente meccanica (la cui dinamica è dettata dall'equazione di bilancio delle forze).
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/modelloDC.pdf}
+\end{center}
+Il motore è sempre soggetto ad una \textit{tensione contro elettro motrice} \textbf{(FCEM)}, è una tensione contraria a quella applicata (si oppone all'ingresso) e dipende dalla velocità di rotazione del motore. Questa FCEM è un "feedback" intrinseco nella fisica del sistema.\acc 
+Il modello del motore sarà lineare, gli azionamenti elettrici sono ovviamente sottoposti a dei limiti fisici\begin{itemize}
+    \item tensione massima 
+    \item corrente massima 
+\end{itemize}
+Che per costruzione implicano dei limite per il modello meccanico\begin{itemize}
+    \item velocità massima del motore 
+    \item coppia di picco erogabile massima 
+\end{itemize}
+Il modello matematico del motore DC mostrato in figura \ref{dcModel} è caratterizzato da 5 parametri \begin{itemize}
+    \item $R_a$ resistenza di armatura 
+    \item $L_a$ induttanza di armatura 
+    \item $k_m$ coefficiente di coppia/FCEM 
+    \item $j$ inerzia del rotore 
+    \item $b$ coefficiente di attrito viscoso 
+\end{itemize}
+e da 6 variabili \begin{itemize}
+    \item $i_a$ corrente di armatura 
+    \item $\omega$ velocità angolare del rotore 
+    \item $\theta$ posizione angolare del rotore 
+    \item $V_a$ tensione di ingresso 
+    \item $\tau$ coppia prodotta dal motore 
+    \item $\tau_r$ coppia di carico (disturbo)
+\end{itemize}
+La \textit{coppia di carico} $\tau_r$ è una forza che si oppone alla coppia data e dipende dal carico (massa) che l'attuatore cerca di muovere. Nonostante si possa modellizzare, verrà trattata in questo contesto come un disturbo.
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth ]{images/modelloDcDisegno.pdf}
+        \caption{modello del motore a corrente continua}
+        \label{dcModel}
+    \end{figure}
+\end{center}
+Il coefficiente $k_m$ mette in relazione i due modelli. Infatti, descrive la relazione fra la corrente $i_a$ e la coppia $\tau$. La stessa identica costante descrive anche la relazione fra la corrente 
+$V_a$ e la velocità di rotazione $\omega$ (modello della FCEM). Ciò è vero dato che la potenza dei due modelli deve essere identica. Sia $V_{cem}$ la FCEM: $$ P_{elet}=V_{cem}\cdot i_a=\tau\omega=P_{mecc}$$
+$$ \tau = k_m i_a \ \ \ \ \ V_{cem}=k_m\omega$$
+Il modello elettrico è descritto dalla legge di Kirchoff per le maglie chiuse
+$$ L_a\frac{di_a}{dt}=V_a-R_ai_a-k_m\omega$$
+Il modello meccanico 
+$$ j\frac{d\omega}{dt}=k_mi_a-b\omega-\tau_r$$
+La posizione angolare si ricava integrando la velocità: $\frac{d\theta}{dt}=\omega$. Mettendo insieme le equazioni, il motore elettrico è descritto dal seguente sistema dinamico lineare tempo invariante$$ \begin{cases}
+    L_a\frac{di_a}{dt}=V_a-R_ai_a-k_m\omega\\ 
+    j\frac{d\omega}{dt}=k_mi_a-b\omega-\tau_r\\ 
+    \frac{d\theta}{dt}=\omega
+\end{cases}$$ 
+L'ingresso del sistema sarà la tensione 
+$$ u=V_a$$
+L'ordine del sistema è 3, il vettore di stato sarà 
+$$ \bar x = \begin{bmatrix}
+    \dfrac{di_a}{dt} \\ \\ \dfrac{d\omega}{dt} \\ \\\dfrac{d\theta}{dt}
+\end{bmatrix}$$
+Supponiamo che la tensione di ingresso $V_a$ sia costante, essendo il sistema  \textit{asintoticamente stabile}, a regime si avrà una corrente costante ed una velocità angolare costante. Essendo la tensione costante, la derivata della corrente è nulla.
+$$ \dfrac{i_a}{dt}=0\implies V_a-R_ai_a-k_m\omega = 0$$
+Quindi 
+$$(V_a-R_ai_a)\frac{1}{k_m}=\omega$$
+Ma allora essendo $\omega$ costante, la sua derivata è nulla 
+$$ \dfrac{d\omega}{dt}=0\implies k_mi_a-b\omega = 0$$
+Nell'ipotesi che la tensione in ingresso sia costante il sistema si riduce ad un semplice sistema algebrico. 
+$$\begin{cases}
+    V_a-R_ai_a-k_m\omega = 0\\
+    k_mi_a-b\omega = 0
+\end{cases} $$
+Si possono quindi ricavare i valori di velocità angolare, coppia di disturbo e corrente di armatura. \begin{itemize}
+    \item $\displaystyle \color{magenta}\omega\color{black} = \Big(b+\frac{k_m^2}{R_a}\Big)^{-1}\cdot\Big(\frac{k_m}{R_a}V_a-\color{darkgreen}\tau_r\color{black}\Big)$
+    
+
+    \item $\displaystyle \color{darkgreen}\tau_r\color{black}=\frac{k_m}{R_a}V_a-\Big(b+\frac{k_m^2}{R_a}\Big)\displaystyle \color{magenta}\omega\color{black}$
+    \item $\displaystyle \color{blue}i_a\color{black}= 
+    \frac{1}{R_a}\Big(b+\frac{k_m^2}{R_a}\Big)^{-1}\cdot (bV_a+k_m\displaystyle \color{darkgreen}\tau_r\color{black})
+    $ \\ oppure
+    \item $\displaystyle \color{blue}i_a\color{black}= \frac{1}{R_a}(V_a-k_m\color{magenta}\omega\color{black})$
+\end{itemize}
+\subsubsection{Caratteristiche Statiche}
+Definiamo \textbf{caratteristiche statiche} del motore, i parametri che influiscono sul comportamento a regime. L'aumentare della massa del carico, fa aumentare la coppia di disturbo $\tau_r$, facendo rallentare la rotazione $\omega$. Quando $\omega = 0$, il carico è \textit{massimo} e si definiscono la coppia e la corrente \textit{di stallo }
+$$ \tau_s=\tau_r\Big|_{\omega = 0}= \frac{k_m}{R_a}V_a$$
+$$ i_s=i_a\Big|_{\omega = 0}= \frac{V_a}{R_a}$$
+Quando non è presente nessun carico $\tau_r=0$, si definiscono la velocità e la corrente \textit{a carico nullo} 
+$$ \omega_n=\omega\Big|_{\tau_r = 0}=\Big(b+\frac{k_m^2}{R_a}\Big)^{-1}\tau_s$$
+$$ i_n=i_a|_{\tau_r = 0}=\frac{b}{k_m}\omega_n$$
+A regime, la \textit{potenza in uscita} è data da 
+$$ P=\Big( b+\frac{k_m^2}{R_a}  \Big)^2\cdot 
+\Big( \tau_s\tau_r-\tau_r^2  \Big)$$
+La \textit{massima efficienza} si ha quando la derivata della potenza è nulla 
+$$ \frac{dP}{d\tau_r}=0\implies P_{max}=\frac{\tau_s\omega_n}{4}$$
+L'\textit{efficienza} è il rapporto fra la potenza in uscita e quella in entrata 
+$$ \eta =\frac{\tau_r\omega}{V_ai_a}$$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/caratteristichStatiche.png}
+\end{center}
+Trasformando le equazioni nel dominio di Laplace ($s$ variabile complessa)
+$$ L_a\frac{di_a}{dt}=V_a-R_ai_a-k_m\omega\implies \frac{1}{sL_a+R_a}$$
+$$ j\frac{d\omega}{dt}=k_mi_a-b\omega-\tau_r\implies \frac{1}{sj+b}$$
+$$ \dfrac{d\theta}{dt}=\omega \implies\frac{1}{s}$$
+Lo schema a blocchi del sistema è il seguente
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/schemaBlocchiMotoreDc.pdf}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \chapter{Complementi}
 \section{La Trasformata di Laplace} 
 La trasformata di Laplace è una \textit{trasformata integrale}, nello specifico, è una 

@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.3">
+  <diagram name="Pagina-1" id="qAevHZoznj3eqeHyw5bw">
+    <mxGraphModel dx="811" dy="414" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;shape=link;" edge="1" parent="1" source="4q6Bf6U1QIo61kYfp9IM-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4q6Bf6U1QIo61kYfp9IM-1" target="4q6Bf6U1QIo61kYfp9IM-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-1" value="Amplificatore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="210" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="4q6Bf6U1QIo61kYfp9IM-2" target="4q6Bf6U1QIo61kYfp9IM-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="345" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-14" value="misura posizione e&lt;div&gt;velocità da sensori&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q6Bf6U1QIo61kYfp9IM-13">
+          <mxGeometry x="-0.6433" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-2" value="Motore elettrico" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="460" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="4q6Bf6U1QIo61kYfp9IM-3" target="4q6Bf6U1QIo61kYfp9IM-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-5" value="Tensione di comando" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q6Bf6U1QIo61kYfp9IM-4">
+          <mxGeometry x="-0.0614" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="4q6Bf6U1QIo61kYfp9IM-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-12" value="misura&amp;nbsp;&lt;div&gt;correnti&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4q6Bf6U1QIo61kYfp9IM-11">
+          <mxGeometry x="0.1986" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-3" value="Controllore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="210" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-6" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="329.66" as="sourcePoint" />
+            <mxPoint x="210" y="329.66" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-7" value="riferimenti&amp;nbsp;&lt;div&gt;(posizione,&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;velocità)&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="10" y="315" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4q6Bf6U1QIo61kYfp9IM-9" value="rete elettrica" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="180" width="180" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
