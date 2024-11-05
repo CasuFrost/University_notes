@@ -41,66 +41,67 @@
 \contentsline {subsection}{\numberline {2.2.1}Tipologie di Reti}{40}{subsection.2.2.1}%
 \contentsline {subsubsection}{Dispositivi di Interconnessione}{41}{section*.21}%
 \contentsline {subsubsection}{Architettura Software}{41}{section*.22}%
-\contentsline {chapter}{\numberline {3}Sistemi di Controllo Real Time}{43}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Parallelismo e Programmazione Concorrente}{44}{section.3.1}%
-\contentsline {subsubsection}{Caratteristiche di un Task}{45}{section*.23}%
-\contentsline {section}{\numberline {3.2}Il Problema dello Scheduling}{46}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Classificazione degli Algoritmi}{47}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Scheduling di Task Periodici}{48}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Utilizzo del Processore}{50}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Gli Algoritmi di Scheduling}{50}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Rate Monotoning Priority Ordering (RMPO)}{50}{subsection.3.3.1}%
-\contentsline {subsubsection}{Proprietà dell'algoritmo}{51}{section*.24}%
-\contentsline {subsection}{\numberline {3.3.2}Earliest Deadline First (EDF)}{52}{subsection.3.3.2}%
-\contentsline {subsubsection}{Proprietà dell'algoritmo}{52}{section*.25}%
-\contentsline {subsubsection}{Esercizio}{53}{section*.26}%
-\contentsline {subsection}{\numberline {3.3.3}Deadline Monotoning Priority Ordering (DMPO)}{54}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Time Scheduling (TS)}{54}{subsection.3.3.4}%
-\contentsline {section}{\numberline {3.4}Scheduling di Task Misti}{56}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Attuazione e Controllo del Moto}{57}{chapter.4}%
-\contentsline {subsection}{\numberline {4.0.1}Amplificazione PWM}{58}{subsection.4.0.1}%
-\contentsline {section}{\numberline {4.1}Il Motore a Corrente Continua}{59}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Modello del Motore DC}{61}{subsection.4.1.1}%
-\contentsline {subsubsection}{Caratteristiche Statiche}{64}{section*.27}%
-\contentsline {chapter}{\numberline {5}Complementi}{65}{chapter.5}%
-\contentsline {section}{\numberline {5.1}La Trasformata di Laplace}{65}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Proprietà della Trasformata}{66}{subsection.5.1.1}%
-\contentsline {subsubsection}{Linearità}{66}{section*.28}%
-\contentsline {subsubsection}{Ritardo}{67}{section*.29}%
-\contentsline {subsubsection}{Trasformazione di una derivata e di una primitiva}{67}{section*.30}%
-\contentsline {subsubsection}{Convoluzione}{68}{section*.31}%
-\contentsline {subsubsection}{Derivata ed Integrale della trasformata di Laplace}{68}{section*.32}%
-\contentsline {subsection}{\numberline {5.1.2}Trasformata inversa}{68}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Trasformate note}{69}{subsection.5.1.3}%
-\contentsline {subsection}{\numberline {5.1.4}Funzione di trasferimento}{69}{subsection.5.1.4}%
-\contentsline {subsection}{\numberline {5.1.5}Zeri e Poli}{71}{subsection.5.1.5}%
-\contentsline {subsection}{\numberline {5.1.6}Coefficiente di Smorzamento e Pulsazione Naturale}{72}{subsection.5.1.6}%
-\contentsline {subsubsection}{Esempio}{73}{section*.33}%
-\contentsline {subsection}{\numberline {5.1.7}Espansione in Fratti Semplici}{74}{subsection.5.1.7}%
-\contentsline {section}{\numberline {5.2}Elementi di Teoria dei Sistemi e Controlli Automatici}{74}{section.5.2}%
-\contentsline {subsubsection}{Esempio}{75}{section*.34}%
-\contentsline {subsection}{\numberline {5.2.1}Equilibrio}{76}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Rappresentazione con Matrici}{76}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Stabilità di un Sistema}{78}{subsection.5.2.3}%
-\contentsline {subsubsection}{Proprietà dei sistemi asintoticamente stabili}{80}{section*.35}%
-\contentsline {subsection}{\numberline {5.2.4}Studio di $e^{At}$ per la Stabilità}{81}{subsection.5.2.4}%
-\contentsline {subsubsection}{Caso 1 : $A$ diagonale}{81}{section*.36}%
-\contentsline {subsubsection}{Caso 2 : $A$ ha autovalori reali distinti}{82}{section*.37}%
-\contentsline {subsubsection}{Caso 3 : $A$ ha autovalori complessi distinti}{83}{section*.38}%
-\contentsline {subsubsection}{Caso 4 : $A$ ha autovalori multipli}{83}{section*.39}%
-\contentsline {subsubsection}{Criterio di Routh}{84}{section*.40}%
-\contentsline {subsection}{\numberline {5.2.5}Raggiungibilità e Osservabilità}{85}{subsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.2.6}Schemi a Blocchi}{86}{subsection.5.2.6}%
-\contentsline {subsubsection}{Blocchi in Serie}{86}{section*.41}%
-\contentsline {subsubsection}{Blocchi in Parallelo}{86}{section*.42}%
-\contentsline {subsubsection}{Blocchi in Retroazione}{86}{section*.43}%
-\contentsline {subsubsection}{Regole di Elaborazione}{87}{section*.44}%
-\contentsline {subsubsection}{Analisi della Stabilità nei Sistemi Interconnessi}{88}{section*.45}%
-\contentsline {subsection}{\numberline {5.2.7}Risposta allo Scalino}{89}{subsection.5.2.7}%
-\contentsline {subsubsection}{Sistemi del primo ordine}{90}{section*.46}%
-\contentsline {subsubsection}{Sistemi del secondo ordine}{92}{section*.47}%
-\contentsline {subsubsection}{Poli reali e nessuno zero}{92}{section*.48}%
-\contentsline {subsubsection}{Poli complessi e nessuno zero}{93}{section*.49}%
-\contentsline {subsubsection}{Esempio circuito RLC}{94}{section*.50}%
-\contentsline {subsubsection}{Poli Dominanti ed Equivalenti}{95}{section*.51}%
+\contentsline {section}{\numberline {2.3}Livello Fisico e di Collegamento}{42}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Sistemi di Controllo Real Time}{44}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Parallelismo e Programmazione Concorrente}{45}{section.3.1}%
+\contentsline {subsubsection}{Caratteristiche di un Task}{46}{section*.23}%
+\contentsline {section}{\numberline {3.2}Il Problema dello Scheduling}{47}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Classificazione degli Algoritmi}{48}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Scheduling di Task Periodici}{49}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Utilizzo del Processore}{51}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Gli Algoritmi di Scheduling}{51}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Rate Monotoning Priority Ordering (RMPO)}{51}{subsection.3.3.1}%
+\contentsline {subsubsection}{Proprietà dell'algoritmo}{52}{section*.24}%
+\contentsline {subsection}{\numberline {3.3.2}Earliest Deadline First (EDF)}{53}{subsection.3.3.2}%
+\contentsline {subsubsection}{Proprietà dell'algoritmo}{53}{section*.25}%
+\contentsline {subsubsection}{Esercizio}{54}{section*.26}%
+\contentsline {subsection}{\numberline {3.3.3}Deadline Monotoning Priority Ordering (DMPO)}{55}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Time Scheduling (TS)}{55}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Scheduling di Task Misti}{57}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Attuazione e Controllo del Moto}{58}{chapter.4}%
+\contentsline {subsection}{\numberline {4.0.1}Amplificazione PWM}{59}{subsection.4.0.1}%
+\contentsline {section}{\numberline {4.1}Il Motore a Corrente Continua}{60}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Modello del Motore DC}{62}{subsection.4.1.1}%
+\contentsline {subsubsection}{Caratteristiche Statiche}{65}{section*.27}%
+\contentsline {chapter}{\numberline {5}Complementi}{66}{chapter.5}%
+\contentsline {section}{\numberline {5.1}La Trasformata di Laplace}{66}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Proprietà della Trasformata}{67}{subsection.5.1.1}%
+\contentsline {subsubsection}{Linearità}{67}{section*.28}%
+\contentsline {subsubsection}{Ritardo}{68}{section*.29}%
+\contentsline {subsubsection}{Trasformazione di una derivata e di una primitiva}{68}{section*.30}%
+\contentsline {subsubsection}{Convoluzione}{69}{section*.31}%
+\contentsline {subsubsection}{Derivata ed Integrale della trasformata di Laplace}{69}{section*.32}%
+\contentsline {subsection}{\numberline {5.1.2}Trasformata inversa}{69}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Trasformate note}{70}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Funzione di trasferimento}{70}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}Zeri e Poli}{72}{subsection.5.1.5}%
+\contentsline {subsection}{\numberline {5.1.6}Coefficiente di Smorzamento e Pulsazione Naturale}{73}{subsection.5.1.6}%
+\contentsline {subsubsection}{Esempio}{74}{section*.33}%
+\contentsline {subsection}{\numberline {5.1.7}Espansione in Fratti Semplici}{75}{subsection.5.1.7}%
+\contentsline {section}{\numberline {5.2}Elementi di Teoria dei Sistemi e Controlli Automatici}{75}{section.5.2}%
+\contentsline {subsubsection}{Esempio}{76}{section*.34}%
+\contentsline {subsection}{\numberline {5.2.1}Equilibrio}{77}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Rappresentazione con Matrici}{77}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Stabilità di un Sistema}{79}{subsection.5.2.3}%
+\contentsline {subsubsection}{Proprietà dei sistemi asintoticamente stabili}{81}{section*.35}%
+\contentsline {subsection}{\numberline {5.2.4}Studio di $e^{At}$ per la Stabilità}{82}{subsection.5.2.4}%
+\contentsline {subsubsection}{Caso 1 : $A$ diagonale}{82}{section*.36}%
+\contentsline {subsubsection}{Caso 2 : $A$ ha autovalori reali distinti}{83}{section*.37}%
+\contentsline {subsubsection}{Caso 3 : $A$ ha autovalori complessi distinti}{84}{section*.38}%
+\contentsline {subsubsection}{Caso 4 : $A$ ha autovalori multipli}{84}{section*.39}%
+\contentsline {subsubsection}{Criterio di Routh}{85}{section*.40}%
+\contentsline {subsection}{\numberline {5.2.5}Raggiungibilità e Osservabilità}{86}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}Schemi a Blocchi}{87}{subsection.5.2.6}%
+\contentsline {subsubsection}{Blocchi in Serie}{87}{section*.41}%
+\contentsline {subsubsection}{Blocchi in Parallelo}{87}{section*.42}%
+\contentsline {subsubsection}{Blocchi in Retroazione}{87}{section*.43}%
+\contentsline {subsubsection}{Regole di Elaborazione}{88}{section*.44}%
+\contentsline {subsubsection}{Analisi della Stabilità nei Sistemi Interconnessi}{89}{section*.45}%
+\contentsline {subsection}{\numberline {5.2.7}Risposta allo Scalino}{90}{subsection.5.2.7}%
+\contentsline {subsubsection}{Sistemi del primo ordine}{91}{section*.46}%
+\contentsline {subsubsection}{Sistemi del secondo ordine}{93}{section*.47}%
+\contentsline {subsubsection}{Poli reali e nessuno zero}{93}{section*.48}%
+\contentsline {subsubsection}{Poli complessi e nessuno zero}{94}{section*.49}%
+\contentsline {subsubsection}{Esempio circuito RLC}{95}{section*.50}%
+\contentsline {subsubsection}{Poli Dominanti ed Equivalenti}{96}{section*.51}%
 \contentsfinish 

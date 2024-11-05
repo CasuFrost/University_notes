@@ -1587,4 +1587,150 @@ A questo punto si risolve per $a$
 $$ -m_1(g+a)-\mu_d(m_2g\cos\alpha )+m_2g\sin\alpha=m_2a$$
 $$ a=\frac{m_2g\sin\alpha-\mu_dm_2g\cos\alpha-m_1g}{m_1+m_2}$$
 è l'accelerazione del corpo 1 sull'asse verticale e del corpo 2 sul piano.
+\subsubsection{Momento di un Sistema di Punti}
+Come si è considerata la forza totale di un sistema è possibile considerare il momento. Si consideri un insieme di punti con diverse velocità, ed un'unico polo.\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/momentoPunti.eps}
+\end{center}
+Sia $v_0$ la velocità del polo, il sistema dei momenti è $$ \begin{cases}
+    M_1=\dfrac{db_1}{dt}+v_0\times r_1\\ 
+    M_2=\dfrac{db_2}{dt}+v_0\times r_2\\
+    \dots \\ 
+    M_n=\dfrac{db_n}{dt}+v_0\times r_n
+\end{cases}$$
+Essendo che le forze interne si annullano, anche i momenti interni si annullano. Si consideri la somma dei momenti $$ (\dfrac{d}{dt}\sum{b_i})+v_0\times (\sum r_i)$$
+si può riscrivere 
+ $$ \dfrac{d}{dt}(\sum{r_i\times m_iv_i})+v_0\times (\sum r_i)$$
+Sebbene la somma delle quantità di moto sia la quantità di moto del centro di massa di un sistema, la somma dei momenti \underline{non è} il momento del centro di massa.
+\subsection{Sistemi Continui}
+Quando un punto di massa $m$ rotea su una  circonferenza di raggio $r$ con una velocità angolare $\omega$ 
+sappiamo idenitficare momento, quantità di moto del momento e momento di inerzia 
+$$ \bar M = I\dot{\omega} \ \ \bar b = I\omega \ \ I=rm^2$$
+Cosa si può dire dei corpi continui? Si vuole trovare il momento di inerzia di un bastone di legno di lunghezza $l$ che rotea attorno un certo asse.
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/bastone.pdf}
+\end{center}
+Sia $M$ la massa totale del bastone, non sappiamo come calcolare il momento di inerzia $I$ del bastone intero, ma è possibile considerare un tratto infinitesimo del bastone approssimabile ad un punto materiale, sia $x$ la 
+distanza dal centro dell'asse al tratto infinitesimo, il momento di inerzia elementare sarà quindi.
+$$ dI=x^2dM$$
+Allora 
+$$ I=\int dI=\int x^2dM$$
+È necessario trovare una grandezza che metta in relazione la massa con la distanza del punto dall'asse (lunghezza), si definisce quindi la \textbf{densità}
+$$ \frac{dM}{dl}=\lambda$$
+Quindi 
+$$I=\int_0^lx^2\lambda dx $$
+Si considera la densità un valore costante, tale che la massa 
+$$ M=\int_0^l\lambda dx = \lambda l$$
+È possibile calcolare il momento di inerzia 
+$$I=\int_0^lx^2\lambda dx =\lambda=\int_0^lx^2 dx =\lambda\frac{l^3}{3}$$
+Si può esprimere in funzione della massa 
+$$ I=\frac{1}{3}Ml^2$$
+Si consideri il seguente esempio in cui l'asse di rotazione viene posto al centro del bastone.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/bastone2.pdf}
+\end{center}
+In questo caso cambiano gli estremi di integrazione 
+$$ I=\int_{-\nicefrac{l}{2}}^{\nicefrac{l}{2}}x^2\lambda dx=\frac{1}{3}\lambda x^3\Bigg|_{-\nicefrac{l}{2}}^{\nicefrac{l}{2}}=\frac{1}{3}\lambda [\frac{l^3}{8}-(-\frac{l^3}{8})]= 
+\frac{1}{12}Ml^2$$
+\subsection{Rotazione di un Corpo Rigido}
+Definiamo il cosiddetto \textit{pendolo composto}, si consideri corpo continuo arbitrario (verrà rappresentato 
+come una lamina di ferro), tale corpo, ha un centro di massa $cm$. Si "infilza" il corpo con un asso in un 
+certo punto.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/pendoloComposto.eps}
+\end{center}
+Sia $d$ la distanza dal punto di infilzamento ed il centro di massa, e sia $\theta$ l'angolo compreso fra il vettore gravità ed il vettore che va dal punto di infilzamento ed il centro di massa (di lunghezza $d$). Il corpo comincierà a ruotare attorno il punto di infilzamento, se ne vuole calcolare il momento. 
+Sia $I_0$ il momento di inerzia del punto di infilzamento con polo nel centro di massa, l'equazione del moto 
+è 
+$$-mgd\sin\theta=-I_0\dfrac{d^2\theta}{dt^2}$$
+Si approssima per $\theta$ piccoli dove $\sin\theta\simeq \theta$
+$$ -mgd\theta=-I_0\dfrac{d^2\theta}{dt^2}$$
+$$\dfrac{d^2\theta}{dt^2}+\frac{Mgd}{I_0}=0$$
+È l'equazione del moto armonico, troviamo velocità angolare e periodo 
+$$\omega = \sqrt{\frac{Mgd}{I_0}}  \ \ \ \ \ T=2\pi\sqrt{\frac{I_0}{Mgd}}$$
+Come varia il periodo $T$ al variare di $d$? Apparentemente, potrebbe sembrare che che $T$ si comporti come 
+$$ T(d)\propto \frac{1}{\sqrt{d}}$$
+ma ciò è errato, in quanto va considerato il momento di inerzia che dipende proprio da $d$, infatti 
+$$ I_0=I_{cm}+md^2$$
+Dove $I_{cm}$ è il momento di inerzia del centro di massa, ed è costante. Si ha quindi 
+$$ T(d)=2\pi\sqrt{\frac{I_{cm}+md^2}{mgd}}$$
+Quindi, se infilzassimo il corpo esattamente nel centro di massa, $d=0\implies T=\infty \implies$ non ci sarebbero oscillazioni. Più il corpo viene infilzato lontano dal suo centro di massa, più le oscillazioni 
+saranno frequenti.\begin{center}
+    \begin{tikzpicture}[scale=1, transform shape]
+		\begin{axis}[
+		ymin=4,
+		ymax = 10,
+		xmin=0.3,
+		xmax = 6,
+		axis lines = left,
+		xtick distance=1, ytick distance=1,
+		grid style=dashed,
+		ymajorgrids=true,
+		xmajorgrids=true,
+		xlabel = \(d\),
+		ylabel = {\(T(d)\)},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=0:6,
+		samples=20,
+		color=blue,
+		]
+		{2*pi*sqrt((5+x^2)/(9.81*x))};
+		\end{axis}
+		\end{tikzpicture}
+\end{center}
+\flowerLine
+\section{Rotolamento}
+In questa sezione verrà definito il rotolamento di una ruota. Si consideri appunto, una ruota di una auto che si muove, in ogni istante, un punto materiale che si trova sulla frontiera della ruota ha una velocità che è 
+composizione di 2 velocità : La velocità di traslazione (del centro di massa) $v_c$ e la velocità tangenziale $\omega r$ di rotazione attorno al centro.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/rotolamento.pdf}
+\end{center}
+La velocità totale del punto è $v=v_c+\omega r$, nel preciso punto di contatto della ruota con il suolo, la velocità angolare sarà di eguale direzione ma verso opposto della velocità di traslazione. La condizione di 
+\textbf{purto rotoalmento} si ha quando $|\omega r |= |v_c|$. \acc 
+Si consideri adesso una ruota di raggio $R$ e massa $M$ sollevata dal suolo, a cui viene data una velocità angolare $\omega$. Abbassando pian piano la ruota, arriverà un istante in cui tocca il suolo, in quell'istante preciso, 
+l'\textit{attrito dinamico} costituisce una forza esterna.
+$$ F_dR=I\dot{\omega}$$
+Si vuole descrivere il moto del centro di massa, sia $x_{cm}$ la sua posizione 
+$$ \begin{cases}
+    x_{cm}(t)=\frac{1}{2}a_{cm}t^2+\frac{1}{2}\frac{F_d}{M}t^2 \\ 
+    v_{cm}=a_{cm}t=\frac{F_d}{M}t
+\end{cases}$$
+La velocità angolare invece andrà diminuendo, sia $\omega_0$ la velocità angolare iniziale 
+$$ \omega = -\omega_0+\dot{\omega}t+\frac{F_dR}{I}t$$
+Lo strusciamento fa diminuire la velocità angolare.
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/puroRot.eps}
+\end{center}
+\subsubsection{Rotolamento su un Piano Inclinato}
+Si consideri un generico corpo su un piano inclinato posto ad un altezza $h$, essendo che l'energia cinetica si conserva, la sua energia cinetica iniziale è identica a quella finale 
+$$ \frac{1}{2}mv^2=mgh$$
+La velocità del corpo una volta finita la corsa sul piano sarà $$ v=\sqrt{2gh}$$
+Supponiamo ora che sul piano ci sia un disco che rotola. L'energia cinetica è 
+$$ \frac{1}{2}mv_c^2+\frac{1}{2}I\omega ^2$$
+Essa si conserva quindi 
+$$ \frac{1}{2}mv_c^2+\frac{1}{2}I\omega ^2=mgh$$
+L'energia potenziale si "suddividerà" fra la componente traslatoria e la componente rotatoria, per un disco, 
+$I=\frac{1}{2}mR^2$, la velocità di traslazione a fine corsa sarà 
+$$ v_c=\sqrt{mgh\frac{1}{m+\nicefrac{I}{R^2}}}=\sqrt{\frac{2mgh}{m+\nicefrac{1}{2}m}}=\sqrt{\nicefrac{2}{3}}\sqrt{2gh}$$
+Quindi la velocità del corpo che ruota sarà minore della velocità del corpo che striscia, dato che l'energia di traslazione mancante a tale corpo sarà contenuta nella velocità di rotazione acquisita.\flowerLine 
+\section{Sistemi Equivalenti di Forze}
+Date due forze applicate ad un sistema, si vuole trovare una forza unica risultante che sia equivalente alle due (se sostituita alle forze originali, la dinamica del sistema rimane invariata). Verranno analizzati 3 casi. 
+\subsubsection{Caso 1}
+Si considerano due forze parallele $F_1$ ed $F_2$ applicate in due punti distinti distanti $d$.\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/forzeEq1.eps}
+\end{center}
+Definisco sull'asse che congiunge i due punti due forze uguali e contrarie (di intensità arbitraria) $f_1,f_2$, 
+considerando poi altra due forze risultanti $R_1=F_1+f_1$ ed $R_2=F_2+f_2$.
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/forzeEq2.eps}
+\end{center}
+Si considera il punto $O$ come incontro dei prolungamenti di $R_1$ e $R_2$, in cui si applica $R_1+R_2$, il cui incontro con l'asse congiungente i dui punti originali sarà chiamato $C$ e sarà il punto in cui, dovrà essere applicata la forza $F_1+F_2$ per rendere il sistema equivalente..
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/forzeEq3.eps}
+\end{center}
+In ogni punto i momenti delle forze saranno equivalenti 
+$$ \bar M_F=\bar M_{F_1}+\bar M_{F_2}$$
+Il momento applicato nel punto $C$ sarà nullo quindi 
+$$ 0=F_1d_1-F_2d_2\implies \frac{d_1}{d_2}=\frac{F_2}{F_1}$$
+\subsubsection{Caso 2}
+Si considerano adesso due forze parellele ma in verso opposto \redText{continua da appunti}
 \end{document}

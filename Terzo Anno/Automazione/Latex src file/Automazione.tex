@@ -445,7 +445,7 @@ modo
     di una specifica, e finita, quantità di materia prima per essere prodotto. Segue una determinata 
     sequenza di lavorazione detta \textit{ricetta}, il processo si intorrempe fra un lotto ed un 
     altro. Obbiettivo dell'automazione è la definizione delle ricette, garantire un uso corretto delle 
-    risorse e realizzare tale sistemi in modo che siano ripetibili.
+    risorse e realizzare tali sistemi in modo che siano ripetibili.
     \item\textbf{processi semi continui} : La produzione avviene in lotti o batch, con fasi di lavorazione continue intervallate da pause per il cambio di prodotto o la pulizia dell'impianto
     \item \textbf{processi discreti} : Si lavora su singoli prodotti, materiali numerabili, è una 
     produzione tipica dell'industria manifatturiera.
@@ -488,7 +488,7 @@ Le variabili logiche, ad esempio quelle booleane, assumono valori in un insieme 
 è possibile eseguire operazioni logiche, si consideri il seguente esempio : \begin{quote}
     \color{gray}
     Il comando $M$ è una variabile booleana che, se vera, aziona il moto di un motore elettrico. 
-    Il sensore di prossimità è descritto una variabile booleana $P$ che è vera se ci sono 
+    Il sensore di prossimità è descritto da una variabile booleana $P$ che è vera se ci sono 
     ostacoli nelle vicinanze, la variabile $C$ descrive il consenso nel voler attivare il motore.\acc 
     Risulta chiaro che $$ M= C \land \lnot P$$\color{black}
 \end{quote}
@@ -508,7 +508,7 @@ fra le più importanti vi sono\begin{itemize}
     e reparti dell'impianto di produzione. 
     \item  \textbf{celle di produzione} : Le singole celle contengono più macchinari, ed ognuna di queste 
     si occupa della produzione (dall'inizio alla fine) di un singolo prodotto, mantenendola concentrata 
-    nella celle, senza che essa sia dislocata nell'impianto. 
+    nella cella, senza che essa sia dislocata nell'impianto. 
     \item \textbf{FMS} : Diversi flussi fra le varie celle.
 \end{itemize}
 Vanno considerati vari aspetti nell'analisi dei sistemi di produzione, come la trattazione dei tempi di 
@@ -591,7 +591,7 @@ lavorazioni (distribuzione del carico) in un numero fissato di $N$ stazioni/macc
     stazioni e maggiore il costo unitario del singolo pezzo prodotto
     \item minore è il numero di stazioni utilizzate, maggiore sarà il carico medio delle
     stazioni e maggiore il costo del rischio di effettuare lavorazioni incomplete, 
-    a causa della elevata saturazione nell'impiego dei macchinari della stazione
+    a causa dell'elevata saturazione nell'impiego dei macchinari della stazione
 \end{itemize}
 Il problema del bilanciamento di una linea di trasferta è NP-completo, per questo vengono utilizzate 
 delle euristiche di soluzione, che garantiscono una soluzione prossima a quella ottimale. \acc 
@@ -659,7 +659,7 @@ Al termine, si avrà la seguente assegnazione\begin{center}
 \end{center}
 Il termine $CMT-C_i$ è detto \textit{sbilanciamento}, lo sbilanciamento medio equivale  
 alla somma degli sbilanciamenti diviso il numero di stazioni, in questo caso $\nicefrac{111}{8}=13.875$ secondi, 
-si misura in percentuale rispetto il $CMT$, in questo caso, si ha uno sbilanciamento di circa $16.5\%$.
+si misura in percentuale rispetto il $CMT$, in questo caso, si ha uno sbilanciamento del $16.5\%$ circa.
 \begin{center}
     \includegraphics[width=1\textwidth ]{images/gantt.png}
 \end{center}
@@ -1094,7 +1094,7 @@ segnali input/output, inoltre, esistono appositi protocolli per la comunicazione
 \flowerLine
 \section{Industria 4.0}
 La seconda rivoluzione industriale, agli inizi del $XX^\circ$ secolo ha introdotto la produzione di massa e la catena 
-di montaggio classica (Ford), nei primi anni 70 l'avvento dei computer ed in particolare dei robot ha sondato la 
+di montaggio classica (Ford), nei primi anni 70 l'avvento dei computer e dei robot ha sondato la 
 terza rivoluzione industriale, ad oggi vige l'industria 4.0 in cui le tecnologie ICT (Information and Communication Technology)
 pervadono i processi produttivi. Anche la presenza di dispositivi intelligenti (IOT) capaci di fornire dati 
 sulla rete tramite sensori e comunicare in tempo reale ha modificato il modo di produrre.\acc 
@@ -1121,7 +1121,7 @@ diverse figure professionali che richiedono abilità trasversali per gestire le 
     \item \textit{Cloud} : Uso del cloud per la raccolta dei dati in maniera distribuita.  
     \item \textit{Sicurezza} : Metodologie di difesa alle minaccie informatiche alla quale sono soggetti i 
     sistemi aperti ed interconnessi.  
-    \item \textit{Big data} : Uso dei modelli volti all'analisi statistica dalle grandi quantità di dati 
+    \item \textit{Big data} : Uso dei modelli volti all'analisi statistica, che sfruttano le grandi quantità di dati 
     disponibili allo scopo di estrarne informazioni. 
 \end{itemize}
 L'uso delle tecnologie abilitanti porta vari benefici\begin{itemize}
@@ -1509,7 +1509,37 @@ significato dei pacchetti scambiati tra le entità \textit{pari} all'interno di 
     \item Quali operazioni fornisce (senza dire nulla sull'implementazione).
     \item Posto come interfaccia fra due strati, quello inferiore fornisce il servizio, quello superiore ne
           usufruisce.
+\end{itemize}\flowerLine
+\section{Livello Fisico e di Collegamento}
+Il livello fisico dello stack protocollare riguarda la trasmissione fisica dei bit sul canale e la definizione delle convenzioni elettriche. Esistono differenti mezzi di trasmissione dei dati\begin{itemize}
+    \item \textit{doppino telefonico} : È una coppia di cavi intrecciati, mezzo piuttosto antiquato e la trasmissione è nell'ordine dei Kbps (Kilobit per secondo).
+    \item \textit{cavo coassiale} : È un conduttore di rame circondato da materiale isolante, resiste bene ai disturbi e la banda è buona, la trasmissione è nell'ordine dei Mbps. 
+    \item \textit{fibra ottica} : È un cavo in fibra di vetro in cui l'informazione passa sotto forma di impulsi luminosi. I segmenti possono essere lunghi fino a 2km e la trasmissione è nell'ordine dei Tbps.
+    \item \textit{wireless} : La trasmissione si propaga nel vuoto sotto forma di onde elettromagnetiche.
 \end{itemize}
+\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/cavoCoassiale.pdf}
+\end{center}
+L'informazione viene codificata con dei bit che vengono trasmessi su diversi spettri di sequenza, con media del segnale nulla oppure no. Una codifica ideale ricerca\begin{itemize}
+    \item mantenimento sincronizzazione sorgente/destinazione
+    \item bassa probabilità di errore (a causa di rumore/interferenze)
+    \item minima banda utilizzata, a parità di informazione trasmessa
+    \item capacità di rivelazione di errori
+\end{itemize}
+
+La \textbf{codifica binaria diretta} più semplice, dove un livello alto di tensione rappresenta un 1 e un livello basso (o assenza di segnale) rappresenta uno 0, si dice non polare quando l'assenza di segnale rappresenta un bit, è polare invece quando l'assenza di segnale è associata alla non trasmissione.
+\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/codBinPol.eps}
+\end{center}
+La codifica \textbf{return to zero (RZ)} prevede il ritorno del segnale a zero volt almeno una volta per ogni bit trasmesso, permettendo di inserire un riferimento temporale per la sincronizzazione dei dati. Saranno quindi utilizzati due clock, uno legato alla frequenza dei bit (indica l'inizio e fine di ogni bit), ed un altro con 
+frequenza doppia rispetto al  primo clock, viene utilizzato per individuare il punto medio di ogni bit, ovvero il momento esatto in cui il segnale ritorna a zero.
+\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/RZ.eps}
+\end{center}
+\redText{continua da slide 24}
+
+
+
 
 
 
