@@ -1105,7 +1105,7 @@ the internet with conventional industry”} \\(Angela Merkel - Organization for
 Economic Cooperation and Development, 19 Febbraio 2014)
 \end{quote}
 L'avvento di tali tecnologie ha portato un cambiamento industriale ma  anche sociale, e sono diventate necessarie 
-diverse figure professionali che richiedono abilità trasversali per gestire le nuovo tecnologie. Definiamo le seguenti, 
+diverse figure professionali che richiedono abilità trasversali per gestire le nuove tecnologie. Definiamo le seguenti, 
 \textbf{tecnologie abilitanti}\begin{itemize}
     \item \textit{Soluzioni manufatturiere avanzate} : utilizzo dei robot interconnessi e riprogrammabili 
     nell'automazione di attività precedentemente non automatizzabili.
@@ -3137,7 +3137,8 @@ $$ \begin{matrix}
         d_{p_1} & \dots & d_{p_m}
     \end{bmatrix} \in Mat(p\times m)
 \end{matrix}$$
-\subsection{Stabilità di un Sistema}
+\flowerLine
+\section{Stabilità di un Sistema}
 La \textit{stabilità} è una proprietà associata ai sistemi dinamici, in 
 particolare ci occuperemo di \begin{itemize}
     \item stabilità dell'equilibrio 
@@ -3483,9 +3484,9 @@ strettamente negativa, il sistema è asintoticamente stabile.}
 \subsubsection{Criterio di Routh}
 Il criterio esposto in questa sezione permette lo 
 studio della stabilità di un sistema tramite la costruzione 
-di una apposita tabella.
+di una apposita tabella.\flowerLine
 \newpage 
-\subsection{Raggiungibilità e Osservabilità}
+\section{Raggiungibilità e Osservabilità}
 \defi{(raggiungibilità)} Con \textit{raggiungibilità} si definisce la proprietà di un sistema dinamico 
 di poter assumere un prefissato valore agendo sull'ingresso. \acc 
 Si consideri un generico sistema lineare, uno stato $\tilde x$ si dirà \textit{raggiungibile} se 
@@ -3528,7 +3529,7 @@ tutte linearmente indipendenti (il determinante deve essere diverso da zero).
 \begin{center}
     \includegraphics[width=0.4\textwidth ]{images/matriceT.eps}
 \end{center}
-\redText{Continuare}\newpage 
+\redText{Continuare}\flowerLine\newpage 
 
 
 
@@ -3536,7 +3537,7 @@ tutte linearmente indipendenti (il determinante deve essere diverso da zero).
 
 
 
-\subsection{Schemi a Blocchi}
+\section{Schemi a Blocchi}
 Gli schemi a blocchi costituiscono una rappresentazione grafica e schematica dei sistemi dinamici 
 costituiti da più sistemi interconnessi fra loro, mettendone in relazione le 
 interazioni fra essi. Durante la sezione, se $x(t)$ è una generica funzione nel tempo, rappresenteremo
@@ -4277,7 +4278,7 @@ $$y_{reg}(t)=\frac{9t}{100}+\frac{4}{25}H(t) $$
     \end{figure}
 \end{center}
 \teo{(Risposta in Frequenza)} 
-Nell'ipotesi di asintotica stabilità, si consideri un ingresso sinosuidale 
+Nell'ipotesi di asintotica stabilità, si consideri un ingresso sinusuidale 
 $$ u(t)=A\sin(\omega t)H(t)$$
 La risposta a regime permanete del sistema avrà la \textbf{stessa pulsazione} dell'ingresso.
 $$y(t)\simeq B\sin(\omega t+\phi)H(t) $$
@@ -4328,5 +4329,106 @@ $$ |G(j\omega)|=\frac{1}{|1+\nicefrac{1}{10}j\omega+\frac{(j\omega)^2}{4}|}=\Big
     \end{tikzpicture}
 \end{figure}
 \end{center}
-I punti di \textit{massimo} della risposta in frequenza si dicono \textbf{risonanza}, nell'esempio sovrastante, avviene per $\omega=2$.
-\end{document}
+I punti di \textit{massimo} della risposta in frequenza si dicono \textbf{risonanza}, nell'esempio sovrastante, avviene per $\omega=2$.\acc 
+Si è visto come \begin{itemize}
+    \item Se l'ingresso è una sinusoide, la risposta avrà la medesima pulsazione dell'ingresso.
+\end{itemize}
+Si vuole considerare un caso \textit{più generale} di ingresso e studiarne la risposta in frequenza.
+\subsubsection{Ingresso multi sinusoidale}
+Si considera un caso più generale in cui l'ingresso, piuttosto che essere un'armonica è una \textit{combinazzione lineare} di $n$ armoniche:
+$$ u(t)=\sum_{k=1}^nc_k\sin(\omega_kt+\gamma_k)$$
+Per il principio di sovrapposizione degli effetti, e per il teorema della risposta in frequenza, a regime permanente la risposta sarà 
+$$ y(t)=\sum_{k=1}^nc_k|G(j\omega_k)|\cdot \sin(\omega_kt+\gamma_k+\arg(G(j\omega_k)))$$
+\subsubsection{Ingresso periodico}
+Si consideri un caso ancora più generale in cui $u$ è una funzione periodica di periodo $t$, ammette quindi uno sviluppo in \textbf{serie di Fourier} 
+$$ u(t)=c_0+\sum_{k=1}^{\infty}c_k\sin(k\frac{2\pi}{T}t+\gamma_k)$$
+Esattamente come nel caso multi sinusoidale, valgono i principi di principio di sovrapposizione degli effetti e teorema della risposta in frequenza, a regime permanente la risposta sarà  
+$$ y(t)=G(0)c_0+\sum_{k=1}^{\infty}c_k|G(jk\frac{2\pi}{T})|\cdot \sin(\frac{2\pi}{T}t+\gamma_k+\arg(G(jk\frac{2\pi}{T})))$$
+\subsubsection{Ingresso generico}
+Nel caso di un generico ingresso, esso può essere scritto come 
+$$ u(t)=\int_0^\infty C(\omega)\sin(\omega t+\gamma(\omega))d\omega$$
+Dove $C(\omega)$ è lo \textit{spettro di ampiezza}, ossia il modulo della trasformata di Fourier di $u$, e $\gamma(\omega)$ è lo \textit{spettro di fase}, ossia l'argomento della trasformata di Fourier di $u$.
+$$ \begin{matrix}
+    C(\omega)=|\mathcal{F}[u](\omega)| \\ 
+    \gamma(\omega)=\arg(\mathcal{F}[u](\omega))
+\end{matrix}$$
+Richiamo sulla trasformata di fourier di una generica funzione $u(t)$ : 
+$$\mathcal{F}[u](\omega)=\int_{\R}u(t)e^{-2\pi t \omega }dt $$
+Per il principio di sovrapposizione degli effetti e per il teorema della risposta in frequenza,  a regime permanente la risposta sarà  
+ $$
+ y(t)=\int_0^\infty C(\omega)|G(j\omega)|\sin(\omega t+\gamma(\omega)+\arg(G(j\omega )))d\omega
+ $$
+ \flowerLine 
+ \section{Analisi dei Sistemi Retro Azionati}
+ In questa sezione verranno affrontati i sistemi LTI retro azionati, e verranno presentate delle proprietà utili nella \textit{progettazione} di un controllore. \acc 
+ Nel classico schema dei sistemi di controllo, vi è un generico \textit{processo} $G(s)$, alla quale dare un ingresso $u$, che ne scaturisce una risposta $y$, il processo può essere soggetto da un \textit{disturbo} $d$
+ \begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/classicoControllo.pdf}
+ \end{center}
+Un \textit{controllore} si pone come ingresso per il processo, dato un segnale di riferimento $y_d$, il suo scopo è quello di generare l'ingresso $u$ tale che l'uscita del sistema sia proprio il riferimento $y_d$. In un sistema ad \textit{anello aperto} il controllore funziona senza un feedback.
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/classicoControllo2.pdf}
+ \end{center}
+Differentemente, un sistema ad \textit{anello chiusa} misura l'uscita del sistema e la confronta con il segnale di riferimento, valutado l'\textbf{errore} $e=y_d-y$, che verrà utilizzato dal controllore per generare il segnale di controllo adeguato.
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/classicoControllo3.pdf}
+ \end{center}
+$$E(s)=y_d-Y(s)$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+ \end{document}
+ \section{Analisi dei Sistemi Retro Azionati}
+ In questa sezione verranno affrontati i sistemi LTI retro azionati, e verranno presentate delle proprietà utili nella \textit{progettazione} di un controllore. \acc 
+ Si consideri un sistema ad \textit{anello aperto}\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/AnelloAperto.pdf}
+ \end{center}
+ Si assume che $C,A$ e $P$ siano lineari. Il fattore $d$ in ingresso al 
+ processo è considerato come disturbo.  $w$ è il segnale di riferimento che idealmente deve assumere la risposta $y$. Si può rimodellizzare tramite le regole degli schemi a blocchi, separando il processo dal disturbo e considerando quest'ultimo come un'azione diretta sull'uscita. Inoltre si definisce la \textit{funzione di trasferimento del sistema} $G(s)=A(s)Q(s)$
+ \begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/AnelloAperto2.pdf}
+ \end{center}
+Siano $W(s)$ ed $Y(s)$ le trasformate dell'ingresso e dell'uscita, il caso \textbf{ideale} che ci si pone di raggiungere è descritto dal comportamento 
+$$ \frac{Y(s)}{W(s)}=1\implies C(s)G(s)=1\implies C(s)=G(s)^{-1}$$
+Ossia la possibilità di controllare completamente lo stato del sistema $G(s)$ 
+tramite il controllore $C$ che ne \textit{inverte} la dinamica. Ovviamente, per ottenere i risultati desiderati, ci devono essere delle condizioni favorevoli\begin{itemize}
+    \item Il sistema in anello aperto non si può stabilizzare se è instabile 
+    \item Ci potrebbero essere cancellazioni polo-zero di poli nel semipiano destro 
+    \item il processo potrebbe essere dinamicamente inadeguato
+    perché lento, oscillatorio o incapace di generare il riferimento 
+    \item generalmente il disturbo è ignoto o comunque non
+    misurabile
+\end{itemize}
+Si consideri il seguente esepio : Vi è una massa $m$, l'ingresso $u$ è la forza di trazione applicata sulla massa per tirarla verso l'alto, l'uscita $y$ è la quota della massa. È presento un disturbo (forza di gravità) $mg$ e la massa è 
+soggetta ad attrito viscoso di coefficiente $b$.
+\acc Il sistema è descritto dal modello 
+$$ m\dfrac{d^2y}{dt^2}=u-mg-b\dfrac{dy}{dt}$$
+La funzione di trasferimento del processo è $$ P(s)=\frac{1}{s(ms+b)}$$ 
+\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/massaTraz.pdf}
+ \end{center}
+Il sistema non è asintoticamente stabile (ha un polo in $s=0$), è quindi necessario considerare un anello in retroazione, utilizzando l'uscita $y$ per 
+generare l'ingresso $u$. Sia $y_d$ il valore di riferimento che si vuole far assumere all'uscita, l'\textbf{errore} misurato è $e=y_d-y$.\acc 
+L'idea è quella di considerare un \textit{controllore proporzionale} all'errore che agisca sull'ingresso per un certo parametro $k_p$.\begin{itemize}
+    \item Si applica una forza/ingresso $u$
+    \item Si misura l'altezza/risposta $y$
+    \item Si considera l'errore $e=y_d-y$ e si somma all'ingresso moltiplicato per un coefficiente $k_p$
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/retroazionato.pdf}
+ \end{center}
+La funzione di trasferimento del processo è 
+$$ G(s)=\frac{1}{ms^2+bs+k_p}$$
+La funzione del sistema retroazionato è 
+$$ W(s)=\frac{k_p}{ms^2+bs+k_p}$$
+Quindi il sistema è asintoticamente stabile per ogni $k_p>0$.
