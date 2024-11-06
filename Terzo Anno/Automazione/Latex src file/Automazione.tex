@@ -1536,10 +1536,49 @@ frequenza doppia rispetto al  primo clock, viene utilizzato per individuare il p
 \begin{center}
     \includegraphics[width=0.75\textwidth ]{images/RZ.eps}
 \end{center}
-\redText{continua da slide 24}
-
-
-
+Nella codifica \textbf{manchester}, simile a quella RZ, il clock viene utilizzato per metà, la prima parte viene utilizzata per l'informazione, la seconda per una "risalita" o "discesa" verso lo zero, cambiando bit.
+\acc La codifica \textbf{manchester differenziale} è simile alla codifica manchester ma il segnale viene paragonato con il semiperiodo precedente per far si che ci sia sempre un cambio di segnale al "centro" del bit time.
+l'assenza di transizione al centro del bit time indica una violazione
+della codifica: viene usata per delimitare un frame di trasmissione.
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/manchester.eps}
+\end{center}
+Esistono differenti standard di connessione elettrica/meccanica:\begin{itemize}
+    \item IEEE RS232  :(tra i più consolidati, punto-punto),
+     comprende un connettore a 25 pin la trasmissione è limitata a  20Kbps e la lunghezza dei segmenti è al più di 15 metri.
+     \item IEEE RS422 : ampiamente utilizzato in ambito industriale, il troughput è fino a 10Mbps ed i segmenti possono essere lunghi anche 1200 metri.In configurazione simplex, la comunicazione avviene in una sola direzione, può essere composto da due coppie di cavi più massa per il full duplex.\acc In una rete connessa in tal modo ci può essere al più un trasmettitore alla volta e al più 10 ricevitori.\acc 
+     Il segnale viene trasmesso in modo differenziale, ovvero come la differenza tra due segnali complementari (A e -A). Questo metodo permette di ridurre notevolmente il rumore e aumenta la distanza di trasmissione.
+     \item IEEE RS485 : anch'esso ampiamente adoperato in ambito industriale, 
+    utilizza la trasmissione differenziale e offre una buona immunità ai disturbi. A differenza dell'RS422, l'RS485 è half-duplex, ovvero la comunicazione avviene in una sola direzione alla volta.\acc 
+    RIsulta necessario controllare l'accesso, solo un dispositivo può trasmettere alla volta. Gli altri dispositivi hanno il circuito di ingresso in uno stato di alta impedenza, come se fossero scollegati. Questo meccanismo evita conflitti durante la trasmissione.
+\end{itemize}\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4 \textwidth ]{images/RS485.eps}
+    \caption{RS485}
+\end{figure}
+\subsection{Protocolli MAC}
+Il livello di collegamento si occupa di ricevere i dati da inviare e di suddividerli in \textit{frame}. Si occupa anche di inviare appositi ACK (messaggi di conferma di ricezione) per la comunicazione affidabile e di gestire \textbf{l'accesso al mezzo fisico (MAC)}.\acc 
+Il \textbf{CSMA/CD} (Carrier Sense Multiple Access / Collision Detection) è un protocollo per l'accesso al mezzo in cui i nodi sono costantemente in ascolto sul canale, quando un nodo trasmette, confronterà il segnale di ritorno con il segnale originale, se differiscono, vorrà dire che c'è stata una collisione. Ogni nodo a seguito di una collisione attenderà un lasso di tempo casuale prima di ritrasmettere.\acc 
+Nel \textbf{CSMA/CR}   (Carrier Sense Multiple Access / Collision Resolution) ogni nodo è sempre in ascolto sul canale, è il metodo MAC utilizzato nei protocolli \textit{CAN} e \textit{CANOpen}, vi è uno stato fisico del canale che si occupa dell'\textit{arbitraggio logico} a livello dei bit.
+Ogni dispositivo ha un identificativo (ID) unico, codificato in una sequenza di bit. Quando un dispositivo vuole trasmettere, trasmette il suo ID bit per bit sul bus.\begin{itemize}
+    \item Se più dispositivi trasmettono contemporaneamente, si verifica una collisione.
+    \item Il bus calcola l'AND bit a bit degli ID dei dispositivi che stanno trasmettendo.
+    \item Il dispositivo che ha trasmesso il bit dominante (solitamente 0) in quella posizione dell'ID "vince" la collisione e continua a trasmettere il bit successivo.
+    \item Gli altri dispositivi che hanno perso la collisione interrompono la trasmissione e riprovano più tardi.
+\end{itemize}\begin{center}
+    \includegraphics[width=0.5 \textwidth ]{images/collisionRes.eps}
+\end{center}
+Il modello \textbf{Token Bus/Ring} vede i nodi della rete scambiarsi un "token", uno speciale pacchetto di dati che regola i turni di trasmissione. Al costo di aumentare la latenza di trasmissione, si eliminano le collisioni.\acc 
+Precisamente, quando un nodo vuole trasmettere ed è in possesso del token\begin{itemize}
+    \item  lo modifica e
+    rispedisce in circolo assieme al frame del dato (e con un host destinatario)
+    \item " la presenza del token “modificato” non permette la trasmissione agli altri nodi
+    \item il ritorno del token modificato al nodo trasmettente indica l'avvenuto successo della trasmissione \item il
+    token originale viene rimesso in circolo e altri nodi potranno quindi trasmettere
+\end{itemize}
+L'utilizzo di differenti token permette un partizionamento dei messaggi per livelli di priorità.\flowerLine 
+\section{I Protocolli Fieldbus}
+\redText{pagina 41}
 
 
 
@@ -4161,5 +4200,133 @@ $$ G_d(s)=\frac{1}{1+s}$$
             \end{axis}
             \end{tikzpicture}
     \end{figure}
-    \end{center}
+\end{center}
+\flowerLine 
+\section{Analisi in Frequenza}
+Dato un sistema dinamico lineare completamente descritto da una funzione di trasferimento, si vuole studiare la risposta dato un generico ingresso $u(t)$. Sia $G(s)$ la funzione in questione, assente di cancellazioni 
+$$ G(s)=\frac{N(s)}{D(s)}$$
+Sia $u(t)$ un ingresso qualsiasi che ammette una trasformata di Laplace razionale $U(s)$. La risposta del sistema è 
+$$Y(s)=U(s)\frac{N(s)}{D(s)}$$
+è possibile tramite l'espansione in fratti semplici mettere in evidenza i termini \color{blue}semplicemente stabili\color{black}, \color{magenta}asintoticamente stabili \color{black}  ed  \color{darkgreen}instabili\color{black}.
+$$Y(s)=\color{blue}\sum_{i=0}^{n_{ss}}\frac{P_i}{s-p_i}\color{black}+
+\color{magenta}\sum_{i=0}^{n_{as}}\frac{P_i}{s-p_i}\color{black}+
+\color{darkgreen}\sum_{i=0}^{n_{ns}}\frac{P_i}{s-p_i}\color{black}$$
+La \textbf{risposta transitoria} è identificata dai termini della risposta asintoticamente stabile che tendono a zero per $t\rightarrow \infty$.
+$$\lim_{t\rightarrow \infty}y_{trans}(t)=\mathcal{L}^{-1}\Big[    \sum_{i=0}^{n_{as}}\frac{P_i}{s-p_i} \Big]=0$$
+
+La risposta a \textbf{regime permanente}, composta dai termini semplicemente stabili ed instabili, costituisce il comportamento del sistema a lungo termine.
+$$ 
+y_{reg}(t)=\mathcal{L}^{-1}\Big[\sum_{i=0}^{n_{ss}}\frac{P_i}{s-p_i}+\Big]+\mathcal{L}^{-1}\Big[
+\sum_{i=0}^{n_{ns}}\frac{P_i}{s-p_i}\Big]$$
+\textbf{Esempio}: Si consideri il sistema descritto dalla funzione di trasferimento $$ G(s)=\frac{2(s+1)}{(s+2)(s+10)}$$
+Si consideri l'ingresso $$ u(t)=4t\cdot H(t)$$ 
+Essendo $U(s)=4\mathcal{L}[t]=\frac{4}{s^2}$, la risposta del sistema è 
+$$ Y(s)=\frac{8(s+1)}{s^2(s+2)(s+10)}$$
+Si espande in fratti semplici 
+$$ Y(s)=\frac{2}{5s^2}-
+\frac{1}{4(s+2)}+
+\frac{9}{100(s+10)}+
+\frac{4}{25s}$$
+$$ Y_{trans}(s)=\frac{9}{100(s+10)}-\frac{1}{4(s+2)}$$
+$$ y_{trans}(t)=\Big[
+-\frac{1}{4}e^{-2t}+\frac{9}{100}e^{-10t}    
+\Big]H(t)$$
+$$ Y_{reg}(s)=\frac{9}{100s^2}+\frac{4}{25s}$$
+$$y_{reg}(t)=\frac{9t}{100}+\frac{4}{25}H(t) $$
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[scale=1, transform shape]
+            \begin{axis}[
+            ymin=-0.2,
+            ymax = 0.5,
+            xmin=0,
+            xmax = 4,
+            axis lines = left,
+            xtick distance=1, ytick distance=1,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(t\),
+            ylabel = {},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:5,
+            samples=50,
+            color=blue,
+            ]
+            {-(1/4)*exp(-2*x)+(9/100)*exp(-10*x)};
+            \addlegendentry{$y_{trans}(t)$};
+            \addplot [
+                domain=0:5,
+                samples=50,
+                color=green,
+                ]
+                {9*x/100+4/25};
+            \addlegendentry{$y_{reg}(t)$};
+            \addplot [
+                domain=0:5,
+                samples=50,
+                color=red,
+                ]
+                {9*x/100+4/25-(1/4)*exp(-2*x)+(9/100)*exp(-10*x)};
+            \addlegendentry{$y(t)$};
+            \end{axis}
+            \end{tikzpicture}
+    \end{figure}
+\end{center}
+\teo{(Risposta in Frequenza)} 
+Nell'ipotesi di asintotica stabilità, si consideri un ingresso sinosuidale 
+$$ u(t)=A\sin(\omega t)H(t)$$
+La risposta a regime permanete del sistema avrà la \textbf{stessa pulsazione} dell'ingresso.
+$$y(t)\simeq B\sin(\omega t+\phi)H(t) $$
+Data una funzione di trasferimento $G(s)$ di un sistema, definiamo $G(\omega j)$ (al variare di $\omega$) la sua \textbf{risposta in frequenza}\footnote{si ricordi che con $j$ si indica l'unità immaginaria}.\acc 
+Si consideri la funzione di trasferimento $$ 
+G(s)=\frac{1}{1+s}$$
+e l'ingresso $u(t)=10\sin(2t)H(t)$, la frequenza dell'ingresso è 2, si analizza la risposta del sistema quando la frequenza dell'ingresso è 2
+$$ G(2j)=\frac{1}{1+2j}=\frac{1}{5}-j\frac{2}{5}$$ 
+Si calcola modulo ed argomento della risposta $G(2j)$
+$$ |G(2j)|=\sqrt{\nicefrac{1}{25}+\nicefrac{4}{25}}=\nicefrac{1}{\sqrt{5}}$$
+$$ \arg(G(2j))=\arctan(-2)=-63\frac{\pi}{180}$$
+Il \underline{fatto interessante} è che la risposta del sistema (a regime permanente) è uguale all'ingresso, moltiplicato per il modulo della sua risposta, e sfasato dell'argomento della risposta. 
+$$ y(t)\simeq |G(2j)|10\sin(2t+arg(G(2j)))=
+\frac{10}{\sqrt{5}}\sin(2t-63\cdot \nicefrac{\pi}{180})$$
+Si può rappresentare graficamente la risposta in frequenza al variare di $\omega$, visualizzando l'"intensità" della risposta del sistema in base alla pulsazione dell'ingresso.\acc 
+Si consideri il seguente esempio, si ha una 
+funzione di trasferimento 
+$$ G(s)=\frac{1}{1+\nicefrac{1}{10}s+\frac{s^2}{4}}$$
+Il modulo della risposta in frequenza è 
+$$ |G(j\omega)|=\frac{1}{|1+\nicefrac{1}{10}j\omega+\frac{(j\omega)^2}{4}|}=\Bigg(
+\sqrt{(1-\frac{\omega^2}{4})^2+\frac{1}{100}\omega^2}    
+\Bigg)^{-1}$$
+\begin{center}
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[scale=1, transform shape]
+            \begin{axis}[
+            ymin=0,
+            ymax = 16,
+            xmin=0,
+            xmax = 10,
+            axis lines = left,
+            xtick distance=2, ytick distance=3,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(\omega\),
+            ylabel = {\(|G(j\omega)|\)},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:10,
+            samples=60,
+            color=blue,
+            ]
+            {1/(sqrt((1-x^2/4)^2+0.001*x^2))};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+\end{center}
+I punti di \textit{massimo} della risposta in frequenza si dicono \textbf{risonanza}, nell'esempio sovrastante, avviene per $\omega=2$.
 \end{document}
