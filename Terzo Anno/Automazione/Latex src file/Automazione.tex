@@ -264,7 +264,7 @@ Sorge spontaneo chiedersi quale sia la differenza fra Automazione e Robotica.\be
     \item \textit{Analogie} : Entrambe coinvolgono l'informatica ed i calcolatori, interfacciandosi con il mondo 
     fisico, entrambe sfruttano conoscenze e tecnologie multi-disciplinari. 
     \item \textit{Differenze} : La robotica mostra la fattibilità di una soluzione, l'automazione si occupa di 
-    porsi delle domande riguardo tale soluzione, fra cui l'efficienza, l'ottimalità, la fattibilità e l'affidabilità.
+    porsi delle domande riguardo tale soluzione, fra cui l'efficienza, l'ottimalità e l'affidabilità.
 \end{itemize}
 Formalmente, si definisce \textbf{processo} la \textit{trasformazione} di \textit{materiali} in 
 \textit{prodotti}. Tale trasformazione richiede 
@@ -1578,8 +1578,33 @@ Precisamente, quando un nodo vuole trasmettere ed è in possesso del token\begin
 \end{itemize}
 L'utilizzo di differenti token permette un partizionamento dei messaggi per livelli di priorità.\flowerLine 
 \section{I Protocolli Fieldbus}
-\redText{pagina 41}
-
+Nell'ambito dell'automazione lo stack protocollare viene ridotto considerando esclusivamente \begin{itemize}
+    \item livello di applicazione (tipo di comunicazione)
+    \item livello di collegamento (gestione dell'accesso)
+    \item livello fisico
+\end{itemize}
+Le reti field bus vedono diversi nodi, detti \textit{DLE} (Data Link Element), collegati ad una comune rete elettrica dove viaggia l'informazione. Vi è un elemento speciale, il \textbf{Link Active Scheduler (LAS)} che si occupa di gestire staticamente l'accesso al mezzo concedendolo ai vari DLE tramite un'apposita tabella di scheduling, l'esecuzione dei task periodici real time. Negli intervalli di tempo liberi non occupati dai task periodici, vengono gestiti i task periodici in modo dinamico.\acc 
+Il LAS utilizza un token per la concessione ai DLE dell'utilizzo del mezzo, questi ultimi una volta finito, dovranno restituire un frame \textit{return token} in modo che il LAS possa passare al prossimo DLE. Le reti fieldbus sono caratterizzate da \begin{itemize}
+    \item mezzo fisico : doppino twisted schermato (2 fili o 4 fili)
+    \item rete a bus con brevi tratti e resistenze di 120$\Omega$ come terminatori di linea. 
+    \item caratteristiche del mezzo\begin{itemize}
+        \item massima lunghezza: 1000 m
+        \item 9 velocità: da 10Kbps a 1 Mbps, in funzione della lunghezza del bus (1 Mbps @25 m)
+        \item massimo numero di dispositivi: 128 (1 master e 127 slaves)
+        \item vari tipi di connettori: RJ45, 9-pin SUB D DIN 41652, ecc...
+    \end{itemize}
+    \item protocolli di accesso al mezzo fisico : CSMA/CR oppure CSMA/CA\begin{itemize}
+        \item ogni dispositivo può inviare dati appena il bus è libero
+        \item arbitraggio delle collisioni non-distruttivo a livello di bit, con bit 0 dominante
+        \item messaggi a priorità maggiore hanno valore binario minore dell'identificatore
+    \end{itemize}
+    \item il modello della comunicazione è \textit{producer/consumer}\begin{itemize}
+        \item formato frame: 11 bit in testa indicano tipo dei dati utili trasmessi e nodo produttore
+        \item seguono 5 bit di controllo (RTR, start, lunghezza dati)
+        \item seguono i dati utili: massimo 8 bytes per frame
+        \item dispositivi e procedure a elevata sicurezza
+    \end{itemize}
+\end{itemize}
 
 
 
@@ -4358,6 +4383,24 @@ Per il principio di sovrapposizione degli effetti e per il teorema della rispost
  $$
  y(t)=\int_0^\infty C(\omega)|G(j\omega)|\sin(\omega t+\gamma(\omega)+\arg(G(j\omega )))d\omega
  $$
+ \subsection{Banda Passante di un Sistema}
+Si consideri un sistema lineare con funzione di trasferimento $G(s)$. La
+funzione di risposta armonica del sistema lineare è $G(j\omega)$.\acc 
+Se applichiamo un ingresso $u(t)$, la rispsosta armonica dell'uscita $y(t)$ sarà $$ Y(j\omega)=G(j\omega)X(j\omega)$$
+E vale che 
+$$ \begin{matrix}
+  |Y(j\omega)|=   |G(j\omega)|+|X(j\omega)|
+\\
+\arg(Y(j\omega))=\arg(G(j\omega))+\arg(X(j\omega))
+\end{matrix}$$
+È come se il sistema $G$ fungesse da \textit{filtro} per il segnale di ingresso. La \textbf{banda passante} è l'intervallo di frequenze per cui il modulo della funzione di trasferimento è maggiore di una certa soglia, tipicamente -3 dB rispetto al valore massimo.\acc 
+\textbf{Calcolo della banda passante}\begin{enumerate}
+    \item Data una funzione $G(s)$ si considera il modulo di $G(j\omega)$ al variare di $\omega$.
+    \item Si sceglie una soglia di attenuazione, tipicamente -3 dB rispetto al valore massimo del modulo di $G(j\omega)$. 
+    \item Si trovano le frequenze $\omega_1,\omega_2$ per cui $|G(j\omega)|$ è uguale alla soglia scelta, dette frequenze di taglio.
+    \item La banda passante è data dalla differenza tra le frequenze di taglio
+\end{enumerate}
+
  \flowerLine 
  \section{Analisi dei Sistemi Retro Azionati}
  In questa sezione verranno affrontati i sistemi LTI retro azionati, e verranno presentate delle proprietà utili nella \textit{progettazione} di un controllore. \acc 
@@ -4373,7 +4416,54 @@ Differentemente, un sistema ad \textit{anello chiusa} misura l'uscita del sistem
 \begin{center}
     \includegraphics[width=0.8\textwidth ]{images/classicoControllo3.pdf}
  \end{center}
-$$E(s)=y_d-Y(s)$$
+Consideriamo il caso generale in cui il riferimento $y_d$ varia nel tempo, l'errore vale 
+ $$ e(t)=y_d(t)-y(t)$$
+ nel dominio di Laplace 
+$$E(s)=Y_d(s)-Y(s)$$
+Il segnale di controllo $u$ è dato dal prodotto fra l'errore e la funzione di trasferimento del controlloro 
+$$ U(s)=C(s)E(s)$$ 
+L'uscita è data da 
+$$Y(s)=G(s)C(s)E(s)+D(s)$$
+Dove $D(s)$ è la trasformata di Laplace del disturbo $d$ (assunto noto).
+Sostituendo l'espressione di $E$ si ha 
+$$Y(s)=G(s)C(s)[Y_d(s)-Y(s)]+D(s)$$
+Si raccoglie $Y(s)$
+$$ Y(s)(1+G(s)C(s))=G(s)C(s)Y_d(s)+D(s)$$
+Quindi l'uscita del sistema è 
+$$ Y(s)=Y_d(s)\frac{G(s)C(s)}{1+G(s)C(s)}+D(s)\frac{C(s)}{1+G(s)C(s)}$$
+Si definisce $L(s)=G(s)C(s)$ il \textbf{guadagno in anello aperto}. In termini di questo, l'errore vale 
+$$ E(s)=Y_d(s)\frac{1}{1+L(s)}-D(s)\frac{G(s)}{1+L(s)}$$
+Se l'uscita del sistema è 
+$$ Y(s)=Y_d(s)\frac{G(s)C(s)}{1+G(s)C(s)}$$
+Vorremmo idealmente seguire il segnale di riferimento $$\frac{Y(s)}{Y_d(s)}=1 \implies 
+\frac{G(s)C(s)}{1+G(s)C(s)}=1\implies \frac{L(s)}{1+L(s)}=1$$
+Definiamo $F(s)= \frac{L(s)}{1+L(s)}$, è la funzione di sensitività, che indica quanto l'uscita del sistema è influenzata da variazioni nel segnale di riferimento. Dato il disturbo $D(s)$ si definisce 
+$$ M(s)=\frac{D(s)}{1+L(s)}$$
+È la funzione di sensitività al disturbo, che indica quanto l'uscita del sistema è influenzata da disturbi esterni. Vorremmo che $M(s)=0$, significa che il disturbo non ha alcuna influenza sull'uscita del sistema, ovvero il sistema è completamente immune ai disturbi.
+\acc 
+Un sistema retroazionato con funzione $F(s)=\frac{L(s)}{1+L(s)}$ è stabile asintoticamente se, dato $$ L(s)=\frac{Num(s)}{Den(s)}$$
+$$ F(s)=\frac{Num(s)}{Num(s)+Den(s)}$$ 
+Si ha che il polinomio $Num(s)+Den(s)$ ha radici con parte reale negativa.
+\subsection{Criterio di Nyquist}
+Il criterio di Nyquist è un metodo \textit{grafico} che permette di stabilire l'asintotica stabilità di un sistema ad anello chiuso $F(s)=\frac{L(s)}{1+L(s)}$ analizzando esclusivamente $L(s)$.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/ls.pdf}
+ \end{center}
+Il diagramma di Nyquist coincide con il diagramma polare di $L(j\omega)$ reso simmetrico rispetto l'asse reale. È una curva chiusa orientata per $\omega$ crescenti. Definiamo $n$ il numero di giri antiorari del diagramma intorno al punto critico $-1+0j$ sottratto al numero di giri orari, e $p$ il numero di poli di $L(s)$ con parte reale positiva. Il sistema $F(s)$ ad anello chiuso è asintoticamente stabile se, $n$ è ben definito (il diagramma non passa sul punto critico) ed è uguale a $p$.\acc
+\textbf{Esempio 1 } : Si consideri la funzione $L(s)=\frac{10}{1+s}$, il relativo diagramma di Nyquist è 
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/nyquist1.png}
+ \end{center}
+La funzione ha $p=0$ poli con parte reale positiva e $n=0$ giri antiorari intorno al punto critico, essendo $p=n$, allora $F(s)=\frac{L(s)}{1+L(s)}$ è asintoticamente stabile.\acc
+\textbf{Esempio 2} : Si consideri la funzione $L(s)=20\frac{1-\nicefrac{s}{2}}{(s+1)^3}$, il relativo diagramma di Nyquist è 
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/nyquist2.png}
+ \end{center}
+La funzione di trasferimento ha 3 poli con parte reale negativa ($s=-1$), quindi $p=0$. Il diagramma fa un 2 giri orari intorno al punto critico e 0 giri antiorari, quindi $n=-2$, essendo $p\ne n$ la funzione $F(s)=\frac{L(s)}{1+L(s)}$ non è asintoticamente stabile.\acc
+
+
+
+
+
 
 
 
