@@ -2480,11 +2480,62 @@ Lo schema a blocchi del sistema è il seguente
 \begin{center}
     \includegraphics[width=1\textwidth ]{images/schemaBlocchiMotoreDc.pdf}
 \end{center}
-
-
-
-
-
+\subsection{FeedForward}\label{feedForward}
+Si consideri il seguente sistema meccanico
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/feedForwardExample.eps}
+\end{center}
+Si vuole applicare una  forza (ingresso) $u$ da applicare per far si 
+che la posizione $\theta$ del blocco segua la dinamica $$\theta(t)=A\sin(\omega t) $$
+Il sistema (in assenza di attrito) è descritto dall'equazione $$ m\ddot{\theta}=u$$\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/simulinkDiagram.eps}
+\end{center}
+Se $\theta_d$ è la traiettoria desiderata, allora l'ingresso necessario sarà $u_d=m\ddot{\theta_d}$. Integrando 
+\begin{eqnarray}
+    \dot{\theta_d} = A\omega\cos(\omega t)\\ 
+    \ddot{\theta_d}=-A\omega^2\sin(\omega t)
+\end{eqnarray}
+Invertendo il sistema si è risaliti all'ingresso necessario. Va considerato però, che gli integratori hanno uno \textit{stato interno}, definiti $\theta_d(0)$ e $\dot\theta_d(0)$ deve essere che la posizione e la velocità iniziale combacino con quelle desiderate per ottenere il comportamento desiderato. Se $t=0$
+$$ \begin{matrix}
+    \theta_d(0)=\theta(0)=0
+\end{matrix}$$
+Se $t=0$, allora 
+$$ \dot\theta_d(0)=A\omega\cos(0)=A\omega$$
+deve essere che 
+$$ \dot\theta(0)=A\omega$$
+Il sistema deve quindi essere già in movimento per far si che si possa ottenere il comportamento desiderato.\acc 
+Consideriamo adesso una traiettoria $\theta_d$ desiderata che abbia velocità e posizione iniziale uguali a zero 
+$$\theta_d(t)=A(1-\cos(\omega t)) $$
+$$\dot\theta_d(t)=A\omega\sin(\omega t) $$
+allora 
+$$\ddot\theta_d(t)=A\omega^2\cos(\omega)\implies $$
+$$ 
+u_d=mA\omega^2\cos(\omega t)
+$$
+Questo comando $u_d$ riproduce la traiettoria desiderata date delle condizioni iniziali favorevoli, se così non fosse, sarebbe \textit{impossibile} con la sola azione di feedforward, e sarebbe \underline{necessario} chiudere l'anello con un azione di feedback. Quest'ultima azione, è anche necessaria per risolvere errori dovuti a disturbi, che il feedforward non può correggere.
+\begin{itemize}
+    \item \textbf{feed forward} : ottime prestazioni in condizioni nominali/ideali. La traiettoria desiderata deve però essere \textit{liscia} (sufficientemente differenziabile).
+\end{itemize}
+\flowerLine 
+\section{Controllore del Motore DC}
+In questa sezione verrà analizzato e definito il progetto per il sistema di controllo del motore a corrente continua, gli obbiettivi prefissati sono\begin{itemize}
+    \item \textit{Stabilità} (idealmente, robusta)
+    \item \textit{Asservimento} di una posizione angolare di riferimento $\theta_{rif}(t)$
+    \item \textit{Reiezione} dei disturbi non noti dati dalla coppia di disturbo $\tau_r(t)$
+\end{itemize}
+Il progetto coinvolgerà ben tre anelli di feedback posti "a cascata", verranno considerati "separatamente" il progetto elettrico e quello meccanico, quest'ultimo ha una velocità di risposta molto più lenta rispetto al primo.\\\redText{spiega banda passante Gemini} \\ Ovviamente il progetto è sottoposto ad alcune limitazioni fisiche \begin{itemize}
+    \item rumori 
+    \item saturazioni "fisiche"     
+    \item il controllore implementato è digitale, il tempo di campionamento non può essere infinitamente piccolo 
+    \item la banda passante dell'anello di feedback relativo al controllo della corrente è tipicamente di $\nicefrac{1}{2}\cdot 10^{4}\frac{rad}{sec}$
+    \item la banda passante dell'anello di feedback relativo al controllo della posizione è tipicamente di $400\frac{rad}{sec}$ 
+\end{itemize}
+Come accennato nella sezione \ref{feedForward}, può essere utilizzato in condizioni nominali, e può compensare esclusivamente disturbi misurabili (la cui dinamica nel tempo è nota), ed il comando è basato sull'inversione ingresso-uscita.\begin{quote}
+    per la riproduzione esatta (da $t = 0$ in poi) di una traiettoria di riferimento in uscita, è
+necessario che il sistema (processo e eventuale controllore) si trovi in un ben definito
+stato iniziale, funzione della traiettoria desiderata e delle sue derivate all'istante $t = 0$
+\end{quote}
+Il feedforward viene \textbf{combinato} con il feedback, chiudendo l'anello di controllo.
 
 
 
