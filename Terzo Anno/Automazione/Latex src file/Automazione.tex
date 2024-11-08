@@ -2614,26 +2614,16 @@ $$ u(t)=K_p\Big(e(p)+\frac{1}{T_i}\int_0^t e(\tau)d\tau+T_d\frac{de(t)}{dt}\Big)
     \item \textbf{Azione Integrale} : Agisce anche quando l'errore è nullo ed annulla l'errore a regime. Tende a destabilizzare il sistema al diminuire del tempo di integrazione $T_i$. 
     \item \textbf{Azione Derivativa} : Anticipa l'errore evitando che la rispsota del sistema si allontani troppo dal riferimento, rallenta la risposta del sistema ma tende a stabilizzarlo. La derivata effettiva dell'errore di può solamente approssimare (non si può guardare nel futuro).
 \end{itemize}\begin{center}
-    \begin{tabular}{|c|c|c|c|}
+    \begin{tabular}{|l|l|l|l|}
         \hline
         \rowcolor[HTML]{ECF4FF} 
-        \begin{tabular}[c]{@{}c@{}}Aumentando\\  l'azione\end{tabular} & \begin{tabular}[c]{@{}c@{}}prontezza di \\ risposta\end{tabular} & \begin{tabular}[c]{@{}c@{}}margine di \\ stabilità\end{tabular} & \begin{tabular}[c]{@{}c@{}}errore a \\ regime\end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}l@{}}Aumentando\\  l'azione\end{tabular} & \begin{tabular}[c]{@{}l@{}}prontezza di \\ risposta\end{tabular} & \begin{tabular}[c]{@{}l@{}}margine di \\ stabilità\end{tabular} & \begin{tabular}[c]{@{}l@{}}errore a \\ regime\end{tabular} \\ \hline
         \cellcolor[HTML]{EFEFEF}P ( aumento di $K_p$)                  & \cellcolor[HTML]{CDFCCD}aumenta                                  & \cellcolor[HTML]{FFCCC9}diminuisce                              & \cellcolor[HTML]{CDFCCD}diminuisce                         \\ \hline
         \rowcolor[HTML]{FFCCC9} 
         \cellcolor[HTML]{EFEFEF}I ( diminuzione di $T_i$)              & diminuisce                                                       & diminuisce                                                      & \cellcolor[HTML]{CDFCCD}azzera                             \\ \hline
         \cellcolor[HTML]{EFEFEF}D ( aumento di $T_d$)                  & \cellcolor[HTML]{FFCCC9}diminuisce                               & \cellcolor[HTML]{CDFCCD}migliora                                & ininfluente                                                \\ \hline
         \end{tabular}
 \end{center}
-
-
-
-
-
-
-
-
-
-\newpage
 \subsection{Progetto del Controllore - Anelli a Cascata}
 Nella sezione precedente si è data una dimostrazione della combinazione fra feedback e feedforward. In questa sezione verrà tratta la progettazione del controllore vero e proprio per il motore DC, il cui schema si ricordi essere
 \begin{center}
@@ -2658,6 +2648,10 @@ L'idea alla base di questo approccio è quella di scomporre il sistema complessi
 Il controllore della posizione, vedrà gli anelli interni come \textbf{attuatori ideali}, così come il controllore della velocità vedrà l'anello interno (corrente) come ideale. 
 \subsubsection{Anello Posizione}
 Il controllore della posizione genererà una velocità $\omega_{ref}$ di riferimento che sarà ingresso di un integratore
+
+
+
+
 
 
 
