@@ -2523,7 +2523,15 @@ In questa sezione verrà analizzato e definito il progetto per il sistema di con
     \item \textit{Asservimento} di una posizione angolare di riferimento $\theta_{rif}(t)$
     \item \textit{Reiezione} dei disturbi non noti dati dalla coppia di disturbo $\tau_r(t)$
 \end{itemize}
-Il progetto coinvolgerà ben tre anelli di feedback posti "a cascata", verranno considerati "separatamente" il progetto elettrico e quello meccanico, quest'ultimo ha una velocità di risposta molto più lenta rispetto al primo.\\\redText{spiega banda passante Gemini} \\ Ovviamente il progetto è sottoposto ad alcune limitazioni fisiche \begin{itemize}
+Il progetto coinvolgerà ben tre anelli di feedback posti "a cascata", verranno considerati "separatamente" il progetto elettrico e quello meccanico, quest'ultimo ha una velocità di risposta molto più lenta rispetto al primo.
+\begin{itemize}
+    \item \textit{Banda passante del controllo di posizione}: Indica l'intervallo di frequenze entro cui il sistema è in grado di seguire variazioni nella posizione desiderata. Una banda passante più ampia significa che il sistema può rispondere più rapidamente a cambiamenti nella posizione, ma potrebbe essere più sensibile a disturbi ad alta frequenza.
+    \item \textit{Banda passante del controllo di corrente}: Indica l'intervallo di frequenze entro cui il sistema è in grado di controllare la corrente nei motori o negli attuatori. Una banda passante più ampia del controllo di corrente garantisce una risposta più rapida del motore, ma potrebbe introdurre più rumore nel sistema.
+\end{itemize}
+\begin{quotation}
+    la banda passante del controllo di posizione è circa 1/100 o 1/25 della banda passante del controllo di corrente. Questo significa che il controllo di corrente ha una risposta molto più rapida rispetto al controllo di posizione. Questa scelta è tipica nei sistemi di controllo, poiché il controllo della corrente è solitamente più veloce e permette di ottenere una risposta più precisa del motore.
+\end{quotation}
+Ovviamente il progetto è sottoposto ad alcune limitazioni fisiche \begin{itemize}
     \item rumori 
     \item saturazioni "fisiche"     
     \item il controllore implementato è digitale, il tempo di campionamento non può essere infinitamente piccolo 
@@ -2535,8 +2543,121 @@ Come accennato nella sezione \ref{feedForward}, può essere utilizzato in condiz
 necessario che il sistema (processo e eventuale controllore) si trovi in un ben definito
 stato iniziale, funzione della traiettoria desiderata e delle sue derivate all'istante $t = 0$
 \end{quote}
-Il feedforward viene \textbf{combinato} con il feedback, chiudendo l'anello di controllo.
+\subsection{Esempio di FeedForward}
+Il feedforward viene \textbf{combinato} con il feedback, chiudendo l'anello di controllo. Il solo feedforward non sarebbe necessario soprattutto in caso di paraemtri incerti di attrito ed inerzia ed i condizioni iniziali non favorevoli.
+\acc 
+L'azione di feedback garantisce la stabilità asintotica e la reiezione dei disturbi o errori dovuti a condizioni iniziali, il feedforward invece migliora la riproduzione del riferimento che ha un andamento temporale complicato.\acc 
+Per illustrare i concetti di feedForward, si consideri il sotto-caso del controllo della velocità angolare $\omega$ del motore, in cui l'ingresso è la coppia $\tau$. Sia $j$ l'inerzia e $b$ l'attrito viscoso. Il modello è descritto dall'equazione $$j\dot\omega+b\omega=\tau $$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/modelloMecc.pdf}
+\end{center}
+Il valore di $\tau$ si può ottenere per inversione dato un riferimento da seguire $\omega_d$. Nel dominio del tempo l'ingresso $\tau_d(t)$ dovrà essere
+$\tau_d(t)=j\dot\omega_d(t)+b\omega_d(t)$. Si può riarrangiare lo schema a blocchi come segue:
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/modelloMecc2.pdf}
+\end{center}
+Nel dominio di Laplace, essendo 
+$$ \omega_d(s)=P(s)\tau_d(s)$$
+Si ha 
+$$ \tau_d(s)=\frac{\omega_d(s)}{P(s)}=\omega_d(s)\cdot (js+b)$$
+Come già trattato, per far si che il comando $\tau_d$ riproduca l'uscita desiderata è \underline{necessario} che le condizioni iniziali combacino, ossia che $$ \omega(0)=\omega_d(0)$$
+Si utilizza un controllore PI per un azione feedback, che introduce due azioni, proporzionale (all'errore corrente) ed integrale (proporzionale all'errore passato) in modo da avere errore nullo a regime dato un riferimento $\omega_d$ costante. 
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/modelloMecc3.pdf}
+\end{center}
+Il controllore PI $C(s)$ ha funzione di trasferimento 
+$$ C(s)=K_p+K_i\frac{1}{s}=\frac{K_ps+K_i}{s}$$
+Si ha il guadagno in anello aperto 
+$$ F(s)=C(s)P(s)$$
+La funzione di trasferimento totale sarà quindi 
+$$W(s)=\frac{F(s)}{1+F(s)}=\frac{K_ps+K_i}{js^2+(b+K_p)s+K_i} $$
+Vogliamo che l'uscita del sistema segua perfettamente il riferimento, quindi che $W(0)=1$. Si ricordi che $W(0)$ è la funzione di trasferimento del sistema a regime permanente.
+$$ \omega=\omega_d\cdot W(0)$$
+A questo punto, si \textbf{combina} all'anello l'azione di feedforward tramite un generatore statico di riferimento, che genera $\omega_d(t)$ e le sue derivate analitiche necessarie per il calcolo dell'azione $\tau$ da applicare al processo.
+$$ \begin{matrix}
+    \omega_d(t) \text{ riferimento da seguire }\\ 
+    \tau_{ffw}(t) = j\dot\omega_d(t)+b\omega_d(t) \text{ coppia per azione feedforward}
+\end{matrix} $$
+Inoltre, ci sarà anche la componente di feedback che calcola il valore della coppia $\tau_{fb}$ da dari in ingresso al sistema in base all'errore corrente 
+$$ \tau_{fb}(t)=K_p(\omega_d(t)-\omega(t))+K_i\int_0^t(\omega_d(\sigma)-\omega(\sigma))d\sigma\ \  \text{ azione PI}$$
+Inoltre le condizioni iniziali degli integratori devono "matchare"
+$$ \omega(0)=\omega_d(0)$$
+$$ \text{integratore PI : } z(0)=0$$
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/schemaGenStatico.pdf}
+\end{center}
+\subsection{Accenno ai Regolatori PID}
+Nonostante i regolatori PID godano di un capitolo a loro dedicato, sarà necessario introurli al fine di descrivere il progetto del controllore del motore DC.\acc 
+\defi{} un regolatore \textbf{PID} (Proporzionale-Integrale-Derivativo) è un regolatore che produce tre azioni di controllo proporzionali a \begin{itemize}
+    \item L'errore istantaneo 
+    \item L'errore accumulato (il suo integrale)
+    \item La stima dell'errore negli istanti successivi (derivata)
+\end{itemize}
+È un regolatore standard con procedure automatiche ed è semplice nella taratura in quanto ha solamente tre parametri (relativi alle tre azioni). \acc 
+Sia $e$ l'errore, definito come differenza tra l'uscita desiderata $y_{rif}$ e l'uscita effettiva $y$ del sistema 
+$$ e(t)=y_{rif}-y(t)$$
+Si hanno le tre azioni di comando 
+$$ u(t)=K_pe(p)+K_i\int_0^t e(\tau)d\tau+K_d\frac{de(t)}{dt}$$
+Dove \begin{itemize}
+    \item $K_p$ è il parametro proporzionale 
+    \item $K_i$ è il parametro integrale 
+    \item $K_d$ è il parametro derivativo 
+\end{itemize}
+Ponendo \begin{itemize}
+\item $T_i$ = Tempo di integrazione, con $K_i=\frac{K_p}{T_i}$
+\item $T_d$ = Tempo di derivazione, con $K_d=K_pT_d$
+\end{itemize}
+Si può riscrivere
+$$ u(t)=K_p\Big(e(p)+\frac{1}{T_i}\int_0^t e(\tau)d\tau+T_d\frac{de(t)}{dt}\Big)$$
+\begin{itemize}
+    \item \textbf{Azione Proporzionale} : Accellera il comportamento transitorio del sistema e riduce l'errore a regime. Un alto valore di $K_p$ tende a destabilizzare il sistema. 
+    \item \textbf{Azione Integrale} : Agisce anche quando l'errore è nullo ed annulla l'errore a regime. Tende a destabilizzare il sistema al diminuire del tempo di integrazione $T_i$. 
+    \item \textbf{Azione Derivativa} : Anticipa l'errore evitando che la rispsota del sistema si allontani troppo dal riferimento, rallenta la risposta del sistema ma tende a stabilizzarlo. La derivata effettiva dell'errore di può solamente approssimare (non si può guardare nel futuro).
+\end{itemize}\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \rowcolor[HTML]{ECF4FF} 
+        \begin{tabular}[c]{@{}c@{}}Aumentando\\  l'azione\end{tabular} & \begin{tabular}[c]{@{}c@{}}prontezza di \\ risposta\end{tabular} & \begin{tabular}[c]{@{}c@{}}margine di \\ stabilità\end{tabular} & \begin{tabular}[c]{@{}c@{}}errore a \\ regime\end{tabular} \\ \hline
+        \cellcolor[HTML]{EFEFEF}P ( aumento di $K_p$)                  & \cellcolor[HTML]{CDFCCD}aumenta                                  & \cellcolor[HTML]{FFCCC9}diminuisce                              & \cellcolor[HTML]{CDFCCD}diminuisce                         \\ \hline
+        \rowcolor[HTML]{FFCCC9} 
+        \cellcolor[HTML]{EFEFEF}I ( diminuzione di $T_i$)              & diminuisce                                                       & diminuisce                                                      & \cellcolor[HTML]{CDFCCD}azzera                             \\ \hline
+        \cellcolor[HTML]{EFEFEF}D ( aumento di $T_d$)                  & \cellcolor[HTML]{FFCCC9}diminuisce                               & \cellcolor[HTML]{CDFCCD}migliora                                & ininfluente                                                \\ \hline
+        \end{tabular}
+\end{center}
 
+
+
+
+
+
+
+
+
+\newpage
+\subsection{Progetto del Controllore - Anelli a Cascata}
+Nella sezione precedente si è data una dimostrazione della combinazione fra feedback e feedforward. In questa sezione verrà tratta la progettazione del controllore vero e proprio per il motore DC, il cui schema si ricordi essere
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/schemaBlocchiMotoreDc.pdf}
+\end{center}
+Si può eliminare la retroazione data dalla forza FCEM considerando una cancellazione positiva tramite un coefficiente $k_c$
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/schemaBlocchiMotoreDc2.pdf}
+\end{center}
+In questo caso, possono insorgere problemi di instabilità nel caso $k_c>k_m$. Se il parametro $k_m$ è \underline{perfettamente noto}, si può compensare la FCEM (in condizioni nominali) tramite un azione di feedforward.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/schemaBlocchiMotoreDc3.pdf}
+\end{center}
+Si ricordi che il controllo del motore deve avvenire su 3 livelli\begin{itemize}
+    \item controllo della corrente 
+    \item controllo della velocità angolare 
+    \item controllo della posizione 
+\end{itemize}
+Una volta compensata la FCEM, si separa il progetto, dividendo il controllo \textit{in tre anelli} di retroazione, considerando separate le 3 dinamiche.
+\acc 
+L'idea alla base di questo approccio è quella di scomporre il sistema complessivo in sotto-sistemi più semplici, ognuno dei quali controlla una specifica variabile (posizione, velocità, corrente) e può essere progettato in modo indipendente. Questa semplificazione facilita la progettazione e l'analisi del sistema.\acc 
+Il controllore della posizione, vedrà gli anelli interni come \textbf{attuatori ideali}, così come il controllore della velocità vedrà l'anello interno (corrente) come ideale. 
+\subsubsection{Anello Posizione}
+Il controllore della posizione genererà una velocità $\omega_{ref}$ di riferimento che sarà ingresso di un integratore
 
 
 
@@ -4556,7 +4677,7 @@ soggetta ad attrito viscoso di coefficiente $b$.
 $$ m\dfrac{d^2y}{dt^2}=u-mg-b\dfrac{dy}{dt}$$
 La funzione di trasferimento del processo è $$ P(s)=\frac{1}{s(ms+b)}$$ 
 \begin{center}
-    \includegraphics[width=0.75\textwidth ]{images/massaTraz.pdf}
+    \includegraphics[width=0.65\textwidth ]{images/massaTraz.pdf}
  \end{center}
 Il sistema non è asintoticamente stabile (ha un polo in $s=0$), è quindi necessario considerare un anello in retroazione, utilizzando l'uscita $y$ per 
 generare l'ingresso $u$. Sia $y_d$ il valore di riferimento che si vuole far assumere all'uscita, l'\textbf{errore} misurato è $e=y_d-y$.\acc 
@@ -4566,7 +4687,7 @@ L'idea è quella di considerare un \textit{controllore proporzionale} all'errore
     \item Si considera l'errore $e=y_d-y$ e si somma all'ingresso moltiplicato per un coefficiente $k_p$
 \end{itemize}
 \begin{center}
-    \includegraphics[width=0.75\textwidth ]{images/retroazionato.pdf}
+    \includegraphics[width=0.65\textwidth ]{images/retroazionato.pdf}
  \end{center}
 La funzione di trasferimento del processo è 
 $$ G(s)=\frac{1}{ms^2+bs+k_p}$$
