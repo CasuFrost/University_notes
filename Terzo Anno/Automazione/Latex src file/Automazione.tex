@@ -1245,13 +1245,15 @@ circa 2000 attività lavorative relative a circa 800 occupazioni\begin{itemize}
     \item Le occupazioni le cui attività possono essere completamente automatizzate sono circa il 5\% 
     \item Nel 60\% delle occupazioni, circa il 30\% delle attività possono essere automatizzate
     \item Il lavoro umano affiancato ai robot è necessario a garantire la crescita del PIL
-\end{itemize}\begin{center}
-    \includegraphics[width=0.8\textwidth ]{images/attivitaAutomatizzabili.pdf}
-\end{center}\begin{figure}[h!]
+\end{itemize}
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\textwidth ]{images/andamentoLavori.eps}
+    \includegraphics[width=0.4\textwidth ]{images/andamentoLavori.eps}
     \caption{Andamento dei posti di lavoro in base al livello di educazione}
 \end{figure}
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/attivitaAutomatizzabili.pdf}
+\end{center}
 \subsection{Industria 5.0}
 La commissione Europea ha trattato un rapporto sull'industria 5.0, che mira a sviluppare  il modello dell'industria 
 4.0 verso un'industria europea sostenibile, resiliente e centrata sulla persona. Il progetto di 
@@ -3893,7 +3895,7 @@ avrà una funzione di trasferimento della forma
 $$ G(s)=\frac{\mu}{1+s\tau}$$
 Asinstoticamente stabile se $\tau>0$. L'andamento nel tempo di tale sistema quando l'ingresso è 
 lo scalino risulta essere 
-$$ \mathcal{L}^{-1}\Big[\frac{1}{s}\frac{\mu}{1+s\tau}\Big]=
+$$ \mathcal{L}^{-1}\Big[\frac{1}{s}\frac{\mu}{1+s\tau}\Big]
 =\mathcal{L}^{-1}\Big[\frac{\mu}{1+s\tau}+\frac{\mu}{s}\Big]=
 \mu(1-e^{-\nicefrac{t}{\tau}})$$
 Definiamo \textbf{tempo di assestamento} il 
@@ -4617,15 +4619,24 @@ Il criterio di Nyquist è un metodo \textit{grafico} che permette di stabilire l
 Il diagramma di Nyquist coincide con il diagramma polare di $L(j\omega)$ reso simmetrico rispetto l'asse reale. È una curva chiusa orientata per $\omega$ crescenti. Definiamo $n$ il numero di giri antiorari del diagramma intorno al punto critico $-1+0j$ sottratto al numero di giri orari, e $p$ il numero di poli di $L(s)$ con parte reale positiva. Il sistema $F(s)$ ad anello chiuso è asintoticamente stabile se, $n$ è ben definito (il diagramma non passa sul punto critico) ed è uguale a $p$.\acc
 \textbf{Esempio 1 } : Si consideri la funzione $L(s)=\frac{10}{1+s}$, il relativo diagramma di Nyquist è 
 \begin{center}
-    \includegraphics[width=0.4\textwidth ]{images/nyquist1.png}
+    \includegraphics[width=0.3\textwidth ]{images/nyquist1.png}
  \end{center}
 La funzione ha $p=0$ poli con parte reale positiva e $n=0$ giri antiorari intorno al punto critico, essendo $p=n$, allora $F(s)=\frac{L(s)}{1+L(s)}$ è asintoticamente stabile.\acc
 \textbf{Esempio 2} : Si consideri la funzione $L(s)=20\frac{1-\nicefrac{s}{2}}{(s+1)^3}$, il relativo diagramma di Nyquist è 
 \begin{center}
-    \includegraphics[width=0.4\textwidth ]{images/nyquist2.png}
+    \includegraphics[width=0.3\textwidth ]{images/nyquist2.png}
  \end{center}
 La funzione di trasferimento ha 3 poli con parte reale negativa ($s=-1$), quindi $p=0$. Il diagramma fa un 2 giri orari intorno al punto critico e 0 giri antiorari, quindi $n=-2$, essendo $p\ne n$ la funzione $F(s)=\frac{L(s)}{1+L(s)}$ non è asintoticamente stabile.\acc
-
+Tornando ai controllori, se $G(s)$ è un processo fisico, e $C(s)$ il controllore, vogliamo che il controllore perfetto inverta la dinamica del sistema, ossia 
+$$ C(s)G(s)=1\implies C(s)=\frac{1}{G(s)}$$
+Ciò sta a significare che, qualsiasi riferimento dato al controllore, il sistema lo riprodurrà. È pero necessario che il controllore \textbf{non abbia} più zeri che poli. Si consideri il processo fisico 
+$$ G(s)=\frac{10+10s}{(1+2s)(1+0.1s)}$$
+Si vuole progettare un controllore per tale processo. La funzione che inverte totalmente la dinamica del sistema è 
+$$ C_0(s)=\frac{(1+2s)(1+0.1s)}{10+10s}$$
+Avendo il numeratore di grado più alto del denominatore, \textit{non è realizzabile}, quindi è necessario pensare ad un altro controllore, ad esempio 
+$$ C_1(s)=\frac{0.1(1+2s)(1+0.1s)}{(1+s)(1+0.01s)}$$
+Infatti 
+$$ C_1(s)G(s)=\frac{1}{1+0.01s}$$
 
 
 

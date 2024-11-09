@@ -1341,7 +1341,7 @@ void func(int a){
 void(*func_ptr)(int)=func; /*puntatore a funzione in cui se ne specifica anche il tipo 
                            [int] del parametro*/
 \end{lstlisting}
-Convenzionalmente, la funzione del thread è di tipo puntatore a void ed ha come parametro di ingresso 
+Convenzionalmente, la funzione del thread è di tipo puntatore a void e ha come parametro di ingresso 
 un puntatore a void (caso più generale possibile) che verrà eventualmente castato.\begin{quote}
     \code{void *thread\_function(void *args\_p);}
 \end{quote}
@@ -1460,7 +1460,7 @@ una sequenza di istruzioni assembly che possono essere intergogliate dai due thr
         \end{tabular}
 \end{center}
 Alla fine dell'esecuzione la variabile \texttt{x} sarà uguale ad 1 perché i due thread non si sono 
-sincronizzati correttamente. Tale problema è noto come \textbf{race condition} ed ha comportato la nascita di 
+sincronizzati correttamente. Tale problema è noto come \textbf{race condition} e ha comportato la nascita di 
 una vasta teoria riguardante la sincronizzazione dei processi paralleli che accedono a risorse condivise, in questa sezione 
 verranno presentate delle possibili soluzioni.
 \subsection{Busy Waiting e Mutex}
@@ -1745,4 +1745,238 @@ int main(int argc, char **argv)
     return 0;
 }
 \end{lstlisting}\newpage 
+Si consideri adesso la seguente porzione di codice
+\begin{lstlisting}[style=CStyle]
+void *fun(void *args){
+    int thread_id=*((int)args);
+    printf("i am thread %d\n", thread_id);
+    return NULL;
+}
+
+int main(){
+    ... 
+    for(int i = 0;i<num_threads;i++){
+        pthread_create(&thread_handles[i], NULL, fun, (void*)&i);
+    }
+    ...
+}
+\end{lstlisting}
+C'è un errore, essendo la variabile \code{i} condivisa da tutti i thread, potrebbe succedere che l'esecuzione della funzione \code{fun} avvenga parallelamente fra tutti i thread in seguito alla terminazione del ciclo \code{for}. In tal caso, ogni thread annuncerebbe di essere il $n-1$-esimo (dove $n$ è il numero di thread). \acc 
+Per ovviare a tale problema, è opportuno creare un array di interi in modo che ogni thread acceda ad una porzione di memoria diversa.
+\begin{lstlisting}[style=CStyle]
+int main(){
+    ... 
+    int *ids=(int*)malloc(num_threads*sizeof(int));
+    for(int i = 0;i<num_threads;i++){
+        ids[i]=i;
+        pthread_create(&thread_handles[i], NULL, fun, (void*)&ids[i]);
+    }
+    ...
+}
+    \end{lstlisting}
+    \flowerLine 
+\section{Read-Write Lock}
+Questa sezione tratterà l'accesso a strutture dati condivise di grandi dimensioni, si consideri una lista puntata di interi, ordinata in maniera crescente, soggetta ad operazioni di inserimento, eliminazione, e controllo della presenza di un elemento (\code{member}).\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/lista.pdf}
+\end{center}
+\begin{lstlisting}[style=CStyle]
+struct list_node_s{
+    int data;
+    struct list_node_s* next;
+}
+\end{lstlisting}
+Essendo la lista definita con i puntatori, ogni accesso ad uno dei suoi elementi sarà un accesso in memoria principale, non essendo questi contigui, il prefatching non potrà fare affidamento sulle ipotesi di vicinanza spaziale e temporale.\acc 
+Si vuole mantenere una lista puntata \textit{condivisa in memoria} fra i diversi thread, in tal caso è comodo definire la testa della lista \code{head\_p} come una variabile globale. Questo semplificherà le operazioni sulla lista in quanto non sarà necessario passarla come parametro.\acc 
+Se due o più thread eseguno un operazione di \code{member} contemporaneamente, il programma funziona senza problemi, ma cosa succederebbe se contemporaneamente, un thread eseguisse un operazione di \code{member}  ed un altro un operazione di modifica? L'accesso alla lista potrebbe non essere consistente.
+\begin{center}
+\begin{tabular}{c|c|c|}
+    \cline{2-3}
+                                & thread 1                                                                                                              & thread 2         \\ \hline
+    \multicolumn{1}{|c|}{$t=1$} & chiama \texttt{member(8)}                                                                                                      &                  \\ \hline
+    \multicolumn{1}{|c|}{$t=2$} &                                                                                                                       & chiama \texttt{delete(8)} \\ \hline
+    \multicolumn{1}{|c|}{$t=3$} &                                                                                                                       & esegue \texttt{delete(8)} \\ \hline
+    \multicolumn{1}{|c|}{$t=4$} & esegue \texttt{member(8)}                                                                                                      &                  \\ \hline
+    \multicolumn{1}{|c|}{$t=5$} & \begin{tabular}[c]{@{}c@{}}non trova l'elemento 8 \\ anche se nel momento della \\ chiamata era presente\end{tabular} &                  \\ \hline
+    \end{tabular}
+\end{center}
+\subsubsection{Idea di Soluzione 1}
+Una soluzione immediata ricade nell'utilizzo di una lock, è possibile eseguire il lock dell'intera lista prima di accedervi in un qualsiasi modo (lettura o scrittura).\begin{lstlisting}[style=CStyle]
+    Pthread_mutex_lock(&list);
+    member(value);
+    Pthread_mutex_unlock(&list);
+\end{lstlisting}
+Nonostante funzioni, nell'effettivo si sta serializzando l'accesso alla lista: non ci saranno mai due thread che accedono contemporaneamente alla lista (anche su elementi diversi, anche per operazioni di \code{member}), quindi l'utilizzo del multithreading risulta inutile e deleterio per le prestazioni del programma. 
+\subsubsection{Idea di Soluzione 2}
+Un approccio più raffinato consiste nel, piuttosto che fare il lock sull'intera lista, farlo sui singoli elementi (ridefinendo la struttura del nodo).
+\begin{lstlisting}[style=CStyle]
+struct list_node_s{
+    int data;
+    struct list_node_s* next;
+    pthread_mutex_t mutex;
+}
+\end{lstlisting}
+Questo approccio è più complesso ed appesantisce notevolmente la lista, in quanto ogni nodo occuperà più byte in memoria, in oltre, ad ogni singolo accesso ci sarà un \code{lock} seguito da un \code{unlock}, rallentando significativamente le operazioni. Inoltre, gestire tali sequenze di accessi non è semplice e si può facilmente incombere in deadlock.\acc 
+Nessuna delle soluzioni presentate è ottimale, e sfrutta al meglio i vantaggi del multithreading per l'accesso alle strutture dati condivise. A tal proposito, Pthreads definisce una metodologia di accesso favorevole alla situazione.\acc 
+\defi{} Un \textbf{read-write lock} è una struttura simile ad una mutex, che mette a disposizione \textit{due funzioni} di lock. \acc 
+La prima, esegue il lock di una variabile in lettura, la seconda, esegue il lock  in scrittura, ciò, permette a più thread contemporaneamente di ottenere il lock in lettura di una variabile, finché non c'è alcun nodo che richiede una lock in scrittura.\begin{itemize}
+    \item più thread possono accedere contemporaneamente in lettura
+    \item solo un thread alla volta può accedere in scrittura
+\end{itemize}
+Se un thread ha eseguito il lock in lettura di una variabile, ogni altro thread potrà accedervi in lettura, ma un qualsiasi accesso in scrittura dovrà attendere il rilascio della lock. \acc 
+Se un thread ha eseguito il lock in scrittura di una variabile,  ogni altro thread dovrà attendere il rilascio della lock per accedervi in un qualsiasi modo.\acc 
+Il tipo di dato fornito da Pthreads è \\ 
+\code{pthread\_rwlock\_t}\\ 
+Come le altre funzioni, gode di una funzione \code{init} per l'inizializzazione ed una funzione \code{destroy} per lo svuotamento della memoria.
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \rowcolor[HTML]{FFD7A8} 
+        valore sulla variabile  & azione richiesta  & risultato                                                                      \\ \hline
+        libera                  & lock in lettura   & \begin{tabular}[c]{@{}l@{}}ottiene il lock in \\ lettura\end{tabular}          \\ \hline
+        ha un lock in lettura   & lock in lettura   & \begin{tabular}[c]{@{}l@{}}ottiene il lock in \\ lettura\end{tabular}          \\ \hline
+        ha un lock in scrittura & lock in lettura   & \begin{tabular}[c]{@{}l@{}}attende il rilascio della \\ variabile\end{tabular} \\ \hline
+        libera                  & lock in scrittura & \begin{tabular}[c]{@{}l@{}}ottiene il lock in \\ scrittura\end{tabular}        \\ \hline
+        ha un lock in lettura   & lock in scrittura & \begin{tabular}[c]{@{}l@{}}attende il rilascio della \\ variabile\end{tabular} \\ \hline
+        ha un lock in scrittura & lock in scrittura & \begin{tabular}[c]{@{}l@{}}attende il rilascio della \\ variabile\end{tabular} \\ \hline
+        \end{tabular}
+\end{center}
+Il \underline{problema} della \code{rwlock}, è che la prioritizzazione dei lock in lettura può causare starvation dei thread che provano ad accedere in scrittura. Quando si esegue una lock su una variabile va specificato se è in lettura o scrittura, le funzioni fornite per il lock e l'unlock sono \begin{itemize}
+    \item \code{pthread\_rwlock\_rdlock(\&rlock)};
+    \item \code{pthread\_rwlock\_wrlock(\&rlock)};
+    \item \code{pthread\_rwlock\_unlock(\&rlock)};
+\end{itemize}
+Si consideri il seguente esempio riguardante 100.000 operazioni eseguite su una lista puntata, di cui il 99\% delle operazioni è in sola lettura \code{member}, mentre il restante 1\% riguarda \code{insert} e \code{delete}.\begin{center}
+    \begin{tabular}{ccccc}
+        \cline{2-5}
+        \multicolumn{1}{c|}{}                                                & \multicolumn{4}{c|}{\cellcolor[HTML]{ECF4FF}numero di thread}                                                                                                                                         \\ \cline{2-5} 
+        \multicolumn{1}{c|}{}                                                & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}1}     & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}2} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}4} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}8} \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}read-write lock}        & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.213} & \multicolumn{1}{c|}{0.123}                     & \multicolumn{1}{c|}{0.098}                     & \multicolumn{1}{c|}{0.115}                     \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}lock sull'intera lista} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.211} & \multicolumn{1}{c|}{0.45}                      & \multicolumn{1}{c|}{0.385}                     & \multicolumn{1}{c|}{0.457}                     \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}lock sui singoli nodi}  & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}1.68}  & \multicolumn{1}{c|}{5.7}                       & \multicolumn{1}{c|}{3.45}                      & \multicolumn{1}{c|}{2.7}                       \\ \hline
+        \multicolumn{5}{c}{tempo misurato in secondi}                                                                                                                                                                                                                               
+        \end{tabular}
+\end{center}
+Si osservi la prima riga, relativa alle esecuzioni con 1 thread, è chiaro che l'utilizzo delle rwlock non comporti alcun vantaggio rispetto il lock sull'intera lista, mentre l'esecuzione con i lock sui singoli nodi risulta lenta dato l'overhead nel chiamare le funzioni di lock ad ogni accesso.\begin{center}
+    \begin{tabular}{ccccc}
+        \cline{2-5}
+        \multicolumn{1}{c|}{}                                                & \multicolumn{4}{c|}{\cellcolor[HTML]{ECF4FF}numero di thread}                                                                                                                                               \\ \cline{2-5} 
+        \multicolumn{1}{c|}{}                                                & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}1}    & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}2}   & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}4}    & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}8}   \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}read-write lock}        & \multicolumn{1}{c|}{0.213}                        & \multicolumn{1}{c|}{0.123}                       & \multicolumn{1}{c|}{0.098}                        & \multicolumn{1}{c|}{0.115}                       \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}lock sull'intera lista} & \multicolumn{1}{c|}{0.211}                        & \multicolumn{1}{c|}{0.45}                        & \multicolumn{1}{c|}{0.385}                        & \multicolumn{1}{c|}{0.457}                       \\ \hline
+        \rowcolor[HTML]{CDFCCD} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}lock sui singoli nodi}  & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}1.68} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}5.7} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}3.45} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}2.7} \\ \hline
+        \multicolumn{5}{c}{tempo misurato in secondi}                                                                                                                                                                                                                                     
+        \end{tabular}
+\end{center}
+Si osservi ora l'ultima riga, il costo aumenta in quanto ci sono più thread che tentano l'accesso ai nodi. Le operazioni sulla lista sono relativamente semplici e veloci, quindi l'utilizzo delle lock ad ogni accesso su ogni singolo nodo non è giustificato e l'overhead "uccide" i tempi del programma, rendendolo inefficiente.\begin{center}
+    \begin{tabular}{ccccc}
+        \cline{2-5}
+        \multicolumn{1}{c|}{}                                                & \multicolumn{4}{c|}{\cellcolor[HTML]{ECF4FF}numero di thread}                                                                                                                                                     \\ \cline{2-5} 
+        \multicolumn{1}{c|}{}                                                & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}1}     & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}2}     & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}4}     & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}8}     \\ \hline
+        \rowcolor[HTML]{CDFCCD} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}read-write lock}        & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.213} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.123} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.098} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.115} \\ \hline
+        \rowcolor[HTML]{CDFCCD} 
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}lock sull'intera lista} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.211} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.45}  & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.385} & \multicolumn{1}{c|}{\cellcolor[HTML]{CDFCCD}0.457} \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}lock sui singoli nodi}  & \multicolumn{1}{c|}{1.68}                          & \multicolumn{1}{c|}{5.7}                           & \multicolumn{1}{c|}{3.45}                          & \multicolumn{1}{c|}{2.7}                           \\ \hline
+        \multicolumn{5}{c}{tempo misurato in secondi}                                                                                                                                                                                                                                           
+        \end{tabular}
+\end{center}
+Si osservi come le rwlock garantiscono uno speed up notevole rispetto l'implementazione con la lock sull'intera lista, si ricorda che in questo contesto la maggior parte delle operazioni sono di \code{member}, è quindi immediato il fatto che le rwlock siano vantaggiose, in quanto la maggior parte delle lock, essendo in lettura, non bloccano gli altri thread.\acc 
+Si consideri ora un altro esempio, sempre riguardante 100.000 operazioni eseguite su una lista puntata, ma questa volta, l'80\% delle operazioni è in sola lettura \code{member}, mentre le operazioni di \code{insert} e \code{delete} coprono il 20\% restante. Essendo più frequenti i lock in scrittura, ci si aspetta un peggioramento dello speed up per il programma che fa uso di rwlock rispetto il caso precedente.\begin{center}
+    \begin{tabular}{ccccc}
+        \cline{2-5}
+        \multicolumn{1}{c|}{}                                                & \multicolumn{4}{c|}{\cellcolor[HTML]{ECF4FF}numero di thread}                                                                                                                                     \\ \cline{2-5} 
+        \multicolumn{1}{c|}{}                                                & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}1} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}2} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}4} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}8} \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}read-write lock}        & \multicolumn{1}{c|}{2.48}                      & \multicolumn{1}{c|}{4.97}                      & \multicolumn{1}{c|}{4.69}                      & \multicolumn{1}{c|}{4.71}                      \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}lock sull'intera lista} & \multicolumn{1}{c|}{2.5}                       & \multicolumn{1}{c|}{5.13}                      & \multicolumn{1}{c|}{5.04}                      & \multicolumn{1}{c|}{5.11}                      \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{FFDFB9}lock sui singoli nodi}  & \multicolumn{1}{c|}{12}                        & \multicolumn{1}{c|}{29.6}                      & \multicolumn{1}{c|}{17}                        & \multicolumn{1}{c|}{12}                        \\ \hline
+        \multicolumn{5}{c}{tempo misurato in secondi}                                                                                                                                                                                                                           
+        \end{tabular}
+\end{center}
+\begin{quotation}
+    Le read-write lock garantiscono un vantaggio nelle performance finché le operazioni di scrittura sono una parte relativamente piccola del totale delle operazioni da eseguire sulla struttura dati.
+\end{quotation}
+\flowerLine 
+\section{Funzioni Thread-Safe}
+\defi{} Un blocco di codice si dice \textbf{thread safe} se può essere acceduto contemporaneamente da più thread senza che l'accesso simultaneo violi la correttezza del programma.\acc 
+Si consideri il seguente esempio, si vuole "\textit{tokenizzare}"  un file contenente parole inglesi, ossia  dividere il file in unità più piccole, chiamate "token", che hanno un significato linguistico o grammaticale.\begin{itemize}
+    \item \textbf{Tokenizzare un file}: analizzare il testo contenuto nel file e identificare tutti i token che lo compongono.
+\end{itemize}
+È possibile suddividere il file in righe ed assegnare ad ogni thread un insieme di righe da tokenizzare, l'assegnamento può avvenire in maniera circolare, sia $n$ il numero di thread\begin{itemize}
+    \item al thread 1 si assegna la riga 1 
+    \item al thread 2 si assegna la riga 2 
+    \item  $\vdots$  
+    \item al thread $n$ si assegna la riga $n$  
+    \item al thread 1 si assegna la riga $n+1$
+    \item al thread 2 si assegna la riga $n+2$ 
+    \item ecc..
+\end{itemize}
+È possibile serializzare l'accesso alle righe dell'input tramite i semafori, questi ultimi sono preferibili rispetto le semplici mutex dato che l'accesso alle linee deve seguire uno specifico ordine. Una volta che un thread è in possesso della riga che gli appartiene, può chiamare la funzione di libreria \code{strtok}. 
+\begin{lstlisting}[style=CStyle]
+char *strtok(
+    char* string,
+    const char* separators  );
+\end{lstlisting}
+La funzione \code{strtok} ha un funzionamento insolito\begin{enumerate}
+    \item la prima volta che viene chiamata, va passata in input la stringa da tokenizzare ed il separatore. 
+    \item va poi richiamata ogni volta (passando NULL come separatore) per ottenere i token successivi
+\end{enumerate}
+La funzione mantiene uno \textit{stato interno} sul puntatore del separatore corrente.\acc 
+\textbf{Esempio di utilizzo} : Si chiama \code{strtok} con separatore " " (spazio vuoto) su input \begin{center}
+    \texttt{ciao come stai}
+\end{center}
+\begin{itemize}
+    \item Prima chiamata \code{strtok(string, " ")} ritorna "\texttt{ciao}".
+    \item Seconda chiamata \code{strtok(string, NULL)} ritorna "\texttt{come}".
+    \item Terza chiamata \code{strtok(string, NULL)} ritorna "\texttt{stai}".
+\end{itemize}
+Ad ogni chiamata utilizza lo stato del puntatore per ottenere il token successivo. La funzione \textbf{non è thread safe}, lo stato che mantiene è globale (il puntatore è condiviso e non privato) e tutti i thread che la chiamano operano sullo stesso puntatore, se più thread la chiamano simultaneamente, potrebbe non funzionare correttamente.\acc 
+Esistono altre funzioni della libreria standard del C che non sono thread safe\begin{itemize}
+    \item \code{random} in \code{stdlib.h}
+    \item \code{localtime} in \code{time.h} 
+\end{itemize}
+In alcuni casi, il C fornisce delle versioni alternative di alcune funzioni dette \textit{rientranti}, che risultano thread safe, ad esempio \code{strtok\_r}. \acc 
+\defi{} Una funzione \textbf{rientrante} in C è una funzione che può essere interrotta in qualsiasi momento della sua esecuzione e richiamata nuovamente, anche da più thread contemporaneamente, senza causare comportamenti imprevisti o corruzione dei dati (lo stato interno non viene manomesso).
+\flowerLine 
+\section{Combinazione di Thread ed MPI}
+È possibile utilizzare il multithreading anche in un programma che utilizza \code{MPI}, se viene eseguita una \code{MPI\_Send}, il programmatore richiede la garanzia che tale funzione sia chiamata contemporaneamente su ogni thread, a tal proposito, è necessario inizializzare la sezione di codice che utilizza MPI con la chiamata \begin{center}
+    \code{MPI\_Init\_thread(int *argc, char **argv, int required, int *provided)}
+\end{center}
+Il parametro \code{required} deve specificare uno fra i 4 possibili \textbf{threading level}, ossia una modalità di gestione del multithreading su MPI, in particolare\begin{itemize}
+    \item \texttt{MPI\_THREAD\_SINGLE}: i processi  non possono usare i thread, è come se fosse stata chiamata una normale \code{MPI\_Init}.
+    \item \texttt{MPI\_THREAD\_FUNNELED}: I processi possono essere multi-thread, ma solo il thread principale può effettuare chiamate MPI. Questo livello è utile quando si vogliono utilizzare le direttive OpenMP per parallelizzare le computazioni all'interno di un processo MPI.
+    \item \texttt{MPI\_THREAD\_SERIALIZED}: I processi possono essere multithread, ma solo un thread alla volta può effettuare chiamate MPI.  Le chiamate MPI quindi, devono essere serializzate, anche se ci sono più thread. Questo richiede una sincronizzazione tra i thread per evitare conflitti.
+    \item \texttt{MPI\_THREAD\_MULTIPLE}: Questo è il livello più flessibile, ma anche il più complesso. Permette a tutti i thread di effettuare chiamate MPI in modo concorrente. Tuttavia, comporta un overhead maggiore e richiede una cura particolare nella sincronizzazione.
+\end{itemize}
+Non tutti i livelli di threading sono supportati da tutte le implementazioni di MPI. Ad esempio, alcune implementazioni potrebbero non supportare \texttt{MPI\_THREAD\_MULTIPLE}.
+\subsection{Thread Pinning}
+Con \textit{thread pinning}, si identifica la costrizione da imporre ad un thread sul venire eseguito in uno specifico core. In alcuni casi, un sistema operativo potrebbe schedulare tutti i thread su un unico core fisico, in tal caso sono definite apposite chiamate nella libreria \code{sched.h}.
+\begin{lstlisting}[style=CStyle]
+#define _GNU_SOURCE /*definizione necessaria per il pinning */
+#include <pthread.h> 
+#include <sched.h> 
+
+void* thread_func(void *args){
+    cpu_set_t cpuset; /*bitmask per l'assegnazione*/
+    pthread_t thread = pthread_self(); 
+    CPU_ZERO(&cpuset); /* imposta a zero tutti i bit */
+    CPU_SET(3, &cpuset); /* imposta ad 1 il terzo bit */
+    /* si assegna la bitmask al trhead, verra' schedulato solo sul terzo core.*/
+    s = pthread_setaffinity_np(thread,sizeof(cpuset),&cpuset);
+}
+\end{lstlisting}
+\chapter{Richiamo di Architetture}
+Questo capitolo (decisamente ridotto rispetto agli altri) richiama i concetti base delle architetture degli elaboratori, espandedo il campo alle CPU multicore.
+\section{Caching}
+La \textit{Cache} è una memoria aggiuntiva posta "in vicinanza" del processore in modo che gli accessi ad essa siano più rapidi rispetto gli accessi alla memoria principale. Tipicamente, la cache è saldata sullo stesso chip della CPU, ed è costruita su una tecnologia più rapida (SRAM) rispetto la memoria principale (DRAM), è de facto anche più costosa e ha molti più transistor, quindi le sue dimensioni sono ridotte.\acc 
+La cache si basa sul principio di località spaziale e temporale, è un principio empirico, riguardal l'assunzione che\begin{itemize}
+    \item Se si accede ad un'area di memoria, nel futuro prossimo si accederà ad areee di memoria adiacenti 
+    \item Se si accede ad un'area di memoria, nel futuro prossimo si accederà nuovamente ad essa 
+\end{itemize}
+Quando si accede ad un blocco di memoria quest'ultimo (ed eventualmente qualche blocco a lui adiacente) viene trasferito nella cache, per il principio di località, un accesso prossimo ridurrà notevolmente i tempi in quanto verrà eseguito sulla cache piuttosto che sulla memoria principale.\begin{quotation}
+    L'accesso in cache richiede un tempo di alcuni ordini di grandezza inferiore rispetto l'accesso in memoria
+\end{quotation}
+\textbf{Esempio}: In un array \code{z=malloc(sizeof(int)*16)}, quando si accede all'elemento \code{z[0]}, anche gli altri elementi fino a \code{z[15]} saranno trasferiti nella cache.
+\subsection{Livelli della Cache}
+\redText{Continua da slide cache levels, lezione 06/11/2024}
 \end{document}
