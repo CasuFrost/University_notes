@@ -1809,5 +1809,28 @@ la lista di tutte le possibile stringhe su tale alfabeto. $E$ sarà definito com
 \hfill$\blacksquare$\end{itemize}\flowerLine 
 \section{Indecidibilità}
 Come esistono linguaggi non regolari e linguaggi non acontestuali, risulta naturale porsi la domanda : Esistono dei linguaggi non turing riconosibili? Il modello della TM corrisponde al concetto di algoritmo, un linguaggio non riconoscibile corrisponde ad un problema che \textit{nessun} algoritmo può risolvere.\acc 
-Una TM può ricevere in input un qualsiasi oggetto matematico, come un polinomio, un DFA, o direttamente un'altra TM, è importante che tale oggetto $O$, venga \textbf{codificato} in binario, denotandolo $<O>$ prima di essere computato dalla TM.
+Una TM può ricevere in input un qualsiasi oggetto matematico, come un polinomio, un DFA, o direttamente un'altra TM, è importante che tale oggetto $O$, venga \textbf{codificato} in binario, denotandolo $<O>$ prima di essere computato dalla TM.\acc 
+Vediamo come prima cosa un esempio di linguaggio decidibile, si consideri 
+$$A_{DFA}=\{<D,w>\ |\ D \in DFA \land w\in L(d)\}$$
+con $D\in DFA$ si indica che $D$ è un DFA. \acc 
+\prop{} $A_{DFA}$ è decidibile. \acc 
+\dimo{} Si vuole costruire un decisore per $A_{DFA}$, la TM in questione avrà il seguente comportamento\begin{enumerate}
+    \item Su input $<D,w>$ interpreta $D$ come un DFA e $w$ come stringa, se non riconosce l'input, rifiuta 
+    \item Simula l'esecuzione di $D$ con input $w$
+    \item Se $D$ accetta $w$, allora la TM accetta, altrimenti rifiuta
+\end{enumerate}
+\hfill $\blacksquare$\acc 
+In maniera simile, si può dimostrare che anche  $A_{NFA}=\{<N,w>\ |\ D \in NFA \land w\in L(d)\}$ è decidibile, utilizzando una TM non deterministica, oppure, si potrebbe trasformare l'input in un DFA ed eseguire l'algoritmo appena trattato. \acc  
+Si consideri il linguaggio 
+$$ E_{DFA}=\{<D>\ | \ D\in DFA \land L(D)=\emptyset\}$$
+Ossia di tutte le codifiche di DFA che hanno linguaggio vuoto, ossia che non accettano nessuna stringa. \acc 
+\prop{} $E_{DFA}$ è decidibile. \acc 
+\dimo{} La TM che deciderà il linguaggio codificherà il DFA come un grafo, in gli stati sono i nodi, e vi è un arco da un nodo ad un altro solo se esiste una transizione fra i due stati. In particolare la TM seguirà il seguente comportamento\begin{enumerate}
+    \item marca lo stato iniziale, ed inizia a fare una passeggiata sul grafo 
+    \item marca ogni stato raggiungibile 
+    \item se almeno uno stato di accettazione è marcato, la TM rifiuta, altrimenti accetta
+\end{enumerate}
+\hfill $\blacksquare$\acc 
+Un altro esempio interessante è il seguente 
+$$ EQ_{DFA}=\{<D_1,D_2>\ | \ D_1,D_2\in DFA\land L(D_1)=L(D_2)\}$$
  \end{document}
