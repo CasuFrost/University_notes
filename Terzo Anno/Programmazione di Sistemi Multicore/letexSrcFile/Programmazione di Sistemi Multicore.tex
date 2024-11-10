@@ -1978,5 +1978,62 @@ Quando si accede ad un blocco di memoria quest'ultimo (ed eventualmente qualche 
 \end{quotation}
 \textbf{Esempio}: In un array \code{z=malloc(sizeof(int)*16)}, quando si accede all'elemento \code{z[0]}, anche gli altri elementi fino a \code{z[15]} saranno trasferiti nella cache.
 \subsection{Livelli della Cache}
-\redText{Continua da slide cache levels, lezione 06/11/2024}
+Spesso su un chip non vi è un unica cache, ma diverse (solitamente 3), e si identificano quindi cache di diverso livello. La cache più "vicina" alla CPU è più veloce negli accessi, ma ha anche meno spazio a disposizione, la cache più lontana invece è la più capiente, ma anche più lenta.\acc 
+Quando bisogna accedere alla memoria, la CPU controlloa prima la cache più vicina, se non i dati richiesti non sono presenti, passa a quella successiva, fino ad (eventualmente) accedere alla memoria principale.\acc 
+Quando la CPU richiede un dato e lo trova accedendo in cache, si dice che è avvenuto un \textbf{cache hit}, altrimenti, se non dovesse essere presente, obbligandola a cercare in memoria principale, si dice che è avvenuto un \textbf{cache miss}. Quando si scrive del codice, bisogna sfruttare il principio di località spaziale per ridurre al minimo i cache miss.\acc 
+La cache su più livelli può causare problemi di inconsistenza, de facto se un certo dato \texttt{x} si trova su più cache, questo deve mantenere il suo valore identico in tutte quante: All'aggiornamento di \texttt{x}, sarà necessario aggiornarlo sia sulla memoria principale, che su ogni cache in cui è presente.\begin{quote}
+    Quando la CPU modifica un dato nella cache, quest'ultimo potrebbe essere inconsistente con il valore nella memoria principale
+\end{quote}
+Si identificano due soluzioni\begin{itemize}
+    \item \textbf{write-through} : ad ogni aggiornamento della cache, viene aggiornato il dato anche in memoria principale.
+    \item \textbf{write-back} : quando un dato viene aggiornato sulla cache viene marcato come \textit{sporco}, una volta che il blocco di memoria in cui è presente viene rimosso dalla cache, il dato sporco viene aggiornato nella memoria principale.
+\end{itemize}
+\flowerLine
+\section{La Cache nei Sistemi Multicore}
+Nei sistemi multicore, ogni core è in possesso di una cache privata di livello 1, mentre le cache di livello 2 e 3 potrebbero essere condivise. Il programmatore, non ha alcun controllo sulla gestione della cache e sulle frequenze di aggiornamento. Il problema dell'inconsistenza si fa pià complesso in quanto una stessa variabile deve essere cosistente nelle cache di tutti i core.\begin{itemize}
+    \item \textit{istante 0} : il core $A$ prende \texttt{x} dalla RAM e lo mette nella sua cache. 
+    \item \textit{istante 1} : il core $B$ prende \texttt{x} dalla RAM e lo mette nella sua cache. 
+    \item \textit{istante 2} : il core $A$ modifica \texttt{x}, sommando ad esso 1.
+    \item \textit{istante 3} : il core $B$ modifica \texttt{x}, sottraendo ad esso 1. 
+    \item \textit{istante 4} : \texttt{x} ha un valore diverso in ogni unità di memoria (cache di $A$, cache di $B$, RAM).
+\end{itemize}
+Ci sono due meccanismi per mantenere la cache coerente\begin{itemize}
+    \item \textbf{Snooping Cache Coherence}\begin{itemize}
+        \item Condivisione del bus: Tutti i core (processori) sono connessi a un bus comune, un canale di comunicazione attraverso il quale vengono trasmesse tutte le informazioni.
+        Visibilità universale: Qualsiasi segnale inviato sul bus può essere "visto" da tutti i core collegati.
+        \item  Aggiornamento e broadcast: Quando un core modifica il valore di un dato (ad esempio, la variabile x) presente nella sua cache, trasmette questa informazione a tutti gli altri core attraverso il bus.
+        \item  Invalidazione della cache: Se un altro core sta utilizzando  il bus e nota che il valore di x è stato modificato, invalida la propria copia di x nella cache, assicurandosi così di avere sempre il valore più aggiornato.
+        \item  Limiti: Questo metodo, sebbene semplice, diventa inefficiente in sistemi multi-core con un gran numero di processori, poiché il broadcast su un bus condiviso può fare un collo di bottiglia.
+    \end{itemize}
+    \item \textbf{Directory Based Cache Coherence}\begin{itemize}
+        \item Struttura dati directory: Viene utilizzata una struttura dati chiamata directory per tenere traccia dello stato di ogni linea di cache. Questa directory contiene informazioni su quali core hanno una copia valida di una particolare linea di cache.
+        \item Aggiornamento e invalidazione: Quando un valore viene modificato, la directory viene consultata per identificare tutti i core che hanno una copia di quel valore nella loro cache. I controller di cache di questi core vengono quindi informati di invalidare la loro copia, garantendo così la coerenza.
+        \item Vantaggi: Questo metodo è più scalabile rispetto allo snooping, in quanto evita il broadcast indiscriminato su un bus condiviso. È particolarmente adatto per sistemi multi-core con un gran numero di processori.
+    \end{itemize}
+\end{itemize}
+\subsection{False Sharing}
+Il \textbf{false sharing}è un modello di utilizzo che degrada le prestazioni, può sorgere nelle architetture multicore quando più thread, eseguiti in parallelo, accedono a dati che, pur essendo logicamente distinti, risiedono fisicamente sullo stesso blocco della cache.\acc 
+Il problema sottopone i dati a \textbf{invalidazioni inutili}, Se due thread accedono a dati diversi che si trovano sulla stessa linea (o blocco) di cache, ogni modifica di un dato da parte di un thread causerà l'invalidazione dell'intera linea di cache per tutti gli altri thread che condividono quella linea. Questo comporta un overhead in termini di prestazioni, poiché i dati validi vengono scartati inutilmente.\begin{quote}
+    \textit{Esempio} : Si considerino due thread che incrementano due contatori distinti. Se questi contatori sono allocati in modo tale da risiedere sulla stessa linea di cache, ogni incremento di un contatore comporterà l'invalidazione dell'intera linea, anche se l'altro contatore non è stato modificato
+\end{quote}
+Per evitare il false sharing, è possibile adottare alcune strategie:
+ \begin{itemize}
+    \item \textbf{Padding}: Aggiungere byte "vuoti" ai dati in modo da farli iniziare su una nuova linea di cache. È necessario conoscere le dimensioni delle linee, è possibile tramite la chiamata \begin{center}\code{sysconf(\_SC\_LEVEL1\_DCACHE\_LINESIZE)}\end{center}
+    \item \textbf{Strutture dati} : Progettare le strutture dati in modo che i dati acceduti da thread diversi siano allocati su linee di cache diverse.
+    \item \textbf{Località} : Mantenere i dati il più possibile locali al thread, ad esempio sullo stack, e scriverli in memoria condivisa solo quando è strettamente necessario.
+\end{itemize}
+\subsection{Organizzazione della Memoria}
+La memoria può essere organizzata in due modi diversi nei sistemi multicore.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/UMA.pdf}
+\end{center}
+In un sistema \textbf{UMA}, tutti i processori hanno accesso diretto alla memoria. Questo significa che qualsiasi processore può accedere a qualsiasi dato in memoria allo stesso tempo e con la stessa velocità, indipendentemente da dove si trovi fisicamente il dato.\begin{itemize}
+    \item  I programmatori non devono preoccuparsi di gestire l'accesso alla memoria in modo complesso, poiché tutti i processori vedono la stessa memoria. 
+    \item In molte applicazioni, l'accesso uniforme alla memoria può portare a prestazioni migliori, poiché i processori possono accedere ai dati di cui hanno bisogno rapidamente.
+\end{itemize}
+Differentemente, nei sistemi \textbf{NUMA}, i diversi core vengono partizionati in \textit{gruppi}, ed ogni gruppo dispone di una memoria principale distinta e disconnessa dalle altre, tale suddivisione è \textit{trasparente} al programmatore, in quanto funzionalmente la memoria viene vista come un unica unità.\begin{quote}
+    I nodi sono interconnessi tra loro tramite un'interconnessione ad alta velocità, che consente ai processori di accedere alla memoria di altri nodi
+\end{quote} Nonostante ciò, i core che accedono alla memoria del proprio gruppo saranno più rapidi rispetto quelli che accedono alla memoria di un gruppo diverso, per questioni di vicinanza fisica dei chip.\acc 
+È possibile forzare l'allocazione della memoria su una specifica unità tramite l'inclusione della libreria \code{numa.h}.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/NUMA.pdf}
+\end{center}
 \end{document}
