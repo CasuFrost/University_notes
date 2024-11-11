@@ -2649,16 +2649,27 @@ Una volta compensata la FCEM, si separa il progetto, dividendo il controllo \tex
 L'idea alla base di questo approccio è quella di scomporre il sistema complessivo in sotto-sistemi più semplici, ognuno dei quali controlla una specifica variabile (posizione, velocità, corrente) e può essere progettato in modo indipendente. Questa semplificazione facilita la progettazione e l'analisi del sistema.\acc 
 Il controllore della posizione, vedrà gli anelli interni come \textbf{attuatori ideali}, così come il controllore della velocità vedrà l'anello interno (corrente) come ideale. 
 \subsubsection{Anello Posizione}
-Il controllore della posizione genererà una velocità $\omega_{ref}$ di riferimento che sarà ingresso di un integratore
-
-
-
-
-
-
-
-
-
+Il controllore della posizione genererà una posizione di riferimento, per l'errore calcolato verrà utilizzata esclusivamente un azione proporzionale P, gli anelli interni sono visti come ideali. Tale anello è semplice in quanto la posizione $\theta$ si ottiene semplicemente integrando la velocità angolare, il processo è un integratore.
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/anelloPosizione.pdf}
+\end{center}
+\subsubsection{Anello Velocità}
+Il secondo anello (assunto ideale da quello più esterno) assumerà che l'anello interno (della corrente) sia ideale. Il processo da controllare sarà meccanico, e deve controllare la velocità angolare $\omega$. Verrà regolato con un regolatore proporzionale ed integrale (PI) (l'azione integrale garantisce l'errore nullo a regime permanente), utile per la reiezione del disturbo di coppia $\tau_r$.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/anelloVelocità.pdf}
+\end{center}
+\subsubsection{Anello Corrente}
+L'ultimo anello deve regolare la corrente $i_a$. Viene adoperato un regolatore proprozionale integrale per garantire robustezza date le incertezze dei parametri elettrici. Si noti come su ogni singolo anello viene implementata un azione di feed forward per compensare.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/anelloCorrente.pdf}
+\end{center}\newpage
+\begin{center}
+    \includegraphics[width=1.5\textwidth,angle=90,origin=c ]{images/controlloMotoreDc.pdf}
+\end{center}\newpage
+Si ricordi che la funzione di trasferimento di un regolatore PI è $$ K_p+\frac{K_i}{s}$$
+Lo schema completo del regolatore del motore DC segue qui sotto. Si noti come vengono utilizzate le azioni di feedforward semplicemente valutando le derivate analitiche del segnale di posizione desiderato. L'immagine dello schema del motore DC è riportata in due versioni in modo che sia facilmente visualizzabile anche da un lettore che utilizza il PDF e non può ruotare il foglio.
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/controlloMotoreDc.pdf}
+\end{center}
 
 
 
@@ -4551,7 +4562,8 @@ Per il principio di sovrapposizione degli effetti e per il teorema della rispost
  $$
  y(t)=\int_0^\infty C(\omega)|G(j\omega)|\sin(\omega t+\gamma(\omega)+\arg(G(j\omega )))d\omega
  $$
- \subsection{Banda Passante di un Sistema}
+ \flowerLine 
+\section{Banda Passante e Margine di Fase}\label{bandaPass}
 Si consideri un sistema lineare con funzione di trasferimento $G(s)$. La
 funzione di risposta armonica del sistema lineare è $G(j\omega)$.\acc 
 Se applichiamo un ingresso $u(t)$, la rispsosta armonica dell'uscita $y(t)$ sarà $$ Y(j\omega)=G(j\omega)X(j\omega)$$
@@ -4568,9 +4580,43 @@ $$ \begin{matrix}
     \item Si trovano le frequenze $\omega_1,\omega_2$ per cui $|G(j\omega)|$ è uguale alla soglia scelta, dette frequenze di taglio.
     \item La banda passante è data dalla differenza tra le frequenze di taglio
 \end{enumerate}
-
- \flowerLine 
- \section{Analisi dei Sistemi Retro Azionati}
+Si definisce poi $\omega_c$ la \textbf{pulsazione critica}, ossia la frequenza per cui 
+$$|G(j\omega_c)|=1=0dB$$
+Si definisce poi il \textbf{Margine di fase}
+$$ \varphi_m=180^\circ-\arg(G(j\omega_c))$$
+In sostanza, il margine di fase indica di quanti gradi la fase del sistema deve ancora diminuire per raggiungere -180°, valore che corrisponde alla condizione limite di stabilità.
+Perché il margine di fase è importante?\begin{itemize}
+    \item Stabilità: Un margine di fase positivo garantisce la stabilità del sistema a ciclo chiuso. Più alto è il margine di fase, maggiore è la stabilità e minore è la tendenza del sistema ad oscillare.
+    \item Prestazioni: Il margine di fase influenza anche le prestazioni del sistema. Un margine di fase troppo basso può portare a una risposta lenta e a un elevato errore a regime. Un margine di fase troppo alto può rendere il sistema eccessivamente smorzato, con una risposta lenta e poco reattiva.
+\end{itemize}
+\subsection{Criterio di Nyquist}
+Il criterio di Nyquist è un metodo \textit{grafico} che permette di stabilire l'asintotica stabilità di un sistema ad anello chiuso $F(s)=\frac{L(s)}{1+L(s)}$ analizzando esclusivamente $L(s)$.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/ls.pdf}
+ \end{center}
+Il diagramma di Nyquist coincide con il diagramma polare di $L(j\omega)$ reso simmetrico rispetto l'asse reale. È una curva chiusa orientata per $\omega$ crescenti. Definiamo $n$ il numero di giri antiorari del diagramma intorno al punto critico $-1+0j$ sottratto al numero di giri orari, e $p$ il numero di poli di $L(s)$ con parte reale positiva. Il sistema $F(s)$ ad anello chiuso è asintoticamente stabile se, $n$ è ben definito (il diagramma non passa sul punto critico) ed è uguale a $p$.\acc
+\textbf{Esempio 1 } : Si consideri la funzione $L(s)=\frac{10}{1+s}$, il relativo diagramma di Nyquist è 
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/nyquist1.eps}
+ \end{center}
+La funzione ha $p=0$ poli con parte reale positiva e $n=0$ giri antiorari intorno al punto critico, essendo $p=n$, allora $F(s)=\frac{L(s)}{1+L(s)}$ è asintoticamente stabile.\acc
+\textbf{Esempio 2} : Si consideri la funzione $L(s)=20\frac{1-\nicefrac{s}{2}}{(s+1)^3}$, il relativo diagramma di Nyquist è 
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/nyquist2.eps}
+ \end{center}
+La funzione di trasferimento ha 3 poli con parte reale negativa ($s=-1$), quindi $p=0$. Il diagramma fa un 2 giri orari intorno al punto critico e 0 giri antiorari, quindi $n=-2$, essendo $p\ne n$ la funzione $F(s)=\frac{L(s)}{1+L(s)}$ non è asintoticamente stabile.\acc
+Tornando ai controllori, se $G(s)$ è un processo fisico, e $C(s)$ il controllore, vogliamo che il controllore perfetto inverta la dinamica del sistema, ossia 
+$$ C(s)G(s)=1\implies C(s)=\frac{1}{G(s)}$$
+Ciò sta a significare che, qualsiasi riferimento dato al controllore, il sistema lo riprodurrà. È pero necessario che il controllore \textbf{non abbia} più zeri che poli. Si consideri il processo fisico 
+$$ G(s)=\frac{10+10s}{(1+2s)(1+0.1s)}$$
+Si vuole progettare un controllore per tale processo. La funzione che inverte totalmente la dinamica del sistema è 
+$$ C_0(s)=\frac{(1+2s)(1+0.1s)}{10+10s}$$
+Avendo il numeratore di grado più alto del denominatore, \textit{non è realizzabile}, quindi è necessario pensare ad un altro controllore, ad esempio 
+$$ C_1(s)=\frac{0.1(1+2s)(1+0.1s)}{(1+s)(1+0.01s)}$$
+Infatti 
+$$ C_1(s)G(s)=\frac{1}{1+0.01s}$$
+Il sistema si comporta da filtro passa-basso, lascierà inalterate le frequenze dei segnali comprese fra 0 e 100hz.
+\flowerLine
+\section{Analisi dei Sistemi Retro Azionati}
  In questa sezione verranno affrontati i sistemi LTI retro azionati, e verranno presentate delle proprietà utili nella \textit{progettazione} di un controllore. \acc 
  Nel classico schema dei sistemi di controllo, vi è un generico \textit{processo} $G(s)$, alla quale dare un ingresso $u$, che ne scaturisce una risposta $y$, il processo può essere soggetto da un \textit{disturbo} $d$
  \begin{center}
@@ -4608,43 +4654,115 @@ Vorremmo idealmente seguire il segnale di riferimento $$\frac{Y(s)}{Y_d(s)}=1 \i
 Definiamo $F(s)= \frac{L(s)}{1+L(s)}$, è la funzione di sensitività, che indica quanto l'uscita del sistema è influenzata da variazioni nel segnale di riferimento. Dato il disturbo $D(s)$ si definisce 
 $$ M(s)=\frac{D(s)}{1+L(s)}$$
 È la funzione di sensitività al disturbo, che indica quanto l'uscita del sistema è influenzata da disturbi esterni. Vorremmo che $M(s)=0$, significa che il disturbo non ha alcuna influenza sull'uscita del sistema, ovvero il sistema è completamente immune ai disturbi.
-\acc 
+\subsection{Analisi di $F(s)$}
+In un generico sistema retroazionato 
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/classicoControllo3.pdf}
+ \end{center}
+ L'\textbf{analisi statica} di un sistema dinamico ci permette di studiare il comportamento del sistema a regime permanente.
+Sia $L(s)=G(s)C(s)$, si vuole analizzare la funzione $F(s)=\frac{L(s)}{1+L(s)}$, si ricordi che il \textit{caso ideale} ricade quando $F(s)\simeq 1$. Nel caso generale 
+$$ L(s)=\frac{\mu}{s^g}\frac{\Pi_i(1+sT_i)}{\Pi_i(1+s\tau_i)}$$
+Essendo che per $s\rightarrow 0$ il termine a destra diventa 1, a regime permanente 
+vale $L(s)$ vale $\frac{\mu}{s^r}$. Si consideri come valore di ingresso lo scalino $$ w(t)=A\cdot H(t)$$
+Per un dato valore $A$. Calcoliamo il valore della funzione di sensitività a regime permanente ($\frac{A}{s}$ è la trasformata di laplace dell'ingresso $w(t)$)
+\begin{eqnarray}
+    \lim_{t\rightarrow\infty}y(t)=\lim_{s\rightarrow0}sF(s)\frac{A}{s}= \\ 
+    \lim_{s\rightarrow0} \frac{L(s)}{1+L(s)}=A\lim_{s\rightarrow0}\frac{\frac{\mu}{s^g}}{1+\frac{\mu}{s^g}} = \\ 
+    A\lim_{s\rightarrow0}\frac{\mu}{s^g+\mu}
+\end{eqnarray}
+Quindi il valore a regime permanente può valere 
+$$ y(\infty)=\begin{cases}
+    A\frac{\mu}{1+\mu}\  \text{ se }g=0 \ \ \text{il guadagno è }\mu_F\simeq 1 \text{ se }\mu>>1\\ 
+    A \ \text{ se }g>0 \text{ il guadagno è }\mu_F=1\\ 
+    0 \ \text{ se }g<0 \ \ \ \text{\redText{(caso pessimo)}}
+\end{cases}$$
 Un sistema retroazionato con funzione $F(s)=\frac{L(s)}{1+L(s)}$ è stabile asintoticamente se, dato $$ L(s)=\frac{Num(s)}{Den(s)}$$
 $$ F(s)=\frac{Num(s)}{Num(s)+Den(s)}$$ 
 Si ha che il polinomio $Num(s)+Den(s)$ ha radici con parte reale negativa.
-\subsection{Criterio di Nyquist}
-Il criterio di Nyquist è un metodo \textit{grafico} che permette di stabilire l'asintotica stabilità di un sistema ad anello chiuso $F(s)=\frac{L(s)}{1+L(s)}$ analizzando esclusivamente $L(s)$.\begin{center}
-    \includegraphics[width=0.7\textwidth ]{images/ls.pdf}
- \end{center}
-Il diagramma di Nyquist coincide con il diagramma polare di $L(j\omega)$ reso simmetrico rispetto l'asse reale. È una curva chiusa orientata per $\omega$ crescenti. Definiamo $n$ il numero di giri antiorari del diagramma intorno al punto critico $-1+0j$ sottratto al numero di giri orari, e $p$ il numero di poli di $L(s)$ con parte reale positiva. Il sistema $F(s)$ ad anello chiuso è asintoticamente stabile se, $n$ è ben definito (il diagramma non passa sul punto critico) ed è uguale a $p$.\acc
-\textbf{Esempio 1 } : Si consideri la funzione $L(s)=\frac{10}{1+s}$, il relativo diagramma di Nyquist è 
+Vediamo ora l'analisi della \textbf{risposta in sequenza} di $F(s)$ 
+$$ |F(j\omega)|=\frac{|L(j\omega)|}{|1+L(j\omega)|}\simeq \begin{cases}
+    1 \text{ se }|L(j\omega)|>>1\\ \\
+    |L(j\omega)|\text{ se }|L(j\omega)|<<1
+\end{cases}$$
+È chiaro che laddove il valore del modulo della risposta in frequenza di $L$ è molto maggiore di 1, la risposta in frequenza tende ad 1 (0 dB nel diagramma di Bode). \begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/situazioneTipicaF.eps}
+\end{center}L'andamento sarà qualitativamente quello mostrato in figura, quando il modulo di $L$ scende sotto una certa soglia, l'andamento del modulo di $F$ inizierà a "seguirlo".
+È chiaro che il punto in cui $|F(j\omega)|$ inizierà a calare sarà la \textit{pulsazione critica} trattata nella sezione \ref{bandaPass}, ossia il punto in cui il modulo della risposta armonica di $L$ è 1 (ossia 0dB)
+$$|L(j\omega_c)|=1=0dB$$
+\sapbox{$F(s)$ si comporta come un filtro passa basso}
+Lascia passare le frequenze comprese in $[0,\omega_c]$ con un guadagno $\mu_f$ presentato prima (dipende dai valori di $g$). I poli dominanti di $F(s)$ sono in corrispondenza di $\omega_c$.
+\sapbox{
+    In un sistema di controllo in anello chiuso con retroazione, la precisione statica dipende da $g$ e $\mu$. La precisione dinamica dipende dalla frequenza critica $\omega_c$ e dal margine di fase $\varphi_m=180^\circ-\arg(F(j\omega_c))$
+}
+\subsection{Esempio di Progettazione}
+Si consideri il seguente schema a blocchi
 \begin{center}
-    \includegraphics[width=0.3\textwidth ]{images/nyquist1.png}
- \end{center}
-La funzione ha $p=0$ poli con parte reale positiva e $n=0$ giri antiorari intorno al punto critico, essendo $p=n$, allora $F(s)=\frac{L(s)}{1+L(s)}$ è asintoticamente stabile.\acc
-\textbf{Esempio 2} : Si consideri la funzione $L(s)=20\frac{1-\nicefrac{s}{2}}{(s+1)^3}$, il relativo diagramma di Nyquist è 
+    \includegraphics[width=0.6\textwidth ]{images/EsempioProgControllore1.pdf}
+\end{center}
+Il processo $G(s)$ è descritto dalla funzione di trasferimento 
+$$ G(s)=\frac{10}{(1+10s)(1+5s)(1+s)}$$
+Il riferimento $w$ e l'errore $d$ sono scalini e possono assumere i seguenti valori 
+$$\begin{cases}
+    w(t)=AH(t) \ \ \ A\in[-1,1]\\ 
+    d(t)=BH(t) \ \ \ B\in[-5,5]
+\end{cases} $$
+\textit{Si vuole progettare} un controllore che soddisfi le seguenti specifiche\begin{itemize}
+    \item $|e(\infty)|\le0.1$ l'errore a regime permanente deve essere al più 0.1 
+    \item $w_c\ge 0.2$ vincolo sulla frequenza critica 
+    \item $\varphi_m\ge 60^\circ$ vincolo sul margine di fase
+\end{itemize}
+Il generico controllore ha la forma 
+$$ R(s)=R_1(s)R_2(s)\frac{\mu_R}{s^r}\frac{\Pi_i(1+sT_i)}{\Pi_i(1+s\tau_i)}$$
+Consideriamo il progetto statico (\textbf{a regime permanente}), solamente il primo termine $R_1(s)$ ha influenza. La funzione ad anello aperto sarà 
+$$ L(s)=R_1(s)G(s)=\frac{\mu_R}{s^r}\frac{10}{(1+10s)(1+5s)(1+s)}$$
+L'errore a regime permanente è composto da due parti, l'errore dovuto al disturbo sul riferimento $e_w(t)$ e l'errore dovuto al disturbo $d$ sulla variabile controllata, ossia $e_d(t)$ 
+$$ e(\infty)=e_w(\infty)+e_d(\infty)$$
+Data questa uguaglianza, l'errore a regime permanente è limitato come segue 
+$$ |e(\infty)|\le |e_w(\infty)|+ |e_d(\infty)|$$
+Calcoliamo $e_w(\infty)$. Sappiamo che 
+$$ e_w=w-y$$
+quindi 
+$$ E_w(s)=W(s)-Y(s)$$
+inoltre
+$$ Y(s)=W(s)\frac{L(s)}{1+L(s)}$$
+Quindi 
+$$ E_w(s)=W(s)-W(s)\frac{L(s)}{1+L(s)}$$
+Essendo che $w(t)=AH(t)$, si ha che $W(s)=\frac{A}{s}$
+$$ E_w(s)=\frac{A}{s}-\frac{A}{s}\frac{\frac{\mu_R}{s^r}\frac{10}{(1+10s)(1+5s)(1+s)}}{1+\frac{\mu_R}{s^r}\frac{10}{(1+10s)(1+5s)(1+s)}}$$
+Consideriamo il caso $r=0$
+$$ E_w(s)=\frac{A}{s}-\frac{A}{s}\frac{\mu_R\frac{10}{(1+10s)(1+5s)(1+s)}}{1+\mu_R\frac{10}{(1+10s)(1+5s)(1+s)}}$$
+$$ E_w(s)=\frac{1}{s}\Big[A-A\frac{\mu_R\frac{10}{(1+10s)(1+5s)(1+s)}}{1+\mu_R\frac{10}{(1+10s)(1+5s)(1+s)}}\Big]$$
+Si calcola $\displaystyle e_w(\infty)=\lim_{s\rightarrow 0}sE_w(s)$
+$$ \lim_{s\rightarrow 0}s\frac{1}{s}\Big[A-A\frac{\mu_R\frac{10}{(1+10s)(1+5s)(1+s)}}{1+\mu_R\frac{10}{(1+10s)(1+5s)(1+s)}}\Big]=\lim_{s\rightarrow 0}\Big[A-A\frac{\mu_R\frac{10}{(1+10s)(1+5s)(1+s)}}{1+\mu_R\frac{10}{(1+10s)(1+5s)(1+s)}}\Big]=$$
+$$ \Big[A-A\frac{\mu_R{10}}{1+\mu_R{10}}\Big]=A\Big[1-\frac{10\mu_R}{1+10\mu_R}\Big]=
+\frac{A}{1+10\mu_R}$$
+Quindi
+\eqImportante{$e_w(\infty)=\dfrac{A}{1+10\mu_R}\implies |e_w(t)|=\dfrac{|A|}{1+10\mu_R}\le \dfrac{1}{1+10\mu_R}$}
+Seguendo lo stesso identico ragionamento si ha che 
+\eqImportante{$e_d(\infty)=\dfrac{B}{1+10\mu_R}\implies |e_w(t)|=\dfrac{|B|}{1+10\mu_R}\le \dfrac{5}{1+10\mu_R}$}
+Ma allora 
+$$ |e(\infty)|\le |e_w(\infty)|+ |e_d(\infty)|\implies $$
+$$ |e(\infty)|\le \dfrac{1}{1+10\mu_R}+\dfrac{5}{1+10\mu_R}=\dfrac{6}{1+10\mu_R}$$
+Quindi seguendo le specifiche del progetto 
+$$ |e(\infty)|\le0.1\iff \dfrac{6}{1+10\mu_R}\le 0.1 \iff \mu_R\ge 5.9$$
+Nel caso $r=1$ l'errore a regime è nullo per qualsiasi $\mu_R$. Avendo trovato il valore minimo di $\mu_R$, si pone (arbitrariamente seguendo il vincolo)
+$$ R_1(s)=8$$
+Si ha quindi che 
+$$ L(s)=8G(s)R_2(s)$$
+Si pone $L'(s)=8G(s)$
+$$ L'(s)=\frac{80}{(1+10s)(1+5s)(1+s)}$$
+A questo punto si deve definire $R_2(s)$ in modo che rispetti le specifiche di progetto, ossia\begin{itemize}
+    \item $w_c\ge 0.2$ vincolo sulla frequenza critica 
+    \item $\varphi_m\ge 60^\circ$ vincolo sul margine di fase
+\end{itemize}
+Si va \textbf{a tentativi}, si provi con $R_2(s)=1$
+$$ |L(j\omega_c)|=1\implies |\frac{80}{(1+10j\omega_c)(1+5j\omega_c)(1+j\omega_c)}|=1\implies \omega_c\simeq 1.0409$$
+Il vincolo sulla frequenza critica è rispettato. I diagrammi di Bode sono
 \begin{center}
-    \includegraphics[width=0.3\textwidth ]{images/nyquist2.png}
- \end{center}
-La funzione di trasferimento ha 3 poli con parte reale negativa ($s=-1$), quindi $p=0$. Il diagramma fa un 2 giri orari intorno al punto critico e 0 giri antiorari, quindi $n=-2$, essendo $p\ne n$ la funzione $F(s)=\frac{L(s)}{1+L(s)}$ non è asintoticamente stabile.\acc
-Tornando ai controllori, se $G(s)$ è un processo fisico, e $C(s)$ il controllore, vogliamo che il controllore perfetto inverta la dinamica del sistema, ossia 
-$$ C(s)G(s)=1\implies C(s)=\frac{1}{G(s)}$$
-Ciò sta a significare che, qualsiasi riferimento dato al controllore, il sistema lo riprodurrà. È pero necessario che il controllore \textbf{non abbia} più zeri che poli. Si consideri il processo fisico 
-$$ G(s)=\frac{10+10s}{(1+2s)(1+0.1s)}$$
-Si vuole progettare un controllore per tale processo. La funzione che inverte totalmente la dinamica del sistema è 
-$$ C_0(s)=\frac{(1+2s)(1+0.1s)}{10+10s}$$
-Avendo il numeratore di grado più alto del denominatore, \textit{non è realizzabile}, quindi è necessario pensare ad un altro controllore, ad esempio 
-$$ C_1(s)=\frac{0.1(1+2s)(1+0.1s)}{(1+s)(1+0.01s)}$$
-Infatti 
-$$ C_1(s)G(s)=\frac{1}{1+0.01s}$$
-Il sistema si comporta da filtro passa-basso, lascierà inalterate le frequenze dei segnali comprese fra 0 e 100hz.
-
-
-
-
-
-
-
+    \includegraphics[width=1\textwidth ]{images/EsercizioControlloreBode.eps}
+\end{center}
+Il margine di fase è chiaramente negativo, quindi il vincolo $\varphi_m\ge 60^\circ$ non è rispettato, allora $R_2(s)=1$ non va bene come regolatore.\\
+\redText{Capire come scegliere un regolatore corretto}
 
 
 
