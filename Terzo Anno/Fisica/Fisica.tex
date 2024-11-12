@@ -1751,7 +1751,7 @@ In questo specifico caso, la somma dei momenti delle due forze è \textit{invari
 Il momento della coppia di forze è normale al piano delle due forze, sia $b$ la distanza fra $P_1$ e $P_2$, l'intensità della forza è $|F_1|b=|F_2|b$. La coppia è un sistema di forze \textbf{irriducibile} ed è completamente individuata dal suo momento.\begin{quote}
    Un  momento di forze può essere rappresentato per mezzo di una qualsiasi coppia di forze che ha quel momento.
 \end{quote}
-\chapter{Forza Elettrica}
+\chapter{Il Campo Elettrico}
 Gli atomi sono i costituenti della materia, sono formati da un nucleo (protoni e neutroni) e da elettroni che si trovano attorno ad esso. In passato sono stati osservati fenomeni di forza elettrica senza però conoscerne le cause. Ad esempio, strofinando una bacchetta di vetro su un maglione di lana si potrà osservare che questa acquisirà la proprietà di attirare a se (esercitare una forza) su oggetti leggeri (come un pezzo di carta).\acc 
 La \textbf{carica} è una proprietà fondamentale della materia, si misura in \textit{Coloumb} $C$ , ed è quantizzata, in particolare, la carica elementare è quella posseduta da un protone o da un elettrone, questi ultimi infatti hanno carica di eguale modulo, ma segno opposto.\begin{center}
     \begin{tabular}{|l|l|}
@@ -1762,7 +1762,8 @@ La \textbf{carica} è una proprietà fondamentale della materia, si misura in \t
         neutrone   & 0                           \\ \hline
         \end{tabular}
 \end{center}
-Essendo che in un atomo il numero dei protoni coincide con il numero degli elettroni, questo risulta elettricamente neutro, quando si strofina la bacchetta di vetro sulla lana, questa riesce a "strappare" degli elettroni, e caricarsi negativamente, acquisendo una carica non neutra.\acc 
+Essendo che in un atomo il numero dei protoni coincide con il numero degli elettroni, questo risulta elettricamente neutro, quando si strofina la bacchetta di vetro sulla lana, questa riesce a "strappare" degli elettroni, e caricarsi negativamente, acquisendo una carica non neutra.
+\section{La Forza Elettrica}
 La \textbf{Forza Elettrica} è una forza che agisce sui corpo carichi, in particolare, un corpo carico negativamente eserciterà una forza attrattiva sui corpi carichi positivamente, e repulsiva sui corpi carichi negativamente. Analogo ma contrario con i corpi carichi positivamente.\begin{center}
     \includegraphics[width=1\textwidth ]{images/cariche.pdf}
 \end{center}
@@ -1774,4 +1775,95 @@ $$ \varepsilon_0=8.8542\cdot10^{-12}\frac{C^2}{Nm^2}$$
 $$ r=0.53\cdot10^{-10}m$$
 La forza applicata sulle particelle ha modulo 
 $$ \frac{1}{4\pi8.8542\cdot10^{-12}}\frac{-(1.602177335\cdot10^{-19})^2}{(0.53\cdot10^{-10})^2}=8.20\cdot 10^{-8}N$$
+È possibile rappresentare l'interazione elettrica prodotta da una carica come un campo di forze, che ne illustra appunto l'azione. Il problema è che ogni carica esercita una forza su altre cariche, ma queste ultime a loro volta perturbano il campo elettrico generato dalla prima. Dall'equazione della forza di Coloumb si può 
+scrivere 
+$$ \frac{\bar F}{q_2}=\frac{1}{4\pi\varepsilon_0}\frac{q_1}{r^2}\hat r$$
+Supponendo che $q_2$ sia una carica di "sonda", ossia abbastanza piccola rispetto $q_1$ da rendere la sua perturbazione della forza trascurabile, si definisce il \textbf{Campo Elettrico}
+$$ \bar E = \lim_{q_2\rightarrow 0}\frac{\bar F}{q_2} \ \frac{N}{C}$$
+L'unità di misura è Newton su Coloumb. $\bar E$ rappresenta l'effetto elettrico di una sola carica ed è definito in tutto lo spazio. \acc 
+La carica, la cui unità di misura è il Coloumb $C$, non ha una dimensione assestante, ma ha una dimensione derivata dalla corrente $I$, che si misura in \textit{Ampere} $A=\frac{C}{s}$ (verrà trattata in seguito).
+Le dimensioni del campo elettrico sono quindi $[ml\tau^{-3}I^{-1}]$.\acc 
+È possibile rappresentare graficamente un campo elettrico, disegnando sul piano (nel caso a due dimensioni) o nello spazio (nel caso a tre dimensioni) delle frecce che rappresentino la forza in ogni punto, la cui lunghezza è proporzionale all'intensità.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/campoElettrico.pdf}
+\end{center}
+È anche possibile rappresentare il campo tramite delle \textit{linee di campo}, ossia delle curve mai incidenti che in ogni punto sono tangenti al campo elettrico, quest'ultima rappresentazione è spesso privilegiata. \acc 
+Dato un campo elettrico $\bar E$, la forza che agisce su una carica $q_0$ è $$\bar F =\bar E q_0$$
+\defi{} un \textbf{Dipolo elettrico} è un sistema di due cariche puntiformi uguali in modulo ma di segno opposto.\acc 
+Il campo elettrico totale generato dal sistema è uguale, punto per punto, alla somma dei campi elettrici generati da ogni carica.
+$$ \bar E_{tot}=\bar E_1 + \bar E_2 = \frac{1}{4\pi\varepsilon_0}\frac{+Q}{r_1^2}\hat r_1+\frac{1}{4\pi\varepsilon_0}\frac{-Q}{r_2^2}\hat r_2$$
+Le linee di campo del dipolo elettrico congiungono la carica $+Q$ alla carica $-Q$ esclusa una delle due linee parallele alla retta congiungente.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/dipolo.eps}
+\end{center}
+Senza dimostrazione, il campo elettrico generato dal dipolo diminuisce di intensità al variare della distanza come $\frac{1}{r^3}$. In generale, un sistema di $n$ cariche genera il campo 
+$$ \bar E = \frac{1}{4\pi\varepsilon_0}\sum_i\frac{q_i}{r^2_i}\hat r_i$$
+Una carica può anche essere distribuita su una superficie (o eventualmente su un volume) $S$, in quel caso il campo elettrico vale 
+$$\bar E=  \frac{1}{4\pi\varepsilon_0}\int_S \frac{d Q}{r^2}\hat r$$
+dove $dQ$ è la carica nella porzione infinitesima della superficie.
+\subsection{Campi Elettrici Noti}
+In questa sezione verranno presentati alcuni risultati notevoli di campi generati da determinate sorgenti.
+\subsubsection{Campo generato da un anello}
+Si vuole determinare l'intensità del campo elettrico generato da un anello (con carica uniforme) su un asse passante tale anello ed ortogonale ad esso, come mostrato in figura.
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/anello1.eps}
+\end{center}
+Per ipotesi il contributo elementare della carica $dQ$ è indipendente dalla sua posizione sull'anello in quanto la densità di carica  $\lambda$ è uniforme $$ dQ=\lambda dl$$
+dove $l\in [0,2\pi]$ rappresenta la posizione di frammento infinitesimale sull'anello. Il contributo elementare al campo elettrico sarà 
+$$ d\bar E = \frac{1}{4\pi\varepsilon_0}\frac{dQ}{r^2}\hat r$$
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/anello2.eps}
+\end{center}
+È chiaro che ogni contributo di campo infinitesimale avrà componente nulla sull'asse delle $z$. Vanno quindi analizzate le componenti sull'asse delle $x$ e delle $y$. Le forze in un punto $p$ dell'anello formeranno una forma a "ventaglio".
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/anello3.eps}
+\end{center}
+Tale "ventaglio" avrà componente nulla lungo $y$ in quanto le forze si annullano fra loro. Avrà valore esclusivamente lungo la componente $x$.\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/anello4.eps}
+\end{center}
+Quindi 
+$$ \bar E = \int dE_x$$
+Essendo $dE_x=dE\cos\theta$, dove $\theta$ è l'angolo compreso fra l'asse $x$ e la forza elementare.
+$$ \bar E =  \frac{1}{4\pi\varepsilon_0}\int\frac{dQ}{r^2}\cos\theta=\frac{1}{4\pi\varepsilon_0}\int_A\frac{\lambda dl}{r^2}\cos\theta$$
+Dove l'insieme di integrazione $A$ è la curva dell'anello. Fissato un punto $p$, si noti come sia $r$ (la distanza) che $\theta$ non dipendono dalla posizione del frammento infinitesimo di anello $dl$, quindi è possibile portarli fuori dall'integrale. 
+$$ \frac{1}{4\pi\varepsilon_0}\frac{\cos\theta}{r^2}\int_A \lambda dl$$
+Essendo $\int_A \lambda dl=\int dQ=Q$ si ha 
+$$ \bar E = \frac{1}{4\pi\varepsilon_0}\frac{\cos\theta}{r^2}Q$$
+Si vuole scrivere in una forma più comoda solamente in funzione di $x$, si noti come 
+$$ r\cos\theta=x\implies \cos\theta =\frac{x}{r}$$
+quindi 
+$$ \bar E = \frac{1}{4\pi\varepsilon_0}\frac{x}{r^3}Q$$
+Inoltre anche la distanza $r$ dipende esclusivamente da $x$, sia $R$ il raggio dell'anello, si ha 
+$$ r=\sqrt{x^2+R^2}$$
+in definitiva 
+$$ \bar E = \frac{1}{4\pi\varepsilon_0}\frac{x}{(x^2+R^2)^{\nicefrac{3}{2}}}Q$$
+A che distanza $x$ il campo elettrico è massimo? Si fa la derivata 
+$$ \frac{d\bar E}{dx}=\frac{Q(R^2-2x^2)}{4\pi\varepsilon_0(R^2+x^2)^{\nicefrac{5}{2}}}$$
+Si pone uguale a zero 
+$$ \frac{Q(R^2-2x^2)}{4\pi\varepsilon_0(R^2+x^2)^{\nicefrac{5}{2}}}=0\iff x=\pm\frac{R}{\sqrt{2}}$$
+Il seguente grafico riporta l'andamento qualitativo dell'intensità del campo elettrico in questione al variare di $x$.
+\begin{center}
+    \begin{tikzpicture}[scale=1, transform shape]
+		\begin{axis}[
+		ymin=-6,
+		ymax = 6,
+		xmin=-6,
+		xmax = 6,
+		axis lines = left,
+		xtick distance=2, ytick distance=7,
+		grid style=dashed,
+		ymajorgrids=true,
+		xmajorgrids=true,
+		xlabel = \(x\),
+		ylabel = {\(y\)},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=-6:6,
+		samples=50,
+		color=blue,
+		]
+		{1/(4*pi*(0.01))*x*1/((x^2+1^2)^(3/2))};
+		\addlegendentry{\(\bar E\)}
+		\end{axis}
+		\end{tikzpicture}
+\end{center}
 \end{document}

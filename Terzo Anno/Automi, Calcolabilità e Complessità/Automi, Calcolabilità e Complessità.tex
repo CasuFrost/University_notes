@@ -1807,7 +1807,7 @@ la lista di tutte le possibile stringhe su tale alfabeto. $E$ sarà definito com
         $s_j$
     \end{itemize}
 \hfill$\blacksquare$\end{itemize}\flowerLine 
-\section{Indecidibilità}
+\section{Decidibilità dei Linguaggi}
 Come esistono linguaggi non regolari e linguaggi non acontestuali, risulta naturale porsi la domanda : Esistono dei linguaggi non turing riconosibili? Il modello della TM corrisponde al concetto di algoritmo, un linguaggio non riconoscibile corrisponde ad un problema che \textit{nessun} algoritmo può risolvere.\acc 
 Una TM può ricevere in input un qualsiasi oggetto matematico, come un polinomio, un DFA, o direttamente un'altra TM, è importante che tale oggetto $O$, venga \textbf{codificato} in binario, denotandolo $<O>$ prima di essere computato dalla TM.\acc 
 Vediamo come prima cosa un esempio di linguaggio decidibile, si consideri 
@@ -1828,9 +1828,163 @@ Ossia di tutte le codifiche di DFA che hanno linguaggio vuoto, ossia che non acc
 \dimo{} La TM che deciderà il linguaggio codificherà il DFA come un grafo, in gli stati sono i nodi, e vi è un arco da un nodo ad un altro solo se esiste una transizione fra i due stati. In particolare la TM seguirà il seguente comportamento\begin{enumerate}
     \item marca lo stato iniziale, ed inizia a fare una passeggiata sul grafo 
     \item marca ogni stato raggiungibile 
-    \item se almeno uno stato di accettazione è marcato, la TM rifiuta, altrimenti accetta
+    \item se almeno uno stato di accettazione è marcato, la TM rifiuta, altrimenti accetta\hfill $\blacksquare$
 \end{enumerate}
-\hfill $\blacksquare$\acc 
 Un altro esempio interessante è il seguente 
 $$ EQ_{DFA}=\{<D_1,D_2>\ | \ D_1,D_2\in DFA\land L(D_1)=L(D_2)\}$$
- \end{document}
+L'insieme delle coppie (codificate) di DFA che accettano lo stesso linguaggio.\acc 
+\prop{} $EQ_{DFA}$ è decidibile. \acc 
+\dimo{} Dati due DFA si definisce l'operatore di  differenza simmetrica $\Delta$ come segue 
+$$ L(D_1)\Delta L(D_2)= (L(D_1)\cap \overline{L(D_2)})\cup (L(D_2)\cap \overline{L(D_1)})$$
+Fatto : $L(D_1)=L(D_2)\iff L(D_1)\Delta L(D_2)=\emptyset$. Dati $D_1$ e $D_2$ si definisce $D$ tale che 
+$L(D)=L(D_1)\Delta L(D_2)$ e si esegue l'algoritmo per decidere $E_{DFA}$ su $D$. \hfill$\blacksquare$\acc 
+La seguente proposizione sarà necessaria a dimostrare la decidibilità di un linguaggio. \acc 
+\prop{} Se $G$ è una CFG in forma normale Chomsky, e $w\in L(G)$, se $|w|=n$ per produrre $w$ saranno necessarie $2n-1$ derivazioni. \acc 
+\dimo{} Il caso base per $n=1$ è banale. Se $n\ge 2$ la regola di partenza sarà $$ S\rightarrow AB$$ 
+$A$ produrrà $u$ e $B$ produrrà $v$, con $w=uv$. Allora 
+$$ |u|= k \ \ \ |v|=n-k$$
+Quindi per ipotesi induttiva per generare $w$ saranno necessari 
+$$ 1+2k-1+2(n-k)-1=1+2k-1+2n-2k-1=2n-1$$
+passi.\hfill$\blacksquare$\acc 
+Si consideri 
+$$ A_{CFG}=\{<G,w>\ |\ G\in CFG \land G \text{ produce }w\}$$
+\prop{} $A_{CFG}$ è decidibile. \acc 
+\dimo{} Si può assumere che $G$ sia in forma normale Chomsky. Si costruisce una TM che considera tutte le derivazioni lunghe $2n-1$ di $G$. Se trova $w$ accetta, altrimenti rifiuta.\hfill$\blacksquare$\acc 
+Anche il linguaggio 
+$$ E_{CFG}=\{<G>\ | \ G\in CFG \land L(G)=\emptyset\}$$
+è decidibile, se ne da un \textit{idea di dimostrazione}, la TM può procedere nel seguente modo\begin{enumerate}
+    \item data $G$ marca ogni terminale 
+    \item marca ogni variabile $A$ se esiste la regola $A\longrightarrow U_1U_2\dots U_k$
+    e se esiste un $U_i$ marcato. 
+    \item accetta se e solo se $S$ non è marcata, altrimenti rifiuta.
+\end{enumerate}
+\flowerLine 
+\section{Linguaggi non Decidibili}
+Un linguaggio può essere regolare, acontestuale, decidibile e riconoscibile, in generale vi è una relazione di inclusione fra gli insiemi delle classi dei linguaggi.\begin{itemize}
+    \item regolari $\subset$ acontestuali  
+    \item acontestuali $\subset$ decidibili 
+    \item decidibili $\subset$ riconoscibili 
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/insiemiLinguaggi.pdf}
+\end{center}
+\subsection{Macchina di Turing Universale}
+Vedremo che il linguaggio contenente le codifiche delle macchine di turing ed una qualsiasi stringa che accettano, è riconoscibile ma non decidibile.
+\eqImportante{$ A_{TM}=\{<M,w> \ | \ M\in TM\land w\in L(M)\}$}
+\teo{} $A_{TM}$ è turing-riconoscibile.\acc 
+\dimo{} Si definisce una TM nota detta \textit{macchina di Turing universale} denotata $U$, sarà quella che riconoscerà $A_{TM}$. Avrà 2 nastri, nel primo conterrà la codifica dell'input $<M,w>$, nel secondo conterrà la configurazione corrente $<(a,q,b)>$ dell'esecuzione simulata di $M$.\acc 
+È necessario definire la codifica di $M,w$. Essendo 
+$$ M=(Q,\Sigma,\Gamma,\delta,q_0,q_{acc},q_{rej})$$
+Siano 
+$$ n=|\Sigma| \ \ m=|\Gamma| \ \ s=|Q|$$
+la codifica sarà 
+$$ (n)_2,(m)_2,(s)_2,<\delta>$$
+dove $,$ è un carattere speciale, $(k)_2$ è la codifica binaria di $k\in\Z$ e $<\delta>$ è la codifica binaria delle transizioni 
+$$ <\delta>=R_1;R_2\dots;R_j$$
+Le regole sono del tipo 
+$$ R=((q,a),(r,b,z)) \ \ \ \ z\in\{L,R\}$$
+I passi di esecuzione sono i seguenti\begin{enumerate}
+    \item Sul nastro 2 viene scritta la configurazione iniziale 
+    \item al passo $t$-esimo, la configurazione sarà del tipo $$ <(a,q,b)>$$\begin{enumerate}
+        \item si estrae $q$ dalla configurazione 
+        \item si scansiona il nastro 1 in cerca di una regola del tipo $$ <(q,x),(r,y,z)>$$
+        se $x\ne b[1]$\footnote{primo carattere di $b$}, si controlla la regola successiva, se $x=b[1]$
+        si aggiorna la configurazione sul nastro 2 in accordo con la regola letta. 
+        \item se il nastro 2 contiene una configurazione con uno stato fra $q_{acc},q_{rej}$, accetta o rifiuta di conseguenza. 
+    \end{enumerate}
+    \item Se $w\in L(M)$, $U$ accetta, altrimenti rifiuta. Se $M$ va in loop, $U$ andrà in loop di conseguenza. 
+\end{enumerate}
+$U$ è quindi un riconoscitore per $A_{TM}$.\hfill$\blacksquare$\acc 
+\subsection{Diagonalizzazione}
+La diagonalizzazione è una tecnica utilizzata per dimostrare alcune semplici proprietà degli insiemi. Sappiamo un insieme generico $A$ è numerabile se esiste una biezione da $\N$ a $A$. Ad esempio, l'insieme dei numeri pari $E$ è numerabile perché esiste $$ f:E\rightarrow \N\ \ \ | \ \ \  f(n)=2n$$ che è una biezione.\acc 
+\teo{} $\R$ non è numerabile.\acc 
+\dimo{} è necessario dimostrare che un sottoinsieme di $\R$ non sia numerabile. Si pone per assurdo che esiste una biezione da $\N$ a $[0,1]$. Sia $f$ tale biezione, ad ogni valore di $\N$ associa un numero reale fra zero ed uno.$$ \begin{matrix}
+    f(1)=0.52423\dots\\ 
+    f(2)=0.08362\dots\\ 
+    f(3)=0.92841\dots\\ \vdots
+\end{matrix}$$
+Si definisce un numero $d$ tale che, la parte intera di $d$ è 0, e l'$i$-esima cifra decimale di $d$ è diversa dall'$i$-esima cifra decimale di $f(i)$.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/realiNonNumerabili..pdf}
+\end{center}
+Essendo $f$ biettiva per ipotesi, $\exists k \in \N | f(k)=d$, ma in questo modo la $k$-esima cifra di $f(k)$ è identica alla $k$-esima cifra di $d$, dato che $d=f(k)$. Ma allora $d$ non è contenuto nell'immagine di $f$, quindi $f$ non è biettiva. \hfill$\blacksquare$\acc 
+\prop{} L'insieme delle stringhe binarie (o non) di lunghezza infinita non è numerabile.\acc 
+La dimostrazione sarà omessa, ma si può dimostrare con la diagonalizzazione. Si presenteranno ora due proposizioni che saranno utili a dimostrare un risultato fondamentale.\acc 
+\prop{1} L'insieme $TM$ di tutte le macchine di turing è numerabile.\acc 
+\dimo{1} Si consideri $\Sigma^*$, ossia l'insieme di tutte le stringhe finite (su un generico alfabeto $\Sigma$). Ogni macchina di turing $M$ può essere codificata con una stringa finita. Quindi 
+$$ \{<M>\ |\ M\in TM\}\subseteq \Sigma^*$$
+Si definisce una relazione d'ordine $<_l$ che rappresenta l'ordinamento lessicografico per tutte le 
+stringhe di $l$ caratteri. Si estende poi  a tutte le stringhe con la relazione $<^*$ definita 
+$$ x<^*y\iff 
+    |x|<|y| \lor (|x|=|y|\land x<_l y)
+$$
+$<^*$ è una relazione d'ordine totale. Si definisce $f:\N\rightarrow \Sigma^*$ 
+$$ f(i)=i\text{-esimo elemento di $\Sigma^*$ secondo l'ordinamento }<^*$$
+$f$ è una biezione dato che per ogni $i\in\N$ si può associare un elemento di $\Sigma^*$. Quindi $\Sigma^*$ è numerabile, e di conseguenza $\{<M>\ |\ M\in TM\}$ è numerabile. \hfill$\blacksquare$\acc 
+\prop{2} L'insieme dei linguaggi non è numerabile.\acc 
+\dimo{2} Sia $\mathcal{L}$ l'insieme di tutti i linguaggi le cui stringhe sono binarie. Un generico linguaggio $L$ è in $\Sigma^*$ dove $\Sigma=\{0,1\}$. 
+Definisco per ogni linguaggio $L$ una stringa binaria $\mathcal{X}_L$ di lunghezza infinita tale che 
+\begin{center}
+    l'$i$-esimo carattere di $\mathcal{X}_L$ è 1 se l'$i$-esimo elemento di $\Sigma^*$ (secondo un arbitrario ordinamento) è in $L$. Altrimenti è 0. 
+\end{center}
+Questa applicazione $f:\mathcal{L}\rightarrow\mathcal{B}$ è biettiva, $\mathcal{B}$ è l'insieme delle stringhe di lunghezza infinita, che sappiamo non essere numerabile, ma allora anche $\mathcal{L}$, ossia un sotto-insieme del totale dei linguaggi non è numerabile, implica che l'insieme dei linguaggi non è numerabile. \hfill$\blacksquare$\acc 
+\teo{ fondamentale } Esistono linguaggi che non sono turing riconoscibili. \acc 
+\dimo{} Ogni macchina di turing ha ad esso associato un solo linguaggio. Essendo l'insieme dei linguaggi non numerabile, ed essendo l'insieme delle TM numerabile, esiste almeno un linguaggio che non si può associare a nessuna TM $\implies$ esistono linguaggi non riconoscibili.\hfill$\blacksquare$\acc 
+\teo{} $A_{TM}$ \textbf{non} è turing-decidibile.\acc 
+\dimo{} Si utilizzerà la diagonalizzazione. Si pone per assurdo che esiste una TM $H$ che è un decisore per $A_{TM}$, ovvero 
+$$ H(<M,w>)=\begin{cases}
+    \text{accetta se $M$ accetta $w$}\\ 
+    \text{rifiuta se $M$ rifiuta $w$}
+\end{cases}$$
+Si definisce una nuova TM $D$ che prende come input una TM e si comporta nel seguente modo \begin{enumerate}
+    \item Su input $<M>$, esegue $H(<M,<M>>)$
+    \item Se $H$ accetta, $D$ rifiuta. Se $H$ rifiuta, $D$ accetta.
+\end{enumerate}
+Ricordando il comportamento di $H$, si ha la seguente situazione "transitiva"
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/ATMnonDec.pdf}
+\end{center}
+Se alla TM $D$ si da in input $<D>$ si ricade nella seguente situazione.
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/ATMnonDec2.pdf}
+\end{center}
+Ma allora $D$ accetta $<D>$ solo e soltanto se $D$ rifiuta $<D>$. È una palese contraddizione, è quindi impossibile che $H$ sia un decisore per $A_{TM}$.
+\hfill$\blacksquare$\acc 
+\defi{(co-turing Riconoscibilità)} $L$ è co-turing riconoscibile (o più semplicemente, co-riconoscibile) se $\overline{L}$ è turing riconoscibile.\acc 
+\teo{} $L$ è decidibile se e solo se $L$ è sia riconoscibile che co-riconoscibile.\acc 
+\dimo{} Si dimostrano separatamente le due implicazioni. \\ 
+\boxedMath{$\implies$} Per ipotesi $L$ è decidibile, allora anche $\overline{L}$ lo è, quindi sia $L$ che $\overline{L}$ sono riconoscibili. \\ 
+\boxedMath{$\impliedby$} Per ipotesi $L$ ed $\overline{L}$ sono riconoscibili. Siano $M_1,M_2$ le TM che li riconoscono. Si costruisce una nuova TM $M$ tale che \begin{enumerate}
+    \item su input $w$ esegue parallelamente $w$ su $M_1$ ed $M_2$
+    \item se $M_1$ accetta, $M$ accetta. se $M_2$ accetta, $M$ rifiuta.
+\end{enumerate}
+$\forall w$ si ha che $w\in L \lor w\in \overline{L}$, solamente una fra $M_1,M_2$ può accettare $w$, quindi $M$ non può mai andare in loop $\implies$ $M$ è un decisore per $L$.\hfill$\blacksquare$\acc 
+\textbf{Corollario} : $\overline{A_{TM}}$ non è turing riconoscibile.\flowerLine 
+\section{Riducibilità}
+La riducibilità è una tecnica che permette di dimostrare la non decidibilità/non riconoscibilità di molti linguaggi. Informalmente, dati due linguaggi $A$ e $B$,  diremo che $A$ \textbf{si riduce a} $B$, e denoteremo $$ A\le B$$ Se esiste un algoritmo (una TM) per $B$ che risolve (decide) anche $A$.\begin{quotation}
+    trovare una soluzione per $A$ \textbf{non può essere} più difficile di trovare una soluzione per $B$
+\end{quotation}
+Si consideri il seguente linguaggio 
+$$ HAL_{TM}=\{<M,w> \ | \ M\in TM\land M(w)\text{ termina} \}$$
+Data una TM si deve stabilire se termina o continua all'infinito su un certo input.\acc 
+\teo{(Halting Problem)} $HAL_{TM}$ non è decidibile.\acc 
+\dimo{} Per assurdo, sia $R$ un decisore per $HAL_{TM}$. Si definisce una TM $S$ tale che \begin{enumerate}
+    \item prende come input una TM ed una stringa $<M,w>\in A_{TM}$
+    \item esegue $R$ su $<M,w>$
+    \item se $R$ accetta (quindi si ha la certezza che $M$ termina), $S$ simula $M$ su $w$ ed accetta solamente se $M$ accetta $w$.
+\end{enumerate}
+Quindi $S$ è un decisore per tutte le coppie $<M,w>$ ossia $A_{TM}$. Ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $HAL_{TM}$.\hfill$\blacksquare$\acc 
+Si consideri 
+$$ E_{TM}=\{<M>\ | \ M\in DFA \land L(M)=\emptyset\}$$
+\prop{} $E_{TM}$ non è decidibile.\acc 
+\dimo{} Si pone per assurdo che $R$ decide $E_{TM}$. Si definisce una nuova TM $S$ che prende come input gli elementi di $A_{TM}$ e si comporta come segue \begin{enumerate}
+    \item costruisce una nuova TM $M'$, il cui comportamento è il seguente\begin{enumerate}
+        \item prende come input una stringa $x$
+        \item se $x\ne w$ rifiuta 
+        \item se $x=w$ esegue $M$ su input $w$
+        \item $M'$ accetta se $M$ accetta
+    \end{enumerate}
+    \item esegue $R$ su input $<M'>$
+    \item se $R$ accetta, $S$ rifiuta. Se $R$ rifiuta, $S$ accetta.
+\end{enumerate}
+Essendo $R$ un decisore, allora $S$ è un decisore di $A_{TM}$, ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $E_{TM}$.\hfill$\blacksquare$\acc 
+\end{document}
