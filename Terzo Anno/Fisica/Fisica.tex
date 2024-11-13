@@ -1751,6 +1751,48 @@ In questo specifico caso, la somma dei momenti delle due forze è \textit{invari
 Il momento della coppia di forze è normale al piano delle due forze, sia $b$ la distanza fra $P_1$ e $P_2$, l'intensità della forza è $|F_1|b=|F_2|b$. La coppia è un sistema di forze \textbf{irriducibile} ed è completamente individuata dal suo momento.\begin{quote}
    Un  momento di forze può essere rappresentato per mezzo di una qualsiasi coppia di forze che ha quel momento.
 \end{quote}
+\flowerLine 
+\section{Esercizi sulla Meccanica}
+\subsubsection{Esercizio 1}
+Un corpo di massa $m=18kg$ è trascinato da una fune che applica una tensione $\bar T$ il cui angolo 
+con il suolo è $\theta$, e si muove a velocità costante $v$. È sottoposto ad un'attrito dinamico $\mu_d=0.15$. Si vuole determinare la forza $\bar T$.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/esFune.eps}
+\end{center}
+Essendo 
+$$ \bar F_d+\bar R_n+m\bar g+\bar T=m\bar a$$
+ed essendo l'accelerazione nulla, si ha 
+$$ \bar F_d+\bar R_n+m\bar g+\bar T=0$$
+Si proiettano le forze sui due assi 
+\begin{eqnarray}
+    \begin{cases}
+        x\ :  \   T\cos\theta-F_d = 0 \implies   T\cos\theta-\mu_dR_n  =0        \\ 
+        y\ :  \   T\sin\theta + R_n-mg = 0
+    \end{cases}\\ 
+    \begin{cases}
+        x\ :  \     T\cos\theta-\mu_dR_nmg+\mu_dT\sin\theta  =0        \\ 
+        y\ :  \    R_n=mg-T\sin\theta
+    \end{cases}\\ 
+    T=\frac{\mu_dmg}{\cos\theta+\mu_d\sin\theta}
+\end{eqnarray}
+\subsubsection{Esercizio 2}
+Una caldaia esplode e si divide in tre pezzi. I primi due sono di massa $m$ e hanno eguali velocità in modulo ma ortogonali fra loro e parallele al suolo. Il terzo pezzo ha massa $3m$. Se ne determini la velocità $v_3$.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/caldaia.eps}
+\end{center}
+Essendo la caldaia ferma prima dell'esplosione, aveva quntità di moto $\bar p$ nulla. La quantità di moto dopo l'esplosione è invece 
+$$ mv_1+mv_2+3mv_3$$
+La quantità di moto si conserva, quindi 
+\begin{eqnarray}
+    mv_1+mv_2+3mv_3=0\\ 
+    3mv_3=-(mv_1+mv_2)\\ 
+    v_3=\frac{-(mv_1+mv_2)}{3m}\\
+    v_3=\frac{-(v_1+v_2)}{3}
+\end{eqnarray}
+
+
+
+
 \chapter{Il Campo Elettrico}
 Gli atomi sono i costituenti della materia, sono formati da un nucleo (protoni e neutroni) e da elettroni che si trovano attorno ad esso. In passato sono stati osservati fenomeni di forza elettrica senza però conoscerne le cause. Ad esempio, strofinando una bacchetta di vetro su un maglione di lana si potrà osservare che questa acquisirà la proprietà di attirare a se (esercitare una forza) su oggetti leggeri (come un pezzo di carta).\acc 
 La \textbf{carica} è una proprietà fondamentale della materia, si misura in \textit{Coloumb} $C$ , ed è quantizzata, in particolare, la carica elementare è quella posseduta da un protone o da un elettrone, questi ultimi infatti hanno carica di eguale modulo, ma segno opposto.\begin{center}
@@ -1788,7 +1830,7 @@ Le dimensioni del campo elettrico sono quindi $[ml\tau^{-3}I^{-1}]$.\acc
 \end{center}
 È anche possibile rappresentare il campo tramite delle \textit{linee di campo}, ossia delle curve mai incidenti che in ogni punto sono tangenti al campo elettrico, quest'ultima rappresentazione è spesso privilegiata. \acc 
 Dato un campo elettrico $\bar E$, la forza che agisce su una carica $q_0$ è $$\bar F =\bar E q_0$$
-\defi{} un \textbf{Dipolo elettrico} è un sistema di due cariche puntiformi uguali in modulo ma di segno opposto.\acc 
+\defi{} un \textbf{dipolo elettrico} è un sistema di due cariche puntiformi uguali in modulo ma di segno opposto.\acc 
 Il campo elettrico totale generato dal sistema è uguale, punto per punto, alla somma dei campi elettrici generati da ogni carica.
 $$ \bar E_{tot}=\bar E_1 + \bar E_2 = \frac{1}{4\pi\varepsilon_0}\frac{+Q}{r_1^2}\hat r_1+\frac{1}{4\pi\varepsilon_0}\frac{-Q}{r_2^2}\hat r_2$$
 Le linee di campo del dipolo elettrico congiungono la carica $+Q$ alla carica $-Q$ esclusa una delle due linee parallele alla retta congiungente.\begin{center}
@@ -1866,4 +1908,75 @@ Il seguente grafico riporta l'andamento qualitativo dell'intensità del campo el
 		\end{axis}
 		\end{tikzpicture}
 \end{center}
+\subsubsection{Campo generato da una bacchetta}
+Si consideri ora una bacchetta carica $l$ parallela all'asse $y$, si vuole determinare l'intensità del campo elettrico generato dalla bacchetta lungo l'asse $x$. La carica totale della bacchetta è $Q$, il contributo di carica elementare è $dQ=\lambda dl$ dove $\lambda$ è la densità di carica, assunta uniforme.\acc 
+In questo caso i contributi elementari del campo elettrico $d\bar E$ su un punto avranno, visualizzati insieme come vettori, una forma triangolare, e la formulazione del campo totale è la stessa. 
+$$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int_l\frac{dl}{r^2}\cos\theta$$
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/bacchettaCarica.pdf}
+\end{center}
+Sebbene la formula del campo elettrico coincide con quella nel caso dell'anello carico, adesso la distanza $r$ dalla sorgente di carica e l'angolo $\theta$ formato dall'asse delle $x$ e la retta congiungente di  $x$ e la sorgente non sono indipendenti.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/tan.eps}
+\end{center}
+La derivata della tangente è $\cos^{-2}\theta$, quindi $$ dl=\frac{x}{\cos^2\theta}d\theta
+\ \ \text{ allora } \ \ 
+ r\cos\theta=x\implies r^2=\frac{x^2}{\cos^2\theta}$$
+$$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int \frac{x}{\cos^2\theta}d\theta\frac{\cos^3\theta}{x^2}=\frac{\lambda}{x4\pi\varepsilon_0}\int_{-\theta_0}^{\theta_0}\cos\theta d\theta$$
+$\theta_0$ è l'angolo quando la sorgente di carica è l'estremita della bacchetta e dipende da $x$.
+$$ \bar E =\frac{\lambda}{x4\pi\varepsilon_0}2\sin(\theta_0(x)) $$
+Se la bacchetta è infinita, $\theta_0$ tende a 90 gradi. 
+$$ \frac{\lambda}{x4\pi\varepsilon_0}2\sin(\nicefrac{\pi}{2})=\frac{2\lambda}{x4\pi\varepsilon_0}$$
+\subsubsection{Campo generato da un disco}
+Si consideri il disco $S$ di raggio $a$ e carica  totale $Q$ mostrato in figura.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/discoCarico.eps}
+\end{center}
+La carica infinitesima $dQ$ è data da $\lambda dS$. Il campo elettrico sarà 
+$$ \bar E = \frac{1}{4\pi\varepsilon_0}\iint_S \frac{\lambda dS}{r^2}\hat r $$
+È possibile considerare ogni contributo infinitesimo $dS$ come un anello infinitesimo di raggio 
+$r$
+$$ dS=(2\pi r)dr$$
+e l'anello infinitesimo $dS$ genera il campo elettrico infinitesimo $d\bar E$.
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/discoCarico2.eps}
+\end{center}
+Il campo generato da un anello carico è noto, si ha 
+$$ dE=\frac{1}{4\pi\varepsilon_0}dQ\frac{x}{(x^2+y^2)^{\nicefrac{3}{2}}}$$
+Dove $dQ$ è la carica infinitesimale che può essere scritta, usando la densità $\sigma$ come 
+$$ dQ=(\sigma 2\pi ydy)$$
+$$ dE=\frac{1}{4\pi\varepsilon_0}\sigma 2\pi ydy \frac{x}{(x^2+y^2)^{\nicefrac{3}{2}}}$$
+Si assume che $\sigma$ sia uniforme. A questo punto sarà necessario integrare ogni anello sul raggio 
+$a$ del disco 
+$$E=\int_0^a dE = \frac{1}{4\pi\varepsilon_0}\sigma 2\pi x \int_0^a \frac{y}{(x^2+y^2)^{\nicefrac{3}{2}}}dy $$
+Si risolve per sostituzione 
+$$ t=x^2+y^2 \implies \begin{matrix}
+    2ydy=2t \\ ydy=\frac{t}{2}
+\end{matrix} \ \ \ \ \begin{cases}
+    y=0\implies t=x^2 \\ 
+    y=a\implies t = x^2+a^2
+\end{cases}$$
+$$E= \frac{1}{2\varepsilon_0}\sigma x \int_{x^2}^{x^2+a^2}\frac{t^{-\nicefrac{3}{2}}}{2}dt = 
+\frac{1}{2\varepsilon_0}\sigma x\Big( \frac{1}{\sqrt{x^2}}-\frac{1}{\sqrt{x^2+a^2}} \Big)
+$$
+$$ E=\frac{1}{2\varepsilon_0}\sigma x\Big( \frac{1}{|x|}-\frac{1}{\sqrt{x^2+a^2}} \Big)$$
+\subsubsection{Piano Carico}
+Considerando il risultato appena ottenuto, è possibile fare il limite del campo elettrico generato da un disco per il raggio $a$ che tende all'infinito, ossia facendo tendere il disco ad un piano, in particolare, parallelo agli assi $y,z$.
+$$ \lim_{a\rightarrow \infty}\frac{1}{2\varepsilon_0}\sigma x\Big( \frac{1}{|x|}-\frac{1}{\sqrt{x^2+a^2}} \Big)= 
+\frac{1}{2\varepsilon_0}\sigma x\lim_{a\rightarrow \infty}\Big( \frac{1}{|x|}-\frac{1}{\sqrt{x^2+a^2}} \Big) =
+\frac{\sigma}{2\varepsilon_0} \cdot \frac{x}{|x|}=\pm\frac{\sigma}{2\varepsilon_0}$$
+Il campo elettrico generato da un piano carico infinito è \textbf{uniforme}, tale risultato è di notevole importanza.
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/pianoCarico.eps}
+\end{center}
+Se vengono posti in vicinanza due piani carichi (di carica eguale), in ogni punto le forze si sommeranno vettorialmente, nello spazio compreso fra i due piani, le forze saranno uguali ed opposte e si annulleranno.
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/pianoCarico2.eps}
+\end{center}
+Considerano due piani di cariche opposte ma identiche in modulo, si avrà l'effetto opposto, il campo elettrico si annullerà nello spazio non compreso fra i due piani.
+\begin{center}
+    \includegraphics[width=0.75\textwidth]{images/pianoCarico3.eps}
+\end{center}
+In particolare, quest'ultima configurazione è alla base del funzionamento del \textbf{condensatore}, ossia un componente elettrico composto da due lastre parallele, che se caricate permettono di accumulare energia sotto forma di campo elettrico.\acc 
+Riconsiderando il disco finito carico, risulta naturale porsi una domanda, per $x\rightarrow \infty$ (ci si allontana indefinitamente dal disco) che valore assume il campo elettrico? Essendo il campo elettrico del disco 
+$$ E=\frac{1}{2\varepsilon_0}\sigma x\Big( \frac{1}{|x|}-\frac{1}{\sqrt{x^2+a^2}} \Big)$$
 \end{document}

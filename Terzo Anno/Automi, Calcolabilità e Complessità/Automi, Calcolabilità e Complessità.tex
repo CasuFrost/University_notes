@@ -1540,7 +1540,7 @@ $$ u_{\frac{l+1}{2}}=x_{\frac{l+1}{2}} \ \ \ \  \  v_{\frac{n-2+1}{2}}=x_{\frac{
 $$
 \redText{dimostrazione non completa}
 \chapter{Calcolabilità}
-\section{Macchina di Turing e Decidibilità}
+\section{Macchina di Turing}
 Esistono linguaggi che nessuna CFG può accettare, si vuole estendere il modello di calcolo ad uno più 
 potente. Negli anni 30' del ventesimo secolo fu introdotta la \textbf{Macchina di Turing} (alla quale ci 
 riferiremo come TM), estendendo gli automi dandogli una memoria illimitata, tale modello è una semplice 
@@ -1964,15 +1964,15 @@ La riducibilità è una tecnica che permette di dimostrare la non decidibilità/
     trovare una soluzione per $A$ \textbf{non può essere} più difficile di trovare una soluzione per $B$
 \end{quotation}
 Si consideri il seguente linguaggio 
-$$ HAL_{TM}=\{<M,w> \ | \ M\in TM\land M(w)\text{ termina} \}$$
+$$ HALT_{TM}=\{<M,w> \ | \ M\in TM\land M(w)\text{ termina} \}$$
 Data una TM si deve stabilire se termina o continua all'infinito su un certo input.\acc 
-\teo{(Halting Problem)} $HAL_{TM}$ non è decidibile.\acc 
-\dimo{} Per assurdo, sia $R$ un decisore per $HAL_{TM}$. Si definisce una TM $S$ tale che \begin{enumerate}
+\teo{(Halting Problem)} $HALT_{TM}$ non è decidibile.\acc 
+\dimo{} Per assurdo, sia $R$ un decisore per $HALT_{TM}$. Si definisce una TM $S$ tale che \begin{enumerate}
     \item prende come input una TM ed una stringa $<M,w>\in A_{TM}$
     \item esegue $R$ su $<M,w>$
     \item se $R$ accetta (quindi si ha la certezza che $M$ termina), $S$ simula $M$ su $w$ ed accetta solamente se $M$ accetta $w$.
 \end{enumerate}
-Quindi $S$ è un decisore per tutte le coppie $<M,w>$ ossia $A_{TM}$. Ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $HAL_{TM}$.\hfill$\blacksquare$\acc 
+Quindi $S$ è un decisore per tutte le coppie $<M,w>$ ossia $A_{TM}$. Ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $HALT_{TM}$.\hfill$\blacksquare$\acc 
 Si consideri 
 $$ E_{TM}=\{<M>\ | \ M\in DFA \land L(M)=\emptyset\}$$
 \prop{} $E_{TM}$ non è decidibile.\acc 
@@ -1987,4 +1987,160 @@ $$ E_{TM}=\{<M>\ | \ M\in DFA \land L(M)=\emptyset\}$$
     \item se $R$ accetta, $S$ rifiuta. Se $R$ rifiuta, $S$ accetta.
 \end{enumerate}
 Essendo $R$ un decisore, allora $S$ è un decisore di $A_{TM}$, ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $E_{TM}$.\hfill$\blacksquare$\acc 
+Si vuole formalizzare il concetto di riduzione, intuitivamente si può dire che la riduzione è definita da una funzione, che negli obiettivi di questo corso sarà calcolata da una TM.\acc 
+\defi{} Una funzione $f:\Sigma^*\rightarrow \Sigma^*$ si dice \textbf{calcolabile} se esiste una TM che su input $w$ termina scrivendo sul nastro $f(w)$. Spesso tale TM ha un nastro dedicato per l'output della funzione.\acc 
+Nell'halting problem è stata definita una TM a tal scopo. La definizione di riduzione che verrà data non rappresenta il concetto in senso lato, bensì è la sua formulazione più semplice detta \textit{mapping reduction}, sufficiente per gli obiettivi di questo corso.\acc 
+\defi{(Riduzione)} Siano $A$ e $B$ due generici linguaggi. Si dice che $A$ è \textbf{riducibile} a $B$, e si denota 
+$$ A\le_m B$$
+Se \textit{esiste} una funzione calcolabile $f:\Sigma^*\rightarrow \Sigma^*$ tale che 
+$$ \forall w\in\Sigma^*, \ \ w\in A \iff f(w)\in B$$
+Il seguente teorema è di fondamentale importanza quando si vuole dimostrare la non decidibilità di un linguaggio.\acc 
+\teo{} Se $A\le_m B$ e $B$ è decidibile, allora  anche $A$ è decidibile.\acc 
+\dimo{} Sia $M_B$ un decisore per $B$, si definisce una TM $A_M$ tale che \begin{enumerate}
+    \item su input $w\in\Sigma^*$, calcola $f(w)$
+    \item esegue $M_B$ su input $f(w)$ 
+    \item Se $M_B(f(w))$ accetta, $M_A$ accetta, altrimenti rifiuta.
+\end{enumerate}
+Essendo che, per ogni $w$ si ha che $w\in A$ solo se $f(w)\in B$, $M_A$ potrà sempre o accettare o rifiutare (data l'ipotesi che $M_B$ è un decisore), quindi  $M_A$ è un decisore per $A$.
+\hfill$\blacksquare$\acc 
+\textbf{Corollario} : Se $A\le_m B$ e $A$ non è decidibile, allora  anche $B$ non è decidibile.
+\subsection{Applicazioni della Riducibilità}
+In questa sezione verranno trattati differenti esempi di come la \textit{riducibilità} può essere usata per dimostrare la non decidibilità di molti linguaggi, e verranno presentati \textit{alcuni risultati} che estendono le applicazioni, in particolare, quando si trattano linguaggi non riconoscibili. È \underline{consigliato} allo studente che deve sostenere l'esame di porre particolare attenzione a questa sezione.
+\esempio{1}
+Si vuole dimostrare in maniera formale l'indecidibilità di $HALT_{TM}$. La notazione $M(w)\ne\infty$ indicia che la TM $M$ su input $w$ non va in loop, e termina. 
+$$ HALT_{TM}=\{<M,w> \ | \ M\in TM\land M(w)\ne\infty \}$$
+Basta dimostrare che $$ A_{TM}\le_m HALT_{TM}$$
+Essendo $A_{TM}$ indecidibile, ciò comporterebbe anche l'indecidibilità di $HALT_{TM}$. Si definisce una funzione $\ridFunc$ tale che 
+$$ \forall <M,w>\in\Sigma^*, \ \ \ <M,w>\in A_{TM}\iff f(<M,w>)\in HALT_{TM}$$
+$f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
+\begin{enumerate}
+    \item Su input $<M,w>$ costruisce una TM ausiliaria $M'$
+    \item Tale $M'$ su un generico input $x$, esegue i seguenti passi\begin{enumerate}
+        \item Esegue $M$ su input $x$
+        \item Se $M(x)$ accetta, allora $M'$ rifiuta, se $M(x)$ rifiuta, entra volontariamente in uno stato di loop.
+    \end{enumerate}
+    \item L'output della funzione sarà $<M',w>$
+\end{enumerate}
+\boxedMath{$\implies$} se $<M,w>\in A_{TM}$, allora $M$ accetta $w$, pertanto $M'$ a sua volta accetterà $w$, terminando. Si ha quindi che $<M',w>\in HALT_{TM}$. La prima implicazione della riducibilità è dimostrata. \acc 
+\boxedMath{$\impliedby$} se $<M,w>\notin A_{TM}$, allora $M(w)$ o rifiuta, o va in loop. \begin{itemize}
+    \item Se $M(w)$ rifiuta, per definizione, $M'$ entra in uno stato di loop. 
+    \item Se $M(w)$ va in loop, anche $M'$ (che la esegue) va in loop.
+\end{itemize}
+Si ha quindi che, se  $<M,w>\notin A_{TM}$, la TM $M'$ va in loop su $w$, quindi non termina, allora 
+$$f(<M,w>)=<M',w>\notin HALT_{TM}$$La seconda implicazione della riducibilità è dimostrata. Quindi 
+$ A_{TM}\le_m HALT_{TM}$. Ne consegue che $HALT_{TM}$ è indecidibile.
+\esempio{2}
+Si vuole dimostrare l'indecidibilità di $EQ_{TM}$. 
+$$ EQ_{TM}=\{<M_1,M_2> \ | \ M_1,M_2\in TM\land L(M_1)=L(M_2) \}$$
+Basta dimostrare che $$ E_{TM}\le_m  EQ_{TM}$$Si definisce una funzione $\ridFunc$ tale che 
+$$ \forall <M>\in\Sigma^*, \ \ \ <M>\in E_{TM}\iff f(<M>)\in EQ_{TM}$$
+$f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
+\begin{enumerate}
+    \item   Su input $<M>$, definisce una TM ausiliaria $M'$, la cui computazione è descritta come segue \begin{enumerate}
+        \item $M'$ su un qualsiasi input $x$ rifiuta sempre.
+    \end{enumerate}
+    \item L'output della funzione sarà $<M,M'>$
+\end{enumerate}
+\boxedMath{$\implies$} Se $M\in E_{TM}$, allora $L(M)=\emptyset$. Essendo che $M'$ rifiuta su ogni input, anche il suo linguaggio è vuoto, quindi $L(M)=L(M')$, ne consegue che $<M,M'>\in EQ_{TM}$.
+\acc \boxedMath{$\impliedby$} Se $M\notin E_{TM}$, allora $L(M)\ne \emptyset$, Essendo che $M'$ rifiuta su ogni input, il suo linguaggio è vuoto, quindi $L(M)\ne L(M') = \emptyset$, ne consegue che $<M,M'>\notin EQ_{TM}$.\acc 
+Risulta naturale chiedersi: È possibile utilizzare la riducibilità per dimostrare anche la non riconoscibilità di un linguaggio? Il seguente teorema risponde a tale domanda. \acc 
+\teo{} Se $A\le_m B$ e $B$ è riconoscibile, allora  anche $A$ è riconoscibile.\acc 
+\textbf{Corollario} : Se $A\le_m B$ e $A$ non è riconoscibile, allora  anche $B$ non è riconoscibile.\acc 
+Essendo che $A_{TM}$ è riconoscibile ma non decidibile, per il teorema sulla co-riconoscibilità è noto che il linguaggio $\overline{A_{TM}}$ non è riconoscibile. È possibile utilizzare $\overline{A_{TM}}$ e la riducibilità per dimostrare la non riconoscibilità di molti linguaggi. $\overline{A_{TM}}$  è però un linguaggio ambiguo con la quale lavorare, risulta più funzionale considerare direttamente $A_{TM}$ grazie al seguente teorema.\acc 
+\teo{} Se $A\le_m B$, allora $\overline A\le_m \overline B$.\acc 
+\dimo{} La funzione $f$ rimane invariata dato che $ \forall w\in\Sigma^*$ si ha che $$\begin{matrix}
+    w\in A\iff f(w)\in B \\ \\ 
+    w\in \overline A\iff f(w)\in \overline B 
+\end{matrix} $$\hfill$\blacksquare$\acc 
+Le conseguenze sono ovvie, se $A\le_m B$ e $\overline A$ non è riconoscibile, allora anche $\overline B$ non è riconoscibile. Per dimostrare la non riconoscibilità di un generico linguaggio $A$, basterà dimostrare $A_{TM}$ si riduce a $\overline A$.
+\esempio{3}
+Si vuole dimostrare la non riconoscibilità di ${EQ_{TM}}$. 
+Basta dimostrare che $$ A_{TM}\le_m  \overline{EQ_{TM}}$$Si definisce una funzione $\ridFunc$ tale che 
+$$ \forall <M,w>\in\Sigma^*, \ \ \  <M,w>\in A_{TM}\iff f( <M,w>)\in \overline{EQ_{TM}}$$
+In pratica, se $M$ accetta $w$, allora $f(<M,w>)$ deve restituire due TM che hanno linguaggi differenti.  
+$f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
+\begin{enumerate}
+    \item  Su input $<M,w>$, definisce due TM ausiliarie $M_1,M_2$, tali che \begin{itemize}
+        \item $M_1$ rifiuta sempre 
+        \item $M_2$ accetta solo se $M(w)$ accetta, altrimenti rifiuta.
+    \end{itemize}
+    \item l'output della funzione è $<M_1,M_2>$
+\end{enumerate}
+\boxedMath{$\implies$} Se $<M,w>\in A_{TM}$, essendo che $M(w)$ accetta si ha che \begin{itemize}
+    \item $M_1$ rifiuta sempre 
+    \item  $M_2$ accetta sempre 
+\end{itemize}
+Quindi $L(M_1)\ne L(M_2)\implies <M_1,M_2>\in  \overline{EQ_{TM}}$.
+\acc \boxedMath{$\impliedby$} Se $<M,w>\notin A_{TM}$, essendo che $M(w)$ rifiuta si ha che \begin{itemize}
+    \item $M_1$ rifiuta sempre 
+    \item  $M_2$ rifiuta sempre 
+\end{itemize}
+Quindi $L(M_1)=L(M_2)=\emptyset \implies <M_1,M_2>\in  {EQ_{TM}}\implies <M_1,M_2>\notin  \overline{EQ_{TM}}$. Ne consegue che $EQ_{TM}$ non è riconoscibile.
+\esempio{4}
+Si vuole dimostrare la non decidibilità di $L$ definito come segue 
+$$ L=\{<M>\ | \ M\in TM \land w\in L(M)\implies w\in \{0,1\}^*\land |w|\%2=1\}$$ 
+Ossia il linguaggio di tutte le TM che accettano esclusivamente stringhe binarie di lunghezza dispari.
+Basta dimostrare che $$ A_{TM}\le_m  L$$Si definisce una funzione $\ridFunc$ tale che 
+$$ \forall <M,w>\in\Sigma^*, \ \ \  <M,w>\in A_{TM}\iff f( <M,w>)\in L$$
+$f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
+\begin{enumerate}
+    \item  Su input $<M,w>$, definisce una TM ausiliaria $M'$, tale che:
+    \item Su input $x$, se $|x|\%2=0$ rifiuta. 
+    \item Altrimenti, accetta se e solo se $M$ accetta $w$.
+    \item L'output sarà $M'$.
+\end{enumerate}
+\boxedMath{$\implies$} Se $<M,w>\in A_{TM}$, essendo che $M(w)$ accetta si ha che 
+$M'$ accetterà tutte e sole le stringhe binarie di lunghezza dispari, quindi $f(<M,w>)=M'\in L$.
+\acc \boxedMath{$\impliedby$} Se $<M,w>\notin A_{TM}$, $M'$ rifiuterà a prescindere, si avrà che 
+$L(M')=\emptyset\implies M'\notin L$. Ne consegue che $L$ è indecidibile.
+\esempio{5}
+Si vuole dimostrare la non decidibilità di $L$ definito come segue 
+$$ L=\{<M>\ | \ M\in TM \land L(M)=\{0^n1^n0^n,\ n\ge 0\}\}$$ 
+Basta dimostrare che $$ A_{TM}\le_m  L$$Si definisce una funzione $\ridFunc$ tale che 
+$$ \forall <M,w>\in\Sigma^*, \ \ \  <M,w>\in A_{TM}\iff f( <M,w>)\in L$$
+$f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
+\begin{enumerate}
+    \item  Su input $<M,w>$, definisce una TM ausiliaria $M'$, tale che:
+    \item Su input $x$, esegue $M(w)$. 
+    \item Se $M(w)$ accetta, $M'$ accetta solo se $x\in\{0^n1^n0^n,\ n\ge 0\}$, altrimenti rifiuta.
+    \item Se $M(w)$ rifiuta, $M'$ rifiuta a prescindere. 
+    \item L'output sarà $M'$.
+\end{enumerate}
+\boxedMath{$\implies$} Se $<M,w>\in A_{TM}$, essendo che $M(w)$ accetta si ha che 
+$M'$ accetterà solo se $$x\in\{0^n1^n0^n,\ n\ge 0\}$$quindi $L(M')=\{0^n1^n0^n,\ n\ge 0\} \implies f(<M,w>)=M'\in L$.
+\acc \boxedMath{$\impliedby$} Se $<M,w>\notin A_{TM}$, $M'$ rifiuterà a prescindere (o andrà in loop nel caso $M(w)$ vada in loop), si avrà che 
+$L(M')=\emptyset\ne \{0^n1^n0^n,\ n\ge 0\} \implies M'\notin L$. Ne consegue che $L$ è indecidibile.
+\esempio{6}
+Si vuole dimostrare la non decidibilità di $L$ definito come segue 
+$$ L=\{<M>\ | \ M\in TM \land L(M)\supseteq \{w\ | \ w\text{ inizia con uno }0\}\}$$ 
+Ossia il linguaggio di tutte le TM il cui linguaggio contiene ogni stringa che inizia con 0.
+Basta dimostrare che $$ A_{TM}\le_m  L$$Si definisce una funzione $\ridFunc$ tale che 
+$$ \forall <M,w>\in\Sigma^*, \ \ \  <M,w>\in A_{TM}\iff f( <M,w>)\in L$$
+$f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
+\begin{enumerate}
+    \item  Su input $<M,w>$, definisce una TM ausiliaria $M'$, tale che:
+    \item su ogni input $x$ esegue $M(w)$, e se questa accetta, $M'$ accetta, altrimenti rifiuta.
+    \item L'output sarà $M'$.
+\end{enumerate}
+\boxedMath{$\implies$} Se $<M,w>\in A_{TM}$, essendo che $M(w)$ accetta si ha che 
+$M'$ accetterà ogni input, quindi $L(M')=\Sigma^*$ ed essendo l'insieme di ogni stringa, conterrà anche ogni stringa che inizia con zero, allora $<M'>\in L$.
+\acc \boxedMath{$\impliedby$} Se $<M,w>\notin A_{TM}$, $M'$ rifiuterà  (o andrà in loop nel caso $M(w)$ vada in loop), si avrà che 
+$L(M')=\emptyset$, quindi non conterrà nemmeno una stringa che inizia con 0, allora  $<M'>\notin L$.
+Ne consegue che $L$ è indecidibile.
+\esempio{7}
+Si vuole dimostrare la non decidibilità di $U$ definito come segue 
+$$ U=\{<T,T'> \| \ T,T'\in TM\land L(T)\cup L(T')=\Sigma^*\}$$ 
+Ossia il linguaggio di tutte le coppie di TM la cui unione dei linguaggi equivale all'insieme di tutte le stringhe.
+Basta dimostrare che $$ A_{TM}\le_m  U$$Si definisce una funzione $\ridFunc$ tale che 
+$$ \forall <M,w>\in\Sigma^*, \ \ \  <M,w>\in A_{TM}\iff f( <M,w>)\in U$$
+$f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
+\begin{enumerate}
+    \item  Su input $<M,w>$, definisce una TM ausiliaria $T$ che rifiuta per ogni input $x$. 
+    \item Definisce poi una TM $T'$ che accetta solo se $M(w)$ accetta. 
+    \item L'output è $<T,T'>$
+\end{enumerate}
+\boxedMath{$\implies$} Se $<M,w>\in A_{TM}$, essendo che $M(w)$ accetta si ha che
+$T'$ accetterà ogni stringa ed il suo linguaggio sarà uguale a tutte le stringhe. $T$ invece avrà linguaggio vuoto. $L(T)\cup L(T')=\emptyset\cup \Sigma^*=\Sigma^*\implies <T,T'>\in U$.
+\acc \boxedMath{$\impliedby$} Se $<M,w>\notin A_{TM}$, $M'$ rifiuterà  (o andrà in loop nel caso $M(w)$ vada in loop), si avrà che 
+$L(T')=\emptyset$, inoltre anche $T$ ha linguaggio vuoto, quindi $L(T)\cup L(T')=\emptyset\ne \Sigma^*\implies <T,T'>\notin U$. Ne consegue che $U$ è indecidibile.
 \end{document}
