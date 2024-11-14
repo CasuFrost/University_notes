@@ -1,45 +1,47 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {chapter}{\numberline {1}Parallelismo : Motivazioni}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Introduzione}{3}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Modelli di Parallelismo}{4}{section.1.2}%
-\contentsline {chapter}{\numberline {2}Memoria Distribuita : MPI}{7}{chapter.2}%
-\contentsline {section}{\numberline {2.1}La libreria OpenMpi}{7}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Rank e Comunicazione}{8}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Design di Programmi Paralleli}{10}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Pattern di Design Parallelo}{11}{subsection.2.3.1}%
-\contentsline {subsubsection}{Esempi di GPLS}{11}{section*.2}%
-\contentsline {subsubsection}{Esempi di GSLP}{12}{section*.3}%
-\contentsline {section}{\numberline {2.4}Comunicazione non Bloccante e Comunicazione Collettiva}{12}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Send e Recv Immediate}{13}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Esempi di Applicazione}{13}{subsection.2.4.2}%
-\contentsline {subsubsection}{Integrazione numerica}{14}{section*.4}%
-\contentsline {subsection}{\numberline {2.4.3}Operazioni Collettive}{15}{subsection.2.4.3}%
-\contentsline {subsubsection}{Stima del $\pi $}{18}{section*.5}%
-\contentsline {section}{\numberline {2.5}Valutazione del Tempo}{19}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Scalabilità Forte e Scalabilità Debole}{22}{subsection.2.5.1}%
-\contentsline {section}{\numberline {2.6}Operazioni su Vettori e Matrici}{23}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Scatter e Gather}{23}{subsection.2.6.1}%
-\contentsline {subsubsection}{Prodotto fra Vettori e Matrici}{26}{section*.6}%
-\contentsline {subsection}{\numberline {2.6.2}Ultime Collettive di tipo "All"}{27}{subsection.2.6.2}%
-\contentsline {section}{\numberline {2.7}Tipi di Dato Custom}{27}{section.2.7}%
-\contentsline {chapter}{\numberline {3}Memoria Condivisa : Posix Threads}{29}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Introduzione ai Thread}{29}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Prodotto Matrice-Vettore con Pthread}{30}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}Sezioni Critiche}{31}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Busy Waiting e Mutex}{32}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Semafori, Barriere e Variabili di Condizione}{33}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Stima di $\pi $ con Pthread}{36}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Read-Write Lock}{37}{section.3.3}%
-\contentsline {subsubsection}{Idea di Soluzione 1}{38}{section*.7}%
-\contentsline {subsubsection}{Idea di Soluzione 2}{38}{section*.8}%
-\contentsline {section}{\numberline {3.4}Funzioni Thread-Safe}{40}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Combinazione di Thread ed MPI}{41}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Thread Pinning}{42}{subsection.3.5.1}%
-\contentsline {chapter}{\numberline {4}Richiamo di Architetture}{43}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Caching}{43}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Livelli della Cache}{43}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}La Cache nei Sistemi Multicore}{44}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}False Sharing}{45}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Organizzazione della Memoria}{45}{subsection.4.2.2}%
+\contentsline {chapter}{\numberline {1}Parallelismo : Motivazioni}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduzione}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Modelli di Parallelismo}{5}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Memoria Distribuita : MPI}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}La libreria OpenMpi}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Rank e Comunicazione}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Design di Programmi Paralleli}{11}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Pattern di Design Parallelo}{12}{subsection.2.3.1}%
+\contentsline {subsubsection}{Esempi di GPLS}{12}{section*.2}%
+\contentsline {subsubsection}{Esempi di GSLP}{13}{section*.3}%
+\contentsline {section}{\numberline {2.4}Comunicazione non Bloccante e Comunicazione Collettiva}{13}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Send e Recv Immediate}{14}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Esempi di Applicazione}{14}{subsection.2.4.2}%
+\contentsline {subsubsection}{Integrazione numerica}{15}{section*.4}%
+\contentsline {subsection}{\numberline {2.4.3}Operazioni Collettive}{16}{subsection.2.4.3}%
+\contentsline {subsubsection}{Stima del $\pi $}{19}{section*.5}%
+\contentsline {section}{\numberline {2.5}Valutazione del Tempo}{20}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Scalabilità Forte e Scalabilità Debole}{23}{subsection.2.5.1}%
+\contentsline {section}{\numberline {2.6}Operazioni su Vettori e Matrici}{24}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Scatter e Gather}{24}{subsection.2.6.1}%
+\contentsline {subsubsection}{Prodotto fra Vettori e Matrici}{27}{section*.6}%
+\contentsline {subsection}{\numberline {2.6.2}Ultime Collettive di tipo "All"}{28}{subsection.2.6.2}%
+\contentsline {section}{\numberline {2.7}Tipi di Dato Custom}{28}{section.2.7}%
+\contentsline {chapter}{\numberline {3}Memoria Condivisa : Posix Threads}{30}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduzione ai Thread}{30}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Prodotto Matrice-Vettore con Pthread}{31}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Sezioni Critiche}{32}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Busy Waiting e Mutex}{33}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Semafori, Barriere e Variabili di Condizione}{34}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Stima di $\pi $ con Pthread}{37}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Read-Write Lock}{38}{section.3.3}%
+\contentsline {subsubsection}{Idea di Soluzione 1}{39}{section*.7}%
+\contentsline {subsubsection}{Idea di Soluzione 2}{39}{section*.8}%
+\contentsline {section}{\numberline {3.4}Funzioni Thread-Safe}{41}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Combinazione di Thread ed MPI}{42}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Thread Pinning}{43}{subsection.3.5.1}%
+\contentsline {chapter}{\numberline {4}Richiamo di Architetture}{44}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Caching}{44}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Livelli della Cache}{44}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}La Cache nei Sistemi Multicore}{45}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}False Sharing}{46}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Organizzazione della Memoria}{46}{subsection.4.2.2}%
+\contentsline {chapter}{\numberline {5}Gestione dei Thread : OpenMP}{48}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Direttive pragma}{48}{section.5.1}%
 \contentsfinish 

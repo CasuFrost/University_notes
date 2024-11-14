@@ -2036,4 +2036,54 @@ Differentemente, nei sistemi \textbf{NUMA}, i diversi core vengono partizionati 
 È possibile forzare l'allocazione della memoria su una specifica unità tramite l'inclusione della libreria \code{numa.h}.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/NUMA.pdf}
 \end{center}
+\chapter{Gestione dei Thread : OpenMP}
+\textit{OpenMP} è un freamework di programmazione per i sistemi multicore a memoria condivisa, in particolare, costituisce un \textit{interfaccia} di gestione dei thread ad alto livello rispetto quella fornita da PThread. OpenMP vede il sistema come un'insieme di più CPU o core che possono accedere ad una memoria condivisa. In pratica, OpenMP permette di parallelizzare un codice sequenziale in maniera semplice tramite dei micro-interventi sul codice, tramite l'assistenza del compilatore.\acc 
+Lo scopo di OpenMP è la decomposizione di alcune porzioni del programma al fine di renderle parallele (diramazione) per svolgere un determinato compito, alla fine di esso i thread possono essere eliminati ed il programma può tornare ad un esecuzione sequenziale.\begin{quote}
+    il codice è globalmente sequenziale e localmente parallelo
+\end{quote}
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/openMP.pdf}
+\end{center}
+Fa utilizzo di alcune direttive da dare al compilatore, per utilizzare OpenMP è quindi necessario sia importare la libreria \code{omp.h}, sia avere un compilatore che supporti le direttive, che in caso contrario verranno ignorate.
+\section{Direttive pragma}
+Le \textit{pragma} sono delle direttive speciali che elabora il pre processore, come anticipato, se openMP non è supportato dal compilatore, queste ultime verranno ignorate. Servono per conferire al sistema funzionalità non incluse nel comportamento standard del linguaggio C. \acc 
+La direttiva più semplice ma anche più importante è\begin{quote}
+    \code{\# pragma omp parallel}
+\end{quote}
+Una volta dichiarata nel codice, il blocco successivo verrà eseguito in parallelo (se e solo se il compilatore supporta OpenMP), è possibile sanche specificare il numero di thread che dovranno eseguire in parallelo il blocco. Sono anche fondamentali le seguenti funzioni 
+\begin{itemize}
+    \item \code{omp\_get\_thread\_num()} : ritorna l'identificatore del thread chiamante. 
+    \item \code{omp\_get\_num\_threads()} : ritorna il numero di thread attivi. Se chiamata in una porzione sequenziale, ritornerà 1.
+\end{itemize}
+Si consideri il seguente esempio
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+#include <stdlib.h> 
+#include <omp.h>
+
+void Hello (void);
+int main(int argc, char** argv){
+    int thread_count = atoi(argv[1]);
+    #pragma omp parallel num_threads(thread_count)
+    Hello(); /* verra' eseguita in parallelo */
+    return 0;
+}
+
+void Hello(){
+    int my_rank = omp_get_thread_num();
+    int thread_count = omp_get_num_threads();
+    printf("Hello from thread %d of %d",my_rank,thread_count);
+}
+\end{lstlisting}
+La funzione \code{Hello()} essendo preceduta dalla direttiva pragma verrà eseguita in parallelo. OpenMP funziona come Pthreads, vi è un thread main che si occupa di eseguire i fork generando gli altri thread, per poi ri-congiungerli (join) ad una sola esecuzione. Per motivi di ottimizzazione, OpenMP potrebbe mantenere i thread sempre attivi in uno stato di "idle" (attesa), per poi richiamarli ed utilizzarli quando necessario, evitando di crearne di nuovi ogni volta.\acc 
+\textbf{Attenzione} : Se OpenMP non è supportata la direttiva pragma sarà ignorata, però le funzioni \\\code{omp\_get\_thread\_num()}, \code{omp\_get\_num\_threads()} genereranno un errore di compilazione in quanto non sono definite. Quando si compila un codice che utilizza OpenMP va inclusa l'opzione 
+\shell{-fopenmp}.\acc 
+Il numero dei thread da eseguire può essere controllato in diversi modi\begin{itemize}
+    \item È possibile impostare l'apposita variabile d'ambiente \code{OMP\_NUM\_THREADS} tramite la bash, ad esempio \begin{center}
+        \shell{export OMP\_NUM\_THREADS=4}
+    \end{center}
+    Questa specifica varrà per tutti i programmi che faranno uso di OpenMP in quell'ambiente.
+    \item Si può cambiare il numero di thread da eseguire tramite l'apposita funzione \code{omp\_set\_num\_threads()} all'interno del codice. 
+    \item L'ultimo modo, mostrato nell'esempio superiore, è tramite la specifica nella direttiva pragma con la \code{clausola num\_threads}.
+\end{itemize}
 \end{document}
