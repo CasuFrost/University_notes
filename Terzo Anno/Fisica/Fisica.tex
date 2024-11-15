@@ -1992,7 +1992,7 @@ $$ d\phi=d\bar S$$
 Data una superficie finita $S$, il flusso totale del campo elettrico su di essa è dato dall'integrale del flusso infinitesimo su tutta la superficie 
 $$ \phi = \int_S d\phi = \int_S \bar Ed\bar S$$
 Esiste una proprietà interessante del campo elettrico, quando si calcola il flusso per una superficie chiusa. \begin{center}
-    \includegraphics[width=0.35\textwidth]{images/Gauss.pdf}
+    \includegraphics[width=0.35\textwidth]{images/flussoCampo.eps}
 \end{center}
 \teo{(Legge di Gauss)} Sia $S$ una superficie \textit{chiusa}, e sia $\bar E$ il campo elettrico generato da una carica puntiforme $Q$ \textit{interna alla superficie}. Si ha che 
 \eqImportante{$\phi=\displaystyle\oint_S d\phi=\frac{Q}{\varepsilon_0}$}
@@ -2062,5 +2062,12 @@ Si vuole adesso analizzare il caso in cui la superficie ha raggio minore o ugual
 Sappiamo per la legge di Gauss che il contributo del volume esterno ad $S$ è nullo, andrà quindi considerato esclusivamente il volume compreso da $S$. 
 $$ \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau_S=\frac{1}{\varepsilon_0}\frac{4}{3}r^3$$
 Quindi 
-$$ E4\pi r^2=\frac{1}{\varepsilon_0}\frac{4}{3}r^3$$
+$$ E4\pi r^2=\frac{1}{\varepsilon_0}\frac{4}{3}r^3\rho\implies 
+E4\pi=\frac{1}{\varepsilon_0}\frac{4}{3}r \implies E = \frac{1}{4\pi\varepsilon_0}\frac{4}{3}r\rho=\frac{\rho}{3\varepsilon_0}r$$
+In quasto caso $E$ è proporzionale alla distanza $r$, si può esprimere in funzione di $Q$
+$$ E=\frac{Q}{3\varepsilon_0}\frac{r}{\nicefrac{4}{3}\pi R^3}=\frac{Q}{4\pi\varepsilon_0}\frac{r}{R^3}$$
+Al centro si ha $r=0\implies E=0$. Il campo elettrico è massimo sulla superficie $r=R$, è lineare per $r$ quando il raggio della sfera è maggiore di quello della superficie, ed è proporzionale a $\frac{1}{r^2}$ quando il raggio della sfera è minore della superficie. L'andamento qualitativo è il seguente.
+\begin{center}
+    \includegraphics[width=0.75\textwidth]{images/campoSfera.eps}
+\end{center}
 \end{document}

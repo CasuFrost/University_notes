@@ -2143,4 +2143,113 @@ $f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed eseg
 $T'$ accetterà ogni stringa ed il suo linguaggio sarà uguale a tutte le stringhe. $T$ invece avrà linguaggio vuoto. $L(T)\cup L(T')=\emptyset\cup \Sigma^*=\Sigma^*\implies <T,T'>\in U$.
 \acc \boxedMath{$\impliedby$} Se $<M,w>\notin A_{TM}$, $M'$ rifiuterà  (o andrà in loop nel caso $M(w)$ vada in loop), si avrà che 
 $L(T')=\emptyset$, inoltre anche $T$ ha linguaggio vuoto, quindi $L(T)\cup L(T')=\emptyset\ne \Sigma^*\implies <T,T'>\notin U$. Ne consegue che $U$ è indecidibile.
+\section{I Teoremi di Incompletezza}
+I risultati riguardanti i teoremi di Gödel possono essere ottenuti utilizzando le TM. Negli anni è sempre stata presente l'esigenza di poter dimostrare le proposizioni matematiche, già nel 300 a.c. Euclide stipulò gli assiomi della geometria piana.\acc 
+Nel XIX secolo i matematici si sono interrogati riguardo la formalità degli assiomi di Euclide, in particolare, è iniziata la ricerca verso una formulazione più rigorosa della matematica che ha anche sancito la nascita della logica, che fornisce una serie di connettivi, con i quali si possono derivare gli assiomi ed ottenere nuove proposizioni.\acc 
+Si definisce \textbf{sistema di prova} un insieme di assiomi uniti alla logica del primo ordine, con la quale è possibile dimostrare ogni proposizione derivante da essi, anche in maniera automatica (calcolabile da un algoritmo).\acc 
+Denoteremo $\Pi$ un generico sistema di prova, in particolare si può definire in funzione della calcolabilità. Riguardo $\Pi$ si ha che \begin{itemize}
+    \item Per ogni affermazione $x$, esiste una codifica $<x>$ sottoforma di stringa. 
+    \item Per ogni dimostrazione $w$, esiste una codifica $<w>$ sottoforma di stringa.  
+    \item Esiste una TM $V$ che è un decisore, per cui $V(<x,w>)$ accetta se e solo se $w$ è una dimostrazione di $x$.
+\end{itemize}
+\defi{} un'affermazione $x$ è \textbf{dimostrabile} se $\exists w$ tale che $V(<x,w>)$ accetta.\acc 
+\defi{} un'affermazione $x$ è \textbf{indipendente} se, ne $x$ ne $\overline x$ sono dimostrabili.\acc 
+Un sistema di prova $\Pi$ può godere di differenti proprietà\begin{itemize}
+    \item $\Pi$ è \textbf{consistente} se, per ogni affermazione $x$, al massimo 1 fra $x$ e $\overline x$ è vera, ossia, non esiste un affermazione vera, la cui negata è a sua volta vera. 
+    \item $\Pi$ è \textbf{valido} se ogni affermazione dimostrabile è vera. 
+    \item $\Pi$ è \textbf{completo} se, per ogni affermazione $x$, almeno 1 fra $x$ e $\overline x$ è vera. 
+    \item $\Pi$ è \textbf{incompleto} se esiste un affermazione $x$ indipendente.
+\end{itemize} 
+\textbf{Osservazione} : Se $\Pi$ è valido, allora è anche consistente. Se $\Pi$ è valido e completo, per ogni affermazione $x$, esattamente una fra $x$ e $\overline x$ è vera, e ciò che è dimostrabile è anche vero.\acc 
+I teoremi di incompletezza riguardano tali proprietà, il primo, afferma che un sistema di prova consistente è necessariamente incompleto, ossia che esiste almeno un'affermazione indipendente, che non si può dimostrare. Il secondo, afferma, per un sistema di prova $\Pi$, che l'affermazione 
+\begin{quote}
+    $x=$ "$\Pi$ è consistente"
+\end{quote}
+Non è dimostrabile. Prima di dimostrare i due teoremi, è necessario introdurre due TM relative ad un generico sistema di prova $\Pi$. \acc 
+\defi{} Dato un sistema $\Pi$, si definisce una TM $P$, il cui comportamento è descritto come segue\begin{enumerate}
+    \item Data in input un affermazione $<x>$
+    \item Controlla per ogni $k\in 1,2,3\dots $\begin{itemize}
+        \item Per ogni possibile stringa $w$ tale che $|w|=k$
+        \item Se $V(<x,w>)$ accetta, $R$ scrive sul nastro di output $<w>$.
+    \end{itemize}
+\end{enumerate}
+si definisce poi una TM $R$, il cui comportamento è descritto come segue\begin{enumerate}
+    \item Data in input un affermazione $<x>$
+    \item Controlla per ogni $k\in 1,2,3\dots $\begin{itemize}
+        \item Per ogni possibile stringa $w$ tale che $|w|=k$
+        \item Se $V(<x,w>)$ accetta, $R$ accetta, altrimenti rifiuta.
+    \end{itemize}
+\end{enumerate}
+Si definisce il linguaggio 
+$$ L_{provable}=\{<x>\ | \ x \text{ è dimostrabile }\}$$
+Alcune osservazioni
+\begin{itemize}
+    \item Se $\Pi$ è valido, l'output di $P$ è vero, anche se non è assicurato che $R$ termini
+    \item Se $\Pi$ è completo, allora $R$ è un decisore per $ L_{provable}$. In particolare, per ogni $<x>$, se $x$ è vera, $R(<x>)$ accetta, altrimenti $R(<x>)$ rifiuta
+\end{itemize}
+Verrà considerato adesso un caso speciale del primo teorema di incompletezza, abbiamo visto come un sistema valido è anche consistente. Il primo teorema di Gödel riguarda i sistemi consistenti, il caso speciale che verrà trattato riguarda i sistemi validi. \acc 
+\teo{(caso speciale)} Sia $\Pi$ un generico sistema di prova. Se $\Pi$ è valido, allora non è completo.\acc 
+\dimo{} Si pone per assurdo che $\Pi$ è valido e completo, si definisce una TM $D$ per il linguaggio 
+$$ HALT_{TM}=\{<M,w> \ | \ M\in TM\land M(w)\ne \infty \}$$
+Essendo $\Pi$ completo, la TM $R$ è un decisore per $ L_{provable}$, quindi, data una generica TM $M$ ed una generica stringa $w$, l'affermazione  
+$$ <x>="M(w)\ne \infty"$$
+È decisa da $R$. La TM $D$ è definita come segue 
+$$ D(<M,w>)=R(<"M(w)\ne \infty">)$$
+Ma allora $D$ è chiaramente un decisore per $HALT_{TM}$, ma questo linguaggio è indecidibile, è quindi impossibile che $R$ sia un decisore per $ L_{provable}$, allora $\Pi$ non può essere completo.
+\hfill$\blacksquare$\acc 
+È necessario sapere che ZFC è il sistema di prova per la teoria degli insiemi, comprende gli assiomi standard della teoria assiomatica degli insiemi su cui, insieme con l'assioma di scelta, si basa tutta la matematica ordinaria secondo formulazioni moderne. In passato, si pensava che ogni affermazione in ogni branca della matematica potesse essere dimostrata a partire da tali assiomi.\acc 
+In particolare, se $M$ è una generica TM, e $w$ è una stringa, se $M(w)$ termina, la proposizione \begin{quote}
+    "$M$ termina con input $w$"
+\end{quote}
+È dimostrabile \textit{canonicamente} tramite gli assiomi del sistema ZFC, dato che basta controllare la traccia di esecuzione di $M$ su $w$, e constatare che ad un certo punto la TM si ferma. Ovviamente ciò è possibile se si da come ipotesi che $M$ non vada in loop su $w$.
+\acc 
+Si consideri la TM mostrata in figura \begin{center}
+    \begin{tikzpicture} [node distance = 4cm, on grid, auto]
+        \node (q0)[state, initial, left] {$q_0$};
+        \node (B)[state, right = of q0] {$B$};
+        \node (C)[state, right = of B] {$C$};
+        \node (rej)[state, below = of B] {$q_{rej}$};
+        \node (acc)[state,accepting, below = of C] {$q_{acc}$};
+        \path [-stealth, thick]
+        (B) edge [loop above]  node {$1\rightarrow y, R$}()
+        (q0) edge  node {$0\rightarrow x,R$}  (B)
+        (q0) edge [bend right]  node[left] {$\begin{matrix}\\1\rightarrow 1,R \ \ \\\blank\rightarrow \blank,R\ \ \end{matrix}$}  (rej)
+        (B) edge  node {$0\rightarrow x,R$}  (C)
+        (C) edge  node {$\blank\rightarrow \blank,R$}  (acc)
+        (C) edge  node {$\begin{matrix}1\rightarrow 1,R\\0\rightarrow 0,R\end{matrix}$}  (rej)
+        (B) edge  node {$\blank\rightarrow \blank,R$}  (rej);
+    \end{tikzpicture}
+\end{center}
+È chiaro che su input $w=0 \ 0\ \blank$ la TM termina, per dimostrarlo è necessario mostrare la traccia di esecuzione della macchina sulla stringa data.\acc 
+\color{sapienza}\textbf{Lemma} : \color{black} Sia $M$ una generica TM e $w$ una stringa, se $M$ termina su $w$, l'affermazione $<M(w)\ne \infty>$ è dimostrabile.\acc 
+\teo{di Incompletezza I} : Sia $\Pi$ un generico sistema di prova. Se $\Pi$ è consistente, allora non è completo.\acc 
+\dimo{} Si definisce un'apposita TM $D$ il cui comportamento è descritto come segue \begin{enumerate}
+    \item su input $<M>$, dove $M$ è una macchina di Turing 
+    \item si controlla per ogni $k\in1,2,3,\dots$\begin{itemize}
+        \item per ogni stringa $w$ tale che $|w|=k$
+        \item Se $w$ è una prova per l'affermazione "$M(<M>)\ne \infty$", allora $D$ si sposta volontariamente in uno stato $q_L$ di loop  
+        \item Se $w$ è una prova per l'affermazione "$M(<M>)=\infty$", allora $D$ termina. 
+    \end{itemize}
+\end{enumerate}
+Si applica la diagonalizzazione e si considera il caso particolare $D(<D>)$. Essendo $\Pi$ per ipotesi consistente, si ha che al massimo un'affermazione  fra $$ \begin{cases}
+    D(<D>)=\infty\\ 
+    D(<D>)\ne \infty
+\end{cases}$$
+è dimostrabile. Si considerano i due casi separatamente\begin{itemize}
+    \item Se "$D(<D>)=\infty$" è dimostrabile, allora, per costruzione di $D$, essa stessa con input se stessa, ossia $D(<D>)$ termina, ossia $$D(<D>)\ne\infty$$ allora per il \textit{Lemma} esiste una dimostrazione per $D(<D>)\ne\infty$, quindi $D(<D>)\ne\infty$ è dimostrabile. Si ha che sia 
+    $$ \begin{cases}
+    D(<D>)=\infty\\ 
+    D(<D>)\ne \infty
+\end{cases}$$
+sono entrambe dimostrabili, quindi $\Pi$ non è consistente.
+    \item Se "$D(<D>)\ne\infty$" è dimostrabile, allora per costruzione $D(<D>)$ durante l'esecuzione troverà tale dimostrazione $w$ ed entrerà nello stato di loop $q_L$, ma allora, tale traccia di computazione è proprio una dimostrazione dell'affermazione 
+    $$D(<D>)=\infty $$
+    Si ha che sia 
+    $$ \begin{cases}
+    D(<D>)=\infty\\ 
+    D(<D>)\ne \infty
+\end{cases}$$
+sono entrambe dimostrabili, quindi $\Pi$ non è consistente.
+\end{itemize}
+In conclusione, si è dimostrato che il generico sistema di prova $\Pi$ non può essere sia completo che consistente.\hfill$\blacksquare$\acc 
 \end{document}
