@@ -1979,4 +1979,88 @@ Considerano due piani di cariche opposte ma identiche in modulo, si avrà l'effe
 In particolare, quest'ultima configurazione è alla base del funzionamento del \textbf{condensatore}, ossia un componente elettrico composto da due lastre parallele, che se caricate permettono di accumulare energia sotto forma di campo elettrico.\acc 
 Riconsiderando il disco finito carico, risulta naturale porsi una domanda, per $x\rightarrow \infty$ (ci si allontana indefinitamente dal disco) che valore assume il campo elettrico? Essendo il campo elettrico del disco 
 $$ E=\frac{1}{2\varepsilon_0}\sigma x\Big( \frac{1}{|x|}-\frac{1}{\sqrt{x^2+a^2}} \Big)$$
+\flowerLine 
+\section{La Legge di Gauss}
+Tale sezione si occuperà di esporre una proprietà dei campi vettoriali che dipendono dall'inverso del quadrato della distanza (proprio come il campo elettrico).\acc 
+\defi{(Flusso)} Sia $S$ una superficie, e sia $\bar S$ il vettore normale a tale superficie, di modulo uguale all'area di $S$. Il flusso del campo $\bar E$ attraverso $S$ è dato da 
+$$ \phi=\bar E\cdot \bar S=ES\cos\theta$$
+Se  $\bar S$ è ortogonale al campo $\bar E$ ($\theta = \nicefrac{\pi}{2}$), allora il flusso è nullo. Il flusso si misura in $\frac{Nm^2}{C}$.  \begin{center}
+    \includegraphics[width=0.3\textwidth]{images/flusso.eps}
+\end{center}
+Il campo elettrico $\bar E$, a meno che non sia uniforme, varia in ogni punto infinitesimo, il flusso va quindi espresso per una superficie infinitesima $dS$
+$$ d\phi=d\bar S$$
+Data una superficie finita $S$, il flusso totale del campo elettrico su di essa è dato dall'integrale del flusso infinitesimo su tutta la superficie 
+$$ \phi = \int_S d\phi = \int_S \bar Ed\bar S$$
+Esiste una proprietà interessante del campo elettrico, quando si calcola il flusso per una superficie chiusa. \begin{center}
+    \includegraphics[width=0.35\textwidth]{images/Gauss.pdf}
+\end{center}
+\teo{(Legge di Gauss)} Sia $S$ una superficie \textit{chiusa}, e sia $\bar E$ il campo elettrico generato da una carica puntiforme $Q$ \textit{interna alla superficie}. Si ha che 
+\eqImportante{$\phi=\displaystyle\oint_S d\phi=\frac{Q}{\varepsilon_0}$}
+\dimo{}
+Data una superficie infinitesima $dS$, si considera l'angolo solido $\Omega$ formato da questa ed il punto in cui è presente la carica $Q$. In particolare, l'angolo solido (misurato in steradianti) vale 
+$$ \Omega = \frac{S}{R^2}$$
+\begin{center}
+    \includegraphics[width=0.34\textwidth]{images/angoloSolido.eps}
+\end{center}
+Per superfici infinitesime $dS$, è possibile approssimare la superficie alla sua proiezione lungo la direzione radiale di $\bar E$, si considera quindi $S'=S\cos\theta$, si ha quindi 
+$$ d\phi=\bar Ed\bar S = \bar EdS\cos\theta = \bar E d\bar S'$$
+\begin{center}
+    \includegraphics[width=0.34\textwidth]{images/approssAngolo.eps}
+\end{center}
+L'angolo solido infinitesimo ha quindi espressione 
+$$ d\Omega=\frac{dS'}{r^2}\implies dS'=r^2d\Omega$$
+ma allora si può esprimere il flusso come segue 
+$$ d\phi=\bar E d\bar S'=\bar Er^2d\Omega$$
+Scrivendo il campo elettrico in forma esplicita si ha 
+$$d\phi= \frac{1}{4\pi\varepsilon_0}\frac{Q}{r^2}r^2d\Omega=\frac{Q}{4\pi\varepsilon_0}d\Omega$$
+\begin{quote}
+    \sapbox{Il valore del flusso non dipende più dalla distanza $r$}
+\end{quote}
+Si ha quindi che 
+$$\phi = \frac{Q}{4\pi\varepsilon_0}\oint_Sd\Omega$$ 
+L'integrale completo dell'angolo solido è uguale a $4\pi$ quindi:$$\phi=\frac{Q}{4\pi\varepsilon_0}4\pi = \frac{Q}{\varepsilon_0}$$
+\hfill $\blacksquare$ \acc
+Si può considerare anche il caso in cui la carica sorgente del campo è esterna alla superficie, tale caso è banale in quanto il campo elettrico "entra" nella superficie tante volte quante ne "esce", ogni flusso infinitesimo si annulla.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/caricaEst.eps}
+\end{center}
+Il flusso su una superficie chiusa del campo generato da una carica esterna alla superficie è nullo. 
+$$ \phi = 0$$
+Piuttosto che suddividere i casi in cui la carica è esterna o interna è possibile scrivere la legge di Gauss in maniera più formale, indicando con $\tau_S$ il volume carico (con densità di carica $\rho$) di cui $S$ è la frontiera. 
+\eqImportante{$\displaystyle \oint_S \bar E d\bar S = \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau_S$}
+Questa è nota come \textbf{prima equazione di Maxwell}.
+\subsection{Alcune Applicazioni}
+In questa sezione verrà utilizzata la legge di Gauss per ricavare la formula del campo elettrico in alcune situazioni di simmetria.\acc 
+Si consideri il campo generato da una carica puntiforme $q$, è noto il valore del flusso $\phi$ ma non del campo $\bar E$. Si considera il flusso su una superficie sferica con centro nella carica $q$, è chiaro che in questa situazione ogni superficie orientata infinitesima $d\bar S$ è normale al campo $\bar E$.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/GaussEx1.eps}
+\end{center}
+In ogni punto il flusso infinitesimo è $d\phi=\bar Ed\bar S = EdS\cos(0)=EdS$
+Inoltre data la simmetria sferica, il campo $\bar E$ dipende esclusivamente dalla distanza $r$ dalla sorgente, quindi 
+$$\phi=\oint \bar Ed\bar S =\bar E\oint d\bar S $$
+L'integrale di superficie $\oint d\bar S $ equivale alla superficie di una sfera, ossia $4\pi r^2$, quindi 
+$$ \phi = E4\pi r^2$$
+Inoltre, sappiamo per la legge di Gauss che 
+$$ \phi = \frac{q}{\varepsilon_0}$$
+in conclusione
+$$
+    E4\pi r^2= \frac{q}{\varepsilon_0}\implies E = \frac{1}{4\pi\varepsilon_0}\frac{q}{ r^2}
+$$
+Si consideri ora un volume sferico $\tau$ di raggio $R$ elettricamente carico, la cui densità di carica $\rho$ è uniforme e la carica è $Q=\tau\rho=\frac{4}{3}\pi R^3 \rho$. Si vuole trovare l'espressione del campo elettrico $E$ avendo nota la legge di Gauss. Si considera una superficie Gaussiana (sferica) con centro nel centro di $\tau$ e raggio $r\ge R$.
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/sferaCarica.eps}
+\end{center}
+$$ \oint_S EdS=\frac{Q}{\varepsilon_0}\implies$$
+$$ 4\pi r^2=\frac{Q}{\varepsilon_0}\implies 
+E = \frac{1}{4\pi\varepsilon_0}\frac{Q}{ r^2}$$
+In questo caso il campo elettrico della sfera risulta identico al campo di una carica puntiforme!
+\begin{quote}
+    in situazioni di simmetria sferica il campo elettrico è identico a quello di una carica puntiforme
+\end{quote}
+Si vuole adesso analizzare il caso in cui la superficie ha raggio minore o uguale al raggio della sfera carica $R\ge r$.
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/sferaCarica2.eps}
+\end{center}
+Sappiamo per la legge di Gauss che il contributo del volume esterno ad $S$ è nullo, andrà quindi considerato esclusivamente il volume compreso da $S$. 
+$$ \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau_S=\frac{1}{\varepsilon_0}\frac{4}{3}r^3$$
+Quindi 
+$$ E4\pi r^2=\frac{1}{\varepsilon_0}\frac{4}{3}r^3$$
 \end{document}
