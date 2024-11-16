@@ -2084,6 +2084,116 @@ Il numero dei thread da eseguire può essere controllato in diversi modi\begin{i
     \end{center}
     Questa specifica varrà per tutti i programmi che faranno uso di OpenMP in quell'ambiente.
     \item Si può cambiare il numero di thread da eseguire tramite l'apposita funzione \code{omp\_set\_num\_threads()} all'interno del codice. 
-    \item L'ultimo modo, mostrato nell'esempio superiore, è tramite la specifica nella direttiva pragma con la \code{clausola num\_threads}.
+    \item L'ultimo modo, mostrato nell'esempio superiore, è tramite la specifica nella direttiva pragma con la clausola \code{num\_threads}.
+\end{itemize}
+Come \code{num\_threads} esistono altre clausole in grado di modificare le direttive pragma, specificando dettagli aggiuntivi sul comportamento.\acc 
+In base al sistema, potrebbero essere definite delle limitazioni riguardo il numero di thread che un programma può avviare, lo standard OpenMP non garantisce sempre che il numero di thread specificato nella clausola sia avviato, ma finché il numero di thread è ridotto, si può assumere che siano eseguiti quelli specificati. È importante sapere che al termine di ogni blocco parallelo vi è la presenza di una \textit{barriera} implicita.\acc 
+L'insieme dei thread che vengono eseguiti in parallelo su uno stesso blocco è denominato \textit{team}, all'interno di esso si identificano
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.4\textwidth ]{images/parallelConstruct.pdf} & \begin{itemize}
+            \item \textbf{master} : il thread originale dell'esecuzione (che avvia la funzione \code{main()})
+            \item \textbf{parent} : il thread che incontra la direttiva pragma sull'avvio dell'esecuzione in parallelo e si occupa di generare gli altri thread (spesso coincide con il master)
+            \item \textbf{child} : ogni thread che viene avviato da un thread parent
+        \end{itemize}
+		\\
+	\end{tabular}
+\end{center}
+Quando si include OpenMP nel proprio codice, si vuole far si che quest'ultimo sia flessibile anche nei sistemi il cui compilatore non supporta lo standard. Si è già accennato al fatto che le direttive pragma verranno ignorate in tal caso, non è però la stessa cosa per le funzioni di libreria come 
+\code{omp\_set\_num\_threads()} o altre. È possibile utilizzare la variabile d'ambiente \code{\_OPENMP}, quest'ultima è definita nei sistemi che supportano OpenMP, quindi può essere argomento della direttiva \code{\#ifdef} in modo da rendere flessibile il codice permettendogli di evitare di chiamare funzioni di libreria che risulterebbero non dichiarate.
+\begin{lstlisting}[style=CStyle]
+#ifdef _OPENMP
+    int my_rank = omp_get_thread_num();
+    int thread_count = omp_get_num_threads();
+#else 
+    int my_rank = 0;
+    int thread_count = 1;
+#endif
+\end{lstlisting}
+\flowerLine
+\section{Mutua Esclusione}
+Nonostante OpenMP fornisca un interfacia di alto livello, è comunque possibile far cadere i thread in una situazione di race condition quando questi ultimi accedono a variabili condivise simultaneamente. A tal proposito, esiste una direttiva che permette di simulare una lock, in particolare, il blocco che segue la direttiva, si assume "chiuso" da una \code{lock} prima di esso, ed un \code{unlock} dopo. La direttiva in questione è\begin{quote}
+    \code{\#pragma omp critical}
+\end{quote}
+Garantisce la mutua esclusione del blocco che segue.\acc 
+Grazie alle direttive pragma è possibile trasformare un codice sequenziale in parallelo con l'aggiunto di pochissime linee di codice. Tale semplicità ha permesso ad OpenMP di essere adottato in moltissime applicazioni, ed essere utilizzato da coloro che non hanno una conoscienza approfondita dei sistemi multicore.
+\subsection{Integrazione Numerica con OpenMP}
+Il codice parallelizzato con OpenMP che esegue la regola del trapezoide per calcolare l'integrale definito di una funzione $f:\R\rightarrow \R$ è identico al sequenziale, ad eccetto dell'aggiunta di sole due linee di codice.
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+#include <stdlib.h>
+#include <opm.h>
+
+void Trap(double a, double b, int n, double *global_result_p)
+{
+    double h, x, my_result;
+    double local_a, local_b;
+    int i, local_n;
+    #ifdef _OPENMP
+        int my_rank = omp_get_thread_num();
+        int thread_count = omp_get_num_threads();
+    #else
+        int my_rank = 0;
+        int thread_count = 1;
+    #endif
+
+    h = (b - a) / n;
+    local_n = n / thread_count;
+    local_a = a + my_rank * local_n * h;
+    my_result = (f(local_a) + f(local_b)) / 2.0; /*f e' la funzione integranda*/
+    for (i = 0; i <= local_n - 1; i++)
+    {
+        x = local_a + i * h;
+        my_result += f(x);
+    }
+    my_result = my_result * h;
+    #pragma omp critical
+        *global_result_p += my_result;
+}
+
+void main(int argc, char **argv)
+{
+    double global_result = 0.0;
+    double a, b;
+    int n;
+    int thread_count = atoi(argv[1]);
+    printf("Enter a,b and n\n", &a, &b, &n);
+    #pragma omp parallel num_threads(thread_count);
+        Trap(a, b, n, &global_result);
+
+    printf("result : %f", global_result);
+}
+\end{lstlisting}
+Alcuni processore moderni implementano le operazioni di incremento come un unica istruzione atomica \begin{quote}
+    \texttt{load + sum + store}
+\end{quote}
+In tal caso è possibile utilizzare la direttiva pragma \begin{quote}
+    \code{\#pragma omp atomic}
+\end{quote}
+che risulta più efficiente della direttiva precedente in quanto copre la mutua esclusione solo dell'aggiornamento della variabile e non di tutto il blocco.\acc 
+OpenMP è un interfaccia di alto livello che garantisce meno flessibilità e controllo rispetto PThread ma permette una parallelizzazione del codice più semplice, è inoltre portatile e può funzionare anche su Windows. Con OpenMP è possibile programmare la GPU.
+\subsection{Riduzione}
+OpenMP permette di eseguire le collettive di riduzione, come, ad esempio la chiamata \code{MPI\_Reduce}. Nell'esempio del trapezoide, ogni thread, piuttosto che restituire la somma parziale, si occupava di aggiornare la variabile condivisa, è possibile far si che i thread ritornino le somme parziali, e che queste ultime  vengano utilizzate in un'operazione di riduzione. \acc 
+Le riduzioni in OpenMP sono operazioni binarie (come la somma o la moltiplicazione). 
+È un calcolo che applica ripetutamente lo stesso operatore di riduzione a una sequenza di valori, fino a ottenere un unico risultato finale.
+Tutti i risultati intermedi di questa operazione vengono accumulati in una stessa variabile, chiamata variabile di riduzione.\acc 
+La clausola di riduzione viene aggiunta ad una direttiva pragma  ed è definita come segue \begin{quote}
+    \code{reduction(<operator>:<variabile list>)}
+\end{quote}
+Bisogna specificare l'operatore da eseguire fra quelli disponibili 
+\begin{lstlisting}[style=CStyle]
+    +  *  -  &  |  ^  &&  ||
+\end{lstlisting}
+Va poi specificata la variabile in questione che conterrà il risultato finale
+\begin{lstlisting}[style=CStyle]
+global_result = 0.0;
+#pragma omp parallel num_threads(thread_count) reduction(+:global_result)
+    global_result += Local_trap(double a, double b, int n):
+\end{lstlisting}
+\flowerLine
+\section{Scoping}
+Con \textit{scope di una variabile}, si intendono le porzioni di codice in cui quella variabile è accessibile e può essere utilizzata, definisce il ciclo di vita/visibilità delle variabili. Nei programmi paralleli con OpenMP, con scope ci si riferisce all'insieme di thread che può accedere la specifica variabile nel blocco parallelo. Una variabile può essere\begin{itemize}
+    \item \textbf{shared} : accessibile da ogni thread del blocco. Le variabili dichiarate prima di un blocco parallelo rientrano in questa categoria. Inoltre anche le zone di memoria allocate sullo stack del thread master sono accessibili dai suoi figli.
+    \item \textbf{private} : accessibile da un singolo thread, le variabili dichiarate all'interno di un blocco parallelo sono private, ed ogni thread ne avrà una sua copia distinta dalle altre.
 \end{itemize}
 \end{document}
