@@ -2196,4 +2196,52 @@ Con \textit{scope di una variabile}, si intendono le porzioni di codice in cui q
     \item \textbf{shared} : accessibile da ogni thread del blocco. Le variabili dichiarate prima di un blocco parallelo rientrano in questa categoria. Inoltre anche le zone di memoria allocate sullo stack del thread master sono accessibili dai suoi figli.
     \item \textbf{private} : accessibile da un singolo thread, le variabili dichiarate all'interno di un blocco parallelo sono private, ed ogni thread ne avrà una sua copia distinta dalle altre.
 \end{itemize}
+È possibile specificare la visibilità di ogni singola variabile tramite delle clausole apposite, con la clausola \begin{quote}
+    \code{default(none)}
+\end{quote}
+si sta dicendo al compilatore che, per default, nessuna variabile dichiarata al di fuori del blocco sarà considerata automaticamente privata o condivisa all'interno di quel blocco. Ciò significa che il programmatore dovrà specificare esplicitamente lo scope di ogni variabile che vuole utilizzare, evitando ambiguità. Data una variabile, le clausole di specifica disponibili sono le seguenti\begin{itemize}
+    \item \code{shared} : è il comportamento di default delle variabili al di fuori del blocco parallelo, va quindi specificata per queste ultime solo se presente anche la clausola \code{default(none)}
+    \item \code{reduction} : si specifica che una variabile dovrà essere soggetta ad un operazione di riduzione. Ci saranno delle copie di quest'ultima private per ogni thread, ma il risultato finale sarà condiviso
+    \item \code{private} : la variabile avrà una copia privata per ogni thread nel blocco. Le variabili private \underline{non sono inizializzate}.
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+int x = 5;
+#pragma omp parallel private(x)
+    {
+        x= x + 1;
+    }
+printf("x is %d", x);
+\end{lstlisting}
+Nel blocco di codice mostrato, la chiamata di funzione \texttt{printf} stamperà in output \texttt{"x is 5"}. Inoltre, l'incremento di \texttt{x} all'interno del blocco parallelo può causare errore in quanto \texttt{x} è privata e non inizializzata.\acc 
+Esistono altre 4 clausole per specificare lo scope di una variabile\begin{itemize}
+    \item \code{firstprivate} : Come la clausola \code{private}, crea una copia locale della variabile per ogni thread all'interno del blocco parallelo.
+    A differenza di \code{private}, la copia locale viene inizializzata con il valore della variabile originale (quella "esterna" al blocco) prima che il blocco venga eseguito.
+    \item \code{lastprivate} : Anche questa clausola crea copie locali delle variabili, come \code{private}.
+    Al termine dell'esecuzione del blocco parallelo, il valore della copia locale dell'ultimo thread che ha completato il ciclo viene copiato nella variabile originale (quella "esterna" al blocco).
+\end{itemize}
+Quando dichiariamo una variabile come \code{private} in un contesto di programmazione parallela, questa diventa inaccessibile al di fuori del blocco di codice in cui è stata dichiarata. Questo è utile per evitare conflitti tra i thread, ma a volte può essere necessario avere una variabile privata che persista tra diverse sezioni parallele.
+\begin{itemize}
+\item \code{threadprivate} : Crea una copia locale e persistente di una variabile globale o statica per ogni thread. Questa copia è accessibile solo al thread corrispondente e mantiene il suo valore per tutta la durata del programma. È ideale quando è necessario conservare dati privati che devono essere mantenuti tra diverse sezioni parallele, ma che non devono essere condivisi tra i thread.
+\item \code{copyin} : Viene utilizzata in combinazione con \code{threadprivate} per inizializzare le copie locali di ogni thread con il valore della variabile originale (quella definita nel thread master).
+È utile quando si vuole che tutti i thread inizino con lo stesso valore iniziale per una variabile privata persistente.
+\end{itemize}
+\subsubsection{Esempio riassuntivo}
+\begin{lstlisting}[style=CStyle]
+#include <omp.h>
+int x, y, z[1000];
+#pragma omp threadprivate(x)
+
+void default_none(int a){
+    const int c = 1;
+    int i = 0;
+    #pragma omp parallel default(none) private(a) shared(z)
+    {
+        int j = omp_get_num_threads();
+        a = z[j]; /* OK : 'j' e' dichiarata nella sezione parallela */
+        x = c; /* OK : 'x' e' threadprivate */
+        z[i] = y; /* Errore : non si possono referenziare 'i' o 'y', data 
+                     la clausola default(none) */
+    }
+}
+\end{lstlisting}
 \end{document}

@@ -786,7 +786,7 @@ int get_random_int() {
 
 
 
-\chapter{Planning del Progetto}
+\chapter{Planning del Progetto}\label{planningProj}
 Il planning di un progetto, consiste nel suddividere il carico di lavoro in diverse 
 parti, da assegnare ai vari membri del team, cercando di prevedere possibili problemi 
 che potrebbero insorgere durante lo sviluppo, pensando e preparando eventuali modi per 
@@ -1154,15 +1154,134 @@ Svantaggi\begin{itemize}
         \includegraphics[width=1\textwidth ]{images/IngegneriaRiuso.pdf}
         \caption{Ingegneria del software orientata al riciclo}
     \end{figure}\end{center}
-\redText{ Finire capitolo 2 \\The requirements \\
-- engineering process\\
-- design process\\
-- stage testing generalizza,in un caso di un Planet drive e in caso agile \\
-- software prototype pro e contro \\
-\\
-iniziare il capitolo 3 agile software development \\
-- plan base vs agile \\
-- principles of agile methods\\
-- the extreme programming release cycle ( un tipo di agile)}
+È importante anche l'ingegneria dei requisiti, descritta dal seguente diagramma\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/reqEng.pdf}
+\end{center}
+\subsubsection{Specifica del software}
+Con  "processo di definizione" si denota il processo in cui si stabilisce con precisione quali servizi deve fornire il software e quali sono i vincoli che ne limitano il funzionamento e lo sviluppo. Si definisce l'ingegneria dei requisiti come\begin{itemize}
+    \item Estrazione e analisi: Si identificano e si analizzano le esigenze e le aspettative di tutti coloro che interagiscono con il sistema (stakeholder).
+    \item Specifiche dei requisiti: Si definiscono nel dettaglio i requisiti individuati.
+    \item Validazione dei requisiti: Si verifica che i requisiti siano corretti, completi e coerenti.
+\end{itemize}
+I passi della progettazione ed implementazione del software sono\begin{itemize}
+    \item Conversione in sistema eseguibile: Si trasforma la specifica in un programma funzionante.
+    \item Progettazione del software: Si crea una struttura del software che soddisfi i requisiti definiti nella specifica.
+    \item Implementazione: Si traduce la struttura progettata in un programma eseguibile (codice).
+    \item Interrelazione: Le attività di progettazione e implementazione sono strettamente correlate e possono essere svolte in modo iterativo.
+\end{itemize}
+\begin{center}
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=1\textwidth ]{images/generalModelDesProc.pdf}
+        \caption{modello generale del processo di progettazione}
+    \end{figure}\end{center}
+Le componenti del sistema passano poi per una serie di fasi di testing\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/stageTesting.png}
+\end{center}\begin{itemize}
+    \item Testing dei componenti :
+    I singoli componenti vengono testati in modo indipendente.
+    I componenti possono essere funzioni, oggetti o gruppi coerenti di queste entità.
+    \item Testing di sistema:
+    Il sistema viene testato nella sua interezza. Il testing delle proprietà emergenti è particolarmente importante.
+    \item Testing del cliente:
+    Il sistema viene testato utilizzando i dati del cliente per verificare che soddisfi le esigenze del cliente.
+\end{itemize}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/Testingphases.png}
+\end{center}
 
+
+
+
+
+
+
+
+\chapter{Sviluppo Agile}
+Uno dei requisiti più importanti nell'ambito dei sistemi software odierni, è la rapidità nello sviluppo e nel deployment del servizio, il business in questione spesso evolve rapidamente ed è praticamente impossibile definire un insieme di requisiti stabili nel tempo. Il software, deve evolvere rapidamente a sua volta per stare dietro ai requisiti mutevoli del business.\acc 
+   Lo sviluppo \textit{plan driven} è essenziale per alcuni tipi di software, ma non riesce a stare al passo con i bisogni del business. 
+    Lo \textit{sviluppo agile}, nato alla fine degli anni 90' del secolo scorso, punta a ridurre drasticamente i tempi di consegna, fornendo rapidamente del software funzionante e pronto all'utilizzo.
+\acc I concetti chiave dello sviluppo agile sono i seguenti\begin{itemize}
+    \item \textbf{Interleaving delle fasi}: La specifica, la progettazione e l'implementazione del programma sono intrecciate tra loro. Ciò significa che queste fasi non seguono una sequenza rigida, ma si sovrappongono e si influenzano a vicenda durante tutto il processo di sviluppo.
+    \item \textbf{Sviluppo incrementale}: Il sistema viene sviluppato in modo graduale, attraverso una serie di versioni o incrementi. Ad ogni incremento vengono aggiunte nuove funzionalità o migliorate quelle esistenti, coinvolgendo sempre gli stakeholder nella definizione e nella valutazione di ogni versione.
+    \item \textbf{Consegne frequenti}: Nuove versioni del software vengono consegnate frequentemente per ottenere un feedback tempestivo dagli utenti e dagli stakeholder. Questo permette di apportare modifiche e miglioramenti in modo continuo.
+    \item \textbf{Ampio supporto degli strumenti}: Lo sviluppo agile si avvale di numerosi strumenti, come ad esempio gli strumenti di test automatizzati, per supportare il processo di sviluppo e garantire la qualità del software.
+    \item \textbf{Documentazione minima}: L'enfasi è posta sul codice funzionante piuttosto che su una documentazione estesa. La documentazione viene creata solo quando è strettamente necessaria.
+\end{itemize}
+Lo sviluppo plan driven (o plan based) è caratterizzato da\begin{itemize}
+    \item Approccio sequenziale: In questo modello, le fasi di sviluppo (specifica, progettazione, implementazione, test) sono ben definite e seguono un ordine preciso, come in un piano.
+    \item Pianificazione anticipata: I risultati attesi da ciascuna fase sono pianificati in anticipo, creando una roadmap dettagliata del progetto.
+    \item Non necessariamente a cascata: Anche se spesso associato al modello a cascata, lo sviluppo guidato da un piano può essere incrementale, ovvero suddiviso in fasi più piccole. Tuttavia, la pianificazione generale rimane rigida.
+    \item Iterazioni interne: Le iterazioni avvengono all'interno di ciascuna attività, ma il flusso generale del progetto rimane lineare.
+\end{itemize}
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=1\textwidth ]{images/agile.pdf}
+    \caption{differenze fra plan-driven e sviluppo agile}
+\end{figure}
+\flowerLine 
+\section{Agile Methods}\begin{itemize}
+    \item
+La nascita dei metodi agili è stata motivata dalla frustrazione nei confronti dei metodi di progettazione software degli anni '80 e '90, considerati troppo rigidi e burocratizzati.   \item  Questi, pongono l'accento sul codice funzionante piuttosto che su una documentazione eccessiva. L'idea è che il codice costituisca la migliore forma di documentazione.  \item  Lo sviluppo avviene attraverso cicli iterativi, dove si costruiscono e si migliorano gradualmente le funzionalità del software.   \item  I metodi agili sono progettati per adattarsi rapidamente ai cambiamenti dei requisiti, che sono inevitabili in molti progetti software.\end{itemize}
+L'obiettivo principale dei metodi agili è ridurre al minimo gli sprechi e le inefficienze nel processo di sviluppo software. Ciò si ottiene limitando la documentazione non necessaria e focalizzandosi sulla consegna rapida di software funzionante. Inoltre, i metodi agili permettono di rispondere in modo flessibile ai cambiamenti dei requisiti, evitando di dover rifare grandi porzioni di lavoro.\acc 
+L' \textbf{Agile Manifesto} è una dichiarazione di principi che ha dato origine ai metodi agili di sviluppo software. Quest'ultimo recita\begin{quote}
+    \textit{Stiamo scoprendo metodologie migliori di produrre software tramite la produzione di software stessa e l'aiuto reciproco nel farlo. Attraverso questo lavoro, abbiamo imparato ad apprezzare}\begin{itemize}
+        \item Individui e interazioni più che processi e strumenti
+        \item Software funzionante più che documentazione esaustiva
+        \item Collaborazione con il cliente più che negoziazione contrattuale
+        \item Rispondere al cambiamento più che seguire un piano
+    \end{itemize}
+\end{quote}
+Volendo riassumere il tutto, è possibile identificare i seguenti principi dello sviluppo agile:\begin{center}
+    \begin{tabular}{cl}
+        \rowcolor[HTML]{9698ED} 
+        \textbf{Principio}                                                                & \multicolumn{1}{c}{\cellcolor[HTML]{9698ED}\textbf{Descrizione}}                                                                                                                                                                             \\
+        \rowcolor[HTML]{ECF4FF} 
+        \begin{tabular}[c]{@{}c@{}}coinvolgimento del \\ cliente\end{tabular}             & \begin{tabular}[c]{@{}l@{}}il cliente dovrebbe essere \\ strettamente coinvolto nel processo, il \\ suo ruolo è quello di fornire nuovi requisiti \\ e di valutare le iterazioni del sistema\end{tabular}                                    \\
+        \rowcolor[HTML]{DAE8FC} 
+        consegna incrementale                                                             & \begin{tabular}[c]{@{}l@{}}Il software viene sviluppato in incrementi,\\ con il cliente che specifica i requisiti da\\ includere in ciascun incremento\end{tabular}                                                                          \\
+        \rowcolor[HTML]{ECF4FF} 
+        \begin{tabular}[c]{@{}c@{}}priorità alle persone, \\ non ai processi\end{tabular} & \begin{tabular}[c]{@{}l@{}}Le competenze del team di sviluppo dovrebbero\\ essere riconosciute e sfruttate. I membri del team \\ dovrebbero essere liberi di sviluppare i propri modi\\ di lavorare senza processi prescrittivi\end{tabular} \\
+        \rowcolor[HTML]{DAE8FC} 
+        \begin{tabular}[c]{@{}c@{}}accogliere il \\ cambiamento\end{tabular}              & \begin{tabular}[c]{@{}l@{}}Prevedere che i requisiti del sistema cambieranno\\ e quindi progettare il sistema per accogliere \\ eventuali cambiamenti\end{tabular}                                                                           \\
+        \rowcolor[HTML]{ECF4FF} 
+        Mantenere la semplicità                                                           & \begin{tabular}[c]{@{}l@{}}Focalizzarsi sulla semplicità sia nel software \\ che si sta sviluppando che nel processo \\ di sviluppo. Laddove possibile, lavorare \\ attivamente per eliminare la complessità dal sistema\end{tabular}       
+        \end{tabular}
+\end{center}
+Riguardo l'\textbf{applicabilità} dei metodi agili, queste metodologie sono adatte a software  di piccole o medie dimensioni, destinati alla vendita. È inoltre efficacie nell'ambito dello sviluppo di sistemi personalizzati all'interno di un'organizzazione: I metodi agili sono ideali quando il cliente è fortemente coinvolto nel processo di sviluppo e quando ci sono poche restrizioni esterne (regole, normative) che influenzano il software.\flowerLine 
+\section{Tecniche di Sviluppo Agile}
+\subsection{Extreme Programming}
+La prima tecnica attuata nello sviluppo agile che verrà considerata è l'\textit{extreme programming} (XP), è stata una metodologia  molto influente sviluppata alla fine degli anni '90. XP ha introdotto una serie di tecniche agili che hanno fortemente influenzato il modo in cui pensiamo allo sviluppo software. 
+Risulta essere un approccio "estremo" allo sviluppo iterativo: XP porta all'estremo i principi dello sviluppo iterativo, ovvero la creazione di versioni incrementali del software a intervalli regolari. Le caratteristiche principali sono\begin{itemize}
+    \item Frequenti release: Nuove versioni del software possono essere create anche più volte al giorno
+    \item Consegne regolari: Incrementi di funzionalità vengono consegnati ai clienti ogni 2 settimane circa.
+    \item Test continui: Tutti i test automatici vengono eseguiti ad ogni nuova build del software e la build viene accettata solo se tutti i test superano con successo.
+\end{itemize}\begin{center}
+    \includegraphics[width=1\textwidth ]{images/XP.pdf}
+\end{center}
+I principi della XP sono i seguenti\begin{enumerate}
+    \item Pianificazione incrementale : I requisiti vengono registrati su "story cards" e le storie da includere in un rilascio vengono determinate in base al tempo disponibile e alla loro priorità relativa. Gli sviluppatori suddividono queste storie in "Task" di sviluppo.
+    \item Rilasci frequenti : Viene sviluppato prima l'insieme minimo di funzionalità utili che fornisce valore al business. I rilasci del sistema sono frequenti e aggiungono in modo incrementale funzionalità al primo rilascio.
+    \item Design semplice : Viene effettuata solo la progettazione necessaria per soddisfare i requisiti attuali.
+    \item Sviluppo guidato dai test : Viene utilizzato un framework di test unitari automatizzato per scrivere i test per una nuova funzionalità prima che questa venga implementata.
+    \item Refactoring : Tutti gli sviluppatori sono tenuti a ristrutturare continuamente il codice non appena vengono trovati possibili miglioramenti. Ciò mantiene il codice semplice e manutenibile.
+    \item Programmazione "a coppie" : Gli sviluppatori lavorano in coppia, controllando reciprocamente il lavoro e fornendo supporto per garantire sempre un buon risultato.
+    \item Proprietà collettiva del codice : Le coppie di sviluppatori lavorano su tutte le aree del sistema, evitando la creazione di "isole di competenza" e garantendo che tutti siano responsabili del codice. Chiunque può apportare modifiche.
+    \item Integrazione continua : Non appena un compito è completato, viene integrato nel sistema completo. Dopo ogni integrazione, tutti i test unitari devono essere superati.
+    \item Ritmo sostenibile : Non sono ammessi eccessivi straordinari, poiché riducono la qualità del codice e la produttività a lungo termine.
+    \item Cliente in loco : Un rappresentante dell'utente finale deve essere sempre disponibile per il team XP. In XP, il cliente è parte integrante del team e ha la responsabilità di portare i requisiti del sistema al team per l'implementazione.
+\end{enumerate}
+L'XP ha definito alcuni pratiche molto influenti nell'ambito dell'ingegneria del software, l'extreme programming ha un carattere molto tecnico, ed è difficile da integrare nelle pratiche gestionali di molte organizzazioni, a tal proposito, sebbene lo sviluppo agile  si basi su molte pratiche di XP, il metodo XP nella sua forma originale non è ampiamente utilizzato. Le pratiche più importanti che si sono diffuse sono\begin{itemize}
+    \item User stories per la specifica 
+    \item Refactoring
+    \item Sviluppo guidato dai test
+    \item Programmazione "a coppie"
+\end{itemize}
+Nel capitolo \ref{planningProj} si è già accennato il concetto di \textbf{storie utente}. I requisiti sono espressi come "storie utente" o scenari, e tali storie vengono suddivise in "task" più piccoli, che servono come base per la pianificazione. Il cliente decide quali storie includere nel prossimo rilascio in base alla priorità e alle stime temporali.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/storiaUtente.pdf}
+\end{center}
+Dall'esempio appena mostrato di storia utente, possono essere derivate più task.\begin{center}
+    \includegraphics[width=0.53\textwidth ]{images/task.pdf}
+\end{center}
+\redText{Continua da "examples of refactoring" pagina 5 slide di Marco Maz.}
 \end{document}

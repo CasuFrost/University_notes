@@ -1,0 +1,16 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Pagina-1" id="er22V0Gh5_Zmc4tvq_B9">
+    <mxGraphModel dx="1578" dy="913" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SJHigzzj7zD-JbxuN5_S-13" value="&lt;p style=&quot;font-size: 14px;&quot; data-sourcepos=&quot;5:1-5:166&quot;&gt;Il record del paziente deve essere aperto per l&#39;inserimento. Clicca sul campo &quot;medicazione&quot; e seleziona tra &quot;medicazione attuale&quot;, &quot;nuova medicazione&quot; o &quot;formulario&quot;.&lt;/p&gt;&lt;p style=&quot;font-size: 14px;&quot; data-sourcepos=&quot;7:1-7:160&quot;&gt;Se selezioni &quot;medicazione attuale&quot;, ti verrà chiesto di verificare il dosaggio; se desideri modificarlo, inserisci il nuovo dosaggio e conferma la prescrizione.&lt;/p&gt;&lt;p style=&quot;font-size: 14px;&quot; data-sourcepos=&quot;9:1-9:324&quot;&gt;Se scegli &quot;nuova medicazione&quot;, il sistema assumerà che tu conosca il farmaco da prescrivere. Digita le prime lettere del nome del farmaco. Ti verrà mostrato un elenco di possibili farmaci. Scegli quello corretto. Ti verrà quindi chiesto di confermare il farmaco selezionato. Inserisci il dosaggio e conferma la prescrizione.&lt;/p&gt;&lt;p style=&quot;font-size: 14px;&quot; data-sourcepos=&quot;11:1-11:250&quot;&gt;Se scegli &quot;formulario&quot;, ti verrà presentata una casella di ricerca per il formulario approvato. Cerca il farmaco desiderato e selezionalo. Ti verrà quindi chiesto di confermare il farmaco selezionato. Inserisci il dosaggio e conferma la prescrizione.&lt;/p&gt;&lt;p style=&quot;font-size: 14px;&quot; data-sourcepos=&quot;13:1-13:170&quot;&gt;In tutti i casi, il sistema verificherà che il dosaggio sia all&#39;interno dell&#39;intervallo consentito e ti chiederà di modificarlo se è al di fuori dei dosaggi raccomandati.&lt;/p&gt;&lt;p style=&quot;font-size: 14px;&quot; data-sourcepos=&quot;15:1-15:270&quot;&gt;Dopo aver confermato la prescrizione, questa verrà visualizzata per la verifica. Clicca su &quot;OK&quot; o &quot;Modifica&quot;. Se clicchi su &quot;OK&quot;, la prescrizione verrà registrata nel database delle audit. Se clicchi su &quot;Modifica&quot;, ricomincerai il processo di &quot;Prescrizione del farmaco&quot;.&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#00B2FF;strokeWidth=4;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="20" y="340" width="960" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="SJHigzzj7zD-JbxuN5_S-14" value="Prescrizione della Medicazione" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#00B2FF;strokeWidth=4;" vertex="1" parent="1">
+          <mxGeometry x="20" y="310" width="960" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
