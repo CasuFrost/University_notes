@@ -321,9 +321,9 @@ un generico algoritmo logico sequenziale.
         \rowcolor[HTML]{F2F7FE} 
         seconda                                        & fine 19°secolo – 1970                    & \begin{tabular}[c]{@{}c@{}}azionamento elettrico delle macchine e produzione\\  di massa basata sulla\\  divisione del lavoro (catene di montaggio)\end{tabular}                                                                                                                                                                                                                  \\ \hline
         \rowcolor[HTML]{DAE8FC} 
-        terza                                          & 1970 – oggi                              & \begin{tabular}[c]{@{}c@{}}utilizzo dell’elettronica e delle tecnologie\\  dell’informazione (IT) \\ per aumentare il livello di automazione di attività\\  complesse (CNC, robot e computer)\end{tabular}                                                                                                                                                                         \\ \hline
+        terza                                          & 1970 – oggi                              & \begin{tabular}[c]{@{}c@{}}utilizzo dell'elettronica e delle tecnologie\\  dell'informazione (IT) \\ per aumentare il livello di automazione di attività\\  complesse (CNC, robot e computer)\end{tabular}                                                                                                                                                                         \\ \hline
         \rowcolor[HTML]{F2F7FE} 
-        quarta                                         & oggi – futuro                            & \begin{tabular}[c]{@{}c@{}}sviluppo di macchine sensorizzate e intelligenti,\\  interconnesse tra loro e con internet, con la raccolta,\\  analisi e uso di grandi \\ quantità di informazioni (Big data), per una\\  specializzazione di \\ massa del prodotto, l’integrazione della\\  catena produttiva \\ (supply and value chains) e una maggiore\\  efficienza\end{tabular} \\ \hline
+        quarta                                         & oggi – futuro                            & \begin{tabular}[c]{@{}c@{}}sviluppo di macchine sensorizzate e intelligenti,\\  interconnesse tra loro e con internet, con la raccolta,\\  analisi e uso di grandi \\ quantità di informazioni (Big data), per una\\  specializzazione di \\ massa del prodotto, l'integrazione della\\  catena produttiva \\ (supply and value chains) e una maggiore\\  efficienza\end{tabular} \\ \hline
         \end{tabular}
 \end{center}
 \flowerLine
@@ -355,7 +355,7 @@ Si considerino i seguenti esempi di produzione industriale\begin{itemize}
         \item materie prime (input discreto) : pezzo metallico grezzo
         \item prodotto (output discreto) : componente del motore
         \item impianto necessario : macchina con mandrini per la meccanica (fresatura, foratura, ...), sistema di
-        controllo numerico (posizionamento corretto dell’utensile del mandrino),
+        controllo numerico (posizionamento corretto dell'utensile del mandrino),
         dispositivo di cambio utensile automatico, protezioni, sistemi di scarico
         trucioli
     \end{itemize}
@@ -1032,7 +1032,7 @@ Caratteristiche ed impieghi : \begin{itemize}
 \subsubsection{Singola Scheda}
 Prevedono più componenti standard integrati su una singola scheda, fra questi vi sono\begin{itemize}
     \item DSP (Digital Signal Processor) : processori atti al trattamento dei segnali ed esecuzione di funzioni su numeri interi o reali 
-    \item FPGA (Field Programmable Gate Array) : circuiti integrati riconfigurabili dall’utente per realizzare 
+    \item FPGA (Field Programmable Gate Array) : circuiti integrati riconfigurabili dall'utente per realizzare 
     funzioni logiche complesse tramite blocchi logici e elementi di memoria
 \end{itemize}
 Rispetto i microcontrollori hanno una maggiore capacità di elaborazione e possono gestire un maggior numero 
@@ -2225,14 +2225,289 @@ Sia $t_k$ l'istante di attivazione di un istanza del processo server, e siano $\
 $$ \min(C_{server}, \sum_{i=1}^n C_i)$$
 In tal maniera, il processo server utilizzerà solamente il tempo strettamente necessario per occupare la CPU, se non ci sono task soft real time in attesa, il completation time dinamico sarà nullo.
 \subsubsection{Esempio di Scheduling}
-L'insieme dei task hard real time (da eseguire con RMPO) è il seguente (compreso il processo server) 
+L'insieme dei task hard real time, compreso il processo server  (da eseguire con RMPO) è il seguente 
 $$ \begin{matrix}
 A_1 & T_1 = 8 & C_1 = 4 \\ 
 A_2 & T_2 = 16 & C_2 = 2 \\ 
 A_{server} & T_{server}=12 & C_{server} = 3\end{matrix}
 $$
 è presente un solo task $A_3$ soft real time di cui 
-$$ a_3=14 \ \ \ \ C_3 = 5 \ \ \ \ d_3 = 47$$
+$$ a_3=14 \ \ \ \ C_3 = 5 \ \ \ \ D_3 = 47$$
+L'insieme dei task hard real time ha fattore di utilizzazione 
+$$ U=\frac{4}{8}+\frac{2}{10}=\frac{10}{16}=0.625<\ln(2)$$
+è quindi sicuramente schedulabile con RMPO. Considerando anche il processo server si ha 
+$$ U' = \frac{10}{16}+\frac{3}{12}=0.875<1$$
+Le condizioni necessarie di schedulabilità non sono violate. Si disegna dinamicamente la trama dello scheduling.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/esempioPollingServer.pdf}
+\end{center}
+Si considerino separatamente i 4 periodi di attivazione del processo server\begin{itemize}
+    \item $t=0$ : il processo server si attiva, non ci sono task nella coda FIFO, quindi il suo completation time per tutto lo slot di tempo sarà nullo e verrà ignorato.
+    \item $t=12$ : il processo server si attiva, non ci sono task nella coda FIFO (dato che il task $A_3$ arriverà 2 istanti dopo), quindi il suo completation time per tutto lo slot di tempo sarà nullo e verrà ignorato.
+    \item $t=24$ : in coda vi è un processo con completation time pari a 5. Il minimo fra 5 ed il valore $C_{server}$ stabilito è proprio $C_{server}=3$, quindi sarà concesso un tempo di esecuzione sulla CPU pari a 3 unità di tempo. Il tempo rimanente al task $A_3$  è di 2 unità di tempo 
+    \item $t=36$  in coda vi è un processo con completation time pari a 2. Il minimo fra 2 ed il valore $C_{server}$ stabilito è 2, quindi sarà concesso un tempo di esecuzione sulla CPU pari a 2 unità di tempo, ed il task $A_3$ sarà completato.
+\end{itemize}
+\subsection{Deferrable Server}
+Il \textit{deferrable server} è un'alternativa più statica rispetto il polling server, in pratica, è identico, ma il completation time del processo server è statico e rimane quello deciso a priori, cercando di dare a tale processo la \textit{massima priorità possibile}, sempre rispettando il vincolo real time per il restante insieme di task. Si consideri l'esempio precedente in cui si è applicato il polling server, applicando il deferrable server la trama sarà la seguente:
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/deferrableServer.eps}
+\end{center}
+Il processo server diventa in tutto e per tutto un task periodico. Nonostante aumenti la responsività dello scheduling dei task soft real time, il tempo sprecato dal processo server sulla CPU è maggiore.\flowerLine 
+\section{Esercizi sullo Scheduling}
+\subsubsection{Esercizio 1}
+In un sistema di AUTOMAZIONE devono essere GARANTITI tre task:\begin{enumerate}
+    \item A livello di campo è necessario garantire il processo di lettura dei dati da sensore
+che impiega 8 t.u. per essere elaborato e che deve essere ripetuto ogni 16 t.u.;
+\item A livello di coordinamento è necessario garantire un task meccanico che deve
+essere ripetuto ogni 48 t.u. e la cui elaborazione necessita 12 t.u.;
+\item A livello di campo è necessario garantire il processo di elaborazione della legge di
+controllo e di attuazione della relativa azione di intervento. Tale processo impiega 6
+t.u. per essere elaborato e deve essere ripetuto ogni 24 t.u.;
+\end{enumerate}
+Ipotizzando di volere un sistema di controllo HARD REAL TIME e di avere a disposizione di
+un sistema MONOPROCESSORE, calcolare il fattore di utilizzazione e tracciare il grafico dello
+scheduling dei task mediante algoritmo EDF.\subsubsection{Soluzione 1}
+Il fattore di utilizzazione è 
+$$U=\frac{8}{16}+\frac{12}{48}+\frac{6}{24}=\frac{24+12+12}{48}=1 $$
+Le condizioni necessarie e sufficienti per la schedulabilità con EDF sono rispettate.\acc 
+La trama dello scheduling è la seguente\begin{center}
+    \includegraphics[width=1\textwidth ]{images/esercizioEsame1.pdf}
+\end{center}
+\subsubsection{Esercizio 2}
+Una ditta agroalimentare deve progettare un sistema di AUTOMAZIONE di un impianto di
+packaging il cui sistema di controllo è basato su un singolo PROCESSORE che deve
+GARANTIRE L'esecuzione di tre task a livello di coordinamento:\begin{enumerate}
+    \item L'imballatrice viene attivata ogni 16 t.u. e impiega 3 t.u. a completare il task;
+    \item L'impacchettatrice viene attivata ogni 4 t.u. e impiega 1 t.u. a completare il task;
+    \item L'etichettatrice viene attivata ogni 8 t.u. e impiega 2 t.u. a completare il task.
+\end{enumerate}
+Ipotizzando di avere implementato nel processore un algoritmo TIMELINE
+SCHEDULING, studiarne la schedulabilità.\subsubsection{Soluzione 2}
+Il fattore di utilizzazione è 
+$$U=\frac{3}{16}+\frac{1}{4}+\frac{2}{8}=\frac{3+4+4}{16}=\frac{11}{16} $$
+Le condizioni necessarie e sufficienti per la schedulabilità con TS sono rispettate. Si hanno 
+$$\begin{matrix}
+    \text{minor cycle} = 4\\ 
+    \text{major cycle} = 16
+\end{matrix} $$
+La trama dello scheduling è la seguente\begin{center}
+    \includegraphics[width=1\textwidth ]{images/esercizioEsame2.pdf}
+\end{center}
+\chapter{Implementazione di Sistemi Real Time}
+\section{Hardware Abstraction Layer}
+I sistemi di controllo devono essere implementati via software su appositi dispositivi. Il sistema operativo, è la componente software che interfaccia la logica del sistema definita dall'utente, con l'hardware, funge da interfaccia.
+Definiamo \textbf{HAL} (Hardware Abstraction
+Layer) il componente che serve a disaccoppiare il sistema operativo dalle possibili risorse hardware, qui è contenuto lo \textit{scheduler}, che dovrà gestire in maniera hard real time i task definiti dal sistema di controllo. L'HAL gestirà i task soft real time con una politica best effort.\acc 
+È inoltre presente nell'HAL, anche il cosiddetto \textbf{watchdog timer}, un componente che si occupa di tenere traccia delle deadline dei task hard real time.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/HAL.png}
+\end{center}
+In passato i sistemi di controllo erano di tipo \textbf{event driven}, allo scaturire di determinate condizioni fisiche, veniva subito rilevato un \textit{evento} che faceva agire immediatamente il sistema di controllo (implementato fisicamente). Ad esempio, un derivatore pneumatico alla rilevazione della variazione di una grandezza, scaturiva immediatamente un attuazione.\acc Uno scheduler event driven quindi deve poter schedulare un task non appena l'evento che lo scaturisce si verifica.\begin{itemize}
+    \item Vantaggi\begin{itemize}
+        \item Intuitivo: ogni task viene mandato allo scheduler non appena l'evento che lo attiva
+        occorre;
+        \item Semplice da usare: ad ogni task può essere associata una priorità e l'algoritmo
+        di scheduling pensa a soddisfare anche vincoli hard real time.
+    \end{itemize}
+    \item Svantaggi\begin{itemize}
+        \item Complesso da realizzare: definire un algoritmo di scheduling generale che
+        risolva il problema della programmazione concorrente è difficile ed oneroso se non
+        si conoscono a priori le caratteristiche dei task in ingresso
+    \end{itemize}
+\end{itemize}
+Se l'unità di elaborazione è digitale, l'approccio event driven è intrinsecamente irrealizzabile. Un sistema digitale è regolato da un clock, e non è in costante ascolto di eventi, bensì, avviene un controllo periodico ed il tempo è discretizzato.\acc 
+Tale approccio è detto \textbf{time driven} ed è quello applicato nei sistemi di controllo odierni, Il periodo di tempo che intercorre tra due rilevazioni consecutive è detto \textit{periodo di rilevazione} e si indica con $T_s$.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/periodoRilevazione.eps}
+\end{center}
+Gli eventi sono asincroni e vanno gestiti in maniera sincrona. Un evento viene associato ad un segnale booleano (che può valere 0 o 1), ed indica la sua presenza o meno.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/periodoRilevazione2.eps}
+\end{center}
+Ci sono 3 principali problemi relativi ai sistemi time driven\begin{itemize}
+    \item \textbf{problema 1}: un evento in un sistema di questo tipo potrebbe avvenire e non essere osservato. Ciò è possibile se il tempo di attivazione di tale evento è minore al periodo di rilevazione.\begin{center}
+        \includegraphics[width=0.6\textwidth ]{images/periodoRilevazione3.eps}
+    \end{center}
+    \item  \textbf{problema 2}: i task sono soggetti ad un ritardo nella rilevazione, dato che questa può avvenire diversi istanti dopo l'avvenimento di un evento.\begin{center}
+        \includegraphics[width=0.6\textwidth ]{images/periodoRilevazione4.eps}
+    \end{center}
+    \item \textbf{problema 3}: nonostante un task $A$ potrebbe essere scaturito prima di un task $B$, la rilevazione potrebbe avvenire in seguito alla creazione di entrambi, vedendoli come se fossero stati generati nello stesso momento, causando un problema nell'ordine di occorrenza.\begin{center}
+        \includegraphics[width=0.6\textwidth ]{images/periodoRilevazione5.eps}
+    \end{center}
+\end{itemize}
+I sistemi time driven sono \textit{semplici da implementare} in quanto è sufficiente abilitare un timer per il rilevamento periodico, inoltre, è necessario rendere il periodo di rilevazione molto piccolo rispetto il periodo di vita media di un generico task per aumentare la reattività. Nonostante questo, i problemi evidenziati riducono il campo di azione di un controllo di questo tipo. 
+\subsection{Sistemi di Automazione Real Time}
+Nella piramide CIM, il controllo è differente in base al livello \begin{itemize}
+    \item a livello di impianto ed azienda, il controllo avviene su sequenze logiche per la supervisione, i task possono essere di vario tipo, come task di log, di presentazione di informazioni e di gestione di allarmi.  I task sono prevalentemente aperiodici.
+    \item nel livello di coordinamento si controllano sequenze logiche di task che possono essere periodici ed aperiodici.
+    \item nel livello di campo vi è il controllo digitale di variabili analogiche, i task sono prevalentemente periodici.
+\end{itemize}
+A livello di coordinamento sono presenti task misti, pertanto è
+intuitivo pensare di usare sistemi di controllo real time event driven.
+Ma da un punto di vista implementativo è molto più conveniente realizzare sistemi
+di controllo finalizzati all'Automazione completamente time driven.
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/cim3.pdf}
+\end{center}\flowerLine 
+\section{Sistemi Operativi Real Time}
+I sistemi operativi più diffusi (Windows, Linux, Mac OS) non sono adatti per gestire
+sistemi di controllo real time. Il problema principale risiede nella impossibilità di determinare il massimo tempo
+di esecuzione di un task (processo o thread che sia).Un computer non industriale è equipaggiato con risorse che bloccano la CPU e
+rendono difficilissimo gestire il determinismo dello scheduler implementato nel Kernel:\begin{itemize}
+    \item  Perifiche di I/O (Universal Serial Bus - USB);
+    \item  DMA (Direct Memory Access) dell'Hard Disk;
+    \item  CACHE della CPU (quando si svuota la CPU non può lavorare);
+    \item  Memoria Virtuale (paging);
+    \item  IRQ (Interrupt Request) da parte di periferiche PCI;
+    \item  ACPI (Advanced Configuration and Power Interface) cambia la frequenza della CPU.
+\end{itemize}
+Per rendere un Sistema Operativo Real Time è necessario mettere mano al codice
+del suo scheduler e del suo HAL (Hardware Abstraction Layer). Ma questo è possibile
+esclusivamente se il Kernel del sistema operativo è Open Source. \acc 
+Alcuni noti sistemi operativi per il controllo real time sono\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \rowcolor[HTML]{000000} 
+        {\color[HTML]{FFFFFF} Nome} & {\color[HTML]{FFFFFF} Caratteristiche}                    \\ \hline
+        ChibiOS                     & Open Source ; Sistemi Embedded                            \\ \hline
+        TinyOS                      & Open Source; Wireless Sensor Nodes                        \\ \hline
+        RTAI Linux                  & Open Source (italiano); Computer Industriali; Linux based \\ \hline
+        BeRTOS                      & Open Source (italiano); Sistemi Embedded; Arduino         \\ \hline
+        free RTOS                   & Open Source; Cross platform                               \\ \hline
+        Ethernut                    & Open Source; Sistemi embedded dedicati                    \\ \hline
+        milOS                       & Open Source; Sistemi embedded                             \\ \hline
+        \end{tabular}
+\end{center}\flowerLine 
+\section{Controllori Embedded}
+Abbiamo visto che un sistema di controllo real time deve agire a livello di campo, di
+coordinamento e di conduzione per eseguire tutti i task necessari al corretto
+funzionamento del sistema complesso. In Automazione i sistemi di controllo Real Time, centralizzati e di piccola
+taglia possono essere realizzati tramite controllori embedded che eseguono
+opportuni programmi software sviluppati per il controllo logico sequenziale, questi sono largamente adottati nel livello di campo. Salendo al livello di macchina o cella, i sistemi di controllo sono più complessi, gestiscono un maggior numero di segnali e sono realizzati tramite \textit{PLC} (Programmable Logic Controller). Nel livello di impianto i sistemi operanti sono detti  SCADA (Supervisory Control and Data Acquisition).\acc 
+\defi{} Un qualsiasi sistema realizzato tramite una singola scheda elettronica viene chiamato \textbf{sistema embedded}.\acc 
+\defi{} Un sistema di controllo realizzato tramite un embedded system viene chiamato \textbf{controllore embedded}.\acc 
+Un embedded controller contiene al suo interno tutto il necessario sia per
+connettere il controllore al sistema da controllare, sia per eseguire gli algoritmi di
+controllo definiti dall'utente, viene progettato o scelto in maniera tale che la
+configurazione hardware e software sia ad-hoc rispetto al problema di Automazione
+da risolvere. Ciò richiede la conoscenza a priori dei compiti da eseguire.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/embeddedController.pdf}
+\end{center}
+\begin{itemize}
+    \item \textbf{vantaggi} : Noto a priori il problema di automazione, l'embedded controller permette di ridurre
+    l'hardware, lo spazio, i consumi energetici, i tempi di realizzazione ed il costo
+    necessari a realizzare il sistema di controllo.
+    \item \textbf{svantaggi} : Di contro, l'embedded controller è caratterizzato da scarsa flessibilità, bassissima
+    estendibilità e difficile intercambiabilità
+\end{itemize}
+L'uso degli embedded controller nell'ambito della Automazione si è diffuso moltissimo
+soprattutto a livello di campo, dove i task del sistema di controllo sono ripetuti e noti
+a priori. Un controllore embedded presenta le seguenti componenti:\begin{itemize}
+    \item CENTRAL PROCESSING UNIT (CPU):
+    È il processore che si occupa di eseguire sia il Basic I/O System (BIOS), ovvero il
+    sistema operativo, che il programma realizzato dall'utente che implementa
+    l'algoritmo di controllo.  Può essere un microprocessore general purpose (numeri interi), oppure
+    un digital signal processor (numeri interi e in virgola mobile), o un field
+    programmable gate array (funzioni logiche) 
+    \item MEMORIA RAM:
+    È la memoria volatile necessaria per mantenere lo stato del programma, ovvero
+    tutti i dati temporanei necessari durante l'elaborazione degli algoritmi di controllo
+    logico sequenziale.
+    \item MEMORIA (EPP)ROM:
+    È la memoria non volatile necessaria per memorizzare permanentemente il
+    sistema operativo (ROM) e il programma utente ([EEP]ROM).
+    \item GESTIONE TEMPORIZZAZIONI:
+    Gestione dei timer utili per la sincronizzazione e la temporizzazione delle attività
+    della CPU.
+    \item GESTIONE RETE:
+    Contiene i protocolli di base (di livello fisico e di accesso al mezzo trasmissivo) per
+    gestire la comunicazione con altri dispositivi di controllo (embedded e non).
+    \item GESTIONE USCITE:
+Contiene una serie di circuiti per la generazione di segnali analogici (DAC) e
+digitali.
+\item ACQUISIZIONE SEGNALI DIGITALI:
+Circuiti per l'accoppiamento con i segnali digitali in ingresso (ad es. TTL 0-5V,
+CMOS 0-3/15V, OPTO)
+    \item ACQUISIZIONE SEGNALI ANALOGICI e ADC:
+    Circuiti per l'accoppiamento con i segnali analogici in ingresso, l'eventuale
+    multiplexer e il converitore A/D (ADC) per il campionamento e la
+    quantizzazione. È il componente pià costoso del controllore.
+    \item GESTIONE I/O:
+    Circuiti per l'accoppiamento con bus dedicati o schede di espansione.
+    \item GESTIONE INTERRUPT:
+    Circuiti per la rilevazione degli eventi.
+\end{itemize}
+\defi{} Un embedded controller realizzato tramite un singolo circuito integrato viene
+chiamato \textbf{microcontrollore}.
+Ha senso prendere in considerazione l'utilizzo di microcontrollori esclusivamente in quei
+sistemi di Automazione che richiedano:\begin{itemize}
+\item notevole riduzione degli ingombri (cellulari, elettrodomestici, servizi di rete,
+centraline elettroniche, wearable devices, etc.);
+\item numero limitato di segnali di ingresso / uscita (digitali o analogici);
+\item basso consumo energetico (alimentazione a batteria);
+\item HMI minimale (ad es. touchscreen, tastiera, display LCD, LED) o nulla;
+\item interoperabilità e integrazione con altri dispositivi limitata o nulla.
+\end{itemize}
+\subsection{Arduino e Raspberry PI}
+Arduino è una piattaforma open-source per la prototipazione elettronica, basata su hardware e software flessibili e facili da usare.
+È pensata per artisti, designer, hobbisti e chiunque sia interessato a creare oggetti o ambienti interattivi.
+Arduino è una iniziativa finalizzata alla definizione di requisiti hw/sw per la costruzione
+open-source di controllori embedded operanti a livello di campo.
+Il successo dell'iniziativa si basa su\begin{itemize}
+   
+    \item  Possibilità di scaricare gratuitamente gli schemi hardware dal sito apposito, relativi a tutti i modelli delle BOARD Arduino;
+\item  Possibilità di costruire gratuitamente (no royalties) delle SHIELD Arduino
+da collegare meccanicamente con le BOARD al fine di estendere le capacità e
+le funzionalità della stessa;
+\item Possibilità di scaricare gratuitamente l'SDK per iniziare da subito a
+programmare le BOARD Arduino e le sue SHIELD ufficiali.
+\end{itemize}
+Il Raspberry PI, è un computer compatto ed economico, delle dimensioni di una carta di credito, che può essere collegato a un monitor o a un televisore e utilizza una tastiera e un mouse standard. Raspberry Pi è un mini-PC perfetto per sviluppare sistemi di controllo a livello di
+coordinamento o di supervisione.
+Il successo dell'iniziativa si basa sulla possibilità di costruire sistemi di automazione
+low-cost (ad es. domotica).\flowerLine 
+\section{PLC}
+Quando si deve realizzare un sistema di controllo logico sequenziale caratterizzato da:\begin{itemize} 
+\item complessità di calcolo degli algoritmi molto elevata;
+\item elevato numero di ingressi e/o uscite analogiche/digitali;
+\item HMI complesse ed articolate;
+\item interoperabilità con altri sistemi di controllo ed informativi\end{itemize}
+Si preferisce sostituire i controllori embedded con i\textit{controllori a bus}.\acc 
+\defi{} Un \textit{bus} è un insieme di linee di trasporto di energia e di informazione (in generale
+di tipo elettrico) che permettono la comunicazione tra più dispositivi.\acc Per identificare un BUS è pertanto necessario fissare il numero di linee, definire le
+funzionalità offerte da ciascuna linea, i protocolli di comunicazione usati dai
+dispositivi interconnessi e le interfacce meccaniche. In una architettura a bus, ad un modulo principale ospitante il processore, vengono
+connessi tutti gli altri moduli necessari a comporre il controllore (memoria, moduli
+I/O, periferiche di HMI, interfacce di rete, schede dedicate, etc.).
+È composto da diverse 
+linee\begin{itemize}
+    \item linee dati 
+    \item linee indirizzi 
+    \item linee di alimentazione 
+    \item linee per la comunicazione
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/bus.png}
+\end{center}
+I \textbf{PLC} sono controllori basati su architettura a bus e
+hanno riscosso ampio successo in ambito della automazione industriale. La programmazione dei PLC è stata standardizzata secondo le norme IEC61131-3. Essi possono essere programmati in diversi modi\begin{itemize}
+    \item \textit{Ladder Diagram}: è un linguaggio grafico, ottenuto come trasposizione informatica dei quadri a relè.
+    \item \textit{Functional Block Diagram}: è un linguaggio grafico, ottenuto come trasposizione dei diagrammi circuitali in cui le
+    interconnessioni rappresentano i percorsi dei segnali che
+    collegano i vari componenti. I blocchi rappresentano le singole
+    operazioni logiche.
+    \item \textit{Sequential Functional Chart}: è un linguaggio grafico, ottenuto applicando un formalismo grafico per la descrizione di
+    operazioni logiche sequenziali e formalismi grafici propri di altri
+    linguaggi di programmazione. utilizzato per descrivere in maniera
+    orientata alla progettazione sistemi complessi di
+    automazione.
+    \item \textit{Instruction list}: è un linguaggio di programmazione di basso livello molto simile
+    all'assembler. Le istruzioni sono costituite da un operatore
+    e da un solo operando e fanno riferimento ad un registro di
+    memoria. I formalismi adottati possono essere molto differenti
+    in quando fissati dal produttore dell'hardware per il PLC.
+    \item \textit{Structured text}: è un linguaggio di programmazione strutturato ad alto livello con
+    un formalismo che si ispira al Basic e al Pascal. È adatto
+    alla rappresentazione di procedure complesse che non
+    potrebbero essere descritte con i linguaggi grafici.
+\end{itemize}
 
 
 
