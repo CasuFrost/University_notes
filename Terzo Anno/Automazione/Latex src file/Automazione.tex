@@ -2191,13 +2191,48 @@ $$ \begin{matrix}(n+m,T_1\dots ,T_n,T_1^{min}\dots ,T_m^{min})\\
 È chiaro che la CPU dedicherà delle unità di tempo a task aperiodici come se fossero periodici, causando 
 un inevitabile spreco di computazione nel caso questi non dovessero sussistere.\acc 
 I task soft real time (che sono altrettanto diffusi) possono essere gestiti in maniera 
-best effort.  
-
-
-
-
-
-
+best effort.  \flowerLine 
+\section{Servizio in Background}
+Per i task periodici (e quelli aperiodici da gestire in maniera hard real time) sono state coperte tutte le casistiche. Questa sezione (e quella successiva) tratteranno le metodologie di scheduling dei task aperiodici da gestire in maniera best effort, in cui è possibile violare la deadline.\acc 
+Dato un insieme di $n$ task (periodici, oppure aperiodici ma resi equivalentemente periodici) si considerano $m$ task aperiodici aggiuntivi, da gestire in maniera soft real time, l'idea del \textit{servizio in background}, è quella di considerare un task aggiuntivo che occuperà la CPU ogni qual volta quest'ultima è libera dai task hard real time. Se non differentemente specificato, i task soft real time saranno gestiti con una politica FIFO. Lo schema dello scheduler si complica leggermente, vi saranno adesso due code di task pronti all'esecuzione.
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/schedulerSRT.pdf}
+\end{center}
+\subsubsection{Esempio di Scheduling}
+In un sistema di controllo real time è necessario schedulare i seguenti task periodici in maniera hard real time 
+$$ \begin{matrix}
+    A_1 &   T_1 = 8 &  C_1 = 2 \\ 
+    A_2 &   T_2 = 16 &  C_2 = 4
+\end{matrix}$$
+è inoltre presente un task periodico i cui dati misurati (tempo minimo di occorrenza e tempo massimo di completamento) sono
+$$ A_3 \ \ \ \  T_3^{min}=32 \ \ \ \  C_3^{max}=8$$
+è inoltre presente un task $A_4$ da gestire in maniera soft real time tramite il servizio in background, i cui activation time, completation time e deadline assoluta sono 
+$$ a_4 = 9 \ \ \ \ c_4 = 9 \ \ \ \ D_4 = 55$$
+Per i task periodici verrà utilizzato l'algoritmo RMPO. Per i task soft real time, una politica FIFO. Si calcola il fattore di utilizzazione: 
+$$ U=\frac{2}{8}+\frac{4}{16}+\frac{8}{32}=\frac{24}{32}=0.75<1$$
+I task sono legati da relazioni armoniche, sicuramente l'insieme è schedulabile. La trama dello scheduling è la seguente
+\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/esempioBackground.eps}
+\end{center}
+Il task $A_4$, che rappresenta il processo in background, nelle prime 32 unità di tempo viene eseguito per 7 unità di tempo, l'ultima unità di tempo la esaurira nell'istante 40, rispettando la deadline assoluta.
+Il servizio in background è molto semplice da applicare, ma esistono metodologie che riescono a massimizzare la responsività dei processi soft real time, rispettando comunque i vincoli di quelli hard real time.\flowerLine 
+\section{Processo Server}
+Si considera un task periodico aggiuntivo detto \textit{processo server}, di activation period e completation time $$ T_{server} \ \ \ \ C_{server}$$
+Viene aggiunto all'insieme di task hard real time, è un processo "virtuale", il tempo di esecuzione che occupa sulla CPU sarà dedicato ai task soft real time. I valori $T_{server}, \ C_{server}$ vanno selezionati con cura in modo che il fattore di utilizzazione rimanga minore di uno, senza intaccare la schedulabilità hard real time dei restanti task.
+\subsection{Polling Server}
+L'algoritmo polling server considera ogni singola istanza del processo server, e ne determina \textit{dinamicamente} il completation time, studiando lo stato della coda dei task soft real time.\acc 
+Sia $t_k$ l'istante di attivazione di un istanza del processo server, e siano $\{C_1,C_2\dots , C_n\}$ i tempi di completamento dei task nella coda di attesa soft real time nell'istante $t_k$. Il completation time calcolato dinamicamente sarà 
+$$ \min(C_{server}, \sum_{i=1}^n C_i)$$
+In tal maniera, il processo server utilizzerà solamente il tempo strettamente necessario per occupare la CPU, se non ci sono task soft real time in attesa, il completation time dinamico sarà nullo.
+\subsubsection{Esempio di Scheduling}
+L'insieme dei task hard real time (da eseguire con RMPO) è il seguente (compreso il processo server) 
+$$ \begin{matrix}
+A_1 & T_1 = 8 & C_1 = 4 \\ 
+A_2 & T_2 = 16 & C_2 = 2 \\ 
+A_{server} & T_{server}=12 & C_{server} = 3\end{matrix}
+$$
+è presente un solo task $A_3$ soft real time di cui 
+$$ a_3=14 \ \ \ \ C_3 = 5 \ \ \ \ d_3 = 47$$
 
 
 
