@@ -1788,7 +1788,24 @@ La quantità di moto si conserva, quindi
     3mv_3=-(mv_1+mv_2)\\ 
     v_3=\frac{-(mv_1+mv_2)}{3m}\\
     v_3=\frac{-(v_1+v_2)}{3}
-\end{eqnarray}
+\end{eqnarray}\flowerLine 
+\section{Fluidi e Spinta di Archimede}
+Si consideri un contenitore d'acqui in cui è riposto un parallelepipedo di lato $s$, immerso ad una profondità $h$ dalla superficie.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/acqua.pdf}
+\end{center}
+L'acqua sopra il parallelepipedo ha un volume $sh$ ed è sottoposta ad un'accelerazione di gravità $\bar g$. Sia $\rho$ la densità (uniforme) dell'acqua, il peso dell'acqua sopra il parallelepipedo è 
+$$ m\bar g = sh\rho \bar g$$
+si definisce \textbf{pressione} il rapporto fra la forza ed una superficie $S$, l'unità di misura è il \textit{pascal} e si misura in Newton su metro quadro $\frac{N}{m^2}$, il parallelepipedo è sottoposto ad una pressione di 
+$$ p=\frac{\bar F}{S}=\rho \bar g h s$$
+Anche l'aria ha un fluido ed ha un peso, la densità dell'aria è circa 1000 volte minore di quella dell'acqua, per i primi 10 km di atmosfera, l'aria imprime su ciò che si trova sulla superficie terrestre una forza peso equivalente a quella che imprimerebbero 10 metri d'acqua.\acc 
+Il parallelepipedo ha uno spessore $d$, la pressione che l'oggetto sente sul fondo è 
+$$ p\rho \bar g (h+d)s$$
+Essendo questo soggetto ad entrambe le pressioni, si considera la differenza di pressione 
+$$ \delta p = \rho ghs-\rho g(h+d)s=-\rho gds$$
+Il corpo è quindi soggetto ad una forza che lo spinge verso l'alto, questa è detta \textit{spinta di archimede}.
+
+
+
 
 
 
@@ -2069,5 +2086,184 @@ $$ E=\frac{Q}{3\varepsilon_0}\frac{r}{\nicefrac{4}{3}\pi R^3}=\frac{Q}{4\pi\vare
 Al centro si ha $r=0\implies E=0$. Il campo elettrico è massimo sulla superficie $r=R$, è lineare per $r$ quando il raggio della sfera è maggiore di quello della superficie, ed è proporzionale a $\frac{1}{r^2}$ quando il raggio della sfera è minore della superficie. L'andamento qualitativo è il seguente.
 \begin{center}
     \includegraphics[width=0.75\textwidth]{images/campoSfera.eps}
+\end{center}
+\flowerLine \section{Lavoro e Circuitazione del Campo Elettrico}
+Si consideri il campo elettrico $\bar E$ ed una carica $q_0$.
+$$ \bar E = \frac{\bar F}{q_0}\implies \bar F = q_0\bar E$$
+$\bar F$ è la forza elettrica che agisce su tale carica. Essendo una forza, si può considerare il \textit{lavoro} su una curva $C$ che congiunge due punti $A,B$
+$$ L=\int_C\bar F d\bar s = q_0\int_C \bar E d\bar s$$
+È un integrale di linea, il termine $\frac{L}{q_0}=\int_C \bar E d\bar s$ si definisce \textit{tensione elettrica} fra i due punti $A$ e $B$.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/lavoroElettrico1.eps}
+\end{center}
+Si considerino due curve $C_1$ e $C_2$, diverse, ma entrambe congiungono i punti $A,B$. Il lavoro della forza elettrica sulle due curve generalmente è diverso.
+ $$ L_1= q_0\int_{C_1} \bar E d\bar s \ne L_2= q_0\int_{C_2} \bar E d\bar s$$
+ Considerando una curva chiusa $C$, questa si può considerare come due curve $C_1$ e $C_2$. Il lavoro sulla curva chiusa è pari al lavoro su $C_1$, più il lavoro su $C_2$ percorsa al contrario.
+ $$ L=q_0\oint_C \bar E d\bar s = q_0\int_{C_1} \bar E d\bar s-q_0\int_{C_2} \bar E d\bar s=L_1-L_2$$
+ \begin{center}
+    \includegraphics[width=0.7\textwidth]{images/curve.eps}
+\end{center}
+Per una curva chiusa $C$, si definisce la \textbf{forza elettromotrice} l'integrale di linea del campo elettrico lungo $C$
+$$ \mathscr{E}=\oint_C \bar E d\bar s\implies L = q_0\mathscr{E}$$
+Un integrale di linea su una curva chiusa è anche detto \textit{circuitazione}.\acc 
+La forza di Coloumb è \textit{conservativa}, quindi il lavoro su una curva dipende esclusivamente dalla posizione dei punti sulla quale si calcola, e non dal percorso scelto. 
+$$ L=q_0\int_C \bar E d\bar s= q_0\int_A^B \bar E d\bar s=U(B)-U(A)$$
+Dove $U$ è l'energia potenziale elettrostatica. Si definisce il \textit{potenziale elettrostatico} come 
+$$ V=U\frac{1}{q_0}$$
+L'unità di misura è il Volt. Il campo elettrico $\bar E$ si può misurare anche come Volt su metri : $\frac{V}{m}$. Si ha quindi 
+$$\int_A^B \bar E d\bar s=V(B)-V(A)=\Delta V$$
+Il termine $\Delta V$ è detto \textbf{differenza di potenziale}. Il lavoro $L$ su una curva che congiunge i due punti $A$ e $B$ si può scrivere quindi come 
+$$ L=q_0(V(B)-V(A))=-q_0\Delta V$$
+Infatti  il lavoro di una forza conservativa è proprio la differenza dell'energia potenziale (moltiplicata per -1)
+$$ L=-q_0\Delta V=-\Delta U$$
+Si consideri ora la circuitazione lungo una curva chiusa $C$, ossia la forza elettromotrice. Una curva chiusa può essere vista come una curva che congiunge il punto $A$ con se stesso $A$. 
+$$ \mathscr{E}=\oint_C \bar E d\bar s = \oint_A^A \bar E d\bar s$$
+Essendo la forza elettrostatica \textit{conservativa} si ha 
+$$\oint_A^A \bar E d\bar s = V(A)-V(A)=0 $$
+quindi la \textit{circuitazione} del campo elettrostatico, e conseguentemente il lavoro lungo una curva chiusa, sono uguali a zero. 
+$$\mathscr{E}=0 $$
+\subsection{Calcolo Esplicito del Potenziale}
+Si vuole calcolare la formula esplicita del potenziale. Si consideri il caso più semplice, ossia quello di una carica puntiforme $q$. Il lavoro della forza elettrostatica $\bar F$ che agisce su una carica $q_0$ per uno spostamento elementare $d\bar s$ è 
+$$ dL = d\bar F d\bar s =q_0\bar Ed\bar s= \frac{q_0q}{4\pi\varepsilon_0}\frac{dr}{r^2}$$
+Quindi 
+$$ Ed\bar s=\frac{q}{e\pi\varepsilon_0}\frac{dr}{r^2}$$
+Si integra su un percorso che congiunge $A$ a $B$
+$$ \mathscr{E}=\frac{q}{e\pi\varepsilon_0}\int_{r_A}^{r_B}\frac{dr}{r^2}=\frac{q}{4\pi\varepsilon_0r_A}-\frac{q}{4\pi\varepsilon_0r_B}$$
+Dove $r_A$ è la distanza fra la carica $q$ e $A$, e $r_B$ è la distanza fra la carica $q$ e $B$. \begin{center}
+    \includegraphics[width=0.5\textwidth]{images/lavoroCampoEl.eps}
+\end{center}
+È ora esplicito che il lavoro non dipende dal percorso scelto. Si ricordi che $dr$ è la proiezione di $d\bar s$ lungo $\bar E$. \begin{center}
+    \includegraphics[width=0.5\textwidth]{images/dr.eps}
+\end{center}
+Il lavoro corrispondente per una carica $q_0$ è quindi 
+$$ L=\mathscr{E}q_0=\frac{qq_0}{4\pi\varepsilon_0r_A}-\frac{qq_0}{4\pi\varepsilon_0r_B}=U(A)-U(B)$$
+$$ \mathscr{E}=\frac{q}{4\pi\varepsilon_0r_A}-\frac{q}{4\pi\varepsilon_0r_B}=V(A)-V(B)$$
+A distanza infinita dalla carica sorgente, il lavoro è nullo. 
+$$ \int_r^\infty \bar E   d\bar s= V(r)-V(\infty)=V(r)$$
+Si conclude che \textit{il potenziale generato da una carica} puntiforme $q$ è 
+\eqImportante{$\displaystyle V(r)=\int_r^\infty \bar E   d\bar s = \frac{q}{4\pi\varepsilon_0 r}$}
+e l'energia potenziale di una carica $q_0$ che risente del campo generato da $q$ è 
+\eqImportante{$ \displaystyle U(r)=q_0V(r)=\frac{q_0q}{4\pi\varepsilon_0 r}$}
+Per il principio di sovrapposizione, le forze vettoriali si sommano. 
+$$ \bar E = \bar E_1+\bar E_2 +\bar E_3 =\frac{q_1}{4\pi\varepsilon_0r_1^2}+ 
+\frac{q_2}{4\pi\varepsilon_0r_2^2} + 
+\frac{q_3}{4\pi\varepsilon_0r_3^2}$$
+Si estende facilmente ad un sistema di $n$ cariche. L'integrale di linea lungo una curva che congiunge $A,B$ è 
+$$\sum_{i=1}^n\int_A^B  \frac{q_i}{4\pi\varepsilon_0r_i^2}dr$$ 
+Avendo noti i risultati precedenti, si ha  
+$$ V(A)-V(B)=\sum_{i=1}^n \frac{q_i}{4\pi\varepsilon_0r_{A,i}^2}dr-\sum_{i=1}^n \frac{q_i}{4\pi\varepsilon_0r_{B,i}^2}dr$$
+Il termine $r_{A,i}$ indica la distanza fra l'$i$-esima carica $q_i$ ed il punto $A$. Analogo per $r_{B,i}$
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/sistemaCariche.eps}
+\end{center}
+Il potenziale generato in un punto $r$ è 
+$$ V(r)=\frac{1}{4\pi\varepsilon_0}\sum_{i=1}^n\frac{q_i}{r_i}$$
+Dove $r_i$ è la distanza fra l'$i$-esima carica ed il punto $r$. Si può estendere ad un solido continuo $\tau$ con carica $Q$ e  densità di carica $\sigma$, tale che $\int_{\tau}\sigma d\tau=Q$
+$$ V(r)=\frac{1}{4\pi\varepsilon_0}\int_{\tau}\frac{dq}{r}=\frac{1}{4\pi\varepsilon_0}\int_{\tau}\frac{\sigma d\tau}{r}$$
+\defi{(Operatore nabla)} In $\R^3$, con sistema di coordinate cartesiane $x,y,z$, con versori  $\hat x,\hat y,\hat z$, si definisce l'operatore nabla 
+$$ \nabla = \dfrac{\delta}{\delta x}\hat x+\dfrac{\delta}{\delta y}\hat y+\dfrac{\delta}{\delta z}\hat z$$
+\defi{(Gradiente)} : Il gradiente di una funzione $f$ è il prodotto fra $f$ e l'operatore nabla $\nabla$, ed è uguale al vettore le cui componenti sono le derivate parziali di $f$ rispetto $x,y$ e $z$. 
+$$ \nabla f = \dfrac{\delta f}{\delta x}\hat x+\dfrac{\delta f}{\delta y}\hat y+\dfrac{\delta f}{\delta z}\hat z$$
+\textbf{Esempio} : La funzione $f(x,y,z)=x^2y$ ha gradiente 
+$$ \nabla f = 2xy\hat x + x^2\hat y + 0\hat z = (2xy,x^2,0) $$
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/grad.eps}
+\end{center}
+Si vuole introdurre ora una relazione che coinvolge il gradiente. Si consideri uno spostamento elementare $d\bar s = dx \hat x + dy\hat y +dz\hat z$, che unisce i punti 
+$$\begin{matrix}
+    A = (x,y,z)\\ 
+    B= (x+dx,y+dy,z+dz)
+\end{matrix}$$ 
+La differenza di potenziale infinitesima in questi due punti è 
+$$ dV=V(x,y,z)-V(x+dx,y+dy,z+dz)=-\bar E d\bar s = -E_x dx - E_y d_y - E_z dz$$
+ricordando che 
+$$ V(A)-V(B)=\int_A^B \bar E d\bar s$$ 
+si ha che 
+$dV=\frac{\delta V}{\delta x}dx+\frac{\delta V}{\delta y}dy+\frac{\delta V}{\delta z}dz$
+Quindi 
+$$ \begin{cases}
+    E_x=-\displaystyle\frac{\delta V}{\delta x}\\  \\
+    E_y=-\displaystyle\frac{\delta V}{\delta y}\\  \\
+    E_z=-\displaystyle\frac{\delta V}{\delta z}
+\end{cases}\implies \bar E = (-\frac{\delta V}{\delta x},-\frac{\delta V}{\delta y},-\frac{\delta V}{\delta z})$$
+Ma allora il campo elettrico è uguale al gradiente del potenziale elettrostatico cambiato di segno
+\eqImportante{$ \bar E = - \nabla V$}
+Ne consegue che la forza alla quale è soggetta una carica $\bar F = q_0\bar E$ è uguale al gradiente dell'energia potenziale cambiata di segno 
+\eqImportante{$ \bar F = - \nabla U$}
+\subsection{Esempi}
+Si consideri ancora una volta un anello carico $A$ di raggio $R$, si vuole trovare il valore del potenziale elettrico lungo l'asse ortogonale ad esso passante per il centro.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/anello1.eps}
+\end{center}
+$$ V(r)=\frac{1}{4\pi\varepsilon_0}\int_A \frac{dQ}{r}=\frac{1}{4\pi\varepsilon_0r}\int_A dQ=\frac{Q}{4\pi\varepsilon_0r}$$
+Si vuole esprimere in funzione di $x$
+$$ V(x)=\frac{Q}{4\pi\varepsilon_0}\frac{1}{\sqrt{R^2+x^2}}$$
+Il campo elettrico è 
+$$ \bar E = -\nabla V = \begin{cases}
+    -\frac{\delta V}{\delta x}\\
+    -\frac{\delta V}{\delta y}\\
+   -\frac{\delta V}{\delta z}
+\end{cases}$$
+Ma le componenti di $V$ sono nulle sugli assi $y$ e $z$, quindi 
+$$ \bar E = E_x=-\frac{\delta V}{\delta x}=-\frac{Q}{4\pi\varepsilon_0} \frac{x}{(R^2+x^2)^{\nicefrac{3}{2}}} $$
+Si consideri adesso la sfera di metallo carica (uniformemente) di raggio $R$ e carica $Q$, si vuole descrivere il potenziale elettrostatico $V$ in funzione della distanza $r$ dal centro della sfera.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/sferaCarica2.pdf}
+\end{center}
+Si ricordi che il campo elettrico generato da una sfera varia nei casi in cui la distanza $r$ dal centro sia minore o maggiore della sfera. 
+$$ E=\begin{cases}
+   \displaystyle \frac{Q}{r^24\pi\varepsilon_0} \ \ r\ge R \\ \\
+   \displaystyle  \frac{Q}{4\pi\varepsilon_0}\frac{r}{R^3}\ \ r\le R 
+\end{cases}$$
+Si può calcolare il potenziale elettrostatica nei due casi integrando $E$.\acc  
+\textbf{caso esterno $r\ge R$} 
+$$ \int_{\infty}^r E dr = V(\infty)-V(r)=-V(r)=-\frac{1}{4\pi\varepsilon_0}\frac{Q}{r}$$
+\textbf{caso interno $r\le R$}
+$$ \int_{R}^r E dr = V(R)-V(r)$$
+Il potenziale sulla superficie è 
+$$ V(R)=-\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}$$
+quindi 
+$$ \frac{Q}{R^34\pi\varepsilon_0}\int_{R}^r r dr = -\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}-V(r) \implies $$
+$$ \frac{Q}{R^34\pi\varepsilon_0}\Big( \frac{r^2}{2}-\frac{R^2}{2}\Big) = -\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}-V(r) \implies $$
+$$ \frac{Q}{R^34\pi\varepsilon_0}\Big( \frac{r^2}{2}-\frac{R^2}{2}\Big)  +\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}=V(r) $$
+$$ V(r)=\frac{Q}{4\pi\varepsilon_0}\Big( \frac{1}{R}+\frac{1}{2R}-\frac{r^2}{2R^3} \Big)$$
+A distanza nulla si ha 
+$$ V(0)=\frac{Q}{4\pi\varepsilon_0}\frac{3}{2R} $$
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/potenzialeSfera.eps}
+\end{center}\flowerLine 
+\section{Conduttori}
+I materiali conduttori permettono agli elettroni di cui sono composti di muoversi liberamente nel reticolo cristallino della materia. Quando un materiale conduttore è immerso in un campo elettrico, questo vedrà i protoni (cariche positive) e gli elettroni (cariche negative) subire l'effetto del campo, polarizzandosi, generando a sua volta un campo elettrico che disturberà quello esterno.\begin{center}
+    \includegraphics[width=0.75\textwidth]{images/conduttore.pdf}
+\end{center}
+Il campo sulla superficie del conduttore sarà normale ad essa, all'interno del conduttore, il campo elettrico esterno si annulla con quello interno.\begin{center}
+\includegraphics[width=0.7\textwidth]{images/conduttore2.pdf}
+\includegraphics[width=0.7\textwidth]{images/conduttore3.pdf}
+\end{center}
+\begin{quote}
+    Nella prossimità del conduttore, il campo elettrico è distorto dalle cariche che si dispongono sulla superficie.
+\end{quote}
+\subsection{Effetto delle Punte}
+Si consideri un sistema composto da due sfere, rispettivamente di raggio $r$ ed $R$ (con $r<R$), composte di un materiale conduttore, unite da un filo (di spessore trascurabile) a sua volta conduttore. Caricando il sistema, la carica si distribuirà sulla superficie di entrambe le sfere.\begin{center}
+    \includegraphics[width=0.75\textwidth]{images/punte.pdf}
+\end{center} 
+Diremo che $Q_1$ è la carica sulla prima sfera, e $Q_2$ la carica sulla seconda, la carica è totale è $Q=Q_1+Q_2$.
+Si vuole stabilire il rapporto $\frac{Q_1}{Q_2}$. È noto che il potenziale è lo stesso, essendo 
+$$ V_1=V_2$$
+si ha 
+$$ V_1=\frac{1}{4\pi\varepsilon_0}\frac{Q_1}{r}$$
+$$ V_2=\frac{1}{4\pi\varepsilon_0}\frac{Q_2}{R}$$
+ne consegue che 
+$$ \frac{Q_1}{Q_2}=\frac{r}{R}$$
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\centering\arraybackslash}m{3in}}
+        \includegraphics[width=0.15\textwidth]{images/effettoPunta.eps} &   
+		Siano $\sigma_1,\sigma_2$ le densità di carica tali che 
+$$ Q_1=\sigma_14\pi r^2 \ \ \ \ Q_2=\sigma_24\pi R^2$$
+allora 
+$$\frac{R^2}{r^2}\frac{\sigma_1}{\sigma_2}\implies \frac{\sigma_1}{\sigma_2}=\frac{R}{r} $$
+Il campo elettrico è più forte sulla superficie della sfera di raggio minore.\begin{quote}
+    \textit{effetto delle punte} : il campo è più intenso dove la curvatura è maggiore
+\end{quote}
+		\\
+	\end{tabular}
 \end{center}
 \end{document}
