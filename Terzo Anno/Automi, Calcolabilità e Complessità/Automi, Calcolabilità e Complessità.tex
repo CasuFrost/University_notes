@@ -1716,7 +1716,7 @@ una sequenza di 2 movimenti che fanno uso di uno stato ausiliario $q_s$.
     \end{cases}$
 \end{center}
 dove $*$ rappresenta un qualsiasi elemento di $\Gamma$.
-\subsection{TM multi nastro}
+\subsection{TM multi nastro}\label{TMmultinastro}
 Introduciamo la macchina di Turing con più nastri, che verrà 
 denotata MTM, 
 sia $k$ il numero di nastri, ogni nastro avrà 
@@ -2252,4 +2252,103 @@ sono entrambe dimostrabili, quindi $\Pi$ non è consistente.
 sono entrambe dimostrabili, quindi $\Pi$ non è consistente.
 \end{itemize}
 In conclusione, si è dimostrato che il generico sistema di prova $\Pi$ non può essere sia completo che consistente.\hfill$\blacksquare$\acc 
+\teo{di Incompletezza II} Sia $\Pi$ un sistema di prova \textit{consistente}, l'affemrazione \begin{quote}
+    "$\Pi$ è consistente"
+\end{quote}
+Non è dimostrabile. \acc 
+\dimo{} Si consideri la TM $D$ definita nella dimostrazione precedente, si è visto come questa, non riesca a trovare una dimostrazione per nessuna delle due affermazioni 
+$$ \begin{cases}
+    D(<D>)=\infty\\ 
+    D(<D>)\ne \infty
+\end{cases}$$
+Ciò, signigica che $D(<D>)$ non trovando una dimostrazione, non termina e va in loop, ma allora l'affermazione $D(<D>)=\infty$ si può codificare ed è vera. Ne consegue che 
+$$ \Pi \text{ consistente }\implies D(<D>)=\infty$$
+Ma come si è mostrato in precedenza, $D(<D>)=\infty$ è un affermazione non dimostrabile, quindi è necessariamente vero che anche l'affermazione che la implica, ossia "$\Pi \text{ consistente }$" sia indimostrabile.\hfill$\blacksquare$
+\sapbox{Esistono affermazioni vere e non dimostrabili}
+\chapter{Complessità}
+Questo capitolo si occuperà di trattare le risorse necessarie alle TM per risolvere i problemi, con risorse, si definiscono \begin{itemize}
+    \item tempo 
+    \item spazio 
+    \item numero di processori 
+    \item randomicità 
+    \item altre
+\end{itemize}
+Ci si occuperà della trattazione di tempo e spazio, la domanda scatenante la teoria della complessità è: "\textit{quante risorse occorrono per decidere i problemi?}".\acc 
+I problemi che si affrontano sono identificabili in delle \textit{classi} che li contengono, e sono classificati in base al tempo (o spazio) necessario per risolverli. La domanda fondamentale della teoria della complessità (che verrà formalizzata in seguito) è \begin{quote}
+    trovare una soluzione ad un problema, è tanto difficile quanto verificare che una soluzione data sia corretta?
+\end{quote}
+Un altra domanda cardine è\begin{quote}
+    se è possibile risolvere un problema utilizzando poco spazio, è possibile risolverlo anche utilizzando poco tempo?
+\end{quote}
+\defi{(costo computazionale)} : Sia $M$ un decisore, il \textbf{tempo di esecuzione} di $M$ è una funzione $t:\N\rightarrow \N$ definita come segue 
+$$ t(n)=\max_{\begin{matrix}x\in\Sigma^* \land \\ |x|=n\end{matrix}}(\text{step di computazione di }M)$$
+Sia $x$ la stringa in input di lunghezza $n$ che richiede il maggior numero di passi di computazione per essere decisa. Tale numero di passi di computazione, è proprio il costo computazionale di $M$ su un input di lunghezza $n$. È centrale nella teoria della complessità lo studio di $t$ al variare di $n$.\acc 
+\defi{(O-grande)} : Siano $f$ e $g$ due funzioni definite su un generico sottoinsieme di $\R$, si dice che $$ f(x)\in O(g(x))$$ 
+se e solo se 
+$$ \exists x_0\in \R,\ c>0 \ \text{ tale che } \ |f(x)|\le c|g(x)| \ \forall x>x_0$$
+\textbf{Notazione} : Se $f(x)\in O(g(x))$, verrà scritto $f(x)=O(g(x))$.\acc 
+Nei capitoli precedenti sono state considerate delle varianti della TM, che possono essere simulato e rese equivalenti ad una TM normale. Tali varianti vanno rivalutate da un punto di vista della risorsa del tempo. 
+\section{Classi di Complessità}
+\textbf{Esempio} : Si consideri la TM che ad ogni passo di computazione può rimanere ferma sul nastro, la cui funzione di transizione è definita tale che 
+$$ \delta:Q\times\Gamma \rightarrow Q\times\Gamma\times \{L,R,S\}$$
+Questa poteva essere resa equivalente ad una TM classica, aggiungendo un semplice stato in cui la TM simula l'azione $S$ spostandosi a destra e poi a sinistra. È chiaro che una TM classica che simula la TM che può stare ferma, dovrà compiere al più il doppio dei passi computazionali.\acc 
+Ne consegue che, se $M$ è una TM che può stare ferma, il cui costo computazionale è $t(n)=O(t(n))$, allora una TM classica che la simula avrà costo computazionale $2t(n)=O(t(n))$.\acc 
+\textbf{Esempio} : Si consideri la TM multi nastro, si vuole calcolare l'overhead quando si considera una sua simulazione con TM classica. \begin{center}
+    \includegraphics[width=\textwidth ]{images/multinastro.eps}
+\end{center}
+Si può simulare con una TM classica come esposto nella sezione \ref{TMmultinastro}. Se una TM multi nastro $M$ ha costo computazionale $t(n)$, allora la lunghezza di ogni nastro sarà al massimo $n$. Sia $M'$ la TM classica che simula $M$, l'inizializzazione costa sicuramente $t(n)$ in quanto è necessario considerare tutto il nastro, in oltre, per ogni step di computazione di $M$, $M'$ dovrà considerare tutto il nastro per leggere i caratteri marcati ed eventualmente spostarne il contenuto. Ogni step di computazione su $M'$ ha costo $t(n)$. Ne consegue che la complessità di $M'$ sarà 
+$$t(n)+t(n)^2 = O(t(n)^2)$$ Il numero dei nastri quindi influisce (in maniera non trascurabile) sulla complessità.\acc 
+\textbf{Esempio} : Il linguaggio delle stringhe palindrome è decidibile in $O(n)$ su una macchina con due nastri, su una TM a singolo nastro può essere deciso in $O(n^2)$.\acc 
+\defi{} : Sia $t:\N\rightarrow \N$ una funzione, si definisce 
+$$ Dtime(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{singolo nastro}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
+È l'insieme dei linguaggi decidibili da TM che hanno complessità $O(t(n))$. Il linguaggio delle stringhe palindrome appartiene all'insieme $Dtime(n^2)$.\acc 
+\defi{(Classe Polinomiale)} Si definisce $P$ l'insieme 
+$$ P=\bigcup_{k\in \N}Dtime(t^k)$$
+Ovvero, l'insieme di tutti i linguaggi che possono essere decisi in tempo polinomiale. L'insieme delle stringhe palindrome è in $P$. \acc 
+\textbf{Osservazione} : La classe $P$ è robusta rispetto le varianti di TM. Se un linguaggio è deciso in tempo polinomiale da una TM non classica, allora è deciso in tempo polinomiale anche da una TM classica.\acc 
+\defi{(Classe Esponenziale)} Si definisce $EXP$ l'insieme 
+$$ EXP=\bigcup_{k\in \N}Dtime(2^{n^k})$$
+Il teorema di \textit{gerarchia dei tempi}, che verrà formalizzato e dimostrato in seguito, afferma che la classe $P$ è un sottoinsieme della classe $EXP$.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/EXP.pdf}
+\end{center}
+Esistono linguaggi che sono in $EXP$, ma che, tramite algoritmi intelligenti, si può dimostrare sono anche in $P$. Verranno considerati linguaggi riguardanti i grafi, il cui input delle TM sarà la codifica di un grafo $x=<G=(V,E)>$, la complessità sarà misurata in funzione delle cardinalità di $V$ ed $E$, se è polinomiale in queste, lo sarà anche in funzione della lunghezza della stringa di codifica.\acc 
+\textbf{Esempio} : Si consideri il linguaggio 
+$$ PATH = \{<G,s,t> \ | \ s,t\in V(G) \land \text{ esiste un cammino }s\rightarrow t\text{ in }G\}$$
+Un cammino non è altro che una sequenza di vertici $$v_0\rightarrow V_1 \dots \rightarrow v_l$$ il numero di vertici in ogni cammino è limitato da $n=|V(G)|$, è possibile controllare ogni cammino  del grafo (sono $n^n$) e verificare che ce ne sia uno che inizia in $s$ e termina in $t$. La complessità è $O(n^n)=O(2^{n\log(n)})$, è chiaro che $PATH\in EXP$.\acc 
+Si può però considerare una DFS, in particolare una TM che esegue i seguenti passi\begin{itemize}
+    \item marca lo stato $s$, ed inizia a fare una passeggiata sul grafo partendo da $s$
+    \item marca ogni stato raggiungibile 
+    \item se alla fine $t$ è marcato, la TM accetta, altrimenti rifiuta\hfill 
+\end{itemize}
+Tale TM decide $PATH$ in tempo polinomiale, è chiaro che $PATH\in P$.\acc 
+\textbf{Esempio} : Si consideri il linguaggio 
+$$ 2COL=\{<G> \ |\ G\text{ è 2-colorabile }\}$$
+Un grafo è 2-colorabile se è possibile assegnare un colore ad ogni nodo (da un insieme di due colori possibili) in modo tale che ogni arco connetta sempre e solo nodi di colori diversi.\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth ]{images/2COL.pdf}
+    \caption{grafo 2-colorato}
+\end{figure}
+Esistono al più $2^n$ possibili modi di colorare il grafo (ad ognuno degli $n$ nodi si assegna uno fra i due colori), quindi, per ogni possibile colorazione, si può verificare che rispetti la condizione di 2-colorabilità in $O(n)$, ne consegue che esiste una TM che decide $2COL$ in $O(n2^n)$. \acc 
+Si consideri il seguente algoritmo\begin{itemize}
+    \item si seleziona un nodo e si colora 
+    \item si selezionano tutti i nodi adiacenti, e si colorano del colore opposto 
+    \item si prosegue per tutti i nodi 
+    \item alla fine, quando ogni nodo è colorato, è possibile verificare la condizione di 2-colorabilità in $O(n)$
+\end{itemize}
+L'algoritmo descritto decide $2COL$ in tempo polinomiale, è chiaro che $2COL\in P$.\acc 
+Negli esempi mostrati, dei linguaggi in $EXP$ si sono poi rivelati anche in $P$, ovviamente, non è assicurato che ciò accada. Esistono linguaggi che sono in $EXP$ ma che sicuramente non sono in $P$, ed esistono linguaggi che sono in $EXP$, ma per cui non è stato dimostrato se sono o non sono in $P$.\acc 
+\textbf{Esempio} : Si consideri il linguaggio 
+$$ 3COL=\{<G> \ |\ G\text{ è 3-colorabile }\}$$
+Per un ragionamento analogo al precedente, $3COL\in EXP$, ma non è chiaro se è, oppure non è, in $P$. L'unico risultato dimostrato è il seguente. \acc 
+\teo{} $3COL\in Dtime(1.3289^n)$\acc 
+\textbf{Esempio} : Un clique in un grafo, è un sottoinsieme totalmente connesso. Si consideri 
+$$ 3CLIQUE=\{<G> \ | \ G \text{ contiene un triangolo (clique da 3 nodi)}\}$$\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/clique.eps}
+\end{center}
+È stato dimostrato che $3CLIQUE$ appartiene a $P$, in particolare 
+$$ 3CLIQUE\in Dtime(n^{2.39})$$
+Non è ancora stato dimostrato che $ 3CLIQUE\in Dtime(n^{2})$. In generale, non è noto se il linguaggio
+$$ kCLIQUE=\{<G> \ | \ G \text{ contiene un clique da $k$ nodi}\}$$ 
+Sia o no in $P$, è sicuramente in $Dtime(n^k)$. La sua appartenenza o no alla classe polinomiale, risulterà nota quando verrà formalizzata la dipendenza di $k$ da $n$. Se $k$ non dovesse dipendere in nessun modo da $n$, allora $kCLIQUE$ sarebbe un elemento di $P$.\flowerLine 
+\section{Soddisfacibilità}
 \end{document}
