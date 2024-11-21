@@ -78,67 +78,72 @@
 \contentsline {section}{\numberline {4.3}Controllori Embedded}{67}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Arduino e Raspberry PI}{68}{subsection.4.3.1}%
 \contentsline {section}{\numberline {4.4}PLC}{69}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Attuazione e Controllo del Moto}{71}{chapter.5}%
-\contentsline {subsection}{\numberline {5.0.1}Amplificazione PWM}{72}{subsection.5.0.1}%
-\contentsline {section}{\numberline {5.1}Il Motore a Corrente Continua}{73}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Modello del Motore DC}{75}{subsection.5.1.1}%
-\contentsline {subsubsection}{Caratteristiche Statiche}{78}{section*.33}%
-\contentsline {subsection}{\numberline {5.1.2}FeedForward}{79}{subsection.5.1.2}%
-\contentsline {section}{\numberline {5.2}Controllore del Motore DC}{80}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Esempio di FeedForward}{80}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Accenno ai Regolatori PID}{82}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Progetto del Controllore - Anelli a Cascata}{83}{subsection.5.2.3}%
-\contentsline {subsubsection}{Anello Posizione}{84}{section*.34}%
-\contentsline {subsubsection}{Anello Velocità}{84}{section*.35}%
-\contentsline {subsubsection}{Anello Corrente}{84}{section*.36}%
-\contentsline {chapter}{\numberline {6}Complementi}{87}{chapter.6}%
-\contentsline {section}{\numberline {6.1}La Trasformata di Laplace}{87}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Proprietà della Trasformata}{88}{subsection.6.1.1}%
-\contentsline {subsubsection}{Linearità}{88}{section*.37}%
-\contentsline {subsubsection}{Ritardo}{89}{section*.38}%
-\contentsline {subsubsection}{Trasformazione di una derivata e di una primitiva}{89}{section*.39}%
-\contentsline {subsubsection}{Convoluzione}{90}{section*.40}%
-\contentsline {subsubsection}{Derivata ed Integrale della trasformata di Laplace}{90}{section*.41}%
-\contentsline {subsection}{\numberline {6.1.2}Trasformata inversa}{90}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Trasformate note}{91}{subsection.6.1.3}%
-\contentsline {subsection}{\numberline {6.1.4}Funzione di trasferimento}{91}{subsection.6.1.4}%
-\contentsline {subsection}{\numberline {6.1.5}Zeri e Poli}{93}{subsection.6.1.5}%
-\contentsline {subsection}{\numberline {6.1.6}Coefficiente di Smorzamento e Pulsazione Naturale}{94}{subsection.6.1.6}%
-\contentsline {subsubsection}{Esempio}{95}{section*.42}%
-\contentsline {subsection}{\numberline {6.1.7}Espansione in Fratti Semplici}{96}{subsection.6.1.7}%
-\contentsline {section}{\numberline {6.2}Elementi di Teoria dei Sistemi e Controlli Automatici}{96}{section.6.2}%
-\contentsline {subsubsection}{Esempio}{97}{section*.43}%
-\contentsline {subsection}{\numberline {6.2.1}Equilibrio}{98}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Rappresentazione con Matrici}{98}{subsection.6.2.2}%
-\contentsline {section}{\numberline {6.3}Stabilità di un Sistema}{100}{section.6.3}%
-\contentsline {subsubsection}{Proprietà dei sistemi asintoticamente stabili}{102}{section*.44}%
-\contentsline {subsection}{\numberline {6.3.1}Studio di $e^{At}$ per la Stabilità}{103}{subsection.6.3.1}%
-\contentsline {subsubsection}{Caso 1 : $A$ diagonale}{104}{section*.45}%
-\contentsline {subsubsection}{Caso 2 : $A$ ha autovalori reali distinti}{104}{section*.46}%
-\contentsline {subsubsection}{Caso 3 : $A$ ha autovalori complessi distinti}{105}{section*.47}%
-\contentsline {subsubsection}{Caso 4 : $A$ ha autovalori multipli}{105}{section*.48}%
-\contentsline {subsubsection}{Criterio di Routh}{106}{section*.49}%
-\contentsline {section}{\numberline {6.4}Raggiungibilità e Osservabilità}{107}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Schemi a Blocchi}{109}{section.6.5}%
-\contentsline {subsubsection}{Blocchi in Serie}{109}{section*.50}%
-\contentsline {subsubsection}{Blocchi in Parallelo}{109}{section*.51}%
-\contentsline {subsubsection}{Blocchi in Retroazione}{109}{section*.52}%
-\contentsline {subsubsection}{Regole di Elaborazione}{110}{section*.53}%
-\contentsline {subsubsection}{Analisi della Stabilità nei Sistemi Interconnessi}{111}{section*.54}%
-\contentsline {subsection}{\numberline {6.5.1}Risposta allo Scalino}{112}{subsection.6.5.1}%
-\contentsline {subsubsection}{Sistemi del primo ordine}{113}{section*.55}%
-\contentsline {subsubsection}{Sistemi del secondo ordine}{115}{section*.56}%
-\contentsline {subsubsection}{Poli reali e nessuno zero}{115}{section*.57}%
-\contentsline {subsubsection}{Poli complessi e nessuno zero}{116}{section*.58}%
-\contentsline {subsubsection}{Esempio circuito RLC}{117}{section*.59}%
-\contentsline {subsubsection}{Poli Dominanti ed Equivalenti}{118}{section*.60}%
-\contentsline {section}{\numberline {6.6}Analisi in Frequenza}{119}{section.6.6}%
-\contentsline {subsubsection}{Ingresso multi sinusoidale}{122}{section*.61}%
-\contentsline {subsubsection}{Ingresso periodico}{122}{section*.62}%
-\contentsline {subsubsection}{Ingresso generico}{122}{section*.63}%
-\contentsline {section}{\numberline {6.7}Banda Passante e Margine di Fase}{122}{section.6.7}%
-\contentsline {subsection}{\numberline {6.7.1}Criterio di Nyquist}{123}{subsection.6.7.1}%
-\contentsline {section}{\numberline {6.8}Analisi dei Sistemi Retro Azionati}{125}{section.6.8}%
-\contentsline {subsection}{\numberline {6.8.1}Analisi di $F(s)$}{126}{subsection.6.8.1}%
-\contentsline {subsection}{\numberline {6.8.2}Esempio di Progettazione}{128}{subsection.6.8.2}%
+\contentsline {section}{\numberline {4.5}Sequential Functional Chart}{70}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Elementi di Base}{70}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Regole di Evoluzione}{71}{subsection.4.5.2}%
+\contentsline {subsubsection}{Esempio di Modellizzazione}{71}{section*.33}%
+\contentsline {subsection}{\numberline {4.5.3}Esecuzione Ciclica e Ambiguità}{73}{subsection.4.5.3}%
+\contentsline {chapter}{\numberline {5}Attuazione e Controllo del Moto}{75}{chapter.5}%
+\contentsline {subsection}{\numberline {5.0.1}Amplificazione PWM}{76}{subsection.5.0.1}%
+\contentsline {section}{\numberline {5.1}Il Motore a Corrente Continua}{77}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Modello del Motore DC}{79}{subsection.5.1.1}%
+\contentsline {subsubsection}{Caratteristiche Statiche}{82}{section*.34}%
+\contentsline {subsection}{\numberline {5.1.2}FeedForward}{83}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Controllore del Motore DC}{84}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Esempio di FeedForward}{84}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Accenno ai Regolatori PID}{86}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Progetto del Controllore - Anelli a Cascata}{87}{subsection.5.2.3}%
+\contentsline {subsubsection}{Anello Posizione}{88}{section*.35}%
+\contentsline {subsubsection}{Anello Velocità}{88}{section*.36}%
+\contentsline {subsubsection}{Anello Corrente}{88}{section*.37}%
+\contentsline {chapter}{\numberline {6}Complementi}{91}{chapter.6}%
+\contentsline {section}{\numberline {6.1}La Trasformata di Laplace}{91}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Proprietà della Trasformata}{92}{subsection.6.1.1}%
+\contentsline {subsubsection}{Linearità}{92}{section*.38}%
+\contentsline {subsubsection}{Ritardo}{93}{section*.39}%
+\contentsline {subsubsection}{Trasformazione di una derivata e di una primitiva}{93}{section*.40}%
+\contentsline {subsubsection}{Convoluzione}{94}{section*.41}%
+\contentsline {subsubsection}{Derivata ed Integrale della trasformata di Laplace}{94}{section*.42}%
+\contentsline {subsection}{\numberline {6.1.2}Trasformata inversa}{94}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Trasformate note}{95}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Funzione di trasferimento}{95}{subsection.6.1.4}%
+\contentsline {subsection}{\numberline {6.1.5}Zeri e Poli}{97}{subsection.6.1.5}%
+\contentsline {subsection}{\numberline {6.1.6}Coefficiente di Smorzamento e Pulsazione Naturale}{98}{subsection.6.1.6}%
+\contentsline {subsubsection}{Esempio}{99}{section*.43}%
+\contentsline {subsection}{\numberline {6.1.7}Espansione in Fratti Semplici}{100}{subsection.6.1.7}%
+\contentsline {section}{\numberline {6.2}Elementi di Teoria dei Sistemi e Controlli Automatici}{100}{section.6.2}%
+\contentsline {subsubsection}{Esempio}{101}{section*.44}%
+\contentsline {subsection}{\numberline {6.2.1}Equilibrio}{102}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Rappresentazione con Matrici}{102}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}Stabilità di un Sistema}{104}{section.6.3}%
+\contentsline {subsubsection}{Proprietà dei sistemi asintoticamente stabili}{106}{section*.45}%
+\contentsline {subsection}{\numberline {6.3.1}Studio di $e^{At}$ per la Stabilità}{107}{subsection.6.3.1}%
+\contentsline {subsubsection}{Caso 1 : $A$ diagonale}{108}{section*.46}%
+\contentsline {subsubsection}{Caso 2 : $A$ ha autovalori reali distinti}{108}{section*.47}%
+\contentsline {subsubsection}{Caso 3 : $A$ ha autovalori complessi distinti}{109}{section*.48}%
+\contentsline {subsubsection}{Caso 4 : $A$ ha autovalori multipli}{109}{section*.49}%
+\contentsline {subsubsection}{Criterio di Routh}{110}{section*.50}%
+\contentsline {section}{\numberline {6.4}Raggiungibilità e Osservabilità}{111}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Schemi a Blocchi}{113}{section.6.5}%
+\contentsline {subsubsection}{Blocchi in Serie}{113}{section*.51}%
+\contentsline {subsubsection}{Blocchi in Parallelo}{113}{section*.52}%
+\contentsline {subsubsection}{Blocchi in Retroazione}{113}{section*.53}%
+\contentsline {subsubsection}{Regole di Elaborazione}{114}{section*.54}%
+\contentsline {subsubsection}{Analisi della Stabilità nei Sistemi Interconnessi}{115}{section*.55}%
+\contentsline {subsection}{\numberline {6.5.1}Risposta allo Scalino}{116}{subsection.6.5.1}%
+\contentsline {subsubsection}{Sistemi del primo ordine}{117}{section*.56}%
+\contentsline {subsubsection}{Sistemi del secondo ordine}{119}{section*.57}%
+\contentsline {subsubsection}{Poli reali e nessuno zero}{119}{section*.58}%
+\contentsline {subsubsection}{Poli complessi e nessuno zero}{120}{section*.59}%
+\contentsline {subsubsection}{Esempio circuito RLC}{121}{section*.60}%
+\contentsline {subsubsection}{Poli Dominanti ed Equivalenti}{122}{section*.61}%
+\contentsline {section}{\numberline {6.6}Analisi in Frequenza}{123}{section.6.6}%
+\contentsline {subsubsection}{Ingresso multi sinusoidale}{126}{section*.62}%
+\contentsline {subsubsection}{Ingresso periodico}{126}{section*.63}%
+\contentsline {subsubsection}{Ingresso generico}{126}{section*.64}%
+\contentsline {section}{\numberline {6.7}Banda Passante e Margine di Fase}{126}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Criterio di Nyquist}{127}{subsection.6.7.1}%
+\contentsline {section}{\numberline {6.8}Analisi dei Sistemi Retro Azionati}{129}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Analisi di $F(s)$}{130}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Esempio di Progettazione}{132}{subsection.6.8.2}%
 \contentsfinish 

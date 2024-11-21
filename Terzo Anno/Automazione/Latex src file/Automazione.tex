@@ -2507,11 +2507,115 @@ hanno riscosso ampio successo in ambito della automazione industriale. La progra
     un formalismo che si ispira al Basic e al Pascal. È adatto
     alla rappresentazione di procedure complesse che non
     potrebbero essere descritte con i linguaggi grafici.
+\end{itemize}\flowerLine 
+\section{Sequential Functional Chart}
+L'SFC, è un linguaggio \textit{grafico} ed \textit{autoesplicativo} adottato nella descrizione del comportamento dei PLC, è nato in francia nel 1975 come strumento formale per la progettazione di tipo logico-sequenziale, è de facto uno strumento utile sia per la programmazione dei PLC, sia per la progettazione del loro funzionamento. Ad oggi SFC è stato incluso nell'insieme dei diagrammi UML, denominato diagramma degli stati.
+\subsection{Elementi di Base}
+Nel livello di campo vengono controllati i singoli elementi tramite appositi sistemi di controllo modellizzati come sistemi continui nel tempo. Salendo per i livelli della piramide CIM, il sistema diventa più complesso, i vincoli temporali si fanno laschi ed il tempo è considerato discreto, al livello di coordinamento è addirittura trascurabile rendendo le sequenze operative esclusivamente logiche.\acc 
+\defi{} defniamo \textbf{stato} una \textit{condizione operativa} del sistema complesso da modellare, è invariante e può cambiare eslcuisvamente in seguito ad un evento. Ogni stato del sistema può trovarsi in una delle due possibili condizioni\begin{itemize}
+    \item attivo 
+    \item inattivo 
 \end{itemize}
-
-
-
-
+L'SFC si occupa di modellare le successioni di condizioni operative, un sistema può avere anche infiniti stati, ma questi devono essere numerabili.\acc 
+\defi{} Un'operazione che viene eseguita quando uno stato è attivo è detta \textbf{azione} dello stato. Ogni stato è caratterizzato da un determinato insieme di azioni da svolgere quando questo è attivo.\acc 
+\defi{} Definiamo \textbf{transizione} il passaggio da uno stato ad un altro in seguito ad un evento scatenante (a patto che lo stato sia attivo).\acc 
+\defi{} L'evento scatenante che permette il passaggio di stato è detto \textbf{condizione} ed è modellato da una funzione booleana. Se uno stato è attivo e la condizione è verificata (la funzione booleana è vera), allora avviene il passaggio di stato.\acc 
+Nel diagramma, gli stati vengono rappresentati con dei rettangoli denotati con una stringa, questa è convenzionalmente un numero intero univoco che identifica lo stato (è opportuno specificare il signifcato di ogni stato con una breve descrizione), le azioni sono dei rettangoli collegati da una linea agli stati, ed una transizione è un arco orientato, annotato con la funzione booleana che ne descrive la condizione.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/SFC.pdf}
+\end{center}
+L'azione si occupa di eseguire un attuazione sul sistema, la condizione verifica un certo valore di riferimento. Se un arco di transizione non è annotato da alcuna condizione, si assume che questa sia sempre vera. Le condizioni si verificano con le canoniche strutture di controllo\begin{itemize}
+    \item \texttt{if}
+    \item \texttt{for}
+    \item \texttt{while}
+\end{itemize}
+e le variabili controllate sono, generalmente, valori che provengono dai sensori. 
+\subsection{Regole di Evoluzione}
+Uno o più stati nell'SFC sono considerati \textit{iniziali} e sono denotati con una doppia bordatura.
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/SFC2.pdf}
+\end{center}
+All'avvio di un PLC, il sistema logico avrà la seguente configurazione\begin{itemize}
+    \item tutti gli stati iniziali saranno attivi 
+    \item tutti gli stati non iniziali saranno inattivi 
+\end{itemize}
+Una transizione, si verifca se e solo se \begin{itemize}
+    \item lo stato che ha l'arco uscente è attivo  
+    \item la condizione è verificata 
+\end{itemize}
+\subsubsection{Esempio di Modellizzazione}
+Si consideri il seguente dispositivo di automazione industriale
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/nastroSFC.png}
+\end{center}
+è composto da un nastro trasportatore su
+cui è disposto un film (pellicola) omogeneo che deve essere tagliato da una taglierina verticale
+Il nastro trasportatore è attuato da un motore/riduttore attivato da un relè. La
+taglierina è attuata da un motore lineare. Un sensore ottico rileva un segno presente
+sul film indicante quando è necessario tagliare, mentre due sensori di inizio e fine
+corsa indicano la posizione della taglierina.
+\acc 
+I requisiti di funzionamento del sistema, prevedono le seguenti specifiche \begin{itemize}
+    \item Quando il sensore ottico rileva il segno sul film, deve essere effettuato il taglio 
+    \item Quando la taglierina esegue il taglio, il nastro trasportatore deve essere fermo 
+    \item Quando la taglierina viene riportata in condizioni di riposo, il nastro trasportatore può
+    essere riattivato
+\end{itemize}
+Si vuole progettare un diagramma SFC che descriva il sistema. Si assume che ad avviamento della macchina, il nastro trasportatore sia attivo, e la taglierina in una situazione di riposo. La taglierina può trovarsi in una delle 3 seguenti possibili condizioni\begin{itemize}
+    \item riposo 
+    \item scende per tagliare 
+    \item risale
+\end{itemize}
+Si identificano 3 stati per il sistema\begin{enumerate}
+    \item il nastro trasportatore è acceso, la taglierina è a riposo (stato iniziale)
+    \item il nastro trasportatore è fermo, la taglierina scende ed effettua il taglio 
+    \item il nastro trasportatore è fermo, la taglierina risale
+\end{enumerate}
+Ai 3  stati sono associate le seguenti azioni \begin{itemize}
+    \item Stato 1 : Si avvia l'attuazione del motore che muove il nastro  
+    \item Stato 2 : Si ferma il nastro, e si abbassa la taglierina per eseguire il taglio 
+    \item Stato 3 : Si riporta la taglierina nella situazione di riposo
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/SFC3.pdf}
+\end{center}
+A  tal punto vanno specificate le condizioni di transizione\begin{itemize}
+    \item Il sistema passa dallo stato 1 allo stato 2 quando viene rilevato il segno sul film dal sensore ottico 
+    \item Il sistema passa dallo stato 2 allo stato 3 una volta che il sensore di fine corsa rileva la taglierina (il taglio è stato effettuato) 
+    \item Il sistema passa dallo stato 3 allo stato 1 quando il sensore di inizio corsa rileva la taglierina (questa è tornata nella posizione di riposo)
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/SFC4.pdf}
+\end{center}
+\subsection{Esecuzione Ciclica e Ambiguità}
+L'SFC descrive un comportamento ciclico del PLC. Il processore, esegue principalmente 3 macrofasi in loop\begin{itemize}
+    \item \textbf{macrofase 1} : Vengono lette le informazioni provenienti dai sensori, vengono opportunamente filtrate e scalate per poter essere elaborate, ed in base a queste e allo stato complessivo del sistema, si verificano le transizioni, eventualmente identificando i nuovi stati. 
+    \item \textbf{macrofase 2} : Vengono definite le azioni associate a tutti gli stati attivi, procedendo all'attuazione. Questa fase è "costantemente" in esecuzione. 
+    \item \textbf{macrofase 3} : Vengono considerate le uscite, verificandone la coerenza, eventualmente scalandole per poi venire inviate agli attuatori del mondo fisico.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/fasiPLC.pdf}
+\end{center}
+I PLC sono soggetti ad alcune ambiguità che ne possono compromettere il funzionamento. Essendo sistemi digitali, il controllo delle condizioni non è continuo ma viene effettuato in maniera discreta ad intervalli equidistanti. Si definisce \textit{ciclo di esecuzione} il tempo che intercorre fra l'avvio della fase 1, ed il suo avvio successivo in seguito del termine della fase 3.\acc 
+Si consideri l'esempio della taglierina, o un qualsiasi sistema di 3 stati topologicamente equivalente. Le condizioni sono variabili booleane continue nel tempo che vengono lette ogni ciclo di esecuzione.
+\begin{center}
+    \includegraphics[width=0.65\textwidth ]{images/condizioni.eps}
+\end{center}\begin{itemize}
+    \item 
+    Supponendo che lo stato 3 sia quello attivo all'istante iniziale $t=0$, essendo la condizione 3 avverata, avverrà un cambio di stato, rendendo inattivo il terzo, e rendendo attivo il primo.
+    \item all'istante $t=1$, lo stato attivo è il primo, la condizione 1 non è verificata quindi non avverà alcun cambio di stato.
+    \item all'istante $t=2$, lo stato attivo è il primo e la condizione 1 è verificata, quindi avverrà un cambio di stato, e lo stato 2 diverrà quello attivo, essendo però anche la condizione 2 attiva, avverrà una transizione istantanea allo stato 3. 
+\end{itemize}
+\begin{quotation}
+    \textit{l'azione dello stato 2, seppur doveva essere eseguita, è stata ignorata}
+\end{quotation}
+Tale istante in cui si generano ambiguità come questa è detto \textbf{istante critico}, la risoluzione è semplice, si \textit{impone} al PLC un'ulteriore regola 
+\sapbox{
+Le azioni associate ad uno stato \underline{appena reso attivo} devono sempre essere
+eseguite almeno per un ciclo di funzionamento. 
+}
+Pertanto le azioni associate ad un qualsiasi stato la cui transizione in uscita è
+caratterizzata da una condizione già verificata nel momento della sua attivazione,
+vengono eseguire almeno per un ciclo di funzionamento. 
 
 
 
