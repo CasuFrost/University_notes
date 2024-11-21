@@ -2017,7 +2017,7 @@ $f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed eseg
     \item Su input $<M,w>$ costruisce una TM ausiliaria $M'$
     \item Tale $M'$ su un generico input $x$, esegue i seguenti passi\begin{enumerate}
         \item Esegue $M$ su input $x$
-        \item Se $M(x)$ accetta, allora $M'$ rifiuta, se $M(x)$ rifiuta, entra volontariamente in uno stato di loop.
+        \item Se $M(x)$ accetta, allora $M'$ accetta, se $M(x)$ rifiuta, entra volontariamente in uno stato di loop.
     \end{enumerate}
     \item L'output della funzione sarà $<M',w>$
 \end{enumerate}
@@ -2245,14 +2245,14 @@ sono entrambe dimostrabili, quindi $\Pi$ non è consistente.
     \item Se "$D(<D>)\ne\infty$" è dimostrabile, allora per costruzione $D(<D>)$ durante l'esecuzione troverà tale dimostrazione $w$ ed entrerà nello stato di loop $q_L$, ma allora, tale traccia di computazione è proprio una dimostrazione dell'affermazione 
     $$D(<D>)=\infty $$
     Si ha che sia 
-    $$ \begin{cases}
+    $$ \begin{cases} 
     D(<D>)=\infty\\ 
     D(<D>)\ne \infty
 \end{cases}$$
-sono entrambe dimostrabili, quindi $\Pi$ non è consistente.
+sono entrambe dimostrabili, quindi $\Pi$ non è consistente.  
 \end{itemize}
 In conclusione, si è dimostrato che il generico sistema di prova $\Pi$ non può essere sia completo che consistente.\hfill$\blacksquare$\acc 
-\teo{di Incompletezza II} Sia $\Pi$ un sistema di prova \textit{consistente}, l'affemrazione \begin{quote}
+\teo{di Incompletezza II} Sia $\Pi$ un sistema di prova \textit{consistente}, l'affermazione \begin{quote}
     "$\Pi$ è consistente"
 \end{quote}
 Non è dimostrabile. \acc 
