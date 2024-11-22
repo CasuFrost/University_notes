@@ -2266,4 +2266,40 @@ Il campo elettrico è più forte sulla superficie della sfera di raggio minore.\
 		\\
 	\end{tabular}
 \end{center}
+\flowerLine \section{Potenziale e Momento del Dipolo}
+La molecola di idrogeno (la più semplice che ci sia in natura) è composta da un protone (carica positiva) ed un elettrone (carica negativa), il neutrone ha carica nulla. Il \textit{dipolo elettrico} è un semplice modello per le molecole. Si consideri un dipolo in un sistema di riferimento cartesiano, dove l'asse $z$ è parallelo alla retta congiungente le due cariche, e $d$ è la distanza fra esse. 
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/dipoloAsse.drawio.pdf}
+\end{center} 
+Si vuole calcolare il potenziale del campo elettrico generato dal dipolo, in un generico punto $p$, denotiamo $\bar r_-$ il vettore congiungente $-q$ a $p$, e $\bar r_+$ il vettore congiungente $+q$ a $p$.
+$$ V(p)=\frac{q}{4\pi\varepsilon_0}\Big( \frac{1}{r_+}-\frac{1}{r_-} \Big)=\frac{q}{4\pi\varepsilon_0}\frac{r_--r_+}{r_-r_+}$$
+Se si considera un punto $p$ molto distante dal dipolo, in particolare, per cui $r_-$ ed $r_+$ sono molto maggiori di $d$, si possono approssimare le due rette considerandole come una unica. 
+$$ \begin{matrix}
+    r_+>>d\\ 
+    r_->>d 
+\end{matrix}\implies 
+\bar  r_+\simeq \bar  r_- \simeq \bar  r$$
+Se $\theta$ è l'angolo fra $\bar r_-$ e $p$, la differenza fra $r_-$ ed $r_+$ si può approssimare a $d\cos\theta$.
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/dipoloAsse2.eps}
+\end{center} 
+$$ V(p)=\frac{q}{4\pi\varepsilon_0}\frac{r_-r_+}{r_-r_+} \simeq 
+\frac{1}{4\pi\varepsilon_0}\frac{qd\cos\theta}{r^2}$$
+Si definisce \textbf{momento del dipolo} il vettore $\bar p$ tale che $$ |\bar p|=qd$$
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{images/momentoDipolo.eps}
+\end{center} 
+Sia $\hat r = \frac{\bar r}{|\bar r|}$, si ha che 
+$$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{\bar p \cdot \hat r}{r^2}= 
+\frac{1}{4\pi \varepsilon_0} \frac{\bar p \cdot \bar  r}{r^3}$$
+Se $\bar p$ è parallelo al versore $\hat z$, allora il prodotto scalare $\bar p \cdot \bar r$ sarà uguale al modulo di $\bar p$ moltiplicato per la coordinata $z$ di $\bar r$ 
+$$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{|\bar p|z}{(x^2+y^2+z^2)^{\nicefrac{3}{2}}}$$
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{images/MomentoDipolo2.eps}
+\end{center} 
+è possibile calcolare il campo elettrico considerando il gradiente del potenziale, ad esempio, per al coordinata $x$ il campo vale 
+$$ E_x=\frac{\delta V}{\delta x}= 
+-\frac{|\bar p|z}{4\pi\varepsilon_0}\Big( -\frac{3}{2}\cdot \frac{2x}{r^3} \Big)
+$$
+Analogamente si possono calcolare $E_y$ e $E_z$.
 \end{document}
