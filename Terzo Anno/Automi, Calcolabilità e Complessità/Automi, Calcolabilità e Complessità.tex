@@ -2170,7 +2170,7 @@ Non è dimostrabile. Prima di dimostrare i due teoremi, è necessario introdurre
     \item Data in input un affermazione $<x>$
     \item Controlla per ogni $k\in 1,2,3\dots $\begin{itemize}
         \item Per ogni possibile stringa $w$ tale che $|w|=k$
-        \item Se $V(<x,w>)$ accetta, $R$ scrive sul nastro di output $<w>$.
+        \item Se $V(<x,w>)$ accetta, $P$ scrive sul nastro di output $<w>$.
     \end{itemize}
 \end{enumerate}
 si definisce poi una TM $R$, il cui comportamento è descritto come segue\begin{enumerate}
@@ -2351,4 +2351,125 @@ Non è ancora stato dimostrato che $ 3CLIQUE\in Dtime(n^{2})$. In generale, non 
 $$ kCLIQUE=\{<G> \ | \ G \text{ contiene un clique da $k$ nodi}\}$$ 
 Sia o no in $P$, è sicuramente in $Dtime(n^k)$. La sua appartenenza o no alla classe polinomiale, risulterà nota quando verrà formalizzata la dipendenza di $k$ da $n$. Se $k$ non dovesse dipendere in nessun modo da $n$, allora $kCLIQUE$ sarebbe un elemento di $P$.\flowerLine 
 \section{Soddisfacibilità}
+Un circuito logico, viene rappresentato con un grafo diretto ed aciclico, in cui sono presenti dei nodi input ($x_1,x_2\dots x_n$ variabili booleane), delle porte logiche (AND, OR, NOT, ed altre) e dei nodi output ($y_1,y_2\dots y_n$ variabili booleane che dipendono dagli input).
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/circLogico.pdf}
+\end{center}
+Un circuito logico può anche essere codificato con una stringa, si definisce \textit{formula} un circuito che presenta un solo output. Una formula si identifica quindi con una funzione $C:\{0,1\}^n\rightarrow \{0,1\}$, e denotiamo $<C>$ la sua codifica sotto forma di stringa. Data una formula $C$ ed un'assegnamento delle variabili $x_1,x_2\dots x_n$, una TM può \textit{valutare} il risultato dell'output, si definisce il linguaggio 
+$$ CIRC-EVAL = \{<C,x> \ | \ C(x)=1\}$$
+Dove $x$ è l'assegnamento delel variabili e $C(x)$ è il valore dell'output dato tale assegnamento. Tale linguaggio è in $P$, tipicamente, se $m$ è il numero delle porte logiche, il costo computazionale della TM che decide $CIRC-EVAL$ è in $O(m\log(m))$.\acc 
+\defi{(soddisfacibilità)} Un circuito logico $C$ si dice \textbf{soddisfacibile} se esiste almeno un assegnamento delle variabili in input che renda uguale ad $1$ l'output (o tutte le variabili in output). Di conseguenza, si definisce il linguaggio 
+$$ SAT = \{<C> \ | \ \exists x\in \{0,1\}^n \text{ tale che }C(x)=1\}$$
+Se un circuito è soddisfacibile, piuttosto che dire che $<C>$ si trova nell'insieme $SAT$ diremo che "$C$ è SAT". Verrà trattato un sotto-insieme di tale linguaggio che considera esclusivamente i circuiti con 1 output 
+$$ FORMULA-SAT = \{<C>\in SAT \ | \ C \text{ è una formula}\}$$
+Questi due linguaggi sono chiaramente in $EXP$, dato che è possibile controllare ogni singola assegnazione di input (sono $2^n$), e per ognuna di queste è possibile valutarne l'output (in tempo $poly(n)$)\footnote{con $poly(n)$ si denota un costo polinomiale in funzione di $n$}. È quindi possibile definire una TM che decida $ FORMULA-SAT$ in tempo $O(2^npoly(n))$. \acc Non è noto tutt'oggi se sia possibile decidere $FORMULA-SAT$ in tempo polinomiale, è però noto il seguente risultato 
+$$ SAT \in P \iff P=NP$$
+Questo teorema (fondamentale) verrà trattato e dimostrato formalmente in seguito.\acc 
+Definiamo \textit{clausola} una formula logica consistente in una o più variabili in OR fra loro $$ \begin{cases}
+    (x_1 \lor x_2 \lor \overline{x_3}) \ \ \ \text{ è una clausola }\\ 
+    (x_1 \land x_2 \land \overline{x_3})\ \ \ \text{ non è una clausola }\\ 
+    (x_1 \land x_2 \lor \overline{x_3}) \ \ \ \text{ non è una clausola }\\ 
+    ( x_2) \ \ \ \text{ è una clausola }\\ 
+\end{cases}$$
+\defi{(CNF)} una formula logica è in \textit{CNF} (forma normale congiuntiva) se consiste in una serie di clausole in AND fra loro. Ad esempio  
+$$ (x_1 \lor x_2 \lor \overline{x_3}) \land (x_4 \lor x_2 \lor {x_1}) \land  
+(\overline{x_5} \lor x_2)$$
+\prop{} ogni formula logica può essere scritto in forma normale congiuntiva. Si può quindi assumere (senza perdita di generalità) che una formula sia in CNF.\acc 
+Si definisce l'insieme 
+$$ CNF-SAT=\{<C>\in FORMULA-SAT \ | \ C \text{ è in forma normale congiuntiva}\}$$
+è vero che 
+$$ CNF-SAT \in EXP \ \ \ \ \ CNF-SAT \in P \iff P=NP$$
+Le formule in CNF godono di una proprietà, la complessità computazionale di una TM che ne valuta il risultato è in funzione del numero delle variabili e del numero di clausole.\acc 
+Si definisce anche il linguaggio 
+$$ K-SAT = \{<C>\in CNF-SAT \ | \ \text{ ogni clausola ha al più }K\text{ variabili } \}$$è vero che 
+$$ K-SAT \in EXP \ \ \ \ \ K-SAT \in P \iff P=NP$$
+Il migliore algoritmo che è stato definito per decidere $3-SAT$ opera in tempo (circa) $O(1.34^n)$. In generale il costo per decidere $K-SAT$ dipende da $K$. \acc 
+\subsection{Complessità di $2-SAT$}
+Si consideri il seguente sotto-insieme di $K-SAT$
+$$ 2-SAT = \{<C>\in CNF-SAT \ | \ \text{ ogni clausola ha al più 2 variabili } \}$$
+Si vuole costruire un \textit{grafo} (diretto) associato ad ogni formula. Una generica clausola di $2-SAT$ coinvolge due variabili ed è del tipo 
+$$ (x_i \lor x_j)$$
+Quest'ultima implica che 
+$$ \begin{matrix}
+    \overline{x_i}\rightarrow x_j\\ \overline{x_j}\rightarrow x_i
+\end{matrix}$$ 
+\defi{} Data una generica formula $\phi(x_1,x_2\dots , x_n)$ in $2-SAT$, si definisce il \textit{grafo associato}  $G$ come segue \begin{itemize}
+    \item Vi è un nodo associato ad ogni variabile $x_i$ e al negato $\overline{x_i}$ 
+    \item Per ogni clausola $(x_i \lor x_j)\equiv \overline{x_i}\rightarrow x_j$, si aggiunge un arco $(\overline{x_i},x_j)$
+\end{itemize}
+Ad esempio, per la formula $$(\bar x \lor y)\land (\bar y\lor z) \land (x \lor \bar z)\land (y\lor z) $$
+che è equivalente a 
+$$(x\rightarrow y)\land (y\rightarrow z) \land (\bar x \rightarrow \bar z )\land (\bar y \rightarrow z) $$
+a sua volta equivalente a 
+$$(\bar y \rightarrow \bar x)\land (\bar z\rightarrow \bar y) \land (z \rightarrow x )\land (\bar z \rightarrow y) $$
+si definisce il grafo associato 
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/grafoAssociato.pdf}
+\end{center}
+La seguente proposizione sarà fondamentale per dimostrare che una formula $2-SAT$ può essere decisa in tempo polinomiale.\acc  
+\prop{} Sia $\phi$ una formula in CNF in cui ogni clausola ha al più $2$ variabili, e sia $G$ il grafo associato, $\phi$ è soddisfacibile ($\phi\in 2-SAT$ ) \textit{se e solo se}, 
+nessuna componente fortemente connessa di $G$ contiene sia una variabile che la sua negata.\acc 
+\dimo{} Verranno dimostrate entrambe le direzioni del se e solo se. \acc 
+\boxedMath{$\implies$} Sia $\phi$ una formula in $2-SAT$, e sia $G$ il grafo associato. Sia $(a,b)$ un arco del grafo, ne consegue in $\phi$ c'è la clausola 
+$$ a\rightarrow b \equiv \bar a \lor b$$
+quindi se $a=1$, anche $b=1$. Tale fatto si può estendere ad un cammino nel grafo, se esiste un cammino 
+$$ x_1,x_2\dots , x_k$$
+ne consegue che 
+$$ x_1\rightarrow x_2 \dots \rightarrow x_k$$
+quindi 
+$$ x_1 \rightarrow x_k$$
+Si consideri una generica variabile $x$. Se $x$ ed $\bar x$ sono in una stessa componente fortemente connessa, allora esiste un cammino da $x$ ad $\bar x$ ed un cammino da $\bar x$ ad $x$\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/dimoGrafo.pdf}
+\end{center}
+Si ha però che 
+$$ \begin{cases}
+    x\rightarrow \bar x \equiv \bar x \lor \bar x\equiv \bar x   \\ 
+    \bar x \rightarrow x \equiv x \lor x\equiv x 
+\end{cases}$$
+Ma allora in $\phi$ esiste sia la clausola $x$ che la clausola $\bar x$, essendo $\phi$ in CNF essa vedrà queste due clausole in AND 
+$$ x \land \bar x $$
+Ma tale formula per qualunque assegnazione di $x$ sarà sempre 0, quindi $\phi$ è insoddisfacibile, ma ciò contraddice l'ipotesi, è quindi impossibile che una componente fortemente connessa contenga sia $x$ che $\bar x$. \acc  
+\boxedMath{$\impliedby$} Sia $\phi$ una formula in CNF con ogni clausola contenente al più 2 variabili, il cui grafo associato $G$ ha una componente fortemente connessa in cui sono contenute sia $x$ che $\bar x$. Sia $G'$ il grafo in cui ogni nodo $C_i$ rappresenta una componente fortemente connessa di $G$ (si applica la compressione dei nodi).
+\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/compressione.pdf}
+\end{center}
+Si consideri un ordinamento topologico di $G'$ $$ (C_1,C_2\dots C_n)$$ dove $i<j$ indica che $C_i$ viene prima di $C_j$ nell'ordinamento. Si consideri il seguente \textit{assegnamento} di variabili in input per $\phi$\begin{itemize}
+    \item Per ogni variabile $x$ si ha che\begin{itemize}
+        \item se $x$ è contenuta in una componente $C_i$, e $\bar x$ è contenuta in una componente $C_j$ tale che $i\le j$ ( $C_i$ non appare dopo $C_j$ nell'ordinamento), allora la variabile $x$ si assegna uguale a 0.
+        \item nel caso opposto, se $x$ è contenuta in una componente $C_i$, e $\bar x$ è contenuta in una componente $C_j$ tale che $i\ge j$ ( $C_i$ appare dopo $C_j$ nell'ordinamento), allora la variabile $x$ si assegna uguale a 1.
+    \end{itemize}
+\end{itemize}
+Dato tale assegnamento, è vero il seguente \textbf{fatto} :
+\begin{quote}
+per nessun arco $(a,b)$ in $G$,  può succedere che $a$ sia vero\footnote{con $a$ vero si intende che $a$ è 1. con $a$ falso si intende che $a$ è 0} e $b$ sia falso. La dimostrazione è la seguente, si pone per assurdo che il \textit{fatto} sia falso, che esiste quindi una situazione in cui\begin{itemize}
+    \item 
+ $a$ è vero \item  $b$ è falso\end{itemize} supponiamo che $C_i$ sia la componente in cui è contenuto $a$. Essendoci l'arco $(a,b)$ esiste la clausola $\bar a \lor b$ ed esiste quindi anche l'arco $(\bar b,\bar a)$, essendo $a$ vero, si ha che $\bar a$ è falso.
+ Ma allora, il nodo $\bar a$ compare in una componente $C_j$ tale che $j<i$ \begin{center}la componente in cui è contenuta $\bar a$ precede la componente in cui è contenuta $a$ nell'ordinamento topologico\end{center}
+ Tale affermazione è vera dato l'assengamento particolare scelto per le variabili. Essendo $b$ falso, ne consegue che $\bar b$ è contenuto in una componente $C_k$ che viene dopo $C_i$, quindi 
+ $$ k>i>j$$
+ nell'ordinamento topologico
+ $$ C_k>C_i>C_j$$
+ Ma allora la presenza dell'arco $(\bar b, \bar a)$ contraddice l'ordinamento topologico, quindi è impossibile che il fatto sia falso.
+\end{quote} 
+Tale fatto implica che $\phi$ è SAT. Quindi entrambe le direzioni della proposizione sono dimostrate.\hfill$\blacksquare$\acc 
+Data tale proposizione, per decidere se una formula è o non è in $2-SAT$ basterà controllare il grafo associato trovando le componenti fortemente connesse, ciò si può fare (ad esempio, con l'algoritmo di Tarjan ) in tempo polinomiale. Ciò porta al seguente risultato:\acc
+\teo{} $2-SAT\in P $
+\flowerLine 
+\section{La classe $NP$}
+I problemi presentati, ad esempio 
+\begin{itemize}
+    \item $3-COL$
+    \item $3-SAT$
+    \item ecc...
+\end{itemize}
+condividono una proprietà: data una \textit{soluzione}, questa può essere verificata valida o meno in tempo polinomiale. Si vuole definire in questa sezione la classe $NP$ tramite il \textit{non determinismo}, esiste però, anche un'altra definizione altrettanto naturale.\acc 
+\defi{} Dato un linguaggio $L$, una TM $V$ è detta \textbf{verificatore} se, dato un input $<x,y>$ si ha che \begin{itemize}
+    \item $x\in L \iff \exists y \text{ tale che }V(<x,y>)$ accetta
+\end{itemize}
+$V$ data una soluzione può verificare che questa sia contenuta o no nel linguaggio $L$. Si dice che $V$ ha \textit{tempo polinomiale} se \begin{itemize}
+    \item L'esecuzione di $V$ è in $O(|x|^k)$ per qualche $k\in\Z^+$
+    \item $|y|=poly(|x|)$, ossia la cardinalità di $y$ è polinomiale rispetto la cardinalità di $x$.
+\end{itemize}
+\defi{($NP$)} La classe dei linguaggi $NP$ contiene tutti i linguaggi $L$ che ammettono un verificatore polinomiale.\acc 
+\textbf{Esempio} : Si consideri il linguaggio $3-COL$, una soluzione è data sotto-forma di grafo colorato, se $n$ è il numero di nodi,  è possibile controllare ogni coppia di nodi in $O(n^2)$, e verificare che, se questi sono adiacenti, sono anche di colori diversi. La verifica avviene in tempo polinomiale. Nonostante questo, la ricerca di una soluzione dato un grafo non colorato è un problema in $EXP$. Quindi $3-COL$ è un problema $NP$.
 \end{document}

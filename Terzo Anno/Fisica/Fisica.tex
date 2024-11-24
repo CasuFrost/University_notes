@@ -2289,17 +2289,115 @@ Si definisce \textbf{momento del dipolo} il vettore $\bar p$ tale che $$ |\bar p
 \begin{center}
     \includegraphics[width=0.35\textwidth]{images/momentoDipolo.eps}
 \end{center} 
+\textbf{Appunto sulla notazione} : Con $\bar p$ si denota il vettore momento del dipolo, con $p$ non si denota il suo modulo, bensì il punto su cui si è considerato il potenziale.\acc
 Sia $\hat r = \frac{\bar r}{|\bar r|}$, si ha che 
 $$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{\bar p \cdot \hat r}{r^2}= 
 \frac{1}{4\pi \varepsilon_0} \frac{\bar p \cdot \bar  r}{r^3}$$
 Se $\bar p$ è parallelo al versore $\hat z$, allora il prodotto scalare $\bar p \cdot \bar r$ sarà uguale al modulo di $\bar p$ moltiplicato per la coordinata $z$ di $\bar r$ 
 $$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{|\bar p|z}{(x^2+y^2+z^2)^{\nicefrac{3}{2}}}$$
 \begin{center}
-    \includegraphics[width=0.35\textwidth]{images/MomentoDipolo2.eps}
+    \includegraphics[width=0.45\textwidth]{images/MomentoDipolo2.eps}
 \end{center} 
 è possibile calcolare il campo elettrico considerando il gradiente del potenziale, ad esempio, per al coordinata $x$ il campo vale 
 $$ E_x=\frac{\delta V}{\delta x}= 
 -\frac{|\bar p|z}{4\pi\varepsilon_0}\Big( -\frac{3}{2}\cdot \frac{2x}{r^3} \Big)
 $$
-Analogamente si possono calcolare $E_y$ e $E_z$.
+Analogamente si possono calcolare $E_y$ e $E_z$.\acc 
+Si consideri ora un sistema di cariche diffuse nello spazio, per cui $d$ è la distanza massima fra ogni coppia di cariche. Si vuole considerare il potenziale in un punto molto distante dal sistema rispetto a $d$, in modo che si possa considerare (in modo approssimato) un unica distanza $r$ dal punto ed il sistema. 
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/sistemaCariche.pdf}
+\end{center} 
+Sia $Q=\sum q_i$ la somma delle cariche, questa rappresenta la carica del sistema. Il potenziale $V$ del sistema sarà dato dallo \textit{sviluppo in multipoli}\begin{itemize}
+    \item il primo termine dello sviluppo è il potenziale del sistema approssimato ad un unica carica è $\frac{Q}{4\pi\varepsilon_0 r}$
+    \item se $\bar p=\sum \bar p_i$ è la somma di tutti i possibili momenti dei dipoli considerando ogni coppia di cariche, si considera come secondo termine il potenziale dato il momento totale $\bar p$, ossia $\frac{\hat r \cdot \bar p}{4\pi\varepsilon_0 r^2}$
+    \item si considera poi il quadripolo, andando avanti finché il numero totale delle cariche del sistema lo permette 
+\end{itemize}
+$$ V_{\text{sistema}}\simeq \frac{1}{4\pi\varepsilon_0}\frac{Q}{r}+ \frac{1}{4\pi\varepsilon_0}\frac{\bar p\cdot  \hat r}{r^2}+\frac{\text{momento quadripolo}}{r^3}+\dots$$
+\flowerLine 
+\section{Capacità dei Conduttori}
+Nei materiali conduttori, come il metallo, gli elettroni sono liberi di muoversi nella struttura atomica del materiale. Un campo elettrico $\bar E$ può causare una disposizione specifica delle cariche, queste sono fisse, nella condizione elettrostatica non vi è movimento di cariche, all'interno del conduttore si ha che il campo elettrico è nullo 
+$$\bar E = 0$$
+Ciò implica che il flusso attraverso una qualsiasi superficie chiusa contenuta all'interno della superficie del conduttore è a sua volta nullo. 
+$$ \oint_S \bar E d\bar S =  \oint_S 0 d\bar S = 0$$ 
+Inoltre, risulta che il potenziale elettrico è costante in ogni punto del conduttore, siano $p_1$ e $p_2$ due punti qualsiasi si ha 
+$$ V(p_1)-V(p_2)=\int_{p_1}^{p_2}\bar E \cdot d\bar s=0 \implies V(p_1)=V(p_2)=\Delta V$$
+Si dice quindi che il conduttore è \textbf{equipotenziale}. Si consideri una sfera di materiale conduttore di carica $Q$ e di potenziale $V$
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/sferaPot.pdf}
+\end{center} 
+Si definisce \textbf{capacità del conduttore} il rapporto 
+$$ C=\frac{Q}{V}$$ 
+e si misura in \textit{Farad}. Un Farad equivale ad un Coloumb su un Volt $\text{F}=\frac{\text{C}}{\text{V}}$.
+Tale valore dipende dalla forma del conduttore, nel caso della sfera, sia $R$ il raggio, il potenziale sappiamo essere 
+$$V=\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}$$
+La capacità è quindi 
+$$ C=Q\Big(\frac{1}{4\pi\varepsilon_0}\frac{Q}{R} \Big)^{-1}=4\pi\varepsilon_0 R$$
+\subsection{Condensatori ed Induzione Completa}
+In alcune situazioni, ci sono due conduttori alla quale si può associare una sola capacità, si dice che si è nella situazione di \textit{induzione completa}. Si consideri il caso del condensatore, in cui ci sono due lastre di materiale conduttore poste ad una distanza $d$, di carica eguale e opposta, dove $A$ è la superficie delle lastre. Il campo elettrico si approssima ad un campo uniforme come se le lastre fossero piani infiniti.\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/condensatore.eps}
+    \caption{condensatore piano}
+\end{figure}
+Il condensatore è equipotenziale, sia $\Delta V$ il potenziale, la capacità del condensatore è 
+$$ C=\frac{Q}{\Delta V}$$
+se $\sigma$ è la densità di carica, abbiamo visto che il campo elettrico del condensatore è 
+$$ \bar E = \frac{\sigma}{\varepsilon_0}$$il potenziale è quindi 
+$$ \Delta V = d\frac{\sigma}{\varepsilon_0}$$
+La carica totale $Q$ è data dall'integrale della densità di carica su tutta la superficie, considerando la densità uniforme si ha $$Q=\sigma A$$
+la capacità è $$ C=\frac{\sigma A}{\Delta V}==\frac{\sigma A \varepsilon_0}{d \sigma}\implies $$
+$$ C=\varepsilon_0\frac{A}{d}$$ 
+Si vuole calcolare ora la capacità del \textit{condensatore sferico}, composto da due gusci sferici concentrici di materiale conduttore, entrambi carichi, il primo di carica $-Q$, il secondo di carica $+Q$.\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{images/condensatoreSferico.eps}
+    \caption{condensatore sferico}
+\end{figure}
+Il potenziale del primo guscio (quello più interno) è $$ V_1=\frac{1}{4\pi\varepsilon_0}\frac{Q}{R_1}$$
+Il potenziale del secondo guscio è 
+ $$ V_2=\frac{1}{4\pi\varepsilon_0}\frac{Q}{R_2}$$
+ Se $d$ è la distanza fra le due sfere, la differenza di potenziale risulta essere 
+ $$ \Delta V =\frac{1}{4\pi\varepsilon_0}Q\frac{d}{R_1R_2} $$
+La capacità risulta essere 
+$$ C=\frac{Q}{\Delta V}={4\pi\varepsilon_0}\frac{R_1R_2}{d}$$
+Sapendo che le superfici delle due sfere sono rispettivamente $$\begin{matrix}
+    S_1=4\pi R_1^2\\ 
+    S_2=4\pi R_2^2
+\end{matrix} $$
+La capacità si può esprimere anche in funzione di queste ultime 
+$$C=\varepsilon_0\frac{\sqrt{S_1}\sqrt{S_2}}{d} $$
+\subsection{Collegamento di Condensatori}
+Nell'ambito dei circuiti elettrici (che verranno trattati in seguito) il condensatore si indica con il simbolo \begin{center}
+    \includegraphics[width=0.1\textwidth]{images/simboloCondensatore.eps}
+\end{center} 
+Questi possono essere disposti in sere oppure in parallelo.
+\subsubsection{Condendatori in Serie}
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/condensatoreSerie1.eps}
+\end{center} 
+La parte interna del circuito rappresenta un conduttore isolato, deve quindi essere neutro e ne consegue che 
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/condensatoreSerie2.eps}
+\end{center} 
+La situazione è quindi la seguente 
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/condensatoreSerie3.eps}
+\end{center} 
+$$ \begin{matrix}
+    C_1 = \frac{Q}{\Delta V_1}\\ \\
+    C_2 = \frac{Q}{\Delta V_2} \\ 
+\end{matrix}$$essendo
+$$ 
+\Delta V = \Delta V_1+\Delta V_2
+$$ si ha 
+$$ 
+ \Delta V=\frac{Q}{C_1}+\frac{Q}{C_2}\implies Q\frac{1}{C_1}+Q\frac{1}{C_2}$$
+ Ne consegue che la capacità equivalente $C$ soddisfa 
+ $$ \frac{1}{C}=\frac{1}{C_1}+\frac{1}{C_2}$$
+ quindi 
+ $$ C=\frac{C_1C_2}{C_1+C_2}$$
+Quindi due condensatori in serie sono equivalenti ad un condensatore la cui capacità è la somma degli inversi delle capacità dei due condensatori iniziali.\acc  Tale formula si può generalizzare ad una serie di $n$ condensatori\begin{center}
+    \includegraphics[width=0.65\textwidth]{images/condensatoreSerie4.eps}
+\end{center} 
+ne consegue 
+$$ C=\Big(\displaystyle  \prod_{i=1}^n C_i\Big)\Big(\displaystyle \sum_{i=1}^n C_i\Big)^{-1}$$
+\subsubsection{Condensatori in Parallelo}
 \end{document}
