@@ -3004,7 +3004,7 @@ $$ \text{integratore PI : } z(0)=0$$
     \includegraphics[width=1\textwidth ]{images/schemaGenStatico.pdf}
 \end{center}
 \subsection{Accenno ai Regolatori PID}
-Nonostante i regolatori PID godano di un capitolo a loro dedicato, sarà necessario introurli al fine di descrivere il progetto del controllore del motore DC.\acc 
+Nonostante i regolatori PID godano di un capitolo a loro dedicato: \ref{regolatoriPID}, sarà necessario introurli al fine di descrivere il progetto del controllore del motore DC.\acc 
 \defi{} un regolatore \textbf{PID} (Proporzionale-Integrale-Derivativo) è un regolatore che produce tre azioni di controllo proporzionali a \begin{itemize}
     \item L'errore istantaneo 
     \item L'errore accumulato (il suo integrale)
@@ -3084,7 +3084,83 @@ Si ricordi che la funzione di trasferimento di un regolatore PI è $$ K_p+\frac{
 Lo schema completo del regolatore del motore DC segue qui sotto. Si noti come vengono utilizzate le azioni di feedforward semplicemente valutando le derivate analitiche del segnale di posizione desiderato. L'immagine dello schema del motore DC è riportata in due versioni in modo che sia facilmente visualizzabile anche da un lettore che utilizza il PDF e non può ruotare il foglio.
 \begin{center}
     \includegraphics[width=1\textwidth]{images/controlloMotoreDc.pdf}
+\end{center}\flowerLine 
+\section{Sincronizzazione dei Moti}
+Quando un sistema ha più gradi di libertà (assi su cui ruotare), si può procedere in due differenti modi\begin{itemize}
+    \item tramite un sistema meccanico è possibile azionare più moti tramite un solo attuatore, in modo che l'azionamento sia meccanicamente coordinato 
+    \item si considerano più attuatori coordinati fra loro
+\end{itemize}
+Si consideri il seguente esempio di movimentazione sincronizzata
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/azionamentoSincronizzato.pdf}
 \end{center}
+Vi è un rullo che sposta dei prodotti avvolti da una pellicola che un apposita taglierina deve tagliare, eseguendo l'azione periodicamente. È chiaro che il movimento del nastro deve essere opportunamente sincronizzato con lo spostamento dei prodotto sul rullo. Anche se le singole parti hanno velocità di azionamento diverse è possibile considerare un unica \textit{sorgente di moto}, la cui velocità condiziona ogni azionamento, e quindi il tasso di produzione complessivo. \acc 
+La distribuzione del moto può avvenire tramite delle \textbf{camme} o \textbf{catene cinematiche}.
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.4\textwidth]{images/camma.eps} & \defi{} Una \textit{camma} è un componente meccanico con una forma particolare, spesso a profilo curvilineo. Il suo scopo principale è quello di trasformare un moto rotatorio (come quello di un albero a camme) in un moto alternativo (come quello di una valvola). In altre parole, la camma serve a comandare il movimento di un altro elemento meccanico secondo una legge precisa.
+		\\
+	\end{tabular}
+\end{center}
+La rotazione della camma C (indicata in verde) dipende dall'angolo $\theta$, questo è detto \textit{master}, in base alla forma della camma, varierà di conseguenza la variabile $q$, detta \textit{slave}.
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/masterSlave.eps}
+\end{center}
+\begin{itemize}
+    \item pro : sistema robusto ed affidabile 
+    \item contro : molto rigido, poco flessibile
+\end{itemize}
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.85\textwidth]{images/modelloMotiSincronizzati.png}
+    \caption{modello dettagliato dei prodotti sul rullo con taglierina}
+\end{figure}
+Con l'avvento dei calcolatori si sono introdotte le cosiddette \textit{camme elettroniche}, il nome è fuorviante, non ci sono sistemi meccanici di trasmissione del moto, bensì, per ogni grado di libertà è presente un attuatore indipendente che viene controllato e coordinato da un software, che ne determina le traiettorie.
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.85\textwidth]{images/modelloMotiSincronizzati2.png}
+    \caption{modello con più attuatori}
+\end{figure}
+La sincronizzazione avviene completamente a livello software, vengono separate le traiettorie spaziali da quelle temporali, si definisce un profilo master $\theta(t)$ che dipende dal tempo, e più profili slave $q_i(\theta(t))$ definiti in modo parametrico, che dipendono dal profilo master.
+$$ \theta(t)\implies \begin{cases}
+    q_1(\theta)\\ 
+    q_2(\theta)\\ 
+    \vdots \\ 
+    q_n(\theta)
+\end{cases}$$
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/masterSlave2.eps}
+\end{center}
+Il motore master si muove (solitamente) ad una velocità costante $v$, i vari attuatori slave hanno dei limiti fisici di saturazione, riguardanti velocità massima ed accelerazione massima, essendo che questi dipendono da $\theta$, la velocità $v$ deve essere conservativa e rispettare tutti i limiti di velocità ed accelerazione. La velocità massima $v_m$ che può assumere il profilo master è quindi 
+$$ v_m=\min\Big\{    
+\frac{v_{\max,i}}{|q'_i(\theta)|_{\max}}, 
+\sqrt{\frac{a_{\max,i}}{|q''_i(\theta)|_{\max}} }
+\Big\}$$
+dove\begin{itemize}
+    \item $v_{\max,i}$ è la velocità massima che può assumere l'attuatore controllato dal profilo $q_i$ 
+    \item $a_{\max,i}$ è l'accelerazione massima che può assumere l'attuatore controllato dal profilo $q_i$ 
+    \item $|q'_i(\theta)|_{\max}$ è il massimo della derivata prima di $q_i$
+    \item $|q''_i(\theta)|_{\max}$ è il massimo della derivata seconda di $q_i$
+\end{itemize}
+$$q'(\theta)=\frac{dq}{d\theta}\frac{d\theta}{dt}$$
+$$q''(\theta)=\frac{dq}{d\theta}\frac{d^2\theta}{dt^2}+\frac{d^2q}{d\theta^2}\big(\frac{d\theta}{dt}\big)^2$$
+\subsection{Profili di Moto}
+Il master $\theta$ ha una legge oraria rispetto al tempo, per le leggi parametriche degli slave $q$, si scelgono tipicamente delle leggi polinomiali 
+$$q=f(\theta)=a_0+a_\theta+a_2\theta^2+\dots + a_n\theta^n $$
+È prefiribile considerare una \textit{doppia normalizzazione}, facendo variare $\theta$ fra 0 ed 1, se $\theta_{in}$ e $\theta_{fin}$ sono il massimo ed il minimo di $\theta$, si considera la legge normalizzata 
+$$ \theta_N = \frac{\theta - \theta_{in}}{\theta_{fin}-\theta_{in}}\in [0,1]$$
+Se $q$ varia in $[q_{in},q_{fin}]$, si considera anche la normalizzazione di questa 
+$$ q_N=q_{in}+(q_{fin}-q_{in})f_N(\theta_N)$$
+si ha 
+$$\begin{matrix}
+    f_N(0)=0\\ f_N(1)=1
+\end{matrix} $$
+Qualsivoglia siano le funzioni scelte per le leggi spaziali, è importante analizzarne il contenuto in frequenza, se i moti hanno contenuti di frequenze nella banda passante del sistema di controllo, potrebbero venire eccitate alcune frequenze. \acc 
+I seguenti grafici riportano alcuni esempi di profili temporali e di posizione, uno per un moto uniforme (passare da fermo a velocità costante) ed uno per un moto ciclico (in cui si ritorna alla posizione iniziale).
+\begin{center}
+    \includegraphics[width=\textwidth]{images/profiliMoti.eps }
+\end{center}
+È importante inoltre, considerare che effetti può avere una variazione della velocità del profilo master $\theta$ sul moto dei profili slave. \redText{ da finire}
 
 
 
@@ -3096,6 +3172,132 @@ Lo schema completo del regolatore del motore DC segue qui sotto. Si noti come ve
 
 
 
+
+
+
+
+
+\chapter{Regolatori PID}\label{regolatoriPID}
+In passato i regolatori PID venivano implementati in modo completamente analogico (ad esempio, tramite un sistema pneumatico), ad oggi sono implementati in maniera completamente digitale, lavorano su segnali analogici che vengono opportunamente campionati.\acc
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.3\textwidth]{images/pidPneumatico.png}
+    \caption{regolatore PID pneumatico}
+\end{figure}
+\section{Campionamento}
+Essendo i PID (che considereremo) digitali, ed essendo i segnali su cui lavorare analogici, sarà necessario un opportuno campionamento, convertendo il segnale da logico a digitale, per poterci lavorare sopra, per poi applicare in uscita un segnale analogico ricostruito a partire da quello digitale sulla quale si è svolta l'operazione di controllo.
+\begin{itemize}
+    \item $x(t)$ segnale analogico (continuo nel tempo $t\in\R$)
+    \item $x_k=x(kT_c)$ segnale digitale discreto, $k\in\Z$, $T_C$ è l'intervallo di campionamento, più questo è piccolo, più il segnale campionato sarà preciso. 
+\end{itemize}
+Nella ricostruzione digitale-analogica, verrà considerato un organo di tenuta di ordine zero (\textit{ZOH}), ossia, nei punti in cui il segnale digitale non è definito, il valore del segnale ricostruito $ x_r$ sarà identico (e costante) all'ultimo campionamento.
+$$ x_r(t)=x(kT_C), \ \ \ \ t\in [kT_C, (k+1)T_C]$$
+\begin{center}
+    \includegraphics[width=0.75\textwidth]{images/campionamento.pdf}
+\end{center}
+Per ottenere un segnale campionato, si moltiplica il segnale continuo $x(t)$ per un treno di impulsi unitari equidistanziati (di distanza $T_C$), tale segnale equivale a 
+$$ \delta_{T_C}(t)=\sum_{k=0}^\infty \delta(t-kT_C)$$ 
+dove 
+$$ \delta(t)=\begin{cases}
+    1 \text{ se } t=0 \\0 \text{ se } t\ne 0 
+\end{cases}$$
+il segnale campionato sarà quindi 
+$$ x^*(t)=x(t)\delta_{T_C}(t)$$
+\begin{center}
+    \includegraphics[width=\textwidth]{images/trenoImpulsi.eps}
+\end{center}
+Dato il segnale continuo $x(t)$ e la sua risposta in frequenza $X(j\omega)$, si può considerare lo spettro delle frequenze del segnale campionato 
+$$ X^*(j\omega)=\frac{1}{T_C}\sum_{n=-\infty}^{+\infty}X(j\omega-jn\frac{2\pi}{T_C})$$
+Si può riscrivere considerando la pulsazione di campionamento $\omega_C=\frac{2\pi}{T_C}$
+$$ X^*(j\omega)=\frac{1}{T_C}\sum_{n=-\infty}^{+\infty}X(j\omega-jn\omega_C)$$
+\subsection{Perdita di Informazioni}
+Quando si campiona un segnale, necessariamente i valori di questo nei punti non coperti dall'intervallo di campionamento sono persi, è chiaro che un tempo di campionamento $T_C$ più piccolo equivale ad una maggiore precisione. Si vuole inoltre ricostruire il segnale da digitale ad analogico in modo che sia il più possibilmente fedele al segnale desiderato.\acc 
+Si consideri lo spettro di un segnale (continuo) $X(j\omega)$ limitato in banda 
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/segLimitatoBanda.eps}
+\end{center}
+Quando questo viene campionato, il modulo della risposta in frequenza campionata $|X^*(j\omega)|$ sarà scalato di un fattore $\frac{1}{T_C}$. Inoltre, il campionamento di un segnale continuo nel tempo equivale, nel dominio della frequenza, a moltiplicare lo spettro originale del segnale per un treno di impulsi. Questa moltiplicazione ha l'effetto di replicare periodicamente lo spettro originale, creando così delle \textit{componenti complementari}.
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/segLimitatoBanda2.eps}
+\end{center}
+Il segnale originale $|X(j\omega)|$ si può ricostruire con un filtro ricostruttore $G_R$ definito come segue 
+$$ G_R(j\omega)=\begin{cases}
+    T_C \text{ se }|\omega|\le \frac{\omega_C}{2}\\ 
+    0 \text{ altrimenti}
+\end{cases}$$
+è chiaro che $|X(j\omega)|=|G_R(j\omega)|\cdot |X^*(j\omega)|$
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/segLimitatoBanda3.eps}
+\end{center}
+Tale esempio rende chiaro il seguente risultato.\acc 
+\teo{di Shannon} dato il segnale $X(j\omega)$ sia $\omega_m=\max\{\omega_i\| \ X(j\omega_i)>0\}$, ossia la frequenza massima ammessa dal segnale, per far si che il segnale si possa ricostruire senza errori a partire da un campionamento $X^*(j\omega)$, è necessario che la frequenza di campionamento $\omega_C$ sia almeno il doppio di $\omega_m$ $$\omega_C\ge 2\omega_m $$
+Se così non fosse, le bande complementari si sovrapporebbero alla banda originale, causando il cosiddetto fenomeno di \textit{aliasing}, che comporta una costruzione del segnale \textit{corrotta}, a prescendere dal filtro utilizzato.\acc Per il segnale preso in considerazione nell'esempio precedente, si considera una frequenza di campionamento $\omega_C$ minore di $2\omega_m$
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/segLimitatoBanda4.eps}
+\end{center}
+Si applica il filtro 
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/segLimitatoBanda5.eps}
+\end{center}
+il segnale ricostruito è corrotto
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/segLimitatoBanda6.eps}
+\end{center}
+I segnali reali, hanno componenti a frequenze sufficientemente alte da non rendere possibile una frequenza di campionamento sufficientemente alta, è quindi inevitabile che ci sia aliasing, per questo vengono utilizzati dei filtri analogici a monte prima del campionamento. 
+\subsection{Ricostruzione ZOH}
+Per la ricostruzione si usa un filtro ZOH, la cui risposta al gradino unitario è la seguente (nell'esempio, $T_C=1$)
+\begin{center}
+    \begin{tikzpicture}[scale=0.8, transform shape]
+        \begin{axis}[
+        ymin=0,
+        ymax = 2,
+        xmin=-3,
+        xmax = 3,
+        axis lines = left,
+        xtick distance=1, ytick distance=1,
+        grid style=dashed,
+        ymajorgrids=true,
+        xmajorgrids=true,
+        xlabel = \(t\),
+        ylabel = {\(\)},
+        ]
+        %Below the red parabola is defined
+        \addplot [
+        domain=0:1,
+        samples=2,
+        color=blue,
+        ]
+        {1};
+        \addplot [
+        domain=-3:0,
+        samples=2,
+        color=blue,
+        ]
+        {0};
+        \addplot [
+            domain=1:3,
+            samples=2,
+            color=blue,
+            ]
+            {0};
+        \end{axis}
+        \end{tikzpicture}
+\end{center}
+Se $\delta_{-1}(t)=\begin{cases}
+    1 \text{ se }t\ge 0 \\ 0 \text{ se }t<0
+\end{cases}$ è il gradino unitario, si ottiene la risposta dello ZOH come la differenza di due gradini 
+$$ h_0(t)=\delta_{-1}(t)-\delta_{-1}(t-T_C)$$
+Nel dominio della frequenza si ha 
+$$H_0(j\omega)=\frac{1}{j\omega}-\frac{1}{j\omega}e^{-j\omega T_C} =\frac{1-e^{-j\omega T_C}}{j\omega}$$
+Mettendo in evidenza il termine $e^{-j\omega T_C}\nicefrac{1}{2}$ si ha 
+$$ H_0(j\omega)=\frac{e^{j\omega \frac{T_C}{2}}-e^{-j\omega \frac{T_C}{2}}}{1}e^{-j\omega \frac{T_C}{2}}$$
+sviluppando la formula di Eulero $e^{jx}=\cos x+j\sin x$ si ottiene 
+$$ H_0(j\omega)=T_C\frac{\sin(\omega \frac{T_C}{2})}{\omega \frac{T_C}{2}}e^{-j\omega \frac{T_C}{2}}$$
+si ha che 
+$$ 
+|H_0(j\omega)|=T_C\frac{\sin(\omega \frac{T_C}{2})}{\omega \frac{T_C}{2}}\implies 
+|H_0(j\omega)|\simeq T_C \iff \omega T_C<<1
+$$
 
 
 
