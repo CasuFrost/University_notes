@@ -3188,7 +3188,7 @@ In passato i regolatori PID venivano implementati in modo completamente analogic
 Essendo i PID (che considereremo) digitali, ed essendo i segnali su cui lavorare analogici, sarà necessario un opportuno campionamento, convertendo il segnale da logico a digitale, per poterci lavorare sopra, per poi applicare in uscita un segnale analogico ricostruito a partire da quello digitale sulla quale si è svolta l'operazione di controllo.
 \begin{itemize}
     \item $x(t)$ segnale analogico (continuo nel tempo $t\in\R$)
-    \item $x_k=x(kT_c)$ segnale digitale discreto, $k\in\Z$, $T_C$ è l'intervallo di campionamento, più questo è piccolo, più il segnale campionato sarà preciso. 
+    \item $x_k=x(kT_C)$ segnale digitale discreto, $k\in\Z$, $T_C$ è l'intervallo di campionamento, più questo è piccolo, più il segnale campionato sarà preciso. 
 \end{itemize}
 Nella ricostruzione digitale-analogica, verrà considerato un organo di tenuta di ordine zero (\textit{ZOH}), ossia, nei punti in cui il segnale digitale non è definito, il valore del segnale ricostruito $ x_r$ sarà identico (e costante) all'ultimo campionamento.
 $$ x_r(t)=x(kT_C), \ \ \ \ t\in [kT_C, (k+1)T_C]$$
@@ -3303,7 +3303,8 @@ Riguardo il passo di campionamento\begin{itemize}
     \item $T_C$ non può essere troppo piccolo perché cresce troppo il costo computazionale 
 \end{itemize}
 \flowerLine 
-\section{Specifiche del Progetto}
+\section{Progetto del Regolatore PID}
+\subsection{Specifiche del Progetto}
 Le specifiche che idealmente un regolatore PID deve soddisfare sono\begin{itemize}
     \item stabilità asintotica 
     \item errore sotto una certa soglia a regime permanente 
@@ -3321,9 +3322,222 @@ Il \textit{tempo di assestamento} $T_a$ è il tempo che impiega l'uscita a raggi
 $T_m$ è l'istante di \textit{massima sovraelognazione} $S$, questa è 
 $$S=\frac{y(T_m)-y(\infty)}{y(\infty)} $$
 \begin{center}
-    \includegraphics[width=0.5\textwidth]{images/secifiche.png} 
+    \includegraphics[width=0.6\textwidth]{images/secifiche.png} 
 \end{center}
-\redText{continua da slide 10}
+Tali specifiche devono essere soddisfatte al meglio delle possibilità, variando i 3 disponibili parametri di configurazione dei PID.1
+\subsection{Caratteristiche del Regolatore}
+Il 95$\%$ dei regolatori digitali implementa una legge di controllo PID, data la semplicità nella taratura dei parametri e la facile interpretazione fisica in termini di controllo. Dato un errore $e(t)=y_{rif}(t)-y(t)$, l'azione PID risulta essere 
+$$ 
+u(t)=K_p\Big(   e(t)+\frac{1}{T_i}\int_0^te(\tau)d\tau + T_d\frac{de(t)}{dt}    \Big)
+$$
+che si può riscrivere anche come 
+$$
+K_pe(t)+K_i\int_0^te(\tau)d\tau + K_d\frac{de(t)}{dt} 
+$$
+con le ovvie relazioni \begin{itemize}\item$T_i=\frac{K_p}{K_i}$\item $T_d=\frac{K_d}{K_p}$\end{itemize} tali termini sono rispettivamente il \textit{tempo di integrazione} ed il  \textit{tempo di derivazione}.\acc 
+Lo schema di controllo in retroazione mediante il PID è il seguente
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/schemaControlloPID.png} 
+\end{center}
+Dove $G(s)$ è la funzione di trasferimento del processo che si vuole controllare.
+\acc
+Piuttosto che $K_p$ (chiamato guadagno proporzionale) nella pratica industriale si considera un altro parametro denotato $B_p$, e chiamato \textbf{banda proporzionale}. Tale valore riguarda la variazione dell'errore (dato come ingresso al PID) $e$, de facto, $B_p$ è la \textit{minima variazione} necessaria che porta l'uscita del regolatore $u$ dal minimo al massimo dei valori del suo range.\acc 
+La definizione risulta più chiara con un esempio, sia $u$ limitata fra 1 bar e 10 bar, ed $e$ limitata fra 0.2V e 5V 
+$$ e\in [0.2,5]\ \ \ \ u\in[1,10]$$
+Il valore di $u$ è in funzione dell'errore $e$. Si osservi il seguente grafico
+\begin{center}
+    \includegraphics[width=0.45\textwidth]{images/bandaproporzionale1.png} 
+\end{center}
+Una variazione di 2.4V fa si che $u$ passi dal minimo (1 bar) al massimo (10 bar), spaziando fra tutti i valori del suo intervallo. La banda proprozionale $B_p$ è tale variazione espressa in percentuale rispetto il range di valori che può assumere $e$. Essendo $e\in [0.2,5]$, si ha che $5-0.2 = 4.8$ è il range e $2.4=B_p4.8\implies B_p=0.5=50\%$. La banda proporzionale è quindi del 50\%. 
+\begin{center}
+    \includegraphics[width=0.45\textwidth]{images/bandaproporzionale2.png} 
+\end{center}
+Se per far passare $u$ dal minimo al massimo fosse necessaria una variazione di 2.4V allora la banda proporzionale sarebbe del 25\%.
+\acc 
+La banda proporzionale è relazionata al guadagno proporzionale, si ha che 
+$$ K_p=\frac{u(t)}{e(t)}$$ 
+ma questo solo nel caso in cui i minimi di $u$ ed $e$ siano 0 (senza offset), è più corretto considerare le variazioni di $u$ ed $e$
+$$ K_p=\frac{\Delta u(t)}{\Delta e(t)}$$ 
+Il guadagno proporzionale normalizzato si ottiene dal rapporto dei range di $u$ ed $e$
+$$ K_{norm}=\frac{u_{range}}{e_{range}}$$
+Nell'esempio precedente si ha 
+$$ K_{norm}=\frac{9}{4.8}=1.875$$
+La banda proporzionale è legata alla \textit{normalizzazione} del guadagno proporzionale, infatti 
+$$ \frac{K_p}{K_{norm}}=\frac{1}{B_p}\implies B_p=\frac{K_{norm}}{K_p}$$
+Nell'esempio precedente, con una banda proporzionale del 50\% si può ricavare il guadagno proporzionale 
+$$ \frac{K_p}{1.875}=\frac{1}{0.5}\implies K_p=1.875\cdot 2 = 3.75$$
+\subsection{Funzione di Trasferimento}
+Fisicamente è impossibile realizzare un'azione puramente derivativa, in quanto non si può "scorgere" il futuro, analizziamo un PID ideale ignorando momentaneamente questa irrealizzabilità. Sapendo l'azione nel tempo del PID è 
+$$ 
+u(t)=K_p\Big(   e(t)+\frac{1}{T_i}\int_0^te(\tau)d\tau + T_d\frac{de(t)}{dt}    \Big)
+$$
+la funzione di trasferimento nel dominio di Laplace è 
+$$ PID_{ideale}(s)=\frac{u(s)}{e(s)}= 
+K_p\Big(1+\frac{1}{T_i s}+T_d s\Big)
+$$
+Scrivendola in forma razionale si ha 
+$$  PID_{ideale}(s)= 
+\frac{K_p}{T_i}\frac{T_iT_ds^2+T_is+1}{s}
+$$
+La funzione di trasferimento mostra chiaramente l'irrealizzabilità dovuta al termine derivativo, infatti il sistema è improprio (il numeratore ha grado maggiore del denominatore) se e solo se è presente l'azione derivativa, ossia $T_d\ne 0$.\acc 
+Vi è un polo nell'origine, e due zeri a parte reale negativa. Gli zeri sono reali se e solo se $T_i\ge 4T_d$.\acc 
+In un progetto analitico, si possono accuratamente scegliere i valori $T_d$ e $T_i$ per far si che tali zeri cancellano poli stabili del processo da controllare, se questi sono troppo lenti.\acc  Se ne vuole dare un esempio, si consideri il seguente processo da controllare 
+$$ G(s)=\alpha\frac{1}{(s+1)(s+0.1)}$$
+ci sono due poli in $s=-1$ e $s=-0.1$, quest'ultimo è particolarmente lento e potrebbe causare una risposta lenta del sistema. Si può scegliere quindi un controllore PID con il termine $T_i=10$ per cancellarlo.\acc 
+Come già accennato, il PID reale deve avere una funzione di trasferimento propria. Si può approssimare l'azione derivativa aggiungendo un polo in alta frequenza su tale azione. 
+$$ PID(s)=\frac{u(s)}{e(s)}= 
+K_p\Big(1+\frac{1}{T_i s}+\dfrac{T_d s}{1+\frac{T_d}{N}s}\Big)
+$$
+Questo polo limita la banda passante del derivatore, evitando che amplifichi eccessivamente il rumore ad alta frequenza presente nel segnale di errore. In pratica, il derivatore diventa meno sensibile alle variazioni rapide del segnale di errore. Ciò ne implica la realizzabilità fisica, un derivatore reale non può essere sensibile ad una variazione infinitesima.\acc  La funzione del PID in forma razionale è 
+$$ 
+PID(s)=\frac{K_p}{T_i}\frac{T_iT_d(1+\frac{1}{N})s^2+(T_i+\frac{T_d}{N})s+1}{s(1+\frac{T_d}{N}s)}
+$$
+Si è aggiunto un secondo polo in $s=-\frac{N}{T_d}$, rendendo la funzione di trasferimento propria, quindi realizzabile. Inoltre 
+$$ \lim_{n\rightarrow +\infty}PID(s)=PID_{ideale}(s)$$
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/PidRealevsPidIdeale.png}
+\end{center}
+\flowerLine 
+\section{Realizzazione Digitale}
+Il regolatore PID implementato su un sistema digitale presenta l'azione integrale, questa deve essere approssimata nel dominio discreto dei sistemi digitali. I segnali analogici come $e$ vanno campionati, si denota con $T_C$ il passo di campionamento. Si ricordi che 
+un segnale campionato $x_k$ è definito come $$x(kT_C), \ \ \ \ \ \ k\in\Z^+$$
+\defi{} Dato un segnale campionato $x_k$, la trasformata $\mathcal Z$ del segnale è la funzione di variabile complessa $z\in \C$ definita come
+$$ X(z)=\mathcal Z[x_k](z)=\sum_{k=0}^\infty x_k\cdot z^{-k}$$
+Vediamo adesso diversi modi di implementare nel dominio discreto l'integrazione.  
+\subsubsection{Integrazione rettangolare}
+Sia $u_k$ il segnale che approssima l'integrale dell'errore $e$ fino all'istante $t=kT_C$, ossia 
+$$ \int_0^{kT_C} e(\tau)d\tau$$
+Ad ogni istante $k$, si può sommare al valore corrente il valore dell'istante precedente, aggiungendo il contributo dell'errore $e$ pesato per il passo di campionamento, è chiaro che più $T_C$ è piccolo, più l'integrale sarà preciso.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/integraleRett.pdf}
+\end{center}
+L'integrale è descritto dalla formula ricorsiva 
+$$u_k=u_{k-1}+T_Ce_{k-1} $$
+Portandolo nel dominio della trasformata $\mathcal{Z}$ si ha 
+$$ U(z)=\mathcal{Z}[u_k](z)=z^{-1}U(z)+T_CE(z)z^{-1}$$
+Dove $E(z)$ è la trasformata dell'errore $e$. Si ricordi che un passo all'indietro nel dominio $\mathcal{Z}$ si esprime moltiplicando la funzione per $z^{-1}$. \acc 
+La funzione di trasferimento dell'integratore, che lega l'ingresso $e$ all'uscita $u$ è data da 
+$$ \frac{U(z)}{E(z)}=\frac{T_Cz^{-1}}{1-z^{-1}}=\frac{T_C}{z-1}$$
+Il termine $\frac{T_C}{z-1}$ è simile al termine $\frac{1}{s}$ che rappresenta l'integratore $\int$ nel dominio di Laplace. Il polo $s=0$ nel dominio di Laplace equivale al polo $z=1$ nel dominio della trasformata $\mathcal{Z}$.\acc 
+L'integrazione rettangolare può anche essere fatta "in avanti" considerando l'errore corrente 
+$$u_k=u_{k-1}+T_Ce_{k} $$
+In questo caso si avrà 
+$$ U(z)=\mathcal{Z}[u_k](z)=z^{-1}U(z)+T_CE(z)$$
+$$ \frac{U(z)}{E(z)}=\frac{T_C}{1-z^{-1}}=\frac{T_Cz}{z-1}$$
+Esistono anche altri tipi di integrazione, ad esempio quella \textit{trapezoidale} che ha funzione di trasferimento 
+$$ \frac{U(z)}{E(z)}=\frac{T_C}{2}\frac{z+1}{z-1}$$
+\subsection{Discretizzazione del Regolatore}
+Si vogliono rappresentare le 3 azioni del PID in forma discreta, sull'errore $e(t)=t_{rif}(t)-y(t)$, per poter essere implementate in un sistema digitale che ha un clock, o meglio, passo di campionamento $T_C$.\begin{itemize}
+\item\textbf{azione proporzionale}
+$$K_p e(t) \ \ \ \text{ diventa }\ \ \  K_pe(kT_C)=K_pe_k$$
+\item\textbf{azione integrale}
+$$\frac{K_p}{T_i}\int_0^te(\tau)d\tau \ \ \ \text{ diventa }\ \ \ \frac{K_p}{T_i}\sum_{j=1}^k T_Ce_j $$
+\item\textbf{azione derivativa}
+$$K_pT_d \frac{de(t)}{dt} \ \ \ \text{ diventa }\ \ \ K_pT_d \frac{e_k-e_{k-1}}{T_C}$$
+\end{itemize}
+L'azione totale del PID in forma digitale è quindi 
+$$
+u_k=K_pe_k+\frac{K_p}{T_i}\sum_{j=1}^k T_Ce_j + K_pT_d \frac{e_k-e_{k-1}}{T_C}
+$$
+Il PID espresso in tal modo è detto in \textbf{forma di posizione}. Ovviamente quando si esegue un algoritmo che implementa il PID, ad ogni passo, per l'integrazione, non viene ri-eseguita l'intera somma dell'errore dall'inizio fino all'istante corrente, bensì si implementa in maniera ricorsiva considerando una variabile ausiliaria che tiene conto del valore integrale dell'istante precedente  
+$$u_{i,k}=u_{i,k-1}+\frac{K_p}{T_i}T_Ce_k  \ \ \ \ \text{ azione integrale ricorsiva}$$
+si esprime quindi il regolatore in tal senso 
+$$
+u_k=K_pe_k+u_{i,k-1}+\frac{K_p}{T_i}T_Ce_k + K_pT_d \frac{e_k-e_{k-1}}{T_C}
+$$
+Il PID digitale può essere espresso anche diversamento, in un modo detto in \textbf{forma di velocità}. Si consideri la differenza fra l'azione in due istanti consecutivi
+$$
+u_k=K_pe_k=K_pe_k+\frac{K_p}{T_i}\sum_{j=1}^k T_Ce_j + K_pT_d \frac{e_k-e_{k-1}}{T_C}
+$$
+$$
+u_{k-1}=K_pe_{k-1}=K_pe_k+\frac{K_p}{T_i}\sum_{j=1}^{k-1} T_Ce_j + K_pT_d \frac{e_{k-1}-e_{k-2}}{T_C}
+$$ $$ \Delta u_k = u_k-u_{k-1}$$
+Sviluppando la differenza si trova che 
+$$ 
+\Delta u_k = K_p(e_k-e_{k-1})+\frac{K_pT_C}{T_i}e_k+\frac{K_pT_d}{T_C}(e_k-2e_{k-1}+e_{k-2})
+$$
+L'espressione in forma di velocità del PID è la seguente 
+$$ u_k=u_{k-1}+\Delta u_k$$
+Nel dominio della trasformata $\mathcal Z$, si considera l'operatore del ritardi di campionamento $z^-1$, se $U_k$ è la trasformata di $u_k$, allora 
+$$ U_{k-1}=U_k\cdot z^-1\ \  \text{ è la trasformata di }\ \  u_{k-1}$$
+Ne consegue che se 
+$$ \Delta u_k = u_k-u_{k-1}$$ 
+allora nel dominio $\mathcal Z$
+$$ \Delta U_k = U_k-U_kz^{-1}=(1-z^{-1})U_k$$
+precisamente
+$$ 
+\Delta U_k =(1-z^{-1})U_k= K_p(1-z^{-1})E_k+\frac{K_pT_C}{T_i}E_k+\frac{K_pT_d}{T_C}(1-2z^{-1}+z^{-2})E_k
+$$
+Dove $E_k$ è la trasformata dell'errore $e_k$. Sapendo che $(1-2z^{-1}+z^{-2})=(1-z^{-1})^2$ si può riscrivere  
+$$ 
+\Delta U_k =(1-z^{-1})U_k=  K_p(1-z^{-1})E_k+\frac{K_pT_C}{T_i}E_k+\frac{K_pT_d}{T_C}(1-z^{-1})^2E_k
+$$
+Isolando $U_k$ si trova un espressione in $z^{-1}$ che sarà utile per la realizzazione
+$$ 
+U_k=\Big[ K_p+\frac{K_p}{T_i}\frac{T_C}{1-z^{-1}}+\frac{K_p}{T_C}T_d(1-z^{-1})  \Big]E_k
+$$
+Il termine fra le parentesi quadre è la trasformata del PID digitale
+$$ 
+PID(z)=\Big[ K_p+\frac{K_p}{T_i}\frac{T_C}{1-z^{-1}}+\frac{K_p}{T_C}T_d(1-z^{-1})  \Big]
+$$
+$$ 
+U_k=PID(z)E_k
+$$
+In seguito è riportata una possibile implementazione digitale del PID in forma di posizione. I colori servono esclusivamente ad evidenziare le 3 diverse azioni.
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/schemaPIDdigitale.pdf}
+\end{center}
+\subsection{Derivata Filtrata in Banda}
+Abbiamo visto come, nel caso continuo, per poter far si che il PID sia realizzabile si è considerato un polo in alta frequenza da aggiungere  all'azione derivativa $u_d$ del PID.
+\begin{itemize}
+    \item ideale : $u_d=K_pT_ds$
+    \item reale :  $u_d=K_pT_d\frac{s}{1+(\nicefrac{T_d}{N})s}$
+\end{itemize}
+Questo perché lo schema a blocchi di un sistema reale deve includere esclusivamente blocchi "causali", non possono essere presenti blocchi con delle funzioni improprie.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/azioneDerivativa.pdf}
+\end{center}
+Nel dominio di Laplace l'azione derivativa vale 
+$$ U_d(s)=K_pT_d\frac{s}{1+\frac{T_d}{N}s}E(s)$$
+Moltiplicando per  $1+\frac{T_d}{N}s$ si ha 
+$$ \Big(1+\frac{T_d}{N}s \Big)U_d(s)=K_pT_dsE(s)$$
+Si vuole rendere realizzabile il PID digitale. Si ricordi che l'azione derivativa al passo $k$ è 
+$$ u_{d,k}=\frac{K_pT_d}{T_C}(e_{k}-e_{k-1})$$
+Nel dominio $\mathcal Z$, facendo uso dell'operatore di ritardo $z^{-1}$ si ha
+$$ \mathcal{Z}[u_{d,k}]=U_{d,k}=\frac{K_pT_d}{T_C}(1-z^{-1})E_k$$
+considerando il termine derivativo approssimato mediante uso del filtraggio della derivata si ottiene 
+$$u_{d,k}=\frac{1}{\dfrac{T_d}{NT_C}+1}\Big[
+\frac{T_d}{NT_C}u_{d,k-1}+     
+\frac{K_pT_d}{T_C}e_k+ 
+\frac{T_d}{T_C}e_{k-1}
+\Big]$$
+Nel dominio $\mathcal{Z}$ con l'operatore $z^{-1}$ si ha 
+$$ 
+U_{d,k}=\frac{K_pT_d}{T_C}(1-z^{-1})\frac{1}{
+    1+\dfrac{T_d}{NT_C}-\dfrac{T_d}{NT_C}z^{-1}
+}E_k
+$$
+Infine quindi, il PID reale implementato digitalmente con la derivata filtrata in banda assume la forma definitva 
+$$ 
+PID^*(z)=K_p+\frac{K_p}{T_i}\frac{T_C}{1-z^{-1}}+\frac{K_pT_d}{T_C}\frac{1-z^{-1}}{1+\frac{T_d}{NT_C}-\frac{T_d}{NT_C}z^{-1}}
+$$
+$$ 
+U_k=PID^*(z)E_k
+$$
+\redText{continua da slide 21}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
