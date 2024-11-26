@@ -3298,6 +3298,34 @@ $$
 |H_0(j\omega)|=T_C\frac{\sin(\omega \frac{T_C}{2})}{\omega \frac{T_C}{2}}\implies 
 |H_0(j\omega)|\simeq T_C \iff \omega T_C<<1
 $$
+Riguardo il passo di campionamento\begin{itemize}
+    \item $T_C$ deve essere sufficientemente piccolo per evitare perdita di informazioni 
+    \item $T_C$ non può essere troppo piccolo perché cresce troppo il costo computazionale 
+\end{itemize}
+\flowerLine 
+\section{Specifiche del Progetto}
+Le specifiche che idealmente un regolatore PID deve soddisfare sono\begin{itemize}
+    \item stabilità asintotica 
+    \item errore sotto una certa soglia a regime permanente 
+    \item prestazioni dinamiche sul transitorio (ad esempio, velocità di risposta)
+    \item robustezza ai disturbi 
+    \item specifiche su ingresso-uscita 
+    \item garantire uno sforzo di controllo non troppo elevato 
+\end{itemize}
+Vanno considerati \begin{itemize}
+    \item limiti fisici degli attuatori 
+    \item limiti dovuti al fatto che il PID è implementato digitalmente (passo di campionamento)
+\end{itemize}
+Definiamo il \textit{tempo di salita} $T_s$ come il tempo che impiega la risposta a passare dal $10\%$ al $90\%$ del valore di riferimento.\acc 
+Il \textit{tempo di assestamento} $T_a$ è il tempo che impiega l'uscita a raggiungere un margine di errore dal valore di riferimento del (solitamente) $3\%-5\%$.\acc 
+$T_m$ è l'istante di \textit{massima sovraelognazione} $S$, questa è 
+$$S=\frac{y(T_m)-y(\infty)}{y(\infty)} $$
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/secifiche.png} 
+\end{center}
+\redText{continua da slide 10}
+
+
 
 
 
