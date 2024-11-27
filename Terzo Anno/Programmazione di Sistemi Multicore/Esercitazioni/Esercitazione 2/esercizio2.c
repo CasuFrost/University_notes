@@ -9,7 +9,6 @@ deve essere memorizzata nella memoria del processo di rango 0.
 
     - Verifica: Controlla se la matrice risultante è corretta, ad esempio eseguendo lo stesso calcolo in modo sequenziale.
     - Esplora alternative: Prova a pensare a diversi modi per implementare questa operazione.
-
 */
 
 #include <time.h>
@@ -175,7 +174,7 @@ int main(int argc, char **argv)
 
 #pragma omp parallel num_threads(THREAD_NUM)
     thread_func(mat1, mat2, result_mat, order, row_per_thread);
-
+    return 0;
     print_matrix_product(mat1, mat2, result_mat, order);
     printf("\n");
     return 0;

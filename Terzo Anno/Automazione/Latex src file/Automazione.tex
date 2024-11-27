@@ -3524,12 +3524,25 @@ $$
 $$ 
 U_k=PID^*(z)E_k
 $$
-\redText{continua da slide 21}
-
-
-
-
-
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/schemaPIDdigitaleBanda.pdf.png}
+\end{center}
+Si può moltiplicare per $\frac{z}{z}$ e riorganizzare l'espressione di $PID^*(z)$ per ottenere la versione fratta 
+$$
+PID^*(z)=K_p\frac{a_2z^2+a_1z+a_0}{
+    (z-\frac{T_d}{T_d+NT_C})(z-1)
+}
+$$
+Dove $a_0$, $a_1$ e $a_2$ sono i 3 coefficienti che dipendono dai parametri del PID, dal tempo di campionamento $T_C$ e dalla scelta di $N$.
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/coefficientiPID.png}
+\end{center}
+\subsection{Schemi Realizzativi}
+Consideriamo adesso possibili schemi di controllo realizzativi che utilizzano una regola di controllo PID, sia $P(s)$ il processo da controllare. Sia $n(t)$ un disturbo sul sensore dell'uscita, e $y_m$ l'uscita misurata affetta da tale errore.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/schemaDiControlloPID.pdf}
+\end{center}
+In questo caso, quando l'errore effettivo tende a zero $r(t)-y(t)\simeq 0$, l'errore dovuto al disturbo sulla misurazione diventa comparabile o addirittura maggiore all'errore effettivo.\acc  In questo caso, il segnale "utile" dell'errore che dovrebbe essere usato per la regolazione, risulta piccolo e viene "oscurato" dal disturbo, rendendo difficile per il regolatore prendere decisioni accurate sulla base delle misure.
 
 
 

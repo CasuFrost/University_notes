@@ -2471,5 +2471,55 @@ $V$ data una soluzione può verificare che questa sia contenuta o no nel linguag
     \item $|y|=poly(|x|)$, ossia la cardinalità di $y$ è polinomiale rispetto la cardinalità di $x$.
 \end{itemize}
 \defi{($NP$)} La classe dei linguaggi $NP$ contiene tutti i linguaggi $L$ che ammettono un verificatore polinomiale.\acc 
-\textbf{Esempio} : Si consideri il linguaggio $3-COL$, una soluzione è data sotto-forma di grafo colorato, se $n$ è il numero di nodi,  è possibile controllare ogni coppia di nodi in $O(n^2)$, e verificare che, se questi sono adiacenti, sono anche di colori diversi. La verifica avviene in tempo polinomiale. Nonostante questo, la ricerca di una soluzione dato un grafo non colorato è un problema in $EXP$. Quindi $3-COL$ è un problema $NP$.
+\textbf{Esempio} : Si consideri il linguaggio $3-COL$, una soluzione è data sotto-forma di grafo colorato, se $n$ è il numero di nodi,  è possibile controllare ogni coppia di nodi in $O(n^2)$, e verificare che, se questi sono adiacenti, sono anche di colori diversi. La verifica avviene in tempo polinomiale. Nonostante questo, la ricerca di una soluzione dato un grafo non colorato è un problema in $EXP$. Quindi $3-COL$ è un problema $NP$. Si vuole dimostrare formalmente.\acc
+\prop{} $3-COL\in NP$\acc 
+\dimo{} Sia $V$ un verificatore per $3-COL$ che prende in input un grafo $G$ ed una colorazione 
+$y=(c_1,c_2\dots c_n)$, con $c_i$ colore dell'$i$-esimo nodo di $G$. La procedura di $V$ è definita come segue\begin{itemize}
+    \item controlla ogni coppia $(c_i,c_j)$ se $(i,j)\in E(G)$ 
+    \item rifiuta se e solo se $c_i\ne c_j$ per ogni coppia 
+\end{itemize}
+Chiaramente $V$ ha una complessità polinomiale in quanto al più controlla ogni arco del grafo, e verifica che $y$ sia una soluzione. Se $V(<G,y>)$ accetta, allora $y$ è una colorazione valida per $G$ e $G$ è 3-colorabile.\hfill$\blacksquare$\acc  
+\teo{} $P\subseteq NP \subseteq EXP$
+\acc\dimo{}
+Per il teorema delle gerarchie dei tempo è noto che $P\ne EXP$, si ha che 
+$$ P\ne NP \lor NP \ne EXP$$
+Si consideri un linguaggio $L\in P$, ossia $\exists M$ che è una TM e $x\in L \iff M(x)$ accetta ed ha complessità polinomiale in funzione di $|x|$. Si definisce un verificatore $V(<x,y>)$ la cui procedura è definita come segue\begin{itemize}
+    \item ignora l'input $y$
+    \item esegue $M(x)$
+    \item se $M$ accetta su $x$, $V$ accetta, altrimenti rifiuta.
+\end{itemize}
+è chiaro che $V$ soddisfi le seguenti proprietà 
+\begin{itemize}
+    \item $V$ ha la stessa complessità di $M$, è quindi polinomiale 
+    \item $V$ è un verificatore per $L$
+\end{itemize}
+Per definizione $L\in NP$. Sapendo che esiste un verificatore polinomiale per $L$, si considera una $TM$ che considera tutti i possibili certificati $y$ tali che $|y|=poly(|x|)$, e accetta solo se $V(<x,y>)$ accetta, quindi tale TM è un decisore per $L$ che opera in tempo esponenziale, quindi $L\in EXP$.\hfill$\blacksquare$\acc  
+Si considererà ora la TM non deterministica per dare una definizione alternativa di NP. Una TM non deterministica ha la funzione di transizione che, piuttosto che portare da uno stato ad un altro, porta da uno stato ad un insieme di stati. \acc 
+Definiamo la complessità computazionale di una TM non deterministica come il massimo numero di passi impiegati in funzione di $n$ per ogni stringa $x$ di lunghezza $n$, considerando il ramo di computazione più lungo.\acc 
+\defi{} : Sia $t:\N\rightarrow \N$ una funzione, si definisce 
+$$ Ntime(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{non deterministica}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
+Per semplicità, denoteremo NTM una TM non deterministica.\acc 
+\defi{} $\displaystyle NP=\bigcup_{k\in\Z^+}Ntime(n^k)$
+\acc 
+\defi{} $\displaystyle NEXP=\bigcup_{k\in\N}Ntime(2^{n^k})$
+Si vuole dare un esempio di linguaggio $NP$ usando tale definizione, si consideri $SAT$, si definisce una NTM $N$ che decide $SAT$, ossia $N(<\phi>)$ accetta se $\phi$ è soddisfacibile. La procedura di tale TM è definita come segue\begin{itemize}
+    \item sia $n$ il numero di variabili, si definisce un array $x$ lungo $n$ non inizializzato, e si definisce un contatore $i=0$. 
+    \item "TOP" : si incrementa $i$ di 1, se $i>n$, esegui la linea "CHECK", altrimenti esegui entrambe le seguenti linee in modo parallelo (diramazione della computazione)\begin{itemize}
+        \item $x[i]=0$, ed esegui la linea "TOP"
+        \item $x[i]=1$, ed esegui la linea "TOP"
+    \end{itemize}
+    \item "CHECK" : accetta se e solo se $\phi(x)=1$
+\end{itemize}
+\teo{} Le due definizioni di $NP$ sono equivalenti.\acc 
+\dimo{} Verranno dimostrate le due implicazioni separatamente.\\ 
+\boxedMath{$\implies$} Se $L$ ha un verificatore polinomiale $V$, è possibile definire una NTM $N$ la cui procedura è descritta come segue:\begin{itemize}
+    \item su input $x$
+    \item $N$ utilizzando il non determinismo determina ogni possibile soluzione $y$ tale che $|y|=poly(|x|)$
+    \item $N$ accetta solo se $V(<x,y>)$ accetta 
+\end{itemize}
+è chiaro che $N$ è un decisore non deterministico per $L$ che opera in tempo polinomiale.\acc 
+\boxedMath{$\impliedby$} Se $L$ è decidibile in tempo polinomiale da una NTM $N$, allora su input $x$, $poly(|x|)$ è un upper bound sui passi di computazione di ogni ramo parallelo di $N$. Si definisce un verificatore $V$, che opera su input $y$, definito come l'insieme dei passi deterministici di un ramo di $N$, in particolare\begin{itemize}
+    \item $V(x,y)$ intepreta $y$ come un insieme di (al più) lunghezza $poly(|x|)$ che simula $N(x)$ in modo deterministico seguendo le scelte di "fork" determinate da $y$. 
+\end{itemize}
+
 \end{document}
