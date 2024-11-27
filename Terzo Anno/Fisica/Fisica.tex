@@ -2400,4 +2400,158 @@ Quindi due condensatori in serie sono equivalenti ad un condensatore la cui capa
 ne consegue 
 $$ C=\Big(\displaystyle  \prod_{i=1}^n C_i\Big)\Big(\displaystyle \sum_{i=1}^n C_i\Big)^{-1}$$
 \subsubsection{Condensatori in Parallelo}
+Due condensatori sono collegati in parallelo come nell'immagine seguente\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/condParallelo.eps}
+\end{center} 
+Essendo ciascuno dei conduttori equipotenziale, la differenza di potenziale dei due conduttori è la stessa\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/condParallelo2.eps}
+\end{center} 
+La carica globale è quindi 
+$$ Q=q_1+q_2=V(C_1+C_2)$$
+La capacità equivalente è quindi 
+$$ C=\frac{q}{V}=C_1+C_2$$
+Per un sistema di $n$ condensatori in parallelo si ha 
+$$ C=\sum_{i=1}^nC_i$$
+\subsection{Energia del Condensatore}
+Quando un condensatore si carica, passa da uno stato in cui la carica sulle armature è 0, ad uno stato in cui la carica è, rispettivamente, $+q$ e $-q$, con una differenza di potenziale $V=\frac{q}{C}$ fra le armature. Tale separazione di cariche, richiede un lavoro. Si può immaginare che la carica di un condensatore avvenga sottraendo una carica $dq$ da un armatura e portandola ad un altra, fino ad avere la situazione in cui le cariche sulle armature sono eguali ma opposte, ricordando che la carica totale è nulla in ogni istante.\acc 
+Si consideri la seguente situazione \begin{itemize}
+    \item la differenza di potenziale fra le due armature è $V'$, è stata già trasferita in totale una carica $q'=CV'$
+    \item si sposta un ulteriore carica infinitesimale $dq'$
+    \item il lavoro infinitesimale per spostare tale carica sarà $dL=V'dq'=\frac{q'}{C}dq'$
+\end{itemize}
+Il lavoro complessivo per separare totalmente le cariche sarà 
+$$L=\int dL = \int_0^q \frac{q'}{C}dq'=\frac{q^2}{2C} $$
+\sapbox{dipende solo dalla capacità del condensatore e dalla carica trasportata}
+A tale lavoro, si oppone la forza fra le cariche che sono repulsive quando dello stesso segno, de facto, tale lavoro che viene effettuato contro la forza elettrostatica viene immagazzinato nel sistema sotto forma di energia potenziale $U_e$, detta \textbf{energia potenziale elettrostatica}, assumendo che l'energia sia nulla quando $q=0$, si ricava che $L=U_e$:
+$$ U_e=\frac{q^2}{2C}=\frac{1}{2}CV^2=\frac{1}{2}qV$$
+\begin{center}
+    \includegraphics[width=\textwidth]{images/caricaCondensatore.eps}
+\end{center} 
+Si consideri il condensatore piano, di cui conosciamo il campo elettrico e la differenza di potenziale 
+$$ E=\frac{\sigma}{\varepsilon_0} \ \ \ \ \ \ V=Ed$$
+Dove $d$ è la distanza fra le due armature. Sapendo che $A$ è la superficie delle due lastre, si ha che 
+$$ E=\frac{\sigma}{\varepsilon_0} = \frac{Q}{A\varepsilon_0}\implies Q=EA\varepsilon_0$$
+L'energia potenziale elettrostatica del condensatore piano è quindi 
+$$ U_e=\frac{1}{2}QV=\frac{1}{2}\frac{E^{-2}A^2\varepsilon_0^2}{C}$$ sapendo che la capacità del condensatore piano è $C=\varepsilon_0\frac{A}{d}$ si ha 
+$$ U_e=\frac{1}{2}\varepsilon_0E^{-2}(Ad)$$ 
+$Ad$ è il prodotto fra la distanza delle armature e la superficie, è quindi il volume contenuto fra le due armature dove è contenuto il campo elettrico. Allora se $$ U_e=\frac{1}{2}\varepsilon_0E^{-2}\cdot (\text{volume})$$ 
+il termine $u=\frac{1}{2}\varepsilon_0E^{-2}$ si definisce \textbf{densità di energia}
+$$ U_e=\int_\tau ud\tau = \int_\tau \frac{1}{2}\varepsilon_0E^2d\tau = uAd$$
+\subsubsection{Esercizio}
+Si consideri un conduttore sferico di raggio $R$, carica $Q$ e differenza di potenziale $V$. È noto che la capacità è $$ C=4\pi\varepsilon_0R$$
+Si vuole trovare $U_e$ integrando sul volume dello spazio in cui è contenuto il campo, ossia in tutto lo spazio esclusa la zona coperta dal conduttore.\acc 
+Si consideri un punto distante $r>R$ dal centro della sfera, una sfera infinitesima di raggio $r$ ha un volume infinitesimo $d\tau=4\pi r^2dr$, si integra quindi in $dr$ 
+$$ U_e=\frac{1}{2}\varepsilon_0\int_\tau E^2d\tau = \frac{1}{2}\varepsilon_0\int_R^\infty E^2(4\pi r^2)dr=\frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}$$
+Segue il calcolo dell'integrale
+\begin{eqnarray}
+    \frac{1}{2}\varepsilon_0\int_R^\infty E^2(4\pi r^2)dr=\\ 
+    \frac{1}{2}\varepsilon_0\int_R^\infty \Big( \frac{Q}{4\pi\varepsilon_0r^2} \Big)^2(4\pi r^2)dr=\\ 
+    \frac{1}{2}\varepsilon_0\int_R^\infty \frac{1}{(4\pi\varepsilon_0)^2}\frac{Q^2}{r^2}(4\pi r^2)dr=\\ 
+   \frac{1}{2}\varepsilon_04\pi\frac{1}{(4\pi\varepsilon_0)^2}Q^2\int_R^\infty\frac{r^2}{r^4}dr=\\ 
+   \frac{1}{2}Q^2\frac{1}{4\pi\varepsilon_0}\int_R^\infty r^{-2}dr = \\
+   \frac{1}{2}Q^2\frac{1}{4\pi\varepsilon_0}\Big(-\frac{1}{r}\Bigg |_R^\infty\Big) = \\ 
+   \frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}(\frac{1}{R}-\frac{1}{\infty})= \\
+   \frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}
+\end{eqnarray}
+in conclusione
+$$U_e  =\frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}$$
+Ci si pone la seguente domanda, qual'è la regione di spazio (volume sferico) in cui è contenuta il 90\% dell'energia totale? Si deve trovare $R^*>R$ tale che 
+$$ \frac{1}{2}\varepsilon_0\int_{R}^{R^*} E^2(4\pi r^2)dr=\frac{9}{10}U_e$$
+Si ha che 
+$$\frac{1}{2}\varepsilon_0\int_{R}^{R^*} E^2(4\pi r^2)dr=\frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}(\frac{1}{R}-\frac{1}{R^*}) $$
+quindi 
+$$ \frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}(\frac{1}{R}-\frac{1}{R^*}) =\frac{9}{10}
+\frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}\implies $$
+$$ \frac{1}{R}-\frac{1}{R^*}=\frac{9}{10}\frac{1}{R}\implies \frac{1}{R^*}=\frac{1}{R}(1-\frac{9}{10})\implies$$
+$$ R^*=10R$$
+Quindi, il 90\% dell'energia totale contenuta in tutto lo spazio (infinito) risiede una sfera di raggio a malapena 10 volte quello del conduttore.
+\chapter{Corrente Elettrica}
+\section{Intensità di Corrente}
+Si considerino due conduttori isolati $C_1$ e $C_2$ con potenziali $V_1$ e $V_2$. 
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\centering\arraybackslash}m{3in}}
+		\includegraphics[width=0.3\textwidth]{images/corrente.eps} &   
+		Quando questi sono messi a contatto (da un materiale conduttore di volume trascurabile) si raggiunge una condizione di equilibrio che li porterà allo stesso potenziale $V$, in tale processo, un certo numero di elettroni passa da un conduttore ad un altro sotto l'effetto del campo $\bar E$ dovuto alla differenza di potenziale $\Delta V=V_1-V_2$. 
+Tale movimento di cariche è detto \textit{corrente elettrica}, e dura per un lasso di tempo molto breve, necessario al trasferimento delle cariche per raggiungere la condizione di equilibrio del potenziale $V$.
+		\\
+	\end{tabular}
+\end{center}
+La corrente è quindi uno spostamento di cariche nel tempo, può essere descritta dal vettore \textit{densità di corrente} $\bar j$, il cui modulo è uguale a 
+$$ |\bar j|=\frac{dQ}{dsdt}$$
+equivalente ad una carica infinitesima $dQ$ che attraversa una superficie infinitesima $ds$ in un lasso di tempo infinitesimo $dt$. La corrente è costituita da un movimento di elettroni liberi, denotata con $e^-$ la carica fondamentale dell'elettrone, questo si muove perché soggetto ad una forza data dal campo elettrico e dalla differenza di potenziale. 
+$$ \bar F = \bar Ee^-=m\bar a$$
+La velocità degli elettroni che compongono una corrente è detta \textit{velocità di deriva}, la sua trattazione verrà omessa, basti sapere che è costante ed uguale a 
+$$ v_d=10^{-2}\frac{\text m}{\text s}$$
+$\bar j$ rappresenta in qualche modo un \textit{flusso di cariche} come il flusso di un liquido che passa per un tubo. Si consideri una sezione trasversale $ds$ di un conduttore, di cui $d\bar s$ è il vettore superficie.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/correnteAttraversaSezione.drawio.pdf}
+\end{center}
+La carica che passa in $ds$ in un tempo $dt$ è $$dt(\bar v_d\cdot d\bar s)$$
+Sia $n$ il numero di portatori di carica (elettroni) per unità di volume, si ha che 
+$$ \bar j = ne^-\bar v_d$$
+Si definisce l'\textbf{intensità di corrente} l'integrale della densità di corrente su tutta la superficie attraversata 
+\eqImportante{$\displaystyle 
+I=\int_S \bar j d\bar s 
+$} 
+e si misura in Ampere A. \acc 
+Vi è un legame intrinseco fra l'intensità di corrente, più comunemente chiamata corrente, e fra la differenza di potenziale, in particolare, queste sono proporzionali 
+$$ V=RI\ \ \ \ I=\frac{V}{R}\ \ \ \ \textbf{prima legge di Ohm}$$
+Il fattore $R$, che si misura in $\frac{\text{Volt}}{\text{Ampere}}=\Omega$ (l'unità di misura è l'ohm) si chiama \textbf{resistenza}, e si oppone al passaggio della corrente, questa dipende dalla sezione del conduttore, dalla lunghezza e dal materiale di cui è composto. In particolare 
+$$ R=\rho l\frac{1}{A}$$
+Dove \begin{itemize}
+    \item $l$ è la lunghezza 
+    \item $A$ è la superficie della sezione 
+    \item $\rho$ è un coefficiente detto \textit{resistività} e dipende dal materiale e dalla temperatura.
+\end{itemize}
+$\rho$ è definibile come "densità di resistenza", si misura in metri per ohm $m\cdot\Omega$, ed in condizioni regolari, se $t^\circ$ è la temperatura e $\alpha$ è un coefficiente che dipende dal materiale, vale 
+$$ \rho=\rho_0(1+\alpha t^\circ)$$
+Si consideri un conduttore filiforme, ed un suo tratto di filo $dl$ con sezione $dA$, con ai capi posta una differenza di potenziale $dV$.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/tratttofilo.pdf}
+\end{center}
+Scrivendo la prima legge di Ohm in forma locale, si ha che 
+$$dV=\rho\frac{dl}{dA}\bar j dA=\rho dl\bar j $$
+quindi 
+$$ \frac{dV}{dl}=\rho \bar j$$
+Essendo $l$ una misura di spazio, il termine $\frac{dV}{dl}$ non è altro che il gradiente di $V$
+$$ \frac{dV}{dl}=\Bigg [
+    \frac{\delta V}{\delta x},\frac{\delta V}{\delta y},\frac{\delta V}{\delta z}
+\Bigg]=\nabla V$$
+Ma allora $\nabla V = \rho \bar j$
+Ma il gradiente del potenziale elettrostatico (cambiato di segno) è proprio il campo elettrico, quindi, punto per punto 
+$$ \bar E = \rho \bar j$$
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/campoCorrente.pdf}
+\end{center}
+\subsection{Collegamento di Resistenze}
+Le resistenze, come i condensatori, possono essere poste in serie ed in parallelo, e se ne può ricavare una resistenza equivalente. Si indicano con il seguente simbolo\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/resistenza.pdf}
+\end{center}
+Lo schema di due resistenze in serie è il seguente 
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/resistenzaSerie.pdf}
+\end{center} 
+La corrente $I$ è costante, per la prima legge di ohm si ha quindi che 
+$$ V_1=\frac{R_1}{I} \ \ \ \ \ V_2=\frac{R_2}{I}$$
+ne consegue che il potenziale totale è 
+$$ V=V_1+V_2=\frac{R_1+R_2}{I}=\frac{R}{I}$$
+Le due resistenze in serie sono quindi equivalenti ad una resistenza il cui valore è la somma delle due. 
+$$ R=R_1+R_2$$
+Si consideri ora il seguente schema in cui due resistenze sono poste in parallelo\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/resistenzeParallelo.pdf}
+\end{center}
+La corrente si distribuisce sui due rami, in maniera non uniforme, infatti, tenderà ad esserci più intensità di corrente la dove c'è meno resistenza, in particolare la \textit{partizione di corrente} risponde alla seguente identità
+$$R_1I_1=R_2I_2 $$
+Inoltre la corrente si conserva 
+$$ I=I_1+I_2$$
+la differenza di potenziale ai capi delle due resistenze è la stessa \begin{center}
+    \includegraphics[width=0.6\textwidth]{images/resistenzeParallelo2.pdf}
+\end{center}
+Quindi 
+$$ \begin{cases}
+    V=R_1I_1\\ 
+    V=R_2I_2
+\end{cases}\implies 
+I=\frac{V}{R_1}+\frac{V}{R_2}\implies \frac{I}{V}=\frac{1}{R_1}+\frac{1}{R_2}\implies $$
+$$ R=\frac{R_1R_2}{R_1+R_2}$$
+\flowerLine 
+\section{Campo Elettromotore}
 \end{document}

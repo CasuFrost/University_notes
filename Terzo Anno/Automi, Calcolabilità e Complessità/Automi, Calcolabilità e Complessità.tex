@@ -668,7 +668,7 @@ $$ \delta : Q\backslash \{q_{acc}\} \times Q\backslash \{q_{start}\}\rightarrow 
 Dato un generico NFA, è possibile trasformarlo in un GNFA aggiungendo al più due stati (iniziale e 
 finale), ed utilizzando gli $\epsilon$-archi per riempire le coppie di stati che non sono collegate.\acc 
 La funzione $Convert : GNFA \rightarrow GNFA$ modifica un GNFA restituendone uno equivalente, ma con uno stato in meno. 
-Tale funzione è definita in tal modo, sia $k$ il numero di archi di $G$, si esegue $Convert(G)$ \begin{itemize}
+Tale funzione è definita in tal modo, sia $k$ il numero di stati/nodi di $G$, si esegue $Convert(G)$ \begin{itemize}
     \item Se $k=2$, allora esiste un solo arco fra questi etichettato con un espressione regolare $r$, la funzione 
     restituirà $r$. 
     \item Se $k> 2$, viene selezionato un qualsiasi nodo in $Q\backslash\{q_{start},q_{acc}\}$, sia questo $q_{rip}$, 
