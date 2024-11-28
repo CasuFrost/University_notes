@@ -3542,9 +3542,14 @@ Consideriamo adesso possibili schemi di controllo realizzativi che utilizzano un
 \begin{center}
     \includegraphics[width=0.8\textwidth]{images/schemaDiControlloPID.pdf}
 \end{center}
-In questo caso, quando l'errore effettivo tende a zero $r(t)-y(t)\simeq 0$, l'errore dovuto al disturbo sulla misurazione diventa comparabile o addirittura maggiore all'errore effettivo.\acc  In questo caso, il segnale "utile" dell'errore che dovrebbe essere usato per la regolazione, risulta piccolo e viene "oscurato" dal disturbo, rendendo difficile per il regolatore prendere decisioni accurate sulla base delle misure.
-
-
+In questo caso, quando l'errore effettivo tende a zero $r(t)-y(t)\simeq 0$, l'errore dovuto al disturbo sulla misurazione diventa comparabile o addirittura maggiore all'errore effettivo.\acc  
+Il segnale "utile" dell'errore che dovrebbe essere usato per la regolazione, risulta piccolo e viene "oscurato" dal disturbo, rendendo difficile per il regolatore prendere decisioni accurate sulla base delle misure.\acc 
+Bisogna considerare che, l'errore può avere delle discontinuità molto marcate nei casi in cui il riferimento $r(t)$ passi da un valore costante ad un altro in un istante. Tali istanti di discontinuità rendono poco stabile il segnale derivativo che in quei punti avrà dei picchi dovuto alla variazione. \acc 
+Risulta quindi utile calcolare l'azione derivativa \textit{esclusivamente} sull'uscita del processo, come rappresentato in figura:
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/schemaPIDderivataUscita.png}
+\end{center}
+La $y$ come pedice in $PID_y^*$ indica che l'azione derivativa viene eseguita esclusivamente sul segnale di uscita $y$.
 
 
 
