@@ -3540,22 +3540,141 @@ Dove $a_0$, $a_1$ e $a_2$ sono i 3 coefficienti che dipendono dai parametri del 
 \subsection{Schemi Realizzativi}
 Consideriamo adesso possibili schemi di controllo realizzativi che utilizzano una regola di controllo PID, sia $P(s)$ il processo da controllare. Sia $n(t)$ un disturbo sul sensore dell'uscita, e $y_m$ l'uscita misurata affetta da tale errore.
 \begin{center}
-    \includegraphics[width=0.8\textwidth]{images/schemaDiControlloPID.pdf}
+    \includegraphics[width=0.85\textwidth]{images/schemaDiControlloPID.pdf}
 \end{center}
 In questo caso, quando l'errore effettivo tende a zero $r(t)-y(t)\simeq 0$, l'errore dovuto al disturbo sulla misurazione diventa comparabile o addirittura maggiore all'errore effettivo.\acc  
 Il segnale "utile" dell'errore che dovrebbe essere usato per la regolazione, risulta piccolo e viene "oscurato" dal disturbo, rendendo difficile per il regolatore prendere decisioni accurate sulla base delle misure.\acc 
-Bisogna considerare che, l'errore può avere delle discontinuità molto marcate nei casi in cui il riferimento $r(t)$ passi da un valore costante ad un altro in un istante. Tali istanti di discontinuità rendono poco stabile il segnale derivativo che in quei punti avrà dei picchi dovuto alla variazione. \acc 
+Bisogna considerare che, l'errore può avere delle discontinuità molto marcate nei casi in cui il riferimento $r(t)$ passi da un valore costante ad un altro in un istante. Tali istanti di discontinuità rendono poco stabile il segnale derivativo che in quei punti avrà dei picchi dovuto alla variazione, che possono sollecitare gli attuatori in maniera innaturale. Inoltre solitamente, il segnale di riferimento è costante e la sua derivata è nulla. 
+$$ 
+r(t)=\text{costante}\implies
+\frac{de(t)}{dt}=\frac{dr(t)}{dt}-\frac{dy(t)}{dt}=-\frac{dy(t)}{dt}
+$$ 
 Risulta quindi utile calcolare l'azione derivativa \textit{esclusivamente} sull'uscita del processo, come rappresentato in figura:
 \begin{center}
-    \includegraphics[width=0.7\textwidth]{images/schemaPIDderivataUscita.png}
+    \includegraphics[width=0.85\textwidth]{images/schemaPIDderivataUscita.pdf}
 \end{center}
-La $y$ come pedice in $PID_y^*$ indica che l'azione derivativa viene eseguita esclusivamente sul segnale di uscita $y$.
-
-
-
-
-
-
+La $y$ come pedice in $PID_y^*$ indica che l'azione derivativa viene eseguita esclusivamente sul segnale di misura $y_m(t)$, l'asterisco come apice indica che è realizzata la derivata in banda.\acc 
+Riassumendo ciò che è stato detto sopra \begin{itemize}
+    \item non è utile derivare il riferimento $r(t)$ in quanto è costante
+    \item variazioni istantanee del riferimento (gradino da una costante ad un altre) fanno assumere all'azione derivativa dei picchi indesiderati
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/variazioneGradino.eps}
+\end{center}
+Esiste anche una terza implementazione in cui anche il termine proporzionale viene calcolato solamente sul segnale dell'uscita misurata $y_m(t)$, lasciando il segnale di errore $e(t)$ esclusivamente come input dell'azione integrale.\begin{center}
+    \includegraphics[width=0.85\textwidth]{images/schemaPIDderivataPropUscita.pdf}
+\end{center}
+L'azione integrale conferirà ancora al regolatore la possibilità di annullare l'errore a regime permanente.\acc  Il motivo per cui si esonera l'errore dall'azione proporzionale è analogo al caso precedente: Nell'istante in cui il riferimento cambia a gradino, da un valore costante ad un altro, c'è una grande variazione dell'errore che può mandare in saturazione gli attuatori. 
+\subsection{Simulazione e Sforzo di Controllo}
+Si vuole mostrare la differenza fra un classico $PID^*$ ed un $PID_y^*$, il processo da controllare è il seguente 
+$$ P(s)=\frac{1}{(s+1)^3}$$
+I parametri del PID ideale scelti sono i seguenti 
+$$ K_p=2, \ \ \ K_i=1, \ \ \ K_d=1$$
+appositamente scelti per cancellare due poli stabili del processo, dato che la funzione del PID ideale è 
+$$ PID(s)=\frac{(s+1)^2}{s}$$
+$$ PID(s)P(s)=\frac{(s+1)^2}{s}\frac{1}{(s+1)^3}=\frac{1}{s(s+1)}$$
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/simulazionePID0.png}
+\end{center}
+I seguenti grafici riportano la risposta $y$ del sistema  ad un ingresso a gradino (che parte nell'istante $t=1$)
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.5\textwidth]{images/simulazionePID1.png} & in rosso è riportata la risposta del \redText{$PID_y^*$}, in blu la risposta del
+        \color{blue}$PID^*$\color{black}
+		\\
+	\end{tabular}
+\end{center}
+Si può notare come non ci siano grandi differenze, bene o male entrambi i regolatori adempiono al loro compito, e possono essere considerati entrambi validi, è qui riportato anche l'andamento dell'errore $e(t)$
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/simulazionePID2.png}
+\end{center}
+Nell'istante $t=1$ il riferimento ha una variazione istantanea, ci si aspetta quindi che il  \color{blue}$PID^*$ \color{black} abbia un picco in corrispondenza della discontinuità. Il seguente grafico mostra l'andamento del segnale di controllo $u$ che viene dato in input al processo.
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/simulazionePID3.png}
+\end{center}
+Come previso, il \redText{$PID_y^*$ } mantiene un segnale di controllo stabile, invece il 
+\color{blue}$PID^*$ \color{black} ha uno sforzo di controllo notevole, con un picco che può saturare l'attuatore, rendendo quindi il PID con azione derivativa solo sull'uscita misurata \redText{$PID_y^*$ } la scelta più adatta.\acc 
+Vogliamo adesso misurare lo sforzo di controllo al variare del parametro $N$ della derivata filtrata in banda, si ricordi che la funzione del PID con azione derivativa realizzabile è la seguente
+$$ PID(s)= 
+K_p\Big(1+\frac{1}{T_i s}+\dfrac{T_d s}{1+\frac{T_d}{N}s}\Big)
+$$
+Si consideri esclusivamente il PID con derivata sull'uscita misurata $PID_y^*$, in due versioni, una con valore \color{blue}$N=5$ \color{black}, ed un'altra con valore \redText{$N=30$ } (derivazione in banda con una frequenza maggiore). Si introduce la presenza di un disturbo sull'uscita in forma di rumore bianco a spettro uniforme. Gli andamenti dell'uscita del processo sono i seguenti
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/simulazionePID4.png}
+\end{center}
+I segnali sono praticamente sovrapposti, e non vi è una grande differenza, si può quindi pensare che sia lecito aumentare il valore $N$ per tener conto di variazioni in alta frequenza.\begin{itemize}
+    \item si ricordi che $N$ caratterizza "di quanto in alta frequenza" si sta valutando l'azione derivativa.
+\end{itemize}
+L'andamento del segnale di controllo del PID $u$, per i due valori di $N$, è il seguente
+\begin{center}
+    \includegraphics[width=\textwidth]{images/simulazionePID5.png}
+\end{center}
+Il polo in alta frequenza \redText{$N=30$ } implica il PID ha continuato a derivare i segnali per una banda notevole. Nel caso  \color{blue}$N=5$ \color{black} il controllo è nervoso (dato il disturbo) ma si mantiene limitato in (circa) $[-2,2]$, mentre nel caso \redText{$N=30$ } il controllo è pieno di picchi che arrivano fino ad $u=8$ o $u=9$.\acc 
+Lo schema del PID digitale $PID_y^*$ con derivata in banda ed azione derivativa solo sull'uscita di misura è il seguente
+\begin{center}
+    \includegraphics[width=\textwidth]{images/schemaPidDigSuUscita.pdf}
+\end{center}
+\flowerLine
+\section{Desaturazione e Tuning}
+Riprendiamo in mano lo schema del PID (ideale e continuo), aggiungendo un azione di feedforward
+tramite un blocco aggiuntivo nel diagramma.
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/PIDFF.png}
+\end{center}
+Si somma all'azione in retroazione un azione che viene dal riferimento $r$, questo schema è stato standardizzato chiamato "a due gradi di libertà", dato che c'è un blocco che processa il riferimento ed uno che processa l'errore. \acc 
+Quest'azione include il tempo di derivazione $T_d$ (se presente l'azione derivativa) e due parametri $\alpha$ e $\beta$, uno schema equivalente a quello mostrato, che non include azione di feed forward ma porta i parametri dentro l'anello di controllo, è il seguente
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/PIDFF2.png}
+\end{center}
+tale azione entra con un segno negativo nel sommatore prima del blocco $K_p$. Questo schema è interessante in quanto si ha un termine che agisce direttamente sull'uscita di misura, ed un termine che agisce sull'errore, in maniera simile alle implementazioni del PID\begin{itemize}
+    \item $PID_y^*$
+    \item $P_yID_y^*$
+\end{itemize} viste nella sezione precedente, questo schema non è altro che una generalizzazione dei possibili modi di implementare il PID già visti al variare di $\alpha,\beta$.\begin{center}
+    \includegraphics[width=\textwidth]{images/PIDFF3.pdf}
+\end{center}
+E se $\alpha,\beta$ fossero compresi in $[0,1]$? Si otterrebbero delle versioni "ibride" in cui una parte dell'azione derivativa (o proporzionale) è fatta sull'errore, ed un altra parte è fatta sulla misura. 
+\subsection{Saturazione dell'Attuatore}
+Ci sono dei fenomeni che si innescano in seguito ad una saturazione dell'attuatore legata al fatto che le variazioni dei segnali sono state "eccessive" e che l'azione integrale continui ad accumulare l'errore, nonostante il comando non possa realizzare il valore desiderato in presenza di saturazione. In questa sezione verranno analizzate le situazioni in cui l'uscita del regolatore PID non riesce a realizzarsi completamente, causando un fault dell'attuatore, o saturandolo, spingendo i guadagni oltre i limiti, ignorando lo sforzo di controllo.\acc 
+Definiamo la saturazione fisica dell'attuatore come dei limiti $u_H,u_L$ imposti sul suo valore di ingresso nello schema a blocchi, "clampando" il valore di $u$
+$$ 
+u_a(t)=\begin{cases}
+    u_H\ \text{ se }\ u_H\le u(t)\\ 
+    u(t)\ \text{ se }\ u_L\le u(t)\le u_H\\ 
+    u_L\ \text{ se }\ u_L\ge u(t)
+\end{cases}
+$$
+solitamente (ma non necessariamente) $u_L=-u_H$.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/saturazione.pdf}
+\end{center}
+In questa situazione di saturazione ($u_H\le u(t)\lor u_L\ge u(t)$), il comando da dare al processo non dipende più dall'uscita controllata del PID, come se il comando fosse in anello aperto.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/saturazione2.pdf}
+\end{center}
+La presenza dell'azione integrale è \textbf{critica} in presenza di saturazione, questa ha una memoria di ciò che è successo, quindi l'azione integrale continua ad accumulare errore anche in una situazione temporanea di saturazione, quando questa finisce, avremmo un'accumulo di errore enorme a cui non è stata corrisposta un azione che cercasse di ridurne l'accumulo.
+\subsubsection{Simulazione di saturazione da azione integrale}
+Vediamo un esempio numerico dell'evoluzione del sistema quando avviene la saturazione. Il processo da controllare è 
+$$P(s)=\frac{1}{s+1} $$
+in seguito ad un ingresso a gradino a partire dall'istante $t=1$. Si considera un controllore PID con sola azione integrale, quindi con parametri 
+$$K_p=0,\ \ \  K_i=2,\ \ \ K_d=0$$
+L'attuatore del processo va in saturazione quando l'ingresso $u$ supera i limiti, precisamente 
+$$ \begin{matrix}
+    u_H=1.05\\ 
+    u_L=-1.05
+\end{matrix}$$
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/esempio2.png}
+\end{center}
+Il seguente grafico ripora l'andamento dell'uscita $y$ in presenza di saturazione (curva rossa) e senza saturazione (curva blu)
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/saturazioneCurve.png}
+\end{center}
+Nel caso lineare, in circa 10 secondi il sistema va a valore di regime. Se è presente saturazione, il comando da applicare si satura, e ciò è equivalente ad un abbassamento del guadagno integrale, rallentando la risposta. Nel seguente grafico sono riportati gli andamenti del segnale di controllo, in entrambi i casi, e l'andamento dell'errore (curva in nero)
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/saturazioneCurve2.png}
+\end{center}
+Solo quando l'errore diventa negativo si può "scaricare" l'accumulo dell'errore.\\
+\redText{continua da slide 31, lezione 19, parte 2, minuto 44:52}
 
 
 

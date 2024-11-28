@@ -2554,4 +2554,87 @@ I=\frac{V}{R_1}+\frac{V}{R_2}\implies \frac{I}{V}=\frac{1}{R_1}+\frac{1}{R_2}\im
 $$ R=\frac{R_1R_2}{R_1+R_2}$$
 \flowerLine 
 \section{Campo Elettromotore}
+Consideriamo un circuito composto da un condensatore $C$ carico (di carica $Q$) all'istante $t=0$ ed una resistenza $R$.
+La corrente è nulla se non c'è differenza di potenziale, si vuole quindi mantenere una differenza di potenziale costante.
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/circuit.pdf}
+\end{center}
+Il potenziale ai capi della resistenza dipenderà dalla corrente $V(t)=RI(t)$, in pochi istanti le cariche sul condensatore si distribuiranno su tutto il materiale conduttore, scaricandolo, rendendo poi nulla la differenza di potenziale, e quindi la corrente. Si ricordi come \begin{itemize}
+    \item le cariche si muovono se sottoposte ad una forza 
+    \item c'è una forza alla quale sono sottoposte le cariche se c'è un campo elettrico $\bar E$
+    \item il campo elettrico è il gradiente del potenziale $V$, ossia la variazione nello spazio 
+    \item se non c'è differenza di potenziale il gradiente è nullo, non c'è campo, quindi non c'è movimento di cariche
+\end{itemize}
+Per far si che la corrente sia costante, serve una forza non conservativa che mantenga costante la differenza di potenziale $\Delta V$ fra due conduttori a contatto (ossia fra due punti diversi di uno stesso conduttore), in modo che il flusso degli elettroni sia costante e si generi una corrente elettrica.\acc 
+Si definisce \textbf{generatore di forza elettromotrice} un qualsiasi dispositivo che permetta di mantenere la differenza di potenziale fra due punti di un conduttore. Il simbolo del generatore è il seguente\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/tensione.pdf}
+\end{center}
+indica l'addensamento di cariche di segno opposto sulle due estremità, dette polo positivo e polo negativo.\acc 
+Si è visto come la legge di Ohm mette in relazione la differenza di potenziale e la corrente 
+$$ V=RI$$
+Quando si tratta l'ambito dei circuiti spesso si indica con $V$ la differenza di potenziale (come fatto anche nelle sezioni precedenti), anche se tale simbolo è utilizzato per denotare il potenziale elettrico, è più corretto scrivere 
+$$ \Delta V = RI$$
+sappiamo che la differenza di potenziale è 
+$$V(A)-V(B)= \int_A^B\bar E d\bar s=RI $$
+applicata ad un circuito chiuso si ha 
+$$ \oint \bar Ed\bar s = RI$$
+il primo membro è la definizione di forza elettromotrice, ne consegue che \begin{quote}
+    per avere una corrente $i$ è necessaria una forza elettromotrice, ossia un campo elettrico la cui circuitazione non sia nulla 
+\end{quote} 
+Sappiamo che il campo elettrico è conservativo ed ha circuitazione nulla, per avere della corrente è necessaria una forza non conservativa. Non è quindi il campo elettrostatico a far circolare la corrente. Denotiamo $\bar E_{el}$ il campo elettrostatico. Si consideri un circuito formato da un conduttore ed un generatore di forza elettromotrice che genera un flusso di corrente $\bar j$\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/circuito2.eps}
+\end{center}
+Il campo $\bar E_{el}$ è diretto da un polo all'altro del generatore dentro il conduttore, dato che ha la stessa direzione del flusso $\bar j$. Definiamo $E_{el}^{ext}$ il campo elettrico contenuto all'esterno del generatore, nel filo conduttore, e $E_{el}^{int}$ il campo elettrico contenuto nel generatore, ricordando che la circuitazione del campo elettrostatico è nulla, è chiaro che 
+$$ \oint\bar  E_{el}d\bar s = \int_A^B \bar E_{el}^{int}d\bar s + \int_A^B \bar E_{el}^{ext}d\bar s=0$$
+Essendo $\oint \bar E_{el}d\bar s=0$, il passaggio delle cariche dal polo $B$ al polo $A$ \textit{non può avvenire} per via di $\bar E_{el}$, è quindi necessariamente presente (all'interno del generatore) un campo elettrico $\bar E^*$ di natura non elettrostatica, definito \textbf{campo elettromotore}.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/circuito3.eps}
+\end{center}
+Il campo elettrico totale è quindi $$ \bar E$$ che vale \begin{itemize}
+    \item $\bar E= \bar E^*+E_{el}$ all'interno del generatore 
+    \item $\bar E= E_{el}$ fuori dal generatore, nel conduttore
+\end{itemize}
+$\bar E^*$ è nullo all'esterno del generatore. la forza elettromotrice di  $\bar E$, ossia la sua circuitazione, coincide con l'integrale del campo elettromotore $\bar E^*$ su una linea interna al generatore che va da $B$ ad $A$ 
+$$ \mathscr{E} = \oint \bar E d\bar s = \int_A^B \bar E_{el}d\bar s + \int_B^A (\bar E^*+\bar E_{el})d\bar s = \int_B^A \bar E^*d\bar s $$
+All'interno del generatore, una carica $dq$ è spostata da $B$ ad $A$ con una forza $$ d\bar F^*=dq\bar E^*$$ che deve vincere la forza che si oppone $$ d\bar F_{el}=dq\bar E_{el}$$ Il campo elettromotore è definito come 
+$$ \bar E^*=\frac{d\bar F^*}{dq}$$
+per far si che tale forza vinca su quella del campo elettrostatico, e che ci sia un moto delle cariche nel verso desiderato, deve essere che $|\bar E ^*|>|\bar E_{el}|$ tale che 
+$$ \int_B^A (\bar E^*+\bar E_{el})d\bar s >0$$
+\begin{center}
+    \includegraphics[width=0.2\textwidth]{images/forzaVince.eps}
+\end{center}
+Un generatore non ideale è caratterizzato da una resistenza interna $r$ tale che 
+$$ \int_B^A (\bar E^*+\bar E_{el})d\bar s =rI$$
+che estende la legge di Ohm all'interno del generatore, considerando anche la resistenza del conduttore esterno si ha  che $$\mathscr{E} = (R+r)I\ \ \ \ \ I=\frac{\mathscr{E}}{R+r}$$
+
+Da questa ricaviamo che $$ Ri=\mathscr{E}-ri$$
+ma $RI$ sappiamo essere la differenza di potenziale 
+ $$ V_A-V_B=Ri=\mathscr{E}-ri$$
+ quando la corrente è nulla $i=0$ si ha 
+ $$ V_A-V_B=\mathscr{E}$$
+ la forza elettromotrice è quindi uguale alla differenza di potenziale misurata ai capi del generatore quando la corrente è nulla (a circuito aperto).\flowerLine 
+ \section{Risoluzione di Circuiti}
+ In questa sezione verrà trattata la risoluzione di un semplice circuito, al fine di calcolarne le correnti sui rami e le tensioni ai capi di due nodi.\acc 
+ \defi{} un \textbf{nodo} è un punto di confluenza di 3 o più conduttori.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/nodi.eps}
+\end{center}
+\defi{} un \textbf{ramo} è una qualsiasi parte del circuito compresa fra due nodi.\begin{center}
+    \includegraphics[width=\textwidth]{images/rami.eps}
+\end{center}
+\defi{} una \textbf{maglia} è un qualunque percorso chiuso nel circuito che partendo da un nodo, vi ritorna.\begin{center}
+    \includegraphics[width=\textwidth]{images/maglie.eps}
+\end{center}
+Ogni ramo del seguente circuito ha una corrente $I_i$
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/circuitoRisolv.eps}
+\end{center}
+\sapbox{\textbf{prima legge di Kirchhoff} : le correnti entranti in un ramo sono uguali a quelle uscenti}
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/Kirchhoff1.eps}
+\end{center}
+Questo vuol dire che la somma delle correnti passanti per un nodo è zero, per convenzione, quelle entranti sono positive, e quelle uscenti sono negative. Quindi per il circuito mostrato in figura le correnti sui nodi sono 
+$$ \begin{matrix}
+    \text{nodo }A \ \ \ \ I_1-I_2-I_3=0\\ 
+    \text{nodo }B \ \ \ \ -I_1+I_2+I_3=0
+\end{matrix}$$
+la differenza di potenziale ai capi della prima resistenza è $V_1=R_1I_1$.
 \end{document}
