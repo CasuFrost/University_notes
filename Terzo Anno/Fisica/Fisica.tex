@@ -2719,4 +2719,34 @@ ne consegue che
 $$ \frac{dQ}{dt}\implies dx=-\frac{dQ}{C}\implies dQ=-Cdx$$
 l'equazione diventa 
 $$ RC\frac{dx}{dt}+x=0\implies \frac{dx}{dt}=-\frac{1}{RC}x$$
+La forma di questa edo è quindi identica a quella precedente, quindi la soluzione è immediata 
+$$x(t)=x_0e^{-\frac{t}{\tau}} $$
+sostituendo 
+$$ \Delta V-Q(t)\frac{1}{C}=\Delta Ve^{-\frac{t}{\tau}}$$
+$$ Q(t)=\Delta V C(1-e^{-\frac{t}{\tau}})$$
+Anche in questo caso $\tau=RC$ è il tempo caratteristico, dopo $\tau$ unità di tempo il condensatore avrà raggiunto una carica pari a $(1-e^{-1})Q_{\infty}$, dove $Q_{\infty}=\lim_{t\rightarrow\infty}Q(t)$. Quando il condensatore sarà completamente carico a regime, non ci sarà più corrente.\begin{center}
+    \begin{tikzpicture}[scale=0.9, transform shape]
+		\begin{axis}[
+		ymin=0,
+		ymax = 6,
+		xmin=0,
+		xmax = 6,
+		axis lines = left,
+		xtick distance=2, ytick distance=2,
+		grid style=dashed,
+		ymajorgrids=true,
+		xmajorgrids=true,
+		xlabel = \(t\),
+		ylabel = {\(Q(t)\)},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=0:6,
+		samples=30,
+		color=blue,
+		]
+		{4*(1-exp(-x/2))};
+		\end{axis}
+		\end{tikzpicture}
+\end{center}
 \end{document}
