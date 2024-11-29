@@ -2637,4 +2637,86 @@ $$ \begin{matrix}
     \text{nodo }B \ \ \ \ -I_1+I_2+I_3=0
 \end{matrix}$$
 la differenza di potenziale ai capi della prima resistenza è $V_1=R_1I_1$.
+\sapbox{\textbf{seconda legge di Kirchhoff} : la somma algebrica delle d.d.p. agenti tra le coppie di punti nello spazio che formano una qualsiasi sequenza chiusa (maglia) è uguale a zero}
+$$ \sum_{i=1}^n\Delta V_i=0$$
+Ai capi di ciascuna resistenza vi è una differenza di potenziale, queste vengono chiamate anche \textit{cadute di tensione}, dato che tra un punto che precede la resistenza ed un punto che la segue, il potenziale diminuisce. Spesso la d.d.p. viene anche denotata \textit{tensione}.
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/kirchoff2.eps}
+\end{center}
+Le tensioni ai capi di due resistenze che vengono attraversate dalla corrente in senso opposte vanno considerate di segno opposto. La seguente immagine descrive la caduta di tensione.
+\begin{center}
+    \includegraphics[width=0.55\textwidth]{images/cadutaDiTensione.eps}
+\end{center}
+Si consideri il circuito esemplificativo prima utilizzato, le tensioni ed i potenziali sulla prima maglia sono riportati in seguito. $V_0$ è il potenziale sul polo negativo del generatore, e $V_0+\Delta V$ sul polo positivo.\begin{center}
+    \includegraphics[width=0.45\textwidth]{images/potenzialiSulCircuito.eps}
+\end{center}
+Si noti come 
+$$ V_0=V_0+\Delta V + R_1I_1+R_2I_2$$
+Per la regola del partitore di corrente è anche vero che 
+$$ V_0=V_0+\Delta V + R_1I_1+R_3I_3$$
+Inoltre, applicando le regole delle resistenze in serie ed in parallelo, è possibile trovare un circuito equivalente composto da un unica resistenza.\begin{center}
+    \includegraphics[width=1\textwidth]{images/circuitoEquivalente.eps}
+\end{center}
+quindi 
+$$ \Delta V = R_{tot}I_1$$
+$$ \Delta V = \Big(\frac{R_2R_3}{R_2+R_3}+R_1\Big)I_1$$
+\flowerLine 
+\section{Potenza e Andamento del Circuito}
+Il lavoro infinitesimo compiuto per spostare una carica infinitesimale $dq$ da un punto $A$ ad un punto $B$, sottoposti ad una differenza di potenziale $\Delta V$ è 
+$$ \Delta Vdq$$
+Si definisce la \textbf{potenza} come 
+$$ P=\frac{\Delta Vdq}{dt}=\Delta V I$$
+In un sistema in cui vale la legge di Ohm, si può riscrivere come 
+$$ P=RI^2$$
+Si vuole determinare l'andamento nel tempo della carica di un condensatore quando collegato ad un circuito chiuso.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/caricaCondensatoreTempo.eps}
+\end{center}
+la differenza di potenziale ai capi del  condensatore è $\frac{Q(t)}{C}$, ai capi della resistenza è $RI(t)$, applicando la seconda legge di Kirchhoff si ha che 
+$$ \frac{Q(t)}{C}-I(t)R=0$$
+Per definizione $$ I=\frac{dq}{dt}$$
+anche se $q=Q$, quando il condensatore si scarica la corrente aumenta, è corretto scrivere 
+$$ I(t)=-\frac{dQ(t)}{dt}$$
+quindi 
+$$ \frac{Q(t)}{C}-(-\frac{dQ(t)}{dt})=0$$
+$$ R\frac{dQ(t)}{dt}=-\frac{Q(t)}{C}$$
+si risolve l'equazione differenziale 
+$$ \frac{dQ}{Q}=-\frac{1}{RC}$$
+$$ \int_{Q_0}^{Q(t)}\frac{dQ}{Q}=-\int_0^t\frac{1}{RC}dt$$
+$Q_0$ è la carica iniziale del condensatore.
+$$ \ln\Big(\frac{Q(t)}{Q_0}\Big)=-\frac{1}{RC}t$$
+$$ \frac{Q(t)}{Q_0}=e^{-\frac{1}{RC}t}$$
+$$ Q(t)=Q_0e^{-\frac{1}{RC}t}$$
+Il termine $\tau=RC$ è un tempo \textit{caratteristico}, indica che dopo $RC$ unità di tempo, il condensatore si sarà scaricato raggiungendo una carica $\frac{Q_0}{e}$
+$$ Q(RC)=Q_0e^{-\frac{RC}{RC}}=Q_0e^{-1}=\frac{Q_0}{e}$$
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/tempoCaratteristico.eps}
+\end{center}
+Sapendo che $$ I(t)=-\frac{dQ(t)}{dt}$$
+si può trovare l'andamento nel tempo della corrente 
+$$ I(t)=-\frac{d}{dt}\Big( Q_0e^{-\frac{1}{RC}t} \Big)$$
+$$ 
+I(t)=\frac{Q_0}{RC}e^{-\frac{t}{RC}}
+$$
+Ma $\frac{Q_0}{RC}=\frac{V_0}{I}=I_0$
+è la corrente al tempo $t=0$
+$$ 
+I(t)=I_0e^{-\frac{t}{RC}}=I_0e^{-\frac{t}{\tau}}
+$$
+Il profilo temporale della differenza di potenziale è 
+$$ \Delta V(t)=I(t)R=RI_0e^{-\frac{t}{\tau}}$$
+Vogliamo adesso valutare l'andamento temporale di un condensatore (di carica iniziale $Q_0$, che per semplicità sara nulla) che si carica per il passaggio di una corrente grazie ad una differenza di potenziale costante (quindi applicando una forza elettromotrice).\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/caricaCondensatoreTempo2.eps}
+\end{center}
+Sempre per la seconda legge di Kirchhoff, è vero che 
+$$ \Delta V-IR-\frac{Q}{C}=0$$
+In questo caso la corrente carica il condensatore quindi 
+$$ I=\frac{dQ}{dt}$$
+allora 
+$$ \Delta V - \frac{dQ}{dt}R-\frac{Q}{C}=0$$
+è un equazione differenziale non omogenea, si risolve per sostituzione ponendo 
+$$ x=\Delta V-\frac{Q}{C}$$
+ne consegue che 
+$$ \frac{dQ}{dt}\implies dx=-\frac{dQ}{C}\implies dQ=-Cdx$$
+l'equazione diventa 
+$$ RC\frac{dx}{dt}+x=0\implies \frac{dx}{dt}=-\frac{1}{RC}x$$
 \end{document}
