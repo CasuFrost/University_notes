@@ -2749,4 +2749,70 @@ Anche in questo caso $\tau=RC$ è il tempo caratteristico, dopo $\tau$ unità di
 		\end{axis}
 		\end{tikzpicture}
 \end{center}
+la corrente è proprio la derivata della carica 
+$$I(t)=\frac{dQ(t)}{dt}=\frac{\Delta VC}{\tau}e^{-\frac{t}{\tau}}=\frac{\Delta V}{R}e^{-\frac{t}{\tau}}$$
+la corrente varia da $\frac{\Delta V}{R}$ a 0.
+\begin{center}
+    \begin{tikzpicture}[scale=0.9, transform shape]
+		\begin{axis}[
+		ymin=0,
+		ymax = 6,
+		xmin=0,
+		xmax = 6,
+		axis lines = left,
+		xtick distance=2, ytick distance=2,
+		grid style=dashed,
+		ymajorgrids=true,
+		xmajorgrids=true,
+		xlabel = \(t\),
+		ylabel = {\(I(t)\)},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=0:6,
+		samples=30,
+		color=blue,
+		]
+		{5*exp(-x/2)};
+		\end{axis}
+		\end{tikzpicture}
+\end{center}
+In generale l'andamento della carica di un condensatore è descritto dall'equazione 
+$$ a+be^{-\frac{t}{\tau}}$$
+al variare dei parametri $a,b$.
+\chapter{Il Campo Magnetico}
+Se nello spazio è presente una carica puntiforme $q$, sappiamo che, se su di essa agisce una forza $\bar F$, allora deve essere presente un campo elettrico $\bar E$
+$$ \bar F = q\bar E $$
+Supponiamo che questa carica abbia una velocità $\bar v$. Se c'è una forza $\bar F$ ortogonale a $\bar v$, allora esiste un altro campo di forze che interagisce con le cariche in velocità, si definisce il vettore \textbf{campo magnetico} $\bar B$, descritto dalla seguente formula detta \textbf{forza di Lorentz}
+$$ \bar F = q(\bar v \times \bar B)$$
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/forzaLorentz.pdf}
+\end{center}
+è la forza che agisce su una carica $q$ che si muove a velocità $\bar v$ in presenza di un campo magnetico, l'unità di misura di quest'ultimo è il \textit{Tesla} T. Ci occuperemo in seguito di definire le sorgenti del campo magnetico, si consideri per ora solo un altro campo di forze nello spazio come può essere il campo elettrico.\acc 
+Una carica elementare $dq$ di corrente che percorre un tratto di filo conduttore risente di una forza pari a $$ dq(\bar v_d\times \bar B)$$
+Come mostrato in figura \ref{lorentz}, dove $\bar v_d$ è la velocità di deriva.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/forzaLorentz2.pdf}
+    \caption{forza che agisce su un filo conduttore}
+    \label{lorentz}
+\end{figure}
+Si consideri una curva $l$ che rappresenta un filo conduttore, ed un tratto infinitesimo $d l$, è noto che il vettore del flusso della corrente è 
+$$ \bar j = ndq\bar v_d$$
+si ha che 
+$$ dq\bar v_d=\bar jd\tau$$
+dove $d\tau$ è il volume infinitesimo in cui passa la corrente, che può essere descritto dalla sezione infinitesima del filo $ds$ e dal tratto infinitesimo $d\bar l$ 
+$$dq\bar v_d=\bar j d\bar lds $$
+ma $\bar j ds =I$
+$$ dq\bar v_d=Id\bar l$$
+la forza che agisce sul tratto infinitesimo è 
+$$ d\bar F =I(d\bar l\times \bar B)$$
+per ottenere la forza totale bisogna integrare sulla curva $l$
+$$ \bar F = \int_lI(d\bar l\times \bar B )$$
+Se il campo magnetico è uniforme ed il tratto di filo è rettilineo ed è descritto dal vettore $\bar l$, allora la forza è 
+$$ \bar F = I(\bar l\times \bar B)$$
+Questa legge permette la costruzione dei motori elettrici, come riportato in figura:
+\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/motore2.eps}
+\end{center}
 \end{document}

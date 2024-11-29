@@ -3673,8 +3673,96 @@ Nel caso lineare, in circa 10 secondi il sistema va a valore di regime. Se è pr
 \begin{center}
     \includegraphics[width=0.7\textwidth]{images/saturazioneCurve2.png}
 \end{center}
-Solo quando l'errore diventa negativo si può "scaricare" l'accumulo dell'errore.\\
-\redText{continua da slide 31, lezione 19, parte 2, minuto 44:52}
+Solo quando l'errore diventa negativo si può "scaricare" l'accumulo dell'errore.\acc
+Considerando un PID con azione proprozionale $K_p=1$ in aggiunta a quella integrale, gli andamenti dell'errore (in assenza e presenza di saturazione) sono i seguenti
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/saturazioneCurve.pdf.png}
+\end{center}
+In assenza di saturazione il controllore è perfetto, in presenza di saturazione si causa lo stesso errore del caso precedente con sola azione integrale, in quanto è quest'ultima che causa il problema.
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/saturazioneCurve3.png}
+\end{center}
+\subsection{Anti Wind-Up}
+Abbiamo visto quali sono i problemi legati alla saturazione degli attuatori, una soluzione piuttosto sofisticata è l'azione di \textit{anti wind-up}, con wind up si denota questo fenomeno di accumulo dell'errore integrale ceh fa degenerare l'azione di controllo. 
+L'anti wind-up è relativo esclusivamente all'azione integrale.\begin{center}
+    \includegraphics[width=\textwidth]{images/antiWindUp1.png}
+\end{center}
+Si osservi lo schema sopra riportato, e si noti come \begin{itemize}
+    \item l'azione proporzionale del PID è rimasta invariata 
+    \item l'azione derivativa viene realizzata filtrata in banda ed esclusivamente sull'uscita misurata 
+\end{itemize}
+Tali schemi di PID sono stati già presentati, la differenza in questo avviene sull'azione integrale. Si utilizza un \textit{modello algebrico dell'attuatore}, che replica in tutto e per tutto la saturazione, nell'immagine indicato con entrata $r$ ed uscita $u_{PI}$.\acc 
+La saturazione è modellata nel termine integrale.\acc 
+In una situazione di \textit{non saturazione}, il segnale $r$ entrante nel blocco replica non viene modificato, e si ha $u_{PI}=r$, nel \textit{dominio di linearità} l'azione $u_{PI}$ scaturita dal nuovo anello comporto dal segnale copia e dal blocco $\frac{1}{1+sT_i}$ è identica all'azione integrale proporzionale del PID classico
+$$ u_{PI}=\frac{1}{1-\frac{1}{1+sT_i}}q(s)=\frac{1+sT_i}{sT_i}q(s)$$
+essendo $q(s)=K_pe(s)$
+$$ u_{PI}=\frac{1+sT_i}{sT_i}q(s)=K_p\frac{1+sT_i}{sT_i}e(s) \ \ \textbf{ azione PI classica}$$
+Il segnale $w(s)$ rappresenta proprio l'azione integrale 
+$$ w(s)=\frac{1}{1+sT_i}u_{PI}(s)=\frac{K_p}{sT_i}e(s)$$
+\sapbox{questo modello, fin tanto ché non si va in saturazione, è identico al modello classico PID, è quindi una sua diversa realizzazione}
+Nel caso si dovesse andare in \textit{saturazione}, con  $$u_{PI}=u_H$$ o analogamente 
+$$ u_{PI}=u_L$$
+si avrebbe che il segnale $r$ di ingresso è identico al segnale di uscita $u_{PI}=u_H$, stessa cosa per il segnale $w(t)=u_H$, e si smette di integrare l'errore. Il fatto che l'integrazione dell'errore si arresti può non risultare immediato, l'analisi più approfondita verrà trattata in seguito per l'implementazione digitale.\acc 
+Si osservi il seguente grafico\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/antiWindUp2.png}
+\end{center}
+Si tratta dell'uscita del sistema precedente con processo $P(s)=\frac{1}{s+1}$, in risposta al gradino che parte in $t=1$, i parametri del PID sono identici a quelli precedenti $$ K_p=1, \ \ K_i=2$$ le curve colorate rappresentano\begin{itemize}
+    \item in blu : il sistema in regime lineare senza saturazione (visto anche prima)
+    \item in rosso : il sistema in presenza di saturazione (visto anche prima)
+    \item in nero : il sistema in saturazione con azione anti wind-up
+\end{itemize}
+In seguito riportati gli andamenti degli errori e del comando.
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/antiWindUp3.png}
+\end{center}
+il comando è molto simile al caso di saturazione, questo perché:\begin{quote}
+    Il comando anti wind-up non evita la saturazione, ma nel momento in cui questa avviene, non viene più accumulato errore nell'azione integrale. Il comando va in saturazione per un tempo molto più breve.
+\end{quote}
+i seguenti grafici riportano l'andamento dei segnali nello schema anti wind-up, ossia $r,q$ e $w$, sia in saturazione che non.
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/antiWindUp4.png}
+\end{center}
+\subsection{PID Digitale con Anti Wind-Up}
+Consideriamo una trattazione più dettagliata dello schema con anti wind-up nel caso del PID digitale. Lo schema è riportato in figura \ref{PIDdigAntiWindup}.
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=1\textwidth]{images/schemaDigitalePidAntiWindup.pdf}
+    \caption{Schema digitale}
+    \label{PIDdigAntiWindup}
+\end{figure}
+La prima parte fa un azione $PD$ che non considereremo, ci si sofferma sull'azione integrale, il segnale $w_{1,k}$ rappresenta la parte separata che implementa l'azione proporzionale derivativa, questa può essere una fra 
+$$ PD \ \ \ \ PD^* \ \ \ \ PD^*_y$$
+sono rappresentate due saturazioni, una sull'azione PD ed una sul comando finale, quest'ultima modella la saturazione dell'attuatore. In questo schema l'integrazione dell'errore è automaticamente bloccata in presenza di saturazioni. Evita l'accumulo, che dovrà poi essere scaricato quando l'errore cambia di segno.\acc 
+Valutiamo il diagramma in assenza di saturazione, si ha che l'uscita $u_k$ è 
+$$ u_k=w_k=u_{1,k}+\frac{K_pT_C}{T_i}e_k+(u_{k-1}-u_{1,k-1})=(1-z^{-1})U_{1,k}+\frac{K_pT_C}{T_i}E_k+z^{-1}U_k$$
+Riproduce l'azione PID classica, l'uscita dell'intero controllo $u_k$ ha i tre contributi. Si riorganizza l'equazione di $u_k$ e si ottiene 
+$$ U_k=U_{1,k}+\frac{K_pT_C}{T_i}\frac{E_k}{1-z^{-1}}$$
+$U_{1,k}$ include l'azione proporzionale e derivativa, e dipendono dal blocco PD, è poi presente l'azione integrale classica. Si ricordi che le lettere maiuscole ($U_k$ piuttosto che $u_k$) sono usate quando si passa nel dominio $\mathcal{Z}$.\acc 
+Consideriamo adesso che vi è saturazione, da almeno due campioni (negli istanti $k$ e $k-1$)
+ $$u_{k-1}=u_H \ \ \ u_{1,k}=u_{1,k-1}=u_H $$
+Calcoliamo il valore di $w_k$ in questa situazione 
+$$ 
+w_k=u_H+\frac{K_pT_C}{T_i}e_k+(u_H-u_H)=u_H+\frac{K_pT_C}{T_i}e_k
+$$
+è la somma di 3 contributi\begin{itemize}
+    \item $u_H$ viene dal campione di controllo al passo precedente
+    \item $\frac{K_pT_C}{T_i}e_k$ azione proporzionale all'errore, rimane invariata
+    \item $(u_H-u_H)$ differenza dal controllo che veniva dal PD
+\end{itemize}
+La variabile $w_k$ uscente (che verrà poi saturata dal saturatore posto alla fine dello schema) è uguale al valore saturato più un valore proporzionale all'errore 
+$$ 
+w_k=u_H+\frac{K_pT_C}{T_i}e_k
+$$
+Se $e_k>0\implies w_k>u_H\implies u_k = u_H$. Se invece il termine dovesse essere negativo, il termine $w_k$ diminuisce grazie all'errore facendo uscire il sistema dalla saturazione. 
+$$ e_k<0\implies w_k<u_H$$
+La cosa più importante è che l'uscita di questo termine non accumula più l'errore.
+\flowerLine 
+\section{Tuning del PID}
+\redText{lezione 20}
+
+
+
+
 
 
 
