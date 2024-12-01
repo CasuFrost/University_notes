@@ -2436,4 +2436,185 @@ z=2*x+1;    //S2
 \end{lstlisting}
 non è una vera dipendenza e non causa problemi.
 \end{itemize}
+\subsection{Risoluzione delle Dipendenze RAW}
+In \textit{alcuni casi} è possibile rimuovere le dipendenze di tipo RAW nei cicli, in particolare, si identificano 6 metodologie di risoluzione. 
+\subsubsection{1) Sistemare le induction/reduction variable}
+Si consideri il seguente ciclo:
+\begin{lstlisting}[style=CStyle]
+double v = start;
+double sum = 0;
+for(int i = 0; i < N; i++){
+    sum = sum + f(v);   //S1
+    v = v + step;       //S2
+}
+\end{lstlisting}
+\defi{} Una \textit{induction variable}, o \textit{variabile induttiva}, è una variabile che all'interno di un ciclo viene incrementata di un valore costante ad ogni iterazione.\acc 
+Le dipendenze sono\begin{itemize}
+    \item una dipendenza di tipo RAW per l'operazione \texttt{S1} sulla variabile di riduzione \texttt{sum}, che ad ogni iterazione, utilizza il valore dell'iterazione precedente. 
+    \item una dipendenza di tipo RAW per l'operazione \texttt{S2} sulla variabile induttiva \texttt{v}, che ad ogni iterazione, utilizza il valore dell'iterazione precedente. 
+    \item una dipendenza di tipo RAW fra le due operazioni, dato che \texttt{S1} utilizza il valore di \texttt{v} calcolato all'iterazione precedente.
+\end{itemize}
+Essendo che \texttt{v} è una variabile induttiva, il suo valore può essere calcolato a prescindere per ogni iterazione \texttt{i} in maniera indipendente.\begin{quote}
+    \code{i = 0} $ \ \implies \ $ \code{v = start}\\ 
+    \code{i = 1} $ \ \implies \ $ \code{v = start + step}\\ 
+    \code{i = 2} $ \ \implies \ $ \code{v = (start + step) + step}\\ 
+    $\vdots$ \\ 
+    \code{i = k} $ \ \implies \ $ \code{v = start + step*k}\\ 
+\end{quote}
+è quindi possibile rimuovere due dipendenze calcolando \code{v} a partire dall'indice \texttt{i} senza dover utilizzare il valore dell'iterazione precedente.
+\begin{lstlisting}[style=CStyle]
+double v = start;
+double sum = 0;
+for(int i = 0; i < N; i++){
+    v = start + i*step;       
+    sum = sum + f(v);   
+}
+\end{lstlisting}
+L'unica dipendenza da risolvere riguarda il valore di \code{sum} che è dipendente dalle precedenti iterazioni, ma per ovviare a ciò, è sufficiente specificare che \code{sum} è una variabile di riduzione nella direttiva pragma, facendo si che se ne occupi openMP.
+\begin{lstlisting}[style=CStyle]
+double v = start;
+double sum = 0;
+#pragma omp parallel for reduction(+:sum) private(v)
+for(int i = 0; i < N; i++){
+    v = start + i*step;       
+    sum = sum + f(v);   
+}
+\end{lstlisting}
+\subsubsection{2) Loop skewing}
+Questa tecnica consiste nel riarrangiare il loop eseguendo una sottospecie di "shift" delle operazioni (l'esempio renderà chiaro il concetto). Si consideri la seguente porzione di codice:
+\begin{lstlisting}[style=CStyle]
+for(int i = 1; i < N; i++){
+    y[i]= f(x[i-1]);
+    x[i]=x[i]+c[i];
+}
+\end{lstlisting}
+Il ciclo \texttt{i} è dipendente dal ciclo \texttt{i-1}, in quanto \code{y[i]} per essere aggiornata necessita di \code{x[i-1]}. In questo metodo, si "srotola" il loop, considerando le diverse iterazioni in sequenza, ad esempio:
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/skewing.pdf}
+\end{center}
+Basta raggruppare in un'unica iterazione le operazioni dipendenti, "shiftando" di un operazione il ciclo for, come segue
+\begin{lstlisting}[style=CStyle]
+y[1]=f(x[0]);
+for(int i = 1; i < N-1; i++){
+    x[i]=x[i]+c[i];
+    y[i+1]= f(x[i]);
+}
+x[N-1]=x[N-1]+c[N-1];
+\end{lstlisting}
+Riscrivendo il ciclo in questo modo si sono rimosse le dipendenze fra diverse iterazioni, ed il ciclo può essere parallelizzato.
+\subsubsection{3) Parallelizzazione parziale}
+Questa metodologia è la più semplice, consiste nell'individuare le iterazioni indipendenti tramite la costruzione di un grafo., si consideri il seguente ciclo annidato 
+\begin{lstlisting}[style=CStyle]
+for(int i = 1; i < N; i++){
+    for(int j = 1; j < M; j++){
+        data[i][j]=data[i-1][j]+data[i-1][j-1];
+    }
+}
+\end{lstlisting}
+si disegna un grafo in cui ogni nodo rappresenta un iterazione, e vi è un arco dal nodo $q$ al nodo $q'$ se l'iterazione $q'$ è dipendente dal nodo $q$. Nell'esempio del ciclo riportato qua sopra, si ha il seguente grafo:\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/grafoIterazioni.drawio.pdf}
+\end{center}
+Si osserva che non ci sono archi che collegano due nodi sulla stessa riga, quindi le righe possono essere parallelizzate senza problemi, in quanto le iterazioni su ogni riga (ossia, fissato \texttt{i} e al variare di \texttt{j}) non sono dipendenti fra loro.
+\begin{lstlisting}[style=CStyle]
+for(int i = 1; i < N; i++){
+    #pragma omp parallel for 
+    for(int j = 1; j < M; j++){
+        data[i][j]=data[i-1][j]+data[i-1][j-1];
+    }
+}
+\end{lstlisting}
+Anche se apparentemente l'iterazione \code{j} dipende dall'iterazione \code{j-1}, si ha che \code{j} è eseguita all'iterazione esterna \code{i}, e  \code{j-1} è eseguita all'iterazione esterna \code{i-1}, essendo garantita la sequenzialità dell'ordinamento esterno, questa dipendenza apparente su \code{j} non causa problemi.
+\subsubsection{4) Refactoring} 
+Questo metodo consiste nella riscrittura dei cicli in modo da renderli parallelizzabili, si consideri il seguente esempio
+\begin{lstlisting}[style=CStyle]
+for(int i = 1; i < N; i++){
+    for(int j = 1; j < M; j++){
+        data[i][j]=data[i-1][j]+data[i-1][j-1]+data[i][j-1];
+    }
+}
+\end{lstlisting}
+si ha il seguente grafo:\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/grafoIterazioni2.drawio.pdf}
+\end{center}
+In questo caso anche le righe sono dipendenti fra loro, ed il ciclo sembra non parallelizzabile. Che succede se si considerano i nodi sulle diagonali del grafo?
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/grafoIterazioni3.drawio.pdf}
+\end{center}
+non ci sono dipendenze fra le iterazioni sulla diagonale, queste si definiscono \textit{onde}, e possono essere parallelizzate, anche se è difficile individuarle nel codice, ed il ciclo va completamente riscritto. Un idea di implementazione può essere la seguente:
+\begin{lstlisting}[style=CStyle]
+for(wave = 0; wave<NumWaves; wave++){
+    diag=F(wave);
+    #pragma omp parallel for 
+    for(k=0; k < diag; k++){
+        int i = get_i(diag,k);
+        int j = get_j(diag,k);
+        data[i][j]=data[i-1][j]+data[i-1][j-1]+data[i][j-1];
+    }
+}
+\end{lstlisting}
+\subsubsection{5) Fissione del Loop} 
+Si divide semplicemente il loop in una parte parallelizzabile ed in una parte sequenziale. Il ciclo
+\begin{lstlisting}[style=CStyle]
+s=b[0];
+for(int i = 1;i < N;i++){
+    a[i]=a[i]+a[i-1]; //S1
+    s=s+b[i];         //S2
+}
+\end{lstlisting}
+ha l'operazione \texttt{S1} che non si può parallelizzare, e l'operazione \texttt{S2} che può essere parallelizzata, quindi si divide in due cicli:
+\begin{lstlisting}[style=CStyle]
+for(int i = 1;i < N;i++){
+    a[i]=a[i]+a[i-1]; //S1
+}
+s=b[0];
+#pragma omp parallel for 
+for(int i = 1;i < N;i++){
+    s=s+b[i];         //S2
+}
+\end{lstlisting}
+\subsubsection{6) Cambio dell'algoritmo}
+Se nessun metodo precedente è applicabile, è necessario cambiare totalmente l'algoritmo, ad esempio, la sequenza di fibonacci può essere parallelizzata se calcolata tramite la formula di Binet: 
+$$F_n=\frac{\varphi^n-(1-\varphi)^n}{\sqrt{5}} $$ 
+\begin{lstlisting}[style=CStyle]
+fibo[0]=fibo[1]=1;
+#pragma omp parallel for 
+for(int i=2;i < N;i++){
+    fibo[i]=(exp(phi,n)-exp(1-phi,n))/sqrt(5);
+}
+\end{lstlisting}
+\subsection{Rimozione di dipendenze WAR e WAW}
+Le dipendenze WAR possono essere risolte semplicemente, si consideri il seguente ciclo
+\begin{lstlisting}[style=CStyle]
+for(int i=0;i < N-1;i++){
+    a[i]=a[i+1]+c;
+}
+\end{lstlisting}
+Nell'iterazione \code{i} si scrive un valore che verrà letto nell'iterazione successiva \code{i+1}. È sufficiente creare una copia dell'array \code{a[]} da utilizzare nel ciclo da parallelizzare.
+\begin{lstlisting}[style=CStyle]
+for(int i=0;i < N-1;i++){
+    a2[i]=a[i+1];
+}
+
+#pragma omp parallel for 
+for(int i=0;i < N-1;i++){
+    a[i]=a2[i]+c;
+}
+\end{lstlisting}
+Bisogna valutare se il tempo risparmiato nel parallelizzare il ciclo sia minore o maggiore del tempo utilizzato per eseguire la copia dell'array.\acc 
+Anche le dipendenze WAW possono essere risolte, spesso è sufficiente usare un costrutto di openMP, si consideri il seguente ciclo
+\begin{lstlisting}[style=CStyle]
+for(int i = 0; i < N; i++){
+    y[i]=a*x[i]+c;  //S1 
+    d=fabs(y[i]);   //S2
+}
+\end{lstlisting}
+la dipendenza è sulla variabile \texttt{d}, il valore finale di questa, una volta che termina la sezione  parallela, deve essere quello calcolato nell'ultima iterazione, ossia \code{fabs(y[N-1])}. È sufficiente utilizzare la clausole \code{lastprivate} per propagare all'esterno del for il valore di \texttt{d} calcolato dal thread che ha eseguito l'ultima iterazione.
+\begin{lstlisting}[style=CStyle]
+#pragma omp parallel for shared(a, c) lastprivate(d)
+for(int i = 0; i < N; i++){
+    y[i]=a*x[i]+c;  //S1 
+    d=fabs(y[i]);   //S2
+}
+\end{lstlisting}
+
 \end{document}
