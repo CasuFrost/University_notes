@@ -2246,4 +2246,194 @@ void default_none(int a){
 \end{lstlisting}
 \flowerLine 
 \section{Cicli For Paralleli}
+Si vogliono parallelizzare le iterazioni (indipendenti) dei blocchi ciclici nel C, queste ultime sono spesso le operazioni più dispendiose, rendendo favorevole una loro parallelizzazione. OpenMP è in grado di parallelizzare esclusivamente i cicli \code{for}, è assolutamente necessario che il numero di iterazioni totali sia noto a priori. La direttiva \begin{quote}
+    \code{\#pragma omp parallel for}
+\end{quote}
+permette di parallelizzare un ciclo for, facendo si che ogni thread si occuperà di un sottoinsieme delle iterazioni totali. Un ciclo for per essere parallelizzato deve avere la seguente struttura 
+$$ \texttt{for}\begin{pmatrix}
+    &&\texttt{index++}\\ 
+    &&\texttt{++index}\\ 
+    &\texttt{index<end;}&\texttt{index--}\\ 
+    &\texttt{index<=end;}&\texttt{--index}\\ 
+    \texttt{index=start;}&\texttt{index>=end;}&\texttt{index+=incr}\\ 
+    &\texttt{index>end;}&\texttt{index=incr+index}\\ 
+    &&\texttt{index-=incr}\\ 
+    &&\texttt{index=index+incr}\\
+    &&\texttt{index=index-incr}
+\end{pmatrix}$$
+solo in questo modo il numero di iterazioni sarà noto a priori. È quindi importante che\begin{itemize}
+    \item la variabile \code{index} sia un tipo intero o puntatore. 
+    \item \code{start},\code{end},\code{incr} devono avere tipi compatibili. 
+    \item \code{incr} deve essere costante. 
+    \item l'indice del ciclo \code{index} non può essere modificato all'interno del ciclo, ma solo tramite l'espressione di incremento.
+\end{itemize} Il seguente codice riporta un esempio di for paralellizzato nell'ambito dell'integrazione con la regola del trapezoide.
+\begin{lstlisting}[style=CStyle]
+h=(b-a)/n;
+approx=(f(a)+f(b))/2.;
+#pragma omp parallel for num_threads(thread_count) reduction(+:approx)
+for(int i = 1;i<n;i++){
+    approx+=f(a+i*h);
+}
+approx=h*approx;
+\end{lstlisting}
+Il seguente ciclo 
+\begin{lstlisting}[style=CStyle]
+for(i=0;i<n;i++){
+    if([condizione])
+        break;
+}
+\end{lstlisting}
+non può essere parallelizzato perché il numero di iterazioni non è noto a priori. Anche il seguente
+\begin{lstlisting}[style=CStyle]
+for(i=0;i<n;i++){
+    if([condizione])
+        i++;
+}
+\end{lstlisting}
+non può essere parallelizzato perché l'indice viene incrementato dentro il ciclo. Il seguente 
+\begin{lstlisting}[style=CStyle]
+for(i=0;i<n;i++){
+    if([condizione])
+        exit();
+}
+\end{lstlisting}
+nonostante il numero di iterazioni non sia noto a priori, può essere parallelizzato perché la clausola \code{exit()} termina l'intero programma e non è quindi necessario preoccuparsi di un eventuale comportamento anomalo.
+\subsection{Cicli Annidati}
+Nella maggior parte dei casi in cui ci sono due cicli for annidati, è sufficiente parallelizzare solo il primo ciclo. È importante sapere che alla fine di ogni ciclo for parallelizzato è presente una \textit{barriera implicita}. Il seguente esempio mostra come vengono suddivise le iterazioni ai vari thread in un ciclo for parallelizzato.
+\begin{lstlisting}[style=CStyle]
+#pragma omp parallel for num_threads(thread_count) 
+for(i=0;i<4;i++){
+    for(i=0;i<4;i++){
+        c(i,j);
+    }
+}
+\end{lstlisting}
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/cicliAnnidati.drawio.pdf}
+\end{center}
+Ogni thread (dei 4) esegue una iterazione del ciclo for esterno (parallelizzato), e per ognuna di questa, esegue le 4 iterazioni del ciclo for interno non parallelizzato. Si consideri la seguente situazione, in cui ci sono 4 thread, ed un ciclo esterno di 3 iterazioni.
+\begin{lstlisting}[style=CStyle]
+#pragma omp parallel for num_threads(thread_count) 
+for(i=0;i<3;i++){
+    for(i=0;i<6;i++){
+        c(i,j);
+    }
+}
+\end{lstlisting}
+le iterazioni sono assegnate in questo modo
+    \begin{center}
+        \includegraphics[width=0.6\textwidth ]{images/cicliAnnidati2.drawio.pdf}
+    \end{center}
+I 3 cicli esterni verranno assegnati ai primi 3 thread, il quarto thread quindi non verrà considerato nel calcolo parallelo, in tal modo la distribuzione del carico di lavoro è poco uniforme e certamente non efficiente. È sicuramente meglio parallelizzare il for interno\begin{itemize}
+    \item ad ogni iterazione esterna, il ciclo interno (di 6 iterazioni) eseguito da 4 thread \item i primi due thread eseguiranno 2 iterazioni, gli altri due 1 iterazione.
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+for(i=0;i<3;i++){
+#pragma omp parallel for num_threads(thread_count) 
+    for(i=0;i<6;i++){
+        c(i,j);
+    }
+}
+\end{lstlisting}
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/cicliAnnidati3.drawio.pdf}
+\end{center}
+Nonostante questa soluzione sia migliore della precedente, non è ancora ottimale. La soluzione migliore (nei casi in cui i cicli annidati sono molto semplici) è di collassare i due cicli in un unico ciclo tramite degli accorgimenti sugli indici, ad esempio:
+\begin{lstlisting}[style=CStyle]
+#pragma omp parallel for num_threads(thread_count) 
+for(ij=0;ij<3*6;ij++){
+    c(ij/6, ij%6);
+}
+\end{lstlisting}
+In questo caso la distribuzione dei cicli è ottimale (il più uniforme possibile).
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/cicliAnnidati4.pdf}
+\end{center}
+OpenMP fornisce una clausola per collassare automaticamente due cicli for annidati in uno singolo, ossia  
+\begin{quote}
+    \code{collapse(f)}
+\end{quote}
+Dove \code{f} è il numero di cicli da collassare. Risulta piuttosto utile nei casi come il precedente, quando il numero di iterazioni del ciclo esterno è basso (paragonabile, se non minore, dei core sulla macchina).
+\begin{lstlisting}[style=CStyle]
+#pragma omp parallel for num_threads(thread_count) collapse(2)
+for(i=0;i<3;i++){
+    for(i=0;i<6;i++){
+        c(i,j);
+    }
+}
+\end{lstlisting}
+Di default, è vietato parallelizzare due cicli annidati con la direttiva \code{parallel for}.
+\begin{lstlisting}[style=CStyle]
+#pragma omp parallel for num_threads(thread_count) 
+for(i=0;i<3;i++){
+    #pragma omp parallel for num_threads(thread_count)  /* VIETATO */
+    for(i=0;i<6;i++){
+        c(i,j);
+    }
+}
+\end{lstlisting}
+\subsection{Iterazioni Dipendenti}
+La parallelizzazione di un ciclo for non impone alcun ordinamento sulle iterazioni, è possibile che un thread esegua l'iterazione \texttt{i+1} prima di un thread che esegue la \texttt{i}, è quindi ovvio che è possibile parallelizzare un ciclo finché le iterazioni sono indipendenti fra loro.\acc 
+Il seguente esempio è il più esplicativo, per calcolare l'$i$-esimo numero di fibonacci è necessario conoscerne l'$i-1$-esimo, non è quindi assicurata la correttezza di un ciclo parallelizzato che deve calcolare la sequenza dei primi $n$ numeri di fibonacci.
+\begin{lstlisting}[style=CStyle]
+fibo[0]= fibo[1]=1;
+#pragma omp parallel for num_threads(thread_count) 
+for(i=2;i<n;i++){
+    fibo[i]= fibo[i-1] + fibo[i-2];
+}
+\end{lstlisting}
+Perché non funziona? \begin{itemize}
+   \item l'iterazione \texttt{i=3} potrebbe essere calcolata prima dell'iterazione \texttt{i=2}, supponiamo sia questo il caso 
+   \item l'iterazione \texttt{i=3} considerà l'elemento \texttt{fibo[2]}, questo dovrebbe essere uguale a 2, ma visto che l'iterazione \texttt{i=2} non è stata eseguita, il valore dentro l'array è nullo, 
+   \item l'iterazione \texttt{i=3} calcolerà \code{fibo[3]=fibo[2]+fibo[1]=0+1=1} 
+   \item il risultato è sbagliato in quanto il terzo numero di fibonacci è 3.
+\end{itemize}
+Quando si parallelizza un ciclo for è obbligatorio assicurarsi che non ci siano dipendenze fra i dati tra le varie iterazioni, dipendenze di questo tipo sono dette \textbf{loop-carried dependence}. Bisogna modificare il codice dei cicli per rendere le iterazioni indipendenti.\acc 
+Dato un loop della seguente forma
+\begin{lstlisting}[style=CStyle]
+for(i=...){
+    ... 
+    S1 : operazione sulla locazione di memoria x
+    ... 
+    S2 : operazione sulla locazione di memoria x
+    ...
+}
+\end{lstlisting}
+ci sono due operazioni su una stessa locazione di memoria, essendo queste contenute in un unica iterazione, si ha la certezza che verranno eseguite da uno stesso thread nell'ordine in cui sono state stabilite. Il problema si verifica quando due operazioni che vanno eseguite sequenzialmente, si trovano in due iterazioni differenti, ad esempio
+\begin{lstlisting}[style=CStyle]
+for(i=...){
+    ... 
+    S2 : operazione sul valore x[i-1]
+    ... 
+    S1 : operazione sul valore x[i]
+    ...
+}
+\end{lstlisting}
+in questo caso l'operazione \texttt{S2} potrebbe essere eseguita prima dell'operazione \texttt{S1} se un'iterazione \texttt{i} viene eseguite prima dell'iterazione \texttt{i-1}. \acc 
+Ci sono 4 differenti tipi di dipendenze che coinvolgono due operazioni \texttt{S1},\texttt{S2} che non possono essere eseguite in due iterazioni differenti:\begin{itemize}
+    \item \textbf{RAW} : Read After Write (una lettura dopo una scrittura)
+\begin{lstlisting}[style=CStyle]
+x=10;       //S1
+y=2*x+5;    //S2
+\end{lstlisting}
+    se \texttt{S2} fosse eseguita per prima, potrebbe leggere un valore di \texttt{x} non corretto.
+    \item \textbf{WAR} : Write After Read (una scrittura dopo una lettura)
+\begin{lstlisting}[style=CStyle]
+y=x+3;       //S1
+x++;         //S2
+\end{lstlisting}
+    se \texttt{S2} fosse eseguita per prima, la variabile \texttt{y} leggerebbe un valore errato di \texttt{x}.
+    \item \textbf{WAW} : Write After Write (una scrittura dopo una scrittura)
+\begin{lstlisting}[style=CStyle]
+x=10;       //S1
+x=x+c;      //S2
+\end{lstlisting}
+        se \texttt{S2} fosse eseguita per prima, verrebbe incrementata anche se \texttt{x} dovesse essere diverso da 10, anche se ogni volta che si esegue \texttt{S2}, dovrebbe sempre essere uguale a 10.
+    \item \textbf{RAR} : Read After Read (una lettura dopo una lettura)
+\begin{lstlisting}[style=CStyle]
+y=x+c;      //S1
+z=2*x+1;    //S2
+\end{lstlisting}
+non è una vera dipendenza e non causa problemi.
+\end{itemize}
 \end{document}
