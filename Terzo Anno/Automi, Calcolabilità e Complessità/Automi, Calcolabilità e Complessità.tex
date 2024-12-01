@@ -2521,5 +2521,171 @@ Si vuole dare un esempio di linguaggio $NP$ usando tale definizione, si consider
 \boxedMath{$\impliedby$} Se $L$ è decidibile in tempo polinomiale da una NTM $N$, allora su input $x$, $poly(|x|)$ è un upper bound sui passi di computazione di ogni ramo parallelo di $N$. Si definisce un verificatore $V$, che opera su input $y$, definito come l'insieme dei passi deterministici di un ramo di $N$, in particolare\begin{itemize}
     \item $V(x,y)$ intepreta $y$ come un insieme di (al più) lunghezza $poly(|x|)$ che simula $N(x)$ in modo deterministico seguendo le scelte di "fork" determinate da $y$. 
 \end{itemize}
-
+$V(<x,y>)$ ha complessità $poly(|x|)$, ed inoltre $x\in L \iff N(x)$ accetta $\iff \ \exists y \ | \ V(<x,y>)$  accetta.\hfill$\blacksquare$\acc   
+\flowerLine 
+\section{Riduzioni di Linguaggi $NP$}
+Sono stati presentati molti linguaggi in $NP$ che sono anche in $P$, tramite la riduzione, si può dimostrare che un vasto insieme di linguaggi è in $P$ se e solo se un singolo (e determinato) linguaggio è in $P$.\acc 
+\teo{} $SAT\in P \implies 4-COL\in P$\acc 
+\dimo{} Per ipotesi, sia $M_{SAT}$ la TM che decide $SAT$ in tempo polinomiale, si definisce una TM $M_{4COL}$ per decidere $4-COL$. La riduzione deve "associare" l'affermazione \begin{quote}
+    $G$ è 4-colorabile
+\end{quote}
+a \begin{quote}
+    $\phi_G$ è soddisfacibile 
+\end{quote}
+Si definisce quindi una formula associata ad un grafo, che è soddisfacibile solo se il grafo è 4-colorabile.\acc 
+Dato $G=(V,E)$, si definisce una formula $\phi_G$ con $2n$ variabili, dove $n=|V|$ è il numero di nodi. 
+$$ \phi_G(x_1,x_1',x_2,x_2',\dots x_n,x_n')$$
+per ogni nodo $i$ esiste la coppia di variabili $x_i,x_i'$. Il colore di un nodo è codificato da queste due variabili come segue \begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $x_i$ & $x_i'$ & colore di $i$                 \\ \hline
+        0     & 0      & {\color[HTML]{9A0000} rosso}  \\ \hline
+        0     & 1      & {\color[HTML]{036400} verde}  \\ \hline
+        1     & 0      & {\color[HTML]{C69A00} giallo} \\ \hline
+        1     & 1      & {\color[HTML]{3531FF} blu}    \\ \hline
+        \end{tabular}
+\end{center}
+è necessario codificare il vincolo che, per ogni arco $(i,j)\in E$, si ha che i nodi $i$ e $j$ hanno colori diversi, ossia che $$ (x_i,x_i')\ne (x_j,x_j')$$ deve essere necessariamente vera per far si che $\phi_G$ sia soddisfacibile, in logica:
+$$ \phi_{i,j}=\overline{ 
+x_i\leftrightarrow x_j \land x_i'\leftrightarrow x_j'
+}$$
+che è equivalente a 
+$$ 
+\phi_{i,j}=((\bar x_i\lor x_j)\land (\bar x_j \lor x_i))\land  
+((\bar x_i'\lor x_j')\land (\bar x_j' \lor x_i'))
+$$
+alla fine, la formula finale $\phi_G$ sarà l'and logico fra tutte queste clausole $\phi_{i,j}$ al variare di $(i,j)\in E$ 
+$$ \phi_G=\bigwedge\limits_{(i,j)\in E}\phi_{i,j}$$
+chiaramente la funzione di riduzione è polinomiale, inoltre, se $G\in4-COL$, esiste una 4-colorazione $C=(c_1,c_2\dots, c_n)$ che ha codifica binaria $x=(x_1,x_1',\dots x_n,x_n')$ che soddisfa $\phi_G$, ossia $\phi_G(x)=1$. \hfill$\blacksquare$\acc   
+Formalizziamo il concetto di riduzione polinomiale \acc 
+\defi{} Siano $A,B$ due linguaggi diremo che $A$ \textit{è riducibile in tempo polinomiale} a $B$, e denoteremo $$ A\le_m^P B$$ 
+se esiste una TM $R:\Sigma^*\rightarrow \Sigma^*$ tale che 
+$$ \forall x \in \Sigma^*, \ \ \ x\in A\iff R(x)\in B$$
+e $R$ ha complessità di tempo polinomiale.\acc 
+\teo{} se $A\rid B$ e $B\in P$ allora $A\in P$. \acc 
+\dimo{} data una TM $M_B$ che decide $B$ in tempo polinomiale, è vero che $M_B(R(x))$ decide ogni $x\in A$, in tempo polinomiale in $|x|$, dove $R$ è la TM della riduzione, per definizione anch'essa polinomiale.\hfill$\blacksquare$\acc  
+\teo{} $3-COL\rid 4-COL$\acc
+\dimo{} si definisce la TM della riduzione $R$ tale che $R(<G>)=<H>$, dove $G$ è un grafo 3-colorabile ed $H$ è un grafo 4-colorabile. $H$ si ottiene aggiungendo a $G$ un nodo connesso a tutti gli altri nodi, con un quarto colore nuovo non presente in $G$.\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/3COL4COL.drawio.pdf}
+\end{center}
+Se $G$ è 3-colorabile, $H$ sarà 4-colorabile, e se $H$ è 4-colorabile, $G$ deve essere 3-colorabile.\hfill$\blacksquare$\acc  
+\teo{} $A\rid B \land B\rid C \implies A\rid C$\acc 
+\dimo{} sia $R_1$ la riduzione da $A$ a $B$ 
+$$ x\in A \iff R_1(x)\in B$$
+sia $R_2$ la riduzione da $B$ a $C$ 
+$$ x\in B \iff R_2(x)\in C$$
+allora, per ogni $x$
+$$ x\in A\implies R_1(x)\in B \implies R_2(R_1(x))\in C$$
+ma allora $R_1\circ R_2$ è una riduzione da $A$ a $C$ perché 
+$$ x\in A \iff R_1(R_2(x))\in C$$\hfill$\blacksquare$\acc  
+Non tutte le riduzioni hanno complessità polinomiale, si consideri il seguente linguaggio 
+$$ 4-CROMA = \{<G>\ | \ \mathcal X(G)=4\}$$
+$\mathcal X(G)$ è il \textit{numero cromatico} di $G$, $\mathcal X(G)=k$ se $G$ è $k-$colorabile, ma per ogni $k'<k$ non è $k'$-colorabile. È vero che 
+$$ 4-CROMA \le_T^P SAT$$ 
+Dove $\le_T^P$ è una riduzione ma non di tipo map-reduction, la $T$ sta per turing, la riduzione avviene mediante una procedura/algoritmo.\acc 
+Dato $G$, si considera una TM (descritta da un algoritmo) la cui procedura è definita come segue\begin{enumerate}
+    \item si considera una riduzione $R$ che mappa $4-COL$ in $SAT$ 
+    \item si stabilisce se $G$ è o non è 4-colorabile tramite la risoluzione della formula logica associata. 
+    \item si considera una riduzione $R'$ che mappa $3-COL$ in $SAT$ 
+    \item  si stabilisce se $G$ è o non è 3-colorabile tramite la risoluzione della formula logica associata  
+\end{enumerate}
+La procedura mostra che, se è possibile decidere $SAT$, è possibile decidere $4-CROMA$, ma tale riduzione non avviene mediante una funzione.\acc 
+\teo{} se $A\rid B$ e $B\in NP$ allora $A\in NP$. \acc 
+\dimo{} la riduzione $R$ è una TM (di tempo polinomiale) tale che $$ x\in A\iff R(x)\in B$$
+sia $N_B$ la NTM che decide (in tempo polinomiale) $B$, si definisce $N_A(x)=N_B(R(x))$, è chiaro che $N_A$ è una NTM che decide $A$ in tempo polinomiale.\hfill$\blacksquare$\acc 
+La seguente definizione è fondamentale. \acc 
+\defi{($NP$ completezza)} Un linguaggio $A$ si dice \textit{$NP$ difficile} se, per ogni singolo linguaggio $L\in NP$, è vero che $L\rid A$. Se $A$ è sia $NP$ difficile che in $NP$, allora si dice che $A$ è \textbf{$NP$-completo}. \acc 
+Se si dimostra che un linguaggio $NP$ completo è in $P$, allora ogni singolo linguaggio in $NP$ sarebbe in $P$. Ad oggi non è mai stato dimostrato, infatti: 
+\sapbox{\huge non è noto se $ P=NP$
+sia vero o falso.\normalsize}
+il seguente risultato è uno dei passi più importanti nella teoria della complessità.\acc
+\teo{(Cook-Levin)} $SAT$ è $NP$ completo.\acc 
+\dimo{} si è già dimostrato che $SAT\in NP$, bisogna dimostrare solo che $SAT$ sia $NP$ difficile, ovvero che ogni linguaggio $NP$ si riduce polinomialmente a $SAT$.\acc 
+Sia $A$ un generico linguaggio in $NP$, e sia $N$ la NTM che lo decide in tempo polinomiale, in particolare, in $O(n^k)$. $$ L(N)=A$$
+Per definizione, per ogni input $x\in A$, $N(x)$ ha almeno un ramo accettante.\acc 
+Per la dimostrazione si introduce la definizione di \textbf{tabella di computazione}, per ogni ramo di computazione di $N$ su input $w=w_1w_2\dots w_n$, è associata una tabella di computazione, della forma \begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/tabellaComputazione.eps}
+\end{center}
+\begin{itemize}
+    \item sia $n$ la dimensione dell'input $w$
+    \item ogni riga della tabella inizia e finisce con il simbolo $\#$, o un qualsiasi altro arbitrario simbolo che non sia nell'alfabeto della NTM. 
+    \item ogni elemento $(i,j)$ della tabella è detto \textit{cella}
+    \item ogni riga ha $n^k+3$ (ma scriveremo per semplicità $n^k$) celle, gli spazi che non sono contenuti dall'input o dallo stato hanno il carattere $\blank$.\item una computazione può essere lunga al più $n^k$ passi. La tabella avrà ordine $n^k\times n^k$
+    \item ogni cella può contenere un solo simbolo, questo può essere uno stato, un carattere dell'alfabeto del nastro, il simbolo $\#$ oppure $\blank$.
+    \item ogni riga contiene una configurazione della computazione della TM.
+\end{itemize}
+Una \textit{finestra} nella tabella, è una sotto tabella di 2 righe e 3 colonne, rappresentata in verde nell'immagine.\acc 
+Le righe della tabella rappresentano una successione di configurazioni nella computazione (andando dall'alto verso il basso), una tabella è valida se la successione è coerente con l'evoluzione della computazione descritta dalla funzione di transizione $\delta$ della NTM.\acc 
+Una tabella è \textit{accettante} se contiene in una riga lo stato $q_{acc}$ ed è valida. Una NTM accetta un input $w$ se esiste almeno una tabella accettante su $w$.\acc 
+Definiremo una riduzione che data $N$ produrrà una formula booleana $\phi$ che simula l'esecuzione di un input $w$ su $N$. Siano \begin{itemize}
+    \item $Q$ l'insieme degli stati di $N$
+    \item $\Gamma$ l'alfabeto del nastro di $N$
+\end{itemize}
+ogni variabile della formula $\phi$ sarà del tipo 
+$$ x_{i,j,s}$$
+dove 
+$$ i,j \in [1,2\dots n^k] \ \ \ \ \ \ s\in\mathbb S = Q\cup \Gamma \cup \{\#\}$$
+esiste quindi una variabile per ogni cella $(i,j)$ della tabella, ed ogni possibile valore che può assumere. Vogliamo definire $\phi$ in modo tale che $$ \phi(x)=1\iff \text{ la tabella è accettante}$$
+\textit{Osservazione} : Il numero di variabili è $n^{2k}\cdot |\mathbb{S}|$, è quindi polinomiale in $n$, dato che $|\mathbb{S}|$ non dipende da $n$.\acc 
+Le variabili saranno definite in tal modo $$x_{i,j,s}=\begin{cases}
+    1 \text{ se nella cella $(i,j)$ c'è il valore }s \\ 
+    0 \text{ altrimenti }
+\end{cases} $$
+Si progetta la formula $\phi$ in modo tale che, un assegnamento che la soddisfa, corrisponde ad una tabella accettante per $N$. Definiamo diverse sottoformule di $phi$.\acc 
+\textbf{prima formula} : $\phi_{start}$\\
+questa formula serve a descrivere il fatto che la prima regola di una tabella valida deve necessariamente contenere la configurazione iniziale, che sappiamo essere 
+$$ \# \  q_0 \ w_1 \ w_2 \ w_3 \ \dots w_n \ \blank \ \dots \ \blank \ \#$$
+la formula sarà quindi 
+$$ 
+\phi_{start}=x_{1,1,\#}\land x_{1,2,q_0}\land x_{1,3,w_1} \land \dots \land  
+x_{1,n+2,w_n}\land x_{1,n+3,\blank }\land \dots \land  
+x_{1,n^k-1,\blank }\land x_{1,n^k,\#}
+$$
+è chiaro che questa formula deve essere necessariamente vera per permettere che una tabella sia valida, dato che lo stato iniziale è sempre determinato in tal modo per ogni ramo di computazione.\acc
+\textbf{seconda formula} : $\phi_{acc}$\\ 
+questa formula descrive il fatto che, una tabella per essere accettante deve contenere \textit{almeno} una cella con lo stato accettante, è quindi (intuitivamente) definita come segue $$ 
+\phi_{acc}=\bigvee_{1 \leq i,j \leq n^k} x_{i,j,q_{acc}}$$
+\textbf{terza formula} : $\phi_{cell}$\\
+questa formula deve descrivere che, per ogni variabile $x_{i,j,s}=1$ (la cella $(i,j)$ contiene $s$), deve essere vero che $x_{i,j,t}=0$ per ogni $t\ne s$, ossia, una cella può avere un solo valore. Inoltre deve essere vero che una cella ha esattamente un valore, quindi deve esistere necessariamente $s$ tale che $x_{i,j,s}=1$ per ogni cella $(i,j)$. 
+$$\bigvee_{s\in\mathbb S} x_{i,j,s} \ \ \ \   \text{ almeno un valore}$$
+$$ \bigwedge\limits_{\begin{matrix}s,t\in\mathbb{S}\\ s\ne t\end{matrix}}
+(\overline{x_{i,j,s}}\lor \overline{x_{i,j,t}})\ \ \ \   \text{ al massimo un valore}$$
+la terza formula completa è 
+$$ \phi_{cell}=\bigwedge\limits_{1 \leq i,j \leq n^k} \Big(
+    \Big(\bigvee_{s\in\mathbb S} x_{i,j,s}\Big) \land
+    \Big(\bigwedge\limits_{\begin{matrix}s,t\in\mathbb{S}\\ s\ne t\end{matrix}}
+    (\overline{x_{i,j,s}}\lor \overline{x_{i,j,t}})\Big) 
+\Big)$$
+\textbf{quarta formula} : $\phi_{move}$\\
+questa formula assicura che la riga $l+1$ è coerente con la riga $l$, ossia che le due configurazioni che si susseguono sono coerenti e in accordo con la funzione di transizione $\delta$ della NTM $N$. Per fare ciò, basta controllare ogni possibile finestra su due righe, questa deve essere \textit{lecita} (non violare le regole di $\delta$).\begin{itemize}
+    \item in una finestra, tutti i simboli che non sono adiacenti ad uno stato $q$ devono rimanere invariati 
+    \item i simboli adiacenti ad uno stato $q$ devono evolvere nella riga successiva seguento uno dei possibili risultati della $\delta$
+\end{itemize}\begin{center}
+    \includegraphics[width=\textwidth ]{images/finestraLecita.eps}
+\end{center}
+denotiamo la finestra $[i,j]$ quella composta dalle celle$$ \begin{matrix}
+    (i,j) & (i+1,j) & (i+2,j)\\ 
+    (i,j+1) & (i+1,j+1) & (i+2,j+1)
+\end{matrix}$$
+$$ \phi_{move}=\bigwedge\limits{1 \leq i,j \leq n^k}
+(\text{ la finestra $[i,j]$ è lecita})$$
+Senza entrare troppo nel formalismo, una finestra $[i,j]$ è lecita se la seguente è vera 
+$$ \bigvee_{\begin{matrix}
+a_1\dots,a_6\\ 
+\text{rendono la finestra}\\\text{lecita}
+\end{matrix}}
+(x_{i,j,a_1}\land x_{i+1,j,a_2}\land \dots \land x_{i+2,j+1,a_6})
+$$
+La formula $\phi$ tale che, un assegnamento che la soddisfa, corrisponde ad una tabella accettante per $N$, è la seguente 
+$$ \phi = \phi_{start}\land \phi_{acc}\land \phi_{cell}\land \phi_{move}$$
+la riduzione ha costo $$ n^kn^k|\mathbb S|=poly(n)$$
+quindi un qualsiasi linguaggio $A$ si riduce polinomialmente a $SAT$.\hfill$\blacksquare$\acc   
+Utilizzando la riduzione è possibile dimostrare che molti linguaggi incontrati sono $NP$ completi, ad esempio, essendo che $$ SAT\rid CIRCUIT-SAT$$
+ne consegue che anche $CIRCUIT-SAT$ è $NP$ completo. Ed essendo che 
+$$CIRCUIT-SAT\rid 3-SAT$$
+anche $3-SAT$ è $NP$ completo. Essendo vere le seguenti relazioni 
+$$ 
+3-COL \rid 4-COL \rid SAT \rid CIRCUIT-SAT \rid 3-SAT \rid CLIQUE
+$$
+tutti i linguaggi sopra elencati sono $NP$ completi.
 \end{document}

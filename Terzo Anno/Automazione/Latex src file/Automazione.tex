@@ -3738,7 +3738,7 @@ $$ u_k=w_k=u_{1,k}+\frac{K_pT_C}{T_i}e_k+(u_{k-1}-u_{1,k-1})=(1-z^{-1})U_{1,k}+\
 Riproduce l'azione PID classica, l'uscita dell'intero controllo $u_k$ ha i tre contributi. Si riorganizza l'equazione di $u_k$ e si ottiene 
 $$ U_k=U_{1,k}+\frac{K_pT_C}{T_i}\frac{E_k}{1-z^{-1}}$$
 $U_{1,k}$ include l'azione proporzionale e derivativa, e dipendono dal blocco PD, è poi presente l'azione integrale classica. Si ricordi che le lettere maiuscole ($U_k$ piuttosto che $u_k$) sono usate quando si passa nel dominio $\mathcal{Z}$.\acc 
-Consideriamo adesso che vi è saturazione, da almeno due campioni (negli istanti $k$ e $k-1$)
+Consideriamo adesso il caso in cui vi è saturazione, da almeno due campioni (negli istanti $k$ e $k-1$)
  $$u_{k-1}=u_H \ \ \ u_{1,k}=u_{1,k-1}=u_H $$
 Calcoliamo il valore di $w_k$ in questa situazione 
 $$ 
@@ -3758,10 +3758,211 @@ $$ e_k<0\implies w_k<u_H$$
 La cosa più importante è che l'uscita di questo termine non accumula più l'errore.
 \flowerLine 
 \section{Tuning del PID}
-\redText{lezione 20}
-
-
-
+Questa sezione tratterà la sintonizzazione dei guadagni del PID, in particolare, la selezione semi-automatica dei parametri del PID. In un processo da controllare non è detto che sia sempre necessario utilizzare tutte e 3 le azioni del regolatore. Si ricordi che ogni azione del PID ha un determinato effetto sul processo, in particolare
+\begin{center}
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \rowcolor[HTML]{ECF4FF} 
+        \begin{tabular}[c]{@{}l@{}}Aumentando\\  l'azione\end{tabular} & \begin{tabular}[c]{@{}l@{}}prontezza di \\ risposta\end{tabular} & \begin{tabular}[c]{@{}l@{}}margine di \\ stabilità\end{tabular} & \begin{tabular}[c]{@{}l@{}}errore a \\ regime\end{tabular} \\ \hline
+        \cellcolor[HTML]{EFEFEF}P ( aumento di $K_p$)                  & \cellcolor[HTML]{CDFCCD}aumenta                                  & \cellcolor[HTML]{FFCCC9}diminuisce                              & \cellcolor[HTML]{CDFCCD}diminuisce                         \\ \hline
+        \rowcolor[HTML]{FFCCC9} 
+        \cellcolor[HTML]{EFEFEF}I ( diminuzione di $T_i$)              & diminuisce                                                       & diminuisce                                                      & \cellcolor[HTML]{CDFCCD}azzera                             \\ \hline
+        \cellcolor[HTML]{EFEFEF}D ( aumento di $T_d$)                  & \cellcolor[HTML]{FFCCC9}diminuisce                               & \cellcolor[HTML]{CDFCCD}migliora                                & ininfluente                                                \\ \hline
+        \end{tabular}
+\end{center}
+Il termine derivativo aumenta lo smorzamento per ridurre le sovraelognazioni. 
+Esistono due approcci al problema della scelta dei guadagni\begin{itemize}
+    \item è noto il modello del processo da controllare, descritto eventualmente da una funzione di trasferimento, le scelte dei guadagni possono essere fatte per assegnazione o cancellazione di poli stabili ma lenti.
+    \item non è noto il modello del processo da controllare, si può sollecitare il processo con degli ingressi standard (a gradino) ed osservare sperimentalmente la risposta del sistema, nell'ipotesi che il sistema di controllo sia stabile asintoticamente. Se il sistema è instabile si può cominciare a chiudere un primo anello proporzionale, valutando la risposta in presenza di azione proporzionale. 
+\end{itemize}
+\subsection{Primo Metodo di Ziegler-Nichols}
+Il processo 
+$$ P_m(s)=\frac{Ke^{-\theta}s}{1+\tau s}$$
+è un modello che verrà utilizzato per il progetto dei guadagni, ricavato da un sistema che ha un polo con una cerca costante di tempo $\tau$, un guadagno $K$, ed un ritardo di tempo finito rappresentato da $e^{-\theta s}$ nel dominio di Laplace. Il seguente grafico evidenzia tali \textit{parametri caratteristici} del processo nella risposta ad un gradino 
+$\Delta u$
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/tuning1.png}
+\end{center}
+La risposta per le prime $\theta $ unità di tempo è assente, ciò avviene per il ritardo finito $e^{-\theta}s$, dopo di che risponde con costante di tempo $\tau$, più questa è piccola, più è rapida la risposta verso il valore di regime.\acc 
+Il valore $t_1$ rappresenta l'istante in cui l'uscita $y(t)$ raggiunge il $63\%$ del suo valore di regime.\acc 
+Il modello Z-N prevede la selezione dei guadagni su delle considerazioni fatte su un processo $P_m(s)$ di questo genere.  Ziegler e Nichols hanno fatto degli studi su questa classe di processi per cercare di trovare i valori migliori per i parametri del PID, minimizzando lo sforzo di controllo.\acc 
+Una volta valutati questi 3 parametri ($\theta,\tau,t_1$) facendo esperimenti ed osservazioni sul sistema (che era stabile asintoticamente, oppure instabile ma reso stabile), è possibile assegnare i valori dei coefficienti valutando la seguente tabella, che presenta il metodo Z-N, ed altre varianti sviluppate nel corso del tempo.\begin{center}
+    \includegraphics[width=0.85\textwidth]{images/ZN.png}
+\end{center}
+Questa tabella presenta un modo univoco per la scelta dei guadagni. La tabella è relativa ad un PID analogico, e alle sue varianti più semplici in assenza di azione derivativa e/o integrale.\acc 
+Questi valori possono essere utilizzati anche per un PID digitale, dato il tempo di campionamento $T_C$, nel metodo Z-N basta sostituire la variabile $\theta$ con 
+$$ \theta^D=\theta+\frac{T_C}{2}$$
+\subsection{Esempio Numerico 1}\label{esNum1}
+Si consideri il seguente processo da controllare (attenzione, non è detto che il modello matematico sia perfettamente noto).
+$$P(s)=\frac{1}{(1+0.5s)(1+s)^2(1+2s)}$$
+Supponiamo che la funzione $P(s)$ non sia nota al progettista, è possibile solamente valutare la risposta al gradino (unitario), che è la seguente:\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/ZN2.eps}
+\end{center}
+Come già detto, supponendo di non conoscere $P(s)$, si ricavano i 3 parametri caratteristici del sistema, essendo l'ingresso unitario, e l'uscita pure, è chiaro che il guadagno sia a sua volta unitario $$ K=1$$
+Si considera una retta tangente nel punto in cui la crescita è massima, tale retta interseca sia l'asse delle ascisse, che l'asse dato dal valore a regime (in questo caso 1). 
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/ZN3.eps}
+\end{center}
+Si noti come la tangente interseca l'asse delle ascisse in $t\simeq 1.5$, per $t< 1.5$ il valore dell'uscita è inferiore al 5\% del valore di regime. Il punto in cui la tangente interseca l'asse del valore di regime determina l'istante $t_1$ in cui il valore è circa il 63\% del valore a regime. Si trovano i valori $\tau$ e $\theta$:
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/ZN4.eps}
+\end{center}
+C'è una certa approssimazione in questa scelta. In particolare
+$$ \theta \simeq 1.46 \text{ secondi} \ \ \ \ \ \tau \simeq  3.34 \text{ secondi}$$
+Il processo modellato è 
+$$ P_m(s)=\frac{e^{-1.46}s}{1+3.34 s}$$
+La risposta indiciale di $P_m(s)$ si può visualizare (curva in rosso) sovrapposta alla risposta del processo (non noto) $P(s)$ (curva in blu):
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/ZN5.png}
+\end{center}
+I tre parametri per l'utilizzo del metodo Z-N sono pronti, \textit{prima di ciò} però, proviamo a realizzare un controllore PID \textit{per tentativi}, ignorando il metodo Z-N che verrà applicato in seguito. \acc 
+Proviamo con un controllore solo proporzionale con parametro $K_p=2$, la risposta al gradino unitario è la seguente
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/tentativi.png}
+\end{center}
+ci sono svariati problemi\begin{itemize}
+    \item l'uscita non è quella desiderata, errore a regime del circa 33\% 
+    \item tempo di salita più rapido (circa 3 secondi)
+    \item sovraelognazione evidente, circa il 35\% 
+    \item se proviamo ad aumentare il guadagno, le oscillazioni crescono 
+\end{itemize}
+Un anello chiuso con controllore solo proporzionale quindi non va bene\begin{itemize}
+    \item per ridurre l'errore a regime si aggiunge un azione integrale 
+    \item per ridurre l'eccessiva sovraelognazione si aggiunge un azione derivativa (filtrata in banda, e valutata solo sull'uscita misurata)
+\end{itemize}
+La risposta con un $PID_y^*$, con parametri 
+$K_p=3, \ T_i=5,\ T_d=0.1$
+è la seguente
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/tentativi2.png}
+\end{center}
+Con tale azione l'errore a regime è nullo, ma ci sono dei problemi\begin{itemize}
+    \item spesso instabile quando si tentano guadagni differenti 
+    \item sovraelognazione eccessiva, oscillazioni notevoli (poco smorzamento)
+    \item alto tempo di assestamento, circa 40/50 secondi
+\end{itemize}
+A questo punto, si prova a considerare un PID regolato dal metodo Z-N, si usa un $PID^*$ con derivata filtrata in banda 
+$$ \begin{matrix}
+    \theta = 1.46\\
+    \tau = 3.34\\ 
+    K=1
+\end{matrix}\implies 
+\begin{matrix}
+    K_p=2.75\\ 
+    T_i=2.92 \\ 
+    T_d=0.73 
+\end{matrix}$$
+Derivata è filtrata in banda con un valore $N=5$, ne consegue che la funzione di trasferimento del PID è 
+$$ PID^*(s)=
+K_p\Big(1+\frac{1}{T_i s}+\dfrac{T_d s}{1+\frac{T_d}{N}s}\Big)= 
+2.75\Big(1+\frac{1}{2.92 s}+\dfrac{0.73  s}{1+\frac{0.73 }{5}s}\Big)
+$$
+il risultato è il seguente
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/ZN6.png}
+\end{center}
+Il risultato è certamente migliore dei tentativi precedenti \begin{itemize}
+    \item c'è un rapido tempo di salita, circa 2.5 secondi 
+    \item ovviamente l'errore a regime è nullo per la presenza del termine integrale 
+    \item le oscillazioni sono poche 
+    \item il tempo di assestamento è di circa 16 secondi 
+    \item la sovraelognazione è comunque elevata, circa il 35\% del valore di regime, si può ridurre aumentando l'azione derivativa
+\end{itemize}
+Consideriamo una versione digitale dello stesso regolatore, con tempo di campionamento $T_C=0.3$ secondi, si deve valutare la tabella Z-N variando $\theta$, considerando $\theta^D=\theta + \frac{T_C}{2}=1.61\implies \frac{\theta^D}{\tau}=0.482$
+\begin{center}
+    \includegraphics[width=0.75\textwidth]{images/ZN7.png}
+\end{center}
+I parametri del PID sono leggermente diversi
+$$ K_p=2.4894, \ \  \
+T_i=3.22, \ \  \
+T_d=0.805 $$
+La risposta indiciale è praticamente identica al caso del controllore analogico, l'uscita del controllore ha un organo di tenuta zero, si noti come lo sforzo di controllo è ridotto, ha un picco nell'istante iniziale circa pari a  (3 volte il valore di regime).
+\subsection{Esempio Numerico 2}
+Consideriamo un altro esempio in cui il processo ha effettivamente un ritardo finito. Senza conoscere il modello del processo, sappiamo che la risposta al gradino unitario, che parte all'istante $t=1$, è la seguente 
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/ZN8.png}
+\end{center}
+Proviamo con un tentativo, applicando un azione proporzionale con costante $K_p=0.54$
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/ZN9.png}
+\end{center}
+C'è un ritardo intrinseco nell'uscita, il valore a regime è circa 0.75, meglio del caso senza controllore in cui era circa 5.5, ma comunque distante dal valore desiderato 1. Utilizziamo il metodo Z-N, i valori caratteristici che si trovano analizzando il grafico della risposta indiciale sono i seguenti
+$$ K=5.5, \ \  \
+\theta = 2, \ \  \
+\tau = 4 $$
+il modello è 
+$$ P_m(s)=\frac{5.5e^{-2s}}{1+4s}$$
+Si applica la derivata filtrata in banda con valore $N=20$.
+Si considerano 4 diversi regolatori, i cui parametri si ottengono valutando la tabella di Ziegler-Nichols
+\begin{itemize}
+    \item regolatore solo proporzionale $P$ $$ K_p=0.3636$$
+    \item regolatore proporzionale integrale $PI$ $$  K_p=0.3273, \ \ \ T_i=6.66$$
+    \item regolatore $PID^*$ $$ K_p=0.4364, \ \ \
+    T_i=4 , \ \ \
+    T_d=1 $$ 
+    \item regolatore $PID^*_y$ con azione derivativa valutata solo sull'uscita misurata (parametri identici al caso precedente)$$ K_p=0.4364, \ \ \
+    T_i=4 , \ \ \
+    T_d=1 $$ 
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.65\textwidth]{images/ZN10.png}
+\end{center}
+Il termine integrale è necessario per annullare l'errore a regime. Le risposte sono leggermente diverse fra i vari regolatori. Il regolatore $PID^*$ ha un picco dovuto alla variazione istantanea dell'errore, in quanto si applica la derivazione anche su di esso, infatti il regolatore $PID_y^*$ che applica la derivata solo sull'uscita misurata è esente da questo picco.\acc 
+Valutiamo adesso lo sforzo di controllo, gli andamenti del comando $u$ in uscita dal regolatore sono i seguenti 
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/ZN11.png}
+\end{center}
+Il $PID^*$ ha uno sforzo di controllo notevole causato dalla derivazione dell'errore, uno sforzo di controllo di questo tipo è inaccetabile e non è possibile adoperare un regolatore di questo tipo, che potrebbe rovinare gli attuatori con un comando eccessivamente alto. Consideriamo quindi lo sforzo di controllo degli altri regolatori escludendo quello del $PID^*$, che non permette di visualizzare correttamente gli altri andamenti nel grafico.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/ZN12.png}
+\end{center}
+Il termine proporzionale ha uno sforzo di controllo ridotto. Gli altri regolatori hanno degli sforzi analoghi, data la presenza di $N=20$ elevato, a regime il controllore $PID_y^*$ con termine derivativo mantiene una sollecitazione permaente, diversamente dal $PI$ che è costante.\acc 
+Nell'intervallo in cui il controllore proporzionale rimane costante, i due controllori con azione integrale aumentano il comando in maniera proporzionale al guadagno (stanno integrando). In ultima analisi, i migliori regolatori sono $PI$ e $PID_y^*$.
+\begin{center}
+    \includegraphics[width=\textwidth]{images/ZN13.eps}
+\end{center}
+Il blocco simulink a valle con disegnata una sinusoide rappresenta l'intervallo finito.
+\subsection{Secondo Metodo di Ziegler-Nichols}
+Esiste un'altra metodologia per il tuning, è un metodo che lavora ad anello chiuso. Si considera un anello di controllo chiuso con un processo da controllare, un PID (da progettare), ed un azione proporzionale che aumenteremo progressivamente, queste due sono mutualmente esclusive, regolate da uno switch che può chiudere il circuito su un nodo $a$ o su un nodo $b$, come mostrato nell'immagine seguente:
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/2Metodo2N.pdf}
+\end{center}
+Il procedimento è il seguente \begin{enumerate}
+    \item si chiude l'anello sul nodo $b$, quindi con il solo guadagno proprozionale 
+    \item si parte da un valore minimo $K$ (molto basso) e si aumenta gradualmente fino ad un \textit{valore critico}  $K_c$ che prota il sistema in oscillazione
+    \item Si considera il preiodo delle oscillazioni $P_c$
+\end{enumerate}
+Una volta ottenuti $K_c$ e $P_c$ si scelgono i parametri del PID secondo la seguente tabella 
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Tipo & $K_p$     & $T_i$         & $T_d$      \\ \hline
+        P    & $0.5K_c$  &               &            \\ \hline
+        PI   & $0.45K_c$ & $1.2^{-1}P_c$ &            \\ \hline
+        PID  & $0.6K_c$  & $0.5P_c$      & $0.125P_c$ \\ \hline
+        PD   & $0.85K_c$ &               & $0.125P_c$ \\ \hline
+    \end{tabular}
+\end{center}
+Una volta scelti i guadagni del PID, si chiude il circuito sul nodo $a$, applicando l'azione del PID.
+\subsection{Esempio Numerico 3}
+Vediamo un esempio di applicazione del secondo metodo, il processo in questione (la cui funzione non è nota al progettista) è lo stesso degli esempi precedenti 
+$$P(s)=\frac{1}{(1+0.5s)(1+s)^2(1+2s)}$$
+Si aumenta il guadagno proporzionale fino ad ottenere il guadagno critico $K_c=5$
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/2ZN2.png}
+\end{center}
+L'oscillazione è permanentemente e si è ai limiti della stabilità. Il periodo è $P_c=6.27$ secondi. Valutando la tabella del secondo metodo, i parametri del PID sono 
+$$K_p=3,\ \ \ T_i=3.13, \ \ \ T_d=0.78 $$
+Per la derivata filtrata in banda si sceglie $N=5$. Il controllore è 
+$$ PID^*(s)=
+K_p\Big(1+\frac{1}{T_i s}+\dfrac{T_d s}{1+\frac{T_d}{N}s}\Big)= 
+3\Big(1+\frac{1}{3.13 s}+\dfrac{0.78 s}{1+\frac{0.78}{5}s}\Big)
+$$
+La risposta del sistema ad anello chiuso con il regolatore $PID^*$ è la seguente 
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/2ZN3.png}
+\end{center}
+Il risultato è molto simile al caso precedente della sezione \ref{esNum1} in cui si è applicato il primo metodo.
 
 
 
