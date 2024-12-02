@@ -2529,7 +2529,7 @@ L'azione si occupa di eseguire un attuazione sul sistema, la condizione verifica
     \item \texttt{while}
 \end{itemize}
 e le variabili controllate sono, generalmente, valori che provengono dai sensori. 
-\subsection{Regole di Evoluzione}
+\subsection{Regole di Evoluzione}\label{regolEvo}
 Uno o più stati nell'SFC sono considerati \textit{iniziali} e sono denotati con una doppia bordatura.
 \begin{center}
     \includegraphics[width=0.6\textwidth ]{images/SFC2.pdf}
@@ -2616,6 +2616,280 @@ eseguite almeno per un ciclo di funzionamento.
 Pertanto le azioni associate ad un qualsiasi stato la cui transizione in uscita è
 caratterizzata da una condizione già verificata nel momento della sua attivazione,
 vengono eseguire almeno per un ciclo di funzionamento. 
+\flowerLine
+\section{Sintassi del Linguaggio SFC}
+Il microprocessore definisce, per ogni stato del diagramma, due variabili\begin{itemize}
+    \item \textbf{marker} è una variabile booleana, se $q$ è uno stato, si indica con $q.X$, ed è uguale a 1 (\texttt{True}) se e solo se lo stato è attivo. 
+    \item \textbf{timer} è una variabile intera positiva, indicata con $q.T$, ed indica il lasso di tempo trascorso dall'attivazione dello stato, memorizzando la durata di attivazione.
+\end{itemize}
+Riguardo il timer:\begin{itemize}
+    \item se lo stato è attivo, il timer si aggiorna incrementando il tempo trascorso 
+    \item se lo stato è inattivo, il timer è fermo, lasciando invariato il valore 
+    \item se lo stato passa da inattivo ad attivo, il timer si resetta al valore 0
+\end{itemize}
+\subsection{Qualificatori delle Azioni}
+Ad ogni stato $m$ è associata al più un'azione, questa è composta da 3 elementi\begin{itemize}
+    \item \textbf{identificatore} $A_m$ : è una stringa univoca che identifica l'azione 
+    \item \textbf{qualificatore} $Q_m$ : definisce il metodo di esecuzione delle azioni definite 
+    \item \textbf{variabile} $V_m$ è una variabile booleana, è 1 se le azioni definite sono state eseguite e portate al termine almeno una volta.
+\end{itemize}
+In questa sezione descriveremo il comportamento dei vari qualificatori, e di come questi possono influenzare il flusso di esecuzione.
+\subsubsection{Normal}
+Il qualificatore $N$, è quello assegnato di default alle azioni, si assumerà quindi che, se un'azione non specifica alcun qualificatore, il comportamento sarà di questo tipo. Semplicemente, l'azione associata ad uno stato $n$ verrà eseguita ciclicamente finché questo è attivo, ossia $n.X=1$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/normalQual.png}
+\end{center}
+\subsubsection{Pulse}
+Dato uno stato $n$, se il suo qualificatore è di tipo Pulse $Q_n=P$, allora, ogni qual volta che lo stato passerà da inattivo ad attivo, l'azione associata verrà eseguita una volta.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/PulseQual.png}
+\end{center}
+\subsubsection{Set e Reset}
+I seguenti qualificatori vengono sempre considerati in coppia, questi sono \textit{Set} e \textit{Reset}, si considerano due stati (distinti) $n$ ed $m$, alla quale sono associati questi qualificatori  $$Q_n=S \ \ \ \ \ Q_m=R $$
+è importante che, i due differenti stati che condividono la coppia di qualificatori, abbiano lo stesso identico identificatore $A_n$
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/SetReset.png}
+\end{center}
+Quando uno stato con qualificatore $S$ diviene attivo, allora la sua azione verrà eseguita ciclicamente, e continuerà ad essere eseguita anche quando lo stato diverrà inattivo, solo quando diverrà attivo uno stato (con lo stesso identificatore di azione) che ha qualificatore $R$, allora l'azione terminerà di essere eseguita.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/SetResetQual.png}
+\end{center}
+Se diviene attivo uno stato con qualificatore $R$, ma l'azione in questione non era già in esecuzione, non succede nulla.
+\subsubsection{Time Limited}
+Il qualificatore $L$ ha sempre associato un lasso di tempo $T$ (che può essere misurato in secondi, minuti, o una qualsivoglia unità di tempo). Quando uno stato con qualificatore $L$ (con intervallo $T$) diventa attivo, allora l'azione ad essa associata verrà eseguita per $T$ unità di tempo.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/LQual.png}
+\end{center}
+Se lo stato diventa inattivo prima che i $T$ secondi siano passati, l'azione si interrompe comunque.
+\subsubsection{Time Delayed}
+Il qualificatore $D$ è l'opposto del qualificatore $L$. Anche questo ha associato un tempo $T$, quando uno stato diviene attivo, l'azione ad essa associata verrà eseguita solamento dopo che sono trascorse $T$ unità di tempo, una volta avviata l'esecuzione, questa sarà ciclica finché lo stato è attivo. 
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/DelayedQual.png}
+\end{center}
+Se l'intervallo $T$ è maggiore del tempo totale di attività dello stato, l'azione non verrà eseguita.\acc 
+È possibile considerare dei qualificatori che sono \textit{combinazioni} di qualificatori già esistenti, seguono alcuni esempi.
+\subsubsection{Qualificatore Combinato $SD$}
+Il qualificatore $SD$ combina l'azione Set/Reset all'azione time delayed, ha quindi associato un intervallo di tempo $T$ e coinvolge sempre due stati, uno con qualificatore $SD$ ed uno con qualificatore $R$ (ed identico identificatore).\acc Quando uno stato $SD$ diviene attivo, dopo $T$ unità di tempo verrà avviata l'esecuzione ciclica dell'azione associata, che si fermerà solamente quando diverrà attivo lo stato con qualificatore $R$.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/SDQual.png}
+\end{center}
+\subsubsection{Qualificatore Combinato $DS$}
+È come il qualificatore $SD$ ma con sequenza delle operazioni invertita, quando lo stato con tale qualificatore diviene attivo, attende $T$ unità di tempo, se al termine di queste lo stato è ancora attivo, viene iniziata l'esecuzione ciclica, altrimenti, non verrà eseguita alcuna azione.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/DSQual.png}
+\end{center}
+\subsubsection{Qualificatore Combinato $SL$}
+Come ci si può aspettare, il comportamento è quello del Set/Reset, solo che l'esecuzione ciclica si fermerà dopo $T$ unità di tempo associate al qualificatore.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/SLQual.png}
+\end{center}
+\subsection{Strutture di Collegamento}
+Per rendere più ampio il campo in cui può operare SFC si considerano diverse strutture di collegamento che vanno oltre alla semplice transizione con condizione, seppur queste siano basilari, una corretta modellazione dei collegamenti fra gli stati è ciò che richiede più impegno da parte del progettista. Abbiamo già visto la struttura di base, che permette la transizione quando lo stato coinvolto è attivo, e la condizione indicata è verificata.
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/collegamentoBase.png}
+\end{center}
+\subsubsection{Scelta o Divergenza}
+La seguente struttura di collegamento modella la scelta di una via piuttosto che di un altra, in pratica riproduce i blocchi \texttt{if/else}.
+\begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/scletaDiverg.png}
+\end{center}
+Quando è attivo lo stato $n$, solo uno dei differenti flussi verrà percorso, è quindi fondamentale che le diverse condizioni sui rami siano mutualmente esclusive. Per garantire ciò, si può permettere che più di una condizione sia vera contemporaneamente, stabilendo però una gerarchia che stabilisce quale delle vie dovrà essere intrapresa, per ogni condizione $cond \ n+i$, su una diramazione di $k$ possibili scelte, viene valutata piuttosto che questa la condizione 
+$$ cond'\ n+i=cond\ n+i \land \Big( \bigwedge_{j=1}^{k-i}\overline{cond\ n+i+j} \Big)$$
+In tal modo, una condizione $n+i$ avrà minore priorità di $n+i-1$, dato che quest'ultima deve essere per forza falsa per garantire la verità della prima.\acc 
+Si consideri l'esempio della taglierina visto nella sezione \ref{regolEvo}, si aggiunge un nuovo nastro che in base alla lunghezza del pezzo tagliato, deve eseguire uno dei due stampi differenti $A$ o $B$.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/taglierina2.png}
+\end{center}
+L'SFC dovrà modellare la mutua esclusività dei due stampi, si dovrà introdurre un collegamento di divergenza che verifichi le condizioni (lunghezza del pezzo).
+\begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/scletaDiverg2.png}
+\end{center}
+Attenzione: La sintassi del collegamento di divergenza richiede sempre che \begin{enumerate}
+    \item a monte della divergenza ci sia sempre uno stato 
+    \item per ogni possibile scelta, c'è una condizione 
+    \item in seguito ad ogni scelta, c'è uno stato
+\end{enumerate}
+Come si può intuire, è necessaria una struttura di \textbf{convergenza} che congiunge ad uno stato differenti flussi prima creatisi da una divergenza/scelta.
+\begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/convergenza.png}
+\end{center}
+Considerando l'esempio della taglierina, supponiamo che a valle del secondo nastro ci sia un dispositivo che deve fotografare il pezzo con la stampa per valutarne la qualità, a prescindere dal fatto che questo sia stato stampato con lo stampo $A$ o $B$. I due flussi dovranno ricongiungersi, come rappresentato:
+\begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/taglierina3.png}
+\end{center}
+\subsubsection{Parallelismo}
+È necessaria una struttura di collegamento che descriva l'esecuzione parallela di più flusso di lavoro. Nella sintassi della struttura di parallelismo, vi è un singolo stato a monte, con una condizione, se verificata, verranno attivati tutti gli stati a valle compresi nel collegamento. Il fork si rappresenta con una doppia linea.
+\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/parallelismo.png}
+\end{center}
+Si consideri il seguente \textit{Esempio}, vi è un sistema di lavorazione per due elementi metallici di tipo $A$ e di tipo $B$, posti su un nastro trasportatore, un sensore ottico rileva la tipologia del pezzo, e ci sono poi 3 azionamenti dedicati al riscaldamento, foratura e saldatura.
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/esempioPezzi.png}
+\end{center}
+\begin{itemize}
+    \item il pezzo di tipo $A$ dovrà essere (in parallelo) riscaldato e forato. 
+    \item il pezzo di tipo $B$ dovrà essere (in parallelo) riscaldato e (queste due sequenzialmente) forato e saldato.
+\end{itemize}
+A monte ci dovrà essere una divergena che tramite il sensore ottico rileval a tipologia del pezzo.
+\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/esempioPezzi2.png}
+\end{center}
+Se il pezzo è di tipo $A$, dovrà essere contemporaneamente riscaldato e forato, verrà quindi considerata una struttura di parallelizzazione.
+\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/esempioPezzi3.png}
+\end{center}
+Questa struttura però viola la sintassi, in quanto è necessario che a valle di un fork ci sia uno stato, si inserisce quindi uno stato "fantoccio" privo di azioni, che serve solo a mantenere la coerenza sintattica, che non necessita di condizioni per poter avviare il fork. Si considera anche per il flusso di $B$, dato che anche tale pezzo dovrà ricevere delle lavorazioni in parallelo.
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/esempioPezzi4.png}
+\end{center}
+Si ricordi che in una transizione, la condizione \texttt{true} può essere omessa. Una volta eseguito il fork per entrambe le tipologie di pezzi, sarà possibile eseguire le lavorazioni in questione.
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/esempioPezzi5.png}
+\end{center}
+\subsubsection{Sincronizzazione}
+A seguito di una parallelizzazione dei flussi, può essere necessario un join di questi, per poter ritornare ad eseguire un unico flusso, la sintassi prevede $k$ stati a monte, ed un unico stato a valle, la transizione presenta un unica condizione.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/sincronizzazione.png}
+\end{center}
+Quando ogni stato a valle è attivo, e la condizione del collegamento è verificata, allora avverrà la transizione.\acc 
+Si consideri nuovamente l'esempio dei pezzi metallici, suppoiamo che alla fine del nastro ci sia un sensore di qualità che deve valutare il pezzo, qualsivoglia sia il tipo, per poi mandarlo al circuito di espulsione.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/esempioPezzi6.png}
+\end{center}
+Va eseguita la sincronizzazione dei flussi paralleli (per la tipologia $A$ e la tipologia $B$)
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/esempioPezzi7.png}
+\end{center}
+Attenzione, il diagramma sopra riportato è irrealizzabile, la sintassi richiede che a monte di ogni join ci siano degli stati, si considerano quindi degli stati fantoccio (senza azioni ne condizioni) detti \textit{stati di attesa}.\acc 
+In seguito alla sincronizzazione dei flussi sia per $A$ che per $B$, sarà necessaria una convergenza, in quanto il sensore di qualità dovrà valutare il pezzo indipendentemente dal suo tipo. Il diagramma SFC completo è il seguente:
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/esempioPezzi8.png}
+\end{center}
+Si consideri il sistema degli stati 5,6,10 e 11, si noti come lo stato 5 può essere collassato con lo stato 10, e lo stato 6 può essere collassato con  lo stato 11, senza dover aggiungere due stati fantoccio, e mettendo le due condizioni \textit{Riscaldamento completato} e \textit{Foratura completata} in \texttt{and} nel blocco di sincronizzazione.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/esempioPezzi9.png}
+\end{center}
+Questa situazione \textbf{non è ammissibile} per un semplice motivo: Si introduce una relazione di dipendenza fra i due stati\begin{enumerate}
+    \item parallelamente lo stato 5 e lo stato 6 verranno eseguiti 
+    \item se lo stato 5 termina, prima di poter ricongiungersi nella struttura di join, deve attendere la terminazione dello stato 6 
+    \item in tal modo, l'azione dello stato 5 rimarrà attiva senza poter essere interrotta 
+    \item l'aggiunta degli stati fantoccio permette l'indipendenza fra le azioni degli stati 5 e 6
+\end{enumerate}
+\subsubsection{Mutua Esclusione}
+Vogliamo modellare l'accesso esclusivo ad una risorsa, supponiamo che due stati distinti su due flussi paralleli differenti, vogliano eseguire un azione che richiede lo stesso attuatore (ad esempio, un manipolatore robotico). È chiaro che l'esecuzione delle azioni in parallelo porta ad un comportamento anomalo, e potenzialmente pericoloso dell'attuatore, è quindi necessario che gli stati in questione non siano mai attivi contemporaneamente.\acc 
+Si consideri il seguente diagramma:
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/mutuaEsclusione.png}
+\end{center}
+I due flussi sono paralleli. Le azioni degli stati $n$ ed $n+1$ richiedono lo stesso attuatore delle azioni degli stati $m$ ed $m+1$, quindi, quando è attivo uno degli stati $n,\ n+1$ (o analogamente uno fra $m, \ m+1$) bisogna accertarsi, prima di eseguire la transizione, che la risorsa sia libera, altrimenti si violerebbe la mutua esclusione.\acc 
+Si definisce uno \textit{stato ausiliario} $S$ detto \textbf{semaforo}, questo, tramite il suo marker $S.X$, descriverà la disponibilità della risorsa, memorizzandone lo stato d'uso. \begin{itemize}
+    \item $S.X=1$, lo stato è attivo, la risorsa è disponibile 
+    \item $S.X=0$, lo stato è inattivo, la risorsa non è disponibile, non può avvenire la transizione
+\end{itemize} 
+Le variabili semaforo sono stati iniziali in quanto, si assume che ad inizio processo la risorsa sia disponibile. La struttura di collegamento che permette la mutua esclusione è la seguente:
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/mutuaEsclusione2.png}
+\end{center}
+Il funzionamento verrà descritto per il flusso $n$, ma è analogo per il flusso $m$:\begin{itemize}
+    \item Supponiamo sia attivo lo stato $n-1$
+    \item Data la struttura di sincronizzazione, per passare allo stato $n$ è necessario che, sia $n$ che $S$ (l'altro stato a monte della sincronizzazione) siano attivi. Quindi, lo stato $n$ può essere attivato \textit{solo se} $S.X=1$, ossia, la risorsa è libera.
+    \item quando avviene la transizione da $n-1$ ad $n$, lo stato $S$ viene reso inattivo, quindi l'eventuale transizione da $m-1$ ad $m$ non potrà avvenire. 
+    \item Quando avviene la transizione da $n+1$ ad $n+2$ (si termina l'uso della risorsa esclusiva), viene eseguito un fork, e lo stato $S$ viene reso attivo, quindi $S.X=1\implies$ la risorsa sarà di nuovo disponibile, e la transizione da $m-1$ ad $m$ potrà accadere. 
+\end{itemize}
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/mutuaEsclusione3.png}
+\end{center}
+Attenzione, è importante capire che in questa struttura può verificarsi una condizione di ambiguità, in particolare, se gli stati $n-1$ ed $m-1$ dovessero essere attivi, e le condizioni $n-1$ ed $m-1$ dovessero diventare vere nello stesso momento, le transizioni avverebbero su entrambi i flussi, e diverrebbero attivi sia $n$ che $m$, accedendo alla stessa risorsa condivisa violando la mutua esclusività.\acc 
+È quindi importante che le condizioni $n-1$ ed $m-1$ siano rese mutualmente esclusive, tramite una relazione gerarchica, come nel caso delle condizioni di un collegamento di divergenza/scelta, in questo caso si può dare priorità alla transizione da $n-1$ ad $n$ imponendo alla condizione $m-1$ di verificare che  la condizione $n-1$ sia falsa:
+$$ cond \ m-1 = cond\ m-1 \land \overline{cond \ n-1}$$
+equivalentemente si può verificare che lo stato $n-1$ non sia attivo
+$$ cond \ m-1 = cond\ m-1 \land (n-1).X==0$$
+\subsubsection{Sincronizzare due Sequenze}
+Molte volte, può essere necessario mettere in relazione due flussi di esecuzione paralleli, costringendo uno stato, a dover attendere che un azione (di uno stato di un flusso differente) termini, prima di poter eseguire la transizione. Si consideri il seguente schema
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/relazione.png}
+\end{center}
+Si vuole far si che, la sequenza $B$ possa procedere oltre lo stato $m$ \textit{se e solo se}, nella sequenza $A$ (che avviene in parallelo) le azioni dello stato $n$ siano state completate. Un'idea di soluzione potrebbe essere la seguente:
+\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/relazione2.png}
+\end{center}
+Questa soluzione è \textit{errata}, seppur riesca a modellare la dipendenza di $B$ da $A$, introduce anche la dipendenza di $A$ da $B$, infatti non si potrà passare dallo stato $n$ allo stato $n+1$ finché la sequenza $B$ non concluda le azioni dello stato $m$. Vogliamo che $A$ sia indipendente.\acc Un altra idea può essere quella di modificare la condizione della transizione dallo stato $m$ allo stato $m+1$, introducendo la condizione $n$
+ $$cond\ m = cond \ m \land cond \ n $$
+ ma anche questa soluzione è errata, in quanto la condizione $n$, può essere vera indipendentemente dal fatto che le azioni dello stato $n$ siano state terminate o meno.\acc 
+ La corretta modellazione avviene introducendo un semaforo tramite uno stato ausiliario $S$, per cui deve essere vero che $S.X=1$ per permettere alla sequenza di $B$ di andare oltre lo stato $m$, e si da alla sequenza $A$ la possibilità di impostare l'attività di $S$ tramite un fork fra l'azione $n$ e l'azione $n+1$.
+ \begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/relazione3.png}
+\end{center}
+Si noti come \begin{itemize}
+    \item la sequenza $A$ è indipendente e può essere eseguita ciclicamente un numero indefinito di volte, semplicemente, al passaggio fra lo stato $n$ ed $n+1$ viene reso attivo lo stato $S$. 
+    \item dallo stato $m$, per proseguire è necessario che $S$ sia attivo 
+    \item la transizione da $m$ ad $m+1$ rende inattivo $S$, sarà necessario che nel flusso $A$ avvenga nuovamente la transizione $n\longrightarrow n+1$.
+\end{itemize}
+\flowerLine 
+\section{Esercitazione sul Linguaggio SFC}
+In questa sezione vediamo alcuni esercizi che prevedono la modellazione del comportamento logico di un sistema di automazione tramite il linguaggio SFC.
+\subsection{Esercizio 1 - Carrelli semoventi}
+\textbf{Descrizione del problema} : Si vuole modellare un sistema di carico/scarico di materiali tramite dei carrelli che si muovono su dei binari, si osservi la seguente figura:
+\begin{center}
+    \includegraphics[width=0.9\textwidth ]{images/carrelli.png}
+\end{center}
+Ci sono due carrelli, che per semplicità denomineremo $A$ e $B$, entrambi si trovano inizialmente nella zona di carico, il processo viene avviato quando un operatore preme start su un telecomando. Sono presenti sui binari i seguenti sensori\begin{itemize}
+    \item \color{darkgreen}$poscarA$\color{black} : sensore booleano, \texttt{True} quando il carrello $A$ è nella zona di carico.
+    \item \color{darkgreen}$poscarB$\color{black} : sensore booleano, \texttt{True} quando il carrello $B$ è nella zona di carico.
+    \item \color{darkgreen}$posattA$\color{black} : sensore booleano, \texttt{True} quando il carrello $A$ è nella zona di attesa.
+    \item \color{darkgreen}$posattB$\color{black} : sensore booleano, \texttt{True} quando il carrello $B$ è nella zona di attesa.
+    \item \color{darkgreen}$posscar$\color{black} : sensore booleano, \texttt{True} quando uno dei due carrelli è nella zona di scarico.
+\end{itemize}
+Inoltre i carrelli, presentano dedicati attuatori per la movimentazione sui binari, questi possono muoversi daventi e indietro, gli attuatori sono\begin{itemize}
+    \item \color{gray}$avantiA$\color{black} : se \texttt{True}, il carrello $A$ si muove in avanti (verso la zona di scarico) 
+    \item \color{gray}$avantiB$\color{black} : se \texttt{True}, il carrello $B$ si muove in avanti (verso la zona di scarico) 
+    \item \color{gray}$dietroA$\color{black} : se \texttt{True}, il carrello $A$ si muove indietro (verso la zona di carico) 
+    \item \color{gray}$dietroB$\color{black} : se \texttt{True}, il carrello $B$ si muove indietro (verso la zona di carico)
+\end{itemize}
+Sono poi presenti tre robot manipolatori, in particolare, due robot nella zona di carico, per caricare i due carrelli (tempo necessario per caricarli : 10 secondi), ed un robot nella zona di scarico, che deve scaricare il materiale, ed impiega 2 secondi.\begin{itemize}
+    \item \color{gray}$carA$\color{black} : se \texttt{True}, carica i materiali sul carrello $A$ 
+    \item \color{gray}$carB$\color{black} : se \texttt{True}, carica i materiali sul carrello $B$ 
+    \item \color{gray}$scar$\color{black} : se \texttt{True}, scarica i materiali dal carrello nella zona di scarico
+\end{itemize}
+è infine presente un'attuatore che permette di attivare la zona di scambio dei binari per uno dei due carrelli:\begin{itemize}
+    \item \color{gray}$scambio$\color{black} : se \texttt{True}, potrà transitare sulla zona di scambio il carrello $A$, se \texttt{False}, potrà transitare sulla zona di scambio il carrello $B$.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/carrelli2.png}
+\end{center}
+I due carrelli non possono transitare contemporaneamente nella zona di scambio, l'accesso a questa deve essere mutualmente esclusivo. \acc 
+\textbf{Risoluzione} : Definiremo indipendentemente due flussi del diagramma, inerenti al carrello $A$ e al carrello $B$, questi due, partono entrambi dalla zona di carico, ed il loro comportamento è simmetrico, quando viene premuto il tasto start, un carrello nella zona di carico, dovrà caricare il materiale con il braccio manipolatore, per poi dirigersi alla zona di attesa.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/SFCCarrelli.eps}
+\end{center}
+L'accesso allo scarico va gestito con una mutua esclusione, si utilizzerà la struttura vista nelle sezioni precedenti, usando lo stato ausiliario $S$. Quando il carrello $A$ deve passare, va attivato l'attuatore $scambio$, quando deve passare $B$, va disattivato.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/SFCCarrelli2.eps}
+\end{center}\vfill
+Una volta usciti dalla zona di scarico, i carrelli potranno tornare nella zona di carico, in attesa che un operatore prema di nuovo start.\acc 
+Il diagramma SFC completo è il seguente.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/SFCCarrelli3.eps}
+\end{center}
+\subsection{Esercizio 2 - Cisterna di miscelazione}
+\textbf{Descrizione del problema} : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
