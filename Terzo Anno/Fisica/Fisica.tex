@@ -2815,4 +2815,117 @@ Questa legge permette la costruzione dei motori elettrici, come riportato in fig
 \begin{center}
     \includegraphics[width=0.45\textwidth ]{images/motore2.eps}
 \end{center}
+\section{Sorgenti del Campo Magnetico}
+Abbiamo definito il campo magnetico quando una carica subisce una forza (di Lorentz) in movimento, occupiamoci ora di definire la sorgente del campo e la sua descrizione quantitativa. \begin{quote}
+    \textit{una carica in movimento genera un campo magnetica}
+\end{quote}
+Tale affermazione si formalizza con la \textbf{prima legge di Laplace} 
+\eqImportante{$\bar B = \dfrac{\mu_0}{4\pi}q(\bar v\times \hat r)\dfrac{1}{r^2}$}
+Questa è la formula di un campo generato da una carica $q$ che si muove a velocità $\bar v$, calcolato in un punto distante $r$ dalla carica. $\hat r$ è il versore che congiunge la carica al punto in cui si considera il campo.\acc 
+$\mu_0$ è la \textit{costante di permeabilità magnetica} nel vuoto. Si misura in $\frac{T}{A}m=\frac{W_b}{Am}$.\acc 
+Applichiamo la prima legge di Laplace al linguaggio della corrente elettrica, dove $q\bar v$ viene descritto da $I d\bar l$, dove $d\bar l$ è il tratto di filo conduttore infinitesimo. Si ha 
+$$ d\bar B=\frac{\mu_0}{4\pi}I(d\bar l \times \hat r)\frac{1}{r^2}$$
+Nel caso di un mezzo generale, al posto di $\mu_0$ si considera $\mu=\mu_0\mu_r$, $\mu_r$ è una costante di permeabilità relativa al mezzo in cui si calcola il campo.\begin{itemize}
+    \item i materiali per cui $\mu_r<1$ sono detti \textit{diamagnetici} e diminuiscono l'effetto del campo magnetico.
+    \item i materiali per cui $\mu_r>1$ sono detti \textit{paramagnetici} e aumentano l'effetto del campo magnetico.
+    \item i materiali per cui $\mu_r>>1$ sono detti \textit{ferromagnetici}. 
+\end{itemize}
+Ogni elettrone, ha un momento magnetico, ossia un campo generato da esso (come se ruotasse su se stesso),
+i materiali ferro magnetici sono composti microscopicamente da delle regioni dette \textit{domini di Weiss}, dentro tali regioni, gli elettroni hanno un momento magnetico polarizzato identicamente.
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/ferromagneti2.eps}
+\end{center}
+Essendo che in regioni diverse le polarizzazioni sono differenti, i momenti magnetici si annullano, ed il materiale globalmente non risulta magnetizzato. Se si applica un campo magnetico, i momenti si allineano, ed il materiale viene \textit{magnetizzato}, e tale effetto permeerà anche quando il campo magnetico che l'ha generato cesserà di esistere.
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/ferromagneti1.eps}
+\end{center}
+Sopra una temperatura di soglia (temperatura di Curie), i materiali ferromagnetici perdono la loro magnetizzazione.
+\subsection{Campi Generati da FIli}
+Consideriamo alcuni esempi canonici di campi magnetici generati da una corrente che scorre su dei fili conduttori, si consideri appunto un filo percorso da corrente. Essendo che in ogni punto il campo è ortogonale alla velocità delle cariche, il campo magnetico comporrà delle "spire" che avvolgono il filo.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/campoFIlo.eps}
+\end{center}
+Il contributo infinitesimo in un punto distante $r$ dato da un tratto infinitesimo di filo $dx$ sarà
+$$ dB=\frac{\mu_0}{4\pi}I\frac{dx\sin\theta}{r^2}$$
+sarà necessario integrare su tutto il filo 
+$$B=\int dB=\frac{\mu_0}{4\pi}I\int\frac{dx\sin\theta}{r^2} $$
+Si vuole cambiare variabile di integrazione considerando l'angolo $\theta$ 
+$$ r\sin\theta =R \implies r^2=\frac{R^2}{\sin^2\theta}\implies \frac{R}{x}=\tan\theta$$
+$$ \implies x=\frac{R}{\tan \theta}=R\frac{\cos\theta}{\sin\theta}\implies dx=R(-\frac{1}{\sin^2\theta})d\theta$$
+Quindi 
+$$ B=\frac{\mu_0I}{4\pi}\int_\alpha^\beta \sin^3\theta R\frac{-d\theta}{\sin^2\theta}\frac{1}{R^2}= 
+\frac{\mu_0I}{4\pi R}(\cos\beta-\cos\alpha)$$
+Dove \begin{itemize}
+    \item $\alpha$ l'angolo fra il segmento $SP$ e l'asse parallelo al filo \begin{itemize}
+        \item $S$ è il punto di inizio del filo 
+        \item $P$ è il punto in cui si calcola il campo magnetico
+    \end{itemize}
+    \item $\beta$ l'angolo fra il segmento $FP$ e l'asse parallelo al filo \begin{itemize}
+        \item $F$ è il punto di inizio del filo 
+        \item $P$ è il punto in cui si calcola il campo magnetico
+    \end{itemize}
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/campoFilo2.eps}
+\end{center}
+Se il filo è infinitamente lungo, allora $\alpha\rightarrow 0$ e $\beta\rightarrow \pi$, in tal caso il campo vale 
+$$ B=\frac{\mu_0I}{2\pi R}$$
+Consideriamo adesso il campo magnetico generato da una spira in cui scorre corrente, in particolare, si è interessati alla componente $B_x$ del campo, ossia sulla retta che passa per il centro della spira. In maniera simile al campo elettrico generato da un anello carico, in un punto si formeranno delle linee di campo a "ventaglio" le cui componenti opposte si annulleranno.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/campoSpira.eps}
+\end{center}
+Infine il campo magnetico sarà diretto lungo l'asse $x$.
+$$ dB_x=dB\sin=\theta\frac{\mu_0I}{4\pi}\frac{dl}{r^2}\sin\theta$$
+$$ B_x=\int dB_x=\frac{\mu_0I}{4\pi r^2}\sin\theta\int_l dl$$
+sia $2\pi a=\int_l dl$ la circonferenza
+$$ B_x=\frac{\mu_0I}{4\pi r^2}\sin\theta 2\pi  a $$
+ma $\sin\theta = \frac{a}{r}$
+$$ B_x=\frac{\mu_0I}{2 r^3} a^2 $$
+si può esprimere lungo la componente $x$, dato che $r=(a^2+x^2)^{\nicefrac{1}{2}}$
+$$ B_x=\frac{\mu_0Ia^2}{2 (a^2+x^2)^{\nicefrac{3}{2}}} $$
+Al centro della spira $x=0$ si ha 
+$$ B_x=\frac{\mu_0I}{2a}$$\flowerLine
+\section{Legge di Ampere}
+Vediamo alcune proprietà del campo magnetico, innanzitutto è importante sapere che il flusso del campo magnetico su una qualsiasi superficie chiusa $S$ è nullo, dato che le linee di campo sono sempre chiuse, per ogni linea entrante nella superficie ce ne è una uscente. 
+$$ \oint_S \bar B d\bar s = 0$$\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/flussoMagnetico.png}
+\end{center}
+Consideriamo adesso la \textit{circuitazione del campo magnetico}, per semplicità considereremo il campo generato da un filo rettilineo infinito percorso da corrente. La circuitazione è l'integrale su una linea chiusa $l$, questa, può essere \textit{concatenata} o meno al filo percorso.\acc 
+\defi{} una linea chiusa $l$ si dice \textit{concatenata} ad una retta $R$ se, per ogni possibile superficie $S_l$ la cui frontiera è $l$, esiste sempre almeno un punto $x$ tale che $x\in S_l \cup R$.\acc 
+Informalmente, una linea chiusa è concatenata al filo percorso da corrente se ogni superficie che ha tale linea come frontiera, è attraversata almeno in un punto dal filo.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/concatenata.eps}
+\end{center}
+Sappiamo che il campo magnetico generato dal filo ha delle curve che sono circonferenze intorno ad esso, si vuole fare il prodotto scalare fra questo e le componenti infinitesimali $d\bar l$ della curva $dl$. Come prima cosa, si proietta la curva $l$ sul piano in cui giaciono le linee di campo.\begin{center}
+    \includegraphics[width=\textwidth ]{images/CircuitazioneCampoMagnetico.eps}
+\end{center}
+si proietta $d\bar l$ sul vettore $\bar B$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/dimAmpere1.eps}
+\end{center}
+$$ d\bar l'=dl\cos\theta$$
+Si considera poi l'angolo $\alpha$ mostrato in figura 
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/dimAmpere2.eps}
+\end{center}
+Sia $r$ la distanza fra il filo ed il punto considerato, si ha che 
+$$ \frac{d\bar l}{r}=d\alpha$$
+quindi 
+$$ \bar B d\bar l=Bdl'=Brd\alpha=\frac{\mu_0I}{2\pi r}rd\alpha = \frac{\mu_0I}{2\pi}d\alpha$$
+A questo punto si può integrare sulla linea considerando $\alpha$ come variabile di integrazione. Da un punto con angolo $\alpha_1$ ad un punto con angolo $\alpha_2$ si ha 
+$$  \frac{\mu_0I}{2\pi}\int_{\alpha_1}^{\alpha_2}d\alpha= \frac{\mu_0I}{2\pi}(\alpha_2-\alpha_1)$$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/dimAmpere3.eps}
+\end{center}
+In una curva chiusa non concatenata, gli angoli $\alpha_1$ ed $\alpha_2$ coincidono, ne consegue che la circuitazione è nulla 
+$$ \frac{\mu_0I}{2\pi}(\alpha_2-\alpha_1)= \frac{\mu_0I}{2\pi}(0)=0 $$
+Se la curva \textit{è concatenata}, c'è una variazione di $2\pi$ fra l'angolo iniziale e quello finale.
+$$ \frac{\mu_0I}{2\pi}(\alpha_2-\alpha_1)= \frac{\mu_0I}{2\pi}(2\pi)=\mu_0I $$
+La prima legge di Ampere afferma che la circuitazione del campo magnetico è uguale al prodotto fra la costante $\mu_0$ e la corrente che scorre nel filo con cui la linea considerata è concatenata.
+$$\oint_l \bar B d\bar l = \mu_0I_{concatenata} $$
+Ricordando che $I$ è il flusso del vettore densità di corrente $\bar j$, si può esprimere in maniera più formale la corrente concatenata come 
+\eqImportante{$\displaystyle \oint_l \bar B d\bar l=\mu_0\int_{S_l}\bar j d\bar S$} 
+dove $S_l$ è una superficie che ha 
+$l$ come frontiera.\begin{quote}
+    questa identità è valida solo se $I$ non dipende dal tempo
+\end{quote}
+In situazioni di simmetria, la legge di Ampere permette di calcolare il campo magnetico.
 \end{document}
