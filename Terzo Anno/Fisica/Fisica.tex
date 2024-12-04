@@ -2930,5 +2930,49 @@ dove $S_l$ è una superficie che ha
 $l$ come frontiera.\begin{quote}
     questa identità è valida solo se $I$ non dipende dal tempo
 \end{quote}
-In situazioni di simmetria, la legge di Ampere permette di calcolare il campo magnetico.
-\end{document}
+In situazioni di simmetria, la legge di Ampere permette di calcolare il campo magnetico. Se ne vuole dare un esempio, si consideri ora un filo cilindrico di raggio $R$ percorso da corrente, le linee di campo, come nel caso del filo unidimensionale (senza spessore) sono circonferenze concentriche centrate nell'asse passante per il centro del filo.
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/cilindroElettrico.eps}
+\end{center}
+Consideriamo una curva chiusa $l$, concatenata, che per semplicità, è una circonferenza di raggio $r$, si vuole calcolare la circuitazione del campo magnetico lungo tale curva. Consideriamo separatamente i casi in cui la circonferenza della curva sia maggiore o minore alla circonferenza del cilindro.\acc 
+\textbf{caso 1)} $r>R$ 
+$$ \oint_l \bar B d\bar l  $$
+visto che il campo magnetico  e la curva sono sempre paralleli in ogni punto (dato che le linee di campo sono circonferenze), il prodotto scalare è il prodotto fra i due modulo.
+$$ \oint_l \bar B d\bar l  =\oint_l Bdl=B\oint_l dl$$
+Per la legge di Ampere si ha che 
+$$ B\oint_l dl=\mu_0I$$
+quindi, essendo $\oint_l dl=2\pi r$
+$$B2\pi r = \mu_0I\implies B = \frac{\mu_0I}{2\pi r} $$
+\textbf{caso 2)} $r<R$, in questo caso, cambia la corrente $I$, in quanto non si deve considerare tutta la sezione di filo, ma solamente una sottosezione cilindrica di raggio $r$.
+\begin{center}
+    \includegraphics[width=0.25\textwidth ]{images/cilindroElettrico2.eps}
+\end{center}
+Va considerata solamente la corrente $I'$ passante per al sezione $S$ di raggio $r$, ossia $$I'=\int_S \bar j d\bar S =$$ 
+ma la direzione di $\bar j$ è parallela alla normale di $S$ quindi si può considerare il prodotto dei due moduli.
+$$ I'=\int_0^r jdS$$ per la legge di Ampere si ha che 
+$$B2\pi r = \mu_0 I' =  \mu_0 j\int_0^r dS$$
+La superficie della sezione cilindrica $S$ di raggio $r$ è $\pi r^2$
+$$B2\pi r=\mu_0j\pi r^2 $$
+$$ B=\frac{\mu_0j\pi r^2}{2\pi r}=\frac{\mu_0j r}{2 }$$
+\subsection{Definizione di Ampere}
+In questa sezione verrà definità l'unità di misura della corrente. Si considerino 2 fili conduttori in cui scorre corrente, paralleli ad una distanza $d$. Le correnti sono rispettivamente $I_1$ e $I_2$. I fili sono lunghi $l$, e descritti dal vettore $\bar l$.\acc 
+Questi generanno due campi magnetici 
+$$ \bar B_1=\frac{\mu_0I_1}{2\pi d}$$
+$$ \bar B_2=\frac{\mu_0I_2}{2\pi d}$$
+il primo filo risentirà di una forza 
+$$ \bar F_1=I_1\bar l \times \bar B_2$$
+il secondo filo risentirà di una forza 
+$$ \bar F_2=I_2\bar l \times \bar B_1$$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/AmpereDef.eps}
+\end{center}
+Si consideri ora la forza per unità di lunghezza 
+$$ \frac{\bar F_2}{l}=I_2lB_1=\frac{\mu_0}{2\pi d}I_1 I_2$$
+se le due correnti sono uguali $I_1=I_2=I$, si ha 
+$$ \frac{\bar F_2}{l}=I_2lB_1=\frac{\mu_0}{2\pi d}I^2 $$
+Si considera una distanza $d=1$ metro. E si applica una corrente nulla. Si aumenta la corrente fino a raggiungere un valore $i^*$ tale che la forza su unità di lunghezza risulta essere 
+$$ \frac{\mu_0}{2\pi}(i^*)^2=2\cdot 10^{-7} \frac{\text N}{\text m} $$
+Tale corrente $i^*$
+ definisce \textit{1 unità di Ampere}.
+ 
+ \end{document}

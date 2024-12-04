@@ -2265,7 +2265,7 @@ Ciò, signigica che $D(<D>)$ non trovando una dimostrazione, non termina e va in
 $$ \Pi \text{ consistente }\implies D(<D>)=\infty$$
 Ma come si è mostrato in precedenza, $D(<D>)=\infty$ è un affermazione non dimostrabile, quindi è necessariamente vero che anche l'affermazione che la implica, ossia "$\Pi \text{ consistente }$" sia indimostrabile.\hfill$\blacksquare$
 \sapbox{Esistono affermazioni vere e non dimostrabili}
-\chapter{Complessità}
+\chapter{Complessità Temporale}
 Questo capitolo si occuperà di trattare le risorse necessarie alle TM per risolvere i problemi, con risorse, si definiscono \begin{itemize}
     \item tempo 
     \item spazio 
@@ -2687,5 +2687,90 @@ anche $3-SAT$ è $NP$ completo. Essendo vere le seguenti relazioni
 $$ 
 3-COL \rid 4-COL \rid SAT \rid CIRCUIT-SAT \rid 3-SAT \rid CLIQUE
 $$
-tutti i linguaggi sopra elencati sono $NP$ completi.
+tutti i linguaggi sopra elencati sono $NP$ completi.\acc 
+Una conseguenza della $NP$ completezza è il seguente risultato.\acc 
+\teo{} Se $S$ è un linguaggio $NP$ completo, allora $S\in P \iff P=NP$\acc 
+\dimo{} $\forall L \in NP$, $L\rid S$. Se $S\in P$, allora $L$, riducendosi ad $S$ in tempo polinomiale, risulta anch'esso in $P$. D'altra parte, se $P=NP$ ed $S$ è $NP$ completo, allora $S\in P$.\hfill$\blacksquare$\acc   
+Si è mostrato che la decidibilità di $SAT$ è un problema difficile, e ad oggi non sembra essere decidibile in tempo polinomiale, si vuole ora analizzare la sua risolvibilità, ossia la ricerca di una soluzione per una formula $\phi$.\acc 
+$SAT$ è \textbf{self-riducibile}, si assuma che $P=NP$, allora per definizione una TM deterministica $M$ può decidere $SAT$ in tempo polinomiale. \begin{quote}
+    $M(\phi)$ accetta se $\phi$ è soddisfacibile
+    $M(\phi)$ rifiuta se $\phi$ non è soddisfacibile
+\end{quote}
+Si può trovare un assegnamento per $\phi$ considerando la seguente procedura \begin{enumerate}
+    \item data $\phi(x_1,x_2\dots x_n)$
+    \item si considera $\phi'=\phi(0,x_2\dots x_n)$
+    \item si controlla $M(\phi')$, questa per ipotesi avrà tempo polinomiale 
+    \item se $M(\phi')$ accetta si pone nella soluzione $x_1=0$, altrimenti si pone $x_1=1$
+    \item si controllano nello stesso modo tutti gli altri letterali $x_2,x_3\dots ,x_n$
+    \item al termine si avrà un assegnamento valido per $\phi$, trovato in tempo polinomiale.
+\end{enumerate}
+Essendo che ogni problema $NP$ si riduce a $SAT$, si ha che se $P=NP$, una soluzione valida per ogni problema $NP$ può essere trovata in tempo polinomiale.\acc 
+\teo{} $P=NP\implies EXP=NEXP$\acc 
+\dimo{} Si utilizza una tecnica chiamata \textit{padding}, l'assunzione è che $P=NP$, si vuole dimostrare che $NEXP\subseteq EXP$ (sappiamo già che $EXP \subseteq NEXP$), sia $L\in NEXP$ e sia $N$ la NTM che decide $L$ in tempo $O(2^{n^k})$ per qualche $k$.\acc 
+Si considera un linguaggio derivato
+$$L'=\{<x,1^{2^{|x|^k}}> \ | \ x\in L \} $$
+Nota bene : $1^{2^{|x|^k}}$ è la stringa composta da ${2^{|x|^k}}$ caratteri (che sono appunto, 1). Il carattere 1 non deve essere presente nell'alfabeto della NTM.
+\begin{quote}
+    \textbf{Fatto} : $L'\in NP$, la dimostrazione è semplice, si consideri una NTM $N'$, la cui procedura è descritta come segue\begin{enumerate}
+        \item controlla che l'input è della forma $x'=<x,1^{2^{|x|^k}}>$. Tale controllo avviene in tempo $O(|x'|)$ 
+        \item se il controllo ha successo, esegue $N(x)$
+    \end{enumerate}
+    chiaramente $N'$ decide $L'$ in tempo polinomiale in $|x'|$.
+\end{quote}
+Visto che per ipotesi $P=NP$, si ha che $L'\in P$, allora esiste una TM deterministica $M'$ che decide $L'$ in tempo polinomiale. Allora è possibile decidere $L$ in tempo esponenziale\begin{itemize}
+    \item dato $x$, si crea la stringa $x'=<x,1^{2^{|x|^k}}>$, la creazione di tale stringa avviene in tempo $O(2^{|x|^k})$ 
+    \item avvio $L'(x')$, questa opera in tempo polinomiale, se $L'$ accetta, allora $x\in L$, altrimenti rifiuta 
+\end{itemize}
+è quindi chiaro che $L$ viene deciso da tale procedura in tempo esponenziale $\implies L\in EXP$.\hfill$\blacksquare$\acc   
+\teo{(di Ladner)} : Se $P\ne NP$, allora esiste un linguaggio $L\in NP$ tale che $N$ non è $NP$ completo. Se $P=NP$, ogni linguaggio in $NP$ è $NP$ completo. 
+\flowerLine
+\section{La Classe $CONP$}
+Definiamo ora una nuova classe di complessità. La definizione di $NP$ riguarda la decidibilità, ossia la certificazione che un certo elemento sia in un linguaggio, la classe $CONP$ riguarda la certificazione che un elemento \textit{non sia} in un linguaggio.\acc 
+Ad e sempio, esiste il linguaggio $$ UNSAT=\overline{SAT}$$
+e ci si chiede: sapendo che $SAT\in P$, $UNSAT\in NP$?\acc 
+\defi{($CONP$)} $CONP=\{L \ | \ \overline{L}\in NP\}$\acc 
+\textbf{Osservazione} : $CONP \ne \overline{NP}$\acc 
+\teo{} $SAT\in P \iff UNSAT \in P$\acc 
+\dimo{} dato un decisore per $SAT$, si decide $UNSAT$ negando la risposta di tale decisore.
+\hfill$\blacksquare$\acc  
+\teo{} $P=COP$, ovvero, $P$ è chiuso per il complemento.\acc 
+\dimo{} Dato un decisore per un linguaggio in $P$, è necessario invertire il risultato della TM.\hfill$\blacksquare$\acc   
+\teo{} $CONP\subseteq EXP$\acc 
+\dimo{} $L\in CONP \implies \overline L \in NP \subseteq EXP \implies L\in COEXP$ ma $COEXP=EXP$.
+\hfill$\blacksquare$\acc  
+Se $P\ne NP$ è valida la seguente relazione fra insiemi 
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/CONP.eps}
+\end{center}
+\teo{} $P\subseteq CONP$\acc 
+\dimo{} $L\in P\implies \overline L \in P \subseteq NP \implies 
+\overline L \in NP \implies L\in CONP$.\hfill$\blacksquare$\acc  
+\teo{} $P=NP\implies P=CONP=NP$\acc 
+\dimo{} $L\in CONP\implies \overline L \in NP=P \implies \overline L \in P \implies L \in P$.\hfill$\blacksquare$\acc   
+\textbf{Corollario} : $CONP\ne NP\implies P \ne NP$.\acc
+\defi{} $L$ è $CONP$ completo se\begin{itemize}
+    \item $L\in CONP$
+    \item $\forall A \in CONP, \ \ \ \ A\rid L$
+\end{itemize} 
+\teo{} $UNSAT$ è $CONP$ completo.\acc 
+\dimo{} Ssappiamo che $UNSAT\in CONP$, è vero che 
+$$ A\rid UNSAT \iff \overline A \rid \overline{UNSAT}=SAT$$
+siccome $\overline A$ è in $NP$ e $SAT$ è $NP$ completo, è vero che $\overline A$ si riduce a $SAT$, quindi $UNSAT$ è $CONP$ completo.\hfill$\blacksquare$\acc  
+In passato, diversi problemi che sono in $NP\cap CONP$, sono stati dimostrati essere anche in $P$, si consideri l'insieme 
+$$ PRIMES=\{<x> \ | \ x\text{ è un numero primo}\}$$
+nel 1975 è stato dimostrato che $PRIMES\in NP$, e successivamente, nel 2001, è stato dimostrato che $PRIMES\in P$. Altri problemi sono in $NP\cap CONP$, ma non è stato ancora verificato se questi siano o non siano in $P$.
+\chapter{Complessità Spaziale}
+Data una TM $M$, si definisce \textit{complessità spaziale} la funzione $S:\N\rightarrow \N$ tale che 
+$$ S(n)=\max_{x \ t.c. \ |x|=n}\Big(
+\text{numero di celle distinte utilizzate da $M$ su input $x$}    
+\Big) $$
+C'è una differenza fondamentale fra complessità spaziale e temporale, lo spazio può essere riutilizzato, il tempo no.\acc  La complessità spaziale non considera le dimensioni dell'input, in quanto non permetterebbe a nessuna TM di avere una complessità spaziale inferiore a $O(n)$, dato che l'input occupa delle celle di memoria. Si considerano sempre quindi 2 nastri, uno riservato all'input, ed uno riservato al calcolo. Le celle del nastro di input non saranno considerate nella misura di complessità spaziale.\acc 
+\defi{} $SPACE(S(n))=\{ L \ | \ \exists \ TM \ M \text{ tale che }L(M)=L \land  M \text{ ha complessità }O(S(n))\}$
+Da ciò, ne derivano alcune classi importanti 
+$$ PSPACE = \bigcup_{k\in \Z^+}SPACE(n^k)$$
+$$ EXPSPACE = \bigcup_{k\in \Z^+}SPACE(2^{n^k})$$
+$$ LOG = \bigcup_{k\in \Z^+}SPACE(\log(n))$$
+Vediamo alcuni esempi 
+$$ A=\{0^n1^n \ | \ n\in \N\}$$
+
 \end{document}
