@@ -2646,6 +2646,182 @@ for(int i = 0; i < N; i++){
 
 
 
-\chapter{Programmazione di GPU con CUDA}
+\chapter{Programmazione di GPU : CUDA}
+\section{Architettura della GPU}
+I processori ordinari, hanno un architettura dedicata alla \textit{riduzione della latenza} per le singole operazioni.
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/cpu.png}
+\end{center}
+Lo scopo della CPU è quello di eseguire codice sequenziale  il più rapidamente possibile, ed è caratterizzata da un alta frequenza di clock. Gran parte del chip della CPU, è occupata dalla cache, utile per ridurre gli accessi in memoria, che causano un alta latenza, inoltre, una grossa parte è composta dall'unitù di controllo, che si occupa di gestire le istruzioni, eseguire il prefetching, branch predictor ed altre operazioni simili. \acc 
+Le componenti dedicate alla computazione effettiva costituiscono una piccola parte di tutto il processore, inoltre le ALU sono molto performanti. Differente è la situazione per le GPU (anche dette schede video).
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/GPU.png}
+\end{center}
+Queste presentano un'architettura differente, la frequenza di clock è moderata, le unità di controllo sono più semplici (no branch prediction) e la cache è ridotta. Una GPU presenta molte più unità di calcolo rispetto alla CPU, la differenza sostanziale risiede nel fatto che queste sono progettate per \textbf{massimizzare il throughput} (numero di task processati per unità di tempo), piuttosto che ridurre la latenza delle singole operazioni. \acc Una particolarità delle GPU è che, gruppi di core condividono la stessa unità di controllo, questi ultimi saranno costretti ad eseguire quindi le stesse istruzioni contemporaneamente (seppur su dati differenti).\begin{quote}
+    GPU è l'acronimo di \textit{Graphics Processing Unit}, dato che queste sono nate per il rendering grafico. Ad oggi il loro utilizzo è ampliamente più vasto, vengono applicate nel calcolo parallelo, in quanto si prestano ad eseguire un gran numero di operazioni semplici alla volta (un esempio calzante di operazione in cui le GPU risultano efficienti, è il prodotto fra matrici).
+\end{quote}
+È importante sapere che il cambio di contesto sui core della GPU è notevolmente rapido rispetto a quello eseguito sulla CPU. La memoria della scheda video, detta VRAM o HBM (High Bandit Memory) è separata dalla RAM, ha un'alta banda e permette a molti thread di accedervi in parallelo.\acc 
+La seguente immagine descrive ad alto livello l'architettura di una scheda video:\begin{center}
+    \includegraphics[width=\textwidth ]{images/architetturaGPU.png}
+\end{center}
+Con \textbf{Host}, si definisce la coppia CPU-RAM su cui viene eseguito classicamente il codice, essendo che i core della GPU non possono accedere alla RAM, solitamente il ciclo di esecuzione dei programmi consiste nei seguenti passi\begin{itemize}
+    \item I dati su cui vanno eseguite le operazioni vengono passati dall'host alla VRAM (memoria della GPU)
+    \item La GPU esegue il calcolo parallelo sui dati 
+    \item Una volta ottenuto il risultato, lo trasferisce nella memoria principale dell'host
+\end{itemize}
+\sapbox{Attenzione : La GPU non dovrebbe mai fare I/O}
+I singoli blocchi verdi mostrati in figura rappresentano i singoli core, anche detti \textbf{CUDA core} (ogni core possiede dei registri privati, come per la classica CPU). I core sono divisi in \textbf{Streaming Multiprocessor (SM)}, un SM racchiude più core che condividono la stessa unità di controllo\begin{quote}
+    i core di uno stesso SM non possono eseguire istruzioni differenti contemporaneamente
+\end{quote}
+Due o più SM costituiscono un \textbf{blocco}. Tutti i core possono accedere alla memoria globale condivisa (HBM), anche se per i blocchi è riservata una cache (come nel caso della CPU, questa è trasparente al programmatore).
+\begin{center}
+    \includegraphics[width=\textwidth ]{images/SMblocchiCore.png}
+\end{center}\begin{itemize}
+    \item la CPU è predisposta al calcolo sequenziale 
+    \item la GPU è predisposta al calcolo parallelo
+\end{itemize}
+L'host e la GPU sono connesse da un bus detto \textit{Northbridge}.\begin{center}
+    \includegraphics[width=0.25\textwidth ]{images/GPUCPU.png}
+\end{center}
+Idealmente, bisogna ridurre al minimo la frequenza con la quale si trasferiscono i dati dalla RAM alla VRAM. Le due memorie sono separate ed il trasferimento dei dati fra queste va gestito in maniera esplicita, vedremo come CUDA (si definirà in seguito) si occupa di trasportare i dati fra le due memorie in maniera trasparente.\flowerLine 
+\section{Introduzione a CUDA}
+\textbf{CUDA (Compute Unified Device Architcture)} è una piattaforma di programmazione parallela sviluppata da NVIDIA che permette di utilizzare direttamente la scheda video, si può dire che è un modello di programmazione \textit{general-purpose}, e permette di gestire in modo esplicito la memoria. La GPU è vista come un \textit{accelleratore} da utilizzare per dei calcoli specifici in un programma. \sapbox{CUDA funziona solo su GPU NVIDIA}
+Le funzioni definite nel codice che verranno eseguite dai core della GPU sono chiamata \textbf{CUDA kernel} (o solamente kernel).\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/CUDAmodel.png}
+\end{center}
+\subsection{Modello di Esecuzione}
+Quando si scrive del codice da eseguire sulla GPU, si definisce un elevato numero di thread (anche superiore ai core fisici presenti), in CUDA i thread vengono rappresentati (o meglio dire, organizzati) in uno spazio 6-dimensionale : ogni thread è \textit{identificabile univocamente} da due vettori con 3 coordinate ciascuno. \acc 
+Come accennato, ad ogni thread sarà associato \begin{itemize}
+    \item un vettore 3-dimensionale che ne indica le coordinate nel \textbf{blocco}.
+    \item un vettore 3-dimensionale che ne indice le coordinate nella \textbf{griglia}.
+    \item un thread può conoscere la sua posizione $(x,y,z,x',y',z')$ chiamando apposite funzioni di libreria.
+\end{itemize}
+La struttura ammette anche blocchi o griglie di dimensioni inferiori a 3. La seguente immagine riporta una struttura composta da una griglia 3-dimensionale $4\times 3\times 2$, composta da blocchi 2-dimensionali $3\times 2$, per un totale di $4\times 3\times 2\times 3\times 2=144$ thread.
+\begin{center}
+    \includegraphics[width=\textwidth ]{images/griglia.png}
+\end{center}
+La \textbf{capability} è una proprietà associata ad ogni GPU, e definisce il numero massimo di thread per blocco,blocchi per griglia e dimensioni della struttura che può implementare una GPU, è rappresentata da un \textit{version number} (a volte chiamato SM version), identifica le funzionalità supportate dall'hardware e le istruzioni disponibili sulla GPU.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/capability.png}
+\end{center}
+\flowerLine 
+\section{Struttura del Codice}
+In questa sezione si introduce la programmazione delle GPU in \texttt{C} utilizzando CUDA. Come prima cosa, è necessario specificare una funzione \textit{kernel} che verrà eseguita da tutti i thread definiti. Si definisce il numero di thread, specificando le dimensioni della griglia e del blocco.\acc 
+Sia \code{foo} la funzione kernel:
+\begin{lstlisting}[style=CStyle]
+dim3 block(3,2);
+dim3 grid(4,3,2);
+foo<<<grid, block>>>();
+\end{lstlisting}
+\texttt{dim3} è un tipo di dato (3-vettore di interi) che permette di specificare le dimensioni di blocco e griglia (ogni dimensione non specificata si assume essere 1), nell'esempio riportato, si definiscono blocchi $3\times 2 \times 1 \equiv 3\times 2$, ed una griglia avrà dimensione $4\times 3 \times 2$, ci saranno in totale $144$ thread, che verranno distribuiti sui core ed eseguiranno in parallelo la funzione \code{foo}.\begin{quote}
+    la decisione della struttura (assegnamento delle dimensioni) dipende dal tipo di problema
+\end{quote}
+\begin{lstlisting}[style=CStyle]
+dim3 b(3,3,3);
+dim3 g(20,100);
+foo<<<g, b>>>(); /* si esegue il codice su una griglia 20x100 composta 
+                    da blocchi 3x3x3, per un totale di 50000 thread*/
 
+foo<<<g, 256>>>(); /*e' possibile passare un valore costante per 
+                     avviare la funzione kernel, in questo caso, 
+                     i blocchi saranno unidimensionali e 
+                     composti da 256 thread, per un totale  
+                     di 2000x256 thread. */
+
+foo<<<g, 2048>>>(); /*questo comando e' invalido in quanto per 
+                     nessuna capability permette di definire 
+                     blocchi da piu' di 1024 thread*/
+
+foo<<<5, g>>>();  /* anche questo esempio e' invalido, in quanto 
+                    si specifica un blocco da 20x100>1024 thread.*/
+\end{lstlisting}
+\sapbox{i file in cui è presente codice CUDA devono avere l'estensione \texttt{.cu} e devono essere 
+compilati dal comando \texttt{nvcc}, specificando anche il numero di versione con \texttt{-arch=sm\_[versione]}}
+Il seguente esempio riporta una semplice funzione da eseguire sulla GPU (nonostante nell'esempio venga fatto, è sconsigliato fare I/O sulla GPU).
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+#include <cuda.h> 
+
+__global__ void hello(){
+    printf("Hello world\n");
+}
+
+int main(){
+    hello<<<1,10>>>();
+    cudaDeviceSynchronize();
+    return 1;
+}
+\end{lstlisting}\begin{itemize}
+    \item le funzioni kernel devono essere di tipo \texttt{void} 
+    \item il decoratore \texttt{\_\_global\_\_} che precede la funzione kernel specifica che la funzione può essere chiamata sia dall'host che dalla GPU, ma può essere eseguita solamente sulla GPU
+\end{itemize}
+Esempio di compilazione:\begin{quote}
+    \shell{nvcc -arch=sm\_20 hello.cu -o hello}
+\end{quote}
+\textbf{Nota importante} : Le chiamate delle funzioni kernel sono asincrone, il codice host dopo aver chiamato una funzione da eseguire sulla GPU continuerà la sua esecuzione senza preoccuparsi dell'andamento del codice parallelo della scheda video, la funzione \code{cudaDeviceSynchronize()}, blocca il codice host ed attende la terminazione dell'esecuzione parallela.\begin{center}
+    \includegraphics[width=1\textwidth ]{images/CUDAsincronia.eps}
+\end{center}
+Come \texttt{\_\_global\_\_}, ci sono altri decoratori\begin{itemize}
+    \item \texttt{\_\_device\_\_} : la funzione può essere chiamata esclusivamente da un altro kernel all'interno della GPU 
+    \item \texttt{\_\_host\_\_} : la funzione può essere eseguita esclusivamente sull'host (può essere omesso).
+\end{itemize}
+Esistono diverse variabili che possono essere accedute (esclusivamente nella funzione kernel eseguita sulla GPU) che descrivono la posizione del thread all'interno della struttura 6-dimensionale.\begin{itemize}
+    \item \code{blockDim} : restituisce la dimensione di ogni blocco tramite un vettore a 3 componenti.
+    \item \code{gridDim} : restituisce la dimensione della griglia tramite un vettore a 3 componenti.
+    \item \code{threadIdx} : restituisce le coordinate $(x,y,z)$ del thread all'interno del blocco. Due thread possono avere stessi valori per questa variabile se sono in blocchi diversi. 
+    \item \code{blockIdx} :  restituisce le coordinate $(x',y',z')$ del blocco (in cui è contenuto il thread) nella griglia, due thread nello stesso blocco condivideranno tale variabile.
+\end{itemize}
+È possibile generare un \texttt{ID} univoco per ogni thread in funzione delle sue coordinate.
+\begin{lstlisting}[style=CStyle]
+int myID = (blockIdx.z * gridDim.x * gridDim.y +
+        blockIdx.y * gridDim.x +
+        blockIdx.x) * blockDim.x * blockDim.y * blockDim.z +
+        threadIdx.z * blockDim.x * blockDim.y +
+        threadIdx.y * blockDim.x +
+        threadIdx.x;
+\end{lstlisting}
+\subsection{Disposizione dei Thread}
+Abbiamo visto come \begin{itemize}
+   \item Una GPU è composta da più core disposti su un SM, e più SM formano un blocco 
+   \item I thread di CUDA sono organizzati logicamente in una struttura 6-dimensionale composta da blocchi su una griglia
+\end{itemize}
+\sapbox{\textbf{Attenzione} : I blocchi fisici della GPU (2 o più SM) ed i blocchi logici di CUDA (elementi della griglia) \textit{non sono la stessa cosa}.}
+Ci interessa sapere, come viene mappata la griglia 6-dimensionale nei core fisici della GPU?\begin{itemize}
+    \item ogni core, viene eseguito su un SM 
+    \item i core di uno stesso SM condividono la stessa unità di controllo e sono costretti ad eseguire in sincronia le stesse istruzioni 
+    \item differenti SM possono eseguire differenti funzioni kernel 
+    \item \textit{Importante} : i thread di uno stesso blocco logico (della struttura di CUDA) vengono assegnati ai core di uno stesso SM, i thread di un blocco non possono essere divisi su thread differenti SM. 
+    \item Quando vanno eseguiti più thread di un blocco, CUDA li schedula tutti su un SM, una volta finito, schedulerà su questa i thread del blocco successivo (se questi vi entrano)
+\end{itemize}
+I thread di uno stesso blocco logico sono ulteriormente raggruppati in \textit{gruppi} chiamati \textbf{warps} (solitamente, un warp contiene 32 thread). I thread di un unico blocco logico vengono divisi su più warps in'accordo con i loro id del blocco. \begin{center}
+    tutti i thread di un warp eseguono simultaneamente la stessa istruzione
+\end{center}\begin{itemize}
+    \item più warp possono essere su un unico SM 
+    \item due warp possono eseguire istruzioni diverse 
+    \item i core di un SM non possono eseguire istruzioni diverse simultaneamente 
+    \item ne consegue che due warp su un'unica SM non potranno essere eseguiti in contemporanea se fanno istruzioni diverse (anche se ci sono core disponibili nell'SM)
+\end{itemize}
+Ad esempio, un SM con 128 core, potrebbe includere 4 warp da 32 thread ciascuno. Nonostante possono essere eseguiti 128 core in parallelo, ne verranno eseguiti solo 32 alla volta, dato che i thread di uno stesso warp possono eseguire le stesse istruzioni, thread di warp diversi (se hanno istruzioni differenti) non potranno essere eseguiti sui core fisici.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/warp.eps}
+\end{center}
+Il seguente esempio può rendere chiaro il concetto
+\begin{lstlisting}[style=CStyle]
+__global__ void foo(){
+    int ID = getThreadUniqueId(); //funzione mostrata precedentemente 
+    if(ID%2==0){
+        funcA();
+    }
+    else{
+        funcB();
+    }
+    funcC();
+}
+\end{lstlisting}
+supponiamo che tale funzione \code{foo()} sia eseguita da 32 thread in un'unico warp, la situazione è la seguente\begin{itemize}
+    \item i thread dispari eseguiranno la funzione \code{funcA()}, i thread pari sono costretti ad eseguire le stesse istruzioni (dato che sono su uno stesso warp), quindi non potranno eseguire in parallelo la loro funzione 
+    \item una volta che i thread dispari hanno finito, i thread pari potranno eseguire \code{funcB()}. Finché questi non hanno finito, i thread dispari dovranno attenderli prima di continuare. 
+    \item una volta che i pari hanno finito con \code{funcB()}, tutti e 32 i thread potranno eseguire in contemporanea  \code{funcC()}, eseguendo le stesse istruzioni.
+\end{itemize}
+Tale divergenza nell'esecuzione è detta \textbf{warp divergence}, ed costituisce un problema dal punto di vista computazionale.\begin{center}
+    \includegraphics[width=\textwidth ]{images/warpDivergence.png}
+\end{center}
 \end{document}
