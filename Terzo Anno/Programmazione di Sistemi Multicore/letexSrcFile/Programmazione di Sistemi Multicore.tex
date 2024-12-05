@@ -2824,4 +2824,162 @@ supponiamo che tale funzione \code{foo()} sia eseguita da 32 thread in un'unico 
 Tale divergenza nell'esecuzione è detta \textbf{warp divergence}, ed costituisce un problema dal punto di vista computazionale.\begin{center}
     \includegraphics[width=\textwidth ]{images/warpDivergence.png}
 \end{center}
+\subsection{Cambio di Contesto e Proprietà del Dispositivo}
+Solitamente un SM supporta più warp di quanti ne possa eseguire simultaneamente \begin{quote}
+    ad esempio, un SM potrebbe avere un totale di 64 core, ma supportare 4 warp da 32 thread ciascuno (128 thread in totale)
+\end{quote}
+La particolarità delle GPU rispetto alle CPU, è che possono eseguire il cambio di contesto da un warp ad un altro in maniera estremamente rapida, senza perdita di tempo, è quindi \textit{favorevole saturare} un SM con più thread di quanti ne possa eseguire in simultanea:\begin{quote}
+    Se un gruppo di thread in un warp deve aspettare che un'operazione complessa termini (come leggere dati dalla memoria), l'SM passa ad eseguire un altro warp di thread che non è in attesa: Mentre un gruppo di thread aspetta, l'SM trova un altro gruppo pronto per essere eseguito.
+\end{quote}
+È quindi utile mettere più thread su un SM di quanti ne possa eseguire in parallelo, in modo tale che, quando un warp viene interrotto (ad esempio, per attendere dati dalla memoria) con alta probabilità ne verrà schedulato un altro warp.
+\subsubsection{Esempio 1}
+Una scheda video (che supporta CUDA) è in grado di avere un massimo di 8 blocchi (logici), e 1024 thread su un'unico SM, e supporta al più 512 thread per blocco.\begin{itemize}
+    \item \textbf{8$\times$8} :  Se considerassimo dei blocchi $8\times 8$, ogni blocco conterrebbe $64$ thread, essendo che ne possiamo avere 1024, avremo un totale di $\frac{1024}{64}=16$ blocchi sull'SM. Nonostante ciò, un SM può avere \textit{al massimo} 8 blocchi, quindi, ogni SM avrà $8\times 64=512$ thread (la metà di quanti se ne potrebbero avere), e ci sarebbe uno spreco delle risorse. È fondamentale cercare di massimizzare il numero di thread scegliendo accuratamente le dimensioni del blocco.
+    \item \textbf{16$\times$16} : Se considerassimo dei blocchi $16\times 16$, ogni blocco conterrebbe $256$ thread, essendo che ne possiamo avere 1024, avremo un totale di $\frac{1024}{256}=4$ blocchi sull'SM. Con questa configurazione, l'utilizzo di ogni SM è massimizzato.
+    \item \textbf{32$\times$32} : Se considerassimo dei blocchi $32\times 32$, ogni blocco conterrebbe $1024$ thread, ma il massimo numero di thread consentito per blocco è 512, quindi, questa configurazione non è valida.
+\end{itemize}
+\subsubsection{Esempio 2}
+C'è una griglia $4\times 5 \times 3$, ognuna di questa ha un blocco che può avere al più 100 thread, in totale, ci sono 60 blocchi. La GPU, ha 16 SM. Bisogna distrubuire i 60 blocchi totali sui 16 SM. \begin{itemize}
+    \item supponiamo che i blocchi siano distrubuiti in maniera round robin 
+    \item 12 SM riceveranno 4 blocchi, e 6 SM riceveranno 3 blocchi 
+    \item è poco efficiente, gli ultimi 12 blocchi saranno processati in simultanea da 12 SM, mentre ci saranno 6 SM che non stanno facendo computazione 
+\end{itemize}
+Assumiamo che ogni warp è composto da 32 thread \begin{itemize}
+    \item ogni blocco ha 100 thread 
+    \item in un blocco ci sono 4 warp $[\ 32\ | \ 32\ | \  32\ | \  4\ ]$
+    \item Supponiamo che ogni SM abbia 32 CUDA core $\implies$ un solo warp alla volta può essere schedulato su ogni SM 
+    \item L'ultimo warp avrà 4 thread che schedulerà su un SM da 32 core, utilizzando solo il $12.5\%$ delle risorse computazionali disponibili 
+\end{itemize}
+Questo esempio mostra come la scelta di una buona struttura blocchi-griglia di CUDA è centrale quando si vuole massimizzare l'uso delle risorse. \sapbox{il numero di thread in un blocco (scelto dall'utente) dovrebbe essere multiplo del numero di thread per warp (dato dalle specifiche della GPU)}
+In un programma che usa CUDA è possibile visualizzare tutte le schede video (che supportano CUDA) disponibili:
+\begin{lstlisting}[style=CStyle]
+int deviceCount = 0; 
+cudaGetDeviceCount(&deviceCount); //per il numero di GPU disponibili 
+if(deviceCount==0)
+    printf("no CUDA compatible GPU exists.\n");
+else{
+    cudaDeviceProp pr;
+    for(int i=0; i<deviceCount; i++){
+        cudaGetDeviceProperties(&pr, i); //per le proprieta' dell'i-esima GPU
+        printf("Device #%d is %s\n",i, pr.name);
+    }
+}
+\end{lstlisting}
+Il tipo di dato \code{cudaDeviceProp} è una struttura che contiene diverse informazioni sulle specifiche della GPU, quali
+\begin{lstlisting}[style=CStyle]
+struct cudaDeviceProp{
+    char name[256];
+    int major; //numero della versione (compute capability)
+    int minor; //numero della versione (compute capability) 
+    int maxGridSize[3];
+    int maxThreadsDim[3];
+    int maxThreadsPerBlock;
+    int maxThreadsPerMultiProcessor; //thread massimi per SM 
+    int multiProcessorCount; //numero di SM 
+    int regsPerBlock; //numero di registri per ogni blocco 
+    size_t sharedMemPerBlock;
+    size_t totalGlobalMem;
+    int warpSize;
+};
+\end{lstlisting}
+\flowerLine 
+\section{Gestione della Memoria}
+La memoria della GPU (VRAM) è separata dalla memoria dell'host (RAM), e i dati allocati sulla RAM non sono direttamente accessibili dai CUDA core. I dati su cui deve lavorare la GPU, vanno copiati sulla VRAM, il seguente frammento di codice:
+\begin{lstlisting}[style=CStyle]
+int* mydata = (int*)malloc(sizeof(int)*N);
+foo<<<grid, block>>>(mydata, N);
+\end{lstlisting}
+è errato, in quanto il puntatore \code{mydata} si riferisce ad una zona di memoria allocata sulla RAM, per i CUDA core quindi, tale puntatore non avrà significato. L'host può allocare (e gestire) la memoria sulla VRAM tramite le seguenti funzioni di liberia:
+\begin{lstlisting}[style=CStyle]
+//allocare memoria
+cudaError_t cudaMalloc(void** devPtr,size_t size); 
+
+//liberare memoria
+cudaError_t cudaFree(void** devPtr); 
+
+//copiare memoria
+cudaError_t cudaMemcpy(void* dst, const void* src, size_t count, cudaMemcpyKind kind);
+\end{lstlisting}
+il tipo di queste funzioni è \code{cudaError\_t}, serve ad identificare lo status della chiamata, se è 0, la funzione ha avuto successo. Nella  \code{cudaMemcpy} è possibile specificare un parametro di tipo 
+\code{cudaMemcpyKind}, questo, definisce la locazione del destinatario e del mittente:\begin{itemize}
+    \item \code{kind=cudaMemcpyHostToHost=0} : copiare dati dalla RAM alla RAM
+    \item \code{kind=cudaMemcpyHostToDevice=1} : copiare dati dalla RAM alla VRAM
+    \item \code{kind=cudaMemcpyDeviceToHost=2} : copiare dati dalla VRAM alla RAM
+    \item \code{kind=cudaMemcpyDeviceToDevice=3} : copiare dati dalla VRAM alla VRAM (nei sistemi con più GPU)
+\end{itemize}
+Dalla versione 6 di CUDA, è possibile utilizzare un unico spazio logico di indirizzamento sia per l'host che per la GPU, CUDA si occuperà di rendere trasparente il trasferimento.
+\subsection{Somma fra Vettori in CUDA}
+Si vuole fare la somma di due array di interi composti da $n$ elementi, verrà creato un thread per ogni elemento, che si occuperà di tale somma.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/vectorSum.png}
+\end{center}
+\textit{Nota} : avviare tanti thread quanti sono gli elementi da sommare sarebbe impensabile su una CPU, e renderebbe la computazione estremamente lenta dovuta ai molteplici cambi di contesto. D'altro canto, per le motivazioni precedentemente date, ha senso creare tanti thread quando questi dovranno essere eseguiti sulla GPU, inoltre, ogni thread dovrà eseguire le stesse istruzioni, quindi non dovrebbe esserci warp divergence. 
+\begin{lstlisting}[style=CStyle]
+//h_A, h_B, h_C sono i vettori definit sulla RAM
+void vecAdd(float* h_A, float* h_B, *float h_C, int n){ 
+    float *d_A, *d_B, *d_C; //definisco i puntatori per la VRAM
+
+    //alloco e copio i dati dalla RAM alla VRAM 
+    cudaMalloc((void**) &d_A, n*sizeof(float));
+    cudaMemcpy(d_A,h_A,  n*sizeof(float), cudaMemcpyHostToDevice);
+
+    cudaMalloc((void**) &d_B, n*sizeof(float));
+    cudaMemcpy(d_B,h_B,  n*sizeof(float), cudaMemcpyHostToDevice);
+
+    cudaMalloc((void**) &d_C, n*sizeof(float));
+
+    //Chiamata funzione kernel
+    vecAddKernel<<<ceil(n/256.0), 256>>>(d_A,d_B,d_C,n);
+    //ceil ritorna l'intero successivo
+
+    cudaDeviceSynchronize();
+
+    //copio il risultato dalla VRAM alla RAM
+    cudaMemcpy(h_C,d_C,  n*sizeof(float), cudaMemcpyDeviceToHost);
+
+    cudaFree(d_A); cudaFree(d_B); cudaFree(d_C);
+}
+\end{lstlisting}
+Si avvia la funzione kernel \code{vecAddKernel} con $\frac{n}{256}$ blocchi, e 256 thread per blocco, per un totale di $n$ thread. Ogni thread, dovrà identificarsi tramite il suo id, ed in base a questo, capire su quale elemento del vettore fare la somma.
+\begin{lstlisting}[style=CStyle]
+__global__ 
+void vecAddKernel(float* A, float* B, float *C, int n){
+    int index = blockDim.x*blockIdx.x+threadIdx.x; //id univoco del thread 
+    if(index<n) C[index]=A[index]+B[index];
+}
+\end{lstlisting}
+Perché controllare che l'indice sia minore di $n$? Se il numero di thread non è divisibile per 256, ci saranno più di $\frac{n}{256}$ blocchi, quindi ci saranno più di $n$ thread, ed alcuni (quelli con indice maggiore o uguale ad \texttt{n}) non devono partecipare alla computazione.
+\begin{quote}
+    $\bullet$ Esempio : array da 1281 elementi\\ 
+    $\bullet$ si creeranno $\lceil \frac{1281}{256}\rceil =6$ blocchi \\
+    $\bullet$ ci saranno 256 thread per blocco, in totale ci saranno $6\times 256=1536$ thread\\
+    $\bullet$ 255 thread più del necessario, che non saranno utilizzati
+\end{quote}
+\subsection{Tipi di Memoria}
+Ci sono differenti tipi di memoria in una GPU\begin{center}
+    \includegraphics[width=\textwidth ]{images/memoryTypes.png}
+\end{center}
+\begin{itemize}
+    \item \textbf{Registri} : classici registri come quelli della CPU, sono privati per ogni thread e servono per contenere le variabili locali sulla quale si eseguono le istruzioni. 
+    \item \textbf{Shared Memory} : è un tipo di memoria separatta dalla VRAM (globale), va gestita dal programmatore in maniera esplicita, e non è trasparente come la cache, nonostante si trovi sullo stesso chip. La particolarità, è che è condivisa fra i core di uno stesso SM, quindi, due processori di un SM dovrebbero comunicare scrivendo sulla shared memory piuttosto che sulla memoria globale. 
+    \item \textbf{Global Memory} : la VRAM di cui si è parlato fin'ora, è la memoria più capiente, condivisa fra tutti i core.
+\end{itemize}
+Le variabili, per essere allocate su una memoria piuttosto che su un'altra, vanno precedute da appositi decoratori.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/memDic.png}\end{center}
+I registri vengono usati (localmente) dai thread per salvare le variabili, i registri su un core sono condivisi dai thread che vi saranno schedulati. La compute capability determina il massimo numero di registri disponibili per thread, quando si eccede tale numero nell'allocazione, le variabili verranno allocate nella memoria globale (ed il loro accesso sarà più lento). La decisione di quali variabili vanno nei registri, e quali vanno nella memoria globale, spetta al compilatore.
+\subsubsection{Occupancy}
+Il numero di registri disponibili per ogni thread influenza il numero di thread massimi che possono essere schedulati su un'unico SM, si consideri il seguente esempio\begin{itemize}
+    \item una funzione kernel, utilizza 48 registri 
+    \item viene eseguita sulla GPU, i blocchi logici sono composti da 256 thread 
+    \item ogni thread (che esegue la funzione kernel) necessita di 48 registri, quindi ogni blocco (che ha 256 thread) necessita di $48\times 256=12\ 288$ registri.
+    \item si assuma che la GPU in questione ha $32 \ 000$ registri per ogni SM. 
+    \item si assuma che la GPU in questione supporta al più 1536 thread per ogni SM. 
+    \item ogni SM potrebbe potenzialmente ospitare due blocchi, dato che per due blocchi sono necessari $12\ 288*2=24\ 576$ registri, che sono meno dei $32\ 000$ totali.
+    \item quindi, in base ai limiti dei registri disponibili, ogni SM ospiterebbe al più 2 blocchi. Essendo che un blocco ha 256 thread, ogni SM ospiterebbe al più 512 thread.
+    \item potenzialmente però, un SM supporta 1536 thread, quindi c'è uno spreco di efficienza.
+\end{itemize}
+NVIDIA definisce l'\textit{occupancy} come il rapporto fra i warp schedulati su un SM ed il massimo numero possibile di warp schedulabili su un SM.
+$$ occupancy=\frac{\text{numero di warp attuali}}{\text{max numero di warp}}$$
+nell'esempio riportato 
+$$ occupancy = \frac{2\frac{256}{32}}{48}=\frac{16}{48}=33.3\%$$
+quasi due terzi dei thread disponibili non sono utilizzati. L'ideale sarebbe un $occupancy$ del 100\%.
 \end{document}

@@ -347,7 +347,7 @@ le grandezze in forma scalare).
 $$\frac{dv}{dt}=0\implies v = v_0 \text{ costante }$$
 Si può ricavare facilmente l'equazione dello spostamento $r$ in un 
 lasso di tempo che va da $t_0$ fissato, ad un $t$ generico
-$$ \frac{dr}{dt}=v=v_0\implies dr=vd_0t\implies\int_{r(t_0)}^{r(t)}dr=\int_{t_0}^tv_0dt $$
+$$ \frac{dr}{dt}=v=v_0\implies dr=v_0dt\implies\int_{r(t_0)}^{r(t)}dr=\int_{t_0}^tv_0dt $$
 $$\int_{t_0}^tv_0dt=v_0\int_{t_0}^tdt=v_0(t-t_0) $$
 Si ha che  
 $$ r(t)=r(t_0)+v_0(t-t_0)$$
@@ -380,10 +380,10 @@ L'equazione che descrive il moto rettilineo uniforme è lineare
 \subsection{Uniformemente Accelerato}
 La caratteristica del moto uniformemente accelerato è quella di avere un accelerazione costante 
 $a = a_0 $, si avrà che 
-$$ \frac{dv}{dt}=a_0\implies dv =a_0dt\implies \int_{v(t_0)}^{v(t)}dv=\int_{t_0}^tadt\implies$$
+$$ \frac{dv}{dt}=a_0\implies dv =a_0dt\implies \int_{v(t_0)}^{v(t)}dv=\int_{t_0}^ta_0dt\implies$$
 $$v(t)=v(t_0)+a_0(t-t_0) $$
 Per semplicità, si definisce $v_0=v(t_0)$ la velocità iniziale. A questo punto, avendo nota l'equazione 
-della velocità, si ricava la legge oraria, sia $x_0=x(x)$ la posizione iniziale 
+della velocità, si ricava la legge oraria, sia $x_0=x(t_0)$ la posizione iniziale 
 $$ \frac{dx}{dt}=v\implies \int_{x_0}^{x(t)}dx=\int_{t_0}^t vdt = \int_{t_0}^tv_0+a_0(t-t_0)dt= 
 v_0\int_{t_0}^tdt+a_0\int_{t_0}^t(t-t_0)dt$$
 Considero $t'=t-t_0\implies dt'=dt$ 
@@ -480,7 +480,7 @@ essere
 $$ v_0=\sqrt{v_{x_0}^2+v_{x_y}^2}$$
 Si può esprimere la gittata in funzione dell'angolo $\theta$ in cui si lancia il proiettile rispetto 
 l'asse delle ascisse 
-$$ R(\theta)=\frac{2v_0^2\sin(\theta)\cos(\theta)}{g}$$
+$$ R(\theta)=2\frac{v_0\sin(\theta)v_0\cos(\theta)}{g}=2\frac{v_0^2\sin(\theta)\cos(\theta)}{g}$$
 A tal punto, si vuole esprimere l'angolo $\theta$ che massimizza la gittata. Essendo che $R(\theta)$ descrive 
 la variazione della gittata al variare di $\theta$, è necessario trovare l'angolo in cui la derivata 
 di $R$ si annulla, si considera 
@@ -532,9 +532,10 @@ vettori le cui combinazioni lineari generano tutti i punti del piano. Inoltre, i
 definisce anche il verso di rotazione. 
 $$\bar \omega \times \bar r = \bar v$$
 rispetta infatti 
-$$|\bar \omega \times \bar r| = |\bar v|\implies \omega R = v$$
+$$|\bar \omega \times \bar r| = |\bar v|\implies \omega R\sin\theta = v\implies \omega R = v$$
+Questo perché $\bar \omega $ e $\bar r$ sono ortogonali, quindi il modulo del prodotto vettoriale equivale al prodotto dei moduli.
 Si ricordi che il vettore spostamento si muove sempre sul cerchio di raggio $R$, per questo 
-$\bar r = R$.
+$|\bar r| = R$.
 \begin{center}
     \begin{figure}[h!]
         \centering
@@ -550,12 +551,13 @@ diretto dal suo verso.\begin{center}
     \end{figure} 
 \end{center}
 Una volta stabilito il vettore velocità, si vuole trovare l'accelerazione, derivandola 
-$$ \bar a = \lim_{\Delta t\rightarrow 0}\dfrac{\Delta \bar v}{\Delta t}$$
+$$ \bar a = \lim_{\Delta t\rightarrow 0}\dfrac{\Delta \bar v}{\Delta t}
+= \lim_{\Delta t\rightarrow 0}\dfrac{\bar v(t+\Delta t)-\bar v(t)}{\Delta t}$$
 Definiamo $\Delta \theta$ l'angolo formato dal vettore $\bar r(t+\Delta t)$ con il vettore 
 $\bar r(t)$, definisce la variazione dell'angolo nel tempo, è chiaro che se 
 $\Delta t\rightarrow 0$ allora $\Delta \theta\rightarrow 0$.\acc 
 Differentemente, il vettore $\Delta \bar v=\bar v(t+\Delta t)-\bar v(t)$, tende a puntare 
-al centro del cerchio attorno a cui il punto rotea. Trovata la sua direzione, se ne vuole 
+al centro del cerchio attorno a cui il punto rotea, il vettore accelerazione sarà quindi sempre diretto verso il polo di rotazione. Trovata la sua direzione, se ne vuole 
 stabilire l'intensita, ossia il suo modulo $|\bar a|=a$.
 \begin{center}
     \begin{figure}[h!]
@@ -563,8 +565,10 @@ stabilire l'intensita, ossia il suo modulo $|\bar a|=a$.
         \includegraphics[width=0.4\textwidth]{images/accAng.eps}
     \end{figure} 
 \end{center}
-Se $\Delta t$ tende a zero, l'arco di curva è approssimabile ad una retta fra i due punti, che 
-sappiamo essere di lunghezza $|\Delta \bar r|=\Delta r$, inoltre, il rapporto fra quest'ultimo ed 
+Se $\Delta t$ tende a zero, l'arco di curva fra i punti $\bar r(t)$ e $\bar r(t+\Delta t)$ è approssimabile ad una retta fra i due punti, che 
+sappiamo essere di lunghezza $|\Delta \bar r|=\Delta r$\begin{center}
+    \includegraphics[width=1\textwidth]{images/arcoApprossimaRetta.eps}
+\end{center}Inoltre, il rapporto fra $\Delta r$ e 
 il raggio è proprio uguale all'angolo, quindi 
 $$ \lim_{\Delta t \rightarrow 0}\frac{\Delta r}{R}=\Delta \theta $$
 Inoltre, anche considerando il vettore $\Delta \bar v$, esso rispetto al vettore velocità 
@@ -573,18 +577,18 @@ $$ \lim_{\Delta t \rightarrow 0}\frac{\Delta \bar v}{v}=\Delta \theta $$
 Quindi $$ |\Delta \bar v |= v\Delta \theta = \frac{\Delta r}{R}v$$
 Indicando con $v$ il modulo di $\bar v$, si ha che 
 $$ a=\lim_{\Delta t\rightarrow 0}\frac{\Delta v}{\Delta t}=
-\lim_{\Delta t\rightarrow 0} \frac{v}{R}\frac{\Delta r}{\Delta t}$$
+\lim_{\Delta t\rightarrow 0}  \frac{1}{\Delta t}\frac{\Delta r}{R}v=\lim_{\Delta t\rightarrow 0}  \frac{\Delta r}{\Delta t}\frac{v}{R}$$
 Appare come secondo termine proprio la derivata dello spostamento 
 $$\lim_{\Delta t\rightarrow 0} \frac{v}{R}\frac{\Delta r}{\Delta t}= 
-\frac{v}{r}(\lim_{\Delta t\rightarrow 0}\frac{\Delta r}{\Delta t})\implies  $$
-\eqImportante{$|\bar a|=a=\frac{v^2}{R}=\omega^2R$}
+\frac{v}{R}(\lim_{\Delta t\rightarrow 0}\frac{\Delta r}{\Delta t})=\frac{v}{R}v\implies  $$
+\eqImportante{$|\bar a|=a=\dfrac{v^2}{R}=\omega^2R$}
 \begin{center}
         \includegraphics[width=0.2\textwidth]{images/accelerazioneNormale.eps}
 \end{center}
 Si ricordi come il vettore accelerazione può essere scritto come somma di due componenti 
 che rappresentano l'accelerazione tangenziale, ossia la variazione del modulo della velocità, e 
 \textbf{l'accelerazione normale}, che descrive il variare della direzione della velocità. Nel 
-caso del moto rettilineo uniforme, l'accelerazione ha componente tangenziale nulla, è solo 
+caso del moto circolare uniforme, l'accelerazione ha componente tangenziale nulla, è solo 
 normale e diretta verso il centro del cerchio, ed ha intensità $\frac{v^2}{R}$.\acc 
 Quando un moto di un punto $\bar r$ segue una traiettoria curva (ma non circolare uniforme), preso un istante 
 fissato $t_0$, l'accelerazione normale è diretta verso il centro del cerchio che approssima la curva 
@@ -631,12 +635,12 @@ La velocità è relativa, le caratteristiche di un punto sono legate al suo sist
 al suo sistema di coordinate. Il moto di un punto può essere osservato diversamente da due sistemi 
 di riferimento differenti.\acc 
 Si considerino due sistemi di riferimento $O$ e $O'$, per semplicità, siano il piano cartesiano, di 
-cordinate (rispettivamente) $x,y$ e $x',y'$. Supponiamo inoltre, che all'origine dei tempi, essi 
+coordinate (rispettivamente) $x,y$ e $x',y'$. Supponiamo inoltre, che all'origine dei tempi, essi 
 si trovino nella stessa posizione, e che il sistema $O'$ si muova con velocità costante $\bar v = (v_0^x,0)$.
 \begin{center}
     \includegraphics[width=0.6\textwidth]{images/sistemiRif.eps}
     \end{center}
-Vi è poi un punto nello spazio, che secondo il sistema di riferimento $O$, è fermo, ed ha cordinate $x_0$. 
+Vi è poi un punto nello spazio, che secondo il sistema di riferimento $O$, è fermo, ed ha coordinate $x_0$. 
 Si vuole trovare tale punto nel sistema di riferimento $O'$. Tale sistema, si allontana da $O$ ad una 
 velocità costante $v_0^x$, intuitivamente, avendo $O$ una velocità "assoluta" nulla,
  vedrà allontanarsi il punto $x_0$ a velocità $v_0^x$. La velocità è de facto relativa al sistema di riferimento, 
@@ -677,7 +681,7 @@ assoluto $\bar v_a$ in modo che attraversi il fiume in linea retta.
     \includegraphics[width=0.6\textwidth]{images/nuotatore.eps}
 \end{center}
 Si vuole trovare l'angolo $\alpha$ fra la velocità relativa e quella di trascinamento per far 
-si che la velocità assoluta sull'asse delle parallelo alle sponde sia nulla.
+si che la velocità assoluta sull'asse  parallelo alle sponde sia nulla.
 $$ v_r \sin(\alpha)=- v_t \implies \alpha = -\arcsin(\frac{v_t}{v_r}) $$ 
 Si consideri ora un sistema non inerziale, ossia in cui la velocità di trascinamento dipende dal tempo 
 $$\bar v_a(t) = \bar v_r(t) + \bar v_t(t) $$
@@ -690,12 +694,9 @@ $$\bar a_c = 2\bar \omega \times \bar v_r $$
 Dove $\bar \omega$ è il vettore velocità angolare del sistema in rotazione. Un tipico esempio di 
 manifestazione di tale accelerazione è il seguente : Ci si trova su una giostra che sta ruotando, 
 si lancia un oggetto davanti a se, la traiettoria di tale oggetto non sarà dritta come 
-voluto, ma curverà verso l'esterno della giostra.\begin{center}\begin{figure}[h!]
-    \centering
+voluto, ma curverà verso l'esterno della giostra.\begin{center}
     \includegraphics[width=0.3\textwidth]{images/Coriolis.eps}
-    \caption{Forza di Coriolis}
-    \label{fig:Coriolis}
-\end{figure} \end{center}
+    \end{center}
 \flowerLine
 \section{Esercizi sul Punto Materiale}
 \subsubsection{Esercizio 1)}
@@ -703,9 +704,9 @@ Un punto materiale si muove su una traiettoria rettilinea con un accelerazione
 $a=-4t\nicefrac{m}{s^2}$, all'istante $t=0$, ha una velocità iniziale di $v_0=2\nicefrac{m}{s}$. 
 Quanto spazio percorrerà prima di fermarsi?\\ 
 Si vuole trovare la legge della velocità 
-$$v(t)=\int_0^t a  \ dt + v_0=-2t^2+v_0$$
+$$v(t)=\int_0^t a(t)  \ dt + v_0=-2t^2+v_0$$
 La legge oraria dello spostamento sarà 
-$$ s(t)=\int_0^t v \ dt = v_0t-\frac{2}{3}t^3$$
+$$ s(t)=\int_0^t v(t) \ dt = v_0t-\frac{2}{3}t^3$$
 Il punto si fermerà quando la velocità sarà uguale a zero, sia $t_1$ l'istante in cui ciò avviene 
 $$ v(t_1)=0\implies -2{t_1}^2+v_0=0\implies t_1=\sqrt{\frac{v_0}{2}}$$
 All'istante $t_1$, lo spazio percorso sarà 
@@ -715,7 +716,7 @@ $$
 2\sqrt{\frac{2}{2}}-\frac{2}{3}{(\sqrt{\frac{2}{2}})}^3=\frac{4}{3} m
 $$
 \subsubsection{Esercizio 2)}
-All'istante $t=0s$ un punto materiale parte da fermo e si mette in moto su una traiettoria circolare 
+All'istante $t=0$ un punto materiale parte da fermo e si mette in moto su una traiettoria circolare 
 di raggio $R=225m$, continua il suo moto fino all'istante $t_1=10s$, la velocità del punto, cresce 
 linearmente con il tempo, e all'istante $t_1$ lo spazio percorso è di $150m$. Si determini il modulo dell'accelerazione 
 all'istante $t_1$.\\ 
@@ -760,7 +761,7 @@ $$ y(t^*)=h= v_0\sin\alpha+\frac{g{t^*}^2}{2}$$
 Si risolve il sistema per trovare tale istante 
 $$ \begin{cases}
     v_0\sin\alpha+\dfrac{g{t^*}^2}{2}=h\\ 
-    v_0\cos\alpha t^=d*
+    v_0\cos\alpha t^*=d
 \end{cases}\implies 
 t^*=-\frac{v_0}{g}\sin\alpha+\sqrt{\frac{v_0^2}{g^2}\sin^2\alpha+\frac{2h}{g}}$$
 Quindi 
@@ -771,7 +772,7 @@ d=v_0\cos\alpha\Bigg(
 $$
 \chapter{Dinamica}
 \section{Forze}
-Newton considerò il principio di inersia e lo fece suo, definì i 3 principi della dinamica
+Newton considerò il principio di inerzia e lo fece suo, definì i 3 principi della dinamica
 \subsubsection{Primo Principio}
 Lo stato naturale di un corpo in assenza di perturbazioni è quello di moto rettilineo uniforme 
 \subsubsection{Secondo Principio}
@@ -792,9 +793,9 @@ $$ \bar F \equiv m_g\bar g$$
 dove $m_g$ è detta massa gravitazionale, nel caso in cui dovesse coincidere con quella 
 inerziale, si avrebbe che $\bar a = \bar g$. La legge di gravitazione universale, da cui si ricava la 
 forza peso, descrive la forza che attrae un corpo di massa $m$ verso un altro di massa $M$
-$$ \bar F = -G\frac{mM}{|\bar r|^2}\bar r$$
-Dove $\bar r$ è il vettore che congiunge i due corpi. La forza di gravità è quindi proporzionale alle masse dei 
-corpi, e diminiusce con l'aumentare della distanza al quadrato.
+$$ \bar F = -G\frac{mM}{|\bar r|^2}\hat r $$
+Dove $\hat r$ è il versore che congiunge i due corpi. La forza di gravità è quindi proporzionale alle masse dei 
+corpi, e diminuisce con l'aumentare della distanza al quadrato.
 \subsection{Forza Elastica}
 Un'altra forza presente nella vita quotidiana è quella elastica, modellizza macroscopicamente, il comportamento 
 di una molla. $$ \bar F = k(\bar r - \bar r_0)$$
@@ -836,7 +837,7 @@ Il corpo, sarà soggetto alla somma delle due forze
 $$ \bar F = m\bar a = m\bar g + \bar{R_n}$$
 Tenedrà quindi ad accelerare lungo l'asse del piano, si vuole trovare il moto di tale corpo. Consideriamo un 
 sistema di riferimento in cui l'asse delle $y$ è parallela alla reazione normale, e l'asse delle $x$ 
-forma un angolo $\alpha$ con l'orizzonte.
+forma un angolo $\alpha$ con l'orizzonte (in modo da essere ortogonale ad $y$).
 \begin{center}
     \includegraphics[width=0.55\textwidth]{images/reazionenormale2.eps}
 \end{center}
@@ -844,12 +845,14 @@ Si vuole quindi trovare l'accelerazione lungo $x$, bisogna proiettare entrambe l
 Come si può vedere dall'immagine, la reazione normale non esercita alcuna forza su tale asse, ma esclusivamente sull'asse 
 delle $y$ 
 $$ |\bar R_n|=\sin\alpha|\bar R_n| $$
-in particolare, una forza che controbilancia quella peso, e fa si che il suo spostamento sull'asse $y$ sia nullo. 
-$$ -m|\bar g|\sin \alpha +|\bar R_n|=0$$
-Lungo l'asse delle ascisse, la proiezione della forza sarà 
-$$ F_x=mg\cos\alpha\implies ma_x=mg\cos\alpha=a_x=g\cos\alpha$$
+La reazione normale $R_n$ controbilancia la forza peso, e fa si che lo spostamento sull'asse $y$ sia nullo (il corpo non sfonda il piano). 
+$$ F_y=
+|\bar R_n|=m|\bar g|\sin \alpha \implies
+-m|\bar g|\sin \alpha +|\bar R_n|=0$$
+Lungo l'asse delle ascisse $x$, la reazione normale non ha effetto, lo ha esclusivamente la forza di gravità , la sua proiezione sarà quindi
+$$ F_x=mg\cos\alpha\implies ma_x=mg\cos\alpha\implies a_x=g\cos\alpha$$
 A questo punto si può trovare il moto del corpo sull'asse delle $x$
-$$ x(t)=\frac{1}{2}g\sin\alpha t^2$$
+$$ x(t)=(\frac{1}{2}g\cos\alpha)\cdot t^2$$
 \subsection{Attrito}
 Nell'esempio precedente del piano inclinato si è trascurato l'attrito, tale forza si manifesta a seguito di uno 
 strusciamento fra due corpi, ed è dovuta all'asperità dei materiali a livello microscopico. È fondamentale considerarlo 
@@ -860,7 +863,7 @@ quando si devono calcolare le forze in una situazione reale.\\
     \caption{asperità dei materiali}
 \end{figure}\acc
 L'attrito si presenta sotto due aspetti\begin{itemize}
-    \item \textbf{attrito statico} : Forza esercitata su un corpo fermo su una superficie, che subisce una forza 
+    \item \textbf{attrito statico} : Forza esercitata su un corpo fermo su una superficie, si manifesta quando il corpo subisce una forza che prova a spostarlo, opponendosi ad essa mantenendo fermo il corpo 
     \item \textbf{attrito dinamico} : Forza esercitata su un corpo in movimento che si sposta strisciando su una superficie
 \end{itemize}
 La modellizzazione dell'attrito prevede tale suddivisione, quando un corpo su una superficie subisce 
@@ -879,9 +882,9 @@ proporzionale alla reazione normale, risulta chiaro ora il perché gli oggetti p
  di $\mu_s\cdot R_n$. Se tale modulo è maggiore, allora il corpo sarà soggetto ad un 
  attrito dinamico $\bar F_d$
  $$ \bar F_d = -\mu_d\cdot R_n\cdot \bar \tau$$
-$\mu_d$ è il coefficiete di attrito dinamico, tipicamente, per uno stesso materiale $\mu_s>\mu_d$. $\tau$ è il 
-versore parallelo alla velocità del corpo che subisce tale attrito. La decelerazione che subirà 
-il corpo che si muove su una superficie sarà
+$\mu_d$ è il coefficiete di attrito dinamico, tipicamente, per uno stesso materiale $\mu_s>\mu_d$. $\bar \tau$ è il 
+versore parallelo  alla velocità $\bar v_0$ del corpo che subisce tale attrito, $\bar \tau = \frac{\bar v_0}{|\bar v_0|}$ . La decelerazione che subirà 
+il corpo che si muove su una superficie piana sarà
 $$ m\bar a = -\mu_dR_n\bar \tau\implies m\bar a = -\mu_dmg\bar \tau \implies |\bar a| = -\mu_d g$$
 Nella formula, si è sostituito $R_n$ ad $mg$, in quanto il modulo di tali forze è lo stesso, come già visto 
 $$ R_n-mg=0$$
@@ -890,7 +893,7 @@ $$ R_n-mg=0$$
 \end{center}
 Si noti come la decelerazione subita non dipende dalla massa del corpo, ma esclusivamente dalla reazione 
 normale e dalla costante di attrito dinamico. Si ricavano le leggi della velocità e dello spostamento (nel caso 
-unidimensionale) 
+unidimensionale) di un corpo che viene lanciato su una superficie con una velocità iniziale $v_0$
 $$ v=v_0-\mu_dgt$$ 
 $$ x=v_0t-\frac{1}{2}\mu_dgt^2$$
 Il corpo si fermerà nell'istante $t_1$ in cui $v(t_1)=0$
@@ -962,13 +965,14 @@ $$ \frac{2.5}{10^{-3}}kg\frac{m}{s^2}=2500N$$
 Quindi l'impulso deriva dall'integrazione della forza rispetto al 
 tempo, essa può essere derivata anche rispetto allo spazio.
 Supponiamo che vi siano una curva che unisce i punti $A$ e $B$, 
-definiamo \textbf{lavoro} l'integrale 
+definiamo \textbf{lavoro} l'integrale di un campo di forze lungo la curva
 $$ L=\int_A^B\bar Fd\bar s$$
 Dove $d\bar s$ rappresenta lo spostamento infinitesimo lungo la curva, e 
 $\bar Fd\bar s$ è il prodotto scalare, di cui 
 $$ |\bar Fd\bar s|=Fds\cos\theta$$\begin{center}
     \includegraphics[width=0.4\textwidth]{images/lavoro.eps}
 \end{center}
+\sapbox{il lavoro rappresenta l'energia trasferita al sistema che si sposta lungo la curva, se la curva è percorsa in direzione opposta alla forza, questa toglierà energia al sistema, se è percorso nello stesso verso, darà energia al sistema}
 Le dimensioni del lavoro sono $ml^2t^{-2}$, l'unità di misura 
 è il \textit{joule} e si denota $J$. Il lavoro può 
 essere descritto come segue (si assuma che la massa della forza 
@@ -983,19 +987,21 @@ essendo $\frac{d\bar s}{dt}=\bar v$
 \end{eqnarray}
 Tralasciando momentaneamente l'espressione del lavoro, si noti come 
 \begin{eqnarray}
-    \bar v \cdot \bar v =  v^2 \text{ differenziando}\\ 
+    \bar v \cdot \bar v =  vv\cos\alpha = v^2 \text{ differenziando}\\ 
     \bar vd\bar v+\bar d\bar v\bar v=d v^2 \implies \\ 
     2d\bar v \cdot \bar v =d\bar v \bar v = \frac{1}{2}dv^2
 \end{eqnarray}
 quindi, tornando al lavoro
 $$
-    \int_A^Bm\bar vd\bar v=\int_{v_1^2}^{v_2^2}dv^2
+    \int_A^Bm\bar vd\bar v=
+    m\int_{v_1^2}^{v_2^2}dv^2
 $$
 Dove $v_1$ e $v_2$ sono le velocità, rispettivamente, in $A$ ed 
 in $B$ (velocità iniziale e velocità finale)$$ 
-\int_{v_1^2}^{v_2^2}dv^2=\frac{1}{2}mv_2^2-\frac{1}{2}mv_1^2
+m\int_{v_1^2}^{v_2^2}dv^2=\frac{1}{2}mv_2^2-\frac{1}{2}mv_1^2
 $$
-Definiamo $T=\frac{1}{2}mv^2$ \textbf{energia cinetica}, quindi 
+\defi{} Definiamo \textbf{energia cinetica} la grandezza $T=\dfrac{1}{2}mv^2$.\acc
+quindi 
 $$ L=\Delta T$$
 Il lavoro è \textit{la variazione dell'energia cinetica}.
 \subsection{Forze Conservative}
@@ -1007,6 +1013,9 @@ percorso considerato. Siano $\delta_1$ e $\delta_2$ due curve
 differenti, che però hanno entrambe $A$ e $B$ come punti di 
 congiunzione, $\bar F$ è conservativa se 
 $$ \int_{\delta_1}\bar Fd\bar s=\int_{\delta_2}\bar Fd\bar s$$
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/curvePuntiUguali.eps}
+\end{center}
 Un esempio di forza conservativa è la forza di gravità
  $\bar F_g=m\bar g$, che riscreveremo $-mg\hat y$
  $$ L=\int_{A}^B -mg\hat y d\bar s = -mg\int_A^B \hat y d \bar s$$
@@ -1021,7 +1030,7 @@ analogo per $y(B)$.\begin{center}
     \includegraphics[width=0.4\textwidth]{images/gravitaConservativa.eps}
 \end{center}
 $$ -mg\int_{y(A)}^{y(B)}dy=mgy(A)-mgy(B)$$
-Definiamo $mgy=U(y)$ \textbf{energia potenziale}
+Definiamo $mgy=U(y)$ \textbf{energia potenziale} della gravità
 $$ L=-mg\int_{y(A)}^{y(B)}dy=U(A)-U(B)=-\Delta U$$
 \begin{quote}
     Nelle forze conservative, il lavoro su una curva che congiunge i punti $A,B$ è pari alla differenza
@@ -1036,7 +1045,7 @@ Anche la forza gravitazionale definita da Newton è conservativa
 $$ \bar F_G=-G\frac{Mm}{r^2}\hat r$$
 Dove $\hat r$ è il versore che va dal corpo di massa $m$ a quello di massa $M$, ed $r$ è la distanza fra i due corpi. Tale 
 forza è detta \textit{centrale}, in ogni punto è diretta verso un punto $O$, l'intensità dipende 
-solamente dalla distanza $r$ dal puntoi. Il lavoro su una curva 
+solamente dalla distanza $r$ dal punto. Il lavoro su una curva 
 che congiunge i punti $A,B$ risulta essere 
 $$ \int_A^B\bar F_Gd\bar s=\int_A^B-G\frac{Mm}{r^2}\hat rd\bar s=
 -GMm\int_A^B\frac{\hat r}{r^2} d\bar s$$
@@ -1099,8 +1108,10 @@ Anche la forza elastica è conservativa, consideriamo il caso unidimensionale (p
  $$L=-\Delta U$$
 Perché le forze si dicono \textit{conservative}? Se una forza è conservativa, si ha 
 $$ \Delta T+\Delta U = 0 \implies \Delta(T+U)=0$$
-Si pone $E_{m}=T+U$, essa è detta \textbf{energia meccanica}, quindi 
-$$ \Delta E_m=0$$
+\defi{} la somma dell'energia cinetica e dell'energia potenziale è detta  \textbf{energia meccanica}
+$$E_{m}=T+U$$
+Per le forze conservative
+$$ \Delta(T+U)=\Delta E_m=0$$
 Il nome "conservativo" deriva dal fatto che tali forze \textit{conservano l'energia meccanica}, infatti 
 la variazione di essa è nulla.\acc 
 Si vuole calcolare l'energia meccanica totale di un corpo di massa $m$ che si trova in un orbita circolare 
@@ -2920,7 +2931,7 @@ $$ \frac{\mu_0I}{2\pi}(\alpha_2-\alpha_1)= \frac{\mu_0I}{2\pi}(0)=0 $$
 Se la curva \textit{è concatenata}, c'è una variazione di $2\pi$ fra l'angolo iniziale e quello finale.
 $$ \frac{\mu_0I}{2\pi}(\alpha_2-\alpha_1)= \frac{\mu_0I}{2\pi}(2\pi)=\mu_0I $$
 \begin{center}
-    \includegraphics[width=0.8\textwidth ]{images/CircuitazioneCampoMagnetico2.eps}
+    \includegraphics[width=1\textwidth ]{images/CircuitazioneCampoMagnetico2.eps}
 \end{center}
 La prima legge di Ampere afferma che la circuitazione del campo magnetico è uguale al prodotto fra la costante $\mu_0$ e la corrente che scorre nel filo con cui la linea considerata è concatenata.
 $$\oint_l \bar B d\bar l = \mu_0I_{concatenata} $$
