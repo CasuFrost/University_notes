@@ -2772,5 +2772,29 @@ $$ EXPSPACE = \bigcup_{k\in \Z^+}SPACE(2^{n^k})$$
 $$ LOG = \bigcup_{k\in \Z^+}SPACE(\log(n))$$
 Vediamo alcuni esempi 
 $$ A=\{0^n1^n \ | \ n\in \N\}$$
-
+Si vuole mostrare che $A\in LOG$, ossia che esiste un algoritmo che, se la dimensione dell'input è $n$, utilizzera un numero in $O(\log(n))$ di celle distinte per completare la computazione e fornire un risultato.\acc 
+In precedenza, è stata già presentata una TM che decidesse questo linguaggio, la seguente procedura è differente, ed è descritta dai seguenti punti\begin{itemize}
+    \item Sul nastro di lavoro, viene memorizzato un contatore per memorizzare il numero di 0 ed 1 dell'input 
+    \item il numero di 0 ed 1 è al più $2n$, per rappresentare tale numero in binario servono $O(\log_2(n))$ celle 
+    \item la TM, inizierà a contare il numero di 0, incrementando il contatore 
+    \item quando troverà il primo 1, inizierà a contare gli 1 decrementando il contatore 
+    \item se trova uno 0 che segue un 1, rifiuta 
+    \item al termine, se il contatore è uguale a 0 (il numero di 1 è identico al numero di 0) accetta 
+\end{itemize}
+è chiaro che tale TM decide $A$ in complessità di spazio $O(\log(n))$.\acc 
+\textbf{Osservazione} : In termini di complessità di spazio, la TM multinastro è equivalente alla TM classica.\acc 
+Si consideri ora il linguaggio $PAL$ contenente tutte le stringhe palindrome, ad alto livello, la TM che lo decide dovrebbe\begin{enumerate}
+    \item su input $x$, considerare $n=|x|$
+    \item per ogni $i\in[1,2 \dots , n]$\begin{enumerate}
+        \item rifiuta se $x_i\ne x_{n+1-i}$
+    \end{enumerate}
+    \item accetta
+\end{enumerate}
+La TM userà un numero costante di nastri, ad alto livello la procedura è descritta dai seguenti punti\begin{itemize}
+    \item sul nastro 1, si realizza l'indice $i$, che occupa $O(\log_2(n))$
+    \item si memorizza l'indicie sul nastro 2 e si incrementa ad ogni passo, tale operazione richiede sempre complessità spaziale logaritmica 
+    \item sul nastro 3 ad ogni passo si calcola $n+1-i$
+    \item ad ogni iterazione si controlla che $x_i\ne x_{n+1-i}$
+\end{itemize}
+è chiaro che tale TM decide $A$ in complessità di spazio $O(\log(n))$.
 \end{document}

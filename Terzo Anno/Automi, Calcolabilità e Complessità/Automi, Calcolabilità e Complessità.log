@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.21)  4 DEC 2024 13:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.21)  5 DEC 2024 08:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2530,7 +2530,16 @@ Capitolo 4.
 [75
 
 ]
-runsystem(latexminted cleantemp  --timestamp 20241204134339 5799B7C5E0B349E18E887B59218C36CC)...disabled (restricted).
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[76]
+runsystem(latexminted cleantemp  --timestamp 20241205081053 5799B7C5E0B349E18E887B59218C36CC)...disabled (restricted).
 
  (Automi, Calcolabilità e Complessità.aux)
  ***********
@@ -2541,17 +2550,17 @@ Package rerunfilecheck Info: File `"Automi, Calcolabilità e Complessità".out' 
 (rerunfilecheck)             Checksum: 41D90FB1489706C9F1EA3916A8DF3BDB;6062.
  ) 
 Here is how much of TeX's memory you used:
- 44047 strings out of 473899
- 1008891 string characters out of 5736314
- 1721796 words of memory out of 5000000
+ 44052 strings out of 473899
+ 1008930 string characters out of 5736314
+ 1721795 words of memory out of 5000000
  65885 multiletter control sequences out of 15000+600000
  642281 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,17n,104p,897b,965s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/mcasu/AppData/Roaming/MiKTeX/fonts/type1/public/fourier/fourier-orns.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Automi, Calcolabilità e Complessità.pdf" (76 pages, 1874902 bytes).
+Output written on "Automi, Calcolabilità e Complessità.pdf" (77 pages, 1878351 bytes).
 PDF statistics:
- 1456 PDF objects out of 1728 (max. 8388607)
- 256 named destinations out of 1000 (max. 500000)
+ 1465 PDF objects out of 1728 (max. 8388607)
+ 261 named destinations out of 1000 (max. 500000)
  519 words of extra memory for PDF output out of 10000 (max. 10000000)
 

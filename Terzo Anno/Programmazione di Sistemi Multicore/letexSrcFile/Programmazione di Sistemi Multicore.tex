@@ -2686,7 +2686,7 @@ L'host e la GPU sono connesse da un bus detto \textit{Northbridge}.\begin{center
 Idealmente, bisogna ridurre al minimo la frequenza con la quale si trasferiscono i dati dalla RAM alla VRAM. Le due memorie sono separate ed il trasferimento dei dati fra queste va gestito in maniera esplicita, vedremo come CUDA (si definirà in seguito) si occupa di trasportare i dati fra le due memorie in maniera trasparente.\flowerLine 
 \section{Introduzione a CUDA}
 \textbf{CUDA (Compute Unified Device Architcture)} è una piattaforma di programmazione parallela sviluppata da NVIDIA che permette di utilizzare direttamente la scheda video, si può dire che è un modello di programmazione \textit{general-purpose}, e permette di gestire in modo esplicito la memoria. La GPU è vista come un \textit{accelleratore} da utilizzare per dei calcoli specifici in un programma. \sapbox{CUDA funziona solo su GPU NVIDIA}
-Le funzioni definite nel codice che verranno eseguite dai core della GPU sono chiamata \textbf{CUDA kernel} (o solamente kernel).\begin{center}
+Le funzioni definite nel codice che verranno eseguite dai core della GPU sono chiamate \textbf{CUDA kernel} (o solamente kernel).\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/CUDAmodel.png}
 \end{center}
 \subsection{Modello di Esecuzione}
