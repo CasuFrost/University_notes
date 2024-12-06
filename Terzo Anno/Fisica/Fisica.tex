@@ -931,9 +931,9 @@ avere informazioni globali sul suo comportamento grazie ad un
  Le dimensioni sono espresse in $mv$, massa per velocità. Precisamente 
 \begin{eqnarray}
     \int_{t_1}^{t_2}\bar Fdt =\\ 
-    \int_{t_1}^{t_2} = m\dfrac{d\bar v}{dt}dt =\\ 
+    m\int_{t_1}^{t_2} \dfrac{d\bar v}{dt}dt =\\ 
     m\int_{ \bar v_1}^{ \bar v_2}d\bar v = m\bar v_2-m\bar v_1=\\
-    m(\bar \bar v_2-\bar v_1)
+    m( \bar v_2-\bar v_1)
 \end{eqnarray}
 Risulta essere la variazione della quantità di moto, tale grandezza 
 è nota come \textbf{impulso}
@@ -1157,16 +1157,24 @@ Per un essere umano medio, sollevare un peso di 10 kg non è un'impresa faticosa
 impiega per sollevarlo sia abbastanza lasco. Sarebbe impossibile per chiunque infatti, sollevare un peso di 10kg in 
 un tempo pari a $10^{-3}$ secondi, la potenza necessaria sarebbe troppo elevata.\acc 
 \defi{(Potenza)} : Definiamo \textbf{potenza} la derivata del lavoro rispetto al tempo \eqImportante{$\displaystyle P=\frac{dL}{dt}$}
+\sapbox{
+    essendo il lavoro l'energia che una forza trasferisce ad 
+    un sistema, la potenza è la variazione nel tempo dell'energia 
+    trasferita.
+}
 Si misura in \textit{Watt} : $W=\frac{J}{s}$.
 Ricordando che $L=\int_\delta \bar F\cdot d\bar s$, la potenza si può scrivere anche 
 $$ P=\bar F\cdot \frac{d\bar s}{dt}=\bar F\cdot \bar v$$
+\begin{quote}
+    la potenza è data dal prodotto della forza applicata e della velocità con cui il punto di applicazione della forza si muove.
+\end{quote}
 Consideriamo un razzo nello spazio (assenza di attrito dell'aria), il cui motore fornisce una 
 \textit{potenza costante} $P_0$, in tal caso, qual'è il moto del razzo? La forza sarà pari a 
 $$ F=\frac{P_0}{v}$$
 Quindi 
 $$ \frac{P_0}{v}=m\frac{dv}{dt}$$
 Si risolve l'equazione differenziale 
-$$ \int_0^t\frac{P_0}{m}dt=\int_{v(0)}^{v(t)}vdv\implies \frac{P_0}{m}t=\frac{v^2}{2}\implies v = \sqrt{\frac{2P_0}{m}}\sqrt{t}$$
+$$ \int_0^t\frac{P_0}{m}dt=\int_{v(0)}^{v(t)}vdv\implies \frac{P_0}{m}t=\frac{v^2}{2}\implies v(t) = \sqrt{\frac{2P_0}{m}}\sqrt{t}$$
 \begin{figure}[h!]\centering
     \begin{tikzpicture}[scale=0.9, transform shape]
 		\begin{axis}[
@@ -1204,10 +1212,23 @@ $$ m\frac{dv}{dt}=mg-bv$$
 Si vuole risolvere l'equazione differenziale, per sostituzione, chiamo 
 $$ x=mg-bv \implies dv=\frac{1}{b}dx$$
 Quindi si ha $$ x=-\frac{m}{b}\frac{dx}{dt}$$ si integra 
-$$ -\frac{b}{m}\int_0^tdt=\int_{x(0)}^{x(t)}\frac{1}{x}dx$$
-$$ -\frac{b}{m}t=\ln(\frac{t}{x(0)})$$
-$$ x=x(0)e^{-\frac{b}{m}t}\implies v=\frac{mg}{b}(1-e^{-\frac{b}{m}t})$$
-Per $t\rightarrow \infty$ il termine dentro la parentesi tende ad 1, la velocità limite è $\frac{mg}{b}$\begin{figure}[h!]\centering
+\begin{eqnarray}
+    x=-\frac{m}{b}\frac{dx}{dt}\implies \\ 
+    \frac{1}{x}=-\frac{m}{b}\frac{dt}{dx}\implies \\ 
+    \frac{dx}{x}=-\frac{b}{m}dt\\
+    \int_{x(0)}^{x(t)}\frac{1}{x}dx=-\frac{b}{m}\int_0^t dt\\ 
+    \ln(|x|)\Big |_{x(0)}^{x(t)}=-\frac{b}{m}t\\ 
+    \ln(|\frac{x(t)}{x(0)}|)=-\frac{b}{m}t\\ 
+    \frac{x(t)}{x(0)}=e^{-\frac{b}{m}t}\\ 
+    x(t)=x(0)e^{-\frac{b}{m}t}
+\end{eqnarray}
+Denotiamo $x_0=x(0)$, si trova la velocità sostituendo
+\begin{eqnarray}
+    x=mg-bv\\ 
+    x_0e^{-\frac{b}{m}t}=mg-bv(t)\\ 
+    v(t)=\frac{mg}{b}(1-x_0e^{-\frac{b}{m}t})
+\end{eqnarray}
+Per $t\rightarrow \infty$ il termine dentro la parentesi tende ad 1, la velocità limite è $\frac{mg}{b}$\begin{center}
     \begin{tikzpicture}[scale=0.9, transform shape]
 		\begin{axis}[
 		ymin=0,
@@ -1230,8 +1251,8 @@ Per $t\rightarrow \infty$ il termine dentro la parentesi tende ad 1, la velocit�
 		]
 		{4*(1-exp(-x))};
 		\end{axis}
-		\end{tikzpicture}\caption{velocità limite (in questo caso è 4)}
-\end{figure}
+		\end{tikzpicture}
+\end{center}
 \flowerLine 
 \section{Forze Apparenti}
 Abbiamo visto come, le velocità si compongono in sistemi di riferimento diversi 
@@ -1244,7 +1265,7 @@ In quelli non inerziali sono presenti le altre componenti dell'accelerazione
 $$ F=ma_a=ma_r+ma_t+ma_c$$
 Ma in un sistema di riferimento non vi è alcuna forza visibile che determina le accelerazioni 
 di trascinamento e di Coriolis. Definiamo la componente 
-$$ ma_a$$ 
+$$ ma_r$$ 
 \textbf{forza reale}, in quanto è determinata da un accelerazione nel sistema di riferimento assoluto, le 
 altre forze $ma_t+ma_c$ sono dette \textbf{forze apparenti}, se presenti, si è necessariamente in un 
 sistema di riferimento non inerziale. Il concetto verrà esplicitato nel seguente esempio.\acc 
@@ -1265,7 +1286,7 @@ La forza alla quale è soggetta la pallina è contraria alla tensione, spinge ve
     \includegraphics[width=0.3\textwidth]{images/forzaCent2.eps}
 \end{center}
 \subsubsection{Esercizio sulla forza centrifuga}
-Vi è una piattaforma circolare che ruota, sulla quale è riposta una moneta ad una distanza di $R=30cm$ dal centro 
+Vi è una piattaforma circolare che ruota, sulla quale è riposta una moneta ad una distanza di $d=30cm$ dal centro 
 della piattaforma. La piattaforma inizia ad accelerare, e la moneta risente dell'accelerazione, ma rimane 
 ferma grazie all'attrito statico. Quando la piattaforma raggiunge una velocità 
 tangenziale di $50\nicefrac{cm}{s}$, la moneta si stacca dalla piattaforma. Si vuole trovare il coefficiente 
@@ -1287,30 +1308,28 @@ Su di esso, è riposto un oggetto approssimabile ad un punto materiale di massa 
 forza $\bar F$. Si vuole trovare il valore di $\bar F$ per cui l'oggetto posto sul piano scivoli su di esso a velocità 
 costante.\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/pianiInMovimento.eps}
+    \includegraphics[width=0.8\textwidth]{images/pianoInMovimento.pdf}
     \caption{Diagramma delle forze subite dal corpo che scivola sul piano}
 \end{figure}
 Il corpo risente di una forza apparente $\bar F_{app}=m\bar a$, se esso scivola a velocità costante, la somma delle forze dovrà 
 essere nulla 
 $$ \bar F_{att}+m\bar a+\bar R_n+m\bar g=0$$
-Dato il sistema di riferimento mostrato in figura, si esegue la proiezione delle forze sugli assi 
-\begin{eqnarray} \begin{cases}
-    -\mu_dR_n-ma\cos\alpha+mg\sin\alpha=0 \\ 
-    R_n-ma\sin\alpha-mg\cos\alpha=0
-\end{cases}\\
+Dato il sistema di riferimento mostrato in figura, si vuole trovare il modulo della forza apparente $m\bar a$ (la direzione è nota). Si considera la formula che eguaglia le forze a zero, proiettandola su entrambi gli assi 
+\begin{eqnarray}
+\bar F_{att}+m\bar a+\bar R_n +m\bar g = 0\\ 
+-\mu_dR_n\hat x+m\bar a+\bar R_n +m\bar g = 0\\
 \begin{cases}
-    -\mu_dR_n-ma\cos\alpha+mg\sin\alpha=0 \\ 
-    R_n=ma\sin\alpha+mg\cos\alpha
-\end{cases}\\
-\begin{cases}
-    -\mu_d(ma\sin\alpha+mg\cos\alpha)-ma\cos\alpha+mg\sin\alpha=0 \\ 
-    R_n=ma\sin\alpha+mg\cos\alpha
+    -\mu_dR_n+ma\cos\alpha+mg\cos\alpha=0\\ 
+    ma\sin\alpha+R_n+mg\sin\alpha=0
 \end{cases}\\ 
--\mu_d(ma\sin\alpha+mg\cos\alpha)-ma\cos\alpha+mg\sin\alpha=0\\ 
--\mu_dma\sin\alpha-\mu_dmg\cos\alpha-ma\cos\alpha+mg\sin\alpha=0\\
-ma(-\mu_d\sin\alpha-\cos\alpha)-\mu_dmg\cos\alpha+mg\sin\alpha=0\\
-ma(-\mu_d\sin\alpha-\cos\alpha)=\mu_dmg\cos\alpha+mg\sin\alpha\\ 
-ma=\frac{1}{(-\mu_d\sin\alpha-\cos\alpha)}\mu_dmg\cos\alpha+mg\sin\alpha\text{\redText{ sbagliato, da sistemare }}
+\begin{cases}
+    ma=\frac{\mu_dR_n}{\cos\alpha}-mg\\ 
+    R_n=-mg\sin\alpha-ma\sin\alpha 
+\end{cases}\\ 
+ma=\frac{\mu_d\Big(-mg\sin\alpha-ma\sin\alpha \Big)}{\cos\alpha}-mg\\ 
+ma=-\mu_dmg\frac{\sin\alpha}{\cos\alpha}-\mu_dma\frac{\sin\alpha}{\cos\alpha}-mg \\ 
+ma(1+\mu_d\tan\alpha)=-\mu_d\tan\alpha-mg\\ 
+ma=\frac{-\mu_d\tan\alpha-mg}{1+\mu_d\tan\alpha}
 \end{eqnarray}
 
 \flowerLine 
@@ -2985,5 +3004,70 @@ Si considera una distanza $d=1$ metro. E si applica una corrente nulla. Si aumen
 $$ \frac{\mu_0}{2\pi}(i^*)^2=2\cdot 10^{-7} \frac{\text N}{\text m} $$
 Tale corrente $i^*$
  definisce \textit{1 unità di Ampere}.
- 
+ \flowerLine 
+ \section{Flusso del Campo Magnetico}
+ Il campo magnetico, può generare una corrente elettrica. Si consideri un filo percorso da corrente parallelo all'asse verticale $z$, ed un circuito chiuso che giace sul piano $xz$.
+ \begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/Faraday.eps}
+\end{center}
+Si ricordi che le frecce indicano le linee di campo entranti nel foglio, ed i cerchi le linee di campo uscenti. L'intensità del campo magnetico decresce con la distanza $r$ dal filo 
+$$ B(r)=\frac{\mu_0I}{2\pi r}$$
+muovendo il circuito sull'asse orizzontale $x$, si verifica un fenomeno particolare, inizia a scorrere corrente, quando invece ci si ferma, la corrente cessa. \acc 
+Sembra che in qualche modo il campo magnetico generi una forza elettromotrice, ossia un campo elettrico non conservativo $$ \oint_l \bar E d\bar l \ne 0$$
+\teo{} La legge di \textbf{Farady-Neumann-Lenz} afferma che la circuitazione del campo elettrico su una curva chiusa $l$ è uguale alla variazione nel tempo del flusso del campo magnetico (cambiato di segno) su una superfice $S_l$ di cui $l$ è frontiera.
+\eqImportante{$\displaystyle 
+\oint_l \bar E d\bar l = -\frac{d}{dt}\int_{S_l}\bar B d\bar S
+$}
+Tale enunciato è anche noto come \textit{legge di induzione elettromagnetica},  nell'esempio del circuito chiuso in presenza del campo generato dal filo percorso dalla corrente $I$, il flusso può variare\begin{itemize}
+    \item muovendo il circuito 
+    \item muovendo il filo in cui scorre $I$
+    \item variando la corrente $I$
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/Faraday2.eps}
+\end{center}
+Tale principio è alla base dei generatori elettrici, in cui si fanno girare delle bobine immerse in un campo magnetico, generando della corrente elettrica. \acc Si consideri un circuito di forma quadrata, in grado di roteare grazie ad un perno. I lati del circuito hanno lunghezza $l$, la sezione è quindi $S=l^2$. Sia $\theta(t)=\omega t$ la velocità di rotazione del perno, il flusso del campo magnetico sulla superfice $S$ è 
+$$ \phi=SB\cos(\theta(t))$$
+ossia 
+$$ \phi = SB\cos(\omega t)$$\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/Faraday3.eps}
+\end{center}
+Si considera la derivata del flusso rispetto al tempo cambiata di segno
+$$ -\dfrac{d\phi}{dt}=SB\omega\sin(\omega t)$$
+Questa, è la circuitazione del campo elettrico nel circuito, ossia la forza elettromotrice, essendo che $V=RI$, se $R$ è la resistenza del conduttore, su questo scorrerà una corrente alternata:
+$$ I=\frac{1}{R}SB\omega\sin(\omega t)$$
+Nella legge di induzione elettromagnetica, è presente un segno $-$ per descrivere il fatto che la corrente generata si \textit{oppone alla variazione del flusso}. Si consideri un campo magnetico entrante, quindi di flusso negativo $$\phi_B<0$$
+ruotando il circuito, il flusso aumenta (il flusso negativo diminusice, avvicinandosi allo zero), quindi 
+$$ \frac{d\phi_B}{dt}>0$$
+allora 
+$$ \text{f.e.m}=-\frac{d\phi_B}{dt} <0$$
+La corrente quindi scorrerà in verso antiorario. La corrente a sua volta genera un campo magnetico \textit{entrante}, quindi si oppone alla diminuizione del campo entrante. 
+\begin{itemize}
+    \item flusso entrante diminuisce $\implies$ la corrente crea un flusso entrante  
+    \item flusso uscente diminuisce $\implies$ la corrente crea un flusso uscente 
+    \item flusso uscente aumenta $\implies$ la corrente crea un flusso entrante  
+    \item flusso entrante aumenta $\implies$ la corrente crea un flusso uscente 
+\end{itemize}
+Il fenomeno di induzione elettromagnetica è spiegabile grazie alla relatività, vi è un  caso particolare che può essere spiegato con la forza di Lorentz.\acc 
+Si consideri un circuito di forma rettangolare, in cui un lato mobile, si sta spostando verso destra a velocità costante $\bar v$, inoltre, il circuito è immerso in un campo magnetico $\bar B$.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/sbarra1.eps}
+\end{center}
+Le cariche nel circuito sono soggette ad una forza di Lorentz $$ \bar F = q\bar v \times \bar B  $$
+Vi è un campo elettromotore 
+$$ \bar E_m=\frac{\bar F}{q}=\bar v \times \bar B$$
+essendo $\bar B$ e $\bar v$ ortogonali, il modulo del prodotto vettoriale è uguale al prodotto dei due moduli 
+$$ E_m=vB$$
+la forza elettromotrice è data dall'integrale sul circuito, essendo il campo elettromotore presente solo nel lato mobile, verrà considerata solo questa componente. Sia $l$ la lunghezza del lato, allora 
+$$ \text{f.e.m.}=vBl$$
+Si vuole calcolare ora la forza elettromotrice usando la legge di Faraday, e verificare che i risultati sono i medesimi. In un tempo infinitesimo $dt$, la sbarra si muove di una distanza $$ vdv$$
+Come sezione, bisogna considerare quella "spazzata" dalla sbarra che si muove, la sezione infinitesima è data da 
+$$ ds=lvdt$$
+\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/sbarra2.eps}
+\end{center}
+Si calcola ora la derivata del flusso
+$$ \frac{d\phi}{dt}=\frac{d}{dt}Bds=B\frac{lvdt}{dt}=Blv$$
+il risultato è il medesimo. Nel circuito (la cui resistenza è $R$) circolerà una corrente 
+$$ I=\frac{vBl}{R}$$
  \end{document}
