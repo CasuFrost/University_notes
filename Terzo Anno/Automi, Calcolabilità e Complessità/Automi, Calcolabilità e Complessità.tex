@@ -2288,7 +2288,7 @@ se e solo se
 $$ \exists x_0\in \R,\ c>0 \ \text{ tale che } \ |f(x)|\le c|g(x)| \ \forall x>x_0$$
 \textbf{Notazione} : Se $f(x)\in O(g(x))$, verrà scritto $f(x)=O(g(x))$.\acc 
 Nei capitoli precedenti sono state considerate delle varianti della TM, che possono essere simulato e rese equivalenti ad una TM normale. Tali varianti vanno rivalutate da un punto di vista della risorsa del tempo. 
-\section{Classi di Complessità}
+\section{Classi di Complessità}\label{classiComplessità}
 \textbf{Esempio} : Si consideri la TM che ad ogni passo di computazione può rimanere ferma sul nastro, la cui funzione di transizione è definita tale che 
 $$ \delta:Q\times\Gamma \rightarrow Q\times\Gamma\times \{L,R,S\}$$
 Questa poteva essere resa equivalente ad una TM classica, aggiungendo un semplice stato in cui la TM simula l'azione $S$ spostandosi a destra e poi a sinistra. È chiaro che una TM classica che simula la TM che può stare ferma, dovrà compiere al più il doppio dei passi computazionali.\acc 
@@ -2796,5 +2796,111 @@ La TM userà un numero costante di nastri, ad alto livello la procedura è descr
     \item sul nastro 3 ad ogni passo si calcola $n+1-i$
     \item ad ogni iterazione si controlla che $x_i\ne x_{n+1-i}$
 \end{itemize}
-è chiaro che tale TM decide $A$ in complessità di spazio $O(\log(n))$.
+è chiaro che tale TM decide $A$ in complessità di spazio $O(\log(n))$.\acc 
+Gli esempi visti hanno in comune lo stesso modello per decidere i linguaggi in complessità spaziale logaritmica, in particolare, su input $x$, si può valutare la lunghezza dell'input $x=|n|$ in spazio logaritmico. \acc 
+In tale spazio, è anche possibile gestire un contatore/indice con il quale eseguire un numero di iterazioni che è polinomiale rispetto ad $n$, si possono inoltre considerare simboli presi dai nastri ed eseguire su di essi semplici operazioni aritmetiche.\acc 
+\textbf{Esempio} : è possibile eseguire il prodotto fra due numero $a\cdot b = c$ in complessità di spazio logaritmica seguendo tale procedura:\begin{enumerate}
+    \item si inizializza $c=0$
+    \item si inizializza un indice $i=0$
+    \item per $i$ che va da $0$ a $b$:\begin{itemize}
+        \item si incrementa  $c$ di $a$
+    \end{itemize}
+\end{enumerate}
+Non è efficiente in termini di tempo, ma lo è in termini di spazio. Per molti problemi, non sono state trovate delle TM che li decidessero in complessità di spazio logaritmica, non si sa quindi se siano o non siano in $LOG$, un seguente esempio è il linguaggio
+$$ PATH = \{<G,s,t> \ | \ s,t\in V(G) \land \text{ esiste un cammino }s\rightarrow t\text{ in }G\}$$
+Per cui si è considerato un algoritmo nella sezione \ref{classiComplessità}, questo, opera in tempo polinomiale, ma la complessità di spazio non è logaritmica, dato che per marcare i nodi, usa al più un bit per nodo, è quindi in $O(n)$ (si ricordi che nelle TM che operano sui grafi, le dimensioni dell'input identificano il numero dei nodi del grafo).\acc 
+\textbf{Esempio} : $3SAT\in PSPACE$, questo è certo perché è possibile provare ogni singolo assegnamento della formula, essendo $n$ il numero dei letterali, ad ogni assegnamento provato si usano al più $n$ celle.\acc 
+Essendo che $3SAT$ è $NP$ completo, ne consegue  che $$NP\subseteq PSPACE $$
+\flowerLine
+\section{Relazione fra Spazio e Tempo}
+In questa sezione verrà resa chiara la relazione che intercorre fra spazio e tempo, in particolare, le relazioni di inclusione fra gli insiemi che definiscono le varie classi.  \acc 
+\teo{} $DTIME(f(n))\subseteq SPACE(f(n))$\acc 
+\dimo{} Supponiamo che una TM ha complessità temporale $f(n)$, per assurdo, ha complessità spaziale $g(n)$, con $g(n)=\Omega(f(n))$ (è asintoticamente maggiore), ad esempio, $f(n)$ potrebbe essere polinomiale e $g(n)$ esponenziale.  \acc 
+Ma allora, essendo che ogni cella per essere riempita richiede almeno 1 passo di computazione, la TM necessariamente esegue $g(n)$ passi di computazione, ma per ipotesi ha complessità temporale $f(n)$, allora non può avere complessità spaziale maggiore di quella temporale.\hfill$\blacksquare$\acc   
+Il  teorema ha un significato molto chiaro:
+\sapbox{il tempo limita lo spazio}
+Vediamo ora in che modo lo spazio può limitare il tempo. \acc
+\teo{} Per ogni $f(n)\ge \log(n)$\footnote{con $\ge$ si intende, che è asintoticamente maggiore, ossia $f(n)\in\Omega(\log(n))$}, si ha che $SPACE(f(n))\subseteq DTIME(2^{O(f(n))})$\acc 
+\dimo{} Nella valutazione della complessità spaziale, una TM ha un nastro di lavoro ed un nastro per l'input, una qualsiasi configurazione (snapshot durante la computazione) di una TM $M$, può essere rappresentato come segue 
+$$ a_1 \ a_2 \ a_3 \ q_i \ a_4 \ a_5 \ a_6 \ ;\ k$$
+dove \begin{itemize}
+    \item $a_j$ sono caratteri sul nastro di lavoro 
+    \item $q_i$ è lo stato attuale, e la sua posizione indica la posizione della testina sul nastro di lavoro 
+    \item $k$ è il numero della cella su cui è presenta la testina sul nastro dell'input
+\end{itemize}
+Essendo $M$ deterministica, ed essendo un decisore, nessuna configurazione può ripetersi due volte durante una computazione. L'implicazione è chiaria :\begin{quote}
+    Il numero MASSIMO di passi di computazione che può fare $M$ su un qualsiasi input, è limitato dal numero totale di configurazioni, in quanto al più, una computazione può includere nella sequenza ogni singola configurazione, ma queste non possono ripetersi
+\end{quote}\begin{center}
+    \includegraphics[width=0.75\textwidth ]{images/confTM2.eps}
+\end{center}
+Il numero totale di configurazioni è dato da\begin{itemize}
+    \item ogni possibile contenuto del nastro di lavoro, ossia $|\Gamma|^{f(n)}$
+    \item un possibile stato $|Q|$
+    \item una posizione del nastro di input $n$
+\end{itemize}
+$$ \#\text{configurazioni} =|\Gamma|^{f(n)}|\cdot |Q|\cdot n $$
+essendo per ipotesi $f(n)\ge \log(n)$ si ha che 
+$$|\Gamma|^{f(n)}\cdot |Q|\cdot n \le |\Gamma|^{f(n)}\cdot |Q|\cdot 2^{f(n)} $$
+quindi il numero di configurazioni è in $2^{O(f(n))}$, dato che $|\Gamma|$ e $|Q|$ sono costanti. Per le osservazioni precedenti, anche il numero di passi di computazione è limitato da $2^{O(f(n))}$.\hfill$\blacksquare$\acc  
+\textbf{Corollario} : $PSPACE\subseteq EXP$, inoltre 
+$$ LOG\subseteq P \subseteq PSPACE \subseteq EXP$$
+ma $P\ne EXP$ quindi una delle inclusioni è stretta, in particolare, almeno una delle due seguenti affermazioni è vera\begin{itemize}
+    \item $P\ne PSPACE$
+    \item $PSPACE\ne EXP$
+\end{itemize}\flowerLine
+\section{Non Determinismo}
+In termini di complessità spaziale, il non determinismo non ha lo stesso impatto che ha nella complessità temporale. Il seguente risultato è \textit{cruciale} ed è alla base di molti altri risultati importanti nell'ambito della complessità spaziale.\acc 
+\teo{} $PATH \in SPACE(\log^2(n))$\acc 
+\dimo{} Sia $M$ la TM che deve decidere $PATH$, l'input è la codifica del grafo $G=(V,E)$, e la coppia di nodi $s,t$ per cui si vuole stabilire se esiste un cammino fra di essi. La TM può calcolare $n=|V|$ in spazio logaritmico. \acc 
+\textbf{Osservazione} : Se esiste un cammino fra $s$ e $t$, questo è composto da al più $n$ nodi.\acc 
+Verrà adoperata una procedura ricorsiva, che ricercherà un nodo $u$ per cui \begin{itemize}
+    \item esiste un cammino da $s$ ad $u$ 
+    \item esiste un cammino da $u$ a $t$
+\end{itemize}
+se tale nodo $u$ esiste, allora esiste un cammino da $s$ a $t$. L'algoritmo opererà ricorsivamente "spezzando" in 2 il grafo ad ogni passo. \acc 
+Si definisce la seguente procedure \texttt{FIND\_PATH(x,y,k)} definita come segue 
+\begin{lstlisting}
+FIND_PATH(x,y,k){
+    if(k==0){
+        if(x=y OR (x,y)=arco in E){ ACCEPT }
+    }
+    per ogni nodo w{
+        if(FIND_PATH(x,w,k-1) AND FIND_PATH(w,y,k-1)){
+            ACCEPT
+        }
+    }
+    REJECT 
+}
+\end{lstlisting}
+Al termine, si avrà che la procedura accetterà solo se esiste un cammino da $x$ ad $y$ con al più $k$ nodi. Sarà necessario fra si che la TM $M$ esegua la procedura \begin{quote}
+    \texttt{FIND\_PATH(s,t,$\lceil \log(n)\rceil $)}
+\end{quote}
+Osservazioni\begin{itemize}
+    \item ad ogni passo ricorsivo è necessario memorizzare un numero costante di variabili, ciò richiede spazio $O(\log(n))$
+    \item la ricorsione si divide in 2 ad ogni passo, l'altezza di ogni ramo ricorsivo è quindi al più $O(\log(n))$
+\end{itemize}
+Ne consegue che lo spazio totale necessario sarà in $O(\log^2(n))$.\hfill$\blacksquare$\acc  
+Occupiamoci adesso di definire le classi di spazio per le NTM (TM non deterministiche). \acc 
+\defi{} $NSPACE(f(n))=\{L \ | \ \exists \text{ NTM } N \text{ t.c. } L(N)=L \land N \text{ ha complessità di spazio } f(n)\}$\acc 
+la complessità di spazio di una NTM si valuta sul ramo di computazione che ha occupato più celle distinte. Ne conseguno naturalmente le seguenti classi 
+$$ NPSPACE=\bigcup_{k\in \Z^+}NSPACE(n^k)$$
+$$ NEXPSPACE=\bigcup_{k\in \N}NSPACE(2^{n^k})$$
+$$ NLOG=NSPACE(\log(n))$$
+Vedremo che $PSPACE=NPSPACE$, ossia, che il non determinismo non ha alcuna influenza sulla complessità di spazio.\acc 
+\textbf{Lemma} : $PATH\in NLOG$\acc 
+\dimo{} Si considera una NTM $N$ per $PATH$ che esegue la seguente procedura\begin{itemize}
+    \item su input $G,s,t$ accetta se $s=t$
+    \item calcola deterministicamente in spazio logaritmico $n=|V|$
+    \item definisce $curNode=s$
+    \item per ogni $i$ da 1 ad $n$\begin{itemize}
+        \item \textit{non deterministicamente} (fork) considera ogni possibile nodo $u\in V$
+        \item se $(curNode,u)\in E$, allora $curNode=u$
+        \item se $curNode=t$, accetta 
+        \item se $(curNode,u)\notin E$, allora rifiuta
+    \end{itemize}
+    \item rifiuta 
+ \end{itemize}
+ Su ogni ramo il nuemro di variabili utilizzate è costante, l'algritmo opera in complessità spaziale $O(\log(n))$ e accetta solo se esiste un cammino da $s$ a $t$.
+\hfill$\blacksquare$\acc  
+Vedremo che $PATH$ è $NLOG$ completo.
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.30)  5 DEC 2024 15:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.30)  7 DEC 2024 12:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2327,7 +2327,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [74 <./images/memDic.png>]
-runsystem(latexminted cleantemp  --timestamp 20241205155344 1BFD63EE5C838B956558CB151E65D716)...disabled (restricted).
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[75]
+runsystem(latexminted cleantemp  --timestamp 20241207122928 1BFD63EE5C838B956558CB151E65D716)...disabled (restricted).
 
  (Programmazione di Sistemi Multicore.aux)
  ***********
@@ -2338,17 +2347,17 @@ Package rerunfilecheck Info: File `"Programmazione di Sistemi Multicore".out' ha
 (rerunfilecheck)             Checksum: F12FFC0C9CB9E2C9F62449FD7BE84B69;10174.
  ) 
 Here is how much of TeX's memory you used:
- 44850 strings out of 473682
- 1008357 string characters out of 5719215
+ 44852 strings out of 473682
+ 1008375 string characters out of 5719215
  2191054 words of memory out of 5000000
  65893 multiletter control sequences out of 15000+600000
  627869 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,14n,104p,909b,2190s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX2/fonts/type1/public/fourier/fourier-orns.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Programmazione di Sistemi Multicore.pdf" (75 pages, 5718897 bytes).
+Output written on "Programmazione di Sistemi Multicore.pdf" (76 pages, 5720752 bytes).
 PDF statistics:
- 2554 PDF objects out of 2984 (max. 8388607)
- 1280 named destinations out of 1440 (max. 500000)
+ 2559 PDF objects out of 2984 (max. 8388607)
+ 1282 named destinations out of 1440 (max. 500000)
  716 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -2153,8 +2153,10 @@ quindi la \textit{circuitazione} del campo elettrostatico, e conseguentemente il
 $$\mathscr{E}=0 $$
 \subsection{Calcolo Esplicito del Potenziale}
 Si vuole calcolare la formula esplicita del potenziale. Si consideri il caso più semplice, ossia quello di una carica puntiforme $q$. Il lavoro della forza elettrostatica $\bar F$ che agisce su una carica $q_0$ per uno spostamento elementare $d\bar s$ è 
-$$ dL = d\bar F d\bar s =q_0\bar Ed\bar s= \frac{q_0q}{4\pi\varepsilon_0}\frac{dr}{r^2}$$
-Quindi 
+$$ dL = \bar F d\bar s =q_0\bar Ed\bar s= 
+=\frac{q_0q}{4\pi\varepsilon_0}\frac{d\bar s}{r^2}\hat r=
+\frac{q_0q}{4\pi\varepsilon_0}\frac{dr}{r^2}$$
+Essendo $\hat r$ unitario si ha che $\hat r d\bar s=dr$. Ne consegue 
 $$ Ed\bar s=\frac{q}{e\pi\varepsilon_0}\frac{dr}{r^2}$$
 Si integra su un percorso che congiunge $A$ a $B$
 $$ \mathscr{E}=\frac{q}{e\pi\varepsilon_0}\int_{r_A}^{r_B}\frac{dr}{r^2}=\frac{q}{4\pi\varepsilon_0r_A}-\frac{q}{4\pi\varepsilon_0r_B}$$
@@ -2191,8 +2193,10 @@ Dove $r_i$ è la distanza fra l'$i$-esima carica ed il punto $r$. Si può estend
 $$ V(r)=\frac{1}{4\pi\varepsilon_0}\int_{\tau}\frac{dq}{r}=\frac{1}{4\pi\varepsilon_0}\int_{\tau}\frac{\sigma d\tau}{r}$$
 \defi{(Operatore nabla)} In $\R^3$, con sistema di coordinate cartesiane $x,y,z$, con versori  $\hat x,\hat y,\hat z$, si definisce l'operatore nabla 
 $$ \nabla = \dfrac{\delta}{\delta x}\hat x+\dfrac{\delta}{\delta y}\hat y+\dfrac{\delta}{\delta z}\hat z$$
-\defi{(Gradiente)} : Il gradiente di una funzione $f$ è il prodotto fra $f$ e l'operatore nabla $\nabla$, ed è uguale al vettore le cui componenti sono le derivate parziali di $f$ rispetto $x,y$ e $z$. 
-$$ \nabla f = \dfrac{\delta f}{\delta x}\hat x+\dfrac{\delta f}{\delta y}\hat y+\dfrac{\delta f}{\delta z}\hat z$$
+\defi{(Gradiente)} : Il gradiente di una funzione $f:\R^3\rightarrow \R^3$ è il prodotto fra $f$ e l'operatore nabla $\nabla$, ed è uguale al vettore le cui componenti sono le derivate parziali di $f$ rispetto $x,y$ e $z$. 
+$$ \nabla f = f\cdot\Big( 
+    \dfrac{\delta}{\delta x}\hat x+\dfrac{\delta}{\delta y}\hat y+\dfrac{\delta}{\delta z}    
+\Big)= \dfrac{\delta f}{\delta x}\hat x+\dfrac{\delta f}{\delta y}\hat y+\dfrac{\delta f}{\delta z}\hat z$$
 \textbf{Esempio} : La funzione $f(x,y,z)=x^2y$ ha gradiente 
 $$ \nabla f = 2xy\hat x + x^2\hat y + 0\hat z = (2xy,x^2,0) $$
 \begin{center}
@@ -2243,7 +2247,7 @@ $$ E=\begin{cases}
    \displaystyle \frac{Q}{r^24\pi\varepsilon_0} \ \ r\ge R \\ \\
    \displaystyle  \frac{Q}{4\pi\varepsilon_0}\frac{r}{R^3}\ \ r\le R 
 \end{cases}$$
-Si può calcolare il potenziale elettrostatica nei due casi integrando $E$.\acc  
+Si può calcolare il potenziale elettrostatico nei due casi integrando $E$ (in forma scalare, il suo modulo dipende solo dalla distanza).\acc  
 \textbf{caso esterno $r\ge R$} 
 $$ \int_{\infty}^r E dr = V(\infty)-V(r)=-V(r)=-\frac{1}{4\pi\varepsilon_0}\frac{Q}{r}$$
 \textbf{caso interno $r\le R$}
@@ -2251,7 +2255,7 @@ $$ \int_{R}^r E dr = V(R)-V(r)$$
 Il potenziale sulla superficie è 
 $$ V(R)=-\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}$$
 quindi 
-$$ \frac{Q}{R^34\pi\varepsilon_0}\int_{R}^r r dr = -\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}-V(r) \implies $$
+$$ \int_{R}^r E dr=\frac{Q}{R^34\pi\varepsilon_0}\int_{R}^r r dr = -\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}-V(r) \implies $$
 $$ \frac{Q}{R^34\pi\varepsilon_0}\Big( \frac{r^2}{2}-\frac{R^2}{2}\Big) = -\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}-V(r) \implies $$
 $$ \frac{Q}{R^34\pi\varepsilon_0}\Big( \frac{r^2}{2}-\frac{R^2}{2}\Big)  +\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}=V(r) $$
 $$ V(r)=\frac{Q}{4\pi\varepsilon_0}\Big( \frac{1}{R}+\frac{1}{2R}-\frac{r^2}{2R^3} \Big)$$
@@ -3070,4 +3074,72 @@ Si calcola ora la derivata del flusso
 $$ \frac{d\phi}{dt}=\frac{d}{dt}Bds=B\frac{lvdt}{dt}=Blv$$
 il risultato è il medesimo. Nel circuito (la cui resistenza è $R$) circolerà una corrente 
 $$ I=\frac{vBl}{R}$$
+Essendo che vi è una corrente, le cariche presenti nel circuito si muoveranno alla velocità di deriva $\bar v_d$, essendo immerse in un campo magnetico, queste saranno soggette ad una forza di Lorentz, la cui direzione è opposta a quella della velocità $\bar v$ del lato mobile.\acc 
+Tale forza, detta  \textit{contro elettro motrice}, si oppone alla forza che sposta il lato mobile.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/sbarra3.eps}
+\end{center}
+Fino ad ora, abbiamo descritto il campo elettrico ed il campo magnetico con 3 (delle 4) equazioni di Maxwell:
+$$ \oint_S \bar E d\bar S = \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \   \oint_S \bar B d\bar S =0 \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \  
+ \oint_l \bar E d\bar l = -\frac{d}{dt}\int_{S_l}\bar B d\bar S$$
+La quarta equazione sarà data dalla legge di Ampere estesa al caso di una corrente variabile nel tempo.
+\subsection{Campo Elettrico e Magnetico del Solenoide}
+Si consideri un filo conduttore che ha la forma di un solenoide, composto da $n$ spire, la cui lunghezza totale è $l$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/solenoide.png}
+\end{center}
+Il campo magnetico $\bar B$ all'interno delle spire è uniforme, e vale $$ B=\frac{1}{l}\mu_0n I$$
+dove $I$ è la corrente che scorre nel conduttore, esprimiamo il campo sempre in forma scalare dato che la direzione è la stessa in ogni punto (all'interno delle spire). Supponiamo che $I$ sia variabile nel tempo 
+$$ B=\frac{1}{l}\mu_0n I(t)$$
+In particolare, che sia lineare, definita (per qualche $a$) come $I(t)=at$
+$$ B=\frac{1}{l}\mu_0n at$$
+Sia $S$ la sezione di una spira, si consideri il flusso in tale superficie, essendo che la normale di $S$ è parallela al campo magnetico, il flusso (attraverso una spira) sarà proprio 
+$$ \phi_1(t)=\frac{1}{l}nS\mu_0at$$
+il flusso  totale attraverso $n$ spire non è altro che la somma dei contributi di ogni spira 
+$$ \phi(t)=n\cdot \frac{1}{l}nS\mu_0at= \frac{1}{l}n^2S\mu_0at$$
+la derivata del flusso rispetto al tempo è 
+$$ 
+\dfrac{d\phi}{dt}=\frac{1}{l}n^2S\mu_0a$$
+Ma quindi, ci sarà una forza elettromotrice $E$ sulla frontiera della sezione $S$, in generale, su una circonferenza di raggio $r$ la f.e.m. sarà 
+$$ E2\pi r=\frac{1}{l}n^2S\mu_0a\implies E =\frac{1}{l2\pi r}n^2S\mu_0a $$
+Risulta comodo scriverlo come 
+$$ E=\Big(\frac{1}{l2\pi }n^2S\mu_0a\Big)\frac{1}{r}$$
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/solenoide.pdf}
+\end{center}
+Si noti come il termine dentro le parentesi, ossia $C=\Big(\frac{1}{l2\pi }n^2S\mu_0a\Big)$ è costante, il campo $$ E=C\frac{1}{r}$$
+generato dalla variazione del flusso ha intensità inversamente proporzionale alla distanza. 
+\sapbox{\begin{itemize}
+\item la variazione della corrente nel solenoide ha causato una variazione del flusso 
+\item la variazione del flusso ha causato una corrente indotta (legge di Faraday-Neumann-Lenz)
+\end{itemize}}
+\subsubsection{Esempio}
+Si consideri un disco (di raggio $R$) di materiale conduttore, immerso in un campo magnetico uniforme, le cui linee di campo sono entranti nella superficie del disco.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/discoMagnetico.eps}
+\end{center}
+Supponiamo che il disco rotei ad una certa velocità tangenziale, una carica infinitesima $dq$ posta a distanza $r$ dal centro, si muove a velocità $v$, dato che la velocità è sempre ortogonale alle linee di campo, la carica sarà soggetta ad una forza di Lorentz 
+$$ dF=dqvB$$
+La velocità $v$ della carica dipende dalla sua distanza $r$ dal centro, ed è $v(r)=\omega r$
+$$ dF=dq\omega rB$$
+il campo elettrico infinitesimo $dE$ è dato da 
+$$ dE = \frac{dF}{dq}=\omega rB$$
+per il campo totale, bisogna integrare su tutta la superficie del disco, ossia da $r=0$ a $r=R$ 
+$$ E=\int_0^R B\omega r  dr =B\omega \int_0^R  r  dr=\frac{\omega B R^2}{2}  $$
+Vogliamo ora calcolarlo utilizzando la legge di Faraday-Neumann-Lenz, il flusso deve essere calcolato attraverso "spazzata" dal raggio del disco.\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/discoMagnetico2.eps}
+\end{center}
+Si consideri una variazione infinitesima dell'arco di curva, ossia $dl$, in tal modo, è possibile approssimare l'arco ad una retta, facendo si che l'area spazzata $A$ sia un triangolo, calcolandola in modo semplice $$A=\frac{1}{2}R dl$$
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/alphaA0.eps}
+\end{center}
+Il flusso infinitesimo attraverso questa è dato da 
+$$ d\phi = \frac{1}{2}R dl B$$
+Si ricordi che è bastato fare il prodotto dei modulo in quanto la superficie del disco è ortogonale alle linee di campo magnetico. A questo punto, avendo il flusso infinitesimo, se ne vuole calcolare la derivata rispetto al tempo 
+$$ \frac{d\phi}{dt}=\frac{1}{2}R dl B\frac{1}{dt}$$
+ma attenzione, il termine $\frac{dl}{dt}$ è la derivata rispetto al tempo dell'arco di curva $l$, questa non è altro che la velocità tangenziale $\omega R$, quindi 
+$$  \frac{1}{2}R dl B\frac{1}{dt}= \frac{1}{2}RB\frac{dl}{dt}=\frac{1}{2}RBR\omega$$
+Ne consegue che 
+$$\frac{d\phi}{dt}=\frac{\omega B R^2}{2} $$
+proprio come calcolato precedentemente applicando la regola della forza di Lorentz.
  \end{document}

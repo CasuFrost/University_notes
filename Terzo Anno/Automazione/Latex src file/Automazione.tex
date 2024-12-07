@@ -3144,7 +3144,7 @@ Si possono quindi ricavare i valori di velocità angolare, coppia di disturbo e 
     \item $\displaystyle \color{darkgreen}\tau_r\color{black}=\frac{k_m}{R_a}V_a-\Big(b+\frac{k_m^2}{R_a}\Big)\displaystyle \color{magenta}\omega\color{black}$
     \item $\displaystyle \color{blue}i_a\color{black}= 
     \frac{1}{R_a}\Big(b+\frac{k_m^2}{R_a}\Big)^{-1}\cdot (bV_a+k_m\displaystyle \color{darkgreen}\tau_r\color{black})
-    $ \\ oppure
+    $ \acc oppure
     \item $\displaystyle \color{blue}i_a\color{black}= \frac{1}{R_a}(V_a-k_m\color{magenta}\omega\color{black})$
 \end{itemize}
 \subsubsection{Caratteristiche Statiche}
@@ -3421,7 +3421,7 @@ $$q'(\theta)=\frac{dq}{d\theta}\frac{d\theta}{dt}$$
 $$q''(\theta)=\frac{dq}{d\theta}\frac{d^2\theta}{dt^2}+\frac{d^2q}{d\theta^2}\big(\frac{d\theta}{dt}\big)^2$$
 \subsection{Profili di Moto}
 Il master $\theta$ ha una legge oraria rispetto al tempo, per le leggi parametriche degli slave $q$, si scelgono tipicamente delle leggi polinomiali 
-$$q=f(\theta)=a_0+a_\theta+a_2\theta^2+\dots + a_n\theta^n $$
+$$q=f(\theta)=a_0+a_1\theta+a_2\theta^2+\dots + a_n\theta^n $$
 È prefiribile considerare una \textit{doppia normalizzazione}, facendo variare $\theta$ fra 0 ed 1, se $\theta_{in}$ e $\theta_{fin}$ sono il massimo ed il minimo di $\theta$, si considera la legge normalizzata 
 $$ \theta_N = \frac{\theta - \theta_{in}}{\theta_{fin}-\theta_{in}}\in [0,1]$$
 Se $q$ varia in $[q_{in},q_{fin}]$, si considera anche la normalizzazione di questa 
@@ -3431,13 +3431,220 @@ $$\begin{matrix}
     f_N(0)=0\\ f_N(1)=1
 \end{matrix} $$
 Qualsivoglia siano le funzioni scelte per le leggi spaziali, è importante analizzarne il contenuto in frequenza, se i moti hanno contenuti di frequenze nella banda passante del sistema di controllo, potrebbero venire eccitate alcune frequenze. \acc 
+La scelta del polinomio $f_N$ (e del suo grado), dipende da quali sono le condizioni ricercate al contorno, si consideri un polinomio di grado 3
+$$ f_N(\theta_N)=a_0+a_1\theta+a_2\theta^2+a_3\theta^3$$
+Si vogliono imporre le seguenti condizioni\begin{itemize}
+    \item la funzione deve essere normalizzata $f_N(0)=0\land f_N(1)=1$
+    \item la derivata prima deve essere nulla all'inizio e alla fine  
+\end{itemize}
+Quindi 
+$$f_N(0)= a_0=0\implies a_0=0$$
+$$ f_N(1)=a_0+a_1+a_2+a_3=1$$
+$$ \frac{df_N}{d\theta_N}(0)=a_1=0$$
+$$ \frac{df_N}{d\theta_N}(1)=a_1+2a_2+3a_3=0$$
+Si ha quindi il seguente sistema lineare 
+$$ \begin{cases}
+    a_0=0\\ 
+    a_0+a_1+a_2+a_3=1\\ 
+    a_1=0\\ 
+    a_1+2a_2+3a_3=0
+\end{cases}$$
+Si può risolvere semplicemente
+ \begin{eqnarray}
+     \begin{cases}
+    a_0=0\\ 
+    0+0+a_2+a_3=1\\ 
+    a_1=0\\ 
+    0+2a_2+3a_3=0
+\end{cases}\\ 
+\begin{cases}
+    a_0=0\\ 
+    a_2=1-a_3\\ 
+    a_1=0\\ 
+    2a_2=-3a_3
+\end{cases}\\ 
+\begin{cases}
+    a_0=0\\ 
+    a_2=1-a_3\\ 
+    a_1=0\\ 
+    2(1-a_3)=-3a_3
+\end{cases}\\ 
+\begin{cases}
+    a_0=0\\ 
+    a_2=1-a_3\\ 
+    a_1=0\\ 
+    a_3=-2
+\end{cases}\\ 
+\begin{cases}
+    a_0=0\\ 
+    a_2=3\\ 
+    a_1=0\\ 
+    a_3=-2
+\end{cases}
+\end{eqnarray}
+$f_N$ sarà quindi definita come segue 
+$$ f_N(\theta_N)=3\theta^2-2\theta^3$$
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \begin{tikzpicture}[scale=0.8, transform shape]
+            \begin{axis}[
+            ymin=0,
+            ymax = 1,
+            xmin=0,
+            xmax = 1,
+            axis lines = left,
+            xtick distance=0.2, ytick distance=0.2,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(\theta_N\),
+            ylabel = {\(f_N\)},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:1,
+            samples=20,
+            color=blue,
+            ]
+            {3*x^2-2*x^3};
+            \end{axis}
+            \end{tikzpicture} & 
+            \begin{tikzpicture}[scale=0.8, transform shape]
+                \begin{axis}[
+                ymin=0,
+                ymax = 1.6,
+                xmin=0,
+                xmax = 1,
+                axis lines = left,
+                xtick distance=0.2, ytick distance=0.3,
+                grid style=dashed,
+                ymajorgrids=true,
+                xmajorgrids=true,
+                xlabel = \(\theta_N\),
+                ylabel = {\(f'_N\)},
+                ]
+                %Below the red parabola is defined
+                \addplot [
+                domain=0:1,
+                samples=20,
+                color=red,
+                ]
+                {6*x-6*x^2};
+                \end{axis}
+                \end{tikzpicture}
+		\\
+	\end{tabular}
+\end{center}
+Se si volessero introdurre ulteriori condizioni (ad esempio, valori di contorno per la derivata seconda), un polinomio di grado 3 non sarebbe sufficiente a soddisfarle. Si consideri ad esempio che la traiettoria che si vuole seguire ha le seguenti condizioni 
+\begin{itemize}
+    \item la funzione deve essere normalizzata $f_N(0)=0\land f_N(1)=1$
+    \item la derivata prima deve essere nulla all'inizio e alla fine 
+    \item la derivata seconda deve essere nulla all'inizio e alla fine 
+\end{itemize}
+Sono necessari 6 coefficienti, e quindi un polinomio di grado 5. Senza mostrare la risoluzione del sistema lineare, il polinomio in questione sarà 
+$$ f_N(\theta_N)=10\theta_N^3-15\theta_N^4+6\theta_N^5$$
+l'andamento di $f$ e della sua derivata prima è il seguente
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \begin{tikzpicture}[scale=0.8, transform shape]
+            \begin{axis}[
+            ymin=0,
+            ymax = 1,
+            xmin=0,
+            xmax = 1,
+            axis lines = left,
+            xtick distance=0.2, ytick distance=0.2,
+            grid style=dashed,
+            ymajorgrids=true,
+            xmajorgrids=true,
+            xlabel = \(\theta_N\),
+            ylabel = {\(f_N\)},
+            ]
+            %Below the red parabola is defined
+            \addplot [
+            domain=0:1,
+            samples=20,
+            color=blue,
+            ]
+            {10*x^3-15*x^4+6*x^5};
+            \end{axis}
+            \end{tikzpicture} & 
+            \begin{tikzpicture}[scale=0.8, transform shape]
+                \begin{axis}[
+                ymin=0,
+                ymax = 2,
+                xmin=0,
+                xmax = 1,
+                axis lines = left,
+                xtick distance=0.2, ytick distance=0.3,
+                grid style=dashed,
+                ymajorgrids=true,
+                xmajorgrids=true,
+                xlabel = \(\theta_N\),
+                ylabel = {\(f'_N\)},
+                ]
+                %Below the red parabola is defined
+                \addplot [
+                domain=0:1,
+                samples=20,
+                color=red,
+                ]
+                {30*x^2-60*x^3+30*x^4};
+                \end{axis}
+                \end{tikzpicture}
+		\\
+	\end{tabular}
+\end{center}
+La derivata seconda ha il seguente andamento
+\begin{center}
+    \begin{tikzpicture}[scale=0.8, transform shape]
+        \begin{axis}[
+        ymin=-6,
+        ymax = 6,
+        xmin=0,
+        xmax = 1,
+        axis lines = left,
+        xtick distance=0.2, ytick distance=2,
+        grid style=dashed,
+        ymajorgrids=true,
+        xmajorgrids=true,
+        xlabel = \(\theta_N\),
+        ylabel = {\(f''_N\)},
+        ]
+        %Below the red parabola is defined
+        \addplot [
+        domain=0:1,
+        samples=20,
+        color=green,
+        ]
+        {60*x-180*x^2+120*x^3};
+        \end{axis}
+        \end{tikzpicture}
+\end{center}
 I seguenti grafici riportano alcuni esempi di profili temporali e di posizione, uno per un moto uniforme (passare da fermo a velocità costante) ed uno per un moto ciclico (in cui si ritorna alla posizione iniziale).
 \begin{center}
     \includegraphics[width=\textwidth]{images/profiliMoti.eps }
 \end{center}
-È importante inoltre, considerare che effetti può avere una variazione della velocità del profilo master $\theta$ sul moto dei profili slave. \redText{ da finire}
-
-
+\subsubsection{Cambio di Velocità}
+È importante inoltre, considerare che effetti può avere una variazione della velocità del profilo master $\theta$ sul moto dei profili slave. Si considera un profilo master la cui velocità cambia in due differenti fasi \begin{itemize}
+    \item esegue prima due cicli lenti, ruotando ad una velocità di $360^\circ=2\pi$ al secondo. 
+    \item esegue poi due cicli veloci, raddoppiando la velocità, e ruotando di $720^\circ=4\pi$ al secondo.
+\end{itemize}
+\begin{center}
+        \includegraphics[width=0.7\textwidth]{images/cambioVel.eps}
+\end{center}
+Si osservi il seguente grafico che riporta l'andamento di due profili slave, uno rappresentato con una linea continua, e l'altro con una linea tratteggiata.
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.5\textwidth]{images/cambioVel2.png} & 
+        Sono cruciali le seguenti osservazioni\begin{itemize}
+            \item se il master raddoppia la sua frequenza, anche i profili slave seguiranno il riferimento al doppio della frequenza 
+            \item Si osservi il profilo temporale della derivata prima degli slave (indicato con "velocity"), se nei cicli lenti la velocità variava fra $[-720,720]$, nei cicli veloci, varia fra $[-1440,1440]$, quindi la velocità raddoppia.
+            \item Si osservi il profilo temporale dell'accelerazione, qui, al raddoppiare della velocità del master, i valori fra cui varia si quadruplicano.
+        \end{itemize}
+		\\
+	\end{tabular}
+\end{center}
 
 
 
@@ -3592,16 +3799,17 @@ Vanno considerati \begin{itemize}
     \item limiti fisici degli attuatori 
     \item limiti dovuti al fatto che il PID è implementato digitalmente (passo di campionamento)
 \end{itemize}
-Definiamo il \textit{tempo di salita} $T_s$ come il tempo che impiega la risposta a passare dal $10\%$ al $90\%$ del valore di riferimento.\acc 
-Il \textit{tempo di assestamento} $T_a$ è il tempo che impiega l'uscita a raggiungere un margine di errore dal valore di riferimento del (solitamente) $3\%-5\%$.\acc 
-$T_m$ è l'istante di \textit{massima sovraelognazione} $S$, questa è 
+I seguenti parametri si valutano sulla risposta del sistema al gradino unitario.
+Definiamo il \textbf{tempo di salita} $T_s$ come il tempo che impiega la risposta a passare dal $10\%$ al $90\%$ del valore di riferimento.\acc 
+Il \textbf{tempo di assestamento} $T_a$ è il tempo che impiega l'uscita a raggiungere un margine di errore dal valore di riferimento minore o uguale del $3\%-5\%$.\acc 
+$T_m$ è l'istante di \textbf{massima sovraelognazione} $S$, questa è 
 $$S=\frac{y(T_m)-y(\infty)}{y(\infty)} $$
 \begin{center}
-    \includegraphics[width=0.6\textwidth]{images/secifiche.png} 
+    \includegraphics[width=0.6\textwidth]{images/specifiche.pdf} 
 \end{center}
-Tali specifiche devono essere soddisfatte al meglio delle possibilità, variando i 3 disponibili parametri di configurazione dei PID.1
+Tali specifiche devono essere soddisfatte al meglio delle possibilità, variando i 3 disponibili parametri di configurazione dei PID.
 \subsection{Caratteristiche del Regolatore}
-Il 95$\%$ dei regolatori digitali implementa una legge di controllo PID, data la semplicità nella taratura dei parametri e la facile interpretazione fisica in termini di controllo. Dato un errore $e(t)=y_{rif}(t)-y(t)$, l'azione PID risulta essere 
+Il 95$\%$ dei regolatori digitali (industriali) implementa una legge di controllo PID, data la semplicità nella taratura dei parametri e la facile interpretazione fisica in termini di controllo. Dato un errore $e(t)=y_{rif}(t)-y(t)$, l'azione PID risulta essere 
 $$ 
 u(t)=K_p\Big(   e(t)+\frac{1}{T_i}\int_0^te(\tau)d\tau + T_d\frac{de(t)}{dt}    \Big)
 $$
@@ -3668,7 +3876,9 @@ $$
 PID(s)=\frac{K_p}{T_i}\frac{T_iT_d(1+\frac{1}{N})s^2+(T_i+\frac{T_d}{N})s+1}{s(1+\frac{T_d}{N}s)}
 $$
 Si è aggiunto un secondo polo in $s=-\frac{N}{T_d}$, rendendo la funzione di trasferimento propria, quindi realizzabile. Inoltre 
-$$ \lim_{n\rightarrow +\infty}PID(s)=PID_{ideale}(s)$$
+$$ \lim_{N\rightarrow +\infty}PID(s)= 
+\frac{K_p}{T_i}\frac{T_iT_d(1+0)s^2+(T_i+0)s+1}{s(1+0s)}
+=PID_{ideale}(s)$$
 \begin{center}
     \includegraphics[width=1\textwidth]{images/PidRealevsPidIdeale.png}
 \end{center}
@@ -3677,7 +3887,8 @@ $$ \lim_{n\rightarrow +\infty}PID(s)=PID_{ideale}(s)$$
 Il regolatore PID implementato su un sistema digitale presenta l'azione integrale, questa deve essere approssimata nel dominio discreto dei sistemi digitali. I segnali analogici come $e$ vanno campionati, si denota con $T_C$ il passo di campionamento. Si ricordi che 
 un segnale campionato $x_k$ è definito come $$x(kT_C), \ \ \ \ \ \ k\in\Z^+$$
 \defi{} Dato un segnale campionato $x_k$, la trasformata $\mathcal Z$ del segnale è la funzione di variabile complessa $z\in \C$ definita come
-$$ X(z)=\mathcal Z[x_k](z)=\sum_{k=0}^\infty x_k\cdot z^{-k}$$
+$$ X(z)=\mathcal Z[x_k](z)=\sum_{k=0}^\infty x_k\cdot z^{-k}
+$$
 Vediamo adesso diversi modi di implementare nel dominio discreto l'integrazione.  
 \subsubsection{Integrazione rettangolare}
 Sia $u_k$ il segnale che approssima l'integrale dell'errore $e$ fino all'istante $t=kT_C$, ossia 
@@ -3689,7 +3900,7 @@ Ad ogni istante $k$, si può sommare al valore corrente il valore dell'istante p
 L'integrale è descritto dalla formula ricorsiva 
 $$u_k=u_{k-1}+T_Ce_{k-1} $$
 Portandolo nel dominio della trasformata $\mathcal{Z}$ si ha 
-$$ U(z)=\mathcal{Z}[u_k](z)=z^{-1}U(z)+T_CE(z)z^{-1}$$
+$$ U(z)=\mathcal{Z}[u_k](z)=U(z)z^{-1}+T_CE(z)z^{-1}$$
 Dove $E(z)$ è la trasformata dell'errore $e$. Si ricordi che un passo all'indietro nel dominio $\mathcal{Z}$ si esprime moltiplicando la funzione per $z^{-1}$. \acc 
 La funzione di trasferimento dell'integratore, che lega l'ingresso $e$ all'uscita $u$ è data da 
 $$ \frac{U(z)}{E(z)}=\frac{T_Cz^{-1}}{1-z^{-1}}=\frac{T_C}{z-1}$$
@@ -3702,7 +3913,7 @@ $$ \frac{U(z)}{E(z)}=\frac{T_C}{1-z^{-1}}=\frac{T_Cz}{z-1}$$
 Esistono anche altri tipi di integrazione, ad esempio quella \textit{trapezoidale} che ha funzione di trasferimento 
 $$ \frac{U(z)}{E(z)}=\frac{T_C}{2}\frac{z+1}{z-1}$$
 \subsection{Discretizzazione del Regolatore}
-Si vogliono rappresentare le 3 azioni del PID in forma discreta, sull'errore $e(t)=t_{rif}(t)-y(t)$, per poter essere implementate in un sistema digitale che ha un clock, o meglio, passo di campionamento $T_C$.\begin{itemize}
+Si vogliono rappresentare le 3 azioni del PID in forma discreta, sull'errore $e(t)=y_{rif}(t)-y(t)$, per poter essere implementate in un sistema digitale che ha un clock, o meglio, passo di campionamento $T_C$.\begin{itemize}
 \item\textbf{azione proporzionale}
 $$K_p e(t) \ \ \ \text{ diventa }\ \ \  K_pe(kT_C)=K_pe_k$$
 \item\textbf{azione integrale}
@@ -3733,8 +3944,8 @@ $$
 $$
 L'espressione in forma di velocità del PID è la seguente 
 $$ u_k=u_{k-1}+\Delta u_k$$
-Nel dominio della trasformata $\mathcal Z$, si considera l'operatore del ritardi di campionamento $z^-1$, se $U_k$ è la trasformata di $u_k$, allora 
-$$ U_{k-1}=U_k\cdot z^-1\ \  \text{ è la trasformata di }\ \  u_{k-1}$$
+Nel dominio della trasformata $\mathcal Z$, si considera l'operatore del ritardi di campionamento $z^{-1}$, se $U_k$ è la trasformata di $u_k$, allora 
+$$ U_{k-1}=U_k\cdot z^{-1}\ \  \text{ è la trasformata di }\ \  u_{k-1}$$
 Ne consegue che se 
 $$ \Delta u_k = u_k-u_{k-1}$$ 
 allora nel dominio $\mathcal Z$
