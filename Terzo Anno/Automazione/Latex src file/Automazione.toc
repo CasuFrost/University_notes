@@ -143,54 +143,63 @@
 \contentsline {subsection}{\numberline {6.5.3}Esempio Numerico 2}{143}{subsection.6.5.3}%
 \contentsline {subsection}{\numberline {6.5.4}Secondo Metodo di Ziegler-Nichols}{146}{subsection.6.5.4}%
 \contentsline {subsection}{\numberline {6.5.5}Esempio Numerico 3}{146}{subsection.6.5.5}%
-\contentsline {chapter}{\numberline {7}Complementi}{148}{chapter.7}%
-\contentsline {section}{\numberline {7.1}La Trasformata di Laplace}{148}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}Proprietà della Trasformata}{149}{subsection.7.1.1}%
-\contentsline {subsubsection}{Linearità}{149}{section*.54}%
-\contentsline {subsubsection}{Ritardo}{150}{section*.55}%
-\contentsline {subsubsection}{Trasformazione di una derivata e di una primitiva}{150}{section*.56}%
-\contentsline {subsubsection}{Convoluzione}{151}{section*.57}%
-\contentsline {subsubsection}{Derivata ed Integrale della trasformata di Laplace}{151}{section*.58}%
-\contentsline {subsection}{\numberline {7.1.2}Trasformata inversa}{151}{subsection.7.1.2}%
-\contentsline {subsection}{\numberline {7.1.3}Trasformate note}{152}{subsection.7.1.3}%
-\contentsline {subsection}{\numberline {7.1.4}Funzione di trasferimento}{152}{subsection.7.1.4}%
-\contentsline {subsection}{\numberline {7.1.5}Zeri e Poli}{154}{subsection.7.1.5}%
-\contentsline {subsection}{\numberline {7.1.6}Coefficiente di Smorzamento e Pulsazione Naturale}{155}{subsection.7.1.6}%
-\contentsline {subsubsection}{Esempio}{156}{section*.59}%
-\contentsline {subsection}{\numberline {7.1.7}Espansione in Fratti Semplici}{157}{subsection.7.1.7}%
-\contentsline {section}{\numberline {7.2}Elementi di Teoria dei Sistemi e Controlli Automatici}{157}{section.7.2}%
-\contentsline {subsubsection}{Esempio}{158}{section*.60}%
-\contentsline {subsection}{\numberline {7.2.1}Equilibrio}{159}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Rappresentazione con Matrici}{159}{subsection.7.2.2}%
-\contentsline {section}{\numberline {7.3}Stabilità di un Sistema}{161}{section.7.3}%
-\contentsline {subsubsection}{Proprietà dei sistemi asintoticamente stabili}{163}{section*.61}%
-\contentsline {subsection}{\numberline {7.3.1}Studio di $e^{At}$ per la Stabilità}{164}{subsection.7.3.1}%
-\contentsline {subsubsection}{Caso 1 : $A$ diagonale}{165}{section*.62}%
-\contentsline {subsubsection}{Caso 2 : $A$ ha autovalori reali distinti}{165}{section*.63}%
-\contentsline {subsubsection}{Caso 3 : $A$ ha autovalori complessi distinti}{166}{section*.64}%
-\contentsline {subsubsection}{Caso 4 : $A$ ha autovalori multipli}{166}{section*.65}%
-\contentsline {subsubsection}{Criterio di Routh}{167}{section*.66}%
-\contentsline {section}{\numberline {7.4}Raggiungibilità e Osservabilità}{168}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Schemi a Blocchi}{170}{section.7.5}%
-\contentsline {subsubsection}{Blocchi in Serie}{170}{section*.67}%
-\contentsline {subsubsection}{Blocchi in Parallelo}{170}{section*.68}%
-\contentsline {subsubsection}{Blocchi in Retroazione}{170}{section*.69}%
-\contentsline {subsubsection}{Regole di Elaborazione}{171}{section*.70}%
-\contentsline {subsubsection}{Analisi della Stabilità nei Sistemi Interconnessi}{172}{section*.71}%
-\contentsline {subsection}{\numberline {7.5.1}Risposta allo Scalino}{173}{subsection.7.5.1}%
-\contentsline {subsubsection}{Sistemi del primo ordine}{174}{section*.72}%
-\contentsline {subsubsection}{Sistemi del secondo ordine}{176}{section*.73}%
-\contentsline {subsubsection}{Poli reali e nessuno zero}{176}{section*.74}%
-\contentsline {subsubsection}{Poli complessi e nessuno zero}{177}{section*.75}%
-\contentsline {subsubsection}{Esempio circuito RLC}{178}{section*.76}%
-\contentsline {subsubsection}{Poli Dominanti ed Equivalenti}{179}{section*.77}%
-\contentsline {section}{\numberline {7.6}Analisi in Frequenza}{180}{section.7.6}%
-\contentsline {subsubsection}{Ingresso multi sinusoidale}{183}{section*.78}%
-\contentsline {subsubsection}{Ingresso periodico}{183}{section*.79}%
-\contentsline {subsubsection}{Ingresso generico}{183}{section*.80}%
-\contentsline {section}{\numberline {7.7}Banda Passante e Margine di Fase}{183}{section.7.7}%
-\contentsline {subsection}{\numberline {7.7.1}Criterio di Nyquist}{184}{subsection.7.7.1}%
-\contentsline {section}{\numberline {7.8}Analisi dei Sistemi Retro Azionati}{186}{section.7.8}%
-\contentsline {subsection}{\numberline {7.8.1}Analisi di $F(s)$}{187}{subsection.7.8.1}%
-\contentsline {subsection}{\numberline {7.8.2}Esempio di Progettazione}{189}{subsection.7.8.2}%
+\contentsline {chapter}{\numberline {7}Sistemi a Eventi Discreti}{148}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Automi a Stati Finiti}{148}{section.7.1}%
+\contentsline {subsubsection}{Magazzino di prodotti}{150}{section*.54}%
+\contentsline {subsubsection}{Passeggiata sul piano}{150}{section*.55}%
+\contentsline {subsection}{\numberline {7.1.1}Controllo dei DEDS}{153}{subsection.7.1.1}%
+\contentsline {subsubsection}{Interazione Supervisore-Calcolatore}{153}{section*.56}%
+\contentsline {section}{\numberline {7.2}Reti di Petri}{156}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Scatto delle Transizioni}{158}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Dinamica}{160}{subsection.7.2.2}%
+\contentsline {chapter}{\numberline {8}Complementi}{162}{chapter.8}%
+\contentsline {section}{\numberline {8.1}La Trasformata di Laplace}{162}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Proprietà della Trasformata}{163}{subsection.8.1.1}%
+\contentsline {subsubsection}{Linearità}{163}{section*.57}%
+\contentsline {subsubsection}{Ritardo}{164}{section*.58}%
+\contentsline {subsubsection}{Trasformazione di una derivata e di una primitiva}{164}{section*.59}%
+\contentsline {subsubsection}{Convoluzione}{165}{section*.60}%
+\contentsline {subsubsection}{Derivata ed Integrale della trasformata di Laplace}{165}{section*.61}%
+\contentsline {subsection}{\numberline {8.1.2}Trasformata inversa}{165}{subsection.8.1.2}%
+\contentsline {subsection}{\numberline {8.1.3}Trasformate note}{166}{subsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.1.4}Funzione di trasferimento}{166}{subsection.8.1.4}%
+\contentsline {subsection}{\numberline {8.1.5}Zeri e Poli}{168}{subsection.8.1.5}%
+\contentsline {subsection}{\numberline {8.1.6}Coefficiente di Smorzamento e Pulsazione Naturale}{169}{subsection.8.1.6}%
+\contentsline {subsubsection}{Esempio}{170}{section*.62}%
+\contentsline {subsection}{\numberline {8.1.7}Espansione in Fratti Semplici}{171}{subsection.8.1.7}%
+\contentsline {section}{\numberline {8.2}Elementi di Teoria dei Sistemi e Controlli Automatici}{171}{section.8.2}%
+\contentsline {subsubsection}{Esempio}{172}{section*.63}%
+\contentsline {subsection}{\numberline {8.2.1}Equilibrio}{173}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Rappresentazione con Matrici}{173}{subsection.8.2.2}%
+\contentsline {section}{\numberline {8.3}Stabilità di un Sistema}{175}{section.8.3}%
+\contentsline {subsubsection}{Proprietà dei sistemi asintoticamente stabili}{177}{section*.64}%
+\contentsline {subsection}{\numberline {8.3.1}Studio di $e^{At}$ per la Stabilità}{178}{subsection.8.3.1}%
+\contentsline {subsubsection}{Caso 1 : $A$ diagonale}{179}{section*.65}%
+\contentsline {subsubsection}{Caso 2 : $A$ ha autovalori reali distinti}{179}{section*.66}%
+\contentsline {subsubsection}{Caso 3 : $A$ ha autovalori complessi distinti}{180}{section*.67}%
+\contentsline {subsubsection}{Caso 4 : $A$ ha autovalori multipli}{180}{section*.68}%
+\contentsline {subsubsection}{Criterio di Routh}{181}{section*.69}%
+\contentsline {section}{\numberline {8.4}Raggiungibilità e Osservabilità}{182}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Schemi a Blocchi}{184}{section.8.5}%
+\contentsline {subsubsection}{Blocchi in Serie}{184}{section*.70}%
+\contentsline {subsubsection}{Blocchi in Parallelo}{184}{section*.71}%
+\contentsline {subsubsection}{Blocchi in Retroazione}{184}{section*.72}%
+\contentsline {subsubsection}{Regole di Elaborazione}{185}{section*.73}%
+\contentsline {subsubsection}{Analisi della Stabilità nei Sistemi Interconnessi}{186}{section*.74}%
+\contentsline {subsection}{\numberline {8.5.1}Risposta allo Scalino}{187}{subsection.8.5.1}%
+\contentsline {subsubsection}{Sistemi del primo ordine}{188}{section*.75}%
+\contentsline {subsubsection}{Sistemi del secondo ordine}{190}{section*.76}%
+\contentsline {subsubsection}{Poli reali e nessuno zero}{190}{section*.77}%
+\contentsline {subsubsection}{Poli complessi e nessuno zero}{191}{section*.78}%
+\contentsline {subsubsection}{Esempio circuito RLC}{192}{section*.79}%
+\contentsline {subsubsection}{Poli Dominanti ed Equivalenti}{193}{section*.80}%
+\contentsline {section}{\numberline {8.6}Analisi in Frequenza}{194}{section.8.6}%
+\contentsline {subsubsection}{Ingresso multi sinusoidale}{197}{section*.81}%
+\contentsline {subsubsection}{Ingresso periodico}{197}{section*.82}%
+\contentsline {subsubsection}{Ingresso generico}{197}{section*.83}%
+\contentsline {section}{\numberline {8.7}Banda Passante e Margine di Fase}{197}{section.8.7}%
+\contentsline {subsection}{\numberline {8.7.1}Criterio di Nyquist}{198}{subsection.8.7.1}%
+\contentsline {section}{\numberline {8.8}Analisi dei Sistemi Retro Azionati}{200}{section.8.8}%
+\contentsline {subsection}{\numberline {8.8.1}Analisi di $F(s)$}{201}{subsection.8.8.1}%
+\contentsline {subsection}{\numberline {8.8.2}Esempio di Progettazione}{203}{subsection.8.8.2}%
 \contentsfinish 

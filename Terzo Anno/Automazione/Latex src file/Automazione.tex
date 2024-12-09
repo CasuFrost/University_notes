@@ -4,7 +4,7 @@
 \input{../../../preamble/preamble.tex}
 \usepackage{circuitikz}
 \ctikzset{bipoles/thickness=1.2}
-
+\usetikzlibrary{automata, arrows.meta, positioning}
 \newcommand{\midlabelline}[3]{
    \node (midlabel) at ($ (#1)!.5!(#2) $) {#3};
    \draw[latex-] (#1) --  (midlabel);
@@ -3927,16 +3927,19 @@ u_k=K_pe_k+\frac{K_p}{T_i}\sum_{j=1}^k T_Ce_j + K_pT_d \frac{e_k-e_{k-1}}{T_C}
 $$
 Il PID espresso in tal modo è detto in \textbf{forma di posizione}. Ovviamente quando si esegue un algoritmo che implementa il PID, ad ogni passo, per l'integrazione, non viene ri-eseguita l'intera somma dell'errore dall'inizio fino all'istante corrente, bensì si implementa in maniera ricorsiva considerando una variabile ausiliaria che tiene conto del valore integrale dell'istante precedente  
 $$u_{i,k}=u_{i,k-1}+\frac{K_p}{T_i}T_Ce_k  \ \ \ \ \text{ azione integrale ricorsiva}$$
-si esprime quindi il regolatore in tal senso 
+si esprime quindi il regolatore in tal senso (\color{blue}Proporzionale \color{darkgreen}Integrale \color{sapienza}Derivativa\color{black}) 
 $$
-u_k=K_pe_k+u_{i,k-1}+\frac{K_p}{T_i}T_Ce_k + K_pT_d \frac{e_k-e_{k-1}}{T_C}
+u_k=
+\color{blue}K_pe_k\color{black}+
+\color{darkgreen}u_{i,k-1}+\frac{K_p}{T_i}T_Ce_k\color{black} + 
+\color{sapienza}K_pT_d \frac{e_k-e_{k-1}}{T_C}\color{black}
 $$
-Il PID digitale può essere espresso anche diversamento, in un modo detto in \textbf{forma di velocità}. Si consideri la differenza fra l'azione in due istanti consecutivi
+Il PID digitale può essere espresso anche diversamente, nella cosiddetta \textbf{forma di velocità}. Si consideri la differenza fra l'azione in due istanti consecutivi
 $$
-u_k=K_pe_k=K_pe_k+\frac{K_p}{T_i}\sum_{j=1}^k T_Ce_j + K_pT_d \frac{e_k-e_{k-1}}{T_C}
+u_k=K_pe_k+\frac{K_p}{T_i}\sum_{j=1}^k T_Ce_j + K_pT_d \frac{e_k-e_{k-1}}{T_C}
 $$
 $$
-u_{k-1}=K_pe_{k-1}=K_pe_k+\frac{K_p}{T_i}\sum_{j=1}^{k-1} T_Ce_j + K_pT_d \frac{e_{k-1}-e_{k-2}}{T_C}
+u_{k-1}=K_pe_{k-1}+\frac{K_p}{T_i}\sum_{j=1}^{k-1} T_Ce_j + K_pT_d \frac{e_{k-1}-e_{k-2}}{T_C}
 $$ $$ \Delta u_k = u_k-u_{k-1}$$
 Sviluppando la differenza si trova che 
 $$ 
@@ -4003,9 +4006,11 @@ U_{d,k}=\frac{K_pT_d}{T_C}(1-z^{-1})\frac{1}{
     1+\dfrac{T_d}{NT_C}-\dfrac{T_d}{NT_C}z^{-1}
 }E_k
 $$
-Infine quindi, il PID reale implementato digitalmente con la derivata filtrata in banda assume la forma definitva 
+Infine quindi, il PID reale implementato digitalmente con la derivata filtrata in banda assume la forma definitiva 
 $$ 
-PID^*(z)=K_p+\frac{K_p}{T_i}\frac{T_C}{1-z^{-1}}+\frac{K_pT_d}{T_C}\frac{1-z^{-1}}{1+\frac{T_d}{NT_C}-\frac{T_d}{NT_C}z^{-1}}
+PID^*(z)=\color{blue}K_p\color{black}
++\color{darkgreen}\frac{K_p}{T_i}\frac{T_C}{1-z^{-1}}\color{black}+
+\color{sapienza}\frac{K_pT_d}{T_C}\frac{1-z^{-1}}{1+\frac{T_d}{NT_C}-\frac{T_d}{NT_C}z^{-1}}
 $$
 $$ 
 U_k=PID^*(z)E_k
@@ -4030,7 +4035,7 @@ Consideriamo adesso possibili schemi di controllo realizzativi che utilizzano un
 \end{center}
 In questo caso, quando l'errore effettivo tende a zero $r(t)-y(t)\simeq 0$, l'errore dovuto al disturbo sulla misurazione diventa comparabile o addirittura maggiore all'errore effettivo.\acc  
 Il segnale "utile" dell'errore che dovrebbe essere usato per la regolazione, risulta piccolo e viene "oscurato" dal disturbo, rendendo difficile per il regolatore prendere decisioni accurate sulla base delle misure.\acc 
-Bisogna considerare che, l'errore può avere delle discontinuità molto marcate nei casi in cui il riferimento $r(t)$ passi da un valore costante ad un altro in un istante. Tali istanti di discontinuità rendono poco stabile il segnale derivativo che in quei punti avrà dei picchi dovuto alla variazione, che possono sollecitare gli attuatori in maniera innaturale. Inoltre solitamente, il segnale di riferimento è costante e la sua derivata è nulla. 
+Bisogna considerare che, l'errore può avere delle discontinuità molto marcate nei casi in cui il riferimento $r(t)$ passi da un valore costante ad un altro in un istante. Tali istanti di discontinuità rendono poco stabile il segnale derivativo che in quei punti avrà dei picchi dovuti alla variazione, che possono sollecitare gli attuatori in maniera innaturale. Inoltre solitamente, il segnale di riferimento è costante e la sua derivata è nulla. 
 $$ 
 r(t)=\text{costante}\implies
 \frac{de(t)}{dt}=\frac{dr(t)}{dt}-\frac{dy(t)}{dt}=-\frac{dy(t)}{dt}
@@ -4045,7 +4050,7 @@ Riassumendo ciò che è stato detto sopra \begin{itemize}
     \item variazioni istantanee del riferimento (gradino da una costante ad un altre) fanno assumere all'azione derivativa dei picchi indesiderati
 \end{itemize}
 \begin{center}
-    \includegraphics[width=0.5\textwidth]{images/variazioneGradino.eps}
+    \includegraphics[width=0.6\textwidth]{images/variazioneGradino.eps}
 \end{center}
 Esiste anche una terza implementazione in cui anche il termine proporzionale viene calcolato solamente sul segnale dell'uscita misurata $y_m(t)$, lasciando il segnale di errore $e(t)$ esclusivamente come input dell'azione integrale.\begin{center}
     \includegraphics[width=0.85\textwidth]{images/schemaPIDderivataPropUscita.pdf}
@@ -4263,7 +4268,7 @@ Esistono due approcci al problema della scelta dei guadagni\begin{itemize}
 \end{itemize}
 \subsection{Primo Metodo di Ziegler-Nichols}
 Il processo 
-$$ P_m(s)=\frac{Ke^{-\theta}s}{1+\tau s}$$
+$$ P_m(s)=\frac{Ke^{-\theta s}}{1+\tau s}$$
 è un modello che verrà utilizzato per il progetto dei guadagni, ricavato da un sistema che ha un polo con una cerca costante di tempo $\tau$, un guadagno $K$, ed un ritardo di tempo finito rappresentato da $e^{-\theta s}$ nel dominio di Laplace. Il seguente grafico evidenzia tali \textit{parametri caratteristici} del processo nella risposta ad un gradino 
 $\Delta u$
 \begin{center}
@@ -4296,7 +4301,7 @@ Si noti come la tangente interseca l'asse delle ascisse in $t\simeq 1.5$, per $t
 C'è una certa approssimazione in questa scelta. In particolare
 $$ \theta \simeq 1.46 \text{ secondi} \ \ \ \ \ \tau \simeq  3.34 \text{ secondi}$$
 Il processo modellato è 
-$$ P_m(s)=\frac{e^{-1.46}s}{1+3.34 s}$$
+$$ P_m(s)=\frac{e^{-1.46s}}{1+3.34 s}$$
 La risposta indiciale di $P_m(s)$ si può visualizare (curva in rosso) sovrapposta alla risposta del processo (non noto) $P(s)$ (curva in blu):
 \begin{center}
     \includegraphics[width=0.5\textwidth]{images/ZN5.png}
@@ -4338,7 +4343,7 @@ $$ \begin{matrix}
     T_i=2.92 \\ 
     T_d=0.73 
 \end{matrix}$$
-Derivata è filtrata in banda con un valore $N=5$, ne consegue che la funzione di trasferimento del PID è 
+La derivata è filtrata in banda con un valore $N=5$, ne consegue che la funzione di trasferimento del PID è 
 $$ PID^*(s)=
 K_p\Big(1+\frac{1}{T_i s}+\dfrac{T_d s}{1+\frac{T_d}{N}s}\Big)= 
 2.75\Big(1+\frac{1}{2.92 s}+\dfrac{0.73  s}{1+\frac{0.73 }{5}s}\Big)
@@ -4449,6 +4454,520 @@ La risposta del sistema ad anello chiuso con il regolatore $PID^*$ è la seguent
     \includegraphics[width=0.5\textwidth]{images/2ZN3.png}
 \end{center}
 Il risultato è molto simile al caso precedente della sezione \ref{esNum1} in cui si è applicato il primo metodo.
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Sistemi a Eventi Discreti}
+\section{Automi a Stati Finiti}
+\defi{} Un \textbf{sistema} è un insieme di componenti cooperanti ed interagenti, fisiche o funzionali, che realizzano una funzionalità al fine di raggiungere un determinato obiettivo. Possono essere sistemi fisici oppure applicabili ad altri ambiti (economia, comportamento umano).\acc 
+Tramite modelli matematici è possibile descrivere e definire sistemi complessi, sulla quale fare previsioni e simulazioni. Si possono anche  capire alcune proprietà intrinseche del sistema studiandone il modello. Si identificano due classi di sistemi\begin{itemize}
+    \item sistemi che evolvono nel tempo, modellati da equazioni differenziali o equazioni alle differenze 
+    \item sistemi che evolvono in corrispondenza di determinati eventi, in maniera asincrona
+\end{itemize}
+Nei sistemi guidati dal tempo, si definiscono relazioni dinamiche/algebriche fra le variabili in ingresso, quelle di stato, e quelle di uscita, si consideri il seguente esempio:
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/mollaMassa.pdf}
+\end{center}
+vi è una massa $M$, attaccata ad una molla con costante elastica $k$, soggetta all'attrito con la superficie scambra, dove $b$ è la costante di attrito. $F$ è la forza esterna (ingresso del sistema) applicato alla massa. Siano $v$ e $p$ la velocità e la posizione del corpo, il sistema è descritto dall'equazione differenziale 
+$$ F(t)-kp(t)-bv(t)=Ma(t)$$
+il vettore di stato è identificato dalla posizione e dalla velocità del corpo, l'uscita è solamente la posizione. 
+$$ \begin{matrix}
+    u(t)=F(t)\\ 
+    x(t)=[p(t) \ \ v(t)]^T\\ 
+    y(t)=p(t)
+\end{matrix}$$
+Il processo è modellato dal seguente sistema dinamico 
+$$\dot{x}(t)=\begin{bmatrix}
+    0 & 1 \\ 
+    -kM & -\frac{b}{M}
+\end{bmatrix}x(t)+\begin{bmatrix}
+    0\\ 1
+\end{bmatrix}u(t) $$
+$$ y(t)=\begin{bmatrix}
+    1 & 0
+\end{bmatrix}x(t)$$\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/mollaMassa2.png}
+\end{center}
+Un esempio di modello discreto invece, riguarda un sistema client/server in cui vi è una coda in cui arrivano delle richieste da servire\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/DEDScoda.png}
+\end{center}
+Molti sistemi ingegneristici, come\begin{itemize}
+    \item sistemi manufatturieri 
+    \item sistemi di comunicazione 
+    \item sistemi di controllo del traffico 
+    \item $\dots$
+\end{itemize} non possono essere descritti in maniera adeguata da modelli temporali, si considerano allora i \textbf{Discrete Event Dynamic Systems (DEDS)}, in cui \begin{itemize}
+    \item le grandezze di interesse assumono valori in un insieme finito 
+    \item lo stato viene modificato in maniera asincrona, al verificarsi di opportuni eventi 
+\end{itemize}
+Si consideri l'esempio delle richieste in coda, le grandezze di interesse sono\begin{itemize}
+    \item il numero (naturale) di richieste nel buffer 
+    \item lo stato del server ($I$ : in attesa, $B$ : occupato )
+\end{itemize}
+Lo stato complessivo del sistema sarà quindi un valore in 
+$$ X=\{I,B\}\times \N$$
+Gli eventi che modificano lo stato del sistema sono \begin{itemize}
+    \item arrivo di una richiesta, evento $a$
+    \item presa in carico di una richiesta nel server, evento $b$
+    \item completamento di una richiesta, evento $c$
+\end{itemize}
+Altri esempi di sistemi a eventi discreti possono essere 
+\subsubsection{Magazzino di prodotti}
+Lo stato $X$ è descritto dal numero (naturale) di prodotti nel magazzino $$ X=\N$$
+Gli eventi sono\begin{itemize}
+    \item arriva un prodotto in magazzino 
+    \item ritirano un prodotto dal magazzzino 
+\end{itemize}
+\subsubsection{Passeggiata sul piano}
+Una passeggiata (insieme di passi unitari) su un piano discreto ha come stato $X$ la posizione corrente del sistema $(x_1,x_2)$ $$ X=\Z\times \Z$$ 
+Gli eventi sono
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}} 
+\begin{itemize}
+    \item spostamento in alto $N$
+    \item spostamento in basso $S$ 
+    \item spostamento a destra $E$
+    \item spostamento a sinistra $W$
+\end{itemize}  & \includegraphics[width=0.4\textwidth]{images/randomWalk.eps}
+		\\
+	\end{tabular}
+\end{center}
+In questo esempio, gli eventi commutano, ciò non è sempre verificato. Il tempo può anche essere considerato nel modello, ma non deve essere rilevante per l'evoluzione del sistema, spesso si è interessati ad informazioni temporali per valutare le prestazioni del sistema.\acc  I sistemi possono essere suddivisi nella seguente tassonomia (quelli tratteggiati, sono DEDS)\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/tassonomiaSistemi.png}
+\end{center}
+Dato un DEDS ed una \textbf{sequenza di eventi}, si identifica un evoluzione univoca dello stato del sistema.\acc 
+\defi{(Automa)} : Un'automa è una 
+5-tupla, $(X,E,f,x_0, X_m)$ di cui\begin{itemize}
+    \item $X$ è l'insieme degli stati possibili 
+    \item $E$ è l'alfabeto che compone le stringhe in input 
+    \item $f$ è una mappa $X\times E \rightarrow X$ detta 
+    \textit{funzione di transizione}. 
+    \item $x_0\in X$ è lo stato iniziale. 
+    \item $X_m\subseteq X$ è l'insieme degli stati di accettazione.
+\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+
+        \node (q0) [state, initial, accepting, initial text = {}] {$q_1$};
+        \node (q1) [state, above right = of q0] {$q_2$};
+        \node (q2) [state, below right = of q1] {$q_3$};
+        
+        \path [-stealth, thick]
+            (q0) edge node {0,1}   (q1)
+            (q1) edge node {1}   (q2)
+            (q1) edge [loop above]  node {0}()
+            (q2) edge node {1,0} (q0);
+        \end{tikzpicture}
+        \caption{semplice automa}
+        \label{fig:automaSemplice}
+\end{figure}
+Un automa può avere \textbf{ingressi e uscite}, in particolare, la definizione è simile, ma si aggiunge una \textit{funzione di uscita}. Tale automa è una 6-tupla $(U,X,Y,f,h,x_0)$ dove\begin{itemize}
+    \item $U$ è l'insieme degli eventi in ingresso del sistema
+    \item $X$ è l'insieme degli stati possibili 
+    \item $Y$ è l'insieme degli eventi in uscita  del sistema
+    \item $f$ è una mappa $X\times U \rightarrow X$ detta 
+    \textit{funzione di transizione}. 
+    \item $x_0\in X$ è lo stato iniziale. 
+    \item $h$ è una mappa detta funzione di uscita, e può essere definita in due modi \begin{itemize}
+        \item $h:X\times U \rightarrow Y$ \textbf{modello di Melay}
+        \item $h:X \rightarrow Y$ \textbf{modello di Moore}
+    \end{itemize}
+\end{itemize}
+Si consideri il seguente esempio, in cui un automa modella una macchina soggetta a dei guasti:
+\begin{center}
+    \begin{tikzpicture} [node distance = 3cm, on grid, auto]
+
+        \node (q0) [state, initial, initial text = {}] {$0$};
+        \node (q1) [state, above right = of q0] {$2$};
+        \node (q2) [state, below right = of q1] {$1$};
+        
+        \path [-stealth, thick]
+            (q0) edge  node {$\alpha$}   (q2)
+            (q1) edge node {$\delta$}   (q0)
+            (q2) edge node {$\gamma$} (q1)
+            (q2) edge  [bend left] node {$\beta$} (q0);
+        \end{tikzpicture}
+\end{center}
+Gli stati sono\begin{itemize}
+    \item $0$ : la macchina è libera 
+    \item 1 : la macchina è occupata 
+    \item 2 : la macchina è guasta 
+\end{itemize}
+gli eventi sono\begin{itemize}
+    \item  $\alpha$ : avvio lavorazione
+    \item $\beta$ : fine lavorazione 
+    \item $\gamma$ : la macchina si guasta 
+    \item $\delta$ la macchina viene riparata
+\end{itemize}
+Questo automa fa delle assunzioni implicite\begin{itemize}
+    \item la macchina si può guastare solamente durante la lavorazione 
+    \item quando una macchina si guasta il prodotto in lavorazione viene scartato
+\end{itemize}
+Si consideri ora il seguente esempio, vi è un processo in cui devono essere eseguite 3 operazioni (eventi), $a,b$ e $c$. L'operazione $c$ presenta un limite tecnologico : se l'ultima esecuzione è identica alla penultima, la $c$ non potrà essere eseguita\begin{itemize}
+    \item $a-b-c-a-b$ sequenza ammissibile 
+    \item $a-b-b-a-a-c$ sequenza non ammissibile 
+    \item $a-a-b-c-c-b-b-a$ sequenza ammissibile
+\end{itemize}
+Si identificano i seguenti stati:\acc 
+$\bullet$ 0 - nessuna operazione eseguita\\ 
+$\bullet$ 1 - l'ultima eseguita è $a$, e la penultima non è $a$\\
+$\bullet$ 2 - le ultime due operazioni sono di tipo $a$\\
+$\bullet$ 3 - l'ultima eseguita è $b$, e la penultima non è $b$\\
+$\bullet$ 4 - le ultime due operazioni sono di tipo $b$\\
+$\bullet$ 5 - l'ultima operazione è di tipo $c$\acc 
+Il sistema è descritto dal seguente automa:\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/automa2.png}
+\end{center}
+Si consideri un'ultimo esempio, vi è un sistema composto da 2 robot $R_1,R_2$ ed una pressa $M$. Il robot $R_1$ può caricare dei pezzi sulla pressa $M$, questa, una volta che un pezzo è stato pressato, il robot $R_2$ può prelevarli da $M$.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/robotPressa.pdf}
+\end{center}
+Gli stati sono i seguenti\begin{itemize}
+    \item $x_1$ la macchina $M$ è in attesa e disponibile 
+    \item $x_2$ il pezzo viene caricato su $M$ da parte di $R_1$
+    \item $x_3$ la macchina esegue la pressa 
+    \item $x_4$ il pezzo viene scaricato da $M$ da parte di $R_2$
+\end{itemize}
+Gli eventi identificati sono i seguenti \begin{itemize}
+    \item $e_1$ carico del pezzo 
+    \item $e_2$ inizio lavorazione 
+    \item $e_3$ inizio scarico 
+    \item $e_4$ fine lavorazione, ritorno in attesa 
+\end{itemize}
+è chiaro che si voglio evitare alcune sequenze di eventi, ad esempio, si vuole impedire che dallo stato $x_2$ si passi allo stato $x_4$ (il pezzo viene messo e poi tolto senza alcuna lavorazione).\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/pressa.drawio.pdf}
+\end{center}
+\subsection{Controllo dei DEDS}
+Come i sistemi lineari guidati dal tempo possono avere un regolatore (ad es. PID) anche i sistemi ad eventi discreti possono essere controllati, in modo da ottenere il comportamento desiderato, è possibile procedere in due modi\begin{itemize}
+    \item si implementa direttamente il comportamento desiderato nel modello 
+    \item si modella in maniera modulare il processo da controllare, per poi definire un controllore (a sua volta un DEDS) che definisce gli eventi da scaturire nel sistema da controllare per avere il comportamento desiderato
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/controlloDEDS.pdf}
+\end{center}
+sono necessari\begin{itemize}
+    \item il processo da controllare (DEDS)
+    \item le specifiche sul comportamento desiderato, espresse a loro volta tramite un DEDS, che evolve in modo da non violare i vincoli 
+    \item un supervisore guidato da eventi in ingresso, che restituisce in uscita degli eventi/comandi per il processo  
+    \item strumenti di progetto che permettano di combinare/integrare con relativa facilità diversi
+    sottosistemi DEDS e di verificarne il comportamento
+\end{itemize}
+\subsubsection{Interazione Supervisore-Calcolatore}
+Il supervisore
+è un sistema a eventi discreti (DEDS) che evolve in modo asincrono, ovvero non segue un ritmo costante.
+Interagisce con il processo da controllare tramite eventi (azioni che avvengono in momenti imprevedibili).\acc
+Il calcolatore
+è un sistema sincrono, ovvero segue un ritmo costante (clock).
+Interagisce con il processo tramite segnali (valori che cambiano in modo periodico).
+Il problema principale è che il supervisore e il calcolatore hanno modi diversi di funzionare. Per farli comunicare è necessario:
+\begin{itemize}
+   
+    \item  Traduzione: trasformare gli eventi in segnali e viceversa.
+    \item Sincronizzazione: coordinare l'evoluzione asincrona del supervisore con il ritmo sincrono del calcolatore.\end{itemize}
+Per risolvere questo problema, si usa un approccio "time-driven", ovvero si forza il supervisore a funzionare in modo più simile al calcolatore.
+Questo approccio presenta però delle sfide:
+\begin{itemize}
+    \item 
+Perdita di eventi: se un evento accade troppo vicino ad un altro, potrebbe non essere rilevato.
+\item Ritardi: le azioni di controllo potrebbero non essere eseguite immediatamente, causando ritardi nel sistema.
+\item Eventi simultanei: se più eventi accadono nello stesso momento, il loro ordine potrebbe non essere rilevante per la decisione da prendere.
+\end{itemize}
+Vediamo un esempio di automa con controllore, consideriamo il sistema di due robot ed una pressa appena visto, si cerca di descrivere il processo nel modo più "vanilla" possibile, senza imporre alcun comportamento logico, in particolare, si definiscono 3 automi $A_1, A_0, A_2$, ognuno per ogni macchina presente ($R_1,M,R_2$).\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/robotPressa.pdf}
+\end{center}
+Questi automi descrivono il comportamento fisico delle macchine, ogni componente può essere \textit{occupata} o \textit{disponibile}, ognuna di queste avrà quindi due stati, il processo totale definito da tutte le componenti avrà quindi $2^3=8$ possibili stati (combinazioni dei singoli stati), anche se alcune di queste non sono ammissibili. Gli eventi sono \begin{itemize}
+    \item $u_1$ inizio ciclo di lavorazione
+    \item $u_2$ fine del carico sulla macchina
+    \item $u_3$ fine della lavorazione
+    \item $u_4$ fine dello scarico della macchina
+\end{itemize}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/pressa2.png}
+\end{center}
+Definiamo adesso il controllore, questo avrà gli stati codificati con una stringa composta da 3 caratteri, ad esempio 
+$$ ddo$$
+dove \begin{itemize}
+    \item il primo carattere identifica lo stato di $R_1$
+    \item il secondo carattere identifica lo stato di $M$
+    \item il terzo carattere identifica lo stato di $R_2$
+\end{itemize} 
+Ogni carattere può essere uno fra\begin{itemize}
+    \item $d$ : disponibile 
+    \item $o$ : occupato 
+\end{itemize}
+Ad esempio, lo stato $ddo$ indica\begin{itemize}
+    \item $R_1$ disponibile 
+    \item $M$ disponibile 
+    \item $R_2$ occupato (sta scaricando il pezzo)
+\end{itemize}
+chiaramente degli 8 possibili stati, alcuni non devono essere contemplati dal sistema, ad esempio 
+\begin{itemize}
+    \item $ooo$ : tutte e 3 le macchine occupate, non può succedere che sia $R_1$ che $R_2$ siano occupate 
+    \item $odo$ :  inammisibile per lo stesso motivo della precedente
+\end{itemize}
+Inoltre, alcuni stati sono "transitori" e non interessa che questi siano inclusi nel supervisore, ad esempio\begin{itemize}
+    \item $odd$ : la prima macchina è occupata (sta caricando il pezzo), senza che nessun evento possa fare nulla, lo stato successivo sarà necessariamento $ood$ (la pressa inizia a lavorare una volta caricata)
+    \item $ddo$ solamente il robot di scarico è occupato, chiaramente senza che nessun evento possa modificare l'evoluzione, a fine dello scarico anche $R_2$ tornerà disponibile, e l'evento successivo sarà $ddd$ 
+\end{itemize}
+Il supervisore quindi modellerà il comportamento logico e sarà un automa di Melay, a cui, per ogni evento, corrisponderà un uscita, che sarà l'evento di ingresso del processo da controllare. Le possibili uscite, quindi ingressi per gli automi $A_1,A_0,A_2$ sono le seguenti \begin{itemize}
+    \item $y_1$ : inizio del carico 
+    \item $y_2$ : inizio lavorazione (pressa)
+    \item $y_3$ : inizio dello scarico 
+    \item $y_4$ fine del ciclo e ritorno nella fase di attesa 
+\end{itemize}
+L'automa è il seguente\begin{center}
+    \includegraphics[width=\textwidth]{images/controlloDEDS2.drawio.pdf}
+\end{center}
+Si vuole complicare il modello per renderlo più efficiente, in particolare, aggiungengo due ulteriori stati per ogni dispositivo \begin{itemize}
+    \item pressa $M$ avrà \begin{itemize}
+        \item $Mdisp$ la macchina è disponibile 
+        \item $Mcar$ la macchina sta essendo caricata 
+        \item $Mlav$ la macchina sta eseguendo la pressa 
+        \item $Mscar$ si sta scaricando la macchina 
+    \end{itemize}
+    \item robot $R_1$ avrà\begin{itemize}
+        \item $R1disp$ il robot è disponibile 
+        \item $R1prel$ il robot sta prelevando il pezzo da caricare 
+        \item $R1car$ il robot sta caricando il pezzo 
+        \item $R1rit$ il robot ritorna nella posizione di attesa
+    \end{itemize}
+    lo stato $R1car$ deve essere sincronizzato con lo stato di carico della macchina $M$
+    \item robot $R_2$ avrà\begin{itemize}
+        \item $R2disp$ il robot è disponibile 
+        \item $R1scar$ il robot sta scaricando il pezzo 
+        \item $R1rit$ il robot ritorna nella posizione di attesa
+    \end{itemize}
+    lo stato $R2scar$ deve essere sincronizzato con lo stato di scarico della macchina $M$
+\end{itemize}
+gli eventi e le azioni di controllo del supervisore crescono di conseguenza, gli ingressi sono\acc
+     $\ \ \ \ \ \ u_1$: pezzo disponibile al prelievo
+    \\ $\ \ \ \ \ \ u_2$: fine prelievo pezzo con $R_1$
+    \\ $\ \ \ \ \ \ u_3$: fine carico di $M$ con $R_1$
+    \\ $\ \ \ \ \ \ u_4$: fine ritorno di $R_1$
+    \\ $\ \ \ \ \ \ u_5$: fine lavorazione di $M$
+    \\ $\ \ \ \ \ \ u_6$: fine scarico di $M$ con $R_2$
+    \\ $\ \ \ \ \ \ u_7$: fine ritorno di $R_2$
+    \acc le uscite (eventi di controllo) sono
+    \acc
+     $\ \ \ \ \ \ y_1$: inizio prelievo pezzo con $R_1$
+    \\ $\ \ \ \ \ \ y_2$: inizio carico di $M$ con $R_1$
+    \\ $\ \ \ \ \ \ y_3$: inizio ritorno di $R_1$
+    \\ $\ \ \ \ \ \ y_4$: inizio lavorazione di $M$
+    \\ $\ \ \ \ \ \ y_5$: inizio scarico di $M$ con $R_2$
+    \\ $\ \ \ \ \ \ y_6$: inizio ritorno di $R_2$
+    \acc
+i 3 automi che descrivono le singole componenti sono i seguenti
+\begin{center}
+    \includegraphics[width=\textwidth]{images/pressa3.png}
+\end{center}
+Il modello del supervisore si complica notevolmente, le possibili combinazioni di stati delle componenti ora sono $4\cdot 4 \cdot 3 = 48$, inoltre non c'è un legame con il modello precedente, ed è necessario riprogettare il supervisore da zero.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/pressa4.png}
+\end{center}
+Dei 48 possibili stati, solo 17 sono validi da considerare nel supervisore. Seppur semplici gli automi a stati finiti, sono poco flessibili, esiste un modello più sofisticato.\flowerLine 
+\section{Reti di Petri}
+Una rete di Petri, non è altro che un grafo bipartito, in cui ogni nodo 
+appartiene ad un'insieme fra \begin{itemize}
+    \item nodi \textit{posto}
+    \item nodi \textit{transizione}
+\end{itemize}
+Inoltre, i nodi posto possono essere annotati con dei pallini neri, detti \textit{token}, essi rappresentano 
+lo stato del sistema in quanto indicano che delle risorse (in senso generale) sono disponibili in un posto, 
+permettendo eventualmente una transizione. Ogni arco del grafo collega un nodo posto ad un nodo transizione.\acc 
+Sono un formalismo grafico/matematico per la modellizzazione dei DEDS, e le transazione da uno stato ad un altro richiedono che determinate \textit{condizioni esplicite siano} siano soddisfatte. Lo stato del sistema è un'informazione distribuita fra le entità posto, in particolare, è descritto dalla presenza dei token sui vari nodi.\acc 
+Le reti di Petri rispetto gli automi a stati finiti sono vantaggiose perché\begin{itemize}
+    \item sono facilmente modificabili 
+    \item sono modulari 
+    \item sono facilmente interpretabili 
+    \item possono rappresentare sistemi ad infiniti stati con un numero finito di nodi
+\end{itemize}
+Una rete di Petri si definisce a partire da un \textbf{grafo di Petri}, come già detto, bipartito e suddiviso in nodi posto e nodi transizione. $$ PG=(P,T,A,w)$$
+\begin{itemize}
+    \item $P={p_1,p_2\dots p_{|P|}}$ nodi posto
+    \item $T={t_1,t_2\dots t_{|T|}}$ nodi transizione 
+    \item $A\subseteq P\times T \cup T \times P$ archi orientati che descrivono il flusso del grafo 
+    \item $w:A\rightarrow \N$ funzione che associa un peso (naturale) agli archi
+\end{itemize}\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/petri.png}
+\end{center}
+Inoltre, per ogni transizione $t_j$ si definiscono due insiemi $I$ e $O$ \begin{itemize}
+    \item \textbf{posti in ingresso} : $I(t_j)=\{p_i\in P \ | \ (p_i,t_j)\in A\}$
+    \item \textbf{posti in uscita} : $O(t_j)=\{p_i\in P \ | \ (t_j,p_i)\in A\}$
+\end{itemize}
+Nell'esempio sopra mostrato $$\begin{matrix}
+    I(t_1)=\emptyset & O(t_1)=\{p_2\}\\ 
+    I(t_2)=\{p_1,p_2\} & O(t_2)=\{p_1,p_3\}
+\end{matrix} $$
+L'intera topologia del grafo di Petri può essere rappresentata dalle \textbf{matrici di ingresso ed uscita}, ossia $\mathbf I$ e $ \mathbf O$, entrambe matrici $|P|\times |T|$ definite come segue 
+$$ \mathbf I =\begin{bmatrix}
+    w(p_1,t_1) & w(p_1, t_2) &\dots & w(p_1,t_{|T|})\\
+    w(p_2,t_1) & w(p_2, t_2) &\dots & w(p_2,t_{|T|})\\
+    \vdots & \vdots & \ddots & \vdots \\ 
+    w(p_{|P|},t_1) & w(p_{|P|}, t_2) &\dots & w(p_{|P|},t_{|T|})
+\end{bmatrix}$$
+$$ \mathbf O =\begin{bmatrix}
+    w(t_1,p_1) & w(t_2, p_1) &\dots & w(t_{|T|},p_1)\\
+    w(t_1,p_2) & w(t_2, p_2) &\dots & w(t_{|T|},p_2)\\
+    \vdots & \vdots & \ddots & \vdots \\ 
+    w(t_1,p_{|P|}) & w(t_2, p_{|P|}) &\dots & w(t_{|T|},p_{|P|})\\
+\end{bmatrix}$$
+Quando un arco non è presente fra una coppia nodo-transizione, il suo peso è zero. Nell'esempio precedente si hanno le matrici 
+$$ \mathbf I = \begin{bmatrix}
+    0 & 1 \\ 0 & 1 \\ 0 & 0
+\end{bmatrix} \ \ \ \ 
+\mathbf O = \begin{bmatrix}
+    0 & 2 \\ 1 & 0 \\ 0 & 3
+\end{bmatrix}$$
+Ad un grafo di Petri si aggiunge una \textbf{funzione di marcatura} $x$ per renderlo una rete di Petri, questa ne descrive lo stato, ed associa ad ogni stato un numero naturale di token. 
+$$ x:P\rightarrow \N$$
+ad esempio
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/petri2.png}
+\end{center}
+$$ x(p_1)=0 \ \ \ x(p_2)=1 \ \ \ x(p_3)=2$$
+lo stato del sistema è descritto da un \textbf{vettore di stato} (vettore colonna) il cui $i$-esimo elemento è la funzione di marcatura valutata su $p_i$ 
+$$ \mathbf x = \begin{bmatrix}
+    x(p_1)\\ 
+    x(p_2)\\ 
+    \vdots \\ 
+    x(p_|P|)
+\end{bmatrix}\in \N^{|P|}$$
+Una rete di petri $PN$ è quindi un grafo di petri alla quale si aggiunge il vettore di stato definito dalla funzione di marcatura 
+$$ PN=(P,T,A,w,\mathbf x)$$
+Una rete di Petri si dice \textit{ordinaria} se ogni arco di peso non nullo ha peso 1.
+\subsection{Scatto delle Transizioni}
+L'evoluzione della rete di Petri è dettata da eventi, un evento accade quando una transizione diviene \textbf{abilitata}, a quel punto, si dice che la rete \textit{scatta} ed avviene un cambio di marcatura (il vettore $\mathbf x$) cambia.\acc 
+Una transizione $t_j$ risulta \textbf{abilitata} se 
+$$ \forall p_i\in I(t_j) \text{ si verifica che }x(p_i)\ge w(p_i,t_j)$$
+Ossia, tutti i posti entranti nella transazione hanno un numero di token maggiore o uguale al peso dell'arco che li lega a tale transazione.
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/petriAbilitata.png}
+\end{center}
+Bisogna adesso definire come cambiano le marcature sui posti, quando una transizione scatta\begin{itemize}
+    \item ogni posto perde un numero di token pari al peso dell'arco che lo collega (in entrata) alla transizione scattata
+    \item ogni posto che ha un arco entrante collegato alla transazione scattata, guadagna un numero di token pari al peso dell'arco
+\end{itemize}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/scattoPetri.eps}
+\end{center}
+L'aggiornamento del vettore di stato si può definire con una funzione $f:\N^{|P|}\times T \rightarrow N^{|P|}$, che ad ogni stato, associa lo stato successivo al verificarsi di una determinata transazione. Sia $t_j$ la transazione che scatta, allora 
+$$ f(\mathbf x,t_j) = \begin{bmatrix}
+    x(p_1) - w(p_1,t_j)+w(t_j,p_1)\\ 
+    x(p_2) - w(p_2,t_j)+w(t_j,p_2)\\ 
+    \vdots \\ 
+    x(p_{|P|}) - w(p_{|P|},t_j)+w(t_j,p_{|P|})
+\end{bmatrix}$$
+è chiaro che con questo meccanismo, un scatto può far sia incrementare che decrementare il numero totale di token nella rete.\acc 
+Cosa succede se due o più transazioni sono abilitate nello stesso momento?
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/dueAbilitate.png}
+\end{center}
+\sapbox{due transizioni sono in \textbf{conflitto} se, entrambe possono scattare singolarmente, ma non ci sono abbastanza risorse per far si che possano scattare in sequenza una dopo l'altra}
+Si può dire in maniera più generale, che due transizioni $t_i,t_j$ non sono in conflitto se possono scattare entrambe e commutano, ossia, eseguire $t_i$ e poi $t_j$ è equivalente all'eseguire $t_j$ e poi $t_i$ 
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/scattaPetri3.png}
+\end{center}
+Se due transizioni sono abilitate e non vanno in conflitto (ci sono abbastanza risorse per farne scattare una e poi l'altre), allora si fanno scattare entrambe, se invece c'è un conflitto, come nel caso appena mostrato, si può \begin{itemize}
+    \item scegliere casualmente 
+    \item dare priorità lessicografica 
+    \item dare priorità con memoria (si fa scattare quella che non scatta da più tempo)
+    \item si definisce un altra qualsiasi relazione d'ordine per la priorità 
+\end{itemize}
+In termini matriciali, una transizione $t_j$ è abilitata se il vettore $\mathbf x$ è maggiore o uguale della $j$-esima colonna della matrice degli ingressi $\mathbf I$. $$ \mathbf x\ge \mathbf I_j$$\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/petri3.png}
+\end{center}\subsection{Dinamica}
+L'evoluzione di una rete di Petri può essere descritta da una sequenza $S$ di transizioni. Per la rete appena mostrata, una sequenza ammissibile è 
+$$ S=t_1t_4t_1t_2t_2t_2t_2t_2t_2t_3t_3$$
+\prop{} se una sequenza di transizioni è ammissibile, allora queste possono essere eseguite in un qualsiasi ordine, e porteranno sempre il sistema nello stesso stato $\mathbf x$ finale.\acc 
+In termini matriciali, la funzione di transizione $f$ è definita come segue 
+$$ f(\mathbf x,t_j)=\mathbf x -\mathbf I_j + \mathbf O_j \ \ \ \ \text{se }  \ \ \mathbf x\ge \mathbf I_j$$
+Per descrivere la dinamica si definisce quindi la \textbf{matrice di incidenza} $\mathbf C = \mathbf O - \mathbf I$ 
+quindi 
+$$ f(\mathbf x,t_j)=\mathbf x +\mathbf C_i\ \ \ \ \text{se } \ \ \mathbf x\ge \mathbf I_j$$
+La rete di petri in figura \begin{center}
+    \includegraphics[width=0.4\textwidth]{images/petri4.png}
+\end{center}
+ha matrice di incidenza $$ \mathbf C = \mathbf O - \mathbf I = \begin{bmatrix}
+    0 & 1 \\ 1 & 0 \\ 0 & 3
+\end{bmatrix}-\begin{bmatrix}
+    0 & 0 \\ 0 & 1 \\ 0 & 0 
+\end{bmatrix}=\begin{bmatrix}
+    0 & 1 \\ 1 & -1 \\ 0 & 3
+\end{bmatrix}$$
+\textbf{Osservazione} : Le matrici $\mathbf I$ e $\mathbf O$ caratterizzano totalmente la topologia della rete, la matrice $\mathbf C$ no.\acc 
+Si è parlato di sequenza \textit{ammissibile}, una sequenza di scatti $S$ composta da $n$ transizioni, per essere ammissibile deve verificare che \begin{itemize}
+    \item la prima transizione della sequenza è abilitata nella marcatura corrente
+    \item lo scatto di ogni transizione porta in una marcatura in cui è abilitata la transizione
+    successiva nella sequenza
+\end{itemize}
+ad esempio :
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/scattiSequenza.png}
+\end{center}
+La sequenza è $t_1t_2$ \\ 
+la matrice di incidenza è $$\mathbf C =\mathbf O - \mathbf I = \begin{bmatrix}
+    1&0\\0&3
+\end{bmatrix}-\begin{bmatrix}
+    0&2\\4&0
+\end{bmatrix}=\begin{bmatrix}
+    1&-2\\-4&3
+\end{bmatrix}$$
+passo 0 
+$$ \mathbf x = \begin{bmatrix}
+    3\\ 1
+\end{bmatrix}$$
+passo 1 
+$$ \mathbf x = \begin{bmatrix}
+    3\\ 1
+\end{bmatrix}+ \begin{bmatrix}
+    -2\\ 3
+\end{bmatrix}=\begin{bmatrix}
+    1\\ 4
+\end{bmatrix}$$
+passo 2 
+$$ \mathbf x = \begin{bmatrix}
+    1\\ 4
+\end{bmatrix}+ \begin{bmatrix}
+    1\\ -4
+\end{bmatrix}=\begin{bmatrix}
+    2\\ 0
+\end{bmatrix}$$
+Essendo che le transazioni di una sequenza ammissibile commutano, sarebbe stato possibile eseguire $S'=t_1t_2$ ed il vettore di stato finale al passo 2 sarebbe stato lo stesso. A tal proposito, è possibile data una sequenza $S$, definire un vettore $\mathbf s$ di $|T|$ componenti, detto \textbf{vettore delle occorrenze}, in cui l'$i$-esimo elemento è uguale al numero di occorrenze di $t_i$ nella sequenza, ad esempio 
+$$ S'=t_1t_2 \ \ \ S=t_2t_1$$ 
+condividono il vettore delle occorrenze 
+$$ \mathbf s = \begin{bmatrix}
+    1\\1
+\end{bmatrix}$$
+A tal proposito, lo stato finale dell'evoluzione di una rete di Petri, la cui marcatura iniziale è $\mathbf x$, data una sequenza $S$ con associato un vettore $\mathbf s$, sarà
+$$ \mathbf x + \mathbf C \mathbf s$$
+Nell'esempio precedente 
+
+$$ \begin{bmatrix}
+    3 \\ 1 
+\end{bmatrix}+\begin{bmatrix}
+1&-2\\-4&3
+\end{bmatrix}\cdot \begin{bmatrix}
+    1 \\ 1 
+\end{bmatrix}\implies $$
+$$ \begin{bmatrix}
+    3 \\ 1 
+\end{bmatrix}+\begin{bmatrix}
+    -3 \\ 1 
+\end{bmatrix}=\begin{bmatrix}
+    2\\ 0
+\end{bmatrix}$$
+
+
+
+
 
 
 
