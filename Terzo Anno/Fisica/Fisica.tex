@@ -3217,4 +3217,88 @@ di induttanza vale
 $$L=\frac{\phi}{I}=\frac{\mu_0nISN}{I}=\mu_0\frac{N^2}{l}S $$
 \flowerLine 
 \section{Induttore nel Circuito}
+Ogni circuito, ha un induttanza intrinseca, dovuta al fatto che il campo magnetico generato dalla corrente interagisce con il circuito stesso quando la corrente varia (e conseguentemente, ne varia il flusso). Nei circuiti, il componente che fa da induttanza (ossia, l'induttore) viene rappresentato con il simbolo di un solenoide\begin{center}
+    \includegraphics[width=0.2\textwidth ]{images/induttanza.drawio.pdf}
+\end{center}
+indicando con $L$ il coefficiente di induttanza. La differenza di potenziale ai capi di un induttore dipende dalla variazione della corrente, ed è uguale a 
+$$ \Delta V_L = L\dfrac{dI}{dt}$$
+Si consideri il seguente circuito $RL$, ossia in cui è presente un generatore di forza elettromotrice, una resistenza ed un induttore.\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/induttanza2.drawio.pdf}
+\end{center}
+Si è nell'ipotesi di corrente continua, con $\Delta V$ costante.
+Si considera la differenza di potenziale ai capi di ogni componente \begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/induttanza3.drawio.pdf}
+\end{center}
+Applicando la legge di Kirchhoff delle maglie, si ha che 
+$$ \Delta V - RI - L\frac{dI}{dt}=0$$
+allora risolvendo l'equazione differenziale è possibile trovare l'andamento della corrente (a partire dall'istante $t=0$ in cui la corrente è nulla). Si riscrive 
+$$ \frac{dI}{dt}=\frac{\Delta V}{L}-\frac{RI}{L}$$
+Si applica una sostituzione 
+$$ x(t)=\frac{\Delta V}{L}-\frac{RI(t)}{L}$$
+allora 
+$$ dx=-\frac{R}{L}dI\implies dI=-\frac{R}{L}dx$$
+allora l'equazione differenziale in $x$ diventa  
+$$ -\frac{dx}{dt}\frac{R}{L}=x $$
+moltiplico entrambi i termini per $\frac{dt}{x}$
+$$ -\frac{dx}{x}\frac{R}{L}=dt  $$
+$$ \frac{dx}{x}=-\frac{L}{R}dt  $$
+ponendo $x(0)=x_0$, sappiamo che la soluzione è 
+$$ x(t)=x_0e^{-\frac{L}{R}t}$$
+Essendo che
+$$ x(t)=\frac{\Delta V}{L}-\frac{RI(t)}{L}$$
+e che $I(0)=0$ ne consegue 
+$$x_0=\frac{\Delta V}{L}$$
+quindi (ponendo anche $\tau = \frac{R}{L}$)
+$$ x(t)=\frac{\Delta V}{L}e^{-\frac{t}{\tau}}$$
+Si sostituisce $x$ con $I$
+$$ \frac{\Delta V}{L}-\frac{R}{L}I(t)=\frac{\Delta V}{L}e^{-\frac{t}{\tau}}$$
+$$ I(t)=\frac{\Delta V}{R}(1-e^{-\frac{t}{\tau}})$$
+Quindi a regime permanente, per $t\rightarrow \infty$, la corrente si assesterà sul valore nominale $\frac{\Delta V}{R}$, prima di ciò però, l'induttore si oppone all'aumentare della corrente, facendo si che l'andamento verso il valore di regime sia esponenziale ma non istantaneo.\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/correnteRL.eps}
+\end{center}
+\sapbox{durante la fase di salita della corrente, l'induttore accumula energia sottoforma di campo magnetico}
+Si vuole considerare adesso, la situazione in cui da una fase di regime (corrente massima $I=\frac{\Delta V}{R}$), si cortocircuita il generatore, azzerando la forza elettro motrice.\acc 
+In un caso privo di induttore, la corrente, che ha l'espressione $I=\frac{\Delta V}{R}$, dovrebbe immediatamente azzerarsi dal momento che viene a mancare il termine $\Delta V$, vedremo come, ci sarà una fase di decrescita esponenziale, dato che l'induttore aveva accumulato energia sotto forma di campo magnetico, e la scaricherà come corrente cercando di opporsi alla variazione (negativa) di quest'ultima.\acc 
+La situazione è illustrata dalla figura seguente\begin{center}
+    \includegraphics[width=\textwidth]{images/circuitoRL2.pdf}
+\end{center}
+La corrente per $t\ge t_0$ (per semplicità $t_0=0$) soddisferà l'equazione differenziale 
+$$ IR-L\frac{dI}{dt}\implies$$
+$$ \frac{dI}{I}=-\frac{R}{L}dt$$
+La soluzione di questa equazione differenziale è nota 
+$$ I(t)=I(0)e^{-\frac{t}{\tau}}=\frac{\Delta V}{R}e^{-\frac{t}{\tau}}$$\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/correnteRL2.eps}
+\end{center}
+L'energia immagazzinata dall'induttore si ri-trasformerà in corrente che rallenterà la decrescita di $I$ verso lo zero.\acc 
+Si vuole trovare l'energia immagazzinata $E_{nrgy}$, sappiamo che la potenza $P$ ha espressione 
+$$ P=RI^2$$
+quindi 
+$$ P=R\frac{\Delta V^2}{R^2}e^{-2\frac{t}{\tau}}$$
+La potenza elettrica in un lasso di tempo infinitesimo è $Pdt=R\frac{\Delta V^2}{R^2}e^{-2\frac{t}{\tau}}dt$
+L'energia totale immagazzinata $E_{nrgy}$ è l'integrale di questo termine da per $t$ che va da 0 ad infinito. 
+$$E_{nrgy}=\int_0^\infty R\frac{\Delta V^2}{R^2}e^{-2\frac{t}{\tau}}dt = 
+\frac{\Delta V^2}{R}\int_0^\infty e^{-2\frac{t}{\tau}}dt=$$
+
+$$\frac{\Delta V^2}{R}\frac{1}{-\frac{2}{\tau}}e^{-2\frac{t}{\tau}}\Bigg|_0^\infty =\frac{\Delta V^2}{R}\frac{\tau}{2} =\frac{\Delta V^2}{R}\frac{L}{2R}=\frac{1}{2}L\frac{\Delta V^2}{R^2} $$
+ma $\frac{\Delta V}{R}=I(0)=I_0$ quindi 
+$$E_{nrgy}=\frac{1}{2}LI_0^2 $$
+Consideriamo adesso il caso specifico dell'energia immagazzinata da un induttore di forma solenoidale, dati\begin{itemize}
+    \item $N$ numero di spire/avvolgimenti 
+    \item $l$ lunghezza solenoide 
+    \item $S$ superficie della sezione di ogni spira
+\end{itemize}
+Abbiamo visto come il coefficiente di induttanza $L$ vale 
+$$ L=\mu_0\frac{N^2}{l}S$$
+Ne consegue che, l'energia immagazzinata è 
+$$E_{nrgy}=\frac{1}{2}\mu_0\frac{N^2}{l}SI_0^2 $$
+Nel caso del solenoide, è noto il campo magnetico all'interno del volume cilindrico circoscritto dalle spire
+$$ B=\mu_0\frac{N}{l}I$$
+si considera il quadrato 
+$$ B^2=\mu_0^2\frac{N^2}{l^2}I^2$$
+ma allora si può riscrivere l'energia immagazzinata in funzione di $B$
+$$E_{nrgy}=\frac{1}{2}\frac{1}{\mu_0}B^2\cdot Sl$$\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/solenoide3.eps}
+\end{center}
+Si noti come il termine $Sl$ nella formula dell'energia è proprio il volume circoscritto dalle spire \textit{in cui è contenuto il campo magnetico}, ma allora, l'energia è uguale al volume in cui è contenuto il campo, per un fattore, tale fattore assume il carattere di \textbf{densità di energia del campo magnetico}
+$$ \frac{1}{2}\frac{1}{\mu_0}B^2$$
 \end{document}
