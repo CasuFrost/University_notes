@@ -3142,4 +3142,79 @@ $$  \frac{1}{2}R dl B\frac{1}{dt}= \frac{1}{2}RB\frac{dl}{dt}=\frac{1}{2}RBR\ome
 Ne consegue che 
 $$\frac{d\phi}{dt}=\frac{\omega B R^2}{2} $$
 proprio come calcolato precedentemente applicando la regola della forza di Lorentz.
- \end{document}
+\flowerLine  
+\section{Induttanza}
+Si considerino due circuiti posti uno di fronte all'altro, nella 
+seguente configurazione\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/induttanza.eps}
+\end{center}
+nel primo circuito scorre una corrente $I_1$, il campo 
+magnetico $\bar B_1$ generato è entrante nella superficie 
+di cui il circuito 2 è frontiera. Il flusso sul secondo 
+circuito sarà $$ \phi_2=I_1M_{2,1}$$
+dove $M_{2,1}$ è un coefficiente che dipende dalle proprietà 
+geometriche dei circuiti. Se la corrente $I_1$ varia nel 
+tempo, allora varia anche $\bar B_1$, e di conseguenza 
+il flusso $\phi_2$, ne consegue che ci sarà una 
+circuitazione del campo elettrico (fem) non nulla nel 
+secondo circuito, e scorrerà una corrente $I_2$. 
+$$ I_2=\frac{fem}{R_2}=-\frac{d\phi_2}{dt}=-M_{2,1}\frac{d\phi_2}{dt}$$
+Inoltre, il campo magnetico creato da $I_1$, causerà una 
+variazione di flusso sulla superficie di cui lo stesso circuito 
+su cui scorre $I_1$ è frontiera, questa, sarà opposta ad 
+$I_1$ 
+$$\phi_1=LI_1 $$
+$$ I_1'=-\frac{d\phi_1}{dt}=L\frac{dI_1}{dt}$$
+$L$ è il coefficiente $M_{1,1}$. Il circuito ha un 
+\textit{auto induttanza} interna.
+\subsubsection{Esercizio : Calcolo del Coefficiente di Induttanza}
+Si considerino due circuiti, a forma di circonferenza e concentrici, di raggio 
+$R$ ed $r$, con $r$ molto piccolo rispetto ad $R$.
+\begin{center}
+    \includegraphics[width=0.25\textwidth ]{images/cerchiConc.eps}
+\end{center}
+Siano\begin{itemize}
+    \item $I_r$ la corrente che scorre nel circuito di 
+    raggio $r$
+    \item $I_R$ la corrente che scorre nel circuito di 
+    raggio $R$
+\end{itemize}
+Si vuole calcolare il flusso $\phi_R$ attraverso la superficie di $R$ 
+del campo magnetico $\bar B_r$ generato da $I_r$.
+$$ \phi_R=M_{2,1}I_r$$
+\textbf{Osservazione} : $M_{1,2}=M_{2,1}$\acc 
+Risulta più semplice calcolare il flusso attraverso 
+la superficie del circuito più piccolo
+$$ \phi_r=M_{1,2}I_R=M_{2,1}I_R$$
+Essendo $r$ molto più piccolo di $R$, si può approssimare 
+il campo magnetico che lo attraversa, considerandolo 
+uniforme e di intensità uguale a quella che ha al centro 
+della circonferenza, quindi 
+$$ \bar B_R=\frac{\mu_0I_R}{2R}$$
+ma allora, se $\pi r^2$ è la superficie del circuito 
+più piccolo, ed il campo è uniforme, il flusso attraverso 
+$r$ sarà 
+$$ \phi_r=\frac{\mu_0I_R}{2R}\pi r^2$$
+ne consegue che  
+$$ M_{2,1}=\frac{\phi_r}{I_R}=\frac{\mu_0\pi r^2}{2R}$$
+\subsection{Autoinduttanza del Solenoide}
+Si consideri il solenoide, sappiamo che il campo magnetico 
+all'interno del volume circoscritto dalle spire è 
+uniforme e vale 
+$$ B=\mu_0nI$$
+dove $I$ è la corrente che scorre nel solenoide e 
+$n$ è il rapporto fra il numero delle spire $N$ e la lunghezza $l$ 
+totale del solenoide 
+$$ n=\frac{N}{l}$$
+\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/solenoide2.eps}
+\end{center}
+Il campo magnetico ha un flusso attraverso la propria 
+superficie, questo vale 
+$$ \phi=NSB$$
+dove $S$ è la sezione di ogni spira. Il coefficiente 
+di induttanza vale 
+$$L=\frac{\phi}{I}=\frac{\mu_0nISN}{I}=\mu_0\frac{N^2}{l}S $$
+\flowerLine 
+\section{Induttore nel Circuito}
+\end{document}
