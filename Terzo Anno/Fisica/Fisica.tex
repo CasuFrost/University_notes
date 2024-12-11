@@ -1746,7 +1746,7 @@ Quindi la velocità del corpo che ruota sarà minore della velocità del corpo c
 \section{Sistemi Equivalenti di Forze}
 Date due forze applicate ad un sistema, si vuole trovare una forza unica risultante che sia equivalente alle due (se sostituita alle forze originali, la dinamica del sistema rimane invariata). Verranno analizzati 3 casi. 
 \subsubsection{Caso 1}
-Si considerano due forze parallele $F_1$ ed $F_2$ applicate in due punti distinti distanti $d$.\begin{center}
+Si considerano due forze parallele $F_1$ ed $F_2$ applicate in due punti, distanti $d$.\begin{center}
     \includegraphics[width=0.3\textwidth ]{images/forzeEq1.eps}
 \end{center}
 Definisco sull'asse che congiunge i due punti due forze uguali e contrarie (di intensità arbitraria) $f_1,f_2$, 
@@ -1938,12 +1938,12 @@ Il seguente grafico riporta l'andamento qualitativo dell'intensità del campo el
 		xmin=-6,
 		xmax = 6,
 		axis lines = left,
-		xtick distance=2, ytick distance=7,
+		xtick distance=2, ytick distance=3,
 		grid style=dashed,
 		ymajorgrids=true,
 		xmajorgrids=true,
 		xlabel = \(x\),
-		ylabel = {\(y\)},
+		ylabel = {\(E(x)\)},
 		]
 		%Below the red parabola is defined
 		\addplot [
@@ -1952,11 +1952,10 @@ Il seguente grafico riporta l'andamento qualitativo dell'intensità del campo el
 		color=blue,
 		]
 		{1/(4*pi*(0.01))*x*1/((x^2+1^2)^(3/2))};
-		\addlegendentry{\(\bar E\)}
 		\end{axis}
 		\end{tikzpicture}
 \end{center}
-\subsubsection{Campo generato da una bacchetta}
+\subsubsection{Campo generato da una bacchetta \redText{(nota : vedi pag 49)}}
 Si consideri ora una bacchetta carica $l$ parallela all'asse $y$, si vuole determinare l'intensità del campo elettrico generato dalla bacchetta lungo l'asse $x$. La carica totale della bacchetta è $Q$, il contributo di carica elementare è $dQ=\lambda dl$ dove $\lambda$ è la densità di carica, assunta uniforme.\acc 
 In questo caso i contributi elementari del campo elettrico $d\bar E$ su un punto avranno, visualizzati insieme come vettori, una forma triangolare, e la formulazione del campo totale è la stessa. 
 $$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int_l\frac{dl}{r^2}\cos\theta$$
@@ -2036,7 +2035,7 @@ Se  $\bar S$ è ortogonale al campo $\bar E$ ($\theta = \nicefrac{\pi}{2}$), all
     \includegraphics[width=0.3\textwidth]{images/flusso.eps}
 \end{center}
 Il campo elettrico $\bar E$, a meno che non sia uniforme, varia in ogni punto infinitesimo, il flusso va quindi espresso per una superficie infinitesima $dS$
-$$ d\phi=d\bar S$$
+$$ d\phi=\bar Ed\bar S$$
 Data una superficie finita $S$, il flusso totale del campo elettrico su di essa è dato dall'integrale del flusso infinitesimo su tutta la superficie 
 $$ \phi = \int_S d\phi = \int_S \bar Ed\bar S$$
 Esiste una proprietà interessante del campo elettrico, quando si calcola il flusso per una superficie chiusa. \begin{center}
@@ -2155,12 +2154,12 @@ $$\mathscr{E}=0 $$
 \subsection{Calcolo Esplicito del Potenziale}
 Si vuole calcolare la formula esplicita del potenziale. Si consideri il caso più semplice, ossia quello di una carica puntiforme $q$. Il lavoro della forza elettrostatica $\bar F$ che agisce su una carica $q_0$ per uno spostamento elementare $d\bar s$ è 
 $$ dL = \bar F d\bar s =q_0\bar Ed\bar s= 
-=\frac{q_0q}{4\pi\varepsilon_0}\frac{d\bar s}{r^2}\hat r=
+\frac{q_0q}{4\pi\varepsilon_0}\frac{d\bar s}{r^2}\hat r=
 \frac{q_0q}{4\pi\varepsilon_0}\frac{dr}{r^2}$$
 Essendo $\hat r$ unitario si ha che $\hat r d\bar s=dr$. Ne consegue 
-$$ Ed\bar s=\frac{q}{e\pi\varepsilon_0}\frac{dr}{r^2}$$
+$$ Ed\bar s=\frac{q}{4\pi\varepsilon_0}\frac{dr}{r^2}$$
 Si integra su un percorso che congiunge $A$ a $B$
-$$ \mathscr{E}=\frac{q}{e\pi\varepsilon_0}\int_{r_A}^{r_B}\frac{dr}{r^2}=\frac{q}{4\pi\varepsilon_0r_A}-\frac{q}{4\pi\varepsilon_0r_B}$$
+$$ \mathscr{E}=\frac{q}{4\pi\varepsilon_0}\int_{r_A}^{r_B}\frac{dr}{r^2}=\frac{q}{4\pi\varepsilon_0r_A}-\frac{q}{4\pi\varepsilon_0r_B}$$
 Dove $r_A$ è la distanza fra la carica $q$ e $A$, e $r_B$ è la distanza fra la carica $q$ e $B$. \begin{center}
     \includegraphics[width=0.5\textwidth]{images/lavoroCampoEl.eps}
 \end{center}
@@ -2209,7 +2208,7 @@ $$\begin{matrix}
     B= (x+dx,y+dy,z+dz)
 \end{matrix}$$ 
 La differenza di potenziale infinitesima in questi due punti è 
-$$ dV=V(x,y,z)-V(x+dx,y+dy,z+dz)=-\bar E d\bar s = -E_x dx - E_y d_y - E_z dz$$
+$$ dV=V(x,y,z)-V(x+dx,y+dy,z+dz)=-\bar E d\bar s = -E_x dx - E_y dy - E_z dz$$
 ricordando che 
 $$ V(A)-V(B)=\int_A^B \bar E d\bar s$$ 
 si ha che 
@@ -2219,7 +2218,7 @@ $$ \begin{cases}
     E_x=-\displaystyle\frac{\delta V}{\delta x}\\  \\
     E_y=-\displaystyle\frac{\delta V}{\delta y}\\  \\
     E_z=-\displaystyle\frac{\delta V}{\delta z}
-\end{cases}\implies \bar E = (-\frac{\delta V}{\delta x},-\frac{\delta V}{\delta y},-\frac{\delta V}{\delta z})$$
+\end{cases}\implies \bar E = (-\frac{\delta V}{\delta x},-\frac{\delta V}{\delta y},-\frac{\delta V}{\delta z})=-\nabla V$$
 Ma allora il campo elettrico è uguale al gradiente del potenziale elettrostatico cambiato di segno
 \eqImportante{$ \bar E = - \nabla V$}
 Ne consegue che la forza alla quale è soggetta una carica $\bar F = q_0\bar E$ è uguale al gradiente dell'energia potenziale cambiata di segno 
@@ -2233,11 +2232,11 @@ $$ V(r)=\frac{1}{4\pi\varepsilon_0}\int_A \frac{dQ}{r}=\frac{1}{4\pi\varepsilon_
 Si vuole esprimere in funzione di $x$
 $$ V(x)=\frac{Q}{4\pi\varepsilon_0}\frac{1}{\sqrt{R^2+x^2}}$$
 Il campo elettrico è 
-$$ \bar E = -\nabla V = \begin{cases}
-    -\frac{\delta V}{\delta x}\\
-    -\frac{\delta V}{\delta y}\\
+$$ \bar E = -\nabla V = \begin{bmatrix}
+    -\frac{\delta V}{\delta x}\\\\
+    -\frac{\delta V}{\delta y}\\\\
    -\frac{\delta V}{\delta z}
-\end{cases}$$
+\end{bmatrix}$$
 Ma le componenti di $V$ sono nulle sugli assi $y$ e $z$, quindi 
 $$ \bar E = E_x=-\frac{\delta V}{\delta x}=-\frac{Q}{4\pi\varepsilon_0} \frac{x}{(R^2+x^2)^{\nicefrac{3}{2}}} $$
 Si consideri adesso la sfera di metallo carica (uniformemente) di raggio $R$ e carica $Q$, si vuole descrivere il potenziale elettrostatico $V$ in funzione della distanza $r$ dal centro della sfera.\begin{center}
@@ -2355,7 +2354,7 @@ $$\bar E = 0$$
 Ciò implica che il flusso attraverso una qualsiasi superficie chiusa contenuta all'interno della superficie del conduttore è a sua volta nullo. 
 $$ \oint_S \bar E d\bar S =  \oint_S 0 d\bar S = 0$$ 
 Inoltre, risulta che il potenziale elettrico è costante in ogni punto del conduttore, siano $p_1$ e $p_2$ due punti qualsiasi si ha 
-$$ V(p_1)-V(p_2)=\int_{p_1}^{p_2}\bar E \cdot d\bar s=0 \implies V(p_1)=V(p_2)=\Delta V$$
+$$ V(p_1)-V(p_2)=\int_{p_1}^{p_2}\bar E \cdot d\bar s=0 \implies V(p_1)=V(p_2)= V$$
 Si dice quindi che il conduttore è \textbf{equipotenziale}. Si consideri una sfera di materiale conduttore di carica $Q$ e di potenziale $V$
 \begin{center}
     \includegraphics[width=0.3\textwidth]{images/sferaPot.pdf}
@@ -2373,13 +2372,13 @@ In alcune situazioni, ci sono due conduttori alla quale si può associare una so
     \includegraphics[width=0.4\textwidth]{images/condensatore.eps}
     \caption{condensatore piano}
 \end{figure}
-Il condensatore è equipotenziale, sia $\Delta V$ il potenziale, la capacità del condensatore è 
-$$ C=\frac{Q}{\Delta V}$$
+Il condensatore è equipotenziale, sia $V$ il potenziale, la capacità del condensatore è 
+$$ C=\frac{Q}{V}$$
 se $\sigma$ è la densità di carica, abbiamo visto che il campo elettrico del condensatore è 
 $$ \bar E = \frac{\sigma}{\varepsilon_0}$$il potenziale è quindi 
-$$ \Delta V = d\frac{\sigma}{\varepsilon_0}$$
+$$  V = d\frac{\sigma}{\varepsilon_0}$$
 La carica totale $Q$ è data dall'integrale della densità di carica su tutta la superficie, considerando la densità uniforme si ha $$Q=\sigma A$$
-la capacità è $$ C=\frac{\sigma A}{\Delta V}==\frac{\sigma A \varepsilon_0}{d \sigma}\implies $$
+la capacità è $$ C=\frac{Q}{ V}=\frac{\sigma A}{ V}=\frac{\sigma A }{d \frac{\sigma}{\varepsilon_0}}=\frac{\sigma A \varepsilon_0}{d \sigma}\implies $$
 $$ C=\varepsilon_0\frac{A}{d}$$ 
 Si vuole calcolare ora la capacità del \textit{condensatore sferico}, composto da due gusci sferici concentrici di materiale conduttore, entrambi carichi, il primo di carica $-Q$, il secondo di carica $+Q$.\begin{figure}[h!]
     \centering
@@ -3013,7 +3012,7 @@ Tale corrente $i^*$
  \section{Flusso del Campo Magnetico}
  Il campo magnetico, può generare una corrente elettrica. Si consideri un filo percorso da corrente parallelo all'asse verticale $z$, ed un circuito chiuso che giace sul piano $xz$.
  \begin{center}
-    \includegraphics[width=0.5\textwidth ]{images/Faraday.eps}
+    \includegraphics[width=\textwidth ]{images/Faraday.eps}
 \end{center}
 Si ricordi che le frecce indicano le linee di campo entranti nel foglio, ed i cerchi le linee di campo uscenti. L'intensità del campo magnetico decresce con la distanza $r$ dal filo 
 $$ B(r)=\frac{\mu_0I}{2\pi r}$$

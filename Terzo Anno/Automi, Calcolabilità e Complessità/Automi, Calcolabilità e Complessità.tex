@@ -2927,6 +2927,8 @@ Non è però possibile scrivere il grafo $G_{N,x}$ nel nastro di lavoro in quant
 Il teorema di Savitch si può generalizzare:\acc 
 \teo{} $NSPACE(f(n))\subseteq DTIME(2^{O(f(n))})\cap SPACE(f(n)^2)$\acc 
 \textbf{Corollario} : $NPSPACE\subseteq EXP\cap PSPACE$, ma allora, sapendo già che $PSPACE\subseteq NPSPACE$ ne consegue che\sapbox{$$NPSPACE=PSPACE$$}
+\flowerLine 
+\section{$NLOG$ completezza}
 \defi{($NLOG$ completezza)} $B$ è $NLOG$ completo se\begin{itemize}
     \item $B\in NLOG$
     \item se $A\in NLOG$, allora $A\le_m^L B$
@@ -2938,5 +2940,65 @@ $A\le_m^L B \text{ se }\exists R:{0,1}^*\rightarrow {0,1}^*$  computabile in spa
 $$ x\in A \iff R(x)=B$$
 Bisogna definire il termine "computabile in spazio $O(\log(n))$", il termine $R(x)$ potrebbe avere dimensione $poly(n)$, in tal caso scrivendo $R(x)$ sul nastro di lavoro, si violerebbe lo spazio logaritmico, si considera nel modello della TM un \textit{nastro di output} che può essere scritto una sola volta, senza mai modificare le celle utilizzate, tale nastro verrà usato per scrivere l'output $R(x)$.\acc 
 \teo{} $PATH$ è $NLOG$ completo.\acc 
-\dimo{} 
+\dimo{} Sappiamo già che $PATH$ è un linguaggio in $NLOG$, bisogna dimostrare che tutti i linguaggi in tale insieme si riducono a $PATH$. Sia $A$ un qualsiasi linguaggio in $NLOG$, e sia $N$ la NTM (di complessità logaritmica) tale che $L(A)=N$\begin{itemize} \item si definisce una TM $R$ che, dato un input $x$ per $N$, costruisce il grafo $G_{N,x}$ delle cofnigurazioni visto nella dimostrazione del teroema di Savitch. \item L'output di $R$ (ossia $R(x)$) sarà ($G_{N,x}, C_{start}, C_{acc}$) \item Ne consegue naturalmente che $x\in A \iff$ esiste un cammino $C_{start}\rightarrow C_{acc}$ in $G_{N,x}\iff$ $R(x)=(G_{N,x}, C_{start}, C_{acc})\in PATH$
+\end{itemize}
+In particolare, è possibile enumerare tutte le possibili configurazioni (che sono polinomiali in $n$) con un numero $O(\log(n))$ celle, e con la medesima complessità di spazio è possibile verificare se, date due configurazioni $C,C'$, esiste o no l'arco $(C,C')$.\hfill$\blacksquare$\acc 
+Si vuole mostrare che la definizione di \textit{log space reduction} soddisfi le seguenti proprietà\begin{itemize}
+    \item $A\le_m^L B \implies \begin{cases}
+        B\in LOG \implies A\in LOG\\ 
+        B\in NLOG \implies A\in NLOG
+    \end{cases}$
+    \item $A\le_m^L B \land B \le_m^L C \implies A \le_m^L C$
+\end{itemize}
+\teo{} Se $P$ e $Q$ sono computabili in spazio $O(\log(n))$, allora lo è anche $R=P\circ Q$\acc 
+\dimo{} Essendo che $P$ e $Q$ sono computabili in spazio $O(\log(n))$, e che \textit{"lo spazio limita il tempo"}, si ha che $P$ e $Q$ hanno complessità di tempo polinomiale\begin{itemize}
+    \item $P$ ha complessità temporale $O(n^p)$ per qualche $p$
+    \item $Q$ ha complessità temporale $O(n^q)$ per qualche $q$
+\end{itemize}
+Si vuole definire una TM $M$ capace di scrivere l'output $R(x)=Q(P(x))$ in complessità spaziale $O(\log(n))$.\acc 
+Il problema, è che $y:=P(x)$ potrebbe essere lungo $poly(n)$, quindi bisogna calcolare $R(x)=Q(P(x))=Q(y)$ senza calcolare esplicitamente $y$.\acc 
+\redText{la seguente parte la copio parola per parola da ciò che ha dettato il professore ma non l'ho capita}\acc 
+La TM $M$ tiene traccia della posizione corrispondente a quello che sarebbe il nastro di input di $Q$, ciò richiede spazio $O(\log(n))$, $M$ deve determinare $y[i]$ ($i$-esimo carattere di $y$) e simulare un passo della computazione di $Q$, ciò può essere fatto in spazio $O(\log(n))$. \acc 
+Si ricalcola $P(x)$ fino ad ottenere $y[i]$, scartando il resto, questo permette di simulare un passo di computazione di $Q$. \redText{ fine parte ambigua}\hfill$\blacksquare$\acc 
+\textbf{Corollario} : $A\le_m^L B \land B \in LOG \implies A \in LOG$\acc 
+Fino ad ora abbiamo visto esempi di linguaggi\begin{itemize}
+    \item $NP$ completi
+    \item $NLOG$ completi
+    \item $CONP$ completi
+\end{itemize}
+Vediamo adesso alcuni esempi di linguaggi $P$ completi e $PSPACE$ completi.\acc 
+\defi{($P$ completezza)} $C$ è $P$ completo se $C\in P$ e $\forall A\in P$ si ha che $A\le_m^L C$\acc 
+\textbf{Osservazione} : La definizione riguarda la classe $P$ (complessità temporale) ma utilizza la \textit{log space reduction} (inerente alla complessità spaziale).
+\sapbox{\textbf{Problema aperto} : La seguente proposizione non è stata dimostrata, e tutt'ora non si sa se sia vera o false $$ C\in LOG\implies P\subseteq LOG$$ 
+
+}
+Vediamo un esempio di problema $P$ completo: 
+$$ CIRCUIT-EVAL=\{<C,x> \ | \ C\text{ è un circuito booleano }\land C(x)=1\}$$
+\teo{} $CIRCUIT-EVAL$ è $P$ completo.\acc 
+\dimo{} \redText{TODO}\acc 
+Vediamo adesso un particolare linguaggio, conosciamo il linguaggio $$ SAT=\{<\phi>\ | \ \exists x,\ \phi(x)=1 \}$$
+Ed il linguaggio delle tautologie 
+$$ TAUT=\{<\phi> \ | \ \forall x, \ \phi(x)=1\}$$
+Si definisce il seguente linguaggio delle \textbf{Totally Quantified Boolean Formula}
+$$ TQBF=\{<\phi> \ | \  \}$$
+\redText{SCRIVERE DEFINIZIONE : PAGINA 338 del libro} \acc 
+\teo{} $TQBF\in PSPACE$\acc 
+\dimo{} si considera il seguente algoritmo ricorsivo \begin{quote}
+    \code{IsTrue($Q_1x_1,Q_2x_2\dots , Q_nx_n,\phi(x)$)} \\ 
+    dove $x=x_1,x_2\dots ,x_n$
+\end{quote}
+La procedura è descritta dai seguenti passi \begin{itemize}
+    \item Se $n=0\implies \phi$ ha solo costanti, ritorna la valutazione 
+    \item Altrimenti, se $Q_1=\exists$, ritorna \begin{quote}
+        \code{IsTrue($Q_2x_2,Q_3x_3\dots , Q_nx_n,\phi(0,x_2,x_3\dots ,x_n)$)} 
+\\ $\lor$\\
+        \code{IsTrue($Q_2x_2,Q_3x_3\dots , Q_nx_n,\phi(1,x_2,x_3\dots ,x_n)$)} 
+    \end{quote}
+    \item Altrimenti, se $Q_1=\forall$, ritorna \begin{quote}
+        \code{IsTrue($Q_2x_2,Q_3x_3\dots , Q_nx_n,\phi(0,x_2,x_3\dots ,x_n)$)} 
+\\ $\land$\\
+        \code{IsTrue($Q_2x_2,Q_3x_3\dots , Q_nx_n,\phi(1,x_2,x_3\dots ,x_n)$)} 
+    \end{quote}
+\end{itemize}
+L'algoritmo è corretto, la profondità di ricorsione è $n$ e ad ogni chiamata ricorsiva lo spazio utilizzato è $O(n)$. Lo spazio totale utilizzato dall'algoritmo è $O(n^2)\implies TQBF\in PSPACE$.\hfill$\blacksquare$\acc 
 \end{document}
