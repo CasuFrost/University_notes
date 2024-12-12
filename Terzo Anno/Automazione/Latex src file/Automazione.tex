@@ -4963,6 +4963,357 @@ $$ \begin{bmatrix}
 \end{bmatrix}=\begin{bmatrix}
     2\\ 0
 \end{bmatrix}$$
+\flowerLine 
+\section{Proprietà delle Reti di Petri}
+Sia $PN=(P,T,A,w,\mathbf {x_0})$ una generica rete di Petri, con $\mathbf{x_0}$ la marcatura iniziale.\acc 
+\defi{} una generica marcatura $\mathbf{x_i}$ si dice \textbf{raggiungibile} se un'altra marcatura $\mathbf{x_j}$ se esiste una sequenza di scatti che, porta dalla marcatura $\mathbf{x_i}$ a quella $\mathbf{x_j}$.\acc 
+Si definisce l'\textit{insieme di marcature raggiungibili} della rete di Petri $PN$, l'insieme 
+$$ R(PN)=\{\mathbf{x_j} \ | \ \mathbf{x_j} \text{ è raggiungibile da }\mathbf{x_0}\}$$
+ossia, l'insieme di tutte le marcature raggiungibili da quella iniziale, rappresenta tutti i possibili stati in cui può ricadere il sistema, considerando ogni possibile sequenza di transizioni.\acc 
+Una marcatura $\mathbf{x^*}$ si dice \textit{marcatura di base} se essa è raggiungibile da ogni possibile marcatura $\mathbf{x}\in R(PN)$.\acc 
+\defi{} La rete di Petri si dice \textbf{reversibile} se la marcatura iniziale $\mathbf{x_0}$ è una marcatura di base, ciò indica che da ogni possibile stato, è possibile tramite una sequenza di scatti, tornare allo stato iniziale.
+\acc La rete mostrata in figura \begin{center}
+    \includegraphics[width=0.4\textwidth]{images/reversibile.png}
+\end{center}
+è una rete reversibile, e l'insieme dei nodi raggiungibili è 
+$$R(PN_) = \left\{ \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \right\}$$
+La seguente rete invece\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/irreversibile.png}
+\end{center}
+nonostante abbia lo stesso insieme di marcature raggiungibili $R(PN)$, non è reversibile, in quanto in nessun modo è possibile tornare allo stato in cui vi è un'unica marcatura su $p_1$.
+\acc 
+\defi{} Una transizione $t$ di $PN$ si dice \textbf{viva}, se, per ogni marcatura $\mathbf{x}\in R(PN)$, esiste un'altra marcatura $\mathbf{x'}$ che è raggiungibile da $\mathbf{x}$, e nella sequenza di scatti necessaria per raggiungerla è presente $t$.\acc 
+Ciò implica che una transizione $t$ viva può scattare infinite volte, la rete gode della proprietà di \textbf{vivezza} se ogni transazione è viva. L'ultima  rete di Petri mostrata non è viva, in quanto $t_1$ può essere abilitata una sola volta.\acc 
+\textbf{nota} : Una rete di Petri può essere viva, e comunque non riuscire ad evolvere in nuovi stati, d'altro canto, una rete può non essere viva, e continuare ad evolversi.\acc 
+\defi{} Una rete $PN$ è \textbf{bloccante} se esiste una marcatura $\mathbf{x_b}\in R(PN)$ in cui nessuna transizione è abilitata, ciò implica l'impossibilità di evolvere della rete (\textit{deadlock}).
+$$\text{ rete bloccante } \implies \text{ rete non viva } $$
+$$\text{ rete non viva } \notimplies \text{ rete bloccante } $$
+La rete vista nell'esempio sopra, non è viva, ma non è nemmeno bloccante. \acc 
+La seguente rete di Petri
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/bloccante.png}
+\end{center}
+è bloccante dato che, a partire dallo stato iniziale, se si attivano in sequenza $t_1t_2$ si raggiunge la marcatura 
+$$\mathbf x' \begin{bmatrix}
+    0\\0\\1
+\end{bmatrix}$$ 
+che non abilita alcuna transizione, in quanto $$\mathbf I_3=\begin{bmatrix}
+    1\\ 0 \\ 1
+\end{bmatrix}\implies \mathbf x' < \mathbf I_3$$
+non è abilitata. 
+\acc 
+\defi{} Dato un posto $p_i$, e dato $k\in\mathbb{Z^+}$, questo si dice $k$\textbf{-limitato} se, per ogni possibile marcatura $\mathbf x\in R(PN)$, si ha che $x(p_i)\le k$. Ossia, nel posto $p_i$ non si possono accumulare più di $k$-token.
+La rete è \textit{limitata} se ogni posto è limitato. Una rete si dice \textbf{safe} (o binaria) se ogni posto è 1-limitato.
+Un esempio di rete safe è la seguente:
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/safe.png}
+\end{center}
+Si consideri invece la seguente rete
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/limitata.png}
+\end{center}
+al variare dei valori di $r$\begin{itemize}
+    \item per $r=0$ la rete è bloccante, in quanto al susseguirsi delle transizioni $t_1,t_2,t_3$, la marcatura corrente avrebbe un solo token su $p_2$, e non sarebbe possibile abilitare nuovamente $t_2$.
+    \item per $r=1$ si avrebbe una rete limitata, in particolare, i posti $p_2,p_3$ sarebbero $2$-limtati.
+    \item per $r>1$ la rete sarebbe illimitata.
+\end{itemize}
+Un posto è illimitato se non esiste $k\in\N$ per cui è $k$-limitato, ossia, è possibile accumulare un numero infinito di token. La rete è \textit{illimitata} se ha almeno un posto illimitato.\acc 
+La proprietà di essere illimitata non influisce sulla proprietà di reversibilità\begin{itemize}
+    \item una rete può essere illimitata (accumulare un numero infinito di token su un posot) ma essere comunque reversibile (è possibile "scaricare" quel posto un numero di volte pari al numero di token accumulati)
+    \item una rete può essere irreversibile anche se limitata
+\end{itemize}
+La seguente rete di Petri è sia illimitata che irreversibile
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/illimitata.drawio.pdf}
+\end{center}
+dato che $t_3$ è viva e ad ogni scatto aggiunge un token su $p_4$, che non può in nessun modo essere rimosso. L'insieme degli stati raggiungibili può essere espresso come segue 
+$$ R(PN)= \left\{   \begin{bmatrix}x(p_1)\\x(p_2)\\x(p_3)\\x(p_4) \end{bmatrix} \in \N^4 \text{ tale che }x(p_1)+x(p_2)+x(p_3)=1  \right\}$$
+Fra i posti $p_1,p_2$ e $p_3$ ci può essere contemporaneamente un singolo token, l'espressione 
+$$ x(p_1)+x(p_2)+x(p_3)=1 $$
+evidenzia che quei posti sono \textit{conservativi}. \acc 
+\defi{} In una rete di Petri, una \textbf{parte conservativa}. è un soittoinsieme di posti per il quale, data una qualsiasi evoluzione ammissibile, una combinazione lineare (a coefficienti costanti in $\N$) di token si mantiene \textit{costante}. Ossia, per ogni stato raggiungibile $\mathbf x$, si ha che 
+$$ \Lambda \cdot \mathbf x = c $$
+dove \begin{itemize}
+\item $c\in \N$\item$ \Lambda \in \N^{|P|}$
+\end{itemize}
+$$ \begin{bmatrix}
+    \lambda_1 & \lambda_2 & \dots & \lambda_{|P|}
+\end{bmatrix}\cdot 
+\begin{bmatrix}
+    p_1 \\ p_2 \\ \dots \\ p_{|P|}
+\end{bmatrix}=c$$
+$$ p_1\lambda_1+p_2\lambda_2+\dots + p_{|P|} \lambda_{|P|}=c$$
+Il posto $p_i$ appartiene alla parte conservativa della rete se $\lambda_i\ne 0$. Le parti conservative servono a modellare dei limiti fisici del sistema, se tutto l'insieme dei posti costituisce la parte conservativa ($\forall i, \ \lambda_i\ne 0$) allora la rete è limitata.
+\flowerLine 
+\subsection{Strutture Fondamentali}
+Si individuano 3 strutture fondamentali di interconnessione posti/transazioni che descrivono determinate situazioni quando si parla di modellare un sistema reale.\begin{itemize}
+    \item \textbf{Transazioni in conflitto} : ci sono due transazioni adiacenti ad uno stesso posto, entrambe possono scattare singolarmente, ma non ci sono abbastanza risorse per far si che possano scattare entrambe.
+     \begin{center}
+        \includegraphics[width=0.1\textwidth]{images/conflitto.png}
+    \end{center}
+    \item \textbf{Parallelizzazione e sincronizzazione} : Ci sono due flussi separati che si ricongiungono su un unica transazioni adiacenti a due posti da cui giungono gli archi entranti, che sono terminali dei flussi separati. \begin{center}
+        \includegraphics[width=0.2\textwidth]{images/petriSincronia.png}
+    \end{center}
+    \item \textbf{Transazioni in confusione} : Ci sono due flussi, questi possono sia ricongiungersi ad una transazione comune, sia continuare in parallelo, è una situazione in cui due transizioni sono in concorrenza fra loro, ma in conflitto con una terza.\begin{center}
+        \includegraphics[width=0.15\textwidth]{images/alternativa.png}
+    \end{center}
+    nell'esempio mostrato, $t_i$ è in concorrenza con $t_j$, e sia $t_i$ che $t_j$ sono in conflitto con $t_k$, si può quindi\begin{itemize}
+        \item far scattare $t_i$ e $t_j$ (proseguire con la concorrenza)
+        \item far scattare $t_k$ (sincronizzare i flussi)
+    \end{itemize}
+\end{itemize}
+\flowerLine 
+\section{Classi Particolari di Reti di Petri}
+Alcune reti di Petri soddisfano alcuni vincoli che le fanno rientrare in determinate classi, rendendo più efficace un analisi analitica. Considereremo esclusivamente reti di Petri ordinarie, ossia con pesi unitari sugli archi.
+\subsubsection{Macchina a Stati (SM)}
+Una rete di Petri rientra nella classe delle \textit{State Machine} (equivalente ad un'automa a stati finiti) se\begin{itemize}
+    \item ogni transizione, ha al più un solo posto in ingresso, e al più un solo posto in uscita
+\end{itemize}
+Una rete di questo tipo è conservativa, il numero di token non cambia mai, questo è scontato, per ogni transizione, è necessario un token in ingresso (un solo posto in ingresso, archi con peso unitario) e fornisce un token in uscita all'unico posto alla quale punta (sempre con arco unitario).\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/PetriSM.drawio.pdf}
+\end{center}
+Se la marcatura iniziale ha un singolo token (c'è un solo token in un solo posto), allora la rete è safe. La rete è viva \textit{se e solo se} esiste almeno un token, ed il grafo di Petri è fortemente connesso. Possono esserci dei conflitti (da un posto partono due archi) ma non sincronizzazioni e concorrenza (da una transazione non possono partire/congiungersi due archi).
+\subsubsection{Grafo Marcato (MG)}
+Risulta essere il complementare della macchina a stati, in qesto caso, il vincolo è sui posti\begin{itemize}
+    \item ogni posto può avere al più una transizione in ingresso, ed una transizioni in uscita 
+\end{itemize}
+Può modellare la concorrenza e sincronizzazione, ma non può modellare i conflitti, in quanto da ogni posto non si potrà mai avere scelta di due transizioni.
+\begin{center}
+    \includegraphics[width=0.2\textwidth]{images/PetriMG.drawio.pdf}
+\end{center}
+La rete è viva \textit{se e solo se} ogni ciclo (componente fortemente connessa) del grafo di Petri, ha almeno un posto marcato nella marcatura iniziale.
+\subsubsection{Rete a Scelta Libera (FC)}
+Le reti a scelta libera generalizzano le SM e le MG, possono rappresentare sia concorrenza che conflitti, ma questi non devono influenzarsi fra loro. In particolare, per ogni arco che va da un posto ad una transizione\begin{itemize}
+    \item \textbf{a)} o il posto è l'unico in ingresso a quella transizione (non c'è sincronizzazione di due flussi concorrenti)
+    \item \textbf{b)} oppure la transizione è l'unica in uscita da quel posto (non ci sono conflitti)
+\end{itemize}
+Uno dei due vincoli ($a$ o $b$) deve essere soddisfatto.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/FreeChoice.drawio.pdf}
+\end{center}
+Inoltre, la rete può specificarsi in due ulteriori sottoclassi\begin{itemize}
+    \item \textbf{FC Estesa} : Per ogni coppia di posti è vero che, o non hanno archi in uscita ad una stessa transizione, oppure, hanno \textit{tutte} le transizioni in uscita in comune.\begin{itemize}
+        \item o i posti $p_i$ e $p_j$ non hanno transizioni in uscita in comune 
+        \item oppure i posti $p_i$ e $p_j$ hanno tutte le transizioni in uscita in comune 
+    \end{itemize}
+    \item \textbf{FC Asimmetrica} : Per ogni coppia di posti è vero che, o non hanno archi in uscita ad una stessa transizione, oppure, tutte le transizioni in uscita di un posto, sono transizioni in uscita anche dell'altro.\begin{itemize}
+        \item le transizioni di uscita del posto $p_i$, o sono disgiunte da quelle del posto $p_j$, oppure ne sono un sotto-insieme.
+    \end{itemize}
+\end{itemize}
+Il seguente diagramma descrive l'ordine di gerarchia delle reti di Petri ordinarie.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/GerarchiaPetri.drawio.pdf}
+\end{center}
+Alcuni esempi di reti appartenenti alle diverse classi:\begin{center}
+    \includegraphics[width=\textwidth]{images/PetriEsempi.png}
+\end{center}
+\subsection{Esempi di Reti di Petri}
+Abbiamo visto che una rete di Petri può essere\begin{itemize}
+    \item viva 
+    \item limitata 
+    \item reversibile 
+\end{itemize}
+In questa sezione, considereremo diversi esempi di Reti di Petri, analizzandone (non sistematicamente, in maniera poco analitica) tali proprietà strutturali. È importante sapere che\sapbox{le proprietà di limitatezza, vivezza e reversibilità sono \textbf{indipendenti} fra loro}
+Essendo che le proprietà sono 3, ed ognuna può essere presente o no, vedremo un esempio di tutte e $2^3=8$ le possibili combinazioni di queste.
+\subsubsection{Esempio 1}
+Si consideri la rete di Petri mostrata in figura
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/PetriEs1.drawio.pdf}
+\end{center}
+È ordinaria, inoltre è un SM, ed ha un solo token iniziale, è quindi conservativa e safe. Si può notare come la rete sia viva, in quanto ogni transizione è viva, è limitata (essendo safe) ed è reversibile, gli stati raggiungibili sono 2. \begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Limitata & Viva & Reversibile \\ \hline
+        Si       & Si   & Si          \\ \hline
+        \end{tabular}
+\end{center}
+\subsubsection{Esempio 2}
+Si consideri la rete di Petri mostrata in figura
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/PetriEs2.drawio.pdf}
+\end{center}
+La prima osservazione riguarda la limitatezza, la transizione $t_4$ è viva, e può scattare un numero infinito di volte. Ad ogni scatto di questa, si aggiunge un nodo in più nel posto $p_2$, i posti $p_2$ e $p_4$ non sono limitati, quindi la rete non è limitata. \acc Essendo ogni transizione viva, la rete è viva. Non è reversibile, dato che si possono aggiungere token su $p_2$, ma non è possibile scaricarli.
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Limitata & Viva & Reversibile \\ \hline
+        No       & Si   & No          \\ \hline
+        \end{tabular}
+\end{center}
+\subsubsection{Esempio 3}
+Si consideri la rete di Petri mostrata in figura
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{images/PetriEs3.drawio.pdf}
+\end{center}
+La rete è limitata in quanto vi è un solo token nella marcatura iniziale, e non ne vengono mai generati. Non è viva, dato che la transizione $t_1$ non può mai scattare, necessita di un token su $p_2$ ed un token su $p_3$, ma il numero di token è 1 e la rete è conservativa. La rete è reversibile, e la verifica è immediata. Eliminando $t_1$ la rete diventa un SM.
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Limitata & Viva & Reversibile \\ \hline
+        Si       & No   & Si          \\ \hline
+        \end{tabular}
+\end{center}
+\subsubsection{Esempio 4}
+Si consideri la rete di Petri mostrata in figura  \redText{ !TODO : rifare i disegni delle reti }
+\begin{center}
+    \includegraphics[width=0.2\textwidth]{images/PetriEs4.png}
+\end{center}
+Si noti come la sequenza $t_2t_1$ può scattare ciclicamente senza fine, c'è un conflitto fra $t_1$ e $t_3$ quando il token è su $p_2$ e $p_3$, se scatta $t_3$, il token su $p_3$ viene consumato insieme a quello su $p_2$, rimane quindi un solo token su $p_4$.\acc 
+Quando il token è su $p_4$, è abilitata solo $t_4$, facendola scattare, si termina su una marcatura bloccante, con un solo token su $p_3$.
+$$\begin{bmatrix}
+    1\\ 0 \\ 1 \\ 0 
+\end{bmatrix}\rightarrow t_2 \rightarrow 
+\begin{bmatrix}
+    0\\ 1 \\ 1 \\ 0 
+\end{bmatrix}\rightarrow t_3 \rightarrow 
+\begin{bmatrix}
+    0\\ 0 \\ 0 \\ 1 
+\end{bmatrix}\rightarrow t_4 \rightarrow \begin{bmatrix}
+    0\\ 0 \\ 1 \\ 0 
+\end{bmatrix} \text{ stato bloccante }$$
+La rete è quindi limitata (non si possono generare token), ma non è ne reversibile ne viva, in quanto esiste uno stato bloccante.
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Limitata & Viva & Reversibile \\ \hline
+        Si       & No   & No          \\ \hline
+        \end{tabular}
+\end{center}
+\subsubsection{Esempio 5}
+Si consideri la rete di Petri mostrata in figura
+\begin{center}
+    \includegraphics[width=0.2\textwidth]{images/PetriEs5.png}
+\end{center}
+Tale rete di Petri modella perfettamente il paradigma produttore-consumatore\begin{itemize}
+    \item dalla marcatura iniziale, è possibile generare $k$ token su $p_1$ ripetendo ciclicamente la sequenza $t_2t_1$ per $k$ volte.
+    \item se ci sono $k$ token su $p_1$, è possibile scaricarli tutti eseguendo $k$ volte la sequenza $t_3t_4$
+    \item $p_1$ può accumulare indefinitivamente token (la rete non è limitata), la rete può eliminare token fino a scaricare totalmente $p_1$
+\end{itemize}
+Inoltre la rete è reversibile se $t_3$ scatta un numero di volte uguale a $t_2$ (ossia, si eliminano tanti token quanti generati, tornando ad un numero globale di 2 token). La rete è viva, dato che è un grafo marcato, ed ogni ciclo (componente fortemente connessa) contiene un token nella marcatura iniziale.
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Limitata & Viva & Reversibile \\ \hline
+        No       & Si   & Si          \\ \hline
+        \end{tabular}
+\end{center}
+\subsubsection{Esempio 6}
+Si consideri la rete di Petri mostrata in figura
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/PetriEs6.png}
+\end{center}
+La rete non è limitata, si noti come (partendo dalla marcatura iniziale), la sequenza di scatti 
+$t_3t_2t_4$ aggiunge un token su $p_1$ e può essere eseguita ciclicamente un numero indefinito di volte. Inoltre, non è viva, dato che la transizione $t_1$ non è mai abilitata, dato che la marcatura in cui $p_3$ e $p_4$ hanno almeno un token non è mai raggiungibile. Non è reversibile dato che ogni token aggiunto su $p_1$ non può essere eliminato.
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Limitata & Viva & Reversibile \\ \hline
+        No       & No   & No          \\ \hline
+        \end{tabular}
+\end{center}
+\subsubsection{Esempio 7}
+Si consideri la rete di Petri mostrata in figura
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/PetriEs7.png}
+\end{center}
+A partire dalla marcatura iniziale, la sequenza $t_3t_4$ può essere eseguita un numero indefinito di volte ciclicamente, aumentando sempre il numero di token su $p_1$, che rende la rete non limitata. Si noti come $t_1$ non è mai abilitata, quindi la rete non è viva. La rete è reversibile dato che l'esecuzione ciclica della sequenza $t_5t_2$ scarica $p_1$.
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Limitata & Viva & Reversibile \\ \hline
+        No       & No   & Si          \\ \hline
+        \end{tabular}
+\end{center}
+\subsubsection{Esempio 8}
+Si consideri la rete di Petri mostrata in figura
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/PetriEs7.png}
+\end{center}
+Inizialmente l'unica transizione abilitata è $t_1$, in seguito, l'unica sequenza ammissibile (ciclicamente) è $t_2t_1t_4t_3$, la marcatura iniziale $$ \begin{bmatrix}
+    1\\ 0 \\ 1 \\ 0 \\ 0
+\end{bmatrix}$$ non è più raggiungibile dopo il primo scatto, la rete non è quindi reversibile. La rete è viva e limitata.
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        Limitata & Viva & Reversibile \\ \hline
+        Si       & Si   & No          \\ \hline
+        \end{tabular}
+\end{center}
+\flowerLine 
+\section{Albero di Raggiungibilità}
+Nella sezione precedente, abbiamo analizzato le proprietà di alcune reti di Petri, tramite una rapida analisi della topologia della rete, si vuole dare una metodologia più sistematica. Il seguente strumento, permette di analizzare e studiare la raggiungibilità (e le altre proprietà) di una rete di Petri $ PN=(P,T,A,w,\mathbf{x_0})$.\acc 
+\defi{} Data $PN$, si definisce \textbf{albero di raggiungibilità} una rappresentazione grafica degli stati rappresentata con un albero, in cui i nodi sono le possibili marcature, e c'è un arco orientato da un nodo ad un altro se una transizione permette tale evoluzione dello stato.\acc 
+Il nodo radice rappresenta la marcatura iniziale della rete, l'albero viene disegnato a partire da questo, tracciando tutte le possibili evoluzioni, quando si incontra una marcatura già presente nell'albero, si denota il fatto che sia stata già visitata, e si lascia come foglia. Sono foglie anche le marcature che non abilitano alcuna transizione.\acc 
+Tramite l'analisi dell'albero di raggiungibilità si può studiare\begin{itemize}
+    \item l'insieme di raggiungibilità $R(PN)$, ossia, tutti i nodi dell'albero 
+    \item la reversibilità 
+    \item la vivezza 
+    \item la limitatezza
+\end{itemize}
+\subsubsection{Esempio 1 : Rete limitata}
+Si vuole tracciare l'albero di raggiungibilità della seguente rete di Petri
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/alberoRag1.drawio.pdf}
+\end{center}
+L'unica transizione abilitata è $t_1$
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/alberoRag2.drawio.pdf}
+\end{center}
+L'unica abilitata poi, è $t_2$
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/alberoRag3.drawio.pdf}
+\end{center}
+una volta abilitata $t_2$, possono scattare sia $t_3$ che $t_1$
+\begin{center}
+    \includegraphics[width=\textwidth]{images/alberoRag4.drawio.pdf}
+\end{center}
+Appare una marcatura già visitata (evidenziata in rosa), quindi, si mantiene come foglia, e si continua la diramazione considerando la marcatura $[1 \ 0 \ 1 \ 0]$, da questa, l'unica transazione abilitata è $t_3$.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/alberoRag5.drawio.pdf}
+\end{center}
+Anche qui si ricade in una marcatura già vista, l'albero di raggiungibilità è quindi concluso. I nodi presenti rappresentano l'insieme delle marcature raggiungibili:
+$$ R(PN)= \left\{   \begin{bmatrix}0\\ 1 \\ 0 \\ 1 \end{bmatrix},
+\begin{bmatrix}1\\ 1 \\ 0 \\ 0 \end{bmatrix} ,
+\begin{bmatrix}0\\ 0 \\ 1 \\ 1 \end{bmatrix} ,
+\begin{bmatrix}1\\ 0 \\ 1 \\ 0 \end{bmatrix} 
+\right\} $$
+Essendo $R(PN)$ un insieme finito, se ne conclude che la rete è limitata, in particolare è safe, dato che è $1$-limitata. Inoltre si può vedere che se si trasforma l'albero di raggiungibilità (grafico) in un grafo (unendo in un solo nodo le ripetizioni delle stesse marcature), si nota che questo è fortemente connesso, da tutte le foglie, si può risalire la nodo radice, l'albero è quindi reversibile.
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/alberoRaggiungibilità.drawio.pdf}
+\end{center}
+Inoltre da ogni nodo (marcatura) dell'albero, è possibile eseguire una sequenza che faccia scattare tutte le transizioni, la rete è quindi viva. 
+\subsubsection{Esempio 2 : Rete illimitata}
+Si consideri la seguente rete di Petri
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/AlberoIll.drawio.pdf}
+\end{center}
+La rete è illimitata, si possono accumulare nodi su $p_1$,  ma è anche reversibile, dato che si possono scaricare eseguendo ciclicamente $t_2t_3$. Essendo illimitata, il numero di nodi dell'albero di raggiungibilità è infinito.
+\begin{center}
+    \includegraphics[width=0.2\textwidth]{images/alberoIll2.drawio.pdf}
+\end{center}
+In particolare, i token si conservano su $p_2$ e $p_3$, ma non su $p_1$. 
+$$ R(PN)= \left\{   \begin{bmatrix}x(p_1)\\x(p_2)\\x(p_3) \end{bmatrix} \in \N^4 \text{ tale che }x(p_2)+x(p_3)=1  \right\}$$
+Per rappresentare un numero arbitrariamente grande di nodi, si fa utilizzo del particolare termine $\omega$, che viene definito in modo da rispettare le seguenti proprietà 
+$$ \omega+k=\omega \ \ \ \ \ \ \ \ \omega-k=\omega \ \ \ \ \ \ \ \ \forall \omega \in \N$$
+\redText{slide 38}
+
+
+
+
+
+
+
+
+
+
 
 
 
