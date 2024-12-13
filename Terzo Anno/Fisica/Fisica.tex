@@ -3301,4 +3301,44 @@ $$E_{nrgy}=\frac{1}{2}\frac{1}{\mu_0}B^2\cdot Sl$$\begin{center}
 \end{center}
 Si noti come il termine $Sl$ nella formula dell'energia è proprio il volume circoscritto dalle spire \textit{in cui è contenuto il campo magnetico}, ma allora, l'energia è uguale al volume in cui è contenuto il campo, per un fattore, tale fattore assume il carattere di \textbf{densità di energia del campo magnetico}
 $$ \frac{1}{2}\frac{1}{\mu_0}B^2$$
+\flowerLine 
+\section{Legge di Ampere-Maxwell}
+Abbiamo visto la legge di Ampere  
+$$ \oint_l \bar B d\bar l = \mu_0\int_{S_l}\bar j d\bar s$$
+Il problema è che la legge di Ampere non è valida nei casi in cui il vettore $\bar j$, e conseguentemente la corrente $I$, dipendono dal tempo. \acc 
+Il seguente esempio è una facile dimostrazione della non validità della legge di Ampere, si consideri un circuito con un generatore di forza elettromotrice ed un condensatore. C'è una corrente $I(t)$ variabile nel tempo che carica il condensatore.
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/ampereMax1.eps}
+\end{center}
+C'è un problema, durante la carica del condensatore, è presenta una corrente $I(t)$, che genera un campo magnetico $\bar B$.
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/ampereMax2.eps}
+\end{center}
+C'è un problema, esiste una curva $l$, in cui la circuitazione del campo magnetico non è nulla, ed è identica a $\mu_0I$, nonostante $l$ non sia concatenata al filo in cui scorre corrente.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/ampereMax3.eps}
+\end{center}
+è quindi necessario rivedere l'equazione di Ampere per far si  che sia valida anche in situazioni in cui la corrente non è stazionaria. Maxwell modificò la legge aggiungendo un termine, definendo la \textbf{legge di Ampere-Maxwell}
+\eqImportante{$\displaystyle 
+\oint_l \bar B d\bar l = \mu_0\int_{S_l}\bar j d\bar s+\mu_0\varepsilon_0\frac{d}{dt}\int_{S_l}\bar E d\bar s
+$}
+Si considera un termine aggiuntivo, ossia la derivata del flusso del campo elettrico calcolata sulla stessa superficie che ha $l$ come frontiera.\acc 
+Verifichiamo se funziona nel caso del condensatore (ideale), di cui sappiamo che il campo è uniforme e vale $$ E=\frac{\sigma}{\varepsilon_0}$$
+dove $\sigma$ è la densità di carica sulle lastre. Il flusso del campo attraverso la superficie della lastra è $$ \phi_E=\frac{\sigma}{\varepsilon_0}A$$
+Dove $A$ è la superficie della lastra. Essendo che nel caso di corrente non stazionaria il condensatore si sta caricando (o scaricando), la densità di carica varia nel tempo, e sua volta il flusso 
+$$ \phi_E(t)=\frac{\sigma(t)}{\varepsilon_0}A$$
+la derivata del flusso vale 
+$$ \frac{d}{dt}\phi_E(t)=\frac{d\sigma(t)}{dt}\frac{A}{\varepsilon_0}$$
+ma attenzione, il prodotto densità per superficie è proprio la carica totale, quindi il termine $A\frac{d\sigma(t)}{dt}$ è uguale alla derivata della carica $Q$ nel tempo 
+$$ \frac{d}{dt}\phi_E(t)=\frac{1}{\varepsilon_0}\frac{dQ}{dt}$$
+E infatti la derivata della carica nel tempo è proprio una corrente, in questo caso è detta \textbf{corrente di spostamento}.
+\chapter{Onde Elettromagnetiche}
+\section{Forme Differenziali delle Equazioni di Maxwell}
+\subsection{Divergenza e Rotore}
+Sia $\bar A$ un generico campo vettoriale e sia $S$ una superficie chiusa. Sappiamo che il flusso di $\bar A$ rispetto ad $S$ è
+$$\oint_S \bar A d\bar s $$ 
+Si consideri una superficie chiusa infinitesimale, un cubetto $d\tau$, in questa, il campo vettoriale $\bar A$ è uniforme. Consideriamo il flusso attraverso questo, consideriamo le due superfici del cubo parallele al piano $yz$, ossia, le cui normali sono parallele all'asse $x$.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/Cubetto.eps}
+\end{center}
+i lati del volumetto $d\tau$ sono $dx$, $dy$ e $dz$. Il flusso di $\bar A$ attraverso la superficie del volume in questione, ossia $dydz$, sarà 
+$$A_xdydz+A_ydydz+A_zdydz $$
 \end{document}
