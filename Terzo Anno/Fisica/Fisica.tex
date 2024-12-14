@@ -3339,6 +3339,213 @@ $$\oint_S \bar A d\bar s $$
 Si consideri una superficie chiusa infinitesimale, un cubetto $d\tau$, in questa, il campo vettoriale $\bar A$ è uniforme. Consideriamo il flusso attraverso questo, consideriamo le due superfici del cubo parallele al piano $yz$, ossia, le cui normali sono parallele all'asse $x$.\begin{center}
     \includegraphics[width=0.4\textwidth]{images/Cubetto.eps}
 \end{center}
-i lati del volumetto $d\tau$ sono $dx$, $dy$ e $dz$. Il flusso di $\bar A$ attraverso la superficie del volume in questione, ossia $dydz$, sarà 
-$$A_xdydz+A_ydydz+A_zdydz $$
-\end{document}
+i lati del volumetto $d\tau$ sono $dx$, $dy$ e $dz$. Le facce del cubo la cui normale è parallela all'asse $x$, è $dzdy$\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/Cubetto2.eps}
+\end{center}
+Considerando le proiezioni di $\bar A$ sugli assi, ossia $$ A_x \ \ \ A_y \ \ \ A_z$$
+si ha che il flusso di $\bar A$ lungo le due superfici infinitesime $dydz$ è 
+$$ A_xdydz+A_ydydz+A_zdydz$$
+Consideriamo singolarmente il termine $A_xdydz$, sia $x_0$ il punto in cui risiede la coordinata $x$ della superficie $dydz$\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/Cubetto3.eps}
+\end{center}
+Le due superfici hanno le normali di direzione identica ma verso opposto, per convenzione, la superficie più a sinistra sarà $-dydz$, quella a destra $dydz$. Osservando anche l'immagine, ne consegue che il termine $A_xdydz$ è uguale al valore di $A_x$ nel punto $x_0$ moltiplicato per $-dydz$ (flusso sulla faccia a sinistra) mentre il flusso sulla faccia di destra è uguale al valore di $A_x$ nel punto $x_0+dx$, dato che le due facce distano $dx$, moltiplicato appunto a $dydz$
+$$ A_xdydz=-A_x(x_0)dydz+A_x(x_0+dx)dydz $$
+Ma essendo $dx$ uno spostamento infinitesimo, è possibile considerare il differenziale di $A_x$\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/Differenziale3.eps}
+\end{center}
+Quindi 
+$$A_x(x_0+dx)=A_x(x_0)+\frac{\delta A_x}{\delta x}dx $$
+Ma allora il flusso sulle facce la cui normale è parallela all'asse $x$ risulta essere 
+$$ -A_x(x_0)dydz+A_x(x_0)+\frac{\delta A_x}{\delta x}dxdydz$$
+I primi due termini si annullano, il flusso è quindi 
+$$A_xdydz=\frac{\delta A_x}{\delta x}dxdydz$$
+Analogamente, si avrà che 
+$$A_ydxdz=\frac{\delta A_y}{\delta x}dxdydz$$
+$$A_zdxdy=\frac{\delta A_z}{\delta x}dxdydz$$
+Il flusso attraverso tutte le facce del cubo infinitesimo $d\tau sarà quindi$
+$$ \frac{\delta A_x}{\delta x}dxdydz+\frac{\delta A_y}{\delta x}dxdydz+\frac{\delta A_z}{\delta x}dxdydz=$$
+$$ (\frac{\delta A_x}{\delta x}+\frac{\delta A_y}{\delta x}+\frac{\delta A_z}{\delta x})dxdydz$$
+Ma \textit{attenzione}, il prodotto $dxdydz$ non è altro che il volume $d\tau$
+$$ (\frac{\delta A_x}{\delta x}+\frac{\delta A_y}{\delta x}+\frac{\delta A_z}{\delta x})d\tau$$
+\defi{(Divergenza)} Dato un campo vettoriale $\bar A$, definiamo \textbf{divergenza} di $\bar A$, e denotiamo $\nabla \cdot \bar A$ lo scalare 
+$$\nabla \cdot \bar A= \frac{\delta A_x}{\delta x}+\frac{\delta A_y}{\delta x}+\frac{\delta A_z}{\delta x}$$
+\textbf{Appunto sulla notazione} : Non è da confondersi con il gradiente di un campo vettoriale, che si denota $\nabla \bar A$, ed è un vettore le cui componenti sono le derivate parziali di $\bar A$ rispetto gli assi.\acc 
+Tornando al flusso attraverso le facce di un volume infinitesimo $d\tau$, questo si può riscrivere 
+$$ (\nabla \cdot \bar A)d\tau$$
+Consideriamo adesso una superficie $S$, ed il volume $\tau_S$ di cui $S$ è frontiera. Si consideri l'integrale sul volume $\tau_S$ della divergenza del campo $\bar A$, ossia 
+$$ \iiint_{\tau_S}(\nabla \cdot \bar A)d\tau$$
+Per semplicità scriveremo 
+$$ \int_{\tau_S}(\nabla \cdot \bar A)d\tau$$
+Abbiamo visto come $(\nabla \cdot \bar A)d\tau$ è uguale al flusso sulle facce del volumetto infinitesimo $d\tau$. Nell'integrale di volume, si esegue questo prodotto per infiniti (ed infinitesimi) volumetti che rientrano nella superficie $S$.
+\begin{center}
+    \includegraphics[width=\textwidth]{images/teoDiv.pdf}
+\end{center}
+I volumi, sono anche infinitamente compatti, e le facce sono tutte adiacenti, si consideri la situazione di due cubetti adiacenti.
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/IntDiv2.eps}
+\end{center}
+Le normali sui lati adiacenti sono di uguale modulo, direzione ma verso opposto, queste si annullano, e rimarranno diverse da zero solo le componenti esterne, sul "bordo" del volume composto dai due cubetti, l'implicazione di questo fatto è cruciale. \acc Se consideriamo gli infiniti cubetti che ricoprono l'intera superficie $S$, la divergenza attraverso questi sarà nulla in tutti i cubetti che hanno tutte le facce adiacenti ad altre facce, questo vuol dire che il contributo all'integrale sarà dato \textit{esclusivamente} dalle facce sul bordo, ossia quelle non adiacenti a nessun altro cubetto, ovvero, quello che \textit{compongono la superficie} $S$.\acc 
+Ma allora, essendo che $(\nabla \cdot \bar A)d\tau$ non è altro che il flusso calcolato su tutte le facce del volume, l'integrale della divergenza sul volume $\tau_S$ di cui $S$ è frontiera, è identico al flusso del campo vettoriale $\bar A$ calcolato sulla superficie $S$. \acc 
+\teo{(della Divergenza)} Sia $\bar A$ un campo vettoriale, sia $S$ una superficie chiusa e sia $\tau_S$ il volume di cui $S$ è frontiera, allora
+\eqImportante{$\displaystyle 
+ \oint_S \bar A d\bar s =\int_{\tau_S}(\nabla \cdot \bar A)d\tau
+$}
+Applichiamo subito il teorema al campo elettrico, il flusso del campo elettrico su una superficie chiusa sarà 
+$$\oint_S \bar E d\bar s =\int_{\tau_S}(\nabla \cdot \bar E)d\tau $$
+Ma attenzione, la legge di Gauss enuncia che 
+$$\oint_S \bar E d\bar s =\int_{\tau_S}\frac{\rho}{\varepsilon_0}d\tau $$
+Ma allora 
+$$\int_{\tau_S}(\nabla \cdot \bar E)d\tau=\int_{\tau_S}\frac{\rho}{\varepsilon_0}d\tau $$
+Ne consegue \underline{necessariamente} che 
+\eqImportante{$\nabla \cdot \bar E=\dfrac{\rho}{\varepsilon_0}$}
+Questa è detta \textbf{prima equazione di Maxwell in forma locale}. È infatti la versione locale (e non globale) della legge di Gauss. Naturalmente, esiste anche la forma locale della seconda equazione di Maxwell, ossia quella relativa al campo magnetico:
+\eqImportante{$\nabla \cdot \bar B=0$}
+\defi{(Rotore)} Dato un campo vettoriale $\bar A$, si definisce \textit{rotore di } $\bar A$, e si denota $\nabla \times \bar A $, il vettore 
+$$\hat i\Big(\frac{\delta A_z}{\delta y}-\frac{\delta A_y}{\delta z}\Big)+
+\hat j\Big(\frac{\delta A_x}{\delta z}-\frac{\delta A_z}{\delta x}\Big)+
+\hat k\Big(\frac{\delta A_y}{\delta y}-\frac{\delta A_x}{\delta x}\Big)+ $$
+Si ricordi che $\hat i$, $\hat j$ e $\hat k$ sono i versori che costituiscono la base canonica di $\R^3$. Il rotore si può esprimere come il determinante della seguente matrice 
+$$\nabla \times \bar A=\det\begin{vmatrix}
+    \hat i & \hat j & \hat k \\ 
+    \dfrac{\delta}{\delta x} &  \dfrac{\delta}{\delta y} &  \dfrac{\delta}{\delta z} \\ 
+    A_x & A_y & A_z
+\end{vmatrix} $$
+Come la divergenza ha permesso di scrivere le prime due equazioni di Maxwell in forma locale, esiste una forma locale anche per le due equazioni rimanenti, ossia la legge di Faraday-Neumann-Lenz e la legge di Ampere-Maxwell, in particolare, è di cruciale importanza il seguente risultato (di cui verrà omessa la dimostrazione).\acc  A titolo informativo, i due risultati mostrati in questa sezione (come per il teorema fondamentale del calcolo integrale) sono casi particolari di un teorema generale noto come \textit{teorema di Stokes}.\acc
+\teo{(del Rotore)} Sia $\bar A$ un campo vettoriale, sia $l$ una curva chiusa, e sia $\bar S_l$ una superficie di cui $l$ è frontiera. Allora si ha che 
+\eqImportante{$\displaystyle 
+\oint_l \bar A d\bar l = \int_{S_l}(\nabla \times \bar A)d\bar s
+$}
+Ossia, la circuitazione di $\bar A$ su $l$ è uguale al flusso del rotore di $\bar A$ su una superficie di cui $l$ è frontiera. 
+\subsubsection{Equazioni in Forma Locale}
+Vediamo subito le applicazioni alle ultime due equazioni di Maxwell, la legge di Faraday-Neumann-Lenz afferma che 
+$$ \oint_l \bar E d\bar l = -\frac{d}{dt}\int_{S_l}\bar B d\bar s$$
+Ma la circuitazione $\bar E$, per il teorema del rotore afferma che 
+$$ \oint_l \bar E d\bar l = \int_{S_l}(\nabla \times \bar E)d\bar s$$
+ma allora 
+$$\int_{S_l}(\nabla \times \bar E)d\bar s=-\frac{d}{dt}\int_{S_l}\bar B d\bar s$$
+si può riscrivere portando la derivata dentro l'integrale 
+$$\int_{S_l}(\nabla \times \bar E)d\bar s=\int_{S_l}-\frac{d}{dt}\bar B d\bar s$$
+L'implicazione è \underline{evidente}, la terza equazione di Maxwell in \textit{forma locale} afferma che il rotore del campo elettrico è uguale alla derivata rispetto al tempo (cambiata di segno) del campo magnetico.
+\eqImportante{$\nabla \times \bar E=-\dfrac{d\bar B}{dt}$}
+L'ultima equazione, ossia la legge di Ampere-Maxwell, afferma che 
+$$\oint_l \bar B d\bar l = \mu_0\int_{S_l}\bar j d\bar s+\mu_0\varepsilon_0\frac{d}{dt}\int_{S_l}\bar E d\bar s
+$$
+Ma per il teorema del rotore, la circuitazione del campo magnetico è anche uguale a
+$$\oint_l \bar B d\bar l = \int_{S_l}(\nabla \times \bar B)d\bar s$$
+allora è verificata la seguente identità 
+$$ \mu_0\int_{S_l}\bar j d\bar s+\mu_0\varepsilon_0\frac{d}{dt}\int_{S_l}\bar E d\bar s=\int_{S_l}(\nabla \times \bar B)d\bar s$$
+Anche questa identità ha un implicazione evidente, e determina la quarta equazione di Maxwell in \textit{forma locale}: 
+\eqImportante{$\displaystyle 
+\nabla \times \bar B = \mu_0\bar j + \mu_0\varepsilon_0\frac{d \bar E}{d t}
+$}
+Mostriamo adesso, il procedimento con il quale Maxwell ha trovato la quarta equazione nel caso delle correnti non stazionarie. Il seguente ragionamento è valido anche per una trattazione fluido dinamica, vi è un conduttore cilindrico (o tubo) in cui scorre della corrente (o acqua), c'è quindi un flusso.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/4eqMax.eps}
+\end{center}
+Si consideri la superficie chiusa $S$ in cui sta scorrendo la corrente, delimitata dalle due sezioni $s$ ed $s'$ (la cui area è identica), il flusso attraverso tale superficie $S$ è nullo in quanto la corrente $\bar j$ è uniforme e le sezioni sono identica, impropriamente, si può dire che \begin{quote}
+    "la corrente che entra è identica alla corrente che esce"
+\end{quote}
+$$ \int_S \bar j d\bar s = 0$$
+anche la divergenza è quindi nulla 
+$$  \nabla \cdot \bar j=0\implies  \mu_0\nabla \cdot \bar j=0$$
+e questo è verificato nel caso delle correnti stazionarie.  Costruiamo \textit{ad hoc} il seguente scalare 
+$$ \nabla \cdot (\nabla \times \bar B)$$
+Per definizione di $\nabla$, si verifica facilmente che questo è sempre nullo a prescindere da quale sia il campo alla quale è applicato 
+$$ \nabla \cdot (\nabla \times \bar B)=0$$
+è quindi soddisfatta la seguente identità
+$$\mu_0\nabla \cdot \bar j= \nabla \cdot (\nabla \times \bar B) $$
+che vale nel caso della corrente stazionaria.\acc 
+Che succede nel caso della corrente variabile? Bisogna considerare la derivata della densità di carica nel conduttore
+$$ \nabla \cdot \bar j + \frac{d\rho}{dt}=0$$
+allora 
+$$ \nabla \cdot \bar j = -\frac{d\rho}{dt}$$
+Per la legge di Gauss, sappiamo che 
+$$ \nabla \cdot E = \frac{\rho}{\varepsilon_0}\implies \rho = \varepsilon_0 \nabla \cdot \bar E$$
+Allora si può sostituire alla formula di prima ed ottenere 
+$$ \nabla \cdot \bar j = -\varepsilon_0 \nabla \cdot\frac{d\bar E}{dt}$$
+è possibile raccogliere per l'operatore Nabla 
+$$ \nabla\cdot \Big( \bar j + \varepsilon_0\frac{d\bar E}{dt}\Big)=0$$\
+\textit{Attenzione} : Abbiamo definito prima lo scalare 
+$\nabla \cdot (\nabla \times \bar B)$ che è identicamente nullo, quindi è sicuramente verificata la seguente identità
+$$ \nabla\cdot \Big( \bar j + \varepsilon_0\frac{d\bar E}{dt}\Big)=\nabla \cdot (\nabla \times \bar B)$$
+Il termine $\nabla \cdot (\nabla \times \bar B)$ è nullo anche se moltiplicato per un qualsiasi scalare, quindi è ancora vero che 
+$$ \nabla\cdot \Big( \bar j + \varepsilon_0\frac{d\bar E}{dt}\Big)=\frac{1}{\mu_0}\nabla \cdot (\nabla \times \bar B)$$ 
+e quindi 
+$$ \mu_0\nabla\cdot \Big( \bar j + \varepsilon_0\frac{d\bar E}{dt}\Big)=\nabla \cdot (\nabla \times \bar B)$$
+è possibile semplificare dividendo per  $\nabla$ da entrambi i lati, ed ottenere la \textit{quarta equazione di Maxwell in forma locale} 
+$$\nabla \times \bar B = \mu_0\bar j + \mu_0\varepsilon_0\frac{d \bar E}{d t}$$
+\flowerLine 
+\section{Equazione delle Onde}
+Le equazioni di Maxwell in forma locale sono le seguenti 
+$$\begin{cases}
+    \nabla \cdot \bar E = \dfrac{\rho}{\varepsilon_0}\\ 
+    \nabla \cdot \bar B = 0\\ 
+    \nabla \times \bar E = -\dfrac{d\bar B }{dt}\\ 
+    \nabla \times \bar B = \mu_0\bar j +\mu_0 \varepsilon_0 \dfrac{d\bar E}{dt}
+\end{cases} $$
+Costituisce un sistema di equazioni differenziali alle derivate parziali, ergo, possono esistere due funzioni (campi vettoriali variabili nel tempo) $\bar E : \R^4\rightarrow \R^3$ e $\bar B : \R^4\rightarrow \R^3$ che sono soluzione dell sistema. Per mettere "in moto" il sistema di equazioni, è necessaria la presenza di cariche che accelerano, per far si che il campo elettrico variando nel tempo, generi un campo magnetico variabile.\acc Si consideri ora, un sistema in cui i campi stanno variando, ma la sorgente (cariche in movimento) sono andate perse, oppure, non sono più in movimento, si può riscrivere il sistema considerando l'assenza di cariche in movimento (assenza di corrente elettrica):
+$$\begin{cases}
+    \nabla \cdot \bar E = 0\\ 
+    \nabla \cdot \bar B = 0\\ 
+    \nabla \times \bar E = -\dfrac{d\bar B }{dt}\\ 
+    \nabla \times \bar B = \mu_0 \varepsilon_0 \dfrac{d\bar E}{dt}
+\end{cases} $$
+Consideriamo la legge di Ampere-Maxwell
+$$ \nabla \times \bar B = \mu_0 \varepsilon_0 \dfrac{d\bar E}{dt}$$
+data l'identità, posso applicare il rotore ad entrambi i membri e l'identità è ancora soddisfatta 
+$$\nabla \times(\nabla \times \bar B )= \nabla \times (\mu_0 \varepsilon_0 \dfrac{d\bar E}{dt})$$
+nel secondo membro ovviamente, il rotore si applica al campo $\bar E$
+$$\nabla \times(\nabla \times \bar B )= \mu_0 \varepsilon_0 \dfrac{d}{dt}(\nabla \times \bar E)$$
+\defi{(Laplaciano)} Si può considerare il quadrato dell'operatore nabla, detto \textit{Laplaciano}  o \textit{Operatore di Laplace}
+$$ \nabla^2=\frac{\delta^2}{\delta x^2}+\frac{\delta^2}{\delta y^2}+\frac{\delta^2}{\delta z^2}$$
+Applicando il Laplaciano ad un generico campo vettoriale $\bar A$ si ha la somma delle derivate parziali seconde
+$$\nabla^2\cdot\bar A = \frac{\delta^2\bar A}{\delta x^2}+\frac{\delta^2\bar A}{\delta y^2}+\frac{\delta^2\bar A}{\delta z^2} $$
+Equivale all'applicare la divergenza due volte.\acc 
+\textbf{Osservazione} : Se $\bar A$ è un generico campo vettoriale, il rotore del rotore di $\bar A$ soddisfa la seguente identità 
+$$\nabla \times (\nabla \times \bar A )=\nabla(\nabla \cdot \bar A)-\nabla^2\cdot \bar A $$
+Ossia, è uguale al gradiente applicato alla divergenza, meno il laplaciano. Tornando alla legge di Ampere-Maxwell, essendo 
+$$\nabla \times(\nabla \times \bar B )= \mu_0 \varepsilon_0 \dfrac{d}{dt}(\nabla \times \bar E)$$
+dopo le ultime osservazioni, si può riscrivere 
+$$ \nabla(\nabla \cdot \bar B)-\nabla^2\cdot \bar B=\mu_0 \varepsilon_0 \dfrac{d}{dt}(\nabla \times \bar E)$$ 
+Ma nel sistema delle equazioni di Maxwell è specificato che la divergenza di $\bar B$ è uguale a zero, quindi si può riscrivere 
+$$ -\nabla^2\cdot \bar B=\mu_0 \varepsilon_0 \dfrac{d}{dt}(\nabla \times \bar E)$$ 
+Ma attenzione, nel sistema delle equazioni di Maxwell è presente l'equazione
+$$\nabla \times \bar E = -\dfrac{d\bar B }{dt}$$ 
+Quindi si può sostituire ed ottenere 
+$$ -\nabla^2\cdot \bar B=\mu_0 \varepsilon_0 \dfrac{d}{dt}(-\dfrac{d\bar B }{dt})$$ 
+$$ -\nabla^2\cdot \bar B=-\mu_0 \varepsilon_0 \dfrac{d^2\bar B}{dt^2}$$ 
+Cambiando il segno ad entrambi i membri si ha 
+\eqImportante{$
+\nabla^2\cdot \bar B=\mu_0 \varepsilon_0 \dfrac{d^2\bar B}{dt^2}
+$}
+Ma questa è esattamente la forma generale dell'\textbf{equazione di un onda}.
+\subsubsection{Velocità di Propagazione}
+Data una generica equazione di un onda 
+$$
+\nabla^2\cdot u=\frac{1}{v^2}\dfrac{\delta^2u}{\delta t^2}
+$$
+Il termine $v$ è la velocità di propagazione, nell'equazione delle onde elettromagnetiche si ha 
+$$
+\nabla^2\cdot \bar B=\mu_0 \varepsilon_0 \dfrac{d^2\bar B}{dt^2}
+$$
+Quindi la velocità di propagazione è $x$ dove $\dfrac{1}{x^2}=\mu_0 \varepsilon_0$. Si risolve per $x$
+\begin{eqnarray}
+    \dfrac{1}{x^2}=\mu_0 \varepsilon_0\\ 
+    x^2=\frac{1}{\mu_0 \varepsilon_0}\\ 
+    x=\frac{1}{\sqrt{\mu_0 \varepsilon_0}}
+\end{eqnarray}
+Quindi la velocità di propagazione delle onde elettromagnetiche è
+$\frac{1}{\sqrt{\mu_0 \varepsilon_0}}$, si può calcolare esplicitamente dato che i termini sono noti\begin{itemize}
+    \item $\mu_0$ è la permeabilità magnetica nel vuoto e vale 
+    $$\mu_0=4\pi\cdot 10^{-7} \ \ \frac{\text{H}}{\text{m}} $$ 
+    \item $\varepsilon_0$ è la costante dielettrica nel vuoto e vale (circa)
+    $$\varepsilon_0=8.8541878176\cdot 10^{-12} \ \ \text{C}\frac{\text{N}}{\text{m}^2}$$
+\end{itemize}
+Allora la velocità di propagazione delle onde elettromagnetiche (nel vuoto), che denotiamo $c$ è 
+$$c= \frac{1}{\sqrt{8.8541878176\cdot 10^{-12}\cdot 4\pi\cdot 10^{-7} }} \ \  
+\frac{1}{\sqrt{\frac{\text{H}}{\text{m}}\text{C}\frac{\text{N}}{\text{m}^2}}}
+$$ 
+svolgendo il prodotto si trova che 
+$$c\simeq 2.99792485\cdot 10^8 \ \  \frac{\text{m}}{\text{s}} $$
+\sapbox{\textbf{è la velocità della luce nel vuoto}}
+
+\end{document} 
