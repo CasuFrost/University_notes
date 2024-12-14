@@ -9,7 +9,7 @@
 \date{\vspace{-5ex}}
 \begin{document}
 \usetikzlibrary{automata, arrows.meta, positioning}
-%==================COPERTINA=======================%
+%==================coPERTINA=======================%
 \begin{titlepage}
     
 \begin{center}
@@ -37,7 +37,7 @@ Informatica e Statistica\\
 Dipartimento di Informatica
 \end{titlepage}
 
-%===================FINE COPERTINA======================%
+%===================FINE coPERTINA======================%
 \newpage
 \pagecolor{cartaRiciclata}%\setmainfont{Algerian}
 \Large
@@ -2724,41 +2724,41 @@ Visto che per ipotesi $P=NP$, si ha che $L'\in P$, allora esiste una TM determin
 è quindi chiaro che $L$ viene deciso da tale procedura in tempo esponenziale $\implies L\in EXP$.\hfill$\blacksquare$\acc   
 \teo{(di Ladner)} : Se $P\ne NP$, allora esiste un linguaggio $L\in NP$ tale che $N$ non è $NP$ completo. Se $P=NP$, ogni linguaggio in $NP$ è $NP$ completo. 
 \flowerLine
-\section{La Classe $CONP$}
-Definiamo ora una nuova classe di complessità. La definizione di $NP$ riguarda la decidibilità, ossia la certificazione che un certo elemento sia in un linguaggio, la classe $CONP$ riguarda la certificazione che un elemento \textit{non sia} in un linguaggio.\acc 
+\section{La Classe $coNP$}
+Definiamo ora una nuova classe di complessità. La definizione di $NP$ riguarda la decidibilità, ossia la certificazione che un certo elemento sia in un linguaggio, la classe $coNP$ riguarda la certificazione che un elemento \textit{non sia} in un linguaggio.\acc 
 Ad e sempio, esiste il linguaggio $$ UNSAT=\overline{SAT}$$
 e ci si chiede: sapendo che $SAT\in P$, $UNSAT\in NP$?\acc 
-\defi{($CONP$)} $CONP=\{L \ | \ \overline{L}\in NP\}$\acc 
-\textbf{Osservazione} : $CONP \ne \overline{NP}$\acc 
+\defi{($coNP$)} $coNP=\{L \ | \ \overline{L}\in NP\}$\acc 
+\textbf{Osservazione} : $coNP \ne \overline{NP}$\acc 
 \teo{} $SAT\in P \iff UNSAT \in P$\acc 
 \dimo{} dato un decisore per $SAT$, si decide $UNSAT$ negando la risposta di tale decisore.
 \hfill$\blacksquare$\acc  
-\teo{} $P=COP$, ovvero, $P$ è chiuso per il complemento.\acc 
+\teo{} $P=coP$, ovvero, $P$ è chiuso per il complemento.\acc 
 \dimo{} Dato un decisore per un linguaggio in $P$, è necessario invertire il risultato della TM.\hfill$\blacksquare$\acc   
-\teo{} $CONP\subseteq EXP$\acc 
-\dimo{} $L\in CONP \implies \overline L \in NP \subseteq EXP \implies L\in COEXP$ ma $COEXP=EXP$.
+\teo{} $coNP\subseteq EXP$\acc 
+\dimo{} $L\in coNP \implies \overline L \in NP \subseteq EXP \implies L\in COEXP$ ma $COEXP=EXP$.
 \hfill$\blacksquare$\acc  
 Se $P\ne NP$ è valida la seguente relazione fra insiemi 
 \begin{center}
-    \includegraphics[width=0.3\textwidth ]{images/CONP.eps}
+    \includegraphics[width=0.3\textwidth ]{images/coNP.eps}
 \end{center}
-\teo{} $P\subseteq CONP$\acc 
+\teo{} $P\subseteq coNP$\acc 
 \dimo{} $L\in P\implies \overline L \in P \subseteq NP \implies 
-\overline L \in NP \implies L\in CONP$.\hfill$\blacksquare$\acc  
-\teo{} $P=NP\implies P=CONP=NP$\acc 
-\dimo{} $L\in CONP\implies \overline L \in NP=P \implies \overline L \in P $ ma essendo che $P=COP$ si ha $L \in P$.\hfill$\blacksquare$\acc   
-\textbf{Corollario} : $CONP\ne NP\implies P \ne NP$.\acc
-\defi{} $L$ è $CONP$ completo se\begin{itemize}
-    \item $L\in CONP$
-    \item $\forall A \in CONP, \ \ \ \ A\rid L$
+\overline L \in NP \implies L\in coNP$.\hfill$\blacksquare$\acc  
+\teo{} $P=NP\implies P=coNP=NP$\acc 
+\dimo{} $L\in coNP\implies \overline L \in NP=P \implies \overline L \in P $ ma essendo che $P=coP$ si ha $L \in P$.\hfill$\blacksquare$\acc   
+\textbf{Corollario} : $coNP\ne NP\implies P \ne NP$.\acc
+\defi{} $L$ è $coNP$ completo se\begin{itemize}
+    \item $L\in coNP$
+    \item $\forall A \in coNP, \ \ \ \ A\rid L$
 \end{itemize} 
-\teo{} $UNSAT$ è $CONP$ completo.\acc 
-\dimo{} Ssappiamo che $UNSAT\in CONP$, è vero che 
+\teo{} $UNSAT$ è $coNP$ completo.\acc 
+\dimo{} Ssappiamo che $UNSAT\in coNP$, è vero che 
 $$ A\rid UNSAT \iff \overline A \rid \overline{UNSAT}=SAT$$
-siccome $\overline A$ è in $NP$ e $SAT$ è $NP$ completo, è vero che $\overline A$ si riduce a $SAT$, quindi $UNSAT$ è $CONP$ completo.\hfill$\blacksquare$\acc  
-In passato, diversi problemi che sono in $NP\cap CONP$, sono stati dimostrati essere anche in $P$, si consideri l'insieme 
+siccome $\overline A$ è in $NP$ e $SAT$ è $NP$ completo, è vero che $\overline A$ si riduce a $SAT$, quindi $UNSAT$ è $coNP$ completo.\hfill$\blacksquare$\acc  
+In passato, diversi problemi che sono in $NP\cap coNP$, sono stati dimostrati essere anche in $P$, si consideri l'insieme 
 $$ PRIMES=\{<x> \ | \ x\text{ è un numero primo}\}$$
-nel 1975 è stato dimostrato che $PRIMES\in NP$, e successivamente, nel 2001, è stato dimostrato che $PRIMES\in P$. Altri problemi sono in $NP\cap CONP$, ma non è stato ancora verificato se questi siano o non siano in $P$.
+nel 1975 è stato dimostrato che $PRIMES\in NP$, e successivamente, nel 2001, è stato dimostrato che $PRIMES\in P$. Altri problemi sono in $NP\cap coNP$, ma non è stato ancora verificato se questi siano o non siano in $P$.
 \chapter{Complessità Spaziale}
 Data una TM $M$, si definisce \textit{complessità spaziale} la funzione $S:\N\rightarrow \N$ tale che 
 $$ S(n)=\max_{x \ t.c. \ |x|=n}\Big(
@@ -2964,7 +2964,7 @@ Si ricalcola $P(x)$ fino ad ottenere $y[i]$, scartando il resto, questo permette
 Fino ad ora abbiamo visto esempi di linguaggi\begin{itemize}
     \item $NP$ completi
     \item $NLOG$ completi
-    \item $CONP$ completi
+    \item $coNP$ completi
 \end{itemize}
 Vediamo adesso alcuni esempi di linguaggi $P$ completi e $PSPACE$ completi.\acc 
 \defi{($P$ completezza)} $C$ è $P$ completo se $C\in P$ e $\forall A\in P$ si ha che $A\le_m^L C$\acc 
@@ -2979,9 +2979,10 @@ $$ CIRCUIT-EVAL=\{<C,x> \ | \ C\text{ è un circuito booleano }\land C(x)=1\}$$
 Vediamo adesso un particolare linguaggio, conosciamo il linguaggio $$ SAT=\{<\phi>\ | \ \exists x,\ \phi(x)=1 \}$$
 Ed il linguaggio delle tautologie 
 $$ TAUT=\{<\phi> \ | \ \forall x, \ \phi(x)=1\}$$
+\defi{} Una formula booleana è \textbf{totalmente quantificata} se ogni variabile è coinvolta in un quantificatore (universale o esistenziale). Un esempio:$$\exists z \forall x \exists y (x\rightarrow y) \lor z $$
+Una formula di questo tipo è una \textit{sentenza}, o è vera o falsa, non ci sono assegnamenti di variabili in quanto sono già considerate dai quantificatori.
 Si definisce il seguente linguaggio delle \textbf{Totally Quantified Boolean Formula}
-$$ TQBF=\{<\phi> \ | \  \}$$
-\redText{SCRIVERE DEFINIZIONE : PAGINA 338 del libro} \acc 
+$$ TQBF=\{<\phi> \ | \ \phi \text{ è una TQBF} \}$$
 \teo{} $TQBF\in PSPACE$\acc 
 \dimo{} si considera il seguente algoritmo ricorsivo \begin{quote}
     \code{IsTrue($Q_1x_1,Q_2x_2\dots , Q_nx_n,\phi(x)$)} \\ 
@@ -3001,4 +3002,71 @@ La procedura è descritta dai seguenti passi \begin{itemize}
     \end{quote}
 \end{itemize}
 L'algoritmo è corretto, la profondità di ricorsione è $n$ e ad ogni chiamata ricorsiva lo spazio utilizzato è $O(n)$. Lo spazio totale utilizzato dall'algoritmo è $O(n^2)\implies TQBF\in PSPACE$.\hfill$\blacksquare$\acc 
+\teo{} $TQBF$ è $PSPACE$-difficile. Ossia, ogni problema in $PSPACE$ si riduce in tempo plinomiale (quindi anche in spazio polinomiale) a $TQBF$.\acc 
+\dimo{} Sia $A$ un generico linguaggio in $PSPACE$, esiste una TM che decide $A$ in spazio polinomiale, sia questo $O(n^a)$ per qualche $a\in \N$. Vogliamo definire una riduzione $R : \{0,1\}^*\rightarrow \{0,1\}^*$, che resituisca in output una Totally Quantified Boolean Formula $\phi_M$ tale che 
+$$ x\in A \iff M(x)\text{ accetta }\iff R(x)=\phi_M \text{ è soddisfatta }$$
+\textbf{Osservazione} : Una stessa TQBF può avere più formulazioni equivalenti, ad esempio, si può assumere che tutti i quntificatori siano all'inizioe della formula 
+$$ \exists x_1 \forall x_2 [x_1\rightarrow x_2]\land \dots$$
+Sappiamo che $M(x)$ opera in spazio polinomiale, ha $2^{O(n^a)}$ possibili configurazioni, una di queste sarà $C_{start}$ definita $$ q_0 \ \blank \ ; \  1$$
+Come già visto, si può assumere (senza perdita di generalità) che esista un un'unica configurazione accettante $C_{acc}$.\acc 
+Se dovessimo considerare il grafo $G_{M,x}$ considerato nella dimostrazione del teorema di Savitch, sappiamo che $M(x)$ accetta se e solo se esiste un cammino $C_{start}\longrightarrow C_{acc}$ in $G_{M,x}$.\acc 
+La riduzione $R$ dato $x$, dovrà calcolare una formula $\phi_M$ tale che, questa è soddisfacibile solo se esiste un cammino nel $C_{start}\longrightarrow C_{acc}$ in $G_{M,x}$. La formula $\phi_M$ deve avere dimensione polinomiale rispetto alle dimensioni dell'input $n$, e deve essere computabile in spazio polinomiale.\acc 
+Le variabili di $\phi_M$ sono le possibili configurazioni $C_i$ dell'esecuzione di $M$ su $x$.\acc 
+\textbf{Idea 1)} : Consideriamo una sotto formula $\phi_{yields}$ tale che  $\phi_{yields}(C_i,C_j)=1\iff$ $C_j$ segue la configurazione $C_i$ in accordo con le regole stabilite dalla funzione di transazione $\delta$. Potremmo definire $\phi_M$ come segue 
+$$ \begin{matrix}
+    \phi_M=\exists C_1\exists C_2\exists C_3 \dots \exists C_l\\ 
+    \phi_{yields}(C_1,C_2)\land\phi_{yields}(C_2,C_3)\dots \phi_{yields}(C_{l-1},C_l)
+\end{matrix}$$
+Con $C_1=C_{start}$ e $C_l=C_{acc}$. Seppure l'idea è logicamente corrette, il numero $l$ di possibili configurazioni è in $2^{O(n^a)}$, è quindi esponenziale, allora la riduzione $R$ in questione non è computabile in spazio polinomiale, e quindi non va bene.\acc
+\textbf{Idea 2)} : Un'altra idea è quella di utilizzare l'algoritmo ricorsivo visto nel teorema di Savitch, definiamo la procedura $\phi_k(C_0,C_1)$, che è vera se e solo se esiste un cammino da $C_0$ a $C_1$ di lunghezza $2^k$ passi. La riduzione $R(x)$ dovrà solamente restituire $\phi_{O(n^a)}(C_{start},C_{acc})$.\begin{itemize}
+    \item caso base ($k=0$) : allora $\phi_0(C_0,C_1)$ è vera se e solo se $\phi_{yields}(C_0,C_1)$ è vera, oppure $C_0=C_1$. 
+    \item caso induttivo : $\phi_k(C_0,C_1)$ è definita come:\begin{itemize}
+        \item $\exists \ C_{mid}$ tale che $$\phi_{k-1}(C_0,C_{mid})\land \phi_{k-1}(C_{mid},C_1) $$ 
+    \end{itemize}
+\end{itemize}
+Anche in questo caso la logica è corretta ma le dimensioni di $\phi_k$ sono esponenziali dato che raddoppiano ad ogni passo $$|\phi_k|=O(n^a)+2|\phi_{k-1}|$$\acc
+\textbf{Idea Finale)} : Si considera l'idea 2 ma scritta in maniera diversa,  
+$$\phi_k(C_0,C_1) $$ è definita come segue : $\exists C_{mid}\forall D\forall D'$ tale che 
+$$ \begin{pmatrix}
+    (D,D')=(C_0,C_{mid})\\ \lor \\ 
+    (D,D')=(C_{mid},C_1)
+\end{pmatrix}\implies \phi_{k-1}(D,D')$$
+In questo caso le dimensioni di $\phi_k$ sono $O(n^a)+|\phi_{k-1}|=O(n^{2a})$, che è polinomiale.\hfill$\blacksquare$\acc 
+\teo{(Immerman-Szelepcsényi)}: La classe $NLOG$ è chiusa rispetto al complemento $$NLOG=coNLOG$$\dimo{}
+Essendo che $PATH$ è $NLOG$ completo, è necessario dimostrare che $PATH$ è in $coNLOG$, ossia che $\overline{PATH}$ è in $LOG$.\acc 
+Bisogna quindi trovare un certificato in spazio logaritmico che verifichi che, dato un grafo, $(G,s,t)$, non esiste il cammino $s\longrightarrow t$. \acc 
+Sia $V$ il \textbf{verificatore}, questo ha 3 nastri\begin{itemize}
+    \item Nastro di input, contiene $<G,s,t>$
+    \item Nastro di lavoro, il cui numero di celle usate deve essere logaritmico
+    \item Nastro \textit{read once}, può essere letto una sola volta e conterrà il certificato per dimostrare che il cammino non esiste 
+\end{itemize}
+Definiamo $R_l$ l'insieme dei nodi raggiungibili da $s$ in (al più) $l$ passi, e denotiamo $r_l=|R_l|$ il numero di questi nodi. Chiaramente $R_0=\{s\}\implies r_0=1$. È ovvio che $R_l\subseteq R_{l+1}$.\acc 
+Il certificato contenuto nel nastro read once, sarà diviso in diverse parti (qui sotto organizzate in righe) del tipo $$\begin{matrix}
+    \text{certificato }r_0\\ 
+    \text{certificato }r_1\\ 
+    \text{certificato }r_2\\ 
+    \vdots \\ 
+    \text{certificato }r_n \\ 
+    \text{certificato : non esiste il cammino }s\longrightarrow t
+\end{matrix}$$
+\textit{per ora si omette la struttura interna dei certificati}. \acc
+Il verificatore, per definire il certificato $r_{l+1}$, deve avere in possesso $r_l$ e $l$, e non tutti i certificati precedenti.\\
+\redText{finire/riscrivere la dimostrazione}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}

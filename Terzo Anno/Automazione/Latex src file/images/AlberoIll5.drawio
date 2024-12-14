@@ -1,0 +1,91 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Pagina-1" id="kvbPJ8azaebS1WhQDTqw">
+    <mxGraphModel dx="1671" dy="967" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JoqGVcW52187LZmTOqNK-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="JoqGVcW52187LZmTOqNK-2" target="JoqGVcW52187LZmTOqNK-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-2" value="\(\begin{bmatrix} 0&amp;amp; 1 &amp;amp; 0&amp;nbsp; \end{bmatrix}\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="300" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-3" value="\(t_1\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="470" y="330" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-4" value="\(\begin{bmatrix} \omega&amp;amp; 1 &amp;amp; 0&amp;nbsp; \end{bmatrix}\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="360" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-5" value="\(\begin{bmatrix} \omega&amp;amp; 1 &amp;amp; 0&amp;nbsp; \end{bmatrix}\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="400" y="417.5" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-6" value="\(\begin{bmatrix} \omega&amp;amp; 0 &amp;amp; 1&amp;nbsp; \end{bmatrix}\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="417.5" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-7" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;curved=0;" edge="1" parent="1" target="JoqGVcW52187LZmTOqNK-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="530" y="370" as="sourcePoint" />
+            <mxPoint x="580" y="320" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="555" y="369.75" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-8" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.438;exitDx=0;exitDy=0;exitPerimeter=0;curved=0;" edge="1" parent="1" source="JoqGVcW52187LZmTOqNK-4" target="JoqGVcW52187LZmTOqNK-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="368.75" as="sourcePoint" />
+            <mxPoint x="425" y="411.25" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="435" y="368.75" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-9" value="\(t_1\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="410" y="378.75" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-10" value="\(t_2\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="560" y="378.75" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-11" value="già visitato" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="400" y="443.75" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-12" value="\(\begin{bmatrix} \omega&amp;amp; 0 &amp;amp; 1&amp;nbsp; \end{bmatrix}\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="460" y="520" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-14" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;curved=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="431.25" as="sourcePoint" />
+            <mxPoint x="615" y="520" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="615" y="431" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-15" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.438;exitDx=0;exitDy=0;exitPerimeter=0;curved=0;" edge="1" parent="1" target="JoqGVcW52187LZmTOqNK-12">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="430.25" as="sourcePoint" />
+            <mxPoint x="485" y="472.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="495" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-16" value="\(t_1\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="470" y="480" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-17" value="\(t_3\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="620" y="480" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-18" value="già visitato" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="460" y="546.25" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-19" value="\(\begin{bmatrix} \omega&amp;amp; 1 &amp;amp; 0&amp;nbsp; \end{bmatrix}\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="580" y="520" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JoqGVcW52187LZmTOqNK-20" value="già visitato" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="580" y="546.25" width="70" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

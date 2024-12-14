@@ -5303,13 +5303,60 @@ In particolare, i token si conservano su $p_2$ e $p_3$, ma non su $p_1$.
 $$ R(PN)= \left\{   \begin{bmatrix}x(p_1)\\x(p_2)\\x(p_3) \end{bmatrix} \in \N^4 \text{ tale che }x(p_2)+x(p_3)=1  \right\}$$
 Per rappresentare un numero arbitrariamente grande di nodi, si fa utilizzo del particolare termine $\omega$, che viene definito in modo da rispettare le seguenti proprietà 
 $$ \omega+k=\omega \ \ \ \ \ \ \ \ \omega-k=\omega \ \ \ \ \ \ \ \ \forall \omega \in \N$$
-\redText{slide 38}
-
-
-
-
-
-
+Tenendo ciò in mente, è necessario dare la definizione di \textit{ricoprimento}, è una relazione che coinvolge due marcature $\mathbf{x_1}$, $\mathbf{x_2}$ di una Rete di Petri. Diciamo che $\mathbf{x_1}$ \textbf{ricopre} $\mathbf{x_2}$ se per ogni posto, il numero di token su tale posto nella marcatura $\mathbf{x_1}$ è maggiore o uguale al numero di token sullo stesso posto nella marcatura $\mathbf{x_2}$, e per almeno un posto è strettamente maggiore. 
+$$ \mathbf{x_1}=\begin{bmatrix}
+    x_1(p_1)\\ x_1(p_2)\\\vdots \\x_1(p_{|P|})
+\end{bmatrix} \text{ ricopre } \mathbf{x_2}=\begin{bmatrix}
+    x_2(p_1)\\ x_2(p_2)\\\vdots \\x_2(p_{|P|})
+\end{bmatrix} \implies \forall i, \ x_1(p_i)\ge x_2(p_i)\land \exists j \ \ x_1(p_j)> x_2(p_j)$$
+Se una sequenza di scatti $S$ porta $\mathbf{x_2}$ a $\mathbf{x_1}$, e  
+$\mathbf{x_1}$ ricopre $\mathbf{x_2}$, allora la sequenza $S$ sarà nuovamente ammissibile in $\mathbf{x_2}$. L'implicazione è chiara \begin{quotation}
+    i posti di $\mathbf{x_1}$ che hanno un numero di token strettamente maggiore rispetto a  $\mathbf{x_2}$, potranno \textit{accumulare token all'infinito} se viene eseguita ciclicamente la sequenza $S$.
+\end{quotation}
+\textbf{Esempio}
+$$\begin{bmatrix}
+    2 \\ 1 \\ 0 \\ 1
+\end{bmatrix} \text{ ricopre } 
+\begin{bmatrix}
+    2 \\ 1 \\ 1 \\ 1
+\end{bmatrix} \ \ \ \ \  \ \ \ \ \  
+\begin{bmatrix}
+    56 \\ 22 \\ 12 \\ 16
+\end{bmatrix} \text{ non ricopre } 
+\begin{bmatrix}
+    0 \\ 0 \\ 13 \\ 0
+\end{bmatrix}  \ \ \ \ \    \ \ \ \ \  
+\begin{bmatrix}
+    2 \\ 1 \\ 0 \\ 1
+\end{bmatrix} \text{ non ricopre } 
+\begin{bmatrix}
+    2 \\ 1 \\ 0 \\ 1
+\end{bmatrix}
+$$
+Durante la costruzione dell'albero di raggiungibilità, quando un nodo $\mathbf x$ dell'albero è collegato ad un'altro nodo $\mathbf y$ che lo ricopre, si sostituisce $\omega$ nei posti in cui $y(p_j)>x(p_j)$.\acc 
+Torniamo all'esempio dell'albero con marcature infinite, con l'utilizzo del termine $\omega$ si può rendere finito, partendo dalla prima marcatura, si considera la prima (ed unica) transazione disponibile.
+\begin{center}
+    \includegraphics[width=\textwidth]{images/alberoIll3.drawio.pdf}
+\end{center}
+La marcatura $\begin{bmatrix}
+    \omega & 1 & 0
+\end{bmatrix}$
+rappresenta tutte le marcature in cui i posti 2 e 3 hanno 1 e 0 token, e nel posto 1 c'è un arbitrario numero di token. Da questo insieme di marcature, si può proseguire facendo scattare nuovamente $t_1$, oppure $t_2$.
+\begin{center}
+    \includegraphics[width=\textwidth]{images/AlberoIll4.drawio.pdf}
+\end{center}
+A questo punto, da $\begin{bmatrix}
+    \omega & 0 & 1
+\end{bmatrix}$
+, si può procedere chiamando nuovamente $t_1$ (aggiungendo un token su $p_1$), trovando nuovamente lo stato $\begin{bmatrix}
+    \omega & 0 & 1
+\end{bmatrix}$, oppure facendo scattare $t_3$, e ritrovandosi nello stato (sempre già visitato) $\begin{bmatrix}
+    \omega & 1 & 0
+\end{bmatrix}$.
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/AlberoIll5.drawio.pdf}
+\end{center}
+L'albero di raggiungibilità è completato.
 
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.30)  12 DEC 2024 18:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.30)  14 DEC 2024 15:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -5551,6 +5551,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [174 <./images/alberoRaggiungibilità.drawio.pdf> <./images/AlberoIll.drawio.pdf> <./images/alberoIll2.drawio.pdf>]
 
+pdfTeX warning: pdflatex.exe (file ./images/alberoIll3.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/alberoIll3.drawio.pdf, id=4106, 524.92107pt x 186.6975pt>
+File: images/alberoIll3.drawio.pdf Graphic file (type pdf)
+<use images/alberoIll3.drawio.pdf>
+Package pdftex.def Info: images/alberoIll3.drawio.pdf  used on input line 5339.
+(pdftex.def)             Requested size: 455.24411pt x 161.91843pt.
+
+
+pdfTeX warning: pdflatex.exe (file ./images/AlberoIll4.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/AlberoIll4.drawio.pdf, id=4107, 546.12032pt x 395.55779pt>
+File: images/AlberoIll4.drawio.pdf Graphic file (type pdf)
+<use images/AlberoIll4.drawio.pdf>
+Package pdftex.def Info: images/AlberoIll4.drawio.pdf  used on input line 5346.
+(pdftex.def)             Requested size: 455.24411pt x 329.74937pt.
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.39996pt, for example:
@@ -5558,11 +5574,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[175]
+[175 <./images/alberoIll3.drawio.pdf>]
+
+pdfTeX warning: pdflatex.exe (file ./images/AlberoIll5.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/AlberoIll5.drawio.pdf, id=4128, 191.7564pt x 207.65579pt>
+File: images/AlberoIll5.drawio.pdf Graphic file (type pdf)
+<use images/AlberoIll5.drawio.pdf>
+Package pdftex.def Info: images/AlberoIll5.drawio.pdf  used on input line 5357.
+(pdftex.def)             Requested size: 182.09486pt x 197.19899pt.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[176 <./images/AlberoIll4.drawio.pdf> <./images/AlberoIll5.drawio.pdf>]
 Capitolo 8.
 
 
-[176
+[177
 
 ]
 Package epstopdf Info: Source file: <images/semiPianoConv.eps>
@@ -5572,12 +5605,12 @@ Package epstopdf Info: Source file: <images/semiPianoConv.eps>
 (epstopdf)                    date: 2024-09-26 18:19:11
 (epstopdf)                    size: 11645 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/semiPianoConv-eps-converted-to.pdf images/semiPianoConv.eps>
-(epstopdf)             \includegraphics on input line 5373.
+(epstopdf)             \includegraphics on input line 5420.
 Package epstopdf Info: Output file is already uptodate.
-<images/semiPianoConv-eps-converted-to.pdf, id=4115, 385.44pt x 145.54375pt>
+<images/semiPianoConv-eps-converted-to.pdf, id=4168, 385.44pt x 145.54375pt>
 File: images/semiPianoConv-eps-converted-to.pdf Graphic file (type pdf)
 <use images/semiPianoConv-eps-converted-to.pdf>
-Package pdftex.def Info: images/semiPianoConv-eps-converted-to.pdf  used on input line 5373.
+Package pdftex.def Info: images/semiPianoConv-eps-converted-to.pdf  used on input line 5420.
 (pdftex.def)             Requested size: 273.14923pt x 103.14134pt.
 
 
@@ -5588,11 +5621,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[177
+[178
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.5434 funzione \textit{ritardata}.\begin{center}
+l.5481 funzione \textit{ritardata}.\begin{center}
                                                   <./images/semiPianoConv-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/funRit.eps>
 (epstopdf)                    date: 2024-09-26 18:50:20
@@ -5601,12 +5634,12 @@ Package epstopdf Info: Source file: <images/funRit.eps>
 (epstopdf)                    date: 2024-09-26 18:51:05
 (epstopdf)                    size: 7126 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/funRit-eps-converted-to.pdf images/funRit.eps>
-(epstopdf)             \includegraphics on input line 5436.
+(epstopdf)             \includegraphics on input line 5483.
 Package epstopdf Info: Output file is already uptodate.
-<images/funRit-eps-converted-to.pdf, id=4145, 369.38pt x 145.54375pt>
+<images/funRit-eps-converted-to.pdf, id=4198, 369.38pt x 145.54375pt>
 File: images/funRit-eps-converted-to.pdf Graphic file (type pdf)
 <use images/funRit-eps-converted-to.pdf>
-Package pdftex.def Info: images/funRit-eps-converted-to.pdf  used on input line 5436.
+Package pdftex.def Info: images/funRit-eps-converted-to.pdf  used on input line 5483.
 (pdftex.def)             Requested size: 273.14923pt x 107.62738pt.
 
 
@@ -5617,11 +5650,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[178
+[179
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.5481 ...mathcal{L}[f](p)\cdot\mathcal{L}[g](p)$$
+l.5528 ...mathcal{L}[f](p)\cdot\mathcal{L}[g](p)$$
                                                    <./images/funRit-eps-converted-to.pdf>]
 
 
@@ -5631,7 +5664,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[179]
+[180]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5640,7 +5673,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[180]
+[181]
 Package epstopdf Info: Source file: <images/funTrasf.eps>
 (epstopdf)                    date: 2024-09-28 17:04:21
 (epstopdf)                    size: 85203 bytes
@@ -5648,12 +5681,12 @@ Package epstopdf Info: Source file: <images/funTrasf.eps>
 (epstopdf)                    date: 2024-09-28 17:04:25
 (epstopdf)                    size: 11435 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/funTrasf-eps-converted-to.pdf images/funTrasf.eps>
-(epstopdf)             \includegraphics on input line 5606.
+(epstopdf)             \includegraphics on input line 5653.
 Package epstopdf Info: Output file is already uptodate.
-<images/funTrasf-eps-converted-to.pdf, id=4181, 176.66pt x 100.375pt>
+<images/funTrasf-eps-converted-to.pdf, id=4234, 176.66pt x 100.375pt>
 File: images/funTrasf-eps-converted-to.pdf Graphic file (type pdf)
 <use images/funTrasf-eps-converted-to.pdf>
-Package pdftex.def Info: images/funTrasf-eps-converted-to.pdf  used on input line 5606.
+Package pdftex.def Info: images/funTrasf-eps-converted-to.pdf  used on input line 5653.
 (pdftex.def)             Requested size: 227.62206pt x 129.33264pt.
 
 
@@ -5664,11 +5697,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[181
+[182
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.5619 ...2Y(p)-py(0)-y'(0)+4pY(p)-4y(0)+3Y(p)=0$$
+l.5666 ...2Y(p)-py(0)-y'(0)+4pY(p)-4y(0)+3Y(p)=0$$
                                                    <./images/funTrasf-eps-converted-to.pdf>]
 
 
@@ -5678,7 +5711,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[182]
+[183]
 Package epstopdf Info: Source file: <images/polizeri.eps>
 (epstopdf)                    date: 2024-10-29 18:18:26
 (epstopdf)                    size: 49942 bytes
@@ -5686,12 +5719,12 @@ Package epstopdf Info: Source file: <images/polizeri.eps>
 (epstopdf)                    date: 2024-10-29 18:18:26
 (epstopdf)                    size: 6948 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/polizeri-eps-converted-to.pdf images/polizeri.eps>
-(epstopdf)             \includegraphics on input line 5681.
+(epstopdf)             \includegraphics on input line 5728.
 Package epstopdf Info: Output file is already uptodate.
-<images/polizeri-eps-converted-to.pdf, id=4208, 123.46124pt x 81.30376pt>
+<images/polizeri-eps-converted-to.pdf, id=4261, 123.46124pt x 81.30376pt>
 File: images/polizeri-eps-converted-to.pdf Graphic file (type pdf)
 <use images/polizeri-eps-converted-to.pdf>
-Package pdftex.def Info: images/polizeri-eps-converted-to.pdf  used on input line 5681.
+Package pdftex.def Info: images/polizeri-eps-converted-to.pdf  used on input line 5728.
 (pdftex.def)             Requested size: 227.62206pt x 149.90588pt.
 
 
@@ -5702,7 +5735,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[183 <./images/polizeri-eps-converted-to.pdf>]
+[184 <./images/polizeri-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/zetaomega.eps>
 (epstopdf)                    date: 2024-10-21 23:53:46
 (epstopdf)                    size: 77272 bytes
@@ -5710,12 +5743,12 @@ Package epstopdf Info: Source file: <images/zetaomega.eps>
 (epstopdf)                    date: 2024-10-21 23:54:10
 (epstopdf)                    size: 8782 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/zetaomega-eps-converted-to.pdf images/zetaomega.eps>
-(epstopdf)             \includegraphics on input line 5734.
+(epstopdf)             \includegraphics on input line 5781.
 Package epstopdf Info: Output file is already uptodate.
-<images/zetaomega-eps-converted-to.pdf, id=4225, 187.70125pt x 135.50626pt>
+<images/zetaomega-eps-converted-to.pdf, id=4278, 187.70125pt x 135.50626pt>
 File: images/zetaomega-eps-converted-to.pdf Graphic file (type pdf)
 <use images/zetaomega-eps-converted-to.pdf>
-Package pdftex.def Info: images/zetaomega-eps-converted-to.pdf  used on input line 5734.
+Package pdftex.def Info: images/zetaomega-eps-converted-to.pdf  used on input line 5781.
 (pdftex.def)             Requested size: 227.62206pt x 164.3373pt.
 
 
@@ -5726,7 +5759,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[184 <./images/zetaomega-eps-converted-to.pdf>]
+[185 <./images/zetaomega-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/sistema.eps>
 (epstopdf)                    date: 2024-10-22 14:49:56
 (epstopdf)                    size: 46560 bytes
@@ -5734,12 +5767,12 @@ Package epstopdf Info: Source file: <images/sistema.eps>
 (epstopdf)                    date: 2024-10-22 14:50:13
 (epstopdf)                    size: 6233 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/sistema-eps-converted-to.pdf images/sistema.eps>
-(epstopdf)             \includegraphics on input line 5784.
+(epstopdf)             \includegraphics on input line 5831.
 Package epstopdf Info: Output file is already uptodate.
-<images/sistema-eps-converted-to.pdf, id=4251, 144.54pt x 30.1125pt>
+<images/sistema-eps-converted-to.pdf, id=4304, 144.54pt x 30.1125pt>
 File: images/sistema-eps-converted-to.pdf Graphic file (type pdf)
 <use images/sistema-eps-converted-to.pdf>
-Package pdftex.def Info: images/sistema-eps-converted-to.pdf  used on input line 5784.
+Package pdftex.def Info: images/sistema-eps-converted-to.pdf  used on input line 5831.
 (pdftex.def)             Requested size: 227.62206pt x 47.42374pt.
 
 
@@ -5750,7 +5783,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[185 <./images/sistema-eps-converted-to.pdf>]
+[186 <./images/sistema-eps-converted-to.pdf>]
 \absvshift=\dimen385
 
 
@@ -5761,7 +5794,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[186]
+[187]
 Package epstopdf Info: Source file: <images/guadagnoStatico.eps>
 (epstopdf)                    date: 2024-10-22 16:46:56
 (epstopdf)                    size: 61619 bytes
@@ -5769,12 +5802,12 @@ Package epstopdf Info: Source file: <images/guadagnoStatico.eps>
 (epstopdf)                    date: 2024-10-22 16:47:16
 (epstopdf)                    size: 7253 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/guadagnoStatico-eps-converted-to.pdf images/guadagnoStatico.eps>
-(epstopdf)             \includegraphics on input line 5896.
+(epstopdf)             \includegraphics on input line 5943.
 Package epstopdf Info: Output file is already uptodate.
-<images/guadagnoStatico-eps-converted-to.pdf, id=4273, 182.6825pt x 30.1125pt>
+<images/guadagnoStatico-eps-converted-to.pdf, id=4326, 182.6825pt x 30.1125pt>
 File: images/guadagnoStatico-eps-converted-to.pdf Graphic file (type pdf)
 <use images/guadagnoStatico-eps-converted-to.pdf>
-Package pdftex.def Info: images/guadagnoStatico-eps-converted-to.pdf  used on input line 5896.
+Package pdftex.def Info: images/guadagnoStatico-eps-converted-to.pdf  used on input line 5943.
 (pdftex.def)             Requested size: 227.62206pt x 37.52196pt.
 
 
@@ -5785,7 +5818,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[187]
+[188]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5794,7 +5827,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[188 <./images/guadagnoStatico-eps-converted-to.pdf>]
+[189 <./images/guadagnoStatico-eps-converted-to.pdf>]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5803,7 +5836,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[189]
+[190]
 Package epstopdf Info: Source file: <images/stabilita.eps>
 (epstopdf)                    date: 2024-10-23 20:04:03
 (epstopdf)                    size: 151433 bytes
@@ -5811,12 +5844,12 @@ Package epstopdf Info: Source file: <images/stabilita.eps>
 (epstopdf)                    date: 2024-10-23 20:04:52
 (epstopdf)                    size: 15449 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/stabilita-eps-converted-to.pdf images/stabilita.eps>
-(epstopdf)             \includegraphics on input line 6038.
+(epstopdf)             \includegraphics on input line 6085.
 Package epstopdf Info: Output file is already uptodate.
-<images/stabilita-eps-converted-to.pdf, id=4300, 119.44624pt x 108.405pt>
+<images/stabilita-eps-converted-to.pdf, id=4353, 119.44624pt x 108.405pt>
 File: images/stabilita-eps-converted-to.pdf Graphic file (type pdf)
 <use images/stabilita-eps-converted-to.pdf>
-Package pdftex.def Info: images/stabilita-eps-converted-to.pdf  used on input line 6038.
+Package pdftex.def Info: images/stabilita-eps-converted-to.pdf  used on input line 6085.
 (pdftex.def)             Requested size: 182.09486pt x 165.27353pt.
 Package epstopdf Info: Source file: <images/stabilita2.eps>
 (epstopdf)                    date: 2024-10-23 20:16:25
@@ -5825,19 +5858,19 @@ Package epstopdf Info: Source file: <images/stabilita2.eps>
 (epstopdf)                    date: 2024-10-23 20:16:48
 (epstopdf)                    size: 15568 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/stabilita2-eps-converted-to.pdf images/stabilita2.eps>
-(epstopdf)             \includegraphics on input line 6052.
+(epstopdf)             \includegraphics on input line 6099.
 Package epstopdf Info: Output file is already uptodate.
-<images/stabilita2-eps-converted-to.pdf, id=4301, 119.44624pt x 108.405pt>
+<images/stabilita2-eps-converted-to.pdf, id=4354, 119.44624pt x 108.405pt>
 File: images/stabilita2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/stabilita2-eps-converted-to.pdf>
-Package pdftex.def Info: images/stabilita2-eps-converted-to.pdf  used on input line 6052.
+Package pdftex.def Info: images/stabilita2-eps-converted-to.pdf  used on input line 6099.
 (pdftex.def)             Requested size: 182.09486pt x 165.27353pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 6060--6060
+Overfull \hbox (6.0pt too wide) in paragraph at lines 6107--6107
 [][][][][][] 
  []
 
@@ -5850,11 +5883,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[190
+[191
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.6073 $$
+l.6120 $$
           x(0)=x_0+\delta x$$ <./images/stabilita-eps-converted-to.pdf>]
 
 
@@ -5864,41 +5897,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[191
+[192
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.6105     \end{eqnarray}
+l.6152     \end{eqnarray}
                           <./images/stabilita2-eps-converted-to.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 6159.
+(Font)              <12> on input line 6206.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 6159.
+(Font)              <8> on input line 6206.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 6159.
+(Font)              <6> on input line 6206.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6159.
+(hyperref)                removing `math shift' on input line 6206.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 6159.
+(hyperref)                removing `superscript' on input line 6206.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6159.
+(hyperref)                removing `math shift' on input line 6206.
 
 
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.39996pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.39996pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
-
-[192]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5908,6 +5932,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [193]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[194]
 Package epstopdf Info: Source file: <images/regioneStab.eps>
 (epstopdf)                    date: 2024-10-25 17:19:07
 (epstopdf)                    size: 52644 bytes
@@ -5915,12 +5948,12 @@ Package epstopdf Info: Source file: <images/regioneStab.eps>
 (epstopdf)                    date: 2024-10-25 17:19:07
 (epstopdf)                    size: 7422 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/regioneStab-eps-converted-to.pdf images/regioneStab.eps>
-(epstopdf)             \includegraphics on input line 6331.
+(epstopdf)             \includegraphics on input line 6378.
 Package epstopdf Info: Output file is already uptodate.
-<images/regioneStab-eps-converted-to.pdf, id=4405, 203.76125pt x 109.40875pt>
+<images/regioneStab-eps-converted-to.pdf, id=4458, 203.76125pt x 109.40875pt>
 File: images/regioneStab-eps-converted-to.pdf Graphic file (type pdf)
 <use images/regioneStab-eps-converted-to.pdf>
-Package pdftex.def Info: images/regioneStab-eps-converted-to.pdf  used on input line 6331.
+Package pdftex.def Info: images/regioneStab-eps-converted-to.pdf  used on input line 6378.
 (pdftex.def)             Requested size: 227.62206pt x 122.22643pt.
 
 
@@ -5931,8 +5964,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[194 <./images/regioneStab-eps-converted-to.pdf>]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 6342--6342
+[195 <./images/regioneStab-eps-converted-to.pdf>]
+Overfull \hbox (6.0pt too wide) in paragraph at lines 6389--6389
 [][][][][][] 
  []
 
@@ -5945,7 +5978,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[195]
+[196]
 Package epstopdf Info: Source file: <images/matriceRaggiungibilità.eps>
 (epstopdf)                    date: 2024-10-27 10:14:23
 (epstopdf)                    size: 104254 bytes
@@ -5953,12 +5986,12 @@ Package epstopdf Info: Source file: <images/matriceRaggiungibilità.eps>
 (epstopdf)                    date: 2024-10-27 10:14:47
 (epstopdf)                    size: 9937 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/matriceRaggiungibilità-eps-converted-to.pdf images/matriceRaggiungibilità.eps>
-(epstopdf)             \includegraphics on input line 6371.
+(epstopdf)             \includegraphics on input line 6418.
 Package epstopdf Info: Output file is already uptodate.
-<images/matriceRaggiungibilità-eps-converted-to.pdf, id=4435, 205.76875pt x 65.24374pt>
+<images/matriceRaggiungibilità-eps-converted-to.pdf, id=4488, 205.76875pt x 65.24374pt>
 File: images/matriceRaggiungibilità-eps-converted-to.pdf Graphic file (type pdf)
 <use images/matriceRaggiungibilità-eps-converted-to.pdf>
-Package pdftex.def Info: images/matriceRaggiungibilità-eps-converted-to.pdf  used on input line 6371.
+Package pdftex.def Info: images/matriceRaggiungibilità-eps-converted-to.pdf  used on input line 6418.
 (pdftex.def)             Requested size: 273.14923pt x 86.61578pt.
 Package epstopdf Info: Source file: <images/matriceT.eps>
 (epstopdf)                    date: 2024-10-27 10:30:36
@@ -5967,12 +6000,12 @@ Package epstopdf Info: Source file: <images/matriceT.eps>
 (epstopdf)                    date: 2024-10-27 10:30:51
 (epstopdf)                    size: 10130 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/matriceT-eps-converted-to.pdf images/matriceT.eps>
-(epstopdf)             \includegraphics on input line 6389.
+(epstopdf)             \includegraphics on input line 6436.
 Package epstopdf Info: Output file is already uptodate.
-<images/matriceT-eps-converted-to.pdf, id=4436, 151.56625pt x 65.24374pt>
+<images/matriceT-eps-converted-to.pdf, id=4489, 151.56625pt x 65.24374pt>
 File: images/matriceT-eps-converted-to.pdf Graphic file (type pdf)
 <use images/matriceT-eps-converted-to.pdf>
-Package pdftex.def Info: images/matriceT-eps-converted-to.pdf  used on input line 6389.
+Package pdftex.def Info: images/matriceT-eps-converted-to.pdf  used on input line 6436.
 (pdftex.def)             Requested size: 182.09486pt x 78.38666pt.
 
 
@@ -5983,7 +6016,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[196 <./images/matriceRaggiungibilità-eps-converted-to.pdf> <./images/matriceT-eps-converted-to.pdf>]
+[197 <./images/matriceRaggiungibilità-eps-converted-to.pdf> <./images/matriceT-eps-converted-to.pdf>]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5992,29 +6025,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[197]
+[198]
 
 pdfTeX warning: pdflatex.exe (file ./images/schemiBlocchiElementi.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/schemiBlocchiElementi.pdf, id=4490, 460.6008pt x 322.32419pt>
+<images/schemiBlocchiElementi.pdf, id=4544, 460.6008pt x 322.32419pt>
 File: images/schemiBlocchiElementi.pdf Graphic file (type pdf)
 <use images/schemiBlocchiElementi.pdf>
-Package pdftex.def Info: images/schemiBlocchiElementi.pdf  used on input line 6406.
+Package pdftex.def Info: images/schemiBlocchiElementi.pdf  used on input line 6453.
 (pdftex.def)             Requested size: 295.90588pt x 207.07368pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/blocchiInSerie.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/blocchiInSerie.pdf, id=4491, 409.53pt x 57.09329pt>
+<images/blocchiInSerie.pdf, id=4545, 409.53pt x 57.09329pt>
 File: images/blocchiInSerie.pdf Graphic file (type pdf)
 <use images/blocchiInSerie.pdf>
-Package pdftex.def Info: images/blocchiInSerie.pdf  used on input line 6413.
+Package pdftex.def Info: images/blocchiInSerie.pdf  used on input line 6460.
 (pdftex.def)             Requested size: 295.90588pt x 41.25522pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/blocchiInParallelo.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/blocchiInParallelo.pdf, id=4493, 370.5042pt x 155.6214pt>
+<images/blocchiInParallelo.pdf, id=4547, 370.5042pt x 155.6214pt>
 File: images/blocchiInParallelo.pdf Graphic file (type pdf)
 <use images/blocchiInParallelo.pdf>
-Package pdftex.def Info: images/blocchiInParallelo.pdf  used on input line 6427.
+Package pdftex.def Info: images/blocchiInParallelo.pdf  used on input line 6474.
 (pdftex.def)             Requested size: 295.90588pt x 124.2883pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -6022,10 +6055,10 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/blocchiInRetroazione.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/blocchiInRetroazione.pdf, id=4494, 348.34138pt x 150.5625pt>
+<images/blocchiInRetroazione.pdf, id=4548, 348.34138pt x 150.5625pt>
 File: images/blocchiInRetroazione.pdf Graphic file (type pdf)
 <use images/blocchiInRetroazione.pdf>
-Package pdftex.def Info: images/blocchiInRetroazione.pdf  used on input line 6439.
+Package pdftex.def Info: images/blocchiInRetroazione.pdf  used on input line 6486.
 (pdftex.def)             Requested size: 295.90588pt x 127.90749pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -6039,21 +6072,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[198 <./images/schemiBlocchiElementi.pdf> <./images/blocchiInSerie.pdf>]
+[199 <./images/schemiBlocchiElementi.pdf> <./images/blocchiInSerie.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/regola1.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/regola1.pdf, id=4526, 655.48888pt x 367.3725pt>
+<images/regola1.pdf, id=4579, 655.48888pt x 367.3725pt>
 File: images/regola1.pdf Graphic file (type pdf)
 <use images/regola1.pdf>
-Package pdftex.def Info: images/regola1.pdf  used on input line 6455.
+Package pdftex.def Info: images/regola1.pdf  used on input line 6502.
 (pdftex.def)             Requested size: 318.66948pt x 178.60146pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/regole2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/regole2.pdf, id=4527, 721.73637pt x 290.0436pt>
+<images/regole2.pdf, id=4580, 721.73637pt x 290.0436pt>
 File: images/regole2.pdf Graphic file (type pdf)
 <use images/regole2.pdf>
-Package pdftex.def Info: images/regole2.pdf  used on input line 6459.
+Package pdftex.def Info: images/regole2.pdf  used on input line 6506.
 (pdftex.def)             Requested size: 364.19667pt x 146.36241pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -6067,28 +6100,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[199
+[200
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.6464 \subsubsection
+l.6511 \subsubsection
                      {Analisi della Stabilità nei Sistemi Interconnessi}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.6464 \subsubsection
+l.6511 \subsubsection
                      {Analisi della Stabilità nei Sistemi Interconnessi}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.6464 \subsubsection
+l.6511 \subsubsection
                      {Analisi della Stabilità nei Sistemi Interconnessi} <./images/blocchiInParallelo.pdf> <./images/blocchiInRetroazione.pdf> <./images/regola1.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/instabilitàNascosta.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/instabilitàNascosta.pdf, id=4561, 592.13219pt x 92.2647pt>
+<images/instabilitàNascosta.pdf, id=4614, 592.13219pt x 92.2647pt>
 File: images/instabilitàNascosta.pdf Graphic file (type pdf)
 <use images/instabilitàNascosta.pdf>
-Package pdftex.def Info: images/instabilitàNascosta.pdf  used on input line 6489.
+Package pdftex.def Info: images/instabilitàNascosta.pdf  used on input line 6536.
 (pdftex.def)             Requested size: 364.19667pt x 56.74878pt.
 
 
@@ -6099,26 +6132,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[200
+[201
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.6494 ...} \ \ \  G_2(s)=\frac{N_2(s)}{D_2(s)} $$
+l.6541 ...} \ \ \  G_2(s)=\frac{N_2(s)}{D_2(s)} $$
                                                    <./images/regole2.pdf> <./images/instabilitàNascosta.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/instabilitàNascosta2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/instabilitàNascosta2.pdf, id=4588, 536.0025pt x 150.5625pt>
+<images/instabilitàNascosta2.pdf, id=4641, 536.0025pt x 150.5625pt>
 File: images/instabilitàNascosta2.pdf Graphic file (type pdf)
 <use images/instabilitàNascosta2.pdf>
-Package pdftex.def Info: images/instabilitàNascosta2.pdf  used on input line 6500.
+Package pdftex.def Info: images/instabilitàNascosta2.pdf  used on input line 6547.
 (pdftex.def)             Requested size: 364.19667pt x 102.30072pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/instabilitàNascosta3.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/instabilitàNascosta3.pdf, id=4589, 504.92638pt x 143.5764pt>
+<images/instabilitàNascosta3.pdf, id=4642, 504.92638pt x 143.5764pt>
 File: images/instabilitàNascosta3.pdf Graphic file (type pdf)
 <use images/instabilitàNascosta3.pdf>
-Package pdftex.def Info: images/instabilitàNascosta3.pdf  used on input line 6514.
+Package pdftex.def Info: images/instabilitàNascosta3.pdf  used on input line 6561.
 (pdftex.def)             Requested size: 364.19667pt x 103.56332pt.
 
 
@@ -6129,7 +6162,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[201 <./images/instabilitàNascosta2.pdf> <./images/instabilitàNascosta3.pdf>]
+[202 <./images/instabilitàNascosta2.pdf> <./images/instabilitàNascosta3.pdf>]
 Package epstopdf Info: Source file: <images/scalino.eps>
 (epstopdf)                    date: 2024-10-27 15:45:09
 (epstopdf)                    size: 62166 bytes
@@ -6137,12 +6170,12 @@ Package epstopdf Info: Source file: <images/scalino.eps>
 (epstopdf)                    date: 2024-10-27 15:45:18
 (epstopdf)                    size: 7420 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/scalino-eps-converted-to.pdf images/scalino.eps>
-(epstopdf)             \includegraphics on input line 6530.
+(epstopdf)             \includegraphics on input line 6577.
 Package epstopdf Info: Output file is already uptodate.
-<images/scalino-eps-converted-to.pdf, id=4622, 211.79124pt x 109.40875pt>
+<images/scalino-eps-converted-to.pdf, id=4675, 211.79124pt x 109.40875pt>
 File: images/scalino-eps-converted-to.pdf Graphic file (type pdf)
 <use images/scalino-eps-converted-to.pdf>
-Package pdftex.def Info: images/scalino-eps-converted-to.pdf  used on input line 6530.
+Package pdftex.def Info: images/scalino-eps-converted-to.pdf  used on input line 6577.
 (pdftex.def)             Requested size: 273.14923pt x 141.11113pt.
 
 
@@ -6157,7 +6190,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[202 <./images/scalino-eps-converted-to.pdf>]
+[203 <./images/scalino-eps-converted-to.pdf>]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -6166,16 +6199,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[203
+[204
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.6701 \subsubsection
+l.6748 \subsubsection
                      {Sistemi del secondo ordine}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.6701 \subsubsection
+l.6748 \subsubsection
                      {Sistemi del secondo ordine}]
 
 
@@ -6185,7 +6218,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[204]
+[205]
 Package epstopdf Info: Source file: <images/poloSmorzPuls.eps>
 (epstopdf)                    date: 2024-10-29 20:36:37
 (epstopdf)                    size: 135282 bytes
@@ -6193,15 +6226,15 @@ Package epstopdf Info: Source file: <images/poloSmorzPuls.eps>
 (epstopdf)                    date: 2024-10-29 20:37:42
 (epstopdf)                    size: 14712 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/poloSmorzPuls-eps-converted-to.pdf images/poloSmorzPuls.eps>
-(epstopdf)             \includegraphics on input line 6871.
+(epstopdf)             \includegraphics on input line 6918.
 Package epstopdf Info: Output file is already uptodate.
-<images/poloSmorzPuls-eps-converted-to.pdf, id=4656, 117.43875pt x 117.43875pt>
+<images/poloSmorzPuls-eps-converted-to.pdf, id=4709, 117.43875pt x 117.43875pt>
 File: images/poloSmorzPuls-eps-converted-to.pdf Graphic file (type pdf)
 <use images/poloSmorzPuls-eps-converted-to.pdf>
-Package pdftex.def Info: images/poloSmorzPuls-eps-converted-to.pdf  used on input line 6871.
+Package pdftex.def Info: images/poloSmorzPuls-eps-converted-to.pdf  used on input line 6918.
 (pdftex.def)             Requested size: 182.09486pt x 182.09625pt.
 
-Overfull \hbox (2.37589pt too wide) in paragraph at lines 6870--6878
+Overfull \hbox (2.37589pt too wide) in paragraph at lines 6917--6925
  [] 
  []
 
@@ -6214,7 +6247,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[205]
+[206]
 \absvshift=\dimen386
 
 
@@ -6225,16 +6258,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[206 <./images/poloSmorzPuls-eps-converted-to.pdf>]
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.39996pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.39996pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
-
-[207]
+[207 <./images/poloSmorzPuls-eps-converted-to.pdf>]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -6244,10 +6268,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [208]
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -6257,6 +6277,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [209]
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -6276,11 +6300,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [211]
 
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[212]
+
 pdfTeX warning: pdflatex.exe (file ./images/ls.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/ls.pdf, id=4730, 207.65579pt x 79.2561pt>
+<images/ls.pdf, id=4783, 207.65579pt x 79.2561pt>
 File: images/ls.pdf Graphic file (type pdf)
 <use images/ls.pdf>
-Package pdftex.def Info: images/ls.pdf  used on input line 7249.
+Package pdftex.def Info: images/ls.pdf  used on input line 7296.
 (pdftex.def)             Requested size: 318.66948pt x 121.64359pt.
 Package epstopdf Info: Source file: <images/nyquist1.eps>
 (epstopdf)                    date: 2024-11-11 13:08:35
@@ -6289,12 +6322,12 @@ Package epstopdf Info: Source file: <images/nyquist1.eps>
 (epstopdf)                    date: 2024-11-11 13:08:55
 (epstopdf)                    size: 9508 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/nyquist1-eps-converted-to.pdf images/nyquist1.eps>
-(epstopdf)             \includegraphics on input line 7254.
+(epstopdf)             \includegraphics on input line 7301.
 Package epstopdf Info: Output file is already uptodate.
-<images/nyquist1-eps-converted-to.pdf, id=4731, 421.575pt x 316.18124pt>
+<images/nyquist1-eps-converted-to.pdf, id=4784, 421.575pt x 316.18124pt>
 File: images/nyquist1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/nyquist1-eps-converted-to.pdf>
-Package pdftex.def Info: images/nyquist1-eps-converted-to.pdf  used on input line 7254.
+Package pdftex.def Info: images/nyquist1-eps-converted-to.pdf  used on input line 7301.
 (pdftex.def)             Requested size: 227.62206pt x 170.72084pt.
 
 
@@ -6305,7 +6338,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[212 <./images/ls.pdf>]
+[213 <./images/ls.pdf>]
 Package epstopdf Info: Source file: <images/nyquist2.eps>
 (epstopdf)                    date: 2024-11-11 13:10:37
 (epstopdf)                    size: 20230 bytes
@@ -6313,12 +6346,12 @@ Package epstopdf Info: Source file: <images/nyquist2.eps>
 (epstopdf)                    date: 2024-11-11 13:11:00
 (epstopdf)                    size: 9098 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/nyquist2-eps-converted-to.pdf images/nyquist2.eps>
-(epstopdf)             \includegraphics on input line 7259.
+(epstopdf)             \includegraphics on input line 7306.
 Package epstopdf Info: Output file is already uptodate.
-<images/nyquist2-eps-converted-to.pdf, id=4754, 421.575pt x 316.18124pt>
+<images/nyquist2-eps-converted-to.pdf, id=4807, 421.575pt x 316.18124pt>
 File: images/nyquist2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/nyquist2-eps-converted-to.pdf>
-Package pdftex.def Info: images/nyquist2-eps-converted-to.pdf  used on input line 7259.
+Package pdftex.def Info: images/nyquist2-eps-converted-to.pdf  used on input line 7306.
 (pdftex.def)             Requested size: 227.62206pt x 170.72084pt.
 
 
@@ -6329,29 +6362,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[213 <./images/nyquist1-eps-converted-to.pdf> <./images/nyquist2-eps-converted-to.pdf>]
+[214 <./images/nyquist1-eps-converted-to.pdf> <./images/nyquist2-eps-converted-to.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/classicoControllo.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/classicoControllo.pdf, id=4775, 184.77031pt x 68.1747pt>
+<images/classicoControllo.pdf, id=4828, 184.77031pt x 68.1747pt>
 File: images/classicoControllo.pdf Graphic file (type pdf)
 <use images/classicoControllo.pdf>
-Package pdftex.def Info: images/classicoControllo.pdf  used on input line 7278.
+Package pdftex.def Info: images/classicoControllo.pdf  used on input line 7325.
 (pdftex.def)             Requested size: 273.14923pt x 100.79396pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/classicoControllo2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/classicoControllo2.pdf, id=4776, 271.97609pt x 68.1747pt>
+<images/classicoControllo2.pdf, id=4829, 271.97609pt x 68.1747pt>
 File: images/classicoControllo2.pdf Graphic file (type pdf)
 <use images/classicoControllo2.pdf>
-Package pdftex.def Info: images/classicoControllo2.pdf  used on input line 7282.
+Package pdftex.def Info: images/classicoControllo2.pdf  used on input line 7329.
 (pdftex.def)             Requested size: 318.66948pt x 79.88055pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/classicoControllo3.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/classicoControllo3.pdf, id=4777, 367.3725pt x 99.2508pt>
+<images/classicoControllo3.pdf, id=4830, 367.3725pt x 99.2508pt>
 File: images/classicoControllo3.pdf Graphic file (type pdf)
 <use images/classicoControllo3.pdf>
-Package pdftex.def Info: images/classicoControllo3.pdf  used on input line 7286.
+Package pdftex.def Info: images/classicoControllo3.pdf  used on input line 7333.
 (pdftex.def)             Requested size: 364.19667pt x 98.39941pt.
 
 
@@ -6362,18 +6395,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[214 <./images/classicoControllo.pdf> <./images/classicoControllo2.pdf> <./images/classicoControllo3.pdf>]
+[215 <./images/classicoControllo.pdf> <./images/classicoControllo2.pdf> <./images/classicoControllo3.pdf>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 7312.
+(hyperref)                removing `math shift' on input line 7359.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 7312.
+(hyperref)                removing `math shift' on input line 7359.
 
 File: images/classicoControllo3.pdf Graphic file (type pdf)
 <use images/classicoControllo3.pdf>
-Package pdftex.def Info: images/classicoControllo3.pdf  used on input line 7315.
+Package pdftex.def Info: images/classicoControllo3.pdf  used on input line 7362.
 (pdftex.def)             Requested size: 273.14923pt x 73.80031pt.
 
 
@@ -6384,7 +6417,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[215]
+[216]
 Package epstopdf Info: Source file: <images/situazioneTipicaF.eps>
 (epstopdf)                    date: 2024-11-11 14:59:23
 (epstopdf)                    size: 76143 bytes
@@ -6392,20 +6425,20 @@ Package epstopdf Info: Source file: <images/situazioneTipicaF.eps>
 (epstopdf)                    date: 2024-11-11 15:01:45
 (epstopdf)                    size: 8291 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/situazioneTipicaF-eps-converted-to.pdf images/situazioneTipicaF.eps>
-(epstopdf)             \includegraphics on input line 7343.
+(epstopdf)             \includegraphics on input line 7390.
 Package epstopdf Info: Output file is already uptodate.
-<images/situazioneTipicaF-eps-converted-to.pdf, id=4837, 264.99pt x 135.50626pt>
+<images/situazioneTipicaF-eps-converted-to.pdf, id=4891, 264.99pt x 135.50626pt>
 File: images/situazioneTipicaF-eps-converted-to.pdf Graphic file (type pdf)
 <use images/situazioneTipicaF-eps-converted-to.pdf>
-Package pdftex.def Info: images/situazioneTipicaF-eps-converted-to.pdf  used on input line 7343.
+Package pdftex.def Info: images/situazioneTipicaF-eps-converted-to.pdf  used on input line 7390.
 (pdftex.def)             Requested size: 273.14923pt x 139.68877pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 7347--7347
+Overfull \hbox (6.0pt too wide) in paragraph at lines 7394--7394
 [][][][][][] 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 7351--7351
+Overfull \hbox (6.0pt too wide) in paragraph at lines 7398--7398
 [][][][][][] 
  []
 
@@ -6418,13 +6451,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[216 <./images/situazioneTipicaF-eps-converted-to.pdf>]
+[217 <./images/situazioneTipicaF-eps-converted-to.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/EsempioProgControllore1.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/EsempioProgControllore1.pdf, id=4863, 266.91718pt x 79.2561pt>
+<images/EsempioProgControllore1.pdf, id=4916, 266.91718pt x 79.2561pt>
 File: images/EsempioProgControllore1.pdf Graphic file (type pdf)
 <use images/EsempioProgControllore1.pdf>
-Package pdftex.def Info: images/EsempioProgControllore1.pdf  used on input line 7355.
+Package pdftex.def Info: images/EsempioProgControllore1.pdf  used on input line 7402.
 (pdftex.def)             Requested size: 273.14923pt x 81.10863pt.
 
 
@@ -6435,7 +6468,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[217 <./images/EsempioProgControllore1.pdf>]
+[218 <./images/EsempioProgControllore1.pdf>]
 Package epstopdf Info: Source file: <images/EsercizioControlloreBode.eps>
 (epstopdf)                    date: 2024-11-11 17:16:43
 (epstopdf)                    size: 61858 bytes
@@ -6443,12 +6476,12 @@ Package epstopdf Info: Source file: <images/EsercizioControlloreBode.eps>
 (epstopdf)                    date: 2024-11-11 17:16:57
 (epstopdf)                    size: 12086 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/EsercizioControlloreBode-eps-converted-to.pdf images/EsercizioControlloreBode.eps>
-(epstopdf)             \includegraphics on input line 7417.
+(epstopdf)             \includegraphics on input line 7464.
 Package epstopdf Info: Output file is already uptodate.
-<images/EsercizioControlloreBode-eps-converted-to.pdf, id=4877, 1445.4pt x 718.685pt>
+<images/EsercizioControlloreBode-eps-converted-to.pdf, id=4930, 1445.4pt x 718.685pt>
 File: images/EsercizioControlloreBode-eps-converted-to.pdf Graphic file (type pdf)
 <use images/EsercizioControlloreBode-eps-converted-to.pdf>
-Package pdftex.def Info: images/EsercizioControlloreBode-eps-converted-to.pdf  used on input line 7417.
+Package pdftex.def Info: images/EsercizioControlloreBode-eps-converted-to.pdf  used on input line 7464.
 (pdftex.def)             Requested size: 455.24411pt x 226.35406pt.
 
 
@@ -6459,7 +6492,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[218]
+[219]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -6468,8 +6501,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[219 <./images/EsercizioControlloreBode-eps-converted-to.pdf>]
-runsystem(latexminted cleantemp  --timestamp 20241212181359 C3D4E790C99396CA622960DA4F70679E)...disabled (restricted).
+[220 <./images/EsercizioControlloreBode-eps-converted-to.pdf>]
+runsystem(latexminted cleantemp  --timestamp 20241214155838 C3D4E790C99396CA622960DA4F70679E)...disabled (restricted).
 
  (Automazione.aux)
  ***********
@@ -6480,17 +6513,17 @@ Package rerunfilecheck Info: File `Automazione.out' has not changed.
 (rerunfilecheck)             Checksum: A1C70E34EC951B4F77255DC42655A08A;23104.
  ) 
 Here is how much of TeX's memory you used:
- 64929 strings out of 473682
- 1644874 string characters out of 5719215
- 2547317 words of memory out of 5000000
- 86602 multiletter control sequences out of 15000+600000
+ 64951 strings out of 473682
+ 1645686 string characters out of 5719215
+ 2547489 words of memory out of 5000000
+ 86623 multiletter control sequences out of 15000+600000
  662767 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,20n,104p,863b,2437s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX2/fonts/type1/public/fourier/fourier-orns.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Automazione.pdf (220 pages, 60261528 bytes).
+Output written on Automazione.pdf (221 pages, 60691055 bytes).
 PDF statistics:
- 5133 PDF objects out of 5155 (max. 8388607)
- 562 named destinations out of 1000 (max. 500000)
- 2598 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 5186 PDF objects out of 6186 (max. 8388607)
+ 563 named destinations out of 1000 (max. 500000)
+ 2613 words of extra memory for PDF output out of 10000 (max. 10000000)
 
