@@ -5357,13 +5357,34 @@ A questo punto, da $\begin{bmatrix}
     \includegraphics[width=0.4\textwidth]{images/AlberoIll5.drawio.pdf}
 \end{center}
 L'albero di raggiungibilità è completato.
-
-
-
-
-
-
-
+\flowerLine 
+\section{Analisi Matriciale}
+Si può considerare la matrice di incidenza $\mathbf C$ per osservare le proprietà strutturali di una rete di Petri, si ricordi che data una marcatura $\mathbf x$ ed un vettore di sequenze $\mathbf s$, lo stato successivo è 
+$$ \mathbf x' = \mathbf x + \mathbf C \mathbf s$$
+Sappiamo che nella rete può essere presente un insieme di posti in cui il numero di token si conservi (se tale insieme copre tutti i posti, la rete è limitata), tale vincolo si esprime con la disuguaglianza 
+$$ \gamma^T\cdot\mathbf x = c \text{ costante per ogni }\mathbf x \in R(PN)$$
+Dove $\gamma\in \N^{|P|}$,  e $\gamma^T$ è il trasposto di $\gamma$, ossia semplicemente il vettore riga, quindi $\gamma^T\cdot\mathbf x$ è uno scalare. Il vettore $\gamma$ è detto \textbf{P-Invariante}, per ovvie ragioni, le sue componenti devono essere intere e non negative.
+$$ \begin{bmatrix}
+    \gamma_1& 
+    \dots &
+    \gamma_{|P|}
+\end{bmatrix}\cdot 
+\begin{bmatrix}
+    x(p_1)\\ 
+    \vdots \\ 
+    x(p_{|P|})
+\end{bmatrix}=\gamma_1x(p_1)+\dots + \gamma_{|P|}  x(p_{|P|})=c \text{ costante}$$
+Ovviamente anche lo stato iniziale $\mathbf{x_0}$ deve essere conservativa 
+$$\gamma^T\cdot\mathbf{x_0} = c$$
+è quindi vero che 
+$$\gamma^T\cdot\mathbf{x_0} =\gamma^T\cdot\mathbf{x} \ \ \ \ \forall \mathbf x\in R(PN)$$
+Ma $\mathbf x = \mathbf{x_0}+ \mathbf C \mathbf s$ per qualche sequenza ammissibile $\mathbf s$ quindi 
+$$\gamma^T\cdot\mathbf{x_0} =\gamma^T\cdot(\mathbf{x_0}+ \mathbf C)$$
+ma allora 
+$$\gamma^T\cdot\mathbf{x_0} =\gamma^T\cdot\mathbf{x_0}+\gamma^T\cdot\mathbf C $$
+Ne consegue che 
+$$ \gamma^T\cdot\mathbf C = \mathbf 0$$
+ma allora è possibile è possibile trovare un \textit{P-Invariante} studiando \textbf{il nucleo della matrice di incidenza} $\mathbf C$.
 
 
 
