@@ -4976,7 +4976,7 @@ Una marcatura $\mathbf{x^*}$ si dice \textit{marcatura di base} se essa è raggi
     \includegraphics[width=0.4\textwidth]{images/reversibile.png}
 \end{center}
 è una rete reversibile, e l'insieme dei nodi raggiungibili è 
-$$R(PN_) = \left\{ \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \right\}$$
+$$R(PN) = \left\{ \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \right\}$$
 La seguente rete invece\begin{center}
     \includegraphics[width=0.4\textwidth]{images/irreversibile.png}
 \end{center}
@@ -5359,6 +5359,7 @@ A questo punto, da $\begin{bmatrix}
 L'albero di raggiungibilità è completato.
 \flowerLine 
 \section{Analisi Matriciale}
+\subsection{P-Invarianti}
 Si può considerare la matrice di incidenza $\mathbf C$ per osservare le proprietà strutturali di una rete di Petri, si ricordi che data una marcatura $\mathbf x$ ed un vettore di sequenze $\mathbf s$, lo stato successivo è 
 $$ \mathbf x' = \mathbf x + \mathbf C \mathbf s$$
 Sappiamo che nella rete può essere presente un insieme di posti in cui il numero di token si conservi (se tale insieme copre tutti i posti, la rete è limitata), tale vincolo si esprime con la disuguaglianza 
@@ -5383,9 +5384,610 @@ $$\gamma^T\cdot\mathbf{x_0} =\gamma^T\cdot(\mathbf{x_0}+ \mathbf C)$$
 ma allora 
 $$\gamma^T\cdot\mathbf{x_0} =\gamma^T\cdot\mathbf{x_0}+\gamma^T\cdot\mathbf C $$
 Ne consegue che 
-$$ \gamma^T\cdot\mathbf C = \mathbf 0$$
-ma allora è possibile è possibile trovare un \textit{P-Invariante} studiando \textbf{il nucleo della matrice di incidenza} $\mathbf C$.
+$$ \gamma^T\cdot\mathbf C = \mathbf 0\iff \mathbf C^T\gamma=\mathbf 0$$
+ma allora è possibile è possibile trovare un \textit{P-Invariante} studiando \textbf{il nucleo della matrice di incidenza} $\mathbf C$ \textbf{trasposta}.
+\acc 
+Se $\gamma_1,\gamma_2$ sono P-invarianti, allora anche $k_1\gamma_1+k_2\gamma_2$, per ogni $k_1,k_2\in \N$ è un P-invariante. Definiamo \textbf{supporto} di $\gamma$, l'insieme dei posti $i$ tali per cui, l'$i$-esima coordinata di $\gamma$ è non nulla. Ad esempio 
+$$ \gamma=\begin{bmatrix}
+    5 \\ 0 \\ 2 
+\end{bmatrix}$$
+ha supporto 1 e 3. Il supporto $\|\gamma\|$ è l'insieme dei posti che compaiono nell'\textbf{equazione di invarianza}
+$$ \gamma^T\mathbf x=\gamma^T\mathbf{x_0}$$
+$$ \gamma_1x(p_1)+\dots + \gamma_{|P|}x(p_{|P|})= \gamma_1x_0(p_1)+\dots + \gamma_{|P|}x_0(p_{|P|})$$
+Tale equazione contiene i vettori che soddisfano il vincolo di conservatività.
+Sia $I_{\gamma}(PN)$ l'insieme dei possibili vettori di $\N^{|P|}$ che soddisfano l'equazione di invarianza, allora tutte le marcature raggiungibili soddisfano anche l'equazione di invarianza 
+$$ R(PN)\subseteq I_{\gamma}(PN) \subseteq \N^{|P|}$$
+Se $\gamma$ è un P-invariante, e non esiste alcun $\gamma'$ per cui $$\|\gamma'\|\subseteq\|\gamma\| $$
+Ossia, il suo supporto non contiene quello di nessun'altro P-invariante, si dice che $\gamma$ è a \textbf{supporto minimo}. Inoltre $\gamma$ è \textbf{canonico} se il massimo comun divisore dei suoi elementi diversi da zero è 1.
+\acc 
+I posti che sono contenuti nel supporto di un P-invariante costituiscono la parte conservativa della rete. Se un P-invariante ha supporto uguale all'insieme di tutti i posti, la rete è limitata, questo si verifica anche se l'insieme di tutti i posti è uguale all'unione dei supporti di tutti i P-invarianti.\acc 
+\textbf{Esempio} : C'è una PN con 3 posti $P=\{1,2,3\}$  e con due P-invarianti 
+$$\gamma=\begin{bmatrix}
+    1 \\ 0 \\ 1
+\end{bmatrix}  \ \ \ \gamma'=\begin{bmatrix}
+    0 \\ 1 \\ 1
+\end{bmatrix}$$
+Si ha che 
+$$ \|\gamma\|=\{1,3\} \ \ \ \ \ \|\gamma'\|=\{2,3\}$$
+Essendo che $\|\gamma\|\cup \|\gamma'\| = P$, la rete è \textit{limitata}. 
+\subsubsection{Analisi Matriciale : Esempio 1} 
+Vediamo un esempio di analisi matriciale di una rete di Petri, sia questa
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/petriMatrix.pdf}
+\end{center}
+La marcatura iniziale è $$\mathbf{x_0}=\begin{bmatrix}
+    1\\ 0\\ 0
+\end{bmatrix}$$ 
+La matrice di incidenza è 
+$$ \mathbf C = \mathbf O - \mathbf I =\begin{bmatrix}
+    1 & 1 \\ 
+    1 & 0 \\ 
+    1 & 0
+\end{bmatrix}-\begin{bmatrix}
+    1 & 0 \\ 
+    0 & 1 \\ 
+    0 & 1
+\end{bmatrix}=\begin{bmatrix}
+    0 & 1 \\ 
+    1 & -1 \\ 
+    1 & -1
+\end{bmatrix}
+$$
+Voglio studiare il nucleo della matrice $\mathbf C^T$
+$$\begin{bmatrix}
+    \gamma_1 & \gamma_2 & \gamma_3
+\end{bmatrix} \begin{bmatrix}
+    0 & 1 \\ 
+    1 & -1 \\ 
+    1 & -1
+\end{bmatrix}=\begin{bmatrix}
+    0 & 0 & 0
+\end{bmatrix}$$
+Equivale al sistema di equazioni lineari 
+$$ 
+\begin{cases}
+    \gamma_2+\gamma_3=0\\ 
+    \gamma_1-\gamma_2-\gamma_3=0
+\end{cases}
+$$
+$$ 
+\begin{cases}
+    \gamma_2=-\gamma_3\\ 
+    \gamma_1+\gamma_3-\gamma_3=0
+\end{cases}
+$$
+$$ 
+\begin{cases}
+    \gamma_2=-\gamma_3\\ 
+    \gamma_1=0
+\end{cases}
+$$
+L'insieme dei vettori che soddisano l'equazione è 
+$$ \begin{bmatrix}
+    0 & \alpha & -\alpha
+\end{bmatrix}^T \ \ \ \ \alpha\in \N$$
+Purtroppo non esiste alcun vettore di tale insieme tale per cui gli elementi sono tutti non negativi (come richiesto dai P-invarianti), ne consegue che la rete è illimitata e non ci sono insiemi di posti conservativi. 
+\subsubsection{Analisi Matriciale : Esempio 2} 
+Si consideri la seguente rete di Petri
+\begin{center}
+    \includegraphics[width=0.18\textwidth]{images/petriMatrix2.pdf}
+\end{center}
+La matrice di incidenza (trasposta) è 
+$$ \mathbf C^T = 
+\begin{bmatrix}
+    1 & 0& -1 & 0 \\ 
+    -1 & 1 & 1 &-1\\ 
+    0 & -1 & 0 & 1
+\end{bmatrix}
+$$
+Si vuole trovare il nucleo della matrice trasposta$$
+\begin{bmatrix}
+    1 & 0& -1 & 0 \\ 
+    -1 & 1 & 1 &-1\\ 
+    0 & -1 & 0 & 1
+\end{bmatrix}\begin{bmatrix}
+    \gamma_1\\\gamma_2\\ \gamma_3\\ \gamma_4
+\end{bmatrix}=\begin{bmatrix}
+    0 \\ 0 \\ 0 
+\end{bmatrix}$$
+Si ha il seguente sistema lineare $$
+\begin{cases}
+    \gamma_1-\gamma_3=0\\ 
+    -\gamma_1+\gamma_2+\gamma_3-\gamma_4=0\\ 
+    -\gamma_2+\gamma_4=0
+\end{cases}$$
+$$
+\begin{cases}
+    \gamma_1=\gamma_3\\ 
+    \gamma_2=\gamma_4
+\end{cases}$$
+Quindi i P-invarianti sono i vettori del tipo 
+$$\begin{bmatrix}
+    a \\ b \\ a \\b 
+\end{bmatrix} $$
+con $a,b\in\N$, un esempio (canonico e a supporto minimo) si ha con $a=1, \ \ b=0$
+$$\gamma=\begin{bmatrix}
+    1 \\ 0 \\ 1 \\0 
+\end{bmatrix} $$
+\subsubsection{Analisi Matriciale : Esempio 3} 
+Si consideri la seguente rete di Petri
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/petriMatrix3.png}
+\end{center}
+Si hanno marcatura iniziale e matrice di incidenza 
+$$\mathbf{x_0}=\begin{bmatrix}
+    1\\ 1\\ 0\\ 0 \\ 0
+\end{bmatrix} \ \ \ \  \ \ \ \ 
+\mathbf{C}=\begin{bmatrix}
+    -1 & 0 & 1 & 0 \\ 
+    -1 & 0 & 0 & 1 \\ 
+    1 & -1 & 0 & 0 \\ 
+    0 & 1 & -1 & 0 \\ 
+    0 & 1 & 0 & -1 \\ 
+\end{bmatrix}
+$$
+Essendo $\mathbf C$ un'applicazione lineare che va da $\N^4$ a $\N^5$, ed essendo il suo rango $3$, per il teorema della dimensione, sappiamo che la dimensione del nucleo dovrà essere 2. Data l'equazione
+$$\gamma^T\begin{bmatrix}
+    -1 & 0 & 1 & 0 \\ 
+    -1 & 0 & 0 & 1 \\ 
+    1 & -1 & 0 & 0 \\ 
+    0 & 1 & -1 & 0 \\ 
+    0 & 1 & 0 & -1 \\ 
+\end{bmatrix}=\mathbf 0^T 
+$$
+Si ha il sistema 
+$$\begin{cases}
+    -\gamma_1-\gamma_2+\gamma_3=0\\ 
+    -\gamma_3+\gamma_4+\gamma_5=0\\ 
+    \gamma_1-\gamma_4=0\\ 
+    \gamma_2-\gamma_5=0
+\end{cases} $$
+$$\begin{cases}
+    -\gamma_1-\gamma_2+\gamma_3=0\\ 
+    -\gamma_3+\gamma_1+\gamma_2=0\\ 
+    \gamma_1=\gamma_4\\ 
+    \gamma_2=\gamma_5
+\end{cases} $$
+$$\begin{cases}
+    \gamma_3=\gamma_1+\gamma_2=0\\ 
+    \gamma_1=\gamma_4\\ 
+    \gamma_2=\gamma_2
+\end{cases} $$
+Il generico P-invariante è del tipo 
+$$\begin{bmatrix}
+    a \\ 
+    b \\ 
+    a+b \\ 
+    a \\ 
+    b
+\end{bmatrix} \ \ \ \ a,b\in\N$$
+Due P-invarianti canonici (che costituiscono una base per $\ker(\mathbf C^T)$) sono 
+$$\gamma'=\begin{bmatrix}
+    1 \\ 
+    0 \\ 
+    1 \\ 
+    1 \\ 
+    0
+\end{bmatrix} 
+\ \ \ \ \ \ \ \
+\gamma''=\begin{bmatrix}
+    0 \\ 
+    1 \\ 
+    1 \\ 
+   0 \\ 
+    1
+\end{bmatrix}$$
+I supporti sono 
+$$\|\gamma'\|=\{p_1,p_3,p_4\} \ \ \ \ \ \ \ \ \|\gamma''\|=\{p_2,p_3,p_5\}$$
+Essendo tutti i posti conservativi : $\|\gamma'\|\cup \|\gamma''\|=P$, la rete di Petri è limitata. Se consideriamo 
+$$\gamma=\gamma'+\gamma''= \begin{bmatrix}
+    1 \\ 
+    1 \\ 
+    2 \\ 
+   1 \\ 
+    1
+\end{bmatrix}$$
+abbiamo l'equazione d'invarianza 
+$$ \gamma^T\mathbf x = \gamma^T\mathbf{x_0}$$
+ebbene 
+$$ \gamma^T\mathbf x =
+\gamma^T\mathbf{x_0}=\begin{bmatrix}
+    1 &
+    1 &
+    2 & 
+   1& 
+    1
+\end{bmatrix}\begin{bmatrix}
+    1\\ 1\\ 0\\ 0 \\ 0
+\end{bmatrix} =2
+$$
+Ciò significa che per ogni marcatura raggiungibile, ci saranno al più 2 token in tutta la rete.
+\subsubsection{Analisi Matriciale : Esempio 4} 
+Si consideri la seguente rete di Petri
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/petriMatrix4.pdf}
+\end{center}
+Si hanno marcatura iniziale e matrice di incidenza 
+$$\mathbf{x_0}=\begin{bmatrix}
+    0\\ 1\\ 1\\ 0 
+\end{bmatrix} \ \ \ \  \ \ \ \ 
+\mathbf{C}=\begin{bmatrix}
+    -1 & 1 & 0 \\
+    1 & -2 & -1  \\ 
+    0 & 0 & 1  \\ 
+    1 & 0 & 0  
+\end{bmatrix}
+$$
+Si trova il nucelo 
+$$ \gamma^T\begin{bmatrix}
+    -1 & 1 & 0 \\
+    1 & -2 & -1  \\ 
+    0 & 0 & 1  \\ 
+    1 & 0 & 0  
+\end{bmatrix}=\mathbf 0^T \implies$$
+$$\begin{cases}
+    -\gamma_1+\gamma_2+\gamma_4=0\\ 
+    \gamma_1-2\gamma_2=0\\ 
+    -\gamma_2+\gamma_3=0
+\end{cases} $$
+$$\begin{cases}
+    \gamma_2=\gamma_4\\ 
+    \gamma_1=2\gamma_2\\ 
+    \gamma_4=\gamma_3
+\end{cases} $$
+I vettori che soddisfano l'equazione sono del tipo $$
+\begin{bmatrix}
+    2\alpha \\ 
+    \alpha \\ 
+    \alpha \\ 
+    \alpha
+\end{bmatrix}$$
+per ogni $\alpha\in \N$, la soluzione è un P-invariante. il P-invariante canonico si ha per $\alpha=1$
+ $$\gamma=
+\begin{bmatrix}
+    2 \\ 
+    1 \\ 
+    1\\ 
+   1
+\end{bmatrix}$$
+Il supporto di $\gamma$ è $P$, quindi la rete è conservativa e limitata. 
+Il numero di token massimi nella rete si ottiene dall'equazione di invarianza 
+$$ \gamma^T\mathbf{x_0}=\begin{bmatrix}
+    2 & 
+    1  &
+    1 &
+   1
+\end{bmatrix}\begin{bmatrix}
+    0\\ 1\\ 1\\ 0 
+\end{bmatrix}=2\cdot 0 + 1 \cdot 1 + 1 \cdot 1 + 1 \cdot 0 = 2$$
+\subsection{T-Invarianti}
+I P-invarianti riguardano lo studio della conservatività, trattiamo adesso la possibilità di una rete di Petri, di riportarsi allo stato iniziale (reversibilità). Ci si pone la domanda, esiste una sequenza di scatti $\mathbf s$, che sia ammissibile e non nulla ($\mathbf s \ne \mathbf 0$), tale che, se applicata alla marcatura iniziale $\mathbf x_0$ la riporti a questa?
+\acc 
+Scritto formalmente, una sequenza $\eta $ di questo tipo soddisfa 
+$$ \mathbf x_0+\mathbf C\eta = \mathbf x_0$$
+ossia 
+$$\mathbf C\eta =\mathbf 0$$ 
+Una sequenza di questo tipo è quindi un \textbf{vettore del nucleo di }$\mathbf C$, non negativo  e a valori interi, si definisce \textbf{T-invariante}\begin{itemize}
+    \item I T-Invarianti sono vettori  non negativi e a valori interi del nucleo di $\mathbf C$
+    \item I P-Invarianti sono vettori  non negativi e a valori interi del nucleo di $\mathbf C^T$
+\end{itemize}
+Un T-invariante è un vettore che descrive le occorrenze della sequenza, è necessario \textit{verificare ulteriormente} che esista una sequenza \underline{ammissibile} che abbia tali occorrenze.
+\acc Si consideri la seguente rete di Petri 
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/AlberoIll.drawio.pdf}
+\end{center}
+La matrice di incidenza è 
+$$\mathbf C = \begin{bmatrix}
+  1 & -1 & 0\\ 
+  0 & -1 & 1 \\ 
+  0 & 1 & -1
+\end{bmatrix}$$
+si studia il nucleo 
+$$ \begin{bmatrix}
+    1 & -1 & 0\\ 
+    0 & -1 & 1 \\ 
+    0 & 1 & -1
+  \end{bmatrix}\eta = \mathbf 0 \implies 
+  $$
+  $$ \begin{cases}
+    \eta_1-\eta_2=0\\ 
+    -\eta_2+\eta_3=0\\ 
+    \eta_2-\eta_3=0
+  \end{cases}$$
+  $$ \begin{cases}
+    \eta_1=\eta_2\\ 
+    \eta_2=\eta_3\\ 
+  \end{cases}\implies \eta_1=\eta_2=\eta_3$$
+Il nucleo di $\mathbf C$ è 
+$$ \ker(\mathbf C)=\{\begin{bmatrix} \alpha&\alpha&\alpha\end{bmatrix}^T \text{ per qualche }\alpha\}$$
 
+$$ \text{T-invarianti }=\{\begin{bmatrix} \alpha&\alpha&\alpha\end{bmatrix}^T  \ \ \ \alpha\in \N\}$$
+Quindi, una sequenza riporta lo stato iniziale in se stesso se le transizioni avvengono tutte un numero uguale di volte, consideriamo il T-invariante canonico 
+$$ \eta=\begin{bmatrix}
+    1\\1\\1
+\end{bmatrix}$$
+Si osservi come, di tutte le possibili sequenze in cui ogni transizione avviene una sola volta, solamente una è ammissibile, ad esempio 
+\begin{itemize}
+    \item $t_1t_3t_2 $ non ammissibile 
+    \item $t_2t_1t_3 $ non ammissibile 
+    \item $t_1t_2t_3 $ unica sequenza ammissibile 
+\end{itemize}
+\flowerLine 
+\section{Reti di Petri Estese}
+In questa breve sezione mostriamo alcune varianti delle reti di Petri che possono aumentarne la semantica permettendo descrizioni più dettagliate dei sistemi, anche se complicando il modello si perde la possibilità di studiarne analiticamente le proprietà.\acc 
+Una rete di Petri è \textbf{temporizzata} quando si aggiunge, per una generica transizione $t_j$ (o per più transizioni), una \textit{struttura di clock} $\mathbf v_j$.\acc 
+$\mathbf v_j$ è un vettore associato alla transizione $t_j$, è un vettore in $(\R\backslash\{0\})^k$, per un arbitrario $k$ positivo. 
+$$ \mathbf v_j=\begin{bmatrix}
+    v_{j,1}\\ 
+    v_{j,2}\\ 
+    v_{j,3}\\ \vdots \\ v_{j,k}
+\end{bmatrix} \ \ \ \ v_{j,i}\in \R\backslash\{0\}$$
+Definito il significato di \textit{unità di tempo}, il significato della struttura di clock è il seguente\begin{itemize}
+    \item Se quando la transizione $t_j$ scatta per la $i$-esima volta, allora, i token della transizione verranno prelevati subito, ma quelli in uscita (da inserire nei posti uscenti) verranno inseriti dopo $v_{j,i}$ unità di tempo.
+\end{itemize}
+Se $t_j$ è abilitata (per l'$i$-esima volta) all'istante $\tau$, i token in entrata saranno rimossi nell'istante $\tau$, quelli in uscita saranno inseriti nell'istante $\tau+v_{j,i}$.
+\acc 
+Se una transizione ha una struttura di clock composta da un solo elemento, quello sarà il tempo di attesa ad ogni singola abilitazione. 
+\subsubsection{Esempio}
+Si consideri la rete di Petri in figura \ref{temporizzata1}, l'insieme degli stati raggiungibili si può ricavare da un analisi superficiale, osservando la topologia della rete. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/temporizzata1.png}
+    \caption{Rete di Petri Bloccante}
+    \label{temporizzata1}
+\end{figure}
+$$ R(PN)=\left\{
+\begin{bmatrix}1\\1\\0\\0\\0\end{bmatrix}, 
+\begin{bmatrix}0\\1\\1\\0\\0\end{bmatrix}, 
+\begin{bmatrix}1\\0\\0\\1\\0\end{bmatrix}, 
+\begin{bmatrix}0\\0\\1\\1\\0\end{bmatrix},
+\begin{bmatrix}0\\0\\0\\0\\1\end{bmatrix}
+\right\} $$ 
+
+La rete è \textit{bloccante}, la sequenza $t_1t_2t_5$ porta la rete in una marcatura da cui non è più abilitata nessuna  transizione. Si possono \textit{temporizzare} $t_1$,$t_2$,$t_3$ e $t_4$ in modo tale che $t_3$ e $t_4$ non siano mai abilitate nello stesso momento $\implies$ lo stato bloccante diventa irraggiungibile.
+Siano $\alpha$ e $\beta$ le unità di tempo necessarie alle transizioni, con $\beta > \alpha > 0$.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/temporizzata2.png}
+\end{center} La situazione è la seguente\begin{itemize}
+    \item supponiamo che dallo stato iniziale scattino le transizioni abilitate, ossia $t_1$ e $t_2$
+    \item i token da $p_1$ e $p_2$ vengono rimossi 
+    \item dopo $\alpha$ unità di tempo, su $p_3$ apparirà il token, su $p_4$ invece no, dato che dovrà attendere ancora $\beta-\alpha$ unità di tempo 
+    \item essendo $t_3$ l'unica transizione abilitata, scatterà questa 
+    \item infine, una volta passate tutte le $\beta$ unità di tempo, arriverà il token su $p_4$, a questo punto, $t_4$ sarà l'unica abilitata, quindi scatterà. 
+    \item La transizione $t_5$ non sarà mai abilitata
+\end{itemize}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/evoluzioneTemporale.eps}
+\end{center}
+Un'altra possibile estensione è quella in cui si considerano token di colori differenti, in modo che alcune transizioni richiedano solo token di un certo tipo e non di un'altro. \acc 
+Un'altra estensione riguarda l'aggiunta di archi inibitori, ossia, archi che vanno da un posto ad una transizione, e rendono automaticamente disabilitata la transizione se ci sono token su tale posto.\acc 
+Queste estensioni limitano la verifica delle proprietà con i metodi analitici, in tal caso lo strumento di simulazione diviene essenziale.\flowerLine 
+\section{Modellistica}
+In questa sezione ci occupiamo di modellare un sistema fisico guidato da eventi (che ha delle determinate specifiche) con le reti di Petri, ci sono due approcci
+\begin{itemize}
+    \item \textbf{approccio fisico}\begin{itemize}
+        \item 
+     si suddivide il sistema in sottosistemi elementari
+     \item  si modellano tali sottosistemi con reti di Petri elementari
+     \item  si compongono tali reti elementari   \end{itemize}
+     \item \textbf{approccio funzionale}\begin{itemize}
+        \item si individuano le fasi logiche del funzionamento del sistema
+        \item si identificano le risorse fisiche che eseguono tali fasi
+        \item si allocano le fasi sulle risorse \end{itemize}
+\end{itemize}
+Vedriamo entrambi gli approcci con un'unico esempio: Vi è un \textit{impianto di produzione} e movimentazione, ci sono\begin{itemize}
+    \item 3 magazzini (buffer) di capacità illimitata 
+    \item 3 robot per il trasporto dei pezzi (lavorano su un solo pezzo contemporaneamente)
+    \item un nastro trasportatore di capacità pari a 3 
+    \item due macchine utensili che possono lavorare un pezzo alla volta 
+\end{itemize}
+Il processo deve seguire la procedura descritta:\begin{enumerate}
+    \item I pezzi arrivano spontaneamente nel buffer $B1$ o nel buffer $B2$
+    \item quando c'è almeno un pezzo su $B1$, il robot $R1$ prende il pezzo e lo trasferisce sulla macchina utensile $M1$
+    \item quando c'è almeno un pezzo su $B2$, il robot $R2$ prende il pezzo e lo trasferisce sulla macchina utensile $M2$
+    \item quando la lavorazione di $M1$ termina, il pezzo viene posto sul nastro trasportatore $N$ (a patto che non ci siano già 3 pezzi)
+    \item quando la lavorazione di $M2$ termina, il pezzo viene posto sul nastro trasportatore $N$ (a patto che non ci siano già 3 pezzi)
+    \item il roboto $R3$ preleva i pezzi dal nastro $N$ e li trasferisce sull'ultimo buffer di uscita $B3$
+\end{enumerate}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/petriModeling.pdf}
+\end{center}
+\subsection{Approccio Fisico}
+Possiamo classificare le diverse componenti del processo in \begin{itemize}
+    \item risorse, come i robot e le macchine, che processano un numero finito di pezzi alla volta 
+    \item buffer, che accumulano pezzi, in quantità limitata o non, con accesso singolo o multiplo 
+\end{itemize}
+Le risorse possono essere modellate con la rete fondamentale:
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/risorsaPetri.png}
+\end{center}
+Questa modellerà sia i robot che le macchine. I buffer $B1$ e $B2$ con arrivo spontaneo si modellano con una transizione che non ha precondizioni (arrivo dei pezzi) ed un posto su cui si possono accumulare infiniti token
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/arrivoPezzi.png}
+\end{center}
+Infine ci sono i buffer di capacità limitata, con uno o più accessi, questi si modellano in modo simile alle risorse, solo che si usano i token per descrivere lo spazio libero rimanente. Il nastro, sarà un buffer a capacità 3, il cui accesso (riempimento) può avvenire da due posti differenti
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{images/buffer3.png}
+\end{center}
+Si può rappresentare l'impianto di produzione mettendo in sequenza le diverse componenti nell'ordine esatto
+\begin{center}
+    \includegraphics[width=\textwidth]{images/petriModeling2.png}
+\end{center}
+Tali reti elementari vanno composte, facendo coincidere le transizioni in uscita di un componente con le transizioni in entrata dell'altro. La rete finale che descrive l'intero processo è la seguente
+\begin{center}
+    \includegraphics[width=\textwidth]{images/petriModeling3.pdf}
+\end{center}
+\flowerLine 
+\section{Controllo e Supervisione}
+Supponiamo di avere una rete di Petri già definita, e di voler imporre dei vincoli su di essa (ad esempio, imporre la conservatività di un insieme di nodi), allora, è possibile definire un \textbf{supervisore}, che agisce in baso allo stato della marcatura corrente. \acc 
+Tale supervisore è esso stesso una rete di Petri, che introduce ulteriori posti, che tramite una determinata logica impediscono al sistema di ricadere negli stati (marcature) definite inammisibili dalle specifiche.\begin{itemize}
+    \item Un evento può essere intrinsecamente \underline{inosservabile}, il modello quindi \textit{non può avere archi} uscenti dal posto che descrive tale evento 
+    \item Un evento può essere \underline{non controllabile}, il posto in questione quindi, non potrà avere nel modello archi entranti 
+\end{itemize}
+Spesso il controllo di una rete di Petri riguarda\begin{itemize}
+    \item problema degli stati proibiti: per evitare una collisione su risorse condivise, 
+    alcune marcature vanno rese non ammissibili
+    \item  problema delle specifiche mutuamente esclusive: per soddisfare i limiti di 
+    capacità del sistema, vanno imposti dei vincoli sulle marcature raggiungibili 
+    durante tutta l'evoluzione della rete
+\end{itemize}
+Vedremo due approcci nel definire il supervisore, nell'ipotesi che tutte le transizioni siano osservabili (possiamo aggiungere archi su queste).
+\subsection{Posti di Controllo}
+Questo approccio è il meno algoritmico, si aggiungono dei posti detti, appunto, di \textit{controllo}, che sono aggiuntivi ed esterni al modello originale della rete.  Questi posti avranno degli archi che interagiscono con le transizioni del sistema al fine di imporre determinati comportamenti, si consideri, come semplice esempio, la seguente rete di Petri 
+\begin{center}
+    \includegraphics[width=0.34\textwidth]{images/PetriControlloPosti1.eps}
+\end{center}
+Supponiamo di voler \textit{imporre} la conservatività su $p_1$, in particolare, si vuole far si che su $p_1$ ci sia sempre almeno un token (rendendo quindi inammisibile la sequenza $t_1t_1$).
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/PetriControlloPosti2.eps}
+\end{center}
+L'aggiunta del posto $p_c$ impone che a seguito della sequenza $t_1$ deve necessariamente essere eseguita $t_2$, garantendo che $x(p_1)\ge 1$.\acc 
+Mostriamo ora un esempio più dettagliato dell'uso dei posti di controllo, si consideri il modello dell'impianto di produzione visto nella sezione precedente
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/modelloImpiantoPetri.png}
+\end{center}
+Si impone la seguente specifica\begin{itemize}
+    \item Sul nastro di uscita $N$, devono essere posizionati i pezzi in maniera sequenziale e ripetitiva, secondo l'ordine\begin{itemize}
+        \item due pezzi della macchina $M1$
+        \item un pezzo della macchina $M2$
+    \end{itemize}
+    nessun'altra sequenza di posizionamento è ammessa.
+\end{itemize}
+Per ottenere i risultati desiderati si aggiungono due posti di controlli che interagiscono con le transizioni legate all'inserimento su $N$
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/postiControllo.png}
+\end{center}
+\subsection{Controllo Mediante Invarianti}
+Questo tipo di controllo è sistematico ed algoritmico, può essere applicato \underline{solo quando} i vincoli sono espressi nella forma di \textbf{disequazioni lineari} del tipo 
+$$ h^T\mathbf x \le k \text{ dove }k\in \N,  \ \ \ \ h\in \Z^{|P|}$$
+In pratica, sono vincoli che impongono la conservatività su un insieme di posti. Se $R(PN)$ è l'insieme delle marcature raggiungibili della rete originale, il controllo vuole imporre un insieme di marcature \textit{ammissibili}
+$$ M(PN)=\{\mathbf x \in R(PN) \  \text{ tale che } \ h^T\mathbf x \le k \}$$
+Un classico esempio che necessita di tale modellizzazione, può essere quello di 3 posti che modellizzano delle operazioni che necessitano della stessa risorsa. In generale, ci possono essere più disequazioni (vincoli), denotiamo $q$ il numero di questi 
+$$ \begin{matrix}
+    h_1^T\mathbf x \le k_1\\ 
+    h_2^T\mathbf x \le k_2\\ \vdots \\ 
+    h_q^T\mathbf x \le k_q
+\end{matrix}$$
+Ed ogni marcatura ammissibile deve soddisfarle tutte.
+Si può anche imporre il vincolo che due posti $p_i$ e $p_j$ devono avere \textit{lo stesso numero} di token:
+$$x(p_i)=x(p_j)\iff \begin{matrix}
+    x(p_i)-x(p_j) \le 0\\ 
+    x(p_j)-x(p_i) \le 0
+\end{matrix}$$
+Viviamo nell'ipotesi in cui tutte le transizioni sono \textit{controllabili}. Come soddisfare un vincolo? Sia $h_i^T$ uno dei $q$ vincoli$$  h_i^T\mathbf x \le k_i$$
+Questo può essere soddisfatto se si introduce un cosiddetto \textbf{posto monitor} $p_i^m$ (la $m$ come apice indica solo che è il posto monitor).\begin{itemize}
+    \item un posto monitor aggiunto aggiungerà inevitabilmente una riga alla matrice di incidenza $\mathbf C$
+\end{itemize}
+La riga da aggiungere alla matrice $\mathbf C$ descrive totalmente il posto ed è la seguente 
+$$ C_i^m=-h_i^T\mathbf C$$
+ossia, è la riga risultante dal prodotto della riga $h_i^T$ per la matrice di incidenza. La marcatura iniziale del posto monitor aggiunto \underline{deve essere}
+ $$ x_0(p_i^m)=k_{i}-h_{i}^T\mathbf x_0$$
+\subsubsection{Esempio semplice}
+Si consideri la rete elementare precedente
+\begin{center}
+    \includegraphics[width=0.34\textwidth]{images/PetriControlloPosti1.eps}
+\end{center}
+La matrice di incidenza è $$ 
+    \mathbf C = \mathbf O - \mathbf I =\begin{bmatrix}
+        0 & 1 \\ 
+        1 & 0
+    \end{bmatrix}-
+     \begin{bmatrix}
+    1 & 0 \\ 
+    0 & 1
+    \end{bmatrix} = 
+\begin{bmatrix}
+    -1 & 1 \\ 
+    1 & -1
+    \end{bmatrix}
+$$
+Il vincolo da imporre è, che su $p_2$ ci sia al pià un token 
+$$ x(p_2)\le 1$$
+$$ h^T \mathbf x \le 1 $$
+$$ \begin{bmatrix}
+    0&
+    1
+\end{bmatrix}\begin{bmatrix}
+    x(p_1)\\ 
+    x(p_2)
+\end{bmatrix}= 0x(p_1)+1x(p_2)=x(p_2)\le 1$$
+La riga da aggiungere alla matrice di incidenza è quindi 
+$$  C^m=-\begin{bmatrix}
+    0&
+    1
+\end{bmatrix}\begin{bmatrix}
+    -1 & 1 \\ 
+    1 & -1
+    \end{bmatrix}=\begin{bmatrix}
+        0&
+        -1
+    \end{bmatrix}\begin{bmatrix}
+        -1 & 1 \\ 
+        1 & -1
+        \end{bmatrix}=\begin{bmatrix}
+            -1 & 1
+        \end{bmatrix}$$
+La matrice di incidenza \textit{estesa} $\mathbf C_e$ include la riga del posto monitor 
+$$ \mathbf C_e=\begin{bmatrix}
+    -1 & 1 \\ 
+    1 & -1\\ 
+    -1 & 1
+    \end{bmatrix}$$
+Vediamo adesso il numero di token che devono essere presenti nella marcatura iniziale di $p_m$, si calcola 
+$$ x_0(p_m)=k-h^T\mathbf x_0$$
+$$ x_0(p_m)=1-\begin{bmatrix}
+    0 & 1
+\end{bmatrix}\begin{bmatrix}
+    2\\ 0
+\end{bmatrix}=1$$
+Quindi analizzando la matrice di incidenza si ha che\begin{itemize}
+    \item la transizione $t_1$ dovrà rimuovere un token da $p_m$
+    \item la transizione $t_2$ dovrà dare un token a $p_m$
+\end{itemize}
+Inoltre, la marcatura iniziale di $p_m$ è 1. La rete di Petri controllata è la seguente
+\begin{center}
+    \includegraphics[width=0.34\textwidth]{images/controlloPetri2.eps}
+\end{center}
+\subsubsection{P-Invarianti aggiunti}
+Tornando alla teoria, abbiamo denominato $\mathbf C_e$ la matrice estesa che incorpora il comportamento controllato tramite l'aggiunta delle righe $-h^T_i\mathbf C$. Si può scrivere in modo compatto, usando la matrice $\mathbf H$ le cui colonne sono i vettori $h_i$
+$$\mathbf H=\begin{bmatrix}
+    \begin{bmatrix}
+        \\ h_1 \\  \hphantom{a}
+    \end{bmatrix}& 
+    \begin{bmatrix}
+        \\ h_2 \\  \hphantom{a}
+    \end{bmatrix}\dots  
+    \begin{bmatrix}
+        \\ h_q \\ \hphantom{a}
+    \end{bmatrix}
+\end{bmatrix} $$
+La matrice $\mathbf C_e$ è quindi uguale alla matrice $\mathbf C$ con l'aggiunta (sotto di essa) della matrice $\mathbf C$ moltiplicata per la trasposta di $\mathbf H$ cambiata di segno. 
+$$ \mathbf C_e=\begin{bmatrix}
+    \begin{bmatrix}
+    & &  \\
+    &\mathbf C & \\  
+    & &
+    \end{bmatrix}\\ 
+    \begin{bmatrix}
+        & &  \\
+        &-\mathbf H^T\mathbf C & \\  
+        & &
+        \end{bmatrix}
+\end{bmatrix}$$
+Se $\gamma$ è un P-invariante della rete originale non controllata, allora, questo diventerà nella rete controllata un \underline{P-invariante esteso} $\gamma^T_e$, identico a $\gamma$, ma con $q$ elementi aggiuntivi, tutti uguali a zero. 
+$$ \gamma=\begin{bmatrix}
+    \gamma_1\\ \vdots \\ \gamma_{|P|}
+\end{bmatrix}\Longrightarrow \gamma_e=\begin{bmatrix}
+    \gamma_1\\ \vdots \\ \gamma_{|P|} \\ 0 \\ \vdots \\ 0
+\end{bmatrix}$$
+Ci saranno poi $q$ \textbf{nuovi P-invarianti}, denotati $\gamma_{e,i}$, dove $i$ indica che il P-invariante è riferito all'$i$-esima delle $q$ disequazioni che impongono i vincoli. Ricordando che l'$i$-esimo vincolo è scritto 
+$$  h_i^T\mathbf x \le k_i$$
+Il nuovo P-invariante $\gamma_{e,i}$ sarà 
+\begin{center}
+    \includegraphics[width=0.45\textwidth]{images/nuoviPinvarianti.eps}
+\end{center}
+Come indicato, il termine $1$ sarà presente nell'$i$-esimo elemento dei $q$ aggiunti al vettore, ogni altro termine aggiuntivo sarà zero.\acc 
+\teo{} La rete controllata (descritta dalla matrice estesa $\mathbf C_e$) soddisfa i vincoli imposti \underline{se e solo se} la marcatura iniziale $\mathbf x_0$ estesa ( ossia $\mathbf x_{0,e}$) è ammissibile, ossia, rispetta i vincoli imposti dalla rete e dai P-invarianti originali.\\
+\redText{continua da slide 67}
 
 
 
