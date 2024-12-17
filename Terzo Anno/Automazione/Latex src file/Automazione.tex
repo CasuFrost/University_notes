@@ -5843,7 +5843,7 @@ Supponiamo di voler \textit{imporre} la conservatività su $p_1$, in particolare
 L'aggiunta del posto $p_c$ impone che a seguito della sequenza $t_1$ deve necessariamente essere eseguita $t_2$, garantendo che $x(p_1)\ge 1$.\acc 
 Mostriamo ora un esempio più dettagliato dell'uso dei posti di controllo, si consideri il modello dell'impianto di produzione visto nella sezione precedente
 \begin{center}
-    \includegraphics[width=0.6\textwidth]{images/modelloImpiantoPetri.png}
+    \includegraphics[width=0.6\textwidth]{images/modelloImpiantoPetri.pdf}
 \end{center}
 Si impone la seguente specifica\begin{itemize}
     \item Sul nastro di uscita $N$, devono essere posizionati i pezzi in maniera sequenziale e ripetitiva, secondo l'ordine\begin{itemize}
@@ -6090,7 +6090,104 @@ $$k_i=
 h_i^T \mathbf x'+ x'(p_i^m) \ \implies $$
 Essendo $x'(p_i^m)$ sempre maggiore o uguale a zero (dato che è il numero di token sul posto monitor), si ha che 
 $$ h_i^T \mathbf x'\le k_i$$
-Il vincolo è quindi rispettato.\hfill$\blacksquare$\acc 
+Il vincolo è quindi rispettato.\hfill$\blacksquare$
+\subsection{Uso dei Posti Monitor}
+Si consideri la rete di Petri mostrata in figura
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/UsoMonitor.drawio.pdf}
+\end{center}
+Si hanno matrice di incidenza e stato iniziale
+$$ \mathbf C=\begin{bmatrix}
+    -1 & 0 & 0 & 1\\ 
+    1 & 1 & -1 & 0\\ 
+    0 & -1 & 1 & -1
+\end{bmatrix} \ \ \ \ \ \ \  \ \ \  \mathbf x_0=\begin{bmatrix}
+    1 \\ 1 \\ 1
+\end{bmatrix}$$
+Si vuole imporre il vincolo 
+$$ x(p_2)+x(p_3)\le 2$$
+Espresso come segue 
+$$h^T\mathbf x \le k \implies \begin{bmatrix}
+    0 & 1 & 1
+\end{bmatrix}\begin{bmatrix}
+    x(p_1) \\ x(p_2) \\ x(p_2)
+\end{bmatrix}\ \le 2$$
+Si aggiunge quindi alla matrice $\mathbf C$ la riga 
+$$ C^m=-h^T\mathbf C =\begin{bmatrix}
+    0 & -1 & -1
+\end{bmatrix}\begin{bmatrix}
+    -1 & 0 & 0 & 1\\ 
+    1 & 1 & -1 & 0\\ 
+    0 & -1 & 1 & -1
+\end{bmatrix} =\begin{bmatrix}
+    -1 &0 & 0 & 1
+\end{bmatrix}$$
+Il numero di token sul posto monitor $p^m$ nella marcatura iniziale è 
+$$ x_0^m=k-h^T\mathbf x_0=2-\begin{bmatrix}
+    0 & 1 & 1
+\end{bmatrix}\begin{bmatrix}
+    1 \\ 1 \\ 1
+\end{bmatrix}=2-(1+1)=0$$\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/UsoMonitor2.drawio.pdf}
+\end{center}
+\subsection{Transizioni non Controllabili e Non Osservabili}
+Quando si modellizza un sistema fisico, possono esserci eventi intrinsecamente non controllabili, e vanno appunto modellizzate alcune \textg{transizioni non controllabili}. Se $T$ è l'insieme delle transizioni, denotiamo $T_{uc}\subseteq T$ le transizioni non controllabili. \acc 
+Se una transizione  $t_j$ è non controllabile, allora un qualsiasi posto monitor $p^m_i$ \underline{non deve mai disabilitare} $t_j$, ossia, se ci sono archi che vanno da $p^m_i$ a $t_j$, i token su $p^m_i$ devono essere sempre e necessariamente in numero maggiore o uguale al peso sull'arco. 
+$$ x(p_i^m)\ge w(p_i^m,t_j) \ \ \ \forall t_j\in T_{uc}$$
+Una condizione \textit{sufficiente} è che nessuna transizione non controllabile abbia posti monitor in ingresso 
+$$ \forall t_j \in T_{uc}, \ \forall p_i^m \ \ \ \ p_i^m\notin I(t_j)$$
+Una transizione può essere \textg{non osservabile}, in tal caso, non devono esistere archi che vanno da una transizione di questo tipo ad un qualsiasi posto monitor. Per un controllo più raffinato, si possono aggiungere delle transizioni aggiuntive. In tal caso, il supervisore è \textbf{dinamico}.
+\subsubsection{Esempio}
+Si consideri nuovamente la rete di Petri che modellizza l'impianto di produzione con due macchine e tre robot manipolatori:
+\begin{center}
+    \includegraphics[width=0.73\textwidth]{images/modelloImpiantoPetri.pdf}
+\end{center}
+La matrice di incidenza è $15\times 11$ (per semplicità omessa), si vuole imporre il vincolo 
+$$ x(p_1)+x(p_6)+x(p_{12})\le 3$$
+Dove \begin{itemize}
+    \item $p_1$ è il posto contrassegnato con  "pezzo disponibile" nel flusso di sopra 
+    \item $p_6$ è il posto contrassegnato con  "pezzo disponibile" nel flusso di sotto 
+    \item $p_{12}$ è il posto contrassegnato con "pezzo disponibile" dove convergono i due flussi
+\end{itemize}
+la marcatura iniziale è 
+\setcounter{MaxMatrixCols}{20}
+$$ \mathbf{x}_{0}^T = \begin{bmatrix}
+0 &0 &1& 0 &1 &0& 0 &1 &0& 1 &3 &0& 1& 0 & 0 
+\end{bmatrix}$$
+il vincolo è descritto dalla disequazione
+$$ h^T \mathbf{x} = \begin{bmatrix}
+    1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0
+\end{bmatrix} \cdot \mathbf{x} \le 3 = k$$ 
+Alla matrice $\mathbf C$ si aggiunge la riga 
+$$ C^{m} = -h^T\mathbf C = \begin{bmatrix}
+    -1 & 1 & 0 & -1 & -1 & 1 & 0 & -1 & 1 & 0 & 0
+\end{bmatrix}$$
+il posto monitor deve avere i token iniziali:
+$$x_0^mk-h^T\mathbf x = 3-0=3 $$
+\begin{center}
+    \includegraphics[width=\textwidth]{images/transUC.png}
+\end{center}
+Supponiamo adesso che $t_4$ e $t_8$ \underline{non siano controllabili}, è quindi necessario cambiare soluzione. Si può limitare il numero di pezzi lavorati e semilavorati presenti nell'impianto fino al nastro che converge i due flussi, si ha quindi il vincolo 
+$$ x(p_1)+x(p_2)+x(p_4)+x(p_6)+x(p_7)+x(p_9)+x(p_12)\le 3$$
+il vincolo si descrive con la disequazione$$h^{T} \mathbf{x} = \begin{bmatrix}
+    1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0
+    \end{bmatrix} \cdot \mathbf{x} \leq 3 = k $$
+Con le conseguenti nuove equazioni che descrivono il monitor$$ C^{m} = -h^{T}\mathbf C = \begin{bmatrix}
+    -1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 1 & 0 & 0
+    \end{bmatrix}
+   $$ $$ 
+    x_{0}^{m} = k - h^{T}\mathbf x_{0} = 3 - 0 - 0 = 3$$
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/transUC2.png}
+    \end{center}
+
+
+
+
+
+
+
+
 
 
 

@@ -3705,5 +3705,55 @@ $$
 $$ 
 \bar B(x,y,z,t) = B_z(x,t)=B_0\cos(kx-\omega t)
 $$
-$E_0$ e $B_0$ sono rispettivamente il modulo dei vettori $\bar E$ e $\bar B$.
+$E_0$ e $B_0$ sono rispettivamente il modulo dei vettori $\bar E$ e $\bar B$.\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/EM.pdf}
+\end{center}
+Vogliamo ricavare un'ulteriore proprietà, si consideri la terza equazione di Maxwell$$\nabla \times \bar E = -\dfrac{\partial \bar B }{\partial t}$$ in particolare, la sua componente $z$
+$$\frac{\partial E_y}{\partial x}-\frac{\partial E_x}{\partial y}=-\frac{\partial B_z}{\partial t}$$
+Essendo $E_x$ nullo si ha \sapbox{
+$$\frac{\partial E_y}{\partial x}=-\frac{\partial B_z}{\partial t}$$
+la derivata nello spazio di $E$ dipende dalla derivata nel tempo di $B$}
+considerando la componente $x$ della quarta equazione si ha 
+$$ \frac{\partial B_x}{\partial z}- \frac{\partial B_z}{\partial x}=\mu_0\varepsilon_0\frac{\partial E_y}{\partial t}$$
+Essendo $B_x$ nullo si ha \sapbox{
+$$\frac{\partial B_z}{\partial x}=\mu_0\varepsilon_0\frac{\partial E_y}{\partial t}$$
+la derivata nello spazio di $B$ dipende dalla derivata nel tempo di $E$}
+Ricordando che 
+$$ 
+E_y(x,t)=E_0\cos(kx-\omega t)
+$$
+$$  B_z(x,t)=B_0\cos(kx-\omega t)
+$$
+sostituendo all'equazione si ha che 
+$$ -kE_0\sin(kx-\omega t)=-B_0\omega \sin(kx-\omega t)$$
+Si può eliminare il seno da ambo le parti
+$$ -kE_0=-B_0\omega$$
+C'è quindi un \textbf{ulteriore legame} fra $E$ e $B$, ossia 
+$$ \frac{E_0}{B_0}=\frac{\omega}{k}=\frac{2\pi}{T}\frac{\lambda}{2\pi}=c$$
+quindi \eqImportante{$E_0=cB_0$}
+Nella propagazione, sia la direzione che le ampiezze di $E$ e $B$ sono legate, si può dire che i due campi sono solo parti di uno stesso fenomeno, denominato \textit{campo elettromagnetico}.
+\subsection{Energia delle Onde}
+Abbiamo espresso la \textit{densità di energia} del campo elettrico 
+$$ u_E=\frac{1}{2}\varepsilon_0 E^2$$
+e del campo magnetico 
+$$ u_B=\frac{1}{2}\frac{1}{\mu_0}B^2$$
+L'energia totale quindi che trasporta l'onda elettromagnetica è 
+$$u=\frac{1}{2}\varepsilon_0 E^2+\frac{1}{2}\frac{1}{\mu_0}B^2$$
+Sappiamo che 
+$$ 
+E_y(x,t)=E_0\cos(kx-\omega t)
+$$
+$$  B_z(x,t)=B_0\cos(kx-\omega t)
+$$
+Fissiamo un istante $t$ ed un punto $x$ in cui il coseno vale 1, e l'ampiezza dei campi è quindi massima, ossia $E_0$ e $B_0$, in tale istante l'energia vale 
+$$u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\frac{1}{\mu_0}B_0^2$$
+Sapendo che $E_0=cB_0\implies B_0=\nicefrac{E_0}{C}$ si può riscrivere 
+$$u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\frac{1}{\mu_0}\frac{E_0^2}{C^2}$$
+Sapendo che $c^2=\frac{1}{\mu_0\varepsilon_0}$, si ha che 
+$$\frac{1}{2}\frac{1}{\mu_0}\frac{E_0^2}{C^2}= \frac{1}{2}\varepsilon_0 E_0^2$$
+conseguentemente 
+$$ u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\varepsilon_0 E_0^2=\varepsilon_0E_0^2$$
+analogamente 
+$$ u=\frac{1}{\mu_0}B_0^2$$
+questo è vero quando $E$ e $B$ hanno ampiezza massima, in generale l'energia dell'onda elettromagnetica è$$ u=\varepsilon_0E^2=\frac{1}{\mu_0}B^2$$
 \end{document} 
