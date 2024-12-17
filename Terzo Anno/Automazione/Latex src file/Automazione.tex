@@ -5986,14 +5986,111 @@ Il nuovo P-invariante $\gamma_{e,i}$ sarà
     \includegraphics[width=0.45\textwidth]{images/nuoviPinvarianti.eps}
 \end{center}
 Come indicato, il termine $1$ sarà presente nell'$i$-esimo elemento dei $q$ aggiunti al vettore, ogni altro termine aggiuntivo sarà zero.\acc 
-\teo{} La rete controllata (descritta dalla matrice estesa $\mathbf C_e$) soddisfa i vincoli imposti \underline{se e solo se} la marcatura iniziale $\mathbf x_0$ estesa ( ossia $\mathbf x_{0,e}$) è ammissibile, ossia, rispetta i vincoli imposti dalla rete e dai P-invarianti originali.\\
-\redText{continua da slide 67}
-
-
-
-
-
-
+\teo{} La rete controllata (descritta dalla matrice estesa $\mathbf C_e$) soddisfa i vincoli imposti \underline{se e solo se} la marcatura iniziale $\mathbf x_0$ estesa ( ossia $\mathbf x_{0,e}$) è ammissibile, ossia, rispetta i vincoli imposti dalla rete e dai P-invarianti originali.\acc
+\dimo{} Denotiamo la marcatura iniziale estesa 
+$$\mathbf x_{0,e}=\begin{bmatrix}
+    \begin{bmatrix}
+        \\ \mathbf x_0 \\ \hphantom{a}
+    \end{bmatrix}\\ \\
+    k_1-h_1^T\mathbf x_0\\
+    k_2-h_2^T\mathbf x_0\\ \vdots \\ 
+    k_q-h_q^T\mathbf x_0
+\end{bmatrix} $$
+Supponiamo che rispetti i vincoli. Denotiamo $\mathbf x'_e$, una qualsiasi marcatura della rete controllata (estesa con i posti monitor), sappiamo che questa, è data da una sequenza ammissibile $\mathbf{s}$ :
+$$ 
+\mathbf x'_e=\begin{bmatrix}
+    \begin{bmatrix}
+        \\ \mathbf x_0 \\ \hphantom{a}
+    \end{bmatrix}\\ \\
+    k_1-h_1^T\mathbf x_0\\
+    k_2-h_2^T\mathbf x_0\\ \vdots \\ 
+    k_q-h_q^T\mathbf x_0
+\end{bmatrix}+\mathbf C_e\mathbf s=
+\begin{bmatrix}
+    \begin{bmatrix}
+        \\ \mathbf x_0 \\ \hphantom{a}
+    \end{bmatrix}\\ \\
+    k_1-h_1^T\mathbf x_0\\
+    k_2-h_2^T\mathbf x_0\\ \vdots \\ 
+    k_q-h_q^T\mathbf x_0
+\end{bmatrix}+\begin{bmatrix}
+    \begin{bmatrix}
+    & &  \\
+    &\mathbf C & \\  
+    & &
+    \end{bmatrix}\\ 
+    \begin{bmatrix}
+        & &  \\
+        &-\mathbf H^T\mathbf C & \\  
+        & &
+        \end{bmatrix}
+\end{bmatrix}\mathbf s
+$$
+Scriviamo in maniera compatta 
+$$ \mathbf x'_e=\begin{bmatrix}
+ \mathbf x_0 \\ \mathbf x_0^m
+\end{bmatrix}+\begin{bmatrix}
+    \mathbf C \\ -\mathbf H^T\mathbf C
+   \end{bmatrix}\mathbf s$$
+consideriamo adesso un generico \underline{nuovo} P-invariante $\gamma_{e,i}$, ossia l'$i$-esimo dei $q$. Sappiamo che per un qualsiasi stato $\mathbf x'_e$, il prodotto 
+$$ \gamma_{e,i}^T\mathbf x'_e$$
+è costante (per ipotesi i vincoli sono rispettati) ed è uguale a 
+$$ \gamma_{e,i}^T\mathbf x'_e=
+\gamma_{e,i}^T\mathbf x_{0,e}
+$$
+si può riscrivere 
+$$ \gamma_{e,i}^T(\mathbf  x_{0,e}-\mathbf C_e\mathbf s)=
+\gamma_{e,i}^T\mathbf x_{0,e}
+$$
+Espanendo, si ha 
+$$\gamma_{e,i}^T\mathbf x_{0,e}= \begin{bmatrix}
+    h_i^T & 0 & \dots & \color{blue}1\color{black} & \dots & 0
+\end{bmatrix}\begin{bmatrix}
+    \begin{bmatrix}
+        \\ \mathbf x_0 \\ \hphantom{a}
+    \end{bmatrix}\\ \\
+    k_1-h_1^T\mathbf x_0\\
+    k_2-h_2^T\mathbf x_0\\ \vdots \\ 
+    k_q-h_q^T\mathbf x_0
+\end{bmatrix}$$
+Si ricordi che in $\gamma_{e,i}^T$ l'1 è presente nella posizione (evidenziato in blu) $|P|+i$-esima.
+Per maggiore chiarezza, scriviamo tale prodotto espandendo anche $h_i^T$ e $\mathbf x_0$
+$$ h_i^T=\begin{bmatrix}
+    h_{i,1} & h_{i,2} & \dots & h_{i,|P|}
+\end{bmatrix} \ \ \ \ \  
+\mathbf x_0=\begin{bmatrix}
+    x_0(p_1)\\ \vdots \\  x_0(p_{|P|})
+\end{bmatrix}
+$$
+il prodotto è quindi
+$$ 
+\gamma_{e,i}^T\mathbf x_{0,e}=
+\begin{bmatrix}
+    h_{i,1} & h_{i,2} & \dots & h_{i,|P|} & 0 & \dots & \color{blue}1\color{black} & \dots & 0
+\end{bmatrix}\begin{bmatrix}
+    x_0(p_1)\\ \vdots \\  x_0(p_{|P|}) \\
+    k_1-h_1^T\mathbf x_0\\
+    k_2-h_2^T\mathbf x_0\\ \vdots \\ 
+    k_q-h_q^T\mathbf x_0
+\end{bmatrix}
+$$
+Il calcolo del prodotto riga per colonna è immediato 
+$$ \gamma_{e,i}^T\mathbf x_{0,e}=
+h_{i,1}x_0(p_1)+ \dots + h_{i,|P|}x_0(p_{|P|})+k_i-h_i^T\mathbf x_0$$
+ma $$ h_{i,1}x_0(p_1)+ \dots + h_{i,|P|}x_0(p_{|P|})=h_i^T\mathbf x_0$$
+allora 
+$$ \gamma_{e,i}^T\mathbf x_{0,e}=h_i^T\mathbf x_0+k_i-h_i^T\mathbf x_0=k_i$$
+La marcatura estesa rispetto quella normale (della rete non controllata), ha dei token aggiuntivi \textbf{esclusivamente} sui posti monitor 
+$$\gamma_{e,i}^T \mathbf x'_e=
+h_i^T \mathbf x'+ x'(p_i^m)$$
+essendo 
+$$\gamma_{e,i}^T\mathbf x'_e=\gamma_{e,i}^T\mathbf x_{0,e}=k_i$$ ne consegue che 
+ma \underline{è allora ovvio che }
+$$k_i=
+h_i^T \mathbf x'+ x'(p_i^m) \ \implies $$
+Essendo $x'(p_i^m)$ sempre maggiore o uguale a zero (dato che è il numero di token sul posto monitor), si ha che 
+$$ h_i^T \mathbf x'\le k_i$$
+Il vincolo è quindi rispettato.\hfill$\blacksquare$\acc 
 
 
 

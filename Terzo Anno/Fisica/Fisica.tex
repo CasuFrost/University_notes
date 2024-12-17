@@ -3547,5 +3547,163 @@ $$
 svolgendo il prodotto si trova che 
 $$c\simeq 2.99792485\cdot 10^8 \ \  \frac{\text{m}}{\text{s}} $$
 \sapbox{\textbf{è la velocità della luce nel vuoto}}
+\subsection{Soluzione : Onda Piana}
+Abbiamo visto che $\bar E$ e $\bar B$ si comportano come onde 
+$$
+\nabla^2\cdot \bar E=\mu_0 \varepsilon_0 \dfrac{\partial^2\bar E}{\partial t^2}
+$$
+$$
+\nabla^2\cdot \bar B=\mu_0 \varepsilon_0 \dfrac{\partial^2\bar B}{\partial t^2}
+$$
+Vogliamo trovare le due funzioni vettoriali che descrivono $\bar B$ e $\bar E$, ossia le 6 equazioni scalari, che dipendono dal tempo e dallo spazio 
+$$ \begin{matrix}
+    E_x(x,y,z,t)\\ 
+    E_y(x,y,z,t)\\ 
+    E_z(x,y,z,t)
+\end{matrix} \ \ \ \ \ \ \ \begin{matrix}
+    B_x(x,y,z,t)\\ 
+    B_y(x,y,z,t)\\ 
+    B_z(x,y,z,t)
+\end{matrix}$$
+Viviamo nell'assuzione che le onde siano piane, ossia, che i valori del campo (fissato un istante $t$) dipendano esclusivamente dalla direzione di propagazione (che assumiamo essere $x$).\acc 
+Le onde piane a grandi distanze approssimano il fronte delle onde sferiche, inoltre, qualsiasi onda può essere espressa come sviluppo in onde piane.\begin{center}
+    \includegraphics[width=\textwidth]{images/ondePiane.eps}
+\end{center}
 
+Essendo che i campi non dipendono da $y$ e $z$, riscriviamo
+$$ \begin{matrix}
+    E_x(x,t)\\ 
+    E_y(x,t)\\ 
+    E_z(x,t)
+\end{matrix} \ \ \ \ \ \ \ \begin{matrix}
+    B_x(x,t)\\ 
+    B_y(x,t)\\ 
+    B_z(x,t)
+\end{matrix}$$
+Scriviamo $\mu_0\varepsilon_0$ come $\nicefrac{1}{c^2}$, l'equazione delle onde, sviluppando l'operatore $\nabla^2$, diventa 
+$$ \frac{\partial^2 \bar E}{\partial x^2}+
+ \frac{\partial^2 \bar E}{\partial y^2}+
+  \frac{\partial^2 \bar E}{\partial z^2}=
+  \frac{1}{c^2} \frac{\partial^2 \bar E}{\partial t^2}$$
+Utilizzeremo $\bar E$, ma il procedimento sarà analogo per $\bar B$. Essendo che non dipende da $y$ e $z$, le derivate seconde rispetto questi assi saranno nulle, l'equazione diventa quindi 
+$$ \frac{\partial^2 \bar E}{\partial x^2}=
+  \frac{1}{c^2} \frac{\partial^2 \bar E}{\partial t^2}$$
+Questa equazione vettoriale equivale a 3 equazioni scalari 
+$$ \frac{\partial^2  E_x}{\partial x^2}=
+  \frac{1}{c^2} \frac{\partial^2 E_x}{\partial t^2}$$
+$$ \frac{\partial^2  E_y}{\partial x^2}=
+  \frac{1}{c^2} \frac{\partial^2 E_y}{\partial t^2}$$
+  $$ \frac{\partial^2  E_z}{\partial x^2}=
+  \frac{1}{c^2} \frac{\partial^2 E_z}{\partial t^2}$$
+Vogliamo trovare una funzione che soddisfi l'equazione differenziale. Cerchiamo una soluzione per una generica funzione $f$
+  $$ \frac{\partial^2  f}{\partial x^2}=
+  \frac{1}{c^2} \frac{\partial^2 f}{\partial t^2}$$
+  \textbf{Osservazione} : condizione \underline{necessaria} per far si che $f$ sia un onda, è che $f$ sia in funzione di una combinazione lineare dei suoi parametri $x$ e $t$. 
+  $$ f(x,y)=f(\alpha x + \beta t)$$
+Poniamo $\alpha=1$ e $\beta = \pm v = \pm \frac{1}{c^2}$
+$$ f(x\pm vt)$$
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/onda.eps}
+\end{center}
+Prendiamo una generica funzione che soddisfi la condizione necessaria, ad esempio, la funzione coseno 
+$$ f(x+vt)=\cos(x+vt)$$
+Ma questa non può andar bene, in quanto $x$ ha dimensioni di spazioe, $t$ ha dimensioni di tempo e $v$ ha le dimensioni di una velocità, ma l'argomento del coseno \underline{deve} essere adimensionale. Si può aggiustare l'argomento considerando un parametro $\lambda$ chiamato \textbf{lunghezza d'onda}, che la dimensione di una lunghezza 
+$$ 
+\cos\big(\frac{2\pi}{\lambda}x+\frac{2\pi}{\lambda}vt\big)
+$$
+Per semplicità scriviamo $k=\frac{2\pi}{\lambda}$
+$$ 
+\cos(kx+kvt)
+$$
+La velocità su lunghezza d'onda è la \textit{frequenza} (inverso del periodo), da cui si può ricavare la \textit{pulsazione}
+$$ 
+\frac{v}{t}=\frac{1}{T}=\nu
+$$
+$$ \omega = 2\pi\nu$$
+Definiamo una generica ampiezza $A$ per la funzione coseno, l'onda avrà la forma 
+$$ f(x,t)=
+A\cos(kx\pm\omega t)
+$$
+questa funzione soddisfa l'equazione di un onda. Tenendolo in mente, torniamo al campo elettrico e magnetico, vogliamo usare le equazioni di Maxwell per ricavare delle ulteriori proprietà dei campi. Si ricordi che queste (una volta innescato il meccanismo, ed in assenza di corrente elettrica) sono 
+$$\begin{cases}
+    \nabla \cdot \bar E = 0\\ 
+    \nabla \cdot \bar B = 0\\ 
+    \nabla \times \bar E = -\dfrac{\partial \bar B }{\partial t}\\ 
+    \nabla \times \bar B = \mu_0 \varepsilon_0 \dfrac{\partial \bar E}{\partial t}
+\end{cases} $$
+Sviluppando la prima equazione, sappiamo che 
+$$ \frac{\partial E_x}{\partial x}+ 
+\frac{\partial E_y}{\partial y}+ 
+\frac{\partial E_z}{\partial z}=0$$
+Abbiamo detto che le onde sono piane e non dipendono dalle coordinate $y$ e $z$, quindi le derivate del campo rispetto queste componenti sono nulle, rimane
+$$ \frac{\partial E_x}{\partial x}=0$$
+\sapbox{la componente $x$ del campo elettrico non dipende dalla coordinata $x$ (verso di propagazione)}
+Analogamente, dalla seconda equazione di Maxwell si ricava che anche il campo magnetico ha componente $x$ che non dipende dalla coordinata $x$.
+$$ \frac{\partial B_x}{\partial x}=0$$
+\begin{quote}
+    Le onde del campo elettromagnetico sono \textbf{onde trasversali}, in ogni istante i vettori $\bar B$ e $\bar E$ sono nulli lungo la direzione di propagazione
+\end{quote}
+\begin{center}
+    \includegraphics[width=0.45\textwidth]{images/ondeTrasversali.eps}
+\end{center}
+Fissiamo adesso un sistema di riferimento particolare (che varia eventualmente nel tempo), dove l'asse $y$ è sempre (in ogni istante $t$) parallelo al vettore $\bar E$.
+\begin{center}
+    \includegraphics[width=0.45\textwidth]{images/campoEProp.eps}
+\end{center}
+In tal sistema di riferimento, la componente $z$ del campo $\bar E$ è \underline{sempre nulla}.
+$$ E_z=0$$
+Adesso consideriamo la terza equazione di Maxwell
+$$\nabla \times \bar E = -\dfrac{\partial \bar B }{\partial t}$$
+Valutiamone la componente $y$
+$$ (\nabla \times \bar E)_y=\frac{\partial E_x}{\partial z}-\frac{\partial E_z}{\partial x}=-\frac{\partial B_y}{\partial t}$$
+Ma abbiamo già visto che \begin{itemize}
+    \item $E_x$ non dipende da $z$ 
+    \item $E_z$ è sempre nullo 
+\end{itemize}
+ne consegue che 
+$$ \frac{\partial B_y}{\partial t}=0$$
+\begin{quote}
+    la componente $y$ del campo $\bar B$ non dipende dal tempo
+\end{quote}
+Le funzioni dei campi diventano
+$$ \begin{matrix} 
+    E_y(x,t) 
+\end{matrix} \ \ \ \ \ \ \ \begin{matrix} 
+    B_y(x)\\ 
+    B_z(x,t)
+\end{matrix}$$
+Vogliamo adesso vedere le dipendenze di $B_y$ e $B_z$ dallo spazio, consideriamo la quarta equazione di Maxwell
+$$ \nabla \times \bar B = \mu_0 \varepsilon_0 \dfrac{\partial \bar E}{\partial t}$$
+consideriamo la componente $z$
+$$(\nabla \times \bar B)_z=
+\frac{\partial B_y}{\partial x}-\frac{\partial B_x}{\partial y}=\mu_0\varepsilon_0\frac{\partial E_z}{\partial t} $$
+Date le precedenti osservazioni rimane che 
+$$\frac{\partial B_y}{\partial x}=0$$
+Le funzioni dei campi diventano
+$$ \begin{matrix} 
+    E_y(x,t) 
+\end{matrix} \ \ \ \ \ \ \ \begin{matrix} 
+    B_z(x,t)
+\end{matrix}$$
+Ma attenzione, questo ha delle implicazioni cruciali\begin{itemize}
+    \item Sia $\bar E$ che $\bar B$ hanno componente nulla sull'asse di propagazione $x$
+    \item $\bar E$ ha componente esclusivamente sull'asse $y$ del sistema di riferimento adottato 
+    \item $\bar B$ ha componente nulla sull'asse $y$, ha quindi componente solo sull'asse $z$
+    \item $\bar B$ ha quindi componente nulla sull'asse parallelo al vettore $\bar E$
+\end{itemize}
+\sapbox{\begin{center}In ogni istante $\bar E$ e $\bar B$ sono \textbf{ortogonali}\end{center}}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{images/EM1}
+\end{center}
+Ricordiamo che $E_y(x,t)$ e $E_z(x,t)$ devono soddisfare l'equazione delle onde, prima abbiamo visto che $$ f(x,t)=
+A\cos(kx\pm\omega t)
+$$
+è un onda, una soluzione per le onde elettromagnetiche È 
+$$ 
+\bar E(x,y,z,t) = E_y(x,t)=E_0\cos(kx-\omega t)
+$$
+$$ 
+\bar B(x,y,z,t) = B_z(x,t)=B_0\cos(kx-\omega t)
+$$
+$E_0$ e $B_0$ sono rispettivamente il modulo dei vettori $\bar E$ e $\bar B$.
 \end{document} 
