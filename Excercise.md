@@ -14,5 +14,8 @@
 [Esercitazioni e Progetti di Basi di Dati 2](https://github.com/CasuFrost/University_notes/tree/main/Secondo%20Anno/Secondo%20Semestre/Basi%20di%20Dati%202/Progetti) \
 [Esercizi di Reti degli Elaboratori](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/readme.md) \
 [Esercizi di Progettazione di Algoritmi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/ex.md)
+## Terzo Anno
+### Primo Semestre
+[Esercizi di Fisica](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Fisica/Esercizi/ex.md)  
  ## Disclaimer
 Non è sempre garantita l'affidabilità delle soluzioni
