@@ -1,7 +1,7 @@
 \documentclass[10pt, letterpaper]{report}
 % !TeX program = xelatex
 %==================PREAMBOLO=======================%
-\input{../../preamble/preamble.tex}
+\input{../../../preamble/preamble.tex}
  %TOGLI COMMENTO SE USI XELATEX
 %\usepackage{fontspec}
 \title{\jobname} %========TITOLO========%
@@ -31,7 +31,7 @@
     }
 \end{figure}
 \vfill 
-\centering \includegraphics[width=0.4\textwidth ]{../../preamble/Stemma_sapienza.png} \acc
+\centering \includegraphics[width=0.4\textwidth ]{../../../preamble/Stemma_sapienza.png} \acc
 \centering \Large \color{sapienza}Facoltà di Ingegneria dell'Informazione,
 Informatica e Statistica\\
 Dipartimento di Informatica
@@ -48,7 +48,7 @@ triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 \vfill
 \begin{figure}[h!]
     \raggedright
-    \includegraphics[width=0.4\textwidth,right ]{../../preamble/tomodachi.pdf} 
+    \includegraphics[width=0.4\textwidth,right ]{../../../preamble/tomodachi.pdf} 
 \end{figure}
 \newpage %\setmainfont{Times New Roman}
 \normalsize
@@ -3756,4 +3756,56 @@ $$ u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\varepsilon_0 E_0^2=\varepsilon_0
 analogamente 
 $$ u=\frac{1}{\mu_0}B_0^2$$
 questo è vero quando $E$ e $B$ hanno ampiezza massima, in generale l'energia dell'onda elettromagnetica è$$ u=\varepsilon_0E^2=\frac{1}{\mu_0}B^2$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Formulario}
+\setlength{\columnsep}{1cm}
+\begin{multicols*}{2}
+    [
+    \section{Cinematica}
+    ]
+    moto rettilineo uniforme 
+    $$ \begin{cases}
+        r(t)=r_0+v_0t\\ 
+        v(t)=v_0\\ 
+    \end{cases}$$
+    moto uniformemente accelerato
+    $$ \begin{cases}
+        r(t)=r_0+v_0t+\frac{1}{2}a_0t^2\\ 
+        v(t)=v_0+a_0t\\
+        a(t)=a_0 
+    \end{cases}$$
+    moto del proiettile sparato a velocità iniziale $\bar v_0=(v_{x_0},v_{y_0})$ 
+    $$\begin{matrix}
+        \text{verticale} &  \begin{cases}
+            y(t)=y_0+v_{y_0}t-\frac{1}{2}gt^2\\ 
+            v_y(t)=v_{y_0}-gt
+        \end{cases}\\ \\
+        \text{orizzontale} & x(t)=v_0+x_{x_0}t
+    \end{matrix}$$
+
+
+
+
+
+
+
+
+    \end{multicols*}
 \end{document} 

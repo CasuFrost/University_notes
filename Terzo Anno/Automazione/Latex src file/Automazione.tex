@@ -3289,7 +3289,7 @@ Nonostante i regolatori PID godano di un capitolo a loro dedicato: \ref{regolato
 Sia $e$ l'errore, definito come differenza tra l'uscita desiderata $y_{rif}$ e l'uscita effettiva $y$ del sistema 
 $$ e(t)=y_{rif}-y(t)$$
 Si hanno le tre azioni di comando 
-$$ u(t)=K_pe(p)+K_i\int_0^t e(\tau)d\tau+K_d\frac{de(t)}{dt}$$
+$$ u(t)=K_pe(t)+K_i\int_0^t e(\tau)d\tau+K_d\frac{de(t)}{dt}$$
 Dove \begin{itemize}
     \item $K_p$ è il parametro proporzionale 
     \item $K_i$ è il parametro integrale 
@@ -3300,7 +3300,7 @@ Ponendo \begin{itemize}
 \item $T_d$ = Tempo di derivazione, con $K_d=K_pT_d$
 \end{itemize}
 Si può riscrivere
-$$ u(t)=K_p\Big(e(p)+\frac{1}{T_i}\int_0^t e(\tau)d\tau+T_d\frac{de(t)}{dt}\Big)$$
+$$ u(t)=K_p\Big(e(t)+\frac{1}{T_i}\int_0^t e(\tau)d\tau+T_d\frac{de(t)}{dt}\Big)$$
 \begin{itemize}
     \item \textbf{Azione Proporzionale} : Accellera il comportamento transitorio del sistema e riduce l'errore a regime. Un alto valore di $K_p$ tende a destabilizzare il sistema. 
     \item \textbf{Azione Integrale} : Agisce anche quando l'errore è nullo ed annulla l'errore a regime. Tende a destabilizzare il sistema al diminuire del tempo di integrazione $T_i$. 

@@ -2917,7 +2917,7 @@ Basta assumere che $N(x)$, prima di accettare, si occupi di cancellare ogni elem
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/Cstart.drawio.pdf}
 \end{center}
-Naturalmente, $N(x)$ accetta se e solo se esiste un cammino da $C_{start}$ a $C_{acc}$ nel grafo $G_{N,x}$. Pertanto, $A\in NLOG \iff A\in P$, dato che esiste una $TM$ $M$ (deterministica) che decide in tempo polinomiale se $x\in A$ tramite la seguente procedura\begin{itemize}
+Naturalmente, $N(x)$ accetta se e solo se esiste un cammino da $C_{start}$ a $C_{acc}$ nel grafo $G_{N,x}$. Pertanto, $A\in NLOG \implies A\in P$, dato che esiste una $TM$ $M$ (deterministica) che decide in tempo polinomiale se $x\in A$ tramite la seguente procedura\begin{itemize}
     \item si scrive $G_{N,x}$ enumerando vertici ed archi, ciò richiede complessità temporale $poly(n)$.
     \item $M$ utilizza l'algoritmo di marcatura (che ha complessità polinomiale) per verificare che esiste un cammino fra i due nodi del grafo.
 \end{itemize}
