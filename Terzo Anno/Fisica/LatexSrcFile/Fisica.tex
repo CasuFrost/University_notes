@@ -3756,6 +3756,36 @@ $$ u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\varepsilon_0 E_0^2=\varepsilon_0
 analogamente 
 $$ u=\frac{1}{\mu_0}B_0^2$$
 questo è vero quando $E$ e $B$ hanno ampiezza massima, in generale l'energia dell'onda elettromagnetica è$$ u=\varepsilon_0E^2=\frac{1}{\mu_0}B^2$$
+In coordinate sferiche, l'operatore Laplaciano su una funzione $f$ agisce 
+$$\nabla^2f=\frac{1}{r^2}\frac{\partial^2 (rf)}{\partial r^2} $$
+Le onde piane in coordinate sferiche sono del tipo 
+$$f=\frac{x\pm vt}{r} $$
+L'intensità dei campi quindi decresce linearmente con la distanza 
+$$ E\propto \frac{1}{r} \ \ \ \ \ \ \  
+B\propto \frac{1}{r}$$
+Ad esempio 
+$$ E=\frac{E_0}{r}\cos(kx+\omega t)$$
+Ricordando che l'energia dell'onda elettromagnetica è 
+$$u=\frac{1}{2}\varepsilon_0E^2+\frac{1}{2}\frac{1}{\mu_0}B^2 $$
+definiamo la grandezza \textbf{intensità dell'onda} $J$ come l'energia che attraversa una certa superficie per unità di tempo, si misura in $\frac{\text{W}}{\text{m}^2}$
+$$ J=u\cdot c=\varepsilon_0E^2c=\varepsilon_0\frac{c^2}{c}E\cdot E=\varepsilon_0c^2EB=\frac{1}{\mu_0}EB$$
+\subsection{Vettore di Poynting}
+Il vettore di Poynting è definito in modo tale che, il suo modulo è $J$, e la sua direzione è quella di propagazione dell'onda elettromagnetica 
+$$\bar N = \frac{1}{\mu_0}\bar E \times \bar B $$
+Essendo $\bar B $ e $\bar E$ ortogonali 
+$$ |\bar N|=\frac{1}{\mu_0} E   B=J$$
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{images/Poynting.eps}
+\end{center}
+Essendo che $E_0$ e $B_0$ variano nel tempo l'intensità si può calcolare come intensità media facendo l'integrale sul periodo $T$ delle onde 
+$$ J=\frac{1}{\mu_0}E_0B_0\int_0^T\cos^2(kx+\omega t)t=\frac{1}{2\mu_0}E_0B_0$$
+
+
+
+
+
+
+
 
 
 

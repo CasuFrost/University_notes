@@ -3052,9 +3052,17 @@ Il certificato contenuto nel nastro read once, sarà diviso in diverse parti (qu
 \textit{per ora si omette la struttura interna dei certificati}. \acc
 Il verificatore, per definire il certificato $r_{l+1}$, deve avere in possesso $r_l$ e $l$, e non tutti i certificati precedenti.\\
 \redText{finire/riscrivere la dimostrazione}
-
-
-
+\flowerLine 
+\section{Teoremi di Gerarchia}
+I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc 
+Il teorema di \textit{gerarchia dei tempi} afferma che se $t_1(n)$ è asintoticamente, molto più piccola di $t_2(n)$, allora esiste un linguaggio $L\in Dtime(t_2(n))$ tale che 
+$L\notin Dtime(t_1(n))$\acc 
+Vediamo un \textg{idea di dimostrazione}, si definisce una codifica $$[.]_{TM}:\sigma^*\rightarrow TM $$
+che associa ad ogni stringa una TM, se la stringa non corrisponde ad alcuna TM sensata, allora se ne attribuisce una di default. In tal modo 
+$$ \forall TM \ M  \ \exists x \text{ tale che }[x]_{TM}=M$$
+Definisco una TM $D$ in modo tale che termini sicuramente in $O(t_2(n))$ passi, il comportamento è descritto dalla seguente procedura \begin{itemize}
+    \item 
+\end{itemize}
 
 
 
