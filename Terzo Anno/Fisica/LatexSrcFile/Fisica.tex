@@ -2041,32 +2041,30 @@ $$ \phi = \int_S d\phi = \int_S \bar Ed\bar S$$
 Esiste una proprietà interessante del campo elettrico, quando si calcola il flusso per una superficie chiusa. \begin{center}
     \includegraphics[width=0.35\textwidth]{images/flussoCampo2.pdf}
 \end{center}
-\teo{(Legge di Gauss)} Sia $S$ una superficie \textit{chiusa}, e sia $\bar E$ il campo elettrico generato da una carica puntiforme $Q$ \textit{interna alla superficie}. Si ha che 
-\eqImportante{$\phi=\displaystyle\oint_S d\phi=\frac{Q}{\varepsilon_0}$}
-\dimo{}
-Data una superficie infinitesima $dS$, si considera l'angolo solido $\Omega$ formato da questa ed il punto in cui è presente la carica $Q$. In particolare, l'angolo solido (misurato in steradianti) vale 
-$$ \Omega = \frac{S}{R^2}$$
-\begin{center}
-    \includegraphics[width=0.34\textwidth]{images/angoloSolido.eps}
-\end{center}
-Per superfici infinitesime $dS$, è possibile approssimare la superficie alla sua proiezione lungo la direzione radiale di $\bar E$, si considera quindi $S'=S\cos\theta$, si ha quindi 
-$$ d\phi=\bar Ed\bar S = \bar EdS\cos\theta = \bar E d\bar S'$$
-\begin{center}
-    \includegraphics[width=0.34\textwidth]{images/approssAngolo.pdf}
-\end{center}
-L'angolo solido infinitesimo ha quindi espressione 
-$$ d\Omega=\frac{dS'}{r^2}\implies dS'=r^2d\Omega$$
-ma allora si può esprimere il flusso come segue 
-$$ d\phi=\bar E d\bar S'=\bar Er^2d\Omega$$
-Scrivendo il campo elettrico in forma esplicita si ha 
-$$d\phi= \frac{1}{4\pi\varepsilon_0}\frac{Q}{r^2}r^2d\Omega=\frac{Q}{4\pi\varepsilon_0}d\Omega$$
-\begin{quote}
-    \sapbox{Il valore del flusso non dipende più dalla distanza $r$}
-\end{quote}
-Si ha quindi che 
-$$\phi = \frac{Q}{4\pi\varepsilon_0}\oint_Sd\Omega$$ 
-L'integrale completo dell'angolo solido è uguale a $4\pi$ quindi:$$\phi=\frac{Q}{4\pi\varepsilon_0}4\pi = \frac{Q}{\varepsilon_0}$$
-\hfill $\blacksquare$ \acc
+\teo{(Legge di Gauss)} Sia $S$ una superficie \textit{chiusa}, e sia $\bar E$ il campo elettrico generato da una carica puntiforme $q$ \underline{interna alla superficie}. Si ha che 
+\eqImportante{$\phi=\displaystyle\oint_S d\phi=\frac{q}{\varepsilon_0}$}
+\dimo{} Si consideri il campo elettrico generato da una carica puntiforme $q$
+$$ \bar E = \frac{1}{4\pi\varepsilon_0}\frac{q}{r^2}\hat r$$
+Si calcola il flusso attraverso una superficie infinitesima $dS$, di cui $\hat s$ è il versore (di modulo unitario) normale, alla superficie, e conseguentemente $dS\hat s$ è il vettore normale. 
+$$d\phi =  \frac{1}{4\pi\varepsilon_0}\frac{q}{r^2}(\hat r\cdot \hat s)dS= 
+\frac{1}{4\pi\varepsilon_0}\frac{q}{r^2}\cos\theta dS= 
+\frac{1}{4\pi\varepsilon_0}\frac{q}{r^2}dS_0$$
+denoto $dS\cos\theta=dS_0$, questa è la proiezione di $dS$ sul piano perpendicolare a $\hat r$ (quindi al campo elettrico), come si può notare in figura \ref{Gauss3}.
+\begin{figure}[h!]\centering
+    \includegraphics[width=0.35\textwidth]{images/Gauss3.pdf}
+    \caption{proiezione di $dS$}
+    \label{Gauss3}
+\end{figure}
+Riscrivendo 
+$$ d\phi = \frac{q}{4\pi\varepsilon_0}\frac{dS_0}{r^2}$$
+Si mette in evidenza il termine $\frac{dS_0}{r^2}$, che per definizione, è la \textit{proiezione ortogonale} al raggio uscente dal punto $q$ passante per $dS$, ossia \textit{l'angolo solido infinitesimo} $d\Omega$
+$$ d\phi = \frac{q}{4\pi\varepsilon_0} d\Omega$$
+Essendo $\frac{q}{4\pi\varepsilon_0}$ costante, è chiaro che il flusso infinitesimo dipende esclusivamente dall'angolo solito $d\Omega$, e quest'ultimo non dipende ne dalla superficie scelta ne dalla sua distanza dalla carica. Il flusso attraverso una superficie finita $S$ è 
+$$\phi=\int_S d\phi = \int_S \frac{q}{4\pi\varepsilon_0}\frac{dS_0}{r^2} = 
+\int \frac{q}{4\pi\varepsilon_0} d\Omega=\frac{q}{4\pi\varepsilon_0}\int d\Omega$$
+L'angolo solido totale di una superficie chiusa è $4\pi$
+$$ \phi = \frac{q}{4\pi\varepsilon_0}4\pi = \frac{q}{\varepsilon_0} $$
+\hfill$\blacksquare$\acc
 Si può considerare anche il caso in cui la carica sorgente del campo è esterna alla superficie, tale caso è banale in quanto il campo elettrico "entra" nella superficie tante volte quante ne "esce", ogni flusso infinitesimo si annulla.\begin{center}
     \includegraphics[width=0.5\textwidth]{images/caricaEst.eps}
 \end{center}
@@ -2269,15 +2267,15 @@ I materiali conduttori permettono agli elettroni di cui sono composti di muovers
     \includegraphics[width=0.75\textwidth]{images/conduttore.pdf}
 \end{center}
 Il campo sulla superficie del conduttore sarà normale ad essa, all'interno del conduttore, il campo elettrico esterno si annulla con quello interno.\begin{center}
-\includegraphics[width=0.7\textwidth]{images/conduttore2.pdf}
-\includegraphics[width=0.7\textwidth]{images/conduttore3.pdf}
+\includegraphics[width=0.8\textwidth]{images/conduttore2.pdf}
+\includegraphics[width=0.8\textwidth]{images/conduttore3.pdf}
 \end{center}
 \begin{quote}
     Nella prossimità del conduttore, il campo elettrico è distorto dalle cariche che si dispongono sulla superficie.
 \end{quote}
 \subsection{Effetto delle Punte}
 Si consideri un sistema composto da due sfere, rispettivamente di raggio $r$ ed $R$ (con $r<R$), composte di un materiale conduttore, unite da un filo (di spessore trascurabile) a sua volta conduttore. Caricando il sistema, la carica si distribuirà sulla superficie di entrambe le sfere.\begin{center}
-    \includegraphics[width=0.75\textwidth]{images/punte.pdf}
+    \includegraphics[width=0.9\textwidth]{images/punte.pdf}
 \end{center} 
 Diremo che $Q_1$ è la carica sulla prima sfera, e $Q_2$ la carica sulla seconda, la carica è totale è $Q=Q_1+Q_2$.
 Si vuole stabilire il rapporto $\frac{Q_1}{Q_2}$. È noto che il potenziale è lo stesso, essendo 
@@ -3803,7 +3801,7 @@ $$ J=\frac{1}{\mu_0}E_0B_0\int_0^T\cos^2(kx+\omega t)t=\frac{1}{2\mu_0}E_0B_0$$
 
 
 
-
+\end{document} 
 \chapter{Formulario}
 \setlength{\columnsep}{1cm}
 \begin{multicols*}{2}
@@ -3838,4 +3836,3 @@ $$ J=\frac{1}{\mu_0}E_0B_0\int_0^T\cos^2(kx+\omega t)t=\frac{1}{2\mu_0}E_0B_0$$
 
 
     \end{multicols*}
-\end{document} 
