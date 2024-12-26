@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241127192850" modified="D:20241127193201"/>
+<info created="D:20241127192850" modified="D:20241224101748"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -328,8 +328,8 @@ h
 296 732
 292 720 u
 </path>
-<text matrix="1 0 0 1 -4 -36" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_1</text>
-<text matrix="1 0 0 1 84 -40" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_2</text>
+<text matrix="1 0 0 1 -36 -36" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_1</text>
+<text matrix="1 0 0 1 124 -40" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_2</text>
 <text matrix="1 0 0 1 84 -8" transformations="translations" pos="192 760" stroke="0" type="label" width="10.281" height="6.812" depth="1.49" valign="baseline" style="math">V_2</text>
 <text matrix="1 0 0 1 -4 -4" transformations="translations" pos="192 760" stroke="0" type="label" width="10.281" height="6.812" depth="1.49" valign="baseline" style="math">V_1</text>
 <path matrix="1 0 0 1 0 -72" stroke="0" opacity="10%" stroke-opacity="opaque">
@@ -347,8 +347,8 @@ h
 296 732
 292 720 u
 </path>
-<text matrix="1 0 0 1 -4 -108" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_1</text>
-<text matrix="1 0 0 1 84 -112" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_2</text>
+<text matrix="1 0 0 1 -36 -108" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_1</text>
+<text matrix="1 0 0 1 124 -112" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_2</text>
 <text matrix="1 0 0 1 84 -80" transformations="translations" pos="192 760" stroke="0" type="label" width="10.281" height="6.812" depth="1.49" valign="baseline" style="math">V_2</text>
 <text matrix="1 0 0 1 -4 -76" transformations="translations" pos="192 760" stroke="0" type="label" width="10.281" height="6.812" depth="1.49" valign="baseline" style="math">V_1</text>
 <path matrix="1 0 0 1 0 -144" stroke="0" opacity="10%" stroke-opacity="opaque">
@@ -366,8 +366,8 @@ h
 296 732
 292 720 u
 </path>
-<text matrix="1 0 0 1 -4 -180" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_1</text>
-<text matrix="1 0 0 1 84 -184" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_2</text>
+<text matrix="1 0 0 1 -36 -180" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_1</text>
+<text matrix="1 0 0 1 124 -184" transformations="translations" pos="192 760" stroke="0" type="label" width="11.59" height="6.812" depth="1.49" valign="baseline" style="math">C_2</text>
 <text matrix="1 0 0 1 40 -164" transformations="translations" pos="192 760" stroke="0" type="label" width="8.025" height="6.808" depth="0" valign="baseline" style="math">V</text>
 <path matrix="1.08628 0 -0.526249 1.08628 323.559 -56.2532" stroke="0">
 216 652 m
@@ -385,11 +385,311 @@ h
 216 660 m
 256 660 l
 </path>
-<use name="mark/disk(sx)" pos="228 656" size="normal" stroke="0 0 1"/>
-<path stroke="0 0 1" arrow="normal/normal">
+<use matrix="1 0 0 1 0 8" name="mark/disk(sx)" pos="228 656" size="normal" stroke="0 0 1"/>
+<path matrix="1 0 0 1 0 8" stroke="0 0 1" arrow="normal/normal">
 228 656 m
 252 656 l
 </path>
-<text matrix="1 0 0 1 40 -96" transformations="translations" pos="192 760" stroke="0 0 1" type="label" width="7.929" height="8.175" depth="0" valign="baseline" style="math">\bar E</text>
+<text matrix="1 0 0 1 40 -88" transformations="translations" pos="192 760" stroke="0 0 1" type="label" width="7.929" height="8.175" depth="0" valign="baseline" style="math">\bar E</text>
+<path fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 99.3628 391" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 16 0" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 115.363 391" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 -8 -20" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 91.3628 371" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 12 -32" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 111.363 359" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 80 0" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 179.363 391" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 76 -12" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 175.363 379" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 84 -28" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 183.363 363" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 112 -24" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 211.363 367" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 100 0" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 199.363 391" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 20 -16" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 119.363 375" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 8 -16" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 107.363 375" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 -4 -32" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 95.363 359" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 -4 -12" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 95.363 379" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 8 -8" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 107.363 383" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 7.58668 2.40565" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 106.95 393.406" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 20.2918 -7.73792" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 119.655 383.262" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 17.4229 -24.9513" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 116.786 366.049" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 5.63994 -26.4882" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 105.003 364.512" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 -8.49959 -27.6152" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 90.8634 363.385" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 87.156 -9.2297" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 186.519 381.77" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 94.4191 -25.658" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 193.782 365.342" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 108.772 -12.5154" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 208.135 378.485" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 106.351 -34.9962" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 205.714 356.004" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 77.2991 -20.9889" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 176.662 370.011" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 0 -72" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 99.3628 319" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 16 -72" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 115.363 319" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 -8 -92" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 91.3628 299" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 12 -104" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 111.363 287" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 80 -72" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 179.363 319" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 76 -84" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 175.363 307" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 84 -100" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 183.363 291" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 112 -96" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 211.363 295" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 100 -72" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 199.363 319" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 20 -88" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 119.363 303" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 -4 -104" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 95.363 287" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 -4 -84" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 95.363 307" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 8 -80" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 107.363 311" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 7.58668 -69.5944" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 106.95 321.406" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 20.2918 -79.7379" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 119.655 311.262" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 17.4229 -96.9513" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 116.786 294.049" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 5.63994 -98.4882" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 105.003 292.512" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 -8.49959 -99.6152" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 90.8634 291.385" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 87.156 -81.2297" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 186.519 309.77" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 94.4191 -97.658" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 193.782 293.342" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 108.772 -84.5154" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 208.135 306.485" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 106.351 -106.996" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 205.714 284.004" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 77.2991 -92.9889" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 176.662 298.011" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 -0.900615 -139.934" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 98.4623 251.066" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 12.0691 -143.22" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 111.432 247.78" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 18.8133 -159.475" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 118.176 231.525" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 10.3398 -176.768" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 109.703 214.232" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 -9.72001 -165.355" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 89.6429 225.645" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 5.15191 -157.227" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 104.515 233.773" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 87.1204 -142.01" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 186.483 248.99" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 77.9551 -150.31" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 177.318 240.69" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 80.0303 -167.084" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 179.393 223.916" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 95.0752 -154.979" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 194.438 236.021" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 114.962 -156.882" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 214.325 234.118" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 98.0149 -174.693" fill="1 0.502 0.502">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 197.378 216.307" pos="188 740" stroke="black" type="label" width="5.12" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">+</text>
+<path matrix="1 0 0 1 118.571 -171.57" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 217.934 219.43" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 105.083 -163.788" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 204.446 227.212" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 103.526 -145.284" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 202.889 245.716" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 87.2709 -174.855" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 186.634 216.145" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 93.3234 -163.442" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 192.686 227.558" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 77.068 -157.562" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 176.431 233.438" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 17.7533 -168.111" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 117.116 222.889" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 3.57308 -165.863" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 102.936 225.137" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 -1.26894 -178.487" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 98.0941 212.513" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 -7.84025 -155.314" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 91.5227 235.686" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 5.47531 -148.57" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 104.838 242.43" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 20.0014 -148.916" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 119.364 242.084" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 56 -84" fill="0.502 0.502 1">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<text matrix="0.471732 0 0 0.471732 155.363 307" pos="188 740" stroke="black" type="label" width="5.396" height="3.321" depth="0.83" halign="center" valign="center" size="tiny" style="math">-</text>
+<path matrix="1 0 0 1 52 -84" fill="0.502 0.502 1" opacity="75%" stroke-opacity="opaque">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<path matrix="1 0 0 1 48 -84" fill="0.502 0.502 1" opacity="50%" stroke-opacity="opaque">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<path matrix="1 0 0 1 44 -84" fill="0.502 0.502 1" opacity="30%" stroke-opacity="opaque">
+1.89035 0 0 1.89035 188 740 e
+</path>
+<path matrix="1 0 0 1 40 -84" fill="0.502 0.502 1" opacity="10%" stroke-opacity="opaque">
+1.89035 0 0 1.89035 188 740 e
+</path>
 </page>
 </ipe>

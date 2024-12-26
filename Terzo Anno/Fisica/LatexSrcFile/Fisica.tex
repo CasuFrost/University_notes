@@ -2191,14 +2191,15 @@ Dove $r_i$ è la distanza fra l'$i$-esima carica ed il punto $r$. Si può estend
 $$ V(r)=\frac{1}{4\pi\varepsilon_0}\int_{\tau}\frac{dq}{r}=\frac{1}{4\pi\varepsilon_0}\int_{\tau}\frac{\sigma d\tau}{r}$$
 \defi{(Operatore nabla)} In $\R^3$, con sistema di coordinate cartesiane $x,y,z$, con versori  $\hat x,\hat y,\hat z$, si definisce l'operatore nabla 
 $$ \nabla = \dfrac{\partial}{\partial x}\hat x+\dfrac{\partial}{\partial y}\hat y+\dfrac{\partial}{\partial z}\hat z$$
-\defi{(Gradiente)} : Il gradiente di una funzione $f:\R^3\rightarrow \R^3$ è il prodotto fra $f$ e l'operatore nabla $\nabla$, ed è uguale al vettore le cui componenti sono le derivate parziali di $f$ rispetto $x,y$ e $z$. 
+\defi{(Gradiente)} Il gradiente di una funzione scalare $f:\R^3\rightarrow \R$ è il prodotto fra $f$ e l'operatore nabla $\nabla$, ed è uguale al vettore le cui componenti sono le derivate parziali di $f$ rispetto $x,y$ e $z$. 
 $$ \nabla f = f\cdot\Big( 
     \dfrac{\partial}{\partial x}\hat x+\dfrac{\partial}{\partial y}\hat y+\dfrac{\partial}{\partial z}    
 \Big)= \dfrac{\partial f}{\partial x}\hat x+\dfrac{\partial f}{\partial y}\hat y+\dfrac{\partial f}{\partial z}\hat z$$
+Il gradiente trasforma una funzione scalare in un campo vettoriale.\\
 \textbf{Esempio} : La funzione $f(x,y,z)=x^2y$ ha gradiente 
 $$ \nabla f = 2xy\hat x + x^2\hat y + 0\hat z = (2xy,x^2,0) $$
 \begin{center}
-    \includegraphics[width=0.7\textwidth]{images/grad.eps}
+    \includegraphics[width=0.65\textwidth]{images/grad.eps}
 \end{center}
 Si vuole introdurre ora una relazione che coinvolge il gradiente. Si consideri uno spostamento elementare $d\bar s = dx \hat x + dy\hat y +dz\hat z$, che unisce i punti 
 $$\begin{matrix}
@@ -2247,11 +2248,11 @@ $$ E=\begin{cases}
 \end{cases}$$
 Si può calcolare il potenziale elettrostatico nei due casi integrando $E$ (in forma scalare, il suo modulo dipende solo dalla distanza).\acc  
 \textbf{caso esterno $r\ge R$} 
-$$ \int_{\infty}^r E dr = V(\infty)-V(r)=-V(r)=-\frac{1}{4\pi\varepsilon_0}\frac{Q}{r}$$
+$$ \int_{r}^\infty E dr = V(r)-V(\infty)=V(r)=\frac{1}{4\pi\varepsilon_0}\frac{Q}{r}$$
 \textbf{caso interno $r\le R$}
 $$ \int_{R}^r E dr = V(R)-V(r)$$
 Il potenziale sulla superficie è 
-$$ V(R)=-\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}$$
+$$ V(R)=\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}$$
 quindi 
 $$ \int_{R}^r E dr=\frac{Q}{R^34\pi\varepsilon_0}\int_{R}^r r dr = -\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}-V(r) \implies $$
 $$ \frac{Q}{R^34\pi\varepsilon_0}\Big( \frac{r^2}{2}-\frac{R^2}{2}\Big) = -\frac{1}{4\pi\varepsilon_0}\frac{Q}{R}-V(r) \implies $$
@@ -2311,19 +2312,20 @@ $$ \begin{matrix}
     r_->>d 
 \end{matrix}\implies 
 \bar  r_+\simeq \bar  r_- \simeq \bar  r$$
-Se $\theta$ è l'angolo fra $\bar r_-$ e $p$, la differenza fra $r_-$ ed $r_+$ si può approssimare a $d\cos\theta$.
+Se $\theta$ è l'angolo fra $\bar r_-$ ed il segmento $q_{-}q_+$ (di lunghezza $d$), la differenza fra $r_-$ ed $r_+$ si può approssimare a $d\cos\theta$.
 \begin{center}
     \includegraphics[width=0.5\textwidth]{images/dipoloAsse2.eps}
 \end{center} 
-$$ V(p)=\frac{q}{4\pi\varepsilon_0}\frac{r_-r_+}{r_-r_+} \simeq 
-\frac{1}{4\pi\varepsilon_0}\frac{qd\cos\theta}{r^2}$$
+$$ V(p)=\frac{q}{4\pi\varepsilon_0}\frac{r_- - r_+}{r_-r_+} \simeq 
+\frac{q}{4\pi\varepsilon_0}\frac{d\cos\theta}{r^2}$$
 Si definisce \textbf{momento del dipolo} il vettore $\bar p$ tale che $$ |\bar p|=qd$$
 \begin{center}
     \includegraphics[width=0.35\textwidth]{images/momentoDipolo.eps}
 \end{center} 
 \textbf{Appunto sulla notazione} : Con $\bar p$ si denota il vettore momento del dipolo, con $p$ non si denota il suo modulo, bensì il punto su cui si è considerato il potenziale.\acc
-Sia $\hat r = \frac{\bar r}{|\bar r|}$, si ha che 
+Sia $\hat r = \frac{\bar r}{|\bar r|}=\frac{\bar r}{r}$, si ha che 
 $$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{\bar p \cdot \hat r}{r^2}= 
+\frac{1}{4\pi \varepsilon_0} \frac{\bar p }{r^2}\frac{\bar r}{r}=
 \frac{1}{4\pi \varepsilon_0} \frac{\bar p \cdot \bar  r}{r^3}$$
 Se $\bar p$ è parallelo al versore $\hat z$, allora il prodotto scalare $\bar p \cdot \bar r$ sarà uguale al modulo di $\bar p$ moltiplicato per la coordinata $z$ di $\bar r$ 
 $$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{|\bar p|z}{(x^2+y^2+z^2)^{\nicefrac{3}{2}}}$$
@@ -2331,7 +2333,7 @@ $$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{|\bar p|z}{(x^2+y^2+z^2)^{\nicefrac{3}
     \includegraphics[width=0.45\textwidth]{images/MomentoDipolo2.eps}
 \end{center} 
 è possibile calcolare il campo elettrico considerando il gradiente del potenziale, ad esempio, per al coordinata $x$ il campo vale 
-$$ E_x=\frac{\partial V}{\partial x}= 
+$$ E_x=-\frac{\partial V}{\partial x}= 
 -\frac{|\bar p|z}{4\pi\varepsilon_0}\Big( -\frac{3}{2}\cdot \frac{2x}{r^3} \Big)
 $$
 Analogamente si possono calcolare $E_y$ e $E_z$.\acc 
@@ -2353,7 +2355,8 @@ Ciò implica che il flusso attraverso una qualsiasi superficie chiusa contenuta 
 $$ \oint_S \bar E d\bar S =  \oint_S 0 d\bar S = 0$$ 
 Inoltre, risulta che il potenziale elettrico è costante in ogni punto del conduttore, siano $p_1$ e $p_2$ due punti qualsiasi si ha 
 $$ V(p_1)-V(p_2)=\int_{p_1}^{p_2}\bar E \cdot d\bar s=0 \implies V(p_1)=V(p_2)= V$$
-Si dice quindi che il conduttore è \textbf{equipotenziale}. Si consideri una sfera di materiale conduttore di carica $Q$ e di potenziale $V$
+Si dice quindi che il conduttore è \textbf{equipotenziale}.
+\sapbox{un conduttore immerso in un campo elettrostatico, fa si che il campo all'interno della sua superficie, sia nullo, e ciò comporta che la superficie sia equipotenziale} Si consideri una sfera di materiale conduttore di carica $Q$ e di potenziale $V$
 \begin{center}
     \includegraphics[width=0.3\textwidth]{images/sferaPot.pdf}
 \end{center} 
@@ -2373,8 +2376,8 @@ In alcune situazioni, ci sono due conduttori alla quale si può associare una so
 Il condensatore è equipotenziale, sia $V$ il potenziale, la capacità del condensatore è 
 $$ C=\frac{Q}{V}$$
 se $\sigma$ è la densità di carica, abbiamo visto che il campo elettrico del condensatore è 
-$$ \bar E = \frac{\sigma}{\varepsilon_0}$$il potenziale è quindi 
-$$  V = d\frac{\sigma}{\varepsilon_0}$$
+$$ \bar E = \frac{\sigma}{\varepsilon_0}$$Essendo $\bar E$ definito esclusivamente nel volume contenuto dalle due lastre, il potenziale risulta
+$$  V = \int_0^\infty\bar E=\int_0^d\frac{\sigma}{\varepsilon_0}=    d\frac{\sigma}{\varepsilon_0}$$
 La carica totale $Q$ è data dall'integrale della densità di carica su tutta la superficie, considerando la densità uniforme si ha $$Q=\sigma A$$
 la capacità è $$ C=\frac{Q}{ V}=\frac{\sigma A}{ V}=\frac{\sigma A }{d \frac{\sigma}{\varepsilon_0}}=\frac{\sigma A \varepsilon_0}{d \sigma}\implies $$
 $$ C=\varepsilon_0\frac{A}{d}$$ 
@@ -2388,7 +2391,7 @@ Il potenziale del secondo guscio è
  $$ V_2=\frac{1}{4\pi\varepsilon_0}\frac{Q}{R_2}$$
  Se $d$ è la distanza fra le due sfere, la differenza di potenziale risulta essere 
  $$ \Delta V =\frac{1}{4\pi\varepsilon_0}Q\frac{d}{R_1R_2} $$
-La capacità risulta essere 
+La capacità del sistema è data dalla differenza delle due capacità, che in questo caso è uguale alla carica fratto la d.d.p. Risulta essere 
 $$ C=\frac{Q}{\Delta V}={4\pi\varepsilon_0}\frac{R_1R_2}{d}$$
 Sapendo che le superfici delle due sfere sono rispettivamente $$\begin{matrix}
     S_1=4\pi R_1^2\\ 
@@ -2405,7 +2408,7 @@ Questi possono essere disposti in sere oppure in parallelo.
 \begin{center}
     \includegraphics[width=0.3\textwidth]{images/condensatoreSerie1.eps}
 \end{center} 
-La parte interna del circuito rappresenta un conduttore isolato, deve quindi essere neutro e ne consegue che 
+La parte interna del circuito rappresenta un conduttore isolato, deve quindi essere elettricamente neutro e ne consegue che 
 \begin{center}
     \includegraphics[width=0.5\textwidth]{images/condensatoreSerie2.eps}
 \end{center} 
@@ -2416,12 +2419,12 @@ La situazione è quindi la seguente
 $$ \begin{matrix}
     C_1 = \frac{Q}{\Delta V_1}\\ \\
     C_2 = \frac{Q}{\Delta V_2} \\ 
-\end{matrix}$$essendo
+\end{matrix}$$essendo la tensione ai capi dei due condensatori
 $$ 
 \Delta V = \Delta V_1+\Delta V_2
 $$ si ha 
 $$ 
- \Delta V=\frac{Q}{C_1}+\frac{Q}{C_2}\implies Q\frac{1}{C_1}+Q\frac{1}{C_2}$$
+ \Delta V=\frac{Q}{C_1}+\frac{Q}{C_2}\implies Q\Big(\frac{1}{C_1}+\frac{1}{C_2}\Big)$$
  Ne consegue che la capacità equivalente $C$ soddisfa 
  $$ \frac{1}{C}=\frac{1}{C_1}+\frac{1}{C_2}$$
  quindi 
@@ -2441,7 +2444,7 @@ Essendo ciascuno dei conduttori equipotenziale, la differenza di potenziale dei 
 La carica globale è quindi 
 $$ Q=q_1+q_2=V(C_1+C_2)$$
 La capacità equivalente è quindi 
-$$ C=\frac{q}{V}=C_1+C_2$$
+$$ C=\frac{Q}{V}=\frac{V(C_1+C_2)}{V}=C_1+C_2$$
 Per un sistema di $n$ condensatori in parallelo si ha 
 $$ C=\sum_{i=1}^nC_i$$
 \subsection{Energia del Condensatore}
@@ -2464,16 +2467,16 @@ $$ E=\frac{\sigma}{\varepsilon_0} \ \ \ \ \ \ V=Ed$$
 Dove $d$ è la distanza fra le due armature. Sapendo che $A$ è la superficie delle due lastre, si ha che 
 $$ E=\frac{\sigma}{\varepsilon_0} = \frac{Q}{A\varepsilon_0}\implies Q=EA\varepsilon_0$$
 L'energia potenziale elettrostatica del condensatore piano è quindi 
-$$ U_e=\frac{1}{2}QV=\frac{1}{2}\frac{E^{-2}A^2\varepsilon_0^2}{C}$$ sapendo che la capacità del condensatore piano è $C=\varepsilon_0\frac{A}{d}$ si ha 
-$$ U_e=\frac{1}{2}\varepsilon_0E^{-2}(Ad)$$ 
-$Ad$ è il prodotto fra la distanza delle armature e la superficie, è quindi il volume contenuto fra le due armature dove è contenuto il campo elettrico. Allora se $$ U_e=\frac{1}{2}\varepsilon_0E^{-2}\cdot (\text{volume})$$ 
-il termine $u=\frac{1}{2}\varepsilon_0E^{-2}$ si definisce \textbf{densità di energia}
+$$ U_e=\frac{1}{2}QV=\frac{1}{2}Q\frac{Q}{C}=\frac{1}{2}\frac{E^{2}A^2\varepsilon_0^2}{C}$$ sapendo che la capacità del condensatore piano è $C=\varepsilon_0\frac{A}{d}$ si ha 
+$$ U_e=\frac{1}{2}\varepsilon_0E^{2}(Ad)$$ 
+$Ad$ è il prodotto fra la distanza delle armature e la superficie, è quindi il volume contenuto fra le due armature dove è contenuto il campo elettrico. Allora se $$ U_e=\frac{1}{2}\varepsilon_0E^{2}\cdot (\text{volume})$$ 
+il termine $u=\frac{1}{2}\varepsilon_0E^{2}$ si definisce \textbf{densità di energia}
 $$ U_e=\int_\tau ud\tau = \int_\tau \frac{1}{2}\varepsilon_0E^2d\tau = uAd$$
 \subsubsection{Esercizio}
 Si consideri un conduttore sferico di raggio $R$, carica $Q$ e differenza di potenziale $V$. È noto che la capacità è $$ C=4\pi\varepsilon_0R$$
 Si vuole trovare $U_e$ integrando sul volume dello spazio in cui è contenuto il campo, ossia in tutto lo spazio esclusa la zona coperta dal conduttore.\acc 
 Si consideri un punto distante $r>R$ dal centro della sfera, una sfera infinitesima di raggio $r$ ha un volume infinitesimo $d\tau=4\pi r^2dr$, si integra quindi in $dr$ 
-$$ U_e=\frac{1}{2}\varepsilon_0\int_\tau E^2d\tau = \frac{1}{2}\varepsilon_0\int_R^\infty E^2(4\pi r^2)dr=\frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}$$
+$$ U_e=\frac{1}{2}\varepsilon_0\int_\tau E^2d\tau = \frac{1}{2}\varepsilon_0\int_R^\infty E^2(4\pi r^2)dr=\frac{1}{2}\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}$$
 Segue il calcolo dell'integrale
 \begin{eqnarray}
     \frac{1}{2}\varepsilon_0\int_R^\infty E^2(4\pi r^2)dr=\\ 
@@ -2482,11 +2485,11 @@ Segue il calcolo dell'integrale
    \frac{1}{2}\varepsilon_04\pi\frac{1}{(4\pi\varepsilon_0)^2}Q^2\int_R^\infty\frac{r^2}{r^4}dr=\\ 
    \frac{1}{2}Q^2\frac{1}{4\pi\varepsilon_0}\int_R^\infty r^{-2}dr = \\
    \frac{1}{2}Q^2\frac{1}{4\pi\varepsilon_0}\Big(-\frac{1}{r}\Bigg |_R^\infty\Big) = \\ 
-   \frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}(\frac{1}{R}-\frac{1}{\infty})= \\
-   \frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}
+   \frac{1}{2}\frac{Q^2}{4\pi\varepsilon_0}(\frac{1}{R}-\frac{1}{\infty})= \\
+   \frac{1}{2}\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}
 \end{eqnarray}
 in conclusione
-$$U_e  =\frac{1}{2}\varepsilon_0\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}$$
+$$U_e  =\frac{1}{2}\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}$$
 Ci si pone la seguente domanda, qual'è la regione di spazio (volume sferico) in cui è contenuta il 90\% dell'energia totale? Si deve trovare $R^*>R$ tale che 
 $$ \frac{1}{2}\varepsilon_0\int_{R}^{R^*} E^2(4\pi r^2)dr=\frac{9}{10}U_e$$
 Si ha che 
@@ -2561,9 +2564,9 @@ Lo schema di due resistenze in serie è il seguente
 \begin{center}
     \includegraphics[width=0.6\textwidth]{images/resistenzaSerie.pdf}
 \end{center} 
-La corrente $I$ è costante, per la prima legge di ohm si ha quindi che 
+Si indicano $V_1$ e $V_2$ le d.d.p. La corrente $I$ è costante, per la prima legge di ohm si ha quindi che 
 $$ V_1=\frac{R_1}{I} \ \ \ \ \ V_2=\frac{R_2}{I}$$
-ne consegue che il potenziale totale è 
+ne consegue che la differenza di potenziale ai capi della serie è
 $$ V=V_1+V_2=\frac{R_1+R_2}{I}=\frac{R}{I}$$
 Le due resistenze in serie sono quindi equivalenti ad una resistenza il cui valore è la somma delle due. 
 $$ R=R_1+R_2$$
@@ -2604,7 +2607,7 @@ Si definisce \textbf{generatore di forza elettromotrice} un qualsiasi dispositiv
 indica l'addensamento di cariche di segno opposto sulle due estremità, dette polo positivo e polo negativo.\acc 
 Si è visto come la legge di Ohm mette in relazione la differenza di potenziale e la corrente 
 $$ V=RI$$
-Quando si tratta l'ambito dei circuiti spesso si indica con $V$ la differenza di potenziale (come fatto anche nelle sezioni precedenti), anche se tale simbolo è utilizzato per denotare il potenziale elettrico, è più corretto scrivere 
+Quando si tratta l'ambito dei circuiti spesso si indica con $V$ la differenza di potenziale (come fatto anche nelle sezioni precedenti), anche se tale simbolo è più generalmente utilizzato per denotare il potenziale elettrico, è più corretto scrivere 
 $$ \Delta V = RI$$
 sappiamo che la differenza di potenziale è 
 $$V(A)-V(B)= \int_A^B\bar E d\bar s=RI $$
@@ -2613,7 +2616,7 @@ $$ \oint \bar Ed\bar s = RI$$
 il primo membro è la definizione di forza elettromotrice, ne consegue che \begin{quote}
     per avere una corrente $i$ è necessaria una forza elettromotrice, ossia un campo elettrico la cui circuitazione non sia nulla 
 \end{quote} 
-Sappiamo che il campo elettrico è conservativo ed ha circuitazione nulla, per avere della corrente è necessaria una forza non conservativa. Non è quindi il campo elettrostatico a far circolare la corrente. Denotiamo $\bar E_{el}$ il campo elettrostatico. Si consideri un circuito formato da un conduttore ed un generatore di forza elettromotrice che genera un flusso di corrente $\bar j$\begin{center}
+Sappiamo che il campo elettrostatico è conservativo ed ha circuitazione nulla, per avere della corrente è necessaria una forza non conservativa. Non è quindi il campo elettrostatico a far circolare la corrente. Denotiamo $\bar E_{el}$ il campo elettrostatico. Si consideri un circuito formato da un conduttore ed un generatore di forza elettromotrice che genera un flusso di corrente $\bar j$\begin{center}
     \includegraphics[width=0.5\textwidth]{images/circuito2.eps}
 \end{center}
 Il campo $\bar E_{el}$ è diretto da un polo all'altro del generatore dentro il conduttore, dato che ha la stessa direzione del flusso $\bar j$. Definiamo $E_{el}^{ext}$ il campo elettrico contenuto all'esterno del generatore, nel filo conduttore, e $E_{el}^{int}$ il campo elettrico contenuto nel generatore, ricordando che la circuitazione del campo elettrostatico è nulla, è chiaro che 
@@ -2638,10 +2641,10 @@ Un generatore non ideale è caratterizzato da una resistenza interna $r$ tale ch
 $$ \int_B^A (\bar E^*+\bar E_{el})d\bar s =rI$$
 che estende la legge di Ohm all'interno del generatore, considerando anche la resistenza del conduttore esterno si ha  che $$\mathscr{E} = (R+r)I\ \ \ \ \ I=\frac{\mathscr{E}}{R+r}$$
 
-Da questa ricaviamo che $$ Ri=\mathscr{E}-ri$$
+Da questa ricaviamo che $$ RI=\mathscr{E}-rI$$
 ma $RI$ sappiamo essere la differenza di potenziale 
- $$ V_A-V_B=Ri=\mathscr{E}-ri$$
- quando la corrente è nulla $i=0$ si ha 
+ $$ V_A-V_B=RI=\mathscr{E}-rI$$
+ quando la corrente è nulla $I=0$ si ha 
  $$ V_A-V_B=\mathscr{E}$$
  la forza elettromotrice è quindi uguale alla differenza di potenziale misurata ai capi del generatore quando la corrente è nulla (a circuito aperto).\flowerLine 
  \section{Risoluzione di Circuiti}
@@ -2695,9 +2698,9 @@ $$ \Delta V = \Big(\frac{R_2R_3}{R_2+R_3}+R_1\Big)I_1$$
 \flowerLine 
 \section{Potenza e Andamento del Circuito}
 Il lavoro infinitesimo compiuto per spostare una carica infinitesimale $dq$ da un punto $A$ ad un punto $B$, sottoposti ad una differenza di potenziale $\Delta V$ è 
-$$ \Delta Vdq$$
+$$ dL=dq\int_A^B E = dq(V(B)-V(A))= \Delta V dq$$
 Si definisce la \textbf{potenza} come 
-$$ P=\frac{\Delta Vdq}{dt}=\Delta V I$$
+$$ P=\frac{dL}{dt}=\frac{\Delta Vdq}{dt}=\Delta V I \ \  \frac{\text{Jaul}}{\text{sec}}$$
 In un sistema in cui vale la legge di Ohm, si può riscrivere come 
 $$ P=RI^2$$
 Si vuole determinare l'andamento nel tempo della carica di un condensatore quando collegato ad un circuito chiuso.\begin{center}
@@ -2830,7 +2833,7 @@ Come mostrato in figura \ref{lorentz}, dove $\bar v_d$ è la velocità di deriva
     \label{lorentz}
 \end{figure}
 Si consideri una curva $l$ che rappresenta un filo conduttore, ed un tratto infinitesimo $d l$, è noto che il vettore del flusso della corrente è 
-$$ \bar j = ndq\bar v_d$$
+$$ \bar j =ne^-\bar v_d= ndq\bar v_d$$
 si ha che 
 $$ dq\bar v_d=\bar jd\tau$$
 dove $d\tau$ è il volume infinitesimo in cui passa la corrente, che può essere descritto dalla sezione infinitesima del filo $ds$ e dal tratto infinitesimo $d\bar l$ 
@@ -2849,7 +2852,7 @@ Questa legge permette la costruzione dei motori elettrici, come riportato in fig
 \end{center}
 \section{Sorgenti del Campo Magnetico}
 Abbiamo definito il campo magnetico quando una carica subisce una forza (di Lorentz) in movimento, occupiamoci ora di definire la sorgente del campo e la sua descrizione quantitativa. \begin{quote}
-    \textit{una carica in movimento genera un campo magnetica}
+    \textit{una carica in movimento genera un campo magnetico}
 \end{quote}
 Tale affermazione si formalizza con la \textbf{prima legge di Laplace} 
 \eqImportante{$\bar B = \dfrac{\mu_0}{4\pi}q(\bar v\times \hat r)\dfrac{1}{r^2}$}
@@ -2872,17 +2875,20 @@ Essendo che in regioni diverse le polarizzazioni sono differenti, i momenti magn
     \includegraphics[width=0.3\textwidth ]{images/ferromagneti1.eps}
 \end{center}
 Sopra una temperatura di soglia (temperatura di Curie), i materiali ferromagnetici perdono la loro magnetizzazione.
-\subsection{Campi Generati da FIli}
+\subsection{Campi Generati da Fili}
 Consideriamo alcuni esempi canonici di campi magnetici generati da una corrente che scorre su dei fili conduttori, si consideri appunto un filo percorso da corrente. Essendo che in ogni punto il campo è ortogonale alla velocità delle cariche, il campo magnetico comporrà delle "spire" che avvolgono il filo.
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/campoFIlo.eps}
 \end{center}
-Il contributo infinitesimo in un punto distante $r$ dato da un tratto infinitesimo di filo $dx$ sarà
-$$ dB=\frac{\mu_0}{4\pi}I\frac{dx\sin\theta}{r^2}$$
+Il contributo infinitesimo in un punto distante $r$ dato da un tratto infinitesimo di filo $d\bar l$ di modulo $dx$ sarà
+$$ dB=\frac{\mu_0}{4\pi}I\frac{d\bar l \times \hat r}{r^2}=\frac{\mu_0}{4\pi}I\frac{dx\sin\theta}{r^2}$$
 sarà necessario integrare su tutto il filo 
 $$B=\int dB=\frac{\mu_0}{4\pi}I\int\frac{dx\sin\theta}{r^2} $$
 Si vuole cambiare variabile di integrazione considerando l'angolo $\theta$ 
 $$ r\sin\theta =R \implies r^2=\frac{R^2}{\sin^2\theta}\implies \frac{R}{x}=\tan\theta$$
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/campoMagFilo.eps}
+\end{center}
 $$ \implies x=\frac{R}{\tan \theta}=R\frac{\cos\theta}{\sin\theta}\implies dx=R(-\frac{1}{\sin^2\theta})d\theta$$
 Quindi 
 $$ B=\frac{\mu_0I}{4\pi}\int_\alpha^\beta \sin^3\theta R\frac{-d\theta}{\sin^2\theta}\frac{1}{R^2}= 
@@ -2906,9 +2912,9 @@ Consideriamo adesso il campo magnetico generato da una spira in cui scorre corre
     \includegraphics[width=0.6\textwidth ]{images/campoSpira.eps}
 \end{center}
 Infine il campo magnetico sarà diretto lungo l'asse $x$.
-$$ dB_x=dB\sin=\theta\frac{\mu_0I}{4\pi}\frac{dl}{r^2}\sin\theta$$
+$$ dB_x=dB\sin\theta=\frac{\mu_0I}{4\pi}\frac{dl}{r^2}\sin\theta$$
 $$ B_x=\int dB_x=\frac{\mu_0I}{4\pi r^2}\sin\theta\int_l dl$$
-sia $2\pi a=\int_l dl$ la circonferenza
+sia $a$ il raggio della spira e $2\pi a=\int_l dl$ la circonferenza
 $$ B_x=\frac{\mu_0I}{4\pi r^2}\sin\theta 2\pi  a $$
 ma $\sin\theta = \frac{a}{r}$
 $$ B_x=\frac{\mu_0I}{2 r^3} a^2 $$
@@ -2969,7 +2975,7 @@ In situazioni di simmetria, la legge di Ampere permette di calcolare il campo ma
 Consideriamo una curva chiusa $l$, concatenata, che per semplicità, è una circonferenza di raggio $r$, si vuole calcolare la circuitazione del campo magnetico lungo tale curva. Consideriamo separatamente i casi in cui la circonferenza della curva sia maggiore o minore alla circonferenza del cilindro.\acc 
 \textbf{caso 1)} $r>R$ 
 $$ \oint_l \bar B d\bar l  $$
-visto che il campo magnetico  e la curva sono sempre paralleli in ogni punto (dato che le linee di campo sono circonferenze), il prodotto scalare è il prodotto fra i due modulo.
+visto che il campo magnetico  e la curva sono sempre paralleli in ogni punto (dato che le linee di campo sono circonferenze), il prodotto scalare è il prodotto fra i due moduli.
 $$ \oint_l \bar B d\bar l  =\oint_l Bdl=B\oint_l dl$$
 Per la legge di Ampere si ha che 
 $$ B\oint_l dl=\mu_0I$$
@@ -3032,7 +3038,7 @@ Tale principio è alla base dei generatori elettrici, in cui si fanno girare del
 $$ \phi=SB\cos(\theta(t))$$
 ossia 
 $$ \phi = SB\cos(\omega t)$$\begin{center}
-    \includegraphics[width=0.4\textwidth ]{images/Faraday3.eps}
+    \includegraphics[width=0.4\textwidth ]{images/Faraday3.pdf}
 \end{center}
 Si considera la derivata del flusso rispetto al tempo cambiata di segno
 $$ -\dfrac{d\phi}{dt}=SB\omega\sin(\omega t)$$
@@ -3062,7 +3068,7 @@ essendo $\bar B$ e $\bar v$ ortogonali, il modulo del prodotto vettoriale è ugu
 $$ E_m=vB$$
 la forza elettromotrice è data dall'integrale sul circuito, essendo il campo elettromotore presente solo nel lato mobile, verrà considerata solo questa componente. Sia $l$ la lunghezza del lato, allora 
 $$ \text{f.e.m.}=vBl$$
-Si vuole calcolare ora la forza elettromotrice usando la legge di Faraday, e verificare che i risultati sono i medesimi. In un tempo infinitesimo $dt$, la sbarra si muove di una distanza $$ vdv$$
+Si vuole calcolare ora la forza elettromotrice usando la legge di Faraday, e verificare che i risultati sono i medesimi. In un tempo infinitesimo $dt$, la sbarra si muove di una distanza $$ vdt$$
 Come sezione, bisogna considerare quella "spazzata" dalla sbarra che si muove, la sezione infinitesima è data da 
 $$ ds=lvdt$$
 \begin{center}
@@ -3133,7 +3139,7 @@ Si consideri una variazione infinitesima dell'arco di curva, ossia $dl$, in tal 
 \end{center}
 Il flusso infinitesimo attraverso questa è dato da 
 $$ d\phi = \frac{1}{2}R dl B$$
-Si ricordi che è bastato fare il prodotto dei modulo in quanto la superficie del disco è ortogonale alle linee di campo magnetico. A questo punto, avendo il flusso infinitesimo, se ne vuole calcolare la derivata rispetto al tempo 
+Si ricordi che è bastato fare il prodotto dei moduli in quanto la superficie del disco è ortogonale alle linee di campo magnetico. A questo punto, avendo il flusso infinitesimo, se ne vuole calcolare la derivata rispetto al tempo 
 $$ \frac{d\phi}{dt}=\frac{1}{2}R dl B\frac{1}{dt}$$
 ma attenzione, il termine $\frac{dl}{dt}$ è la derivata rispetto al tempo dell'arco di curva $l$, questa non è altro che la velocità tangenziale $\omega R$, quindi 
 $$  \frac{1}{2}R dl B\frac{1}{dt}= \frac{1}{2}RB\frac{dl}{dt}=\frac{1}{2}RBR\omega$$
@@ -3261,7 +3267,7 @@ La situazione è illustrata dalla figura seguente\begin{center}
     \includegraphics[width=\textwidth]{images/circuitoRL2.pdf}
 \end{center}
 La corrente per $t\ge t_0$ (per semplicità $t_0=0$) soddisferà l'equazione differenziale 
-$$ IR-L\frac{dI}{dt}\implies$$
+$$ IR-L\frac{dI}{dt}=0\implies$$
 $$ \frac{dI}{I}=-\frac{R}{L}dt$$
 La soluzione di questa equazione differenziale è nota 
 $$ I(t)=I(0)e^{-\frac{t}{\tau}}=\frac{\Delta V}{R}e^{-\frac{t}{\tau}}$$\begin{center}
@@ -3273,7 +3279,7 @@ $$ P=RI^2$$
 quindi 
 $$ P=R\frac{\Delta V^2}{R^2}e^{-2\frac{t}{\tau}}$$
 La potenza elettrica in un lasso di tempo infinitesimo è $Pdt=R\frac{\Delta V^2}{R^2}e^{-2\frac{t}{\tau}}dt$
-L'energia totale immagazzinata $E_{nrgy}$ è l'integrale di questo termine da per $t$ che va da 0 ad infinito. 
+L'energia totale immagazzinata $E_{nrgy}$ è l'integrale di questo termine  per $t$ che va da 0 ad infinito. 
 $$E_{nrgy}=\int_0^\infty R\frac{\Delta V^2}{R^2}e^{-2\frac{t}{\tau}}dt = 
 \frac{\Delta V^2}{R}\int_0^\infty e^{-2\frac{t}{\tau}}dt=$$
 
@@ -3360,7 +3366,7 @@ $$A_xdydz=\frac{\partial A_x}{\partial x}dxdydz$$
 Analogamente, si avrà che 
 $$A_ydxdz=\frac{\partial A_y}{\partial x}dxdydz$$
 $$A_zdxdy=\frac{\partial A_z}{\partial x}dxdydz$$
-Il flusso attraverso tutte le facce del cubo infinitesimo $d\tau sarà quindi$
+Il flusso attraverso tutte le facce del cubo infinitesimo $d\tau$ sarà quindi
 $$ \frac{\partial A_x}{\partial x}dxdydz+\frac{\partial A_y}{\partial x}dxdydz+\frac{\partial A_z}{\partial x}dxdydz=$$
 $$ (\frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial x}+\frac{\partial A_z}{\partial x})dxdydz$$
 Ma \textit{attenzione}, il prodotto $dxdydz$ non è altro che il volume $d\tau$
@@ -3800,7 +3806,7 @@ $$ J=\frac{1}{\mu_0}E_0B_0\int_0^T\cos^2(kx+\omega t)t=\frac{1}{2\mu_0}E_0B_0$$
 
 
 
-
+\includepdf[pages=-]{../Formulario.pdf}
 \end{document} 
 \chapter{Formulario}
 \setlength{\columnsep}{1cm}
