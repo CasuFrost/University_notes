@@ -102,7 +102,7 @@ essere definita valida, vengono rappresentati con un doppio cerchio.
 Il modello di calcolo degli automi è riconducibile al concetto di 
 \textit{linguaggio regolare}, che verrà formalizzato in seguito, 
 segue ora una definizione formale di automa.\acc 
-\defi{(DFA)} : Un DFA (Deterministic Finite Automa) è una 
+\defi{(DFA)}  Un DFA (Deterministic Finite Automa) è una 
 5-tupla, $(Q,\Sigma,\delta, q_0, F)$ di cui\begin{itemize}
     \item $Q$ è l'insieme degli stati possibili 
     \item $\Sigma$ è l'alfabeto che compone le stringhe in input 
@@ -168,7 +168,7 @@ $$ a\in \Sigma,\;\;x\in \Sigma^*,\;\;\epsilon = \text{ stringa vuota}$$
 $\Sigma^*$ è l'insieme di tutte le stringhe formate dall'alfabeto 
 $\Sigma$. Passiamo ora alla definizione di \textbf{configurazione}, essa 
 rappresenta lo stato dell'automa ad un certo punto della 
-computazione, essa è formata da una coppia 
+computazione,  è formata da una coppia 
 $$ Q\times \Sigma^*$$
 Rappresentante uno stato, ed una stringa di input rimanente da 
 computare.\acc 
@@ -186,7 +186,7 @@ la relazione chiusa rispetto la riflessività e rispetto
 la transitività.
 $$ \begin{matrix}
     (q,aby)\vdash_D (p,by) \;\land\;  
-    (p,by)\vdash_D (ry) \implies 
+    (p,by)\vdash_D (r,y) \implies 
     (q,aby)\vdash_D^*(r,y)
 \end{matrix}$$
 Ad esempio, nell'automa in figura \ref{fig:automaSemplice2}, 
@@ -206,12 +206,12 @@ Inoltre$$ \begin{matrix}
 Se non specificato diversamente, con $\epsilon$ verrà indicata 
 la stringa vuota. Utilizzando le precedenti definizioni, è possibile definire formalmente 
 quali sono gli input accettati da un DFA.\acc 
-\defi{} : Sia $D=(Q,\Sigma,\delta, q_0, F)$ un DFA, e sia $x\in \Sigma^*$ una stringa, essa 
+\defi{}  Sia $D=(Q,\Sigma,\delta, q_0, F)$ un DFA, e sia $x\in \Sigma^*$ una stringa, essa 
 è \textbf{accettata} da $D$ se $$ \delta^*(q_0,x)\in F$$
 Il \textbf{linguaggio riconosciuto} da $D$ è \eqImportante{$ L(D)=\{x\in \Sigma^*|\delta^*(q_0,x)\in F\}$}
-\defi{(Linguaggi Regolari)} : L'insieme dei linguaggi regolari, denotato $REG$, contiene tutti 
+\defi{(Linguaggi Regolari)}  L'insieme dei linguaggi regolari, denotato $REG$, contiene tutti 
 i linguaggi, tali che esiste un DFA che li ha come linguaggi riconosciuti.
-\eqImportante{$ REG = \{L\;\;|\;\;\exists D=(Q,\Sigma,\delta, q_0, F) \text{ t.c. } L\in \Sigma^* \land L(D)=L\}$}
+\eqImportante{$ REG = \{L\;\;|\;\;\exists D=(Q,\Sigma,\delta, q_0, F) \text{ t.c. } L\subseteq \Sigma^* \land L(D)=L\}$}
 Uno fra gli scopi di questo corso riguarda il capire come progettare automi, e capire se, 
 ogni linguaggio è regolare, o ce ne sono alcuni che non possono essere riconosciuti da 
 alcun possibile DFA. 
@@ -241,7 +241,7 @@ $$ w_h(x) = \text{ occorrenze di 1 in }x$$
         \label{fig:DFAExample1}
 \end{figure}
 Una volta progettato il DFA, è anche importante dimostrarne la correttezza, ossia dare una prova 
-matematico che l'automa in questione accetti il linguaggio.\begin{itemize}
+matematica che l'automa in questione accetti il linguaggio.\begin{itemize}
     \item Se $x\in L(D)$ allora $D$ accetta $x$
     \item Se $D$ accetta $x$ allora $w_h(x)\ge 3$
 \end{itemize}
@@ -383,7 +383,7 @@ Per dimostrare la proprietà di concatenazione, è necessario introdurre un nuov
 Si può generalizzare il modello di DFA, in modo tale che la lettura di un input non scaturisca il passaggio da 
 uno stato ad un'altro, ma da uno stato ad un insieme di stati, tale generalizzazione è 
 detta \textit{Non-Deterministic Finite Automa}.\acc 
-\defi{(NFA)} : Un NFA è una tupla $N=(Q,\Sigma,\delta,q_0,F)$ tale che \begin{itemize}
+\defi{(NFA)}  Un NFA è una tupla $N=(Q,\Sigma,\delta,q_0,F)$ tale che \begin{itemize}
     \item $Q,\Sigma,q_0,F$ condividono la definizione con i loro corrispettivi nel DFA 
     \item $\delta : Q\times \Sigma_\epsilon\rightarrow\mathcal{P}(Q)$ \begin{itemize}
         \item $\Sigma_\epsilon = \Sigma \cup \{\epsilon\}$
@@ -414,7 +414,7 @@ uno stato accettabile, allora la stringa in input è accettata.
     \label{fig:NFAExample1}
 \end{figure}\acc
 Sia $N$ l'NFA mostrato in figura \ref{fig:NFAExample1}, si ha 
-$$ L(N)=\{x\in\{0,1\}^*\|\ x\text{ ha $1$ come terzultimo valore }\}$$
+$$ L(N)=\{x\in\{0,1\}^*\|\ x\text{ ha $1$ come terz'ultimo valore }\}$$
 Si può visualizzare il seguente albero di computazione data come input una stringa $w$ :
 $$w=10110$$\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/alberoCalc.eps}
@@ -429,7 +429,7 @@ dove
 $$p,q\in Q \ \ \ \ a\in \Sigma_\epsilon\ \ \ \ x\in \Sigma_\epsilon^*$$
 Si considera ora la chiusura transitiva di $\vdash_N$, denotata $\vdash_N^*$, se $w$ è una stringa ed 
 $N$ un NFA, si ha che 
-$$ w\in L(N)\iff \exists q\in F \|\ (q_0,w)\vdash_N^* (q,\epsilon)$$
+$$ w\in L(N)\iff \exists q\in F\text{ tale che } (q_0,w)\vdash_N^* (q,\epsilon)$$
 Consideriamo adesso l'unione di due NFA, risulta particolarmente semplice da definire, siano $N_1$ e $N_2$ due 
 NFA, che per semplicità, condividono l'alfabeto 
 $$ 
@@ -460,7 +460,7 @@ Si avrà che $L(N)=L(N_1)\cup L(N_2)$\begin{center}
 \end{center}
 Denotiamo $\mathcal{L}(DFA)$ l'insieme dei linguaggi accettati da un qualsiasi DFA, che per definizione è $REG$, e denotiamo, in maniera analoga 
 $\mathcal{L}(NFA)$. \acc 
-\teo{} : L'insieme dei linguaggi accettati da un qualsiasi DFA, e quello dei linguaggi accettati 
+\teo{}  L'insieme dei linguaggi accettati da un qualsiasi DFA, e quello dei linguaggi accettati 
 da un qualsiasi NFA coincidono $$\mathcal{L}(DFA)=\mathcal{L}(NFA)=REG$$
 \dimo{} Il caso $\mathcal{L}(DFA)\subseteq\mathcal{L}(NFA)$ è banale e non verrà dimostrato. Si vuole dimostrare che 
 se $L$ è accettato da un generico NFA, allora esiste un DFA che accetta $L$, l'idea è quella di "simulare" un NFA 
@@ -606,12 +606,12 @@ ed ogni stato finale ha una $\epsilon$-arco verso $q_0$.\begin{itemize}
  su tale alfabeto rappresenta un insieme di stringhe, un esempio è 
  $$(0|1)0^*$$ 
  Dove $(0|1)\equiv \{0\}\cup \{1\}=\{0,1\}$ e $0^*\equiv\{0\}^*$ quindi $(0|1)0^*\equiv \{0,1\}\circ \{0\}^*$.\acc 
- \defi{(espressione regolare)} : Sia $\Sigma$ un alfabeto, un espressione regolare $r$ su $\Sigma$, denotata 
+ \defi{(espressione regolare)}  Sia $\Sigma$ un alfabeto, un espressione regolare $r$ su $\Sigma$, denotata 
  $r\in re(\Sigma)$, è definita per induzione \\ 
  \textbf{Caso base}\begin{itemize}
     \item $r=\emptyset\in re(\Sigma)$
     \item $r=\epsilon\in re(\Sigma)$
-    \item $r=a\in re(\Sigma)$
+    \item $r=a\in re(\Sigma)$ dove $a\in\Sigma$
  \end{itemize}
  \textbf{Caso induttivo}\begin{itemize}
     \item $r=r_1\cup r_2$ dove $r_1,r_2\in re(\Sigma)$
@@ -634,7 +634,7 @@ $D_r$ definito come segue, a seconda dei casi\acc
 \textbf{Caso base }\begin{itemize}
     \item $r=\emptyset\implies D_r$ non accetta alcuna stringa 
     \item $r=\epsilon\implies D_r$  accetta la stringa vuota
-    \item $r=a\implies D_r$  accetta la $a\in\Sigma$
+    \item $r=a\implies D_r$  accetta  $a\in\Sigma$
 \end{itemize}
 \textbf{Caso induttivo}\begin{itemize}
     \item $r=r_1\cup r_2$, esistono due automi $D_{r_1}$ e  $D_{r_2}$ che accettano rispettivamente $L(r_1)$ 
@@ -676,7 +676,7 @@ Tale funzione è definita in tal modo, sia $k$ il numero di stati/nodi di $G$, s
     $$ \delta' : Q\backslash \{q_{acc},q_{rip}\} \times Q\backslash \{q_{start},q_{rip}\}\rightarrow re(\Sigma)$$
     Inoltre ogni etichetta di $G'$ viene aggiornata secondo la seguente procedura, siano $q_i\in Q\backslash \{q_{acc},q_{rip}\}$
     e  $q_j\in Q\backslash \{q_{start},q_{rip}\}$ due stati qualsiasi 
-    $$ \delta'(q_i,q_j)=r_1r_2^*(r_3|r_4)$$
+    $$ \delta'(q_i,q_j)=(r_1r_2^*r_3)|r_4$$
     Dove \begin{itemize}
         \item $r_1=\delta(q_i,q_{rip})$
         \item $r_2=\delta(q_{rip},q_{rip})$
@@ -763,7 +763,7 @@ Tale sequenza è lunga $n+1\ge p+1$ stati, fra i primi $p+1$ elementi c'è neces
  \end{itemize}\begin{enumerate}
     \item $xy^iz\in L(D)$ perché $x$ parte da $r_1=q_{start}$ e arriva a $r_j$, $y^i$ parte da $r_j$ e ritorna su $r_l$, che è 
     lo stesso stato, e $z$ porta da $r_l$ allo stato finale di accettazione.
-    \item Essendo che $i\ne l$, $|y|>0$. 
+    \item Essendo che $j<l$, allora la dimensione minima di $y$ è 1, in quanto il valore minimo che può assumere $l$ è $j+1$, ne consegue che $|y|>0$. 
     \item $l\le p+1$ ovvero $l-1=|xy|\le p$.
  \end{enumerate}
  I tre punti sono dimostrati. $\blacksquare$    \acc
@@ -807,7 +807,7 @@ Precisamente, una grammatica può generare stringhe\begin{enumerate}
 Applicando le regole secondo un ordine arbitrario, è possibile 
 generare qualsiasi stringa del tipo $0^n\#1^n$, ad una grammatica quindi 
 corrisponde un linguaggio. Una 'computazione' di una grammatica può 
-essere rappresentata con un albero sintattico. \ref{fig:alsint}\acc
+essere rappresentata con un albero sintattico, mostrato in figura \ref{fig:alsint}.\acc
 \begin{figure}[h!]
     \centering 
     \includegraphics[width=0.2\textwidth ]{images/alberoSintattico.eps}
@@ -835,7 +835,7 @@ $$
 Le regole $R$ possono essere rappresentate come una funzione 
 $R : V \rightarrow (V\cup \Sigma)^*$, associa ad ogni variabile una 
 stringa composta da terminali, variabili, o entrambe.\acc 
-Sia $uAv$ u8na stringa tale che $A\in V, \ \ u,v\in \Sigma \cup V$, e sia 
+Sia $uAv$ una stringa tale che $A\in V, \ \ u,v\in \Sigma \cup V$, e sia 
 $w\in \Sigma \cup V$ diremo che 
 $uAv$ \textbf{produce} $uwv$, e denoteremo $uAv \Rightarrow  uwv$ se e solo se
  $$ A\longrightarrow w \in R$$
@@ -970,7 +970,7 @@ Si consideri la seguente grammatica $G$ $$\begin{cases}
         B \longrightarrow b
     \end{cases}$$
 \item passo 3 : regole unitarie
-\\ si rimuove $S\longrightarrow S$
+\\ si rimuove $S_0\longrightarrow S$
 $$\begin{cases}
     S_0 \longrightarrow S\\
     S\longrightarrow ASA |  aB | SA |AS | S  \\ 
@@ -1060,7 +1060,7 @@ sarà associata una differente evoluzione della pila.\acc
 Considerato un PDA, supponiamo che 
 $$ (q,c)\in\delta(p,a,b) \ \ \ \text{ con } \ \ \  
 \begin{cases}
-    q,p\in Q \\ a\in \Sigma_\epsilon \\ c,b \in \Sigma_\epsilon
+    q,p\in Q \\ a\in \Sigma_\epsilon \\ c,b \in \Gamma_\epsilon
 \end{cases} $$
 Allora, a seconda dei valori di $a,b$ e $c$, lo step di computazione assume il seguente significato\begin{itemize}
     \item $a,b,c\ne\epsilon\implies$ il PDA legge $a$, passa dallo stato $p$ allo stato $q$ e sostituisce 
@@ -1071,10 +1071,10 @@ Allora, a seconda dei valori di $a,b$ e $c$, lo step di computazione assume il s
     eseguo una pop sullo stack rimuovendo $b$.
 \end{itemize}
 Passiamo alla descrizione di come viene \textit{eseguita la computazione} su un PDA, si consideri una stringa $w$ in input, 
-composta dai caratteri $$w=w_0w_1\dots w_n \text{ con } w_i\in\Sigma$$ consideriamo ora gli stati che 
-verranno attraversati nella computazione : $$r_0,r_1,r_2\dots, r_{n+1}$$
+composta dai caratteri $$w=w_1\dots w_n \text{ con } w_i\in\Sigma$$ consideriamo ora gli stati che 
+verranno attraversati nella computazione : $$r_0,r_1,r_2\dots, r_{n}$$
 e si considerino le stringhe 
-$$ s_1,s_2\dots, s_n \text{ con } s_i\in\Gamma^*$$
+$$ s_0,s_2\dots, s_n \text{ con } s_i\in\Gamma^*$$
 Lo stato $r_0=q_0$ sarà lo stato iniziale, ed $s_0=\epsilon$ rappresenterà la pila vuota, inoltre, 
 $\forall i = 0,1\dots, n$ si avrà che  
 $$ (r_{i+1},a)\in\delta(r_i,w_{i+1},b)$$
@@ -1102,7 +1102,7 @@ definizione.\acc
 l'insieme $$L(P)=\{w\in\Sigma^* \ | \ (q_0,w,\epsilon)\vdash^* (q,\epsilon,y) \land q\in F\land y\in\Gamma^*\} $$
 Si può definire in manire equivalente assumendo che la computazione termini sempre 
 con lo stack vuoto 
-$$L(P)=\{w\in\Sigma^* \ | \ (q_0,w,\epsilon)\vdash^* (q,\epsilon,\epsilon) \land q\in F\land\} $$
+$$L(P)=\{w\in\Sigma^* \ | \ (q_0,w,\epsilon)\vdash^* (q,\epsilon,\epsilon) \land q\in F\} $$
 Il fatto che le due definizioni siano equivalenti, implica che ogni PDA può essere trasformato in un PDA equivalente 
 in cui ogni stringa accettata termini la computazione con lo stack vuoto.
 \subsection{Esempi}
@@ -1282,7 +1282,7 @@ intermedio.\begin{center}
 Bisogna definire le regole dela grammatica, la variabile iniziale $S$ sarà $A_{q_0q_{accept}}$, quindi per 
 definizione $S$ genererà tutte le stringhe che accetta il PDA. L'insieme delle regole $R$ della grammatica $G$ sarà 
 definito come segue \begin{itemize}
-    \item Siano $p,q,r,s\in Q$, $u\in\Gamma$, $a,b\in\Sigma_\epsilon$, se $$ (r,u)\in\delta(p.a.\epsilon)\land  
+    \item Siano $p,q,r,s\in Q$, $u\in\Gamma$, $a,b\in\Sigma_\epsilon$, se $$ (r,u)\in\delta(p,a,\epsilon)\land  
     (q,\epsilon)\in\delta(s,b,u)$$ allora ci sarà la regola $$A_{pq}\longrightarrow aA_{rs}b $$\begin{center}\begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth ]{images/dimoPDACFG1.eps}
@@ -1306,7 +1306,7 @@ suddivisa in due claim.\acc
     che può generare $x$ è del tipo $A_{pp}\longrightarrow \epsilon$, allora $x=\epsilon$, e la stringa vuota porta 
     l'automa $P$ da $p$ a $p$ con pila vuota. 
     \item \textbf{ipotesi induttiva} : Per ogni $x$ generata da una regola di $G$ per $k>1$ produzioni, tale stringa 
-    congiunga i due stati in questione lasciando la pila vuota. 
+    congiunge i due stati in questione lasciando la pila vuota. 
     \item \textbf{passo induttivo} : Supponiamo che $A_{pq}$ produca $x$ in $k+1$ produzioni, allora, data la definizione 
     delle regole di $G$, la regola in questione può essere di due tipi : \begin{itemize}
         \item La regola in questione è $A_{pq}\longrightarrow aA_{rs}b$, allora $x$ ha la forma $ayb$, ne consegue che 
@@ -1377,7 +1377,7 @@ lunga al più $2^{i-1}$.\acc
     cammino più lungo (denominato da ora in poi \textit{altezza}) grande al più $i$, generano quindi stringhe 
     lunghe al più $2^{-1}$, quindi $S$ genera stringhe lunghe al più $2\cdot 2^{i-1}=2^i=2^{k-1}$.\hfill$\blacksquare$
 \end{itemize}
-\teo{( Pumping Lemma per le CFG )} : Sia $L$ un linguaggio acontestuale, allora esiste un numero $p$ tale che, presa 
+\teo{( Pumping Lemma per le CFG )}  Sia $L$ un linguaggio acontestuale, allora esiste un numero $p$ tale che, presa 
 una qualsiasi stringa $w$ lunga almeno $p$, ($|w|\ge p$), esiste una sua suddivisione $$w=uvxyz$$ tale che\begin{enumerate}
     \item $\forall i\ge 0 \ \ \ uv^ixy^iz\in L$
     \item $|vy|>0$
