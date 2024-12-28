@@ -410,7 +410,7 @@ La caduta degli oggetti verso il suolo è descritta dal moto uniformemente
 		\\
 	\end{tabular}
 \end{center}
-La legge orario che descrive la posizione $y$ dell'oggetto è la segunete 
+La legge oraria che descrive la posizione $y$ dell'oggetto è la segunete 
 $$ \begin{cases}
     y(t)=h-\frac{1}{2}gt^2 \\ 
     v(t)=\dfrac{dy}{dt}=-gt
@@ -3360,19 +3360,19 @@ Ma essendo $dx$ uno spostamento infinitesimo, è possibile considerare il differ
 Quindi 
 $$A_x(x_0+dx)=A_x(x_0)+\frac{\partial A_x}{\partial x}dx $$
 Ma allora il flusso sulle facce la cui normale è parallela all'asse $x$ risulta essere 
-$$ -A_x(x_0)dydz+A_x(x_0)+\frac{\partial A_x}{\partial x}dxdydz$$
+$$ -A_x(x_0)dydz+A_x(x_0)dydz+\frac{\partial A_x}{\partial x}dxdydz$$
 I primi due termini si annullano, il flusso è quindi 
 $$A_xdydz=\frac{\partial A_x}{\partial x}dxdydz$$
 Analogamente, si avrà che 
-$$A_ydxdz=\frac{\partial A_y}{\partial x}dxdydz$$
-$$A_zdxdy=\frac{\partial A_z}{\partial x}dxdydz$$
+$$A_ydxdz=\frac{\partial A_y}{\partial y}dxdydz$$
+$$A_zdxdy=\frac{\partial A_z}{\partial z}dxdydz$$
 Il flusso attraverso tutte le facce del cubo infinitesimo $d\tau$ sarà quindi
-$$ \frac{\partial A_x}{\partial x}dxdydz+\frac{\partial A_y}{\partial x}dxdydz+\frac{\partial A_z}{\partial x}dxdydz=$$
-$$ (\frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial x}+\frac{\partial A_z}{\partial x})dxdydz$$
+$$ \frac{\partial A_x}{\partial x}dxdydz+\frac{\partial A_y}{\partial y}dxdydz+\frac{\partial A_z}{\partial z}dxdydz=$$
+$$ (\frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial y}+\frac{\partial A_z}{\partial z})dxdydz$$
 Ma \textit{attenzione}, il prodotto $dxdydz$ non è altro che il volume $d\tau$
-$$ (\frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial x}+\frac{\partial A_z}{\partial x})d\tau$$
+$$ (\frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial y}+\frac{\partial A_z}{\partial z})d\tau$$
 \defi{(Divergenza)} Dato un campo vettoriale $\bar A$, definiamo \textbf{divergenza} di $\bar A$, e denotiamo $\nabla \cdot \bar A$ lo scalare 
-$$\nabla \cdot \bar A= \frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial x}+\frac{\partial A_z}{\partial x}$$
+$$\nabla \cdot \bar A= \frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial y}+\frac{\partial A_z}{\partial z}$$
 \textbf{Appunto sulla notazione} : Non è da confondersi con il gradiente di un campo vettoriale, che si denota $\nabla \bar A$, ed è un vettore le cui componenti sono le derivate parziali di $\bar A$ rispetto gli assi.\acc 
 Tornando al flusso attraverso le facce di un volume infinitesimo $d\tau$, questo si può riscrivere 
 $$ (\nabla \cdot \bar A)d\tau$$
@@ -3445,7 +3445,7 @@ $}
 Mostriamo adesso, il procedimento con il quale Maxwell ha trovato la quarta equazione nel caso delle correnti non stazionarie. Il seguente ragionamento è valido anche per una trattazione fluido dinamica, vi è un conduttore cilindrico (o tubo) in cui scorre della corrente (o acqua), c'è quindi un flusso.\begin{center}
     \includegraphics[width=0.7\textwidth]{images/4eqMax.eps}
 \end{center}
-Si consideri la superficie chiusa $S$ in cui sta scorrendo la corrente, delimitata dalle due sezioni $s$ ed $s'$ (la cui area è identica), il flusso attraverso tale superficie $S$ è nullo in quanto la corrente $\bar j$ è uniforme e le sezioni sono identica, impropriamente, si può dire che \begin{quote}
+Si consideri la superficie chiusa $S$ in cui sta scorrendo la corrente, delimitata dalle due sezioni $s$ ed $s'$ (la cui area è identica), il flusso attraverso tale superficie $S$ è nullo in quanto la corrente $\bar j$ è uniforme e le sezioni sono identiche, impropriamente, si può dire che \begin{quote}
     "la corrente che entra è identica alla corrente che esce"
 \end{quote}
 $$ \int_S \bar j d\bar s = 0$$
@@ -3611,7 +3611,7 @@ $$ f(x\pm vt)$$
 \end{center}
 Prendiamo una generica funzione che soddisfi la condizione necessaria, ad esempio, la funzione coseno 
 $$ f(x+vt)=\cos(x+vt)$$
-Ma questa non può andar bene, in quanto $x$ ha dimensioni di spazioe, $t$ ha dimensioni di tempo e $v$ ha le dimensioni di una velocità, ma l'argomento del coseno \underline{deve} essere adimensionale. Si può aggiustare l'argomento considerando un parametro $\lambda$ chiamato \textbf{lunghezza d'onda}, che la dimensione di una lunghezza 
+Ma questa non può andar bene, in quanto $x$ ha dimensioni di spazio, $t$ ha dimensioni di tempo e $v$ ha le dimensioni di una velocità, ma l'argomento del coseno \underline{deve} essere adimensionale. Si può aggiustare l'argomento considerando un parametro $\lambda$ chiamato \textbf{lunghezza d'onda}, che la dimensione di una lunghezza 
 $$ 
 \cos\big(\frac{2\pi}{\lambda}x+\frac{2\pi}{\lambda}vt\big)
 $$
@@ -3621,9 +3621,9 @@ $$
 $$
 La velocità su lunghezza d'onda è la \textit{frequenza} (inverso del periodo), da cui si può ricavare la \textit{pulsazione}
 $$ 
-\frac{v}{t}=\frac{1}{T}=\nu
+\frac{v}{\lambda}=\frac{1}{T}=\nu
 $$
-$$ \omega = 2\pi\nu$$
+$$ \omega = 2\pi\nu=2\pi \frac{v}{\lambda}=kv$$
 Definiamo una generica ampiezza $A$ per la funzione coseno, l'onda avrà la forma 
 $$ f(x,t)=
 A\cos(kx\pm\omega t)

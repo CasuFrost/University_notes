@@ -1375,8 +1375,11 @@ lunga al più $2^{i-1}$.\acc
     \item \textbf{passo induttivo} : si consideri un cammino lungo $k=i+1 =  (i>1)+1 \ge 3$, la prima regola applicata 
     deve essere necessariamente del tipo $$S\longrightarrow BC$$ i sotto alberi generati da $B$ e $C$ hanno il 
     cammino più lungo (denominato da ora in poi \textit{altezza}) grande al più $i$, generano quindi stringhe 
-    lunghe al più $2^{-1}$, quindi $S$ genera stringhe lunghe al più $2\cdot 2^{i-1}=2^i=2^{k-1}$.\hfill$\blacksquare$
+    lunghe al più $2^{i-1}$, quindi $S$ genera stringhe lunghe al più $2\cdot 2^{i-1}=2^i=2^{k-1}$.\hfill$\blacksquare$
 \end{itemize}
+\begin{center}
+    \includegraphics[width=\textwidth ]{images/altezzaAlberoDerivazione.eps}
+\end{center}
 \teo{( Pumping Lemma per le CFG )}  Sia $L$ un linguaggio acontestuale, allora esiste un numero $p$ tale che, presa 
 una qualsiasi stringa $w$ lunga almeno $p$, ($|w|\ge p$), esiste una sua suddivisione $$w=uvxyz$$ tale che\begin{enumerate}
     \item $\forall i\ge 0 \ \ \ uv^ixy^iz\in L$
@@ -1398,7 +1401,7 @@ Mentre $u$ e $z$ sono generate nella derivazione da $S$ ad $A_i$.\begin{center}
 Siccome $G$ è in forma normale, un sotto albero contiene, o un singolo terminale, o due variabili. Quindi, essendo che il 
 sotto albero di $A_i$ non può essere un terminale, avendo $A_j$, sarà composto da due variabili. 
 $$A_i\longrightarrow BC\in R $$
-Una delle due variabili fra $B$ e $C$ genererà $A_j$ che a sua volta deriverà $x$. L'altra variabile deriverà 
+Una delle due variabili fra $B$ e $C$ genererà $A_j$ che a sua volta deriverà $x$. L'altra variabile deriverà necessariamente uno o più caratteri, ossia
 $vy$, quindi $vxy\ne x$, ciò implica che necessariamente $|vy|>0$ (punto $(ii)$ dimostrato).\acc 
 Essendo che il cammino più lungo nell'albero ha lunghezza $m+1$, le stringhe generate avranno lunghezza 
 minore o uguale a $2^{(m+1)-1}=2^m=p$, quindi $|vxy|\ge p$  (punto $(iii)$ dimostrato).\acc 
@@ -1702,7 +1705,7 @@ $$ \delta':Q\times\Gamma \rightarrow Q\times\Gamma\times \{L,R,S\}$$
 Dove $S$ (che sta per 'stay') indica l'azione del restare fermi senza 
 muovere la testina.\acc 
 \prop{} Per ogni STM esiste una TM classica equivalente. \acc 
-\dimo{} ,Sia $M'$ la STM, l'idea è quella di considerare una TM $M$ 
+\dimo{} Sia $M'$ la STM, l'idea è quella di considerare una TM $M$ 
 che gestisca le transizioni di stato in cui la testina 
 non si muove, a tal scopo, basta simulare tale azione tramite 
 una sequenza di 2 movimenti che fanno uso di uno stato ausiliario $q_s$. 
@@ -1710,7 +1713,7 @@ una sequenza di 2 movimenti che fanno uso di uno stato ausiliario $q_s$.
     $ \delta'(q,a)=(p,b,S)$
     \\ è equivalente alle azioni \\ 
     $\begin{cases}
-        \delta(q,a)=(p,q_s,L)\\ 
+        \delta(q,a)=(q_s,b,L)\\ 
         \delta(q_s,*)=(p,*,R)
         
     \end{cases}$
