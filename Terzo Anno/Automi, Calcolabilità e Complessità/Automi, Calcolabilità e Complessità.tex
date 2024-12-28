@@ -27,7 +27,7 @@
 \begin{figure}[h]
     \centering{
         %l'immagine deve avere una risoluzione 2048x2048
-        \includegraphics[width=1\textwidth ]{images/copertina2.jpeg}
+        \includegraphics[width=1\textwidth ]{images/copertina3.jpeg}
     }
 \end{figure}
 \vfill 
@@ -1384,7 +1384,7 @@ lunga al più $2^{i-1}$.\acc
 una qualsiasi stringa $w$ lunga almeno $p$, ($|w|\ge p$), esiste una sua suddivisione $$w=uvxyz$$ tale che\begin{enumerate}
     \item $\forall i\ge 0 \ \ \ uv^ixy^iz\in L$
     \item $|vy|>0$
-    \item $|vxy|\ge p$
+    \item $|vxy|\le p$
 \end{enumerate}
 \dimo{( Pumping Lemma per le CFG )} Sia $G=(V,\Sigma, R, S)$ la CFG associata ad $L$, ossia $L(G)=L$, si assume che $G$ sia in forma 
 normale Chomsky (senza perdita di generalità), quindi ogni suo albero di derivazione sarà binario. Sia $m=|V|$ il numero 
@@ -1404,7 +1404,7 @@ $$A_i\longrightarrow BC\in R $$
 Una delle due variabili fra $B$ e $C$ genererà $A_j$ che a sua volta deriverà $x$. L'altra variabile deriverà necessariamente uno o più caratteri, ossia
 $vy$, quindi $vxy\ne x$, ciò implica che necessariamente $|vy|>0$ (punto $(ii)$ dimostrato).\acc 
 Essendo che il cammino più lungo nell'albero ha lunghezza $m+1$, le stringhe generate avranno lunghezza 
-minore o uguale a $2^{(m+1)-1}=2^m=p$, quindi $|vxy|\ge p$  (punto $(iii)$ dimostrato).\acc 
+minore o uguale a $2^{(m+1)-1}=2^m=p$, quindi $|vxy|$ essendo una sottostringa avrà lunghezza minore o uguale a $ p$  (punto $(iii)$ dimostrato).\acc 
 Le variabili $A_i$ e $A_j$ possono essere sostituite nell'albero di computazione.
 \begin{center}
     \includegraphics[width=0.85\textwidth ]{images/alberoDer2.eps}
@@ -1417,9 +1417,9 @@ In questa sezione verrà utilizzato il pumping lemma per dimostrare che alcuni l
 Si consideri il linguaggio 
 $$ L=\{0^n1^n2^n \ | \ n \ge 1 \}$$
 Tale linguaggio non è acontestuale, non esiste nessuna CFG che lo genera. Per assurdo, si assuma che 
-$L$ sia acontestuale, allora $\exists p$ tale che, per ogni stringa $w\in L$ di lunghezza al più 
+$L$ sia acontestuale, allora $\exists p$ tale che, per ogni stringa $w\in L$ di lunghezza almeno
 $p$, valgono le condizioni del pumping lemma. \acc 
-Si prende in esame la stringa $w=0^p1^p2^p$, bisogna considerare tutte le scomposizioni di $w$ del tipo\begin{itemize}
+Si prende in esame la stringa $w=0^p1^p2^p$, che è lunga $3p$, bisogna considerare tutte le scomposizioni di $w$ del tipo\begin{itemize}
     \item $w=uvxyz$ con  
     \item $|vy|>0$
     \item $|vxy|\le p$
@@ -1452,9 +1452,9 @@ La stringa può essere scomposta in diversi modi\begin{itemize}
     \item \textit{caso 1} : $vxy$ non si trova a cavallo fra i confini e non si trova a cavallo nel mezzo, è 
     quindi confinata fra una delle 4 metà della stringa, è quindi composta di soli 0 oppure di soli 1. Secondo il punto 
  $(1)$ del pumping lemma, preso $i=2$ si ha la stringa $$ \hat w = uv^2xy^2z$$
-ma allora $\hat w$ non appartiene ad $L$. 
+ma allora $\hat w$ non appartiene ad $L$, dato che non esistono due stringhe identiche che concatenate compongono $\hat w$. 
 \item \textit{caso 2} : $vxy$ si trova a cavallo fra uno dei due confini, ma non tocca il mezzo. Si considera $i=0$ : 
-$$ \hat w = uv02xy^0z=uxz$$
+$$ \hat w = uv^0xy^0z=uxz$$
 eliminando $vy$, si crea un "buco" rispetto alla stringa originale, tale buco ha dimensione 
 al più $p$, essendo che una delle due metà della stringa cambia, il mezzo si sposta, supponiamo che $vxy$ si trovava sul confine 
 destro (la dimostrazione è analoga al sinistro), allora il centro si sposterà verso destra di $\ge p$ posizioni, e la metà destra della 
@@ -1498,7 +1498,7 @@ $$ R_1=\begin{cases}
     S_1\longrightarrow0S_1 |\epsilon\\ 
     S_2 \longrightarrow 1S_22|\epsilon
 \end{cases}$$
-L'intersezione dei due linguaggi $L=L_1\cup L_2 = \{0^n1^n2^n \ | \ n\ge 0\}$ sappiamo essere un linguaggio acontestuale, 
+L'intersezione dei due linguaggi $L=L_1\cup L_2 = \{0^n1^n2^n \ | \ n\ge 0\}$ sappiamo  non essere un linguaggio acontestuale, 
 quindi le CFG \textbf{non sono chiuse per intersezione}.
 \subsubsection{Esercizio 4}
 Si consideri il seguente linguaggio $$ L=\{a,b\}^* \ \backslash \ \{ww\ | \ w\in\{a,b\}^*\}$$
@@ -1515,7 +1515,7 @@ $$\begin{itemize}
     \item $A$ genera le stringhe dispari con una $a$ al centro
     \item $B$ genera le stringhe dispari con una $b$ al centro
 \end{itemize}
-\dimo{} : Si vuole dimostrare che le stringhe di lunghezza pari generate da $R$ sono in $L$. Si dimostreranno entrambi i 
+\dimo{}  Si vuole dimostrare che le stringhe di lunghezza pari generate da $R$ sono in $L$. Si dimostreranno entrambi i 
 versi.\acc 
 \boxedMath{$\implies$} Se $x\in L$, allora $S\Rightarrow^* x$. Se $x\in L$, allora esiste almeno una lettera che si differenzia fra le due sotto stringhe di eguale 
 lunghezza che compongono $x$, sia $n=|x|$
@@ -1563,7 +1563,7 @@ astrazione dei calcolatori odierni, e corrisponde alla nozione di algoritmo.\sub
     \item $\Gamma$ è l'insieme dei caratteri che possono essere scritti sul nastro, solitamente $\Sigma\subseteq \Gamma$. Inoltre 
     in $\Gamma$ vi è sempre un carattere speciale $\blank$ (denominato "blank") che rappresenta il carattere vuoto.
     Inoltre $\blank\notin\Sigma$.
-    $\delta$ è la funzione di transizione definita $$ \delta : Q\times \Gamma \rightarrow Q\times \Gamma \times \{L,R\}$$
+    \item $\delta$ è la funzione di transizione definita $$ \delta : Q\times \Gamma \rightarrow Q\times \Gamma \times \{L,R\}$$
     L'insieme $\{L,R\}$ rappresenta i possibili spostamenti della testina a sinistra o a destra
     \item $q_0$ è lo stato iniziale 
     \item  $q_{acc}$ è lo stato (unico) di accettazione 
@@ -1574,7 +1574,7 @@ dal carattere $\blank$.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/turingMachine.eps}
 \end{center}
 Una TM computa la stringa in input seguendo le regole definite dalla $\delta$, come per gli automi, per una 
-TM è defintia la configurazione ad un certo passo nella configurazione, essa determina il contenuto del nastro, la 
+TM è definita la configurazione ad un certo passo della computazione, essa determina il contenuto del nastro, la 
 posizione della testina, e lo stato attuale. Una configurazione si denota $$ uqav$$ dove \begin{enumerate}
     \item $u,v\in\Gamma^*$
     \item $q\in Q$
@@ -1621,7 +1621,7 @@ Data una TM $M$ si hanno gli insiemi \begin{itemize}
     \item Se $L(M)\cup R(M)= \Sigma^*$ allora $M$ è un decisore.
  \end{itemize}
  Un linguaggio che non ha decisori \textit{non è decidibile}, la definizione di decidibilità stabilisce i limiti della 
- computabilità, esistono infatti dei linguaggi (astrando, dei problemi) che non possono essere decisi (non possono essere 
+ computabilità, esistono infatti dei linguaggi (astraendo, dei problemi) che non possono essere decisi (non possono essere 
  risolti), ciò si lega inevitabilmente con i \textit{teoremi di incompletezza} di Gödel, esisteranno sempre 
  delle proposioni per cui è \textit{impossibile} stabilire se sono vere o false. 
  \subsection{Esempi di TM}
@@ -1765,7 +1765,7 @@ Per ogni input si diramano più vie di computazione, una NTM accetta una stringa
 \teo{(NTM$\equiv$TM)} Per ogni NTM esiste una TM equivalente.\acc 
 \dimo{} La dimostrazione, piuttosto che formale, mostrerà la costruzione di una 
 TM che si comporta come la generica NTM.\acc Sia $N$ la NTM in questione, e sia $M$ la TM classica che la vuole 
-simulare. $M$, per essere equivalente, dovrà esplorare ogni ramo di computazione, precisamente, deve esplorarlo in altezza. L'esplorazione in profondità in presenza di un loop su un ramo di computazione, comporterà il loop su $M$, anche se l'originaria $N$ aveva uno stato accettante su un differente ramo. \begin{center}
+simulare. $M$, per essere equivalente, dovrà esplorare ogni ramo di computazione, precisamente, deve esplorarlo in ampiezza. L'esplorazione in profondità in presenza di un loop su un ramo di computazione, comporterà il loop su $M$, anche se l'originaria $N$ aveva uno stato accettante su un differente ramo. \begin{center}
     \includegraphics[width=0.3\textwidth ]{images/loopEAccettante.eps} 
 \end{center}
 \textbf{Idea algoritmica} : $M$ utilizzerà 3 nastri\begin{enumerate}
@@ -1828,7 +1828,7 @@ Si consideri il linguaggio
 $$ E_{DFA}=\{<D>\ | \ D\in DFA \land L(D)=\emptyset\}$$
 Ossia di tutte le codifiche di DFA che hanno linguaggio vuoto, ossia che non accettano nessuna stringa. \acc 
 \prop{} $E_{DFA}$ è decidibile. \acc 
-\dimo{} La TM che deciderà il linguaggio codificherà il DFA come un grafo, in gli stati sono i nodi, e vi è un arco da un nodo ad un altro solo se esiste una transizione fra i due stati. In particolare la TM seguirà il seguente comportamento\begin{enumerate}
+\dimo{} La TM che deciderà il linguaggio codificherà il DFA come un grafo,  gli stati sono i nodi, e vi è un arco da un nodo ad un altro solo se esiste una transizione fra i due stati. In particolare la TM seguirà il seguente comportamento\begin{enumerate}
     \item marca lo stato iniziale, ed inizia a fare una passeggiata sul grafo 
     \item marca ogni stato raggiungibile 
     \item se almeno uno stato di accettazione è marcato, la TM rifiuta, altrimenti accetta\hfill $\blacksquare$
@@ -1846,7 +1846,11 @@ La seguente proposizione sarà necessaria a dimostrare la decidibilità di un li
 \dimo{} Il caso base per $n=1$ è banale. Se $n\ge 2$ la regola di partenza sarà $$ S\rightarrow AB$$ 
 $A$ produrrà $u$ e $B$ produrrà $v$, con $w=uv$. Allora 
 $$ |u|= k \ \ \ |v|=n-k$$
-Quindi per ipotesi induttiva per generare $w$ saranno necessari 
+Quindi per ipotesi induttiva per generare $w$ saranno necessari \begin{itemize}
+    \item 1 passo per $S\rightarrow AB$
+    \item $2k-1$ passi per $u$
+    \item $2(n-k)-1$ passi per $v$
+\end{itemize}
 $$ 1+2k-1+2(n-k)-1=1+2k-1+2n-2k-1=2n-1$$
 passi.\hfill$\blacksquare$\acc 
 Si consideri 
@@ -1882,7 +1886,7 @@ Siano
 $$ n=|\Sigma| \ \ m=|\Gamma| \ \ s=|Q|$$
 la codifica sarà 
 $$ (n)_2,(m)_2,(s)_2,<\delta>$$
-dove $,$ è un carattere speciale, $(k)_2$ è la codifica binaria di $k\in\Z$ e $<\delta>$ è la codifica binaria delle transizioni 
+dove "$,$" è un carattere speciale, $(k)_2$ è la codifica binaria di $k\in\Z$ e $<\delta>$ è la codifica binaria delle transizioni 
 $$ <\delta>=R_1;R_2\dots;R_j$$
 Le regole sono del tipo 
 $$ R=((q,a),(r,b,z)) \ \ \ \ z\in\{L,R\}$$
@@ -1899,7 +1903,7 @@ I passi di esecuzione sono i seguenti\begin{enumerate}
 \end{enumerate}
 $U$ è quindi un riconoscitore per $A_{TM}$.\hfill$\blacksquare$\acc 
 \subsection{Diagonalizzazione}
-La diagonalizzazione è una tecnica utilizzata per dimostrare alcune semplici proprietà degli insiemi. Sappiamo un insieme generico $A$ è numerabile se esiste una biezione da $\N$ a $A$. Ad esempio, l'insieme dei numeri pari $E$ è numerabile perché esiste $$ f:E\rightarrow \N\ \ \ | \ \ \  f(n)=2n$$ che è una biezione.\acc 
+La diagonalizzazione è una tecnica utilizzata per dimostrare alcune semplici proprietà degli insiemi. Sappiamo che un insieme generico $A$ è numerabile se esiste una biezione da $\N$ a $A$. Ad esempio, l'insieme dei numeri pari $E$ è numerabile perché esiste $$ f:E\rightarrow \N\ \ \ | \ \ \  f(n)=2n$$ che è una biezione.\acc 
 \teo{} $\R$ non è numerabile.\acc 
 \dimo{} è necessario dimostrare che un sottoinsieme di $\R$ non sia numerabile. Si pone per assurdo che esiste una biezione da $\N$ a $[0,1]$. Sia $f$ tale biezione, ad ogni valore di $\N$ associa un numero reale fra zero ed uno.$$ \begin{matrix}
     f(1)=0.52423\dots\\ 
@@ -1909,7 +1913,7 @@ La diagonalizzazione è una tecnica utilizzata per dimostrare alcune semplici pr
 Si definisce un numero $d$ tale che, la parte intera di $d$ è 0, e l'$i$-esima cifra decimale di $d$ è diversa dall'$i$-esima cifra decimale di $f(i)$.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/realiNonNumerabili..pdf}
 \end{center}
-Essendo $f$ biettiva per ipotesi, $\exists k \in \N | f(k)=d$, ma in questo modo la $k$-esima cifra di $f(k)$ è identica alla $k$-esima cifra di $d$, dato che $d=f(k)$. Ma allora $d$ non è contenuto nell'immagine di $f$, quindi $f$ non è biettiva. \hfill$\blacksquare$\acc 
+Essendo $f$ biettiva per ipotesi, $\exists k \in \N $ tale che $ f(k)=d$, ma in questo modo la $k$-esima cifra di $f(k)$ è identica alla $k$-esima cifra di $d$, dato che $d=f(k)$. Ma allora $d$ non è contenuto nell'immagine di $f$, quindi $f$ non è biettiva. \hfill$\blacksquare$\acc 
 \prop{} L'insieme delle stringhe binarie (o non) di lunghezza infinita non è numerabile.\acc 
 La dimostrazione sarà omessa, ma si può dimostrare con la diagonalizzazione. Si presenteranno ora due proposizioni che saranno utili a dimostrare un risultato fondamentale.\acc 
 \prop{1} L'insieme $TM$ di tutte le macchine di turing è numerabile.\acc 
@@ -1924,7 +1928,7 @@ $<^*$ è una relazione d'ordine totale. Si definisce $f:\N\rightarrow \Sigma^*$
 $$ f(i)=i\text{-esimo elemento di $\Sigma^*$ secondo l'ordinamento }<^*$$
 $f$ è una biezione dato che per ogni $i\in\N$ si può associare un elemento di $\Sigma^*$. Quindi $\Sigma^*$ è numerabile, e di conseguenza $\{<M>\ |\ M\in TM\}$ è numerabile. \hfill$\blacksquare$\acc 
 \prop{2} L'insieme dei linguaggi non è numerabile.\acc 
-\dimo{2} Sia $\mathcal{L}$ l'insieme di tutti i linguaggi le cui stringhe sono binarie. Un generico linguaggio $L$ è in $\Sigma^*$ dove $\Sigma=\{0,1\}$. 
+\dimo{2} Sia $\mathcal{L}$ l'insieme di tutti i linguaggi le cui stringhe sono binarie. Un generico linguaggio $L$ è sotto-insieme di $\Sigma^*$ dove $\Sigma=\{0,1\}$. 
 Definisco per ogni linguaggio $L$ una stringa binaria $\mathcal{X}_L$ di lunghezza infinita tale che 
 \begin{center}
     l'$i$-esimo carattere di $\mathcal{X}_L$ è 1 se l'$i$-esimo elemento di $\Sigma^*$ (secondo un arbitrario ordinamento) è in $L$. Altrimenti è 0. 
@@ -2010,7 +2014,7 @@ Essendo che, per ogni $w$ si ha che $w\in A$ solo se $f(w)\in B$, $M_A$ potrà s
 \subsection{Applicazioni della Riducibilità}
 In questa sezione verranno trattati differenti esempi di come la \textit{riducibilità} può essere usata per dimostrare la non decidibilità di molti linguaggi, e verranno presentati \textit{alcuni risultati} che estendono le applicazioni, in particolare, quando si trattano linguaggi non riconoscibili. È \underline{consigliato} allo studente che deve sostenere l'esame di porre particolare attenzione a questa sezione.
 \esempio{1}
-Si vuole dimostrare in maniera formale l'indecidibilità di $HALT_{TM}$. La notazione $M(w)\ne\infty$ indicia che la TM $M$ su input $w$ non va in loop, e termina. 
+Si vuole dimostrare in maniera formale l'indecidibilità di $HALT_{TM}$. La notazione $M(w)\ne\infty$ indica che la TM $M$ su input $w$ non va in loop, e termina. 
 $$ HALT_{TM}=\{<M,w> \ | \ M\in TM\land M(w)\ne\infty \}$$
 Basta dimostrare che $$ A_{TM}\le_m HALT_{TM}$$
 Essendo $A_{TM}$ indecidibile, ciò comporterebbe anche l'indecidibilità di $HALT_{TM}$. Si definisce una funzione $\ridFunc$ tale che 
@@ -2146,6 +2150,7 @@ $f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed eseg
 $T'$ accetterà ogni stringa ed il suo linguaggio sarà uguale a tutte le stringhe. $T$ invece avrà linguaggio vuoto. $L(T)\cup L(T')=\emptyset\cup \Sigma^*=\Sigma^*\implies <T,T'>\in U$.
 \acc \boxedMath{$\impliedby$} Se $<M,w>\notin A_{TM}$, $M'$ rifiuterà  (o andrà in loop nel caso $M(w)$ vada in loop), si avrà che 
 $L(T')=\emptyset$, inoltre anche $T$ ha linguaggio vuoto, quindi $L(T)\cup L(T')=\emptyset\ne \Sigma^*\implies <T,T'>\notin U$. Ne consegue che $U$ è indecidibile.
+\flowerLine
 \section{I Teoremi di Incompletezza}
 I risultati riguardanti i teoremi di Gödel possono essere ottenuti utilizzando le TM. Negli anni è sempre stata presente l'esigenza di poter dimostrare le proposizioni matematiche, già nel 300 a.c. Euclide stipulò gli assiomi della geometria piana.\acc 
 Nel XIX secolo i matematici si sono interrogati riguardo la formalità degli assiomi di Euclide, in particolare, è iniziata la ricerca verso una formulazione più rigorosa della matematica che ha anche sancito la nascita della logica, che fornisce una serie di connettivi, con i quali si possono derivare gli assiomi ed ottenere nuove proposizioni.\acc 
