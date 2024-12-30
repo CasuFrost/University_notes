@@ -1716,7 +1716,8 @@ composizione di 2 velocità : La velocità di traslazione (del centro di massa) 
     \includegraphics[width=0.5\textwidth ]{images/rotolamento.pdf}
 \end{center}
 La velocità totale del punto è $v=v_c+\omega r$, nel preciso punto di contatto della ruota con il suolo, la velocità angolare sarà di eguale direzione ma verso opposto della velocità di traslazione. La condizione di 
-\textbf{puro rotolamento} si ha quando $|\omega r |= |v_c|$. \acc 
+\textbf{puro rotolamento} si ha quando $|\omega r |= |v_c|$. \acc L'energia cinetica di un corpo di moto rototraslatorio come la ruota, è dato dall'energia cinetica classica (massa per velocità del centro di massa diviso due) e da un'altro termine che considera il momento di inerzia e la velocità angolare della ruota: $$T=\frac{1}{2}mv_{cm}^2+\frac{1}{2}I\omega^2 $$
+Quest'ultimo termine è l'\textbf{energia cinetica rotazionale} dovuta al moto di rotazione attorno un asse passante per il centro di massa e perpendicolare alla sezione circolare del corpo.\acc
 Si consideri adesso una ruota di raggio $R$ e massa $M$ sollevata dal suolo, a cui viene data una velocità angolare $\omega$. Abbassando pian piano la ruota, arriverà un istante in cui tocca il suolo, in quell'istante preciso, 
 l'\textit{attrito dinamico} costituisce una forza esterna.
 $$ F_dR=I\dot{\omega}$$
@@ -1955,7 +1956,7 @@ Il seguente grafico riporta l'andamento qualitativo dell'intensità del campo el
 		\end{axis}
 		\end{tikzpicture}
 \end{center}
-\subsubsection{Campo generato da una bacchetta \redText{(nota : vedi pag 49)}}
+\subsubsection{Campo generato da una bacchetta}
 Si consideri ora una bacchetta carica $l$ parallela all'asse $y$, si vuole determinare l'intensità del campo elettrico generato dalla bacchetta lungo l'asse $x$. La carica totale della bacchetta è $Q$, il contributo di carica elementare è $dQ=\lambda dl$ dove $\lambda$ è la densità di carica, assunta uniforme.\acc 
 In questo caso i contributi elementari del campo elettrico $d\bar E$ su un punto avranno, visualizzati insieme come vettori, una forma triangolare, e la formulazione del campo totale è la stessa. 
 $$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int_l\frac{dl}{r^2}\cos\theta$$
@@ -1966,11 +1967,11 @@ Sebbene la formula del campo elettrico coincide con quella nel caso dell'anello 
 \begin{center}
     \includegraphics[width=0.6\textwidth]{images/tan.eps}
 \end{center}
-La derivata della tangente è $\cos^{-2}\theta$, quindi $$ dl=\frac{x}{\cos^2\theta}d\theta
-\ \ \text{ allora } \ \ 
+La derivata della tangente è $\frac{1}{\cos^2\theta}$, quindi $$ dl=\frac{x}{\cos^2\theta}d\theta
+\ \ \ \text{ inoltre } \ \ \
  r\cos\theta=x\implies r^2=\frac{x^2}{\cos^2\theta}$$
-$$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int \frac{x}{\cos^2\theta}d\theta\frac{\cos^3\theta}{x^2}=\frac{\lambda}{x4\pi\varepsilon_0}\int_{-\theta_0}^{\theta_0}\cos\theta d\theta$$
-$\theta_0$ è l'angolo quando la sorgente di carica è l'estremita della bacchetta e dipende da $x$.
+$$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int \frac{x}{\cos^2\theta}d\theta\frac{\cos^3\theta}{x^2}=\frac{\lambda}{x4\pi\varepsilon_0}\int_{-\theta_0}^{\theta_0}\cos\theta d\theta=\frac{\lambda}{x4\pi\varepsilon_0}\big(\sin(\theta_0)-\sin(-\theta_0)\big)$$
+$\theta_0$ è l'angolo quando la sorgente di carica è l'estremita della bacchetta e dipende da $x$. Ricordando che $\sin(-x)=-\sin(x)$ :
 $$ \bar E =\frac{\lambda}{x4\pi\varepsilon_0}2\sin(\theta_0(x)) $$
 Se la bacchetta è infinita, $\theta_0$ tende a 90 gradi. 
 $$ \frac{\lambda}{x4\pi\varepsilon_0}2\sin(\nicefrac{\pi}{2})=\frac{2\lambda}{x4\pi\varepsilon_0}$$
@@ -1978,8 +1979,8 @@ $$ \frac{\lambda}{x4\pi\varepsilon_0}2\sin(\nicefrac{\pi}{2})=\frac{2\lambda}{x4
 Si consideri il disco $S$ di raggio $a$ e carica  totale $Q$ mostrato in figura.\begin{center}
     \includegraphics[width=0.5\textwidth]{images/discoCarico.eps}
 \end{center}
-La carica infinitesima $dQ$ è data da $\lambda dS$. Il campo elettrico sarà 
-$$ \bar E = \frac{1}{4\pi\varepsilon_0}\iint_S \frac{\lambda dS}{r^2}\hat r $$
+La carica infinitesima $dQ$ è data da $\sigma dS$. Il campo elettrico sarà 
+$$ \bar E = \frac{1}{4\pi\varepsilon_0}\iint_S \frac{\sigma dS}{r^2}\hat r $$
 È possibile considerare ogni contributo infinitesimo $dS$ come un anello infinitesimo di raggio 
 $r$
 $$ dS=(2\pi r)dr$$
@@ -2025,7 +2026,7 @@ Considerano due piani di cariche opposte ma identiche in modulo, si avrà l'effe
 \end{center}
 In particolare, quest'ultima configurazione è alla base del funzionamento del \textbf{condensatore}, ossia un componente elettrico composto da due lastre parallele, che se caricate permettono di accumulare energia sotto forma di campo elettrico.\acc 
 Riconsiderando il disco finito carico, risulta naturale porsi una domanda, per $x\rightarrow \infty$ (ci si allontana indefinitamente dal disco) che valore assume il campo elettrico? Essendo il campo elettrico del disco 
-$$ E=\frac{1}{2\varepsilon_0}\sigma x\Big( \frac{1}{|x|}-\frac{1}{\sqrt{x^2+a^2}} \Big)$$
+$$ \lim_{x\rightarrow \infty}E= \lim_{x\rightarrow \infty} \frac{1}{2\varepsilon_0}\sigma x\Big( \frac{1}{|x|}-\frac{1}{\sqrt{x^2+a^2}} \Big)=0$$
 \flowerLine 
 \section{La Legge di Gauss}
 Tale sezione si occuperà di esporre una proprietà dei campi vettoriali che dipendono dall'inverso del quadrato della distanza (proprio come il campo elettrico).\acc 
@@ -2060,8 +2061,8 @@ $$ d\phi = \frac{q}{4\pi\varepsilon_0}\frac{dS_0}{r^2}$$
 Si mette in evidenza il termine $\frac{dS_0}{r^2}$, che per definizione, è la \textit{proiezione ortogonale} al raggio uscente dal punto $q$ passante per $dS$, ossia \textit{l'angolo solido infinitesimo} $d\Omega$
 $$ d\phi = \frac{q}{4\pi\varepsilon_0} d\Omega$$
 Essendo $\frac{q}{4\pi\varepsilon_0}$ costante, è chiaro che il flusso infinitesimo dipende esclusivamente dall'angolo solido $d\Omega$, e quest'ultimo non dipende ne dalla superficie scelta ne dalla sua distanza dalla carica. Il flusso attraverso una superficie finita $S$ è 
-$$\phi=\int_S d\phi = \int_S \frac{q}{4\pi\varepsilon_0}\frac{dS_0}{r^2} = 
-\int \frac{q}{4\pi\varepsilon_0} d\Omega=\frac{q}{4\pi\varepsilon_0}\int d\Omega$$
+$$\phi=\oint_S d\phi = \oint_S \frac{q}{4\pi\varepsilon_0}\frac{dS_0}{r^2} = 
+\oint_S \frac{q}{4\pi\varepsilon_0} d\Omega=\frac{q}{4\pi\varepsilon_0}\oint_S d\Omega$$
 L'angolo solido totale di una superficie chiusa è $4\pi$
 $$ \phi = \frac{q}{4\pi\varepsilon_0}4\pi = \frac{q}{\varepsilon_0} $$
 \hfill$\blacksquare$\acc
@@ -2071,7 +2072,7 @@ Si può considerare anche il caso in cui la carica sorgente del campo è esterna
 Il flusso su una superficie chiusa del campo generato da una carica esterna alla superficie è nullo. 
 $$ \phi = 0$$
 Piuttosto che suddividere i casi in cui la carica è esterna o interna è possibile scrivere la legge di Gauss in maniera più formale, indicando con $\tau_S$ il volume carico (con densità di carica $\rho$) di cui $S$ è la frontiera. 
-\eqImportante{$\displaystyle \oint_S \bar E d\bar S = \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau_S$}
+\eqImportante{$\displaystyle \oint_S \bar E d\bar S = \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau$}
 Questa è nota come \textbf{prima equazione di Maxwell}.
 \subsection{Alcune Applicazioni}
 In questa sezione verrà utilizzata la legge di Gauss per ricavare la formula del campo elettrico in alcune situazioni di simmetria.\acc 
@@ -2105,12 +2106,12 @@ Si vuole adesso analizzare il caso in cui la superficie ha raggio minore o ugual
     \includegraphics[width=0.25\textwidth]{images/sferaCarica2.eps}
 \end{center}
 Sappiamo per la legge di Gauss che il contributo del volume esterno ad $S$ è nullo, andrà quindi considerato esclusivamente il volume compreso da $S$. 
-$$ \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau_S=\frac{1}{\varepsilon_0}\frac{4}{3}r^3$$
+$$ \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau_S=\rho\frac{1}{\varepsilon_0}\frac{4}{3}r^3$$
 Quindi 
 $$ E4\pi r^2=\frac{1}{\varepsilon_0}\frac{4}{3}r^3\rho\implies 
-E4\pi=\frac{1}{\varepsilon_0}\frac{4}{3}r \implies E = \frac{1}{4\pi\varepsilon_0}\frac{4}{3}r\rho=\frac{\rho}{3\varepsilon_0}r$$
-In quasto caso $E$ è proporzionale alla distanza $r$, si può esprimere in funzione di $Q$
-$$ E=\frac{Q}{3\varepsilon_0}\frac{r}{\nicefrac{4}{3}\pi R^3}=\frac{Q}{4\pi\varepsilon_0}\frac{r}{R^3}$$
+E4\pi=\rho\frac{1}{\varepsilon_0}\frac{4}{3}r \implies E = \frac{1}{4\pi\varepsilon_0}\frac{4}{3}r\rho=\frac{r}{3\varepsilon_0}\rho$$
+In quasto caso $E$ è proporzionale alla distanza $r$, si può esprimere in funzione di $Q$ sostituendo $\rho$
+$$ E=\frac{r}{3\varepsilon_0}\frac{Q}{\nicefrac{4}{3}\pi R^3}=\frac{Q}{4\pi\varepsilon_0}\frac{r}{R^3}$$
 Al centro si ha $r=0\implies E=0$. Il campo elettrico è massimo sulla superficie $r=R$, è lineare per $r$ quando il raggio della sfera è maggiore di quello della superficie, ed è proporzionale a $\frac{1}{r^2}$ quando il raggio della sfera è minore della superficie. L'andamento qualitativo è il seguente.
 \begin{center}
     \includegraphics[width=0.75\textwidth]{images/campoSfera.eps}
@@ -2528,10 +2529,11 @@ Si definisce l'\textbf{intensità di corrente} l'integrale della densità di cor
 I=\int_S \bar j d\bar s 
 $} 
 e si misura in Ampere A. \acc 
-Vi è un legame intrinseco fra l'intensità di corrente, più comunemente chiamata corrente, e fra la differenza di potenziale, in particolare, queste sono proporzionali 
+Vi è un legame intrinseco fra l'intensità di corrente, più comunemente chiamata corrente, e fra la differenza di potenziale, in particolare, è stato osservato che queste sono proporzionali 
 $$ V=RI\ \ \ \ I=\frac{V}{R}\ \ \ \ \textbf{prima legge di Ohm}$$
+È una legge empirica e non ha dimostrazione.
 Il fattore $R$, che si misura in $\frac{\text{Volt}}{\text{Ampere}}=\Omega$ (l'unità di misura è l'ohm) si chiama \textbf{resistenza}, e si oppone al passaggio della corrente, questa dipende dalla sezione del conduttore, dalla lunghezza e dal materiale di cui è composto. In particolare 
-$$ R=\rho l\frac{1}{A}$$
+$$ R=\rho \frac{l}{A}$$
 Dove \begin{itemize}
     \item $l$ è la lunghezza 
     \item $A$ è la superficie della sezione 
@@ -2586,13 +2588,13 @@ $$ \begin{cases}
     V=R_2I_2
 \end{cases}\implies 
 I=\frac{V}{R_1}+\frac{V}{R_2}\implies \frac{I}{V}=\frac{1}{R_1}+\frac{1}{R_2}\implies $$
-$$ R=\frac{R_1R_2}{R_1+R_2}$$
+$$ R=\frac{R_1R_2}{R_1+R_2}= \frac{1}{R}$$
 \flowerLine 
 \section{Campo Elettromotore}
 Consideriamo un circuito composto da un condensatore $C$ carico (di carica $Q$) all'istante $t=0$ ed una resistenza $R$.
 La corrente è nulla se non c'è differenza di potenziale, si vuole quindi mantenere una differenza di potenziale costante.
 \begin{center}
-    \includegraphics[width=0.4\textwidth]{images/circuit.pdf}
+    \includegraphics[width=0.3\textwidth]{images/circuit.pdf}
 \end{center}
 Il potenziale ai capi della resistenza dipenderà dalla corrente $V(t)=RI(t)$, in pochi istanti le cariche sul condensatore si distribuiranno su tutto il materiale conduttore, scaricandolo, rendendo poi nulla la differenza di potenziale, e quindi la corrente. Si ricordi come \begin{itemize}
     \item le cariche si muovono se sottoposte ad una forza 
@@ -2678,7 +2680,7 @@ Ai capi di ciascuna resistenza vi è una differenza di potenziale, queste vengon
 \begin{center}
     \includegraphics[width=0.7\textwidth]{images/kirchoff2.eps}
 \end{center}
-Le tensioni ai capi di due resistenze che vengono attraversate dalla corrente in senso opposte vanno considerate di segno opposto. La seguente immagine descrive la caduta di tensione.
+Le tensioni ai capi di due resistenze che vengono attraversate dalla corrente in senso opposto vanno considerate di segno opposto. La seguente immagine descrive la caduta di tensione.
 \begin{center}
     \includegraphics[width=0.55\textwidth]{images/cadutaDiTensione.eps}
 \end{center}
@@ -2760,7 +2762,7 @@ sostituendo
 $$ \Delta V-Q(t)\frac{1}{C}=\Delta Ve^{-\frac{t}{\tau}}$$
 $$ Q(t)=\Delta V C(1-e^{-\frac{t}{\tau}})$$
 Anche in questo caso $\tau=RC$ è il tempo caratteristico, dopo $\tau$ unità di tempo il condensatore avrà raggiunto una carica pari a $(1-e^{-1})Q_{\infty}$, dove $Q_{\infty}=\lim_{t\rightarrow\infty}Q(t)$. Quando il condensatore sarà completamente carico a regime, non ci sarà più corrente.\begin{center}
-    \begin{tikzpicture}[scale=0.9, transform shape]
+    \begin{tikzpicture}[scale=1, transform shape]
 		\begin{axis}[
 		ymin=0,
 		ymax = 6,
@@ -2788,7 +2790,7 @@ la corrente è proprio la derivata della carica
 $$I(t)=\frac{dQ(t)}{dt}=\frac{\Delta VC}{\tau}e^{-\frac{t}{\tau}}=\frac{\Delta V}{R}e^{-\frac{t}{\tau}}$$
 la corrente varia da $\frac{\Delta V}{R}$ a 0.
 \begin{center}
-    \begin{tikzpicture}[scale=0.9, transform shape]
+    \begin{tikzpicture}[scale=1, transform shape]
 		\begin{axis}[
 		ymin=0,
 		ymax = 6,
@@ -3022,7 +3024,7 @@ Si ricordi che le frecce indicano le linee di campo entranti nel foglio, ed i ce
 $$ B(r)=\frac{\mu_0I}{2\pi r}$$
 muovendo il circuito sull'asse orizzontale $x$, si verifica un fenomeno particolare, inizia a scorrere corrente, quando invece ci si ferma, la corrente cessa. \acc 
 Sembra che in qualche modo il campo magnetico generi una forza elettromotrice, ossia un campo elettrico non conservativo $$ \oint_l \bar E d\bar l \ne 0$$
-\teo{} La legge di \textbf{Farady-Neumann-Lenz} afferma che la circuitazione del campo elettrico su una curva chiusa $l$ è uguale alla variazione nel tempo del flusso del campo magnetico (cambiato di segno) su una superfice $S_l$ di cui $l$ è frontiera.
+\teo{} La legge di \textbf{Farady-Neumann-Lenz} afferma che la circuitazione del campo elettrico su una curva chiusa $l$ è uguale alla variazione nel tempo del flusso del campo magnetico (cambiato di segno) su una superficie $S_l$ di cui $l$ è frontiera.
 \eqImportante{$\displaystyle 
 \oint_l \bar E d\bar l = -\frac{d}{dt}\int_{S_l}\bar B d\bar S
 $}
@@ -3034,7 +3036,7 @@ Tale enunciato è anche noto come \textit{legge di induzione elettromagnetica}, 
 \begin{center}
     \includegraphics[width=0.3\textwidth ]{images/Faraday2.eps}
 \end{center}
-Tale principio è alla base dei generatori elettrici, in cui si fanno girare delle bobine immerse in un campo magnetico, generando della corrente elettrica. \acc Si consideri un circuito di forma quadrata, in grado di roteare grazie ad un perno. I lati del circuito hanno lunghezza $l$, la sezione è quindi $S=l^2$. Sia $\theta(t)=\omega t$ la velocità di rotazione del perno, il flusso del campo magnetico sulla superfice $S$ è 
+Tale principio è alla base dei generatori elettrici, in cui si fanno girare delle bobine immerse in un campo magnetico, generando della corrente elettrica. \acc Si consideri un circuito di forma quadrata, in grado di roteare grazie ad un perno. I lati del circuito hanno lunghezza $l$, la sezione è quindi $S=l^2$. Sia $\theta(t)=\omega t$ la velocità di rotazione del perno, il flusso del campo magnetico sulla superficie $S$ è 
 $$ \phi=SB\cos(\theta(t))$$
 ossia 
 $$ \phi = SB\cos(\omega t)$$\begin{center}

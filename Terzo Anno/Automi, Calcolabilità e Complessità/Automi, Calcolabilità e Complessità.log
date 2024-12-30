@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.30)  28 DEC 2024 19:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.30)  29 DEC 2024 18:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1577,11 +1577,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1.14}) 
 l.722 \end{center}\newpage
                            <./images/esempio1Regex-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/esempio2Regex.eps>
-(epstopdf)                    date: 2024-10-05 17:08:56
-(epstopdf)                    size: 110069 bytes
+(epstopdf)                    date: 2024-12-29 17:59:10
+(epstopdf)                    size: 110070 bytes
 (epstopdf)             Output file: <images/esempio2Regex-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-10-05 17:09:17
-(epstopdf)                    size: 14263 bytes
+(epstopdf)                    date: 2024-12-29 17:59:16
+(epstopdf)                    size: 14272 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/esempio2Regex-eps-converted-to.pdf images/esempio2Regex.eps>
 (epstopdf)             \includegraphics on input line 727.
 Package epstopdf Info: Output file is already uptodate.
@@ -2218,24 +2218,15 @@ pdfTeX warning: pdflatex.exe (file ./images/ATMnonDec.pdf): PDF inclusion: found
 File: images/ATMnonDec.pdf Graphic file (type pdf)
 <use images/ATMnonDec.pdf>
 Package pdftex.def Info: images/ATMnonDec.pdf  used on input line 1951.
-(pdftex.def)             Requested size: 273.14923pt x 283.2622pt.
+(pdftex.def)             Requested size: 182.09486pt x 188.82289pt.
 
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.39996pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.39996pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
-
-[47]
 
 pdfTeX warning: pdflatex.exe (file ./images/ATMnonDec2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/ATMnonDec2.pdf, id=993, 195.6108pt x 202.8378pt>
+<images/ATMnonDec2.pdf, id=987, 195.6108pt x 202.8378pt>
 File: images/ATMnonDec2.pdf Graphic file (type pdf)
 <use images/ATMnonDec2.pdf>
 Package pdftex.def Info: images/ATMnonDec2.pdf  used on input line 1955.
-(pdftex.def)             Requested size: 273.14923pt x 283.2622pt.
+(pdftex.def)             Requested size: 182.09486pt x 188.82289pt.
 
 
 
@@ -2245,7 +2236,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[48 <./images/ATMnonDec.pdf> <./images/ATMnonDec2.pdf>]
+[47 <./images/ATMnonDec.pdf>]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[48 <./images/ATMnonDec2.pdf>]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2435,10 +2435,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [62 <./images/circLogico.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 2393--2395
-
- []
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 2395.
@@ -2517,10 +2513,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [66]
-Underfull \hbox (badness 10000) in paragraph at lines 2532--2533
-
- []
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 2534.
@@ -2828,7 +2820,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [86]
-runsystem(latexminted cleantemp  --timestamp 20241228190403 5799B7C5E0B349E18E887B59218C36CC)...disabled (restricted).
+runsystem(latexminted cleantemp  --timestamp 20241229184551 5799B7C5E0B349E18E887B59218C36CC)...disabled (restricted).
 
  (Automi, Calcolabilità e Complessità.aux)
  ***********
@@ -2841,13 +2833,13 @@ Package rerunfilecheck Info: File `"Automi, Calcolabilità e Complessità".out' 
 Here is how much of TeX's memory you used:
  45677 strings out of 473682
  1041327 string characters out of 5719215
- 1745176 words of memory out of 5000000
+ 1745208 words of memory out of 5000000
  67657 multiletter control sequences out of 15000+600000
  642281 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,17n,104p,897b,1187s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX2/fonts/type1/public/fourier/fourier-orns.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Automi, Calcolabilità e Complessità.pdf" (87 pages, 2026288 bytes).
+Output written on "Automi, Calcolabilità e Complessità.pdf" (87 pages, 2026639 bytes).
 PDF statistics:
  1617 PDF objects out of 1728 (max. 8388607)
  291 named destinations out of 1000 (max. 500000)

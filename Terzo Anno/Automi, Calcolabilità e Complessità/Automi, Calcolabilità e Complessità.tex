@@ -351,10 +351,10 @@ $$ L(D_1)=L_1 \ \land \ L(D_2)=L_2$$
 Si costruisce un DFA che simula contemporaneamente l'esecuzione di $D_1$ e $D_2$, in cui gli stati possibili saranno 
 le possibili combinazioni di coppie di stati. Si definisce $D=(Q,\Sigma,\delta,q_0,F)$ tale che 
 \begin{itemize}
-    \item $Q=Q_1\times Q_2=\{(r_1,r_2) \|\ r_1\in Q_1 \land r_2\in Q_2\}$
+    \item $Q=Q_1\times Q_2=\{(r_1,r_2) \ | \ r_1\in Q_1 \land r_2\in Q_2\}$
     \item $\delta((r_1,r_2),a)=(\delta(r_1,a),\delta(r_2,a))$ dove $a\in\Sigma$ e $(r_1,r_2)\in Q$
     \item $q_0=(q_1,q_2)$
-    \item $F=(F_1\times Q_2)\cup (Q_1\times F_2)=\{(r_1,r_2)\|\ r_1\in F_1\lor r_2\in F_2\}$
+    \item $F=(F_1\times Q_2)\cup (Q_1\times F_2)=\{(r_1,r_2)\ | \ r_1\in F_1\lor r_2\in F_2\}$
 \end{itemize}
 Nel caso si dovesse dimostrare la proprietà dell'intersezione, si avrebbe che \begin{itemize}
     \item $F=F_1\times F_2$
@@ -414,7 +414,7 @@ uno stato accettabile, allora la stringa in input è accettata.
     \label{fig:NFAExample1}
 \end{figure}\acc
 Sia $N$ l'NFA mostrato in figura \ref{fig:NFAExample1}, si ha 
-$$ L(N)=\{x\in\{0,1\}^*\|\ x\text{ ha $1$ come terz'ultimo valore }\}$$
+$$ L(N)=\{x\in\{0,1\}^*\ | \ x\text{ ha $1$ come terz'ultimo valore }\}$$
 Si può visualizzare il seguente albero di computazione data come input una stringa $w$ :
 $$w=10110$$\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/alberoCalc.eps}
@@ -478,7 +478,7 @@ $D=(Q_D,\Sigma,\delta_D,q_{0_D},F_D)$ tale che \begin{itemize}
 \end{itemize}
 Questo caso non tiene conto di un NFA in cui sono presenti degli $\epsilon$-archi. Supponiamo che vi siano,  sia 
 $R\in Q_D$, si definisce la funzione estesa $E$ definita come segue 
-$$ E(R)=\{q\in Q_N \|\ q\text{ può essere raggiunto da un qualsiasi stato  }r\in R\text{ attraverso zero o 
+$$ E(R)=\{q\in Q_N \ |\ q\text{ può essere raggiunto da un qualsiasi stato  }r\in R\text{ attraverso zero o 
 più }\epsilon\text{-archi }\}$$
 Cambia la definizione del DFA utilizzato per la dimostrazione \begin{itemize}
     \item $q_{0_D}=E(\{q_{0_N})\}$
@@ -666,7 +666,7 @@ proprietà \begin{itemize}
 Più precisamente, sia $G$ un GNFA definito $G=(Q,\Sigma,\delta,q_{start},q_{acc})$ dove 
 $$ \delta : Q\backslash \{q_{acc}\} \times Q\backslash \{q_{start}\}\rightarrow re(\Sigma)$$
 Dato un generico NFA, è possibile trasformarlo in un GNFA aggiungendo al più due stati (iniziale e 
-finale), ed utilizzando gli $\epsilon$-archi per riempire le coppie di stati che non sono collegate.\acc 
+finale), ed utilizzando gli $\emptyset$-archi per riempire le coppie di stati che non sono collegate.\acc 
 La funzione $Convert : GNFA \rightarrow GNFA$ modifica un GNFA restituendone uno equivalente, ma con uno stato in meno. 
 Tale funzione è definita in tal modo, sia $k$ il numero di stati/nodi di $G$, si esegue $Convert(G)$ \begin{itemize}
     \item Se $k=2$, allora esiste un solo arco fra questi etichettato con un espressione regolare $r$, la funzione 
@@ -767,8 +767,8 @@ Tale sequenza è lunga $n+1\ge p+1$ stati, fra i primi $p+1$ elementi c'è neces
     \item $l\le p+1$ ovvero $l-1=|xy|\le p$.
  \end{enumerate}
  I tre punti sono dimostrati. $\blacksquare$    \acc
- \prop{} Se $L$ è un linguaggio regolare, ed $L^*$ un sottoinsieme di 
- $L$, allora $L^*$ non è necessariamente regolare.\acc 
+ \prop{} Se $L$ è un linguaggio regolare, ed $L'$ un sottoinsieme di 
+ $L$, allora $L'$ non è necessariamente regolare.\acc 
  Alcuni esercizi al seguente link : 
  \color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0/EsLinguaggiRegolari.pdf}{Esercizi Linguaggi Regolari}\color{black}.
  \flowerLine 
@@ -1948,11 +1948,11 @@ Si definisce una nuova TM $D$ che prende come input una TM e si comporta nel seg
 \end{enumerate}
 Ricordando il comportamento di $H$, si ha la seguente situazione "transitiva"
 \begin{center}
-    \includegraphics[width=0.6\textwidth ]{images/ATMnonDec.pdf}
+    \includegraphics[width=0.4\textwidth ]{images/ATMnonDec.pdf}
 \end{center}
 Se alla TM $D$ si da in input $<D>$ si ricade nella seguente situazione.
 \begin{center}
-    \includegraphics[width=0.6\textwidth ]{images/ATMnonDec2.pdf}
+    \includegraphics[width=0.4\textwidth ]{images/ATMnonDec2.pdf}
 \end{center}
 Ma allora $D$ accetta $<D>$ solo e soltanto se $D$ rifiuta $<D>$. È una palese contraddizione, è quindi impossibile che $H$ sia un decisore per $A_{TM}$.
 \hfill$\blacksquare$\acc 
@@ -1995,16 +1995,16 @@ $$ E_{TM}=\{<M>\ | \ M\in DFA \land L(M)=\emptyset\}$$
 \end{enumerate}
 Essendo $R$ un decisore, allora $S$ è un decisore di $A_{TM}$, ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $E_{TM}$.\hfill$\blacksquare$\acc 
 Si vuole formalizzare il concetto di riduzione, intuitivamente si può dire che la riduzione è definita da una funzione, che negli obiettivi di questo corso sarà calcolata da una TM.\acc 
-\defi{} Una funzione $f:\Sigma^*\rightarrow \Sigma^*$ si dice \textbf{calcolabile} se esiste una TM che su input $w$ termina scrivendo sul nastro $f(w)$. Spesso tale TM ha un nastro dedicato per l'output della funzione.\acc 
+\defi{} Sia $I\subseteq \Sigma^*$, una funzione $f:I\rightarrow \Sigma^*$ si dice \textbf{calcolabile} se esiste una TM che su input $w\in I$ termina scrivendo sul nastro $f(w)$. Spesso tale TM ha un nastro dedicato per l'output della funzione.\acc 
 Nell'halting problem è stata definita una TM a tal scopo. La definizione di riduzione che verrà data non rappresenta il concetto in senso lato, bensì è la sua formulazione più semplice detta \textit{mapping reduction}, sufficiente per gli obiettivi di questo corso.\acc 
 \defi{(Riduzione)} Siano $A$ e $B$ due generici linguaggi. Si dice che $A$ è \textbf{riducibile} a $B$, e si denota 
 $$ A\le_m B$$
-Se \textit{esiste} una funzione calcolabile $f:\Sigma^*\rightarrow \Sigma^*$ tale che 
+Se \textit{esiste} una funzione calcolabile $f:\Sigma^*\rightarrow \Sigma^*$, che chiamiamo \textit{riduzione}, tale che 
 $$ \forall w\in\Sigma^*, \ \ w\in A \iff f(w)\in B$$
 Il seguente teorema è di fondamentale importanza quando si vuole dimostrare la non decidibilità di un linguaggio.\acc 
 \teo{} Se $A\le_m B$ e $B$ è decidibile, allora  anche $A$ è decidibile.\acc 
 \dimo{} Sia $M_B$ un decisore per $B$, si definisce una TM $A_M$ tale che \begin{enumerate}
-    \item su input $w\in\Sigma^*$, calcola $f(w)$
+    \item su input $w\in\Sigma^*$, calcola $f(w)$, per ipotesi $f$ è la riduzione
     \item esegue $M_B$ su input $f(w)$ 
     \item Se $M_B(f(w))$ accetta, $M_A$ accetta, altrimenti rifiuta.
 \end{enumerate}
@@ -2136,7 +2136,7 @@ $L(M')=\emptyset$, quindi non conterrà nemmeno una stringa che inizia con 0, al
 Ne consegue che $L$ è indecidibile.
 \esempio{7}
 Si vuole dimostrare la non decidibilità di $U$ definito come segue 
-$$ U=\{<T,T'> \| \ T,T'\in TM\land L(T)\cup L(T')=\Sigma^*\}$$ 
+$$ U=\{<T,T'> \ | \ T,T'\in TM\land L(T)\cup L(T')=\Sigma^*\}$$ 
 Ossia il linguaggio di tutte le coppie di TM la cui unione dei linguaggi equivale all'insieme di tutte le stringhe.
 Basta dimostrare che $$ A_{TM}\le_m  U$$Si definisce una funzione $\ridFunc$ tale che 
 $$ \forall <M,w>\in\Sigma^*, \ \ \  <M,w>\in A_{TM}\iff f( <M,w>)\in U$$
@@ -2288,14 +2288,14 @@ I problemi che si affrontano sono identificabili in delle \textit{classi} che li
 Un altra domanda cardine è\begin{quote}
     se è possibile risolvere un problema utilizzando poco spazio, è possibile risolverlo anche utilizzando poco tempo?
 \end{quote}
-\defi{(costo computazionale)} : Sia $M$ un decisore, il \textbf{tempo di esecuzione} di $M$ è una funzione $t:\N\rightarrow \N$ definita come segue 
+\defi{(costo computazionale)}  Sia $M$ un decisore, il \textbf{tempo di esecuzione} di $M$ è una funzione $t:\N\rightarrow \N$ definita come segue 
 $$ t(n)=\max_{\begin{matrix}x\in\Sigma^* \land \\ |x|=n\end{matrix}}(\text{step di computazione di }M)$$
 Sia $x$ la stringa in input di lunghezza $n$ che richiede il maggior numero di passi di computazione per essere decisa. Tale numero di passi di computazione, è proprio il costo computazionale di $M$ su un input di lunghezza $n$. È centrale nella teoria della complessità lo studio di $t$ al variare di $n$.\acc 
-\defi{(O-grande)} : Siano $f$ e $g$ due funzioni definite su un generico sottoinsieme di $\R$, si dice che $$ f(x)\in O(g(x))$$ 
+\defi{(O-grande)}  Siano $f$ e $g$ due funzioni definite su un generico sottoinsieme di $\R$, si dice che $$ f(x)\in O(g(x))$$ 
 se e solo se 
 $$ \exists x_0\in \R,\ c>0 \ \text{ tale che } \ |f(x)|\le c|g(x)| \ \forall x>x_0$$
 \textbf{Notazione} : Se $f(x)\in O(g(x))$, verrà scritto $f(x)=O(g(x))$.\acc 
-Nei capitoli precedenti sono state considerate delle varianti della TM, che possono essere simulato e rese equivalenti ad una TM normale. Tali varianti vanno rivalutate da un punto di vista della risorsa del tempo. 
+Nei capitoli precedenti sono state considerate delle varianti della TM, che possono essere simulate e rese equivalenti ad una TM normale. Tali varianti vanno rivalutate da un punto di vista della risorsa del tempo. 
 \section{Classi di Complessità}\label{classiComplessità}
 \textbf{Esempio} : Si consideri la TM che ad ogni passo di computazione può rimanere ferma sul nastro, la cui funzione di transizione è definita tale che 
 $$ \delta:Q\times\Gamma \rightarrow Q\times\Gamma\times \{L,R,S\}$$
@@ -2307,7 +2307,7 @@ Ne consegue che, se $M$ è una TM che può stare ferma, il cui costo computazion
 Si può simulare con una TM classica come esposto nella sezione \ref{TMmultinastro}. Se una TM multi nastro $M$ ha costo computazionale $t(n)$, allora la lunghezza di ogni nastro sarà al massimo $n$. Sia $M'$ la TM classica che simula $M$, l'inizializzazione costa sicuramente $t(n)$ in quanto è necessario considerare tutto il nastro, in oltre, per ogni step di computazione di $M$, $M'$ dovrà considerare tutto il nastro per leggere i caratteri marcati ed eventualmente spostarne il contenuto. Ogni step di computazione su $M'$ ha costo $t(n)$. Ne consegue che la complessità di $M'$ sarà 
 $$t(n)+t(n)^2 = O(t(n)^2)$$ Il numero dei nastri quindi influisce (in maniera non trascurabile) sulla complessità.\acc 
 \textbf{Esempio} : Il linguaggio delle stringhe palindrome è decidibile in $O(n)$ su una macchina con due nastri, su una TM a singolo nastro può essere deciso in $O(n^2)$.\acc 
-\defi{} : Sia $t:\N\rightarrow \N$ una funzione, si definisce 
+\defi{}  Sia $t:\N\rightarrow \N$ una funzione, si definisce 
 $$ Dtime(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{singolo nastro}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
 È l'insieme dei linguaggi decidibili da TM che hanno complessità $O(t(n))$. Il linguaggio delle stringhe palindrome appartiene all'insieme $Dtime(n^2)$.\acc 
 \defi{(Classe Polinomiale)} Si definisce $P$ l'insieme 
@@ -2322,7 +2322,7 @@ Il teorema di \textit{gerarchia dei tempi}, che verrà formalizzato e dimostrato
 Esistono linguaggi che sono in $EXP$, ma che, tramite algoritmi intelligenti, si può dimostrare sono anche in $P$. Verranno considerati linguaggi riguardanti i grafi, il cui input delle TM sarà la codifica di un grafo $x=<G=(V,E)>$, la complessità sarà misurata in funzione delle cardinalità di $V$ ed $E$, se è polinomiale in queste, lo sarà anche in funzione della lunghezza della stringa di codifica.\acc 
 \textbf{Esempio} : Si consideri il linguaggio 
 $$ PATH = \{<G,s,t> \ | \ s,t\in V(G) \land \text{ esiste un cammino }s\rightarrow t\text{ in }G\}$$
-Un cammino non è altro che una sequenza di vertici $$v_0\rightarrow V_1 \dots \rightarrow v_l$$ il numero di vertici in ogni cammino è limitato da $n=|V(G)|$, è possibile controllare ogni cammino  del grafo (sono $n^n$) e verificare che ce ne sia uno che inizia in $s$ e termina in $t$. La complessità è $O(n^n)=O(2^{n\log(n)})$, è chiaro che $PATH\in EXP$.\acc 
+Un cammino non è altro che una sequenza di vertici $$v_0\rightarrow v_1 \dots \rightarrow v_l$$ il numero di vertici in ogni cammino è limitato da $n=|V(G)|$, è possibile controllare ogni cammino  del grafo (sono $n^n$) e verificare che ce ne sia uno che inizia in $s$ e termina in $t$. La complessità è $O(n^n)=O(2^{n\log(n)})$, è chiaro che $PATH\in EXP$.\acc 
 Si può però considerare una DFS, in particolare una TM che esegue i seguenti passi\begin{itemize}
     \item marca lo stato $s$, ed inizia a fare una passeggiata sul grafo partendo da $s$
     \item marca ogni stato raggiungibile 
@@ -2365,7 +2365,7 @@ Un circuito logico, viene rappresentato con un grafo diretto ed aciclico, in cui
 \end{center}
 Un circuito logico può anche essere codificato con una stringa, si definisce \textit{formula} un circuito che presenta un solo output. Una formula si identifica quindi con una funzione $C:\{0,1\}^n\rightarrow \{0,1\}$, e denotiamo $<C>$ la sua codifica sotto forma di stringa. Data una formula $C$ ed un'assegnamento delle variabili $x_1,x_2\dots x_n$, una TM può \textit{valutare} il risultato dell'output, si definisce il linguaggio 
 $$ CIRC-EVAL = \{<C,x> \ | \ C(x)=1\}$$
-Dove $x$ è l'assegnamento delel variabili e $C(x)$ è il valore dell'output dato tale assegnamento. Tale linguaggio è in $P$, tipicamente, se $m$ è il numero delle porte logiche, il costo computazionale della TM che decide $CIRC-EVAL$ è in $O(m\log(m))$.\acc 
+Dove $x$ è l'assegnamento delle variabili e $C(x)$ è il valore dell'output dato tale assegnamento. Tale linguaggio è in $P$, tipicamente, se $m$ è il numero delle porte logiche, il costo computazionale della TM che decide $CIRC-EVAL$ è in $O(m\log(m))$.\acc 
 \defi{(soddisfacibilità)} Un circuito logico $C$ si dice \textbf{soddisfacibile} se esiste almeno un assegnamento delle variabili in input che renda uguale ad $1$ l'output (o tutte le variabili in output). Di conseguenza, si definisce il linguaggio 
 $$ SAT = \{<C> \ | \ \exists x\in \{0,1\}^n \text{ tale che }C(x)=1\}$$
 Se un circuito è soddisfacibile, piuttosto che dire che $<C>$ si trova nell'insieme $SAT$ diremo che "$C$ è SAT". Verrà trattato un sotto-insieme di tale linguaggio che considera esclusivamente i circuiti con 1 output 
@@ -2391,7 +2391,7 @@ Le formule in CNF godono di una proprietà, la complessità computazionale di un
 Si definisce anche il linguaggio 
 $$ K-SAT = \{<C>\in CNF-SAT \ | \ \text{ ogni clausola ha al più }K\text{ variabili } \}$$è vero che 
 $$ K-SAT \in EXP \ \ \ \ \ K-SAT \in P \iff P=NP$$
-Il migliore algoritmo che è stato definito per decidere $3-SAT$ opera in tempo (circa) $O(1.34^n)$. In generale il costo per decidere $K-SAT$ dipende da $K$. \acc 
+Il migliore algoritmo che è stato definito per decidere $3-SAT$ opera in tempo (circa) $O(1.34^n)$. In generale il costo per decidere $K-SAT$ dipende da $K$. 
 \subsection{Complessità di $2-SAT$}
 Si consideri il seguente sotto-insieme di $K-SAT$
 $$ 2-SAT = \{<C>\in CNF-SAT \ | \ \text{ ogni clausola ha al più 2 variabili } \}$$
@@ -2529,7 +2529,7 @@ Si vuole dare un esempio di linguaggio $NP$ usando tale definizione, si consider
 \boxedMath{$\impliedby$} Se $L$ è decidibile in tempo polinomiale da una NTM $N$, allora su input $x$, $poly(|x|)$ è un upper bound sui passi di computazione di ogni ramo parallelo di $N$. Si definisce un verificatore $V$, che opera su input $y$, definito come l'insieme dei passi deterministici di un ramo di $N$, in particolare\begin{itemize}
     \item $V(x,y)$ intepreta $y$ come un insieme di (al più) lunghezza $poly(|x|)$ che simula $N(x)$ in modo deterministico seguendo le scelte di "fork" determinate da $y$. 
 \end{itemize}
-$V(<x,y>)$ ha complessità $poly(|x|)$, ed inoltre $x\in L \iff N(x)$ accetta $\iff \ \exists y \ | \ V(<x,y>)$  accetta.\hfill$\blacksquare$\acc   
+$V(<x,y>)$ ha complessità $poly(|x|)$, ed inoltre $x\in L \iff N(x)$ accetta $\iff \ \exists y \ | \ V(<x,y>)$  accetta.\hfill$\blacksquare$
 \flowerLine 
 \section{Riduzioni di Linguaggi $NP$}
 Sono stati presentati molti linguaggi in $NP$ che sono anche in $P$, tramite la riduzione, si può dimostrare che un vasto insieme di linguaggi è in $P$ se e solo se un singolo (e determinato) linguaggio è in $P$.\acc 
