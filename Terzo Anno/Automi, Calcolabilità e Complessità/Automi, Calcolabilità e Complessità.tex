@@ -1314,7 +1314,7 @@ suddivisa in due claim.\acc
         $r$ allo stato $s$ lasciando la pila vuota. Inoltre, per definizione delle regole è vero che 
         $$ (r,u)\in\delta(p,a,\epsilon)\land (q,\epsilon)\in\delta(s,b,u) \ \ \text{ per qualche }u\in\Gamma$$
         Quindi è chiaro che $x$ porti $P$ da $p$ a $q$ lasciando la pila vuota. 
-        \item La regola in questione è $A_{pq}\longrightarrow A_{pr}A_{rq}$,, allora la stringa $x$ sarà del tipo 
+        \item La regola in questione è $A_{pq}\longrightarrow A_{pr}A_{rq}$, allora la stringa $x$ sarà del tipo 
         $yz$, quindi $A_{pr}$ deriva $y$, mentre $A_{rq}$ deriva $z$. Se $A_{pq}$ deriva $x$ in $k+1$ produzioni, allora 
         le derivazioni di $y$ e $z$ avvengono in al più $k$ produzioni, ma allora per ipotesi$$\begin{cases}
             y\text{ porta $P$ da $p$ a $r$ lasciando la pila vuota}\\ 
@@ -2484,7 +2484,7 @@ $V$ data una soluzione può verificare che questa sia contenuta o no nel linguag
 \dimo{} Sia $V$ un verificatore per $3-COL$ che prende in input un grafo $G$ ed una colorazione 
 $y=(c_1,c_2\dots c_n)$, con $c_i$ colore dell'$i$-esimo nodo di $G$. La procedura di $V$ è definita come segue\begin{itemize}
     \item controlla ogni coppia $(c_i,c_j)$ se $(i,j)\in E(G)$ 
-    \item rifiuta se e solo se $c_i\ne c_j$ per ogni coppia 
+    \item accetta se e solo se $c_i\ne c_j$ per ogni coppia 
 \end{itemize}
 Chiaramente $V$ ha una complessità polinomiale in quanto al più controlla ogni arco del grafo, e verifica che $y$ sia una soluzione. Se $V(<G,y>)$ accetta, allora $y$ è una colorazione valida per $G$ e $G$ è 3-colorabile.\hfill$\blacksquare$\acc  
 \teo{} $P\subseteq NP \subseteq EXP$
@@ -2509,7 +2509,7 @@ $$ Ntime(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{non determinis
 Per semplicità, denoteremo NTM una TM non deterministica.\acc 
 \defi{} $\displaystyle NP=\bigcup_{k\in\Z^+}Ntime(n^k)$
 \acc 
-\defi{} $\displaystyle NEXP=\bigcup_{k\in\N}Ntime(2^{n^k})$
+\defi{} $\displaystyle NEXP=\bigcup_{k\in\N}Ntime(2^{n^k})$\acc
 Si vuole dare un esempio di linguaggio $NP$ usando tale definizione, si consideri $SAT$, si definisce una NTM $N$ che decide $SAT$, ossia $N(<\phi>)$ accetta se $\phi$ è soddisfacibile. La procedura di tale TM è definita come segue\begin{itemize}
     \item sia $n$ il numero di variabili, si definisce un array $x$ lungo $n$ non inizializzato, e si definisce un contatore $i=0$. 
     \item "TOP" : si incrementa $i$ di 1, se $i>n$, esegui la linea "CHECK", altrimenti esegui entrambe le seguenti linee in modo parallelo (diramazione della computazione)\begin{itemize}
@@ -2526,7 +2526,7 @@ Si vuole dare un esempio di linguaggio $NP$ usando tale definizione, si consider
     \item $N$ accetta solo se $V(<x,y>)$ accetta 
 \end{itemize}
 è chiaro che $N$ è un decisore non deterministico per $L$ che opera in tempo polinomiale.\acc 
-\boxedMath{$\impliedby$} Se $L$ è decidibile in tempo polinomiale da una NTM $N$, allora su input $x$, $poly(|x|)$ è un upper bound sui passi di computazione di ogni ramo parallelo di $N$. Si definisce un verificatore $V$, che opera su input $y$, definito come l'insieme dei passi deterministici di un ramo di $N$, in particolare\begin{itemize}
+\boxedMath{$\impliedby$} Se $L$ è decidibile in tempo polinomiale da una NTM $N$, allora su input $x$, un numero $poly(|x|)$ è un upper bound sui passi di computazione di ogni ramo parallelo di $N$. Si definisce un verificatore $V$, che opera su input $y$, definito come l'insieme dei passi deterministici di un ramo di $N$, in particolare\begin{itemize}
     \item $V(x,y)$ intepreta $y$ come un insieme di (al più) lunghezza $poly(|x|)$ che simula $N(x)$ in modo deterministico seguendo le scelte di "fork" determinate da $y$. 
 \end{itemize}
 $V(<x,y>)$ ha complessità $poly(|x|)$, ed inoltre $x\in L \iff N(x)$ accetta $\iff \ \exists y \ | \ V(<x,y>)$  accetta.\hfill$\blacksquare$
@@ -2639,7 +2639,7 @@ Le variabili saranno definite in tal modo $$x_{i,j,s}=\begin{cases}
     1 \text{ se nella cella $(i,j)$ c'è il valore }s \\ 
     0 \text{ altrimenti }
 \end{cases} $$
-Si progetta la formula $\phi$ in modo tale che, un assegnamento che la soddisfa, corrisponde ad una tabella accettante per $N$. Definiamo diverse sottoformule di $phi$.\acc 
+Si progetta la formula $\phi$ in modo tale che, un assegnamento che la soddisfa, corrisponde ad una tabella accettante per $N$. Definiamo diverse sottoformule di $\phi$.\acc 
 \textbf{prima formula} : $\phi_{start}$\\
 questa formula serve a descrivere il fatto che la prima regola di una tabella valida deve necessariamente contenere la configurazione iniziale, che sappiamo essere 
 $$ \# \  q_0 \ w_1 \ w_2 \ w_3 \ \dots w_n \ \blank \ \dots \ \blank \ \#$$
@@ -2735,14 +2735,15 @@ Visto che per ipotesi $P=NP$, si ha che $L'\in P$, allora esiste una TM determin
 \section{La Classe $coNP$}
 Definiamo ora una nuova classe di complessità. La definizione di $NP$ riguarda la decidibilità, ossia la certificazione che un certo elemento sia in un linguaggio, la classe $coNP$ riguarda la certificazione che un elemento \textit{non sia} in un linguaggio.\acc 
 Ad e sempio, esiste il linguaggio $$ UNSAT=\overline{SAT}$$
-e ci si chiede: sapendo che $SAT\in P$, $UNSAT\in NP$?\acc 
+e ci si chiede: sapendo che $SAT\in NP$, $UNSAT\in NP$?\acc 
 \defi{($coNP$)} $coNP=\{L \ | \ \overline{L}\in NP\}$\acc 
 \textbf{Osservazione} : $coNP \ne \overline{NP}$\acc 
 \teo{} $SAT\in P \iff UNSAT \in P$\acc 
 \dimo{} dato un decisore per $SAT$, si decide $UNSAT$ negando la risposta di tale decisore.
 \hfill$\blacksquare$\acc  
 \teo{} $P=coP$, ovvero, $P$ è chiuso per il complemento.\acc 
-\dimo{} Dato un decisore per un linguaggio in $P$, è necessario invertire il risultato della TM.\hfill$\blacksquare$\acc   
+\dimo{} Dato un decisore per un $L$ in $P$, è necessario invertire il risultato della TM.\hfill$\blacksquare$\acc  
+\prop{} $EXP=COEXP=\{L \ | \ \overline L \in EXP\}$ \acc 
 \teo{} $coNP\subseteq EXP$\acc 
 \dimo{} $L\in coNP \implies \overline L \in NP \subseteq EXP \implies L\in COEXP$ ma $COEXP=EXP$.
 \hfill$\blacksquare$\acc  
@@ -2761,7 +2762,7 @@ Se $P\ne NP$ è valida la seguente relazione fra insiemi
     \item $\forall A \in coNP, \ \ \ \ A\rid L$
 \end{itemize} 
 \teo{} $UNSAT$ è $coNP$ completo.\acc 
-\dimo{} Ssappiamo che $UNSAT\in coNP$, è vero che 
+\dimo{} Sappiamo che $UNSAT\in coNP$, è vero che 
 $$ A\rid UNSAT \iff \overline A \rid \overline{UNSAT}=SAT$$
 siccome $\overline A$ è in $NP$ e $SAT$ è $NP$ completo, è vero che $\overline A$ si riduce a $SAT$, quindi $UNSAT$ è $coNP$ completo.\hfill$\blacksquare$\acc  
 In passato, diversi problemi che sono in $NP\cap coNP$, sono stati dimostrati essere anche in $P$, si consideri l'insieme 
@@ -2836,7 +2837,7 @@ dove \begin{itemize}
     \item $q_i$ è lo stato attuale, e la sua posizione indica la posizione della testina sul nastro di lavoro 
     \item $k$ è il numero della cella su cui è presenta la testina sul nastro dell'input
 \end{itemize}
-Essendo $M$ deterministica, ed essendo un decisore, nessuna configurazione può ripetersi due volte durante una computazione. L'implicazione è chiaria :\begin{quote}
+Essendo $M$ deterministica, ed essendo un decisore, nessuna configurazione può ripetersi due volte durante una computazione. L'implicazione è chiara :\begin{quote}
     Il numero MASSIMO di passi di computazione che può fare $M$ su un qualsiasi input, è limitato dal numero totale di configurazioni, in quanto al più, una computazione può includere nella sequenza ogni singola configurazione, ma queste non possono ripetersi
 \end{quote}\begin{center}
     \includegraphics[width=0.75\textwidth ]{images/confTM2.eps}
