@@ -1998,7 +1998,7 @@ $a$ del disco
 $$E=\int_0^a dE = \frac{1}{4\pi\varepsilon_0}\sigma 2\pi x \int_0^a \frac{y}{(x^2+y^2)^{\nicefrac{3}{2}}}dy $$
 Si risolve per sostituzione 
 $$ t=x^2+y^2 \implies \begin{matrix}
-    2ydy=2t \\ ydy=\frac{t}{2}
+    2ydy=dt \\ ydy=\frac{dt}{2}
 \end{matrix} \ \ \ \ \begin{cases}
     y=0\implies t=x^2 \\ 
     y=a\implies t = x^2+a^2
@@ -2908,8 +2908,11 @@ Dove \begin{itemize}
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/campoFilo2.eps}
 \end{center}
-Se il filo è infinitamente lungo, allora $\alpha\rightarrow 0$ e $\beta\rightarrow \pi$, in tal caso il campo vale 
-$$ B=\frac{\mu_0I}{2\pi R}$$
+Se il filo è infinitamente lungo, allora $\alpha\rightarrow \pi$ e $\beta\rightarrow 0$, in tal caso il campo vale 
+$$ B=\frac{\mu_0I}{4\pi R}(\cos0 - \cos\pi)=\frac{\mu_0I}{4\pi R}(1 - (-1))=\frac{\mu_0I}{2\pi R}$$
+\begin{center}
+    \includegraphics[width=\textwidth ]{images/alphaa02.eps}
+\end{center}
 Consideriamo adesso il campo magnetico generato da una spira in cui scorre corrente, in particolare, si è interessati alla componente $B_x$ del campo, ossia sulla retta che passa per il centro della spira. In maniera simile al campo elettrico generato da un anello carico, in un punto si formeranno delle linee di campo a "ventaglio" le cui componenti opposte si annulleranno.\begin{center}
     \includegraphics[width=0.6\textwidth ]{images/campoSpira.eps}
 \end{center}
@@ -2934,7 +2937,7 @@ Consideriamo adesso la \textit{circuitazione del campo magnetico}, per semplicit
 Informalmente, una linea chiusa è concatenata al filo percorso da corrente se ogni superficie che ha tale linea come frontiera, è attraversata almeno in un punto dal filo.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/concatenata.eps}
 \end{center}
-Sappiamo che il campo magnetico generato dal filo ha delle curve che sono circonferenze intorno ad esso, si vuole fare il prodotto scalare fra questo e le componenti infinitesimali $d\bar l$ della curva $dl$. Come prima cosa, si proietta la curva $l$ sul piano in cui giaciono le linee di campo.\begin{center}
+Sappiamo che il campo magnetico generato dal filo ha delle curve che sono circonferenze intorno ad esso, si vuole fare il prodotto scalare fra questo e le componenti infinitesimali $d\bar l$ della curva $l$. Come prima cosa, si proietta la curva $l$ sul piano in cui giaciono le linee di campo.\begin{center}
     \includegraphics[width=\textwidth ]{images/CircuitazioneCampoMagnetico.eps}
 \end{center}
 si proietta $d\bar l$ sul vettore $\bar B$
@@ -3093,7 +3096,7 @@ La quarta equazione sarà data dalla legge di Ampere estesa al caso di una corre
 \subsection{Campo Elettrico e Magnetico del Solenoide}
 Si consideri un filo conduttore che ha la forma di un solenoide, composto da $n$ spire, la cui lunghezza totale è $l$
 \begin{center}
-    \includegraphics[width=0.5\textwidth ]{images/solenoide.png}
+    \includegraphics[width=0.4\textwidth ]{images/campoSolenoide.pdf}
 \end{center}
 Il campo magnetico $\bar B$ all'interno delle spire è uniforme, e vale $$ B=\frac{1}{l}\mu_0n I$$
 dove $I$ è la corrente che scorre nel conduttore, esprimiamo il campo sempre in forma scalare dato che la direzione è la stessa in ogni punto (all'interno delle spire). Supponiamo che $I$ sia variabile nel tempo 
@@ -3170,7 +3173,7 @@ variazione di flusso sulla superficie di cui lo stesso circuito
 su cui scorre $I_1$ è frontiera, questa, sarà opposta ad 
 $I_1$ 
 $$\phi_1=LI_1 $$
-$$ I_1'=-\frac{d\phi_1}{dt}=L\frac{dI_1}{dt}$$
+$$ I_1'=-\frac{d\phi_1}{dt}=-L\frac{dI_1}{dt}$$
 $L$ è il coefficiente $M_{1,1}$. Il circuito ha un 
 \textit{auto induttanza} interna.
 \subsubsection{Esercizio : Calcolo del Coefficiente di Induttanza}
@@ -3320,8 +3323,8 @@ C'è un problema, durante la carica del condensatore, è presenta una corrente $
 \begin{center}
     \includegraphics[width=0.4\textwidth]{images/ampereMax2.eps}
 \end{center}
-C'è un problema, esiste una curva $l$, in cui la circuitazione del campo magnetico non è nulla, ed è identica a $\mu_0I$, nonostante $l$ non sia concatenata al filo in cui scorre corrente.\begin{center}
-    \includegraphics[width=0.4\textwidth]{images/ampereMax3.eps}
+Esiste una curva $l$, in cui la circuitazione del campo magnetico non è nulla, ed è identica a $\mu_0I$, nonostante $l$ non sia concatenata al filo in cui scorre corrente.\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/ampereMax3.pdf}
 \end{center}
 è quindi necessario rivedere l'equazione di Ampere per far si  che sia valida anche in situazioni in cui la corrente non è stazionaria. Maxwell modificò la legge aggiungendo un termine, definendo la \textbf{legge di Ampere-Maxwell}
 \eqImportante{$\displaystyle 
@@ -3409,7 +3412,7 @@ Questa è detta \textbf{prima equazione di Maxwell in forma locale}. È infatti 
 \defi{(Rotore)} Dato un campo vettoriale $\bar A$, si definisce \textit{rotore di } $\bar A$, e si denota $\nabla \times \bar A $, il vettore 
 $$\hat i\Big(\frac{\partial A_z}{\partial y}-\frac{\partial A_y}{\partial z}\Big)+
 \hat j\Big(\frac{\partial A_x}{\partial z}-\frac{\partial A_z}{\partial x}\Big)+
-\hat k\Big(\frac{\partial A_y}{\partial y}-\frac{\partial A_x}{\partial x}\Big)+ $$
+\hat k\Big(\frac{\partial A_y}{\partial x}-\frac{\partial A_x}{\partial y}\Big) $$
 Si ricordi che $\hat i$, $\hat j$ e $\hat k$ sono i versori che costituiscono la base canonica di $\R^3$. Il rotore si può esprimere come il determinante della seguente matrice 
 $$\nabla \times \bar A=\det\begin{vmatrix}
     \hat i & \hat j & \hat k \\ 
@@ -3701,15 +3704,15 @@ Ma attenzione, questo ha delle implicazioni cruciali\begin{itemize}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{images/EM1}
 \end{center}
-Ricordiamo che $E_y(x,t)$ e $E_z(x,t)$ devono soddisfare l'equazione delle onde, prima abbiamo visto che $$ f(x,t)=
+Ricordiamo che $E_y(x,t)$ e $B_z(x,t)$ devono soddisfare l'equazione delle onde, prima abbiamo visto che $$ f(x,t)=
 A\cos(kx\pm\omega t)
 $$
 è un onda, una soluzione per le onde elettromagnetiche È 
 $$ 
-\bar E(x,y,z,t) = E_y(x,t)=E_0\cos(kx-\omega t)
+\bar E(x,y,z,t) = \hat j \cdot E_y(x,t)=\hat j\cdot E_0\cos(kx-\omega t)
 $$
 $$ 
-\bar B(x,y,z,t) = B_z(x,t)=B_0\cos(kx-\omega t)
+\bar B(x,y,z,t) = \hat k\cdot B_z(x,t)=\hat k \cdot B_0\cos(kx-\omega t)
 $$
 $E_0$ e $B_0$ sono rispettivamente il modulo dei vettori $\bar E$ e $\bar B$.\begin{center}
     \includegraphics[width=0.7\textwidth]{images/EM.pdf}
@@ -3753,10 +3756,10 @@ $$  B_z(x,t)=B_0\cos(kx-\omega t)
 $$
 Fissiamo un istante $t$ ed un punto $x$ in cui il coseno vale 1, e l'ampiezza dei campi è quindi massima, ossia $E_0$ e $B_0$, in tale istante l'energia vale 
 $$u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\frac{1}{\mu_0}B_0^2$$
-Sapendo che $E_0=cB_0\implies B_0=\nicefrac{E_0}{C}$ si può riscrivere 
-$$u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\frac{1}{\mu_0}\frac{E_0^2}{C^2}$$
+Sapendo che $E_0=cB_0\implies B_0=\nicefrac{E_0}{c}$ si può riscrivere 
+$$u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\frac{1}{\mu_0}\frac{E_0^2}{c^2}$$
 Sapendo che $c^2=\frac{1}{\mu_0\varepsilon_0}$, si ha che 
-$$\frac{1}{2}\frac{1}{\mu_0}\frac{E_0^2}{C^2}= \frac{1}{2}\varepsilon_0 E_0^2$$
+$$\frac{1}{2}\frac{1}{\mu_0}\frac{E_0^2}{c^2}= \frac{1}{2}\varepsilon_0 E_0^2$$
 conseguentemente 
 $$ u=\frac{1}{2}\varepsilon_0 E_0^2+\frac{1}{2}\varepsilon_0 E_0^2=\varepsilon_0E_0^2$$
 analogamente 
@@ -3767,8 +3770,12 @@ $$\nabla^2f=\frac{1}{r^2}\frac{\partial^2 (rf)}{\partial r^2} $$
 Le onde piane in coordinate sferiche sono del tipo 
 $$f=\frac{x\pm vt}{r} $$
 L'intensità dei campi quindi decresce linearmente con la distanza 
+
 $$ E\propto \frac{1}{r} \ \ \ \ \ \ \  
 B\propto \frac{1}{r}$$
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/andamentoModuloOnda.pdf}
+\end{center}
 Ad esempio 
 $$ E=\frac{E_0}{r}\cos(kx+\omega t)$$
 Ricordando che l'energia dell'onda elettromagnetica è 
@@ -3784,63 +3791,14 @@ $$ |\bar N|=\frac{1}{\mu_0} E   B=J$$
     \includegraphics[width=0.3\textwidth]{images/Poynting.eps}
 \end{center}
 Essendo che $E_0$ e $B_0$ variano nel tempo l'intensità si può calcolare come intensità media facendo l'integrale sul periodo $T$ delle onde 
-$$ J=\frac{1}{\mu_0}E_0B_0\int_0^T\cos^2(kx+\omega t)t=\frac{1}{2\mu_0}E_0B_0$$
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$$ J=\frac{1}{\mu_0}E_0B_0\int_0^T\cos^2(kx+\omega t)dt=\frac{1}{2\mu_0}E_0B_0$$
 
 
 \includepdf[pages=-]{../Formulario.pdf}
 \end{document} 
-\chapter{Formulario}
-\setlength{\columnsep}{1cm}
-\begin{multicols*}{2}
-    [
-    \section{Cinematica}
-    ]
-    moto rettilineo uniforme 
-    $$ \begin{cases}
-        r(t)=r_0+v_0t\\ 
-        v(t)=v_0\\ 
-    \end{cases}$$
-    moto uniformemente accelerato
-    $$ \begin{cases}
-        r(t)=r_0+v_0t+\frac{1}{2}a_0t^2\\ 
-        v(t)=v_0+a_0t\\
-        a(t)=a_0 
-    \end{cases}$$
-    moto del proiettile sparato a velocità iniziale $\bar v_0=(v_{x_0},v_{y_0})$ 
-    $$\begin{matrix}
-        \text{verticale} &  \begin{cases}
-            y(t)=y_0+v_{y_0}t-\frac{1}{2}gt^2\\ 
-            v_y(t)=v_{y_0}-gt
-        \end{cases}\\ \\
-        \text{orizzontale} & x(t)=v_0+x_{x_0}t
-    \end{matrix}$$
 
 
 
 
 
 
-
-
-    \end{multicols*}
