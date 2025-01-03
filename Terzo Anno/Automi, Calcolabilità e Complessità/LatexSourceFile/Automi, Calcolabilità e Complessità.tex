@@ -3063,18 +3063,33 @@ Il verificatore, per definire il certificato $r_{l+1}$, deve avere in possesso $
 \redText{finire/riscrivere la dimostrazione}
 \flowerLine 
 \section{Teoremi di Gerarchia}
-I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc 
+I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc \teo{}
 Il teorema di \textit{gerarchia dei tempi} afferma che se $t_1(n)$ è asintoticamente, molto più piccola di $t_2(n)$, allora esiste un linguaggio $L\in Dtime(t_2(n))$ tale che 
-$L\notin Dtime(t_1(n))$\acc 
-Vediamo un \textg{idea di dimostrazione}, si definisce una codifica $$[.]_{TM}:\sigma^*\rightarrow TM $$
+$L\notin Dtime(t_1(n))$\acc \dimo{}
+Vediamo un \textg{idea di dimostrazione}, si definisce una codifica $$[.]_{TM}:\Sigma^*\rightarrow TM $$
 che associa ad ogni stringa una TM, se la stringa non corrisponde ad alcuna TM sensata, allora se ne attribuisce una di default. In tal modo 
 $$ \forall TM \ M  \ \exists x \text{ tale che }[x]_{TM}=M$$
 Definisco una TM $D$ in modo tale che termini sicuramente in $O(t_2(n))$ passi, il comportamento è descritto dalla seguente procedura \begin{itemize}
-    \item 
+    \item Su input $x$, la TM interpreta la stringa come un'altra TM tramite la codifica data, definisce quindi $M=[x]_{TM}$
+    \item Simula $M$, usando come input la stessa stringa $x$ che la codifica. Viene quindi eseguita $M(x)$
+    \item Sia $t_{1.5}(n)$ una complessità di tempo tale che 
+     $$t_1(n)<<t_{1.5}(n)<<t_2(n) $$
+     \item Se $M(x)$ termina prima di $t_{1.5}(n)$ passi, allora l'output di $D(x)$ sarà l'opposto del risultato di $M(x)$. 
+     \item Se $M(x)$ non termina prima di $t_{1.5}(n)$ passi, allora 
+     $D(x)$ accetta a prescindere.
 \end{itemize}
-
-
-
+In base a ciò, sappiamo che il linguaggio di $D$, ossia $L(D)$, viene deciso in $Dtime(t_2(n))$, dato che simula una TM e questa non esegue mai più di $t_{1.5}(n)$ passi. La differenza fra $t_2(n)$ e $t_{1.5}(n)$ è data dall'\textit{overhead} di simulazione,\acc 
+Lo scopo di questa dimostrazione è dimostrare la separazione fra le classi temporali\begin{quote}
+ \textg{vogliamo mostrare che il linguaggio di $D$ non è in $Dtime(t_1(n))$}.\end{quote}
+\textbf{Non esiste} una TM $Q$ che decide $L(D)$ in $Dtime(t_1(n))$, supponiamo per assurdo che $Q(x)$ decida $L(D)$ in tale tempo, allora, sia $Q$ che $D$ sono decisori per $L(D)$, vuole dire che per ogni $x$
+$$ Q(x)=D(x)$$
+Applichiamo ora la \textg{diagonalizzazione}, diamo come input a $D$ la stringa $x_Q$ tale che $[x_Q]_{TM}=Q$\begin{itemize}
+    \item $D$ interpreta $x_Q$ come $Q$
+    \item Esegue $Q(x_Q)$
+    \item $Q(x_Q)$ termina in meno di $t_{1.5}(n)$ passi quindi per costruzione di $D$, questa restituisce il valore opposto a $Q$
+\end{itemize}
+Ma allora $D(x_Q)\ne Q(x_Q)$, ciò contraddice l'assunzione, allora è \textbf{impossibile} che $Q$ decida $L(D)$ in un tempo $Dtime(t_1(n))$, quindi $\exists L\in Dtime(t_2(n))$ tale che $L\notin Dtime(t_1(n))$.
+\hfill$\blacksquare$\acc 
 
 
 
