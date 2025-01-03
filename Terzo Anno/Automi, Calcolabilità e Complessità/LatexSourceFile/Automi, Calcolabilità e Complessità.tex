@@ -1954,7 +1954,7 @@ Se alla TM $D$ si da in input $<D>$ si ricade nella seguente situazione.
 \begin{center}
     \includegraphics[width=0.4\textwidth ]{images/ATMnonDec2.pdf}
 \end{center}
-Ma allora $D$ accetta $<D>$ solo e soltanto se $D$ rifiuta $<D>$. È una palese contraddizione, è quindi impossibile che $H$ sia un decisore per $A_{TM}$.
+Ma allora $D$ accetta $<D>$ solo e soltanto se $D$ rifiuta $<D>$. È una  contraddizione, è quindi impossibile che $H$ sia un decisore per $A_{TM}$.
 \hfill$\blacksquare$\acc 
 \defi{(co-turing Riconoscibilità)} $L$ è co-turing riconoscibile (o più semplicemente, co-riconoscibile) se $\overline{L}$ è turing riconoscibile.\acc 
 \teo{} $L$ è decidibile se e solo se $L$ è sia riconoscibile che co-riconoscibile.\acc 
@@ -1978,6 +1978,7 @@ Data una TM si deve stabilire se termina o continua all'infinito su un certo inp
     \item prende come input una TM ed una stringa $<M,w>\in A_{TM}$
     \item esegue $R$ su $<M,w>$
     \item se $R$ accetta (quindi si ha la certezza che $M$ termina), $S$ simula $M$ su $w$ ed accetta solamente se $M$ accetta $w$.
+    \item se $R$ rifiuta (la macchina va in loop) allora $S$ rifiuta.
 \end{enumerate}
 Quindi $S$ è un decisore per tutte le coppie $<M,w>$ ossia $A_{TM}$. Ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $HALT_{TM}$.\hfill$\blacksquare$\acc 
 Si consideri 
@@ -2984,7 +2985,6 @@ Vediamo adesso alcuni esempi di linguaggi $P$ completi e $PSPACE$ completi.\acc
 Vediamo un esempio di problema $P$ completo: 
 $$ CIRCUIT-EVAL=\{<C,x> \ | \ C\text{ è un circuito booleano }\land C(x)=1\}$$
 \teo{} $CIRCUIT-EVAL$ è $P$ completo.\acc 
-\dimo{} \redText{TODO}\acc 
 Vediamo adesso un particolare linguaggio, conosciamo il linguaggio $$ SAT=\{<\phi>\ | \ \exists x,\ \phi(x)=1 \}$$
 Ed il linguaggio delle tautologie 
 $$ TAUT=\{<\phi> \ | \ \forall x, \ \phi(x)=1\}$$
@@ -3011,10 +3011,10 @@ La procedura è descritta dai seguenti passi \begin{itemize}
     \end{quote}
 \end{itemize}
 L'algoritmo è corretto, la profondità di ricorsione è $n$ e ad ogni chiamata ricorsiva lo spazio utilizzato è $O(n)$. Lo spazio totale utilizzato dall'algoritmo è $O(n^2)\implies TQBF\in PSPACE$.\hfill$\blacksquare$\acc 
-\teo{} $TQBF$ è $PSPACE$-difficile. Ossia, ogni problema in $PSPACE$ si riduce in tempo plinomiale (quindi anche in spazio polinomiale) a $TQBF$.\acc 
+\teo{} $TQBF$ è $PSPACE$-difficile. Ossia, ogni problema in $PSPACE$ si riduce in tempo polinomiale (quindi anche in spazio polinomiale) a $TQBF$.\acc 
 \dimo{} Sia $A$ un generico linguaggio in $PSPACE$, esiste una TM che decide $A$ in spazio polinomiale, sia questo $O(n^a)$ per qualche $a\in \N$. Vogliamo definire una riduzione $R : \{0,1\}^*\rightarrow \{0,1\}^*$, che resituisca in output una Totally Quantified Boolean Formula $\phi_M$ tale che 
 $$ x\in A \iff M(x)\text{ accetta }\iff R(x)=\phi_M \text{ è soddisfatta }$$
-\textbf{Osservazione} : Una stessa TQBF può avere più formulazioni equivalenti, ad esempio, si può assumere che tutti i quntificatori siano all'inizioe della formula 
+\textbf{Osservazione} : Una stessa TQBF può avere più formulazioni equivalenti, ad esempio, si può assumere che tutti i quntificatori siano all'inizio della formula 
 $$ \exists x_1 \forall x_2 [x_1\rightarrow x_2]\land \dots$$
 Sappiamo che $M(x)$ opera in spazio polinomiale, ha $2^{O(n^a)}$ possibili configurazioni, una di queste sarà $C_{start}$ definita $$ q_0 \ \blank \ ; \  1$$
 Come già visto, si può assumere (senza perdita di generalità) che esista un un'unica configurazione accettante $C_{acc}$.\acc 
@@ -3027,7 +3027,7 @@ $$ \begin{matrix}
     \phi_{yields}(C_1,C_2)\land\phi_{yields}(C_2,C_3)\dots \phi_{yields}(C_{l-1},C_l)
 \end{matrix}$$
 Con $C_1=C_{start}$ e $C_l=C_{acc}$. Seppure l'idea è logicamente corrette, il numero $l$ di possibili configurazioni è in $2^{O(n^a)}$, è quindi esponenziale, allora la riduzione $R$ in questione non è computabile in spazio polinomiale, e quindi non va bene.\acc
-\textbf{Idea 2)} : Un'altra idea è quella di utilizzare l'algoritmo ricorsivo visto nel teorema di Savitch, definiamo la procedura $\phi_k(C_0,C_1)$, che è vera se e solo se esiste un cammino da $C_0$ a $C_1$ di lunghezza $2^k$ passi. La riduzione $R(x)$ dovrà solamente restituire $\phi_{O(n^a)}(C_{start},C_{acc})$.\begin{itemize}
+\textbf{Idea 2)} : Un'altra idea è quella di utilizzare l'algoritmo ricorsivo visto nel teorema di Savitch, definiamo la procedura $\phi_k(C_0,C_1)$, che è vera se e solo se esiste un cammino da $C_0$ a $C_1$ di lunghezza (al più) $2^k$ passi. La riduzione $R(x)$ dovrà solamente restituire $\phi_{O(n^a)}(C_{start},C_{acc})$.\begin{itemize}
     \item caso base ($k=0$) : allora $\phi_0(C_0,C_1)$ è vera se e solo se $\phi_{yields}(C_0,C_1)$ è vera, oppure $C_0=C_1$. 
     \item caso induttivo : $\phi_k(C_0,C_1)$ è definita come:\begin{itemize}
         \item $\exists \ C_{mid}$ tale che $$\phi_{k-1}(C_0,C_{mid})\land \phi_{k-1}(C_{mid},C_1) $$ 
@@ -3063,7 +3063,7 @@ Il verificatore, per definire il certificato $r_{l+1}$, deve avere in possesso $
 \redText{finire/riscrivere la dimostrazione}
 \flowerLine 
 \section{Teoremi di Gerarchia}
-I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc \teo{}
+I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc \teo{(Idea)}
 Il teorema di \textit{gerarchia dei tempi} afferma che se $t_1(n)$ è asintoticamente, molto più piccola di $t_2(n)$, allora esiste un linguaggio $L\in Dtime(t_2(n))$ tale che 
 $L\notin Dtime(t_1(n))$\acc \dimo{}
 Vediamo un \textg{idea di dimostrazione}, si definisce una codifica $$[.]_{TM}:\Sigma^*\rightarrow TM $$
@@ -3090,8 +3090,22 @@ Applichiamo ora la \textg{diagonalizzazione}, diamo come input a $D$ la stringa 
 \end{itemize}
 Ma allora $D(x_Q)\ne Q(x_Q)$, ciò contraddice l'assunzione, allora è \textbf{impossibile} che $Q$ decida $L(D)$ in un tempo $Dtime(t_1(n))$, quindi $\exists L\in Dtime(t_2(n))$ tale che $L\notin Dtime(t_1(n))$.
 \hfill$\blacksquare$\acc 
-
-
+Bisogna formalizzare la relazione fra $t_1$ e $t_{1.5}$, fra queste, si ha che 
+$$ t_1(n)=o(t_{1.5}(n))$$
+C'è un problema nella dimostrazione, se la stringa $x$ presa in input da $D$ è troppo corta, la simulazione potrebbe terminare in meno di $t_{1.5}(n)$ passi a prescindere da quale sia la TM codificata, bisogna quindi adoperare una codifica che $[.]_{TM}$ che faccia del padding su ogni stringa $x$ input di $D$ rendendola sufficientemente lunga aggiungendo una serie di zeri.\acc 
+Inoltre, bisogna avere la certezza che la simulazione di $M=[x]_{TM}$ da parte di $D$ avvenga in $O(t_2(|x|))$, deve quindi esistere una 
+TM capace di simulare una TM di tempo $O(t_{1.5})$ in $O(t_2)$.\acc  
+Negli anni 60' è stato dimostrato che se $T(n)$ è il tempo di una TM, una TM può simularla in tempo $O(T(n)\log(T(n)))$, questo vuol dire che $t_2(n)$ sarà almeno $t_1(n)\log(t_1(n))$. Date tali sottigliezze, è possibile definire formalmente il teorema.
+\acc 
+\defi{} Una funzione $t:\N\rightarrow \N$ è detta \textbf{tempo costruttibile} se, la funzione che associa la stringa $1^n$ (una sequenza di $n$ volte 1) alla rappresentazione binaria di $t(n)$, è computabile in tempo $O(t(n))$.\acc
+\teo{di Gerarchia di Tempo} Siano\begin{itemize} \item $t_1(n)\ge n$ \item $t_2(n)= \Omega(t_1(n)\log(t_1(n)))$\end{itemize} se $t_1$ è \textit{tempo costruttibile}, esiste un linguaggio $L$ tale che $L\in Dtime(t_2(n))$ e $L\notin Dtime(t_1(n))$.\acc 
+\textbf{Corollario} : $P\subset EXP$.\acc 
+Il teorema di gerarchia dello spazio è simile, ma una TM può simulare un'altra TM senza overhead in termini di spazio.\acc 
+\teo{di Gerarchia di Spazio} Siano \begin{itemize}
+    \item $s_1(n)\ge \log(n)$
+    \item $s_2(n)=\Omega(s_1(n))$
+\end{itemize}
+esiste un linguaggio $L$ tale che $L\in Space(s_2(n))$ e $L\notin Space(s_1(n))$.\acc 
 
 
 
