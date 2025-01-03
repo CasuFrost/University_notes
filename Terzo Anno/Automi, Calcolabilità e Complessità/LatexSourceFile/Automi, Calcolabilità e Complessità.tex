@@ -854,7 +854,7 @@ $$ \{G_i=(V_i,\Sigma_i,R_i,S_i)\}\ \ \ \ \ i\in\{1,2,3\dots,n\}$$
 $$G=(\bigcup_i\{V_i\}\cup \{S\},\bigcup_i\Sigma_i,R,S) $$
 Dove\begin{itemize}
     \item $S$ è una nuova variabile 
-    \item $R=\{\bigcup_iR_i\}\cup\{S\rightarrow S_1\lor S\rightarrow S_2 \dots\lor S\rightarrow S_n\}$
+    \item $R=\{\bigcup_iR_i\}\cup\{S\rightarrow S_1, S\rightarrow S_2 \dots, S\rightarrow S_n\}$
 \end{itemize}
 \prop{} $L(G)=\bigcup_i L(G_i)$
 \subsubsection{Ambiguità}
@@ -1151,7 +1151,7 @@ Sia $L=\{w\&w^R|w\in\{0,1\}^*\}$, ossia l'insieme di tutte le stringhe binarie p
 \subsection{PDA e Linguaggi Acontestuali}
 Tale sezione si concentrerà sul seguente teorema.\acc 
 \teo{} Un linguaggio è acontestuale (generato da una CFG) se e solo se esiste un PDA che lo riconosce.
-Per rendere più leggibile e chiara la dimostrazione del teorema, essa verrà scomposta in due lemma, che rappresentano le due implicazioni della 
+Per rendere più leggibile e chiara la dimostrazione del teorema, essa verrà scomposta in due lemmi, che rappresentano le due implicazioni della 
 dimostrazione. \acc 
 \lemma{[$\implies$]}  Se un linguaggio è acontestuale, esiste un PDA che lo riconosce. \acc 
 \dimo{[$\implies$]} Sia $G=(V,\Sigma, R, S)$ una generica CFG, il cui linguaggio è $L(G)$. L'idea è quella di costruire un PDA  $P$
@@ -2922,7 +2922,7 @@ $2^{O(\log(n))}$ possibili configurazioni, si associa, per ogni coppia $N,x$ ($x
 \end{center}
 Definiamo configurazioni \textit{accettanti}, quelle in cui lo stato corrente è lo stato accettante $q_{acc}$, è possibile (senza perdita di generalità) trasformare ogni possibile grafo $G_{N,x}$ in modo che abbia una sola configurazione accettante, ossia 
 $$ C_{acc}=q_{acc}\blank\  ; \ 1$$
-Basta assumere che $N(x)$, prima di accettare, si occupi di cancellare ogni elemento sul nastro di lavoro, e spostare le testine (di entrambi i nastri) nell'estrema sinistra. Tale trasformazione preserva la complessità di spaziale di $N$.
+Basta assumere che $N(x)$, prima di accettare, si occupi di cancellare ogni elemento sul nastro di lavoro, e spostare le testine (di entrambi i nastri) nell'estrema sinistra. Tale trasformazione preserva la complessità spaziale di $N$.
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/Cstart.drawio.pdf}
 \end{center}
