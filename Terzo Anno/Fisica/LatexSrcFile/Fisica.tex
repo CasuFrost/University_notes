@@ -682,7 +682,10 @@ assoluto $\bar v_a$ in modo che attraversi il fiume in linea retta.
 \end{center}
 Si vuole trovare l'angolo $\alpha$ fra la velocità relativa e quella di trascinamento per far 
 si che la velocità assoluta sull'asse  parallelo alle sponde sia nulla.
-$$ v_r \sin(\alpha)=- v_t \implies \alpha = -\arcsin(\frac{v_t}{v_r}) $$ 
+$$ v_r \cos(\alpha)=- v_t \implies \alpha = -\arccos(\frac{v_t}{v_r}) $$ 
+\begin{center}
+    \includegraphics[width=0.45\textwidth]{images/nuotatore2.eps}
+\end{center}
 Si consideri ora un sistema non inerziale, ossia in cui la velocità di trascinamento dipende dal tempo 
 $$\bar v_a(t) = \bar v_r(t) + \bar v_t(t) $$
 Ne consegue che l'accelerazione di trascinamento non è nulla. 
@@ -747,7 +750,7 @@ $$\begin{cases}
 \end{cases} $$
    \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/es3.eps}
+    \includegraphics[width=0.5\textwidth]{images/es3.eps}
     \caption{schema esercizio 3}
 \end{figure}
 Lo spostamento sarà rispettivamente 
@@ -1344,12 +1347,12 @@ La componente $\bar R$ è il vettore che va dal polo al corpo su cui
 si applica la forza, l'altra componente è la proiezione 
 della forza sul vettore ortogonale al vettore $R$.
 Dato un polo, definiamo il vettore 
-$$ \bar M = \bar R \times \bar F\sin\alpha$$
+$$ \bar M = \bar R \times \bar F \ \ \ \  \ M=RF\sin\alpha$$
 \begin{center}
     \includegraphics[width=0.35\textwidth]{images/momentoAngolare.eps}
 \end{center}
-Il vettore $\bar M$ è detto \textbf{momento} e la sua direzione è 
-normale al piano di rotazione, si misura in Newton per metro $N\cdot m$.
+Il vettore $\bar M$ è detto \textbf{momento della forza} e la sua direzione è 
+normale al piano di rotazione, si misura in Newton per metro $N\cdot m$ e descrive la tendenza di una forza a far ruotare attorno ad un polo il corpo su cui è applicata.
 Se dovessimo scriverlo in analogia con la formula della forza $\bar F = m\bar a$, si 
 può scrivere 
 $$ \bar M = \bar R \times \frac{d\bar m\bar v}{dt}$$
@@ -1388,8 +1391,8 @@ Il momento non cambia dato che il momento di $\bar T$ rispetto al polo
 La velocità tangenziale di un corpo che rotea attorno ad un polo può essere espressa come $\bar v=\bar \omega \times \bar R$, 
 quindi si ha 
 $$ \bar b = \bar R \times m (\bar \omega\times  \bar R)=mR^2\bar \omega = I\bar \omega$$
-Definiamo $(mR^2)$ \textbf{momento di inerzia}. 
-$$ \bar M = \frac{d\bar b }{dt}=\frac{d}{dt}(I\bar \omega)$$
+Definiamo $I=mR^2$ \textbf{momento di inerzia}. Se il polo è fermo ($\bar v_0=\mathbf 0$) si ha 
+$$ \bar M = \frac{d\bar b }{dt}+\mathbf 0 \times \bar p=\frac{d}{dt}(I\bar \omega)$$
 Assumendo che $I$ sia costante (la massa non varia e la distanza dal polo è sempre la stessa)
 $$ \bar M = I\frac{d\bar \omega}{dt}$$
 \subsubsection{Seconda legge di Keplero}
@@ -1424,7 +1427,7 @@ $$ dA=\bar b dt$$
 Si divide per $dt$ 
 $$ \dfrac{dA}{dt}=\bar b $$
 Ma il momento della quantità di moto si conserva, quindi 
-la derivata della velocità aereolare è costante.
+la derivata della velocità areolare è costante.
 \flowerLine 
 \section{Sistemi di Punti Materiali}
 Consideriamo un sistema in cui sono presenti $n$ punti materiali, ogni singolo punto 
@@ -1971,8 +1974,8 @@ La derivata della tangente è $\frac{1}{\cos^2\theta}$, quindi $$ dl=\frac{x}{\c
 \ \ \ \text{ inoltre } \ \ \
  r\cos\theta=x\implies r^2=\frac{x^2}{\cos^2\theta}$$
 $$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int \frac{x}{\cos^2\theta}d\theta\frac{\cos^3\theta}{x^2}=\frac{\lambda}{x4\pi\varepsilon_0}\int_{-\theta_0}^{\theta_0}\cos\theta d\theta=\frac{\lambda}{x4\pi\varepsilon_0}\big(\sin(\theta_0)-\sin(-\theta_0)\big)$$
-$\theta_0$ è l'angolo quando la sorgente di carica è l'estremita della bacchetta e dipende da $x$. Ricordando che $\sin(-x)=-\sin(x)$ :
-$$ \bar E =\frac{\lambda}{x4\pi\varepsilon_0}2\sin(\theta_0(x)) $$
+$\theta_0$ è l'angolo quando la sorgente di carica è l'estremita della bacchetta e dipende da $x$. Sia $2L$ la lunghezza della bacchetta, ricordando che $\sin(-x)=-\sin(x)$ :
+$$ \bar E =\frac{\lambda}{x4\pi\varepsilon_0}2\sin(\theta_0(x))  \ \ \ \ \ \ \ \  \  \frac{L}{x}=\tan\theta_0\implies \theta_0=\arctan(\nicefrac{L}{x})$$
 Se la bacchetta è infinita, $\theta_0$ tende a 90 gradi. 
 $$ \frac{\lambda}{x4\pi\varepsilon_0}2\sin(\nicefrac{\pi}{2})=\frac{\lambda}{2x\pi\varepsilon_0}$$
 \subsubsection{Campo generato da un disco}
@@ -1998,7 +2001,7 @@ $a$ del disco
 $$E=\int_0^a dE = \frac{1}{4\pi\varepsilon_0}\sigma 2\pi x \int_0^a \frac{y}{(x^2+y^2)^{\nicefrac{3}{2}}}dy $$
 Si risolve per sostituzione 
 $$ t=x^2+y^2 \implies \begin{matrix}
-    2ydy=dt \\ ydy=\frac{dt}{2}
+    dt=2ydy \\ dy=\frac{1}{2y}dt
 \end{matrix} \ \ \ \ \begin{cases}
     y=0\implies t=x^2 \\ 
     y=a\implies t = x^2+a^2
@@ -2490,7 +2493,7 @@ Segue il calcolo dell'integrale
    \frac{1}{2}\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}
 \end{eqnarray}
 in conclusione
-$$U_e  =\frac{1}{2}\frac{Q^2}{4\pi\varepsilon_0}\frac{1}{R}$$
+$$U_e  =\frac{Q^2}{8\pi\varepsilon_0}\frac{1}{R}$$
 Ci si pone la seguente domanda, qual'è la regione di spazio (volume sferico) in cui è contenuta il 90\% dell'energia totale? Si deve trovare $R^*>R$ tale che 
 $$ \frac{1}{2}\varepsilon_0\int_{R}^{R^*} E^2(4\pi r^2)dr=\frac{9}{10}U_e$$
 Si ha che 
@@ -2527,9 +2530,9 @@ Sia $n$ il numero di portatori di carica (elettroni) per unità di volume, si ha
 $$ \bar j = ne^-\bar v_d$$
 Si definisce l'\textbf{intensità di corrente} l'integrale della densità di corrente su tutta la superficie attraversata 
 \eqImportante{$\displaystyle 
-I=\int_S \bar j d\bar s 
+I=\int_S \bar j d\bar s =\frac{dq}{dt}
 $} 
-e si misura in Ampere A. \acc 
+e si misura in Ampere A. $q$ è la carica sulla superficie $S$ considerata. \acc 
 Vi è un legame intrinseco fra l'intensità di corrente, più comunemente chiamata corrente, e fra la differenza di potenziale, in particolare, è stato osservato che queste sono proporzionali 
 $$ V=RI\ \ \ \ I=\frac{V}{R}\ \ \ \ \textbf{prima legge di Ohm}$$
 È una legge empirica e non ha dimostrazione.
@@ -2951,7 +2954,7 @@ Si considera poi l'angolo $\alpha$ mostrato in figura
     \includegraphics[width=0.5\textwidth ]{images/dimAmpere2.eps}
 \end{center}
 Sia $r$ la distanza fra il filo ed il punto considerato, si ha che 
-$$ \frac{d\bar l}{r}=d\alpha$$
+$$ \frac{d\bar l'}{r}=d\alpha$$
 quindi 
 $$ \bar B d\bar l=Bdl'=Brd\alpha=\frac{\mu_0I}{2\pi r}rd\alpha = \frac{\mu_0I}{2\pi}d\alpha$$
 A questo punto si può integrare sulla linea considerando $\alpha$ come variabile di integrazione. Da un punto con angolo $\alpha_1$ ad un punto con angolo $\alpha_2$ si ha 
@@ -3341,6 +3344,9 @@ $$ \frac{d}{dt}\phi_E(t)=\frac{d\sigma(t)}{dt}\frac{A}{\varepsilon_0}$$
 ma attenzione, il prodotto densità per superficie è proprio la carica totale, quindi il termine $A\frac{d\sigma(t)}{dt}$ è uguale alla derivata della carica $Q$ nel tempo 
 $$ \frac{d}{dt}\phi_E(t)=\frac{1}{\varepsilon_0}\frac{dQ}{dt}$$
 E infatti la derivata della carica nel tempo è proprio una corrente, in questo caso è detta \textbf{corrente di spostamento}.
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/ampereMaxwell.pdf}
+\end{center}
 \chapter{Onde Elettromagnetiche}
 \section{Forme Differenziali delle Equazioni di Maxwell}
 \subsection{Divergenza e Rotore}
@@ -3349,7 +3355,7 @@ $$\oint_S \bar A d\bar s $$
 Si consideri una superficie chiusa infinitesimale, un cubetto $d\tau$, in questa, il campo vettoriale $\bar A$ è uniforme. Consideriamo il flusso attraverso questo, consideriamo le due superfici del cubo parallele al piano $yz$, ossia, le cui normali sono parallele all'asse $x$.\begin{center}
     \includegraphics[width=0.4\textwidth]{images/Cubetto.pdf}
 \end{center}
-i lati del volumetto $d\tau$ sono $dx$, $dy$ e $dz$. Le facce del cubo la cui normale è parallela all'asse $x$, è $dzdy$\begin{center}
+i lati del volumetto $d\tau$ sono $dx$, $dy$ e $dz$. Le facce del cubo la cui normale è parallela all'asse $x$, sono $dydz$\begin{center}
     \includegraphics[width=0.7\textwidth]{images/Cubetto2.pdf}
 \end{center}
 Considerando le proiezioni di $\bar A$ sugli assi, ossia $$ A_x \ \ \ A_y \ \ \ A_z$$
@@ -3400,7 +3406,7 @@ Ma allora, essendo che $(\nabla \cdot \bar A)d\tau$ non è altro che il flusso c
 \eqImportante{$\displaystyle 
  \oint_S \bar A d\bar s =\int_{\tau_S}(\nabla \cdot \bar A)d\tau
 $}
-Applichiamo subito il teorema al campo elettrico, il flusso del campo elettrico su una superficie chiusa sarà 
+Il teorema semplifica il calcolo degli integrali di un campo vettoriale, rendendo possibile calcolare l'integrale di una funzione scalare. Applichiamo subito il teorema al campo elettrico, il flusso del campo elettrico su una superficie chiusa sarà 
 $$\oint_S \bar E d\bar s =\int_{\tau_S}(\nabla \cdot \bar E)d\tau $$
 Ma attenzione, la legge di Gauss enuncia che 
 $$\oint_S \bar E d\bar s =\int_{\tau_S}\frac{\rho}{\varepsilon_0}d\tau $$
@@ -3408,9 +3414,9 @@ Ma allora
 $$\int_{\tau_S}(\nabla \cdot \bar E)d\tau=\int_{\tau_S}\frac{\rho}{\varepsilon_0}d\tau $$
 Ne consegue \underline{necessariamente} che 
 \eqImportante{$\nabla \cdot \bar E=\dfrac{\rho}{\varepsilon_0}$}
-Questa è detta \textbf{prima equazione di Maxwell in forma locale}. È infatti la versione locale (e non globale) della legge di Gauss. Naturalmente, esiste anche la forma locale della seconda equazione di Maxwell, ossia quella relativa al campo magnetico:
+Questa è detta \textbf{prima equazione di Maxwell in forma locale}. È infatti la versione locale (e non globale) della legge di Gauss. Naturalmente, esiste anche la forma locale della seconda equazione di Maxwell, relativa al campo magnetico:
 \eqImportante{$\nabla \cdot \bar B=0$}
-\defi{(Rotore)} Dato un campo vettoriale $\bar A$, si definisce \textit{rotore di } $\bar A$, e si denota $\nabla \times \bar A $, il vettore 
+\defi{(Rotore)} Dato un campo vettoriale $\bar A$, si definisce \textg{rotore } di $\bar A$, e si denota $\nabla \times \bar A $, il vettore 
 $$\hat i\Big(\frac{\partial A_z}{\partial y}-\frac{\partial A_y}{\partial z}\Big)+
 \hat j\Big(\frac{\partial A_x}{\partial z}-\frac{\partial A_z}{\partial x}\Big)+
 \hat k\Big(\frac{\partial A_y}{\partial x}-\frac{\partial A_x}{\partial y}\Big) $$
@@ -3420,8 +3426,8 @@ $$\nabla \times \bar A=\det\begin{vmatrix}
     \dfrac{\partial}{\partial x} &  \dfrac{\partial}{\partial y} &  \dfrac{\partial}{\partial z} \\ 
     A_x & A_y & A_z
 \end{vmatrix} $$
-Come la divergenza ha permesso di scrivere le prime due equazioni di Maxwell in forma locale, esiste una forma locale anche per le due equazioni rimanenti, ossia la legge di Faraday-Neumann-Lenz e la legge di Ampere-Maxwell, in particolare, è di cruciale importanza il seguente risultato (di cui verrà omessa la dimostrazione).\acc  A titolo informativo, i due risultati mostrati in questa sezione (come per il teorema fondamentale del calcolo integrale) sono casi particolari di un teorema generale noto come \textit{teorema di Stokes}.\acc
-\teo{(del Rotore)} Sia $\bar A$ un campo vettoriale, sia $l$ una curva chiusa, e sia $\bar S_l$ una superficie di cui $l$ è frontiera. Allora si ha che 
+Come la divergenza ha permesso di scrivere le prime due equazioni di Maxwell in forma locale, esiste una forma locale anche per le due equazioni rimanenti, ossia la legge di Faraday-Neumann-Lenz e la legge di Ampere-Maxwell, in particolare, è di cruciale importanza il seguente risultato.\acc  A titolo informativo, i due risultati mostrati in questa sezione (come per il teorema fondamentale del calcolo integrale) sono casi particolari di un teorema generale noto come \textit{teorema di Stokes}.\acc
+\teo{(del Rotore)} Sia $\bar A$ un campo vettoriale, sia $l$ una curva chiusa, e sia $ S_l$ una superficie di cui $l$ è frontiera. Allora si ha che 
 \eqImportante{$\displaystyle 
 \oint_l \bar A d\bar l = \int_{S_l}(\nabla \times \bar A)d\bar s
 $}
@@ -3429,9 +3435,9 @@ Ossia, la circuitazione di $\bar A$ su $l$ è uguale al flusso del rotore di $\b
 \subsubsection{Equazioni in Forma Locale}
 Vediamo subito le applicazioni alle ultime due equazioni di Maxwell, la legge di Faraday-Neumann-Lenz afferma che 
 $$ \oint_l \bar E d\bar l = -\frac{\partial}{\partial t}\int_{S_l}\bar B d\bar s$$
-Ma la circuitazione $\bar E$, per il teorema del rotore afferma che 
+Ma il teorema del rotore afferma che 
 $$ \oint_l \bar E d\bar l = \int_{S_l}(\nabla \times \bar E)d\bar s$$
-ma allora 
+allora 
 $$\int_{S_l}(\nabla \times \bar E)d\bar s=-\frac{\partial}{ \partial t}\int_{S_l}\bar B d\bar s$$
 si può riscrivere portando la derivata dentro l'integrale 
 $$\int_{S_l}(\nabla \times \bar E)d\bar s=\int_{S_l}-\frac{\partial\bar B }{\partial t}d\bar s$$
@@ -3793,7 +3799,6 @@ $$ |\bar N|=\frac{1}{\mu_0} E   B=J$$
 \end{center}
 Essendo che $E_0$ e $B_0$ variano nel tempo l'intensità si può calcolare come intensità media facendo l'integrale sul periodo $T$ delle onde 
 $$ J=\frac{1}{\mu_0}E_0B_0\int_0^T\cos^2(kx+\omega t)dt=\frac{1}{2\mu_0}E_0B_0$$
-
 
 \includepdf[pages=-]{../Formulario.pdf}
 \end{document} 

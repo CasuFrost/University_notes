@@ -324,9 +324,8 @@ definite su di essi le seguenti operazioni : \begin{itemize}
     \item \textbf{intersezione} : $L_1\cap L_2 = \{x\in\Sigma^*\;|\;x\in L_1\land x\in L_2\}$
     \item \textbf{complemento} : $\lnot L_1=\{x\in\Sigma^*\;|\;x\notin L_1\}$
     \item \textbf{concatenazione} : $L_1 \circ L_2 = \{xy\;|\;x\in L_1\land y\in L_2\}$
-    \item \textbf{potenza} : $L_1^n = \smash{\underbrace{L_1\circ L_1\circ L_1,\dots\circ L_1}_{n\ \text{volte}}}\vphantom{1}$\acc
-    \item \textbf{star} : $L_1^* = \{x_1,x_2\dots,x_k\;|\; k\in \Z^+ \land x_i \in L_1\}$ \\ 
-    Si può definire anche diversamente $$L_1^* = \bigcup_{k=0}^\infty L_1^k $$
+    \item \textbf{potenza} : $L_1^n = \smash{\underbrace{L_1\circ L_1\circ L_1,\dots\circ L_1}_{n\ \text{volte}}}\vphantom{1}$
+    \item \textbf{star} : $L_1^* = \displaystyle\bigcup_{k=0}^\infty L_1^k $
 \end{itemize}
 \textit{Esempio di concatenazione e potenza} : 
 $$\Sigma= \{a,b\}\;\;\;\; L_1 = \{a,ab,ba\}\;\;\;\; L_2 = \{ab,b\}\;\;\;\; L = \{a,ab,ba\}$$
@@ -341,10 +340,10 @@ $$\begin{matrix}
 \end{matrix}$$
 \dimo{(unione ed intersezione)} Siano $L_1$ ed $L_2$ due linguaggi regolari, considero due DFA, per semplicità, con lo stesso alfabeto
 $$ 
-D_1 = (Q_1,\Sigma,\delta,q_1,F_1)
+D_1 = (Q_1,\Sigma,\delta_1,q_1,F_1)
 $$
 $$ 
-D_2 = (Q_2,\Sigma,\delta,q_2,F_2)
+D_2 = (Q_2,\Sigma,\delta_2,q_2,F_2)
 $$
 tali che 
 $$ L(D_1)=L_1 \ \land \ L(D_2)=L_2$$
@@ -352,7 +351,7 @@ Si costruisce un DFA che simula contemporaneamente l'esecuzione di $D_1$ e $D_2$
 le possibili combinazioni di coppie di stati. Si definisce $D=(Q,\Sigma,\delta,q_0,F)$ tale che 
 \begin{itemize}
     \item $Q=Q_1\times Q_2=\{(r_1,r_2) \ | \ r_1\in Q_1 \land r_2\in Q_2\}$
-    \item $\delta((r_1,r_2),a)=(\delta(r_1,a),\delta(r_2,a))$ dove $a\in\Sigma$ e $(r_1,r_2)\in Q$
+    \item $\delta((r_1,r_2),a)=(\delta_1(r_1,a),\delta_2(r_2,a))$ dove $a\in\Sigma$ e $(r_1,r_2)\in Q$
     \item $q_0=(q_1,q_2)$
     \item $F=(F_1\times Q_2)\cup (Q_1\times F_2)=\{(r_1,r_2)\ | \ r_1\in F_1\lor r_2\in F_2\}$
 \end{itemize}
@@ -364,7 +363,7 @@ A questo punto risulta chiaro che
     \item $x\in L_1\cup L_2\implies x\in L(D)$
     \item $x\in L(D)\implies x\in L_1\cup L_2\;\;\blacksquare$ 
 \end{enumerate}
-\dimo{(complemento)} : Sia $L$ un linguaggio regolare, e $D$ un automa che lo accetta $L(D)=L$. Si vuole dimostrare 
+\dimo{(complemento)}  Sia $L$ un linguaggio regolare, e $D$ un automa che lo accetta $L(D)=L$. Si vuole dimostrare 
 che esiste un automa che accetti $L^C = \{w\in \Sigma^* \ |\ w\notin L\}$. Essendo 
 $$ D=(Q,\Sigma,\delta,q_0,F)$$
 considero 
@@ -667,12 +666,12 @@ Più precisamente, sia $G$ un GNFA definito $G=(Q,\Sigma,\delta,q_{start},q_{acc
 $$ \delta : Q\backslash \{q_{acc}\} \times Q\backslash \{q_{start}\}\rightarrow re(\Sigma)$$
 Dato un generico NFA, è possibile trasformarlo in un GNFA aggiungendo al più due stati (iniziale e 
 finale), ed utilizzando gli $\emptyset$-archi per riempire le coppie di stati che non sono collegate.\acc 
-La funzione $Convert : GNFA \rightarrow GNFA$ modifica un GNFA restituendone uno equivalente, ma con uno stato in meno. 
-Tale funzione è definita in tal modo, sia $k$ il numero di stati/nodi di $G$, si esegue $Convert(G)$ \begin{itemize}
+Si definisce poi una procedura $\text{\code{Convert}} : GNFA \rightarrow GNFA$ modifica un GNFA restituendone uno equivalente, ma con uno stato in meno. 
+Tale funzione è definita in tal modo, sia $k$ il numero di stati/nodi di $G$, si esegue $\text{\code{Convert}}(G)$ \begin{itemize}
     \item Se $k=2$, allora esiste un solo arco fra questi etichettato con un espressione regolare $r$, la funzione 
     restituirà $r$. 
     \item Se $k> 2$, viene selezionato un qualsiasi nodo in $Q\backslash\{q_{start},q_{acc}\}$, sia questo $q_{rip}$, 
-    si avrà $Convert(G)=G'=(Q\backslash\{Q_{rip}\},\Sigma,\delta',q_{start},q_{acc})$ dove 
+    si avrà $\text{\code{Convert}}(G)=G'=(Q\backslash\{Q_{rip}\},\Sigma,\delta',q_{start},q_{acc})$ dove 
     $$ \delta' : Q\backslash \{q_{acc},q_{rip}\} \times Q\backslash \{q_{start},q_{rip}\}\rightarrow re(\Sigma)$$
     Inoltre ogni etichetta di $G'$ viene aggiornata secondo la seguente procedura, siano $q_i\in Q\backslash \{q_{acc},q_{rip}\}$
     e  $q_j\in Q\backslash \{q_{start},q_{rip}\}$ due stati qualsiasi 
@@ -697,20 +696,20 @@ Tale funzione è definita in tal modo, sia $k$ il numero di stati/nodi di $G$, s
         (qrip) edge [bend right] node {$r_3$}   (qj);
     \end{tikzpicture}
 \end{figure}
-Bisogna ora dimostrare che un generico GNFA $G$ è equivalente a $Convert(G)$. Si dimostra per induzione su 
+Bisogna ora dimostrare che un generico GNFA $G$ è equivalente a $\text{\code{Convert}}(G)$. Si dimostra per induzione su 
 $k$ numero di stati.\acc 
-  \textbf{caso base} $k=2$ : In tal caso la procedura $Convert$ restituisce l'espressione regolare 
+  \textbf{caso base} $k=2$ : In tal caso la procedura $\text{\code{Convert}}$ restituisce l'espressione regolare 
     $r$ sull'unico arco che descrive ogni stringa accettata da $G$. $L(r)\equiv L(G)$ \acc 
-    \textbf{passo induttivo} : si assume che $G$ è equivalente a $Convert(G)$ per $k-1$ stati.\begin{itemize}
+    \textbf{passo induttivo} : si assume che $G$ è equivalente a $\text{\code{Convert}}(G)$ per $k-1$ stati.\begin{itemize}
         \item Se $G$ accetta $w$, allora esiste un ramo di computazione $C=\{q_{start},q_1\dots, q_{accept}\}$, se 
-        $q_{rip}$ che è stato rimosso in $G'=Convert(G)$ non appartiene a $C$, allora la computazione non è 
+        $q_{rip}$ che è stato rimosso in $G'=\text{\code{Convert}}(G)$ non appartiene a $C$, allora la computazione non è 
         alterata e $G'$ accetta $w$, altrimenti ci sarà una differente sequenza di stati, ma gli stati $q_i,q_j$ adiacenti 
         a $q_{rip}$ sono ora uniti da un arco etichettato da un espressione regolare che comprende le stringhe per 
         andare da $q_i$ a $q_j$ passando per $q_{rip}$.
         \item Se $G'$ accetta $w$, anche $G$ lo accetta dato che per ogni coppia di stati in $C$ si è aggiornata 
         l'etichetta tenendo conto della transazione che porta da uno stato all'altro passando per $q_{rip}$.
     \end{itemize}
-Quindi $Convert$ restituisce un automa equivalente con $k-1$ stati, quindi l'asserto è vero. $\blacksquare$\newpage
+Quindi $\text{\code{Convert}}$ restituisce un automa equivalente con $k-1$ stati, quindi l'asserto è vero. $\blacksquare$\newpage
 \subsection{Esempi} 
 \textbf{Esempio 1)} Si trasformi $r=(ab|a)^*$ in un NFA.\begin{center}
     \begin{figure}[h!]
@@ -744,7 +743,7 @@ Appunto sulla notazione : Se $w$ è una stringa, allora $|w|$ è il numero dei s
 \textbf{Osservzione} : Se un DFA con $n$ stati legge una stringa di $k>n$ caratteri, allora ci sarà almeno uno stato 
 che verrà considerato due volte durante la computazione. \acc 
 \teo{(Pumping Lemma)} Sia $L$ un linguaggio regolare, sia $D$ l'automa tale che $L(D)=L$, si considera una stringa 
-$w\in L(D)$, ed una sua decomposizione in 3 stringhe concatenate $w=xyz$. Esiste un intero $p\le|w|$, denotato \textit{pumping}
+$w\in L(D)$, ed una sua decomposizione in 3 stringhe concatenate $w=xyz$. Esiste un intero $p\le|w|$, denotato \textg{pumping}
  tale che \begin{enumerate}
     \item $\forall i\ge0$, $xy^iz\in L(D)$
     \item $|y|>0$
@@ -788,7 +787,7 @@ regole sono annotate come segue $$\begin{cases}
 \end{cases}\ \ \ \ \Sigma = \{0,1,\#\} $$
 Ciascuna regola contiene una variabile alla quale viene associata una stringa, 
 composta da variabili e \textit{terminali}, ossia i caratteri dell'alfabeto $\Sigma$.
-Una variabile è considerata iniziale, e per convenzione, è sempre quella 
+Una delle variabili è considerata iniziale, e per convenzione, è sempre quella 
 presente nella prima regola.\acc 
 Precisamente, una grammatica può generare stringhe\begin{enumerate}
     \item Si scrive la variabile iniziale 
@@ -1000,7 +999,7 @@ $$
     B \longrightarrow b
 \end{cases}
 $$
-\item passo 4 : convertire le ultime regole nella forma corretta $$
+\item passo 4 : \text{\code{Convert}}ire le ultime regole nella forma corretta $$
 \begin{cases}
     S_0 \longrightarrow ASA |  aB | SA |AS \\
     S\longrightarrow ASA |  aB | SA |AS   \\ 
@@ -1094,7 +1093,7 @@ La computazione sarà andata a buon fine se e solo se $r_n\in F$, ossia lo stato
     \end{figure}
 \end{center}
 Gli stati consistenti nella computazione sono in relazione 
-$$ (p,ax,by)\vdash (q,x,cy)\iff (q,c)\in\delta(p,a,b)$$
+$$ (p,ax,yb)\vdash (q,x,yc)\iff (q,c)\in\delta(p,a,b)$$
 $$ p,q\in Q\  \ b,c\in\Gamma_\epsilon\ \ a\in\Sigma_\epsilon\ \ x\in\Sigma^* \ \ y\in\Gamma^*$$
 La chiusura transitiva $\vdash^*$ definisce la relazione di transizione estesa, utile per la seguente 
 definizione.\acc 
@@ -1357,7 +1356,7 @@ suddivisa in due claim.\acc
     \end{itemize}
     \hfill $\square$
 \end{itemize}
-I due claim dimostrano il lemma $\impliedby$.\hfill $\blacksquare$\\
+I due claim dimostrano il lemma [$\impliedby$].\hfill $\blacksquare$\\
 Essendo entrambi i lati dimostrati, il teorema sull'equivalenza fra PDA e CFG è dimostrato.
 \subsection{Il Pumping Lemma per le Grammatiche Acontestuali} 
 Il teorema presentato in questa sezione mostra che esistono anche dei linguaggi non acontestuali, ossia, per i quali non 
@@ -1785,10 +1784,8 @@ $M$ accetta, altrimenti si incremente l'indice $i$
     \item Se almeno un ramo di $N$ va in loop, e nessun 
     ramo accetta, $M$ va in loop.
  \end{itemize}
- \begin{quote}
-    Se una NTM è un decisore, tutti i cammini hanno lunghezza finita
- \end{quote}
- \hfill$\blacksquare$
+ \hfill$\blacksquare$\acc
+Se una NTM è un decisore, tutti i cammini hanno lunghezza finita.
  \subsection{L'Enumeratore}
  L'enumeratore è un modello (in particolare, una variante di una TM) capace di generare un preciso insieme di stringhe, in un qualsiasi ordine e con eventuali ripetizioni, in particolare, per ogni linguaggio turing-riconoscibile, esiste un enumeratore che lo genera.\acc
 Un enumeratore è una TM che "stampa" delle stringhe, eventualmente, infinite.\acc 
@@ -1840,7 +1837,7 @@ L'insieme delle coppie (codificate) di DFA che accettano lo stesso linguaggio.\a
 \dimo{} Dati due DFA si definisce l'operatore di  differenza simmetrica $\Delta$ come segue 
 $$ L(D_1)\Delta L(D_2)= (L(D_1)\cap \overline{L(D_2)})\cup (L(D_2)\cap \overline{L(D_1)})$$
 Fatto : $L(D_1)=L(D_2)\iff L(D_1)\Delta L(D_2)=\emptyset$. Dati $D_1$ e $D_2$ si definisce $D$ tale che 
-$L(D)=L(D_1)\Delta L(D_2)$ e si esegue l'algoritmo per decidere $E_{DFA}$ su $D$. \hfill$\blacksquare$\acc 
+$L(D)=L(D_1)\Delta L(D_2)$ (si può fare dato che $REG$ è chiusa) e si esegue l'algoritmo per decidere $E_{DFA}$ su $D$. \hfill$\blacksquare$\acc 
 La seguente proposizione sarà necessaria a dimostrare la decidibilità di un linguaggio. \acc 
 \prop{} Se $G$ è una CFG in forma normale Chomsky, e $w\in L(G)$, se $|w|=n$ per produrre $w$ saranno necessarie $2n-1$ derivazioni. \acc 
 \dimo{} Il caso base per $n=1$ è banale. Se $n\ge 2$ la regola di partenza sarà $$ S\rightarrow AB$$ 
@@ -1901,7 +1898,7 @@ I passi di esecuzione sono i seguenti\begin{enumerate}
     \end{enumerate}
     \item Se $w\in L(M)$, $U$ accetta, altrimenti rifiuta. Se $M$ va in loop, $U$ andrà in loop di conseguenza. 
 \end{enumerate}
-$U$ è quindi un riconoscitore per $A_{TM}$.\hfill$\blacksquare$\acc 
+$U$ è quindi un riconoscitore per $A_{TM}$.\hfill$\blacksquare$
 \subsection{Diagonalizzazione}
 La diagonalizzazione è una tecnica utilizzata per dimostrare alcune semplici proprietà degli insiemi. Sappiamo che un insieme generico $A$ è numerabile se esiste una biezione da $\N$ a $A$. Ad esempio, l'insieme dei numeri pari $E$ è numerabile perché esiste $$ f:E\rightarrow \N\ \ \ | \ \ \  f(n)=2n$$ che è una biezione.\acc 
 \teo{} $\R$ non è numerabile.\acc 
@@ -1982,7 +1979,7 @@ Data una TM si deve stabilire se termina o continua all'infinito su un certo inp
 \end{enumerate}
 Quindi $S$ è un decisore per tutte le coppie $<M,w>$ ossia $A_{TM}$. Ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $HALT_{TM}$.\hfill$\blacksquare$\acc 
 Si consideri 
-$$ E_{TM}=\{<M>\ | \ M\in DFA \land L(M)=\emptyset\}$$
+$$ E_{TM}=\{<M>\ | \ M\in TM \land L(M)=\emptyset\}$$
 \prop{} $E_{TM}$ non è decidibile.\acc 
 \dimo{} Si pone per assurdo che $R$ decide $E_{TM}$. Si definisce una nuova TM $S$ che prende come input gli elementi di $A_{TM}$ e si comporta come segue \begin{enumerate}
     \item costruisce una nuova TM $M'$, il cui comportamento è il seguente\begin{enumerate}
@@ -1991,12 +1988,12 @@ $$ E_{TM}=\{<M>\ | \ M\in DFA \land L(M)=\emptyset\}$$
         \item se $x=w$ esegue $M$ su input $w$
         \item $M'$ accetta se $M$ accetta
     \end{enumerate}
-    \item esegue $R$ su input $<M'>$
-    \item se $R$ accetta, $S$ rifiuta. Se $R$ rifiuta, $S$ accetta.
-\end{enumerate}
-Essendo $R$ un decisore, allora $S$ è un decisore di $A_{TM}$, ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $E_{TM}$.\hfill$\blacksquare$\acc 
+    \item esegue $R$ su input $<M'>$\end{enumerate}\begin{itemize}
+    \item se $R$ accetta, $M'$ ha linguaggio vuoto, quindi $M'$ rifiuta $w$, per definizione, anche $M$ rifiuta $w$, e per costruzione di $S$, anche $S$ rifiuta.\item Se $R$ rifiuta, allora $M'$ ha linguaggio non vuoto, ma $M'$ rifiuta ogni stringa diversa da $w$, quindi necessariamente accetta $w$, per costruzione di $S$, $S$ accetta.
+\end{itemize}
+Essendo $R$ un decisore, allora chiaramente $S$ è un decisore di $A_{TM}$, ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $E_{TM}$.\hfill$\blacksquare$\acc 
 Si vuole formalizzare il concetto di riduzione, intuitivamente si può dire che la riduzione è definita da una funzione, che negli obiettivi di questo corso sarà calcolata da una TM.\acc 
-\defi{} Sia $I\subseteq \Sigma^*$, una funzione $f:I\rightarrow \Sigma^*$ si dice \textbf{calcolabile} se esiste una TM che su input $w\in I$ termina scrivendo sul nastro $f(w)$. Spesso tale TM ha un nastro dedicato per l'output della funzione.\acc 
+\defi{} Una funzione $f:\Sigma^* \rightarrow \Sigma^*$ si dice \textbf{calcolabile} se esiste una TM che su input $w\in \Sigma^*$ termina scrivendo sul nastro $f(w)$. Spesso tale TM ha un nastro dedicato per l'output della funzione.\acc 
 Nell'halting problem è stata definita una TM a tal scopo. La definizione di riduzione che verrà data non rappresenta il concetto in senso lato, bensì è la sua formulazione più semplice detta \textit{mapping reduction}, sufficiente per gli obiettivi di questo corso.\acc 
 \defi{(Riduzione)} Siano $A$ e $B$ due generici linguaggi. Si dice che $A$ è \textbf{riducibile} a $B$, e si denota 
 $$ A\le_m B$$
@@ -2127,7 +2124,7 @@ $$ \forall <M,w>\in\Sigma^*, \ \ \  <M,w>\in A_{TM}\iff f( <M,w>)\in L$$
 $f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
 \begin{enumerate}
     \item  Su input $<M,w>$, definisce una TM ausiliaria $M'$, tale che:
-    \item su ogni input $x$ esegue $M(w)$, e se questa accetta, $M'$ accetta, altrimenti rifiuta.
+    \item su ogni input $x$ esegue $M(w)$, e se questa accetta, $M'$ accetta $x$, altrimenti rifiuta.
     \item L'output sarà $M'$.
 \end{enumerate}
 \boxedMath{$\implies$} Se $<M,w>\in A_{TM}$, essendo che $M(w)$ accetta si ha che 
@@ -2144,7 +2141,7 @@ $$ \forall <M,w>\in\Sigma^*, \ \ \  <M,w>\in A_{TM}\iff f( <M,w>)\in U$$
 $f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed esegue i seguenti passi 
 \begin{enumerate}
     \item  Su input $<M,w>$, definisce una TM ausiliaria $T$ che rifiuta per ogni input $x$. 
-    \item Definisce poi una TM $T'$ che accetta solo se $M(w)$ accetta. 
+    \item Definisce poi una TM $T'$ che accetta ogni stringa solo se $M(w)$ accetta. 
     \item L'output è $<T,T'>$
 \end{enumerate}
 \boxedMath{$\implies$} Se $<M,w>\in A_{TM}$, essendo che $M(w)$ accetta si ha che
@@ -2305,16 +2302,16 @@ Ne consegue che, se $M$ è una TM che può stare ferma, il cui costo computazion
 \textbf{Esempio} : Si consideri la TM multi nastro, si vuole calcolare l'overhead quando si considera una sua simulazione con TM classica. \begin{center}
     \includegraphics[width=\textwidth ]{images/multinastro.eps}
 \end{center}
-Si può simulare con una TM classica come esposto nella sezione \ref{TMmultinastro}. Se una TM multi nastro $M$ ha costo computazionale $t(n)$, allora la lunghezza di ogni nastro sarà al massimo $n$. Sia $M'$ la TM classica che simula $M$, l'inizializzazione costa sicuramente $t(n)$ in quanto è necessario considerare tutto il nastro, in oltre, per ogni step di computazione di $M$, $M'$ dovrà considerare tutto il nastro per leggere i caratteri marcati ed eventualmente spostarne il contenuto. Ogni step di computazione su $M'$ ha costo $t(n)$. Ne consegue che la complessità di $M'$ sarà 
+Si può simulare con una TM classica come esposto nella sezione \ref{TMmultinastro}. Se una TM multi nastro $M$ ha costo computazionale $t(n)$, allora la lunghezza di ogni nastro sarà al massimo $n$. Sia $M'$ la TM classica che simula $M$, l'inizializzazione costa sicuramente $t(n)$ in quanto è necessario considerare tutto il nastro, inoltre, per ogni step di computazione di $M$, $M'$ dovrà considerare tutto il nastro per leggere i caratteri marcati ed eventualmente spostarne il contenuto. Ogni step di computazione su $M'$ ha costo $t(n)$. Ne consegue che la complessità di $M'$ sarà 
 $$t(n)+t(n)^2 = O(t(n)^2)$$ Il numero dei nastri quindi influisce (in maniera non trascurabile) sulla complessità.\acc 
 \textbf{Esempio} : Il linguaggio delle stringhe palindrome è decidibile in $O(n)$ su una macchina con due nastri, su una TM a singolo nastro può essere deciso in $O(n^2)$.\acc 
 \defi{}  Sia $t:\N\rightarrow \N$ una funzione, si definisce 
 $$ Dtime(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{singolo nastro}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
 È l'insieme dei linguaggi decidibili da TM che hanno complessità $O(t(n))$. Il linguaggio delle stringhe palindrome appartiene all'insieme $Dtime(n^2)$.\acc 
 \defi{(Classe Polinomiale)} Si definisce $P$ l'insieme 
-$$ P=\bigcup_{k\in \N}Dtime(t^k)$$
+$$ P=\bigcup_{k\in \N}Dtime(n^k)$$
 Ovvero, l'insieme di tutti i linguaggi che possono essere decisi in tempo polinomiale. L'insieme delle stringhe palindrome è in $P$. \acc 
-\textbf{Osservazione} : La classe $P$ è robusta rispetto le varianti di TM. Se un linguaggio è deciso in tempo polinomiale da una TM non classica, allora è deciso in tempo polinomiale anche da una TM classica.\acc 
+\textbf{Osservazione} : La classe $P$ è robusta rispetto le varianti di TM, ossia STM e MTM. Se un linguaggio è deciso in tempo polinomiale da una STM o MTM, allora è deciso in tempo polinomiale anche da una TM classica.\acc 
 \defi{(Classe Esponenziale)} Si definisce $EXP$ l'insieme 
 $$ EXP=\bigcup_{k\in \N}Dtime(2^{n^k})$$
 Il teorema di \textit{gerarchia dei tempi}, che verrà formalizzato e dimostrato in seguito, afferma che la classe $P$ è un sottoinsieme della classe $EXP$.\begin{center}
@@ -2323,7 +2320,7 @@ Il teorema di \textit{gerarchia dei tempi}, che verrà formalizzato e dimostrato
 Esistono linguaggi che sono in $EXP$, ma che, tramite algoritmi intelligenti, si può dimostrare sono anche in $P$. Verranno considerati linguaggi riguardanti i grafi, il cui input delle TM sarà la codifica di un grafo $x=<G=(V,E)>$, la complessità sarà misurata in funzione delle cardinalità di $V$ ed $E$, se è polinomiale in queste, lo sarà anche in funzione della lunghezza della stringa di codifica.\acc 
 \textbf{Esempio} : Si consideri il linguaggio 
 $$ PATH = \{<G,s,t> \ | \ s,t\in V(G) \land \text{ esiste un cammino }s\rightarrow t\text{ in }G\}$$
-Un cammino non è altro che una sequenza di vertici $$v_0\rightarrow v_1 \dots \rightarrow v_l$$ il numero di vertici in ogni cammino è limitato da $n=|V(G)|$, è possibile controllare ogni cammino  del grafo (sono $n^n$) e verificare che ce ne sia uno che inizia in $s$ e termina in $t$. La complessità è $O(n^n)=O(2^{n\log(n)})$, è chiaro che $PATH\in EXP$.\acc 
+Un cammino non è altro che una sequenza di vertici $$v_0\rightarrow v_1 \dots \rightarrow v_l$$ il numero di vertici in ogni cammino è limitato da $n=|V(G)|$, è possibile controllare ogni cammino  del grafo (sono $n^n$) e verificare che ce ne sia uno che inizia in $s$ e termina in $t$. La complessità è $O(n^n)$, chiaramente $PATH\in EXP$.\acc 
 Si può però considerare una DFS, in particolare una TM che esegue i seguenti passi\begin{itemize}
     \item marca lo stato $s$, ed inizia a fare una passeggiata sul grafo partendo da $s$
     \item marca ogni stato raggiungibile 
@@ -2419,7 +2416,7 @@ La seguente proposizione sarà fondamentale per dimostrare che una formula $2-SA
 \prop{} Sia $\phi$ una formula in CNF in cui ogni clausola ha al più $2$ variabili, e sia $G$ il grafo associato, $\phi$ è soddisfacibile ($\phi\in 2-SAT$ ) \textit{se e solo se}, 
 nessuna componente fortemente connessa di $G$ contiene sia una variabile che la sua negata.\acc 
 \dimo{} Verranno dimostrate entrambe le direzioni del se e solo se. \acc 
-\boxedMath{$\implies$} Sia $\phi$ una formula in $2-SAT$, e sia $G$ il grafo associato. Sia $(a,b)$ un arco del grafo, ne consegue in $\phi$ c'è la clausola 
+\boxedMath{$\implies$} Sia $\phi$ una formula in $2-SAT$, e sia $G$ il grafo associato. Sia $(a,b)$ un arco del grafo, ne consegue che in $\phi$ c'è la clausola 
 $$ a\rightarrow b \equiv \bar a \lor b$$
 quindi se $a=1$, anche $b=1$. Tale fatto si può estendere ad un cammino nel grafo, se esiste un cammino 
 $$ x_1,x_2\dots , x_k$$
@@ -2438,29 +2435,44 @@ $$ \begin{cases}
 Ma allora in $\phi$ esiste sia la clausola $x$ che la clausola $\bar x$, essendo $\phi$ in CNF essa vedrà queste due clausole in AND 
 $$ x \land \bar x $$
 Ma tale formula per qualunque assegnazione di $x$ sarà sempre 0, quindi $\phi$ è insoddisfacibile, ma ciò contraddice l'ipotesi, è quindi impossibile che una componente fortemente connessa contenga sia $x$ che $\bar x$. \acc  
-\boxedMath{$\impliedby$} Sia $\phi$ una formula in CNF con ogni clausola contenente al più 2 variabili, il cui grafo associato $G$ ha una componente fortemente connessa in cui sono contenute sia $x$ che $\bar x$. Sia $G'$ il grafo in cui ogni nodo $C_i$ rappresenta una componente fortemente connessa di $G$ (si applica la compressione dei nodi).
+\boxedMath{$\impliedby$} Sia $\phi$ una formula in CNF con ogni clausola contenente al più 2 variabili, il cui grafo associato è $G$, si assume che non esiste $x$ per cui, sia essa che la sua negata sono nella stessa componente. Si considera il grafo $G_C$ composto dalle componenti fortemente connesse di $G$.
 \begin{center}
     \includegraphics[width=0.9\textwidth ]{images/compressione.pdf}
 \end{center}
-Si consideri un ordinamento topologico di $G'$ $$ (C_1,C_2\dots C_n)$$ dove $i<j$ indica che $C_i$ viene prima di $C_j$ nell'ordinamento. Si consideri il seguente \textit{assegnamento} di variabili in input per $\phi$\begin{itemize}
-    \item Per ogni variabile $x$ si ha che\begin{itemize}
-        \item se $x$ è contenuta in una componente $C_i$, e $\bar x$ è contenuta in una componente $C_j$ tale che $i\le j$ ( $C_i$ non appare dopo $C_j$ nell'ordinamento), allora la variabile $x$ si assegna uguale a 0.
-        \item nel caso opposto, se $x$ è contenuta in una componente $C_i$, e $\bar x$ è contenuta in una componente $C_j$ tale che $i\ge j$ ( $C_i$ appare dopo $C_j$ nell'ordinamento), allora la variabile $x$ si assegna uguale a 1.
-    \end{itemize}
+Si considera il seguente assegnamento delle variabili, dipendente dall'ordinamento topologico di $G_C$\begin{itemize}
+    \item si esegue l'ordinamento topologico di $G_C$, definito $\{C_1, C_2 \dots C_m\}$
+    \item sia $x$ una variabile/nodo in $C_i$, si assegna uguale ad 1 se e solo se compare in una componente che segue la componente che comprende il suo negato nell'ordinamento.
 \end{itemize}
-Dato tale assegnamento, è vero il seguente \textbf{fatto} :
-\begin{quote}
-per nessun arco $(a,b)$ in $G$,  può succedere che $a$ sia vero\footnote{con $a$ vero si intende che $a$ è 1. con $a$ falso si intende che $a$ è 0} e $b$ sia falso. La dimostrazione è la seguente, si pone per assurdo che il \textit{fatto} sia falso, che esiste quindi una situazione in cui\begin{itemize}
-    \item 
- $a$ è vero \item  $b$ è falso\end{itemize} supponiamo che $C_i$ sia la componente in cui è contenuto $a$. Essendoci l'arco $(a,b)$ esiste la clausola $\bar a \lor b$ ed esiste quindi anche l'arco $(\bar b,\bar a)$, essendo $a$ vero, si ha che $\bar a$ è falso.
- Ma allora, il nodo $\bar a$ compare in una componente $C_j$ tale che $j<i$ \begin{center}la componente in cui è contenuta $\bar a$ precede la componente in cui è contenuta $a$ nell'ordinamento topologico\end{center}
- Tale affermazione è vera dato l'assengamento particolare scelto per le variabili. Essendo $b$ falso, ne consegue che $\bar b$ è contenuto in una componente $C_k$ che viene dopo $C_i$, quindi 
- $$ k>i>j$$
- nell'ordinamento topologico
- $$ C_k>C_i>C_j$$
- Ma allora la presenza dell'arco $(\bar b, \bar a)$ contraddice l'ordinamento topologico, quindi è impossibile che il fatto sia falso.
-\end{quote} 
-Tale fatto implica che $\phi$ è SAT. Quindi entrambe le direzioni della proposizione sono dimostrate.\hfill$\blacksquare$\acc 
+Formalmente \begin{itemize}
+    \item $x\in C_i$
+    \item $\bar x \in C_{i+k}$ per qualche $k$
+    \item allora $x=0$ e conseguentemente $\bar x = 1$
+\end{itemize}
+Nel caso opposto
+\begin{itemize}
+    \item $x\in C_i$
+    \item $\bar x \in C_{i-k}$ per qualche $k$
+    \item allora $x=1$ e conseguentemente $\bar x = 0$
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/ordTop.eps}
+\end{center}
+\textbf{Fatto} :  Se c'è un arco $(a,b)$ in $G$, secondo l'assegnamento appena dato, è impossibile che $a=1$ e $b=0$.
+\acc \textbf{Dimostrazione del Fatto} : Supponiamo che in $G$ ci sia $(a,b)$ e che $a=1$ e $b=0$, allora in $\phi$ esiste la clausola $$\bar a \lor b$$
+e quindi c'è anche l'arco $(\bar b , \bar a)$.\begin{itemize}
+    \item $ a = 1 \implies \bar a = 0$
+    \item secondo l'assegnamento, $a$ è nella componente $C_i$ e $\bar a$ è in una componente antecedente $C_{i-k}$
+    \item   $ b = 0 \implies \bar b = 1$
+    \item secondo l'assegnamento, $b$ è nella componente $C_i$ e $\bar b$ è in una componente seguente $C_{i+l}$
+\end{itemize}
+Ma attenzione \begin{itemize}
+    \item abbiamo visto che se $(a,b)$ esiste allora esiste $(\bar b,\bar a)$
+    \item vuol dire che $\bar b$ è in una componente antecedente a $\bar a$
+    \item abbiamo visto che $\bar a \in C_{i-k}$ e che $\bar b \in C_{i+l}$
+    \item ma allora $\bar b$ è in una componente seguente rispetto a $\bar a$
+\end{itemize}
+Quindi $\bar b$ è in una componente sia seguente che antecedente a quella di $\bar a$, è una contraddizione, quindi il fatto è vero.\hfill$\square$\acc 
+Sapendo che il fatto è vero, se per ogni variabile $x$, questa e la sua negata \underline{non sono} nella stessa componente fortemente connessa, allora l'assegnamento visto (in funzione dell'ordinamento topologico) soddisfa $\phi$.\hfill$\blacksquare$\acc 
 Data tale proposizione, per decidere se una formula è o non è in $2-SAT$ basterà controllare il grafo associato trovando le componenti fortemente connesse, ciò si può fare (ad esempio, con l'algoritmo di Tarjan ) in tempo polinomiale. Ciò porta al seguente risultato:\acc
 \teo{} $2-SAT\in P $
 \flowerLine 
@@ -2505,7 +2517,7 @@ Si consideri un linguaggio $L\in P$, ossia $\exists M$ che è una TM e $x\in L \
 Per definizione $L\in NP$. Sapendo che esiste un verificatore polinomiale per $L$, si considera una $TM$ che considera tutti i possibili certificati $y$ tali che $|y|=poly(|x|)$, e accetta solo se $V(<x,y>)$ accetta, quindi tale TM è un decisore per $L$ che opera in tempo esponenziale, quindi $L\in EXP$.\hfill$\blacksquare$\acc  
 Si considererà ora la TM non deterministica per dare una definizione alternativa di NP. Una TM non deterministica ha la funzione di transizione che, piuttosto che portare da uno stato ad un altro, porta da uno stato ad un insieme di stati. \acc 
 Definiamo la complessità computazionale di una TM non deterministica come il massimo numero di passi impiegati in funzione di $n$ per ogni stringa $x$ di lunghezza $n$, considerando il ramo di computazione più lungo.\acc 
-\defi{} : Sia $t:\N\rightarrow \N$ una funzione, si definisce 
+\defi{}  Sia $t:\N\rightarrow \N$ una funzione, si definisce 
 $$ Ntime(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{non deterministica}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
 Per semplicità, denoteremo NTM una TM non deterministica.\acc 
 \defi{} $\displaystyle NP=\bigcup_{k\in\Z^+}Ntime(n^k)$
@@ -2685,10 +2697,11 @@ a_1\dots,a_6\\
 \end{matrix}}
 (x_{i,j,a_1}\land x_{i+1,j,a_2}\land \dots \land x_{i+2,j+1,a_6})
 $$
-La formula $\phi$ tale che, un assegnamento che la soddisfa, corrisponde ad una tabella accettante per $N$, è la seguente 
+La formula $\phi$ completa è la seguente
 $$ \phi = \phi_{start}\land \phi_{acc}\land \phi_{cell}\land \phi_{move}$$
+Se $\phi$ è soddisfacibile, allora esiste una tabella accettante per $N$ su un dato input, quindi è possibile decidere $L(N)$ riducendo il problema ad una formula booleana.
 la riduzione ha costo $$ n^kn^k|\mathbb S|=poly(n)$$
-quindi un qualsiasi linguaggio $A$ si riduce polinomialmente a $SAT$.\hfill$\blacksquare$\acc   
+quindi un qualsiasi linguaggio $A\in NP$ si riduce polinomialmente a $SAT$.\hfill$\blacksquare$\acc   
 Utilizzando la riduzione è possibile dimostrare che molti linguaggi incontrati sono $NP$ completi, ad esempio, essendo che $$ SAT\rid CIRCUIT-SAT$$
 ne consegue che anche $CIRCUIT-SAT$ è $NP$ completo. Ed essendo che 
 $$CIRCUIT-SAT\rid 3-SAT$$
@@ -2731,7 +2744,7 @@ Visto che per ipotesi $P=NP$, si ha che $L'\in P$, allora esiste una TM determin
     \item avvio $L'(x')$, questa opera in tempo polinomiale, se $L'$ accetta, allora $x\in L$, altrimenti rifiuta 
 \end{itemize}
 è quindi chiaro che $L$ viene deciso da tale procedura in tempo esponenziale $\implies L\in EXP$.\hfill$\blacksquare$\acc   
-\teo{(di Ladner)} : Se $P\ne NP$, allora esiste un linguaggio $L\in NP$ tale che $N$ non è $NP$ completo. Se $P=NP$, ogni linguaggio in $NP$ è $NP$ completo. 
+\teo{(di Ladner)} Se $P\ne NP$, allora esiste un linguaggio $L\in NP$ tale che $N$ non è $NP$ completo.
 \flowerLine
 \section{La Classe $coNP$}
 Definiamo ora una nuova classe di complessità. La definizione di $NP$ riguarda la decidibilità, ossia la certificazione che un certo elemento sia in un linguaggio, la classe $coNP$ riguarda la certificazione che un elemento \textit{non sia} in un linguaggio.\acc 
@@ -2779,7 +2792,7 @@ C'è una differenza fondamentale fra complessità spaziale e temporale, lo spazi
 Da ciò, ne derivano alcune classi importanti 
 $$ PSPACE = \bigcup_{k\in \Z^+}SPACE(n^k)$$
 $$ EXPSPACE = \bigcup_{k\in \Z^+}SPACE(2^{n^k})$$
-$$ LOG = \bigcup_{k\in \Z^+}SPACE(\log(n))$$
+$$ LOG = SPACE(\log(n))$$
 Vediamo alcuni esempi 
 $$ A=\{0^n1^n \ | \ n\in \N\}$$
 Si vuole mostrare che $A\in LOG$, ossia che esiste un algoritmo che, se la dimensione dell'input è $n$, utilizzera un numero in $O(\log(n))$ di celle distinte per completare la computazione e fornire un risultato.\acc 
@@ -2809,7 +2822,7 @@ La TM userà un numero costante di nastri, ad alto livello la procedura è descr
 è chiaro che tale TM decide $A$ in complessità di spazio $O(\log(n))$.\acc 
 Gli esempi visti hanno in comune lo stesso modello per decidere i linguaggi in complessità spaziale logaritmica, in particolare, su input $x$, si può valutare la lunghezza dell'input $x=|n|$ in spazio logaritmico. \acc 
 In tale spazio, è anche possibile gestire un contatore/indice con il quale eseguire un numero di iterazioni che è polinomiale rispetto ad $n$, si possono inoltre considerare simboli presi dai nastri ed eseguire su di essi semplici operazioni aritmetiche.\acc 
-\textbf{Esempio} : è possibile eseguire il prodotto fra due numero $a\cdot b = c$ in complessità di spazio logaritmica seguendo tale procedura:\begin{enumerate}
+\textbf{Esempio} : è possibile eseguire il prodotto fra due numeri $a\cdot b = c$ in complessità di spazio logaritmica seguendo tale procedura:\begin{enumerate}
     \item si inizializza $c=0$
     \item si inizializza un indice $i=0$
     \item per $i$ che va da $0$ a $b$:\begin{itemize}
@@ -2897,7 +2910,7 @@ $$ NPSPACE=\bigcup_{k\in \Z^+}NSPACE(n^k)$$
 $$ NEXPSPACE=\bigcup_{k\in \N}NSPACE(2^{n^k})$$
 $$ NLOG=NSPACE(\log(n))$$
 Vedremo che $PSPACE=NPSPACE$, ossia, che il non determinismo non ha alcuna influenza sulla complessità di spazio.\acc 
-\textbf{Lemma} : $PATH\in NLOG$\acc 
+\teo{}  $PATH\in NLOG$.\acc 
 \dimo{} Si considera una NTM $N$ per $PATH$ che esegue la seguente procedura\begin{itemize}
     \item su input $G,s,t$ accetta se $s=t$
     \item calcola deterministicamente in spazio logaritmico $n=|V|$
@@ -2950,7 +2963,7 @@ $A\le_m^L B \text{ se }\exists R:\{0,1\}^*\rightarrow \{0,1\}^*$  computabile in
 $$ x\in A \iff R(x)=B$$
 Bisogna definire il termine "computabile in spazio $O(\log(n))$", il termine $R(x)$ potrebbe avere dimensione $poly(n)$, in tal caso scrivendo $R(x)$ sul nastro di lavoro, si violerebbe lo spazio logaritmico, si considera nel modello della TM un \textit{nastro di output} che può essere scritto una sola volta, senza mai modificare le celle utilizzate, tale nastro verrà usato per scrivere l'output $R(x)$.\acc 
 \teo{} $PATH$ è $NLOG$ completo.\acc 
-\dimo{} Sappiamo già che $PATH$ è un linguaggio in $NLOG$, bisogna dimostrare che tutti i linguaggi in tale insieme si riducono a $PATH$. Sia $A$ un qualsiasi linguaggio in $NLOG$, e sia $N$ la NTM (di complessità logaritmica) tale che $L(A)=N$\begin{itemize} \item si definisce una TM $R$ che, dato un input $x$ per $N$, costruisce il grafo $G_{N,x}$ delle cofnigurazioni visto nella dimostrazione del teroema di Savitch. \item L'output di $R$ (ossia $R(x)$) sarà ($G_{N,x}, C_{start}, C_{acc}$) \item Ne consegue naturalmente che $x\in A \iff$ esiste un cammino $C_{start}\rightarrow C_{acc}$ in $G_{N,x}\iff$ $R(x)=(G_{N,x}, C_{start}, C_{acc})\in PATH$
+\dimo{} Sappiamo già che $PATH$ è un linguaggio in $NLOG$, bisogna dimostrare che tutti i linguaggi in tale insieme si riducono a $PATH$. Sia $A$ un qualsiasi linguaggio in $NLOG$, e sia $N$ la NTM (di complessità logaritmica) tale che $L(A)=N$\begin{itemize} \item si definisce una TM $R$ che, dato un input $x$ per $N$, costruisce il grafo $G_{N,x}$ delle configurazioni visto nella dimostrazione del teorema di Savitch. \item L'output di $R$ (ossia $R(x)$) sarà ($G_{N,x}, C_{start}, C_{acc}$) \item Ne consegue naturalmente che $x\in A \iff$ esiste un cammino $C_{start}\rightarrow C_{acc}$ in $G_{N,x}\iff$ $R(x)=(G_{N,x}, C_{start}, C_{acc})\in PATH$
 \end{itemize}
 In particolare, è possibile enumerare tutte le possibili configurazioni (che sono polinomiali in $n$) con un numero $O(\log(n))$ celle, e con la medesima complessità di spazio è possibile verificare se, date due configurazioni $C,C'$, esiste o no l'arco $(C,C')$.\hfill$\blacksquare$\acc 
 Si vuole mostrare che la definizione di \textit{log space reduction} soddisfi le seguenti proprietà\begin{itemize}
@@ -2966,10 +2979,15 @@ Si vuole mostrare che la definizione di \textit{log space reduction} soddisfi le
     \item $Q$ ha complessità temporale $O(n^q)$ per qualche $q$
 \end{itemize}
 Si vuole definire una TM $M$ capace di scrivere l'output $R(x)=Q(P(x))$ in complessità spaziale $O(\log(n))$.\acc 
-Il problema, è che $y:=P(x)$ potrebbe essere lungo $poly(n)$, quindi bisogna calcolare $R(x)=Q(P(x))=Q(y)$ senza calcolare esplicitamente $y$.\acc 
-\redText{la seguente parte la copio parola per parola da ciò che ha dettato il professore ma non l'ho capita}\acc 
-La TM $M$ tiene traccia della posizione corrispondente a quello che sarebbe il nastro di input di $Q$, ciò richiede spazio $O(\log(n))$, $M$ deve determinare $y[i]$ ($i$-esimo carattere di $y$) e simulare un passo della computazione di $Q$, ciò può essere fatto in spazio $O(\log(n))$. \acc 
-Si ricalcola $P(x)$ fino ad ottenere $y[i]$, scartando il resto, questo permette di simulare un passo di computazione di $Q$. \redText{ fine parte ambigua}\hfill$\blacksquare$\acc 
+Il problema, è che $y:=P(x)$ potrebbe avere lunghezza polinomiale, quindi $M$ non può scrivere $y$ sul nastro di lavoro, per poi simulare $Q$ su $y$, dato che la scrittura di $y$ violerebbe lo spazio logaritmico.\acc
+$M$ può ad ogni passo, considerare $x[i]$ ($i$-esimo carattere della stringa in input $x$) e valutare $y[i]=Q(x[i])$ salvando ad ogni passo lo stato della TM $Q$ e della TM $P$ mentre le simula.\begin{itemize}
+    \item considera $x[i]$
+    \item simula $P(x[i])$ e ricava $y[i]$
+    \item simula $Q(y[i])$ ed ottiene l'output di $R$
+    \item ri-esegui 
+\end{itemize}
+Una procedura di questo tipo permette di calcolare $P\circ Q$ utilizzando spazio logaritmico.
+\hfill$\blacksquare$\acc 
 \textbf{Corollario} : $A\le_m^L B \land B \in LOG \implies A \in LOG$\acc 
 Fino ad ora abbiamo visto esempi di linguaggi\begin{itemize}
     \item $NP$ completi
@@ -3041,26 +3059,29 @@ $$ \begin{pmatrix}
     (D,D')=(C_{mid},C_1)
 \end{pmatrix}\implies \phi_{k-1}(D,D')$$
 In questo caso le dimensioni di $\phi_k$ sono $O(n^a)+|\phi_{k-1}|=O(n^{2a})$, che è polinomiale.\hfill$\blacksquare$\acc 
-\teo{(Immerman-Szelepcsényi)}: La classe $NLOG$ è chiusa rispetto al complemento $$NLOG=coNLOG$$\dimo{}
-Essendo che $PATH$ è $NLOG$ completo, è necessario dimostrare che $PATH$ è in $coNLOG$, ossia che $\overline{PATH}$ è in $LOG$.\acc 
-Bisogna quindi trovare un certificato in spazio logaritmico che verifichi che, dato un grafo, $(G,s,t)$, non esiste il cammino $s\longrightarrow t$. \acc 
-Sia $V$ il \textbf{verificatore}, questo ha 3 nastri\begin{itemize}
-    \item Nastro di input, contiene $<G,s,t>$
-    \item Nastro di lavoro, il cui numero di celle usate deve essere logaritmico
-    \item Nastro \textit{read once}, può essere letto una sola volta e conterrà il certificato per dimostrare che il cammino non esiste 
-\end{itemize}
-Definiamo $R_l$ l'insieme dei nodi raggiungibili da $s$ in (al più) $l$ passi, e denotiamo $r_l=|R_l|$ il numero di questi nodi. Chiaramente $R_0=\{s\}\implies r_0=1$. È ovvio che $R_l\subseteq R_{l+1}$.\acc 
-Il certificato contenuto nel nastro read once, sarà diviso in diverse parti (qui sotto organizzate in righe) del tipo $$\begin{matrix}
-    \text{certificato }r_0\\ 
-    \text{certificato }r_1\\ 
-    \text{certificato }r_2\\ 
-    \vdots \\ 
-    \text{certificato }r_n \\ 
-    \text{certificato : non esiste il cammino }s\longrightarrow t
-\end{matrix}$$
-\textit{per ora si omette la struttura interna dei certificati}. \acc
-Il verificatore, per definire il certificato $r_{l+1}$, deve avere in possesso $r_l$ e $l$, e non tutti i certificati precedenti.\\
-\redText{finire/riscrivere la dimostrazione}
+\teo{(Immerman-Szelepcsényi)} La classe $NLOG$ è chiusa rispetto al complemento $$NLOG=coNLOG$$\dimo{}
+Essendo che $PATH$ è $NLOG$ completo, è necessario dimostrare che $PATH$ è in $coNLOG$, ossia che $\overline{PATH}$ è in $NLOG$.
+Si definisce una TM non determinista che decide $\overline{PATH}$ in spazio logaritmico. La TM è descritta dal seguente algoritmo, che ha come input il grafo $G$ ed i due nodi $s$ e $t$:\greybox{
+$M(G,s,t)\{$\\ 
+\hphantom{ident}$c_0=1$\\ 
+\hphantom{ident}for($i=0; \ i<m; \ i$++)\{\\
+\hphantom{identident}$c_{i+1}=1$\\
+\hphantom{identident}per ogni nodo $v\ne s\in G$ esegui\{\hphantom{aaaaaa}\color{darkgreen}//ciclo annotato\color{black}\\
+\hphantom{identidentident}$d=0$\\
+\hphantom{identidentident}\color{blue}non deterministicamente esegui (e non) la procedura seguente\{\color{black}\\
+\hphantom{identidentidentident}per ogni nodo $u\in G$ esegui\{\\
+\hphantom{identidentidentidentident}esegui \color{blue} non deterministicamente \color{black} ogni cammino da $s$ di lunghezza al più $i$\\
+\hphantom{identidentidentidentident} se non termina su $u$, rifiuta \\
+\hphantom{identidentidentidentident} se  termina su $u$, incrementa $d$ \\
+\hphantom{identidentidentidentident} se  $(u,v)\in G$, incrementa $c_{i+1}$ \\
+\hphantom{identidentidentidentident}ricomincia il ciclo esterno (\color{darkgreen}//ciclo annotato\color{black})considerando il prossimo $v$\\
+\hphantom{identidentidentident}\}\\
+\hphantom{identidentidentident}se $d\ne c_i$ rifiuta\\
+\hphantom{identidentident}\color{blue}\}\color{black}\\
+\hphantom{identident}\}\\
+\hphantom{ident}\}\\
+$\}$
+}
 \flowerLine 
 \section{Teoremi di Gerarchia}
 I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc \teo{(Idea)}
