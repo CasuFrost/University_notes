@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241213190834" modified="D:20241213231155"/>
+<info created="D:20241213190834" modified="D:20250107104513"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -358,7 +358,7 @@ h
 </path>
 <use matrix="1 0 0 1 91.9997 13.4517" name="mark/disk(sx)" pos="240 688" size="normal" stroke="0 0 1"/>
 <text matrix="1 0 0 1 320.62 85.7053" transformations="translations" pos="80 612" stroke="0 0 1" type="label" width="43.475" height="5.234" depth="1.74" halign="center" valign="center" size="script" style="math">A_x(x_0+dx)</text>
-<text matrix="1 0 0 1 328.449 103.675" transformations="translations" pos="80 612" stroke="0 0.502 0.502" type="label" width="58.889" height="6.797" depth="2.4" halign="center" valign="center" size="script" style="math">A_x(x_0)+\frac{\delta A_x}{\delta x}dx</text>
+<text matrix="1 0 0 1 328.449 103.675" transformations="translations" pos="80 612" stroke="0 0.502 0.502" type="label" width="59.546" height="6.797" depth="2.4" halign="center" valign="center" size="script" style="math">A_x(x_0)+\frac{\partial A_x}{\partial x}dx</text>
 <text matrix="1 0 0 1 324.732 94.3495" transformations="translations" pos="80 612" stroke="0" type="label" width="6.227" height="3.444" depth="0" halign="center" valign="center" size="script" style="math">\simeq</text>
 <text matrix="1 0 0 1 118.71 107.559" transformations="translations" pos="80 612" stroke="0" type="label" width="10.433" height="4.772" depth="0.99" halign="center" valign="center" size="script" style="math">A_x</text>
 </page>

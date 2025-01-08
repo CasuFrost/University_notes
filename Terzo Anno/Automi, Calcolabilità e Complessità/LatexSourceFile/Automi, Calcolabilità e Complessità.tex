@@ -641,7 +641,7 @@ $D_r$ definito come segue, a seconda dei casi\acc
     \item $r=r_1\circ r_2$,  esistono due automi $D_{r_1}$ e  $D_{r_2}$ che accettano rispettivamente $L(r_1)$ 
     e $L(r_2)$, ma allora esiste necessariamente un automa $D_r$ che accetta $L(r_1)\circ L(r_2)$.
     \item $r=r_1^*$, esiste un automa $D_{r_1}$  che accetta
-     $L(r_1^*)$, ma allora esiste necessariamente un automa $D_r$ che accetta $L(r_1)$.
+     $L(r_1)$, ma allora esiste necessariamente un automa $D_r$ che accetta $L(r)=L(r_1)^*=L(r_1^*)$.
 \end{itemize}
 Tali tesi sono vere dato che la classe dei linguaggi regolari è chiusa per le operazioni di star, concatenazione 
 ed unione. $\square $\acc 
@@ -663,10 +663,10 @@ proprietà \begin{itemize}
     \end{figure}
 \end{center}
 Più precisamente, sia $G$ un GNFA definito $G=(Q,\Sigma,\delta,q_{start},q_{acc})$ dove 
-$$ \delta : Q\backslash \{q_{acc}\} \times Q\backslash \{q_{start}\}\rightarrow re(\Sigma)$$
+$$\text{ad ogni coppia } Q\backslash \{q_{acc}\} \times Q\backslash \{q_{start}\} \text{ è associata una } r\in re(\Sigma)$$
 Dato un generico NFA, è possibile trasformarlo in un GNFA aggiungendo al più due stati (iniziale e 
 finale), ed utilizzando gli $\emptyset$-archi per riempire le coppie di stati che non sono collegate.\acc 
-Si definisce poi una procedura $\text{\code{Convert}} : GNFA \rightarrow GNFA$ modifica un GNFA restituendone uno equivalente, ma con uno stato in meno. 
+Si definisce poi una procedura $\text{\code{Convert}} : GNFA \rightarrow GNFA$ che modifica un GNFA restituendone uno equivalente, ma con uno stato in meno. 
 Tale funzione è definita in tal modo, sia $k$ il numero di stati/nodi di $G$, si esegue $\text{\code{Convert}}(G)$ \begin{itemize}
     \item Se $k=2$, allora esiste un solo arco fra questi etichettato con un espressione regolare $r$, la funzione 
     restituirà $r$. 
@@ -743,7 +743,7 @@ Appunto sulla notazione : Se $w$ è una stringa, allora $|w|$ è il numero dei s
 \textbf{Osservzione} : Se un DFA con $n$ stati legge una stringa di $k>n$ caratteri, allora ci sarà almeno uno stato 
 che verrà considerato due volte durante la computazione. \acc 
 \teo{(Pumping Lemma)} Sia $L$ un linguaggio regolare, sia $D$ l'automa tale che $L(D)=L$, si considera una stringa 
-$w\in L(D)$, ed una sua decomposizione in 3 stringhe concatenate $w=xyz$. Esiste un intero $p\le|w|$, denotato \textg{pumping}
+$w\in L(D)$, ed una sua decomposizione in 3 stringhe concatenate $w=xyz$. Esiste un intero $p\le|w|$, denotato \textg{pumping } 
  tale che \begin{enumerate}
     \item $\forall i\ge0$, $xy^iz\in L(D)$
     \item $|y|>0$
@@ -896,7 +896,8 @@ necessariamente in forma normale\begin{itemize}
     \end{cases} \Longrightarrow  \text{(diventa)}\begin{cases}
         B\longrightarrow xAyA\\ 
         B\longrightarrow xyA \text{ (aggiunta)}\\ 
-        B\longrightarrow xAy \text{ (aggiunta)}
+        B\longrightarrow xAy \text{ (aggiunta)}\\ 
+        B\longrightarrow xy \text{ (aggiunta)}
     \end{cases}\ \ \ \ \ \ \begin{matrix}
         B\in V\\ x,y\in (\Sigma\cup V)^*
     \end{matrix}$$
@@ -999,7 +1000,7 @@ $$
     B \longrightarrow b
 \end{cases}
 $$
-\item passo 4 : \text{\code{Convert}}ire le ultime regole nella forma corretta $$
+\item passo 4 : convertire le ultime regole nella forma corretta $$
 \begin{cases}
     S_0 \longrightarrow ASA |  aB | SA |AS \\
     S\longrightarrow ASA |  aB | SA |AS   \\ 
@@ -1228,8 +1229,8 @@ In generale (ignorando gli stati in $E$, in notazione abbreviata), il PDA assume
         (q0) edge  node {$\epsilon;A\rightarrow W\$ $}   (q1)
         (q1) edge  node {$\epsilon;a\rightarrow \epsilon$}   (q2);
     \end{tikzpicture}\\
-    \hfill $\blacksquare$
 \end{center}
+In pratica il PDA durante la computazione riempie non deterministicamente lo stack con ogni possibile stringa generata dalla grammatica, per poi confrontarle tutte con la stringa in input.\hfill $\blacksquare$
 \subsubsection{Esempio} 
 Si consideri la seguente grammatica 
 $$ \begin{cases}
@@ -1447,6 +1448,7 @@ bisogna considerare ogni possibile modo di scomporre la stringa, come prima cosa
 nella stringa\begin{center}
     \includegraphics[width=0.6\textwidth ]{images/sezioniStringa4p.eps}
 \end{center}
+Bisogna dimostrare che le condizioni del pumping lemma non si verificano per nessuna possibile scomposizione della stringa.
 La stringa può essere scomposta in diversi modi\begin{itemize}
     \item \textit{caso 1} : $vxy$ non si trova a cavallo fra i confini e non si trova a cavallo nel mezzo, è 
     quindi confinata fra una delle 4 metà della stringa, è quindi composta di soli 0 oppure di soli 1. Secondo il punto 
@@ -1624,7 +1626,7 @@ Data una TM $M$ si hanno gli insiemi \begin{itemize}
  risolti), ciò si lega inevitabilmente con i \textit{teoremi di incompletezza} di Gödel, esisteranno sempre 
  delle proposioni per cui è \textit{impossibile} stabilire se sono vere o false. 
  \subsection{Esempi di TM}
- Le TM verranno rappresentato in maniera compatta sottoforma di grafi proprio come per gli automi.
+ Le TM verranno rappresentate in maniera compatta sottoforma di grafi proprio come per gli automi.
  \begin{center}
 	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
         \begin{tikzpicture} [node distance = 5cm, on grid, auto]
@@ -1910,7 +1912,8 @@ La diagonalizzazione è una tecnica utilizzata per dimostrare alcune semplici pr
 Si definisce un numero $d$ tale che, la parte intera di $d$ è 0, e l'$i$-esima cifra decimale di $d$ è diversa dall'$i$-esima cifra decimale di $f(i)$.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/realiNonNumerabili..pdf}
 \end{center}
-Essendo $f$ biettiva per ipotesi, $\exists k \in \N $ tale che $ f(k)=d$, ma in questo modo la $k$-esima cifra di $f(k)$ è identica alla $k$-esima cifra di $d$, dato che $d=f(k)$. Ma allora $d$ non è contenuto nell'immagine di $f$, quindi $f$ non è biettiva. \hfill$\blacksquare$\acc 
+Il numero $d$ è ben posto ed è un numero reale fra 0 ed 1, quindi, 
+essendo $f$ biettiva per ipotesi, $\exists k \in \N $ tale che $ f(k)=d$ ($d$ è nell'immagine di $f$), ma in questo modo la $k$-esima cifra di $f(k)$ è identica alla $k$-esima cifra di $d$, dato che $d=f(k)$. Ma allora $d$ non è contenuto nell'immagine di $f$, quindi $f$ non è biettiva. \hfill$\blacksquare$\acc 
 \prop{} L'insieme delle stringhe binarie (o non) di lunghezza infinita non è numerabile.\acc 
 La dimostrazione sarà omessa, ma si può dimostrare con la diagonalizzazione. Si presenteranno ora due proposizioni che saranno utili a dimostrare un risultato fondamentale.\acc 
 \prop{1} L'insieme $TM$ di tutte le macchine di turing è numerabile.\acc 
@@ -1961,7 +1964,7 @@ Ma allora $D$ accetta $<D>$ solo e soltanto se $D$ rifiuta $<D>$. È una  contra
     \item su input $w$ esegue parallelamente $w$ su $M_1$ ed $M_2$
     \item se $M_1$ accetta, $M$ accetta. se $M_2$ accetta, $M$ rifiuta.
 \end{enumerate}
-$\forall w$ si ha che $w\in L \lor w\in \overline{L}$, solamente una fra $M_1,M_2$ può accettare $w$, quindi $M$ non può mai andare in loop $\implies$ $M$ è un decisore per $L$.\hfill$\blacksquare$\acc 
+$\forall w$ si ha che $w\in L \lor w\in \overline{L}$, solamente (ed esattamente) una fra $M_1,M_2$ può accettare $w$, quindi $M$ non può mai andare in loop $\implies$ $M$ è un decisore per $L$.\hfill$\blacksquare$\acc 
 \textbf{Corollario} : $\overline{A_{TM}}$ non è turing riconoscibile.\flowerLine 
 \section{Riducibilità}
 La riducibilità è una tecnica che permette di dimostrare la non decidibilità/non riconoscibilità di molti linguaggi. Informalmente, dati due linguaggi $A$ e $B$,  diremo che $A$ \textbf{si riduce a} $B$, e denoteremo $$ A\le B$$ Se esiste un algoritmo (una TM) per $B$ che risolve (decide) anche $A$.\begin{quotation}
@@ -2267,7 +2270,7 @@ $$ \begin{cases}
     D(<D>)=\infty\\ 
     D(<D>)\ne \infty
 \end{cases}$$
-Ciò, signigica che $D(<D>)$ non trovando una dimostrazione, non termina e va in loop, ma allora l'affermazione $D(<D>)=\infty$ si può codificare ed è vera. Ne consegue che 
+Ciò, significa che $D(<D>)$ non trovando una dimostrazione, non termina e va in loop, ma allora l'affermazione $D(<D>)=\infty$ si può codificare ed è vera. Ne consegue che 
 $$ \Pi \text{ consistente }\implies D(<D>)=\infty$$
 Ma come si è mostrato in precedenza, $D(<D>)=\infty$ è un affermazione non dimostrabile, quindi è necessariamente vero che anche l'affermazione che la implica, ossia "$\Pi \text{ consistente }$" sia indimostrabile.\hfill$\blacksquare$
 \sapbox{Esistono affermazioni vere e non dimostrabili}
@@ -2502,7 +2505,7 @@ $y=(c_1,c_2\dots c_n)$, con $c_i$ colore dell'$i$-esimo nodo di $G$. La procedur
 Chiaramente $V$ ha una complessità polinomiale in quanto al più controlla ogni arco del grafo, e verifica che $y$ sia una soluzione. Se $V(<G,y>)$ accetta, allora $y$ è una colorazione valida per $G$ e $G$ è 3-colorabile.\hfill$\blacksquare$\acc  
 \teo{} $P\subseteq NP \subseteq EXP$
 \acc\dimo{}
-Per il teorema delle gerarchie dei tempo è noto che $P\ne EXP$, si ha che 
+Per il teorema di gerarchia di tempo è noto che $P\ne EXP$, si ha che 
 $$ P\ne NP \lor NP \ne EXP$$
 Si consideri un linguaggio $L\in P$, ossia $\exists M$ che è una TM e $x\in L \iff M(x)$ accetta ed ha complessità polinomiale in funzione di $|x|$. Si definisce un verificatore $V(<x,y>)$ la cui procedura è definita come segue\begin{itemize}
     \item ignora l'input $y$
@@ -2531,12 +2534,13 @@ Si vuole dare un esempio di linguaggio $NP$ usando tale definizione, si consider
     \end{itemize}
     \item "CHECK" : accetta se e solo se $\phi(x)=1$
 \end{itemize}
+\sapbox{$SAT\in NP$}
 \teo{} Le due definizioni di $NP$ sono equivalenti.\acc 
 \dimo{} Verranno dimostrate le due implicazioni separatamente.\\ 
 \boxedMath{$\implies$} Se $L$ ha un verificatore polinomiale $V$, è possibile definire una NTM $N$ la cui procedura è descritta come segue:\begin{itemize}
     \item su input $x$
-    \item $N$ utilizzando il non determinismo determina ogni possibile soluzione $y$ tale che $|y|=poly(|x|)$
-    \item $N$ accetta solo se $V(<x,y>)$ accetta 
+    \item $N$ utilizzando il non determinismo determina ogni possibile soluzione $y$ tale che $|y|=poly(|x|)$, e ciò ha costo polinomiale
+    \item $N$ accetta solo se $V(<x,y>)$ accetta, quindi esegue $V$ e per definizione questa ha costo polinomiale 
 \end{itemize}
 è chiaro che $N$ è un decisore non deterministico per $L$ che opera in tempo polinomiale.\acc 
 \boxedMath{$\impliedby$} Se $L$ è decidibile in tempo polinomiale da una NTM $N$, allora su input $x$, un numero $poly(|x|)$ è un upper bound sui passi di computazione di ogni ramo parallelo di $N$. Si definisce un verificatore $V$, che opera su input $y$, definito come l'insieme dei passi deterministici di un ramo di $N$, in particolare\begin{itemize}
@@ -2647,6 +2651,11 @@ $$ x_{i,j,s}$$
 dove 
 $$ i,j \in [1,2\dots n^k] \ \ \ \ \ \ s\in\mathbb S = Q\cup \Gamma \cup \{\#\}$$
 esiste quindi una variabile per ogni cella $(i,j)$ della tabella, ed ogni possibile valore che può assumere. Vogliamo definire $\phi$ in modo tale che $$ \phi(x)=1\iff \text{ la tabella è accettante}$$
+\begin{itemize}
+    \item \textg{l'assegnamento delle variabili rappresenta una qualsiasi possibile tabella di computazione }
+    \item \textg{se la formula è soddisfacibile, allora esiste una tabella accettante, quindi $N$ su input $x$ accetta  }
+    \item \textg{in questo modo si esegue la riduzione da $A$ a $SAT$ }
+\end{itemize}
 \textit{Osservazione} : Il numero di variabili è $n^{2k}\cdot |\mathbb{S}|$, è quindi polinomiale in $n$, dato che $|\mathbb{S}|$ non dipende da $n$.\acc 
 Le variabili saranno definite in tal modo $$x_{i,j,s}=\begin{cases}
     1 \text{ se nella cella $(i,j)$ c'è il valore }s \\ 
@@ -2744,7 +2753,15 @@ Visto che per ipotesi $P=NP$, si ha che $L'\in P$, allora esiste una TM determin
     \item avvio $L'(x')$, questa opera in tempo polinomiale, se $L'$ accetta, allora $x\in L$, altrimenti rifiuta 
 \end{itemize}
 è quindi chiaro che $L$ viene deciso da tale procedura in tempo esponenziale $\implies L\in EXP$.\hfill$\blacksquare$\acc   
-\teo{(di Ladner)} Se $P\ne NP$, allora esiste un linguaggio $L\in NP$ tale che $N$ non è $NP$ completo.
+\teo{(di Ladner)} Se $P\ne NP$, allora esiste un linguaggio $L\in NP$ tale che $N$ non è $NP$ completo.\acc 
+\teo{} Se $P=NP$ allora ogni problema $NP$ è anche $NP$-completo.\acc
+\dimo{} Siano $L_1,L_2$ due linguaggi in $P$, e siano $M_1$,$M_2$ le TM che li decidono. Sia $x$ una stringa in $L_2$ e $y$ una stringa in $\overline{L_2}$, si considera la seguente riduzione $R$\begin{enumerate}
+    \item su input $w$
+    \item si esegue $M_1(w)$, se accetta si scrive $x$ sul nastro 
+    \item se $M_1(w)$ rifiuta si scrive $y$
+\end{enumerate}
+$R$ è una riduzione polinomiale da $L_1$ a $L_2$, che sono due qualsiasi linguaggi in $P$, per ipotesi, anche in $NP$, allora un qualsiasi linguaggio in $NP$ si riduce polinomialmente ad un qualsiasi altro linguaggio in $NP$.
+\hfill$\blacksquare$
 \flowerLine
 \section{La Classe $coNP$}
 Definiamo ora una nuova classe di complessità. La definizione di $NP$ riguarda la decidibilità, ossia la certificazione che un certo elemento sia in un linguaggio, la classe $coNP$ riguarda la certificazione che un elemento \textit{non sia} in un linguaggio.\acc 
@@ -2757,11 +2774,11 @@ e ci si chiede: sapendo che $SAT\in NP$, $UNSAT\in NP$?\acc
 \hfill$\blacksquare$\acc  
 \teo{} $P=coP$, ovvero, $P$ è chiuso per il complemento.\acc 
 \dimo{} Dato un decisore per un $L$ in $P$, è necessario invertire il risultato della TM.\hfill$\blacksquare$\acc  
-\prop{} $EXP=COEXP=\{L \ | \ \overline L \in EXP\}$ \acc 
+\prop{} $EXP=coEXP=\{L \ | \ \overline L \in EXP\}$ \acc 
 \teo{} $coNP\subseteq EXP$\acc 
-\dimo{} $L\in coNP \implies \overline L \in NP \subseteq EXP \implies L\in COEXP$ ma $COEXP=EXP$.
+\dimo{} $L\in coNP \implies \overline L \in NP \subseteq EXP \implies L\in coEXP$ ma $coEXP=EXP$.
 \hfill$\blacksquare$\acc  
-Se $P\ne NP$ è valida la seguente relazione fra insiemi 
+Se $P\ne NP$ è congetturata la seguente relazione fra insiemi
 \begin{center}
     \includegraphics[width=0.3\textwidth ]{images/coNP.eps}
 \end{center}
@@ -2769,7 +2786,7 @@ Se $P\ne NP$ è valida la seguente relazione fra insiemi
 \dimo{} $L\in P\implies \overline L \in P \subseteq NP \implies 
 \overline L \in NP \implies L\in coNP$.\hfill$\blacksquare$\acc  
 \teo{} $P=NP\implies P=coNP=NP$\acc 
-\dimo{} $L\in coNP\implies \overline L \in NP=P \implies \overline L \in P $ ma essendo che $P=coP$ si ha $L \in P$.\hfill$\blacksquare$\acc   
+\dimo{} $L\in coNP\implies \overline L \in NP=P \implies \overline L \in P $ ma essendo che $P=coP$ si ha $L \in P\subseteq NP$.\hfill$\blacksquare$\acc   
 \textbf{Corollario} : $coNP\ne NP\implies P \ne NP$.\acc
 \defi{} $L$ è $coNP$ completo se\begin{itemize}
     \item $L\in coNP$
@@ -2844,12 +2861,12 @@ Il  teorema ha un significato molto chiaro:
 \sapbox{il tempo limita lo spazio}
 Vediamo ora in che modo lo spazio può limitare il tempo. \acc
 \teo{} Per ogni $f(n)\ge \log(n)$\footnote{con $\ge$ si intende, che è asintoticamente maggiore, ossia $f(n)\in\Omega(\log(n))$}, si ha che $SPACE(f(n))\subseteq DTIME(2^{O(f(n))})$\acc 
-\dimo{} Nella valutazione della complessità spaziale, una TM ha un nastro di lavoro ed un nastro per l'input, una qualsiasi configurazione (snapshot durante la computazione) di una TM $M$, può essere rappresentato come segue 
+\dimo{} Nella valutazione della complessità spaziale, una TM ha un nastro di lavoro ed un nastro per l'input, una qualsiasi configurazione (snapshot durante la computazione) di una TM $M$, può essere rappresentata come segue 
 $$ a_1 \ a_2 \ a_3 \ q_i \ a_4 \ a_5 \ a_6 \ ;\ k$$
 dove \begin{itemize}
     \item $a_j$ sono caratteri sul nastro di lavoro 
     \item $q_i$ è lo stato attuale, e la sua posizione indica la posizione della testina sul nastro di lavoro 
-    \item $k$ è il numero della cella su cui è presenta la testina sul nastro dell'input
+    \item $k$ è il numero della cella su cui è presente la testina sul nastro dell'input
 \end{itemize}
 Essendo $M$ deterministica, ed essendo un decisore, nessuna configurazione può ripetersi due volte durante una computazione. L'implicazione è chiara :\begin{quote}
     Il numero MASSIMO di passi di computazione che può fare $M$ su un qualsiasi input, è limitato dal numero totale di configurazioni, in quanto al più, una computazione può includere nella sequenza ogni singola configurazione, ma queste non possono ripetersi
@@ -2895,7 +2912,7 @@ FIND_PATH(x,y,k){
     REJECT 
 }
 \end{lstlisting}
-Al termine, si avrà che la procedura accetterà solo se esiste un cammino da $x$ ad $y$ con al più $k$ nodi. Sarà necessario fra si che la TM $M$ esegua la procedura \begin{quote}
+Al termine, si avrà che la procedura accetterà solo se esiste un cammino da $x$ ad $y$ con al più $2^k$ nodi. Sarà necessario fra si che la TM $M$ esegua la procedura \begin{quote}
     \texttt{FIND\_PATH(s,t,$\lceil \log(n)\rceil $)}
 \end{quote}
 Osservazioni\begin{itemize}
@@ -2963,9 +2980,16 @@ $A\le_m^L B \text{ se }\exists R:\{0,1\}^*\rightarrow \{0,1\}^*$  computabile in
 $$ x\in A \iff R(x)=B$$
 Bisogna definire il termine "computabile in spazio $O(\log(n))$", il termine $R(x)$ potrebbe avere dimensione $poly(n)$, in tal caso scrivendo $R(x)$ sul nastro di lavoro, si violerebbe lo spazio logaritmico, si considera nel modello della TM un \textit{nastro di output} che può essere scritto una sola volta, senza mai modificare le celle utilizzate, tale nastro verrà usato per scrivere l'output $R(x)$.\acc 
 \teo{} $PATH$ è $NLOG$ completo.\acc 
-\dimo{} Sappiamo già che $PATH$ è un linguaggio in $NLOG$, bisogna dimostrare che tutti i linguaggi in tale insieme si riducono a $PATH$. Sia $A$ un qualsiasi linguaggio in $NLOG$, e sia $N$ la NTM (di complessità logaritmica) tale che $L(A)=N$\begin{itemize} \item si definisce una TM $R$ che, dato un input $x$ per $N$, costruisce il grafo $G_{N,x}$ delle configurazioni visto nella dimostrazione del teorema di Savitch. \item L'output di $R$ (ossia $R(x)$) sarà ($G_{N,x}, C_{start}, C_{acc}$) \item Ne consegue naturalmente che $x\in A \iff$ esiste un cammino $C_{start}\rightarrow C_{acc}$ in $G_{N,x}\iff$ $R(x)=(G_{N,x}, C_{start}, C_{acc})\in PATH$
+\dimo{} Sappiamo già che $PATH$ è un linguaggio in $NLOG$, bisogna dimostrare che tutti i linguaggi in tale insieme si riducono a $PATH$. Sia $A$ un qualsiasi linguaggio in $NLOG$, e sia $N$ la NTM (di complessità logaritmica) tale che $L(A)=N$\begin{itemize} \item si definisce una TM $R$ che, dato un input $x$ per $N$, costruisce il grafo $G_{N,x}$ delle configurazioni visto nella dimostrazione del teorema di Savitch. 
+    \item Ovviamente non si scrive sul nastro tutto il grafo, ma ad ogni passo di computazione si considera il nodo corrente, Per ogni configurazione, è sufficiente memorizzare:\begin{itemize}
+        \item Lo stato corrente della macchina.
+        \item Il contenuto della cella della testina di lettura/scrittura.
+        \item La posizione della testina sul nastro.\end{itemize}
+        \item A partire da una configurazione, è possibile calcolare le configurazioni successive simulando un passo della NTM.
+        \item Dato che $A$ è un linguaggio in $NLOG$, il numero delle configurazioni totali è polinomiale in $n$, quindi si può memorizzare una configurazione in spazio $\log(n)$
+    \item L'output di $R$ (ossia $R(x)$) sarà ($G_{N,x}, C_{start}, C_{acc}$) \item Ne consegue naturalmente che $x\in A \iff$ esiste un cammino $C_{start}\rightarrow C_{acc}$ in $G_{N,x}\iff$ $R(x)=(G_{N,x}, C_{start}, C_{acc})\in PATH$
 \end{itemize}
-In particolare, è possibile enumerare tutte le possibili configurazioni (che sono polinomiali in $n$) con un numero $O(\log(n))$ celle, e con la medesima complessità di spazio è possibile verificare se, date due configurazioni $C,C'$, esiste o no l'arco $(C,C')$.\hfill$\blacksquare$\acc 
+\hfill$\blacksquare$\acc 
 Si vuole mostrare che la definizione di \textit{log space reduction} soddisfi le seguenti proprietà\begin{itemize}
     \item $A\le_m^L B \implies \begin{cases}
         B\in LOG \implies A\in LOG\\ 
@@ -2997,7 +3021,7 @@ Fino ad ora abbiamo visto esempi di linguaggi\begin{itemize}
 Vediamo adesso alcuni esempi di linguaggi $P$ completi e $PSPACE$ completi.\acc 
 \defi{($P$ completezza)} $C$ è $P$ completo se $C\in P$ e $\forall A\in P$ si ha che $A\le_m^L C$\acc 
 \textbf{Osservazione} : La definizione riguarda la classe $P$ (complessità temporale) ma utilizza la \textit{log space reduction} (inerente alla complessità spaziale).
-\sapbox{\textbf{Problema aperto} : La seguente proposizione non è stata dimostrata, e tutt'ora non si sa se sia vera o false $$ C\in LOG\implies P\subseteq LOG$$ 
+\sapbox{\textbf{Problema aperto} : La seguente proposizione non è stata dimostrata, e tutt'ora non si sa se sia vera o falsa $$ C\in LOG\implies P\subseteq LOG$$ 
 
 }
 Vediamo un esempio di problema $P$ completo: 
@@ -3037,14 +3061,14 @@ $$ \exists x_1 \forall x_2 [x_1\rightarrow x_2]\land \dots$$
 Sappiamo che $M(x)$ opera in spazio polinomiale, ha $2^{O(n^a)}$ possibili configurazioni, una di queste sarà $C_{start}$ definita $$ q_0 \ \blank \ ; \  1$$
 Come già visto, si può assumere (senza perdita di generalità) che esista un un'unica configurazione accettante $C_{acc}$.\acc 
 Se dovessimo considerare il grafo $G_{M,x}$ considerato nella dimostrazione del teorema di Savitch, sappiamo che $M(x)$ accetta se e solo se esiste un cammino $C_{start}\longrightarrow C_{acc}$ in $G_{M,x}$.\acc 
-La riduzione $R$ dato $x$, dovrà calcolare una formula $\phi_M$ tale che, questa è soddisfacibile solo se esiste un cammino nel $C_{start}\longrightarrow C_{acc}$ in $G_{M,x}$. La formula $\phi_M$ deve avere dimensione polinomiale rispetto alle dimensioni dell'input $n$, e deve essere computabile in spazio polinomiale.\acc 
+La riduzione $R$ dato $x$, dovrà calcolare una formula $\phi_M$ tale che, questa è soddisfacibile solo se esiste un cammino $C_{start}\longrightarrow C_{acc}$ in $G_{M,x}$. La formula $\phi_M$ deve avere dimensione polinomiale rispetto alle dimensioni dell'input $n$, e deve essere computabile in spazio polinomiale.\acc 
 Le variabili di $\phi_M$ sono le possibili configurazioni $C_i$ dell'esecuzione di $M$ su $x$.\acc 
 \textbf{Idea 1)} : Consideriamo una sotto formula $\phi_{yields}$ tale che  $\phi_{yields}(C_i,C_j)=1\iff$ $C_j$ segue la configurazione $C_i$ in accordo con le regole stabilite dalla funzione di transazione $\delta$. Potremmo definire $\phi_M$ come segue 
 $$ \begin{matrix}
     \phi_M=\exists C_1\exists C_2\exists C_3 \dots \exists C_l\\ 
     \phi_{yields}(C_1,C_2)\land\phi_{yields}(C_2,C_3)\dots \phi_{yields}(C_{l-1},C_l)
 \end{matrix}$$
-Con $C_1=C_{start}$ e $C_l=C_{acc}$. Seppure l'idea è logicamente corrette, il numero $l$ di possibili configurazioni è in $2^{O(n^a)}$, è quindi esponenziale, allora la riduzione $R$ in questione non è computabile in spazio polinomiale, e quindi non va bene.\acc
+Con $C_1=C_{start}$ e $C_l=C_{acc}$. Seppure l'idea è logicamente corretta, il numero $l$ di possibili configurazioni è in $2^{O(n^a)}$, è quindi esponenziale, allora la riduzione $R$ in questione non è computabile in spazio polinomiale, e quindi non va bene.\acc
 \textbf{Idea 2)} : Un'altra idea è quella di utilizzare l'algoritmo ricorsivo visto nel teorema di Savitch, definiamo la procedura $\phi_k(C_0,C_1)$, che è vera se e solo se esiste un cammino da $C_0$ a $C_1$ di lunghezza (al più) $2^k$ passi. La riduzione $R(x)$ dovrà solamente restituire $\phi_{O(n^a)}(C_{start},C_{acc})$.\begin{itemize}
     \item caso base ($k=0$) : allora $\phi_0(C_0,C_1)$ è vera se e solo se $\phi_{yields}(C_0,C_1)$ è vera, oppure $C_0=C_1$. 
     \item caso induttivo : $\phi_k(C_0,C_1)$ è definita come:\begin{itemize}
@@ -3059,30 +3083,7 @@ $$ \begin{pmatrix}
     (D,D')=(C_{mid},C_1)
 \end{pmatrix}\implies \phi_{k-1}(D,D')$$
 In questo caso le dimensioni di $\phi_k$ sono $O(n^a)+|\phi_{k-1}|=O(n^{2a})$, che è polinomiale.\hfill$\blacksquare$\acc 
-\teo{(Immerman-Szelepcsényi)} La classe $NLOG$ è chiusa rispetto al complemento $$NLOG=coNLOG$$\dimo{}
-Essendo che $PATH$ è $NLOG$ completo, è necessario dimostrare che $PATH$ è in $coNLOG$, ossia che $\overline{PATH}$ è in $NLOG$.
-Si definisce una TM non determinista che decide $\overline{PATH}$ in spazio logaritmico. La TM è descritta dal seguente algoritmo, che ha come input il grafo $G$ ed i due nodi $s$ e $t$:\greybox{
-$M(G,s,t)\{$\\ 
-\hphantom{ident}$c_0=1$\\ 
-\hphantom{ident}for($i=0; \ i<m; \ i$++)\{\\
-\hphantom{identident}$c_{i+1}=1$\\
-\hphantom{identident}per ogni nodo $v\ne s\in G$ esegui\{\hphantom{aaaaaa}\color{darkgreen}//ciclo annotato\color{black}\\
-\hphantom{identidentident}$d=0$\\
-\hphantom{identidentident}\color{blue}non deterministicamente esegui (e non) la procedura seguente\{\color{black}\\
-\hphantom{identidentidentident}per ogni nodo $u\in G$ esegui\{\\
-\hphantom{identidentidentidentident}esegui \color{blue} non deterministicamente \color{black} ogni cammino da $s$ di lunghezza al più $i$\\
-\hphantom{identidentidentidentident} se non termina su $u$, rifiuta \\
-\hphantom{identidentidentidentident} se  termina su $u$, incrementa $d$ \\
-\hphantom{identidentidentidentident} se  $(u,v)\in G$, incrementa $c_{i+1}$ \\
-\hphantom{identidentidentidentident}ricomincia il ciclo esterno (\color{darkgreen}//ciclo annotato\color{black})considerando il prossimo $v$\\
-\hphantom{identidentidentident}\}\\
-\hphantom{identidentidentident}se $d\ne c_i$ rifiuta\\
-\hphantom{identidentident}\color{blue}\}\color{black}\\
-\hphantom{identident}\}\\
-\hphantom{ident}\}\\
-$\}$
-}
-\flowerLine 
+\teo{(Immerman-Szelepcsényi)} La classe $NLOG$ è chiusa rispetto al complemento $$NLOG=coNLOG$$\dimo{}\redText{TODO}
 \section{Teoremi di Gerarchia}
 I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc \teo{(Idea)}
 Il teorema di \textit{gerarchia dei tempi} afferma che se $t_1(n)$ è asintoticamente, molto più piccola di $t_2(n)$, allora esiste un linguaggio $L\in Dtime(t_2(n))$ tale che 
@@ -3137,3 +3138,27 @@ esiste un linguaggio $L$ tale che $L\in Space(s_2(n))$ e $L\notin Space(s_1(n))$
 
 
 \end{document}
+
+Essendo che $PATH$ è $NLOG$ completo, è necessario dimostrare che $PATH$ è in $coNLOG$, ossia che $\overline{PATH}$ è in $NLOG$.
+Si definisce una TM non determinista che decide $\overline{PATH}$ in spazio logaritmico. La TM è descritta dal seguente algoritmo, che ha come input il grafo $G$ ed i due nodi $s$ e $t$:\greybox{
+$M(G,s,t)\{$\\ 
+\hphantom{ident}$c_0=1$\\ 
+\hphantom{ident}for($i=0; \ i<m; \ i$++)\{\\
+\hphantom{identident}$c_{i+1}=1$\\
+\hphantom{identident}per ogni nodo $v\ne s\in G$ esegui\{\hphantom{aaaaaa}\color{darkgreen}//ciclo annotato\color{black}\\
+\hphantom{identidentident}$d=0$\\
+\hphantom{identidentident}\color{blue}non deterministicamente esegui (e non) la procedura seguente\{\color{black}\\
+\hphantom{identidentidentident}per ogni nodo $u\in G$ esegui\{\\
+\hphantom{identidentidentidentident}esegui \color{blue} non deterministicamente \color{black} ogni cammino da $s$ di lunghezza al più $i$\\
+\hphantom{identidentidentidentident} se non termina su $u$, rifiuta \\
+\hphantom{identidentidentidentident} se  termina su $u$, incrementa $d$ \\
+\hphantom{identidentidentidentident} se  $(u,v)\in G$, incrementa $c_{i+1}$ \\
+\hphantom{identidentidentidentident}ricomincia il ciclo esterno (\color{darkgreen}//ciclo annotato\color{black})considerando il prossimo $v$\\
+\hphantom{identidentidentident}\}\\
+\hphantom{identidentidentident}se $d\ne c_i$ rifiuta\\
+\hphantom{identidentident}\color{blue}\}\color{black}\\
+\hphantom{identident}\}\\
+\hphantom{ident}\}\\
+$\}$
+}
+\flowerLine 
