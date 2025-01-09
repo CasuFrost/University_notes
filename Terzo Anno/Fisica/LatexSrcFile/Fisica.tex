@@ -1627,10 +1627,10 @@ Come si è considerata la forza totale di un sistema è possibile considerare il
     \includegraphics[width=0.4\textwidth ]{images/momentoPunti.eps}
 \end{center}
 Sia $v_0$ la velocità del polo, il sistema dei momenti è $$ \begin{cases}
-    M_1=\dfrac{db_1}{dt}+v_0\times r_1\\ 
-    M_2=\dfrac{db_2}{dt}+v_0\times r_2\\
+    M_1=\frac{db_1}{dt}+v_0\times r_1\\ 
+    M_2=\frac{db_2}{dt}+v_0\times r_2\\
     \dots \\ 
-    M_n=\dfrac{db_n}{dt}+v_0\times r_n
+    M_n=\frac{db_n}{dt}+v_0\times r_n
 \end{cases}$$
 Essendo che le forze interne si annullano, anche i momenti interni si annullano. Si consideri la somma dei momenti $$ (\dfrac{d}{dt}\sum{b_i})+v_0\times (\sum r_i)$$
 si può riscrivere 
@@ -1671,13 +1671,20 @@ come una lamina di ferro), tale corpo, ha un centro di massa $cm$. Si "infilza" 
 certo punto.\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/pendoloComposto.eps}
 \end{center}
-Sia $d$ la distanza dal punto di infilzamento ed il centro di massa, e sia $\theta$ l'angolo compreso fra il vettore gravità ed il vettore che va dal punto di infilzamento ed il centro di massa (di lunghezza $d$). Il corpo comincierà a ruotare attorno il punto di infilzamento, se ne vuole calcolare il momento. 
-Sia $I_0$ il momento di inerzia del punto di infilzamento con polo nel centro di massa, l'equazione del moto 
-è 
-$$-mgd\sin\theta=-I_0\dfrac{d^2\theta}{dt^2}$$
+Sia $d$ la distanza dal punto di infilzamento ed il centro di massa, e sia $\theta$ l'angolo compreso fra il vettore gravità ed il vettore che va dal punto di infilzamento ed il centro di massa (di lunghezza $d$). Il corpo comincierà a ruotare attorno il punto di infilzamento, se ne vuole calcolare il momento. \acc 
+Il momento della forza applicato al centro di massa è uguale alla forza peso data dalla gravità e dalla distanza $d$ dal centro di massa 
+$$\bar M = m\bar g \times \bar d $$
+$$ M=mgd\sin\theta$$
+Sappiamo inoltre che il momento della quantità di moto è uguale alla velocità angolare moltiplicata al momento d'inerzia 
+$$ b=I\omega $$
+Essendo il polo in questo caso fermo,  il momento della forza è la derivata di $b$
+$$ M=I\dot{\omega}=I\frac{d^2\theta}{dt^2}$$
+Sia $I_0$ il momento di inerzia del punto di infilzamento con polo nel centro di massa, l'equazione del moto, considerando 
+le identità del momento della forza $M$, è data da 
+$$mgd\sin\theta=I_0\dfrac{d^2\theta}{dt^2}$$
 Si approssima per $\theta$ piccoli dove $\sin\theta\simeq \theta$
-$$ -mgd\theta=-I_0\dfrac{d^2\theta}{dt^2}$$
-$$\dfrac{d^2\theta}{dt^2}+\frac{Mgd}{I_0}=0$$
+$$ mgd\theta=I_0\dfrac{d^2\theta}{dt^2}$$
+$$\dfrac{d^2\theta}{dt^2}+\frac{mgd}{I_0}\theta=0$$
 È l'equazione del moto armonico, troviamo velocità angolare e periodo 
 $$\omega = \sqrt{\frac{Mgd}{I_0}}  \ \ \ \ \ T=2\pi\sqrt{\frac{I_0}{Mgd}}$$
 Come varia il periodo $T$ al variare di $d$? Apparentemente, potrebbe sembrare che che $T$ si comporti come 
@@ -1747,7 +1754,7 @@ $$ \frac{1}{2}mv_c^2+\frac{1}{2}I\omega ^2=mgh$$
 L'energia potenziale si "suddividerà" fra la componente traslatoria e la componente rotatoria, per un disco, 
 $I=\frac{1}{2}mR^2$, la velocità di traslazione a fine corsa sarà 
 $$ v_c=\sqrt{mgh\frac{1}{m+\nicefrac{I}{R^2}}}=\sqrt{\frac{2mgh}{m+\nicefrac{1}{2}m}}=\sqrt{\nicefrac{2}{3}}\sqrt{2gh}$$
-Quindi la velocità del corpo che ruota sarà minore della velocità del corpo che striscia, dato che l'energia di traslazione mancante a tale corpo sarà contenuta nella velocità di rotazione acquisita.\flowerLine 
+Quindi la velocità del corpo che rotola sarà minore della velocità del corpo che striscia, dato che l'energia di traslazione mancante a tale corpo sarà contenuta nella velocità di rotazione acquisita.\flowerLine 
 \section{Sistemi Equivalenti di Forze}
 Date due forze applicate ad un sistema, si vuole trovare una forza unica risultante che sia equivalente alle due (se sostituita alle forze originali, la dinamica del sistema rimane invariata). Verranno analizzati 3 casi. 
 \subsubsection{Caso 1}
@@ -1771,18 +1778,18 @@ Trovando $d_1,d_2$ si definisce il preciso punto di applicazione della forza equ
 \subsubsection{Caso 2}
 Si considerano adesso due forze parellele ma in verso opposto, applicate nei punti $P_1$ e $P_2$, aventi intensità diverse. La forza risultante avrà intensità pari alla differenza fra le due forze, e sarà diretta nel verso della forza con intensità maggiore.\acc 
 Il punto di applicazione $C$, si troverà sulla retta che congiunge $P_1$ e $P_2$, in una 
-posizione determinata dalal relazione $$ -F_1d_1+F_2d_2=0\implies \frac{d_1}{d_2}=\frac{F_2}{F_1}$$
+posizione determinata dalla relazione $$ -F_1d_1+F_2d_2=0\implies \frac{d_1}{d_2}=\frac{F_2}{F_1}$$
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/forzeEq4.eps}
 \end{center}
 \subsubsection{Caso 3 : Coppia}
-Si considerino due forze parallelle dirette in verso opposto e di uguale intensita $F_1=-F_2$. In questo specifico caso, non è possibile riprodurre l'effetto delle due forze con una singola forza.\begin{center}
+Si considerino due forze parallele dirette in verso opposto e di uguale intensita $F_1=-F_2$. In questo specifico caso, non è possibile riprodurre l'effetto delle due forze con una singola forza.\begin{center}
     \includegraphics[width=0.3\textwidth ]{images/coppia.eps}
 \end{center}
 In questo specifico caso, la somma dei momenti delle due forze è \textit{invariante rispetto il punto di applicazione}, sia $O$ un generico punto 
 \begin{eqnarray}
     M=M_1+M_2=OP_1\times F_1 + OP_2\times F_2=OP_1\times F_1 + OP_2\times (-F_1)=\\ 
-    F_1(OP_1-OP_2)=P_2P_1\times F_1
+    F_1\times(OP_1-OP_2)=P_2P_1\times F_1
 \end{eqnarray} 
 Il momento della coppia di forze è normale al piano delle due forze, sia $b$ la distanza fra $P_1$ e $P_2$, l'intensità della forza è $|F_1|b=|F_2|b$. La coppia è un sistema di forze \textbf{irriducibile} ed è completamente individuata dal suo momento.\begin{quote}
    Un  momento di forze può essere rappresentato per mezzo di una qualsiasi coppia di forze che ha quel momento.
@@ -1816,15 +1823,38 @@ Una caldaia esplode e si divide in tre pezzi. I primi due sono di massa $m$ e ha
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/caldaia.eps}
 \end{center}
-Essendo la caldaia ferma prima dell'esplosione, aveva quntità di moto $\bar p$ nulla. La quantità di moto dopo l'esplosione è invece 
-$$ mv_1+mv_2+3mv_3$$
+Essendo la caldaia ferma prima dell'esplosione, aveva quantità di moto $\bar p$ nulla. La quantità di moto dopo l'esplosione è invece 
+$$ m\bar v_1+m\bar v_2+3m\bar v_3$$
 La quantità di moto si conserva, quindi 
-\begin{eqnarray}
-    mv_1+mv_2+3mv_3=0\\ 
-    3mv_3=-(mv_1+mv_2)\\ 
-    v_3=\frac{-(mv_1+mv_2)}{3m}\\
-    v_3=\frac{-(v_1+v_2)}{3}
-\end{eqnarray}\flowerLine 
+$$m\bar v_1+m\bar v_2+3m\bar v_3=0$$
+posso riscrivere (denotando questa volta $m$ come massa totale della caldaia)
+$$\frac{m}{5}\bar v_1+\frac{m}{5}\bar v_2+\frac{3m}{5}\bar v_3=0$$
+Essendo $\bar v_1$ e $\bar v_2$ ortogonali e di eguale modulo li posso 
+riscrivere come 
+$$ \begin{cases}
+    \bar v_1=v_0\hat i\\
+    \bar v_1=v_0\hat j
+\end{cases}$$
+Voglio quindi trovare le componenti della velocità di $\bar v_3$ dato il sistema
+$$\frac{m}{5}v_0\hat i+\frac{m}{5}v_0\hat j+\frac{3m}{5}\bar v_3=0$$
+Proietto l'equazione sui due assi 
+$$ \begin{cases}
+    -\frac{1}{5}mv_0=\frac{3}{5}mv_3^x\\ 
+    -\frac{1}{5}mv_0=\frac{3}{5}mv_3^y
+\end{cases}$$
+$$ \begin{cases}
+    -\frac{1}{5}mv_0\frac{5}{3m}=v_3^x\\ 
+    v_3^x=v_3^y
+\end{cases}\implies $$
+$$v_3^x=-\frac{v_0}{3}\implies$$
+$$ \bar v_3 =-(\frac{v_0}{3}\hat i +\frac{v_0}{3}\hat j) $$
+
+
+
+
+
+
+\flowerLine 
 \section{Fluidi e Spinta di Archimede}
 Si consideri un contenitore d'acqui in cui è riposto un parallelepipedo di lato $s$, immerso ad una profondità $h$ dalla superficie.\begin{center}
     \includegraphics[width=0.5\textwidth ]{images/acqua.pdf}
@@ -1833,7 +1863,7 @@ L'acqua sopra il parallelepipedo ha un volume $sh$ ed è sottoposta ad un'accele
 $$ m\bar g = sh\rho \bar g$$
 si definisce \textbf{pressione} il rapporto fra la forza ed una superficie $S$, l'unità di misura è il \textit{pascal} e si misura in Newton su metro quadro $\frac{N}{m^2}$, il parallelepipedo è sottoposto ad una pressione di 
 $$ p=\frac{\bar F}{S}=\rho \bar g h s$$
-Anche l'aria ha un fluido ed ha un peso, la densità dell'aria è circa 1000 volte minore di quella dell'acqua, per i primi 10 km di atmosfera, l'aria imprime su ciò che si trova sulla superficie terrestre una forza peso equivalente a quella che imprimerebbero 10 metri d'acqua.\acc 
+Anche l'aria è un fluido ed ha un peso, la densità dell'aria è circa 1000 volte minore di quella dell'acqua, per i primi 10 km di atmosfera, l'aria imprime su ciò che si trova sulla superficie terrestre una forza peso equivalente a quella che imprimerebbero 10 metri d'acqua.\acc 
 Il parallelepipedo ha uno spessore $d$, la pressione che l'oggetto sente sul fondo è 
 $$ p\rho \bar g (h+d)s$$
 Essendo questo soggetto ad entrambe le pressioni, si considera la differenza di pressione 
@@ -1974,7 +2004,11 @@ Sebbene la formula del campo elettrico coincide con quella nel caso dell'anello 
 La derivata della tangente è $\frac{1}{\cos^2\theta}$, quindi $$ dl=\frac{x}{\cos^2\theta}d\theta
 \ \ \ \text{ inoltre } \ \ \
  r\cos\theta=x\implies r^2=\frac{x^2}{\cos^2\theta}$$
-$$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int \frac{x}{\cos^2\theta}d\theta\frac{\cos^3\theta}{x^2}=\frac{\lambda}{x4\pi\varepsilon_0}\int_{-\theta_0}^{\theta_0}\cos\theta d\theta=\frac{\lambda}{x4\pi\varepsilon_0}\big(\sin(\theta_0)-\sin(-\theta_0)\big)$$
+$$ \frac{dl}{r^2}\cos\theta  
+\ \ \textg{ diventa } \ \ 
+\frac{x}{\cos^2\theta}\frac{d\theta}{x^2}\cos^3\theta =\frac{\cos\theta}{x}d\theta 
+$$
+$$ \bar E = \frac{\lambda}{4\pi\varepsilon_0}\int_{-\theta_0}^{\theta_0} \frac{x}{\cos^2\theta}d\theta\frac{\cos^3\theta}{x^2}=\frac{\lambda}{x4\pi\varepsilon_0}\int_{-\theta_0}^{\theta_0}\cos\theta d\theta=\frac{\lambda}{x4\pi\varepsilon_0}\big(\sin(\theta_0)-\sin(-\theta_0)\big)$$
 $\theta_0$ è l'angolo quando la sorgente di carica è l'estremita della bacchetta e dipende da $x$. Sia $2L$ la lunghezza della bacchetta, ricordando che $\sin(-x)=-\sin(x)$ :
 $$ \bar E =\frac{\lambda}{x4\pi\varepsilon_0}2\sin(\theta_0(x))  \ \ \ \ \ \ \ \  \  \frac{L}{x}=\tan\theta_0\implies \theta_0=\arctan(\nicefrac{L}{x})$$
 Se la bacchetta è infinita, $\theta_0$ tende a 90 gradi. 
@@ -1993,7 +2027,7 @@ e l'anello infinitesimo $dS$ genera il campo elettrico infinitesimo $d\bar E$.
     \includegraphics[width=0.5\textwidth]{images/discoCarico2.eps}
 \end{center}
 Il campo generato da un anello carico è noto, si ha 
-$$ dE=\frac{1}{4\pi\varepsilon_0}dQ\frac{x}{(x^2+y^2)^{\nicefrac{3}{2}}}$$
+$$ dE=\frac{dQ}{4\pi\varepsilon_0}\frac{x}{(x^2+y^2)^{\nicefrac{3}{2}}}$$
 Dove $dQ$ è la carica infinitesimale che può essere scritta, usando la densità $\sigma$ come 
 $$ dQ=(\sigma 2\pi ydy)$$
 $$ dE=\frac{1}{4\pi\varepsilon_0}\sigma 2\pi ydy \frac{x}{(x^2+y^2)^{\nicefrac{3}{2}}}$$
@@ -2073,7 +2107,7 @@ $$ \phi = \frac{q}{4\pi\varepsilon_0}4\pi = \frac{q}{\varepsilon_0} $$
 Si può considerare anche il caso in cui la carica sorgente del campo è esterna alla superficie, tale caso è banale in quanto il campo elettrico "entra" nella superficie tante volte quante ne "esce", ogni flusso infinitesimo si annulla.\begin{center}
     \includegraphics[width=0.5\textwidth]{images/caricaEst.eps}
 \end{center}
-Il flusso su una superficie chiusa del campo generato da una carica esterna alla superficie è nullo. 
+Il flusso su una superficie chiusa del campo generato da una carica esterna alla superficie è nullo, in quanto ogni contributo $d\phi$ comprende la componente $\frac{q}{4\pi\varepsilon_0} d\Omega$ e la componente $-\frac{q}{4\pi\varepsilon_0} d\Omega$ (dati i vettori normali della superficie con stessa direzione ma in verso opposto). 
 $$ \phi = 0$$
 Piuttosto che suddividere i casi in cui la carica è esterna o interna è possibile scrivere la legge di Gauss in maniera più formale, indicando con $\tau_S$ il volume carico (con densità di carica $\rho$) di cui $S$ è la frontiera. 
 \eqImportante{$\displaystyle \oint_S \bar E d\bar S = \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau$}
@@ -2114,7 +2148,7 @@ $$ \frac{1}{\varepsilon_0}\int_{\tau_S}\rho d\tau_S=\rho\frac{1}{\varepsilon_0}\
 Quindi 
 $$ E4\pi r^2=\frac{1}{\varepsilon_0}\frac{4}{3}r^3\rho\implies 
 E4\pi=\rho\frac{1}{\varepsilon_0}\frac{4}{3}r \implies E = \frac{1}{4\pi\varepsilon_0}\frac{4}{3}r\rho=\frac{r}{3\varepsilon_0}\rho$$
-In quasto caso $E$ è proporzionale alla distanza $r$, si può esprimere in funzione di $Q$ sostituendo $\rho$
+In questo caso $E$ è proporzionale alla distanza $r$, si può esprimere in funzione di $Q$ sostituendo $\rho$
 $$ E=\frac{r}{3\varepsilon_0}\frac{Q}{\nicefrac{4}{3}\pi R^3}=\frac{Q}{4\pi\varepsilon_0}\frac{r}{R^3}$$
 Al centro si ha $r=0\implies E=0$. Il campo elettrico è massimo sulla superficie $r=R$, è lineare per $r$ quando il raggio della sfera è maggiore di quello della superficie, ed è proporzionale a $\frac{1}{r^2}$ quando il raggio della sfera è minore della superficie. L'andamento qualitativo è il seguente.
 \begin{center}
@@ -2135,7 +2169,7 @@ Si considerino due curve $C_1$ e $C_2$, diverse, ma entrambe congiungono i punti
  \begin{center}
     \includegraphics[width=0.7\textwidth]{images/curve.eps}
 \end{center}
-Per una curva chiusa $C$, si definisce la \textbf{forza elettromotrice} l'integrale di linea del campo elettrico lungo una curva chiusa $C$
+Per una curva chiusa $C$, si definisce la \textbf{forza elettromotrice} l'integrale di linea del campo elettrico lungo tale chiusa
 $$ \mathscr{E}=\oint_C \bar E d\bar s\implies L = q_0\mathscr{E}$$
 Un integrale di linea su una curva chiusa è anche detto \textit{circuitazione}.\acc 
 La forza di Coloumb è \textit{conservativa}, quindi il lavoro su una curva dipende esclusivamente dalla posizione dei punti sulla quale si calcola, e non dal percorso scelto. 
@@ -2194,30 +2228,30 @@ Il potenziale generato in un punto $r$ è
 $$ V(r)=\frac{1}{4\pi\varepsilon_0}\sum_{i=1}^n\frac{q_i}{r_i}$$
 Dove $r_i$ è la distanza fra l'$i$-esima carica ed il punto $r$. Si può estendere ad un solido continuo $\tau$ con carica $Q$ e  densità di carica $\sigma$, tale che $\int_{\tau}\sigma d\tau=Q$
 $$ V(r)=\frac{1}{4\pi\varepsilon_0}\int_{\tau}\frac{dq}{r}=\frac{1}{4\pi\varepsilon_0}\int_{\tau}\frac{\sigma d\tau}{r}$$
-\defi{(Operatore nabla)} In $\R^3$, con sistema di coordinate cartesiane $x,y,z$, con versori  $\hat x,\hat y,\hat z$, si definisce l'operatore nabla 
-$$ \nabla = \dfrac{\partial}{\partial x}\hat x+\dfrac{\partial}{\partial y}\hat y+\dfrac{\partial}{\partial z}\hat z$$
+\defi{(Operatore nabla)} In $\R^3$, con sistema di coordinate cartesiane $x,y,z$, con versori  $\hat i,\hat j,\hat k$, si definisce l'operatore nabla 
+$$ \nabla = \dfrac{\partial}{\partial x}\hat i+\dfrac{\partial}{\partial y}\hat j+\dfrac{\partial}{\partial z}\hat k$$
 \defi{(Gradiente)} Il gradiente di una funzione scalare $f:\R^3\rightarrow \R$ è il prodotto fra $f$ e l'operatore nabla $\nabla$, ed è uguale al vettore le cui componenti sono le derivate parziali di $f$ rispetto $x,y$ e $z$. 
 $$ \nabla f = f\cdot\Big( 
-    \dfrac{\partial}{\partial x}\hat x+\dfrac{\partial}{\partial y}\hat y+\dfrac{\partial}{\partial z}    
-\Big)= \dfrac{\partial f}{\partial x}\hat x+\dfrac{\partial f}{\partial y}\hat y+\dfrac{\partial f}{\partial z}\hat z$$
+    \dfrac{\partial}{\partial x}\hat i+\dfrac{\partial}{\partial y}\hat j+\dfrac{\partial}{\partial z}    
+\Big)= \dfrac{\partial f}{\partial x}\hat i+\dfrac{\partial f}{\partial y}\hat j+\dfrac{\partial f}{\partial z}\hat k$$
 Il gradiente trasforma una funzione scalare in un campo vettoriale.\\
 \textbf{Esempio} : La funzione $f(x,y,z)=x^2y$ ha gradiente 
-$$ \nabla f = 2xy\hat x + x^2\hat y + 0\hat z = (2xy,x^2,0) $$
+$$ \nabla f = 2xy\hat i + x^2\hat j + 0\hat k = (2xy,x^2,0) $$
 \begin{center}
     \includegraphics[width=0.65\textwidth]{images/grad.eps}
 \end{center}
-Si vuole introdurre ora una relazione che coinvolge il gradiente. Si consideri uno spostamento elementare $d\bar s = dx \hat x + dy\hat y +dz\hat z$, che unisce i punti 
+Si vuole introdurre ora una relazione che coinvolge il gradiente. Si consideri uno spostamento elementare $d\bar s = dx \hat i + dy\hat j +dz\hat k$, che unisce i punti   
 $$\begin{matrix}
     A = (x,y,z)\\ 
     B= (x+dx,y+dy,z+dz)
 \end{matrix}$$ 
 La differenza di potenziale infinitesima in questi due punti è 
 $$ dV=V(x,y,z)-V(x+dx,y+dy,z+dz)=-\bar E d\bar s = -E_x dx - E_y dy - E_z dz$$
-ricordando che 
-$$ V(A)-V(B)=\int_A^B \bar E d\bar s$$ 
-si ha che 
+abbiamo posto $dV=-\bar E d\bar s$ dato  che 
+$$ V(A)-V(B)=\int_A^B \bar E d\bar s=\int_A^B dV$$ 
+essendo
 $dV=\frac{\partial V}{\partial x}dx+\frac{\partial V}{\partial y}dy+\frac{\partial V}{\partial z}dz$
-Quindi 
+ si conclude che 
 $$ \begin{cases}
     E_x=-\displaystyle\frac{\partial V}{\partial x}\\  \\
     E_y=-\displaystyle\frac{\partial V}{\partial y}\\  \\
@@ -2252,7 +2286,7 @@ $$ E=\begin{cases}
    \displaystyle  \frac{Q}{4\pi\varepsilon_0}\frac{r}{R^3}\ \ r\le R 
 \end{cases}$$
 Si può calcolare il potenziale elettrostatico nei due casi integrando $E$ (in forma scalare, il suo modulo dipende solo dalla distanza).\acc  
-\textbf{caso esterno $r\ge R$} 
+\textbf{caso esterno $r\ge R$} (equivalente ad una carica puntiforme) 
 $$ \int_{r}^\infty E dr = V(r)-V(\infty)=V(r)=\frac{1}{4\pi\varepsilon_0}\frac{Q}{r}$$
 \textbf{caso interno $r\le R$}
 $$ \int_{R}^r E dr = V(R)-V(r)$$
@@ -2311,7 +2345,7 @@ La molecola di idrogeno (la più semplice che ci sia in natura) è composta da u
 \end{center} 
 Si vuole calcolare il potenziale del campo elettrico generato dal dipolo, in un generico punto $p$, denotiamo $\bar r_-$ il vettore congiungente $-q$ a $p$, e $\bar r_+$ il vettore congiungente $+q$ a $p$.
 $$ V(p)=\frac{q}{4\pi\varepsilon_0}\Big( \frac{1}{r_+}-\frac{1}{r_-} \Big)=\frac{q}{4\pi\varepsilon_0}\frac{r_--r_+}{r_-r_+}$$
-Se si considera un punto $p$ molto distante dal dipolo, in particolare, per cui $r_-$ ed $r_+$ sono molto maggiori di $d$, si possono approssimare le due rette considerandole come una unica. 
+Se si considera un punto $p$ molto distante dal dipolo, in particolare, per cui $r_-$ ed $r_+$ sono molto maggiori di $d$, si possono approssimare le due rette considerandole come un'unica retta. 
 $$ \begin{matrix}
     r_+>>d\\ 
     r_->>d 
@@ -2333,13 +2367,14 @@ $$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{\bar p \cdot \hat r}{r^2}=
 \frac{1}{4\pi \varepsilon_0} \frac{\bar p }{r^2}\frac{\bar r}{r}=
 \frac{1}{4\pi \varepsilon_0} \frac{\bar p \cdot \bar  r}{r^3}$$
 Se $\bar p$ è parallelo al versore $\hat z$, allora il prodotto scalare $\bar p \cdot \bar r$ sarà uguale al modulo di $\bar p$ moltiplicato per la coordinata $z$ di $\bar r$ 
-$$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{|\bar p|z}{(x^2+y^2+z^2)^{\nicefrac{3}{2}}}$$
+$$V(p)=\frac{1}{4\pi \varepsilon_0} \frac{|\bar p|z}{(x^2+y^2+z^2)^{\nicefrac{3}{2}}}=
+\frac{1}{4\pi \varepsilon_0} \frac{qdz}{(x^2+y^2+z^2)^{\nicefrac{3}{2}}}$$
 \begin{center}
     \includegraphics[width=0.45\textwidth]{images/MomentoDipolo2.eps}
 \end{center} 
 è possibile calcolare il campo elettrico considerando il gradiente del potenziale, ad esempio, per al coordinata $x$ il campo vale 
 $$ E_x=-\frac{\partial V}{\partial x}= 
--\frac{|\bar p|z}{4\pi\varepsilon_0}\Big( -\frac{3}{2}\cdot \frac{2x}{r^3} \Big)
+-\frac{qdz}{4\pi\varepsilon_0}\Big( -\frac{3}{2}\cdot \frac{2x}{r^3} \Big)
 $$
 Analogamente si possono calcolare $E_y$ e $E_z$.\acc 
 Si consideri ora un sistema di cariche diffuse nello spazio, per cui $d$ è la distanza massima fra ogni coppia di cariche. Si vuole considerare il potenziale in un punto molto distante dal sistema rispetto a $d$, in modo che si possa considerare (in modo approssimato) un unica distanza $r$ dal punto ed il sistema. 
@@ -2397,7 +2432,7 @@ Il potenziale del secondo guscio è
  Se $d$ è la distanza fra le due sfere, la differenza di potenziale risulta essere 
  $$ \Delta V =\frac{1}{4\pi\varepsilon_0}Q\frac{d}{R_1R_2} $$
 La capacità del sistema è data dalla differenza delle due capacità, che in questo caso è uguale alla carica fratto la d.d.p. Risulta essere 
-$$ C=\frac{Q}{\Delta V}={4\pi\varepsilon_0}\frac{R_1R_2}{d}$$
+$$ C=\frac{Q}{V_1}-\frac{Q}{V_2}=\frac{Q}{\Delta V}={4\pi\varepsilon_0}\frac{R_1R_2}{d}$$
 Sapendo che le superfici delle due sfere sono rispettivamente $$\begin{matrix}
     S_1=4\pi R_1^2\\ 
     S_2=4\pi R_2^2
@@ -2572,9 +2607,9 @@ Lo schema di due resistenze in serie è il seguente
     \includegraphics[width=0.6\textwidth]{images/resistenzaSerie.pdf}
 \end{center} 
 Si indicano $V_1$ e $V_2$ le d.d.p. La corrente $I$ è costante, per la prima legge di ohm si ha quindi che 
-$$ V_1=\frac{R_1}{I} \ \ \ \ \ V_2=\frac{R_2}{I}$$
+$$ V_1={R_1}{I} \ \ \ \ \ V_2={R_2}{I}$$
 ne consegue che la differenza di potenziale ai capi della serie è
-$$ V=V_1+V_2=\frac{R_1+R_2}{I}=\frac{R}{I}$$
+$$ V=V_1+V_2=(R_1+R_2){I}={R}{I}$$
 Le due resistenze in serie sono quindi equivalenti ad una resistenza il cui valore è la somma delle due. 
 $$ R=R_1+R_2$$
 Si consideri ora il seguente schema in cui due resistenze sono poste in parallelo\begin{center}
@@ -2722,7 +2757,7 @@ quindi
 $$ \frac{Q(t)}{C}-(-\frac{dQ(t)}{dt})R=0$$
 $$ R\frac{dQ(t)}{dt}=-\frac{Q(t)}{C}$$
 si risolve l'equazione differenziale 
-$$ \frac{dQ}{Q}=-\frac{1}{RC}$$
+$$ \frac{dQ}{Q}=-\frac{1}{RC}dt$$
 $$ \int_{Q_0}^{Q(t)}\frac{dQ}{Q}=-\int_0^t\frac{1}{RC}dt$$
 $Q_0$ è la carica iniziale del condensatore.
 $$ \ln\Big(\frac{Q(t)}{Q_0}\Big)=-\frac{1}{RC}t$$
@@ -2942,7 +2977,7 @@ Consideriamo adesso la \textit{circuitazione del campo magnetico}, per semplicit
 Informalmente, una linea chiusa è concatenata al filo percorso da corrente se ogni superficie che ha tale linea come frontiera, è attraversata almeno in un punto dal filo.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/concatenata.eps}
 \end{center}
-Sappiamo che il campo magnetico generato dal filo ha delle curve che sono circonferenze intorno ad esso, si vuole fare il prodotto scalare fra questo e le componenti infinitesimali $d\bar l$ della curva $l$. Come prima cosa, si proietta la curva $l$ sul piano in cui giaciono le linee di campo.\begin{center}
+Sappiamo che il campo magnetico generato dal filo ha delle curve che sono circonferenze intorno ad esso, si vuole fare il prodotto scalare fra questo e le componenti infinitesimali $d\bar l$ della curva $l$. Come prima cosa, si proietta la curva $l$ sul piano in cui giacciono le linee di campo.\begin{center}
     \includegraphics[width=\textwidth ]{images/CircuitazioneCampoMagnetico.eps}
 \end{center}
 si proietta $d\bar l$ sul vettore $\bar B$
@@ -2970,7 +3005,8 @@ $$ \frac{\mu_0I}{2\pi}(\alpha_2-\alpha_1)= \frac{\mu_0I}{2\pi}(2\pi)=\mu_0I $$
 \begin{center}
     \includegraphics[width=1\textwidth ]{images/CircuitazioneCampoMagnetico2.eps}
 \end{center}
-La prima legge di Ampere afferma che la circuitazione del campo magnetico è uguale al prodotto fra la costante $\mu_0$ e la corrente che scorre nel filo con cui la curva considerata è concatenata.
+\teo{}
+La  legge di Ampere afferma che la circuitazione del campo magnetico è uguale al prodotto fra la costante $\mu_0$ e la corrente che scorre nel filo con cui la curva considerata è concatenata.
 $$\oint_l \bar B d\bar l = \mu_0I_{concatenata} $$
 Ricordando che $I$ è il flusso del vettore densità di corrente $\bar j$, si può esprimere in maniera più formale la corrente concatenata come 
 \eqImportante{$\displaystyle \oint_l \bar B d\bar l=\mu_0\int_{S_l}\bar j d\bar S$} 
@@ -3004,7 +3040,7 @@ $$B2\pi r=\mu_0j\pi r^2 $$
 $$ B=\frac{\mu_0j\pi r^2}{2\pi r}=\frac{\mu_0j r}{2 }$$
 \subsection{Definizione di Ampere}
 In questa sezione verrà definità l'unità di misura della corrente. Si considerino 2 fili conduttori in cui scorre corrente, paralleli ad una distanza $d$. Le correnti sono rispettivamente $I_1$ e $I_2$. I fili sono lunghi $l$, e descritti dal vettore $\bar l$.\acc 
-Questi generanno due campi magnetici 
+Questi generano due campi magnetici 
 $$ \bar B_1=\frac{\mu_0I_1}{2\pi d}$$
 $$ \bar B_2=\frac{\mu_0I_2}{2\pi d}$$
 il primo filo risentirà di una forza 
@@ -3055,7 +3091,7 @@ $$ -\dfrac{d\phi}{dt}=SB\omega\sin(\omega t)$$
 Questa, è la circuitazione del campo elettrico nel circuito, ossia la forza elettromotrice, essendo che $V=RI$, se $R$ è la resistenza del conduttore, su questo scorrerà una corrente alternata:
 $$ I=\frac{1}{R}SB\omega\sin(\omega t)$$
 Nella legge di induzione elettromagnetica, è presente un segno $-$ per descrivere il fatto che la corrente generata si \textit{oppone alla variazione del flusso}. Si consideri un campo magnetico entrante, quindi di flusso negativo $$\phi_B<0$$
-ruotando il circuito, il flusso aumenta (il flusso negativo diminusice, avvicinandosi allo zero), quindi 
+ruotando il circuito, il flusso aumenta (il flusso negativo diminuisce, avvicinandosi allo zero), quindi 
 $$ \frac{d\phi_B}{dt}>0$$
 allora 
 $$ \text{f.e.m}=-\frac{d\phi_B}{dt} <0$$
@@ -3582,7 +3618,7 @@ $$ \begin{matrix}
     B_y(x,y,z,t)\\ 
     B_z(x,y,z,t)
 \end{matrix}$$
-Viviamo nell'assuzione che le onde siano piane, ossia, che i valori del campo (fissato un istante $t$) dipendano esclusivamente dalla direzione di propagazione (che assumiamo essere $x$).\acc 
+Viviamo nell'assunzione che le onde siano piane, ossia, che i valori del campo (fissato un istante $t$) dipendano esclusivamente dalla direzione di propagazione (che assumiamo essere $x$).\acc 
 Le onde piane a grandi distanze approssimano il fronte delle onde sferiche, inoltre, qualsiasi onda può essere espressa come sviluppo in onde piane.\begin{center}
     \includegraphics[width=\textwidth]{images/ondePiane.eps}
 \end{center}

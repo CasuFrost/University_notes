@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.30)  8 JAN 2025 13:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.30)  9 JAN 2025 17:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2461,14 +2461,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 NOTE: coordinate (0Y0.0e0],4Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
 
 
-pdfTeX warning: pdflatex.exe (file ./images/rotolamento.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/rotolamento.pdf, id=1274, 233.9139pt x 118.5228pt>
-File: images/rotolamento.pdf Graphic file (type pdf)
-<use images/rotolamento.pdf>
-Package pdftex.def Info: images/rotolamento.pdf  used on input line 1720.
-(pdftex.def)             Requested size: 227.62206pt x 115.33769pt.
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.39996pt, for example:
@@ -2476,7 +2468,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[45 <./images/rotolamento.pdf>]
+[45]
+
+pdfTeX warning: pdflatex.exe (file ./images/rotolamento.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/rotolamento.pdf, id=1278, 233.9139pt x 118.5228pt>
+File: images/rotolamento.pdf Graphic file (type pdf)
+<use images/rotolamento.pdf>
+Package pdftex.def Info: images/rotolamento.pdf  used on input line 1727.
+(pdftex.def)             Requested size: 227.62206pt x 115.33769pt.
 Package epstopdf Info: Source file: <images/puroRot.eps>
 (epstopdf)                    date: 2024-11-05 17:29:08
 (epstopdf)                    size: 93355 bytes
@@ -2484,12 +2483,12 @@ Package epstopdf Info: Source file: <images/puroRot.eps>
 (epstopdf)                    date: 2024-11-05 17:29:29
 (epstopdf)                    size: 10201 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/puroRot-eps-converted-to.pdf images/puroRot.eps>
-(epstopdf)             \includegraphics on input line 1737.
+(epstopdf)             \includegraphics on input line 1744.
 Package epstopdf Info: Output file is already uptodate.
-<images/puroRot-eps-converted-to.pdf, id=1287, 217.81375pt x 97.36375pt>
+<images/puroRot-eps-converted-to.pdf, id=1279, 217.81375pt x 97.36375pt>
 File: images/puroRot-eps-converted-to.pdf Graphic file (type pdf)
 <use images/puroRot-eps-converted-to.pdf>
-Package pdftex.def Info: images/puroRot-eps-converted-to.pdf  used on input line 1737.
+Package pdftex.def Info: images/puroRot-eps-converted-to.pdf  used on input line 1744.
 (pdftex.def)             Requested size: 318.66948pt x 142.44699pt.
 
 
@@ -2500,7 +2499,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[46 <./images/puroRot-eps-converted-to.pdf>]
+[46 <./images/rotolamento.pdf> <./images/puroRot-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/forzeEq1.eps>
 (epstopdf)                    date: 2024-11-05 17:44:32
 (epstopdf)                    size: 32354 bytes
@@ -2508,12 +2507,12 @@ Package epstopdf Info: Source file: <images/forzeEq1.eps>
 (epstopdf)                    date: 2024-11-05 17:44:39
 (epstopdf)                    size: 4969 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/forzeEq1-eps-converted-to.pdf images/forzeEq1.eps>
-(epstopdf)             \includegraphics on input line 1755.
+(epstopdf)             \includegraphics on input line 1762.
 Package epstopdf Info: Output file is already uptodate.
-<images/forzeEq1-eps-converted-to.pdf, id=1315, 67.25125pt x 59.22125pt>
+<images/forzeEq1-eps-converted-to.pdf, id=1314, 67.25125pt x 59.22125pt>
 File: images/forzeEq1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/forzeEq1-eps-converted-to.pdf>
-Package pdftex.def Info: images/forzeEq1-eps-converted-to.pdf  used on input line 1755.
+Package pdftex.def Info: images/forzeEq1-eps-converted-to.pdf  used on input line 1762.
 (pdftex.def)             Requested size: 136.57462pt x 120.26842pt.
 Package epstopdf Info: Source file: <images/forzeEq2.eps>
 (epstopdf)                    date: 2024-11-05 17:48:45
@@ -2522,13 +2521,23 @@ Package epstopdf Info: Source file: <images/forzeEq2.eps>
 (epstopdf)                    date: 2024-11-05 17:49:02
 (epstopdf)                    size: 5661 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/forzeEq2-eps-converted-to.pdf images/forzeEq2.eps>
-(epstopdf)             \includegraphics on input line 1760.
+(epstopdf)             \includegraphics on input line 1767.
 Package epstopdf Info: Output file is already uptodate.
-<images/forzeEq2-eps-converted-to.pdf, id=1316, 104.39pt x 87.32625pt>
+<images/forzeEq2-eps-converted-to.pdf, id=1315, 104.39pt x 87.32625pt>
 File: images/forzeEq2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/forzeEq2-eps-converted-to.pdf>
-Package pdftex.def Info: images/forzeEq2-eps-converted-to.pdf  used on input line 1760.
+Package pdftex.def Info: images/forzeEq2-eps-converted-to.pdf  used on input line 1767.
 (pdftex.def)             Requested size: 182.09486pt x 152.35019pt.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[47 <./images/forzeEq1-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/forzeEq3.eps>
 (epstopdf)                    date: 2024-11-05 17:57:04
 (epstopdf)                    size: 77638 bytes
@@ -2536,23 +2545,13 @@ Package epstopdf Info: Source file: <images/forzeEq3.eps>
 (epstopdf)                    date: 2024-11-05 17:58:16
 (epstopdf)                    size: 8637 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/forzeEq3-eps-converted-to.pdf images/forzeEq3.eps>
-(epstopdf)             \includegraphics on input line 1764.
+(epstopdf)             \includegraphics on input line 1771.
 Package epstopdf Info: Output file is already uptodate.
-<images/forzeEq3-eps-converted-to.pdf, id=1317, 86.3225pt x 91.34125pt>
+<images/forzeEq3-eps-converted-to.pdf, id=1330, 86.3225pt x 91.34125pt>
 File: images/forzeEq3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/forzeEq3-eps-converted-to.pdf>
-Package pdftex.def Info: images/forzeEq3-eps-converted-to.pdf  used on input line 1764.
+Package pdftex.def Info: images/forzeEq3-eps-converted-to.pdf  used on input line 1771.
 (pdftex.def)             Requested size: 182.09486pt x 192.70311pt.
-
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.39996pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.39996pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
-
-[47 <./images/forzeEq1-eps-converted-to.pdf> <./images/forzeEq2-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/forzeEq4.eps>
 (epstopdf)                    date: 2024-11-07 13:33:43
 (epstopdf)                    size: 48193 bytes
@@ -2560,27 +2559,13 @@ Package epstopdf Info: Source file: <images/forzeEq4.eps>
 (epstopdf)                    date: 2024-11-07 13:34:00
 (epstopdf)                    size: 6326 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/forzeEq4-eps-converted-to.pdf images/forzeEq4.eps>
-(epstopdf)             \includegraphics on input line 1776.
+(epstopdf)             \includegraphics on input line 1783.
 Package epstopdf Info: Output file is already uptodate.
-<images/forzeEq4-eps-converted-to.pdf, id=1339, 229.85875pt x 152.57pt>
+<images/forzeEq4-eps-converted-to.pdf, id=1331, 229.85875pt x 152.57pt>
 File: images/forzeEq4-eps-converted-to.pdf Graphic file (type pdf)
 <use images/forzeEq4-eps-converted-to.pdf>
-Package pdftex.def Info: images/forzeEq4-eps-converted-to.pdf  used on input line 1776.
+Package pdftex.def Info: images/forzeEq4-eps-converted-to.pdf  used on input line 1783.
 (pdftex.def)             Requested size: 227.62206pt x 151.09364pt.
-Package epstopdf Info: Source file: <images/coppia.eps>
-(epstopdf)                    date: 2024-11-07 13:40:02
-(epstopdf)                    size: 32464 bytes
-(epstopdf)             Output file: <images/coppia-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-11-07 13:42:36
-(epstopdf)                    size: 4918 bytes
-(epstopdf)             Command: <miktex-epstopdf --outfile=images/coppia-eps-converted-to.pdf images/coppia.eps>
-(epstopdf)             \includegraphics on input line 1780.
-Package epstopdf Info: Output file is already uptodate.
-<images/coppia-eps-converted-to.pdf, id=1340, 126.4725pt x 109.40875pt>
-File: images/coppia-eps-converted-to.pdf Graphic file (type pdf)
-<use images/coppia-eps-converted-to.pdf>
-Package pdftex.def Info: images/coppia-eps-converted-to.pdf  used on input line 1780.
-(pdftex.def)             Requested size: 136.57462pt x 118.14964pt.
 
 
 
@@ -2590,7 +2575,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[48 <./images/forzeEq3-eps-converted-to.pdf> <./images/forzeEq4-eps-converted-to.pdf>]
+[48 <./images/forzeEq2-eps-converted-to.pdf> <./images/forzeEq3-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <images/coppia.eps>
+(epstopdf)                    date: 2024-11-07 13:40:02
+(epstopdf)                    size: 32464 bytes
+(epstopdf)             Output file: <images/coppia-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-11-07 13:42:36
+(epstopdf)                    size: 4918 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/coppia-eps-converted-to.pdf images/coppia.eps>
+(epstopdf)             \includegraphics on input line 1787.
+Package epstopdf Info: Output file is already uptodate.
+<images/coppia-eps-converted-to.pdf, id=1363, 126.4725pt x 109.40875pt>
+File: images/coppia-eps-converted-to.pdf Graphic file (type pdf)
+<use images/coppia-eps-converted-to.pdf>
+Package pdftex.def Info: images/coppia-eps-converted-to.pdf  used on input line 1787.
+(pdftex.def)             Requested size: 136.57462pt x 118.14964pt.
 Package epstopdf Info: Source file: <images/esFune.eps>
 (epstopdf)                    date: 2024-11-13 14:37:04
 (epstopdf)                    size: 64474 bytes
@@ -2598,12 +2597,12 @@ Package epstopdf Info: Source file: <images/esFune.eps>
 (epstopdf)                    date: 2024-11-13 14:37:11
 (epstopdf)                    size: 8355 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/esFune-eps-converted-to.pdf images/esFune.eps>
-(epstopdf)             \includegraphics on input line 1796.
+(epstopdf)             \includegraphics on input line 1803.
 Package epstopdf Info: Output file is already uptodate.
-<images/esFune-eps-converted-to.pdf, id=1376, 196.735pt x 104.39pt>
+<images/esFune-eps-converted-to.pdf, id=1364, 196.735pt x 104.39pt>
 File: images/esFune-eps-converted-to.pdf Graphic file (type pdf)
 <use images/esFune-eps-converted-to.pdf>
-Package pdftex.def Info: images/esFune-eps-converted-to.pdf  used on input line 1796.
+Package pdftex.def Info: images/esFune-eps-converted-to.pdf  used on input line 1803.
 (pdftex.def)             Requested size: 227.62206pt x 120.77866pt.
 
 
@@ -2614,7 +2613,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[49 <./images/coppia-eps-converted-to.pdf> <./images/esFune-eps-converted-to.pdf>]
+[49 <./images/forzeEq4-eps-converted-to.pdf> <./images/coppia-eps-converted-to.pdf> <./images/esFune-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/caldaia.eps>
 (epstopdf)                    date: 2024-11-13 14:50:51
 (epstopdf)                    size: 34544 bytes
@@ -2622,20 +2621,29 @@ Package epstopdf Info: Source file: <images/caldaia.eps>
 (epstopdf)                    date: 2024-11-13 14:53:13
 (epstopdf)                    size: 5741 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/caldaia-eps-converted-to.pdf images/caldaia.eps>
-(epstopdf)             \includegraphics on input line 1817.
+(epstopdf)             \includegraphics on input line 1824.
 Package epstopdf Info: Output file is already uptodate.
-<images/caldaia-eps-converted-to.pdf, id=1407, 160.6pt x 88.33pt>
+<images/caldaia-eps-converted-to.pdf, id=1406, 160.6pt x 88.33pt>
 File: images/caldaia-eps-converted-to.pdf Graphic file (type pdf)
 <use images/caldaia-eps-converted-to.pdf>
-Package pdftex.def Info: images/caldaia-eps-converted-to.pdf  used on input line 1817.
+Package pdftex.def Info: images/caldaia-eps-converted-to.pdf  used on input line 1824.
 (pdftex.def)             Requested size: 227.62206pt x 125.19629pt.
 
 
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.39996pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.39996pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
+
+[50 <./images/caldaia-eps-converted-to.pdf>]
+
 pdfTeX warning: pdflatex.exe (file ./images/acqua.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/acqua.pdf, id=1408, 153.6942pt x 125.5089pt>
+<images/acqua.pdf, id=1421, 153.6942pt x 125.5089pt>
 File: images/acqua.pdf Graphic file (type pdf)
 <use images/acqua.pdf>
-Package pdftex.def Info: images/acqua.pdf  used on input line 1830.
+Package pdftex.def Info: images/acqua.pdf  used on input line 1860.
 (pdftex.def)             Requested size: 227.62206pt x 185.8862pt.
 
 
@@ -2646,24 +2654,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
-[50 <./images/caldaia-eps-converted-to.pdf> <./images/acqua.pdf>]
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.39996pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.39996pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
-
-[51]
+[51 <./images/acqua.pdf>]
 Capitolo 4.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/cariche.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/cariche.pdf, id=1437, 499.8675pt x 52.2753pt>
+<images/cariche.pdf, id=1436, 499.8675pt x 52.2753pt>
 File: images/cariche.pdf Graphic file (type pdf)
 <use images/cariche.pdf>
-Package pdftex.def Info: images/cariche.pdf  used on input line 1863.
+Package pdftex.def Info: images/cariche.pdf  used on input line 1893.
 (pdftex.def)             Requested size: 455.24411pt x 47.61046pt.
 
 
@@ -2672,10 +2671,10 @@ Package pdftex.def Info: images/cariche.pdf  used on input line 1863.
  <./images/cariche.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/campoElettrico.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/campoElettrico.pdf, id=1451, 445.665pt x 237.7683pt>
+<images/campoElettrico.pdf, id=1450, 445.665pt x 237.7683pt>
 File: images/campoElettrico.pdf Graphic file (type pdf)
 <use images/campoElettrico.pdf>
-Package pdftex.def Info: images/campoElettrico.pdf  used on input line 1882.
+Package pdftex.def Info: images/campoElettrico.pdf  used on input line 1912.
 (pdftex.def)             Requested size: 455.24411pt x 242.87961pt.
 
 
@@ -2694,12 +2693,12 @@ Package epstopdf Info: Source file: <images/dipolo.eps>
 (epstopdf)                    date: 2024-11-12 20:18:35
 (epstopdf)                    size: 4575 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/dipolo-eps-converted-to.pdf images/dipolo.eps>
-(epstopdf)             \includegraphics on input line 1890.
+(epstopdf)             \includegraphics on input line 1920.
 Package epstopdf Info: Output file is already uptodate.
-<images/dipolo-eps-converted-to.pdf, id=1470, 2940.9875pt x 2092.81876pt>
+<images/dipolo-eps-converted-to.pdf, id=1469, 2940.9875pt x 2092.81876pt>
 File: images/dipolo-eps-converted-to.pdf Graphic file (type pdf)
 <use images/dipolo-eps-converted-to.pdf>
-Package pdftex.def Info: images/dipolo-eps-converted-to.pdf  used on input line 1890.
+Package pdftex.def Info: images/dipolo-eps-converted-to.pdf  used on input line 1920.
 (pdftex.def)             Requested size: 318.66948pt x 226.76192pt.
 Package epstopdf Info: Source file: <images/anello1.eps>
 (epstopdf)                    date: 2024-11-12 20:52:54
@@ -2708,12 +2707,12 @@ Package epstopdf Info: Source file: <images/anello1.eps>
 (epstopdf)                    date: 2024-11-12 20:53:26
 (epstopdf)                    size: 7108 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/anello1-eps-converted-to.pdf images/anello1.eps>
-(epstopdf)             \includegraphics on input line 1902.
+(epstopdf)             \includegraphics on input line 1932.
 Package epstopdf Info: Output file is already uptodate.
-<images/anello1-eps-converted-to.pdf, id=1471, 169.63374pt x 72.27pt>
+<images/anello1-eps-converted-to.pdf, id=1470, 169.63374pt x 72.27pt>
 File: images/anello1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/anello1-eps-converted-to.pdf>
-Package pdftex.def Info: images/anello1-eps-converted-to.pdf  used on input line 1902.
+Package pdftex.def Info: images/anello1-eps-converted-to.pdf  used on input line 1932.
 (pdftex.def)             Requested size: 182.09486pt x 77.58174pt.
 
 
@@ -2732,12 +2731,12 @@ Package epstopdf Info: Source file: <images/anello2.eps>
 (epstopdf)                    date: 2024-11-12 20:39:19
 (epstopdf)                    size: 6055 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/anello2-eps-converted-to.pdf images/anello2.eps>
-(epstopdf)             \includegraphics on input line 1908.
+(epstopdf)             \includegraphics on input line 1938.
 Package epstopdf Info: Output file is already uptodate.
-<images/anello2-eps-converted-to.pdf, id=1492, 169.63374pt x 72.27pt>
+<images/anello2-eps-converted-to.pdf, id=1491, 169.63374pt x 72.27pt>
 File: images/anello2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/anello2-eps-converted-to.pdf>
-Package pdftex.def Info: images/anello2-eps-converted-to.pdf  used on input line 1908.
+Package pdftex.def Info: images/anello2-eps-converted-to.pdf  used on input line 1938.
 (pdftex.def)             Requested size: 273.14923pt x 116.37648pt.
 Package epstopdf Info: Source file: <images/anello3.eps>
 (epstopdf)                    date: 2024-11-12 20:43:18
@@ -2746,12 +2745,12 @@ Package epstopdf Info: Source file: <images/anello3.eps>
 (epstopdf)                    date: 2024-11-12 20:43:41
 (epstopdf)                    size: 4830 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/anello3-eps-converted-to.pdf images/anello3.eps>
-(epstopdf)             \includegraphics on input line 1912.
+(epstopdf)             \includegraphics on input line 1942.
 Package epstopdf Info: Output file is already uptodate.
-<images/anello3-eps-converted-to.pdf, id=1493, 169.63374pt x 68.255pt>
+<images/anello3-eps-converted-to.pdf, id=1492, 169.63374pt x 68.255pt>
 File: images/anello3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/anello3-eps-converted-to.pdf>
-Package pdftex.def Info: images/anello3-eps-converted-to.pdf  used on input line 1912.
+Package pdftex.def Info: images/anello3-eps-converted-to.pdf  used on input line 1942.
 (pdftex.def)             Requested size: 273.14923pt x 109.91113pt.
 Package epstopdf Info: Source file: <images/anello4.eps>
 (epstopdf)                    date: 2024-11-12 20:50:10
@@ -2760,12 +2759,12 @@ Package epstopdf Info: Source file: <images/anello4.eps>
 (epstopdf)                    date: 2024-11-12 20:50:26
 (epstopdf)                    size: 4609 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/anello4-eps-converted-to.pdf images/anello4.eps>
-(epstopdf)             \includegraphics on input line 1915.
+(epstopdf)             \includegraphics on input line 1945.
 Package epstopdf Info: Output file is already uptodate.
-<images/anello4-eps-converted-to.pdf, id=1494, 166.6225pt x 71.26625pt>
+<images/anello4-eps-converted-to.pdf, id=1493, 166.6225pt x 71.26625pt>
 File: images/anello4-eps-converted-to.pdf Graphic file (type pdf)
 <use images/anello4-eps-converted-to.pdf>
-Package pdftex.def Info: images/anello4-eps-converted-to.pdf  used on input line 1915.
+Package pdftex.def Info: images/anello4-eps-converted-to.pdf  used on input line 1945.
 (pdftex.def)             Requested size: 273.14923pt x 116.848pt.
 
 
@@ -2779,10 +2778,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [55 <./images/anello2-eps-converted-to.pdf> <./images/anello3-eps-converted-to.pdf> <./images/anello4-eps-converted-to.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/bacchettaCarica.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/bacchettaCarica.pdf, id=1517, 268.12169pt x 151.5261pt>
+<images/bacchettaCarica.pdf, id=1516, 268.12169pt x 151.5261pt>
 File: images/bacchettaCarica.pdf Graphic file (type pdf)
 <use images/bacchettaCarica.pdf>
-Package pdftex.def Info: images/bacchettaCarica.pdf  used on input line 1968.
+Package pdftex.def Info: images/bacchettaCarica.pdf  used on input line 1998.
 (pdftex.def)             Requested size: 273.14923pt x 154.38115pt.
 
 
@@ -2801,12 +2800,12 @@ Package epstopdf Info: Source file: <images/tan.eps>
 (epstopdf)                    date: 2024-12-30 10:04:39
 (epstopdf)                    size: 9860 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/tan-eps-converted-to.pdf images/tan.eps>
-(epstopdf)             \includegraphics on input line 1972.
+(epstopdf)             \includegraphics on input line 2002.
 Package epstopdf Info: Output file is already uptodate.
-<images/tan-eps-converted-to.pdf, id=1523, 255.95625pt x 64.24pt>
+<images/tan-eps-converted-to.pdf, id=1522, 255.95625pt x 64.24pt>
 File: images/tan-eps-converted-to.pdf Graphic file (type pdf)
 <use images/tan-eps-converted-to.pdf>
-Package pdftex.def Info: images/tan-eps-converted-to.pdf  used on input line 1972.
+Package pdftex.def Info: images/tan-eps-converted-to.pdf  used on input line 2002.
 (pdftex.def)             Requested size: 273.14923pt x 68.55966pt.
 Package epstopdf Info: Source file: <images/discoCarico.eps>
 (epstopdf)                    date: 2024-11-13 12:36:54
@@ -2815,12 +2814,12 @@ Package epstopdf Info: Source file: <images/discoCarico.eps>
 (epstopdf)                    date: 2024-11-13 12:37:12
 (epstopdf)                    size: 4896 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/discoCarico-eps-converted-to.pdf images/discoCarico.eps>
-(epstopdf)             \includegraphics on input line 1984.
+(epstopdf)             \includegraphics on input line 2018.
 Package epstopdf Info: Output file is already uptodate.
-<images/discoCarico-eps-converted-to.pdf, id=1524, 176.66pt x 108.405pt>
+<images/discoCarico-eps-converted-to.pdf, id=1523, 176.66pt x 108.405pt>
 File: images/discoCarico-eps-converted-to.pdf Graphic file (type pdf)
 <use images/discoCarico-eps-converted-to.pdf>
-Package pdftex.def Info: images/discoCarico-eps-converted-to.pdf  used on input line 1984.
+Package pdftex.def Info: images/discoCarico-eps-converted-to.pdf  used on input line 2018.
 (pdftex.def)             Requested size: 227.62206pt x 139.67926pt.
 
 
@@ -2839,12 +2838,12 @@ Package epstopdf Info: Source file: <images/discoCarico2.eps>
 (epstopdf)                    date: 2024-11-13 12:44:06
 (epstopdf)                    size: 5440 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/discoCarico2-eps-converted-to.pdf images/discoCarico2.eps>
-(epstopdf)             \includegraphics on input line 1993.
+(epstopdf)             \includegraphics on input line 2027.
 Package epstopdf Info: Output file is already uptodate.
-<images/discoCarico2-eps-converted-to.pdf, id=1568, 176.66pt x 98.3675pt>
+<images/discoCarico2-eps-converted-to.pdf, id=1567, 176.66pt x 98.3675pt>
 File: images/discoCarico2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/discoCarico2-eps-converted-to.pdf>
-Package pdftex.def Info: images/discoCarico2-eps-converted-to.pdf  used on input line 1993.
+Package pdftex.def Info: images/discoCarico2-eps-converted-to.pdf  used on input line 2027.
 (pdftex.def)             Requested size: 227.62206pt x 126.74597pt.
 Package epstopdf Info: Source file: <images/pianoCarico.eps>
 (epstopdf)                    date: 2024-11-13 14:13:28
@@ -2853,12 +2852,12 @@ Package epstopdf Info: Source file: <images/pianoCarico.eps>
 (epstopdf)                    date: 2024-11-13 14:13:36
 (epstopdf)                    size: 3530 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/pianoCarico-eps-converted-to.pdf images/pianoCarico.eps>
-(epstopdf)             \includegraphics on input line 2021.
+(epstopdf)             \includegraphics on input line 2055.
 Package epstopdf Info: Output file is already uptodate.
-<images/pianoCarico-eps-converted-to.pdf, id=1569, 181.67876pt x 144.54pt>
+<images/pianoCarico-eps-converted-to.pdf, id=1568, 181.67876pt x 144.54pt>
 File: images/pianoCarico-eps-converted-to.pdf Graphic file (type pdf)
 <use images/pianoCarico-eps-converted-to.pdf>
-Package pdftex.def Info: images/pianoCarico-eps-converted-to.pdf  used on input line 2021.
+Package pdftex.def Info: images/pianoCarico-eps-converted-to.pdf  used on input line 2055.
 (pdftex.def)             Requested size: 182.09486pt x 144.87486pt.
 
 
@@ -2877,12 +2876,12 @@ Package epstopdf Info: Source file: <images/pianoCarico2.eps>
 (epstopdf)                    date: 2024-11-13 14:16:57
 (epstopdf)                    size: 4609 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/pianoCarico2-eps-converted-to.pdf images/pianoCarico2.eps>
-(epstopdf)             \includegraphics on input line 2025.
+(epstopdf)             \includegraphics on input line 2059.
 Package epstopdf Info: Output file is already uptodate.
-<images/pianoCarico2-eps-converted-to.pdf, id=1583, 306.14375pt x 144.54pt>
+<images/pianoCarico2-eps-converted-to.pdf, id=1582, 306.14375pt x 144.54pt>
 File: images/pianoCarico2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/pianoCarico2-eps-converted-to.pdf>
-Package pdftex.def Info: images/pianoCarico2-eps-converted-to.pdf  used on input line 2025.
+Package pdftex.def Info: images/pianoCarico2-eps-converted-to.pdf  used on input line 2059.
 (pdftex.def)             Requested size: 318.66948pt x 150.46138pt.
 Package epstopdf Info: Source file: <images/pianoCarico3.eps>
 (epstopdf)                    date: 2024-11-13 14:20:37
@@ -2891,12 +2890,12 @@ Package epstopdf Info: Source file: <images/pianoCarico3.eps>
 (epstopdf)                    date: 2024-11-13 14:21:04
 (epstopdf)                    size: 5152 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/pianoCarico3-eps-converted-to.pdf images/pianoCarico3.eps>
-(epstopdf)             \includegraphics on input line 2029.
+(epstopdf)             \includegraphics on input line 2063.
 Package epstopdf Info: Output file is already uptodate.
-<images/pianoCarico3-eps-converted-to.pdf, id=1584, 345.29pt x 144.54pt>
+<images/pianoCarico3-eps-converted-to.pdf, id=1583, 345.29pt x 144.54pt>
 File: images/pianoCarico3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/pianoCarico3-eps-converted-to.pdf>
-Package pdftex.def Info: images/pianoCarico3-eps-converted-to.pdf  used on input line 2029.
+Package pdftex.def Info: images/pianoCarico3-eps-converted-to.pdf  used on input line 2063.
 (pdftex.def)             Requested size: 341.43307pt x 142.9274pt.
 
 
@@ -2915,22 +2914,22 @@ Package epstopdf Info: Source file: <images/flusso.eps>
 (epstopdf)                    date: 2024-11-15 17:45:02
 (epstopdf)                    size: 5839 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/flusso-eps-converted-to.pdf images/flusso.eps>
-(epstopdf)             \includegraphics on input line 2040.
+(epstopdf)             \includegraphics on input line 2074.
 Package epstopdf Info: Output file is already uptodate.
-<images/flusso-eps-converted-to.pdf, id=1595, 116.435pt x 101.37875pt>
+<images/flusso-eps-converted-to.pdf, id=1594, 116.435pt x 101.37875pt>
 File: images/flusso-eps-converted-to.pdf Graphic file (type pdf)
 <use images/flusso-eps-converted-to.pdf>
-Package pdftex.def Info: images/flusso-eps-converted-to.pdf  used on input line 2040.
+Package pdftex.def Info: images/flusso-eps-converted-to.pdf  used on input line 2074.
 (pdftex.def)             Requested size: 136.57462pt x 118.92667pt.
-<images/flussoCampo2.pdf, id=1596, 132.495pt x 124.465pt>
+<images/flussoCampo2.pdf, id=1595, 132.495pt x 124.465pt>
 File: images/flussoCampo2.pdf Graphic file (type pdf)
 <use images/flussoCampo2.pdf>
-Package pdftex.def Info: images/flussoCampo2.pdf  used on input line 2047.
+Package pdftex.def Info: images/flussoCampo2.pdf  used on input line 2081.
 (pdftex.def)             Requested size: 159.33821pt x 149.6915pt.
-<images/Gauss3.pdf, id=1598, 113.42375pt x 136.51pt>
+<images/Gauss3.pdf, id=1597, 113.42375pt x 136.51pt>
 File: images/Gauss3.pdf Graphic file (type pdf)
 <use images/Gauss3.pdf>
-Package pdftex.def Info: images/Gauss3.pdf  used on input line 2059.
+Package pdftex.def Info: images/Gauss3.pdf  used on input line 2093.
 (pdftex.def)             Requested size: 159.33821pt x 191.7709pt.
 
 
@@ -2953,12 +2952,12 @@ Package epstopdf Info: Source file: <images/caricaEst.eps>
 (epstopdf)                    date: 2024-11-15 17:45:02
 (epstopdf)                    size: 5248 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/caricaEst-eps-converted-to.pdf images/caricaEst.eps>
-(epstopdf)             \includegraphics on input line 2074.
+(epstopdf)             \includegraphics on input line 2108.
 Package epstopdf Info: Output file is already uptodate.
-<images/caricaEst-eps-converted-to.pdf, id=1619, 211.79124pt x 94.3525pt>
+<images/caricaEst-eps-converted-to.pdf, id=1618, 211.79124pt x 94.3525pt>
 File: images/caricaEst-eps-converted-to.pdf Graphic file (type pdf)
 <use images/caricaEst-eps-converted-to.pdf>
-Package pdftex.def Info: images/caricaEst-eps-converted-to.pdf  used on input line 2074.
+Package pdftex.def Info: images/caricaEst-eps-converted-to.pdf  used on input line 2108.
 (pdftex.def)             Requested size: 227.62206pt x 101.40822pt.
 
 
@@ -2973,7 +2972,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2083 ...normale al campo $\bar E$.\begin{center}
+l.2113 ...{\varepsilon_0}\int_{\tau_S}\rho d\tau$}
                                                    <./images/Gauss3.pdf> <./images/caricaEst-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/GaussEx1.eps>
 (epstopdf)                    date: 2024-11-15 17:45:02
@@ -2982,12 +2981,12 @@ Package epstopdf Info: Source file: <images/GaussEx1.eps>
 (epstopdf)                    date: 2024-11-15 17:45:02
 (epstopdf)                    size: 5336 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/GaussEx1-eps-converted-to.pdf images/GaussEx1.eps>
-(epstopdf)             \includegraphics on input line 2084.
+(epstopdf)             \includegraphics on input line 2118.
 Package epstopdf Info: Output file is already uptodate.
-<images/GaussEx1-eps-converted-to.pdf, id=1632, 192.72pt x 66.2475pt>
+<images/GaussEx1-eps-converted-to.pdf, id=1631, 192.72pt x 66.2475pt>
 File: images/GaussEx1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/GaussEx1-eps-converted-to.pdf>
-Package pdftex.def Info: images/GaussEx1-eps-converted-to.pdf  used on input line 2084.
+Package pdftex.def Info: images/GaussEx1-eps-converted-to.pdf  used on input line 2118.
 (pdftex.def)             Requested size: 318.66948pt x 109.5422pt.
 Package epstopdf Info: Source file: <images/sferaCarica.eps>
 (epstopdf)                    date: 2024-11-15 17:45:02
@@ -2996,27 +2995,13 @@ Package epstopdf Info: Source file: <images/sferaCarica.eps>
 (epstopdf)                    date: 2024-11-15 17:45:02
 (epstopdf)                    size: 4252 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/sferaCarica-eps-converted-to.pdf images/sferaCarica.eps>
-(epstopdf)             \includegraphics on input line 2099.
+(epstopdf)             \includegraphics on input line 2133.
 Package epstopdf Info: Output file is already uptodate.
-<images/sferaCarica-eps-converted-to.pdf, id=1633, 162.6075pt x 162.6075pt>
+<images/sferaCarica-eps-converted-to.pdf, id=1632, 162.6075pt x 162.6075pt>
 File: images/sferaCarica-eps-converted-to.pdf Graphic file (type pdf)
 <use images/sferaCarica-eps-converted-to.pdf>
-Package pdftex.def Info: images/sferaCarica-eps-converted-to.pdf  used on input line 2099.
+Package pdftex.def Info: images/sferaCarica-eps-converted-to.pdf  used on input line 2133.
 (pdftex.def)             Requested size: 136.57462pt x 136.5844pt.
-Package epstopdf Info: Source file: <images/sferaCarica2.eps>
-(epstopdf)                    date: 2024-11-15 17:45:02
-(epstopdf)                    size: 18935 bytes
-(epstopdf)             Output file: <images/sferaCarica2-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-11-15 17:45:02
-(epstopdf)                    size: 4229 bytes
-(epstopdf)             Command: <miktex-epstopdf --outfile=images/sferaCarica2-eps-converted-to.pdf images/sferaCarica2.eps>
-(epstopdf)             \includegraphics on input line 2110.
-Package epstopdf Info: Output file is already uptodate.
-<images/sferaCarica2-eps-converted-to.pdf, id=1634, 98.3675pt x 98.3675pt>
-File: images/sferaCarica2-eps-converted-to.pdf Graphic file (type pdf)
-<use images/sferaCarica2-eps-converted-to.pdf>
-Package pdftex.def Info: images/sferaCarica2-eps-converted-to.pdf  used on input line 2110.
-(pdftex.def)             Requested size: 113.81102pt x 113.81065pt.
 
 
 
@@ -3027,6 +3012,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [62 <./images/GaussEx1-eps-converted-to.pdf> <./images/sferaCarica-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <images/sferaCarica2.eps>
+(epstopdf)                    date: 2024-11-15 17:45:02
+(epstopdf)                    size: 18935 bytes
+(epstopdf)             Output file: <images/sferaCarica2-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-11-15 17:45:02
+(epstopdf)                    size: 4229 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=images/sferaCarica2-eps-converted-to.pdf images/sferaCarica2.eps>
+(epstopdf)             \includegraphics on input line 2144.
+Package epstopdf Info: Output file is already uptodate.
+<images/sferaCarica2-eps-converted-to.pdf, id=1650, 98.3675pt x 98.3675pt>
+File: images/sferaCarica2-eps-converted-to.pdf Graphic file (type pdf)
+<use images/sferaCarica2-eps-converted-to.pdf>
+Package pdftex.def Info: images/sferaCarica2-eps-converted-to.pdf  used on input line 2144.
+(pdftex.def)             Requested size: 113.81102pt x 113.81065pt.
 Package epstopdf Info: Source file: <images/campoSfera.eps>
 (epstopdf)                    date: 2024-11-15 17:59:35
 (epstopdf)                    size: 92036 bytes
@@ -3034,12 +3033,12 @@ Package epstopdf Info: Source file: <images/campoSfera.eps>
 (epstopdf)                    date: 2024-11-15 17:59:42
 (epstopdf)                    size: 10055 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/campoSfera-eps-converted-to.pdf images/campoSfera.eps>
-(epstopdf)             \includegraphics on input line 2121.
+(epstopdf)             \includegraphics on input line 2155.
 Package epstopdf Info: Output file is already uptodate.
-<images/campoSfera-eps-converted-to.pdf, id=1652, 217.81375pt x 92.345pt>
+<images/campoSfera-eps-converted-to.pdf, id=1651, 217.81375pt x 92.345pt>
 File: images/campoSfera-eps-converted-to.pdf Graphic file (type pdf)
 <use images/campoSfera-eps-converted-to.pdf>
-Package pdftex.def Info: images/campoSfera-eps-converted-to.pdf  used on input line 2121.
+Package pdftex.def Info: images/campoSfera-eps-converted-to.pdf  used on input line 2155.
 (pdftex.def)             Requested size: 341.43307pt x 144.75508pt.
 Package epstopdf Info: Source file: <images/lavoroElettrico1.eps>
 (epstopdf)                    date: 2024-11-19 14:26:58
@@ -3048,12 +3047,12 @@ Package epstopdf Info: Source file: <images/lavoroElettrico1.eps>
 (epstopdf)                    date: 2024-11-19 14:27:21
 (epstopdf)                    size: 7915 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/lavoroElettrico1-eps-converted-to.pdf images/lavoroElettrico1.eps>
-(epstopdf)             \includegraphics on input line 2129.
+(epstopdf)             \includegraphics on input line 2163.
 Package epstopdf Info: Output file is already uptodate.
-<images/lavoroElettrico1-eps-converted-to.pdf, id=1653, 136.51pt x 62.2325pt>
+<images/lavoroElettrico1-eps-converted-to.pdf, id=1652, 136.51pt x 62.2325pt>
 File: images/lavoroElettrico1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/lavoroElettrico1-eps-converted-to.pdf>
-Package pdftex.def Info: images/lavoroElettrico1-eps-converted-to.pdf  used on input line 2129.
+Package pdftex.def Info: images/lavoroElettrico1-eps-converted-to.pdf  used on input line 2163.
 (pdftex.def)             Requested size: 227.62206pt x 103.77596pt.
 
 
@@ -3072,12 +3071,12 @@ Package epstopdf Info: Source file: <images/curve.eps>
 (epstopdf)                    date: 2025-01-03 10:10:24
 (epstopdf)                    size: 5093 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/curve-eps-converted-to.pdf images/curve.eps>
-(epstopdf)             \includegraphics on input line 2136.
+(epstopdf)             \includegraphics on input line 2170.
 Package epstopdf Info: Output file is already uptodate.
-<images/curve-eps-converted-to.pdf, id=1684, 224.84pt x 56.21pt>
+<images/curve-eps-converted-to.pdf, id=1683, 224.84pt x 56.21pt>
 File: images/curve-eps-converted-to.pdf Graphic file (type pdf)
 <use images/curve-eps-converted-to.pdf>
-Package pdftex.def Info: images/curve-eps-converted-to.pdf  used on input line 2136.
+Package pdftex.def Info: images/curve-eps-converted-to.pdf  used on input line 2170.
 (pdftex.def)             Requested size: 318.66948pt x 79.67636pt.
 
 
@@ -3096,12 +3095,12 @@ Package epstopdf Info: Source file: <images/lavoroCampoEl.eps>
 (epstopdf)                    date: 2024-11-19 15:07:27
 (epstopdf)                    size: 6596 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/lavoroCampoEl-eps-converted-to.pdf images/lavoroCampoEl.eps>
-(epstopdf)             \includegraphics on input line 2167.
+(epstopdf)             \includegraphics on input line 2201.
 Package epstopdf Info: Output file is already uptodate.
-<images/lavoroCampoEl-eps-converted-to.pdf, id=1712, 122.4575pt x 83.31125pt>
+<images/lavoroCampoEl-eps-converted-to.pdf, id=1711, 122.4575pt x 83.31125pt>
 File: images/lavoroCampoEl-eps-converted-to.pdf Graphic file (type pdf)
 <use images/lavoroCampoEl-eps-converted-to.pdf>
-Package pdftex.def Info: images/lavoroCampoEl-eps-converted-to.pdf  used on input line 2167.
+Package pdftex.def Info: images/lavoroCampoEl-eps-converted-to.pdf  used on input line 2201.
 (pdftex.def)             Requested size: 227.62206pt x 154.86195pt.
 Package epstopdf Info: Source file: <images/dr.eps>
 (epstopdf)                    date: 2024-11-19 15:22:29
@@ -3110,12 +3109,12 @@ Package epstopdf Info: Source file: <images/dr.eps>
 (epstopdf)                    date: 2024-11-19 15:22:57
 (epstopdf)                    size: 10141 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/dr-eps-converted-to.pdf images/dr.eps>
-(epstopdf)             \includegraphics on input line 2170.
+(epstopdf)             \includegraphics on input line 2204.
 Package epstopdf Info: Output file is already uptodate.
-<images/dr-eps-converted-to.pdf, id=1713, 160.6pt x 71.26625pt>
+<images/dr-eps-converted-to.pdf, id=1712, 160.6pt x 71.26625pt>
 File: images/dr-eps-converted-to.pdf Graphic file (type pdf)
 <use images/dr-eps-converted-to.pdf>
-Package pdftex.def Info: images/dr-eps-converted-to.pdf  used on input line 2170.
+Package pdftex.def Info: images/dr-eps-converted-to.pdf  used on input line 2204.
 (pdftex.def)             Requested size: 227.62206pt x 101.01062pt.
 
 
@@ -3134,12 +3133,12 @@ Package epstopdf Info: Source file: <images/sistemaCariche.eps>
 (epstopdf)                    date: 2024-11-19 16:11:42
 (epstopdf)                    size: 9367 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/sistemaCariche-eps-converted-to.pdf images/sistemaCariche.eps>
-(epstopdf)             \includegraphics on input line 2191.
+(epstopdf)             \includegraphics on input line 2225.
 Package epstopdf Info: Output file is already uptodate.
-<images/sistemaCariche-eps-converted-to.pdf, id=1753, 184.69pt x 110.4125pt>
+<images/sistemaCariche-eps-converted-to.pdf, id=1752, 184.69pt x 110.4125pt>
 File: images/sistemaCariche-eps-converted-to.pdf Graphic file (type pdf)
 <use images/sistemaCariche-eps-converted-to.pdf>
-Package pdftex.def Info: images/sistemaCariche-eps-converted-to.pdf  used on input line 2191.
+Package pdftex.def Info: images/sistemaCariche-eps-converted-to.pdf  used on input line 2225.
 (pdftex.def)             Requested size: 318.66948pt x 190.51059pt.
 
 
@@ -3158,12 +3157,12 @@ Package epstopdf Info: Source file: <images/grad.eps>
 (epstopdf)                    date: 2024-11-19 16:08:51
 (epstopdf)                    size: 54145 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/grad-eps-converted-to.pdf images/grad.eps>
-(epstopdf)             \includegraphics on input line 2207.
+(epstopdf)             \includegraphics on input line 2241.
 Package epstopdf Info: Output file is already uptodate.
-<images/grad-eps-converted-to.pdf, id=1776, 421.575pt x 316.18124pt>
+<images/grad-eps-converted-to.pdf, id=1775, 421.575pt x 316.18124pt>
 File: images/grad-eps-converted-to.pdf Graphic file (type pdf)
 <use images/grad-eps-converted-to.pdf>
-Package pdftex.def Info: images/grad-eps-converted-to.pdf  used on input line 2207.
+Package pdftex.def Info: images/grad-eps-converted-to.pdf  used on input line 2241.
 (pdftex.def)             Requested size: 295.90588pt x 221.93324pt.
 
 
@@ -3182,19 +3181,19 @@ Package epstopdf Info: Source file: <images/anello1.eps>
 (epstopdf)                    date: 2024-11-12 20:53:26
 (epstopdf)                    size: 7108 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/anello1-eps-converted-to.pdf images/anello1.eps>
-(epstopdf)             \includegraphics on input line 2233.
+(epstopdf)             \includegraphics on input line 2267.
 Package epstopdf Info: Output file is already uptodate.
 File: images/anello1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/anello1-eps-converted-to.pdf>
-Package pdftex.def Info: images/anello1-eps-converted-to.pdf  used on input line 2233.
+Package pdftex.def Info: images/anello1-eps-converted-to.pdf  used on input line 2267.
 (pdftex.def)             Requested size: 273.14923pt x 116.37648pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/sferaCarica2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/sferaCarica2.pdf, id=1788, 96.36pt x 62.15219pt>
+<images/sferaCarica2.pdf, id=1787, 96.36pt x 62.15219pt>
 File: images/sferaCarica2.pdf Graphic file (type pdf)
 <use images/sferaCarica2.pdf>
-Package pdftex.def Info: images/sferaCarica2.pdf  used on input line 2247.
+Package pdftex.def Info: images/sferaCarica2.pdf  used on input line 2281.
 (pdftex.def)             Requested size: 227.62206pt x 146.81631pt.
 
 
@@ -3213,36 +3212,36 @@ Package epstopdf Info: Source file: <images/potenzialeSfera.eps>
 (epstopdf)                    date: 2024-11-19 17:45:28
 (epstopdf)                    size: 8088 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/potenzialeSfera-eps-converted-to.pdf images/potenzialeSfera.eps>
-(epstopdf)             \includegraphics on input line 2269.
+(epstopdf)             \includegraphics on input line 2303.
 Package epstopdf Info: Output file is already uptodate.
-<images/potenzialeSfera-eps-converted-to.pdf, id=1800, 253.94875pt x 109.40875pt>
+<images/potenzialeSfera-eps-converted-to.pdf, id=1799, 253.94875pt x 109.40875pt>
 File: images/potenzialeSfera-eps-converted-to.pdf Graphic file (type pdf)
 <use images/potenzialeSfera-eps-converted-to.pdf>
-Package pdftex.def Info: images/potenzialeSfera-eps-converted-to.pdf  used on input line 2269.
+Package pdftex.def Info: images/potenzialeSfera-eps-converted-to.pdf  used on input line 2303.
 (pdftex.def)             Requested size: 318.66948pt x 137.29646pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/conduttore.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/conduttore.pdf, id=1801, 298.23419pt x 88.41031pt>
+<images/conduttore.pdf, id=1800, 298.23419pt x 88.41031pt>
 File: images/conduttore.pdf Graphic file (type pdf)
 <use images/conduttore.pdf>
-Package pdftex.def Info: images/conduttore.pdf  used on input line 2273.
+Package pdftex.def Info: images/conduttore.pdf  used on input line 2307.
 (pdftex.def)             Requested size: 341.43307pt x 101.22047pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/conduttore2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/conduttore2.pdf, id=1802, 298.23419pt x 88.41031pt>
+<images/conduttore2.pdf, id=1801, 298.23419pt x 88.41031pt>
 File: images/conduttore2.pdf Graphic file (type pdf)
 <use images/conduttore2.pdf>
-Package pdftex.def Info: images/conduttore2.pdf  used on input line 2276.
+Package pdftex.def Info: images/conduttore2.pdf  used on input line 2310.
 (pdftex.def)             Requested size: 364.19667pt x 107.96967pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/conduttore3.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/conduttore3.pdf, id=1803, 298.23419pt x 99.2508pt>
+<images/conduttore3.pdf, id=1802, 298.23419pt x 99.2508pt>
 File: images/conduttore3.pdf Graphic file (type pdf)
 <use images/conduttore3.pdf>
-Package pdftex.def Info: images/conduttore3.pdf  used on input line 2277.
+Package pdftex.def Info: images/conduttore3.pdf  used on input line 2311.
 (pdftex.def)             Requested size: 364.19667pt x 121.20844pt.
 
 
@@ -3256,10 +3255,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [69 <./images/potenzialeSfera-eps-converted-to.pdf> <./images/conduttore.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/punte.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/punte.pdf, id=1848, 238.97281pt x 59.2614pt>
+<images/punte.pdf, id=1847, 238.97281pt x 59.2614pt>
 File: images/punte.pdf Graphic file (type pdf)
 <use images/punte.pdf>
-Package pdftex.def Info: images/punte.pdf  used on input line 2284.
+Package pdftex.def Info: images/punte.pdf  used on input line 2318.
 (pdftex.def)             Requested size: 409.71692pt x 101.60385pt.
 Package epstopdf Info: Source file: <images/effettoPunta.eps>
 (epstopdf)                    date: 2024-11-19 19:48:32
@@ -3268,15 +3267,15 @@ Package epstopdf Info: Source file: <images/effettoPunta.eps>
 (epstopdf)                    date: 2024-11-19 19:48:41
 (epstopdf)                    size: 2941 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/effettoPunta-eps-converted-to.pdf images/effettoPunta.eps>
-(epstopdf)             \includegraphics on input line 2296.
+(epstopdf)             \includegraphics on input line 2330.
 Package epstopdf Info: Output file is already uptodate.
-<images/effettoPunta-eps-converted-to.pdf, id=1849, 94.3525pt x 181.67876pt>
+<images/effettoPunta-eps-converted-to.pdf, id=1848, 94.3525pt x 181.67876pt>
 File: images/effettoPunta-eps-converted-to.pdf Graphic file (type pdf)
 <use images/effettoPunta-eps-converted-to.pdf>
-Package pdftex.def Info: images/effettoPunta-eps-converted-to.pdf  used on input line 2296.
+Package pdftex.def Info: images/effettoPunta-eps-converted-to.pdf  used on input line 2330.
 (pdftex.def)             Requested size: 68.28383pt x 131.48224pt.
 
-Overfull \hbox (2.37589pt too wide) in paragraph at lines 2295--2306
+Overfull \hbox (2.37589pt too wide) in paragraph at lines 2329--2340
  [] 
  []
 
@@ -3292,10 +3291,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [70 <./images/conduttore2.pdf> <./images/conduttore3.pdf> <./images/punte.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/dipoloAsse.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/dipoloAsse.drawio.pdf, id=1898, 271.97609pt x 91.3011pt>
+<images/dipoloAsse.drawio.pdf, id=1897, 271.97609pt x 91.3011pt>
 File: images/dipoloAsse.drawio.pdf Graphic file (type pdf)
 <use images/dipoloAsse.drawio.pdf>
-Package pdftex.def Info: images/dipoloAsse.drawio.pdf  used on input line 2310.
+Package pdftex.def Info: images/dipoloAsse.drawio.pdf  used on input line 2344.
 (pdftex.def)             Requested size: 273.14923pt x 91.69652pt.
 Package epstopdf Info: Source file: <images/dipoloAsse2.eps>
 (epstopdf)                    date: 2024-11-23 11:14:13
@@ -3304,12 +3303,12 @@ Package epstopdf Info: Source file: <images/dipoloAsse2.eps>
 (epstopdf)                    date: 2024-11-23 11:14:13
 (epstopdf)                    size: 7123 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/dipoloAsse2-eps-converted-to.pdf images/dipoloAsse2.eps>
-(epstopdf)             \includegraphics on input line 2322.
+(epstopdf)             \includegraphics on input line 2356.
 Package epstopdf Info: Output file is already uptodate.
-<images/dipoloAsse2-eps-converted-to.pdf, id=1899, 159.59625pt x 99.37125pt>
+<images/dipoloAsse2-eps-converted-to.pdf, id=1898, 159.59625pt x 99.37125pt>
 File: images/dipoloAsse2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/dipoloAsse2-eps-converted-to.pdf>
-Package pdftex.def Info: images/dipoloAsse2-eps-converted-to.pdf  used on input line 2322.
+Package pdftex.def Info: images/dipoloAsse2-eps-converted-to.pdf  used on input line 2356.
 (pdftex.def)             Requested size: 227.62206pt x 141.7283pt.
 
 
@@ -3328,12 +3327,12 @@ Package epstopdf Info: Source file: <images/momentoDipolo.eps>
 (epstopdf)                    date: 2024-11-23 11:14:13
 (epstopdf)                    size: 7718 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/momentoDipolo-eps-converted-to.pdf images/momentoDipolo.eps>
-(epstopdf)             \includegraphics on input line 2328.
+(epstopdf)             \includegraphics on input line 2362.
 Package epstopdf Info: Output file is already uptodate.
-<images/momentoDipolo-eps-converted-to.pdf, id=1932, 157.58875pt x 99.37125pt>
+<images/momentoDipolo-eps-converted-to.pdf, id=1931, 157.58875pt x 99.37125pt>
 File: images/momentoDipolo-eps-converted-to.pdf Graphic file (type pdf)
 <use images/momentoDipolo-eps-converted-to.pdf>
-Package pdftex.def Info: images/momentoDipolo-eps-converted-to.pdf  used on input line 2328.
+Package pdftex.def Info: images/momentoDipolo-eps-converted-to.pdf  used on input line 2362.
 (pdftex.def)             Requested size: 159.33821pt x 100.48091pt.
 Package epstopdf Info: Source file: <images/MomentoDipolo2.eps>
 (epstopdf)                    date: 2024-11-23 11:14:13
@@ -3342,20 +3341,20 @@ Package epstopdf Info: Source file: <images/MomentoDipolo2.eps>
 (epstopdf)                    date: 2024-11-23 11:14:13
 (epstopdf)                    size: 5638 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/MomentoDipolo2-eps-converted-to.pdf images/MomentoDipolo2.eps>
-(epstopdf)             \includegraphics on input line 2338.
+(epstopdf)             \includegraphics on input line 2373.
 Package epstopdf Info: Output file is already uptodate.
-<images/MomentoDipolo2-eps-converted-to.pdf, id=1933, 149.55875pt x 65.24374pt>
+<images/MomentoDipolo2-eps-converted-to.pdf, id=1932, 149.55875pt x 65.24374pt>
 File: images/MomentoDipolo2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/MomentoDipolo2-eps-converted-to.pdf>
-Package pdftex.def Info: images/MomentoDipolo2-eps-converted-to.pdf  used on input line 2338.
+Package pdftex.def Info: images/MomentoDipolo2-eps-converted-to.pdf  used on input line 2373.
 (pdftex.def)             Requested size: 204.85846pt x 89.37442pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/sistemaCariche.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/sistemaCariche.pdf, id=1934, 305.22029pt x 117.3183pt>
+<images/sistemaCariche.pdf, id=1933, 305.22029pt x 117.3183pt>
 File: images/sistemaCariche.pdf Graphic file (type pdf)
 <use images/sistemaCariche.pdf>
-Package pdftex.def Info: images/sistemaCariche.pdf  used on input line 2347.
+Package pdftex.def Info: images/sistemaCariche.pdf  used on input line 2382.
 (pdftex.def)             Requested size: 318.66948pt x 122.4879pt.
 
 
@@ -3367,17 +3366,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [72 <./images/momentoDipolo-eps-converted-to.pdf> <./images/MomentoDipolo2-eps-converted-to.pdf> <./images/sistemaCariche.pdf>]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 2364--2364
+Overfull \hbox (6.0pt too wide) in paragraph at lines 2399--2399
 [][][][][][] 
  []
 
 
 
 pdfTeX warning: pdflatex.exe (file ./images/sferaPot.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/sferaPot.pdf, id=1978, 94.4328pt x 37.0986pt>
+<images/sferaPot.pdf, id=1977, 94.4328pt x 37.0986pt>
 File: images/sferaPot.pdf Graphic file (type pdf)
 <use images/sferaPot.pdf>
-Package pdftex.def Info: images/sferaPot.pdf  used on input line 2366.
+Package pdftex.def Info: images/sferaPot.pdf  used on input line 2401.
 (pdftex.def)             Requested size: 136.57462pt x 53.66023pt.
 Package epstopdf Info: Source file: <images/condensatore.eps>
 (epstopdf)                    date: 2024-11-24 11:12:07
@@ -3386,12 +3385,12 @@ Package epstopdf Info: Source file: <images/condensatore.eps>
 (epstopdf)                    date: 2024-11-24 11:12:30
 (epstopdf)                    size: 6560 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/condensatore-eps-converted-to.pdf images/condensatore.eps>
-(epstopdf)             \includegraphics on input line 2378.
+(epstopdf)             \includegraphics on input line 2413.
 Package epstopdf Info: Output file is already uptodate.
-<images/condensatore-eps-converted-to.pdf, id=1979, 161.60374pt x 157.58875pt>
+<images/condensatore-eps-converted-to.pdf, id=1978, 161.60374pt x 157.58875pt>
 File: images/condensatore-eps-converted-to.pdf Graphic file (type pdf)
 <use images/condensatore-eps-converted-to.pdf>
-Package pdftex.def Info: images/condensatore-eps-converted-to.pdf  used on input line 2378.
+Package pdftex.def Info: images/condensatore-eps-converted-to.pdf  used on input line 2413.
 (pdftex.def)             Requested size: 182.09486pt x 177.58025pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -3413,12 +3412,12 @@ Package epstopdf Info: Source file: <images/condensatoreSferico.eps>
 (epstopdf)                    date: 2024-11-24 11:41:25
 (epstopdf)                    size: 7426 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/condensatoreSferico-eps-converted-to.pdf images/condensatoreSferico.eps>
-(epstopdf)             \includegraphics on input line 2391.
+(epstopdf)             \includegraphics on input line 2426.
 Package epstopdf Info: Output file is already uptodate.
-<images/condensatoreSferico-eps-converted-to.pdf, id=1990, 322.20375pt x 144.54pt>
+<images/condensatoreSferico-eps-converted-to.pdf, id=1989, 322.20375pt x 144.54pt>
 File: images/condensatoreSferico-eps-converted-to.pdf Graphic file (type pdf)
 <use images/condensatoreSferico-eps-converted-to.pdf>
-Package pdftex.def Info: images/condensatoreSferico-eps-converted-to.pdf  used on input line 2391.
+Package pdftex.def Info: images/condensatoreSferico-eps-converted-to.pdf  used on input line 2426.
 (pdftex.def)             Requested size: 455.24411pt x 204.22926pt.
 
 
@@ -3437,7 +3436,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2406 ...silon_0\frac{\sqrt{S_1}\sqrt{S_2}}{d} $$
+l.2441 ...silon_0\frac{\sqrt{S_1}\sqrt{S_2}}{d} $$
                                                    <./images/condensatore-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/simboloCondensatore.eps>
 (epstopdf)                    date: 2024-11-24 11:50:03
@@ -3446,12 +3445,12 @@ Package epstopdf Info: Source file: <images/simboloCondensatore.eps>
 (epstopdf)                    date: 2024-11-24 11:50:12
 (epstopdf)                    size: 2491 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/simboloCondensatore-eps-converted-to.pdf images/simboloCondensatore.eps>
-(epstopdf)             \includegraphics on input line 2409.
+(epstopdf)             \includegraphics on input line 2444.
 Package epstopdf Info: Output file is already uptodate.
-<images/simboloCondensatore-eps-converted-to.pdf, id=2008, 32.12pt x 16.06pt>
+<images/simboloCondensatore-eps-converted-to.pdf, id=2007, 32.12pt x 16.06pt>
 File: images/simboloCondensatore-eps-converted-to.pdf Graphic file (type pdf)
 <use images/simboloCondensatore-eps-converted-to.pdf>
-Package pdftex.def Info: images/simboloCondensatore-eps-converted-to.pdf  used on input line 2409.
+Package pdftex.def Info: images/simboloCondensatore-eps-converted-to.pdf  used on input line 2444.
 (pdftex.def)             Requested size: 45.52718pt x 22.7654pt.
 Package epstopdf Info: Source file: <images/condensatoreSerie1.eps>
 (epstopdf)                    date: 2024-11-24 11:55:31
@@ -3460,12 +3459,12 @@ Package epstopdf Info: Source file: <images/condensatoreSerie1.eps>
 (epstopdf)                    date: 2024-11-24 11:55:58
 (epstopdf)                    size: 7763 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/condensatoreSerie1-eps-converted-to.pdf images/condensatoreSerie1.eps>
-(epstopdf)             \includegraphics on input line 2414.
+(epstopdf)             \includegraphics on input line 2449.
 Package epstopdf Info: Output file is already uptodate.
-<images/condensatoreSerie1-eps-converted-to.pdf, id=2009, 86.3225pt x 51.19125pt>
+<images/condensatoreSerie1-eps-converted-to.pdf, id=2008, 86.3225pt x 51.19125pt>
 File: images/condensatoreSerie1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/condensatoreSerie1-eps-converted-to.pdf>
-Package pdftex.def Info: images/condensatoreSerie1-eps-converted-to.pdf  used on input line 2414.
+Package pdftex.def Info: images/condensatoreSerie1-eps-converted-to.pdf  used on input line 2449.
 (pdftex.def)             Requested size: 136.57462pt x 81.00078pt.
 Package epstopdf Info: Source file: <images/condensatoreSerie2.eps>
 (epstopdf)                    date: 2024-11-24 11:58:18
@@ -3474,12 +3473,12 @@ Package epstopdf Info: Source file: <images/condensatoreSerie2.eps>
 (epstopdf)                    date: 2024-11-24 11:58:35
 (epstopdf)                    size: 11668 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/condensatoreSerie2-eps-converted-to.pdf images/condensatoreSerie2.eps>
-(epstopdf)             \includegraphics on input line 2418.
+(epstopdf)             \includegraphics on input line 2453.
 Package epstopdf Info: Output file is already uptodate.
-<images/condensatoreSerie2-eps-converted-to.pdf, id=2010, 181.67876pt x 51.19125pt>
+<images/condensatoreSerie2-eps-converted-to.pdf, id=2009, 181.67876pt x 51.19125pt>
 File: images/condensatoreSerie2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/condensatoreSerie2-eps-converted-to.pdf>
-Package pdftex.def Info: images/condensatoreSerie2-eps-converted-to.pdf  used on input line 2418.
+Package pdftex.def Info: images/condensatoreSerie2-eps-converted-to.pdf  used on input line 2453.
 (pdftex.def)             Requested size: 227.62206pt x 64.13808pt.
 Package epstopdf Info: Source file: <images/condensatoreSerie3.eps>
 (epstopdf)                    date: 2024-11-24 11:59:21
@@ -3488,12 +3487,12 @@ Package epstopdf Info: Source file: <images/condensatoreSerie3.eps>
 (epstopdf)                    date: 2024-11-24 11:59:36
 (epstopdf)                    size: 7737 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/condensatoreSerie3-eps-converted-to.pdf images/condensatoreSerie3.eps>
-(epstopdf)             \includegraphics on input line 2422.
+(epstopdf)             \includegraphics on input line 2457.
 Package epstopdf Info: Output file is already uptodate.
-<images/condensatoreSerie3-eps-converted-to.pdf, id=2011, 82.3075pt x 51.19125pt>
+<images/condensatoreSerie3-eps-converted-to.pdf, id=2010, 82.3075pt x 51.19125pt>
 File: images/condensatoreSerie3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/condensatoreSerie3-eps-converted-to.pdf>
-Package pdftex.def Info: images/condensatoreSerie3-eps-converted-to.pdf  used on input line 2422.
+Package pdftex.def Info: images/condensatoreSerie3-eps-converted-to.pdf  used on input line 2457.
 (pdftex.def)             Requested size: 136.57462pt x 84.95322pt.
 
 
@@ -3508,7 +3507,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2423 \end{center}
+l.2458 \end{center}
                     <./images/condensatoreSferico-eps-converted-to.pdf> <./images/simboloCondensatore-eps-converted-to.pdf> <./images/condensatoreSerie1-eps-converted-to.pdf> <./images/condensatoreSerie2-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/condensatoreSerie4.eps>
 (epstopdf)                    date: 2024-11-24 12:12:35
@@ -3517,12 +3516,12 @@ Package epstopdf Info: Source file: <images/condensatoreSerie4.eps>
 (epstopdf)                    date: 2024-11-24 12:12:43
 (epstopdf)                    size: 10206 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/condensatoreSerie4-eps-converted-to.pdf images/condensatoreSerie4.eps>
-(epstopdf)             \includegraphics on input line 2438.
+(epstopdf)             \includegraphics on input line 2473.
 Package epstopdf Info: Output file is already uptodate.
-<images/condensatoreSerie4-eps-converted-to.pdf, id=2086, 229.85875pt x 34.1275pt>
+<images/condensatoreSerie4-eps-converted-to.pdf, id=2085, 229.85875pt x 34.1275pt>
 File: images/condensatoreSerie4-eps-converted-to.pdf Graphic file (type pdf)
 <use images/condensatoreSerie4-eps-converted-to.pdf>
-Package pdftex.def Info: images/condensatoreSerie4-eps-converted-to.pdf  used on input line 2438.
+Package pdftex.def Info: images/condensatoreSerie4-eps-converted-to.pdf  used on input line 2473.
 (pdftex.def)             Requested size: 295.90588pt x 43.9361pt.
 Package epstopdf Info: Source file: <images/condParallelo.eps>
 (epstopdf)                    date: 2024-11-27 18:05:16
@@ -3531,12 +3530,12 @@ Package epstopdf Info: Source file: <images/condParallelo.eps>
 (epstopdf)                    date: 2024-11-27 18:05:44
 (epstopdf)                    size: 4553 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/condParallelo-eps-converted-to.pdf images/condParallelo.eps>
-(epstopdf)             \includegraphics on input line 2444.
+(epstopdf)             \includegraphics on input line 2479.
 Package epstopdf Info: Output file is already uptodate.
-<images/condParallelo-eps-converted-to.pdf, id=2087, 104.39pt x 74.2775pt>
+<images/condParallelo-eps-converted-to.pdf, id=2086, 104.39pt x 74.2775pt>
 File: images/condParallelo-eps-converted-to.pdf Graphic file (type pdf)
 <use images/condParallelo-eps-converted-to.pdf>
-Package pdftex.def Info: images/condParallelo-eps-converted-to.pdf  used on input line 2444.
+Package pdftex.def Info: images/condParallelo-eps-converted-to.pdf  used on input line 2479.
 (pdftex.def)             Requested size: 113.81102pt x 80.9858pt.
 Package epstopdf Info: Source file: <images/condParallelo2.eps>
 (epstopdf)                    date: 2024-11-27 18:07:34
@@ -3545,12 +3544,12 @@ Package epstopdf Info: Source file: <images/condParallelo2.eps>
 (epstopdf)                    date: 2024-11-27 18:08:10
 (epstopdf)                    size: 7933 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/condParallelo2-eps-converted-to.pdf images/condParallelo2.eps>
-(epstopdf)             \includegraphics on input line 2447.
+(epstopdf)             \includegraphics on input line 2482.
 Package epstopdf Info: Output file is already uptodate.
-<images/condParallelo2-eps-converted-to.pdf, id=2088, 191.71625pt x 106.3975pt>
+<images/condParallelo2-eps-converted-to.pdf, id=2087, 191.71625pt x 106.3975pt>
 File: images/condParallelo2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/condParallelo2-eps-converted-to.pdf>
-Package pdftex.def Info: images/condParallelo2-eps-converted-to.pdf  used on input line 2447.
+Package pdftex.def Info: images/condParallelo2-eps-converted-to.pdf  used on input line 2482.
 (pdftex.def)             Requested size: 273.14923pt x 151.6115pt.
 
 
@@ -3562,7 +3561,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [76 <./images/condensatoreSerie3-eps-converted-to.pdf> <./images/condensatoreSerie4-eps-converted-to.pdf> <./images/condParallelo-eps-converted-to.pdf>]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 2464--2464
+Overfull \hbox (6.0pt too wide) in paragraph at lines 2499--2499
 [][][][][][] 
  []
 
@@ -3573,12 +3572,12 @@ Package epstopdf Info: Source file: <images/caricaCondensatore.eps>
 (epstopdf)                    date: 2024-11-27 18:46:17
 (epstopdf)                    size: 8950 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/caricaCondensatore-eps-converted-to.pdf images/caricaCondensatore.eps>
-(epstopdf)             \includegraphics on input line 2468.
+(epstopdf)             \includegraphics on input line 2503.
 Package epstopdf Info: Output file is already uptodate.
-<images/caricaCondensatore-eps-converted-to.pdf, id=2145, 345.29pt x 63.23625pt>
+<images/caricaCondensatore-eps-converted-to.pdf, id=2144, 345.29pt x 63.23625pt>
 File: images/caricaCondensatore-eps-converted-to.pdf Graphic file (type pdf)
 <use images/caricaCondensatore-eps-converted-to.pdf>
-Package pdftex.def Info: images/caricaCondensatore-eps-converted-to.pdf  used on input line 2468.
+Package pdftex.def Info: images/caricaCondensatore-eps-converted-to.pdf  used on input line 2503.
 (pdftex.def)             Requested size: 455.24411pt x 83.37463pt.
 
 
@@ -3616,25 +3615,25 @@ Package epstopdf Info: Source file: <images/corrente.eps>
 (epstopdf)                    date: 2024-12-24 10:18:02
 (epstopdf)                    size: 11330 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/corrente-eps-converted-to.pdf images/corrente.eps>
-(epstopdf)             \includegraphics on input line 2514.
+(epstopdf)             \includegraphics on input line 2549.
 Package epstopdf Info: Output file is already uptodate.
-<images/corrente-eps-converted-to.pdf, id=2194, 171.64125pt x 209.78375pt>
+<images/corrente-eps-converted-to.pdf, id=2193, 171.64125pt x 209.78375pt>
 File: images/corrente-eps-converted-to.pdf Graphic file (type pdf)
 <use images/corrente-eps-converted-to.pdf>
-Package pdftex.def Info: images/corrente-eps-converted-to.pdf  used on input line 2514.
+Package pdftex.def Info: images/corrente-eps-converted-to.pdf  used on input line 2549.
 (pdftex.def)             Requested size: 136.57462pt x 166.92451pt.
 
-Overfull \hbox (2.37589pt too wide) in paragraph at lines 2513--2519
+Overfull \hbox (2.37589pt too wide) in paragraph at lines 2548--2554
  [] 
  []
 
 
 
 pdfTeX warning: pdflatex.exe (file ./images/correnteAttraversaSezione.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/correnteAttraversaSezione.drawio.pdf, id=2195, 180.675pt x 66.2475pt>
+<images/correnteAttraversaSezione.drawio.pdf, id=2194, 180.675pt x 66.2475pt>
 File: images/correnteAttraversaSezione.drawio.pdf Graphic file (type pdf)
 <use images/correnteAttraversaSezione.drawio.pdf>
-Package pdftex.def Info: images/correnteAttraversaSezione.drawio.pdf  used on input line 2527.
+Package pdftex.def Info: images/correnteAttraversaSezione.drawio.pdf  used on input line 2562.
 (pdftex.def)             Requested size: 318.66948pt x 116.85674pt.
 
 
@@ -3643,10 +3642,10 @@ Package pdftex.def Info: images/correnteAttraversaSezione.drawio.pdf  used on in
  <./images/corrente-eps-converted-to.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/tratttofilo.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/tratttofilo.pdf, id=2218, 174.6525pt x 87.4467pt>
+<images/tratttofilo.pdf, id=2217, 174.6525pt x 87.4467pt>
 File: images/tratttofilo.pdf Graphic file (type pdf)
 <use images/tratttofilo.pdf>
-Package pdftex.def Info: images/tratttofilo.pdf  used on input line 2550.
+Package pdftex.def Info: images/tratttofilo.pdf  used on input line 2585.
 (pdftex.def)             Requested size: 318.66948pt x 159.57886pt.
 
 
@@ -3660,34 +3659,34 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [81 <./images/correnteAttraversaSezione.drawio.pdf> <./images/tratttofilo.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/campoCorrente.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/campoCorrente.pdf, id=2247, 368.33609pt x 39.2667pt>
+<images/campoCorrente.pdf, id=2246, 368.33609pt x 39.2667pt>
 File: images/campoCorrente.pdf Graphic file (type pdf)
 <use images/campoCorrente.pdf>
-Package pdftex.def Info: images/campoCorrente.pdf  used on input line 2564.
+Package pdftex.def Info: images/campoCorrente.pdf  used on input line 2599.
 (pdftex.def)             Requested size: 364.19667pt x 38.8274pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/resistenza.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/resistenza.pdf, id=2248, 59.2614pt x 31.0761pt>
+<images/resistenza.pdf, id=2247, 59.2614pt x 31.0761pt>
 File: images/resistenza.pdf Graphic file (type pdf)
 <use images/resistenza.pdf>
-Package pdftex.def Info: images/resistenza.pdf  used on input line 2568.
+Package pdftex.def Info: images/resistenza.pdf  used on input line 2603.
 (pdftex.def)             Requested size: 182.09486pt x 95.50645pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/resistenzaSerie.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/resistenzaSerie.pdf, id=2249, 168.63pt x 81.4242pt>
+<images/resistenzaSerie.pdf, id=2248, 168.63pt x 81.4242pt>
 File: images/resistenzaSerie.pdf Graphic file (type pdf)
 <use images/resistenzaSerie.pdf>
-Package pdftex.def Info: images/resistenzaSerie.pdf  used on input line 2572.
+Package pdftex.def Info: images/resistenzaSerie.pdf  used on input line 2607.
 (pdftex.def)             Requested size: 273.14923pt x 131.89528pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/resistenzeParallelo.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/resistenzeParallelo.pdf, id=2250, 204.765pt x 103.3461pt>
+<images/resistenzeParallelo.pdf, id=2249, 204.765pt x 103.3461pt>
 File: images/resistenzeParallelo.pdf Graphic file (type pdf)
 <use images/resistenzeParallelo.pdf>
-Package pdftex.def Info: images/resistenzeParallelo.pdf  used on input line 2581.
+Package pdftex.def Info: images/resistenzeParallelo.pdf  used on input line 2616.
 (pdftex.def)             Requested size: 273.14923pt x 137.86961pt.
 
 
@@ -3701,18 +3700,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [82 <./images/campoCorrente.pdf> <./images/resistenza.pdf> <./images/resistenzaSerie.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/resistenzeParallelo2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/resistenzeParallelo2.pdf, id=2273, 204.765pt x 89.3739pt>
+<images/resistenzeParallelo2.pdf, id=2272, 204.765pt x 89.3739pt>
 File: images/resistenzeParallelo2.pdf Graphic file (type pdf)
 <use images/resistenzeParallelo2.pdf>
-Package pdftex.def Info: images/resistenzeParallelo2.pdf  used on input line 2588.
+Package pdftex.def Info: images/resistenzeParallelo2.pdf  used on input line 2623.
 (pdftex.def)             Requested size: 273.14923pt x 119.22989pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/circuit.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/circuit.pdf, id=2274, 117.3183pt x 132.495pt>
+<images/circuit.pdf, id=2273, 117.3183pt x 132.495pt>
 File: images/circuit.pdf Graphic file (type pdf)
 <use images/circuit.pdf>
-Package pdftex.def Info: images/circuit.pdf  used on input line 2602.
+Package pdftex.def Info: images/circuit.pdf  used on input line 2637.
 (pdftex.def)             Requested size: 136.57462pt x 154.24823pt.
 
 
@@ -3726,10 +3725,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [83 <./images/resistenzeParallelo.pdf> <./images/resistenzeParallelo2.pdf> <./images/circuit.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/tensione.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/tensione.pdf, id=2302, 82.3878pt x 39.2667pt>
+<images/tensione.pdf, id=2301, 82.3878pt x 39.2667pt>
 File: images/tensione.pdf Graphic file (type pdf)
 <use images/tensione.pdf>
-Package pdftex.def Info: images/tensione.pdf  used on input line 2612.
+Package pdftex.def Info: images/tensione.pdf  used on input line 2647.
 (pdftex.def)             Requested size: 182.09486pt x 86.80098pt.
 Package epstopdf Info: Source file: <images/circuito2.eps>
 (epstopdf)                    date: 2024-11-28 18:00:58
@@ -3738,12 +3737,12 @@ Package epstopdf Info: Source file: <images/circuito2.eps>
 (epstopdf)                    date: 2024-11-28 18:01:07
 (epstopdf)                    size: 8789 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/circuito2-eps-converted-to.pdf images/circuito2.eps>
-(epstopdf)             \includegraphics on input line 2627.
+(epstopdf)             \includegraphics on input line 2662.
 Package epstopdf Info: Output file is already uptodate.
-<images/circuito2-eps-converted-to.pdf, id=2303, 168.63pt x 90.3375pt>
+<images/circuito2-eps-converted-to.pdf, id=2302, 168.63pt x 90.3375pt>
 File: images/circuito2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/circuito2-eps-converted-to.pdf>
-Package pdftex.def Info: images/circuito2-eps-converted-to.pdf  used on input line 2627.
+Package pdftex.def Info: images/circuito2-eps-converted-to.pdf  used on input line 2662.
 (pdftex.def)             Requested size: 227.62206pt x 121.94345pt.
 
 
@@ -3762,12 +3761,12 @@ Package epstopdf Info: Source file: <images/circuito3.eps>
 (epstopdf)                    date: 2024-11-28 18:05:45
 (epstopdf)                    size: 9076 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/circuito3-eps-converted-to.pdf images/circuito3.eps>
-(epstopdf)             \includegraphics on input line 2632.
+(epstopdf)             \includegraphics on input line 2667.
 Package epstopdf Info: Output file is already uptodate.
-<images/circuito3-eps-converted-to.pdf, id=2335, 168.63pt x 90.3375pt>
+<images/circuito3-eps-converted-to.pdf, id=2334, 168.63pt x 90.3375pt>
 File: images/circuito3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/circuito3-eps-converted-to.pdf>
-Package pdftex.def Info: images/circuito3-eps-converted-to.pdf  used on input line 2632.
+Package pdftex.def Info: images/circuito3-eps-converted-to.pdf  used on input line 2667.
 (pdftex.def)             Requested size: 227.62206pt x 121.94345pt.
 Package epstopdf Info: Source file: <images/forzaVince.eps>
 (epstopdf)                    date: 2024-11-28 18:18:10
@@ -3776,12 +3775,12 @@ Package epstopdf Info: Source file: <images/forzaVince.eps>
 (epstopdf)                    date: 2024-11-28 18:18:32
 (epstopdf)                    size: 7122 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/forzaVince-eps-converted-to.pdf images/forzaVince.eps>
-(epstopdf)             \includegraphics on input line 2645.
+(epstopdf)             \includegraphics on input line 2680.
 Package epstopdf Info: Output file is already uptodate.
-<images/forzaVince-eps-converted-to.pdf, id=2336, 65.24374pt x 56.21pt>
+<images/forzaVince-eps-converted-to.pdf, id=2335, 65.24374pt x 56.21pt>
 File: images/forzaVince-eps-converted-to.pdf Graphic file (type pdf)
 <use images/forzaVince-eps-converted-to.pdf>
-Package pdftex.def Info: images/forzaVince-eps-converted-to.pdf  used on input line 2645.
+Package pdftex.def Info: images/forzaVince-eps-converted-to.pdf  used on input line 2680.
 (pdftex.def)             Requested size: 91.04742pt x 78.44214pt.
 
 
@@ -3800,12 +3799,12 @@ Package epstopdf Info: Source file: <images/nodi.eps>
 (epstopdf)                    date: 2024-11-28 19:15:09
 (epstopdf)                    size: 2876 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/nodi-eps-converted-to.pdf images/nodi.eps>
-(epstopdf)             \includegraphics on input line 2660.
+(epstopdf)             \includegraphics on input line 2695.
 Package epstopdf Info: Output file is already uptodate.
-<images/nodi-eps-converted-to.pdf, id=2374, 128.48pt x 83.31125pt>
+<images/nodi-eps-converted-to.pdf, id=2373, 128.48pt x 83.31125pt>
 File: images/nodi-eps-converted-to.pdf Graphic file (type pdf)
 <use images/nodi-eps-converted-to.pdf>
-Package pdftex.def Info: images/nodi-eps-converted-to.pdf  used on input line 2660.
+Package pdftex.def Info: images/nodi-eps-converted-to.pdf  used on input line 2695.
 (pdftex.def)             Requested size: 182.09486pt x 118.08667pt.
 Package epstopdf Info: Source file: <images/rami.eps>
 (epstopdf)                    date: 2024-11-28 19:17:07
@@ -3814,12 +3813,12 @@ Package epstopdf Info: Source file: <images/rami.eps>
 (epstopdf)                    date: 2024-11-28 19:17:31
 (epstopdf)                    size: 10567 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/rami-eps-converted-to.pdf images/rami.eps>
-(epstopdf)             \includegraphics on input line 2663.
+(epstopdf)             \includegraphics on input line 2698.
 Package epstopdf Info: Output file is already uptodate.
-<images/rami-eps-converted-to.pdf, id=2375, 393.47pt x 75.28125pt>
+<images/rami-eps-converted-to.pdf, id=2374, 393.47pt x 75.28125pt>
 File: images/rami-eps-converted-to.pdf Graphic file (type pdf)
 <use images/rami-eps-converted-to.pdf>
-Package pdftex.def Info: images/rami-eps-converted-to.pdf  used on input line 2663.
+Package pdftex.def Info: images/rami-eps-converted-to.pdf  used on input line 2698.
 (pdftex.def)             Requested size: 455.24411pt x 87.09999pt.
 Package epstopdf Info: Source file: <images/maglie.eps>
 (epstopdf)                    date: 2024-11-28 19:19:54
@@ -3828,12 +3827,12 @@ Package epstopdf Info: Source file: <images/maglie.eps>
 (epstopdf)                    date: 2024-11-28 19:20:12
 (epstopdf)                    size: 3366 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/maglie-eps-converted-to.pdf images/maglie.eps>
-(epstopdf)             \includegraphics on input line 2666.
+(epstopdf)             \includegraphics on input line 2701.
 Package epstopdf Info: Output file is already uptodate.
-<images/maglie-eps-converted-to.pdf, id=2376, 393.47pt x 74.2775pt>
+<images/maglie-eps-converted-to.pdf, id=2375, 393.47pt x 74.2775pt>
 File: images/maglie-eps-converted-to.pdf Graphic file (type pdf)
 <use images/maglie-eps-converted-to.pdf>
-Package pdftex.def Info: images/maglie-eps-converted-to.pdf  used on input line 2666.
+Package pdftex.def Info: images/maglie-eps-converted-to.pdf  used on input line 2701.
 (pdftex.def)             Requested size: 455.24411pt x 85.93867pt.
 Package epstopdf Info: Source file: <images/circuitoRisolv.eps>
 (epstopdf)                    date: 2024-11-28 19:34:05
@@ -3842,12 +3841,12 @@ Package epstopdf Info: Source file: <images/circuitoRisolv.eps>
 (epstopdf)                    date: 2024-11-28 19:34:15
 (epstopdf)                    size: 6956 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/circuitoRisolv-eps-converted-to.pdf images/circuitoRisolv.eps>
-(epstopdf)             \includegraphics on input line 2670.
+(epstopdf)             \includegraphics on input line 2705.
 Package epstopdf Info: Output file is already uptodate.
-<images/circuitoRisolv-eps-converted-to.pdf, id=2377, 152.57pt x 95.35625pt>
+<images/circuitoRisolv-eps-converted-to.pdf, id=2376, 152.57pt x 95.35625pt>
 File: images/circuitoRisolv-eps-converted-to.pdf Graphic file (type pdf)
 <use images/circuitoRisolv-eps-converted-to.pdf>
-Package pdftex.def Info: images/circuitoRisolv-eps-converted-to.pdf  used on input line 2670.
+Package pdftex.def Info: images/circuitoRisolv-eps-converted-to.pdf  used on input line 2705.
 (pdftex.def)             Requested size: 227.62206pt x 142.27011pt.
 
 
@@ -3859,7 +3858,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [86 <./images/nodi-eps-converted-to.pdf> <./images/rami-eps-converted-to.pdf> <./images/maglie-eps-converted-to.pdf>]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 2672--2672
+Overfull \hbox (6.0pt too wide) in paragraph at lines 2707--2707
 [][][][][][] 
  []
 
@@ -3870,15 +3869,15 @@ Package epstopdf Info: Source file: <images/Kirchhoff1.eps>
 (epstopdf)                    date: 2024-11-28 19:28:26
 (epstopdf)                    size: 5841 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/Kirchhoff1-eps-converted-to.pdf images/Kirchhoff1.eps>
-(epstopdf)             \includegraphics on input line 2674.
+(epstopdf)             \includegraphics on input line 2709.
 Package epstopdf Info: Output file is already uptodate.
-<images/Kirchhoff1-eps-converted-to.pdf, id=2395, 154.5775pt x 47.17625pt>
+<images/Kirchhoff1-eps-converted-to.pdf, id=2394, 154.5775pt x 47.17625pt>
 File: images/Kirchhoff1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/Kirchhoff1-eps-converted-to.pdf>
-Package pdftex.def Info: images/Kirchhoff1-eps-converted-to.pdf  used on input line 2674.
+Package pdftex.def Info: images/Kirchhoff1-eps-converted-to.pdf  used on input line 2709.
 (pdftex.def)             Requested size: 273.14923pt x 83.37091pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 2682--2682
+Overfull \hbox (6.0pt too wide) in paragraph at lines 2717--2717
 [][][][][][] 
  []
 
@@ -3889,12 +3888,12 @@ Package epstopdf Info: Source file: <images/kirchoff2.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
 (epstopdf)                    size: 9939 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/kirchoff2-eps-converted-to.pdf images/kirchoff2.eps>
-(epstopdf)             \includegraphics on input line 2686.
+(epstopdf)             \includegraphics on input line 2721.
 Package epstopdf Info: Output file is already uptodate.
-<images/kirchoff2-eps-converted-to.pdf, id=2396, 260.975pt x 103.38625pt>
+<images/kirchoff2-eps-converted-to.pdf, id=2395, 260.975pt x 103.38625pt>
 File: images/kirchoff2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/kirchoff2-eps-converted-to.pdf>
-Package pdftex.def Info: images/kirchoff2-eps-converted-to.pdf  used on input line 2686.
+Package pdftex.def Info: images/kirchoff2-eps-converted-to.pdf  used on input line 2721.
 (pdftex.def)             Requested size: 318.66948pt x 126.2446pt.
 Package epstopdf Info: Source file: <images/cadutaDiTensione.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
@@ -3903,12 +3902,12 @@ Package epstopdf Info: Source file: <images/cadutaDiTensione.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
 (epstopdf)                    size: 10153 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/cadutaDiTensione-eps-converted-to.pdf images/cadutaDiTensione.eps>
-(epstopdf)             \includegraphics on input line 2690.
+(epstopdf)             \includegraphics on input line 2725.
 Package epstopdf Info: Output file is already uptodate.
-<images/cadutaDiTensione-eps-converted-to.pdf, id=2397, 227.85126pt x 89.33376pt>
+<images/cadutaDiTensione-eps-converted-to.pdf, id=2396, 227.85126pt x 89.33376pt>
 File: images/cadutaDiTensione-eps-converted-to.pdf Graphic file (type pdf)
 <use images/cadutaDiTensione-eps-converted-to.pdf>
-Package pdftex.def Info: images/cadutaDiTensione-eps-converted-to.pdf  used on input line 2690.
+Package pdftex.def Info: images/cadutaDiTensione-eps-converted-to.pdf  used on input line 2725.
 (pdftex.def)             Requested size: 250.38564pt x 98.17064pt.
 
 
@@ -3927,12 +3926,12 @@ Package epstopdf Info: Source file: <images/potenzialiSulCircuito.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
 (epstopdf)                    size: 11087 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/potenzialiSulCircuito-eps-converted-to.pdf images/potenzialiSulCircuito.eps>
-(epstopdf)             \includegraphics on input line 2693.
+(epstopdf)             \includegraphics on input line 2728.
 Package epstopdf Info: Output file is already uptodate.
-<images/potenzialiSulCircuito-eps-converted-to.pdf, id=2446, 169.63374pt x 119.44624pt>
+<images/potenzialiSulCircuito-eps-converted-to.pdf, id=2445, 169.63374pt x 119.44624pt>
 File: images/potenzialiSulCircuito-eps-converted-to.pdf Graphic file (type pdf)
 <use images/potenzialiSulCircuito-eps-converted-to.pdf>
-Package pdftex.def Info: images/potenzialiSulCircuito-eps-converted-to.pdf  used on input line 2693.
+Package pdftex.def Info: images/potenzialiSulCircuito-eps-converted-to.pdf  used on input line 2728.
 (pdftex.def)             Requested size: 204.85846pt x 144.25517pt.
 Package epstopdf Info: Source file: <images/circuitoEquivalente.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
@@ -3941,12 +3940,12 @@ Package epstopdf Info: Source file: <images/circuitoEquivalente.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
 (epstopdf)                    size: 10969 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/circuitoEquivalente-eps-converted-to.pdf images/circuitoEquivalente.eps>
-(epstopdf)             \includegraphics on input line 2700.
+(epstopdf)             \includegraphics on input line 2735.
 Package epstopdf Info: Output file is already uptodate.
-<images/circuitoEquivalente-eps-converted-to.pdf, id=2447, 457.71pt x 119.44624pt>
+<images/circuitoEquivalente-eps-converted-to.pdf, id=2446, 457.71pt x 119.44624pt>
 File: images/circuitoEquivalente-eps-converted-to.pdf Graphic file (type pdf)
 <use images/circuitoEquivalente-eps-converted-to.pdf>
-Package pdftex.def Info: images/circuitoEquivalente-eps-converted-to.pdf  used on input line 2700.
+Package pdftex.def Info: images/circuitoEquivalente-eps-converted-to.pdf  used on input line 2735.
 (pdftex.def)             Requested size: 455.24411pt x 118.80801pt.
 
 
@@ -3965,12 +3964,12 @@ Package epstopdf Info: Source file: <images/caricaCondensatoreTempo.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
 (epstopdf)                    size: 8068 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/caricaCondensatoreTempo-eps-converted-to.pdf images/caricaCondensatoreTempo.eps>
-(epstopdf)             \includegraphics on input line 2714.
+(epstopdf)             \includegraphics on input line 2749.
 Package epstopdf Info: Output file is already uptodate.
-<images/caricaCondensatoreTempo-eps-converted-to.pdf, id=2519, 166.6225pt x 81.30376pt>
+<images/caricaCondensatoreTempo-eps-converted-to.pdf, id=2518, 166.6225pt x 81.30376pt>
 File: images/caricaCondensatoreTempo-eps-converted-to.pdf Graphic file (type pdf)
 <use images/caricaCondensatoreTempo-eps-converted-to.pdf>
-Package pdftex.def Info: images/caricaCondensatoreTempo-eps-converted-to.pdf  used on input line 2714.
+Package pdftex.def Info: images/caricaCondensatoreTempo-eps-converted-to.pdf  used on input line 2749.
 (pdftex.def)             Requested size: 318.66948pt x 155.52081pt.
 Package epstopdf Info: Source file: <images/tempoCaratteristico.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
@@ -3979,12 +3978,12 @@ Package epstopdf Info: Source file: <images/tempoCaratteristico.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
 (epstopdf)                    size: 10607 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/tempoCaratteristico-eps-converted-to.pdf images/tempoCaratteristico.eps>
-(epstopdf)             \includegraphics on input line 2734.
+(epstopdf)             \includegraphics on input line 2769.
 Package epstopdf Info: Output file is already uptodate.
-<images/tempoCaratteristico-eps-converted-to.pdf, id=2520, 215.80624pt x 188.705pt>
+<images/tempoCaratteristico-eps-converted-to.pdf, id=2519, 215.80624pt x 188.705pt>
 File: images/tempoCaratteristico-eps-converted-to.pdf Graphic file (type pdf)
 <use images/tempoCaratteristico-eps-converted-to.pdf>
-Package pdftex.def Info: images/tempoCaratteristico-eps-converted-to.pdf  used on input line 2734.
+Package pdftex.def Info: images/tempoCaratteristico-eps-converted-to.pdf  used on input line 2769.
 (pdftex.def)             Requested size: 227.62206pt x 199.04445pt.
 
 
@@ -4003,12 +4002,12 @@ Package epstopdf Info: Source file: <images/caricaCondensatoreTempo2.eps>
 (epstopdf)                    date: 2024-11-29 17:33:20
 (epstopdf)                    size: 7288 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/caricaCondensatoreTempo2-eps-converted-to.pdf images/caricaCondensatoreTempo2.eps>
-(epstopdf)             \includegraphics on input line 2750.
+(epstopdf)             \includegraphics on input line 2785.
 Package epstopdf Info: Output file is already uptodate.
-<images/caricaCondensatoreTempo2-eps-converted-to.pdf, id=2537, 70.2625pt x 73.27374pt>
+<images/caricaCondensatoreTempo2-eps-converted-to.pdf, id=2536, 70.2625pt x 73.27374pt>
 File: images/caricaCondensatoreTempo2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/caricaCondensatoreTempo2-eps-converted-to.pdf>
-Package pdftex.def Info: images/caricaCondensatoreTempo2-eps-converted-to.pdf  used on input line 2750.
+Package pdftex.def Info: images/caricaCondensatoreTempo2-eps-converted-to.pdf  used on input line 2785.
 (pdftex.def)             Requested size: 182.09486pt x 189.93138pt.
 
 
@@ -4042,18 +4041,18 @@ Capitolo 6.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/forzaLorentz.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/forzaLorentz.pdf, id=2588, 148.6353pt x 109.3686pt>
+<images/forzaLorentz.pdf, id=2587, 148.6353pt x 109.3686pt>
 File: images/forzaLorentz.pdf Graphic file (type pdf)
 <use images/forzaLorentz.pdf>
-Package pdftex.def Info: images/forzaLorentz.pdf  used on input line 2831.
+Package pdftex.def Info: images/forzaLorentz.pdf  used on input line 2866.
 (pdftex.def)             Requested size: 136.57462pt x 100.50015pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/forzaLorentz2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/forzaLorentz2.pdf, id=2590, 123.5817pt x 184.77031pt>
+<images/forzaLorentz2.pdf, id=2589, 123.5817pt x 184.77031pt>
 File: images/forzaLorentz2.pdf Graphic file (type pdf)
 <use images/forzaLorentz2.pdf>
-Package pdftex.def Info: images/forzaLorentz2.pdf  used on input line 2838.
+Package pdftex.def Info: images/forzaLorentz2.pdf  used on input line 2873.
 (pdftex.def)             Requested size: 182.09486pt x 272.26036pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -4070,12 +4069,12 @@ Package epstopdf Info: Source file: <images/motore2.eps>
 (epstopdf)                    date: 2024-11-29 18:03:38
 (epstopdf)                    size: 6384 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/motore2-eps-converted-to.pdf images/motore2.eps>
-(epstopdf)             \includegraphics on input line 2858.
+(epstopdf)             \includegraphics on input line 2893.
 Package epstopdf Info: Output file is already uptodate.
-<images/motore2-eps-converted-to.pdf, id=2603, 220.825pt x 168.63pt>
+<images/motore2-eps-converted-to.pdf, id=2602, 220.825pt x 168.63pt>
 File: images/motore2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/motore2-eps-converted-to.pdf>
-Package pdftex.def Info: images/motore2-eps-converted-to.pdf  used on input line 2858.
+Package pdftex.def Info: images/motore2-eps-converted-to.pdf  used on input line 2893.
 (pdftex.def)             Requested size: 204.85846pt x 156.44345pt.
 
 
@@ -4090,7 +4089,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2863 \end{quote}
+l.2898 \end{quote}
                    <./images/forzaLorentz2.pdf> <./images/motore2-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/ferromagneti2.eps>
 (epstopdf)                    date: 2024-12-03 15:59:09
@@ -4099,12 +4098,12 @@ Package epstopdf Info: Source file: <images/ferromagneti2.eps>
 (epstopdf)                    date: 2024-12-03 15:59:23
 (epstopdf)                    size: 4471 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/ferromagneti2-eps-converted-to.pdf images/ferromagneti2.eps>
-(epstopdf)             \includegraphics on input line 2878.
+(epstopdf)             \includegraphics on input line 2913.
 Package epstopdf Info: Output file is already uptodate.
-<images/ferromagneti2-eps-converted-to.pdf, id=2624, 131.49126pt x 93.34875pt>
+<images/ferromagneti2-eps-converted-to.pdf, id=2623, 131.49126pt x 93.34875pt>
 File: images/ferromagneti2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/ferromagneti2-eps-converted-to.pdf>
-Package pdftex.def Info: images/ferromagneti2-eps-converted-to.pdf  used on input line 2878.
+Package pdftex.def Info: images/ferromagneti2-eps-converted-to.pdf  used on input line 2913.
 (pdftex.def)             Requested size: 136.57462pt x 96.96217pt.
 Package epstopdf Info: Source file: <images/ferromagneti1.eps>
 (epstopdf)                    date: 2024-12-03 15:54:20
@@ -4113,12 +4112,12 @@ Package epstopdf Info: Source file: <images/ferromagneti1.eps>
 (epstopdf)                    date: 2024-12-03 15:54:40
 (epstopdf)                    size: 4231 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/ferromagneti1-eps-converted-to.pdf images/ferromagneti1.eps>
-(epstopdf)             \includegraphics on input line 2882.
+(epstopdf)             \includegraphics on input line 2917.
 Package epstopdf Info: Output file is already uptodate.
-<images/ferromagneti1-eps-converted-to.pdf, id=2625, 131.49126pt x 93.34875pt>
+<images/ferromagneti1-eps-converted-to.pdf, id=2624, 131.49126pt x 93.34875pt>
 File: images/ferromagneti1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/ferromagneti1-eps-converted-to.pdf>
-Package pdftex.def Info: images/ferromagneti1-eps-converted-to.pdf  used on input line 2882.
+Package pdftex.def Info: images/ferromagneti1-eps-converted-to.pdf  used on input line 2917.
 (pdftex.def)             Requested size: 136.57462pt x 96.96217pt.
 Package epstopdf Info: Source file: <images/campoFIlo.eps>
 (epstopdf)                    date: 2024-12-03 16:08:28
@@ -4127,12 +4126,12 @@ Package epstopdf Info: Source file: <images/campoFIlo.eps>
 (epstopdf)                    date: 2024-12-20 17:38:04
 (epstopdf)                    size: 5084 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/campoFIlo-eps-converted-to.pdf images/campoFIlo.eps>
-(epstopdf)             \includegraphics on input line 2888.
+(epstopdf)             \includegraphics on input line 2923.
 Package epstopdf Info: Output file is already uptodate.
-<images/campoFIlo-eps-converted-to.pdf, id=2626, 147.55125pt x 88.33pt>
+<images/campoFIlo-eps-converted-to.pdf, id=2625, 147.55125pt x 88.33pt>
 File: images/campoFIlo-eps-converted-to.pdf Graphic file (type pdf)
 <use images/campoFIlo-eps-converted-to.pdf>
-Package pdftex.def Info: images/campoFIlo-eps-converted-to.pdf  used on input line 2888.
+Package pdftex.def Info: images/campoFIlo-eps-converted-to.pdf  used on input line 2923.
 (pdftex.def)             Requested size: 227.62206pt x 136.26717pt.
 
 
@@ -4151,12 +4150,12 @@ Package epstopdf Info: Source file: <images/campoMagFilo.eps>
 (epstopdf)                    date: 2024-12-24 11:54:03
 (epstopdf)                    size: 8897 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/campoMagFilo-eps-converted-to.pdf images/campoMagFilo.eps>
-(epstopdf)             \includegraphics on input line 2897.
+(epstopdf)             \includegraphics on input line 2932.
 Package epstopdf Info: Output file is already uptodate.
-<images/campoMagFilo-eps-converted-to.pdf, id=2635, 177.66376pt x 40.15pt>
+<images/campoMagFilo-eps-converted-to.pdf, id=2634, 177.66376pt x 40.15pt>
 File: images/campoMagFilo-eps-converted-to.pdf Graphic file (type pdf)
 <use images/campoMagFilo-eps-converted-to.pdf>
-Package pdftex.def Info: images/campoMagFilo-eps-converted-to.pdf  used on input line 2897.
+Package pdftex.def Info: images/campoMagFilo-eps-converted-to.pdf  used on input line 2932.
 (pdftex.def)             Requested size: 182.09486pt x 41.15277pt.
 Package epstopdf Info: Source file: <images/campoFilo2.eps>
 (epstopdf)                    date: 2024-12-03 16:21:48
@@ -4165,12 +4164,12 @@ Package epstopdf Info: Source file: <images/campoFilo2.eps>
 (epstopdf)                    date: 2024-12-03 16:22:10
 (epstopdf)                    size: 7616 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/campoFilo2-eps-converted-to.pdf images/campoFilo2.eps>
-(epstopdf)             \includegraphics on input line 2914.
+(epstopdf)             \includegraphics on input line 2949.
 Package epstopdf Info: Output file is already uptodate.
-<images/campoFilo2-eps-converted-to.pdf, id=2636, 164.615pt x 70.2625pt>
+<images/campoFilo2-eps-converted-to.pdf, id=2635, 164.615pt x 70.2625pt>
 File: images/campoFilo2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/campoFilo2-eps-converted-to.pdf>
-Package pdftex.def Info: images/campoFilo2-eps-converted-to.pdf  used on input line 2914.
+Package pdftex.def Info: images/campoFilo2-eps-converted-to.pdf  used on input line 2949.
 (pdftex.def)             Requested size: 227.62206pt x 97.15852pt.
 Package epstopdf Info: Source file: <images/alphaa02.eps>
 (epstopdf)                    date: 2024-12-31 10:47:50
@@ -4179,12 +4178,12 @@ Package epstopdf Info: Source file: <images/alphaa02.eps>
 (epstopdf)                    date: 2024-12-31 10:48:37
 (epstopdf)                    size: 14623 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/alphaa02-eps-converted-to.pdf images/alphaa02.eps>
-(epstopdf)             \includegraphics on input line 2919.
+(epstopdf)             \includegraphics on input line 2954.
 Package epstopdf Info: Output file is already uptodate.
-<images/alphaa02-eps-converted-to.pdf, id=2637, 327.2225pt x 66.2475pt>
+<images/alphaa02-eps-converted-to.pdf, id=2636, 327.2225pt x 66.2475pt>
 File: images/alphaa02-eps-converted-to.pdf Graphic file (type pdf)
 <use images/alphaa02-eps-converted-to.pdf>
-Package pdftex.def Info: images/alphaa02-eps-converted-to.pdf  used on input line 2919.
+Package pdftex.def Info: images/alphaa02-eps-converted-to.pdf  used on input line 2954.
 (pdftex.def)             Requested size: 455.24411pt x 92.16663pt.
 
 
@@ -4203,17 +4202,17 @@ Package epstopdf Info: Source file: <images/campoSpira.eps>
 (epstopdf)                    date: 2024-12-03 16:35:26
 (epstopdf)                    size: 6657 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/campoSpira-eps-converted-to.pdf images/campoSpira.eps>
-(epstopdf)             \includegraphics on input line 2922.
+(epstopdf)             \includegraphics on input line 2957.
 Package epstopdf Info: Output file is already uptodate.
-<images/campoSpira-eps-converted-to.pdf, id=2687, 169.63374pt x 68.255pt>
+<images/campoSpira-eps-converted-to.pdf, id=2686, 169.63374pt x 68.255pt>
 File: images/campoSpira-eps-converted-to.pdf Graphic file (type pdf)
 <use images/campoSpira-eps-converted-to.pdf>
-Package pdftex.def Info: images/campoSpira-eps-converted-to.pdf  used on input line 2922.
+Package pdftex.def Info: images/campoSpira-eps-converted-to.pdf  used on input line 2957.
 (pdftex.def)             Requested size: 273.14923pt x 109.91113pt.
-<images/flussoMagnetico.png, id=2688, 246.9225pt x 205.76875pt>
+<images/flussoMagnetico.png, id=2687, 246.9225pt x 205.76875pt>
 File: images/flussoMagnetico.png Graphic file (type png)
 <use images/flussoMagnetico.png>
-Package pdftex.def Info: images/flussoMagnetico.png  used on input line 2938.
+Package pdftex.def Info: images/flussoMagnetico.png  used on input line 2973.
 (pdftex.def)             Requested size: 136.57462pt x 113.81052pt.
 
 
@@ -4232,12 +4231,12 @@ Package epstopdf Info: Source file: <images/concatenata.eps>
 (epstopdf)                    date: 2024-12-24 12:06:42
 (epstopdf)                    size: 4368 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/concatenata-eps-converted-to.pdf images/concatenata.eps>
-(epstopdf)             \includegraphics on input line 2943.
+(epstopdf)             \includegraphics on input line 2978.
 Package epstopdf Info: Output file is already uptodate.
-<images/concatenata-eps-converted-to.pdf, id=2733, 177.66376pt x 60.225pt>
+<images/concatenata-eps-converted-to.pdf, id=2732, 177.66376pt x 60.225pt>
 File: images/concatenata-eps-converted-to.pdf Graphic file (type pdf)
 <use images/concatenata-eps-converted-to.pdf>
-Package pdftex.def Info: images/concatenata-eps-converted-to.pdf  used on input line 2943.
+Package pdftex.def Info: images/concatenata-eps-converted-to.pdf  used on input line 2978.
 (pdftex.def)             Requested size: 318.66948pt x 108.02719pt.
 Package epstopdf Info: Source file: <images/CircuitazioneCampoMagnetico.eps>
 (epstopdf)                    date: 2024-12-03 17:06:18
@@ -4246,12 +4245,12 @@ Package epstopdf Info: Source file: <images/CircuitazioneCampoMagnetico.eps>
 (epstopdf)                    date: 2024-12-03 17:06:38
 (epstopdf)                    size: 6111 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/CircuitazioneCampoMagnetico-eps-converted-to.pdf images/CircuitazioneCampoMagnetico.eps>
-(epstopdf)             \includegraphics on input line 2946.
+(epstopdf)             \includegraphics on input line 2981.
 Package epstopdf Info: Output file is already uptodate.
-<images/CircuitazioneCampoMagnetico-eps-converted-to.pdf, id=2734, 237.88875pt x 73.27374pt>
+<images/CircuitazioneCampoMagnetico-eps-converted-to.pdf, id=2733, 237.88875pt x 73.27374pt>
 File: images/CircuitazioneCampoMagnetico-eps-converted-to.pdf Graphic file (type pdf)
 <use images/CircuitazioneCampoMagnetico-eps-converted-to.pdf>
-Package pdftex.def Info: images/CircuitazioneCampoMagnetico-eps-converted-to.pdf  used on input line 2946.
+Package pdftex.def Info: images/CircuitazioneCampoMagnetico-eps-converted-to.pdf  used on input line 2981.
 (pdftex.def)             Requested size: 455.24411pt x 140.23001pt.
 Package epstopdf Info: Source file: <images/dimAmpere1.eps>
 (epstopdf)                    date: 2024-12-03 19:37:46
@@ -4260,12 +4259,12 @@ Package epstopdf Info: Source file: <images/dimAmpere1.eps>
 (epstopdf)                    date: 2024-12-03 19:37:56
 (epstopdf)                    size: 7325 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/dimAmpere1-eps-converted-to.pdf images/dimAmpere1.eps>
-(epstopdf)             \includegraphics on input line 2950.
+(epstopdf)             \includegraphics on input line 2985.
 Package epstopdf Info: Output file is already uptodate.
-<images/dimAmpere1-eps-converted-to.pdf, id=2735, 117.43875pt x 54.2025pt>
+<images/dimAmpere1-eps-converted-to.pdf, id=2734, 117.43875pt x 54.2025pt>
 File: images/dimAmpere1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/dimAmpere1-eps-converted-to.pdf>
-Package pdftex.def Info: images/dimAmpere1-eps-converted-to.pdf  used on input line 2950.
+Package pdftex.def Info: images/dimAmpere1-eps-converted-to.pdf  used on input line 2985.
 (pdftex.def)             Requested size: 227.62206pt x 105.05676pt.
 Package epstopdf Info: Source file: <images/dimAmpere2.eps>
 (epstopdf)                    date: 2024-12-03 19:43:14
@@ -4274,12 +4273,12 @@ Package epstopdf Info: Source file: <images/dimAmpere2.eps>
 (epstopdf)                    date: 2024-12-03 19:44:54
 (epstopdf)                    size: 9385 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/dimAmpere2-eps-converted-to.pdf images/dimAmpere2.eps>
-(epstopdf)             \includegraphics on input line 2955.
+(epstopdf)             \includegraphics on input line 2990.
 Package epstopdf Info: Output file is already uptodate.
-<images/dimAmpere2-eps-converted-to.pdf, id=2736, 117.43875pt x 54.2025pt>
+<images/dimAmpere2-eps-converted-to.pdf, id=2735, 117.43875pt x 54.2025pt>
 File: images/dimAmpere2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/dimAmpere2-eps-converted-to.pdf>
-Package pdftex.def Info: images/dimAmpere2-eps-converted-to.pdf  used on input line 2955.
+Package pdftex.def Info: images/dimAmpere2-eps-converted-to.pdf  used on input line 2990.
 (pdftex.def)             Requested size: 227.62206pt x 105.05676pt.
 
 
@@ -4298,12 +4297,12 @@ Package epstopdf Info: Source file: <images/dimAmpere3.eps>
 (epstopdf)                    date: 2024-12-03 19:56:01
 (epstopdf)                    size: 6617 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/dimAmpere3-eps-converted-to.pdf images/dimAmpere3.eps>
-(epstopdf)             \includegraphics on input line 2964.
+(epstopdf)             \includegraphics on input line 2999.
 Package epstopdf Info: Output file is already uptodate.
-<images/dimAmpere3-eps-converted-to.pdf, id=2772, 139.52126pt x 104.39pt>
+<images/dimAmpere3-eps-converted-to.pdf, id=2771, 139.52126pt x 104.39pt>
 File: images/dimAmpere3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/dimAmpere3-eps-converted-to.pdf>
-Package pdftex.def Info: images/dimAmpere3-eps-converted-to.pdf  used on input line 2964.
+Package pdftex.def Info: images/dimAmpere3-eps-converted-to.pdf  used on input line 2999.
 (pdftex.def)             Requested size: 227.62206pt x 170.31345pt.
 Package epstopdf Info: Source file: <images/CircuitazioneCampoMagnetico2.eps>
 (epstopdf)                    date: 2024-12-05 13:41:32
@@ -4312,12 +4311,12 @@ Package epstopdf Info: Source file: <images/CircuitazioneCampoMagnetico2.eps>
 (epstopdf)                    date: 2024-12-05 13:41:45
 (epstopdf)                    size: 10343 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/CircuitazioneCampoMagnetico2-eps-converted-to.pdf images/CircuitazioneCampoMagnetico2.eps>
-(epstopdf)             \includegraphics on input line 2971.
+(epstopdf)             \includegraphics on input line 3006.
 Package epstopdf Info: Output file is already uptodate.
-<images/CircuitazioneCampoMagnetico2-eps-converted-to.pdf, id=2773, 337.26pt x 94.3525pt>
+<images/CircuitazioneCampoMagnetico2-eps-converted-to.pdf, id=2772, 337.26pt x 94.3525pt>
 File: images/CircuitazioneCampoMagnetico2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/CircuitazioneCampoMagnetico2-eps-converted-to.pdf>
-Package pdftex.def Info: images/CircuitazioneCampoMagnetico2-eps-converted-to.pdf  used on input line 2971.
+Package pdftex.def Info: images/CircuitazioneCampoMagnetico2-eps-converted-to.pdf  used on input line 3006.
 (pdftex.def)             Requested size: 455.24411pt x 127.36314pt.
 
 
@@ -4336,12 +4335,12 @@ Package epstopdf Info: Source file: <images/cilindroElettrico.eps>
 (epstopdf)                    date: 2024-12-04 17:28:14
 (epstopdf)                    size: 5066 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/cilindroElettrico-eps-converted-to.pdf images/cilindroElettrico.eps>
-(epstopdf)             \includegraphics on input line 2983.
+(epstopdf)             \includegraphics on input line 3019.
 Package epstopdf Info: Output file is already uptodate.
-<images/cilindroElettrico-eps-converted-to.pdf, id=2835, 162.6075pt x 187.70125pt>
+<images/cilindroElettrico-eps-converted-to.pdf, id=2834, 162.6075pt x 187.70125pt>
 File: images/cilindroElettrico-eps-converted-to.pdf Graphic file (type pdf)
 <use images/cilindroElettrico-eps-converted-to.pdf>
-Package pdftex.def Info: images/cilindroElettrico-eps-converted-to.pdf  used on input line 2983.
+Package pdftex.def Info: images/cilindroElettrico-eps-converted-to.pdf  used on input line 3019.
 (pdftex.def)             Requested size: 136.57462pt x 157.66225pt.
 Package epstopdf Info: Source file: <images/cilindroElettrico2.eps>
 (epstopdf)                    date: 2025-01-05 17:48:50
@@ -4350,12 +4349,12 @@ Package epstopdf Info: Source file: <images/cilindroElettrico2.eps>
 (epstopdf)                    date: 2025-01-05 17:49:00
 (epstopdf)                    size: 5646 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/cilindroElettrico2-eps-converted-to.pdf images/cilindroElettrico2.eps>
-(epstopdf)             \includegraphics on input line 2996.
+(epstopdf)             \includegraphics on input line 3032.
 Package epstopdf Info: Output file is already uptodate.
-<images/cilindroElettrico2-eps-converted-to.pdf, id=2836, 162.6075pt x 187.70125pt>
+<images/cilindroElettrico2-eps-converted-to.pdf, id=2835, 162.6075pt x 187.70125pt>
 File: images/cilindroElettrico2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/cilindroElettrico2-eps-converted-to.pdf>
-Package pdftex.def Info: images/cilindroElettrico2-eps-converted-to.pdf  used on input line 2996.
+Package pdftex.def Info: images/cilindroElettrico2-eps-converted-to.pdf  used on input line 3032.
 (pdftex.def)             Requested size: 113.81102pt x 131.37851pt.
 
 
@@ -4374,12 +4373,12 @@ Package epstopdf Info: Source file: <images/AmpereDef.eps>
 (epstopdf)                    date: 2024-12-04 17:28:13
 (epstopdf)                    size: 6237 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/AmpereDef-eps-converted-to.pdf images/AmpereDef.eps>
-(epstopdf)             \includegraphics on input line 3015.
+(epstopdf)             \includegraphics on input line 3051.
 Package epstopdf Info: Output file is already uptodate.
-<images/AmpereDef-eps-converted-to.pdf, id=2849, 165.61874pt x 128.48pt>
+<images/AmpereDef-eps-converted-to.pdf, id=2848, 165.61874pt x 128.48pt>
 File: images/AmpereDef-eps-converted-to.pdf Graphic file (type pdf)
 <use images/AmpereDef-eps-converted-to.pdf>
-Package pdftex.def Info: images/AmpereDef-eps-converted-to.pdf  used on input line 3015.
+Package pdftex.def Info: images/AmpereDef-eps-converted-to.pdf  used on input line 3051.
 (pdftex.def)             Requested size: 227.62206pt x 176.58897pt.
 
 
@@ -4398,12 +4397,12 @@ Package epstopdf Info: Source file: <images/Faraday.eps>
 (epstopdf)                    date: 2024-12-11 20:45:40
 (epstopdf)                    size: 6769 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/Faraday-eps-converted-to.pdf images/Faraday.eps>
-(epstopdf)             \includegraphics on input line 3029.
+(epstopdf)             \includegraphics on input line 3065.
 Package epstopdf Info: Output file is already uptodate.
-<images/Faraday-eps-converted-to.pdf, id=2873, 355.3275pt x 100.375pt>
+<images/Faraday-eps-converted-to.pdf, id=2872, 355.3275pt x 100.375pt>
 File: images/Faraday-eps-converted-to.pdf Graphic file (type pdf)
 <use images/Faraday-eps-converted-to.pdf>
-Package pdftex.def Info: images/Faraday-eps-converted-to.pdf  used on input line 3029.
+Package pdftex.def Info: images/Faraday-eps-converted-to.pdf  used on input line 3065.
 (pdftex.def)             Requested size: 455.24411pt x 128.60359pt.
 Package epstopdf Info: Source file: <images/Faraday2.eps>
 (epstopdf)                    date: 2024-12-06 17:39:20
@@ -4412,12 +4411,12 @@ Package epstopdf Info: Source file: <images/Faraday2.eps>
 (epstopdf)                    date: 2024-12-06 17:39:20
 (epstopdf)                    size: 6203 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/Faraday2-eps-converted-to.pdf images/Faraday2.eps>
-(epstopdf)             \includegraphics on input line 3045.
+(epstopdf)             \includegraphics on input line 3081.
 Package epstopdf Info: Output file is already uptodate.
-<images/Faraday2-eps-converted-to.pdf, id=2874, 105.39375pt x 94.3525pt>
+<images/Faraday2-eps-converted-to.pdf, id=2873, 105.39375pt x 94.3525pt>
 File: images/Faraday2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/Faraday2-eps-converted-to.pdf>
-Package pdftex.def Info: images/Faraday2-eps-converted-to.pdf  used on input line 3045.
+Package pdftex.def Info: images/Faraday2-eps-converted-to.pdf  used on input line 3081.
 (pdftex.def)             Requested size: 136.57462pt x 122.26949pt.
 
 
@@ -4429,10 +4428,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [102 <./images/Faraday-eps-converted-to.pdf>]
-<images/Faraday3.pdf, id=2888, 150.5625pt x 138.5175pt>
+<images/Faraday3.pdf, id=2887, 150.5625pt x 138.5175pt>
 File: images/Faraday3.pdf Graphic file (type pdf)
 <use images/Faraday3.pdf>
-Package pdftex.def Info: images/Faraday3.pdf  used on input line 3051.
+Package pdftex.def Info: images/Faraday3.pdf  used on input line 3087.
 (pdftex.def)             Requested size: 182.09486pt x 167.54327pt.
 
 
@@ -4451,12 +4450,12 @@ Package epstopdf Info: Source file: <images/sbarra1.eps>
 (epstopdf)                    date: 2024-12-06 17:39:20
 (epstopdf)                    size: 7171 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/sbarra1-eps-converted-to.pdf images/sbarra1.eps>
-(epstopdf)             \includegraphics on input line 3072.
+(epstopdf)             \includegraphics on input line 3108.
 Package epstopdf Info: Output file is already uptodate.
-<images/sbarra1-eps-converted-to.pdf, id=2906, 227.85126pt x 97.36375pt>
+<images/sbarra1-eps-converted-to.pdf, id=2905, 227.85126pt x 97.36375pt>
 File: images/sbarra1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/sbarra1-eps-converted-to.pdf>
-Package pdftex.def Info: images/sbarra1-eps-converted-to.pdf  used on input line 3072.
+Package pdftex.def Info: images/sbarra1-eps-converted-to.pdf  used on input line 3108.
 (pdftex.def)             Requested size: 227.62206pt x 97.2684pt.
 Package epstopdf Info: Source file: <images/sbarra2.eps>
 (epstopdf)                    date: 2024-12-06 17:39:20
@@ -4465,12 +4464,12 @@ Package epstopdf Info: Source file: <images/sbarra2.eps>
 (epstopdf)                    date: 2024-12-06 17:39:20
 (epstopdf)                    size: 6948 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/sbarra2-eps-converted-to.pdf images/sbarra2.eps>
-(epstopdf)             \includegraphics on input line 3085.
+(epstopdf)             \includegraphics on input line 3121.
 Package epstopdf Info: Output file is already uptodate.
-<images/sbarra2-eps-converted-to.pdf, id=2907, 120.45pt x 81.30376pt>
+<images/sbarra2-eps-converted-to.pdf, id=2906, 120.45pt x 81.30376pt>
 File: images/sbarra2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/sbarra2-eps-converted-to.pdf>
-Package pdftex.def Info: images/sbarra2-eps-converted-to.pdf  used on input line 3085.
+Package pdftex.def Info: images/sbarra2-eps-converted-to.pdf  used on input line 3121.
 (pdftex.def)             Requested size: 159.33821pt x 107.56319pt.
 
 
@@ -4489,17 +4488,17 @@ Package epstopdf Info: Source file: <images/sbarra3.eps>
 (epstopdf)                    date: 2024-12-06 17:55:55
 (epstopdf)                    size: 8097 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/sbarra3-eps-converted-to.pdf images/sbarra3.eps>
-(epstopdf)             \includegraphics on input line 3094.
+(epstopdf)             \includegraphics on input line 3130.
 Package epstopdf Info: Output file is already uptodate.
-<images/sbarra3-eps-converted-to.pdf, id=2932, 227.85126pt x 97.36375pt>
+<images/sbarra3-eps-converted-to.pdf, id=2931, 227.85126pt x 97.36375pt>
 File: images/sbarra3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/sbarra3-eps-converted-to.pdf>
-Package pdftex.def Info: images/sbarra3-eps-converted-to.pdf  used on input line 3094.
+Package pdftex.def Info: images/sbarra3-eps-converted-to.pdf  used on input line 3130.
 (pdftex.def)             Requested size: 227.62206pt x 97.2684pt.
-<images/campoSolenoide.pdf, id=2933, 94.3525pt x 65.24374pt>
+<images/campoSolenoide.pdf, id=2932, 94.3525pt x 65.24374pt>
 File: images/campoSolenoide.pdf Graphic file (type pdf)
 <use images/campoSolenoide.pdf>
-Package pdftex.def Info: images/campoSolenoide.pdf  used on input line 3104.
+Package pdftex.def Info: images/campoSolenoide.pdf  used on input line 3140.
 (pdftex.def)             Requested size: 182.09486pt x 125.92758pt.
 
 
@@ -4511,13 +4510,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [105 <./images/sbarra3-eps-converted-to.pdf> <./images/campoSolenoide.pdf>]
-<images/solenoide.pdf, id=2954, 228.855pt x 102.3825pt>
+<images/solenoide.pdf, id=2953, 228.855pt x 102.3825pt>
 File: images/solenoide.pdf Graphic file (type pdf)
 <use images/solenoide.pdf>
-Package pdftex.def Info: images/solenoide.pdf  used on input line 3123.
+Package pdftex.def Info: images/solenoide.pdf  used on input line 3159.
 (pdftex.def)             Requested size: 364.19667pt x 162.93736pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 3130--3130
+Overfull \hbox (6.0pt too wide) in paragraph at lines 3166--3166
 [][][][][][] 
  []
 
@@ -4528,12 +4527,12 @@ Package epstopdf Info: Source file: <images/discoMagnetico.eps>
 (epstopdf)                    date: 2024-12-06 18:50:43
 (epstopdf)                    size: 7023 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/discoMagnetico-eps-converted-to.pdf images/discoMagnetico.eps>
-(epstopdf)             \includegraphics on input line 3133.
+(epstopdf)             \includegraphics on input line 3169.
 Package epstopdf Info: Output file is already uptodate.
-<images/discoMagnetico-eps-converted-to.pdf, id=2955, 202.7575pt x 90.3375pt>
+<images/discoMagnetico-eps-converted-to.pdf, id=2954, 202.7575pt x 90.3375pt>
 File: images/discoMagnetico-eps-converted-to.pdf Graphic file (type pdf)
 <use images/discoMagnetico-eps-converted-to.pdf>
-Package pdftex.def Info: images/discoMagnetico-eps-converted-to.pdf  used on input line 3133.
+Package pdftex.def Info: images/discoMagnetico-eps-converted-to.pdf  used on input line 3169.
 (pdftex.def)             Requested size: 318.66948pt x 141.98592pt.
 
 
@@ -4552,12 +4551,12 @@ Package epstopdf Info: Source file: <images/discoMagnetico2.eps>
 (epstopdf)                    date: 2024-12-06 19:04:35
 (epstopdf)                    size: 4227 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/discoMagnetico2-eps-converted-to.pdf images/discoMagnetico2.eps>
-(epstopdf)             \includegraphics on input line 3144.
+(epstopdf)             \includegraphics on input line 3180.
 Package epstopdf Info: Output file is already uptodate.
-<images/discoMagnetico2-eps-converted-to.pdf, id=2971, 68.255pt x 66.2475pt>
+<images/discoMagnetico2-eps-converted-to.pdf, id=2970, 68.255pt x 66.2475pt>
 File: images/discoMagnetico2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/discoMagnetico2-eps-converted-to.pdf>
-Package pdftex.def Info: images/discoMagnetico2-eps-converted-to.pdf  used on input line 3144.
+Package pdftex.def Info: images/discoMagnetico2-eps-converted-to.pdf  used on input line 3180.
 (pdftex.def)             Requested size: 136.57462pt x 132.56642pt.
 Package epstopdf Info: Source file: <images/alphaA0.eps>
 (epstopdf)                    date: 2024-12-06 19:16:45
@@ -4566,12 +4565,12 @@ Package epstopdf Info: Source file: <images/alphaA0.eps>
 (epstopdf)                    date: 2024-12-06 19:17:10
 (epstopdf)                    size: 7120 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/alphaA0-eps-converted-to.pdf images/alphaA0.eps>
-(epstopdf)             \includegraphics on input line 3148.
+(epstopdf)             \includegraphics on input line 3184.
 Package epstopdf Info: Output file is already uptodate.
-<images/alphaA0-eps-converted-to.pdf, id=2972, 201.75375pt x 32.12pt>
+<images/alphaA0-eps-converted-to.pdf, id=2971, 201.75375pt x 32.12pt>
 File: images/alphaA0-eps-converted-to.pdf Graphic file (type pdf)
 <use images/alphaA0-eps-converted-to.pdf>
-Package pdftex.def Info: images/alphaA0-eps-converted-to.pdf  used on input line 3148.
+Package pdftex.def Info: images/alphaA0-eps-converted-to.pdf  used on input line 3184.
 (pdftex.def)             Requested size: 318.66948pt x 50.73381pt.
 
 
@@ -4590,12 +4589,12 @@ Package epstopdf Info: Source file: <images/induttanza.eps>
 (epstopdf)                    date: 2024-12-10 16:10:15
 (epstopdf)                    size: 5796 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/induttanza-eps-converted-to.pdf images/induttanza.eps>
-(epstopdf)             \includegraphics on input line 3163.
+(epstopdf)             \includegraphics on input line 3199.
 Package epstopdf Info: Output file is already uptodate.
-<images/induttanza-eps-converted-to.pdf, id=2996, 112.42pt x 33.12375pt>
+<images/induttanza-eps-converted-to.pdf, id=2995, 112.42pt x 33.12375pt>
 File: images/induttanza-eps-converted-to.pdf Graphic file (type pdf)
 <use images/induttanza-eps-converted-to.pdf>
-Package pdftex.def Info: images/induttanza-eps-converted-to.pdf  used on input line 3163.
+Package pdftex.def Info: images/induttanza-eps-converted-to.pdf  used on input line 3199.
 (pdftex.def)             Requested size: 227.62206pt x 67.0752pt.
 Package epstopdf Info: Source file: <images/cerchiConc.eps>
 (epstopdf)                    date: 2024-12-10 16:10:15
@@ -4604,12 +4603,12 @@ Package epstopdf Info: Source file: <images/cerchiConc.eps>
 (epstopdf)                    date: 2024-12-10 16:10:15
 (epstopdf)                    size: 3915 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/cerchiConc-eps-converted-to.pdf images/cerchiConc.eps>
-(epstopdf)             \includegraphics on input line 3188.
+(epstopdf)             \includegraphics on input line 3224.
 Package epstopdf Info: Output file is already uptodate.
-<images/cerchiConc-eps-converted-to.pdf, id=2997, 293.095pt x 258.9675pt>
+<images/cerchiConc-eps-converted-to.pdf, id=2996, 293.095pt x 258.9675pt>
 File: images/cerchiConc-eps-converted-to.pdf Graphic file (type pdf)
 <use images/cerchiConc-eps-converted-to.pdf>
-Package pdftex.def Info: images/cerchiConc-eps-converted-to.pdf  used on input line 3188.
+Package pdftex.def Info: images/cerchiConc-eps-converted-to.pdf  used on input line 3224.
 (pdftex.def)             Requested size: 113.81102pt x 100.55829pt.
 
 
@@ -4628,28 +4627,28 @@ Package epstopdf Info: Source file: <images/solenoide2.eps>
 (epstopdf)                    date: 2024-12-10 16:10:15
 (epstopdf)                    size: 5617 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/solenoide2-eps-converted-to.pdf images/solenoide2.eps>
-(epstopdf)             \includegraphics on input line 3224.
+(epstopdf)             \includegraphics on input line 3260.
 Package epstopdf Info: Output file is already uptodate.
-<images/solenoide2-eps-converted-to.pdf, id=3020, 119.44624pt x 64.24pt>
+<images/solenoide2-eps-converted-to.pdf, id=3019, 119.44624pt x 64.24pt>
 File: images/solenoide2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/solenoide2-eps-converted-to.pdf>
-Package pdftex.def Info: images/solenoide2-eps-converted-to.pdf  used on input line 3224.
+Package pdftex.def Info: images/solenoide2-eps-converted-to.pdf  used on input line 3260.
 (pdftex.def)             Requested size: 159.33821pt x 85.69983pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/induttanza.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/induttanza.drawio.pdf, id=3021, 91.3011pt x 69.3792pt>
+<images/induttanza.drawio.pdf, id=3020, 91.3011pt x 69.3792pt>
 File: images/induttanza.drawio.pdf Graphic file (type pdf)
 <use images/induttanza.drawio.pdf>
-Package pdftex.def Info: images/induttanza.drawio.pdf  used on input line 3235.
+Package pdftex.def Info: images/induttanza.drawio.pdf  used on input line 3271.
 (pdftex.def)             Requested size: 91.04742pt x 69.18845pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./images/induttanza2.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/induttanza2.drawio.pdf, id=3022, 206.6922pt x 220.9053pt>
+<images/induttanza2.drawio.pdf, id=3021, 206.6922pt x 220.9053pt>
 File: images/induttanza2.drawio.pdf Graphic file (type pdf)
 <use images/induttanza2.drawio.pdf>
-Package pdftex.def Info: images/induttanza2.drawio.pdf  used on input line 3240.
+Package pdftex.def Info: images/induttanza2.drawio.pdf  used on input line 3276.
 (pdftex.def)             Requested size: 182.09486pt x 194.61972pt.
 
 
@@ -4663,10 +4662,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [109 <./images/solenoide2-eps-converted-to.pdf> <./images/induttanza.drawio.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/induttanza3.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/induttanza3.drawio.pdf, id=3039, 331.2375pt x 421.575pt>
+<images/induttanza3.drawio.pdf, id=3038, 331.2375pt x 421.575pt>
 File: images/induttanza3.drawio.pdf Graphic file (type pdf)
 <use images/induttanza3.drawio.pdf>
-Package pdftex.def Info: images/induttanza3.drawio.pdf  used on input line 3244.
+Package pdftex.def Info: images/induttanza3.drawio.pdf  used on input line 3280.
 (pdftex.def)             Requested size: 182.09486pt x 231.7576pt.
 
 
@@ -4685,25 +4684,25 @@ Package epstopdf Info: Source file: <images/correnteRL.eps>
 (epstopdf)                    date: 2024-12-10 17:04:09
 (epstopdf)                    size: 9622 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/correnteRL-eps-converted-to.pdf images/correnteRL.eps>
-(epstopdf)             \includegraphics on input line 3271.
+(epstopdf)             \includegraphics on input line 3307.
 Package epstopdf Info: Output file is already uptodate.
-<images/correnteRL-eps-converted-to.pdf, id=3061, 224.84pt x 178.6675pt>
+<images/correnteRL-eps-converted-to.pdf, id=3060, 224.84pt x 178.6675pt>
 File: images/correnteRL-eps-converted-to.pdf Graphic file (type pdf)
 <use images/correnteRL-eps-converted-to.pdf>
-Package pdftex.def Info: images/correnteRL-eps-converted-to.pdf  used on input line 3271.
+Package pdftex.def Info: images/correnteRL-eps-converted-to.pdf  used on input line 3307.
 (pdftex.def)             Requested size: 227.62206pt x 180.8862pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 3273--3273
+Overfull \hbox (6.0pt too wide) in paragraph at lines 3309--3309
 [][][][][][] 
  []
 
 
 
 pdfTeX warning: pdflatex.exe (file ./images/circuitoRL2.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/circuitoRL2.pdf, id=3062, 290.0436pt x 207.65579pt>
+<images/circuitoRL2.pdf, id=3061, 290.0436pt x 207.65579pt>
 File: images/circuitoRL2.pdf Graphic file (type pdf)
 <use images/circuitoRL2.pdf>
-Package pdftex.def Info: images/circuitoRL2.pdf  used on input line 3277.
+Package pdftex.def Info: images/circuitoRL2.pdf  used on input line 3313.
 (pdftex.def)             Requested size: 455.24411pt x 325.94109pt.
 
 
@@ -4722,12 +4721,12 @@ Package epstopdf Info: Source file: <images/correnteRL2.eps>
 (epstopdf)                    date: 2024-12-10 17:20:52
 (epstopdf)                    size: 10634 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/correnteRL2-eps-converted-to.pdf images/correnteRL2.eps>
-(epstopdf)             \includegraphics on input line 3284.
+(epstopdf)             \includegraphics on input line 3320.
 Package epstopdf Info: Output file is already uptodate.
-<images/correnteRL2-eps-converted-to.pdf, id=3086, 247.92625pt x 178.6675pt>
+<images/correnteRL2-eps-converted-to.pdf, id=3085, 247.92625pt x 178.6675pt>
 File: images/correnteRL2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/correnteRL2-eps-converted-to.pdf>
-Package pdftex.def Info: images/correnteRL2-eps-converted-to.pdf  used on input line 3284.
+Package pdftex.def Info: images/correnteRL2-eps-converted-to.pdf  used on input line 3320.
 (pdftex.def)             Requested size: 227.62206pt x 164.0353pt.
 
 
@@ -4746,12 +4745,12 @@ Package epstopdf Info: Source file: <images/solenoide3.eps>
 (epstopdf)                    date: 2024-12-10 17:40:29
 (epstopdf)                    size: 6610 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/solenoide3-eps-converted-to.pdf images/solenoide3.eps>
-(epstopdf)             \includegraphics on input line 3314.
+(epstopdf)             \includegraphics on input line 3350.
 Package epstopdf Info: Output file is already uptodate.
-<images/solenoide3-eps-converted-to.pdf, id=3134, 192.72pt x 64.24pt>
+<images/solenoide3-eps-converted-to.pdf, id=3133, 192.72pt x 64.24pt>
 File: images/solenoide3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/solenoide3-eps-converted-to.pdf>
-Package pdftex.def Info: images/solenoide3-eps-converted-to.pdf  used on input line 3314.
+Package pdftex.def Info: images/solenoide3-eps-converted-to.pdf  used on input line 3350.
 (pdftex.def)             Requested size: 318.66948pt x 106.22275pt.
 
 
@@ -4770,12 +4769,12 @@ Package epstopdf Info: Source file: <images/ampereMax1.eps>
 (epstopdf)                    date: 2024-12-13 14:46:39
 (epstopdf)                    size: 6947 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/ampereMax1-eps-converted-to.pdf images/ampereMax1.eps>
-(epstopdf)             \includegraphics on input line 3325.
+(epstopdf)             \includegraphics on input line 3361.
 Package epstopdf Info: Output file is already uptodate.
-<images/ampereMax1-eps-converted-to.pdf, id=3150, 111.41624pt x 69.25874pt>
+<images/ampereMax1-eps-converted-to.pdf, id=3149, 111.41624pt x 69.25874pt>
 File: images/ampereMax1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/ampereMax1-eps-converted-to.pdf>
-Package pdftex.def Info: images/ampereMax1-eps-converted-to.pdf  used on input line 3325.
+Package pdftex.def Info: images/ampereMax1-eps-converted-to.pdf  used on input line 3361.
 (pdftex.def)             Requested size: 182.09486pt x 113.20354pt.
 Package epstopdf Info: Source file: <images/ampereMax2.eps>
 (epstopdf)                    date: 2024-12-13 14:46:39
@@ -4784,17 +4783,17 @@ Package epstopdf Info: Source file: <images/ampereMax2.eps>
 (epstopdf)                    date: 2024-12-13 14:46:39
 (epstopdf)                    size: 7003 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/ampereMax2-eps-converted-to.pdf images/ampereMax2.eps>
-(epstopdf)             \includegraphics on input line 3329.
+(epstopdf)             \includegraphics on input line 3365.
 Package epstopdf Info: Output file is already uptodate.
-<images/ampereMax2-eps-converted-to.pdf, id=3151, 93.34875pt x 69.25874pt>
+<images/ampereMax2-eps-converted-to.pdf, id=3150, 93.34875pt x 69.25874pt>
 File: images/ampereMax2-eps-converted-to.pdf Graphic file (type pdf)
 <use images/ampereMax2-eps-converted-to.pdf>
-Package pdftex.def Info: images/ampereMax2-eps-converted-to.pdf  used on input line 3329.
+Package pdftex.def Info: images/ampereMax2-eps-converted-to.pdf  used on input line 3365.
 (pdftex.def)             Requested size: 182.09486pt x 135.10893pt.
-<images/ampereMax3.pdf, id=3152, 81.30376pt x 31.11626pt>
+<images/ampereMax3.pdf, id=3151, 81.30376pt x 31.11626pt>
 File: images/ampereMax3.pdf Graphic file (type pdf)
 <use images/ampereMax3.pdf>
-Package pdftex.def Info: images/ampereMax3.pdf  used on input line 3332.
+Package pdftex.def Info: images/ampereMax3.pdf  used on input line 3368.
 (pdftex.def)             Requested size: 182.09486pt x 69.6961pt.
 
 
@@ -4806,10 +4805,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [114 <./images/ampereMax1-eps-converted-to.pdf> <./images/ampereMax2-eps-converted-to.pdf> <./images/ampereMax3.pdf>]
-<images/ampereMaxwell.pdf, id=3192, 154.5775pt x 75.28125pt>
+<images/ampereMaxwell.pdf, id=3191, 154.5775pt x 75.28125pt>
 File: images/ampereMaxwell.pdf Graphic file (type pdf)
 <use images/ampereMaxwell.pdf>
-Package pdftex.def Info: images/ampereMaxwell.pdf  used on input line 3349.
+Package pdftex.def Info: images/ampereMaxwell.pdf  used on input line 3385.
 (pdftex.def)             Requested size: 273.14923pt x 133.03871pt.
 
 
@@ -4822,15 +4821,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [115 <./images/ampereMaxwell.pdf>]
 Capitolo 7.
-<images/Cubetto.pdf, id=3199, 127.47626pt x 107.40125pt>
+<images/Cubetto.pdf, id=3198, 127.47626pt x 107.40125pt>
 File: images/Cubetto.pdf Graphic file (type pdf)
 <use images/Cubetto.pdf>
-Package pdftex.def Info: images/Cubetto.pdf  used on input line 3357.
+Package pdftex.def Info: images/Cubetto.pdf  used on input line 3393.
 (pdftex.def)             Requested size: 182.09486pt x 153.42691pt.
-<images/Cubetto2.pdf, id=3200, 218.8175pt x 70.2625pt>
+<images/Cubetto2.pdf, id=3199, 218.8175pt x 70.2625pt>
 File: images/Cubetto2.pdf Graphic file (type pdf)
 <use images/Cubetto2.pdf>
-Package pdftex.def Info: images/Cubetto2.pdf  used on input line 3360.
+Package pdftex.def Info: images/Cubetto2.pdf  used on input line 3396.
 (pdftex.def)             Requested size: 318.66948pt x 102.32614pt.
 
 
@@ -4840,10 +4839,10 @@ Package pdftex.def Info: images/Cubetto2.pdf  used on input line 3360.
 
 pdfTeX warning: pdflatex.exe (file ./images/Cubetto2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-<images/Cubetto3.pdf, id=3208, 125.46875pt x 99.37125pt>
+<images/Cubetto3.pdf, id=3207, 125.46875pt x 99.37125pt>
 File: images/Cubetto3.pdf Graphic file (type pdf)
 <use images/Cubetto3.pdf>
-Package pdftex.def Info: images/Cubetto3.pdf  used on input line 3366.
+Package pdftex.def Info: images/Cubetto3.pdf  used on input line 3402.
 (pdftex.def)             Requested size: 182.09486pt x 144.23624pt.
 Package epstopdf Info: Source file: <images/Differenziale3.eps>
 (epstopdf)                    date: 2025-01-07 10:14:06
@@ -4852,12 +4851,12 @@ Package epstopdf Info: Source file: <images/Differenziale3.eps>
 (epstopdf)                    date: 2025-01-07 10:14:16
 (epstopdf)                    size: 10124 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/Differenziale3-eps-converted-to.pdf images/Differenziale3.eps>
-(epstopdf)             \includegraphics on input line 3371.
+(epstopdf)             \includegraphics on input line 3407.
 Package epstopdf Info: Output file is already uptodate.
-<images/Differenziale3-eps-converted-to.pdf, id=3209, 245.91875pt x 82.3075pt>
+<images/Differenziale3-eps-converted-to.pdf, id=3208, 245.91875pt x 82.3075pt>
 File: images/Differenziale3-eps-converted-to.pdf Graphic file (type pdf)
 <use images/Differenziale3-eps-converted-to.pdf>
-Package pdftex.def Info: images/Differenziale3-eps-converted-to.pdf  used on input line 3371.
+Package pdftex.def Info: images/Differenziale3-eps-converted-to.pdf  used on input line 3407.
 (pdftex.def)             Requested size: 318.66948pt x 106.66061pt.
 
 
@@ -4869,15 +4868,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [117 <./images/Cubetto3.pdf> <./images/Differenziale3-eps-converted-to.pdf>]
-<images/teoDiv.pdf, id=3239, 435.6275pt x 106.3975pt>
+<images/teoDiv.pdf, id=3238, 435.6275pt x 106.3975pt>
 File: images/teoDiv.pdf Graphic file (type pdf)
 <use images/teoDiv.pdf>
-Package pdftex.def Info: images/teoDiv.pdf  used on input line 3398.
+Package pdftex.def Info: images/teoDiv.pdf  used on input line 3434.
 (pdftex.def)             Requested size: 455.24411pt x 111.18816pt.
-<images/IntDiv2.pdf, id=3240, 179.67125pt x 123.46124pt>
+<images/IntDiv2.pdf, id=3239, 179.67125pt x 123.46124pt>
 File: images/IntDiv2.pdf Graphic file (type pdf)
 <use images/IntDiv2.pdf>
-Package pdftex.def Info: images/IntDiv2.pdf  used on input line 3402.
+Package pdftex.def Info: images/IntDiv2.pdf  used on input line 3438.
 (pdftex.def)             Requested size: 182.09486pt x 125.13567pt.
 
 
@@ -4908,12 +4907,12 @@ Package epstopdf Info: Source file: <images/4eqMax.eps>
 (epstopdf)                    date: 2024-12-13 20:34:02
 (epstopdf)                    size: 4892 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/4eqMax-eps-converted-to.pdf images/4eqMax.eps>
-(epstopdf)             \includegraphics on input line 3459.
+(epstopdf)             \includegraphics on input line 3495.
 Package epstopdf Info: Output file is already uptodate.
-<images/4eqMax-eps-converted-to.pdf, id=3252, 140.525pt x 29.10875pt>
+<images/4eqMax-eps-converted-to.pdf, id=3251, 140.525pt x 29.10875pt>
 File: images/4eqMax-eps-converted-to.pdf Graphic file (type pdf)
 <use images/4eqMax-eps-converted-to.pdf>
-Package pdftex.def Info: images/4eqMax-eps-converted-to.pdf  used on input line 3459.
+Package pdftex.def Info: images/4eqMax-eps-converted-to.pdf  used on input line 3495.
 (pdftex.def)             Requested size: 318.66948pt x 66.02129pt.
 
 
@@ -4952,7 +4951,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [123]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 3566--3566
+Overfull \hbox (6.0pt too wide) in paragraph at lines 3602--3602
 [][][][][][] 
  []
 
@@ -4963,12 +4962,12 @@ Package epstopdf Info: Source file: <images/ondePiane.eps>
 (epstopdf)                    date: 2024-12-17 17:21:30
 (epstopdf)                    size: 3940 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/ondePiane-eps-converted-to.pdf images/ondePiane.eps>
-(epstopdf)             \includegraphics on input line 3587.
+(epstopdf)             \includegraphics on input line 3623.
 Package epstopdf Info: Output file is already uptodate.
-<images/ondePiane-eps-converted-to.pdf, id=3283, 397.485pt x 73.27374pt>
+<images/ondePiane-eps-converted-to.pdf, id=3282, 397.485pt x 73.27374pt>
 File: images/ondePiane-eps-converted-to.pdf Graphic file (type pdf)
 <use images/ondePiane-eps-converted-to.pdf>
-Package pdftex.def Info: images/ondePiane-eps-converted-to.pdf  used on input line 3587.
+Package pdftex.def Info: images/ondePiane-eps-converted-to.pdf  used on input line 3623.
 (pdftex.def)             Requested size: 455.24411pt x 83.92422pt.
 
 
@@ -4987,12 +4986,12 @@ Package epstopdf Info: Source file: <images/onda.eps>
 (epstopdf)                    date: 2024-12-17 17:21:30
 (epstopdf)                    size: 7853 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/onda-eps-converted-to.pdf images/onda.eps>
-(epstopdf)             \includegraphics on input line 3623.
+(epstopdf)             \includegraphics on input line 3659.
 Package epstopdf Info: Output file is already uptodate.
-<images/onda-eps-converted-to.pdf, id=3293, 162.6075pt x 82.3075pt>
+<images/onda-eps-converted-to.pdf, id=3292, 162.6075pt x 82.3075pt>
 File: images/onda-eps-converted-to.pdf Graphic file (type pdf)
 <use images/onda-eps-converted-to.pdf>
-Package pdftex.def Info: images/onda-eps-converted-to.pdf  used on input line 3623.
+Package pdftex.def Info: images/onda-eps-converted-to.pdf  used on input line 3659.
 (pdftex.def)             Requested size: 273.14923pt x 138.27185pt.
 
 
@@ -5004,7 +5003,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [125 <./images/onda-eps-converted-to.pdf>]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 3657--3657
+Overfull \hbox (6.0pt too wide) in paragraph at lines 3693--3693
 [][][][][][] 
  []
 
@@ -5015,12 +5014,12 @@ Package epstopdf Info: Source file: <images/ondeTrasversali.eps>
 (epstopdf)                    date: 2024-12-17 17:21:30
 (epstopdf)                    size: 12518 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/ondeTrasversali-eps-converted-to.pdf images/ondeTrasversali.eps>
-(epstopdf)             \includegraphics on input line 3664.
+(epstopdf)             \includegraphics on input line 3700.
 Package epstopdf Info: Output file is already uptodate.
-<images/ondeTrasversali-eps-converted-to.pdf, id=3313, 211.79124pt x 129.48375pt>
+<images/ondeTrasversali-eps-converted-to.pdf, id=3312, 211.79124pt x 129.48375pt>
 File: images/ondeTrasversali-eps-converted-to.pdf Graphic file (type pdf)
 <use images/ondeTrasversali-eps-converted-to.pdf>
-Package pdftex.def Info: images/ondeTrasversali-eps-converted-to.pdf  used on input line 3664.
+Package pdftex.def Info: images/ondeTrasversali-eps-converted-to.pdf  used on input line 3700.
 (pdftex.def)             Requested size: 204.85846pt x 125.24936pt.
 Package epstopdf Info: Source file: <images/campoEProp.eps>
 (epstopdf)                    date: 2024-12-17 17:21:30
@@ -5029,12 +5028,12 @@ Package epstopdf Info: Source file: <images/campoEProp.eps>
 (epstopdf)                    date: 2024-12-17 17:21:30
 (epstopdf)                    size: 10045 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/campoEProp-eps-converted-to.pdf images/campoEProp.eps>
-(epstopdf)             \includegraphics on input line 3668.
+(epstopdf)             \includegraphics on input line 3704.
 Package epstopdf Info: Output file is already uptodate.
-<images/campoEProp-eps-converted-to.pdf, id=3314, 234.8775pt x 201.75375pt>
+<images/campoEProp-eps-converted-to.pdf, id=3313, 234.8775pt x 201.75375pt>
 File: images/campoEProp-eps-converted-to.pdf Graphic file (type pdf)
 <use images/campoEProp-eps-converted-to.pdf>
-Package pdftex.def Info: images/campoEProp-eps-converted-to.pdf  used on input line 3668.
+Package pdftex.def Info: images/campoEProp-eps-converted-to.pdf  used on input line 3704.
 (pdftex.def)             Requested size: 204.85846pt x 175.96764pt.
 
 
@@ -5046,7 +5045,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [126 <./images/ondeTrasversali-eps-converted-to.pdf> <./images/campoEProp-eps-converted-to.pdf>]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 3711--3711
+Overfull \hbox (6.0pt too wide) in paragraph at lines 3747--3747
 [][][][][][] 
  []
 
@@ -5057,12 +5056,12 @@ Package epstopdf Info: Source file: <images/EM1.eps>
 (epstopdf)                    date: 2024-12-17 17:21:30
 (epstopdf)                    size: 5536 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/EM1-eps-converted-to.pdf images/EM1.eps>
-(epstopdf)             \includegraphics on input line 3713.
+(epstopdf)             \includegraphics on input line 3749.
 Package epstopdf Info: Output file is already uptodate.
-<images/EM1-eps-converted-to.pdf, id=3369, 270.00874pt x 133.49875pt>
+<images/EM1-eps-converted-to.pdf, id=3368, 270.00874pt x 133.49875pt>
 File: images/EM1-eps-converted-to.pdf Graphic file (type pdf)
 <use images/EM1-eps-converted-to.pdf>
-Package pdftex.def Info: images/EM1-eps-converted-to.pdf  used on input line 3713.
+Package pdftex.def Info: images/EM1-eps-converted-to.pdf  used on input line 3749.
 (pdftex.def)             Requested size: 227.62206pt x 112.54352pt.
 
 
@@ -5074,18 +5073,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.39996pt}.
 
 [127 <./images/EM1-eps-converted-to.pdf>]
-<images/EM.pdf, id=3382, 1006.76125pt x 437.635pt>
+<images/EM.pdf, id=3381, 1006.76125pt x 437.635pt>
 File: images/EM.pdf Graphic file (type pdf)
 <use images/EM.pdf>
-Package pdftex.def Info: images/EM.pdf  used on input line 3726.
+Package pdftex.def Info: images/EM.pdf  used on input line 3762.
 (pdftex.def)             Requested size: 318.66948pt x 138.52353pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 3732--3732
+Overfull \hbox (6.0pt too wide) in paragraph at lines 3768--3768
 [][][][][][] 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 3737--3737
+Overfull \hbox (6.0pt too wide) in paragraph at lines 3773--3773
 [][][][][][] 
  []
 
@@ -5101,10 +5100,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [128 <./images/EM.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./images/andamentoModuloOnda.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/andamentoModuloOnda.pdf, id=3389, 1144.275pt x 666.49pt>
+<images/andamentoModuloOnda.pdf, id=3388, 1144.275pt x 666.49pt>
 File: images/andamentoModuloOnda.pdf Graphic file (type pdf)
 <use images/andamentoModuloOnda.pdf>
-Package pdftex.def Info: images/andamentoModuloOnda.pdf  used on input line 3785.
+Package pdftex.def Info: images/andamentoModuloOnda.pdf  used on input line 3821.
 (pdftex.def)             Requested size: 318.66948pt x 185.60912pt.
 
 
@@ -5123,27 +5122,27 @@ Package epstopdf Info: Source file: <images/Poynting.eps>
 (epstopdf)                    date: 2024-12-20 17:38:04
 (epstopdf)                    size: 4947 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=images/Poynting-eps-converted-to.pdf images/Poynting.eps>
-(epstopdf)             \includegraphics on input line 3799.
+(epstopdf)             \includegraphics on input line 3835.
 Package epstopdf Info: Output file is already uptodate.
-<images/Poynting-eps-converted-to.pdf, id=3394, 133.49875pt x 94.3525pt>
+<images/Poynting-eps-converted-to.pdf, id=3393, 133.49875pt x 94.3525pt>
 File: images/Poynting-eps-converted-to.pdf Graphic file (type pdf)
 <use images/Poynting-eps-converted-to.pdf>
-Package pdftex.def Info: images/Poynting-eps-converted-to.pdf  used on input line 3799.
+Package pdftex.def Info: images/Poynting-eps-converted-to.pdf  used on input line 3835.
 (pdftex.def)             Requested size: 136.57462pt x 96.53627pt.
 
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3395, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3394, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf>
-Package pdftex.def Info: ../Formulario.pdf  used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf  used on input line 3840.
 (pdftex.def)             Requested size: 597.5064pt x 845.0448pt.
 
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf>
-Package pdftex.def Info: ../Formulario.pdf  used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf  used on input line 3840.
 (pdftex.def)             Requested size: 597.5064pt x 845.0448pt.
 
 
@@ -5151,14 +5150,14 @@ pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF 
 
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3398, page=1, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3397, page=1, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 1>
-Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3840.
 (pdftex.def)             Requested size: 597.5064pt x 845.0448pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 1>
-Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
@@ -5172,222 +5171,222 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [130 <./images/andamentoModuloOnda.pdf> <./images/Poynting-eps-converted-to.pdf>]
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 1>
-Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 1>
-Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 1>
-Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page1 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [131
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3420, page=2, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3419, page=2, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 2>
-Package pdftex.def Info: ../Formulario.pdf , page2 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page2 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 2>
-Package pdftex.def Info: ../Formulario.pdf , page2 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page2 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 2>
-Package pdftex.def Info: ../Formulario.pdf , page2 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page2 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [132
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3427, page=3, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3426, page=3, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 3>
-Package pdftex.def Info: ../Formulario.pdf , page3 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page3 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 3>
-Package pdftex.def Info: ../Formulario.pdf , page3 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page3 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 3>
-Package pdftex.def Info: ../Formulario.pdf , page3 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page3 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [133
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3433, page=4, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3432, page=4, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 4>
-Package pdftex.def Info: ../Formulario.pdf , page4 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page4 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 4>
-Package pdftex.def Info: ../Formulario.pdf , page4 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page4 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 4>
-Package pdftex.def Info: ../Formulario.pdf , page4 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page4 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [134
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3443, page=5, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3442, page=5, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 5>
-Package pdftex.def Info: ../Formulario.pdf , page5 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page5 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 5>
-Package pdftex.def Info: ../Formulario.pdf , page5 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page5 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 5>
-Package pdftex.def Info: ../Formulario.pdf , page5 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page5 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [135
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3449, page=6, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3448, page=6, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 6>
-Package pdftex.def Info: ../Formulario.pdf , page6 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page6 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 6>
-Package pdftex.def Info: ../Formulario.pdf , page6 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page6 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 6>
-Package pdftex.def Info: ../Formulario.pdf , page6 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page6 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [136
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3461, page=7, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3460, page=7, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 7>
-Package pdftex.def Info: ../Formulario.pdf , page7 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page7 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 7>
-Package pdftex.def Info: ../Formulario.pdf , page7 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page7 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 7>
-Package pdftex.def Info: ../Formulario.pdf , page7 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page7 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [137
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3469, page=8, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3468, page=8, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 8>
-Package pdftex.def Info: ../Formulario.pdf , page8 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page8 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 8>
-Package pdftex.def Info: ../Formulario.pdf , page8 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page8 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 8>
-Package pdftex.def Info: ../Formulario.pdf , page8 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page8 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [138
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3482, page=9, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3481, page=9, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 9>
-Package pdftex.def Info: ../Formulario.pdf , page9 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page9 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 9>
-Package pdftex.def Info: ../Formulario.pdf , page9 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page9 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 9>
-Package pdftex.def Info: ../Formulario.pdf , page9 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page9 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [139
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3488, page=10, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3487, page=10, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 10>
-Package pdftex.def Info: ../Formulario.pdf , page10 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page10 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 10>
-Package pdftex.def Info: ../Formulario.pdf , page10 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page10 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 10>
-Package pdftex.def Info: ../Formulario.pdf , page10 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page10 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [140
 
  <../Formulario.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ../Formulario.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<../Formulario.pdf, id=3494, page=11, 597.50786pt x 845.04686pt>
+<../Formulario.pdf, id=3493, page=11, 597.50786pt x 845.04686pt>
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 11>
-Package pdftex.def Info: ../Formulario.pdf , page11 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page11 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 11>
-Package pdftex.def Info: ../Formulario.pdf , page11 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page11 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 
 
 File: ../Formulario.pdf Graphic file (type pdf)
 <use ../Formulario.pdf, page 11>
-Package pdftex.def Info: ../Formulario.pdf , page11 used on input line 3804.
+Package pdftex.def Info: ../Formulario.pdf , page11 used on input line 3840.
 (pdftex.def)             Requested size: 597.53374pt x 845.08348pt.
 [141
 
  <../Formulario.pdf>]
-runsystem(latexminted cleantemp  --timestamp 20250108130649 267C27E3FE5681017588A60692926AA3)...disabled (restricted).
+runsystem(latexminted cleantemp  --timestamp 20250109173304 267C27E3FE5681017588A60692926AA3)...disabled (restricted).
 
  (Fisica.aux)
  ***********
@@ -5402,17 +5401,17 @@ Package rerunfilecheck Info: File `Fisica.out' has not changed.
 (rerunfilecheck)             Checksum: 9FDD1BF1563734FCFF07E0C90CDECD85;11709.
  ) 
 Here is how much of TeX's memory you used:
- 45804 strings out of 473682
- 1064101 string characters out of 5719215
+ 45803 strings out of 473682
+ 1064088 string characters out of 5719215
  1723648 words of memory out of 5000000
  67813 multiletter control sequences out of 15000+600000
  643965 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,27n,104p,851b,2358s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX2/fonts/type1/public/fourier/fourier-orns.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/mcasu/AppData/Local/Programs/MiKTeX/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on Fisica.pdf (142 pages, 11168714 bytes).
+Output written on Fisica.pdf (142 pages, 11170770 bytes).
 PDF statistics:
- 3656 PDF objects out of 4296 (max. 8388607)
- 280 named destinations out of 1000 (max. 500000)
+ 3655 PDF objects out of 4296 (max. 8388607)
+ 279 named destinations out of 1000 (max. 500000)
  1661 words of extra memory for PDF output out of 10000 (max. 10000000)
 
