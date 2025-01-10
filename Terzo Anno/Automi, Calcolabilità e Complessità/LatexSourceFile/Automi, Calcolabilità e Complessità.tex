@@ -1242,7 +1242,7 @@ $$ \begin{cases}
 Il PDA corrispondente avrà pila $\Gamma = \{\$, S, a, T, b\}$, precisamente\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/PDA2.eps}
 \end{center}
-Gli stati $E=\{q_1,1_2,q_3,q_4\}$ sono quelli di transizione che nella notazione abbreviata verrebbero 
+Gli stati $E=\{q_1,q_2,q_3,q_4\}$ sono quelli di transizione che nella notazione abbreviata verrebbero 
 omessi, sostituendo le etichette con gli archi.
 \begin{center}
     \includegraphics[width=0.65\textwidth ]{images/PDA2.2.eps}
@@ -1409,7 +1409,7 @@ Le variabili $A_i$ e $A_j$ possono essere sostituite nell'albero di computazione
 \begin{center}
     \includegraphics[width=0.85\textwidth ]{images/alberoDer2.eps}
 \end{center}
-In generale, è chiaro come $\forall i \ uv^ixy^iz\in L$. (punto $(i)$ dimostrato), la dimostrazione del 
+In generale (senza entrare troppo nel formalismo) è chiaro come $\forall i \ uv^ixy^iz\in L$ (punto $(i)$ dimostrato). La dimostrazione del 
 teorema è completa.\hfill$\blacksquare$
 \subsection{Esercizi ed Ultime Proprietà sulle CFG}
 In questa sezione verrà utilizzato il pumping lemma per dimostrare che alcuni linguaggi non sono acontestuali.
@@ -2602,7 +2602,7 @@ $$ x\in B \iff R_2(x)\in C$$
 allora, per ogni $x$
 $$ x\in A\implies R_1(x)\in B \implies R_2(R_1(x))\in C$$
 ma allora $R_1\circ R_2$ è una riduzione da $A$ a $C$ perché 
-$$ x\in A \iff R_1(R_2(x))\in C$$\hfill$\blacksquare$\acc  
+$$ x\in A \iff R_2(R_1(x))\in C$$\hfill$\blacksquare$\acc  
 Non tutte le riduzioni hanno complessità polinomiale, si consideri il seguente linguaggio 
 $$ 4-CROMA = \{<G>\ | \ \mathcal X(G)=4\}$$
 $\mathcal X(G)$ è il \textit{numero cromatico} di $G$, $\mathcal X(G)=k$ se $G$ è $k-$colorabile, ma per ogni $k'<k$ non è $k'$-colorabile. È vero che 
@@ -2689,7 +2689,7 @@ $$ \phi_{cell}=\bigwedge\limits_{1 \leq i,j \leq n^k} \Big(
 \textbf{quarta formula} : $\phi_{move}$\\
 questa formula assicura che la riga $l+1$ è coerente con la riga $l$, ossia che le due configurazioni che si susseguono sono coerenti e in accordo con la funzione di transizione $\delta$ della NTM $N$. Per fare ciò, basta controllare ogni possibile finestra su due righe, questa deve essere \textit{lecita} (non violare le regole di $\delta$).\begin{itemize}
     \item in una finestra, tutti i simboli che non sono adiacenti ad uno stato $q$ devono rimanere invariati 
-    \item i simboli adiacenti ad uno stato $q$ devono evolvere nella riga successiva seguento uno dei possibili risultati della $\delta$
+    \item i simboli adiacenti ad uno stato $q$ devono evolvere nella riga successiva seguendo uno dei possibili risultati della $\delta$
 \end{itemize}\begin{center}
     \includegraphics[width=\textwidth ]{images/finestraLecita.eps}
 \end{center}
@@ -2832,7 +2832,7 @@ Si consideri ora il linguaggio $PAL$ contenente tutte le stringhe palindrome, ad
 \end{enumerate}
 La TM userà un numero costante di nastri, ad alto livello la procedura è descritta dai seguenti punti\begin{itemize}
     \item sul nastro 1, si realizza l'indice $i$, che occupa $O(\log_2(n))$
-    \item si memorizza l'indicie sul nastro 2 e si incrementa ad ogni passo, tale operazione richiede sempre complessità spaziale logaritmica 
+    \item si memorizza l'indice sul nastro 2 e si incrementa ad ogni passo, tale operazione richiede sempre complessità spaziale logaritmica 
     \item sul nastro 3 ad ogni passo si calcola $n+1-i$
     \item ad ogni iterazione si controlla che $x_i\ne x_{n+1-i}$
 \end{itemize}
@@ -2957,7 +2957,7 @@ Basta assumere che $N(x)$, prima di accettare, si occupi di cancellare ogni elem
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/Cstart.drawio.pdf}
 \end{center}
-Naturalmente, $N(x)$ accetta se e solo se esiste un cammino da $C_{start}$ a $C_{acc}$ nel grafo $G_{N,x}$. Pertanto, $A\in NLOG \implies A\in P$, dato che esiste una $TM$ $M$ (deterministica) che decide in tempo polinomiale se $x\in A$ tramite la seguente procedura\begin{itemize}
+Naturalmente, $N(x)$ accetta se e solo se esiste un cammino da $C_{start}$ a $C_{acc}$ nel grafo $G_{N,x}$. Pertanto, è possibile eseguire una DFS sul grafo che ha $2^{O(\log(n))}=O(n)$ nodi, e ciò può essere fatto in tempo polinomiale, quindi $A\in NLOG \implies A\in P$, dato che esiste una $TM$ $M$ (deterministica) che decide in tempo polinomiale se $x\in A$ tramite la seguente procedura\begin{itemize}
     \item si scrive $G_{N,x}$ enumerando vertici ed archi, ciò richiede complessità temporale $poly(n)$.
     \item $M$ utilizza l'algoritmo di marcatura (che ha complessità polinomiale) per verificare che esiste un cammino fra i due nodi del grafo.
 \end{itemize}
