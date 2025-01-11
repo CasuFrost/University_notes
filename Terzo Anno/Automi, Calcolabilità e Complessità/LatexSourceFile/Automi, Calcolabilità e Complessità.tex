@@ -1158,7 +1158,7 @@ dimostrazione. \acc
 che sfrutti il non determinismo per accettare una generica stringa $w\in L(G)$ usando tutte le possibili 
 derivazioni (applicazioni delle regole) di $G$.\acc 
 Lo stack di $P$ conterrà le variabili ed i terminali di $G$ che verranno appositamente sostituiti con le regole.\\ 
-Possono esserci differenti alberi di computazione, il comportamento del PDA può essere scritto dal seguente 
+Possono esserci differenti alberi di computazione, il comportamento del PDA può essere descritto dal seguente 
 algoritmo 
 \greybox{
     $\diamond $ si inserisce $\$$ nella pila \\ \\\color{blue}
@@ -1603,7 +1603,7 @@ $$\begin{matrix}
  $$ C_1\rightarrow C_2\rightarrow C_3\dots\rightarrow C_k$$
  dove \begin{itemize}
     \item $C_1=q_0w$ 
-    \item $\forall i \ \ \ C_i$ produce $C_j$
+    \item $\forall i \ \ \ C_i$ produce $C_{i+1}$
     \item lo stato della configurazione $C_k$ è lo stato accettante $C_k=uq_{acc}av$
  \end{itemize}
  \defi{(Riconoscibilità)} Un linguaggio $L$ è \textbf{turing riconoscibile} se esiste una TM $M$ che 
@@ -1614,7 +1614,7 @@ $$\begin{matrix}
  \end{itemize}
  Una TM $M$ per cui, data una qualsiasi stringa, non vai mai in loop, viene detta \textbf{decisore}.\acc 
  \defi{(Decidibilità)} Un linguaggio $L$ è \textbf{turing decidibile} se esiste una TM $M$ che è un 
- decisore per $L$, ossia, per ogni sua stringa, non va mai in loop. Si dice che $M$ \textit{decide} $L$.\acc 
+ decisore per $L$, ossia, accetta ogni stringa in $L$, e rifiuta ogni stringa che non è in $L$. Si dice che $M$ \textit{decide} $L$.\acc 
 Data una TM $M$ si hanno gli insiemi \begin{itemize}
     \item $L(M)=\{w\in\Sigma^* \ | \ M\text{ accetta }w \}$
     \item $R(M)=\{w\in\Sigma^* \ | \ M\text{ rifiuta }w \}$
@@ -1783,8 +1783,7 @@ $M$ accetta, altrimenti si incremente l'indice $i$
  \begin{itemize}
     \item Se un ramo di $N$ è accettante, $M$ accetta 
     \item Se ogni ramo di $N$ rifiuta, $M$ rifiuta 
-    \item Se almeno un ramo di $N$ va in loop, e nessun 
-    ramo accetta, $M$ va in loop.
+    \item Se nessun ramo accetta o rifiuta ($N$ va in loop), allora anche $M$ andrà in loop
  \end{itemize}
  \hfill$\blacksquare$\acc
 Se una NTM è un decisore, tutti i cammini hanno lunghezza finita.
@@ -1813,7 +1812,7 @@ la lista di tutte le possibile stringhe su tale alfabeto. $E$ sarà definito com
 Come esistono linguaggi non regolari e linguaggi non acontestuali, risulta naturale porsi la domanda : Esistono dei linguaggi non turing riconosibili? Il modello della TM corrisponde al concetto di algoritmo, un linguaggio non riconoscibile corrisponde ad un problema che \textit{nessun} algoritmo può risolvere.\acc 
 Una TM può ricevere in input un qualsiasi oggetto matematico, come un polinomio, un DFA, o direttamente un'altra TM, è importante che tale oggetto $O$, venga \textbf{codificato} in binario, denotandolo $<O>$ prima di essere computato dalla TM.\acc 
 Vediamo come prima cosa un esempio di linguaggio decidibile, si consideri 
-$$A_{DFA}=\{<D,w>\ |\ D \in DFA \land w\in L(d)\}$$
+$$A_{DFA}=\{<D,w>\ |\ D \in DFA \land w\in L(D)\}$$
 con $D\in DFA$ si indica che $D$ è un DFA. \acc 
 \prop{} $A_{DFA}$ è decidibile. \acc 
 \dimo{} Si vuole costruire un decisore per $A_{DFA}$, la TM in questione avrà il seguente comportamento\begin{enumerate}
@@ -1822,7 +1821,7 @@ con $D\in DFA$ si indica che $D$ è un DFA. \acc
     \item Se $D$ accetta $w$, allora la TM accetta, altrimenti rifiuta
 \end{enumerate}
 \hfill $\blacksquare$\acc 
-In maniera simile, si può dimostrare che anche  $A_{NFA}=\{<N,w>\ |\ D \in NFA \land w\in L(d)\}$ è decidibile, utilizzando una TM non deterministica, oppure, si potrebbe trasformare l'input in un DFA ed eseguire l'algoritmo appena trattato. \acc  
+In maniera simile, si può dimostrare che anche  $A_{NFA}=\{<N,w>\ |\ D \in NFA \land w\in L(D)\}$ è decidibile, utilizzando una TM non deterministica, oppure, si potrebbe trasformare l'input in un DFA ed eseguire l'algoritmo appena trattato. \acc  
 Si consideri il linguaggio 
 $$ E_{DFA}=\{<D>\ | \ D\in DFA \land L(D)=\emptyset\}$$
 Ossia di tutte le codifiche di DFA che hanno linguaggio vuoto, ossia che non accettano nessuna stringa. \acc 
@@ -1902,7 +1901,7 @@ I passi di esecuzione sono i seguenti\begin{enumerate}
 \end{enumerate}
 $U$ è quindi un riconoscitore per $A_{TM}$.\hfill$\blacksquare$
 \subsection{Diagonalizzazione}
-La diagonalizzazione è una tecnica utilizzata per dimostrare alcune semplici proprietà degli insiemi. Sappiamo che un insieme generico $A$ è numerabile se esiste una biezione da $\N$ a $A$. Ad esempio, l'insieme dei numeri pari $E$ è numerabile perché esiste $$ f:E\rightarrow \N\ \ \ | \ \ \  f(n)=2n$$ che è una biezione.\acc 
+La diagonalizzazione è una tecnica utilizzata per dimostrare alcune semplici proprietà degli insiemi. Sappiamo che un insieme generico $A$ è numerabile se esiste una biezione da $\N$ a $A$. Ad esempio, l'insieme dei numeri pari $E$ è numerabile perché esiste $$ f:\N \rightarrow E\ \ \ | \ \ \  f(n)=2n$$ che è una biezione.\acc 
 \teo{} $\R$ non è numerabile.\acc 
 \dimo{} è necessario dimostrare che un sottoinsieme di $\R$ non sia numerabile. Si pone per assurdo che esiste una biezione da $\N$ a $[0,1]$. Sia $f$ tale biezione, ad ogni valore di $\N$ associa un numero reale fra zero ed uno.$$ \begin{matrix}
     f(1)=0.52423\dots\\ 
@@ -1946,11 +1945,14 @@ Si definisce una nuova TM $D$ che prende come input una TM e si comporta nel seg
     \item Su input $<M>$, esegue $H(<M,<M>>)$
     \item Se $H$ accetta, $D$ rifiuta. Se $H$ rifiuta, $D$ accetta.
 \end{enumerate}
+Praticamente 
+$$ D(<M>)=\lnot H(<M,<M>)=\lnot M(<M>)$$
 Ricordando il comportamento di $H$, si ha la seguente situazione "transitiva"
 \begin{center}
     \includegraphics[width=0.4\textwidth ]{images/ATMnonDec.pdf}
 \end{center}
 Se alla TM $D$ si da in input $<D>$ si ricade nella seguente situazione.
+$$ D(<D>)=\lnot H(<D,<D>)=\lnot D(<D>)$$
 \begin{center}
     \includegraphics[width=0.4\textwidth ]{images/ATMnonDec2.pdf}
 \end{center}
@@ -2070,7 +2072,7 @@ $f$ deve essere calcolabile, quindi si definisce una TM che calcola $f$, ed eseg
 \begin{enumerate}
     \item  Su input $<M,w>$, definisce due TM ausiliarie $M_1,M_2$, tali che \begin{itemize}
         \item $M_1$ rifiuta sempre 
-        \item $M_2$ accetta solo se $M(w)$ accetta, altrimenti rifiuta.
+        \item $M_2$ accetta ogni input $x$ solo se $M(w)$ accetta, altrimenti rifiuta sempre.
     \end{itemize}
     \item l'output della funzione è $<M_1,M_2>$
 \end{enumerate}
@@ -2193,7 +2195,7 @@ Si definisce il linguaggio
 $$ L_{provable}=\{<x>\ | \ x \text{ è dimostrabile }\}$$
 Alcune osservazioni
 \begin{itemize}
-    \item Se $\Pi$ è valido, l'output di $P$ è vero, anche se non è assicurato che $R$ termini
+    \item Se $\Pi$ è valido, l'output di $P$ è vero, anche se non è assicurato che termini
     \item Se $\Pi$ è completo, allora $R$ è un decisore per $ L_{provable}$. In particolare, per ogni $<x>$, se $x$ è vera, $R(<x>)$ accetta, altrimenti $R(<x>)$ rifiuta
 \end{itemize}
 Verrà considerato adesso un caso speciale del primo teorema di incompletezza, abbiamo visto come un sistema valido è anche consistente. Il primo teorema di Gödel riguarda i sistemi consistenti, il caso speciale che verrà trattato riguarda i sistemi validi. \acc 
@@ -2232,7 +2234,7 @@ Si consideri la TM mostrata in figura \begin{center}
 È chiaro che su input $w=0 \ 0\ \blank$ la TM termina, per dimostrarlo è necessario mostrare la traccia di esecuzione della macchina sulla stringa data.\acc 
 \color{sapienza}\textbf{Lemma} : \color{black} Sia $M$ una generica TM e $w$ una stringa, se $M$ termina su $w$, l'affermazione $<M(w)\ne \infty>$ è dimostrabile.\acc 
 \teo{di Incompletezza I} Sia $\Pi$ un generico sistema di prova. Se $\Pi$ è consistente, allora non è completo.\acc 
-\dimo{} Si definisce un'apposita TM $D$ il cui comportamento è descritto come segue \begin{enumerate}
+\dimo{} Si assume che $\Pi$ sia consistente e completo, si definisce un'apposita TM $D$ il cui comportamento è descritto come segue \begin{enumerate}
     \item su input $<M>$, dove $M$ è una macchina di Turing 
     \item si controlla per ogni $k\in1,2,3,\dots$\begin{itemize}
         \item per ogni stringa $w$ tale che $|w|=k$
@@ -2302,7 +2304,7 @@ Nei capitoli precedenti sono state considerate delle varianti della TM, che poss
 $$ \delta:Q\times\Gamma \rightarrow Q\times\Gamma\times \{L,R,S\}$$
 Questa poteva essere resa equivalente ad una TM classica, aggiungendo un semplice stato in cui la TM simula l'azione $S$ spostandosi a destra e poi a sinistra. È chiaro che una TM classica che simula la TM che può stare ferma, dovrà compiere al più il doppio dei passi computazionali.\acc 
 Ne consegue che, se $M$ è una TM che può stare ferma, il cui costo computazionale è $t(n)=O(t(n))$, allora una TM classica che la simula avrà costo computazionale $2t(n)=O(t(n))$.\acc 
-\textbf{Esempio} : Si consideri la TM multi nastro, si vuole calcolare l'overhead quando si considera una sua simulazione con TM classica. \begin{center}
+\textbf{Esempio} : Si consideri la TM multi nastro, si vuole calcolare l'overhead quando si considera una sua simulazione con una TM classica. \begin{center}
     \includegraphics[width=\textwidth ]{images/multinastro.eps}
 \end{center}
 Si può simulare con una TM classica come esposto nella sezione \ref{TMmultinastro}. Se una TM multi nastro $M$ ha costo computazionale $t(n)$, allora la lunghezza di ogni nastro sarà al massimo $n$. Sia $M'$ la TM classica che simula $M$, l'inizializzazione costa sicuramente $t(n)$ in quanto è necessario considerare tutto il nastro, inoltre, per ogni step di computazione di $M$, $M'$ dovrà considerare tutto il nastro per leggere i caratteri marcati ed eventualmente spostarne il contenuto. Ogni step di computazione su $M'$ ha costo $t(n)$. Ne consegue che la complessità di $M'$ sarà 
@@ -2383,7 +2385,7 @@ Definiamo \textit{clausola} una formula logica consistente in una o più variabi
 \defi{(CNF)} una formula logica è in \textit{CNF} (forma normale congiuntiva) se consiste in una serie di clausole in AND fra loro. Ad esempio  
 $$ (x_1 \lor x_2 \lor \overline{x_3}) \land (x_4 \lor x_2 \lor {x_1}) \land  
 (\overline{x_5} \lor x_2)$$
-\prop{} ogni formula logica può essere scritto in forma normale congiuntiva. Si può quindi assumere (senza perdita di generalità) che una formula sia in CNF.\acc 
+\prop{} ogni formula logica può essere scritta in forma normale congiuntiva. Si può quindi assumere (senza perdita di generalità) che una formula sia in CNF.\acc 
 Si definisce l'insieme 
 $$ CNF-SAT=\{<C>\in FORMULA-SAT \ | \ C \text{ è in forma normale congiuntiva}\}$$
 è vero che 
@@ -2461,7 +2463,7 @@ Nel caso opposto
     \includegraphics[width=0.3\textwidth ]{images/ordTop.eps}
 \end{center}
 \textbf{Fatto} :  Se c'è un arco $(a,b)$ in $G$, secondo l'assegnamento appena dato, è impossibile che $a=1$ e $b=0$.
-\acc \textbf{Dimostrazione del Fatto} : Supponiamo che in $G$ ci sia $(a,b)$ e che $a=1$ e $b=0$, allora in $\phi$ esiste la clausola $$\bar a \lor b$$
+\acc \textbf{Dimostrazione del Fatto} : Supponiamo che in $G$ ci sia $(a,b)$ e che $a=1$ e $b=0$, allora in $\phi$ esiste la clausola $$\bar a \lor b \equiv a\rightarrow b$$
 e quindi c'è anche l'arco $(\bar b , \bar a)$.\begin{itemize}
     \item $ a = 1 \implies \bar a = 0$
     \item secondo l'assegnamento, $a$ è nella componente $C_i$ e $\bar a$ è in una componente antecedente $C_{i-k}$
@@ -2487,7 +2489,7 @@ I problemi presentati, ad esempio
     \item ecc...
 \end{itemize}
 condividono una proprietà: data una \textit{soluzione}, questa può essere verificata valida o meno in tempo polinomiale. Si vuole definire in questa sezione la classe $NP$ tramite il \textit{non determinismo}, esiste però, anche un'altra definizione altrettanto naturale.\acc 
-\defi{} Dato un linguaggio $L$, una TM $V$ è detta \textbf{verificatore} se, dato un input $<x,y>$ si ha che \begin{itemize}
+\defi{} Dato un linguaggio $L$, una TM $V$ è detta \textbf{verificatore} per $L$ se, prende in input due elementi (uno di questi in $L$) e \begin{itemize}
     \item $x\in L \iff \exists y \text{ tale che }V(<x,y>)$ accetta
 \end{itemize}
 $V$ data una soluzione può verificare che questa sia contenuta o no nel linguaggio $L$. Si dice che $V$ ha \textit{tempo polinomiale} se \begin{itemize}
@@ -2539,8 +2541,8 @@ Si vuole dare un esempio di linguaggio $NP$ usando tale definizione, si consider
 \dimo{} Verranno dimostrate le due implicazioni separatamente.\\ 
 \boxedMath{$\implies$} Se $L$ ha un verificatore polinomiale $V$, è possibile definire una NTM $N$ la cui procedura è descritta come segue:\begin{itemize}
     \item su input $x$
-    \item $N$ utilizzando il non determinismo determina ogni possibile soluzione $y$ tale che $|y|=poly(|x|)$, e ciò ha costo polinomiale
-    \item $N$ accetta solo se $V(<x,y>)$ accetta, quindi esegue $V$ e per definizione questa ha costo polinomiale 
+    \item $N$ utilizzando il non determinismo, considera ogni possibile soluzione $y$ tale che $|y|=poly(|x|)$, e ciò, su ogni ramo di computazione, ha costo polinomiale
+    \item $N$ accetta solo se $V(<x,y>)$ accetta, quindi esegue $V$ e per definizione questa ha costo polinomiale
 \end{itemize}
 è chiaro che $N$ è un decisore non deterministico per $L$ che opera in tempo polinomiale.\acc 
 \boxedMath{$\impliedby$} Se $L$ è decidibile in tempo polinomiale da una NTM $N$, allora su input $x$, un numero $poly(|x|)$ è un upper bound sui passi di computazione di ogni ramo parallelo di $N$. Si definisce un verificatore $V$, che opera su input $y$, definito come l'insieme dei passi deterministici di un ramo di $N$, in particolare\begin{itemize}
@@ -2735,7 +2737,7 @@ Si può trovare un assegnamento per $\phi$ considerando la seguente procedura \b
     \item si controllano nello stesso modo tutti gli altri letterali $x_2,x_3\dots ,x_n$
     \item al termine si avrà un assegnamento valido per $\phi$, trovato in tempo polinomiale.
 \end{enumerate}
-Essendo che ogni problema $NP$ si riduce a $SAT$, si ha che se $P=NP$, una soluzione valida per ogni problema $NP$ può essere trovata in tempo polinomiale.\acc 
+Essendo che ogni problema $NP$ si riduce a $SAT$, si ha che se $P=NP$, una soluzione valida per ogni problema $NP$ può essere trovata in tempo polinomiale, questo fatto avrebbe gravi conseguenze, infatti la fattorizzazione dei numeri interi è un problema $NP$, e la sua difficoltà nel risolverlo è alla base della crittografia.\acc 
 \teo{} $P=NP\implies EXP=NEXP$\acc 
 \dimo{} Si utilizza una tecnica chiamata \textit{padding}, l'assunzione è che $P=NP$, si vuole dimostrare che $NEXP\subseteq EXP$ (sappiamo già che $EXP \subseteq NEXP$), sia $L\in NEXP$ e sia $N$ la NTM che decide $L$ in tempo $O(2^{n^k})$ per qualche $k$.\acc 
 Si considera un linguaggio derivato
@@ -2780,7 +2782,7 @@ e ci si chiede: sapendo che $SAT\in NP$, $UNSAT\in NP$?\acc
 \hfill$\blacksquare$\acc  
 Se $P\ne NP$ è congetturata la seguente relazione fra insiemi
 \begin{center}
-    \includegraphics[width=0.3\textwidth ]{images/coNP.eps}
+    \includegraphics[width=0.4\textwidth ]{images/relCongetturata.eps}
 \end{center}
 \teo{} $P\subseteq coNP$\acc 
 \dimo{} $L\in P\implies \overline L \in P \subseteq NP \implies 
@@ -2862,14 +2864,14 @@ Il  teorema ha un significato molto chiaro:
 Vediamo ora in che modo lo spazio può limitare il tempo. \acc
 \teo{} Per ogni $f(n)\ge \log(n)$\footnote{con $\ge$ si intende, che è asintoticamente maggiore, ossia $f(n)\in\Omega(\log(n))$}, si ha che $SPACE(f(n))\subseteq DTIME(2^{O(f(n))})$\acc 
 \dimo{} Nella valutazione della complessità spaziale, una TM ha un nastro di lavoro ed un nastro per l'input, una qualsiasi configurazione (snapshot durante la computazione) di una TM $M$, può essere rappresentata come segue 
-$$ a_1 \ a_2 \ a_3 \ q_i \ a_4 \ a_5 \ a_6 \ ;\ k$$
+$$ a_1 \ a_2 \ a_3 \ \mathbf{q_i} \ a_4 \ a_5 \ a_6 \ ;\ k$$
 dove \begin{itemize}
     \item $a_j$ sono caratteri sul nastro di lavoro 
-    \item $q_i$ è lo stato attuale, e la sua posizione indica la posizione della testina sul nastro di lavoro 
+    \item $\mathbf{q_i}$ è lo stato attuale, e la sua posizione indica la posizione della testina sul nastro di lavoro 
     \item $k$ è il numero della cella su cui è presente la testina sul nastro dell'input
 \end{itemize}
 Essendo $M$ deterministica, ed essendo un decisore, nessuna configurazione può ripetersi due volte durante una computazione. L'implicazione è chiara :\begin{quote}
-    Il numero MASSIMO di passi di computazione che può fare $M$ su un qualsiasi input, è limitato dal numero totale di configurazioni, in quanto al più, una computazione può includere nella sequenza ogni singola configurazione, ma queste non possono ripetersi
+    Il numero \textg{massimo } di passi di computazione che può fare $M$ su un qualsiasi input, è limitato dal numero totale di configurazioni, in quanto al più, una computazione può includere nella sequenza ogni singola configurazione, ma queste non possono ripetersi
 \end{quote}\begin{center}
     \includegraphics[width=0.75\textwidth ]{images/confTM2.eps}
 \end{center}
@@ -2912,7 +2914,7 @@ FIND_PATH(x,y,k){
     REJECT 
 }
 \end{lstlisting}
-Al termine, si avrà che la procedura accetterà solo se esiste un cammino da $x$ ad $y$ con al più $2^k$ nodi. Sarà necessario fra si che la TM $M$ esegua la procedura \begin{quote}
+Al termine, si avrà che la procedura accetterà solo se esiste un cammino da $x$ ad $y$ con al più $2^k$ nodi. Sarà necessario far si che la TM $M$ esegua la procedura \begin{quote}
     \texttt{FIND\_PATH(s,t,$\lceil \log(n)\rceil $)}
 \end{quote}
 Osservazioni\begin{itemize}
@@ -2947,7 +2949,7 @@ Vedremo che $PATH$ è $NLOG$ completo.\acc
 \dimo{} Sia $A\in NLOG$, ossia $\exists \  NTM \ N$ tale che $L(N)=A$ e $N$ ha complessità spaziale $O(\log(n))$, si ricordi che una configurazione è della forma 
 $$ C=afjej\ q_i \ sfj \ ;\ r$$
 dove $q_i$ è lo stato, che indica anche la posizione della testina sul nastro di lavoro, ed $r$ è la posizione della testina sul nastro di input. Esistono 
-$2^{O(\log(n))}$ possibili configurazioni, si associa, per ogni coppia $N,x$ ($x$ input di $N$) un grafo $G_{N,x}$, i cui nodi sono le possibili configurazioni $C$, ed esiste un arco $(C,C')$ se $C'$ è una configurazione che può seguire da $C$ in accordo con le regole stabilite dalla funzione di transizione $\delta$. Inoltre esisterà una configurazione iniziale $C_{start}$ (naturalmente definita). 
+$2^{O(\log(n))}=O(n)$ possibili configurazioni, si associa, per ogni coppia $N,x$ ($x$ input di $N$) un grafo $G_{N,x}$, i cui nodi sono le possibili configurazioni $C$, ed esiste un arco $(C,C')$ se $C'$ è una configurazione che può seguire da $C$ in accordo con le regole stabilite dalla funzione di transizione $\delta$. Inoltre esisterà una configurazione iniziale $C_{start}$ (naturalmente definita). 
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/grafoGNx.drawio.pdf}
 \end{center}
@@ -2963,7 +2965,7 @@ Naturalmente, $N(x)$ accetta se e solo se esiste un cammino da $C_{start}$ a $C_
 \end{itemize}
 $$ NLOG\subseteq P$$
 In maniera simile, è possibile utilizzare l'algoritmo ricorsivo visto ad inizio della sezione \ref{ndetSpace} per trovare un cammino fra i due nodi in complessità spaziale $O(\log^2(n))$.\acc 
-Non è però possibile scrivere il grafo $G_{N,x}$ nel nastro di lavoro in quanto violerebbe lo spazio logaritmico, ma ciò non è necessario in quanto si può valutare di volta in volta se esiste un arco $(C_i,C_j)$ valutando l'input $x$.\hfill$\blacksquare$\acc  
+Non è però possibile in questo caso scrivere il grafo $G_{N,x}$ nel nastro di lavoro in quanto violerebbe lo spazio logaritmico, ma ciò non è necessario in quanto si può valutare di volta in volta se esiste un arco $(C_i,C_j)$ valutando l'input $x$.\hfill$\blacksquare$\acc  
 Il teorema di Savitch si può generalizzare:\acc 
 \teo{} $NSPACE(f(n))\subseteq DTIME(2^{O(f(n))})\cap SPACE(f(n)^2)$\acc 
 \textbf{Corollario} : $NPSPACE\subseteq EXP\cap PSPACE$, ma allora, sapendo già che $PSPACE\subseteq NPSPACE$ ne consegue che\sapbox{$$NPSPACE=PSPACE$$}
@@ -3021,7 +3023,7 @@ Fino ad ora abbiamo visto esempi di linguaggi\begin{itemize}
 Vediamo adesso alcuni esempi di linguaggi $P$ completi e $PSPACE$ completi.\acc 
 \defi{($P$ completezza)} $C$ è $P$ completo se $C\in P$ e $\forall A\in P$ si ha che $A\le_m^L C$\acc 
 \textbf{Osservazione} : La definizione riguarda la classe $P$ (complessità temporale) ma utilizza la \textit{log space reduction} (inerente alla complessità spaziale).
-\sapbox{\textbf{Problema aperto} : La seguente proposizione non è stata dimostrata, e tutt'ora non si sa se sia vera o falsa $$ C\in LOG\implies P\subseteq LOG$$ 
+\sapbox{\textbf{Problema aperto} : La seguente proposizione non è stata dimostrata, e tutt'ora non si sa se sia vera o falsa $$C\text{ è }P\text{-completo e } C\in LOG\implies P\subseteq LOG$$ 
 
 }
 Vediamo un esempio di problema $P$ completo: 
@@ -3083,7 +3085,42 @@ $$ \begin{pmatrix}
     (D,D')=(C_{mid},C_1)
 \end{pmatrix}\implies \phi_{k-1}(D,D')$$
 In questo caso le dimensioni di $\phi_k$ sono $O(n^a)+|\phi_{k-1}|=O(n^{2a})$, che è polinomiale.\hfill$\blacksquare$\acc 
-\teo{(Immerman-Szelepcsényi)} La classe $NLOG$ è chiusa rispetto al complemento $$NLOG=coNLOG$$\dimo{}\redText{TODO}
+\teo{(Immerman-Szelepcsényi)} La classe $NLOG$ è chiusa rispetto al complemento $$NLOG=coNLOG$$\dimo{}
+Basta mostrare che $PATH\in coNLOG$, definendo un verificatore $V$ che tramite un certificato, verifica che non esiste un cammino fra due nodi in un grafo usando spazio logaritmico. Il certificato che denotiamo $y$ avrà dimensioni non logaritmiche, questo può essere quindi letto una sola volta, da sinistra verso destra.\acc 
+L'input del verificatore è $<<G,s,t>,y>$, deve verificare che in $G$ non ci sia il cammino da $s$ a $t$.\acc
+\textbf{Notazione} : Denotiamo $R_l$ l'insieme dei nodi raggiungibili da $s$ in al più $l$ passi, e denotiamo la sua cardinalità $r_l=|R_l|$. Chiaramente $R_n$ contiene tutti i nodi raggiungibili da $s$, inoltre $R_0=\{s\}$ quindi $r_0=1$.\acc 
+Il certificato $y$ è composto da diversi sotto-certificati 
+$$ y=cert(r_0) \ cert(r_1) \ cert(r_2) \dots  \ cert(r_n)$$
+Ogni sotto-certificato $cert(r_l)$ sarà a sua volta composto in $n$ sotto certificati (uno per ogni nodo), in cui certificherà che un nodo è (oppure non è) contenuto in $R_l$, ad esempio 
+$$ cert(r_l)=\begin{matrix}
+    \text{certificato per }v_1\in R_l \\  
+    \text{certificato per }v_2\notin R_l \\ \vdots \\  
+    \text{certificato per }v_n\in R_l 
+\end{matrix}$$
+Quindi $cert(r_l)$ verifica per ogni nodo, se è o non è raggiungibile da $s$ in al più $l$ passi. Ma come può certificare ciò per ogni nodo?\begin{itemize}
+    \item supponiamo che $v_i\in R_l$, allora in $cert(r_l)$ c'è il certificato 
+    $$\text{certificato per }v_i\in R_l$$
+    e questo non è altro che la successione di archi che compone il cammino da $s$ a $v_i$. 
+     $$\text{certificato per }v_i\in R_l=(s,v_k)(v_k,v_j)(v_j,v_p)\dots (v_t,v_i)$$
+    $V$ può quindi verificare che il certificato dica la verità controllando gli archi in $G$ ed utilizzando un contatore (che necessita $\log(n)$ spazio) per verificare che questo cammino non sia più lungo di $l$.
+    \item supponiamo che $v_i\notin R_l$, allora, il sotto certificato  
+     $$\text{certificato per }v_i\notin R_l$$ 
+     sarà composto dall'insieme dei cammini da $s$ ai nodi presenti in $R_{l-1}$
+$$\text{certificato per }v_i\notin R_l=(s\rightarrow v_k)\dots , (s\rightarrow v_j)$$
+chiaramente $V$ può verificare che $v_i$ non sia in $R_l$ controllando i cammini del certificando, e verificando che \begin{itemize}
+    \item $v_i$ non è in $R_{l-1}$
+    \item per ogni nodo  $v_j\in R_{l-1}$ non esiste l'arco $(v_j,v_i)$
+\end{itemize} 
+\end{itemize}
+se \textbf{si assume che $cert(r_{l-1})$ sia valido}, allora $V$ può verificare in spazio logaritmico che un nodo $v_i$ non sia in $R_l$.\acc 
+Quindi il verificatore partendo dall'inizio può verificare ad ogni passo $cert(r_l)$ considerando vero $cert(r_{l-1})$, in questo modo, può verificare ogni passo fino ad aver verificato $cert(r_{n-1})$, una volta arrivato a tal punto, dovrà 
+verificare che $cert(r_n)$ sia valido, e che in $R_n$ non sia presente $t$.
+\acc 
+Un'ultima accortezza : $V$ deve verificare che i nodi coinvolti nei certificati non si ripetano, ad esempio, non deve succedere che 
+$$\text{certificato per }t\notin R_n=(s\rightarrow v_k)\dots ,(s\rightarrow v_k), (s\rightarrow v_j)$$
+Quindi, si assume che i nodi nel certificato siano ordinati (ogni nodo è identificato da un numero intero), e $V$ deve assicurarsi che l'ordine sia sempre rispettato.
+\hfill$\blacksquare$
+\flowerLine
 \section{Teoremi di Gerarchia}
 I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc \teo{(Idea)}
 Il teorema di \textit{gerarchia dei tempi} afferma che se $t_1(n)$ è asintoticamente, molto più piccola di $t_2(n)$, allora esiste un linguaggio $L\in Dtime(t_2(n))$ tale che 
@@ -3128,8 +3165,23 @@ Il teorema di gerarchia dello spazio è simile, ma una TM può simulare un'altra
     \item $s_2(n)=\Omega(s_1(n))$
 \end{itemize}
 esiste un linguaggio $L$ tale che $L\in Space(s_2(n))$ e $L\notin Space(s_1(n))$.\acc 
-
-
+Il processo dimostrativo è identico a quello utilizzato per il teorema di gerarchia di tempo.
+\acc 
+I due teoremi di gerarchia si riferiscono alle classi di tempo delle macchine di Turing deterministiche. Cosa si può dire delle macchine non deterministiche? \acc 
+\teo{} Siano\begin{itemize}
+    \item 
+ $t(n)\ge n$\item $T(n)$ una funzione tale che $t(n+1)=o(T(n))$\end{itemize}
+allora $\exists L \in Ntime(T(n))$ tale che $L \notin Ntime(t(n))$\acc
+\dimo{}
+Si consideri un lingaggio $L$ che è sottoinsieme di $\{1\}^*$, ossia contiene solo stringhe composte da 1 (ed eventualmente la stringa vuota). Data una stringa $1^n\in L$, denotiamo $N_n$ la NTM che corrisponde a tale stringa secondo un'arbitraria codifica 
+$$ [1^n]_{TM}=N_n$$
+Sia $D$ la TM che deve decidere $L\subseteq \{1\}^*$, accetta quindi le stringhe del tipo $1^n$, divide l'input come segue 
+$$ 1^n=[l_1,v_1][l_2,v_2]\dots [l_k,v_k]$$
+dove $[l_i,v_i]$ è un intervallo della stringa, con $l_i$ e $v_i$ si indicano gli indici della stringa. Chiaramente $v_i+1=l_{i+1}$.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/teoGerarchiaNTM.eps}
+\end{center}
+\redText{finire la dimostrazione}
 
 
 
@@ -3138,6 +3190,53 @@ esiste un linguaggio $L$ tale che $L\in Space(s_2(n))$ e $L\notin Space(s_1(n))$
 
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Essendo che $PATH$ è $NLOG$ completo, è necessario dimostrare che $PATH$ è in $coNLOG$, ossia che $\overline{PATH}$ è in $NLOG$.
 Si definisce una TM non determinista che decide $\overline{PATH}$ in spazio logaritmico. La TM è descritta dal seguente algoritmo, che ha come input il grafo $G$ ed i due nodi $s$ e $t$:\greybox{
