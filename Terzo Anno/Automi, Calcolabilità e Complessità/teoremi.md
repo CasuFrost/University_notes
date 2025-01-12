@@ -41,7 +41,7 @@ Teoremi di incompletezza $\mathcal I$ e $\mathcal {II}$
 
 $2-SAT$ è in $P$
 
-$3-COL$ è in $NP$
+$3-COL$ è in $NP$ (verificatore)
 
 $P\subseteq NP \subseteq EXP$
 

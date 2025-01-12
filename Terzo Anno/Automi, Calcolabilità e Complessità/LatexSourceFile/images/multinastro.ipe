@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20241030111953" modified="D:20241030112007"/>
+<info created="D:20241030111953" modified="D:20250112103344"/>
 <preamble>\usepackage{amssymb}
 \usepackage{amsmath}</preamble>
 <ipestyle name="basic">
@@ -315,7 +315,35 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<text layer="alpha" matrix="1 0 0 1 4 0" transformations="translations" pos="164 744" stroke="black" type="label" width="3.971" height="3.003" depth="0" halign="center" valign="center" size="script">a</text>
+<path layer="alpha" fill="0.914">
+148 748 m
+148 740 l
+248 740 l
+248 748 l
+h
+</path>
+<path fill="0.914">
+148 732 m
+148 724 l
+248 724 l
+248 732 l
+h
+</path>
+<path fill="0.914">
+148 716 m
+148 708 l
+248 708 l
+248 716 l
+h
+</path>
+<path fill="0.914">
+300 732 m
+300 724 l
+496 724 l
+496 732 l
+h
+</path>
+<text matrix="1 0 0 1 4 0" transformations="translations" pos="164 744" stroke="black" type="label" width="3.971" height="3.003" depth="0" halign="center" valign="center" size="script">a</text>
 <text matrix="1 0 0 1 36 0" transformations="translations" pos="164 744" stroke="black" type="label" width="4.4" height="4.843" depth="0" halign="center" valign="center" size="script">b</text>
 <text matrix="1 0 0 1 68 0" transformations="translations" pos="164 744" stroke="black" type="label" width="3.542" height="3.003" depth="0" halign="center" valign="center" size="script">c</text>
 <text matrix="1 0 0 1 4 -16" transformations="translations" pos="164 744" stroke="black" type="label" width="3.971" height="4.494" depth="0" halign="center" valign="center" size="script">1</text>

@@ -1161,7 +1161,7 @@ Lo stack di $P$ conterrà le variabili ed i terminali di $G$ che verranno apposi
 Possono esserci differenti alberi di computazione, il comportamento del PDA può essere descritto dal seguente 
 algoritmo 
 \greybox{
-    $\diamond $ si inserisce $\$$ nella pila \\ \\\color{blue}
+    $\diamond $ si inserisce $\$ S$ nella pila \\ \\\color{blue}
     $\diamond $ while(true)\{\\\\\color{black}
     \hphantom{ident}$\diamond $ Se nel top dello stack vi è una variabile, si eseguono varie diramazioni in base a tutte 
     \\ \hphantom{ident}le regole che  comprendono tale variabile\\ \\
@@ -1263,7 +1263,7 @@ omessi, sostituendo le etichette con gli archi.
 \textit{forma canonica}, tale forma non fa perdere di generalità alla dimostrazione in quanto ogni PDA 
 può essere trasformato in un PDA in tale forma lasciando invariato il linguaggio che accetta. Un PDA è nella forma canonica 
 se\begin{enumerate}
-    \item Inizia con la pila vuota, ed termina la computazione sempre con la pila vuota 
+    \item Inizia con la pila vuota, e termina la computazione sempre con la pila vuota 
     \item Ha un solo stato accettante $|F|=1$
     \item Il PDA ad ogni passo computazionale, non sostituisce mai un elemento della pila con un altro, o ne elimina 
     uno, o ne aggiunge uno, la sostituzione non avviene mai in un solo passo di computazione, formalmente, cambia la 
@@ -1341,7 +1341,7 @@ suddivisa in due claim.\acc
         $ayb$. La variabile $A_{rs}$ deriva $y$, quindi $y$ porta da $r$ a $s$ lasciando la pila vuota con al più 
         $k-1$ passi. Ricapitolando\begin{itemize}
             \item $a$ porta da $p$ ad $r$ aggiungendo $u$
-            \item $y$ porta da $r$ ad $s$ senza fare operazioni sulla pila 
+            \item $y$ porta da $r$ ad $s$ lasciando la pila inalterata
             \item $b$ porta da $s$ a $q$ rimuovendo $u$
             \item $x=ayb$ porta da $p$ a $q$ lasciando la pila vuota 
             \item $A_{pq}$ deriva $x$.
@@ -1372,7 +1372,7 @@ lunga al più $2^{i-1}$.\acc
     \item \textbf{caso base} : $i=1$, allora la derivazione è composta da una sola produzione, la stringa 
     è lunga 1, infatti $2^{i-1}=2^{1-1}=2^0=1$. 
     \item \textbf{ipotesi induttiva} : si assume sia vero per un generico $i>1$. 
-    \item \textbf{passo induttivo} : si consideri un cammino lungo $k=i+1 =  (i>1)+1 \ge 3$, la prima regola applicata 
+    \item \textbf{passo induttivo} : si consideri un cammino lungo $k=i+1 $ essendo $i>1$ allora $k\ge 3$, la prima regola applicata 
     deve essere necessariamente del tipo $$S\longrightarrow BC$$ i sotto alberi generati da $B$ e $C$ hanno il 
     cammino più lungo (denominato da ora in poi \textit{altezza}) grande al più $i$, generano quindi stringhe 
     lunghe al più $2^{i-1}$, quindi $S$ genera stringhe lunghe al più $2\cdot 2^{i-1}=2^i=2^{k-1}$.\hfill$\blacksquare$
@@ -1927,7 +1927,7 @@ $<^*$ è una relazione d'ordine totale. Si definisce $f:\N\rightarrow \Sigma^*$
 $$ f(i)=i\text{-esimo elemento di $\Sigma^*$ secondo l'ordinamento }<^*$$
 $f$ è una biezione dato che per ogni $i\in\N$ si può associare un elemento di $\Sigma^*$. Quindi $\Sigma^*$ è numerabile, e di conseguenza $\{<M>\ |\ M\in TM\}$ è numerabile. \hfill$\blacksquare$\acc 
 \prop{2} L'insieme dei linguaggi non è numerabile.\acc 
-\dimo{2} Sia $\mathcal{L}$ l'insieme di tutti i linguaggi le cui stringhe sono binarie. Un generico linguaggio $L$ è sotto-insieme di $\Sigma^*$ dove $\Sigma=\{0,1\}$. 
+\dimo{2} Sia $\mathcal{L}=\mathcal{P}(\Sigma^*)$ l'insieme di tutti i linguaggi le cui stringhe sono binarie. Un generico linguaggio $L$ è sotto-insieme di $\Sigma^*$ dove $\Sigma=\{0,1\}$. 
 Definisco per ogni linguaggio $L$ una stringa binaria $\mathcal{X}_L$ di lunghezza infinita tale che 
 \begin{center}
     l'$i$-esimo carattere di $\mathcal{X}_L$ è 1 se l'$i$-esimo elemento di $\Sigma^*$ (secondo un arbitrario ordinamento) è in $L$. Altrimenti è 0. 
@@ -1982,7 +1982,7 @@ Data una TM si deve stabilire se termina o continua all'infinito su un certo inp
     \item se $R$ accetta (quindi si ha la certezza che $M$ termina), $S$ simula $M$ su $w$ ed accetta solamente se $M$ accetta $w$.
     \item se $R$ rifiuta (la macchina va in loop) allora $S$ rifiuta.
 \end{enumerate}
-Quindi $S$ è un decisore per tutte le coppie $<M,w>$ ossia $A_{TM}$. Ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $HALT_{TM}$.\hfill$\blacksquare$\acc 
+Quindi $S$ è un decisore per tutte le coppie $<M,w>\in A_{TM}$. Ma $A_{TM}$ non è decidibile, è quindi impossibile che esista un decisore per $HALT_{TM}$.\hfill$\blacksquare$\acc 
 Si consideri 
 $$ E_{TM}=\{<M>\ | \ M\in TM \land L(M)=\emptyset\}$$
 \prop{} $E_{TM}$ non è decidibile.\acc 
@@ -2477,7 +2477,7 @@ Ma attenzione \begin{itemize}
     \item ma allora $\bar b$ è in una componente seguente rispetto a $\bar a$
 \end{itemize}
 Quindi $\bar b$ è in una componente sia seguente che antecedente a quella di $\bar a$, è una contraddizione, quindi il fatto è vero.\hfill$\square$\acc 
-Sapendo che il fatto è vero, se per ogni variabile $x$, questa e la sua negata \underline{non sono} nella stessa componente fortemente connessa, allora l'assegnamento visto (in funzione dell'ordinamento topologico) soddisfa $\phi$.\hfill$\blacksquare$\acc 
+Sapendo che il fatto è vero, se per ogni variabile $x$, questa e la sua negata \underline{non sono} nella stessa componente fortemente connessa, allora l'assegnamento visto (in funzione dell'ordinamento topologico) soddisfa $\phi$ perché un arco $(a,b)$ equivale a $\bar a \lor b$, ma essendo impossibile che $a=1$ e $b=0$, ogni clausola $\bar a \lor b$ non sarà mai uguale a zero.\hfill$\blacksquare$\acc 
 Data tale proposizione, per decidere se una formula è o non è in $2-SAT$ basterà controllare il grafo associato trovando le componenti fortemente connesse, ciò si può fare (ad esempio, con l'algoritmo di Tarjan ) in tempo polinomiale. Ciò porta al seguente risultato:\acc
 \teo{} $2-SAT\in P $
 \flowerLine 
@@ -2699,7 +2699,7 @@ denotiamo la finestra $[i,j]$ quella composta dalle celle$$ \begin{matrix}
     (i,j) & (i+1,j) & (i+2,j)\\ 
     (i,j+1) & (i+1,j+1) & (i+2,j+1)
 \end{matrix}$$
-$$ \phi_{move}=\bigwedge\limits{1 \leq i,j \leq n^k}
+$$ \phi_{move}=\bigwedge\limits_{1 \leq i,j \leq n^k}
 (\text{ la finestra $[i,j]$ è lecita})$$
 Senza entrare troppo nel formalismo, una finestra $[i,j]$ è lecita se la seguente è vera 
 $$ \bigvee_{\begin{matrix}
@@ -2797,7 +2797,7 @@ Se $P\ne NP$ è congetturata la seguente relazione fra insiemi
 \teo{} $UNSAT$ è $coNP$ completo.\acc 
 \dimo{} Sappiamo che $UNSAT\in coNP$, è vero che 
 $$ A\rid UNSAT \iff \overline A \rid \overline{UNSAT}=SAT$$
-siccome $\overline A$ è in $NP$ e $SAT$ è $NP$ completo, è vero che $\overline A$ si riduce a $SAT$, quindi $UNSAT$ è $coNP$ completo.\hfill$\blacksquare$\acc  
+siccome $\overline A$ è in $NP$ e $SAT$ è $NP$ completo, è vero che $\overline A$ si riduce a $SAT$, quindi $A$ si riduce ad $UNSAT$, quest'ultimo è quindi $coNP$ completo.\hfill$\blacksquare$\acc  
 In passato, diversi problemi che sono in $NP\cap coNP$, sono stati dimostrati essere anche in $P$, si consideri l'insieme 
 $$ PRIMES=\{<x> \ | \ x\text{ è un numero primo}\}$$
 nel 1975 è stato dimostrato che $PRIMES\in NP$, e successivamente, nel 2001, è stato dimostrato che $PRIMES\in P$. Altri problemi sono in $NP\cap coNP$, ma non è stato ancora verificato se questi siano o non siano in $P$.
@@ -2880,7 +2880,7 @@ Il numero totale di configurazioni è dato da\begin{itemize}
     \item un possibile stato $|Q|$
     \item una posizione del nastro di input $n$
 \end{itemize}
-$$ \#\text{configurazioni} =|\Gamma|^{f(n)}|\cdot |Q|\cdot n $$
+$$ \#\text{configurazioni} =|\Gamma|^{f(n)}\cdot |Q|\cdot n $$
 essendo per ipotesi $f(n)\ge \log(n)$ si ha che 
 $$|\Gamma|^{f(n)}\cdot |Q|\cdot n \le |\Gamma|^{f(n)}\cdot |Q|\cdot 2^{f(n)} $$
 quindi il numero di configurazioni è in $2^{O(f(n))}$, dato che $|\Gamma|$ e $|Q|$ sono costanti. Per le osservazioni precedenti, anche il numero di passi di computazione è limitato da $2^{O(f(n))}$.\hfill$\blacksquare$\acc  
@@ -2900,7 +2900,7 @@ Verrà adoperata una procedura ricorsiva, che ricercherà un nodo $u$ per cui \b
     \item esiste un cammino da $u$ a $t$
 \end{itemize}
 se tale nodo $u$ esiste, allora esiste un cammino da $s$ a $t$. L'algoritmo opererà ricorsivamente "spezzando" in 2 il grafo ad ogni passo. \acc 
-Si definisce la seguente procedure \texttt{FIND\_PATH(x,y,k)} definita come segue 
+Si definisce la seguente procedura \texttt{FIND\_PATH(x,y,k)} definita come segue 
 \begin{lstlisting}
 FIND_PATH(x,y,k){
     if(k==0){
@@ -2924,7 +2924,7 @@ Osservazioni\begin{itemize}
 Ne consegue che lo spazio totale necessario sarà in $O(\log^2(n))$.\hfill$\blacksquare$\acc  
 Occupiamoci adesso di definire le classi di spazio per le NTM (TM non deterministiche). \acc 
 \defi{} $NSPACE(f(n))=\{L \ | \ \exists \text{ NTM } N \text{ t.c. } L(N)=L \land N \text{ ha complessità di spazio } f(n)\}$\acc 
-la complessità di spazio di una NTM si valuta sul ramo di computazione che ha occupato più celle distinte. Ne conseguno naturalmente le seguenti classi 
+la complessità di spazio di una NTM si valuta sul ramo di computazione che ha occupato più celle distinte. Ne conseguono naturalmente le seguenti classi 
 $$ NPSPACE=\bigcup_{k\in \Z^+}NSPACE(n^k)$$
 $$ NEXPSPACE=\bigcup_{k\in \N}NSPACE(2^{n^k})$$
 $$ NLOG=NSPACE(\log(n))$$
@@ -3091,7 +3091,7 @@ L'input del verificatore è $<<G,s,t>,y>$, deve verificare che in $G$ non ci sia
 \textbf{Notazione} : Denotiamo $R_l$ l'insieme dei nodi raggiungibili da $s$ in al più $l$ passi, e denotiamo la sua cardinalità $r_l=|R_l|$. Chiaramente $R_n$ contiene tutti i nodi raggiungibili da $s$, inoltre $R_0=\{s\}$ quindi $r_0=1$.\acc 
 Il certificato $y$ è composto da diversi sotto-certificati 
 $$ y=cert(r_0) \ cert(r_1) \ cert(r_2) \dots  \ cert(r_n)$$
-Ogni sotto-certificato $cert(r_l)$ sarà a sua volta composto in $n$ sotto certificati (uno per ogni nodo), in cui certificherà che un nodo è (oppure non è) contenuto in $R_l$, ad esempio 
+Ogni sotto-certificato $cert(r_l)$ sarà a sua volta composto da $n$ sotto certificati (uno per ogni nodo), in cui certificherà che un nodo è (oppure non è) contenuto in $R_l$, ad esempio 
 $$ cert(r_l)=\begin{matrix}
     \text{certificato per }v_1\in R_l \\  
     \text{certificato per }v_2\notin R_l \\ \vdots \\  
@@ -3100,14 +3100,14 @@ $$ cert(r_l)=\begin{matrix}
 Quindi $cert(r_l)$ verifica per ogni nodo, se è o non è raggiungibile da $s$ in al più $l$ passi. Ma come può certificare ciò per ogni nodo?\begin{itemize}
     \item supponiamo che $v_i\in R_l$, allora in $cert(r_l)$ c'è il certificato 
     $$\text{certificato per }v_i\in R_l$$
-    e questo non è altro che la successione di archi che compone il cammino da $s$ a $v_i$. 
+    e questo non è altro che la successione di archi che compongono il cammino da $s$ a $v_i$. 
      $$\text{certificato per }v_i\in R_l=(s,v_k)(v_k,v_j)(v_j,v_p)\dots (v_t,v_i)$$
     $V$ può quindi verificare che il certificato dica la verità controllando gli archi in $G$ ed utilizzando un contatore (che necessita $\log(n)$ spazio) per verificare che questo cammino non sia più lungo di $l$.
     \item supponiamo che $v_i\notin R_l$, allora, il sotto certificato  
      $$\text{certificato per }v_i\notin R_l$$ 
      sarà composto dall'insieme dei cammini da $s$ ai nodi presenti in $R_{l-1}$
 $$\text{certificato per }v_i\notin R_l=(s\rightarrow v_k)\dots , (s\rightarrow v_j)$$
-chiaramente $V$ può verificare che $v_i$ non sia in $R_l$ controllando i cammini del certificando, e verificando che \begin{itemize}
+chiaramente $V$ può verificare che $v_i$ non sia in $R_l$ controllando i cammini del certificato, e verificando che \begin{itemize}
     \item $v_i$ non è in $R_{l-1}$
     \item per ogni nodo  $v_j\in R_{l-1}$ non esiste l'arco $(v_j,v_i)$
 \end{itemize} 
@@ -3145,7 +3145,7 @@ $$ Q(x)=D(x)$$
 Applichiamo ora la \textg{diagonalizzazione}, diamo come input a $D$ la stringa $x_Q$ tale che $[x_Q]_{TM}=Q$\begin{itemize}
     \item $D$ interpreta $x_Q$ come $Q$
     \item Esegue $Q(x_Q)$
-    \item $Q(x_Q)$ termina in meno di $t_{1.5}(n)$ passi quindi per costruzione di $D$, questa restituisce il valore opposto a $Q$
+    \item $Q(x_Q)$ termina in meno di $t_{1.5}(n)$ passi (dato che per ipotesi $Q$ ha complessità $t_1(n)$) quindi per costruzione di $D$, questa restituisce il valore opposto a $Q$
 \end{itemize}
 Ma allora $D(x_Q)\ne Q(x_Q)$, ciò contraddice l'assunzione, allora è \textbf{impossibile} che $Q$ decida $L(D)$ in un tempo $Dtime(t_1(n))$, quindi $\exists L\in Dtime(t_2(n))$ tale che $L\notin Dtime(t_1(n))$.
 \hfill$\blacksquare$\acc 
