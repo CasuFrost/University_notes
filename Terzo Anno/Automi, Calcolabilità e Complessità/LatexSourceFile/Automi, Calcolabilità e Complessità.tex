@@ -2311,15 +2311,15 @@ Si può simulare con una TM classica come esposto nella sezione \ref{TMmultinast
 $$t(n)+t(n)^2 = O(t(n)^2)$$ Il numero dei nastri quindi influisce (in maniera non trascurabile) sulla complessità.\acc 
 \textbf{Esempio} : Il linguaggio delle stringhe palindrome è decidibile in $O(n)$ su una macchina con due nastri, su una TM a singolo nastro può essere deciso in $O(n^2)$.\acc 
 \defi{}  Sia $t:\N\rightarrow \N$ una funzione, si definisce 
-$$ Dtime(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{singolo nastro}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
-È l'insieme dei linguaggi decidibili da TM che hanno complessità $O(t(n))$. Il linguaggio delle stringhe palindrome appartiene all'insieme $Dtime(n^2)$.\acc 
+$$ DTIME(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{singolo nastro}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
+È l'insieme dei linguaggi decidibili da TM che hanno complessità $O(t(n))$. Il linguaggio delle stringhe palindrome appartiene all'insieme $DTIME(n^2)$.\acc 
 \defi{(Classe Polinomiale)} Si definisce $P$ l'insieme 
-$$ P=\bigcup_{k\in \N}Dtime(n^k)$$
+$$ P=\bigcup_{k\in \N}DTIME(n^k)$$
 Ovvero, l'insieme di tutti i linguaggi che possono essere decisi in tempo polinomiale. L'insieme delle stringhe palindrome è in $P$. \acc 
 \textbf{Osservazione} : La classe $P$ è robusta rispetto le varianti di TM, ossia STM e MTM. Se un linguaggio è deciso in tempo polinomiale da una STM o MTM, allora è deciso in tempo polinomiale anche da una TM classica.\acc 
 \defi{(Classe Esponenziale)} Si definisce $EXP$ l'insieme 
-$$ EXP=\bigcup_{k\in \N}Dtime(2^{n^k})$$
-Il teorema di \textit{gerarchia dei tempi}, che verrà formalizzato e dimostrato in seguito, afferma che la classe $P$ è un sottoinsieme della classe $EXP$.\begin{center}
+$$ EXP=\bigcup_{k\in \N}DTIME(2^{n^k})$$
+Il teorema di \textit{gerarchia dei tempi}, che verrà formalizzato e dimostrato in seguito, afferma che la classe $P$ è un sottoinsieme stretto della classe $EXP$.\begin{center}
     \includegraphics[width=0.6\textwidth ]{images/EXP.pdf}
 \end{center}
 Esistono linguaggi che sono in $EXP$, ma che, tramite algoritmi intelligenti, si può dimostrare sono anche in $P$. Verranno considerati linguaggi riguardanti i grafi, il cui input delle TM sarà la codifica di un grafo $x=<G=(V,E)>$, la complessità sarà misurata in funzione delle cardinalità di $V$ ed $E$, se è polinomiale in queste, lo sarà anche in funzione della lunghezza della stringa di codifica.\acc 
@@ -2351,16 +2351,16 @@ Negli esempi mostrati, dei linguaggi in $EXP$ si sono poi rivelati anche in $P$,
 \textbf{Esempio} : Si consideri il linguaggio 
 $$ 3COL=\{<G> \ |\ G\text{ è 3-colorabile }\}$$
 Per un ragionamento analogo al precedente, $3COL\in EXP$, ma non è chiaro se è, oppure non è, in $P$. L'unico risultato dimostrato è il seguente. \acc 
-\teo{} $3COL\in Dtime(1.3289^n)$\acc 
+\teo{} $3COL\in DTIME(1.3289^n)$\acc 
 \textbf{Esempio} : Un clique in un grafo, è un sottoinsieme totalmente connesso. Si consideri 
 $$ 3CLIQUE=\{<G> \ | \ G \text{ contiene un triangolo (clique da 3 nodi)}\}$$\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/clique.eps}
 \end{center}
 È stato dimostrato che $3CLIQUE$ appartiene a $P$, in particolare 
-$$ 3CLIQUE\in Dtime(n^{2.39})$$
-Non è ancora stato dimostrato che $ 3CLIQUE\in Dtime(n^{2})$. In generale, non è noto se il linguaggio
+$$ 3CLIQUE\in DTIME(n^{2.39})$$
+Non è ancora stato dimostrato che $ 3CLIQUE\in DTIME(n^{2})$. In generale, non è noto se il linguaggio
 $$ kCLIQUE=\{<G> \ | \ G \text{ contiene un clique da $k$ nodi}\}$$ 
-Sia o no in $P$, è almeno in $Dtime(n^k)$. La sua appartenenza o no alla classe polinomiale, risulterà nota quando verrà formalizzata la dipendenza di $k$ da $n$. Se $k$ non dovesse dipendere in nessun modo da $n$, allora $kCLIQUE$ sarebbe un elemento di $P$.\flowerLine 
+Sia o no in $P$, è almeno in $DTIME(n^k)$. La sua appartenenza o no alla classe polinomiale, risulterà nota quando verrà formalizzata la dipendenza di $k$ da $n$. Se $k$ non dovesse dipendere in nessun modo da $n$, allora $kCLIQUE$ sarebbe un elemento di $P$.\flowerLine 
 \section{Soddisfacibilità}
 Un circuito logico, viene rappresentato con un grafo diretto ed aciclico, in cui sono presenti dei nodi input ($x_1,x_2\dots x_n$ variabili booleane), delle porte logiche (AND, OR, NOT, ed altre) e dei nodi output ($y_1,y_2\dots y_n$ variabili booleane che dipendono dagli input).
 \begin{center}
@@ -2472,11 +2472,11 @@ e quindi c'è anche l'arco $(\bar b , \bar a)$.\begin{itemize}
 \end{itemize}
 Ma attenzione \begin{itemize}
     \item abbiamo visto che se $(a,b)$ esiste allora esiste $(\bar b,\bar a)$
-    \item vuol dire che $\bar b$ è in una componente antecedente a $\bar a$
+    \item vuol dire che $\bar b$ è in una componente antecedente a $\bar a$, oppure nella sua stessa componente
     \item abbiamo visto che $\bar a \in C_{i-k}$ e che $\bar b \in C_{i+l}$
     \item ma allora $\bar b$ è in una componente seguente rispetto a $\bar a$
 \end{itemize}
-Quindi $\bar b$ è in una componente sia seguente che antecedente a quella di $\bar a$, è una contraddizione, quindi il fatto è vero.\hfill$\square$\acc 
+Quindi $\bar b$ è in una componente sia seguente che antecedente (o identica) a quella di $\bar a$, è una contraddizione, quindi il fatto è vero.\hfill$\square$\acc 
 Sapendo che il fatto è vero, se per ogni variabile $x$, questa e la sua negata \underline{non sono} nella stessa componente fortemente connessa, allora l'assegnamento visto (in funzione dell'ordinamento topologico) soddisfa $\phi$ perché un arco $(a,b)$ equivale a $\bar a \lor b$, ma essendo impossibile che $a=1$ e $b=0$, ogni clausola $\bar a \lor b$ non sarà mai uguale a zero.\hfill$\blacksquare$\acc 
 Data tale proposizione, per decidere se una formula è o non è in $2-SAT$ basterà controllare il grafo associato trovando le componenti fortemente connesse, ciò si può fare (ad esempio, con l'algoritmo di Tarjan ) in tempo polinomiale. Ciò porta al seguente risultato:\acc
 \teo{} $2-SAT\in P $
@@ -2523,11 +2523,11 @@ Per definizione $L\in NP$. Sapendo che esiste un verificatore polinomiale per $L
 Si considererà ora la TM non deterministica per dare una definizione alternativa di NP. Una TM non deterministica ha la funzione di transizione che, piuttosto che portare da uno stato ad un altro, porta da uno stato ad un insieme di stati. \acc 
 Definiamo la complessità computazionale di una TM non deterministica come il massimo numero di passi impiegati in funzione di $n$ per ogni stringa $x$ di lunghezza $n$, considerando il ramo di computazione più lungo.\acc 
 \defi{}  Sia $t:\N\rightarrow \N$ una funzione, si definisce 
-$$ Ntime(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{non deterministica}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
+$$ NTIME(t(n))=\Bigg\{L \ |\ \begin{matrix}\exists M \in TM(\text{non deterministica}) \text{ tale che }\\ L(M)=L\land M\text{ ha complessità }O(t(n))\end{matrix}\Bigg\}$$
 Per semplicità, denoteremo NTM una TM non deterministica.\acc 
-\defi{} $\displaystyle NP=\bigcup_{k\in\Z^+}Ntime(n^k)$
+\defi{} $\displaystyle NP=\bigcup_{k\in\Z^+}NTIME(n^k)$
 \acc 
-\defi{} $\displaystyle NEXP=\bigcup_{k\in\N}Ntime(2^{n^k})$\acc
+\defi{} $\displaystyle NEXP=\bigcup_{k\in\N}NTIME(2^{n^k})$\acc
 Si vuole dare un esempio di linguaggio $NP$ usando tale definizione, si consideri $SAT$, si definisce una NTM $N$ che decide $SAT$, ossia $N(<\phi>)$ accetta se $\phi$ è soddisfacibile. La procedura di tale TM è definita come segue\begin{itemize}
     \item sia $n$ il numero di variabili, si definisce un array $x$ lungo $n$ non inizializzato, e si definisce un contatore $i=0$. 
     \item "TOP" : si incrementa $i$ di 1, se $i>n$, esegui la linea "CHECK", altrimenti esegui entrambe le seguenti linee in modo parallelo (diramazione della computazione)\begin{itemize}
@@ -2857,11 +2857,11 @@ Essendo che $3SAT$ è $NP$ completo, ne consegue  che $$NP\subseteq PSPACE $$
 \section{Relazione fra Spazio e Tempo}
 In questa sezione verrà resa chiara la relazione che intercorre fra spazio e tempo, in particolare, le relazioni di inclusione fra gli insiemi che definiscono le varie classi.  \acc 
 \teo{} $DTIME(f(n))\subseteq SPACE(f(n))$\acc 
-\dimo{} Supponiamo che una TM ha complessità temporale $f(n)$, per assurdo, ha complessità spaziale $g(n)$, con $g(n)=\Omega(f(n))$ (è asintoticamente maggiore), ad esempio, $f(n)$ potrebbe essere polinomiale e $g(n)$ esponenziale.  \acc 
-Ma allora, essendo che ogni cella per essere riempita richiede almeno 1 passo di computazione, la TM necessariamente esegue $g(n)$ passi di computazione, ma per ipotesi ha complessità temporale $f(n)$, allora non può avere complessità spaziale maggiore di quella temporale.\hfill$\blacksquare$\acc   
+\dimo{} Sia $L\in DTIME(f(n))$, e sia $M$ la TM che decide $L$ in al più $O(f(n))$ passi, essendo che, ad ogni passo di computazione può riempire al più una cella del nastro di lavoro, necessariamente $M$ non riempirà più di $O(f(n))$ celle distinte, quindi $L$ è anche contenuti in $ SPACE(f(n))$.
+\hfill$\blacksquare$\acc   
 Il  teorema ha un significato molto chiaro:
-\sapbox{il tempo limita lo spazio}
-Vediamo ora in che modo lo spazio può limitare il tempo. \acc
+\sapbox{lo spazio limita il tempo}
+Vediamo ora in che modo il tempo può limitare lo spazio. \acc
 \teo{} Per ogni $f(n)\ge \log(n)$\footnote{con $\ge$ si intende, che è asintoticamente maggiore, ossia $f(n)\in\Omega(\log(n))$}, si ha che $SPACE(f(n))\subseteq DTIME(2^{O(f(n))})$\acc 
 \dimo{} Nella valutazione della complessità spaziale, una TM ha un nastro di lavoro ed un nastro per l'input, una qualsiasi configurazione (snapshot durante la computazione) di una TM $M$, può essere rappresentata come segue 
 $$ a_1 \ a_2 \ a_3 \ \mathbf{q_i} \ a_4 \ a_5 \ a_6 \ ;\ k$$
@@ -3123,8 +3123,8 @@ Quindi, si assume che i nodi nel certificato siano ordinati (ogni nodo è identi
 \flowerLine
 \section{Teoremi di Gerarchia}
 I risultati presentati in questa sezione permettono di separare le classi di complessità utilizzando la tecnica della \textit{diagonalizzazione}.\acc \teo{(Idea)}
-Il teorema di \textit{gerarchia dei tempi} afferma che se $t_1(n)$ è asintoticamente, molto più piccola di $t_2(n)$, allora esiste un linguaggio $L\in Dtime(t_2(n))$ tale che 
-$L\notin Dtime(t_1(n))$\acc \dimo{}
+Il teorema di \textit{gerarchia dei tempi} afferma che se $t_1(n)$ è asintoticamente, molto più piccola di $t_2(n)$, allora esiste un linguaggio $L\in DTIME(t_2(n))$ tale che 
+$L\notin DTIME(t_1(n))$\acc \dimo{}
 Vediamo un \textg{idea di dimostrazione}, si definisce una codifica $$[.]_{TM}:\Sigma^*\rightarrow TM $$
 che associa ad ogni stringa una TM, se la stringa non corrisponde ad alcuna TM sensata, allora se ne attribuisce una di default. In tal modo 
 $$ \forall TM \ M  \ \exists x \text{ tale che }[x]_{TM}=M$$
@@ -3137,41 +3137,41 @@ Definisco una TM $D$ in modo tale che termini sicuramente in $O(t_2(n))$ passi, 
      \item Se $M(x)$ non termina prima di $t_{1.5}(n)$ passi, allora 
      $D(x)$ accetta a prescindere.
 \end{itemize}
-In base a ciò, sappiamo che il linguaggio di $D$, ossia $L(D)$, viene deciso in $Dtime(t_2(n))$, dato che simula una TM e questa non esegue mai più di $t_{1.5}(n)$ passi. La differenza fra $t_2(n)$ e $t_{1.5}(n)$ è data dall'\textit{overhead} di simulazione,\acc 
+In base a ciò, sappiamo che il linguaggio di $D$, ossia $L(D)$, viene deciso in $DTIME(t_2(n))$, dato che simula una TM e questa non esegue mai più di $t_{1.5}(n)$ passi. La differenza fra $t_2(n)$ e $t_{1.5}(n)$ è data dall'\textit{overhead} di simulazione.\acc 
 Lo scopo di questa dimostrazione è dimostrare la separazione fra le classi temporali\begin{quote}
- \textg{vogliamo mostrare che il linguaggio di $D$ non è in $Dtime(t_1(n))$}.\end{quote}
-\textbf{Non esiste} una TM $Q$ che decide $L(D)$ in $Dtime(t_1(n))$, supponiamo per assurdo che $Q(x)$ decida $L(D)$ in tale tempo, allora, sia $Q$ che $D$ sono decisori per $L(D)$, vuole dire che per ogni $x$
+ \textg{vogliamo mostrare che il linguaggio di $D$ non è in $DTIME(t_1(n))$}.\end{quote}
+\textbf{Non esiste} una TM $Q$ che decide $L(D)$ in $DTIME(t_1(n))$, supponiamo per assurdo che $Q(x)$ decida $L(D)$ in tale tempo, allora, sia $Q$ che $D$ sono decisori per $L(D)$, vuol dire che per ogni $x$
 $$ Q(x)=D(x)$$
 Applichiamo ora la \textg{diagonalizzazione}, diamo come input a $D$ la stringa $x_Q$ tale che $[x_Q]_{TM}=Q$\begin{itemize}
     \item $D$ interpreta $x_Q$ come $Q$
     \item Esegue $Q(x_Q)$
     \item $Q(x_Q)$ termina in meno di $t_{1.5}(n)$ passi (dato che per ipotesi $Q$ ha complessità $t_1(n)$) quindi per costruzione di $D$, questa restituisce il valore opposto a $Q$
 \end{itemize}
-Ma allora $D(x_Q)\ne Q(x_Q)$, ciò contraddice l'assunzione, allora è \textbf{impossibile} che $Q$ decida $L(D)$ in un tempo $Dtime(t_1(n))$, quindi $\exists L\in Dtime(t_2(n))$ tale che $L\notin Dtime(t_1(n))$.
+Ma allora $D(x_Q)\ne Q(x_Q)$, ciò contraddice l'assunzione, allora è \textbf{impossibile} che $Q$ decida $L(D)$ in un tempo $t_1(n)$, quindi $\exists L\in DTIME(t_2(n))$ tale che $L\notin DTIME(t_1(n))$.
 \hfill$\blacksquare$\acc 
 Bisogna formalizzare la relazione fra $t_1$ e $t_{1.5}$, fra queste, si ha che 
-$$ t_1(n)=o(t_{1.5}(n))$$
-C'è un problema nella dimostrazione, se la stringa $x$ presa in input da $D$ è troppo corta, la simulazione potrebbe terminare in meno di $t_{1.5}(n)$ passi a prescindere da quale sia la TM codificata, bisogna quindi adoperare una codifica che $[.]_{TM}$ che faccia del padding su ogni stringa $x$ input di $D$ rendendola sufficientemente lunga aggiungendo una serie di zeri.\acc 
+$$ t_1(n)=o(t_{1.5}(n)) \ \ \text{ ossia } \ \  \lim_{n\rightarrow \infty}\frac{t_1(n)}{t_{1.5}(n)}=0$$
+C'è un problema nella dimostrazione, se la stringa $x$ presa in input da $D$ è troppo corta, la simulazione potrebbe terminare in meno di $t_{1.5}(n)$ passi a prescindere da quale sia la TM codificata, bisogna quindi adoperare una codifica  $[.]_{TM}$ che faccia del padding su ogni stringa $x$ input di $D$ rendendola sufficientemente lunga aggiungendo una serie di zeri.\acc 
 Inoltre, bisogna avere la certezza che la simulazione di $M=[x]_{TM}$ da parte di $D$ avvenga in $O(t_2(|x|))$, deve quindi esistere una 
 TM capace di simulare una TM di tempo $O(t_{1.5})$ in $O(t_2)$.\acc  
 Negli anni 60' è stato dimostrato che se $T(n)$ è il tempo di una TM, una TM può simularla in tempo $O(T(n)\log(T(n)))$, questo vuol dire che $t_2(n)$ sarà almeno $t_1(n)\log(t_1(n))$. Date tali sottigliezze, è possibile definire formalmente il teorema.
 \acc 
 \defi{} Una funzione $t:\N\rightarrow \N$ è detta \textbf{tempo costruttibile} se, la funzione che associa la stringa $1^n$ (una sequenza di $n$ volte 1) alla rappresentazione binaria di $t(n)$, è computabile in tempo $O(t(n))$.\acc
-\teo{di Gerarchia di Tempo} Siano\begin{itemize} \item $t_1(n)\ge n$ \item $t_2(n)= \Omega(t_1(n)\log(t_1(n)))$\end{itemize} se $t_1$ è \textit{tempo costruttibile}, esiste un linguaggio $L$ tale che $L\in Dtime(t_2(n))$ e $L\notin Dtime(t_1(n))$.\acc 
+\teo{di Gerarchia di Tempo} Siano\begin{itemize} \item $t_1(n)\ge n$ \item $t_2(n)= \Omega(t_1(n)\log(t_1(n)))$\end{itemize} se $t_1$ è \textit{tempo costruttibile}, esiste un linguaggio $L$ tale che $L\in DTIME(t_2(n))$ e $L\notin DTIME(t_1(n))$.\acc 
 \textbf{Corollario} : $P\subset EXP$.\acc 
 Il teorema di gerarchia dello spazio è simile, ma una TM può simulare un'altra TM senza overhead in termini di spazio.\acc 
 \teo{di Gerarchia di Spazio} Siano \begin{itemize}
     \item $s_1(n)\ge \log(n)$
     \item $s_2(n)=\Omega(s_1(n))$
 \end{itemize}
-esiste un linguaggio $L$ tale che $L\in Space(s_2(n))$ e $L\notin Space(s_1(n))$.\acc 
+esiste un linguaggio $L$ tale che $L\in SPACE(s_2(n))$ e $L\notin SPACE(s_1(n))$.\acc 
 Il processo dimostrativo è identico a quello utilizzato per il teorema di gerarchia di tempo.
 \acc 
 I due teoremi di gerarchia si riferiscono alle classi di tempo delle macchine di Turing deterministiche. Cosa si può dire delle macchine non deterministiche? \acc 
 \teo{} Siano\begin{itemize}
     \item 
  $t(n)\ge n$\item $T(n)$ una funzione tale che $t(n+1)=o(T(n))$\end{itemize}
-allora $\exists L \in Ntime(T(n))$ tale che $L \notin Ntime(t(n))$\acc
+allora $\exists L \in NTIME(T(n))$ tale che $L \notin NTIME(t(n))$\acc
 \dimo{}
 Si consideri un lingaggio $L$ che è sottoinsieme di $\{1\}^*$, ossia contiene solo stringhe composte da 1 (ed eventualmente la stringa vuota). Data una stringa $1^n\in L$, denotiamo $N_n$ la NTM che corrisponde a tale stringa secondo un'arbitraria codifica 
 $$ [1^n]_{TM}=N_n$$
