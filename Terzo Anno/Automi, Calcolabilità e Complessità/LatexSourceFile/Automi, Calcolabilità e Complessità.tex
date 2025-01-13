@@ -762,7 +762,7 @@ Tale sequenza è lunga $n+1\ge p+1$ stati, fra i primi $p+1$ elementi c'è neces
  \end{itemize}\begin{enumerate}
     \item $xy^iz\in L(D)$ perché $x$ parte da $r_1=q_{start}$ e arriva a $r_j$, $y^i$ parte da $r_j$ e ritorna su $r_l$, che è 
     lo stesso stato, e $z$ porta da $r_l$ allo stato finale di accettazione.
-    \item Essendo che $j<l$, allora la dimensione minima di $y$ è 1, in quanto il valore minimo che può assumere $l$ è $j+1$, ne consegue che $|y|>0$. 
+    \item Essendo che $j<l$, allora la dimensione minima di $y$ è 1, in quanto il valore minimo che può assumere $l$ è $j+1$, ne consegue che $|y|=l-1-(j-1)=l-j>0$. 
     \item $l\le p+1$ ovvero $l-1=|xy|\le p$.
  \end{enumerate}
  I tre punti sono dimostrati. $\blacksquare$    \acc
@@ -1221,7 +1221,7 @@ In generale (ignorando gli stati in $E$, in notazione abbreviata), il PDA assume
     \begin{tikzpicture} [node distance = 3cm, on grid, auto]
         \node (q0)[ state, left] {$q_{start}$};
         \node (q1)[state, right = of q] {$q_{loop}$};
-        \node (q2)[state, right = of q1] {$q_{accept}$};
+        \node (q2)[state,accepting, right = of q1] {$q_{accept}$};
         \path [-stealth, thick]
         (q1) edge [loop below]  node {$\begin{matrix}
             0;0\rightarrow \epsilon\\1;1\rightarrow \epsilon
@@ -1606,14 +1606,14 @@ $$\begin{matrix}
     \item $\forall i \ \ \ C_i$ produce $C_{i+1}$
     \item lo stato della configurazione $C_k$ è lo stato accettante $C_k=uq_{acc}av$
  \end{itemize}
- \defi{(Riconoscibilità)} Un linguaggio $L$ è \textbf{turing riconoscibile} se esiste una TM $M$ che 
+ \defi{(Riconoscibilità)} Un linguaggio $L$ è \textbf{Turing riconoscibile} se esiste una TM $M$ che 
  \textit{accetta} ogni sua stringa, si dice che $L$ è il linguaggio di $M$.\acc 
  Se una TM deve computare una stringa che non è nel suo linguaggio, può \begin{itemize}
     \item rifiutare 
     \item andare in loop
  \end{itemize}
  Una TM $M$ per cui, data una qualsiasi stringa, non vai mai in loop, viene detta \textbf{decisore}.\acc 
- \defi{(Decidibilità)} Un linguaggio $L$ è \textbf{turing decidibile} se esiste una TM $M$ che è un 
+ \defi{(Decidibilità)} Un linguaggio $L$ è \textbf{Turing decidibile} se esiste una TM $M$ che è un 
  decisore per $L$, ossia, accetta ogni stringa in $L$, e rifiuta ogni stringa che non è in $L$. Si dice che $M$ \textit{decide} $L$.\acc 
 Data una TM $M$ si hanno gli insiemi \begin{itemize}
     \item $L(M)=\{w\in\Sigma^* \ | \ M\text{ accetta }w \}$
@@ -1758,9 +1758,9 @@ transizione, si esegue una seconda scansione aggiornando i
 valori delle testine (le marcature dei caratteri) ed il contenuto 
 dei $k$ caratteri in questione. Se la testina su uno dei nastri deve 
 spostarsi su $\#$, allora $M$ sposta il contenuto dell'intero nastro a destra di 1 posizione.\acc 
-\textbf{Corollario} : $L$ è turing riconoscibile/decidibile se e solo se esiste una MTM che lo riconosce/decide.
+\textbf{Corollario} : $L$ è Turing riconoscibile/decidibile se e solo se esiste una MTM che lo riconosce/decide.
 \subsection{TM non deterministiche}
-Si arricchisce il modello della macchina di turing introducendo il non determinismo, denotandolo NTM, la funzione di transizione cambia definizione 
+Si arricchisce il modello della macchina di Turing introducendo il non determinismo, denotandolo NTM, la funzione di transizione cambia definizione 
 $$ \delta : Q\times\Gamma \rightarrow \mathcal{P}(Q\times \Gamma \times \{L,R\})$$
 Per ogni input si diramano più vie di computazione, una NTM accetta una stringa in input se almeno un ramo di computazione è accettante.\acc 
 \teo{(NTM$\equiv$TM)} Per ogni NTM esiste una TM equivalente.\acc 
@@ -1788,9 +1788,9 @@ $M$ accetta, altrimenti si incremente l'indice $i$
  \hfill$\blacksquare$\acc
 Se una NTM è un decisore, tutti i cammini hanno lunghezza finita.
  \subsection{L'Enumeratore}
- L'enumeratore è un modello (in particolare, una variante di una TM) capace di generare un preciso insieme di stringhe, in un qualsiasi ordine e con eventuali ripetizioni, in particolare, per ogni linguaggio turing-riconoscibile, esiste un enumeratore che lo genera.\acc
+ L'enumeratore è un modello (in particolare, una variante di una TM) capace di generare un preciso insieme di stringhe, in un qualsiasi ordine e con eventuali ripetizioni, in particolare, per ogni linguaggio Turing-riconoscibile, esiste un enumeratore che lo genera.\acc
 Un enumeratore è una TM che "stampa" delle stringhe, eventualmente, infinite.\acc 
-\teo{} Un linguaggio è turing riconoscibile se e solo se esiste un enumeratore che lo genera.\acc 
+\teo{} Un linguaggio è Turing riconoscibile se e solo se esiste un enumeratore che lo genera.\acc 
 \dimo{} Si dimostrano separatamente le due direzioni.\acc 
 \boxedMath{$\impliedby$} Dato un enumeratore $E$, definiamo una TM $M$ come segue (sia $w$ l'input)\begin{itemize}
     \item Si esegue $E$, se stampa una stringa, si confronta con $w$
@@ -1809,7 +1809,7 @@ la lista di tutte le possibile stringhe su tale alfabeto. $E$ sarà definito com
     \end{itemize}
 \hfill$\blacksquare$\end{itemize}\flowerLine 
 \section{Decidibilità dei Linguaggi}
-Come esistono linguaggi non regolari e linguaggi non acontestuali, risulta naturale porsi la domanda : Esistono dei linguaggi non turing riconosibili? Il modello della TM corrisponde al concetto di algoritmo, un linguaggio non riconoscibile corrisponde ad un problema che \textit{nessun} algoritmo può risolvere.\acc 
+Come esistono linguaggi non regolari e linguaggi non acontestuali, risulta naturale porsi la domanda : Esistono dei linguaggi non Turing riconosibili? Il modello della TM corrisponde al concetto di algoritmo, un linguaggio non riconoscibile corrisponde ad un problema che \textit{nessun} algoritmo può risolvere.\acc 
 Una TM può ricevere in input un qualsiasi oggetto matematico, come un polinomio, un DFA, o direttamente un'altra TM, è importante che tale oggetto $O$, venga \textbf{codificato} in binario, denotandolo $<O>$ prima di essere computato dalla TM.\acc 
 Vediamo come prima cosa un esempio di linguaggio decidibile, si consideri 
 $$A_{DFA}=\{<D,w>\ |\ D \in DFA \land w\in L(D)\}$$
@@ -1874,9 +1874,9 @@ Un linguaggio può essere regolare, acontestuale, decidibile e riconoscibile, in
     \includegraphics[width=0.7\textwidth ]{images/insiemiLinguaggi.pdf}
 \end{center}
 \subsection{Macchina di Turing Universale}
-Vedremo che il linguaggio contenente le codifiche delle macchine di turing ed una qualsiasi stringa che accettano, è riconoscibile ma non decidibile.
+Vedremo che il linguaggio contenente le codifiche delle macchine di Turing ed una qualsiasi stringa che accettano, è riconoscibile ma non decidibile.
 \eqImportante{$ A_{TM}=\{<M,w> \ | \ M\in TM\land w\in L(M)\}$}
-\teo{} $A_{TM}$ è turing-riconoscibile.\acc 
+\teo{} $A_{TM}$ è Turing-riconoscibile.\acc 
 \dimo{} Si definisce una TM nota detta \textit{macchina di Turing universale} denotata $U$, sarà quella che riconoscerà $A_{TM}$. Avrà 2 nastri, nel primo conterrà la codifica dell'input $<M,w>$, nel secondo conterrà la configurazione corrente $<(a,q,b)>$ dell'esecuzione simulata di $M$.\acc 
 È necessario definire la codifica di $M,w$. Essendo 
 $$ M=(Q,\Sigma,\Gamma,\delta,q_0,q_{acc},q_{rej})$$
@@ -1915,8 +1915,8 @@ Il numero $d$ è ben posto ed è un numero reale fra 0 ed 1, quindi,
 essendo $f$ biettiva per ipotesi, $\exists k \in \N $ tale che $ f(k)=d$ ($d$ è nell'immagine di $f$), ma in questo modo la $k$-esima cifra di $f(k)$ è identica alla $k$-esima cifra di $d$, dato che $d=f(k)$. Ma allora $d$ non è contenuto nell'immagine di $f$, quindi $f$ non è biettiva. \hfill$\blacksquare$\acc 
 \prop{} L'insieme delle stringhe binarie (o non) di lunghezza infinita non è numerabile.\acc 
 La dimostrazione sarà omessa, ma si può dimostrare con la diagonalizzazione. Si presenteranno ora due proposizioni che saranno utili a dimostrare un risultato fondamentale.\acc 
-\prop{1} L'insieme $TM$ di tutte le macchine di turing è numerabile.\acc 
-\dimo{1} Si consideri $\Sigma^*$, ossia l'insieme di tutte le stringhe finite (su un generico alfabeto $\Sigma$). Ogni macchina di turing $M$ può essere codificata con una stringa finita. Quindi 
+\prop{1} L'insieme $TM$ di tutte le macchine di Turing è numerabile.\acc 
+\dimo{1} Si consideri $\Sigma^*$, ossia l'insieme di tutte le stringhe finite (su un generico alfabeto $\Sigma$). Ogni macchina di Turing $M$ può essere codificata con una stringa finita. Quindi 
 $$ \{<M>\ |\ M\in TM\}\subseteq \Sigma^*$$
 Si definisce una relazione d'ordine $<_l$ che rappresenta l'ordinamento lessicografico per tutte le 
 stringhe di $l$ caratteri. Si estende poi  a tutte le stringhe con la relazione $<^*$ definita 
@@ -1933,9 +1933,9 @@ Definisco per ogni linguaggio $L$ una stringa binaria $\mathcal{X}_L$ di lunghez
     l'$i$-esimo carattere di $\mathcal{X}_L$ è 1 se l'$i$-esimo elemento di $\Sigma^*$ (secondo un arbitrario ordinamento) è in $L$. Altrimenti è 0. 
 \end{center}
 Questa applicazione $f:\mathcal{L}\rightarrow\mathcal{B}$ è biettiva, $\mathcal{B}$ è l'insieme delle stringhe di lunghezza infinita, che sappiamo non essere numerabile, ma allora anche $\mathcal{L}$, ossia un sotto-insieme del totale dei linguaggi non è numerabile, implica che l'insieme dei linguaggi non è numerabile. \hfill$\blacksquare$\acc 
-\teo{ fondamentale } Esistono linguaggi che non sono turing riconoscibili. \acc 
-\dimo{} Ogni macchina di turing ha ad esso associato un solo linguaggio. Essendo l'insieme dei linguaggi non numerabile, ed essendo l'insieme delle TM numerabile, esiste almeno un linguaggio che non si può associare a nessuna TM $\implies$ esistono linguaggi non riconoscibili.\hfill$\blacksquare$\acc 
-\teo{} $A_{TM}$ \textbf{non} è turing-decidibile.\acc 
+\teo{ fondamentale } Esistono linguaggi che non sono Turing riconoscibili. \acc 
+\dimo{} Ogni macchina di Turing ha ad esso associato un solo linguaggio. Essendo l'insieme dei linguaggi non numerabile, ed essendo l'insieme delle TM numerabile, esiste almeno un linguaggio che non si può associare a nessuna TM $\implies$ esistono linguaggi non riconoscibili.\hfill$\blacksquare$\acc 
+\teo{} $A_{TM}$ \textbf{non} è Turing-decidibile.\acc 
 \dimo{} Si utilizzerà la diagonalizzazione. Si pone per assurdo che esiste una TM $H$ che è un decisore per $A_{TM}$, ovvero 
 $$ H(<M,w>)=\begin{cases}
     \text{accetta se $M$ accetta $w$}\\ 
@@ -1958,7 +1958,7 @@ $$ D(<D>)=\lnot H(<D,<D>)=\lnot D(<D>)$$
 \end{center}
 Ma allora $D$ accetta $<D>$ solo e soltanto se $D$ rifiuta $<D>$. È una  contraddizione, è quindi impossibile che $H$ sia un decisore per $A_{TM}$.
 \hfill$\blacksquare$\acc 
-\defi{(co-turing Riconoscibilità)} $L$ è co-turing riconoscibile (o più semplicemente, co-riconoscibile) se $\overline{L}$ è turing riconoscibile.\acc 
+\defi{(co-Turing Riconoscibilità)} $L$ è co-Turing riconoscibile (o più semplicemente, co-riconoscibile) se $\overline{L}$ è Turing riconoscibile.\acc 
 \teo{} $L$ è decidibile se e solo se $L$ è sia riconoscibile che co-riconoscibile.\acc 
 \dimo{} Si dimostrano separatamente le due implicazioni. \\ 
 \boxedMath{$\implies$} Per ipotesi $L$ è decidibile, allora anche $\overline{L}$ lo è, quindi sia $L$ che $\overline{L}$ sono riconoscibili. \\ 
@@ -1967,7 +1967,7 @@ Ma allora $D$ accetta $<D>$ solo e soltanto se $D$ rifiuta $<D>$. È una  contra
     \item se $M_1$ accetta, $M$ accetta. se $M_2$ accetta, $M$ rifiuta.
 \end{enumerate}
 $\forall w$ si ha che $w\in L \lor w\in \overline{L}$, solamente (ed esattamente) una fra $M_1,M_2$ può accettare $w$, quindi $M$ non può mai andare in loop $\implies$ $M$ è un decisore per $L$.\hfill$\blacksquare$\acc 
-\textbf{Corollario} : $\overline{A_{TM}}$ non è turing riconoscibile.\flowerLine 
+\textbf{Corollario} : $\overline{A_{TM}}$ non è Turing riconoscibile.\flowerLine 
 \section{Riducibilità}
 La riducibilità è una tecnica che permette di dimostrare la non decidibilità/non riconoscibilità di molti linguaggi. Informalmente, dati due linguaggi $A$ e $B$,  diremo che $A$ \textbf{si riduce a} $B$, e denoteremo $$ A\le B$$ Se esiste un algoritmo (una TM) per $B$ che risolve (decide) anche $A$.\begin{quotation}
     trovare una soluzione per $A$ \textbf{non può essere} più difficile di trovare una soluzione per $B$
@@ -2191,7 +2191,8 @@ si definisce poi una TM $R$, il cui comportamento è descritto come segue\begin{
         \item Se $V(<x,w>)$ accetta, $R$ accetta, altrimenti rifiuta.
     \end{itemize}
 \end{enumerate}
-Si definisce il linguaggio 
+In pratica le due TM considerano ogni possibile stringa cercando una dimostrazione 
+per l'affermazione in input. Si definisce il linguaggio 
 $$ L_{provable}=\{<x>\ | \ x \text{ è dimostrabile }\}$$
 Alcune osservazioni
 \begin{itemize}
@@ -2247,7 +2248,7 @@ Si applica la diagonalizzazione e si considera il caso particolare $D(<D>)$. Ess
     D(<D>)\ne \infty
 \end{cases}$$
 è dimostrabile. Si considerano i due casi separatamente\begin{itemize}
-    \item Se "$D(<D>)=\infty$" è dimostrabile, allora, per costruzione di $D$, essa stessa con input se stessa, ossia $D(<D>)$ termina, ossia $$D(<D>)\ne\infty$$ allora per il \textit{Lemma} esiste una dimostrazione per $D(<D>)\ne\infty$, quindi $D(<D>)\ne\infty$ è dimostrabile. Si ha che sia 
+    \item Se "$D(<D>)=\infty$" è dimostrabile, allora, per costruzione di $D$, essa stessa con input se stessa, ossia $D(<D>)$, trova una dimostrazione e termina, quindi $$D(<D>)\ne\infty$$ allora per il \textit{Lemma} esiste una dimostrazione per $D(<D>)\ne\infty$, quindi $D(<D>)\ne\infty$ è dimostrabile. Si ha che sia 
     $$ \begin{cases}
     D(<D>)=\infty\\ 
     D(<D>)\ne \infty
@@ -2274,7 +2275,7 @@ $$ \begin{cases}
 \end{cases}$$
 Ciò, significa che $D(<D>)$ non trovando una dimostrazione, non termina e va in loop, ma allora l'affermazione $D(<D>)=\infty$ si può codificare ed è vera. Ne consegue che 
 $$ \Pi \text{ consistente }\implies D(<D>)=\infty$$
-Ma come si è mostrato in precedenza, $D(<D>)=\infty$ è un affermazione non dimostrabile, quindi è necessariamente vero che anche l'affermazione che la implica, ossia "$\Pi \text{ consistente }$" sia indimostrabile.\hfill$\blacksquare$
+Ma come si è mostrato in precedenza, $D(<D>)=\infty$ è un affermazione non dimostrabile, quindi è necessariamente vero che anche l'affermazione che la implica, ossia "$\Pi$ consistente" sia indimostrabile.\hfill$\blacksquare$
 \sapbox{Esistono affermazioni vere e non dimostrabili}
 \chapter{Complessità Temporale}
 Questo capitolo si occuperà di trattare le risorse necessarie alle TM per risolvere i problemi, con risorse, si definiscono \begin{itemize}
@@ -2609,7 +2610,7 @@ Non tutte le riduzioni hanno complessità polinomiale, si consideri il seguente 
 $$ 4-CROMA = \{<G>\ | \ \mathcal X(G)=4\}$$
 $\mathcal X(G)$ è il \textit{numero cromatico} di $G$, $\mathcal X(G)=k$ se $G$ è $k-$colorabile, ma per ogni $k'<k$ non è $k'$-colorabile. È vero che 
 $$ 4-CROMA \le_T^P SAT$$ 
-Dove $\le_T^P$ è una riduzione ma non di tipo map-reduction, la $T$ sta per turing, la riduzione avviene mediante una procedura/algoritmo.\acc 
+Dove $\le_T^P$ è una riduzione ma non di tipo map-reduction, la $T$ sta per Turing, la riduzione avviene mediante una procedura/algoritmo.\acc 
 Dato $G$, si considera una TM (descritta da un algoritmo) la cui procedura è definita come segue\begin{enumerate}
     \item si considera una riduzione $R$ che mappa $4-COL$ in $SAT$ 
     \item si stabilisce se $G$ è o non è 4-colorabile tramite la risoluzione della formula logica associata. 
@@ -2665,7 +2666,7 @@ Le variabili saranno definite in tal modo $$x_{i,j,s}=\begin{cases}
 \end{cases} $$
 Si progetta la formula $\phi$ in modo tale che, un assegnamento che la soddisfa, corrisponde ad una tabella accettante per $N$. Definiamo diverse sottoformule di $\phi$.\acc 
 \textbf{prima formula} : $\phi_{start}$\\
-questa formula serve a descrivere il fatto che la prima regola di una tabella valida deve necessariamente contenere la configurazione iniziale, che sappiamo essere 
+questa formula serve a descrivere il fatto che la prima riga di una tabella valida deve necessariamente contenere la configurazione iniziale, che sappiamo essere 
 $$ \# \  q_0 \ w_1 \ w_2 \ w_3 \ \dots w_n \ \blank \ \dots \ \blank \ \#$$
 la formula sarà quindi 
 $$ 
@@ -2752,7 +2753,7 @@ Nota bene : $1^{2^{|x|^k}}$ è la stringa composta da ${2^{|x|^k}}$ caratteri (c
 \end{quote}
 Visto che per ipotesi $P=NP$, si ha che $L'\in P$, allora esiste una TM deterministica $M'$ che decide $L'$ in tempo polinomiale. Allora è possibile decidere $L$ in tempo esponenziale\begin{itemize}
     \item dato $x$, si crea la stringa $x'=<x,1^{2^{|x|^k}}>$, la creazione di tale stringa avviene in tempo $O(2^{|x|^k})$ 
-    \item avvio $L'(x')$, questa opera in tempo polinomiale, se $L'$ accetta, allora $x\in L$, altrimenti rifiuta 
+    \item avvio $M'(x')$, questa opera in tempo polinomiale, se $M'$ accetta, allora $x\in L$, altrimenti rifiuta 
 \end{itemize}
 è quindi chiaro che $L$ viene deciso da tale procedura in tempo esponenziale $\implies L\in EXP$.\hfill$\blacksquare$\acc   
 \teo{(di Ladner)} Se $P\ne NP$, allora esiste un linguaggio $L\in NP$ tale che $N$ non è $NP$ completo.\acc 
@@ -2851,13 +2852,14 @@ In tale spazio, è anche possibile gestire un contatore/indice con il quale eseg
 Non è efficiente in termini di tempo, ma lo è in termini di spazio. Per molti problemi, non sono state trovate delle TM che li decidessero in complessità di spazio logaritmica, non si sa quindi se siano o non siano in $LOG$, un seguente esempio è il linguaggio
 $$ PATH = \{<G,s,t> \ | \ s,t\in V(G) \land \text{ esiste un cammino }s\rightarrow t\text{ in }G\}$$
 Per cui si è considerato un algoritmo nella sezione \ref{classiComplessità}, questo, opera in tempo polinomiale, ma la complessità di spazio non è logaritmica, dato che per marcare i nodi, usa al più un bit per nodo, è quindi in $O(n)$ (si ricordi che nelle TM che operano sui grafi, le dimensioni dell'input identificano il numero dei nodi del grafo).\acc 
-\textbf{Esempio} : $3SAT\in PSPACE$, questo è certo perché è possibile provare ogni singolo assegnamento della formula, essendo $n$ il numero dei letterali, ad ogni assegnamento provato si usano al più $n$ celle.\acc 
-Essendo che $3SAT$ è $NP$ completo, ne consegue  che $$NP\subseteq PSPACE $$
+\textbf{Esempio} : $3SAT\in PSPACE$, questo è certo perché è possibile provare ogni singolo assegnamento della formula, essendo $n$ il numero dei letterali, ad ogni assegnamento provato si usano al più $n$ celle. 
+Essendo che $3SAT$ è $NP$ completo, ne consegue  che 
+\sapbox{\centering$NP\subseteq PSPACE $}
 \flowerLine
 \section{Relazione fra Spazio e Tempo}
 In questa sezione verrà resa chiara la relazione che intercorre fra spazio e tempo, in particolare, le relazioni di inclusione fra gli insiemi che definiscono le varie classi.  \acc 
 \teo{} $DTIME(f(n))\subseteq SPACE(f(n))$\acc 
-\dimo{} Sia $L\in DTIME(f(n))$, e sia $M$ la TM che decide $L$ in al più $O(f(n))$ passi, essendo che, ad ogni passo di computazione può riempire al più una cella del nastro di lavoro, necessariamente $M$ non riempirà più di $O(f(n))$ celle distinte, quindi $L$ è anche contenuti in $ SPACE(f(n))$.
+\dimo{} Sia $L\in DTIME(f(n))$, e sia $M$ la TM che decide $L$ in al più $O(f(n))$ passi, essendo che, ad ogni passo di computazione può riempire al più una cella del nastro di lavoro, necessariamente $M$ non riempirà più di $O(f(n))$ celle distinte, quindi $L$ è anche contenuto in $ SPACE(f(n))$.
 \hfill$\blacksquare$\acc   
 Il  teorema ha un significato molto chiaro:
 \sapbox{lo spazio limita il tempo}
@@ -2887,7 +2889,7 @@ quindi il numero di configurazioni è in $2^{O(f(n))}$, dato che $|\Gamma|$ e $|
 \textbf{Corollario} : $PSPACE\subseteq EXP$, inoltre 
 $$ LOG\subseteq P \subseteq PSPACE \subseteq EXP$$
 ma $P\ne EXP$ quindi una delle inclusioni è stretta, in particolare, almeno una delle due seguenti affermazioni è vera\begin{itemize}
-    \item $P\ne PSPACE$
+    \item $P\ne PSPACE$, se fosse vero che $P=PSPACE$, allora sarebbe che $P=NP$
     \item $PSPACE\ne EXP$
 \end{itemize}\flowerLine
 \section{Non Determinismo}\label{ndetSpace}
@@ -2947,8 +2949,8 @@ Vedremo che $PSPACE=NPSPACE$, ossia, che il non determinismo non ha alcuna influ
 Vedremo che $PATH$ è $NLOG$ completo.\acc 
 \teo{(di Savitch)} $NLOG\subseteq P\cap SPACE(\log^2(n))$\acc 
 \dimo{} Sia $A\in NLOG$, ossia $\exists \  NTM \ N$ tale che $L(N)=A$ e $N$ ha complessità spaziale $O(\log(n))$, si ricordi che una configurazione è della forma 
-$$ C=afjej\ q_i \ sfj \ ;\ r$$
-dove $q_i$ è lo stato, che indica anche la posizione della testina sul nastro di lavoro, ed $r$ è la posizione della testina sul nastro di input. Esistono 
+$$ C=afjej\ \mathbf{q_i} \ sfj \ ;\ r$$
+dove $\mathbf{q_i}$ è lo stato, che indica anche la posizione della testina sul nastro di lavoro, ed $r$ è la posizione della testina sul nastro di input. Esistono 
 $2^{O(\log(n))}=O(n)$ possibili configurazioni, si associa, per ogni coppia $N,x$ ($x$ input di $N$) un grafo $G_{N,x}$, i cui nodi sono le possibili configurazioni $C$, ed esiste un arco $(C,C')$ se $C'$ è una configurazione che può seguire da $C$ in accordo con le regole stabilite dalla funzione di transizione $\delta$. Inoltre esisterà una configurazione iniziale $C_{start}$ (naturalmente definita). 
 \begin{center}
     \includegraphics[width=0.5\textwidth ]{images/grafoGNx.drawio.pdf}
@@ -2983,14 +2985,11 @@ $$ x\in A \iff R(x)=B$$
 Bisogna definire il termine "computabile in spazio $O(\log(n))$", il termine $R(x)$ potrebbe avere dimensione $poly(n)$, in tal caso scrivendo $R(x)$ sul nastro di lavoro, si violerebbe lo spazio logaritmico, si considera nel modello della TM un \textit{nastro di output} che può essere scritto una sola volta, senza mai modificare le celle utilizzate, tale nastro verrà usato per scrivere l'output $R(x)$.\acc 
 \teo{} $PATH$ è $NLOG$ completo.\acc 
 \dimo{} Sappiamo già che $PATH$ è un linguaggio in $NLOG$, bisogna dimostrare che tutti i linguaggi in tale insieme si riducono a $PATH$. Sia $A$ un qualsiasi linguaggio in $NLOG$, e sia $N$ la NTM (di complessità logaritmica) tale che $L(A)=N$\begin{itemize} \item si definisce una TM $R$ che, dato un input $x$ per $N$, costruisce il grafo $G_{N,x}$ delle configurazioni visto nella dimostrazione del teorema di Savitch. 
-    \item Ovviamente non si scrive sul nastro tutto il grafo, ma ad ogni passo di computazione si considera il nodo corrente, Per ogni configurazione, è sufficiente memorizzare:\begin{itemize}
-        \item Lo stato corrente della macchina.
-        \item Il contenuto della cella della testina di lettura/scrittura.
-        \item La posizione della testina sul nastro.\end{itemize}
-        \item A partire da una configurazione, è possibile calcolare le configurazioni successive simulando un passo della NTM.
-        \item Dato che $A$ è un linguaggio in $NLOG$, il numero delle configurazioni totali è polinomiale in $n$, quindi si può memorizzare una configurazione in spazio $\log(n)$
-    \item L'output di $R$ (ossia $R(x)$) sarà ($G_{N,x}, C_{start}, C_{acc}$) \item Ne consegue naturalmente che $x\in A \iff$ esiste un cammino $C_{start}\rightarrow C_{acc}$ in $G_{N,x}\iff$ $R(x)=(G_{N,x}, C_{start}, C_{acc})\in PATH$
-\end{itemize}
+    \item La TM $R$ non può scrivere sul nastro l'intero grafo, ma può considerare una configurazione (nodo del grafo) alla volta 
+    \item essendo che il numero  delle configurazioni è polinomiale in $n$, una configurazione può essere rappresentata utilizzando $O(\log(n))$ spazio
+    \item Se $C_i$ è la configurazione corrente, è possibile verificare se esiste un arco $(C_i,C_j)$ in spazio logaritmico 
+\end{itemize} 
+$R(x)$ accetta se e solo se esiste il cammino da $C_{start}$ a $C_{accept}$, quindi $x\in A\iff (G_{N,x}, C_{start}, C_{acc})\in PATH$.
 \hfill$\blacksquare$\acc 
 Si vuole mostrare che la definizione di \textit{log space reduction} soddisfi le seguenti proprietà\begin{itemize}
     \item $A\le_m^L B \implies \begin{cases}
@@ -3037,7 +3036,10 @@ Una formula di questo tipo è una \textit{sentenza}, o è vera o falsa, non ci s
 Si definisce il seguente linguaggio delle \textbf{Totally Quantified Boolean Formula}
 $$ TQBF=\{<\phi> \ | \ \phi \text{ è una TQBF} \}$$
 \teo{} $TQBF\in PSPACE$\acc 
-\dimo{} si considera il seguente algoritmo ricorsivo \begin{quote}
+\dimo{} Rappresentiamo una TQBF come segue 
+$$ (Q_1x_1,Q_2x_2\dots , Q_nx_n,\phi(x))$$
+i termini $Q_ix_i$ indicano che la variabile $x_i$ è determinata dal quantificatore $Q_i$, la formula $\phi$ invece rappresenta la formula booleana vera e propria che coinvolge le variabili quantificate.
+Si considera il seguente algoritmo ricorsivo \begin{quote}
     \code{IsTrue($Q_1x_1,Q_2x_2\dots , Q_nx_n,\phi(x)$)} \\ 
     dove $x=x_1,x_2\dots ,x_n$
 \end{quote}
@@ -3079,8 +3081,8 @@ Con $C_1=C_{start}$ e $C_l=C_{acc}$. Seppure l'idea è logicamente corretta, il 
 \end{itemize}
 Anche in questo caso la logica è corretta ma le dimensioni di $\phi_k$ sono esponenziali dato che raddoppiano ad ogni passo $$|\phi_k|=O(n^a)+2|\phi_{k-1}|$$\acc
 \textbf{Idea Finale)} : Si considera l'idea 2 ma scritta in maniera diversa,  
-$$\phi_k(C_0,C_1) $$ è definita come segue : $\exists C_{mid}\forall D\forall D'$ tale che 
-$$ \begin{pmatrix}
+$$\phi_k(C_0,C_1) $$ è definita come segue : $$\exists C_{mid}\forall D\forall D'
+ \begin{pmatrix}
     (D,D')=(C_0,C_{mid})\\ \lor \\ 
     (D,D')=(C_{mid},C_1)
 \end{pmatrix}\implies \phi_{k-1}(D,D')$$
@@ -3101,7 +3103,7 @@ Quindi $cert(r_l)$ verifica per ogni nodo, se è o non è raggiungibile da $s$ i
     \item supponiamo che $v_i\in R_l$, allora in $cert(r_l)$ c'è il certificato 
     $$\text{certificato per }v_i\in R_l$$
     e questo non è altro che la successione di archi che compongono il cammino da $s$ a $v_i$. 
-     $$\text{certificato per }v_i\in R_l=(s,v_k)(v_k,v_j)(v_j,v_p)\dots (v_t,v_i)$$
+     $$\text{certificato per }v_i\in R_l=(s,v_k)(v_k,v_j)(v_j,v_p)\dots (v_b,v_i)$$
     $V$ può quindi verificare che il certificato dica la verità controllando gli archi in $G$ ed utilizzando un contatore (che necessita $\log(n)$ spazio) per verificare che questo cammino non sia più lungo di $l$.
     \item supponiamo che $v_i\notin R_l$, allora, il sotto certificato  
      $$\text{certificato per }v_i\notin R_l$$ 
@@ -3117,7 +3119,7 @@ Quindi il verificatore partendo dall'inizio può verificare ad ogni passo $cert(
 verificare che $cert(r_n)$ sia valido, e che in $R_n$ non sia presente $t$.
 \acc 
 Un'ultima accortezza : $V$ deve verificare che i nodi coinvolti nei certificati non si ripetano, ad esempio, non deve succedere che 
-$$\text{certificato per }t\notin R_n=(s\rightarrow v_k)\dots ,(s\rightarrow v_k), (s\rightarrow v_j)$$
+$$\text{certificato per }t\notin R_n=(s\rightarrow \color{blue}v_k\color{black})\dots ,(s\rightarrow \color{blue}v_k\color{black}), (s\rightarrow v_j)$$
 Quindi, si assume che i nodi nel certificato siano ordinati (ogni nodo è identificato da un numero intero), e $V$ deve assicurarsi che l'ordine sia sempre rispettato.
 \hfill$\blacksquare$
 \flowerLine
