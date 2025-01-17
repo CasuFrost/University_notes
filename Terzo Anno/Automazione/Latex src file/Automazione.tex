@@ -1616,7 +1616,7 @@ Il LAS utilizza un token per la concessione ai DLE dell'utilizzo del mezzo, ques
 Nell'ambito dell'automazione, è fondamentale definire un sistema di controllo che agisca in tempo reale, che 
 implementi un algoritmo con lo scopo di eseguire i generici task di un processo produttivo, lo scopo dell'algoritmo 
 è quello di \textit{sequenziare} le varie operazioni in modo che rispettino dei vincoli temporali.\acc 
-In un processo vi è un insieme diffusi di singoli componenti (come sensori o attuatori) che comunicano con il 
+In un processo vi è un insieme diffuso di singoli componenti (come sensori o attuatori) che comunicano con il 
 sistema di controllo che gestisce i riferimenti dei segnali, i valori di riferimento sono determinati 
 dall'\textit{algoritmo} in questione, che viene implementato attraverso gli strumenti dell'informatica.\begin{center}
     \includegraphics[width=0.8\textwidth ]{images/algoritmoControllo.pdf}
@@ -1739,7 +1739,7 @@ rispettino la correttezza temporale, e che eventualmente rispettino i vincoli di
 esclusione nell'accesso alle risorse.\acc 
 \defi{} Dato un insieme di task, esso è \textit{schedulabile} se esiste almeno un algoritmo 
 di scheduling che lo \textit{risolve} (ne trova una sequenziazione ammissibile, ossia che 
-rispetti i vincoli).\acc s
+rispetti i vincoli).\acc
 Si consideri il seguente esempio, vi sono due task $(A_1,A_2)$, con i rispettivi vincoli 
 temporali
 $$\begin{matrix}
@@ -1761,7 +1761,7 @@ Questa serializzazione dei task è ammissibile dato che i vincoli temporali sono
 FIFO Preemptive risolve l'insieme $(A_1,A_2)$.\acc 
 Ci si pone la domanda : Esiste un algoritmo generale che, dato un arbitrario numero di task con 
 rispettivi vincoli temporali, ne trovi una serializzazione ammissibile? Si è dimostrato che il problema 
-dello scheduling è NP-completo, non è possibile trovare una soluzione in maniera efficiente. Nell'ambito dell'automazione 
+dello scheduling è NP-completo, non sembra possibile trovare una soluzione in maniera efficiente. Nell'ambito dell'automazione 
 industriale però, è possibile concedersi ipotesi largamente semplificate che permettono di 
 adoperare degli algoritmi che risolvano gli insiemi di task trattati in tali contesti.
 \subsection{Classificazione degli Algoritmi}
@@ -1837,7 +1837,7 @@ Vuol dire che il task si ripete periodicamente scandito da un certo periodo.\beg
 \end{center}
 Inoltre, verranno formulate \textit{ulteriori ipotesi} che da questo punto in poi devono considerarsi vere 
 nell'ambito dei task periodici.\begin{enumerate}
-    \item La deadline relativa di un task periodico sarà uguale al suo periodo di attivazione.
+    \item La deadline relativa di un task periodico sarà uguale al periodo di attivazione dell'istanza seguente.
     \item I task sono fra loro indipendenti (non ci sono blocking queue)
     \item Il computation time $C_i$ di un task è costante per tutte le sue istanze 
     \item Tutti i task condividono il primo activation time : $\forall i,j\in[1\dots, n] \ \ a_j(1)=a_i(1)$
@@ -1889,12 +1889,12 @@ utilizzo di una strumentazione più lenta (quindi economica) nello svolgimento d
 del progettista cercare di "spremere" il più possibile uno scheduling cercando di massimizzare $U$.\acc 
 Dato un algoritmo $F$, un insieme di $n$ task, e rispettivi requisiti $T_i$, si definisce il 
 \textbf{fattore di utilizzazione massimo} 
-$$ U_{max}(n,T_i,F)=\max_{C_i\in\R^+}^{F \text{ soluzione}}(n,T_i)=\max_{C_i\in\R^+}^{F \text{ soluzione}}\sum_{i=1}^n\frac{C_i}{T_i}  \ \ \text{ tale che }U_{max}\ge1 $$
+$$ U_{max}(n,T_i,F)=\max_{C_i\in\R^+}^{F \text{ soluzione}}(n,T_i)=\max_{C_i\in\R^+}^{F \text{ soluzione}}\sum_{i=1}^n\frac{C_i}{T_i}  \ \ \text{ tale che }U_{max}\le1 $$
 \defi{} Dato un algoritmo di scheduling diremo che il processore è \textbf{completamente utilizzato} 
 se, l'aumento di un qualsiasi $C_i$ di un valore positivo qualsiasi $\varepsilon$ rende lo scheduling 
 inammissibile ($U>1$).\acc 
 \prop{} Dato un algoritmo di scheduling, se il processore è completamente utilizzato allora il suo fattore 
-di utilizzazione è massimale : $U=U_{max}$. (la dimostrazione è banale)\acc 
+di utilizzazione è massimale : $U=U_{max}$. (la dimostrazione è banale).\acc 
 Nell'esempio con i due task $(A_1,A_2)$ visto in precedenza, il processore è completamente utilizzato. 
 infatti all'istante 12, il task $A_2$ termina esattamente in pari con la sua deadline, l'aumentare di un 
 qualsiasi valore $\varepsilon$ di un computation time di uno dei due task 
@@ -1933,7 +1933,7 @@ $$
     A_3 & & &T_3=12 &&& C_3=5
 \end{matrix}
 $$
-Il fattore di utilizzazione è $$ U=\frac{2}{8}+\frac{3}{16}+\frac{5}{12}=\frac{41}{48}\simeq 8.8542<1$$
+Il fattore di utilizzazione è $$ U=\frac{2}{8}+\frac{3}{16}+\frac{5}{12}=\frac{41}{48}\simeq 0.8542<1$$
 La condizione necessaria è soddisfatta. Il task $A_1$ avrà sempre priorità sugli altri, si procede nel 
 disegnare la traccia dello scheduling.\begin{center}
     \includegraphics[width=1.1\textwidth ]{images/esempioRMPO.eps}
@@ -1997,8 +1997,8 @@ Si calcola il limite per $n$ che tende ad infinito
 \textbf{Osservazione} : Dato un qualsiasi insieme di task periodici, se il fattore di 
 utilizzazione è minore di $\ln(2)$, allora l'insieme è sicuramente risolvibile con RMPO (condizione 
 sufficiente).\acc
-\defi{(Relazioni Armoniche)} : Dato un insieme di $n$ task, essi sono \textit{legati da relazioni 
-armoniche} se esiste un task $i$ il cui periodo di attivazioni è multiplo di tutti gli altri 
+\defi{(Relazioni Armoniche)} Dato un insieme di $n$ task, essi sono \textit{legati da relazioni 
+armoniche} se esiste un task $i$ il cui periodo di attivazione è multiplo di tutti gli altri 
 periodi di attivazione.
 $$ \exists i\in[1,2\dots,n] \ | \ \forall j\in[1,2\dots,n] \  k_j T_j=T_i \text{ per qualche }k_j\in\Z$$ 
 \prop{3} Se un insieme di task è legato da relazioni armoniche, allora RMPO lo risolve (condizione 
@@ -2036,7 +2036,7 @@ Riassumendo, dato un insieme di task, si ha che
     $U\le 1$, sicuramente è schedulabile con RMPO 
     \item In ogni circostanza, se $U\le 1$ sicuramente è schedulabile con EDF 
 \end{itemize}
-EDF è ha condizioni di schedulabilità più larghe e risulta 
+EDF ha condizioni di schedulabilità più larghe e risulta 
 più efficace di RMPO, è però computazionalmente più complesso, quindi 
 sotto certe ipotesi può essere meglio RMPO. Inoltre\begin{itemize}
     \item RMPO funziona solamente con task periodici 
@@ -2072,12 +2072,12 @@ riuscito a schedulare l'insieme, lasciando l'ultima unità temporale
 libera.
 \subsection{Deadline Monotoning Priority Ordering (DMPO)}
 Fin'ora l'ipotesi dei task periodici ha permesso la formulazione di algoritmi efficienti capaci 
-di schedulare un qualsiasi insieme di task che rispetti determinati requisit, più o meno laschi. \acc 
+di schedulare un qualsiasi insieme di task che rispetti determinati requisiti, più o meno laschi. \acc 
 Si considera adesso un insieme di task \textbf{periodici generalizzati}, che differiscono dai task periodici 
 classici per un vincolo : Non è necessariamente vero che la deadline relativa ed il activation period coincidano.
 Un insieme di task rispetta ora le seguenti ipotesi
 \begin{enumerate}
-    \item La deadline relativa di un task periodico sarà \textbf{minore o uguale} al suo periodo di attivazione.
+    \item La deadline relativa di un task periodico sarà \textbf{minore o uguale} al suo periodo di attivazione successivo.
     \item I task sono fra loro indipendenti (non ci sono blocking queue)
     \item Il computation time $C_i$ di un task è costante per tutte le sue istanze 
     \item Tutti i task condividono il primo activation time : $\forall i,j\in[1\dots, n] \ \ a_j(1)=a_i(1)$
@@ -2181,7 +2181,7 @@ e dei task aperiodici trasformati in periodici
 $$ \begin{matrix}(m,T_1^{min}\dots ,T_m^{min})\\
     (C_1^{max}\dots ,C_m^{max})
 \end{matrix}$$
-Si considera l'insieme dei task che rappresenta un problema equivalentemente periodic
+Si considera l'insieme dei task che rappresenta un problema equivalentemente periodico
 $$ \begin{matrix}(n+m,T_1\dots ,T_n,T_1^{min}\dots ,T_m^{min})\\
     (C_1\dots ,C_n,C_1^{max}\dots ,C_m^{max})
 \end{matrix}$$
@@ -2204,7 +2204,7 @@ $$ \begin{matrix}
     A_1 &   T_1 = 8 &  C_1 = 2 \\ 
     A_2 &   T_2 = 16 &  C_2 = 4
 \end{matrix}$$
-è inoltre presente un task periodico i cui dati misurati (tempo minimo di occorrenza e tempo massimo di completamento) sono
+è inoltre presente un task aperiodico i cui dati misurati (tempo minimo di occorrenza e tempo massimo di completamento) sono
 $$ A_3 \ \ \ \  T_3^{min}=32 \ \ \ \  C_3^{max}=8$$
 è inoltre presente un task $A_4$ da gestire in maniera soft real time tramite il servizio in background, i cui activation time, completation time e deadline assoluta sono 
 $$ a_4 = 9 \ \ \ \ c_4 = 9 \ \ \ \ D_4 = 55$$
