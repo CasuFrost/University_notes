@@ -2512,7 +2512,7 @@ hanno riscosso ampio successo in ambito della automazione industriale. La progra
 L'SFC, è un linguaggio \textit{grafico} ed \textit{autoesplicativo} adottato nella descrizione del comportamento dei PLC, è nato in francia nel 1975 come strumento formale per la progettazione di tipo logico-sequenziale, è de facto uno strumento utile sia per la programmazione dei PLC, sia per la progettazione del loro funzionamento. Ad oggi SFC è stato incluso nell'insieme dei diagrammi UML, denominato diagramma degli stati.
 \subsection{Elementi di Base}
 Nel livello di campo vengono controllati i singoli elementi tramite appositi sistemi di controllo modellizzati come sistemi continui nel tempo. Salendo per i livelli della piramide CIM, il sistema diventa più complesso, i vincoli temporali si fanno laschi ed il tempo è considerato discreto, al livello di coordinamento è addirittura trascurabile rendendo le sequenze operative esclusivamente logiche.\acc 
-\defi{} defniamo \textbf{stato} una \textit{condizione operativa} del sistema complesso da modellare, è invariante e può cambiare eslcuisvamente in seguito ad un evento. Ogni stato del sistema può trovarsi in una delle due possibili condizioni\begin{itemize}
+\defi{} defniamo \textbf{stato} una \textit{condizione operativa} del sistema complesso da modellare, è invariante e può cambiare esclusivamente in seguito ad un evento. Ogni stato del sistema può trovarsi in una delle due possibili condizioni\begin{itemize}
     \item attivo 
     \item inattivo 
 \end{itemize}
@@ -2548,7 +2548,7 @@ Si consideri il seguente dispositivo di automazione industriale
     \includegraphics[width=1\textwidth ]{images/nastroSFC.png}
 \end{center}
 è composto da un nastro trasportatore su
-cui è disposto un film (pellicola) omogeneo che deve essere tagliato da una taglierina verticale
+cui è disposto un film (pellicola) omogeneo che deve essere tagliato da una taglierina verticale.
 Il nastro trasportatore è attuato da un motore/riduttore attivato da un relè. La
 taglierina è attuata da un motore lineare. Un sensore ottico rileva un segno presente
 sul film indicante quando è necessario tagliare, mentre due sensori di inizio e fine
@@ -2615,7 +2615,7 @@ eseguite almeno per un ciclo di funzionamento.
 }
 Pertanto le azioni associate ad un qualsiasi stato la cui transizione in uscita è
 caratterizzata da una condizione già verificata nel momento della sua attivazione,
-vengono eseguire almeno per un ciclo di funzionamento. 
+vengono eseguite almeno per un ciclo di funzionamento. 
 \flowerLine
 \section{Sintassi del Linguaggio SFC}
 Il microprocessore definisce, per ogni stato del diagramma, due variabili\begin{itemize}
@@ -2730,7 +2730,7 @@ Si consideri il seguente \textit{Esempio}, vi è un sistema di lavorazione per d
     \item il pezzo di tipo $A$ dovrà essere (in parallelo) riscaldato e forato. 
     \item il pezzo di tipo $B$ dovrà essere (in parallelo) riscaldato e (queste due sequenzialmente) forato e saldato.
 \end{itemize}
-A monte ci dovrà essere una divergena che tramite il sensore ottico rileval a tipologia del pezzo.
+A monte ci dovrà essere una divergenza che tramite il sensore ottico rileva la tipologia del pezzo.
 \begin{center}
     \includegraphics[width=0.45\textwidth ]{images/esempioPezzi2.png}
 \end{center}
@@ -2840,7 +2840,7 @@ Ci sono due carrelli, che per semplicità denomineremo $A$ e $B$, entrambi si tr
     \item \color{darkgreen}$posattB$\color{black} : sensore booleano, \texttt{True} quando il carrello $B$ è nella zona di attesa.
     \item \color{darkgreen}$posscar$\color{black} : sensore booleano, \texttt{True} quando uno dei due carrelli è nella zona di scarico.
 \end{itemize}
-Inoltre i carrelli, presentano dedicati attuatori per la movimentazione sui binari, questi possono muoversi daventi e indietro, gli attuatori sono\begin{itemize}
+Inoltre i carrelli, presentano dedicati attuatori per la movimentazione sui binari, questi possono muoversi davanti e indietro, gli attuatori sono\begin{itemize}
     \item \color{gray}$avantiA$\color{black} : se \texttt{True}, il carrello $A$ si muove in avanti (verso la zona di scarico) 
     \item \color{gray}$avantiB$\color{black} : se \texttt{True}, il carrello $B$ si muove in avanti (verso la zona di scarico) 
     \item \color{gray}$dietroA$\color{black} : se \texttt{True}, il carrello $A$ si muove indietro (verso la zona di carico) 
@@ -2936,8 +2936,9 @@ Quando si parla di motore elettrico, esistono due schemi realizzativi\begin{item
 Il motore a corrente continua ha una costruzione complessa, ma il modello matematico che lo descrive è semplice. Il rotore (parte che rotea) comprende degli avvolgimenti (spire) di rame su cui circola la corrente in una determinata direzione, l'alimentazione avviene grazie al contatto delle spazzole che strusciano sul motore. Il tutto è immerso in un campo magnetico fornito da magneti permanenti.\begin{center}
     \includegraphics[width=0.45\textwidth ]{images/motore2.eps}
 \end{center}
-Gli elettroni si muoveranno in direzione della corrente $\bar i$, essendo presente un campo magnetico $\bar B$, saranno soggetti alla \textbf{forza di Lorentz} 
-$$ \bar F = (\bar i \times \bar B)$$
+Gli elettroni si muoveranno in direzione del vettore $\bar i$ (densità di corrente), di intensità $I$, essendo presente un campo magnetico $\bar B$, saranno soggetti alla \textbf{forza di Lorentz} 
+$$ \bar F = I(\bar l \times \bar B)$$
+Dove $\bar l$ rappresenta il tratto di filo.
 In questo modo verrà generata una coppia facendo ruotare il circuito. Le spazzole, colorate in giallo nella figura, con il contatto fanno si che la corrente circoli, si noti come l'anello collettore 
 è diviso in due parti, funge da \textit{commutatore}, tale costruzione permette alla corrente di alternare il verso ad ogni mezzo giro, se così non fosse, la forza di Lorentz si alternerebbe facendo oscillare il rotore fino a fermarsi senza farlo roteare.
 \begin{center}
@@ -3304,7 +3305,7 @@ $$ u(t)=K_p\Big(e(t)+\frac{1}{T_i}\int_0^t e(\tau)d\tau+T_d\frac{de(t)}{dt}\Big)
 \begin{itemize}
     \item \textbf{Azione Proporzionale} : Accellera il comportamento transitorio del sistema e riduce l'errore a regime. Un alto valore di $K_p$ tende a destabilizzare il sistema. 
     \item \textbf{Azione Integrale} : Agisce anche quando l'errore è nullo ed annulla l'errore a regime. Tende a destabilizzare il sistema al diminuire del tempo di integrazione $T_i$. 
-    \item \textbf{Azione Derivativa} : Anticipa l'errore evitando che la rispsota del sistema si allontani troppo dal riferimento, rallenta la risposta del sistema ma tende a stabilizzarlo. La derivata effettiva dell'errore di può solamente approssimare (non si può guardare nel futuro).
+    \item \textbf{Azione Derivativa} : Anticipa l'errore evitando che la rispsota del sistema si allontani troppo dal riferimento, rallenta la risposta del sistema ma tende a stabilizzarlo. La derivata effettiva dell'errore si può solamente approssimare (non si può guardare nel futuro).
 \end{itemize}\begin{center}
     \begin{tabular}{|l|l|l|l|}
         \hline
@@ -3645,7 +3646,7 @@ Si osservi il seguente grafico che riporta l'andamento di due profili slave, uno
 		\\
 	\end{tabular}
 \end{center}
-
+Questo raddoppiare/quadruplicare della velocità/accelerazione è normale dato che una variazione della posizione più rapida necessita di una maggiore velocità (e conseguentemente accelerazione) per essere seguita.
 
 
 
@@ -3835,7 +3836,7 @@ Una variazione di 2.4V fa si che $u$ passi dal minimo (1 bar) al massimo (10 bar
 \begin{center}
     \includegraphics[width=0.45\textwidth]{images/bandaproporzionale2.png} 
 \end{center}
-Se per far passare $u$ dal minimo al massimo fosse necessaria una variazione di 2.4V allora la banda proporzionale sarebbe del 25\%.
+Se per far passare $u$ dal minimo al massimo fosse necessaria una variazione di 1.2V allora la banda proporzionale sarebbe del 25\%.
 \acc 
 La banda proporzionale è relazionata al guadagno proporzionale, si ha che 
 $$ K_p=\frac{u(t)}{e(t)}$$ 
@@ -3850,7 +3851,7 @@ $$ \frac{K_p}{K_{norm}}=\frac{1}{B_p}\implies B_p=\frac{K_{norm}}{K_p}$$
 Nell'esempio precedente, con una banda proporzionale del 50\% si può ricavare il guadagno proporzionale 
 $$ \frac{K_p}{1.875}=\frac{1}{0.5}\implies K_p=1.875\cdot 2 = 3.75$$
 \subsection{Funzione di Trasferimento}
-Fisicamente è impossibile realizzare un'azione puramente derivativa, in quanto non si può "scorgere" il futuro, analizziamo un PID ideale ignorando momentaneamente questa irrealizzabilità. Sapendo l'azione nel tempo del PID è 
+Fisicamente è impossibile realizzare un'azione puramente derivativa, in quanto non si può "scorgere" il futuro, analizziamo un PID ideale ignorando momentaneamente questa irrealizzabilità. Sapendo che l'azione nel tempo del PID è 
 $$ 
 u(t)=K_p\Big(   e(t)+\frac{1}{T_i}\int_0^te(\tau)d\tau + T_d\frac{de(t)}{dt}    \Big)
 $$
@@ -3979,8 +3980,8 @@ In seguito è riportata una possibile implementazione digitale del PID in forma 
 \subsection{Derivata Filtrata in Banda}
 Abbiamo visto come, nel caso continuo, per poter far si che il PID sia realizzabile si è considerato un polo in alta frequenza da aggiungere  all'azione derivativa $u_d$ del PID.
 \begin{itemize}
-    \item ideale : $u_d=K_pT_ds$
-    \item reale :  $u_d=K_pT_d\frac{s}{1+(\nicefrac{T_d}{N})s}$
+    \item ideale : $u_d=K_pT_ds\cdot e$
+    \item reale :  $u_d=\dfrac{K_pT_ds}{1+(\nicefrac{T_d}{N})s}\cdot e$
 \end{itemize}
 Questo perché lo schema a blocchi di un sistema reale deve includere esclusivamente blocchi "causali", non possono essere presenti blocchi con delle funzioni improprie.
 \begin{center}
@@ -4174,7 +4175,7 @@ In assenza di saturazione il controllore è perfetto, in presenza di saturazione
     \includegraphics[width=0.7\textwidth]{images/saturazioneCurve3.png}
 \end{center}
 \subsection{Anti Wind-Up}
-Abbiamo visto quali sono i problemi legati alla saturazione degli attuatori, una soluzione piuttosto sofisticata è l'azione di \textit{anti wind-up}, con wind up si denota questo fenomeno di accumulo dell'errore integrale ceh fa degenerare l'azione di controllo. 
+Abbiamo visto quali sono i problemi legati alla saturazione degli attuatori, una soluzione piuttosto sofisticata è l'azione di \textit{anti wind-up}, con wind up si denota questo fenomeno di accumulo dell'errore integrale che fa degenerare l'azione di controllo. 
 L'anti wind-up è relativo esclusivamente all'azione integrale.\begin{center}
     \includegraphics[width=\textwidth]{images/antiWindUp1.png}
 \end{center}
@@ -4269,7 +4270,7 @@ Esistono due approcci al problema della scelta dei guadagni\begin{itemize}
 \subsection{Primo Metodo di Ziegler-Nichols}
 Il processo 
 $$ P_m(s)=\frac{Ke^{-\theta s}}{1+\tau s}$$
-è un modello che verrà utilizzato per il progetto dei guadagni, ricavato da un sistema che ha un polo con una cerca costante di tempo $\tau$, un guadagno $K$, ed un ritardo di tempo finito rappresentato da $e^{-\theta s}$ nel dominio di Laplace. Il seguente grafico evidenzia tali \textit{parametri caratteristici} del processo nella risposta ad un gradino 
+è un modello che verrà utilizzato per il progetto dei guadagni, ricavato da un sistema che ha un polo con una certa costante di tempo $\tau$, un guadagno $K$, ed un ritardo di tempo finito rappresentato da $e^{-\theta s}$ nel dominio di Laplace. Il seguente grafico evidenzia tali \textit{parametri caratteristici} del processo nella risposta ad un gradino 
 $\Delta u$
 \begin{center}
     \includegraphics[width=0.7\textwidth]{images/tuning1.png}
