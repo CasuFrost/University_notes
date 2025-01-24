@@ -2428,7 +2428,7 @@ CMOS 0-3/15V, OPTO)
     \item ACQUISIZIONE SEGNALI ANALOGICI e ADC:
     Circuiti per l'accoppiamento con i segnali analogici in ingresso, l'eventuale
     multiplexer e il converitore A/D (ADC) per il campionamento e la
-    quantizzazione. È il componente pià costoso del controllore.
+    quantizzazione. È il componente più costoso del controllore.
     \item GESTIONE I/O:
     Circuiti per l'accoppiamento con bus dedicati o schede di espansione.
     \item GESTIONE INTERRUPT:
@@ -4226,7 +4226,7 @@ La prima parte fa un azione $PD$ che non considereremo, ci si sofferma sull'azio
 $$ PD \ \ \ \ PD^* \ \ \ \ PD^*_y$$
 sono rappresentate due saturazioni, una sull'azione PD ed una sul comando finale, quest'ultima modella la saturazione dell'attuatore. In questo schema l'integrazione dell'errore è automaticamente bloccata in presenza di saturazioni. Evita l'accumulo, che dovrà poi essere scaricato quando l'errore cambia di segno.\acc 
 Valutiamo il diagramma in assenza di saturazione, si ha che l'uscita $u_k$ è 
-$$ u_k=w_k=u_{1,k}+\frac{K_pT_C}{T_i}e_k+(u_{k-1}-u_{1,k-1})=(1-z^{-1})U_{1,k}+\frac{K_pT_C}{T_i}E_k+z^{-1}U_k$$
+$$ u_k=w_k=u_{1,k}+\frac{K_pT_C}{T_i}e_k+(u_{k-1}-u_{1,k-1})=[\text{nel dominio }\mathcal{Z}]=(1-z^{-1})U_{1,k}+\frac{K_pT_C}{T_i}E_k+z^{-1}U_k$$
 Riproduce l'azione PID classica, l'uscita dell'intero controllo $u_k$ ha i tre contributi. Si riorganizza l'equazione di $u_k$ e si ottiene 
 $$ U_k=U_{1,k}+\frac{K_pT_C}{T_i}\frac{E_k}{1-z^{-1}}$$
 $U_{1,k}$ include l'azione proporzionale e derivativa, e dipendono dal blocco PD, è poi presente l'azione integrale classica. Si ricordi che le lettere maiuscole ($U_k$ piuttosto che $u_k$) sono usate quando si passa nel dominio $\mathcal{Z}$.\acc 
@@ -4455,17 +4455,115 @@ La risposta del sistema ad anello chiuso con il regolatore $PID^*$ è la seguent
     \includegraphics[width=0.5\textwidth]{images/2ZN3.png}
 \end{center}
 Il risultato è molto simile al caso precedente della sezione \ref{esNum1} in cui si è applicato il primo metodo.
-
-
-
-
-
-
-
-
-
-
-
+\flowerLine
+\section{Riassunto e Classificazione dei PID}
+In questa sezione verranno raggruppate in maniera ordinata le differenti versioni di PID viste nel capitolo. È una sezione puramente riassuntiva e non aggiunge nulla a ciò che è stato presentato nel capitolo.
+\sapbox{\textbf{PID CONTINUO IDEALE}} 
+Il segnale di controllo in funzione dell'errore $e$ è 
+$$ 
+u(t)=K_p\Big(   e(t)+\frac{1}{T_i}\int_0^te(\tau)d\tau + T_d\frac{de(t)}{dt}    \Big)
+$$
+funzione di trasferimento: 
+$$ PID_{ideale}(s)=\frac{u(s)}{e(s)}= 
+K_p\Big(1+\frac{1}{T_i s}+T_d s\Big)
+$$
+in forma razionale:
+$$ PID_{\text{ideale}}(s)=\frac{u(s)}{e(s)}=\frac{K_p}{T_i}\frac{T_iT_d s^2+t_is+1}{s}$$
+\sapbox{\textbf{PID CONTINUO REALE}}
+Il PID reale deve avere una funzione di trasferimento propria, si aggiunge un polo in alta frequenza sull'azione derivativa 
+$$ PID(s)=\frac{u(s)}{e(s)}= 
+K_p\Big(1+\frac{1}{T_i s}+\dfrac{T_d s}{1+\frac{T_d}{N}s}\Big)
+$$
+in forma razionale:
+$$ 
+PID(s)=\frac{K_p}{T_i}\frac{T_iT_d(1+\frac{1}{N})s^2+(T_i+\frac{T_d}{N})s+1}{s(1+\frac{T_d}{N}s)}
+$$
+Polo aggiunto in $s=-\frac{N}{T_d}$. Un valore di $N$ alto implica un'azione derivativa più precisa.
+\sapbox{\textbf{PID DISCRETO FORMA DI POSIZIONE}}
+Il segnale di controllo in funzione dell'errore $e_k$ è 
+$$
+u_k=
+\color{blue}K_pe_k\color{black}+
+\color{darkgreen}u_{i,k-1}+\frac{K_p}{T_i}T_Ce_k\color{black} + 
+\color{sapienza}K_pT_d \frac{e_k-e_{k-1}}{T_C}\color{black}
+$$
+$u_{i,k-1}$ accumula l'errore integrale : $u_{i,k}=u_{i,k-1}+\frac{K_p}{T_i}T_Ce_k $.
+\begin{center}
+    \includegraphics[width=0.55\textwidth]{images/schemaPIDdigitale.pdf}
+\end{center}
+\sapbox{\textbf{PID DISCRETO FORMA DI VELOCITÁ}}
+Si definisce $\Delta u_k $ come segue
+$$ 
+\Delta u_k  =u_k-u_{k-1}= K_p(e_k-e_{k-1})+\frac{K_pT_C}{T_i}e_k+\frac{K_pT_d}{T_C}(e_k-2e_{k-1}+e_{k-2})
+$$
+L'espressione in forma di velocità del PID è la seguente 
+$$ u_k=u_{k-1}+\Delta u_k$$
+La funzione di trasferimento nel dominio $\mathcal Z$ è
+$$ 
+PID(z)=\Big[ K_p+\frac{K_p}{T_i}\frac{T_C}{1-z^{-1}}+\frac{K_p}{T_C}T_d(1-z^{-1})  \Big]
+$$
+$$ 
+U_k=PID(z)E_k
+$$
+\sapbox{\textbf{PID DISCRETO AZIONE DERIVATIVA FILTRATA IN BANDA}}
+Si vuole aggiungere il filtraggio in banda con il termine $N$ che nel PID continuo è necessario per rendere la funzione di trasferimento realizzabile.
+considerando il termine derivativo (nel tempo $k$) approssimato mediante uso del filtraggio della derivata si ottiene 
+$$u_{d,k}=\frac{1}{\dfrac{T_d}{NT_C}+1}\Big[
+\frac{T_d}{NT_C}u_{d,k-1}+     
+\frac{K_pT_d}{T_C}e_k+ 
+\frac{T_d}{T_C}e_{k-1}
+\Big]$$
+Nel dominio $\mathcal{Z}$ il termine derivativo \textg{senza filtraggio } è  
+$$ 
+U_{d,k}=\frac{K_pT_d}{T_C}(1-z^{-1})E_k
+$$
+Nel dominio $\mathcal{Z}$ il termine derivativo \textg{con filtraggio } è  
+$$ 
+U_{d,k}=\frac{K_pT_d}{T_C}(1-z^{-1})\frac{1}{
+    1+\dfrac{T_d}{NT_C}-\dfrac{T_d}{NT_C}z^{-1}
+}E_k
+$$
+il PID reale implementato digitalmente con la derivata filtrata in banda è
+$$ 
+PID^*(z)=\color{blue}K_p\color{black}
++\color{darkgreen}\frac{K_p}{T_i}\frac{T_C}{1-z^{-1}}\color{black}+
+\color{sapienza}\frac{K_pT_d}{T_C}\frac{1-z^{-1}}{1+\frac{T_d}{NT_C}-\frac{T_d}{NT_C}z^{-1}}
+$$
+\begin{center}
+    \includegraphics[width=0.55\textwidth]{images/schemaPIDdigitaleBanda.pdf.png}
+\end{center}
+Si può moltiplicare per $\frac{z}{z}$ e riorganizzare l'espressione di $PID^*(z)$ per ottenere la versione fratta 
+$$
+PID^*(z)=K_p\frac{a_2z^2+a_1z+a_0}{
+    (z-\frac{T_d}{T_d+NT_C})(z-1)
+}
+$$
+Dove $a_0$, $a_1$ e $a_2$ sono i 3 coefficienti che dipendono dai parametri del PID, dal tempo di campionamento $T_C$ e dalla scelta di $N$.
+\begin{center}
+    \includegraphics[width=1\textwidth]{images/coefficientiPID.png}
+\end{center}
+\sapbox{\textbf{DIVERSI SCHEMI DEL PID}}
+Denotando $PID^*$ il PID con azione derivativa filtrata in banda (sia continuo che discreto), si ha lo schema realizzativo
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/schemaDiControlloPID.pdf}
+\end{center}
+È possibile valutare l'azione derivativa esclusivamente sull'uscita misurata, denotiamo tale forma $PID_y^*$
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/schemaPIDderivataUscita.pdf}
+\end{center}
+\textbf{Schema del PID digitale} con derivata filtrata in banda ed azione derivativa su\begin{center}
+    \includegraphics[width=0.55\textwidth]{images/schemaPidDigSuUscita.pdf}
+\end{center}ll'uscita misurata $PID_y^*$:
+È possibile valutare anche l'azione proporzionale esclusivamente sull'uscita misurata, denotiamo tale forma $P_yID_y^*$
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/schemaPIDderivataPropUscita.pdf}
+\end{center}
+\sapbox{\textbf{PID CONTINUO CON ANTI WIND UP}}
+In caso di saturazione, il PID viene implementato nel modo seguente:
+\begin{center}
+    \includegraphics[width=\textwidth]{images/antiWindUp1.png}
+\end{center}
+La differenza sta nell'azione integrale in
 
 \chapter{Sistemi a Eventi Discreti}
 \section{Automi a Stati Finiti}
@@ -4546,7 +4644,7 @@ In questo esempio, gli eventi commutano, ciò non è sempre verificato. Il tempo
     \includegraphics[width=0.6\textwidth]{images/tassonomiaSistemi.png}
 \end{center}
 Dato un DEDS ed una \textbf{sequenza di eventi}, si identifica un evoluzione univoca dello stato del sistema.\acc 
-\defi{(Automa)} : Un'automa è una 
+\defi{(Automa)}  Un'automa è una 
 5-tupla, $(X,E,f,x_0, X_m)$ di cui\begin{itemize}
     \item $X$ è l'insieme degli stati possibili 
     \item $E$ è l'alfabeto che compone le stringhe in input 
@@ -4783,7 +4881,7 @@ appartiene ad un'insieme fra \begin{itemize}
 Inoltre, i nodi posto possono essere annotati con dei pallini neri, detti \textit{token}, essi rappresentano 
 lo stato del sistema in quanto indicano che delle risorse (in senso generale) sono disponibili in un posto, 
 permettendo eventualmente una transizione. Ogni arco del grafo collega un nodo posto ad un nodo transizione.\acc 
-Sono un formalismo grafico/matematico per la modellizzazione dei DEDS, e le transazione da uno stato ad un altro richiedono che determinate \textit{condizioni esplicite siano} siano soddisfatte. Lo stato del sistema è un'informazione distribuita fra le entità posto, in particolare, è descritto dalla presenza dei token sui vari nodi.\acc 
+Sono un formalismo grafico/matematico per la modellizzazione dei DEDS, e le transazioni da uno stato ad un altro richiedono che determinate \textit{condizioni esplicite siano} siano soddisfatte. Lo stato del sistema è un'informazione distribuita fra le entità posto, in particolare, è descritto dalla presenza dei token sui vari nodi.\acc 
 Le reti di Petri rispetto gli automi a stati finiti sono vantaggiose perché\begin{itemize}
     \item sono facilmente modificabili 
     \item sono modulari 
@@ -4845,7 +4943,7 @@ Una rete di petri $PN$ è quindi un grafo di petri alla quale si aggiunge il vet
 $$ PN=(P,T,A,w,\mathbf x)$$
 Una rete di Petri si dice \textit{ordinaria} se ogni arco di peso non nullo ha peso 1.
 \subsection{Scatto delle Transizioni}
-L'evoluzione della rete di Petri è dettata da eventi, un evento accade quando una transizione diviene \textbf{abilitata}, a quel punto, si dice che la rete \textit{scatta} ed avviene un cambio di marcatura (il vettore $\mathbf x$) cambia.\acc 
+L'evoluzione della rete di Petri è dettata da eventi, un evento accade quando una transizione diviene \textbf{abilitata}, a quel punto, si dice che la rete \textit{scatta} ed avviene un cambio di marcatura (il vettore $\mathbf x$ cambia).\acc 
 Una transizione $t_j$ risulta \textbf{abilitata} se 
 $$ \forall p_i\in I(t_j) \text{ si verifica che }x(p_i)\ge w(p_i,t_j)$$
 Ossia, tutti i posti entranti nella transazione hanno un numero di token maggiore o uguale al peso dell'arco che li lega a tale transazione.
@@ -4967,11 +5065,11 @@ $$ \begin{bmatrix}
 \flowerLine 
 \section{Proprietà delle Reti di Petri}
 Sia $PN=(P,T,A,w,\mathbf {x_0})$ una generica rete di Petri, con $\mathbf{x_0}$ la marcatura iniziale.\acc 
-\defi{} una generica marcatura $\mathbf{x_i}$ si dice \textbf{raggiungibile} se un'altra marcatura $\mathbf{x_j}$ se esiste una sequenza di scatti che, porta dalla marcatura $\mathbf{x_i}$ a quella $\mathbf{x_j}$.\acc 
+\defi{} una generica marcatura $\mathbf{x_i}$ si dice \textbf{raggiungibile} da un'altra marcatura $\mathbf{x_j}$ se esiste una sequenza di scatti che, porta dalla marcatura $\mathbf{x_j}$ a quella $\mathbf{x_i}$.\acc 
 Si definisce l'\textit{insieme di marcature raggiungibili} della rete di Petri $PN$, l'insieme 
 $$ R(PN)=\{\mathbf{x_j} \ | \ \mathbf{x_j} \text{ è raggiungibile da }\mathbf{x_0}\}$$
 ossia, l'insieme di tutte le marcature raggiungibili da quella iniziale, rappresenta tutti i possibili stati in cui può ricadere il sistema, considerando ogni possibile sequenza di transizioni.\acc 
-Una marcatura $\mathbf{x^*}$ si dice \textit{marcatura di base} se essa è raggiungibile da ogni possibile marcatura $\mathbf{x}\in R(PN)$.\acc 
+Una marcatura $\mathbf{x^*}$ si dice \textg{marcatura di base } se essa è raggiungibile da ogni possibile marcatura $\mathbf{x}\in R(PN)$.\acc 
 \defi{} La rete di Petri si dice \textbf{reversibile} se la marcatura iniziale $\mathbf{x_0}$ è una marcatura di base, ciò indica che da ogni possibile stato, è possibile tramite una sequenza di scatti, tornare allo stato iniziale.
 \acc La rete mostrata in figura \begin{center}
     \includegraphics[width=0.4\textwidth]{images/reversibile.png}
@@ -4995,7 +5093,7 @@ La seguente rete di Petri
     \includegraphics[width=0.4\textwidth]{images/bloccante.png}
 \end{center}
 è bloccante dato che, a partire dallo stato iniziale, se si attivano in sequenza $t_1t_2$ si raggiunge la marcatura 
-$$\mathbf x' \begin{bmatrix}
+$$\mathbf x' = \begin{bmatrix}
     0\\0\\1
 \end{bmatrix}$$ 
 che non abilita alcuna transizione, in quanto $$\mathbf I_3=\begin{bmatrix}
@@ -5020,7 +5118,7 @@ al variare dei valori di $r$\begin{itemize}
 \end{itemize}
 Un posto è illimitato se non esiste $k\in\N$ per cui è $k$-limitato, ossia, è possibile accumulare un numero infinito di token. La rete è \textit{illimitata} se ha almeno un posto illimitato.\acc 
 La proprietà di essere illimitata non influisce sulla proprietà di reversibilità\begin{itemize}
-    \item una rete può essere illimitata (accumulare un numero infinito di token su un posot) ma essere comunque reversibile (è possibile "scaricare" quel posto un numero di volte pari al numero di token accumulati)
+    \item una rete può essere illimitata (accumulare un numero infinito di token su un posto) ma essere comunque reversibile (è possibile "scaricare" quel posto un numero di volte pari al numero di token accumulati)
     \item una rete può essere irreversibile anche se limitata
 \end{itemize}
 La seguente rete di Petri è sia illimitata che irreversibile
@@ -5032,7 +5130,7 @@ $$ R(PN)= \left\{   \begin{bmatrix}x(p_1)\\x(p_2)\\x(p_3)\\x(p_4) \end{bmatrix} 
 Fra i posti $p_1,p_2$ e $p_3$ ci può essere contemporaneamente un singolo token, l'espressione 
 $$ x(p_1)+x(p_2)+x(p_3)=1 $$
 evidenzia che quei posti sono \textit{conservativi}. \acc 
-\defi{} In una rete di Petri, una \textbf{parte conservativa}. è un soittoinsieme di posti per il quale, data una qualsiasi evoluzione ammissibile, una combinazione lineare (a coefficienti costanti in $\N$) di token si mantiene \textit{costante}. Ossia, per ogni stato raggiungibile $\mathbf x$, si ha che 
+\defi{} In una rete di Petri, una \textbf{parte conservativa} è un soittoinsieme di posti per il quale, data una qualsiasi evoluzione ammissibile, una combinazione lineare (a coefficienti costanti in $\N$) di token si mantiene \textit{costante}. Ossia, per ogni stato raggiungibile $\mathbf x$, si ha che 
 $$ \Lambda \cdot \mathbf x = c $$
 dove \begin{itemize}
 \item $c\in \N$\item$ \Lambda \in \N^{|P|}$
@@ -5075,7 +5173,7 @@ Una rete di questo tipo è conservativa, il numero di token non cambia mai, ques
 \end{center}
 Se la marcatura iniziale ha un singolo token (c'è un solo token in un solo posto), allora la rete è safe. La rete è viva \textit{se e solo se} esiste almeno un token, ed il grafo di Petri è fortemente connesso. Possono esserci dei conflitti (da un posto partono due archi) ma non sincronizzazioni e concorrenza (da una transazione non possono partire/congiungersi due archi).
 \subsubsection{Grafo Marcato (MG)}
-Risulta essere il complementare della macchina a stati, in qesto caso, il vincolo è sui posti\begin{itemize}
+Risulta essere il complementare della macchina a stati, in questo caso, il vincolo è sui posti\begin{itemize}
     \item ogni posto può avere al più una transizione in ingresso, ed una transizioni in uscita 
 \end{itemize}
 Può modellare la concorrenza e sincronizzazione, ma non può modellare i conflitti, in quanto da ogni posto non si potrà mai avere scelta di due transizioni.
@@ -5106,7 +5204,7 @@ Il seguente diagramma descrive l'ordine di gerarchia delle reti di Petri ordinar
     \includegraphics[width=0.8\textwidth]{images/GerarchiaPetri.drawio.pdf}
 \end{center}
 Alcuni esempi di reti appartenenti alle diverse classi:\begin{center}
-    \includegraphics[width=\textwidth]{images/PetriEsempi.png}
+    \includegraphics[width=\textwidth]{images/PetriEsempi.pdf}
 \end{center}
 \subsection{Esempi di Reti di Petri}
 Abbiamo visto che una rete di Petri può essere\begin{itemize}
@@ -5223,7 +5321,7 @@ Si consideri la rete di Petri mostrata in figura
 \begin{center}
     \includegraphics[width=0.25\textwidth]{images/PetriEs7.png}
 \end{center}
-A partire dalla marcatura iniziale, la sequenza $t_3t_4$ può essere eseguita un numero indefinito di volte ciclicamente, aumentando sempre il numero di token su $p_1$, che rende la rete non limitata. Si noti come $t_1$ non è mai abilitata, quindi la rete non è viva. La rete è reversibile dato che l'esecuzione ciclica della sequenza $t_5t_2$ scarica $p_1$.
+A partire dalla marcatura iniziale, la sequenza $t_4t_3$ può essere eseguita un numero indefinito di volte ciclicamente, aumentando sempre il numero di token su $p_1$, che rende la rete non limitata. Si noti come $t_1$ non è mai abilitata, quindi la rete non è viva. La rete è reversibile dato che l'esecuzione ciclica della sequenza $t_5t_2$ scarica $p_1$.
 \begin{center}
     \begin{tabular}{|c|c|c|}
         \hline
@@ -5235,7 +5333,7 @@ A partire dalla marcatura iniziale, la sequenza $t_3t_4$ può essere eseguita un
 \subsubsection{Esempio 8}
 Si consideri la rete di Petri mostrata in figura
 \begin{center}
-    \includegraphics[width=0.25\textwidth]{images/PetriEs7.png}
+    \includegraphics[width=0.25\textwidth]{images/PetriEs8.png}
 \end{center}
 Inizialmente l'unica transizione abilitata è $t_1$, in seguito, l'unica sequenza ammissibile (ciclicamente) è $t_2t_1t_4t_3$, la marcatura iniziale $$ \begin{bmatrix}
     1\\ 0 \\ 1 \\ 0 \\ 0
@@ -5303,7 +5401,7 @@ La rete è illimitata, si possono accumulare nodi su $p_1$,  ma è anche reversi
 In particolare, i token si conservano su $p_2$ e $p_3$, ma non su $p_1$. 
 $$ R(PN)= \left\{   \begin{bmatrix}x(p_1)\\x(p_2)\\x(p_3) \end{bmatrix} \in \N^4 \text{ tale che }x(p_2)+x(p_3)=1  \right\}$$
 Per rappresentare un numero arbitrariamente grande di nodi, si fa utilizzo del particolare termine $\omega$, che viene definito in modo da rispettare le seguenti proprietà 
-$$ \omega+k=\omega \ \ \ \ \ \ \ \ \omega-k=\omega \ \ \ \ \ \ \ \ \forall \omega \in \N$$
+$$ \omega+k=\omega \ \ \ \ \ \ \ \ \omega-k=\omega \ \ \ \ \ \ \ \ \forall k \in \N$$
 Tenendo ciò in mente, è necessario dare la definizione di \textit{ricoprimento}, è una relazione che coinvolge due marcature $\mathbf{x_1}$, $\mathbf{x_2}$ di una Rete di Petri. Diciamo che $\mathbf{x_1}$ \textbf{ricopre} $\mathbf{x_2}$ se per ogni posto, il numero di token su tale posto nella marcatura $\mathbf{x_1}$ è maggiore o uguale al numero di token sullo stesso posto nella marcatura $\mathbf{x_2}$, e per almeno un posto è strettamente maggiore. 
 $$ \mathbf{x_1}=\begin{bmatrix}
     x_1(p_1)\\ x_1(p_2)\\\vdots \\x_1(p_{|P|})
@@ -5316,10 +5414,10 @@ $\mathbf{x_1}$ ricopre $\mathbf{x_2}$, allora la sequenza $S$ sarà nuovamente a
 \end{quotation}
 \textbf{Esempio}
 $$\begin{bmatrix}
-    2 \\ 1 \\ 0 \\ 1
+    2 \\ 1 \\ 1 \\ 1
 \end{bmatrix} \text{ ricopre } 
 \begin{bmatrix}
-    2 \\ 1 \\ 1 \\ 1
+    2 \\ 1 \\ 0 \\ 1
 \end{bmatrix} \ \ \ \ \  \ \ \ \ \  
 \begin{bmatrix}
     56 \\ 22 \\ 12 \\ 16
@@ -5363,8 +5461,8 @@ L'albero di raggiungibilità è completato.
 \subsection{P-Invarianti}
 Si può considerare la matrice di incidenza $\mathbf C$ per osservare le proprietà strutturali di una rete di Petri, si ricordi che data una marcatura $\mathbf x$ ed un vettore di sequenze $\mathbf s$, lo stato successivo è 
 $$ \mathbf x' = \mathbf x + \mathbf C \mathbf s$$
-Sappiamo che nella rete può essere presente un insieme di posti in cui il numero di token si conservi (se tale insieme copre tutti i posti, la rete è limitata), tale vincolo si esprime con la disuguaglianza 
-$$ \gamma^T\cdot\mathbf x = c \text{ costante per ogni }\mathbf x \in R(PN)$$
+Sappiamo che nella rete può essere presente un insieme di posti in cui il numero di token si conserva (se tale insieme copre tutti i posti, la rete è limitata), tale vincolo si esprime con la disuguaglianza 
+$$ \gamma^T\cdot\mathbf x = c  \text{ costante per ogni }\mathbf x \in R(PN)$$
 Dove $\gamma\in \N^{|P|}$,  e $\gamma^T$ è il trasposto di $\gamma$, ossia semplicemente il vettore riga, quindi $\gamma^T\cdot\mathbf x$ è uno scalare. Il vettore $\gamma$ è detto \textbf{P-Invariante}, per ovvie ragioni, le sue componenti devono essere intere e non negative.
 $$ \begin{bmatrix}
     \gamma_1& 
@@ -5376,7 +5474,7 @@ $$ \begin{bmatrix}
     \vdots \\ 
     x(p_{|P|})
 \end{bmatrix}=\gamma_1x(p_1)+\dots + \gamma_{|P|}  x(p_{|P|})=c \text{ costante}$$
-Ovviamente anche lo stato iniziale $\mathbf{x_0}$ deve essere conservativa 
+Ovviamente anche lo stato iniziale $\mathbf{x_0}$ deve rispettare l'uguaglianza 
 $$\gamma^T\cdot\mathbf{x_0} = c$$
 è quindi vero che 
 $$\gamma^T\cdot\mathbf{x_0} =\gamma^T\cdot\mathbf{x} \ \ \ \ \forall \mathbf x\in R(PN)$$
@@ -5435,14 +5533,13 @@ $$ \mathbf C = \mathbf O - \mathbf I =\begin{bmatrix}
 \end{bmatrix}
 $$
 Voglio studiare il nucleo della matrice $\mathbf C^T$
-$$\begin{bmatrix}
-    \gamma_1 & \gamma_2 & \gamma_3
-\end{bmatrix} \begin{bmatrix}
-    0 & 1 \\ 
-    1 & -1 \\ 
-    1 & -1
+$$ \begin{bmatrix}
+    0 & 1 & 1\\ 
+    1 & -1 & -1
+\end{bmatrix}\begin{bmatrix}
+    \gamma_1 \\ \gamma_2 \\ \gamma_3
 \end{bmatrix}=\begin{bmatrix}
-    0 & 0 & 0
+    0 \\ 0 \\ 0
 \end{bmatrix}$$
 Equivale al sistema di equazioni lineari 
 $$ 
@@ -5550,7 +5647,7 @@ $$\begin{cases}
     \gamma_2=\gamma_5
 \end{cases} $$
 $$\begin{cases}
-    \gamma_3=\gamma_1+\gamma_2=0\\ 
+    \gamma_3=\gamma_1+\gamma_2\\ 
     \gamma_1=\gamma_4\\ 
     \gamma_2=\gamma_2
 \end{cases} $$
@@ -5715,7 +5812,7 @@ Si osservi come, di tutte le possibili sequenze in cui ogni transizione avviene 
 \end{itemize}
 \flowerLine 
 \section{Reti di Petri Estese}
-In questa breve sezione mostriamo alcune varianti delle reti di Petri che possono aumentarne la semantica permettendo descrizioni più dettagliate dei sistemi, anche se complicando il modello si perde la possibilità di studiarne analiticamente le proprietà.\acc 
+In questa breve sezione mostriamo alcune varianti delle reti di Petri che possono aumentarne la semantica permettendo descrizioni più dettagliate dei sistemi, anche se complicando il modello, si perde la possibilità di studiarne analiticamente le proprietà.\acc 
 Una rete di Petri è \textbf{temporizzata} quando si aggiunge, per una generica transizione $t_j$ (o per più transizioni), una \textit{struttura di clock} $\mathbf v_j$.\acc 
 $\mathbf v_j$ è un vettore associato alla transizione $t_j$, è un vettore in $(\R\backslash\{0\})^k$, per un arbitrario $k$ positivo. 
 $$ \mathbf v_j=\begin{bmatrix}
@@ -5775,7 +5872,7 @@ In questa sezione ci occupiamo di modellare un sistema fisico guidato da eventi 
         \item si identificano le risorse fisiche che eseguono tali fasi
         \item si allocano le fasi sulle risorse \end{itemize}
 \end{itemize}
-Vedriamo entrambi gli approcci con un'unico esempio: Vi è un \textit{impianto di produzione} e movimentazione, ci sono\begin{itemize}
+Vediamo entrambi gli approcci con un'unico esempio: Vi è un \textit{impianto di produzione} e movimentazione, ci sono\begin{itemize}
     \item 3 magazzini (buffer) di capacità illimitata 
     \item 3 robot per il trasporto dei pezzi (lavorano su un solo pezzo contemporaneamente)
     \item un nastro trasportatore di capacità pari a 3 
@@ -5901,7 +5998,7 @@ La matrice di incidenza è $$
     1 & -1
     \end{bmatrix}
 $$
-Il vincolo da imporre è, che su $p_2$ ci sia al pià un token 
+Il vincolo da imporre è, che su $p_2$ ci sia al più un token 
 $$ x(p_2)\le 1$$
 $$ h^T \mathbf x \le 1 $$
 $$ \begin{bmatrix}
@@ -7723,7 +7820,7 @@ si attenueranno su $\mu$ andando verso l'infinito.\begin{center}
             \end{tikzpicture}
     \end{figure}
     \end{center}
-Pià $\omega$ è grande, più la frequenza delle oscillazioni è maggiore. 
+Più $\omega$ è grande, più la frequenza delle oscillazioni è maggiore. 
 Più $\sigma$ è grande, più sarà rapida la risposta ad attenuarsi sul valore 
 a regime $\mu$. \acc 
 Si consideri la seguente parametrizzazione, si pone $$\begin{matrix}
