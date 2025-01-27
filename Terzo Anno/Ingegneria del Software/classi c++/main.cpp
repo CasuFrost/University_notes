@@ -1,31 +1,38 @@
-#include "dtmc.hpp"
+
+#include "dispatcher.hpp"
 using namespace std;
-int main()
+int main(int argc, char **argv)
 {
+    srand((unsigned)time(NULL));
     setvbuf(stdout, NULL, _IONBF, 0);
-    vector<int> state = {0, 1, 2, 3};
-    vector<vector<double>> edge_prob;
-    vector<vector<double>> edge_cost;
-
-    for (int i = 0; i < state.size(); i++)
+    DTMC m_chain("parameters.txt");
+    cout << m_chain.expected_cost_mc_simulation(1000, 2);
+    return 0;
+    // DTMC m_chain(state, edge_prob, edge_cost);
+    // m_chain.print_mc();
+    // double expected = m_chain.expected_cost_mc_simulation(10000, 0);
+    // cout << "expected cost : " << expected << "\n";
+    // cout << "Prob(cost <= " << expected << ") = " << m_chain.probability_max_cost(10000, expected, 2) << "\n";
+    //  cout << "expected cost : " << m_chain.expected_cost_mc_simulation(1000, 0) << "\n";
+    // m_chain.print_mc();
+    vector<Customer> C;
+    for (int i = 0; i < 4; i++)
     {
-        vector<double> tmp(state.size(), 0);
-        edge_prob.push_back(tmp);
-        vector<double> tmp2(state.size(), 0);
-        edge_cost.push_back(tmp2);
+        Customer tmp("parameters3.txt");
+        C.push_back(tmp);
     }
-    edge_prob[0][1] = 1;
-    edge_prob[1][2] = 0.7;
-    edge_prob[1][3] = 0.3;
-    edge_prob[3][3] = 1;
-    edge_prob[2][3] = 1;
+    Dispatcher D(C.size());
 
-    edge_cost[0][1] = 100;
-    edge_cost[1][2] = 100;
-    edge_cost[1][3] = 150;
-    edge_cost[3][3] = 0;
-    edge_cost[2][3] = 100;
-
-    DTMC m_chain(state, edge_prob, edge_cost);
-    cout << "expected cost : " << m_chain.expected_cost_mc_simulation(1000, 2) << "\n";
+    for (int i = 0; i < 30; i++)
+    {
+        vector<int> tmp;
+        for (Customer &c : C)
+        {
+            tmp.push_back(c.simulate_step());
+        }
+        D.simulate_step(tmp, i);
+    }
+    // D.print_message_list();
+    // cout << D.check_order_preservation() << "\n";
+    // m_chain.printlog();
 }

@@ -3032,35 +3032,35 @@ l'angolo fra la forza generata ed il braccio di rotazione è di $k\pi$ con $k\in
            %Below the red parabola is defined
            \addplot [
            domain=0:7,
-           samples=40,
+           samples=120,
            color=blue,
            ]
            {abs(cos(deg(x)))};
            \addlegendentry{$\tau_1$}
            \addplot [
             domain=0:7,
-            samples=40,
+            samples=120,
             color=red,
             ]
             {abs(cos((deg(x+((3/4)*pi)))))};
             \addlegendentry{$\tau_2$}
             \addplot [
             domain=0:7,
-            samples=40,
+            samples=120,
             color=green,
             ]
             {abs(cos(deg(x+(pi/4))))};
             \addlegendentry{$\tau_3$}
             \addplot [
             domain=0:7,
-            samples=40,
+            samples=120,
             color=magenta,
             ]
             {abs(cos(deg(x+(pi/2))))};
             \addlegendentry{$\tau_4$}
             \addplot [
             domain=0:7,
-            samples=60,
+            samples=120,
             color=black,
             ]
             {abs(cos(deg(x+(pi/2))))+abs(cos(deg(x+(pi/4))))+abs(cos(deg(x+((3/4)*pi))))+abs(cos(deg(x)))};
@@ -3713,7 +3713,7 @@ $$ G_R(j\omega)=\begin{cases}
     \includegraphics[width=0.7\textwidth]{images/segLimitatoBanda3.eps}
 \end{center}
 Tale esempio rende chiaro il seguente risultato.\acc 
-\teo{di Shannon} dato il segnale $X(j\omega)$ sia $\omega_m=\max\{\omega_i\| \ X(j\omega_i)>0\}$, ossia la frequenza massima ammessa dal segnale, per far si che il segnale si possa ricostruire senza errori a partire da un campionamento $X^*(j\omega)$, è necessario che la frequenza di campionamento $\omega_C$ sia almeno il doppio di $\omega_m$ $$\omega_C\ge 2\omega_m $$
+\teo{di Shannon} dato il segnale $X(j\omega)$ sia $\omega_m=\max\{\omega_i\ | \ X(j\omega_i)>0\}$, ossia la frequenza massima ammessa dal segnale, per far si che il segnale si possa ricostruire senza errori a partire da un campionamento $X^*(j\omega)$, è necessario che la frequenza di campionamento $\omega_C$ sia almeno il doppio di $\omega_m$ $$\omega_C\ge 2\omega_m $$
 Se così non fosse, le bande complementari si sovrapporebbero alla banda originale, causando il cosiddetto fenomeno di \textit{aliasing}, che comporta una costruzione del segnale \textit{corrotta}, a prescendere dal filtro utilizzato.\acc Per il segnale preso in considerazione nell'esempio precedente, si considera una frequenza di campionamento $\omega_C$ minore di $2\omega_m$
 \begin{center}
     \includegraphics[width=0.7\textwidth]{images/segLimitatoBanda4.eps}
@@ -4989,7 +4989,7 @@ In termini matriciali, la funzione di transizione $f$ è definita come segue
 $$ f(\mathbf x,t_j)=\mathbf x -\mathbf I_j + \mathbf O_j \ \ \ \ \text{se }  \ \ \mathbf x\ge \mathbf I_j$$
 Per descrivere la dinamica si definisce quindi la \textbf{matrice di incidenza} $\mathbf C = \mathbf O - \mathbf I$ 
 quindi 
-$$ f(\mathbf x,t_j)=\mathbf x +\mathbf C_i\ \ \ \ \text{se } \ \ \mathbf x\ge \mathbf I_j$$
+$$ f(\mathbf x,t_j)=\mathbf x +\mathbf C_j\ \ \ \ \text{se } \ \ \mathbf x\ge \mathbf I_j$$
 La rete di petri in figura \begin{center}
     \includegraphics[width=0.4\textwidth]{images/petri4.png}
 \end{center}
@@ -8379,7 +8379,196 @@ Il vincolo sulla frequenza critica è rispettato. I diagrammi di Bode sono
     \includegraphics[width=1\textwidth ]{images/EsercizioControlloreBode.eps}
 \end{center}
 Il margine di fase è chiaramente negativo, quindi il vincolo $\varphi_m\ge 60^\circ$ non è rispettato, allora $R_2(s)=1$ non va bene come regolatore.\\
-\redText{Capire come scegliere un regolatore corretto. Libro Controlli Automatici (G. Marro) : pagina 318}
+\redText{Capire come scegliere un regolatore corretto. Libro Controlli Automatici (G. Marro) : pagina 318}\newpage 
+
+
+
+
+
+
+
+
+
+
+\section{Il Luogo delle Radici}
+Il luogo delle radici è un metodo di analisi che riguarda le posizioni dei poli di un sistema sul piano complesso. Consideriamo un sistema in retroazione la cui funzione di trasferimento ad anello aperto è $F(s)$
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/EsempioProgControllore2.pdf}
+\end{center}
+Il transitorio del sistema è condizionato dalla posizione dei poli sul piano $s$, denotiamo $W(s)$ la funzione ad anello chiuso $$W(s)=\frac{F(s)}{1+F(s)} $$
+Chiaramente i poli di $W(s)$ devono trovarsi sulla metà sinistra del piano complesso per avere asintotica stabilità. Nel caso si abbiano due poli complessi e coniugati, sappiamo che il coefficiente di smorzamento $\zeta$ è dato dal seno dell'angolo fra l'asse immaginario e la retta congiungente l'origine ad uno dei due poli.
+\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/coefficienteSmorzamento.eps}
+\end{center}
+Il coefficiente di smorzamento \textg{non deve essere } inferiore ad un certo valore, altrimenti si avrebbero oscillazioni indesiderate nel transitorio. vogliamo che le radici siano collocate quindi in un settore trangolare nel piano complesso come mostrato in figura.\bigskip 
+
+Esiste anche un'altra limitazione riguardante la parte reale dei poli, si vuole imporre una certa distanza dall'asse immaginario, quindi dalla frontiera di instabilità, questa distanza è correlata ad una costante di tempo. 
+\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/radiceReale.eps}
+\end{center}
+La costante di tempo $\tau$ è correlata al polo reale $p$, più questo è piccolo, più la costante $\tau$ è grande, e ciò comporta un transitorio che si estingue molto lentamente. Quindi vogliamo che le radici si trovino anche a sinistra di un'asse verticale che delimita il massimo valore tollerabile per la costante di tempo $\tau$.\bigskip 
+
+Il problema della sintesi riguarda la collocazione dei poli nel settore poligonale delineato dalle rette e dall'asse verticale. Consideriamo le funzioni di trasferimento scritte nella loro forma razionale: 
+$$ F(s)=\frac{N(s)}{D(s)} \ \ \ \ \ \ \ \ W(s)=\frac{N(s)}{D(s)+N(s)}$$
+Gli zeri della funzione ingresso-uscita sono identici a quelli della funzione $F$, i poli invece cambiano. Ci interessano le radici del polinomio $D(s)+N(s)$, interessa che le radici di questo polinomio siano collocate in una certa regione.\bigskip 
+
+Vogliamo stabilire una correlazione diretta fra le radici del polinomio $D(s)+N(s)$ ed i parametri che caratterizzano la funzione ad anello aperto $F(s)$. Vogliamo vedere come le caratteristiche della $F(s)$ influenzano la collocazione dei poli della $W(s)$. Consideriamo come struttura di riferimento per la $F(s)$ la sua forma più generale 
+$$ F(s)=K'\cdot \frac{\displaystyle\prod_{i=0}^m(s-z_i)}{\displaystyle\prod_{i=0}^n(s-p_i)}$$
+Dove $p_i$ sono i poli della funzione di trasferimento ad anello aperto, e $z_i$ sono gli zeri. Assumiamo che il sistema sia strettamente proprio, quindi $m<n$. I poli non devono essere necessariamente distinti. \begin{quote}
+    Attenzione, il termine $K'$ \textg{non è }il guadagno della funzione $F(s)$, il guadagno è definito come $F(0)=K$, nel caso non ci siano poli nell'origine.
+\end{quote}
+$$ F(0)=K'\cdot\frac{\displaystyle\prod_{i=0}^m (-z_i)}{\displaystyle\prod_{i=0}^n (-p_i)}=K$$
+Il termine $K'$ è denotato \textit{guadagno ad alta frequenza}. Il problema riguarda $n+m+1$ parametri (zeri poli e $K'$), e vogliamo sapere come al variare di questi sono influenzati i poli della funzione ad anello chiuso $W(s)$. Come prima analisi, ci limitiamo a vedere come i poli ad anello chiuso sono influenzati dal parametro $K'$, mantenendo fissi i poli e gli zeri.\bigskip 
+
+In riferimento alla scrittura della $F$ come rapporto fra due produttorie, possiamo riscrivere il polinomio $D(s)+N(s)$ nella seguente forma 
+$$f(s,K')=\displaystyle\prod_{i=0}^n(s-p_i)+K'\cdot \displaystyle\prod_{i=0}^m(s-z_i) $$
+Questo è il denominatore della funzione di trasferimento $W$ espresso nei parametri che caratterizzano $F$. È un polinomio di grado $n$. La scrittura $f(s,K')$ evidenzia che consideriamo fissi i termini $p_i$ e $z_i$, e variabile il termine $K'$.
+\subsection{Casi Banali}
+Prima di considerare il caso generale, consideriamo i casi in cui $f(s,K')$ sia un polinomio di grado 1 o di grado 2, in cui è possibile trovare le radici analiticamente senza sforzo alcuno. 
+\subsubsection{Caso Banale $n=1$ $m=0$}
+In questo caso ($n=1$) si ha automaticamente che $m=0$, in questo caso la funzione $F$ ad anello aperto segue la seguente struttura 
+$$ F(s)=K'\frac{1}{s-p}$$
+allora 
+$$ f(s,K')=s-p+K'$$
+La radice di questo polinomio è $p-K'$, si vuole identificare sul piano complesso il luogo geometrico descritto da questa radice. \begin{itemize}
+    \item Se $K'=0$ il polo di $W$ coincide con il polo della funzione $F$
+    \item Se $K'$ è positivo, al crescere di $K' $ la radice si sposta a sinistra del punto $p$
+    \item Se $K'$ è negativo, al diminuire di $K' $ la radice si sposta a destra del punto $p$
+\end{itemize}
+Il seguente grafico mostra una freccia la cui direzione indica lo spostamento della radice $p-K'$ al crescere del termine $K'$:
+\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/luogoRadiciN1.eps}
+\end{center}
+Quindi se il sistema ad anello aperto fosse stato della forma 
+$ F(s)=K'\frac{1}{s-p}$ con $p$ positivo (quindi instabile), il sistema ad anello chiuso sarebbe stato stabile per $K'$ superiore ad un certo valore minimo. \bigskip 
+
+Si consideri come esempio il sistema $P(s)=\frac{1}{s-3}$, si può introdurre un controllore proporzionale $C(s)=K'$ rendendo il denominatore della funzione ad anello chiuso $f(s,K')=s-3+K'$, la radice di questo polinomio è $3-K'$, chiaramente il sistema retroazionato è stabile per $K'\in[3,\infty)$.
+\subsubsection{Caso Banale $n=2$ $m=0$}
+La funzione $F(s)$ assume la forma 
+$$ F(s)=K'\frac{1}{(s-p_1)(s-p_2)}$$
+Consideriamo un'esempio particolare in cui uno dei due poli è uguale a zero $p_1=0$, ed un'altro polo è negativo $p_2=-p$
+$$ F(s)=K'\frac{1}{s(s+p)}$$
+Questo è un caso piuttosto realistico, come si muovono sul piano le radici al variare di $K'$? Il polinomio denominatore di $W$ è 
+$$ f(s,K')=s^2+ps+K'$$
+le radici sono 
+$$ s_{1,2}=\frac{-p\pm \sqrt{p^2-4K'}}{2}=-\frac{p}{2}\pm \sqrt{\frac{p^2}{4}-K'}$$
+Le radici hanno una dipendenza esplicita da $K'$. Consideriamo la posizione dei poli $p_1,p_2$
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/luogoRadiciN21.eps}
+\end{center}
+Le radici di $f(s,K')$ sono reali quando $\frac{p^2}{4}-K'>0$ ossia $K'<\frac{p^2}{4}$, se invece  $K'>\frac{p^2}{4}$, il discriminante è negativo e le radici sono complesse e coniugate, di parte reali fissa $-\frac{p}{2}$, quindi si trovano su una retta. Al crescere di $K'$ la parte immaginaria cresce in valore assoluto.
+\begin{center}
+    \includegraphics[width=0.45\textwidth ]{images/luogoRadiciN22.eps}
+\end{center}
+Il luogo delle radici al variare di $K'$ è descritto da una figura di questo genere\begin{itemize}
+    \item  le due radici sono simmetriche rispetto $-\frac{p}{2}$ quando sono reali 
+    \item al crescere di $K'$ le radici si avvicinano al punto $-\frac{p}{2}$, al diminuire di $K'$ si allontanano tendendo a $-\infty$ e $+\infty$ 
+    \item quando $K'$ diviene maggiore di $\frac{p^2}{4}$ le radici diventano complesse, si fissano sulla retta $Re[s]=-\frac{p}{2}$ e tendono ad allontanarsi simmetricamente rispetto all'asse reale.
+\end{itemize}
+Si consideri il seguente esempio con $p_2=-2$ e $p_1=0$.
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/esempioLuogoRadici.eps}
+\end{center}
+Le radici sono identiche per $K'$ che annulla il discriminante, ossia $K'=\frac{p^2}{4}$. Il luogo geometrico è semplice e descritto da due semirette, queste vengono chiamate \textbf{rami del luogo}, ossia la curva percorsa dalle radici al variare di $K'$.\bigskip 
+
+C'è un'altro caso banale in cui $n=2$ ed $m=1$, in questo caso il denominatore di $W$ assume la forma 
+$$ f(s,K')=s^2-(p_1+p_2)s+p_1p_2+K's-K'z_1$$
+È sempre un polinomio di secondo grado e si possono scrivere le espressioni analitiche delle radici. Verrà ignorato il luogo per ora dato che si può considerare direttamente il caso più generale.
+\subsection{Punti Singolari}
+Se $n\ge 3$ non esistono formule risolutive per le radici del polinomio, quindi è utile disporre di regole risolutive per la comprensione del luogo in situazioni generali. Ci interessano dei punti particolari sul piano complesso detti \textbf{punti singolari}, e sono i punti su cui più rami del luogo si possono incontrare. In particolare ci si chiede\begin{itemize}
+    \item quanti punti singolari ci sono?
+    \item dove sono collocati?
+    \item è possibile trovarli?
+\end{itemize}
+Abbiamo la funzione $f(s,K')$ e ne vogliamo studiare le radici 
+$$ f(s,K')=0$$
+Se fisso un certo valore di $K'$, denotiamolo $\bar{K'}$ ci saranno $n$ radici, consideriamo in particolare una di queste, $\bar s$ 
+$$ f(\bar s,\bar{K'})=0$$ 
+la coppia $(\bar s,\bar{K'})$ è soluzione di $ f(s,K')=0$. Se varia $K'$ la radice anche varia, diciamo che la radice $s$ è anch'essa una funzione di $K'$, funzione definita \textg{implicitamente } da $ f(s,K')=0$. Interessa sapere quando si può esplicitare la relazione fra la radice e $K'$, ossia trovare la funzione $\varphi$ tale che $$ s=\varphi(K')$$
+\teo{(della Funzione Implicita)} Nell'intorno di una coppia soluzione $(\bar s,\bar{K'})$, la funzione $f(s,K')$ è esplicitabile se la derivata $\displaystyle \frac{\partial f}{\partial s}$ nel punto soluzione $(\bar s,\bar{K'})$ è diversa da zero.$$\frac{\partial f}{\partial s} (\bar s,\bar{K'})\ne 0$$
+Se ciò è soddisfatto, posso trovare una funzione $\varphi$ che mette in relazione $s$ e $K'$. Se questa condizione viene meno non posso stabilire una condizione univoca di questo tipo. I punti che violano tale condizione, sono esattamente i punti  singolari in cui si intersecano i rami del luogo.\acc
+\defi{(Punto Singolare)} Un punto singolare è un punto del luogo delle radici, ossia che soddisfa 
+$$ f(s,K')=0$$
+per cui vale che 
+$$\frac{\partial f}{\partial s} (\bar s,\bar{K'}) = 0$$
+La derivata rispetto ad $s$ di $f$ è 
+$$\frac{d}{ds}\displaystyle\prod_{i=0}^n(s-p_i)+K'\cdot \frac{d}{ds}\displaystyle\prod_{i=0}^m(s-z_i) $$
+Quindi per trovare un punto singolare è necessario risolvere un sistema di due equazioni algebriche 
+$$\begin{cases}
+    \displaystyle\prod_{i=0}^n(s-p_i)+K'\cdot\displaystyle\prod_{i=0}^m(s-z_i)=0\\
+    \dfrac{d}{ds}\displaystyle\prod_{i=0}^n(s-p_i)+K'\cdot \dfrac{d}{ds}\displaystyle\prod_{i=0}^m(s-z_i)=0
+\end{cases}$$
+Esplicito prima $K'$ dalla prima equazione 
+$$ 
+K'=-\frac{\displaystyle\prod_{i=0}^n(s-p_i)}{\displaystyle\prod_{i=0}^m(s-z_i)}
+$$
+Si sostituisce nella seconda equazione
+$$\displaystyle\prod_{i=0}^m(s-z_i)\cdot \dfrac{d}{ds}\displaystyle\prod_{i=0}^n(s-p_i) + \displaystyle\prod_{i=0}^n(s-p_i)\cdot \dfrac{d}{ds}\displaystyle\prod_{i=0}^m(s-z_i)=0$$
+Quindi se esiste un punto singolare nel luogo delle radici, deve esistere $s$ che soddisfa tale equazione. È un polinomio di grado al più $n+m-1$, quindi i punti singolari sono al più 
+$n+m-1$. Nel caso dell'esempio banale con $n=2$ e $m=0$  avremmo dedotto che i punti singolari sarebbero stati al più $2+0-1=1$, de facto si è trovato un punto singolare.\bigskip 
+
+Si è mostrato che se $(\bar s,\bar{K'})$ è un punto singolare, allora $\bar s$ soddisfa tale equazione, ma non tutte le soluzioni sono necessariamente punti singolari. 
+\subsection{Rami del Luogo}
+Vogliamo ora capire come sono fatti i rami del luogo, riconsideriamo il denominatore di $W(s)$ al variare di $K'$
+$$f(s,K')=\displaystyle\prod_{i=0}^n(s-p_i)+K'\cdot \displaystyle\prod_{i=0}^m(s-z_i)=0 $$
+Se $s$ è un numero complesso, allora per soddisfare l'equazione sia $Im[f(s,K')]$ che $Re[f(s,K')]$ devono essere nulle, è utile riscrivere l'equazione complessa come due equazioni reali che vanno eguagliate a zero. Piuttosto che scrivere un'eguaglianza fra parte reale ed immaginaria scriveremo un'uguaglianza fra modulo e fase, $f(s,K')$ corrisponde a due equazioni. Prima riscriviamo $f(s,K')$ come segue 
+$$ \displaystyle\prod_{i=0}^n(s-p_i)=-K'\cdot \displaystyle\prod_{i=0}^m(s-z_i)=0$$
+Da questa vengono fuori due condizioni\acc 
+\textbf{Condizione di Modulo}
+$$ \displaystyle\prod_{i=0}^n|s-p_i|=|K'|\cdot \displaystyle\prod_{i=0}^m|s-z_i|=0$$
+\textbf{Condizione di Fase}\\
+Ricordando che la fase del prodotto è la somma delle fasi dei fattori, e che la fase di $-1$ è $\pi$: 
+$$ \sum_{i=1}^n \angle{(s-p_i)}=\pi+\angle{K'}+ \sum_{i=1}^m \angle{(s-z_i)} $$
+La fase del fattore $K'$ assume due possibili valori, se $K'$ è positivo la fase è 0, se $K'$ è negativo la fase è $\pi$. La condizione di fase è particolarmente importante, il termine $K'$ non interviene con il suo valore ma esclusivamente con il suo segno, non compare quindi nell'equazione relativa alla fase.\bigskip 
+
+È bene nella condizione di fase aggiungere un multiplo intero di $2\pi$, e considerare i due casi separati in cui $K'$ è positivo oppure negativo, questi si dicono \textg{luogo positivo } e \textg{ luogo negativo }.
+$$ \sum_{i=1}^n \angle{(s-p_i)}=\pi+ \sum_{i=1}^m \angle{(s-z_i)} +2\pi h \ \ \ \ \ \ h\in \Z$$
+$$ \sum_{i=1}^n \angle{(s-p_i)}=2\pi+ \sum_{i=1}^m \angle{(s-z_i)} +2\pi h \ \ \ \ \ \ h\in \Z$$
+Per verificare che un punto $s$ è punto del luogo è sufficiente verificare che soddisfi la condizione di fase, una volta trovato $s$ che la soddisfa, si può trovare il valore di $K'$ usando la condizione di modulo. Vogliamo dare un'intepretazione geometrica di tale condizione. \bigskip 
+
+Supponiamo di avere un sistema la cui funzione ad anello aperto ha due poli complessi coniugati, un polo reale ed uno zero, disegnamo sul piano tali punti, e prendiamo un punto qualsiasi $s$ per cui si vuole stabilire se questo appartiene o no al luogo delle radici.
+\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/faseLuogo.eps}
+\end{center}
+Prendiamo in analisi la condizione di fase, e consideriamo il luogo positivo, i termini $s-p_i$ e $s-z_i$ identificano dei vettori sul piano che congiungono i poli/zeri al punto $s$, e la fase non è altro che l'angolo fra l'asse reale e questi vettori, si può rappresentare graficamente come segue
+\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/faseLuogo2.eps}
+\end{center}
+Data la formula della condizione di fase si ha 
+$$ \varphi_1+\varphi_2+\varphi_3=\pi+\psi_1+2\pi h$$
+Se l'eguaglianza è verificata $s$ è punto del luogo delle radici, una volta trovato $s$ si può trovare $K'$ dalla formula della condizione di modulo 
+$$ |K'|=\frac{ \displaystyle\prod_{i=0}^n|s-p_i|}{\displaystyle\prod_{i=0}^m|s-z_i|}$$
+Quindi $K'$ è uguale in modulo al rapporto fra i prodotti dei moduli dei vettori considerati, che geometricamente rappresentano proprio le lunghezze di tali vettori. Il segno di $K'$ è dato dalla versione della condizione di fase adoperata. Dalla formula per $K'$ si osserva che \begin{itemize}
+    \item Se $s$ appartiene al luogo ed è vicino allo zero, allora il denominatore è prossimo a zero ed il valore di $K'$ in modulo è molto grande 
+    \item  Se $s$ appartiene al luogo ed è vicino ad un polo, allora il numeratore è prossimo a zero ed il valore di $K'$ in modulo è molto piccolo 
+\end{itemize}
+\subsection{Disegnare il Luogo delle Radici in \texttt{MATLAB}}
+In questa breve è mostrato un semplicissimo script  \texttt{MATLAB} per il tracciamento automatico del luogo delle radici, è sufficiente definire quali sono i coefficienti dei polinomi rappresentanti numeratore e denominatore della funzione ad anello aperto, per poi utilizzare le procedure \texttt{tf} e \texttt{rlocus}. Il seguente script disegna il luogo delle radici della funzione $\frac{1}{s(s+2)}=\frac{1}{s^2+2s}$ 
+\begin{lstlisting}
+    num = [1];
+    den = [1 2 0];
+    sys=tf(num,den)
+    rlocus(sys)
+\end{lstlisting}
+Il grafico riportato è il seguente
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/luogoRadMATLAB1.eps}
+\end{center}
+Se si vuole esprimere il polinomio esplicitamente senza dover creare il vettore di coefficienti, è possibile utilizzare la procedura \texttt{sym2poly}, ad esempio, per la funzione
+$\frac{s+4}{(s+1)(s+3)}$ si può scrivere  
+\begin{lstlisting}
+    syms s ;
+    num = sym2poly(s+4);
+    den = sym2poly((s+1)*(s+3));
+    sys=tf(num,den)
+    rlocus(sys)
+\end{lstlisting}
+\begin{center}
+    \includegraphics[width=0.4\textwidth ]{images/luogoRadMATLAB2.eps}
+\end{center}
+
+
+
 
 
 
