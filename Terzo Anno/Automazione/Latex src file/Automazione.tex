@@ -4421,7 +4421,7 @@ Esiste un'altra metodologia per il tuning, è un metodo che lavora ad anello chi
 \end{center}
 Il procedimento è il seguente \begin{enumerate}
     \item si chiude l'anello sul nodo $b$, quindi con il solo guadagno proprozionale 
-    \item si parte da un valore minimo $K$ (molto basso) e si aumenta gradualmente fino ad un \textit{valore critico}  $K_c$ che prota il sistema in oscillazione
+    \item si parte da un valore minimo $K$ (molto basso) e si aumenta gradualmente fino ad un \textit{valore critico}  $K_c$ che porta il sistema in oscillazione
     \item Si considera il preiodo delle oscillazioni $P_c$
 \end{enumerate}
 Una volta ottenuti $K_c$ e $P_c$ si scelgono i parametri del PID secondo la seguente tabella 
@@ -8566,7 +8566,69 @@ $\frac{s+4}{(s+1)(s+3)}$ si può scrivere
 \begin{center}
     \includegraphics[width=0.4\textwidth ]{images/luogoRadMATLAB2.eps}
 \end{center}
+\subsection{Molteplicità degli Zeri}
+Vogliamo osservare cosa succede alle radici del polinomio $f(s,K')$ quando $K'$ cresce e diventa molto elevato, vedremo che queste convergono a dei punti specifici. Consideriamo una funzione ad anello aperto $F(s)$ che possiede uno \textit{zero multiplo} di molteplicità $\mu$. Quindi nell'equazione caratteristica 
+$$f(s,K')=\displaystyle\prod_{i=0}^n(s-p_i)+K'\cdot \displaystyle\prod_{i=0}^m(s-z_i) $$
+il termine $\prod_{i=0}^m(s-z_i)$ presenta $\mu$ fattori del tipo $(s-z)$. Applichiamo la condizione di fase nei punti prossimi a tale zero $z$. Immaginiamo di tracciare una circonferenza di raggio $\rho$ attorno a tale punto.\begin{center}
+    \includegraphics[width=0.2\textwidth ]{images/puntoZero.eps}
+\end{center}
+Considero un punto campione $s$ su tale circonferenza e verifico se sia soddisfatta o no la condizione di fase, calcolando gli appositi angoli. Ci saranno certi poli e certi zeri distribuiti nel resto del piano.
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/puntoZero2.eps}
+\end{center}
+La condizione di fase (luogo positivo) viene riscritta evidenziando gli zeri multipli:
+$$ \sum_{i=0}^n \angle{(s-p_i)}=\pi + \mu\cdot \angle (s-z)+\sum_{i=\mu+1}^m \angle(s-z_i)+2\pi h$$
+Immaginiamo che il raggio $\rho$ sia molto piccolo rispetto le distanze fra lo zero $z$ e tutti gli altri zeri e poli, se il raggio tende a zero, i termini 
+$$ \sum_{i=0}^n \angle{s-p_i} \ \ \  \text{ e } \ \ \  \sum_{i=\mu+1}^m \angle(s-z_i) $$
+che rappresentano l'angolo dei vettori che uniscono i punti esterni alla circonferenza al punto $s$ sulla circonferenza, non variano, definisco $\varphi_z=\sum_{i=0}^n \angle{s-p_i}-\sum_{i=\mu+1}^m \angle(s-z_i)$, il pedice $z$ indica che dipendono dal punto $z$. La condizione di fase si può riscrivere
+$$\varphi_z -\pi+2\pi h = \mu \cdot \angle(s-z) $$
+si può risolvere dividendo per $\mu$
+$$\frac{1}{\mu}(\varphi_z -\pi+2\pi h) = \angle(s-z) $$
+quindi esiste un punto $s$ che soddisfa la condizione di fase, comunque si prenda un raggio $\rho$ sufficientemente piccolo. Nell'intorno di uno zero quindi si trovano sempre punti del luogo. \bigskip 
 
+Si possono trarre delle conclusioni interessanti, supponiamo che $\mu$ sia un valore fisso, in questo caso 3, e sia $\alpha=\varphi_z-\pi$ un certo angolo
+$$ \angle(s-z) =\frac{1}{3}(\alpha+2\pi h)$$
+$\alpha$ e $\mu=3$ sono fissi, $h$ può variare in $\Z$, per qualsiasi numero intero $h$ si hanno punti del luogo, proviamo $h=0$ 
+$$ \angle(s-z) =\frac{\alpha}{3}$$
+con $h=1$
+$$ \angle(s-z) =\frac{\alpha}{3}+\frac{2\pi}{3}$$
+con $h=2$
+$$ \angle(s-z) =\frac{\alpha}{3}+\frac{4\pi}{3}$$
+con $h=3$
+$$ \angle(s-z) =\frac{\alpha}{3}+2\pi$$
+ma questo è identico a $\frac{\alpha}{3}$, quindi l'angolo $\angle(s-z)$ può assumere al più 3 valori diversi. Ci sono quindi 3 punti sulla circonferenza che appartengono al luogo\begin{center}
+    \includegraphics[width=0.2\textwidth ]{images/zeroTriplo.eps}
+\end{center}
+Nell'intorno di uno zero triplo ci sono sempre 3 punti del luogo disposti simmetricamente. Per una molteplicità qualsiasi $\mu$ si avranno $\mu$ punti del luogo disposti simmetricamente con una differenza fra loro di $\frac{2\pi}{\mu}$ radianti.\bigskip 
+
+Queste considerazioni sono state fatte per il luogo positivo, consideriamo ora il luogo negativo, la condizione di fase è 
+$$ \sum_{i=1}^n \angle{(s-p_i)}=\pi+\pi+ \sum_{i=1}^m \angle{(s-z_i)}+2\pi h =$$
+$$ \sum_{i=1}^n \angle{(s-p_i)}=2\pi+ \sum_{i=1}^m \angle{(s-z_i)}+2\pi h $$
+ma il termine $2\pi$ si può eliminare 
+$$ \sum_{i=1}^n \angle{(s-p_i)}= \sum_{i=1}^m \angle{(s-z_i)}+2\pi h $$
+Nelle formule dedotte in precedenza in caso di molteplicità si ha che 
+$$\angle{(s-p_i)}=\mu\cdot \angle (s-z)+\sum_{i=\mu+1}^m \angle(s-z_i)+2\pi h$$
+Nel risulta finale si ha 
+$$ \angle(s-z) =\frac{1}{3}(\alpha+\pi+2\pi h)$$
+ossia 
+$$ \angle(s-z) =\frac{1}{3}(\alpha+2\pi h)+\frac{\pi}{3}$$
+Si trovano ancora tre angoli identici ai precedenti ma con il fattore $\frac{\pi}{3}$ sommato. Con $h=0$ 
+$$ \angle(s-z) =\frac{\alpha}{3}+\frac{\pi}{3}$$
+con $h=1$
+$$ \angle(s-z) =\frac{\alpha}{3}+\frac{2\pi}{3}+\frac{\pi}{3}$$
+con $h=2$
+$$ \angle(s-z) =\frac{\alpha}{3}+\frac{4\pi}{3}+\frac{\pi}{3}$$
+Tutti gli angoli precedenti sono stati aumentati di $60^\circ$
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/zeroTriplo2.eps}
+\end{center}
+Si trovano in totale 6 punti del luogo, e si alternano dividendo l'angolo giro in 6 parti uguali. Ciò si applica per qualsiasi $\mu$. Ricordando che 
+$$ |K'|=\frac{ \displaystyle\prod_{i=0}^n|s-p_i|}{\displaystyle\prod_{i=0}^m|s-z_i|}$$
+Ossia che se i punti sono vicini agli zeri allora $K'$ tende all'infinito, ne consegue che in uno zero (di molteplicità $\mu$) ci sono $\mu$ rami entranti (del luogo positivo) e $\mu$ rami uscenti (del luogo negativo)
+\begin{center}
+    \includegraphics[width=0.3\textwidth ]{images/mu4.eps}
+\end{center}
+I rami sono $n$, gli $n-m$ rami che non convergono sugli zeri convergono sui punti impropri del piano complesso.
 
 
 
@@ -8622,4 +8684,4 @@ La funzione di trasferimento del processo è
 $$ G(s)=\frac{1}{ms^2+bs+k_p}$$
 La funzione del sistema retroazionato è 
 $$ W(s)=\frac{k_p}{ms^2+bs+k_p}$$
-Quindi il sistema è asintoticamente stabile per ogni $k_p>0$.
+Quindi il sistema è asintoticamente stabile per ogni $k_p>0$.$$ \sum_{i=0}^n \angle{(s-p_i)}=\mu\cdot \angle (s-z)+\sum_{i=\mu+1}^m \angle(s-z_i)+2\pi h$$

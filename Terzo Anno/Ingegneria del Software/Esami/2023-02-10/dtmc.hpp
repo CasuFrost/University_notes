@@ -2,6 +2,8 @@
 #include "utils.hpp"
 using namespace std;
 
+#ifndef DTMC_HPP
+#define DTMC_HPP
 class DTMC
 {
 private:
@@ -53,10 +55,9 @@ private:
     }
 
     vector<int> state;
-    int start_state;
-    int current_state = 0;
-    int end_state;
 
+    vector<double> state_cost;
+    vector<vector<double>> edge_prob; /*probabilità delle transizioni*/
     vector<vector<double>> edge_cost; /*probabilità delle transizioni*/
 
     void fix_cost()
@@ -83,8 +84,10 @@ private:
     }
 
 public:
-    vector<vector<double>> edge_prob; /*probabilità delle transizioni*/
-    vector<double> state_cost;
+    int current_state = 0;
+    int end_state;
+    int start_state;
+    DTMC() {}
     DTMC(string filename)
     {
         read_from_file(filename);
@@ -131,13 +134,11 @@ public:
         double tmp_cost = 0;
         double random_number = ((double)rand() / (double)RAND_MAX);
         double random_buf = 0;
-        // cout << "curr state " << current_state << " prob to step to final" << edge_prob[current_state][4] << "\n";
+
         for (int i = 0; i < edge_prob[current_state].size(); i++)
         {
 
             random_buf += edge_prob[current_state][i];
-
-            // cout << "r num : " << random_number << " edge prob " << edge_prob[current_state][i] << "\n";
 
             if ((random_number <= random_buf) || (random_buf >= 1))
             {
@@ -154,28 +155,20 @@ public:
                 break;
             }
         }
-        // cout << "\n\n\n";
         return tmp_cost;
     }
 
     /*Esegue una simulazione del processo finché non termina, e ritorna il costo della simulazione*/
     double simulate_process(int cost_type)
     {
-        int time = 0;
-        current_state = 0;
+        current_state = start_state;
         end_state = state.size() - 1;
         double tmp_cost = 0;
         while (current_state != end_state)
         {
             tmp_cost += time_step(cost_type);
-            time++;
-            // usleep(500000);
         }
-        current_state = 0;
-        if (cost_type == 3)
-        {
-            return time;
-        }
+        current_state = start_state;
         return tmp_cost;
     }
 
@@ -187,9 +180,9 @@ public:
         /* cost_type = 1 calcola il costo degli archi
            cost_type = 0 calcola il costo degli stati
            cost_type = 2 di entrambi*/
-        if (cost_type < 0 || cost_type > 3)
+        if (cost_type < 0 || cost_type > 2)
         {
-            printf("invalid argoument : cost_type should be 0, 1, 2 or 3\n");
+            printf("invalid argoument : cost_type should be 0, 1 or 2\n");
             return -1;
         }
         if (state.size() == 0)
@@ -236,12 +229,7 @@ public:
         {
             cout << element << " ";
         }
-        cout << "\ncosti stati: ";
-        for (auto &element : state_cost)
-        {
-            cout << element << " ";
-        }
-        cout << "\n\nMatrice probabilità :\n";
+        cout << "\nMatrice probabilità :\n";
         for (auto &row : edge_prob)
         {
             for (auto &element : row)
@@ -261,3 +249,5 @@ public:
         }
     }
 };
+
+#endif

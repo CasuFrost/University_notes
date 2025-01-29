@@ -2,14 +2,52 @@
 #include <vector>
 #include <random>
 #include <time.h>
-#include <cstring>
-#include <numeric>
+#include <fstream>
 #include <cmath>
+#include <chrono>
+#include <ctime>
 #include <string>
 #include <sstream>
-#include <fstream>
-#include <bits/stdc++.h>
+#include <iomanip>
+
+#define DEBUG 0
+#define DEBUG_TIME 1
+
 using namespace std;
+
+#ifndef UTILS_HPP
+#define UTILS_HPP
+
+/*ex1*/
+#define W 3
+#define G 2
+#define N 5
+#define A 1
+#define B 1
+#define C 1
+#define D 1
+#define F 1
+
+/*ex2*/
+#define HORIZON 1000
+#define TAU 2
+#define RHO 20
+#define N2 300
+#define F2 10
+#define K 20
+#define S 10
+#define Q 5
+#define PROB_REQUEST (((double)1) / ((double)TAU))
+
+/*ex5*/
+#define A5 10
+#define B 1
+#define d_max 2
+#define T 0.0001
+#define Td 1
+#define P -1
+#define k1 (-(P * P))
+#define k2 = (P * 2)
 
 vector<string> splitString(const string &str)
 {
@@ -40,3 +78,132 @@ vector<string> splitString(const string &str)
 
     return words;
 }
+
+double rand_float_0_1()
+{
+    return ((double)rand() / (double)RAND_MAX);
+}
+
+int randi_range(int a, int b)
+{
+    return a + rand() % (b - a + 1);
+}
+
+double max_buffer(vector<double> buffer)
+{
+    double max = buffer[0];
+    for (int i = 0; i < buffer.size(); i++)
+    {
+        if (buffer[i] > buffer[0])
+        {
+            max = buffer[i];
+        }
+    }
+    return max;
+}
+
+double max_buffer(vector<int> buffer)
+{
+    int max = buffer[0];
+    for (int i = 0; i < buffer.size(); i++)
+    {
+        if (buffer[i] > max)
+        {
+            max = buffer[i];
+        }
+    }
+    return max;
+}
+
+double avg_buffer(vector<double> buffer)
+{
+    double sum = 0.;
+    for (int i = 0; i < buffer.size(); i++)
+    {
+        sum += buffer[i];
+    }
+
+    return sum / (double)buffer.size();
+}
+
+double avg_buffer(vector<int> buffer)
+{
+    double sum = 0.;
+    for (int i = 0; i < buffer.size(); i++)
+    {
+        sum += buffer[i];
+    }
+
+    return sum / (double)buffer.size();
+}
+
+double var_buffer(vector<double> buffer)
+{
+    double varianza = 0.0;
+    double avg = avg_buffer(buffer);
+    for (double numero : buffer)
+    {
+        varianza += pow(numero - avg, 2);
+    }
+
+    varianza /= (double)buffer.size();
+    return varianza;
+}
+
+double var_buffer(vector<int> buffer)
+{
+    double varianza = 0.0;
+    double avg = avg_buffer(buffer);
+    for (int numero : buffer)
+    {
+        varianza += pow(numero - avg, 2);
+    }
+
+    varianza /= (double)buffer.size();
+    return varianza;
+}
+
+double stdev_buffer(vector<int> buffer)
+{
+    return (int)sqrt(var_buffer(buffer));
+}
+
+double stdev_buffer(vector<double> buffer)
+{
+    return (double)sqrt(var_buffer(buffer));
+}
+
+string getCurrentTimeString()
+{
+    // Get current time point
+    auto now = chrono::system_clock::now();
+
+    // Convert to time_t for use with localtime
+    time_t currentTime = chrono::system_clock::to_time_t(now);
+
+    // Convert to local time
+    tm *localTime = localtime(&currentTime);
+
+    // Create a stringstream to format the time
+    stringstream ss;
+
+    // Format the time as you desire (example: HH:MM:SS)
+    ss << put_time(localTime, "%H:%M:%S");
+
+    return ss.str();
+}
+
+class Request
+{
+public:
+    int id;
+    int f;
+    Request(int id, int f)
+    {
+        this->f = f;
+        this->id = id;
+    }
+    Request() {}
+};
+
+#endif

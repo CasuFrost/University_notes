@@ -2,10 +2,27 @@
 #include <vector>
 #include <random>
 #include <time.h>
+#include <fstream>
 #include <cmath>
+#include <chrono>
+#include <ctime>
+#include <string>
+#include <sstream>
+#include <iomanip>
+
 #define DEBUG 0
+#define DEBUG_TIME 1
 
 using namespace std;
+
+#ifndef UTILS_HPP
+#define UTILS_HPP
+
+#define W 5
+#define Q 5
+#define N 5
+#define B 50
+#define p 0.2
 
 vector<string> splitString(const string &str)
 {
@@ -37,29 +54,63 @@ vector<string> splitString(const string &str)
     return words;
 }
 
-class DeliveryManager
+double rand_float_0_1()
 {
-private:
-    vector<int> deliveryTimes;
-    vector<int> projectBuffer;
+    return ((double)rand() / (double)RAND_MAX);
+}
 
-public:
-    DeliveryManager() {}
-    vector<pair<int, int>> project_and_starting_times;
-    void project_complete(int v)
+int randi_range(int a, int b)
+{
+    return a + rand() % (b - a + 1);
+}
+
+double avg_buffer(vector<double> buffer)
+{
+    double sum = 0.;
+    for (int i = 0; i < buffer.size(); i++)
     {
-        projectBuffer.push_back(v);
+        sum += buffer[i];
     }
-    void new_project(int a, int b)
+
+    return sum / (double)buffer.size();
+}
+
+double var_buffer(vector<double> buffer)
+{
+    double varianza = 0.0;
+    double avg = avg_buffer(buffer);
+    for (double numero : buffer)
     {
-        project_and_starting_times.push_back({a, b});
-        // project_and_starting_times.push_back(t);
+        varianza += pow(numero - avg, 2);
     }
-    void print_project()
-    {
-        for (const auto &pair : project_and_starting_times)
-        {
-            cout << "First: " << pair.first << ", Second: " << pair.second << "\n";
-        }
-    }
-};
+
+    varianza /= (double)buffer.size();
+    return varianza;
+}
+
+double stdev_buffer(vector<double> buffer)
+{
+    return (double)sqrt(var_buffer(buffer));
+}
+
+string getCurrentTimeString()
+{
+    // Get current time point
+    auto now = chrono::system_clock::now();
+
+    // Convert to time_t for use with localtime
+    time_t currentTime = chrono::system_clock::to_time_t(now);
+
+    // Convert to local time
+    tm *localTime = localtime(&currentTime);
+
+    // Create a stringstream to format the time
+    stringstream ss;
+
+    // Format the time as you desire (example: HH:MM:SS)
+    ss << put_time(localTime, "%H:%M:%S");
+
+    return ss.str();
+}
+
+#endif
