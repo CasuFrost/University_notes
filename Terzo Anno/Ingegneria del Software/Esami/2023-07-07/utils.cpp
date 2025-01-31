@@ -16,7 +16,18 @@ using namespace std;
 
 #define DEBUG 0
 
-vector<string> splitString(const string &str)
+/*Parametri dell'esame*/
+#define L 10
+#define D 1
+#define B 20
+#define N 10
+#define W 5
+#define Q 3
+
+/*Fine parametri dell'esame*/
+
+vector<string>
+splitString(const string &str)
 {
     vector<string> words;
     string word;
@@ -84,6 +95,10 @@ double max_buffer(vector<int> buffer)
 
 double avg_buffer(vector<double> buffer)
 {
+    if (buffer.size() == 0)
+    {
+        return 0;
+    }
     double sum = 0.;
     for (int i = 0; i < buffer.size(); i++)
     {

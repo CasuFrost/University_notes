@@ -16,7 +16,8 @@ using namespace std;
 
 #define DEBUG 0
 
-vector<string> splitString(const string &str)
+vector<string>
+splitString(const string &str)
 {
     vector<string> words;
     string word;
@@ -49,6 +50,11 @@ vector<string> splitString(const string &str)
 double rand_float_0_1()
 {
     return ((double)rand() / (double)RAND_MAX);
+}
+
+double rand_float_min1_plus1()
+{
+    return (double)1 - ((double)2 * rand_float_0_1());
 }
 
 int randi_range(int a, int b)

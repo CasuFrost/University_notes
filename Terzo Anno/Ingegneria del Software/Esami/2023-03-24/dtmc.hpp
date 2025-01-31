@@ -57,7 +57,6 @@ private:
 
     vector<int> state;
     int start_state;
-    int current_state = 0;
     int end_state;
     vector<double> state_cost;
     vector<vector<double>> edge_prob; /*probabilità delle transizioni*/
@@ -85,6 +84,9 @@ private:
             }
         }
     }
+
+protected:
+    int current_state = 0;
 
 public:
     DTMC(string filename)
@@ -128,9 +130,8 @@ public:
         fix_cost();
     }
 
-    void time_step_action()
+    virtual void time_step_action()
     {
-        // cout << "stato " << current_state << "\n";
     }
 
     double time_step(int cost_type)
