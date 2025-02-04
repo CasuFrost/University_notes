@@ -2,18 +2,22 @@
 #include "utils.hpp"
 using namespace std;
 
-#ifndef DTMC_HPP
-#define DTMC_HPP
+#ifndef DTMC_CPP
+#define DTMC_CPP
 
 class DTMC
 {
 private:
-    void read_from_file(string filename, int print = 0)
+    void read_from_file(string filename, int print = 0, int skip = 0)
     {
         int num_state;
         ifstream file(filename);
         string line;
         getline(file, line);
+        if (skip)
+        {
+            getline(file, line);
+        }
         vector<string> words = splitString(line);
         if (words[0] == "N")
         {
@@ -87,9 +91,9 @@ private:
     }
 
 public:
-    DTMC(string filename)
+    DTMC(string filename, int print = 0, int skip = 0)
     {
-        read_from_file(filename);
+        read_from_file(filename, print, skip);
         fix_cost();
     }
     DTMC(vector<int> state, vector<double> state_cost, vector<vector<double>> edge_prob, vector<vector<double>> edge_cost)
