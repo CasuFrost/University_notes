@@ -203,7 +203,7 @@ Le GPU hanno una struttura \textit{SIMD}.\begin{center}
         \cline{2-3}
                                                            & \cellcolor[HTML]{C0C0C0}shared memory & \cellcolor[HTML]{C0C0C0}distributed memory \\ \hline
         \multicolumn{1}{|c|}{\cellcolor[HTML]{C0C0C0}SIMD} & CUDA                                  &                                            \\ \hline
-        \multicolumn{1}{|c|}{\cellcolor[HTML]{C0C0C0}MIMD} & Pthreads/OpenMP/CUDA                  & MPI                                        \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{C0C0C0}MIMD} & Pthreads/OpenMP                 & MPI                                        \\ \hline
         \end{tabular}
 \end{center}
 Fin'ora sono stati utilizzati 3 termini chiave riguardante i tipi di programmazione,
@@ -264,7 +264,7 @@ Tali righe stabiliscono il blocco di codice in cui verranno eseguite funzioni MP
 \flowerLine 
 \section{Rank e Comunicazione}
 Ogni processo MPI è univocamente identificato da un numero intero detto \textit{rank}, se $p$ processi sono 
-attivi, avranno gli identificatori $1,2\dots,p-1$.\acc  Un \textbf{comunicatore} è un insieme di processi, i quali hanno 
+attivi, avranno gli identificatori $0,1,2\dots,p-1$.\acc  Un \textbf{comunicatore} è un insieme di processi, i quali hanno 
 la possibilità di scambiarsi messaggi, si può pensare ad un comunicatore come un etichetta, e processi con la stessa 
 etichetta possono comunicare fra loro. 
 È identificabile nel codice tramite la struttura dati \code{MPI\_Comm}, e all'avvio di MPI, viene sempre 
@@ -300,7 +300,7 @@ rank se relativo a comunicatori diversi. Ci sono due funzioni importanti che rig
     }
 \end{lstlisting}
 La comunicazione avviene tramite due funzioni, il cui comportamento è simile alla comunicazione tramite \code{pipe}.\acc 
-L'inzio dei messagi avviene tramite \code{int MPI\_Send}, i cui parametri sono\begin{itemize}
+L'invio dei messaggi avviene tramite \code{int MPI\_Send}, i cui parametri sono\begin{itemize}
     \item \code{void* msg\_buf\_p} l'area di memoria da trasferire al processo destinatario 
     \item \code{int msg\_size} il numero di elementi (non l'occupazione in byte) del messaggio da trasferire 
     \item \code{MPI\_Datatype msg\_type} il tipo di elemento da trasferire. Sono definiti dei tipi standard che 
@@ -456,7 +456,7 @@ di \textit{parallelizzare} un programma \begin{itemize}
     per poi terminare, facendo si che il padre continui.
     \item \textbf{Loop-Parallelism} : Risulta estremamente semplice da utilizzare e viene spesso applicata 
     quando un programma sequenziale deve essere adattato al multiprocesso. Consiste nel parallelizzare ogni 
-    esecuzione di un ciclo \code{for}, è necessario che le iterazione però siano indipendenti fra loro.
+    esecuzione di un ciclo \code{for}, è necessario che le iterazioni però siano indipendenti fra loro.
 \end{itemize}
 \begin{lstlisting}[style=CStyle]
     //Esempio di Fork-Join
@@ -488,8 +488,8 @@ molteplici operazioni di scrittura e chiamate di sistema, è quindi buona regola
 Si è detto in precedenza che \code{MPI\_Send} è bloccante, in realtà, MPI utilizza, se non specificato diversamente, 
 una metodologia di comunicazione standard, se il messaggio da trasferire è piccolo, è probabile che venga immediatamente 
 trasferito venendo salvato su un buffer del destinatario. Diversamente, nel caso di un messaggio grande, la chiamata 
-sarà bloccante in quanto MPI deve assicurarsi che il destinatario abbia allocato la memoria sufficente per riceverlo.\acc 
-In entrambi i casi, MPI si assicura che il messaggio da inviare non vada perso, il programmma riottiene il controllo 
+sarà bloccante in quanto MPI deve assicurarsi che il destinatario abbia allocato la memoria sufficiente per riceverlo.\acc 
+In entrambi i casi, MPI si assicura che il messaggio da inviare non vada perso, il programma riottiene il controllo 
 solo quando il buffer utilizzato per contenere il messaggio è di nuovo disponibile, si dice che la \code{MPI\_Send} 
 è \textit{locally blocking}. Oltre la comunicazione standard, vi sono altri modi di inviare messaggi\begin{itemize}
     \item \textbf{Buffered} : Tramite la chiamata \code{MPI\_Bsend}, l'operazione è sempre locally blocking, ma l'utente deve fornire manualmente un 
@@ -656,7 +656,7 @@ Nell'esempio visto, ogni processo condivide i suoi dati parziali con quello adia
 di numero di identificazione), ma nulla vieta agli ultimi processi di condividere i dati con i primi, come in figura 
 \ref{fig:tree_cores2}.
 L'ottimalità di una soluzione piuttosto che di un altra può dipendere da diversi fattori non sempre analizzabili, come 
-la topologia fisica della reta attraverso cui sono collegate le macchine che eseguono i processi.\acc 
+la topologia fisica della rete attraverso cui sono collegate le macchine che eseguono i processi.\acc 
 A tal proposito, MPI fornisce una funzionalità che permette di eseguire operazioni di aggregazione di risultati 
 senza preoccuparci della logica di comunicazione per il trasferimento dei dati parziali. La funzione in questione è 
 \code{int MPI\_Reduce}, con i seguenti parametri
@@ -723,7 +723,7 @@ Esempio di funzione per leggere input da tastiera
     void Get_input(int my_rank, a, int b, int n){
         if(my_rank==0){
             printf("enter input:\n");
-            scanf("%d %d %d",a , b, n);
+            scanf("%d %d %d", &a, &b, &n);
         }
         MPI_Bcast(a, 1, MPI_INT, 0, MPI_COMM_WORLD);
         MPI_Bcast(b, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -797,7 +797,7 @@ L'algoritmo si renderà parallelo, distribuendo equamente il numero di punti da 
         MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
         MPI_Comm_size(MPI_COMM_WORLD, &my_size);
     
-        int local_precision = precision / my_size; /* Numero di punto da generare per
+        int local_precision = precision / my_size; /* Numero di punti da generare per
                                                       ogni processo */
         int local_circle_point = 0;
     
@@ -805,7 +805,7 @@ L'algoritmo si renderà parallelo, distribuendo equamente il numero di punti da 
         {
             double x = (double)rand() / RAND_MAX * 2.0 - 1.0; // Generazione punto
             double y = (double)rand() / RAND_MAX * 2.0 - 1.0;
-            if (x * x + y * y < 1) // Controllo se il punto e' nel cerchio
+            if (x * x + y * y <= 1) // Controllo se il punto e' nel cerchio
                 local_circle_point++;
         }
     
@@ -860,7 +860,7 @@ del codice e farne la differenza.
 Ogni processo, seguirà un evoluzione dello stesso codice differente, e 
 non contemporanea fra gli altri. Se verrà calcolato il tempo 
 trascorso per l'esecuzione di una sezione di codice, ogni processo 
-resituirà un tempo diverso. Il tempo totale del programma, sarà 
+restituirà un tempo diverso. Il tempo totale del programma, sarà 
 dato dal massimo dei tempi forniti da ogni processo. Si può usare 
 l'operazione collettiva 
 \begin{lstlisting}[style=CStyle]
@@ -925,7 +925,7 @@ che esegue il prodotto fra matrici quadrate.\begin{center}
 \end{center}
 Ovviamente, con l'aumento delle dimensioni dell'input, aumenta anche il tempo di esecuzione, e quest'ultimo 
 decresce con l'aumentare del numero di processi. Questo fattore di proporzionalità inversa non è però 
-valido per un arbitrario numero di processo, de facto, ci sarà un limite per cui vale, ad un certo punto, 
+valido per un arbitrario numero di processi, de facto, ci sarà un limite per cui vale, ad un certo punto, 
 l'aumentare dei processi non migliorerà il tempo di esecuzione. Per la stima dei tempi si definiscono le 
 seguenti variabili \begin{itemize}
     \item $T_s(n)$ è il tempo di esecuzione di un programma se eseguito in maniera sequenziale, con un 
@@ -937,7 +937,7 @@ seguenti variabili \begin{itemize}
     miglioramento di un programma quando si esegue in parallelo piuttosto che in sequenziale.
 \end{itemize}
 Ovviamente nel rapporto dello speed up i tempi sequenziali e paralleli vanno misurati sullo stesso 
-hardware. L'ideale sarebbe uno speed up lineare, nell'effettivo, l'aumentare dei processi 
+hardware. L'ideale sarebbe uno speed up lineare (del tipo, $S(n,p)\simeq p$), nell'effettivo, l'aumentare dei processi 
 fa diminuire lo speed up, invece l'aumentare dell'input lo fa aumentare. La seguente tabella riporta i valori 
 dello speed up del programma che esegue il prodotto fra matrici.\begin{center}
     \begin{tabular}{c|ccccc|}
@@ -996,8 +996,8 @@ sempre il weak scaling quando si vuole parallelizzare un compito. È possibile a
 \end{eqnarray}\begin{center}
     \includegraphics[width=0.7\textwidth]{images/Amdahls.png}
 \end{center}
-Questa legge non tiene conto del week scaling e decreta un comportamento ideale/approssimato. La \textbf{legge 
-di Gustafson} tiene conto del week scaling 
+Questa legge non tiene conto del weak scaling e decreta un comportamento ideale/approssimato. La \textbf{legge 
+di Gustafson} tiene conto del weak scaling 
 $$ S(n,p)=(1-\alpha)+\alpha p$$
 Nel caso reale, l'aumentare del numero di processi potrebbe far incrementare la frazione seriale.\begin{center}
     \includegraphics[width=0.7\textwidth]{images/speedUp.eps}
@@ -1028,7 +1028,7 @@ I parametri della funzione sono i seguenti\begin{itemize}
     \item  \code{void *recv\_buf\_p} il buffer che conterrà la frazione di vettore ricevuta, per il mittente, può 
     coincidere con il buffer di invio 
     \item  \code{int recv\_count} analogo a \codee{send\_count}
-    \item  \code{MPI\_Datatype recv\_type} analogo a codee{send\_type}
+    \item  \code{MPI\_Datatype recv\_type} analogo a \codee{send\_type}
     \item  \code{int src\_proc} il rank del processo che condividerà il vettore 
     \item \code{MPI\_Comm comm} il comunicatore in questione
 \end{itemize}
@@ -1039,14 +1039,14 @@ La funzione collettiva \code{int MPI\_Gather} è l'inversa della \code{scatter},
 e ne verrà eseguita la concatenazione, per poi essere inviata ad un processo.\begin{center}
     \includegraphics[width=0.4\textwidth]{images/gather.eps}
 \end{center}
-L'ordine di concatenazione è sempre dato dal rank. I parametri sono pressocché identici alla \code{scatter}\begin{itemize}
+L'ordine di concatenazione è sempre dato dal rank. I parametri sono pressoché identici alla \code{scatter}\begin{itemize}
     \item \code{void *send\_buf\_p} il buffer contenente il vettore parziale da inviare
     \item  \code{int send\_count} il numero di elementi contenuti nel vettore parziale
     \item  \code{MPI\_Datatype send\_type} il tipo degli elementi del vettore 
-    \item  \code{void *recv\_buf\_p} il buffer che conterrà il vettore finale composta dalla concatenazione dei 
+    \item  \code{void *recv\_buf\_p} il buffer che conterrà il vettore finale composto dalla concatenazione dei 
     vettori parziali 
     \item  \code{int recv\_count} analogo a \codee{send\_count}
-    \item  \code{MPI\_Datatype recv\_type} analogo a codee{send\_type}
+    \item  \code{MPI\_Datatype recv\_type} analogo a \codee{send\_type}
     \item  \code{int dest\_proc} il rank del processo che riceverà il vettore
     \item \code{MPI\_Comm comm} il comunicatore in questione
 \end{itemize}
@@ -1171,7 +1171,7 @@ for(int i = 0; i < num_rows; i++){
 \end{lstlisting}
 Le righe della matrice in questo caso \textit{non} sono contigue in memoria, non è quindi possibile 
 utilizzare operazioni di \textit{reduce}, per far ciò, bisogna collassare la matrice in un 
-array bidimensionale regolando l'accesso degli indici. Su una matrice statica, l'accesso avviene 
+array unidimensionale regolando l'accesso degli indici. Su una matrice statica, l'accesso avviene 
 per mezzo di due indici \code{matrix[i][j]}, se la matrice è collassata in un 
 array, un solo indice deve codificare entrambi gli indici della matrice, nella pratica, si fa così\begin{quote}
     \code{matrix[i*num\_col+j]}
@@ -1272,7 +1272,7 @@ MPI permette di creare dei tipi custom, è possibili
 definire \textbf{tipi derivati}, che equivalgano (in quanto 
 disposizione in memoria) alla struct in questione. Un tipo 
 derivato non è altro che una sequenza di 
-datatype di base alla quale è assengata una certa 
+datatype di base alla quale è assegnata una certa 
 disposizione in memoria. \begin{quote}
     \code{{(MPI\_DOUBLE,0), (MPI\_DOUBLE,16),(MPI\_INT,24)}}
 \end{quote}
@@ -1290,7 +1290,7 @@ Per ottenere la disposizione è possibile usare il puntatore del valore,
 \code{MPI\_Get\_address}, in quanto in alcuni sistemi (seppur pochi) i puntatori potrebbero 
 non rappresentare un indirizzo di memoria.
 \begin{lstlisting}[style=CStyle]
-MPI\_Aint a_addr, b_addr, n_addr;
+MPI_Aint a_addr, b_addr, n_addr;
 MPI_Get_address(&a, &a_addr);
 array_of_displacements[0]=0;
 MPI_Get_address(&b, &b_addr);
@@ -1380,7 +1380,7 @@ Riguardo il numero dei thread, sarebbe corretto considerare tanti thread quanti 
 macchina che esegue il programma. Se si vogliono passare \textit{molteplici} parametri ad un thread è necessario 
 definire un'apposita struct che li comprenda.
 \subsection{Prodotto Matrice-Vettore con Pthread}
-Si vuole eseguire il calssico algoritmo di moltiplicazione di una matrice per un vettore, la cui 
+Si vuole eseguire il classico algoritmo di moltiplicazione di una matrice per un vettore, la cui 
 computazione seriale si ricorda essere
 \begin{lstlisting}[style=CStyle]
 /* m := righe di A*/
@@ -1398,8 +1398,8 @@ quante sono le righe della matrice in input (quindi, gli elementi del vettore in
 ad ogni thread $i$ il valore dell'$i$-esimo elemento del vettore in output.\begin{center}
     \includegraphics[width=0.5\textwidth]{images/threadMatProd.eps}
 \end{center} 
-In generale, se il numero di thread è $t<m$, ogni $q$-esimo thread computerà $\frac{m}{t}$ righe, ossia dalle \begin{itemize}
-    \item \color{teal}$q\cdot\nicefrac{m}{t}$\color{black}-esima riga 
+In generale, se il numero di thread è $t<m$, ogni $q$-esimo thread computerà $\frac{m}{t}$ righe, ossia  \begin{itemize}
+    \item dalla \color{teal}$q\cdot\nicefrac{m}{t}$\color{black}-esima riga 
     \item alla \color{teal}$(q+1)\nicefrac{m}{t}-1$\color{black}-esima riga
 \end{itemize}
 Si ha il seguente codice
@@ -1446,13 +1446,13 @@ Si consideri il seguente scenario : Vi è una variabile (intera) \texttt{x} iniz
  condivisa da due thread, 
 entrambi si adoperano per incrementare la variabile di 1, ci si aspetta, che dopo l'esecuzione la 
 variabile \texttt{x} sia uguale a 2. Il punto è che l'incremento di una variabile (somma) in C, equivale ad 
-una sequenza di istruzioni assembly che possono essere intergogliate dai due thread.\begin{center}
+una sequenza di istruzioni assembly che possono essere interfogliate dai due thread.\begin{center}
     \begin{tabular}{ccc}
         \hline
         \multicolumn{1}{|c|}{\cellcolor[HTML]{EFEFEF}istanti di tempo} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}thread 0}                                                                                                             & \multicolumn{1}{c|}{\cellcolor[HTML]{FFFFC7}thread 1}                                                                                                             \\ \hline
         \multicolumn{1}{l}{}                                           & \multicolumn{1}{l}{}                                                                                                                                              & \multicolumn{1}{l}{}                                                                                                                                              \\ \hline
-        \multicolumn{1}{|c|}{1}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}inizalizzato dal \\ main thread\end{tabular}}                                                                      & \multicolumn{1}{c|}{}                                                                                                                                             \\ \hline
-        \multicolumn{1}{|c|}{2}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}legge la variabile \texttt{x=0}\\ e la carica nel registro r1\end{tabular}}                       & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}inizalizzato dal \\ main thread\end{tabular}}                                                                      \\ \hline
+        \multicolumn{1}{|c|}{1}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}inizializzato dal \\ main thread\end{tabular}}                                                                      & \multicolumn{1}{c|}{}                                                                                                                                             \\ \hline
+        \multicolumn{1}{|c|}{2}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}legge la variabile \texttt{x=0}\\ e la carica nel registro r1\end{tabular}}                       & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}inizializzato dal \\ main thread\end{tabular}}                                                                      \\ \hline
         \multicolumn{1}{|c|}{3}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}incrementa il registro r1=0  di 1, \\ avendo r1=1\end{tabular}}                                                    & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}legge la variabile \texttt{x=0}\\ e la carica nel registro r2\end{tabular}}                       \\ \hline
         \multicolumn{1}{|c|}{4}                                        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}salva il valore del registro in \texttt{x}, \\ si ha  \texttt{x=1}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}incrementa il registro r2=0  di 1, \\ avendo r2=1\end{tabular}}                                                    \\ \hline
         \multicolumn{1}{|c|}{5}                                        & \multicolumn{1}{c|}{termina}                                                                                                                                      & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}salva il valore del registro in \texttt{x}, \\ si ha  \texttt{x=1}\end{tabular}} \\ \hline
@@ -1472,9 +1472,10 @@ Nel seguente esempio, ogni thread viene bloccato in un ciclo finché la variabil
 diventa uguale al loro rank. A seguito dell'utilizzo dovranno incrementare la variabile per permettere 
 al prossimo thread di accedere.
 \begin{lstlisting}[style=CStyle]
-    while(flag!=my_rank);
+while(flag!=my_rank){
     x+=1;
     flag++;
+}
 \end{lstlisting}
 Il busy waiting, seppur semplice nella sua implementazione, comporta svantaggi difficilmente trascurabili\begin{itemize}
     \item un processo in attesa occuperà inutilmente la CPU comportando uno spreco di computazione 
@@ -1482,8 +1483,8 @@ Il busy waiting, seppur semplice nella sua implementazione, comporta svantaggi d
     trasformando il codice come segue
 \end{itemize}
 \begin{lstlisting}[style=CStyle]
-    x+=1;
-    while(flag!=my_rank); /* sequenza di istruzioni errata */
+x+=1;
+while(flag!=my_rank) /* sequenza di istruzioni errata */
     flag++;
 \end{lstlisting}
 Tale riarrangiamento è parte di una serie di ottimizzazioni che fa il compilatore. Disattivare tali ottimizzazioni 
@@ -1523,17 +1524,17 @@ di thread è sia in attesa del rilascio di una lock, sia in possesso di una lock
 \begin{center}
 	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
     \begin{lstlisting}[style=CStyle]
-            pthread_mutex_lock(&a); 
-            pthread_mutex_unlock(&b);
-            /*in attesa di a per 
-            rilasciare b*/
-        \end{lstlisting}&
+pthread_mutex_lock(&a); 
+pthread_mutex_unlock(&b);
+/*in attesa di a per 
+rilasciare b*/
+\end{lstlisting}&
         \begin{lstlisting}[style=CStyle]
-            pthread_mutex_lock(&b); 
-            pthread_mutex_unlock(&a);
-            /*in attesa di b per 
-            rilasciare a*/
-        \end{lstlisting}
+pthread_mutex_lock(&b); 
+pthread_mutex_unlock(&a);
+/*in attesa di b per 
+rilasciare a*/
+\end{lstlisting}
 	\end{tabular}
 \end{center}
 In termini di prestazioni il Mutex mostra performance più elevate rispetto il busy 
@@ -1562,7 +1563,7 @@ impiegati (in secondi) per stimare il valore di $\pi$ su una macchiana con 8 cor
 \subsection{Semafori, Barriere e Variabili di Condizione}
 Il busy waiting permette l'accesso esclusivo ai thread imponendo anche un certo ordine, ma presenta 
 degli svantaggi considerevoli, che però non presenta l'utilizzo delle mutex, seppur quest'ultimo 
-lascia l'ordine di accesso indeterminatoe deciso dal sistema operativo, ci sono situazioni in cui 
+lascia l'ordine di accesso indeterminato e deciso dal sistema operativo, ci sono situazioni in cui 
 si vuole un accesso ordinato senza dover subire i problemi del busy waiting.\acc 
 Lo standard Posix definisce un costrutto simile al mutex ma più elaborato : i \textbf{Semafori}, che rappresentano 
 delle mutex \textit{non binarie}. Per utilizzarli, si include la direttiva\begin{quotation}
@@ -1597,7 +1598,7 @@ del codice.
         fflush(stdout);
     }
 \end{lstlisting}
-L'implementazione di una barriera tramite l'uso del busy waiting e delle mutex è intiuitiva, 
+L'implementazione di una barriera tramite l'uso del busy waiting e delle mutex è intuitiva, 
 si utilizza un contatore condiviso inizializzato a zero (il cui accesso è protetto da mutex) e si incrementa di 1 
 per ogni thread che arriva a tal punto. Ogni thread sarà in busy waiting finché il contatore non sarà uguale al 
 numero dei thread.
@@ -1787,7 +1788,7 @@ struct list_node_s{
 \end{lstlisting}
 Essendo la lista definita con i puntatori, ogni accesso ad uno dei suoi elementi sarà un accesso in memoria principale, non essendo questi contigui, il prefatching non potrà fare affidamento sulle ipotesi di vicinanza spaziale e temporale.\acc 
 Si vuole mantenere una lista puntata \textit{condivisa in memoria} fra i diversi thread, in tal caso è comodo definire la testa della lista \code{head\_p} come una variabile globale. Questo semplificherà le operazioni sulla lista in quanto non sarà necessario passarla come parametro.\acc 
-Se due o più thread eseguno un operazione di \code{member} contemporaneamente, il programma funziona senza problemi, ma cosa succederebbe se contemporaneamente, un thread eseguisse un operazione di \code{member}  ed un altro un operazione di modifica? L'accesso alla lista potrebbe non essere consistente.
+Se due o più thread eseguono un operazione di \code{member} contemporaneamente, il programma funziona senza problemi, ma cosa succederebbe se contemporaneamente, un thread eseguisse un operazione di \code{member}  ed un altro un operazione di modifica? L'accesso alla lista potrebbe non essere consistente.
 \begin{center}
 \begin{tabular}{c|c|c|}
     \cline{2-3}
@@ -1893,9 +1894,7 @@ Si consideri ora un altro esempio, sempre riguardante 100.000 operazioni eseguit
         \multicolumn{5}{c}{tempo misurato in secondi}                                                                                                                                                                                                                           
         \end{tabular}
 \end{center}
-\begin{quotation}
-    Le read-write lock garantiscono un vantaggio nelle performance finché le operazioni di scrittura sono una parte relativamente piccola del totale delle operazioni da eseguire sulla struttura dati.
-\end{quotation}
+Le read-write lock garantiscono un vantaggio nelle performance finché le operazioni di scrittura sono una parte relativamente piccola del totale delle operazioni da eseguire sulla struttura dati.
 \flowerLine 
 \section{Funzioni Thread-Safe}
 \defi{} Un blocco di codice si dice \textbf{thread safe} se può essere acceduto contemporaneamente da più thread senza che l'accesso simultaneo violi la correttezza del programma.\acc 
@@ -1969,7 +1968,7 @@ void* thread_func(void *args){
 Questo capitolo (decisamente ridotto rispetto agli altri) richiama i concetti base delle architetture degli elaboratori, espandedo il campo alle CPU multicore.
 \section{Caching}
 La \textit{Cache} è una memoria aggiuntiva posta "in vicinanza" del processore in modo che gli accessi ad essa siano più rapidi rispetto gli accessi alla memoria principale. Tipicamente, la cache è saldata sullo stesso chip della CPU, ed è costruita su una tecnologia più rapida (SRAM) rispetto la memoria principale (DRAM), è de facto anche più costosa e ha molti più transistor, quindi le sue dimensioni sono ridotte.\acc 
-La cache si basa sul principio di località spaziale e temporale, è un principio empirico, riguardal l'assunzione che\begin{itemize}
+La cache si basa sul principio di località spaziale e temporale, è un principio empirico, riguarda l'assunzione che\begin{itemize}
     \item Se si accede ad un'area di memoria, nel futuro prossimo si accederà ad areee di memoria adiacenti 
     \item Se si accede ad un'area di memoria, nel futuro prossimo si accederà nuovamente ad essa 
 \end{itemize}
@@ -1979,7 +1978,7 @@ Quando si accede ad un blocco di memoria quest'ultimo (ed eventualmente qualche 
 \textbf{Esempio}: In un array \code{z=malloc(sizeof(int)*16)}, quando si accede all'elemento \code{z[0]}, anche gli altri elementi fino a \code{z[15]} saranno trasferiti nella cache.
 \subsection{Livelli della Cache}
 Spesso su un chip non vi è un unica cache, ma diverse (solitamente 3), e si identificano quindi cache di diverso livello. La cache più "vicina" alla CPU è più veloce negli accessi, ma ha anche meno spazio a disposizione, la cache più lontana invece è la più capiente, ma anche più lenta.\acc 
-Quando bisogna accedere alla memoria, la CPU controlloa prima la cache più vicina, se non i dati richiesti non sono presenti, passa a quella successiva, fino ad (eventualmente) accedere alla memoria principale.\acc 
+Quando bisogna accedere alla memoria, la CPU controlla prima la cache più vicina, se  i dati richiesti non sono presenti, passa a quella successiva, fino ad (eventualmente) accedere alla memoria principale.\acc 
 Quando la CPU richiede un dato e lo trova accedendo in cache, si dice che è avvenuto un \textbf{cache hit}, altrimenti, se non dovesse essere presente, obbligandola a cercare in memoria principale, si dice che è avvenuto un \textbf{cache miss}. Quando si scrive del codice, bisogna sfruttare il principio di località spaziale per ridurre al minimo i cache miss.\acc 
 La cache su più livelli può causare problemi di inconsistenza, de facto se un certo dato \texttt{x} si trova su più cache, questo deve mantenere il suo valore identico in tutte quante: All'aggiornamento di \texttt{x}, sarà necessario aggiornarlo sia sulla memoria principale, che su ogni cache in cui è presente.\begin{quote}
     Quando la CPU modifica un dato nella cache, quest'ultimo potrebbe essere inconsistente con il valore nella memoria principale
@@ -1990,7 +1989,7 @@ Si identificano due soluzioni\begin{itemize}
 \end{itemize}
 \flowerLine
 \section{La Cache nei Sistemi Multicore}
-Nei sistemi multicore, ogni core è in possesso di una cache privata di livello 1, mentre le cache di livello 2 e 3 potrebbero essere condivise. Il programmatore, non ha alcun controllo sulla gestione della cache e sulle frequenze di aggiornamento. Il problema dell'inconsistenza si fa pià complesso in quanto una stessa variabile deve essere cosistente nelle cache di tutti i core.\begin{itemize}
+Nei sistemi multicore, ogni core è in possesso di una cache privata di livello 1, mentre le cache di livello 2 e 3 potrebbero essere condivise. Il programmatore, non ha alcun controllo sulla gestione della cache e sulle frequenze di aggiornamento. Il problema dell'inconsistenza si fa più complesso in quanto una stessa variabile deve essere consistente nelle cache di tutti i core.\begin{itemize}
     \item \textit{istante 0} : il core $A$ prende \texttt{x} dalla RAM e lo mette nella sua cache. 
     \item \textit{istante 1} : il core $B$ prende \texttt{x} dalla RAM e lo mette nella sua cache. 
     \item \textit{istante 2} : il core $A$ modifica \texttt{x}, sommando ad esso 1.
@@ -1999,7 +1998,7 @@ Nei sistemi multicore, ogni core è in possesso di una cache privata di livello 
 \end{itemize}
 Ci sono due meccanismi per mantenere la cache coerente\begin{itemize}
     \item \textbf{Snooping Cache Coherence}\begin{itemize}
-        \item Condivisione del bus: Tutti i core (processori) sono connessi a un bus comune, un canale di comunicazione attraverso il quale vengono trasmesse tutte le informazioni.
+        \item Condivisione del bus: Tutti i core (processori) sono connessi a un bus comune, un canale di comunicazione attraverso il quale vengono trasmesse tutte le informazioni.\item
         Visibilità universale: Qualsiasi segnale inviato sul bus può essere "visto" da tutti i core collegati.
         \item  Aggiornamento e broadcast: Quando un core modifica il valore di un dato (ad esempio, la variabile x) presente nella sua cache, trasmette questa informazione a tutti gli altri core attraverso il bus.
         \item  Invalidazione della cache: Se un altro core sta utilizzando  il bus e nota che il valore di x è stato modificato, invalida la propria copia di x nella cache, assicurandosi così di avere sempre il valore più aggiornato.
@@ -2012,7 +2011,7 @@ Ci sono due meccanismi per mantenere la cache coerente\begin{itemize}
     \end{itemize}
 \end{itemize}
 \subsection{False Sharing}
-Il \textbf{false sharing}è un modello di utilizzo che degrada le prestazioni, può sorgere nelle architetture multicore quando più thread, eseguiti in parallelo, accedono a dati che, pur essendo logicamente distinti, risiedono fisicamente sullo stesso blocco della cache.\acc 
+Il \textbf{false sharing} è una problematica comune che degrada le prestazioni, può sorgere nelle architetture multicore quando più thread, eseguiti in parallelo, accedono a dati che, pur essendo logicamente distinti, risiedono fisicamente sullo stesso blocco della cache.\acc 
 Il problema sottopone i dati a \textbf{invalidazioni inutili}, Se due thread accedono a dati diversi che si trovano sulla stessa linea (o blocco) di cache, ogni modifica di un dato da parte di un thread causerà l'invalidazione dell'intera linea di cache per tutti gli altri thread che condividono quella linea. Questo comporta un overhead in termini di prestazioni, poiché i dati validi vengono scartati inutilmente.\begin{quote}
     \textit{Esempio} : Si considerino due thread che incrementano due contatori distinti. Se questi contatori sono allocati in modo tale da risiedere sulla stessa linea di cache, ogni incremento di un contatore comporterà l'invalidazione dell'intera linea, anche se l'altro contatore non è stato modificato
 \end{quote}
@@ -2037,7 +2036,7 @@ Differentemente, nei sistemi \textbf{NUMA}, i diversi core vengono partizionati 
     \includegraphics[width=0.7\textwidth ]{images/NUMA.pdf}
 \end{center}
 \chapter{Gestione dei Thread : OpenMP}
-\textit{OpenMP} è un freamework di programmazione per i sistemi multicore a memoria condivisa, in particolare, costituisce un \textit{interfaccia} di gestione dei thread ad alto livello rispetto quella fornita da PThread. OpenMP vede il sistema come un'insieme di più CPU o core che possono accedere ad una memoria condivisa. In pratica, OpenMP permette di parallelizzare un codice sequenziale in maniera semplice tramite dei micro-interventi sul codice, tramite l'assistenza del compilatore.\acc 
+\textit{OpenMP} è un freamework di programmazione per i sistemi multicore a memoria condivisa, in particolare, costituisce un \textit{interfaccia} di gestione dei thread ad alto livello rispetto quella fornita da PThread. OpenMP vede il sistema come un'insieme di più CPU o core che possono accedere ad una memoria condivisa. In pratica, OpenMP permette di parallelizzare un codice sequenziale in maniera semplice tramite dei micro-interventi sul codice e  tramite l'assistenza del compilatore.\acc 
 Lo scopo di OpenMP è la decomposizione di alcune porzioni del programma al fine di renderle parallele (diramazione) per svolgere un determinato compito, alla fine di esso i thread possono essere eliminati ed il programma può tornare ad un esecuzione sequenziale.\begin{quote}
     il codice è globalmente sequenziale e localmente parallelo
 \end{quote}
@@ -2050,7 +2049,7 @@ Le \textit{pragma} sono delle direttive speciali che elabora il pre processore, 
 La direttiva più semplice ma anche più importante è\begin{quote}
     \code{\# pragma omp parallel}
 \end{quote}
-Una volta dichiarata nel codice, il blocco successivo verrà eseguito in parallelo (se e solo se il compilatore supporta OpenMP), è possibile sanche specificare il numero di thread che dovranno eseguire in parallelo il blocco. Sono anche fondamentali le seguenti funzioni 
+Una volta dichiarata nel codice, il blocco successivo verrà eseguito in parallelo (se e solo se il compilatore supporta OpenMP), è possibile anche specificare il numero di thread che dovranno eseguire in parallelo il blocco. Sono anche fondamentali le seguenti funzioni 
 \begin{itemize}
     \item \code{omp\_get\_thread\_num()} : ritorna l'identificatore del thread chiamante. 
     \item \code{omp\_get\_num\_threads()} : ritorna il numero di thread attivi. Se chiamata in una porzione sequenziale, ritornerà 1.
@@ -2116,7 +2115,7 @@ Nonostante OpenMP fornisca un interfacia di alto livello, è comunque possibile 
     \code{\#pragma omp critical}
 \end{quote}
 Garantisce la mutua esclusione del blocco che segue.\acc 
-Grazie alle direttive pragma è possibile trasformare un codice sequenziale in parallelo con l'aggiunto di pochissime linee di codice. Tale semplicità ha permesso ad OpenMP di essere adottato in moltissime applicazioni, ed essere utilizzato da coloro che non hanno una conoscienza approfondita dei sistemi multicore.
+Grazie alle direttive pragma è possibile trasformare un codice sequenziale in parallelo con l'aggiunta di pochissime linee di codice. Tale semplicità ha permesso ad OpenMP di essere adottato in moltissime applicazioni, ed essere utilizzato da coloro che non hanno una conoscienza approfondita dei sistemi multicore.
 \subsection{Integrazione Numerica con OpenMP}
 Il codice parallelizzato con OpenMP che esegue la regola del trapezoide per calcolare l'integrale definito di una funzione $f:\R\rightarrow \R$ è identico al sequenziale, ad eccetto dell'aggiunta di sole due linee di codice.
 \begin{lstlisting}[style=CStyle]
@@ -2164,7 +2163,7 @@ void main(int argc, char **argv)
     printf("result : %f", global_result);
 }
 \end{lstlisting}
-Alcuni processore moderni implementano le operazioni di incremento come un unica istruzione atomica \begin{quote}
+Alcuni processori moderni implementano le operazioni di incremento come un unica istruzione atomica \begin{quote}
     \texttt{load + sum + store}
 \end{quote}
 In tal caso è possibile utilizzare la direttiva pragma \begin{quote}
@@ -2231,7 +2230,8 @@ Quando dichiariamo una variabile come \code{private} in un contesto di programma
 int x, y, z[1000];
 #pragma omp threadprivate(x)
 
-void default_none(int a){
+void function(int a){
+    default(none);
     const int c = 1;
     int i = 0;
     #pragma omp parallel default(none) private(a) shared(z)
@@ -2303,7 +2303,7 @@ Nella maggior parte dei casi in cui ci sono due cicli for annidati, è sufficien
 \begin{lstlisting}[style=CStyle]
 #pragma omp parallel for num_threads(thread_count) 
 for(i=0;i<4;i++){
-    for(i=0;i<4;i++){
+    for(j=0;j<4;j++){
         c(i,j);
     }
 }
@@ -2574,7 +2574,7 @@ for(int i = 1;i < N;i++){
 \end{lstlisting}
 \subsubsection{6) Cambio dell'algoritmo}
 Se nessun metodo precedente è applicabile, è necessario cambiare totalmente l'algoritmo, ad esempio, la sequenza di fibonacci può essere parallelizzata se calcolata tramite la formula di Binet: 
-$$F_n=\frac{\varphi^n-(1-\varphi)^n}{\sqrt{5}} $$ 
+$$F_n=\frac{\varphi^n-(1-\varphi)^n}{\sqrt{5}} \ \ \ \  \text{ dove } \ \ \ \ \frac{1}{\varphi}\simeq 0.618$$ 
 \begin{lstlisting}[style=CStyle]
 fibo[0]=fibo[1]=1;
 #pragma omp parallel for 
@@ -2616,9 +2616,9 @@ for(int i = 0; i < N; i++){
     d=fabs(y[i]);   //S2
 }
 \end{lstlisting}
-\redText{TODO : finire la parte di openMP}
-
-
+\redText{Attenzione : le pagine successive, riguardanti gli ultimi argomenti di openMP sono una bozza temporanea.}
+\section{Schedluing Loops e Costrutti di Programmazione}
+\includepdf[pages=-]{openMP_finalpart.pdf}
 
 
 
@@ -2652,7 +2652,7 @@ I processori ordinari, hanno un architettura dedicata alla \textit{riduzione del
 \begin{center}
     \includegraphics[width=0.3\textwidth ]{images/cpu.png}
 \end{center}
-Lo scopo della CPU è quello di eseguire codice sequenziale  il più rapidamente possibile, ed è caratterizzata da un alta frequenza di clock. Gran parte del chip della CPU, è occupata dalla cache, utile per ridurre gli accessi in memoria, che causano un alta latenza, inoltre, una grossa parte è composta dall'unitù di controllo, che si occupa di gestire le istruzioni, eseguire il prefetching, branch predictor ed altre operazioni simili. \acc 
+Lo scopo della CPU è quello di eseguire codice sequenziale  il più rapidamente possibile, ed è caratterizzata da un alta frequenza di clock. Gran parte del chip della CPU, è occupata dalla cache, utile per ridurre gli accessi in memoria, che causano un alta latenza, inoltre, una grossa parte è composta dall'unità di controllo, che si occupa di gestire le istruzioni, eseguire il prefetching, branch predictor ed altre operazioni simili. \acc 
 Le componenti dedicate alla computazione effettiva costituiscono una piccola parte di tutto il processore, inoltre le ALU sono molto performanti. Differente è la situazione per le GPU (anche dette schede video).
 \begin{center}
     \includegraphics[width=0.3\textwidth ]{images/GPU.png}
@@ -2683,7 +2683,7 @@ Due o più SM costituiscono un \textbf{blocco}. Tutti i core possono accedere al
 L'host e la GPU sono connesse da un bus detto \textit{Northbridge}.\begin{center}
     \includegraphics[width=0.25\textwidth ]{images/GPUCPU.png}
 \end{center}
-Idealmente, bisogna ridurre al minimo la frequenza con la quale si trasferiscono i dati dalla RAM alla VRAM. Le due memorie sono separate ed il trasferimento dei dati fra queste va gestito in maniera esplicita, vedremo come CUDA (si definirà in seguito) si occupa di trasportare i dati fra le due memorie in maniera trasparente.\flowerLine 
+Idealmente, bisogna ridurre al minimo la frequenza con la quale si trasferiscono i dati dalla RAM alla VRAM. Le due memorie sono separate ed il trasferimento dei dati fra queste va gestito in maniera esplicita, vedremo come CUDA  si occupa di trasportare i dati fra le due memorie in maniera trasparente.\flowerLine 
 \section{Introduzione a CUDA}
 \textbf{CUDA (Compute Unified Device Architcture)} è una piattaforma di programmazione parallela sviluppata da NVIDIA che permette di utilizzare direttamente la scheda video, si può dire che è un modello di programmazione \textit{general-purpose}, e permette di gestire in modo esplicito la memoria. La GPU è vista come un \textit{accelleratore} da utilizzare per dei calcoli specifici in un programma. \sapbox{CUDA funziona solo su GPU NVIDIA}
 Le funzioni definite nel codice che verranno eseguite dai core della GPU sono chiamate \textbf{CUDA kernel} (o solamente kernel).\begin{center}
@@ -2693,14 +2693,14 @@ Le funzioni definite nel codice che verranno eseguite dai core della GPU sono ch
 Quando si scrive del codice da eseguire sulla GPU, si definisce un elevato numero di thread (anche superiore ai core fisici presenti), in CUDA i thread vengono rappresentati (o meglio dire, organizzati) in uno spazio 6-dimensionale : ogni thread è \textit{identificabile univocamente} da due vettori con 3 coordinate ciascuno. \acc 
 Come accennato, ad ogni thread sarà associato \begin{itemize}
     \item un vettore 3-dimensionale che ne indica le coordinate nel \textbf{blocco}.
-    \item un vettore 3-dimensionale che ne indice le coordinate nella \textbf{griglia}.
+    \item un vettore 3-dimensionale che ne indica le coordinate nella \textbf{griglia}.
     \item un thread può conoscere la sua posizione $(x,y,z,x',y',z')$ chiamando apposite funzioni di libreria.
 \end{itemize}
 La struttura ammette anche blocchi o griglie di dimensioni inferiori a 3. La seguente immagine riporta una struttura composta da una griglia 3-dimensionale $4\times 3\times 2$, composta da blocchi 2-dimensionali $3\times 2$, per un totale di $4\times 3\times 2\times 3\times 2=144$ thread.
 \begin{center}
-    \includegraphics[width=\textwidth ]{images/griglia.png}
+    \includegraphics[width=\textwidth ]{images/strutturaGrigliaCuda.pdf}
 \end{center}
-La \textbf{capability} è una proprietà associata ad ogni GPU, e definisce il numero massimo di thread per blocco,blocchi per griglia e dimensioni della struttura che può implementare una GPU, è rappresentata da un \textit{version number} (a volte chiamato SM version), identifica le funzionalità supportate dall'hardware e le istruzioni disponibili sulla GPU.\begin{center}
+La \textbf{capability} è una proprietà associata ad ogni GPU, e definisce il numero massimo di thread per blocco, blocchi per griglia e dimensioni della struttura che può implementare una GPU, è rappresentata da un \textit{version number} (a volte chiamato SM version), identifica le funzionalità supportate dall'hardware e le istruzioni disponibili sulla GPU.\begin{center}
     \includegraphics[width=0.6\textwidth ]{images/capability.png}
 \end{center}
 \flowerLine 
@@ -2839,7 +2839,7 @@ Una scheda video (che supporta CUDA) è in grado di avere un massimo di 8 blocch
     \item \textbf{32$\times$32} : Se considerassimo dei blocchi $32\times 32$, ogni blocco conterrebbe $1024$ thread, ma il massimo numero di thread consentito per blocco è 512, quindi, questa configurazione non è valida.
 \end{itemize}
 \subsubsection{Esempio 2}
-C'è una griglia $4\times 5 \times 3$, ognuna di questa ha un blocco che può avere al più 100 thread, in totale, ci sono 60 blocchi. La GPU, ha 16 SM. Bisogna distrubuire i 60 blocchi totali sui 16 SM. \begin{itemize}
+C'è una griglia $4\times 5 \times 3$, questa contiene blocchi che possono avere al più 100 thread, in totale, ci sono 60 blocchi. La GPU, ha 18 SM. Bisogna distrubuire i 60 blocchi totali sui 18 SM. \begin{itemize}
     \item supponiamo che i blocchi siano distrubuiti in maniera round robin 
     \item 12 SM riceveranno 4 blocchi, e 6 SM riceveranno 3 blocchi 
     \item è poco efficiente, gli ultimi 12 blocchi saranno processati in simultanea da 12 SM, mentre ci saranno 6 SM che non stanno facendo computazione 
@@ -2988,5 +2988,94 @@ La shared memory è una memoria on-chip presente su ogni SM, come già accennato
     \item comunicare fra thread di uno stesso SM
 \end{itemize}
 Quando si dichiara una variabile, per specificare che essa va salvata sulla shared memory, deve essere preceduta dal decoratore \code{\_\_shared\_\_}. Nonostante la cache si occupa già di rendere più rapido l'accesso frequente ad uno stesso dato, la gestione manuale con la shared memory può risultare più efficiente.
-\\\redText{continua con slide PCM18 : fino a pagina 51}
+\subsubsection{Esempio (stancil)}
+Vogliamo prendere un array in input e creare un array di output in cui ogni elemento con indice
+$i$ nell'array di output sia la somma di tutti gli elementi con indice da $i-3$ a $i + 3$. Per fare ciò
+in modo efficiente conviene che ogni blocco carichi in memoria condivisa la parte di array che
+andrà a utilizzare, inoltre i thread ai bordi dovranno caricare anche gli elementi ai lati il cui
+indice viene calcolato da un altro blocco.
+\begin{lstlisting}[style=CStyle]
+__global__ void stancil_1d (int * in , int * out ){
+    __shared__ int temp [ BLOCK_SIZE + 2*3];
+    int gindex = threadIdx . x + blockIdx . x * blockDim . x ;
+    int lindex = threadIdx . x + 3;
+    temp [ lindex ] = in [ gindex ];
+    if( threadId .x <3){
+        temp [ lindex - 3] = in [ gindex -3];
+        temp [ lindex + BLOCK_SIZE ] = in [ gindex + BLOCK_SIZE ];
+    }
+    int result = 0;
+    for(int offset = -3; offset <= 3; offset ++){
+        result += temp [ lindex + offset ];
+    }
+    out [ gindex ]= result ;
+}
+    \end{lstlisting}
+    Con questo codice potrebbe comunque esserci un errore nel caso un warp all'interno del blocco
+inizi ad eseguire il for prima che tutti i warp nel blocco abbiano caricato i valori nella memoria
+condivisa, per risolvere bisogna usare una barriera, che si scrive:\begin{center}
+    \code{\_\_syncthreads();}
+\end{center}
+\subsection{Memoria Pinnata}
+I trasferimenti di dati tra CPU e GPU vengono fatti attraverso un \textbf{DMA (Direct Memory
+Access)} che è una parte di hardware specializzata nel mandare dati richiesti dal sistema operativo e che permette di liberare la CPU per fare altri task.
+I sistemi moderni utilizzano la memoria virtuale, in cui più indirizzi virtuali sono mappati sullo
+stesso indirizzo fisico. Ogni spazio degli indirizzi virtuale è diviso in pagine che vengono caricate
+nella memoria fisica ed eventuamente tolte per far spazio ad altre pagine nello stesso indirizzo
+fisico.\acc 
+Il DMA utilizza un indirizzo fisico, questo implica che non sia sicuro che la determinata pagina
+virtuale che stavamo cercandodi inviare alla GPU sia ancora in quell'indirizzo fisico, ma potrebbe essere stata sostituita da un'altra. Per evitare che quindi vengano copiati dati sbagliati
+la cudaMemcpy copia prima i dati nella \textbf{memoria pinnata}, cioè un insieme di pagine virtuali
+che non possono essere tolte dalla memoria fisica. Questa operazione è molto lenta, quindi per
+ottimizzarla converrebbe salvare prima di eseguire la \texttt{cudaMemcpy} i dati nella memoria pinnata,
+evitando un'ulteriore copia.
+E possibile allocare un determinato indirizzo di memoria nella memoria pinnata tramite la 
+funzione \texttt{mlock} dopo aver eseguito una \texttt{malloc}, poi per liberare la memoria bisognerà usare la
+funzione \texttt{munlock} seguito da \texttt{free}.
+\subsection{Memoria Globale}
+La memoria globale è divisa in banchi con gli indirizzi assegnati ai banchi in modo ciclico, ad
+esempio con 16 banchi:\begin{center}
+    \includegraphics[width=1\textwidth ]{images/banco.png}\end{center}
+    Se due thread accedono a due banchi di memoria diversi l'accesso è istantaneo, se invece accedono allo stesso banco gli accessi saranno serializzati, obbligando uno dei due thread ad aspettare
+che il primo abbia finito. Nel caso venisse però fatto un accesso allo stesso indirizzo da parte
+di più di un thread verrebbe fatta una broadcast del valore.\acc
+Quando viene caricato un valore dalla memoria globale, viene caricato quello che viene chiamato un \text{burst}, cioè un insieme di indirizzi consecutivi a quello caricato e se tutti thread in
+un warp accedono a locazioni di memoria consecutive l'hardware \textbf{”coalesces”} gli accessi, cioè
+li tratta come un unico accesso.\acc
+In base a se l'accesso alla memoria globale è cachato o no cambia anche la dimensione del burst
+che viene caricato (128 byte per cache L1, 32 byte per L2 o memoria globale), per questo in
+alcuni casi potrebbe essere conveniente disattivare la cache L1 se i nostri thread eseguono tutti
+accessi in locazioni lontane tra loro per evitare di caricare molti valori inutili.\flowerLine
+\section{Stima delle Performance}
+Le performance di una GPU si misurano in FLOP/s, cioè operazioni a virgola mobile al secondo.
+Possiamo fare una stima di quanto stiamo saturando l'hardware conoscendo la banda della
+memoria globale e il massimo numero di FLOP/s della GPU.
+\subsubsection{Esempio}
+Se abbiamo una GPU con memoria globale con banda di 200GB/s e carichiamo degli interi
+(4 bytes), possiamo caricare al massimo 50G operandi al secondo. Se eseguiamo una sola
+operazione con ogni operando, possiamo eseguire 50GFLOP/s, che paragonata al massimo della
+GPU (ad esempio 1500GFLOP/s) ci dà una stima di quanto stiamo saturando l'hardware, in
+questo caso:
+$$ \frac{50GFLOP/s}{1500GFLOP/s}=3.3\%$$
+Per riuscire a saturare al massimo la GPU dovremmo fare:
+$$ \frac{1500GFLOP/s}{50GFLOP/s}=30$$quindi 30 operazioni per ogni operando caricato.
+\subsection{Roofline Model}
+Il Roofline model è un grafico che mostra le performance massime di una GPU basandosi
+sulla banda della memoria globale e il massimo di FLOP/s della GPU. Il grafico ha questa
+forma:
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/roofline.png}\end{center}
+    Nel grafico viene mostrato il bound dovuto alla banda della memoria globale (la riga obliqua)
+e il bound dovuto alla massima potenza della GPU stessa, ogni programma che viene eseguito
+su questa GPU sarà sempre al di sotto della riga.
+\subsection{MPI e CUDA}
+Se abbiamo più di una GPU che lavorano insieme, si utilizza solitamente MPI, associando ad
+ogni GPU un processo MPI, per poter passare i dati da una GPU all'altra. Come venga fatto
+dipende dal fatto se MPI sia \textbf{GPU-aware}:\begin{itemize}
+    \item MPI GPU-aware: si può accedere al buffer della GPU direttamente, quindi i puntatori
+    ad una locazione di memoria della GPU possono essere usati nelle chiamate MPI.
+    \item MPI non GPU-aware: bisogna trasferire i dati dalla memoria della GPU a quella dell'host
+    prima di essere mandati al processo MPI associato all'altra GPU, che li copierà nella
+    memoria della propria GPU.
+\end{itemize}
 \end{document}
