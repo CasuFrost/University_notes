@@ -3154,6 +3154,43 @@ inizi ad eseguire il for prima che tutti i warp nel blocco abbiano caricato i va
 condivisa, per risolvere bisogna usare una barriera, che si scrive:\begin{center}
     \code{\_\_syncthreads();}
 \end{center}
+La shared memory è divisa in banchi con gli indirizzi assegnati ai banchi in modo ciclico, ad
+esempio con 16 banchi:\begin{center}
+    \includegraphics[width=1\textwidth ]{images/banco.png}\end{center}
+\subsection{Constant Memory}
+La \textbf{memoria costante} è una memoria on-chip che può contenere esclusivamente valori costanti definiti dall'host, su cui i cuda CORE possono accedere esclusivamente in lettura, supporta inoltre una specifica funzione di condivisione di un valore a tutti i thread di un warp.
+Si considerino i seguenti scenari:\begin{itemize}
+    \item dei dati sono salvati in memoria globale \begin{itemize}
+        \item tutti i warp richiedono lo stesso segmento dalla memoria globale 
+        \item il segmento viene (quando richiesto per la prima volta) caricato in cache L2 
+        \item con alta probabilità altri dati passeranno per la cache, e gli stessi dati richiesti dai warp dovranno essere trasferiti dalla memoria globale più volte 
+    \end{itemize}
+    \item dei dati sono salvati nella memoria costante\begin{itemize}
+        \item durante la prima richiesta di warp, i dati vengono copiati in una cache speciale della memoria costante 
+        \item poiché c'è meno traffico nella constant-cache, ci sono buone probabilità che tutti gli altri
+        warp troveranno i dati già nella cache
+    \end{itemize}
+\end{itemize}
+
+
+
+
+\subsection{Global Memory}
+Se due thread accedono a due banchi di memoria diversi (nella memoria globale) l'accesso è istantaneo, se invece accedono allo stesso banco gli accessi saranno serializzati, obbligando uno dei due thread ad aspettare
+che il primo abbia finito. Nel caso venisse però fatto un accesso allo stesso indirizzo da parte
+di più di un thread verrebbe fatta una broadcast del valore.\acc
+Quando viene caricato un valore dalla memoria globale, viene caricato quello che viene chiamato un \text{burst}, cioè un insieme di indirizzi consecutivi a quello caricato e se tutti thread in
+un warp accedono a locazioni di memoria consecutive l'hardware esegue degli 
+accessi \textbf{coalizzati}, cioè
+li tratta come un unico accesso.\acc
+In base a se l'accesso alla memoria globale è cachato o no cambia anche la dimensione del burst
+che viene caricato (128 byte per cache L1, 32 byte per L2 o memoria globale), per questo in
+alcuni casi potrebbe essere conveniente disattivare la cache L1 se i nostri thread eseguono tutti
+accessi in locazioni lontane tra loro per evitare di caricare molti valori inutili.
+
+
+
+
 \subsection{Memoria Pinnata}
 I trasferimenti di dati tra CPU e GPU vengono fatti attraverso un \textbf{DMA (Direct Memory
 Access)} che è una parte di hardware specializzata nel mandare dati richiesti dal sistema operativo e che permette di liberare la CPU per fare altri task.
@@ -3170,20 +3207,7 @@ evitando un'ulteriore copia.
 E possibile allocare un determinato indirizzo di memoria nella memoria pinnata tramite la 
 funzione \texttt{mlock} dopo aver eseguito una \texttt{malloc}, poi per liberare la memoria bisognerà usare la
 funzione \texttt{munlock} seguito da \texttt{free}.
-\subsection{Memoria Globale}
-La memoria globale è divisa in banchi con gli indirizzi assegnati ai banchi in modo ciclico, ad
-esempio con 16 banchi:\begin{center}
-    \includegraphics[width=1\textwidth ]{images/banco.png}\end{center}
-    Se due thread accedono a due banchi di memoria diversi l'accesso è istantaneo, se invece accedono allo stesso banco gli accessi saranno serializzati, obbligando uno dei due thread ad aspettare
-che il primo abbia finito. Nel caso venisse però fatto un accesso allo stesso indirizzo da parte
-di più di un thread verrebbe fatta una broadcast del valore.\acc
-Quando viene caricato un valore dalla memoria globale, viene caricato quello che viene chiamato un \text{burst}, cioè un insieme di indirizzi consecutivi a quello caricato e se tutti thread in
-un warp accedono a locazioni di memoria consecutive l'hardware \textbf{”coalesces”} gli accessi, cioè
-li tratta come un unico accesso.\acc
-In base a se l'accesso alla memoria globale è cachato o no cambia anche la dimensione del burst
-che viene caricato (128 byte per cache L1, 32 byte per L2 o memoria globale), per questo in
-alcuni casi potrebbe essere conveniente disattivare la cache L1 se i nostri thread eseguono tutti
-accessi in locazioni lontane tra loro per evitare di caricare molti valori inutili.\flowerLine
+\flowerLine
 \section{Stima delle Performance}
 Le performance di una GPU si misurano in FLOP/s, cioè operazioni a virgola mobile al secondo.
 Possiamo fare una stima di quanto stiamo saturando l'hardware conoscendo la banda della
@@ -3216,4 +3240,93 @@ dipende dal fatto se MPI sia \textbf{GPU-aware}:\begin{itemize}
     prima di essere mandati al processo MPI associato all'altra GPU, che li copierà nella
     memoria della propria GPU.
 \end{itemize}
-\end{document}
+\flowerLine 
+\section{Tiling}
+Si consideri il problema della moltiplicazione fra matrici, dove l'elemento $(i,j)$ della matrice risultante è dato dal prodotto scalare del vettore riga $i$ della prima matrice con il vettore colonna $j$ della seconda matrice.\acc 
+Si può rappresentare graficamente come mostrato nella seguente figura\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/matrixMult.png}\end{center}
+Una semplice implementazione è la seguente
+\begin{lstlisting}[style=CStyle]
+__global__ void MatrixMulKernel (float* M, float* N, float* P,int Width) {
+    // Calculate the row index of the P element and M
+    int Row=blockIdx.y*blockDim.y+threadIdx.y;
+    // Calculate the column index of P and N
+    int Col=blockIdx.x*blockDim.x+threadIdx.x;
+    if ((Row < Width) && (Col < Width)) {
+        float Pvalue=0;
+        // each thread computes one element of the block sub-matrix
+        for (int k=0; k < Width; ++k) 
+            Pvalue += M[Row*Width+k] *N[k*Width+Col];
+        P[Row*Width+Col]=Pvalue;
+    }                          
+}
+\end{lstlisting}
+In questo modo ogni thread si occupa di un elemento della matrice risultante. Si consideri la decima linea di codice\\\texttt{Pvalue += M[Row*Width+k] *N[k*Width+Col];} \\
+Essa coinvolge due accessi in memoria globale, uno per la matrice \texttt{M} ed uno per la matrice \texttt{N}, inoltre coinvolge due operazioni, un'addizione ed una moltiplicazione.\begin{itemize}
+    \item per ogni operando coinvolto si esegue un'operazione in virgola mobile
+    \item si accede a due valori per le due matrici composte da \texttt{float} (8 byte) quindi l'intensità di operazioni aritmetiche è di 8$\frac{\text{FLOP}}{\text{byte}}$.
+\end{itemize}
+Si vuole sfruttare la shared memory per aumentare il numero di operazioni in virgola mobile per byte.\acc 
+Assumiamo che la dimensione dei blocchi logici della struttura di CUDA sia $2\times 2$, quindi un blocco contiene 4 thread, ed assumiamo che le matrici coinvolte siano $4\times 4$\begin{center}
+    \includegraphics[width=0.35\textwidth ]{images/2x2block.png}\end{center}
+Ci sono 4 blocchi = 16 thread, un thread per ogni elemento della matrice. È necessria un'osservazione\begin{itemize}
+    \item il thread che si occupa dell'elemento $(0,0)$ accede alla riga $0$ di $M$ e alla colonna $0$ di $N$
+    \item il thread che si occupa dell'elemento $(1,0)$, è contenuto nello stesso blocco del thread precedente, ed accede alla riga $1$ di $M$ e alla colonna $0$ di 
+    \item il thread che si occupa dell'elemento $(0,1)$, è contenuto nello stesso blocco del thread precedente, ed accede alla riga $0$ di $M$ e alla colonna $1$ di $N$
+    \item  il thread che si occupa dell'elemento $(1,1)$, è contenuto nello stesso blocco del thread precedente, ed accede alla riga $1$ di $M$ e alla colonna $1$ di $N$
+\end{itemize}
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.28\textwidth ]{images/tiling1.png} & I thread di uno stesso blocco \textbf{accedono contemporaneamente ad elementi in comune}, in particolare, una stessa riga (o una stessa colonna) deve sempre essere acceduta da due thread di uno stesso blocco. Essendo che i thread di uno stesso blocco condividono la shared memory, è opportuno far si che un thread si occupi di caricare una riga (o colonna) sulla shared memory, mentre l'altro può limitarsi a leggerla da quest'ultima, riducendo il traffico sulla memoria globale. Più i blocchi sono grandi, più il traffico può essere ridotto.
+		\\
+	\end{tabular}\\
+    \includegraphics[width=0.6\textwidth ]{images/tiling2.png}\end{center}
+Il \textbf{tiling} è una tecnica fondamentale nell'elaborazione di matrici, specialmente quando si tratta di operazioni complesse come la moltiplicazione. L'idea di base è dividere le matrici in blocchi più piccoli, chiamati "tiles" (o "mattoni"), per semplificare l'elaborazione e ottimizzare le prestazioni.
+\begin{center}
+	\begin{tabular}{>{\centering\arraybackslash}m{3in}>{\arraybackslash}m{3in}}
+        \includegraphics[width=0.3\textwidth ]{images/tiling3.png} & Per la prima tile della matrice, ogni thread carica una riga dalla prima tile di $M$ ed una colonna dalla prima tile di $N$ dalla memoria globale alla shared memory, si esegue poi una \texttt{\_\_syncthreads()}, a questo punto i thread eseguiranno il prodotto riga per colonna avendo tutti i valori necessari nella shared memory.
+		\\
+	\end{tabular}\end{center}\begin{center}
+\includegraphics[width=0.6\textwidth ]{images/tiling4.png}
+\end{center}
+In seguito è riportata l'implementazione della moltiplicazione fra matrici che incorpora il tiling per ridurre gli accessi in memoria.\newpage
+\begin{lstlisting}[style=CStyle]
+__global__ void MatrixMulKernel(float* M, float* N, float* P,int Width){
+    __shared__ float Mds[TILE_WIDTH][TILE_WIDTH];
+    __shared__ float Nds[TILE_WIDTH][TILE_WIDTH];
+
+    int bx = blockIdx.x; int by = blockIdx.y;
+    int tx = threadIdx.x; int ty = threadIdx.y;
+
+    // Identifica la riga e la colonna dell'elemento d_P su cui lavorare
+    int Row = by * TILE_WIDTH + ty;
+    int Col = bx * TILE_WIDTH + tx;
+
+    float Pvalue = 0;
+
+    // Ciclo sui tile d_M e d_N necessari per calcolare l'elemento d_P
+    for (int ph = 0; ph < Width / TILE_WIDTH; ++ph) {
+        // Caricamento collaborativo dei tile d_M e d_N nella memoria condivisa
+        Mds[ty][tx] = d_M[Row * Width + ph * TILE_WIDTH + tx];
+        Nds[ty][tx] = d_N[(ph * TILE_WIDTH + ty) * Width + Col];
+
+        __syncthreads(); // Sincronizzazione dei thread del blocco
+
+        // Moltiplicazione dei tile e accumulo del risultato parziale
+        for (int k = 0; k < TILE_WIDTH; ++k) 
+            Pvalue += Mds[ty][k] * Nds[k][tx];
+        __syncthreads(); // Sincronizzazione dei thread del blocco
+    }
+
+    // Scrittura del risultato finale nella memoria globale
+    d_P[Row * Width + Col] = Pvalue;
+}
+\end{lstlisting}
+
+
+
+
+
+
+
+\end{document} 
