@@ -41,9 +41,13 @@ Dipartimento di Informatica
 \newpage
 \pagecolor{cartaRiciclata}%\setmainfont{Algerian}
 \large
-Questo documento è distribuito sotto la licenza 
-\color{blue}\href{https://www.gnu.org/licenses/fdl-1.3.txt}{GNU}\color{black},  
-è un resoconto degli appunti (eventualmente integrati con libri di testo) tratti dalle lezioni del corso di Programmazione di Sistemi Multicore
+Copyright (c)  2024  Marco Casu.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the \color{blue}\href{https://www.gnu.org/licenses/fdl-1.3.txt}{GNU Free Documentation License}\color{black}, Version 1.3
+    or any later version published by the Free Software Foundation;
+    with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+    \acc
+Questo documento è un resoconto degli appunti (eventualmente integrati con libri di testo) tratti dalle lezioni del corso di Programmazione di Sistemi Multicore
 \hphantom{a}per la laurea 
 triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 \vfill
@@ -396,7 +400,7 @@ Nella chiamata \code{MPI\_Recv}, i campi \code{source} e \code{tag} possono esse
 \flowerLine 
 \section{Design di Programmi Paralleli}
 Data la specifica di un programma, quali sono le regole da seguire per partizionare il carico di lavoro fra i vari 
-processi? Non esistono delle regole adatte ad ogni evenienza, ma è è stata definita una metodologia largamente generica, 
+processi? Non esistono delle regole adatte ad ogni evenienza, ma  è stata definita una metodologia largamente generica, 
 la \textbf{Foster's methodology}.
 \begin{figure}[h!]
     \centering
@@ -720,7 +724,7 @@ colui che condivide il valore, in \code{data\_p} sarà presente il valore condiv
 sarà presente il valore ricevuto.\acc 
 Esempio di funzione per leggere input da tastiera 
 \begin{lstlisting}[style=CStyle]
-    void Get_input(int my_rank, a, int b, int n){
+    void Get_input(int my_rank, int a, int b, int n){
         if(my_rank==0){
             printf("enter input:\n");
             scanf("%d %d %d", &a, &b, &n);
@@ -855,7 +859,7 @@ del codice e farne la differenza.
     start=MPI_Wtime();
     /*codice*/
     finish=MPI_Wtime();
-    printf("%d",finish-start);
+    printf("%lf",finish-start);
 \end{lstlisting}
 Ogni processo, seguirà un evoluzione dello stesso codice differente, e 
 non contemporanea fra gli altri. Se verrà calcolato il tempo 
@@ -1181,9 +1185,7 @@ Una matrice allocata dinamicamente come un unico array può essere soggetta alle
     \includegraphics[width=0.8\textwidth]{images/matrixDeclaration2.eps}
 \end{center}
 \subsubsection{Prodotto fra Vettori e Matrici}
-Come visto nel corso di 
-\color{blue}\href{https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Primo%20Semestre/Algebra/Latex%20source%20file/Algebra.pdf}{Algebra}\color{black}, 
-il prodotto scalare fra due vettori è definito come segue 
+Il prodotto scalare fra due vettori è definito come segue 
 $$ \begin{bmatrix}
     a_1&a_2&\dots&a_n
 \end{bmatrix}\cdot \begin{bmatrix}
@@ -1266,9 +1268,9 @@ struct t{
     int n
 };
 \end{lstlisting}
-Cosa va definito nel capo \code{data\_type} quando si 
-intente inviare tramite una funzione MPI una struttura? 
-MPI permette di creare dei tipi custom, è possibili 
+Cosa va definito nel campo \code{data\_type} quando si 
+intende inviare tramite una funzione MPI una struttura? 
+MPI permette di creare dei tipi custom, è possibile
 definire \textbf{tipi derivati}, che equivalgano (in quanto 
 disposizione in memoria) alla struct in questione. Un tipo 
 derivato non è altro che una sequenza di 
@@ -1472,20 +1474,19 @@ Nel seguente esempio, ogni thread viene bloccato in un ciclo finché la variabil
 diventa uguale al loro rank. A seguito dell'utilizzo dovranno incrementare la variabile per permettere 
 al prossimo thread di accedere.
 \begin{lstlisting}[style=CStyle]
-while(flag!=my_rank){
-    x+=1;
-    flag++;
-}
+while(flag!=my_rank);
+x+=1;
+flag++;
 \end{lstlisting}
 Il busy waiting, seppur semplice nella sua implementazione, comporta svantaggi difficilmente trascurabili\begin{itemize}
     \item un processo in attesa occuperà inutilmente la CPU comportando uno spreco di computazione 
-    \item Il compilatore, se nota un indipendenza apparente fra due istruzioni, potrebbe invertirne l'ordine, ad esempio, 
+    \item Il compilatore, se nota un'indipendenza apparente fra due istruzioni, potrebbe invertirne l'ordine, ad esempio, 
     trasformando il codice come segue
 \end{itemize}
 \begin{lstlisting}[style=CStyle]
 x+=1;
-while(flag!=my_rank) /* sequenza di istruzioni errata */
-    flag++;
+while(flag!=my_rank); /* sequenza di istruzioni errata */
+flag++;
 \end{lstlisting}
 Tale riarrangiamento è parte di una serie di ottimizzazioni che fa il compilatore. Disattivare tali ottimizzazioni 
 comporterebbe un uso meno efficiente dei registri per tutte le altre istruzioni.\acc 
@@ -1540,7 +1541,7 @@ rilasciare a*/
 In termini di prestazioni il Mutex mostra performance più elevate rispetto il busy 
 waiting quando il numero di thread 
 è superiore al numero di core fisici, si osservi la seguente tabella che riporta i tempi 
-impiegati (in secondi) per stimare il valore di $\pi$ su una macchiana con 8 core.\begin{center}
+impiegati (in secondi) per stimare il valore di $\pi$ su una macchina con 8 core.\begin{center}
     \begin{tabular}{c|c|c}
         \rowcolor[HTML]{FFFFC7} 
         num. thread & busy waiting & mutex \\ \hline
@@ -1587,9 +1588,8 @@ di 1.\begin{center}
 \end{center}
 Con \textbf{barriera} si intende un costrutto che viene inserito in un certo punto del codice, in cui 
 ogni thread che lo esegue, per poter continuare l'esecuzione oltre tale punto deve attendere che ogni altro thread 
-vi sia arrivato, serve a risincronizzare l'esecuzione dei thread facendoli ripartire da un punto comune. Un tipico esempio 
-può essere quello di voler far noto in fase di debug che tutti thread hanno raggiunto un certo punto 
-del codice.
+vi sia arrivato, serve a ri-sincronizzare l'esecuzione dei thread facendoli ripartire da un punto comune. Un tipico esempio 
+può essere quello di voler far noto in fase di debug che tutti thread abbiano raggiunto un certo punto del codice.
 \begin{lstlisting}[style=CStyle]
     /*punto comune del programma*/
     barriera;
@@ -1647,7 +1647,7 @@ In seguito, l'implementazione di una barriera con delle variabili di condizione.
     pthread_cond_t cond_var;
     ... 
 
-    void *thread\_function(void *args_p){
+    void *thread_function(void *args_p){
         ... 
         /*barriera*/
         ptrhead_mutex_lock(&mutex);
@@ -1816,7 +1816,7 @@ struct list_node_s{
     pthread_mutex_t mutex;
 }
 \end{lstlisting}
-Questo approccio è più complesso ed appesantisce notevolmente la lista, in quanto ogni nodo occuperà più byte in memoria, in oltre, ad ogni singolo accesso ci sarà un \code{lock} seguito da un \code{unlock}, rallentando significativamente le operazioni. Inoltre, gestire tali sequenze di accessi non è semplice e si può facilmente incombere in deadlock.\acc 
+Questo approccio è più complesso ed appesantisce notevolmente la lista, in quanto ogni nodo occuperà più byte in memoria, inoltre, ad ogni singolo accesso ci sarà un \code{lock} seguito da un \code{unlock}, rallentando significativamente le operazioni, gestire tali sequenze di accessi non è semplice e si può facilmente incombere in deadlock.\acc 
 Nessuna delle soluzioni presentate è ottimale, e sfrutta al meglio i vantaggi del multithreading per l'accesso alle strutture dati condivise. A tal proposito, Pthreads definisce una metodologia di accesso favorevole alla situazione.\acc 
 \defi{} Un \textbf{read-write lock} è una struttura simile ad una mutex, che mette a disposizione \textit{due funzioni} di lock. \acc 
 La prima, esegue il lock di una variabile in lettura, la seconda, esegue il lock  in scrittura, ciò, permette a più thread contemporaneamente di ottenere il lock in lettura di una variabile, finché non c'è alcun nodo che richiede una lock in scrittura.\begin{itemize}
@@ -1922,12 +1922,12 @@ La funzione \code{strtok} ha un funzionamento insolito\begin{enumerate}
 \end{enumerate}
 La funzione mantiene uno \textit{stato interno} sul puntatore del separatore corrente.\acc 
 \textbf{Esempio di utilizzo} : Si chiama \code{strtok} con separatore " " (spazio vuoto) su input \begin{center}
-    \texttt{ciao come stai}
+    \texttt{live and learn}
 \end{center}
 \begin{itemize}
-    \item Prima chiamata \code{strtok(string, " ")} ritorna "\texttt{ciao}".
-    \item Seconda chiamata \code{strtok(string, NULL)} ritorna "\texttt{come}".
-    \item Terza chiamata \code{strtok(string, NULL)} ritorna "\texttt{stai}".
+    \item Prima chiamata \code{strtok(string, " ")} ritorna "\texttt{live}".
+    \item Seconda chiamata \code{strtok(string, NULL)} ritorna "\texttt{and}".
+    \item Terza chiamata \code{strtok(string, NULL)} ritorna "\texttt{learn}".
 \end{itemize}
 Ad ogni chiamata utilizza lo stato del puntatore per ottenere il token successivo. La funzione \textbf{non è thread safe}, lo stato che mantiene è globale (il puntatore è condiviso e non privato) e tutti i thread che la chiamano operano sullo stesso puntatore, se più thread la chiamano simultaneamente, potrebbe non funzionare correttamente.\acc 
 Esistono altre funzioni della libreria standard del C che non sono thread safe\begin{itemize}
@@ -1965,15 +1965,15 @@ void* thread_func(void *args){
 }
 \end{lstlisting}
 \chapter{Richiamo di Architetture}
-Questo capitolo (decisamente ridotto rispetto agli altri) richiama i concetti base delle architetture degli elaboratori, espandedo il campo alle CPU multicore.
+Questo capitolo (decisamente ridotto rispetto agli altri) richiama alcuni concetti base delle architetture degli elaboratori, espandedo il campo alle CPU multicore.
 \section{Caching}
 La \textit{Cache} è una memoria aggiuntiva posta "in vicinanza" del processore in modo che gli accessi ad essa siano più rapidi rispetto gli accessi alla memoria principale. Tipicamente, la cache è saldata sullo stesso chip della CPU, ed è costruita su una tecnologia più rapida (SRAM) rispetto la memoria principale (DRAM), è de facto anche più costosa e ha molti più transistor, quindi le sue dimensioni sono ridotte.\acc 
 La cache si basa sul principio di località spaziale e temporale, è un principio empirico, riguarda l'assunzione che\begin{itemize}
-    \item Se si accede ad un'area di memoria, nel futuro prossimo si accederà ad areee di memoria adiacenti 
+    \item Se si accede ad un'area di memoria, nel futuro prossimo si accederà ad aree di memoria adiacenti 
     \item Se si accede ad un'area di memoria, nel futuro prossimo si accederà nuovamente ad essa 
 \end{itemize}
 Quando si accede ad un blocco di memoria quest'ultimo (ed eventualmente qualche blocco a lui adiacente) viene trasferito nella cache, per il principio di località, un accesso prossimo ridurrà notevolmente i tempi in quanto verrà eseguito sulla cache piuttosto che sulla memoria principale.\begin{quotation}
-    L'accesso in cache richiede un tempo di alcuni ordini di grandezza inferiore rispetto l'accesso in memoria
+    L'accesso in cache richiede un tempo di alcuni ordini di grandezza inferiore rispetto l'accesso in memoria principale
 \end{quotation}
 \textbf{Esempio}: In un array \code{z=malloc(sizeof(int)*16)}, quando si accede all'elemento \code{z[0]}, anche gli altri elementi fino a \code{z[15]} saranno trasferiti nella cache.
 \subsection{Livelli della Cache}
@@ -2010,7 +2010,7 @@ Ci sono due meccanismi per mantenere la cache coerente\begin{itemize}
         \item Vantaggi: Questo metodo è più scalabile rispetto allo snooping, in quanto evita il broadcast indiscriminato su un bus condiviso. È particolarmente adatto per sistemi multi-core con un gran numero di processori.
     \end{itemize}
 \end{itemize}
-\subsection{False Sharing}
+\subsection{False Sharing}\label{falseSharing}
 Il \textbf{false sharing} è una problematica comune che degrada le prestazioni, può sorgere nelle architetture multicore quando più thread, eseguiti in parallelo, accedono a dati che, pur essendo logicamente distinti, risiedono fisicamente sullo stesso blocco della cache.\acc 
 Il problema sottopone i dati a \textbf{invalidazioni inutili}, Se due thread accedono a dati diversi che si trovano sulla stessa linea (o blocco) di cache, ogni modifica di un dato da parte di un thread causerà l'invalidazione dell'intera linea di cache per tutti gli altri thread che condividono quella linea. Questo comporta un overhead in termini di prestazioni, poiché i dati validi vengono scartati inutilmente.\begin{quote}
     \textit{Esempio} : Si considerino due thread che incrementano due contatori distinti. Se questi contatori sono allocati in modo tale da risiedere sulla stessa linea di cache, ogni incremento di un contatore comporterà l'invalidazione dell'intera linea, anche se l'altro contatore non è stato modificato
@@ -2249,7 +2249,7 @@ void function(int a){
 Si vogliono parallelizzare le iterazioni (indipendenti) dei blocchi ciclici nel C, queste ultime sono spesso le operazioni più dispendiose, rendendo favorevole una loro parallelizzazione. OpenMP è in grado di parallelizzare esclusivamente i cicli \code{for}, è assolutamente necessario che il numero di iterazioni totali sia noto a priori. La direttiva \begin{quote}
     \code{\#pragma omp parallel for}
 \end{quote}
-permette di parallelizzare un ciclo for, facendo si che ogni thread si occuperà di un sottoinsieme delle iterazioni totali. Un ciclo for per essere parallelizzato deve avere la seguente struttura 
+permette di parallelizzare un ciclo for, facendo si che ogni thread si occuperà di un sottoinsieme delle iterazioni totali. Un ciclo for per essere parallelizzato si deve attenere alla seguente struttura 
 $$ \texttt{for}\begin{pmatrix}
     &&\texttt{index++}\\ 
     &&\texttt{++index}\\ 
@@ -2349,6 +2349,7 @@ In questo caso la distribuzione dei cicli è ottimale (il più uniforme possibil
 \begin{center}
     \includegraphics[width=0.6\textwidth ]{images/cicliAnnidati4.pdf}
 \end{center}
+Si noti come in quest'ultima soluzione sono necessarie 5 iterazioni totali per completare il lavoro, dove invece nelle soluzioni precedenti (meno uniformi) ne erano necessarie 6.
 OpenMP fornisce una clausola per collassare automaticamente due cicli for annidati in uno singolo, ossia  
 \begin{quote}
     \code{collapse(f)}
@@ -2503,7 +2504,7 @@ x[N-1]=x[N-1]+c[N-1];
 \end{lstlisting}
 Riscrivendo il ciclo in questo modo si sono rimosse le dipendenze fra diverse iterazioni, ed il ciclo può essere parallelizzato.
 \subsubsection{3) Parallelizzazione parziale}
-Questa metodologia è la più semplice, consiste nell'individuare le iterazioni indipendenti tramite la costruzione di un grafo., si consideri il seguente ciclo annidato 
+Questa metodologia è la più semplice, consiste nell'individuare le iterazioni indipendenti tramite la costruzione di un grafo, si consideri il seguente ciclo annidato 
 \begin{lstlisting}[style=CStyle]
 for(int i = 1; i < N; i++){
     for(int j = 1; j < M; j++){
@@ -2579,7 +2580,7 @@ $$F_n=\frac{\varphi^n-(1-\varphi)^n}{\sqrt{5}} \ \ \ \  \text{ dove } \ \ \ \ \f
 fibo[0]=fibo[1]=1;
 #pragma omp parallel for 
 for(int i=2;i < N;i++){
-    fibo[i]=(exp(phi,n)-exp(1-phi,n))/sqrt(5);
+    fibo[i]=(pow(phi,n)-pow(1-phi,n))/sqrt(5);
 }
 \end{lstlisting}
 \subsection{Rimozione di dipendenze WAR e WAW}
@@ -2616,36 +2617,173 @@ for(int i = 0; i < N; i++){
     d=fabs(y[i]);   //S2
 }
 \end{lstlisting}
-\redText{Attenzione : le pagine successive, riguardanti gli ultimi argomenti di openMP sono una bozza temporanea.}
-\section{Schedluing Loops e Costrutti di Programmazione}
-\includepdf[pages=-]{openMP_finalpart.pdf}
+\flowerLine
+\section{Schedluing Loops}
+Consideriamo la seguente funzione 
+\begin{lstlisting}[style=CStyle]
+double f(int i){
+    int j, start = i*(i+1)/2, finish = start + i;
+    double return val = 0.0;
+    for(j=start; j<= finish; j++)
+        return_val+=sin(j);
+    return return_val;
+}
+\end{lstlisting}
+La complessità della funzione è lineare nelle dimensioni dell'input. Consideriamo il ciclo for 
+\begin{lstlisting}[style=CStyle]
+double sum = 0.0;
+for(i=0;i<=n;i++)
+    sum+=f(i);
+\end{lstlisting}
+se dovessimo parallelizzare le \texttt{n} iterazioni, come verrebbero assegnate ai differenti thread nell'effettivo?
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/schedulingLoops.png}
+\end{center}
+Se venissero partizionati come nel caso di sinistra (che è lo scheduling di default adottato da openMP), il carico di lavoro sarebbe sbilanciato, dato che i thread con numero di rank maggiore eseguiranno le ultime iterazioni, che data la struttura della funzione \texttt{f(i)}, sono più dispendiose dal punto di vista computazionale, è quindi preferibile una \textit{partizione ciclica} come nel caso mostrato a destra. È possibile specificare ad openMP la modalità di partizionamento con la clausola \texttt{schedule}
+\begin{lstlisting}[style=CStyle]
+double sum = 0.0;
+#pragma omp parallel for reduction(+:sum) schedule(static, 1)
+for(i=0;i<=n;i++)
+    sum+=f(i);
+\end{lstlisting}
+La modalità di schedule può essere\begin{itemize}
+    \item \textbf{statica} : le iterazioni sono assegnate ai thread prima dell'esecuzione del ciclo 
+    \item \textbf{dinamica/guidata} : l'assegnazione avviene dureante l'esecuzione del ciclo 
+    \item \textbf{auto} : l'assegnazione è determinata dal compilatore/sistema operativo 
+\end{itemize}
+Il numero specificato nella clausola \texttt{schedule}, detto \textbf{chunk size} indica il numero di iterazioni contenute in un gruppo che verrà poi partizionato in maniera ciclica, ad esempio, con 3 thread e 12 iterazioni si ha:\acc
+    \texttt{schedule(static,1)}\\ 
+    \indent\indent Thread 0 : 0,3,6,9\\
+    \indent\indent Thread 1 : 1,4,7,10\\
+    \indent\indent Thread 2 : 2,5,8,11\acc
+    \texttt{schedule(static,2)}\\ 
+    \indent\indent Thread 0 : 0,1,6,7\\
+    \indent\indent Thread 1 : 2,3,8,9\\
+    \indent\indent Thread 2 : 3,4,10,11\acc
+    \texttt{schedule(static,4)}\\ 
+    \indent\indent Thread 0 : 0,1,2,3\\
+    \indent\indent Thread 1 : 4,5,6,7\\
+    \indent\indent Thread 2 : 8,9,10,11\acc
+Nello scheduling \textbf{dinamico}, ad ogni thread viene assegnato un gruppo (o chunk) di iterazioni, una volta che lo ha terminato, richiederà il prossimo al sistema operativo, la pianificazione dell'assegnazione è quindi più dispendiosa in quanto avviene in fase di esecuzione, ma comporta un miglior bilanciamento del carico. La variante \textbf{guidata} è identica, ma ogni volta che un thread richiede un nuovo chunk, il numero di iterazioni per chunk viene diminuito.
+\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/guidedSchedule.png}
+\end{center}
+Lo scheduling può anche essere deciso in fase di esecuzione modificando la variabile d'ambiente \texttt{OMP\_SCHEDULE}, ad esempio\acc 
+\shell{export OMP\_SCHEDULE = "static, 1"}
+\acc Riassumendo:\begin{itemize}
+    \item se il costo di ogni iterazione è omogeneo è sufficiente schedulare le iterazioni in maniera statica 
+    \item se il costo di ogni iterazione può variare è opportuno impostare uno scheduling dinamico/guidato 
+    \item in ogni caso è opportuno provare differenti soluzioni
+\end{itemize}
+Riguardo l'ordine delle iterazioni, esiste la clausola \texttt{ordered} che può essere specificata all'interno di un for parallelo, questa fa si che il blocco di codice che la segue verrà eseguito in ordine sequenziale (dalla prima all'ultima iterazione).
+\begin{lstlisting}[style=CStyle]
+#pragma omp parallel for ordered schedule(static,1)
+for(int i = 0; i < N; i++){
+    //processamento dei dati 
+    //...
+    //print dei risultati in ordine 
+    #pragma omp ordered 
+    cout<< data[i];
+}
+\end{lstlisting}
+\flowerLine
+\section{Argomenti Extra sulle Sezioni Critiche}
+È possibile \textit{denominare} una sezione critica in openMP\begin{center}
+    \texttt{\# pragma omp critical (nome)}
+\end{center}
+Tale direttiva crea una sezione critica specifica con il nome fornito. Ogni sezione critica con nome ha il suo blocco. Questo permette ai thread di entrare in sezioni critiche con nomi diversi contemporaneamente senza bloccarsi a vicenda, aumentando il parallelismo.\acc 
+Vantaggi delle Sezioni Critiche con Nome:\begin{itemize}
+\item Maggiore Parallelismo: Permette l'accesso concorrente a diverse risorse protette, migliorando le prestazioni complessive.
+\item Contesa Ridotta : Evita che i thread si blocchino a vicenda inutilmente quando accedono a risorse indipendenti.
+\item  Migliore Organizzazione del Codice: Rende più chiaro quale sezione critica protegge quale risorsa, migliorando la leggibilità e la manutenibilità del codice.
+\end{itemize}
+OpenMP fornisce un costrutto di lock per accedere in maniera sequenziale ad una sezione di codice
+\begin{lstlisting}[style=CStyle]
+omp_lock_t writelock;
+omp_init_lock(&writelock);
+#pragma omp parallel for
+for (i = 0; i < x; i++) {
+    // some stuff
 
+    omp_set_lock(&writelock);
+    // one thread at a time stuff
 
+    omp_unset_lock(&writelock);
+    // some stuff
+}
+omp_destroy_lock(&writelock);
+\end{lstlisting}
+Per le sezioni critiche è meglio utilizzare \texttt{critical}, \texttt{atomic} oppure le lock?\begin{enumerate}
+    \item  In generale, la direttiva \texttt{atomic} è potenzialmente il metodo più veloce per ottenere la
+    mutua esclusione
+    \item Se un blocco di codice consiste in più istruzioni macchina è meglio utilizzare la direttiva \texttt{critical} (potrebbe dipendere dall'implementazione)
+    \item  L'uso dei lock dovrebbe probabilmente essere riservato a situazioni in cui la mutua
+    esclusione è necessaria per una struttura di dati piuttosto che per un blocco di codice 
+\end{enumerate}
+\subsection{Sezioni Parallele}
+Le direttive \texttt{master} e \texttt{single} in OpenMP sono strumenti utili per controllare l'esecuzione di specifiche sezioni di codice all'interno di un costrutto parallelo.  Entrambe limitano l'esecuzione di un blocco di codice a un singolo thread, ma lo fanno in modi leggermente diversi.\begin{itemize}
+    \item La direttiva \texttt{master} specifica che il blocco di codice associato deve essere eseguito solo dal thread master del team di thread. Il thread master è il thread che ha iniziato la regione parallela.
+    \item La direttiva \texttt{single} specifica che il blocco di codice associato deve essere eseguito da uno qualsiasi dei thread del team, ma solo uno. OpenMP sceglie quale thread eseguirà il blocco single. Non è garantito che sia il thread master. In questo caso inoltre, vi è una barriera implicita al termine del blocco considerato.
+\end{itemize}
+Esiste anche la direttiva \texttt{\#pragma omp barrier} per far si che i thread si risincronizzino in un punto comune.\acc 
+Le direttive \texttt{master} e \texttt{single} precludono ad alcuni thread l'esecuzione di una sezione, esiste anche la direttiva \texttt{\#pragma omp parallel section} che equivale ad uno \texttt{switch} parallelo, ossia permette di specificare ai thread un comporamento diverso da eseguiro in parallelo agli altri.
+\begin{lstlisting}[style=CStyle]
+#pragma omp parallel sections
+{
+    #pragma omp section
+    {
+        // concurrent block 0
+    }
 
+    // ... (altre sezioni)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #pragma omp section
+    {
+        // concurrent block M-1
+    }
+}
+\end{lstlisting}
+\flowerLine 
+\section{Impatto del False Sharing}
+Nella sezione \ref{falseSharing} è stata introdotta la problematica del \textit{false sharing} relativa alle invalidazioni inutili delle linee di cache quando dati logicamente distinti sono vicini in memoria fisica. Una possibile soluzione vista è quella di fare del \textit{padding} sui dati\\ 
+\textbf{senza padding}
+\begin{lstlisting}[style=CStyle]
+double x[N];
+#pragma omp parallel for schedule(static, 1)
+for(int i = 0; i < N; i++)
+    x[i] = someFunc(x[i]);
+\end{lstlisting}
+\textbf{con padding}
+\begin{lstlisting}[style=CStyle]
+double x[N][8];
+#pragma omp parallel for schedule(static, 1)
+for(int i = 0; i < N; i++)
+    x[i][0] = someFunc(x[i][0]);
+\end{lstlisting}
+È una soluzione apparentemente elegante ma comporta uno spreco di memoria e potrebbe rendere inutile l'utilizzo della cache, una possibile soluzione alternativa è quella di cambiare l'accesso ai dati (ad esempio, cambiando lo scheduling) in modo che non ci sia accesso parallelo a sezioni di memoria adiacenti.
+\begin{lstlisting}[style=CStyle]
+double x[N];
+#pragma omp parallel for schedule(static, 8)
+for(int i = 0; i < N; i++)
+    x[i] = someFunc(x[i]);
+\end{lstlisting}
+Una soluzione altrettanto auspicabile riguarda l'utilizzo di variabili private:
+\begin{lstlisting}[style=CStyle]
+double x[N]; //Si assume che N sia un multiplo di 8
+#pragma omp parallel for schedule(static, 1)
+for(int i = 0; i < N; i++){
+    double temp[8];
+    for(int j = 0; j < 8; j++){
+        temp[j] = someFunc(x[i+j]);
+    }
+    memcpy(x+1, temp, 8*sizeof(double));
+}
+\end{lstlisting}
+In questo modo ogni thread parallelamente definirà un'array locale \texttt{temp} fisicamente disgiunto dalle copie private degli altri thread.\acc 
+Il seguente grafico riporta lo speed up di un programma che esegue moltiplicazione fra matrici in funzione dell'ordine della matrice, mostra chiaramente come il false sharing sia deleterio per le prestazioni, va quindi aggirato.
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/falseSharing.eps}
+\end{center}
 \chapter{Programmazione di GPU : CUDA}
 \section{Architettura della GPU}
 I processori ordinari, hanno un architettura dedicata alla \textit{riduzione della latenza} per le singole operazioni.
@@ -2675,7 +2813,7 @@ I singoli blocchi verdi mostrati in figura rappresentano i singoli core, anche d
 \end{quote}
 Due o più SM costituiscono un \textbf{blocco}. Tutti i core possono accedere alla memoria globale condivisa (HBM), anche se per i blocchi è riservata una cache (come nel caso della CPU, questa è trasparente al programmatore).
 \begin{center}
-    \includegraphics[width=\textwidth ]{images/SMblocchiCore.png}
+    \includegraphics[width=\textwidth ]{images/SMblocchiCore2.eps}
 \end{center}\begin{itemize}
     \item la CPU è predisposta al calcolo sequenziale 
     \item la GPU è predisposta al calcolo parallelo
@@ -2781,15 +2919,15 @@ int myID = (blockIdx.z * gridDim.x * gridDim.y +
 \end{lstlisting}
 \subsection{Disposizione dei Thread}
 Abbiamo visto come \begin{itemize}
-   \item Una GPU è composta da più core disposti su un SM, e più SM formano un blocco 
+   \item Una GPU è composta da più core disposti su un SM, e più SM formano un blocco condividendo la cache
    \item I thread di CUDA sono organizzati logicamente in una struttura 6-dimensionale composta da blocchi su una griglia
 \end{itemize}
-\sapbox{\textbf{Attenzione} : I blocchi fisici della GPU (2 o più SM) ed i blocchi logici di CUDA (elementi della griglia) \textit{non sono la stessa cosa}.}
-Ci interessa sapere, come viene mappata la griglia 6-dimensionale nei core fisici della GPU?\begin{itemize}
-    \item ogni core, viene eseguito su un SM 
+\sapbox{\textbf{Attenzione} : I blocchi fisici della GPU (2 o più SM) ed i blocchi logici di CUDA (elementi della griglia) \textit{non sono la stessa cosa}, seppur condividano il nome "blocco".}
+Ci interessa sapere : come viene mappata la griglia 6-dimensionale nei core fisici della GPU?\begin{itemize}
+    \item ogni thread viene eseguito su un core fisico contenuto in un SM 
     \item i core di uno stesso SM condividono la stessa unità di controllo e sono costretti ad eseguire in sincronia le stesse istruzioni 
     \item differenti SM possono eseguire differenti funzioni kernel 
-    \item \textit{Importante} : i thread di uno stesso blocco logico (della struttura di CUDA) vengono assegnati ai core di uno stesso SM, i thread di un blocco non possono essere divisi su thread differenti SM. 
+    \item \textit{Importante} : i thread di uno stesso blocco logico (della struttura di CUDA) vengono assegnati ai core di uno stesso SM, i thread di un blocco non possono essere divisi su CUDA core di differenti SM. 
     \item Quando vanno eseguiti più thread di un blocco, CUDA li schedula tutti su un SM, una volta finito, schedulerà su questa i thread del blocco successivo (se questi vi entrano)
 \end{itemize}
 I thread di uno stesso blocco logico sono ulteriormente raggruppati in \textit{gruppi} chiamati \textbf{warps} (solitamente, un warp contiene 32 thread). I thread di un unico blocco logico vengono divisi su più warps in'accordo con i loro id del blocco. \begin{center}
@@ -2956,11 +3094,11 @@ Perché controllare che l'indice sia minore di $n$? Se il numero di thread non �
 \end{quote}
 \subsection{Tipi di Memoria}
 Ci sono differenti tipi di memoria in una GPU\begin{center}
-    \includegraphics[width=\textwidth ]{images/memoryTypes.png}
+    \includegraphics[width=\textwidth ]{images/memoryTypesAI.png}
 \end{center}
 \begin{itemize}
     \item \textbf{Registri} : classici registri come quelli della CPU, sono privati per ogni thread e servono per contenere le variabili locali sulla quale si eseguono le istruzioni. 
-    \item \textbf{Shared Memory} : è un tipo di memoria separatta dalla VRAM (globale), va gestita dal programmatore in maniera esplicita, e non è trasparente come la cache, nonostante si trovi sullo stesso chip. La particolarità, è che è condivisa fra i core di uno stesso SM, quindi, due processori di un SM dovrebbero comunicare scrivendo sulla shared memory piuttosto che sulla memoria globale. 
+    \item \textbf{Shared Memory} : è un tipo di memoria separata dalla VRAM (globale), va gestita dal programmatore in maniera esplicita, e non è trasparente come la cache, nonostante si trovi sullo stesso chip. La particolarità, è che è condivisa fra i core di uno stesso SM, quindi, due processori di un SM dovrebbero comunicare scrivendo sulla shared memory piuttosto che sulla memoria globale. 
     \item \textbf{Global Memory} : la VRAM di cui si è parlato fin'ora, è la memoria più capiente, condivisa fra tutti i core.
 \end{itemize}
 Le variabili, per essere allocate su una memoria piuttosto che su un'altra, vanno precedute da appositi decoratori.\begin{center}
@@ -2979,8 +3117,8 @@ Il numero di registri disponibili per ogni thread influenza il numero di thread 
 \end{itemize}
 NVIDIA definisce l'\textit{occupancy} come il rapporto fra i warp schedulati su un SM ed il massimo numero possibile di warp schedulabili su un SM.
 $$ occupancy=\frac{\text{numero di warp attuali}}{\text{max numero di warp}}$$
-nell'esempio riportato 
-$$ occupancy = \frac{2\frac{256}{32}}{48}=\frac{16}{48}=33.3\%$$
+nell'esempio riportato, assumendo che un warp contenga 32 thread:
+$$ occupancy =\frac{2\frac{256}{32}}{\frac{1536}{32}}=\frac{16}{48}=33.3\%$$
 quasi due terzi dei thread disponibili non sono utilizzati. L'ideale sarebbe un $occupancy$ del 100\%.
 \subsubsection{Shared Memory}
 La shared memory è una memoria on-chip presente su ogni SM, come già accennato, il suo contenuto è condiviso fra tutti i thread che risiedono su uno stesso SM. L'accesso è rapido quanto quello su una cache L1, in quanto sono costruiti sullo stesso chip, la shared memory è però gestita dall'utente che scrive il programma, ed è logicamente distinta dalla cache. È utilizzabile per\begin{itemize}
@@ -3052,8 +3190,8 @@ Possiamo fare una stima di quanto stiamo saturando l'hardware conoscendo la band
 memoria globale e il massimo numero di FLOP/s della GPU.
 \subsubsection{Esempio}
 Se abbiamo una GPU con memoria globale con banda di 200GB/s e carichiamo degli interi
-(4 bytes), possiamo caricare al massimo 50G operandi al secondo. Se eseguiamo una sola
-operazione con ogni operando, possiamo eseguire 50GFLOP/s, che paragonata al massimo della
+(4 bytes), possiamo caricare al massimo 50G = 50$\cdot 10^9$ operandi al secondo. Se eseguissimo una sola
+operazione con ogni operando, potremmo eseguire 50GFLOP/s, che paragonata al massimo della
 GPU (ad esempio 1500GFLOP/s) ci dà una stima di quanto stiamo saturando l'hardware, in
 questo caso:
 $$ \frac{50GFLOP/s}{1500GFLOP/s}=3.3\%$$
