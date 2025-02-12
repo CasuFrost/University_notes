@@ -844,7 +844,9 @@ L'algoritmo si renderà parallelo, distribuendo equamente il numero di punti da 
         \rowcolor[HTML]{ECF4FF} 
         \multicolumn{1}{l|}{\cellcolor[HTML]{ECF4FF}1000000}               & 3.143736                                                         \\
         \rowcolor[HTML]{DAE8FC} 
-        \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}100000000}             & 3.141725                                                        
+        \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}100000000}             & 3.141725                                                        \\
+        \rowcolor[HTML]{DAE8FC} 
+        \multicolumn{1}{l|}{\cellcolor[HTML]{DAE8FC}1000000000}             & 3.141521                                                        
         \end{tabular}
 \end{center}\normalsize 
 \flowerLine 
@@ -2575,9 +2577,10 @@ for(int i = 1;i < N;i++){
 \end{lstlisting}
 \subsubsection{6) Cambio dell'algoritmo}
 Se nessun metodo precedente è applicabile, è necessario cambiare totalmente l'algoritmo, ad esempio, la sequenza di fibonacci può essere parallelizzata se calcolata tramite la formula di Binet: 
-$$F_n=\frac{\varphi^n-(1-\varphi)^n}{\sqrt{5}} \ \ \ \  \text{ dove } \ \ \ \ \frac{1}{\varphi}\simeq 0.618$$ 
+$$F_n=\frac{\varphi^n-(1-\varphi)^n}{\sqrt{5}} \ \ \ \  \text{ dove } \ \ \ \ \varphi=\frac{1+\sqrt{5}}{2}$$ 
 \begin{lstlisting}[style=CStyle]
 fibo[0]=fibo[1]=1;
+double phi = (1+sqrt(5))/2;
 #pragma omp parallel for 
 for(int i=2;i < N;i++){
     fibo[i]=(pow(phi,n)-pow(1-phi,n))/sqrt(5);
@@ -2717,16 +2720,16 @@ Per le sezioni critiche è meglio utilizzare \texttt{critical}, \texttt{atomic} 
     \item  In generale, la direttiva \texttt{atomic} è potenzialmente il metodo più veloce per ottenere la
     mutua esclusione
     \item Se un blocco di codice consiste in più istruzioni macchina è meglio utilizzare la direttiva \texttt{critical} (potrebbe dipendere dall'implementazione)
-    \item  L'uso dei lock dovrebbe probabilmente essere riservato a situazioni in cui la mutua
+    \item  L'uso delle lock dovrebbe essere riservato a situazioni in cui la mutua
     esclusione è necessaria per una struttura di dati piuttosto che per un blocco di codice 
 \end{enumerate}
 \subsection{Sezioni Parallele}
-Le direttive \texttt{master} e \texttt{single} in OpenMP sono strumenti utili per controllare l'esecuzione di specifiche sezioni di codice all'interno di un costrutto parallelo.  Entrambe limitano l'esecuzione di un blocco di codice a un singolo thread, ma lo fanno in modi leggermente diversi.\begin{itemize}
+Le direttive \texttt{master} e \texttt{single} in OpenMP sono strumenti utili per controllare l'esecuzione di specifiche sezioni di codice all'interno di un costrutto parallelo.  Entrambe limitano l'esecuzione di un blocco di codice ad un singolo thread, ma lo fanno in modi leggermente diversi.\begin{itemize}
     \item La direttiva \texttt{master} specifica che il blocco di codice associato deve essere eseguito solo dal thread master del team di thread. Il thread master è il thread che ha iniziato la regione parallela.
     \item La direttiva \texttt{single} specifica che il blocco di codice associato deve essere eseguito da uno qualsiasi dei thread del team, ma solo uno. OpenMP sceglie quale thread eseguirà il blocco single. Non è garantito che sia il thread master. In questo caso inoltre, vi è una barriera implicita al termine del blocco considerato.
 \end{itemize}
 Esiste anche la direttiva \texttt{\#pragma omp barrier} per far si che i thread si risincronizzino in un punto comune.\acc 
-Le direttive \texttt{master} e \texttt{single} precludono ad alcuni thread l'esecuzione di una sezione, esiste anche la direttiva \texttt{\#pragma omp parallel section} che equivale ad uno \texttt{switch} parallelo, ossia permette di specificare ai thread un comporamento diverso da eseguiro in parallelo agli altri.
+Le direttive \texttt{master} e \texttt{single} precludono ad alcuni thread l'esecuzione di una sezione, esiste anche la direttiva \texttt{\#pragma omp parallel section} che equivale ad uno \texttt{switch} parallelo, ossia permette di specificare ai thread un comporamento diverso da eseguire in parallelo agli altri.
 \begin{lstlisting}[style=CStyle]
 #pragma omp parallel sections
 {
@@ -2811,7 +2814,7 @@ Con \textbf{Host}, si definisce la coppia CPU-RAM su cui viene eseguito classica
 I singoli blocchi verdi mostrati in figura rappresentano i singoli core, anche detti \textbf{CUDA core} (ogni core possiede dei registri privati, come per la classica CPU). I core sono divisi in \textbf{Streaming Multiprocessor (SM)}, un SM racchiude più core che condividono la stessa unità di controllo\begin{quote}
     i core di uno stesso SM non possono eseguire istruzioni differenti contemporaneamente
 \end{quote}
-Due o più SM costituiscono un \textbf{blocco}. Tutti i core possono accedere alla memoria globale condivisa (HBM), anche se per i blocchi è riservata una cache (come nel caso della CPU, questa è trasparente al programmatore).
+Due o più SM costituiscono un \textbf{GPC}. Tutti i core possono accedere alla memoria globale condivisa (HBM o VRAM), anche se per core di uno stesso GPC è riservata una cache (come nel caso della CPU, questa è trasparente al programmatore).
 \begin{center}
     \includegraphics[width=\textwidth ]{images/SMblocchiCore2.eps}
 \end{center}\begin{itemize}
@@ -2919,10 +2922,9 @@ int myID = (blockIdx.z * gridDim.x * gridDim.y +
 \end{lstlisting}
 \subsection{Disposizione dei Thread}
 Abbiamo visto come \begin{itemize}
-   \item Una GPU è composta da più core disposti su un SM, e più SM formano un blocco condividendo la cache
+   \item Una GPU è composta da più core disposti su un SM, e più SM formano un GPC condividendo la cache
    \item I thread di CUDA sono organizzati logicamente in una struttura 6-dimensionale composta da blocchi su una griglia
 \end{itemize}
-\sapbox{\textbf{Attenzione} : I blocchi fisici della GPU (2 o più SM) ed i blocchi logici di CUDA (elementi della griglia) \textit{non sono la stessa cosa}, seppur condividano il nome "blocco".}
 Ci interessa sapere : come viene mappata la griglia 6-dimensionale nei core fisici della GPU?\begin{itemize}
     \item ogni thread viene eseguito su un core fisico contenuto in un SM 
     \item i core di uno stesso SM condividono la stessa unità di controllo e sono costretti ad eseguire in sincronia le stesse istruzioni 
@@ -3102,7 +3104,17 @@ Ci sono differenti tipi di memoria in una GPU\begin{center}
     \item \textbf{Global Memory} : la VRAM di cui si è parlato fin'ora, è la memoria più capiente, condivisa fra tutti i core.
 \end{itemize}
 Le variabili, per essere allocate su una memoria piuttosto che su un'altra, vanno precedute da appositi decoratori.\begin{center}
-    \includegraphics[width=0.7\textwidth ]{images/memDic.png}\end{center}
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \rowcolor[HTML]{C0C0C0} 
+        \textbf{Dichiarazione}                                 & \textbf{Memoria} & \textbf{Scope} & \textbf{Ciclo di vita} \\ \hline
+        dichiarazione default di variabili                     & Registri         & Threrad        & Kernel                 \\ \hline
+        dichiarazione default di array                         & Globale          & Threrad        & Kernel                 \\ \hline
+        \texttt{\_\_device\_\_ \_\_shared\_\_ int sharedVar;}  & Shared           & Blocco         & Kernel                 \\ \hline
+        \texttt{\_\_device\_\_ int globalVar;}                 & Globale          & Griglia        & Applicazione           \\ \hline
+        \texttt{\_\_device\_\_ \_\_constant\_\_ int constVar;} & Constant         & Griglia        & Applicazione           \\ \hline
+        \end{tabular}    
+\end{center}
 I registri vengono usati (localmente) dai thread per salvare le variabili, i registri su un core sono condivisi dai thread che vi saranno schedulati. La compute capability determina il massimo numero di registri disponibili per thread, quando si eccede tale numero nell'allocazione, le variabili verranno allocate nella memoria globale (ed il loro accesso sarà più lento). La decisione di quali variabili vanno nei registri, e quali vanno nella memoria globale, spetta al compilatore.
 \subsubsection{Occupancy}
 Il numero di registri disponibili per ogni thread influenza il numero di thread massimi che possono essere schedulati su un'unico SM, si consideri il seguente esempio\begin{itemize}
@@ -3269,9 +3281,9 @@ Essa coinvolge due accessi in memoria globale, uno per la matrice \texttt{M} ed 
 Si vuole sfruttare la shared memory per aumentare il numero di operazioni in virgola mobile per byte.\acc 
 Assumiamo che la dimensione dei blocchi logici della struttura di CUDA sia $2\times 2$, quindi un blocco contiene 4 thread, ed assumiamo che le matrici coinvolte siano $4\times 4$\begin{center}
     \includegraphics[width=0.35\textwidth ]{images/2x2block.png}\end{center}
-Ci sono 4 blocchi = 16 thread, un thread per ogni elemento della matrice. È necessria un'osservazione\begin{itemize}
+Ci sono 4 blocchi = 16 thread, un thread per ogni elemento della matrice. È necessaria un'osservazione\begin{itemize}
     \item il thread che si occupa dell'elemento $(0,0)$ accede alla riga $0$ di $M$ e alla colonna $0$ di $N$
-    \item il thread che si occupa dell'elemento $(1,0)$, è contenuto nello stesso blocco del thread precedente, ed accede alla riga $1$ di $M$ e alla colonna $0$ di 
+    \item il thread che si occupa dell'elemento $(1,0)$, è contenuto nello stesso blocco del thread precedente, ed accede alla riga $1$ di $M$ e alla colonna $0$ di $N$
     \item il thread che si occupa dell'elemento $(0,1)$, è contenuto nello stesso blocco del thread precedente, ed accede alla riga $0$ di $M$ e alla colonna $1$ di $N$
     \item  il thread che si occupa dell'elemento $(1,1)$, è contenuto nello stesso blocco del thread precedente, ed accede alla riga $1$ di $M$ e alla colonna $1$ di $N$
 \end{itemize}

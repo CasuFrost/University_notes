@@ -118,134 +118,136 @@
 \contentsline {section}{\numberline {5.3}Sincronizzazione dei Moti}{106}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Profili di Moto}{109}{subsection.5.3.1}%
 \contentsline {subsubsection}{Cambio di Velocità}{111}{section*.51}%
-\contentsline {chapter}{\numberline {6}Regolatori PID}{113}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Campionamento}{113}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Perdita di Informazioni}{115}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Ricostruzione ZOH}{116}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Progetto del Regolatore PID}{117}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Specifiche del Progetto}{117}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Caratteristiche del Regolatore}{118}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Funzione di Trasferimento}{120}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Realizzazione Digitale}{121}{section.6.3}%
-\contentsline {subsubsection}{Integrazione rettangolare}{121}{section*.52}%
-\contentsline {subsection}{\numberline {6.3.1}Discretizzazione del Regolatore}{122}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Derivata Filtrata in Banda}{124}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Schemi Realizzativi}{126}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Simulazione e Sforzo di Controllo}{127}{subsection.6.3.4}%
-\contentsline {section}{\numberline {6.4}Desaturazione e Tuning}{130}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Saturazione dell'Attuatore}{131}{subsection.6.4.1}%
-\contentsline {subsubsection}{Simulazione di saturazione da azione integrale}{132}{section*.53}%
-\contentsline {subsection}{\numberline {6.4.2}Anti Wind-Up}{134}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3}PID Digitale con Anti Wind-Up}{136}{subsection.6.4.3}%
-\contentsline {section}{\numberline {6.5}Tuning del PID}{138}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Primo Metodo di Ziegler-Nichols}{138}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Esempio Numerico 1}{139}{subsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.5.3}Esempio Numerico 2}{143}{subsection.6.5.3}%
-\contentsline {subsection}{\numberline {6.5.4}Secondo Metodo di Ziegler-Nichols}{146}{subsection.6.5.4}%
-\contentsline {subsection}{\numberline {6.5.5}Esempio Numerico 3}{146}{subsection.6.5.5}%
-\contentsline {section}{\numberline {6.6}Riassunto e Classificazione dei PID}{147}{section.6.6}%
-\contentsline {chapter}{\numberline {7}Sistemi a Eventi Discreti}{151}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Automi a Stati Finiti}{151}{section.7.1}%
-\contentsline {subsubsection}{Magazzino di prodotti}{153}{section*.54}%
-\contentsline {subsubsection}{Passeggiata sul piano}{153}{section*.55}%
-\contentsline {subsection}{\numberline {7.1.1}Controllo dei DEDS}{156}{subsection.7.1.1}%
-\contentsline {subsubsection}{Interazione Supervisore-Calcolatore}{156}{section*.56}%
-\contentsline {section}{\numberline {7.2}Reti di Petri}{159}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Scatto delle Transizioni}{161}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Dinamica}{163}{subsection.7.2.2}%
-\contentsline {section}{\numberline {7.3}Proprietà delle Reti di Petri}{164}{section.7.3}%
-\contentsline {subsection}{\numberline {7.3.1}Strutture Fondamentali}{167}{subsection.7.3.1}%
-\contentsline {section}{\numberline {7.4}Classi Particolari di Reti di Petri}{168}{section.7.4}%
-\contentsline {subsubsection}{Macchina a Stati (SM)}{168}{section*.57}%
-\contentsline {subsubsection}{Grafo Marcato (MG)}{169}{section*.58}%
-\contentsline {subsubsection}{Rete a Scelta Libera (FC)}{169}{section*.59}%
-\contentsline {subsection}{\numberline {7.4.1}Esempi di Reti di Petri}{170}{subsection.7.4.1}%
-\contentsline {subsubsection}{Esempio 1}{171}{section*.60}%
-\contentsline {subsubsection}{Esempio 2}{171}{section*.61}%
-\contentsline {subsubsection}{Esempio 3}{171}{section*.62}%
-\contentsline {subsubsection}{Esempio 4}{172}{section*.63}%
-\contentsline {subsubsection}{Esempio 5}{173}{section*.64}%
-\contentsline {subsubsection}{Esempio 6}{173}{section*.65}%
-\contentsline {subsubsection}{Esempio 7}{174}{section*.66}%
-\contentsline {subsubsection}{Esempio 8}{174}{section*.67}%
-\contentsline {section}{\numberline {7.5}Albero di Raggiungibilità}{174}{section.7.5}%
-\contentsline {subsubsection}{Esempio 1 : Rete limitata}{175}{section*.68}%
-\contentsline {subsubsection}{Esempio 2 : Rete illimitata}{177}{section*.69}%
-\contentsline {section}{\numberline {7.6}Analisi Matriciale}{180}{section.7.6}%
-\contentsline {subsection}{\numberline {7.6.1}P-Invarianti}{180}{subsection.7.6.1}%
-\contentsline {subsubsection}{Analisi Matriciale : Esempio 1}{181}{section*.70}%
-\contentsline {subsubsection}{Analisi Matriciale : Esempio 2}{182}{section*.71}%
-\contentsline {subsubsection}{Analisi Matriciale : Esempio 3}{182}{section*.72}%
-\contentsline {subsubsection}{Analisi Matriciale : Esempio 4}{184}{section*.73}%
-\contentsline {subsection}{\numberline {7.6.2}T-Invarianti}{185}{subsection.7.6.2}%
-\contentsline {section}{\numberline {7.7}Reti di Petri Estese}{186}{section.7.7}%
-\contentsline {subsubsection}{Esempio}{186}{section*.74}%
-\contentsline {section}{\numberline {7.8}Modellistica}{188}{section.7.8}%
-\contentsline {subsection}{\numberline {7.8.1}Approccio Fisico}{189}{subsection.7.8.1}%
-\contentsline {section}{\numberline {7.9}Controllo e Supervisione}{190}{section.7.9}%
-\contentsline {subsection}{\numberline {7.9.1}Posti di Controllo}{190}{subsection.7.9.1}%
-\contentsline {subsection}{\numberline {7.9.2}Controllo Mediante Invarianti}{192}{subsection.7.9.2}%
-\contentsline {subsubsection}{Esempio semplice}{192}{section*.75}%
-\contentsline {subsubsection}{P-Invarianti aggiunti}{193}{section*.76}%
-\contentsline {subsection}{\numberline {7.9.3}Uso dei Posti Monitor}{195}{subsection.7.9.3}%
-\contentsline {subsection}{\numberline {7.9.4}Transizioni non Controllabili e Non Osservabili}{196}{subsection.7.9.4}%
-\contentsline {subsubsection}{Esempio}{197}{section*.77}%
-\contentsline {chapter}{\numberline {8}Complementi}{199}{chapter.8}%
-\contentsline {section}{\numberline {8.1}La Trasformata di Laplace}{199}{section.8.1}%
-\contentsline {subsection}{\numberline {8.1.1}Proprietà della Trasformata}{200}{subsection.8.1.1}%
-\contentsline {subsubsection}{Linearità}{200}{section*.78}%
-\contentsline {subsubsection}{Ritardo}{201}{section*.79}%
-\contentsline {subsubsection}{Trasformazione di una derivata e di una primitiva}{201}{section*.80}%
-\contentsline {subsubsection}{Convoluzione}{202}{section*.81}%
-\contentsline {subsubsection}{Derivata ed Integrale della trasformata di Laplace}{202}{section*.82}%
-\contentsline {subsection}{\numberline {8.1.2}Trasformata inversa}{202}{subsection.8.1.2}%
-\contentsline {subsection}{\numberline {8.1.3}Trasformate note}{203}{subsection.8.1.3}%
-\contentsline {subsection}{\numberline {8.1.4}Funzione di trasferimento}{203}{subsection.8.1.4}%
-\contentsline {subsection}{\numberline {8.1.5}Zeri e Poli}{205}{subsection.8.1.5}%
-\contentsline {subsection}{\numberline {8.1.6}Coefficiente di Smorzamento e Pulsazione Naturale}{206}{subsection.8.1.6}%
-\contentsline {subsubsection}{Esempio}{207}{section*.83}%
-\contentsline {subsection}{\numberline {8.1.7}Espansione in Fratti Semplici}{208}{subsection.8.1.7}%
-\contentsline {section}{\numberline {8.2}Elementi di Teoria dei Sistemi e Controlli Automatici}{208}{section.8.2}%
-\contentsline {subsubsection}{Esempio}{209}{section*.84}%
-\contentsline {subsection}{\numberline {8.2.1}Equilibrio}{210}{subsection.8.2.1}%
-\contentsline {subsection}{\numberline {8.2.2}Rappresentazione con Matrici}{210}{subsection.8.2.2}%
-\contentsline {section}{\numberline {8.3}Stabilità di un Sistema}{212}{section.8.3}%
-\contentsline {subsubsection}{Proprietà dei sistemi asintoticamente stabili}{214}{section*.85}%
-\contentsline {subsection}{\numberline {8.3.1}Studio di $e^{At}$ per la Stabilità}{215}{subsection.8.3.1}%
-\contentsline {subsubsection}{Caso 1 : $A$ diagonale}{216}{section*.86}%
-\contentsline {subsubsection}{Caso 2 : $A$ ha autovalori reali distinti}{216}{section*.87}%
-\contentsline {subsubsection}{Caso 3 : $A$ ha autovalori complessi distinti}{217}{section*.88}%
-\contentsline {subsubsection}{Caso 4 : $A$ ha autovalori multipli}{217}{section*.89}%
-\contentsline {subsubsection}{Criterio di Routh}{218}{section*.90}%
-\contentsline {section}{\numberline {8.4}Raggiungibilità e Osservabilità}{219}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Schemi a Blocchi}{221}{section.8.5}%
-\contentsline {subsubsection}{Blocchi in Serie}{221}{section*.91}%
-\contentsline {subsubsection}{Blocchi in Parallelo}{221}{section*.92}%
-\contentsline {subsubsection}{Blocchi in Retroazione}{221}{section*.93}%
-\contentsline {subsubsection}{Regole di Elaborazione}{222}{section*.94}%
-\contentsline {subsubsection}{Analisi della Stabilità nei Sistemi Interconnessi}{223}{section*.95}%
-\contentsline {subsection}{\numberline {8.5.1}Risposta allo Scalino}{224}{subsection.8.5.1}%
-\contentsline {subsubsection}{Sistemi del primo ordine}{225}{section*.96}%
-\contentsline {subsubsection}{Sistemi del secondo ordine}{227}{section*.97}%
-\contentsline {subsubsection}{Poli reali e nessuno zero}{227}{section*.98}%
-\contentsline {subsubsection}{Poli complessi e nessuno zero}{228}{section*.99}%
-\contentsline {subsubsection}{Esempio circuito RLC}{229}{section*.100}%
-\contentsline {subsubsection}{Poli Dominanti ed Equivalenti}{230}{section*.101}%
-\contentsline {section}{\numberline {8.6}Analisi in Frequenza}{231}{section.8.6}%
-\contentsline {subsubsection}{Ingresso multi sinusoidale}{234}{section*.102}%
-\contentsline {subsubsection}{Ingresso periodico}{234}{section*.103}%
-\contentsline {subsubsection}{Ingresso generico}{234}{section*.104}%
-\contentsline {section}{\numberline {8.7}Banda Passante e Margine di Fase}{234}{section.8.7}%
-\contentsline {subsection}{\numberline {8.7.1}Criterio di Nyquist}{235}{subsection.8.7.1}%
-\contentsline {section}{\numberline {8.8}Analisi dei Sistemi Retro Azionati}{237}{section.8.8}%
-\contentsline {subsection}{\numberline {8.8.1}Analisi di $F(s)$}{238}{subsection.8.8.1}%
-\contentsline {subsection}{\numberline {8.8.2}Esempio di Progettazione}{240}{subsection.8.8.2}%
-\contentsline {section}{\numberline {8.9}Il Luogo delle Radici}{243}{section.8.9}%
-\contentsline {subsection}{\numberline {8.9.1}Casi Banali}{244}{subsection.8.9.1}%
-\contentsline {subsubsection}{Caso Banale $n=1$ $m=0$}{244}{section*.105}%
-\contentsline {subsubsection}{Caso Banale $n=2$ $m=0$}{245}{section*.106}%
-\contentsline {subsection}{\numberline {8.9.2}Punti Singolari}{246}{subsection.8.9.2}%
-\contentsline {subsection}{\numberline {8.9.3}Rami del Luogo}{248}{subsection.8.9.3}%
-\contentsline {subsection}{\numberline {8.9.4}Disegnare il Luogo delle Radici in \texttt {MATLAB}}{249}{subsection.8.9.4}%
-\contentsline {subsection}{\numberline {8.9.5}Molteplicità degli Zeri}{250}{subsection.8.9.5}%
+\contentsline {subsection}{\numberline {5.3.2}Rapporto di Riduzione}{112}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Puleggia Circolare}{113}{subsection.5.3.3}%
+\contentsline {chapter}{\numberline {6}Regolatori PID}{114}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Campionamento}{114}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Perdita di Informazioni}{116}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Ricostruzione ZOH}{117}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Progetto del Regolatore PID}{118}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Specifiche del Progetto}{118}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Caratteristiche del Regolatore}{119}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Funzione di Trasferimento}{121}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Realizzazione Digitale}{122}{section.6.3}%
+\contentsline {subsubsection}{Integrazione rettangolare}{122}{section*.52}%
+\contentsline {subsection}{\numberline {6.3.1}Discretizzazione del Regolatore}{123}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Derivata Filtrata in Banda}{125}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Schemi Realizzativi}{127}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4}Simulazione e Sforzo di Controllo}{128}{subsection.6.3.4}%
+\contentsline {section}{\numberline {6.4}Desaturazione e Tuning}{131}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Saturazione dell'Attuatore}{132}{subsection.6.4.1}%
+\contentsline {subsubsection}{Simulazione di saturazione da azione integrale}{133}{section*.53}%
+\contentsline {subsection}{\numberline {6.4.2}Anti Wind-Up}{135}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}PID Digitale con Anti Wind-Up}{137}{subsection.6.4.3}%
+\contentsline {section}{\numberline {6.5}Tuning del PID}{139}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Primo Metodo di Ziegler-Nichols}{139}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Esempio Numerico 1}{140}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Esempio Numerico 2}{144}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Secondo Metodo di Ziegler-Nichols}{147}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Esempio Numerico 3}{147}{subsection.6.5.5}%
+\contentsline {section}{\numberline {6.6}Riassunto e Classificazione dei PID}{148}{section.6.6}%
+\contentsline {chapter}{\numberline {7}Sistemi a Eventi Discreti}{152}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Automi a Stati Finiti}{152}{section.7.1}%
+\contentsline {subsubsection}{Magazzino di prodotti}{154}{section*.54}%
+\contentsline {subsubsection}{Passeggiata sul piano}{154}{section*.55}%
+\contentsline {subsection}{\numberline {7.1.1}Controllo dei DEDS}{157}{subsection.7.1.1}%
+\contentsline {subsubsection}{Interazione Supervisore-Calcolatore}{157}{section*.56}%
+\contentsline {section}{\numberline {7.2}Reti di Petri}{160}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Scatto delle Transizioni}{162}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Dinamica}{164}{subsection.7.2.2}%
+\contentsline {section}{\numberline {7.3}Proprietà delle Reti di Petri}{165}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Strutture Fondamentali}{168}{subsection.7.3.1}%
+\contentsline {section}{\numberline {7.4}Classi Particolari di Reti di Petri}{169}{section.7.4}%
+\contentsline {subsubsection}{Macchina a Stati (SM)}{169}{section*.57}%
+\contentsline {subsubsection}{Grafo Marcato (MG)}{170}{section*.58}%
+\contentsline {subsubsection}{Rete a Scelta Libera (FC)}{170}{section*.59}%
+\contentsline {subsection}{\numberline {7.4.1}Esempi di Reti di Petri}{171}{subsection.7.4.1}%
+\contentsline {subsubsection}{Esempio 1}{172}{section*.60}%
+\contentsline {subsubsection}{Esempio 2}{172}{section*.61}%
+\contentsline {subsubsection}{Esempio 3}{172}{section*.62}%
+\contentsline {subsubsection}{Esempio 4}{173}{section*.63}%
+\contentsline {subsubsection}{Esempio 5}{174}{section*.64}%
+\contentsline {subsubsection}{Esempio 6}{174}{section*.65}%
+\contentsline {subsubsection}{Esempio 7}{175}{section*.66}%
+\contentsline {subsubsection}{Esempio 8}{175}{section*.67}%
+\contentsline {section}{\numberline {7.5}Albero di Raggiungibilità}{175}{section.7.5}%
+\contentsline {subsubsection}{Esempio 1 : Rete limitata}{176}{section*.68}%
+\contentsline {subsubsection}{Esempio 2 : Rete illimitata}{178}{section*.69}%
+\contentsline {section}{\numberline {7.6}Analisi Matriciale}{181}{section.7.6}%
+\contentsline {subsection}{\numberline {7.6.1}P-Invarianti}{181}{subsection.7.6.1}%
+\contentsline {subsubsection}{Analisi Matriciale : Esempio 1}{182}{section*.70}%
+\contentsline {subsubsection}{Analisi Matriciale : Esempio 2}{183}{section*.71}%
+\contentsline {subsubsection}{Analisi Matriciale : Esempio 3}{183}{section*.72}%
+\contentsline {subsubsection}{Analisi Matriciale : Esempio 4}{185}{section*.73}%
+\contentsline {subsection}{\numberline {7.6.2}T-Invarianti}{186}{subsection.7.6.2}%
+\contentsline {section}{\numberline {7.7}Reti di Petri Estese}{187}{section.7.7}%
+\contentsline {subsubsection}{Esempio}{187}{section*.74}%
+\contentsline {section}{\numberline {7.8}Modellistica}{189}{section.7.8}%
+\contentsline {subsection}{\numberline {7.8.1}Approccio Fisico}{190}{subsection.7.8.1}%
+\contentsline {section}{\numberline {7.9}Controllo e Supervisione}{191}{section.7.9}%
+\contentsline {subsection}{\numberline {7.9.1}Posti di Controllo}{191}{subsection.7.9.1}%
+\contentsline {subsection}{\numberline {7.9.2}Controllo Mediante Invarianti}{193}{subsection.7.9.2}%
+\contentsline {subsubsection}{Esempio semplice}{193}{section*.75}%
+\contentsline {subsubsection}{P-Invarianti aggiunti}{194}{section*.76}%
+\contentsline {subsection}{\numberline {7.9.3}Uso dei Posti Monitor}{196}{subsection.7.9.3}%
+\contentsline {subsection}{\numberline {7.9.4}Transizioni non Controllabili e Non Osservabili}{197}{subsection.7.9.4}%
+\contentsline {subsubsection}{Esempio}{198}{section*.77}%
+\contentsline {chapter}{\numberline {8}Complementi}{200}{chapter.8}%
+\contentsline {section}{\numberline {8.1}La Trasformata di Laplace}{200}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Proprietà della Trasformata}{201}{subsection.8.1.1}%
+\contentsline {subsubsection}{Linearità}{201}{section*.78}%
+\contentsline {subsubsection}{Ritardo}{202}{section*.79}%
+\contentsline {subsubsection}{Trasformazione di una derivata e di una primitiva}{202}{section*.80}%
+\contentsline {subsubsection}{Convoluzione}{203}{section*.81}%
+\contentsline {subsubsection}{Derivata ed Integrale della trasformata di Laplace}{203}{section*.82}%
+\contentsline {subsection}{\numberline {8.1.2}Trasformata inversa}{203}{subsection.8.1.2}%
+\contentsline {subsection}{\numberline {8.1.3}Trasformate note}{204}{subsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.1.4}Funzione di trasferimento}{204}{subsection.8.1.4}%
+\contentsline {subsection}{\numberline {8.1.5}Zeri e Poli}{206}{subsection.8.1.5}%
+\contentsline {subsection}{\numberline {8.1.6}Coefficiente di Smorzamento e Pulsazione Naturale}{207}{subsection.8.1.6}%
+\contentsline {subsubsection}{Esempio}{208}{section*.83}%
+\contentsline {subsection}{\numberline {8.1.7}Espansione in Fratti Semplici}{209}{subsection.8.1.7}%
+\contentsline {section}{\numberline {8.2}Elementi di Teoria dei Sistemi e Controlli Automatici}{209}{section.8.2}%
+\contentsline {subsubsection}{Esempio}{210}{section*.84}%
+\contentsline {subsection}{\numberline {8.2.1}Equilibrio}{211}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Rappresentazione con Matrici}{211}{subsection.8.2.2}%
+\contentsline {section}{\numberline {8.3}Stabilità di un Sistema}{213}{section.8.3}%
+\contentsline {subsubsection}{Proprietà dei sistemi asintoticamente stabili}{215}{section*.85}%
+\contentsline {subsection}{\numberline {8.3.1}Studio di $e^{At}$ per la Stabilità}{216}{subsection.8.3.1}%
+\contentsline {subsubsection}{Caso 1 : $A$ diagonale}{217}{section*.86}%
+\contentsline {subsubsection}{Caso 2 : $A$ ha autovalori reali distinti}{217}{section*.87}%
+\contentsline {subsubsection}{Caso 3 : $A$ ha autovalori complessi distinti}{218}{section*.88}%
+\contentsline {subsubsection}{Caso 4 : $A$ ha autovalori multipli}{218}{section*.89}%
+\contentsline {subsubsection}{Criterio di Routh}{219}{section*.90}%
+\contentsline {section}{\numberline {8.4}Raggiungibilità e Osservabilità}{220}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Schemi a Blocchi}{222}{section.8.5}%
+\contentsline {subsubsection}{Blocchi in Serie}{222}{section*.91}%
+\contentsline {subsubsection}{Blocchi in Parallelo}{222}{section*.92}%
+\contentsline {subsubsection}{Blocchi in Retroazione}{222}{section*.93}%
+\contentsline {subsubsection}{Regole di Elaborazione}{223}{section*.94}%
+\contentsline {subsubsection}{Analisi della Stabilità nei Sistemi Interconnessi}{224}{section*.95}%
+\contentsline {subsection}{\numberline {8.5.1}Risposta allo Scalino}{225}{subsection.8.5.1}%
+\contentsline {subsubsection}{Sistemi del primo ordine}{226}{section*.96}%
+\contentsline {subsubsection}{Sistemi del secondo ordine}{228}{section*.97}%
+\contentsline {subsubsection}{Poli reali e nessuno zero}{228}{section*.98}%
+\contentsline {subsubsection}{Poli complessi e nessuno zero}{229}{section*.99}%
+\contentsline {subsubsection}{Esempio circuito RLC}{230}{section*.100}%
+\contentsline {subsubsection}{Poli Dominanti ed Equivalenti}{231}{section*.101}%
+\contentsline {section}{\numberline {8.6}Analisi in Frequenza}{232}{section.8.6}%
+\contentsline {subsubsection}{Ingresso multi sinusoidale}{235}{section*.102}%
+\contentsline {subsubsection}{Ingresso periodico}{235}{section*.103}%
+\contentsline {subsubsection}{Ingresso generico}{235}{section*.104}%
+\contentsline {section}{\numberline {8.7}Banda Passante e Margine di Fase}{235}{section.8.7}%
+\contentsline {subsection}{\numberline {8.7.1}Criterio di Nyquist}{236}{subsection.8.7.1}%
+\contentsline {section}{\numberline {8.8}Analisi dei Sistemi Retro Azionati}{238}{section.8.8}%
+\contentsline {subsection}{\numberline {8.8.1}Analisi di $F(s)$}{239}{subsection.8.8.1}%
+\contentsline {subsection}{\numberline {8.8.2}Esempio di Progettazione}{241}{subsection.8.8.2}%
+\contentsline {section}{\numberline {8.9}Il Luogo delle Radici}{244}{section.8.9}%
+\contentsline {subsection}{\numberline {8.9.1}Casi Banali}{245}{subsection.8.9.1}%
+\contentsline {subsubsection}{Caso Banale $n=1$ $m=0$}{245}{section*.105}%
+\contentsline {subsubsection}{Caso Banale $n=2$ $m=0$}{246}{section*.106}%
+\contentsline {subsection}{\numberline {8.9.2}Punti Singolari}{247}{subsection.8.9.2}%
+\contentsline {subsection}{\numberline {8.9.3}Rami del Luogo}{249}{subsection.8.9.3}%
+\contentsline {subsection}{\numberline {8.9.4}Disegnare il Luogo delle Radici in \texttt {MATLAB}}{250}{subsection.8.9.4}%
+\contentsline {subsection}{\numberline {8.9.5}Molteplicità degli Zeri}{251}{subsection.8.9.5}%
 \contentsfinish 

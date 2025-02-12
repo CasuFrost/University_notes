@@ -6,7 +6,7 @@
 int main(int argc, char **argv)
 {
 
-    int precision = 1000; // Numero di punti generati casualmente
+    long int precision = 5000000000; // Numero di punti generati casualmente
 
     if (argc > 1)
     {
@@ -21,8 +21,8 @@ int main(int argc, char **argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &my_size);
 
-    int local_precision = precision / my_size; // Numero di punto da generare per ogni processo
-    int local_circle_point = 0;
+    long int local_precision = precision / my_size; // Numero di punto da generare per ogni processo
+    long int local_circle_point = 0;
 
     for (int i = 0; i <= local_precision; i++)
     {
@@ -32,13 +32,13 @@ int main(int argc, char **argv)
             local_circle_point++;
     }
 
-    int total_circle_point = 0;
+    long int total_circle_point = 0;
     MPI_Reduce(&local_circle_point, &total_circle_point, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     if (my_rank == 0)
     {
         double esteem = ((double)total_circle_point / precision * 4);
-        printf("Su %d punti, la stima del pi greco e' : %lf\n", precision, esteem);
+        printf("Su %ld punti, la stima del pi greco e' : %lf\n", precision, esteem);
     }
 
     MPI_Finalize();

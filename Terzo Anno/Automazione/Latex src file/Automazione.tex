@@ -3647,18 +3647,24 @@ Si osservi il seguente grafico che riporta l'andamento di due profili slave, uno
 	\end{tabular}
 \end{center}
 Questo raddoppiare/quadruplicare della velocità/accelerazione è normale dato che una variazione della posizione più rapida necessita di una maggiore velocità (e conseguentemente accelerazione) per essere seguita.
-
-
-
-
-
-
-
-
-
-
-
-
+\subsection{Rapporto di Riduzione}
+Lo scopo di questa sezione è quello di mostrare lo svolgimento di un'esercizio per introdurre il concetto di rapporto di riduzione.\acc 
+Si considerino un motore master $\theta(t)$ ed un motore slave $q_1(t)$, se fra i due vi è un \textbf{rapporto di riduzione} $\alpha$, allora, se $q_1$ dipende da $\theta$ tramite un profilo di sincronizzazione del moto $f$, si ha 
+$$ q_1(\theta)=\alpha\cdot f(\theta)$$
+Quindi nella decisione del polinomio $f$ in base alle condizioni al contorno desiderate è necessario moltiplicare il polinomio per il rapporto di riduzione.\acc 
+Meccanicamente, il significato di tale rapporto indica che, se il motore master esegue un giro di $2\pi$ radianti, allora il motore slave ruota di $2\pi\cdot \alpha $ radianti.\acc 
+Supponendo di voler definire un polinomio di secondo grado per $f$, piuttosto che considerare 
+$$ a_2\theta^2+a_1\theta+a_0$$
+sarà necessario considerare
+$$ \alpha\cdot a_2\theta^2+\alpha\cdot a_1\theta+\alpha\cdot a_0$$
+\subsection{Puleggia Circolare}
+Consideriamo un motore descritto dalla funzione $q_1(t)$, supponiamo che l'asse di tale motore sia solidale ad una \textbf{puleggia circolare} di raggio $R$ metri che muove un nastro trasportatore. Sia $q_2$ una funzione che descrive la posizione del nastro, ovviamente $q_2$ dipende da $q_1$, quando il motore rotea, la puleggia fa muovere il nastro.
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{images/puleggia.pdf}
+\end{center}
+Il nastro scorre sulla puleggia, intuitivamente, se il motore compie un giro completo, il nastro si sarà spostato di una lunghezza pari alla circonferenza della puleggia.\acc 
+In generale, se il motore $q_1$ ruota di $\beta$ radianti, allora il nastro si sarà spostato di $\beta\cdot R$ metri (dove il metro è l'unità di misura di $R$). Quindi 
+$$q_2(q_1)=R\cdot q_1(t) $$
 
 \chapter{Regolatori PID}\label{regolatoriPID}
 In passato i regolatori PID venivano implementati in modo completamente analogico (ad esempio, tramite un sistema pneumatico), ad oggi sono implementati in maniera completamente digitale, lavorano su segnali analogici che vengono opportunamente campionati.\acc
