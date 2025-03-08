@@ -2,7 +2,8 @@
 % !TeX program = xelatex
 %==================PREAMBOLO=======================%
 \input{../../../preamble/preamble.tex}
-\usetikzlibrary{petri}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
  %TOGLI COMMENTO SE USI XELATEX
 %\usepackage{fontspec}
 \title{Ottimizzazione} %========TITOLO========%
@@ -57,6 +58,8 @@ triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 \newtheorem{definizione}{Definizione}
 \newtheorem{teorema}{Teorema}
 \newtheorem{proposizione}{Proposizione}
+\newtheorem{osservazione}{Osservazione}
+
 \tableofcontents 
 \newpage
 
@@ -73,7 +76,7 @@ triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 %Ricorda del comando \flowerLine per separare le sottosezioni. Le sezioni si separano nelle diverse pagine
 
 %==================INIZIO======================%
-\chapter{Flusso di un Grafo}
+\chapter{Flussi nei Grafi}
 \section{Definizione e Grafo Residuo}
 \begin{definizione}
     Una \textbf{network} o \textbf{rete} $G=(V,E,c,s,t)$ è un particolare grafo diretto, in cui $V$ ed $E$ sono i vertici e gli archi, tali per cui è soddisfatta la condizione 
@@ -112,7 +115,7 @@ Si definisce una funzione $f':E(G)\rightarrow\R$ come segue $$ f'(u,v)=\begin{ca
     f(u,v)-\alpha  \ \text{ se } \ (v,u) \in E(P)\\
     f(u,v)  \ \text{ altrimenti } 
 \end{cases}$$
-\begin{proposizione}
+\begin{proposizione}\label{prop:augmentation}
 $f'$ è un flusso per $G$.
 \end{proposizione}
 \textit{Dimostrazione} : Sia $(u,v)$ un arco in $G$, se $(u,v)\notin E(P)$, allora $f'(u,v)=f(u,v)$ e conseguentemente $f'(v,u)=f'(v,u)$, quindi la proprietà di skew simmetria è preservata. Differentemente, se $(u,v)\in E(P)$ si avrebbe che $f'(u,v)=f(u,v)+\alpha$ e $f'(v,u)=f(v,u)-\alpha=-f(u,v)-\alpha=-(f(u,v)+\alpha)$, quindi il nuovo flusso rispetta la proprietà di skew-simmetria. 
@@ -130,4 +133,102 @@ la proprietà di conservazione del flusso è rispettata.\hfill$\blacksquare$\big
 Il valore del nuovo flusso è uguale al valore del flusso di partenza aumentato di $\alpha$ 
 $$ \text{val}(f')=\text{val}(f)+\alpha$$
 Dato che un singolo arco $(s,u)$ per qualche $u$ è necessariamente presente nel cammino $P$ da $s$ a $t$, ed il valore di $f'$ su $(s,u)$ è stato aumentato di $\alpha$.
+La proposizione \ref{prop:augmentation} delinea una procedura per la ricerca di un flusso ottimale (di valore massimo) per una network.
+\begin{algorithm}
+    \caption{Ford–Fulkerson}\label{alg:FordFord–Fulkerson}
+    \begin{algorithmic}
+    \Require network $G=(V,E,c,s,t)$
+    \State si definisce un flusso $f$ tale che $f(u,v)=0$, $\forall (u,v)\in E(G)$
+    \State si definisce il grafo residuo $G'$ dato il flusso $f$
+    \While{Esiste un cammino $P$ in $G'$ da $s$ a $t$}
+    \State si definisce la funzione delle capacità residue $r:E(G')\rightarrow \R$
+    \State $\displaystyle\alpha=\min_{(u,v)\in E(P)}r(u,v)$
+    \State Si definisce un flusso $f'=f$
+    \For{$(u,v)\in E(P)$}
+    \State $f'(u,v)=f(u,v)+\alpha$
+    \State $f'(v,u)=f(v,u)-\alpha$
+    \EndFor
+    \EndWhile
+    \end{algorithmic}
+    \end{algorithm}
+Alla fine dell'esecuzione, il flusso $f'$ sarà ottimale per la network data.
+\begin{osservazione}
+Se le capacità della network sono numeri interi, l'algoritmo termina. Se invece le capacità sono numeri reali, l'algoritmo potrebbe non terminare.
+\end{osservazione}
+\section{Tagli $s-t$}
+Data una network  $G=(V,E,c,s,t)$, ed un flusso $f$ per $G$, si consideri un'insieme $\mathcal U\subset V(G)$ tale che 
+\begin{itemize}
+    \item $s\in \mathcal U$
+    \item $t\notin \mathcal U$
+\end{itemize}
+Tale insieme è detto \textbf{insieme di taglio}, si consideri ora il flusso uscente dai vertici presenti in $\mathcal U$
+$$\sum_{\begin{matrix}
+    (u,x)\in E(G)\\ \text{t.c. }u\in \mathcal U
+\end{matrix}}f(u,x)$$
+Per la proprietà di conservazione del flusso si ha che il flusso uscente da ogni vertice diverso da $s$ è nullo, ed il flusso uscente dal vertice $s$ è il valore del flusso.
+$$\sum_{\begin{matrix}
+    (u,x)\in E(G)\\ \text{t.c. }u\in \mathcal U
+\end{matrix}}f(u,x)=\sum_{(s,x)\in E(G)}f(s,x)=\text{val}(f)$$
+La sommatoria a sinistra può essere riscritta come la somma del flusso uscente dai vertici in $\mathcal U$ verso i vertici in $\mathcal U$, e del flusso uscente dai vertici in $\mathcal U$ verso i vertici che non sono contenuti in $\mathcal U$
+$$ \sum_{\begin{matrix}
+    (u,x)\in E(G)\\ \text{t.c. }u\in \mathcal U
+\end{matrix}}f(u,x)=
+\sum_{\begin{matrix}
+    (u,x)\in E(G)\\ \text{t.c. }u,x\in \mathcal U
+\end{matrix}}f(u,x)+\sum_{\begin{matrix}
+    (u,x)\in E(G)\\ \text{t.c. }u\in \mathcal U\\ x\notin \mathcal U
+\end{matrix}}f(u,x)$$
+Per la proprietà di skew-simmetria il flusso uscente dai vertici in $\mathcal U$ verso i vertici in $\mathcal U$ è nullo 
+$$ \sum_{\begin{matrix}
+    (u,x)\in E(G)\\ \text{t.c. }u\in \mathcal U
+\end{matrix}}f(u,x)=\sum_{\begin{matrix}
+    (u,x)\in E(G)\\ \text{t.c. }u\in \mathcal U\\ x\notin \mathcal U
+\end{matrix}}f(u,x)$$
+\textbf{Conclusione} : Il valore di $f$ è uguale alla somma dei flussi uscenti dai vertici in $\mathcal U$ verso i vertici non contenuti in $\mathcal U$. Questa proprietà è invariante rispetto la scelta di $\mathcal U$, a patto che rispetti le proprietà inizialmente elencate (deve contenere $s$ ma non $t$). 
+
+\begin{definizione}
+    si definisce \textbf{capacità di taglio} la somma delle capacità degli archi che collegano i vertici in $\mathcal U$ ai vertici in $V(G)\backslash \mathcal U$
+    $$c_t= \sum_{\begin{matrix}
+        (u,x)\in E(G),\\u\in \mathcal U,\\ x\notin \mathcal U
+    \end{matrix}}c(u,x)$$
+\end{definizione}
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.5\textwidth ]{images/capacità_di_taglio.eps}
+\end{figure}
+\begin{osservazione}
+    il valore massimale del flusso è limitato dalla capacità di taglio 
+    $$ \text{val}(f)\le c_t$$
+\end{osservazione}
+\begin{proposizione} \label{prop:insTaglio}
+Data una network $G$, se esiste un flusso $f^*$ ed un'insieme di taglio $\mathcal U$ tali che $$\text{val}(f)= \sum_{\begin{matrix}
+    (u,x)\in E(G),\\u\in \mathcal U,\\ x\notin \mathcal U
+\end{matrix}}c(u,x)$$
+ossia, il valore del flusso è identico alla capacità di taglio, allora $f^*$ è un flusso ottimale.
+\end{proposizione}
+L'algoritmo di Ford-Fulkerson restituisce un flusso ottimale $f^*$, da questo è possibile individuare l'insieme di taglio $\mathcal U$ associato, in particolare, se $G^*$ è il grafo residuo della network rispetto il flusso dato in output $f^*$, allora l'insieme di taglio sarà composto da tutti i nodi raggiungibili da $s$ in $G^*$, chiaramente, fra questi non vi sarà $t$, data la definizione dell'algoritmo, che termina proprio quando non vi è un cammino da $s$ a $t$.\bigskip 
+
+Si consideri adesso una network $G$, di cui $f^*$ è il flusso ottimale trovato tramite l'algoritmo \ref{alg:FordFord–Fulkerson}. Sia $\mathcal U$ l'insieme di taglio dato dai nodi raggiungibili da $s$ nel grafo residuo $G^*$.
+\begin{osservazione}
+    Per ogni arco $(x,y)\in E(G)$ con $x\in \mathcal U$ e $y\notin \mathcal U$, si avrà che $$ f^*(x,y)=c(x,y)$$
+\end{osservazione}
+Il valore del flusso è uguale alla somma delle capacità degli archi che collegano i vertici in $\mathcal U$ a quelli fuori da $\mathcal U$
+$$ \sum_{\begin{matrix}
+    (x,y)\in E(G)\\ x\in \mathcal U\\ y\notin \mathcal U
+\end{matrix}}f^*(x,y)=\sum_{\begin{matrix}
+    (x,y)\in E(G)\\ x\in \mathcal U\\ y\notin \mathcal U
+\end{matrix}}c(x,y)=\text{val}(f^*)$$
+La proposizione \ref{prop:insTaglio} non implica che non ci possa essere una network il cui flusso ottimale a valore strettamente minore della capacità di taglio di uno specifico insieme $\mathcal U$, si consideri l'immagine in figura \ref{taglio2}, in cui è applicata la notazione sugli archi \textit{capacità/flusso}, la capacità di taglio è data dalla somma delle capacità sugli archi evidenziati, ed è uguale a 4, nonostante questo, il flusso ottimale per la network in questione ha valore 1.
+
+Nonostante ciò, esiste sempre un insieme $\mathcal U$ contenente $s$ e non $t$ la cui capacità di taglio è uguale al valore del flusso ottimale per la network data, tale insieme può essere trovato adoperando l'algoritmo di Ford-Fulkerson nella procedura precedentemente elencata.
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.6\textwidth ]{images/capacità_di_taglio_2.eps}
+    \caption{network con taglio sui vertici}
+    \label{taglio2}
+\end{figure}
+\begin{osservazione}
+    L'algoritmo di Ford-Fulkerson, termina sempre se le capacità della network sono numeri in $\mathbb Q$.
+\end{osservazione}
+\textit{Dimostrazione} : 
 \end{document}
