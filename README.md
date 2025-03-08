@@ -25,6 +25,8 @@ Li metto pubblici per comodità, non sono gli appunti più affidabili del mondo 
 - [Appunti di Automazione](https://raw.githubusercontent.com/CasuFrost/University_notes/main/Terzo%20Anno/Automazione/Latex%20src%20file/Automazione.pdf)
 - [Appunti di Programmazione di Sistemi Embedded e Multicore](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Programmazione%20di%20Sistemi%20Multicore/letexSrcFile/Programmazione%20di%20Sistemi%20Multicore.pdf)
 - [Appunti di Automi, Calcolabilità e Complessità](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0/LatexSourceFile/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0.pdf)
+- [Appunti di Ottimizzazione](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Ottimizzazione/LatexSourceFile/Ottimizzazione.pdf)
+
   
 Per alcuni esercizi svolti riguardanti diversi esami del corso, peremere nel seguente link : \
 [Esercizi Svolti](https://github.com/CasuFrost/University_notes/blob/main/Excercise.md) 
