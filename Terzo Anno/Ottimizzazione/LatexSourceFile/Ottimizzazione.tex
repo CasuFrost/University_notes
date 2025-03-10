@@ -135,7 +135,7 @@ $$ \text{val}(f')=\text{val}(f)+\alpha$$
 Dato che un singolo arco $(s,u)$ per qualche $u$ è necessariamente presente nel cammino $P$ da $s$ a $t$, ed il valore di $f'$ su $(s,u)$ è stato aumentato di $\alpha$.
 La proposizione \ref{prop:augmentation} delinea una procedura per la ricerca di un flusso ottimale (di valore massimo) per una network.
 \begin{algorithm}
-    \caption{Ford–Fulkerson}\label{alg:FordFord–Fulkerson}
+    \caption{Ford–Fulkerson}\label{alg:Ford–Fulkerson}
     \begin{algorithmic}
     \Require network $G=(V,E,c,s,t)$
     \State si definisce un flusso $f$ tale che $f(u,v)=0$, $\forall (u,v)\in E(G)$
@@ -208,7 +208,7 @@ ossia, il valore del flusso è identico alla capacità di taglio, allora $f^*$ �
 \end{proposizione}
 L'algoritmo di Ford-Fulkerson restituisce un flusso ottimale $f^*$, da questo è possibile individuare l'insieme di taglio $\mathcal U$ associato, in particolare, se $G^*$ è il grafo residuo della network rispetto il flusso dato in output $f^*$, allora l'insieme di taglio sarà composto da tutti i nodi raggiungibili da $s$ in $G^*$, chiaramente, fra questi non vi sarà $t$, data la definizione dell'algoritmo, che termina proprio quando non vi è un cammino da $s$ a $t$.\bigskip 
 
-Si consideri adesso una network $G$, di cui $f^*$ è il flusso ottimale trovato tramite l'algoritmo \ref{alg:FordFord–Fulkerson}. Sia $\mathcal U$ l'insieme di taglio dato dai nodi raggiungibili da $s$ nel grafo residuo $G^*$.
+Si consideri adesso una network $G$, di cui $f^*$ è il flusso ottimale trovato tramite l'algoritmo \ref{alg:Ford–Fulkerson}. Sia $\mathcal U$ l'insieme di taglio dato dai nodi raggiungibili da $s$ nel grafo residuo $G^*$.
 \begin{osservazione}
     Per ogni arco $(x,y)\in E(G)$ con $x\in \mathcal U$ e $y\notin \mathcal U$, si avrà che $$ f^*(x,y)=c(x,y)$$
 \end{osservazione}
@@ -219,16 +219,68 @@ $$ \sum_{\begin{matrix}
     (x,y)\in E(G)\\ x\in \mathcal U\\ y\notin \mathcal U
 \end{matrix}}c(x,y)=\text{val}(f^*)$$
 La proposizione \ref{prop:insTaglio} non implica che non ci possa essere una network il cui flusso ottimale a valore strettamente minore della capacità di taglio di uno specifico insieme $\mathcal U$, si consideri l'immagine in figura \ref{taglio2}, in cui è applicata la notazione sugli archi \textit{capacità/flusso}, la capacità di taglio è data dalla somma delle capacità sugli archi evidenziati, ed è uguale a 4, nonostante questo, il flusso ottimale per la network in questione ha valore 1.
-
-Nonostante ciò, esiste sempre un insieme $\mathcal U$ contenente $s$ e non $t$ la cui capacità di taglio è uguale al valore del flusso ottimale per la network data, tale insieme può essere trovato adoperando l'algoritmo di Ford-Fulkerson nella procedura precedentemente elencata.
 \begin{figure}[h!]
     \centering 
     \includegraphics[width=0.6\textwidth ]{images/capacità_di_taglio_2.eps}
     \caption{network con taglio sui vertici}
     \label{taglio2}
 \end{figure}
+
+Nonostante ciò, esiste sempre un insieme $\mathcal U$ contenente $s$ e non $t$ la cui capacità di taglio è uguale al valore del flusso ottimale per la network data, tale insieme può essere trovato adoperando l'algoritmo di Ford-Fulkerson nella procedura precedentemente elencata.
 \begin{osservazione}
     L'algoritmo di Ford-Fulkerson, termina sempre se le capacità della network sono numeri in $\mathbb Q$.
 \end{osservazione}
-\textit{Dimostrazione} : 
+\textit{Dimostrazione} : Se le capacità $c_i$ sono numeri razionali allora esiste esiste un numero naturale $N\in\N$ tale che ogni capacità è della forma $c_i=\frac{a_i}{N}$, ad ogni iterazione dell'algoritmo il valore del flusso aumenta di almeno $\frac{1}{N}$, quindi in un numero finito di passi raggiungerà il valore ottimale.\hfill$\blacksquare$
+\section{Percorso Minimo nell'Aumento del Flusso}
+Durante la computazione dell'algoritmo di Ford-Fulkerson, viene scelto un qualsiasi percorso che connetta $s$ a $t$ nel grafo residuo, tale scelta comporta un aumento del valore del flusso, ma una scelta differente di percorso potrebbe far si che l'aumento in quella iterazione sia maggiore, e che il numero finale di iterazioni per trovare il flusso ottimale sia minore.
+Il seguente esempio mostra l'inefficienza dell'algoritmo \ref{alg:Ford–Fulkerson}, si consideri la  network in figura \ref{network2M} (alcuni archi sono stati omessi).
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.35\textwidth ]{images/network2M.eps}
+    \caption{Sugli archi sono indicate le capacità}
+    \label{network2M}
+\end{figure}
+Il flow massimale ha valore $2M$, nonostante  ciò, se ad ogni iterazione dell'algoritmo venisse selezionato il percorso $s\rightarrow a \rightarrow b \rightarrow t$, allora l'aumento del valore sarebbe uguale ad uno, e sarebbero necessarie $2M$ iterazioni, differentemente, la scelta del percorso $s\rightarrow a \rightarrow t$ implicherebbe già solo alla prima iterazione un'aumento pari ad $M$.
+
+La complessità computazionale in questo caso dipende linearmente da $M$, tale valore è però codificato in binario (occupando $\log M$ spazio), quindi l'algoritmo di Ford-Fulkerson è esponenziale nelle dimensioni dell'input. È possibile considerare una rivisitazione dell'algoritmo \ref{alg:Ford–Fulkerson}, in cui ad ogni iterazione viene selezionato il percorso più breve (minor numero di archi) da $s$ a $t$ nel grafo residuo. Tale algoritmo rivisitato è noto con il nome di \textbf{Edmonds-Karp}.
+\begin{algorithm}
+    \caption{Edmonds-Karp}\label{alg:Edmonds-Karp}
+    \begin{algorithmic}
+    \Require network $G=(V,E,c,s,t)$
+    \State si definisce un flusso $f$ tale che $f(u,v)=0$, $\forall (u,v)\in E(G)$
+    \State si definisce il grafo residuo $G'$ dato il flusso $f$
+    \While{Esiste un cammino $P$ in $G'$ da $s$ a $t$}
+    \State $P=$ cammino più breve da $s$ a $t$ in $G'$ 
+    \State si definisce la funzione delle capacità residue $r:E(G')\rightarrow \R$
+    \State $\displaystyle\alpha=\min_{(u,v)\in E(P)}r(u,v)$
+    \State Si definisce un flusso $f'=f$
+    \For{$(u,v)\in E(P)$}
+    \State $f'(u,v)=f(u,v)+\alpha$
+    \State $f'(v,u)=f(v,u)-\alpha$
+    \EndFor
+    \EndWhile
+    \end{algorithmic}
+    \end{algorithm}
+\begin{osservazione}
+    Se $G$ è un grafo diretto e $P$ è il percorso più breve fra due vertici $x$ ed $y$, allora $\forall z \in V(P)$, si ha che il sotto cammino $x\rightarrow z$ in $P$ è anch'esso un percorso più breve.
+\end{osservazione}
+\begin{proposizione}
+    Sia $G=(V,E,c,s,t)$ una network. Sia $G_i$ il grafo residuo all'$i$-esima iterazione dell'algoritmo \ref{alg:Edmonds-Karp}, e $G_{i'}$ il grafo residuo all'$i'$-esima iterazione, con $i'>i$, allora
+    \begin{equation} \text{dist}_{G_i}(s,u)\le \text{dist}_{G_{i'}}(s,u)\end{equation}
+    La distanza dal vertice source $s$ rispetto ogni altro vertice aumenta in maniera monotona ad ogni passo dell'algoritmo.
+\end{proposizione}
+\textit{Dimostrazione} : Supponiamo che esiste un nodo $v\in G$ tale che  
+$ \text{dist}_{G_i}(s,v)>\text{dist}_{G_{i'}}(s,v)$, si assume inoltre che la distanza $\text{dist}_{G_{i'}}(s,v)$ sia la più piccola possibile ($v$ è il nodo più vicino ad $s$ in $G_{i'}$). Sia $w$ il penultimo vertice del cammino $P'=u_1,u_2\dots u_k$ in $G_{i'}$, con $u_1=s$ e $u_k=v$.
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.35\textwidth ]{images/Edmond-Karp-Proof.eps}
+\end{figure}
+Ne segue che  
+\begin{equation}\label{eq:EdKarp}
+\text{dist}_{G_i}(s,v)>\text{dist}_{G_{i'}}(s,v)=\text{dist}_{G_{i'}}(s,w)+1\ge  \text{dist}_{G_i}(s,w)+1\end{equation}
+\textbf{Nota } : 
+nella dimostrazione si sta assumendo che la proposizione non sia valida per il nodo $v$, ma che sia valida per il nodo $w$, da qui è verificata la disuguaglianza a destra nell'equazione \ref{eq:EdKarp}.
+
+Ciò implica che l'arco $(w,v)$ è presente in $G_{i'}$ ma non in $G_i$, se così non fosse sarebbe vero che $\text{dist}_{G_{i'}}(s,w)\ge  \text{dist}_{G_i}(s,w)+1$, e quindi  $w=u_i$ e $v=u_{i-1}$ per qualche $i$, ma questa è una contraddizione dato che $v$ segue $w$ nel cammino $P'$, quindi l'asserto è verificato.\hfill$\blacksquare$
+\acc\redText{TODO : continuare e dimostrare che l'algoritmo esegue al più $nm$ iterazioni}
 \end{document}
