@@ -57,6 +57,7 @@ triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 \normalsize
 \newtheorem{definizione}{Definizione}
 \newtheorem{teorema}{Teorema}
+\newtheorem{lemma2}{Lemma}
 \newtheorem{proposizione}{Proposizione}
 \newtheorem{osservazione}{Osservazione}
 
@@ -240,7 +241,7 @@ Il seguente esempio mostra l'inefficienza dell'algoritmo \ref{alg:Ford–Fulkers
     \caption{Sugli archi sono indicate le capacità}
     \label{network2M}
 \end{figure}
-Il flow massimale ha valore $2M$, nonostante  ciò, se ad ogni iterazione dell'algoritmo venisse selezionato il percorso $s\rightarrow a \rightarrow b \rightarrow t$, allora l'aumento del valore sarebbe uguale ad uno, e sarebbero necessarie $2M$ iterazioni, differentemente, la scelta del percorso $s\rightarrow a \rightarrow t$ implicherebbe già solo alla prima iterazione un'aumento pari ad $M$.
+Il flusso massimale ha valore $2M$, nonostante  ciò, se ad ogni iterazione dell'algoritmo venisse selezionato il percorso $s\rightarrow a \rightarrow b \rightarrow t$, allora l'aumento del valore sarebbe uguale ad uno, e sarebbero necessarie $2M$ iterazioni, differentemente, la scelta del percorso $s\rightarrow a \rightarrow t$ implicherebbe già solo alla prima iterazione un'aumento pari ad $M$.
 
 La complessità computazionale in questo caso dipende linearmente da $M$, tale valore è però codificato in binario (occupando $\log M$ spazio), quindi l'algoritmo di Ford-Fulkerson è esponenziale nelle dimensioni dell'input. È possibile considerare una rivisitazione dell'algoritmo \ref{alg:Ford–Fulkerson}, in cui ad ogni iterazione viene selezionato il percorso più breve (minor numero di archi) da $s$ a $t$ nel grafo residuo. Tale algoritmo rivisitato è noto con il nome di \textbf{Edmonds-Karp}.
 \begin{algorithm}
@@ -264,7 +265,7 @@ La complessità computazionale in questo caso dipende linearmente da $M$, tale v
 \begin{osservazione}
     Se $G$ è un grafo diretto e $P$ è il percorso più breve fra due vertici $x$ ed $y$, allora $\forall z \in V(P)$, si ha che il sotto cammino $x\rightarrow z$ in $P$ è anch'esso un percorso più breve.
 \end{osservazione}
-\begin{proposizione}
+\begin{proposizione}\label{monotoningIncreasing}
     Sia $G=(V,E,c,s,t)$ una network. Sia $G_i$ il grafo residuo all'$i$-esima iterazione dell'algoritmo \ref{alg:Edmonds-Karp}, e $G_{i'}$ il grafo residuo all'$i'$-esima iterazione, con $i'>i$, allora
     \begin{equation} \text{dist}_{G_i}(s,u)\le \text{dist}_{G_{i'}}(s,u)\end{equation}
     La distanza dal vertice source $s$ rispetto ogni altro vertice aumenta in maniera monotona ad ogni passo dell'algoritmo.
@@ -282,5 +283,72 @@ Ne segue che
 nella dimostrazione si sta assumendo che la proposizione non sia valida per il nodo $v$, ma che sia valida per il nodo $w$, da qui è verificata la disuguaglianza a destra nell'equazione \ref{eq:EdKarp}.
 
 Ciò implica che l'arco $(w,v)$ è presente in $G_{i'}$ ma non in $G_i$, se così non fosse sarebbe vero che $\text{dist}_{G_{i'}}(s,w)\ge  \text{dist}_{G_i}(s,w)+1$, e quindi  $w=u_i$ e $v=u_{i-1}$ per qualche $i$, ma questa è una contraddizione dato che $v$ segue $w$ nel cammino $P'$, quindi l'asserto è verificato.\hfill$\blacksquare$
-\acc\redText{TODO : continuare e dimostrare che l'algoritmo esegue al più $nm$ iterazioni}
+\begin{teorema}\label{nm-aumenti}
+Nell'algoritmo di Edmonds-Karp, applicato su una network $G$, il numero totale di incrementi del valore del flusso è al più $n\cdot m$, con $n=|V(G)|$ e $m=|E(G)|$. Tale affermazione è valida anche se le capacità sugli archi sono numeri reali.
+\end{teorema}
+\textit{Dimostrazione} : Sia $G_i$ il grafo residuo nell'$i$-esima iterazione dell'algoritmo \ref{alg:Edmonds-Karp}, analogamente, sia $f_i$ il flusso valutato anch'esso durante l'$i$-esima iterazione. Chiaramente $G_0=G$ e $f_0(e)=0, \ \forall e$. 
+\begin{definizione}
+    Durante l'esecuzione dell'algoritmo \ref{alg:Edmonds-Karp}, un'arco $(u,v)$ è detto \textbf{critico} in $i$ se \begin{itemize}
+        \item $(u,v)\in G_i$
+        \item $(u,v)\notin G_{i+1}$
+    \end{itemize}
+\end{definizione}
+Se $P_i$ è il percorso minimo da $s$ a $t$ considerato nell'$i$-esima iterazione, e $(u,v)$ è critico in $i$, per definizione dell'algoritmo si ha che $(u,v)\in E(P_i)$.\begin{quote}
+    \begin{lemma2}
+    Sia $(u,v)$ un'arco di una network $G$, durante l'esecuzione dell'algoritmo \ref{alg:Edmonds-Karp}, l'arco $(u,v)$ può essere considerato critico al più $\frac{n}{2}$ volte.
+    \end{lemma2}
+    \textit{Dimostrazione Lemma} : Siano 
+    $$\pi(1)<\pi(2)<\dots < \pi(L) $$
+    gli indici delle iterazioni in cui $(u,v)$ è critico, con $L\le \frac{n}{2}$, chiaramente $$(u,v)\in E(P_{\pi(i)}) $$
+    per qualche $1\le i \le L$. Chiaramente
+    $$\text{dist}_{G_{\pi(i)}}(s,v) = 
+    \text{dist}_{G_{\pi(i)}}(s,u)+1 $$
+    Se $(u,v)$ è critico in $\pi(i)$ ed in $\pi(i+1)$, allora deve esistere un iterazione $i'$ compresa fra queste 
+    $$\pi(i)<i'<\pi(i+1) $$
+    In cui l'arco $(u,v)$ è stato re-inserito nel grafo residuo, quindi il flusso su $(u,v)$ in tale iterazione è diminuito, necessariamente (per skew-simmetria) il flusso su $(v,u)$ è aumentato, quindi quest'ultimo arco si trovava sul percorso da $s$ a $t$ nell'iterazione $i'$.
+    $$ (v,u)\in E(P_{i'})$$
+    Date le precedenti osservazioni, si deducono le seguenti disuguaglianze 
+    \begin{align}
+        \text{dist}_{G_{i'}}(s,u)= \text{dist}_{G_{i'}}(s,v)+1\\
+        \text{dist}_{G_{i'}}(s,v)+1\ge 
+        \text{dist}_{G_{\pi(i)}}(s,v)+1 \\ 
+        \text{dist}_{G_{\pi(i)}}(s,v)+1 =\text{dist}_{G_{\pi(i)}}(s,u)+2 \\ 
+         \Downarrow   \\ 
+          \text{dist}_{G_{\pi(i+1)}}(s,u)\ge
+          \text{dist}_{G_{\pi(i)}}(s,u)+2
+    \end{align}
+    Essendo che la distanza fra due vertici è limitata da $n=|V(G)|$, si ha che 
+    $$\text{dist}_{G_{\pi(i)}}(s,u)\le n-1 $$
+\begin{itemize}
+    \item la distanza fra $s$ ed $u$ è al più $n-1$ 
+    \item la distanza fra $s$ ed $u$ aumenta almeno di due in due iterazioni differenti in cui $(u,v)$ è critico
+\end{itemize}
+La conclusione è che non possono esistere più di $\frac{n}{2}$ indici $\pi(i)$ in cui $(u,v)$ è critico. \hfill$\square$
+\end{quote}
+La dimostrazione del teorema \ref{nm-aumenti} segue in maniera naturale, ad ogni iterazione un'arco è critico, essendo che ci sono $m$ archi ed ognuno può essere critico al più $\frac{n}{2}$ volte, il numero  totale di aumenti del flusso è al più $\frac{1}{2}nm$. \hfill$\blacksquare$ 
+\section{Cammini Edge-Disjoint in un Grafo}
+In questa sezione verrà esposta un'applicazione dell'algoritmo di ricerca del flusso massimo. Sia $G$ un grafo non diretto, si definisce la \textit{network associata} a $G$, il grafo diretto $\vec G$ tale che\begin{itemize}
+    \item $u\in V(G)\implies u\in V(\vec G)$
+    \item $(u,v)\in E(G)\implies \begin{cases}
+        (u,v)\in E(\vec G)\\ 
+        (v,u)\in E(\vec G)
+    \end{cases}$
+    \item $\forall (u,v)\in \vec G$ \ \ \ , $c(u,v)=1$
+\end{itemize}
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.65\textwidth ]{images/networkAssociata.eps}
+\end{figure}
+Si può anche risalire in maniera naturale ad un grafo non diretto associato ad una network.
+\begin{definizione}
+    Dato un grafo non diretto $G$ e due nodi $s,t$, un'insieme di cammini da $s$ a $t$ è \textbf{edge-disjoint} se non condividono alcun arco.
+\end{definizione}
+Verrà mostrato come, dato un grafo $G$, il numero massimo di cammini edge-disjoint è uguale al valore del flusso ottimale nella network associata.
+\begin{definizione}
+    Dato un flusso $f$ per una network $\vec G$, si definisce \textbf{supporto del flusso} l'insieme $$W=\{(u,v)\in E(\vec G) \text{ t.c. }f(u,v)\ne 0\} $$
+\end{definizione}
+\begin{proposizione}
+    Sia $\vec G = (V,E,c,s,t)$ una network tale per cui $c(e)=1,\ \forall e\in E(\vec G)$. Se esiste un flusso $f$ di valore $k$ per $\vec G$, allora il grafo non diretto associato $G$ ha $k$ cammini edge-disjoint da $s$ a $t$.
+\end{proposizione}
+\textit{Dimostrazione} : 
 \end{document}
