@@ -348,7 +348,10 @@ Verrà mostrato come, dato un grafo $G$, il numero massimo di cammini edge-disjo
     Dato un flusso $f$ per una network $\vec G$, si definisce \textbf{supporto del flusso} l'insieme $$W=\{(u,v)\in E(\vec G) \text{ t.c. }f(u,v)\ne 0\} $$
 \end{definizione}
 \begin{proposizione}
-    Sia $\vec G = (V,E,c,s,t)$ una network tale per cui $c(e)=1,\ \forall e\in E(\vec G)$. Se esiste un flusso $f$ di valore $k$ per $\vec G$, allora il grafo non diretto associato $G$ ha $k$ cammini edge-disjoint da $s$ a $t$.
+    Se nel supporto $W$ di un flusso $f$ per una network $\vec G$ gli archi compongono $k$ cammini diretti da $s$ a $t$, allora ci sono $k$ cammini edge-disjoint da $s$ a $t$ nel grafo non diretto associato.
 \end{proposizione}
 \textit{Dimostrazione} : 
 \end{document}
+\begin{proposizione}
+    Sia $\vec G = (V,E,c,s,t)$ una network tale per cui $c(e)=1,\ \forall e\in E(\vec G)$. Se esiste un flusso $f$ di valore $k$ per $\vec G$, allora il grafo non diretto associato $G$ ha $k$ cammini edge-disjoint da $s$ a $t$.
+\end{proposizione}
