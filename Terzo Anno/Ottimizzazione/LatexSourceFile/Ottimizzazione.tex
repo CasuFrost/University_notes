@@ -41,7 +41,7 @@ Dipartimento di Informatica
 
 %===================FINE COPERTINA======================%
 \newpage
-\pagecolor{cartaRiciclata}%\setmainfont{Algerian}
+%\pagecolor{cartaRiciclata}%\setmainfont{Algerian}
 \Large
 Questo documento è distribuito sotto la licenza 
 \color{blue}\href{https://www.gnu.org/licenses/fdl-1.3.txt}{GNU}\color{black},  
@@ -350,7 +350,74 @@ Verrà mostrato come, dato un grafo $G$, il numero massimo di cammini edge-disjo
 \begin{proposizione}
     Se nel supporto $W$ di un flusso $f$ per una network $\vec G$ gli archi compongono $k$ cammini diretti da $s$ a $t$, allora ci sono $k$ cammini edge-disjoint da $s$ a $t$ nel grafo non diretto associato.
 \end{proposizione}
-\textit{Dimostrazione} : 
+\textit{Dimostrazione} : \redText{TODO : continuare}
+
+
+
+
+
+\chapter{Programmazione Lineare}
+La programmazione lineare consiste nella ricerca di un vettore (ingresso di una funzione lineare) in cui tale funzione assume il valore massimo, all'interno di un dominio definito da un'insieme di vincoli lineari. La funzione da massimizzare è detta \textbf{funzione obiettivo}, un'esempio di programma lineare può essere il seguente 
+$$ x_1+x_2$$
+soggetto ai vincoli 
+$$ \begin{matrix}
+    x_1\ge 0 \\ 
+    x_2 \ge 0 \\ 
+    x_2-x_1\le 1 \\ 
+    x_1+6x_2\le 15 \\ 
+    4x_1-x_2\le 10
+\end{matrix}$$
+Un punto è \textbf{ammissibile} se soddisfa tutti i vincoli lineari.
+L'insieme di punti ammissibili si può rappresentare su un piano in questo caso, essendo un sotto-insieme di $\R^2$.
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.4\textwidth ]{images/LP_esempio1.pdf}
+        \caption{Insieme dei punti ammissibili}
+        \label{LP_esempio1}
+    }
+\end{figure}
+La funzione obiettivo essendo lineare si può rappresentare come prodotto scalare fra due vettori $\mathbf c$ e $\mathbf x$ 
+$$\mathbf c^T\mathbf x=\begin{bmatrix}
+    1&1
+\end{bmatrix}\begin{bmatrix}
+    x_1\\ x_2
+\end{bmatrix} =x_1+x_2$$
+Può risultare utile rappresentare sul piano anche il vettore $\mathbf c$ e la retta equivalente al sottospazio $$\text{span}(\mathbf c)=\{\alpha \mathbf c \ | \ \alpha \in \R\}$$
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.4\textwidth ]{images/LP_esempio2.pdf}
+    }
+\end{figure}
+Si consideri una retta $y'$ perpendicolare alla retta definita da $\text{span}(\mathbf c)$, i punti di $y'$ che intersecano l'insieme delle soluzioni ammissibili condividono la stessa immagine se valutati sulla funzione obiettivo. Un'interpretazione geometrica del problema può essere la seguente\begin{quotation}
+    Massimizzare la funzione obiettivo equivale a trovare il massimo $\beta$ tale che l'iperpiano definito da $\mathbf c^T\mathbf x = \beta$ perpendicolare alla retta $\alpha \mathbf c$ interseca l'insieme dei punti ammissibili.
+\end{quotation}
+Si definisce \textbf{soluzione ottimale} ogni soluzione ammissibile che massimizza la funzione obiettivo.
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.4\textwidth ]{images/LP_esempio3.pdf}
+    }
+    \caption{Il punto $(3,2)$ è una soluzione ottimale per il programma lineare}
+        \label{LP_esempio3}
+\end{figure}
+Il numero di soluzioni di un programma lineare può variare fra i seguenti casi\begin{enumerate}
+    \item Vi è un'unica soluzione ottimale.
+    \item Vi sono infinite soluzioni ottimale.
+    \item Non ci sono soluzioni ammissibili, nessun punto soddisfa tutti i vincoli lineari.
+    \item Non ci sono soluzioni ottimali perché il problema non è limitato, ciò avviene se l'insieme dei punti ammissibili non è chiuso.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
 \begin{proposizione}
     Sia $\vec G = (V,E,c,s,t)$ una network tale per cui $c(e)=1,\ \forall e\in E(\vec G)$. Se esiste un flusso $f$ di valore $k$ per $\vec G$, allora il grafo non diretto associato $G$ ha $k$ cammini edge-disjoint da $s$ a $t$.
