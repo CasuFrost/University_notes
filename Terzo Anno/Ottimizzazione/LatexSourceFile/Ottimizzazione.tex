@@ -357,6 +357,7 @@ Verrà mostrato come, dato un grafo $G$, il numero massimo di cammini edge-disjo
 
 
 \chapter{Programmazione Lineare}
+\section{Insiemi Convessi}
 La programmazione lineare consiste nella ricerca di un vettore (ingresso di una funzione lineare) in cui tale funzione assume il valore massimo, all'interno di un dominio definito da un'insieme di vincoli lineari. La funzione da massimizzare è detta \textbf{funzione obiettivo}, un'esempio di programma lineare può essere il seguente 
 $$ x_1+x_2$$
 soggetto ai vincoli 
@@ -405,8 +406,96 @@ Il numero di soluzioni di un programma lineare può variare fra i seguenti casi\
     \item Non ci sono soluzioni ammissibili, nessun punto soddisfa tutti i vincoli lineari.
     \item Non ci sono soluzioni ottimali perché il problema non è limitato, ciò avviene se l'insieme dei punti ammissibili non è chiuso.
 \end{enumerate}
-
-
+Generalmente la funzione obiettivo  $f:\R^n\rightarrow \R$ è del tipo 
+$$c_1x_1+c_2x_2+\dots+c_nx_n $$
+e gli $m$ vincoli sono della forma $$\begin{matrix}
+    a_{11}x_1+a_{21}x_2+\dots + a_{n1}x_2\le b_1\\ 
+    a_{12}x_1+a_{22}x_2+\dots + a_{n2}x_2\le b_2\\ \vdots \\ 
+    a_{1m}x_1+a_{2m}x_2+\dots + a_{nm}x_2\le b_m
+\end{matrix}$$
+\begin{osservazione}
+    Massimizzare  $\mathbf c^T \mathbf x$ equivale a minimizzare $\mathbf -\mathbf c^T\mathbf x $.
+\end{osservazione}
+Si può quindi assumere che un generico problema di programmazione lineare riguardi la massimizzazione di una funzione del tipo $\mathbf c^T \mathbf x$ per un fissato $\mathbf c \in \R^n$. Inoltre, ogni vincolo del tipo 
+\begin{equation}\label{vincolo} a_{1i}x_1+a_{2i}x_2+\dots + a_{ni}x_2\le b_i\end{equation}
+è soddisfatto dagli stessi punti che soddisfano 
+$$ -a_{1i}x_1-a_{2i}x_2-\dots - a_{ni}x_2\ge b_i $$
+Quindi si può assumere che ogni vincolo sia scritto nella forma \ref{vincolo}. Inoltre ogni vincolo di uguaglianza equivale a due disuguaglianze. Date le precedenti osservazioni, si può definire un'insieme di $m$ vincoli in maniera compatta tramite una matrice $m\times n $ ed un vettore $\mathbf b\in \R^m$. 
+$$ A\mathbf x \le \mathbf b$$ 
+Inoltre ogni vincolo di positività del tipo $x_i\ge 0$ equivale ad il vincolo $-x_i\le 0$. Se in un programma lineare una variabile $x_i$ può assumere qualsiasi valore in $\R$, si può sostituire con la differenza di due nuove variabili 
+$$x_i=z_i-z_i' $$
+ed imporre i vincoli $$ z_i,z_i'\ge 0$$ 
+in tal modo è possibile, per ogni variabile del programma lineare, imporre la positività. Ciò è utile per definire una \textit{forma standard} per un programma lineare. 
+\begin{definizione}
+    Un programma lineare in \textbf{forma standard} è un problema di ottimizzazione del tipo 
+\end{definizione}
+    $$
+    \begin{matrix}
+        \text{max } \ \mathbf c^T\mathbf x\\ 
+        A\mathbf x \le \mathbf b\\ 
+        \mathbf x \ge 0
+    \end{matrix}
+    $$
+Dove 
+$$ 
+\begin{matrix}
+    \mathbf x,\mathbf c\in \R^n\\ 
+    A \in \text{Mat}(m\times n)\\ 
+    \mathbf b\in \R^m
+\end{matrix}
+$$
+L'esistenza di soluzioni ammissibili dipende esclusivamente dalla matrice $A$. È impossibile che un programma lineare abbia un numero finito di soluzioni diverso da 0 e 1. In seguito verrà dimostrato che se un programma lineare ha due punti ammissibili che sono soluzione, allora ha infinite soluzioni.
+\begin{definizione}
+    Dati due punti $\mathbf x,\mathbf y \in \R^n$, si definisce \textbf{segmento di linea} fra i punti l'insieme \end{definizione} 
+    $$ \{\alpha\mathbf x +(1-\alpha)\mathbf y \text{ t.c. }\alpha \in [0,1] \}$$
+\begin{definizione}
+    Un sotto-insieme $X\subseteq \R^n$ è \textbf{convesso} se la seguente è verificata 
+\end{definizione}
+$$\forall \mathbf x,\mathbf y \in X, \ \ \  
+\{\alpha\mathbf x +(1-\alpha)\mathbf y \text{ t.c. }\alpha \in [0,1] \}\subseteq X
+$$
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.7\textwidth ]{images/insiemeConvesso.eps}
+    }
+\end{figure}
+\begin{proposizione}
+    L'insieme dei punti ammissibili di un programma lineare è convesso.
+\end{proposizione}
+\textit{Dimostrazione} : Siano $\mathbf x,\mathbf y\in \R^n$ due punti ammissibili, sia $\alpha\in[0,1]$ fissato, si considera il punto (appartenente al segmento) 
+$$\alpha\mathbf x +(1-\alpha)\mathbf y $$ 
+si ha che \begin{eqnarray}
+    A(\alpha\mathbf x +(1-\alpha)\mathbf y)=\\ 
+    \alpha A \mathbf x + (1-\alpha)A\mathbf y = \\ 
+    \alpha \mathbf b + (1-\alpha )\mathbf b = \mathbf b 
+\end{eqnarray}
+quindi Il punto soddisfa gli $m$ vincoli
+$$A(\alpha\mathbf x +(1-\alpha)\mathbf y)\le \mathbf b $$
+Inoltre essendo che 
+$$ \alpha \ge 0, \mathbf x \ge 0, \mathbf y \ge 0$$
+si ha che 
+$$ \alpha\mathbf x +(1-\alpha)\mathbf y\ge 0$$
+Quindi $\alpha\mathbf x +(1-\alpha)\mathbf y$ soddisfa tutti i vincoli del programma lineare, ed appartiene quindi ai punti ammissibili.
+\hfill$\blacksquare$
+\begin{proposizione}
+    Se un programma lineare in forma standard ha due soluzioni ottimali $\mathbf x^*,\mathbf y^*\in \R^n$, allora ne ha infinite.
+\end{proposizione}
+\textit{Dimostrazione} : Sia $ \mathbf z$ un punto sul segmento delineato da $\mathbf x^*,\mathbf y^*$
+$$\mathbf z = \alpha\mathbf x^* +(1-\alpha)\mathbf y^* \ \ \text{ per qualche }\alpha \in [0,1] $$
+si ha che 
+ \begin{eqnarray}
+    \mathbf c^T \mathbf z = \\
+    \mathbf c^T(\alpha\mathbf x^*  +(1-\alpha)\mathbf y^*)=\\
+    \alpha\mathbf c^T\mathbf x^*  +(1-\alpha)\mathbf c^T\mathbf y^*
+\end{eqnarray}
+Essendo che $\mathbf x^*$ e $\mathbf y^*$ sono entrambe soluzioni ottimali, si ha che $c^T\mathbf x^*=c^T\mathbf y^*$
+\begin{eqnarray}
+    \alpha\mathbf c^T\mathbf x^*  +(1-\alpha)\mathbf c^T\mathbf y^*=\\ 
+    \alpha\mathbf c^T\mathbf x^*  +(1-\alpha)\mathbf c^T\mathbf x^*=
+    c^T\mathbf x^*
+\end{eqnarray}
+Quindi anche $\mathbf z$ è soluzione, essendo che quest'ultimo è un generico punto sul segmento, tutti i punti del segmento sono soluzioni.\hfill$\blacksquare$
+\section{Applicazioni della Programmazione Lineare}
 
 
 
@@ -422,3 +511,4 @@ Il numero di soluzioni di un programma lineare può variare fra i seguenti casi\
 \begin{proposizione}
     Sia $\vec G = (V,E,c,s,t)$ una network tale per cui $c(e)=1,\ \forall e\in E(\vec G)$. Se esiste un flusso $f$ di valore $k$ per $\vec G$, allora il grafo non diretto associato $G$ ha $k$ cammini edge-disjoint da $s$ a $t$.
 \end{proposizione}
+
