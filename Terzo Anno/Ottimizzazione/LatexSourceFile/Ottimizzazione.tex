@@ -417,7 +417,7 @@ e gli $m$ vincoli sono della forma $$\begin{matrix}
     Massimizzare  $\mathbf c^T \mathbf x$ equivale a minimizzare $\mathbf -\mathbf c^T\mathbf x $.
 \end{osservazione}
 Si può quindi assumere che un generico problema di programmazione lineare riguardi la massimizzazione di una funzione del tipo $\mathbf c^T \mathbf x$ per un fissato $\mathbf c \in \R^n$. Inoltre, ogni vincolo del tipo 
-\begin{equation}\label{vincolo} a_{1i}x_1+a_{2i}x_2+\dots + a_{ni}x_2\le b_i\end{equation}
+\begin{equation}\label{vincolo} a_{1i}x_1+a_{2i}x_2+\dots + a_{ni}x_n\le b_i\end{equation}
 è soddisfatto dagli stessi punti che soddisfano 
 $$ -a_{1i}x_1-a_{2i}x_2-\dots - a_{ni}x_2\ge b_i $$
 Quindi si può assumere che ogni vincolo sia scritto nella forma \ref{vincolo}. Inoltre ogni vincolo di uguaglianza equivale a due disuguaglianze. Date le precedenti osservazioni, si può definire un'insieme di $m$ vincoli in maniera compatta tramite una matrice $m\times n $ ed un vettore $\mathbf b\in \R^m$. 
@@ -426,7 +426,7 @@ Inoltre ogni vincolo di positività del tipo $x_i\ge 0$ equivale ad il vincolo $
 $$x_i=z_i-z_i' $$
 ed imporre i vincoli $$ z_i,z_i'\ge 0$$ 
 in tal modo è possibile, per ogni variabile del programma lineare, imporre la positività. Ciò è utile per definire una \textit{forma standard} per un programma lineare. 
-\begin{definizione}
+\begin{definizione}\label{formaStandard}
     Un programma lineare in \textbf{forma standard} è un problema di ottimizzazione del tipo 
 \end{definizione}
     $$
@@ -478,7 +478,7 @@ $$ \alpha\mathbf x +(1-\alpha)\mathbf y\ge 0$$
 Quindi $\alpha\mathbf x +(1-\alpha)\mathbf y$ soddisfa tutti i vincoli del programma lineare, ed appartiene quindi ai punti ammissibili.
 \hfill$\blacksquare$
 \begin{proposizione}
-    Se un programma lineare in forma standard ha due soluzioni ottimali $\mathbf x^*,\mathbf y^*\in \R^n$, allora ne ha infinite.
+    Se per un programma lineare esistono due soluzioni ottimali distinte $\mathbf x^*,\mathbf y^*\in \R^n$, allora tale programma lineare ha infinite soluzioni ottimali.
 \end{proposizione}
 \textit{Dimostrazione} : Sia $ \mathbf z$ un punto sul segmento delineato da $\mathbf x^*,\mathbf y^*$
 $$\mathbf z = \alpha\mathbf x^* +(1-\alpha)\mathbf y^* \ \ \text{ per qualche }\alpha \in [0,1] $$
@@ -496,12 +496,84 @@ Essendo che $\mathbf x^*$ e $\mathbf y^*$ sono entrambe soluzioni ottimali, si h
 \end{eqnarray}
 Quindi anche $\mathbf z$ è soluzione, essendo che quest'ultimo è un generico punto sul segmento, tutti i punti del segmento sono soluzioni.\hfill$\blacksquare$
 \section{Applicazioni della Programmazione Lineare}
+Un classico esempio di applicazione riguarda la scelta di una dieta che soddisfi dei vincoli nutrizionali minimizzando il costo degli alimenti. Vi è un'insieme di $n$ alimenti $x_1\dots,x_n$ ed ognuno di questi ha un costo $c_i$, si vuole minimizzare 
+$$\sum_{i=1}^nc_ix_i $$
+tenendo conto dei vincoli nutrizionali del tipo 
+$$ a_{1i}x_1+a_{2i}x_2+\dots + a_{ni}x_n\ge b_i$$
+Un'altro esempio riguarda la ricerca di un flusso ottimale per una network $G=(V,E,c,s,t)$, per ogni arco $(i,j)$ vi sarà una variabile $x_{ij}$ che rappresenta il flusso su tale arco, si vuole massimizzare la somma del flusso uscente dal vertice source  $s$
+$$ \sum_{(s,j)\in E(G)}x_{sj}$$
+I vincoli riguardano la skew simmetria, la conservazione del flusso e il vincolo delle capacità, ad esempio:
+$$ \begin{matrix}
+    x_{ij}\le c_{ij} \\ 
+    x_{ij}=-x_{ji}
+\end{matrix}$$
+Un'esempio interessante di problema che si riconduce alla programmazione lineare riguarda la ricerca del cerchio di raggio massimo che può essere inscritto in un poligono.
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.3\textwidth ]{images/cerchioPoligono.eps}
+    }
+\end{figure}
+Si assume che i lati del poligono possono essere descritti da un'insieme di rette del tipo $y=mx+b$ con $m\ne 0$.\bigskip 
 
-
-
-
-
-
+Si consideri una delle rette $y=mx+b$, si vuole trovare una retta perpendicolare a questa passante per un fissato punto $(x_0,y_0)$. Questa ha equazione 
+$$y=\frac{y_0-x}{m}+y_0 $$
+Il punto di intersezione è $P=(x',y')$ dove 
+\begin{eqnarray}
+    x'=\frac{x_0+my_0}{m^2+1}-mb\\ 
+    y'=m\frac{x_0+my_0-mb}{m^2+1}+b
+\end{eqnarray}
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.35\textwidth ]{images/rettaPassante.eps}
+    }
+    \caption{retta perpendicolare passante per $(x_0,y_0)$}
+\end{figure}
+La distanza fra $P$ e $(x_0,y_0)$, applicando la norma euclidea, risulta essere 
+\begin{itemize}
+    \item $\displaystyle\frac{b+mx_0-y_0}{\sqrt{1+m^2}}$ se $(x_0,y_0)$ si trova sotto la retta 
+    \item $\displaystyle\frac{-b-mx_0+y_0}{\sqrt{1+m^2}}$ se $(x_0,y_0)$ si trova sopra la retta 
+\end{itemize}
+Il programma lineare riguarda la ricerca di un cerchio che massimizzi il raggio $r$ (distanza fra $(x_0,y_0)$ e $P$) variando fra il possibile centro $(x_0,y_0)$ all'interno del poligono, rispettando i vincoli del tipo 
+\begin{itemize}
+     \item$\frac{b_l+mx_0-y_0}{\sqrt{1+m^2}}\ge r, \ \ \forall  l \in {1,\dots k}$
+     \item$\frac{-b_l-mx_0+y_0}{\sqrt{1+m^2}}\ge r\ \ \forall l \in {k+1,\dots n}$
+\end{itemize} 
+\section{Il Metodo del Simplesso}
+Il metodo del simplesso è un'algoritmo per la risoluzione dei programmi lineari. Questi devono però assumere una forma differente da quella standard introdotta nella definizione \ref{formaStandard}. Un programma lineare è definito come segue 
+$$
+    \begin{matrix}
+        \text{max } \ \mathbf c^T\mathbf x\\ 
+        A\mathbf x \le \mathbf b\\ 
+        \mathbf x \ge 0
+    \end{matrix}
+    $$
+Per ogni generica disuguaglianza del tipo 
+$$ a_{1i}x_1+a_{2i}x_2+\dots + a_{ni}x_n\le b_i$$
+Si considera una nuova variabile $y_i\ge 0$ detta \textbf{slack}, e la disuguaglianza diventa un'uguaglianza come segue 
+$$ a_{1i}x_1+a_{2i}x_2+\dots + a_{ni}x_n+y_i = b_i$$
+Vi sarà quindi un vettore $\mathbf y \in \R^m$ che viene introdotto nel problema, che assume la seguente forma 
+$$
+    \begin{matrix}
+        \text{max } \ [\mathbf c^T \ | \ 0 \ \dots \  0]\begin{bmatrix}
+            \mathbf x \\\mathbf y
+        \end{bmatrix}\\ 
+        [A \ | \ \text{Id}_m]\begin{bmatrix}
+            \mathbf x \\ \mathbf y
+        \end{bmatrix} = \mathbf b\\ 
+        \begin{bmatrix}
+            \mathbf x \\ \mathbf y
+        \end{bmatrix} \ge 0
+    \end{matrix}
+    $$
+Dove Id$_m$ è la matrice identità $m\times m$. Un problema LP di questo tipo è detto in \textbf{forma di equazione}, ed il metodo del simplesso opera su un programma lineare di tale forma. In generale, si scrive 
+$$
+    \begin{matrix}
+        \text{max } \ \mathbf c^T\mathbf x\\ 
+        A\mathbf x = \mathbf b\\ 
+        \mathbf x \ge 0
+    \end{matrix}
+    $$
+\textbf{Assunzione} : Il programma lineare considerato ha almeno una soluzione ammissibile.
 
 
 
