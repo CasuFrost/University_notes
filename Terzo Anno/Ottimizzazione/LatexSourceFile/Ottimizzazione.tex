@@ -573,7 +573,94 @@ $$
         \mathbf x \ge 0
     \end{matrix}
     $$
-\textbf{Assunzione} : Il programma lineare considerato ha almeno una soluzione ammissibile.
+\textbf{Assunzione} : Il programma lineare considerato ha almeno una soluzione ammissibile. Ossia $\exists \bar{\mathbf x}$ tale che $A\bar{\mathbf x}=\mathbf b$ e $\mathbf x \ge 0$. Data la matrice $A$, si considerino due righe di essa, ossia $A_i$ e $A_j$, sia $A'$ un'altra matrice identica a $A$, in cui la riga $j$-esima è sostituita con la riga $A_i+A_j$
+\begin{equation}
+    A=\begin{bmatrix}
+        a_{11}& \dots & a_{1n}\\ 
+        \vdots & & \vdots \\ 
+        a_{i1}& \dots & a_{in}\\ 
+        \vdots & & \vdots \\ 
+        a_{j1}& \dots & a_{jn}\\ 
+        \vdots & & \vdots \\ 
+        a_{m1}& \dots & a_{mn}
+    \end{bmatrix} \ \ \ \ \ \ \  A'=\begin{bmatrix}
+        a_{11}& \dots & a_{1n}\\ 
+        \vdots & & \vdots \\ 
+        a_{i1}& \dots & a_{in}\\ 
+        \vdots & & \vdots \\ 
+        a_{j1}+a_{i1}& \dots & a_{jn}+a_{in}\\ 
+        \vdots & & \vdots \\ 
+        a_{m1}& \dots & a_{mn}
+    \end{bmatrix}
+\end{equation}
+Se $\mathbf x$ soddisfa $A\mathbf x = \mathbf b$ allora soddisfa anche $A'\mathbf x = \mathbf b'$ dove $\mathbf b'$ è identico a $\mathbf b$ ma il $j$-esimo elemento è sommato all'$i$-esimo $$ \mathbf b' = [b_1 \ \ \dots b_i \ \ \dots \ \ b_i+b_j \ \ \dots b_n]^T$$
+Le operazioni sulle righe di $A$ non cambiano l'insieme delle soluzioni, si assume che le righe siano \textit{linearmente indipendenti}, che il rango di $A$ sia $m$, e che lo span delle righe di $A$ è un sottospazio di $\mathbb{R}^n$.\begin{proposizione}
+    Il rango delle colonne di $A$ è $m$, la dimensione del sottospazio di $\mathbb R^m$ dato dallo span delle colonne è $m$.
+\end{proposizione}
+\textit{Dimostrazione} : \redText{TODO}\bigskip 
+
+Il problema descritto è \begin{eqnarray}
+    A\mathbf x = \mathbf b \\ \mathbf x \ge 0 \\ \text{esiste una soluzione}\\ 
+    \text{rango righe di }A=\text{rango colonne di }A=m
+\end{eqnarray}
+Considerando $\ker(A)=\{\mathbf x \text{ t.c. }A\mathbf x = \mathbf 0\}$ si ha un sottospazio di dimensione $n-m$ di $\mathbb R^n$, lo spazio delle soluzioni di $A\mathbf x = \mathbf b$ è un \textbf{sottospazio affine} e si ottiene sommando $\mathbf b$ a tutti i vettori di $\ker(A)$.\bigskip 
+
+\textit{Esempio} : Si consideri il triangolo delineato dai punti $(0,0,3),(0,3,0),(3,0,0)$, tutti i punti di tale triangolo sono i vettori $\mathbf x$ che soddisfano $A\mathbf x = \mathbf b$.\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.35\textwidth ]{images/triangolo.pdf}
+    }
+    \caption{triangolo in $\mathbb R^3$}
+\end{figure}
+Si ha $A=[1 \ \ 1 \ \ 1]$ e $b=3$
+$$ \begin{bmatrix}
+    1 & 1 & 1
+\end{bmatrix}\begin{bmatrix}
+    x \\ y \\ z
+\end{bmatrix}=3\implies x+y+z=3$$
+I 3 vertici del triangolo rappresentano delle soluzioni "speciali", ottenute ponendo 2 delle 3 variabili uguali a zero e risolvendo per le altre, tali soluzioni sono dette \textit{basiche}.\bigskip 
+
+In generale, $A\in Mat(m\times n)$ e $\mathbf b \in \mathbb R^n$, si vogliono porre un numero massimale di variabili pari a zero e risolvere per le altre, si pongono esattamente $n-m$ variabili nulle. 
+
+Sia $\mathcal B \subseteq \{1,\dots n\}$ l'insieme degli indici $i$ per cui la variabile $x_i$ non è posta a zero, e sia $A_{\mathcal B}$ la sotto-matrice di $A$ composta dalle colonne il cui indice è relativo ad una variabile diversa da zero.
+$$ \begin{bmatrix}
+    a_{1i} & \dots & a_{mi}
+\end{bmatrix}^T \text{ è una colonna di }A_{\mathcal B} \iff i\in\mathcal B$$
+Sia $\mathbf b_{\mathcal B}$ definito in maniera intuitiva, come il vettore contenente la componente $j$-esima di $\mathbf b$ se $j\in \mathcal B$. Si considera il problema derivato \begin{equation}
+    A_{\mathcal B}\mathbf x_{\mathcal B}=\mathbf b_{\mathcal B} \ \ \ \ A_{\mathcal{B}}\in Mat(m\times m)
+\end{equation}
+Se $A_{\mathcal{B}}$ non è \textbf{singolare} (il determinante è diverso da zero) allora esiste una soluzione $\bar{ \mathbf x}$ per il problema derivato, se $\bar{ \mathbf x}\ge 0$, allora è anche una soluzione per il problema originale, ponendo a zero tutte le componenti della soluzione i cui indici non sono in $\mathcal B$.\begin{itemize}
+    \item se $\bar{ \mathbf x}=[x_{k1} \ \ x_{k2} \ \ \dots \ \ x_{km}]^T$ è soluzione di  $ A_{\mathcal B}\mathbf x_{\mathcal B}=\mathbf b_{\mathcal B}$
+    \item si ha $\{k1,k2\dots, km\}=\mathcal B$
+    \item allora il vettore $\bar{ \mathbf x}'$ con\begin{itemize}
+        \item $x_i = x_{kj}$ se $i=kj$ per qualche $j\le m$, ossia $i\in\mathcal B$
+        \item $x_i = 0 $ se $i \notin \mathcal B$
+    \end{itemize}
+    è soluzione di $A\mathbf x = \mathbf b$ se $\bar{ \mathbf x}'\ge 0$.
+\end{itemize}
+\begin{definizione}
+    Dato un programma lineare $$
+    \begin{matrix}
+        \text{max } \ \mathbf c^T\mathbf x\\ 
+        A\mathbf x \le \mathbf b\\ 
+        \mathbf x \ge 0
+    \end{matrix}
+    $$
+    Una soluzione ammissibile $\bar{\mathbf x}$ è detta \textbf{basica} se esiste un sotto-insieme di indici $\mathcal B\subseteq \{1,2,\dots n\}$ tale per cui\begin{itemize}
+        \item $A_{\mathcal B}$ non è singolare 
+        \item $\bar{x}_j=0$ $\forall j \notin \mathcal{B}$
+    \end{itemize}
+\end{definizione}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
