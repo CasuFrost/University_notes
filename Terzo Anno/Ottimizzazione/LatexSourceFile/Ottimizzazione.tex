@@ -645,29 +645,180 @@ Se $A_{\mathcal{B}}$ non è \textbf{singolare} (il determinante è diverso da ze
         \mathbf x \ge 0
     \end{matrix}
     $$
-    Una soluzione ammissibile $\bar{\mathbf x}$ è detta \textbf{basica} se esiste un sotto-insieme di indici $\mathcal B\subseteq \{1,2,\dots n\}$ tale per cui\begin{itemize}
+    Una soluzione ammissibile $\bar{\mathbf x}$ è detta \textbf{basica} (BFS) se esiste un sotto-insieme di indici $\mathcal B\subseteq \{1,2,\dots n\}$ tale per cui\begin{itemize}
         \item $A_{\mathcal B}$ non è singolare 
         \item $\bar{x}_j=0$ $\forall j \notin \mathcal{B}$
     \end{itemize}
 \end{definizione}
+\textit{Esempio} : Data la matrice \begin{equation}
+    A=\begin{bmatrix}
+        1&6&3&-3&4\\ 
+        0&1&3&2&4
+    \end{bmatrix}
+\end{equation}
+Ed il sistema di equazioni 
+$$ A\mathbf x = \begin{bmatrix}
+    6\\6
+\end{bmatrix}$$
+Per la base  $\mathcal B = \{2,4\}$ si ha $$A_{\mathcal B}=\begin{bmatrix}
+    6&-3\\1&2
+\end{bmatrix} $$
+La matrice non è singolare, per il sistema $$ \begin{bmatrix}
+    6&-3\\1&2
+\end{bmatrix}\begin{bmatrix}
+    x_2\\x_4
+\end{bmatrix}  = \begin{bmatrix}
+    6\\6
+\end{bmatrix}$$
+una soluzione è $$ \begin{bmatrix}
+    2\\2
+\end{bmatrix}$$
+Quindi una soluzione ammissibile basica per il problema originale è 
+$$ \bar{\mathbf x}=\begin{bmatrix}
+    0&2&0&2&0
+\end{bmatrix}^T$$
+Se considerassimo la base $\mathcal B' = \{3,5\}$, si avrebbe la sotto-matrice 
+$$A_{\mathcal B'}= \begin{bmatrix}
+    3&4\\3&4
+\end{bmatrix}$$
+Essendo singolare, per tale base non esiste alcuna soluzione basica.
+\begin{proposizione}\label{insiemeK}
+    Sia $A\mathbf x=b$, $\mathbf x \ge 0$ un programma lineare, e sia $\mathbf{\bar x}$ una BFS (soluzione ammissibile basica), si consideri l'insieme di indici 
+    $$ K=\{i \text{ t.c. }\bar x_i>0\}$$
+    Le colonne della matrice $A_K$ sono linearmente indipendenti. 
+\end{proposizione}
+\textit{Dimostrazione} : La dimostrazione è banale, esiste una base $\mathcal B$ a cui $\mathbf{\bar x}$ fa riferimento per cui $K\subseteq \mathcal B$, essendo le colonne di $A_{\mathcal B}$ linearmente indipendenti, anche un loro sotto-insieme, ossia quelle di $A_K$ lo sono.\hfill$\blacksquare$
+\begin{proposizione}
+    Si consideri un programma lineare, sia $\mathbf{\bar x}$ una soluzione ammissibile e $$ K=\{i \text{ t.c. }\bar x_i>0\}$$ $\mathbf{\bar x}$ è una BFS se e solo se le colonne di $A_K$ sono linearmente indipendenti.
+\end{proposizione}
+\textit{Dimostrazione} : Verrà dimostrata solo una delle due implicazioni, si assume che $\mathbf{\bar x}$ è una soluzione ammissibile e che le colonne di $A_K$ siano linearmente indipendenti. Per dimostrare che $\mathbf{\bar x}$ sia una BFS è necessario trovare una base che contenga $K$.
 
+Sia $\mathcal B^*$ un'insieme definito come segue\begin{enumerate}
+    \item $K\subseteq\mathcal B^*$
+    \item Le colonne di $\mathcal B^*$ sono linearmente indipendenti 
+    \item $\mathcal B^*$ è l'insieme massimale che rispetti le due condizioni precedenti
+\end{enumerate}
+Bisogna mostrare che $\mathcal B^*$ ha $m$ elementi in modo tale che $A_{\mathcal B^*}$ sia una matrice quadrata $m\times m$.
 
+Si assuma che $|\mathcal B^*|<m$, ciò significherebbe che le restanti colonne di $A$ sono contenute nello span delle colonne di $A_{\mathcal B^*}$, quindi $A$ ha \textit{meno} di $m$ colonne linearmente indipendenti, ma è noto che il rango di $A$ sia $m$, quindi l'assunzione  $|\mathcal B^*|<m$ porta ad una contraddizione $\implies |\mathcal B^*|=m$.\hfill$\blacksquare$
+\begin{osservazione}
+    Ogni base ha almeno una BFS associata.
+\end{osservazione}
+\textbf{Conclusione} : Esiste un numero finito di BFS. Ogni base è un sotto-insieme di $m$ elementi preso da $\{1,2,\dots n\}$, quindi esistono al più $\binom{n}{m}$ basi distinte, quindi esistono al più $\binom{n}{m}$  BFS.\bigskip 
 
+Il seguente risultato è fondamentale in quanto stabilisce che un programma lineare (che riguarda la ricerca di una soluzione fra un'insieme non numerabile) si può ridurre ad una ricerca fra un'insieme finito di possibili soluzioni ottimali. 
+\begin{teorema}\label{teo:BFS}
+    Si consideri un programma lineare in forma di equazione
+$$ 
+\begin{matrix}
+    \text{max } \ \mathbf c^T\mathbf x\\ 
+    A\mathbf x = \mathbf b\\ 
+    \mathbf x \ge 0
+\end{matrix}
+$$\begin{enumerate}
+    \item Se esiste almeno una soluzione ammissibile ed il problema è limitato (l'insieme delle soluzioni ammissibili è compatto), allora esiste una soluzione ottimale.
+    \item Se esiste una soluzione ottimale, allora esiste anche una BFS che è a sua volta ottimale.
+\end{enumerate}
+\end{teorema}
+La dimostrazione del teorema \ref{teo:BFS} richiede alcuni passi preliminari. \acc 
+\textbf{Statement} $\star$ : Se la funzione obiettivo di un LP in forma di equazione è limitata superiormente, allora per ogni soluzione ammissibile $\mathbf y$ esiste una BFS $\mathbf z$ tale che $\mathbf c^T\mathbf z\ge \mathbf c^T\mathbf y$.\acc 
+\textbf{Claim 1} : Se $\star$ è vera, allora il teorema è dimostrato.\acc 
+\textit{Dimostrazione Claim 1} : Si consideri la BFS $\mathbf y$ che massimizza la funzione obiettivo rispetto tutte le altre BFS. Assumiamo che $\mathbf y$ non sia ottimale, allora esiste $\mathbf y^*$ (che non è una BFS) tale che 
+$$\mathbf c^T\mathbf y^*\ge \mathbf c^T\mathbf y$$
+Ma per il claim $\star$ esiste una BFS $\mathbf z$ tale per cui 
+$$\mathbf c^T\mathbf z\ge\mathbf c^T\mathbf y^*\ge \mathbf c^T\mathbf y$$
+Ciò va in contraddizione con l'assunzione che $\mathbf y$ sia massimale fra le BFS, quindi non può esistere tale $\mathbf y^*\implies \mathbf y$ è una BFS ottimale $\implies$ il claim è dimostrato : $\star \implies $ teorema \ref{teo:BFS}.\hfill$\blacksquare$\bigskip
 
+Per dimostrare il teorema è quindi sufficiente dimostrare lo Statement $\star$.
+Sia $\mathbf y$ un'arbitraria soluzione ammissibile, sia $\mathbf z$ un'altra soluzione ammissibile tale che \begin{enumerate}
+    \item $\mathbf  c^T\mathbf z\ge \mathbf  c^T\mathbf y$
+    \item $\mathbf z$ ha un numero massimale di componenti uguali a zero
+\end{enumerate}
+Tale $\mathbf z$ esiste dato che nel caso peggiore si può considerare $\mathbf z = \mathbf y$. Si consideri l'insieme $K$ degli indici delle componenti positive di $\mathbf z$ 
+$$ K=\{j \text{ t.c. }z_j>0\}$$
+La proposizione \ref{insiemeK} afferma che se le colonne di $A_K$ sono linearmente indipendenti $\mathbf z$ è una BFS, ciò dimostrerebbe lo Statement $\star$.
 
+Si assuma  che le colonne di $A_K$ siano linearmente dipendenti. Sia $k=|K|$. Esistono dei coefficienti $\alpha_1\dots, \alpha_k$ tali per cui 
+\begin{equation}\label{linDIP}
+    \alpha_1\begin{bmatrix}
+        \\A^1_K\\ \\
+    \end{bmatrix}+\dots + \alpha_k\begin{bmatrix}
+        \\A^k_K\\ \\
+    \end{bmatrix}=\mathbf 0\implies 
+\end{equation}\begin{equation}\label{linDIP2}
+    A_K\begin{bmatrix}
+        \alpha_1\\\vdots\\\alpha_k 
+    \end{bmatrix}=\mathbf 0
+\end{equation}
+Si consideri un particolare vettore $\mathbf w$ definito come segue\begin{itemize}
+    \item la componente $j$-esima di $\mathbf w$ contiene $\alpha_j$ se $j\in K $, $\alpha_j$ è il coefficiente moltiplicato alla colonna $j$-esima di $A_K$ nella combinazione lineare dell'equazione  \ref{linDIP}.
+    \item Se $j\notin K$, allora la componente $j$-esima di $\mathbf w$ è 0.
+\end{itemize}
+Data l'equazione \ref{linDIP2}, risulta chiaro che il prodotto della matrice originale $A$ e $\mathbf w$ sia uguale al prodotto fra $A_K$ ed il vettore dei coefficienti $\alpha_1\dots,\alpha_k$. 
+\begin{equation}\label{linDIP3}
+   A\mathbf w= A_K\begin{bmatrix}
+        \alpha_1\\\vdots\\\alpha_k 
+    \end{bmatrix}=\mathbf 0
+\end{equation}
+Riconsiderando la soluzione $\mathbf z$, si può sommare a $\mathbf w$ e moltiplicare per la matrice $A$ 
+$$ A(\mathbf z+\mathbf w)=A\mathbf z+A\mathbf w=A\mathbf z+\mathbf 0 = \mathbf b+\mathbf 0 = \mathbf b$$
+Essendo che $\mathbf z$ è soluzione il prodotto fra quest'ultimo ed $A$ è uguale al vettore $\mathbf b$ relativo ai vincoli del programma lineare. Nonostante $\mathbf z+\mathbf w$ soddisfi i vincoli, non è certo che sia soluzione, in quanto non è certo se abbia o no componenti negative (si ricordi che una soluzione deve essere maggiore o uguale al vettore $\mathbf 0$).
 
+Si noti come per definizione di $\mathbf w$, questo ha una componente uguale a zero in una data posizione, se in quella data posizione la soluzione $\mathbf z$ ha la componente uguale a zero, quindi $\mathbf w$ ha \textit{almeno tanti} zeri quanti quelli di $\mathbf z$.\acc 
+\textbf{Claim 2} : Il vettore $\mathbf w$ soddisfa le seguenti\begin{enumerate}
+    \item $\mathbf c^T\mathbf w \ge 0$
+    \item $\exists j\in K \text{ t.c. }w_j<0$
+\end{enumerate}
+\textit{Dimostrazione} : Se per $\mathbf w$ il punto (2) non dovesse essere soddisfatto, si potrebbe considerare $-\mathbf w$, questo soddisfa tutte le condizioni per cui è stato definito $\mathbf w$ : $A(-\mathbf w)=A\mathbf w =\mathbf 0$. Tale sostituzione si può considerare anche per soddisfare il punto (1), nel caso in cui si dovesse verificare che $c^T\mathbf w<0$.
 
+Se la condizione (2) non dovesse essere soddisfatta, allora si consideri il vettore (in funzione di $t\in\mathbb R^+$)  $$\mathbf z(t)=\mathbf{z}+t\mathbf w$$
+Tale vettore soddisfa i vincoli del programma lineare 
+$$A\mathbf z(t)=A(\mathbf z + t\mathbf w)=A\mathbf z+tA\mathbf w=\mathbf b + t\cdot \mathbf 0 = \mathbf b $$
+Inoltre essendo la (2) non soddisfatta, si ha che, per ogni possibile $t\in\mathbb R^+$ $$ z(t)_j=z_j+tw_j\ge 0$$ questo perché \begin{enumerate}
+    \item $z_j\ge 0$ essendo $\mathbf z$ una soluzione 
+    \item $t$ è non negativo perché varia in $\mathbb  R^+$
+    \item $w_j$ non è negativo dato che la (2) non è soddisfatta
+\end{enumerate}
+Essendo $\mathbf z(t)$ sempre maggiore o uguale a zero si ha: \begin{equation}
+    \mathbf c^T \cdot \mathbf z(t)= \mathbf c^T (\mathbf z + t\mathbf w)=\mathbf c^T \mathbf z + t\mathbf c^T \mathbf w
+\end{equation}
+Attenzione, essendo il punto (1) soddisfatto, $c^T \mathbf w$ è positivo, quindi dato il termine $t\mathbf c^T \mathbf w$, la funzione $ \mathbf c^T \cdot \mathbf z(t)$ non è limitata, ciò è una contraddizione, quindi le due assunzioni del claim sono vere. \hfill$\blacksquare$\bigskip
 
-
-
-
-
-
-
-
+Dato ciò, esiste un indice $j\in K$ per cui $w_j<0$, si consideri nuovamente il vettore $$\mathbf z(t)=\mathbf{z}+t\mathbf w$$
+Avendo verificato che questo soddisfa i vincoli $\forall t$, ci si pone la domanda, che valore assume nella funzione obiettivo? 
+$$ \mathbf c^T \mathbf z(t)=\mathbf c^T\mathbf z+t\mathbf c^T\mathbf w$$
+Sappiamo che\begin{itemize}
+    \item $\mathbf c^T\mathbf z\ge \mathbf c^T\mathbf y$ per la scelta di $\mathbf z$
+    \item $t\mathbf c^T\mathbf w\ge 0$ per il claim
+\end{itemize}
+Ne consegue che $$ \mathbf c^T \mathbf z(t)\ge \mathbf c^T \mathbf y$$
+Per la chiarezza della dimostrazione, si ricordi che $\mathbf z$ è stato scelto per soddisfare le seguenti \begin{enumerate}
+    \item $\mathbf  c^T\mathbf z\ge \mathbf  c^T\mathbf y$
+    \item $\mathbf z$ ha un numero massimale di componenti uguali a zero
+\end{enumerate}
+$$ 
+\mathbf z(t)=\begin{bmatrix}
+    0\\\vdots \\ z_i\\ \vdots \\0
+\end{bmatrix}+t\begin{bmatrix}
+    0\\\vdots \\ w_i\\ \vdots \\0
+\end{bmatrix}
+$$
+sia $ w_i$ una componente negativa di $\mathbf w$, se $t=-\frac{z_i}{w_i}$ allora 
+$$ 
+\mathbf z(-\frac{z_i}{w_i})=\begin{bmatrix}
+    0\\\vdots \\ z_i\\ \vdots \\0
+\end{bmatrix}-\frac{z_i}{w_i}\begin{bmatrix}
+    0\\\vdots \\ w_i\\ \vdots \\0
+\end{bmatrix}\implies z(-\frac{z_i}{w_i})_i=z_i-z_i=0
+$$
+Il vettore $\mathbf z(-\frac{z_i}{w_i})$ ha una componente  nulla in più rispetto a $\mathbf z$, se si considera $$ t^*=\min_{i \text{ t.c. }w_i<0}(-\frac{z_i}{w_i})$$
+il vettore $\mathbf z(t^*)$ risulterà non negativo, quindi: 
+$$\begin{matrix}
+    A\mathbf z(t^*=\mathbf b)\\ \mathbf z(t^*)\ge 0
+\end{matrix}$$
+Il vettore $\mathbf z(t^*)$ è una soluzione ammissibile ed ha uno 0 in più rispetto a $\mathbf z$, ma questa è una contraddizione (data la scelta di $\mathbf z$), quindi è impossibile che le colonne di $A_K$ siano linearmente dipendenti $\implies$ $\mathbf z$ è una BFS, lo Statement $\star$ è dimostrato.\hfill$\blacksquare$\acc 
+\textbf{Corollario} : Se un programma lineare ha una funzione obiettivo limitata, allora esiste un'algoritmo che trova una soluzione ottimale in un numero finito di passi.
 
 \end{document}
-\begin{proposizione}
-    Sia $\vec G = (V,E,c,s,t)$ una network tale per cui $c(e)=1,\ \forall e\in E(\vec G)$. Se esiste un flusso $f$ di valore $k$ per $\vec G$, allora il grafo non diretto associato $G$ ha $k$ cammini edge-disjoint da $s$ a $t$.
-\end{proposizione}
+
 
