@@ -604,7 +604,7 @@ Il problema descritto è \begin{eqnarray}
     \text{rango righe di }A=\text{rango colonne di }A=m
 \end{eqnarray}
 Considerando $\ker(A)=\{\mathbf x \text{ t.c. }A\mathbf x = \mathbf 0\}$ si ha un sottospazio di dimensione $n-m$ di $\mathbb R^n$, lo spazio delle soluzioni di $A\mathbf x = \mathbf b$ è un \textbf{sottospazio affine} e si ottiene sommando $\mathbf b$ a tutti i vettori di $\ker(A)$.\bigskip 
-
+\subsection{Soluzioni Ammissibili Basiche}
 \textit{Esempio} : Si consideri il triangolo delineato dai punti $(0,0,3),(0,3,0),(3,0,0)$, tutti i punti di tale triangolo sono i vettori $\mathbf x$ che soddisfano $A\mathbf x = \mathbf b$.\begin{figure}[h]
     \centering{
         \includegraphics[width=0.35\textwidth ]{images/triangolo.pdf}
@@ -818,7 +818,221 @@ $$\begin{matrix}
 \end{matrix}$$
 Il vettore $\mathbf z(t^*)$ è una soluzione ammissibile ed ha uno 0 in più rispetto a $\mathbf z$, ma questa è una contraddizione (data la scelta di $\mathbf z$), quindi è impossibile che le colonne di $A_K$ siano linearmente dipendenti $\implies$ $\mathbf z$ è una BFS, lo Statement $\star$ è dimostrato.\hfill$\blacksquare$\acc 
 \textbf{Corollario} : Se un programma lineare ha una funzione obiettivo limitata, allora esiste un'algoritmo che trova una soluzione ottimale in un numero finito di passi.
+\subsection{Ricerca sul Poliedro}
+Si consideri il seguente programma lineare$$\begin{matrix}
+    \max \ x_1+x_2\\ -x_1+x_2\le 1 \\ x_1\le 3 \\ x_2 \le 2 \\ x_1,x_2 \ge 0
+\end{matrix}$$
+L'insieme delle soluzioni ammissibili è mostrato in figura \ref{fig:solEsempio}.
+\begin{figure}[h]\label{fig:solEsempio}
+    \centering{
+        \includegraphics[width=0.35\textwidth ]{images/insiemeSoluzioniLP1.eps}
+    }
+    \caption{Insieme definito dai vincoli}
+\end{figure}
+Per trasformare il problema in forma di equazione occorre aggiungere 3 variabili slack $x_3,x_4,x_5$.$$\begin{matrix}
+    \max \mathbf{c}^T \mathbf x  \ \\ -x_1+x_2+x_3= 1 \\ x_1+x_4= 3 \\ x_2 +x_5= 2 \\ x_1,x_2,x_3,x_4,x_5 \ge 0
+\end{matrix}$$
+in forma matriciale:
+$$A=\begin{bmatrix}
+    -1&1&1&0&0\\ 
+    1&0&0&1&0 \\ 
+    0& 1 & 0 & 0 & 1
+\end{bmatrix}  \ \ \ \ \mathbf c = \begin{bmatrix}
+    1 & 1 & 0&0&0
+\end{bmatrix}^T$$
+Si consideri la base $\mathcal B = \{1,2,4\}$ : 
+$$A_{\mathcal B}=\begin{bmatrix}
+    -1&1&0\\ 1&0&1\\0&1&0
+\end{bmatrix} 
+$$
+è non singolare, si può risolvere il sistema di equazioni 
+\begin{eqnarray}\begin{bmatrix}
+    -1&1&0\\ 1&0&1\\0&1&0
+\end{bmatrix} \begin{bmatrix}
+    x_1\\x_2\\x_4
+\end{bmatrix}=\begin{bmatrix}
+    1\\ 3\\ 2
+\end{bmatrix}\implies  \begin{cases}
+    x_1=1\\x_2=2\\x_4=2
+\end{cases}
+\end{eqnarray}
+La BFS è $\mathbf x = \begin{bmatrix}
+    1&2&0&2&0
+\end{bmatrix}^T$
+Le variabili slack $x_3,x_5$ della soluzione $\mathbf x$ sono poste a zero, ciò significa che tale punto soddisfa i vincoli del problema originale (in forma di uguaglianza), in particolare, soddisfa le eguaglianze del primo e del terzo vincolo $$ \begin{matrix}
+    -x_1+x_2= 1 \\ x_2 = 2
+\end{matrix}$$ 
+Tale punto può essere geometricamente individuato nell'insieme delle soluzioni ammissibili del problema originale, ed equivale al punto su cui si intersecano le due rette che definiscono il primo ed il terzo vincolo, come mostrato in figura \ref{fig:solEsempio2}.
+\begin{figure}[h]\label{fig:solEsempio2}
+    \centering{
+        \includegraphics[width=0.35\textwidth ]{images/insiemeSoluzioniLP2.eps}
+    }
+    \caption{punto di intersezione}
+\end{figure}
+\begin{definizione}
+    Un'insieme $\mathcal X\subset \mathbb R^n$ è \textbf{aperto} se $\forall \mathbf x\in \mathcal X$, $\exists \epsilon >0$ tale che $\{\mathbf y\in \mathbb R^n \ | \ \|\mathbf y-\mathbf x\|\le \epsilon   \}\subset \mathcal X$.
+\end{definizione}
+\begin{definizione}
+    Un'insieme $\mathcal X\subset \mathbb R^n$ è \textbf{chiuso} se il suo complemento $\mathbb R^n \backslash \mathcal X$ è un'insieme aperto.
+\end{definizione}
+\begin{osservazione}
+    L'unione di due insiemi aperti è un'insieme aperto. L'intersezione di due insiemi chiusi è un'insieme chiuso.
+\end{osservazione}
+\begin{definizione}
+    Dato un sotto-insieme di punti  $I\subset \mathbb R^n$, si definisce il suo \textbf{inviluppo convesso} l'intersezione di tutti i sotto-insiemi convessi di $\mathbb R^n$ contenenti $I$. Alternativamente, si può dire che l'inviluppo convesso di $I$ è il più piccolo insieme convesso contenente $I$.
+\end{definizione}
+\begin{figure}[h]\label{fig:solEsempio2}
+    \centering{
+        \includegraphics[width=0.4\textwidth ]{images/inviluppoConvesso.eps}
+    }
+    \caption{inviluppo convesso dei punti $x_1,x_2\dots,x_5$}
+\end{figure}
+\begin{definizione}
+    Dati $n$ punti $\mathbf{x}_1,\mathbf{x}_2\dots ,\mathbf{x}_n\subset \mathbb R^m$, una loro \textbf{combinazione convessa} è un punto $\mathbf{z}$ definito come segue \begin{itemize}
+        \item $\displaystyle\mathbf z =  \sum_{i=1}^n\alpha_i\mathbf x_i$
+        \item $\alpha_i\ge 0  \ \ \ \forall i$
+        \item $\displaystyle  \sum_{i=1}^n\alpha_i=1$
+    \end{itemize}
+\end{definizione}
+\begin{osservazione}
+    Una combinazione convessa fra due punti è un segmento di linea.
+\end{osservazione}
+\begin{proposizione}
+    Siano  $\mathbf{x}_1,\mathbf{x}_2\dots ,\mathbf{x}_n$ dei punti in $\mathbb R^m$, sia $C$ l'inviluppo convesso di tali punti, e sia $\tilde C$ l'insieme di tutte le combinazioni convesse $$\tilde{C} =
+     \Big\{\sum_{i=1}^n \alpha_i\mathbf{x}_i \text{ t.c. }\alpha_i\ge 0 \ \forall i,\ \sum_{i=1}^n \alpha_i=1\Big\} $$
+    si ha che $C=\tilde C$
+\end{proposizione}
+\textit{Dimostrazione} : La dimostrazione procederà classicamente con una doppia inclusione. Si vuole mostrare come prima cosa che $C\subseteq \tilde C$, essendo $C$ l'intersezione di tutti gli insiemi convessi contenenti i punti, ed essendo che $\tilde C$ contiene ogni punto $\mathbf x_i$, è sufficiente mostrare che $\tilde C$ sia convesso.
 
+Siano $\mathbf z_1,\mathbf z_2\in\tilde C$, ossia della forma\begin{eqnarray*}
+    \mathbf z_1 = \sum_i\alpha_i\mathbf x_i, \ \ \ \  \alpha_i\ge 0, \ \sum_1\alpha_i=1\\ 
+    \mathbf z_2 = \sum_i\beta_i\mathbf x_i, \ \ \ \  \beta_i\ge 0, \ \sum_1\beta_i=1
+\end{eqnarray*}
+Un generico punto sul segmento di $\mathbf z_1,\mathbf z_2$ è 
+$$ t\mathbf z_1+(1-t)\mathbf z_2, \ \ \ \ t\in[0,1]$$
+esplicitando\begin{eqnarray}
+    t\displaystyle  \sum_i\alpha_i\mathbf x_i+(1-t)\mathbf \displaystyle  \sum_i \beta_i\mathbf x_i=\\ \displaystyle  
+    \displaystyle  \sum_i t\alpha_i\mathbf x_i+\mathbf \displaystyle  \sum_i (1-t)\beta_i\mathbf x_i=\\ \displaystyle  
+    \sum_i(t\alpha_i+(1-t)\beta_i)\mathbf x_i
+\end{eqnarray}
+Bisogna mostrare che $\sum_i(t\alpha_i+(1-t)\beta_i)\mathbf x_i$ è una combinazione convessa, essendo che $$ t\ge 0, \ \alpha_i\ge 0, \ \beta_i\ge 0$$
+è immediato che, per ogni $i$ si ha che $t\alpha_i+(1-t)\beta_i\ge 0$, inoltre \begin{eqnarray}
+    \sum_i t\alpha_i+(1-t)\beta_i=\\ 
+    \sum_it\alpha_i+\sum_i(1-t)\beta_i=\\ 
+    t\sum_i\alpha_i+(1-t)\sum_i\beta_i
+\end{eqnarray}
+Essendo che per ipotesi $\sum_i\alpha_i=\sum_i\beta_i=1$, si ha che \begin{eqnarray}
+    t\sum_i\alpha_i+(1-t)\sum_i\beta_i=t+(1-t)=1
+\end{eqnarray}
+Quindi ogni punto sul segmento $ t\mathbf z_1+(1-t)\mathbf z_2$, $t\in[0,1] $ è a sua volta una combinazione convessa di $\mathbf{x}_1,\mathbf{x}_2\dots ,\mathbf{x}_n\implies\tilde C$ è convesso $\implies \  C \subseteq \tilde C$.\bigskip 
+
+Si vuole mostrare ora che $\tilde C\subseteq  C$, sia $\mathbf z$ una combinazione convessa, $\mathbf z=\sum_i\alpha_i\mathbf x_i$, si procede per induzione sul numero di coefficienti $\alpha_i$ il cui valore è diverso da zero.\begin{itemize}
+    \item \textit{Caso base} : Solamente un coefficiente $\alpha_i$ è diverso da zero, sia questo $\alpha_j$ ($j$ fissato), allora $$ \sum_i\alpha_i\mathbf x_i=0\cdot \mathbf x_0+\dots 1\cdot \mathbf x_j+\dots 0\cdot \mathbf x_n = \mathbf x_j $$
+    Essendo che i punti sono contenuti nell'inviluppo convesso, si ha che $\mathbf z\in C$
+    \item \textit{Secondo caso base} : Se il numero di coefficienti di $\mathbf z$ diversi da zero fosse 2, allora la combinazione convessa sarebbe del tipo $$ \mathbf z =t\mathbf x_i+(1-t)\mathbf x_j, \ \ \ \text{per qualche }i,j$$
+    anche in questo caso $\mathbf z$ si troverebbe in $C$, dato che $C$ è convesso e $\mathbf x_i,\mathbf x_j\in C$, come mostrato nel caso base.
+    \item \textit{Ipotesi induttiva} : Le combinazioni convesse con $k-1$ coefficienti diversi da zero sono in $C$.
+    \item \textit{Passo induttivo} : Sia $\mathbf z$ una combinazione convessa con $k$ coefficienti diversi da zero. È sufficiente mostrare che $\mathbf z$ si trova sul segmento di linea di due punti contenuti in $C$. Sia $j$ un fissato indice tale per cui il coefficiente $\alpha_j$ di $\mathbf z$ è diverso da zero, per definizione si ha che $$ \sum_{i=1, \ i\ne j}^n \alpha_i=1-\alpha_j$$
+     Questo comporta che 
+     $$ \frac{1}{1-\alpha_j}\sum_{i=1, \ i\ne j}^n \alpha_i=1$$
+     Si considerino $n$ coefficienti $\alpha_1',\dots \alpha_n'$ definiti come segue $$ \alpha_i'=\begin{cases}
+        0 \text{ se }i=j\\ 
+        \frac{\alpha_i}{1-\alpha_j} \text{ altrimenti}
+     \end{cases}$$
+     Si consideri la combinazione convessa $\mathbf z'$ data da tali coefficienti 
+     $$ \mathbf z'=\sum_{i=1}^n \alpha_i'\mathbf x_i$$
+     Chiaramente, $\mathbf z'$ ha $k-1$ coefficienti diversi da zero, quindi per ipotesi induttiva $\mathbf z'\in C$. Si consideri il seguente punto sul segmento fra $\mathbf z'$ e $\mathbf x_j$ : $$
+     (1-\alpha_j)\mathbf z'+\alpha_j\mathbf x_j 
+     $$
+     Essendo sul segmento, tale punto è contenuto in $C$, esplicitando:\begin{eqnarray}
+        (1-\alpha_j)\mathbf z'+\alpha_j\mathbf x_j =\\ 
+        (1-\alpha_j) \sum_{i=1}^n \alpha_i'\mathbf x_i+\alpha_j\mathbf x_j =\\ 
+        \sum_{i=1}^n (1-\alpha_j) \alpha_i'\mathbf x_i+\alpha_j\mathbf x_j =\\ 
+        \sum_{i=1, \ i\ne j}^n \alpha_i\mathbf x_i+\alpha_j\mathbf x_j=\mathbf z 
+     \end{eqnarray}
+     Ma allora $\mathbf z$ si trova sul segmento di linea fra $\mathbf z'$ e $\mathbf x_j$, quindi $\mathbf z\in C \implies \tilde C\subseteq  C$, questo completa la dimostrazione, $C=\tilde C$. \hfill$\blacksquare$
+\end{itemize} 
+\begin{figure}[h]\label{fig:segmento}
+    \centering{
+        \includegraphics[width=0.3\textwidth ]{images/segmento.eps}
+    }
+    \caption{locazione geometrica di $\mathbf z$}
+\end{figure}
+\begin{definizione}
+    Un \textbf{iperpiano} in $\mathbb R^n$ è un sottospazio affine di dimensione $n-1$ definito dall'insieme dei punti che soddisfano un'equazione del tipo 
+    $$ a_1 x_1+a_2 x_2+\dots +a_n x_n= b$$
+\end{definizione}
+Ogni iperpiano definisce due \textit{mezzi spazi}, ossia due insieme convessi e chiusi, la cui unione comprende tutto $\mathbb R^n$, definiti dai punti che soddisfano le equazioni 
+$$ a_1 x_1+a_2 x_2+\dots +a_n x_n\le b$$
+$$ a_1 x_1+a_2 x_2+\dots +a_n x_n\ge b$$
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=0.5, transform shape]
+        \begin{axis}
+            \addplot3 [
+                surf,
+                faceted color=blue,
+                samples=15,
+                domain=0:1,y domain=-1:1
+            ] {y-0.3*x};
+        \end{axis}
+        \end{tikzpicture}\caption{iperpiano in $\mathbb R^3$}
+\end{figure}
+\begin{definizione}
+    Un \textbf{poliedro} è l'intersezione di un numero finito di mezzi-spazi definiti da iperpiani. La dimensione del poliedro $P$ è uguale alla dimensione del più piccolo sotto-spazio affine di $\mathbb R^n$ contenente $P$. 
+\end{definizione}
+\begin{definizione}
+    Un \textbf{politopo} $P$ è un poliedro limitato, ossia, $\exists c\in \mathbb R$ tale che  $\forall \mathbf x \in P$,  $\|\mathbf x\|\le c$.
+\end{definizione}
+\begin{definizione}
+    Dato un poliedro $P$, un punto $\mathbf v$ è un \textbf{vertice} di $P$ se esiste un iperpiano $$\mathcal X = \{\mathbf x \in \mathbb R^n\text{ t.c. }a_1 x_1+a_2 x_2+\dots +a_n x_n= \}$$ tale per cui\begin{itemize}\item $\mathbf v\in\mathcal X$\item $\forall \bar{\mathbf x} \in P, \ \bar{\mathbf x}=[\bar x_1,\dots \bar x_n]^T \ne \mathbf v$ si ha 
+    $$ a_1 \bar x_1+a_2\bar x_2+\dots +a_n\bar x_n<  b$$\end{itemize}
+\end{definizione}
+\begin{definizione}
+    Dato un poliedro $P$, una \textbf{faccia} è un'insieme $\mathcal U\subseteq P$ tale per cui esiste un iperpiano $\mathcal X$ tale che $\mathcal X\cap P = \mathcal U$, e per cui, ogni punto di $P$ si trova in uno dei due mezzi spazi definiti da $\mathcal X$
+\end{definizione}
+La dimensione di una faccia è uguale alla dimensione del più piccolo sottospazio affine che la contiene.
+\begin{definizione}
+    Un \textbf{angolo} è una faccia di dimensione 1.
+\end{definizione}
+\begin{teorema}
+    Se $P$ è il poliedro rappresentante l'insieme delle soluzioni ammissibili di un programma lineare in forma di equazione, allora $\mathbf v$ è un vertice di $P$ se e solo se $\mathbf v$ è una soluzione ammissibile basica per il programma lineare.
+\end{teorema}
+\textit{Dimostrazione} : Verranno dimostrati entrambe le implicazione del \textit{se e solo se}.
+
+\boxedMath{$\implies$} Sia vuole dimostrare che il vertice di un poliedro è soluzione di un programma lineare. Sia $\mathbf v$ un vertice di $P$, per definizione, esiste un iperpiano $a_1x_1+\dots+a_nx_n=b$ tale per cui $P$ è contenuto in una delle due metà definite da esso, sia questa $a_1x_1+\dots+a_nx_n\le b$, inoltre 
+$$a_1v_1+\dots +a_nv_n=b  
+$$
+e 
+$$ a_1x_1+\dots +a_nx_n<b, \ \ \ \forall \mathbf x\in P, \ \ \ \mathbf x\ne\mathbf v  $$
+Quindi, considerando il programma lineare 
+\begin{eqnarray}
+     \max \begin{bmatrix}
+        a_1&a_2&\dots&a_n
+    \end{bmatrix}\mathbf x < b \\ \mathbf x \in P
+\end{eqnarray}
+$\mathbf v$ è l'unica soluzione ottima, per il teorema \ref{teo:BFS}, allora $\mathbf v$ è una BFS.
+
+\boxedMath{$\impliedby$} Sia $\mathbf v$ una BFS per un dato programma lineare, il cui insieme delle soluzioni ammissibili è il poliedro $P$, a $\mathbf v$ è associata una base $\mathcal B \subset \{1,2\dots, n\}$, si consideri vettore $\tilde{\mathbf c}$ definito come segue\begin{equation}
+    \tilde{\mathbf c}=\begin{bmatrix}
+        \tilde c_1\\ \vdots \\ \tilde c_n
+    \end{bmatrix} \ \ \ \ \ \tilde c_i=\begin{cases}
+        0\text{ se }i\in \mathcal B\\ 
+        -1\text{ se }i \notin \mathcal B
+    \end{cases}
+\end{equation}  
+Essendo che ogni componente $i$-esima di $\mathbf v$ è nulla se $i\notin \mathcal B$, è immediato che $$ \tilde{\mathbf c}^T\mathbf v = 0$$
+Inoltre, preso un qualsiasi altro punto $\mathbf x \in P$, se $\exists j$ tale che $x_j>0$, allora $\tilde{\mathbf c}^T\mathbf x < 0$. \begin{osservazione}\label{oss:iperpiano}
+    $\forall \mathbf x \in P$, $\ \ \tilde{\mathbf c}^T\mathbf x \le 0$
+\end{osservazione}
+Quindi, considerando l'iperpiano 
+$$\mathcal X = \{\mathbf x \in \mathbb R^n \text{ t.c. } \tilde{\mathbf c}^T\mathbf x =0\} $$
+si noti come\begin{itemize}
+    \item Per l'osservazione \ref{oss:iperpiano} tutti i punti del poliedro $P$ sono contenuti in una delle metà definite dall'iperpiano $\mathcal X $
+    \item $\tilde{\mathbf c}^T\mathbf v = 0$
+\end{itemize}
+Se $\mathbf v$ fosse l'unico punto per cui $\tilde{\mathbf c}^T\mathbf v = 0$ allora sarebbe per definizione un vertice di $P$. Si assuma che esiste un $\mathbf y \in P$ tale per cui $\tilde{\mathbf c}^T\mathbf y = 0$, ciò significa che $\forall j\notin \mathcal B$, $y_j=0$, questo significa che, considerando la matrice $A_{\mathcal B}$, ed il sistema di equazioni 
+$$A_{\mathcal B}\mathbf x_{\mathcal B}=\mathbf b_{\mathcal B} $$
+il vettore $\mathbf y_{\mathcal B}$ (sotto-vettore di $\mathbf y$ le cui componenti sono quelle di indice contenuto in $\mathcal B$) è soluzione, ma anche $\mathbf v_{\mathcal B}$ è soluzione, essendo $A_{\mathcal B}$ una matrice quadrata non singolare, il sistema ammette un'unica soluzione, quindi $\mathbf v_{\mathcal B}=\mathbf y_{\mathcal B}\implies \mathbf v \mathbf y$, ma allora $\mathbf v$ è l'unica soluzione per cui $\tilde{\mathbf c}^T\mathbf v = 0$, ne consegue che è un vertice.\hfill$\blacksquare$
 \end{document}
-
 
