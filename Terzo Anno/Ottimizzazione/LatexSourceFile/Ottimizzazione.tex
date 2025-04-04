@@ -818,7 +818,7 @@ $$\begin{matrix}
 \end{matrix}$$
 Il vettore $\mathbf z(t^*)$ è una soluzione ammissibile ed ha uno 0 in più rispetto a $\mathbf z$, ma questa è una contraddizione (data la scelta di $\mathbf z$), quindi è impossibile che le colonne di $A_K$ siano linearmente dipendenti $\implies$ $\mathbf z$ è una BFS, lo Statement $\star$ è dimostrato.\hfill$\blacksquare$\acc 
 \textbf{Corollario} : Se un programma lineare ha una funzione obiettivo limitata, allora esiste un'algoritmo che trova una soluzione ottimale in un numero finito di passi.
-\subsection{Ricerca sul Poliedro}
+\subsection{Ricerca sul Poliedro}\label{RicercasulPoliedro} 
 Si consideri il seguente programma lineare$$\begin{matrix}
     \max \ x_1+x_2\\ -x_1+x_2\le 1 \\ x_1\le 3 \\ x_2 \le 2 \\ x_1,x_2 \ge 0
 \end{matrix}$$
@@ -1034,5 +1034,136 @@ si noti come\begin{itemize}
 Se $\mathbf v$ fosse l'unico punto per cui $\tilde{\mathbf c}^T\mathbf v = 0$ allora sarebbe per definizione un vertice di $P$. Si assuma che esiste un $\mathbf y \in P$ tale per cui $\tilde{\mathbf c}^T\mathbf y = 0$, ciò significa che $\forall j\notin \mathcal B$, $y_j=0$, questo significa che, considerando la matrice $A_{\mathcal B}$, ed il sistema di equazioni 
 $$A_{\mathcal B}\mathbf x_{\mathcal B}=\mathbf b_{\mathcal B} $$
 il vettore $\mathbf y_{\mathcal B}$ (sotto-vettore di $\mathbf y$ le cui componenti sono quelle di indice contenuto in $\mathcal B$) è soluzione, ma anche $\mathbf v_{\mathcal B}$ è soluzione, essendo $A_{\mathcal B}$ una matrice quadrata non singolare, il sistema ammette un'unica soluzione, quindi $\mathbf v_{\mathcal B}=\mathbf y_{\mathcal B}\implies \mathbf v =\mathbf y$, ma allora $\mathbf v$ è l'unica soluzione per cui $\tilde{\mathbf c}^T\mathbf v = 0$, ne consegue che è un vertice.\hfill$\blacksquare$
+\subsection{La Procedura di Risoluzione}
+Le proposizioni ed i teoremi presentati nei paragrafi precedenti dovrebbero aver fornito un'idea di come un programma lineare si riduce alla ricerca delle soluzioni ottimali fra i vertici del poliedro definito dall'insieme delle soluzioni ammissibili.
+
+Si consideri il programma lineare definito all'inizio della sezione \ref{RicercasulPoliedro} 
+$$\begin{matrix}
+    \max \ x_1+x_2\\ -x_1+x_2\le 1 \\ x_1\le 3 \\ x_2 \le 2 \\ x_1,x_2 \ge 0
+\end{matrix}$$
+Il poliedro in questione è mostrato in figura \ref{fig:solEsempio}. La soluzione ottimale si trova sul vertice in alto a destra, ossia $\mathbf x = [3,2]^T$, presenteremo la procedura del metodo del simplesso su tale programma lineare.
+
+Prima di procedere è necessario aggiungere delle variabili slack e trasformare il problema in forma di equazione:
+$$\begin{matrix}
+    \max \mathbf{c}^T \mathbf x  \ \\ -x_1+x_2+x_3= 1 \\ x_1+x_4= 3 \\ x_2 +x_5= 2 \\ x_1,x_2,x_3,x_4,x_5 \ge 0
+\end{matrix}$$
+in forma matriciale:
+$$A=\begin{bmatrix}
+    -1&1&1&0&0\\ 
+    1&0&0&1&0 \\ 
+    0& 1 & 0 & 0 & 1
+\end{bmatrix}  \ \ \ \ \mathbf c = \begin{bmatrix}
+    1 & 1 & 0&0&0
+\end{bmatrix}^T$$
+
+
+\textbf{Passo 1} : Si parte sempre da una possibile base, sia questa $\mathcal B_1 = \{3,4,5\}$, si riscrive il problema risolvendo il sistema di equazioni definito da $A$ per le variabili di base 
+\begin{eqnarray*}
+    x_3=1+x_1-x_2\\ 
+    x_4=3-x_1\\ 
+    x_5=2-x_2
+\end{eqnarray*}
+Il valore della funzione obiettivo è $\mathbf c ^T \mathbf x=z=x_1+z_2$, si scrive tale equazione insieme alle equazioni del sistema, costruendo una tabella (la cui definizione formale verrà fornita in seguito):
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+        $x_3=1+x_1-x_2$\\ 
+        $x_4=3-x_1$\\ 
+        $x_5=2-x_2$ \\
+        \hline 
+        $z=x_1+x_2$ \\\hline 
+    \end{tabular}
+\end{center}
+Essendo $x_1,x_2$ due variabili non di base, queste sono poste uguali a zero, il valore della funzione obiettivo è quindi 0, e la BFS associata a tale base si ottiene risolvendo il sistema di equazioni
+$$\begin{cases}
+    x_3=1+0-0\\ 
+    x_4=3-0\\ 
+    x_5=2-0
+\end{cases}\implies\begin{cases}
+    x_3=1\\ x_4=3\\ x_5=2
+\end{cases}$$
+$$ \mathcal{B}_1 = \{3,4,5\}\implies \text{BFS}=\begin{bmatrix}
+    0 & 0 & 1 & 3 & 2 
+\end{bmatrix}^T \implies z = 0$$
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.4\textwidth ]{images/CamminoSimplesso1.eps}
+    }
+    \caption{BFS con $\mathcal B_1$}
+\end{figure}
+
+\textbf{Passo 2} : Si considera adesso una nuova base, partendo da quella iniziale, si tira fuori una variabile per inserirna un'altra, in questo caso lo scambio avviene fra $x_2$ e $x_3$, considerando $\mathcal B_2 = \{2,4,5\}$, la tabella diviene 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+        $x_2=1+x_1-x_3$\\ 
+        $x_4=3-x_1$\\ 
+        $x_5=2-x_2$ \\
+        \hline 
+        $z=x_1+1+x_1-x_3$ \\\hline 
+    \end{tabular}
+\end{center}
+Essendo $x_1=x_3=0$, la funzione obiettivo assume valore $z=1$, la BFS associata si ottiene risolvendo il sistema di equazioni
+$$\begin{cases}
+    x_2=1+0-0\\ 
+    x_4=3-0\\ 
+    x_5=2-x_2
+\end{cases}\implies\begin{cases}
+    x_2=1\\ 
+    x_4=3\\ 
+    x_5=2-1
+\end{cases}\implies\begin{cases}
+    x_2=1\\ x_4=3\\ x_5=1
+\end{cases}$$
+$$ \mathcal{B}_2 = \{2,4,5\}\implies \text{BFS}=\begin{bmatrix}
+    0 & 1 & 0 & 3 & 1 
+\end{bmatrix}^T \implies z = 1$$
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.4\textwidth ]{images/CamminoSimplesso2.eps}
+    }
+    \caption{BFS con $\mathcal B_2$}
+\end{figure}
+
+\textbf{Passo 3} : Si vuole incrementare il valore della funzione obiettivo, si scambia la variabile $x_1$ con la variabile $x_5$, ottenendo la base $\mathcal B_3 = \{1,2,4\}$, la tabella considerata è 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+        $x_1=1+x_3-x_5$\\ 
+        $x_2=2-x_5$\\ 
+        $x_4=2-x_3+x_5$ \\
+        \hline 
+        $z=3+x_3-2 x_5$ \\\hline 
+    \end{tabular}
+\end{center}
+Risolvendo il sistema di equazioni e sostituendo $x_3,x_5$ con 0, si ha 
+$$ \mathcal{B}_3 = \{1,2,4\}\implies \text{BFS}=\begin{bmatrix}
+    1 & 2 & 0 & 2 & 0 
+\end{bmatrix}^T \implies z= 3$$
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.32\textwidth ]{images/CamminoSimplesso3.eps}
+    }
+    \caption{BFS con $\mathcal B_3$}
+\end{figure}
+
+\textbf{Passo 4} : Il seguente passo è l'ultimo, si sostutisce $x_4$ con $x_3$, considerando la base $\mathcal B_4 = \{1,2,3\}$, la tabella risulta essere 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+        $x_1=3-x_4$\\ 
+        $x_2=2-x_5$\\ 
+        $x_3=x_5-x_4+2$ \\
+        \hline 
+        $z=5-x_4-x_5$ \\\hline 
+    \end{tabular}
+\end{center}
+Questa risulta essere la soluzione ottimale, $z$ non può essere incrementato in nessun modo dato che è uguale a $5-x_4-x_5$, e $x_4,x_5$ variano in $\mathbb R^+$, quindi $z\le 5 $, la funzione obiettivo è massimizzata e la soluzione ottimale si ottiene risolvendo il sistema di equazioni
+$$ \mathcal{B}_4 = \{1,2,3\}\implies \text{BFS}=\begin{bmatrix}
+    3 & 2 & 2 & 0 & 0 
+\end{bmatrix}^T \implies z= 5$$
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.35\textwidth ]{images/CamminoSimplesso4.eps}
+    }
+    \caption{BFS con $\mathcal B_4$ (soluzione ottimale)}
+\end{figure}
+Si osservi come geometricamente, il "cammino" fra le diverse BFS date dalle basi considerate equivale ad un cammino sui vertici del poliedro.
 \end{document}
 
