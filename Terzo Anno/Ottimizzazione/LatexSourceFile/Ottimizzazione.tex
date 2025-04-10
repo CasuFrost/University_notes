@@ -433,7 +433,7 @@ in tal modo è possibile, per ogni variabile del programma lineare, imporre la p
     \begin{matrix}
         \text{max } \ \mathbf c^T\mathbf x\\ 
         A\mathbf x \le \mathbf b\\ 
-        \mathbf x \ge 0
+        \mathbf x \ge \mathbf  0
     \end{matrix}
     $$
 Dove 
@@ -472,7 +472,7 @@ si ha che \begin{eqnarray}
 quindi Il punto soddisfa gli $m$ vincoli
 $$A(\alpha\mathbf x +(1-\alpha)\mathbf y)\le \mathbf b $$
 Inoltre essendo che 
-$$ \alpha \ge 0, \mathbf x \ge 0, \mathbf y \ge 0$$
+$$ \alpha \ge 0, \mathbf x \ge \mathbf  0, \mathbf y \ge 0$$
 si ha che 
 $$ \alpha\mathbf x +(1-\alpha)\mathbf y\ge 0$$
 Quindi $\alpha\mathbf x +(1-\alpha)\mathbf y$ soddisfa tutti i vincoli del programma lineare, ed appartiene quindi ai punti ammissibili.
@@ -544,7 +544,7 @@ $$
     \begin{matrix}
         \text{max } \ \mathbf c^T\mathbf x\\ 
         A\mathbf x \le \mathbf b\\ 
-        \mathbf x \ge 0
+        \mathbf x \ge \mathbf  0
     \end{matrix}
     $$
 Per ogni generica disuguaglianza del tipo 
@@ -570,10 +570,10 @@ $$
     \begin{matrix}
         \text{max } \ \mathbf c^T\mathbf x\\ 
         A\mathbf x = \mathbf b\\ 
-        \mathbf x \ge 0
+        \mathbf x \ge \mathbf  0
     \end{matrix}
     $$
-\textbf{Assunzione} : Il programma lineare considerato ha almeno una soluzione ammissibile. Ossia $\exists \bar{\mathbf x}$ tale che $A\bar{\mathbf x}=\mathbf b$ e $\mathbf x \ge 0$. Data la matrice $A$, si considerino due righe di essa, ossia $A_i$ e $A_j$, sia $A'$ un'altra matrice identica a $A$, in cui la riga $j$-esima è sostituita con la riga $A_i+A_j$
+\textbf{Assunzione} : Il programma lineare considerato ha almeno una soluzione ammissibile. Ossia $\exists \bar{\mathbf x}$ tale che $A\bar{\mathbf x}=\mathbf b$ e $\mathbf x \ge \mathbf  0$. Data la matrice $A$, si considerino due righe di essa, ossia $A_i$ e $A_j$, sia $A'$ un'altra matrice identica a $A$, in cui la riga $j$-esima è sostituita con la riga $A_i+A_j$
 \begin{equation}
     A=\begin{bmatrix}
         a_{11}& \dots & a_{1n}\\ 
@@ -600,7 +600,7 @@ Le operazioni sulle righe di $A$ non cambiano l'insieme delle soluzioni, si assu
 \textit{Dimostrazione} : \redText{TODO}\bigskip 
 
 Il problema descritto è \begin{eqnarray}
-    A\mathbf x = \mathbf b \\ \mathbf x \ge 0 \\ \text{esiste una soluzione}\\ 
+    A\mathbf x = \mathbf b \\ \mathbf x \ge \mathbf  0 \\ \text{esiste una soluzione}\\ 
     \text{rango righe di }A=\text{rango colonne di }A=m
 \end{eqnarray}
 Considerando $\ker(A)=\{\mathbf x \text{ t.c. }A\mathbf x = \mathbf 0\}$ si ha un sottospazio di dimensione $n-m$ di $\mathbb R^n$, lo spazio delle soluzioni di $A\mathbf x = \mathbf b$ è un \textbf{sottospazio affine} e si ottiene sommando $\mathbf b$ a tutti i vettori di $\ker(A)$.\bigskip 
@@ -642,7 +642,7 @@ Se $A_{\mathcal{B}}$ non è \textbf{singolare} (il determinante è diverso da ze
     \begin{matrix}
         \text{max } \ \mathbf c^T\mathbf x\\ 
         A\mathbf x \le \mathbf b\\ 
-        \mathbf x \ge 0
+        \mathbf x \ge \mathbf  0
     \end{matrix}
     $$
     Una soluzione ammissibile $\bar{\mathbf x}$ è detta \textbf{basica} (BFS) se esiste un sotto-insieme di indici $\mathcal B\subseteq \{1,2,\dots n\}$ tale per cui\begin{itemize}
@@ -683,7 +683,7 @@ $$A_{\mathcal B'}= \begin{bmatrix}
 \end{bmatrix}$$
 Essendo singolare, per tale base non esiste alcuna soluzione basica.
 \begin{proposizione}\label{insiemeK}
-    Sia $A\mathbf x=b$, $\mathbf x \ge 0$ un programma lineare, e sia $\mathbf{\bar x}$ una BFS (soluzione ammissibile basica), si consideri l'insieme di indici 
+    Sia $A\mathbf x=b$, $\mathbf x \ge  \mathbf 0$ un programma lineare, e sia $\mathbf{\bar x}$ una BFS (soluzione ammissibile basica), si consideri l'insieme di indici 
     $$ K=\{i \text{ t.c. }\bar x_i>0\}$$
     Le colonne della matrice $A_K$ sono linearmente indipendenti. 
 \end{proposizione}
@@ -713,7 +713,7 @@ $$
 \begin{matrix}
     \text{max } \ \mathbf c^T\mathbf x\\ 
     A\mathbf x = \mathbf b\\ 
-    \mathbf x \ge 0
+    \mathbf x \ge  \mathbf 0
 \end{matrix}
 $$\begin{enumerate}
     \item Se esiste almeno una soluzione ammissibile ed il problema è limitato (l'insieme delle soluzioni ammissibili è compatto), allora esiste una soluzione ottimale.
@@ -1164,6 +1164,208 @@ $$ \mathcal{B}_4 = \{1,2,3\}\implies \text{BFS}=\begin{bmatrix}
     }
     \caption{BFS con $\mathcal B_4$ (soluzione ottimale)}
 \end{figure}
-Si osservi come geometricamente, il "cammino" fra le diverse BFS date dalle basi considerate equivale ad un cammino sui vertici del poliedro.
+Si osservi come geometricamente, il "cammino" fra le diverse BFS date dalle basi considerate equivale ad un cammino sui vertici del poliedro. Durante l'esecuzione dell'algoritmo, ad ogni "passo", si deve rimuovere una variabile dalla base ed inserirne un'altra, si definisce \textit{regola del pivot} la regola con la quale si selezionano le variabili da scambiare (verranno formalizzate in seguito).
+\section{Il Tableau del Simplesso}
+\begin{definizione}
+    Dato un LP in forma d'equazione
+    $$\begin{matrix}
+    \max \mathbf{c}^T \mathbf x  \\ 
+    A\mathbf x = \mathbf b \\
+    \mathbf x \ge \mathbf 0 \\ 
+\end{matrix}$$
+Dove $A\in Mat(m\times n)$, ed una base ammissibile $\mathcal B$, si definisce \textbf{tableau del simplesso} un sistema di $m+1$ equazioni nelle variabili $\mathbf x$ che ha lo stesso insieme di soluzioni di 
+$$\begin{matrix}
+    A\mathbf x = \mathbf b \\
+    z=\mathbf c^T\mathbf x
+\end{matrix}$$
+In forma matriciale si rappresenta come segue 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+       $\mathbf{x}_\mathcal{B} = \mathbf p + Q\mathbf x_N$\\ \hline 
+       $z=z_0+\mathbf r^T\mathbf x_N$ \\\hline 
+    \end{tabular}
+\end{center}
+\end{definizione}
+In questo contesto $N=\{1,2,\dots, n\}\backslash \mathcal B$, ed $\mathbf x_N$ è il vettore $\mathbf x$ comprendente solamente le componenti di indice $i\in N$. $\mathbf p$ è un vettore in $\mathbb R^m$, $\mathbf r$ è un vettore in $\mathbb R^{n-m}$, $z_0$ è un numero reale e $Q$ è una matrice $m\times(n-m)$. Data la base $\mathcal B$, si denota $\mathcal T(\mathcal B)$ il tableau ad essa relativo. Si può trovare la BFS associata a $\mathcal B$ ponendo 
+\begin{eqnarray*}
+    x_i=0  \ \ \forall i\in  N\\ 
+    x_i=p_i  \ \ \forall i\in \mathcal B
+\end{eqnarray*}
+Ed il valore della funzione obiettivo con tale BFS è $z_0$.
+\begin{osservazione}
+    Se $\mathbf r \le \mathbf 0$ la soluzione è ottimale ed il valore massimizzato della funzione obiettivo è $z_0$.
+\end{osservazione}
+\begin{lemma2}
+    Per ogni base ammissibile $\mathcal B$, le componenti del tableau sono univocamente definite ed assumono i seguenti valori \begin{eqnarray}
+        Q=-A_\mathcal{B}^{-1}\cdot A_N\\ 
+        \mathbf p =A_\mathcal{B}^{-1}\mathbf b \\ 
+        z_0=\mathbf c^T_{\mathcal B}A_\mathcal{B}^{-1}\mathbf b\\ 
+        \mathbf r = \mathbf c_N - (\mathbf c_\mathcal{B}^TA_\mathcal{B}^{-1}A_N)^T
+    \end{eqnarray}
+\end{lemma2}
+\textit{Dimostrazione} : Essendo che 
+\begin{eqnarray*}
+    \mathbf x_\mathcal{B}=[x_i \ : \ i\in \mathcal B]^T\\ 
+    \mathbf x_N=[x_i \ : \ i\notin \mathcal B]^T
+\end{eqnarray*}
+La seguente identità è verificata 
+$$ A\mathbf x = A_{\mathcal B}\mathbf x_{\mathcal B}+A_N\mathbf x_N=\mathbf b$$
+quindi 
+$$  A_{\mathcal B}\mathbf x_{\mathcal B}=\mathbf b-A_N\mathbf x_N$$
+Essendo che $A_{\mathcal B}$ è per definizione non singolare (essendo $\mathcal B$ una base ammissibile), esiste l'inverso 
+\begin{equation}\label{valDixb}
+    \mathbf x_{\mathcal B}=A_{\mathcal B}^{-1}\mathbf b-A_{\mathcal B}^{-1}\cdot  A_N\mathbf x_N
+\end{equation}
+Da qui \begin{itemize}
+    \item $A_{\mathcal B}^{-1}\mathbf b=\mathbf p$
+    \item $-A_{\mathcal B}^{-1}\cdot A_N=Q$
+\end{itemize}
+inoltre $$ z=\mathbf c^T\mathbf x = \mathbf c_{\mathcal B}^T\mathbf x_{\mathcal B}+\mathbf c_{N}^T\mathbf x_{N}$$
+sostituendo $\mathbf x_{\mathcal B}$ come nell'equazione \ref{valDixb} si ha 
+$$ z=\mathbf c_{\mathcal B}^T\mathbf(A_{\mathcal B}^{-1}\mathbf b-A_{\mathcal B}^{-1}\cdot  A_N\mathbf x_N)+\mathbf c_{N}^T\mathbf x_{N}$$
+con alcune semplici manipolazioni algebriche:
+$$ z=c_{\mathcal B}^TA^{-1}_{\mathcal B}\mathbf b+(\mathbf c_N - \mathbf c_\mathcal{B}^TA_\mathcal{B}^{-1}A_N)\mathbf x_N$$
+Da qui \begin{itemize}
+    \item $z_0=c_{\mathcal B}^TA^{-1}_{\mathcal B}\mathbf b$
+    \item $\mathbf r^T=\mathbf c_N - \mathbf c_\mathcal{B}^TA_\mathcal{B}^{-1}A_N$
+\end{itemize}
+\hfill$\blacksquare$\bigskip 
+
+Si osservi come il  metodo del simplesso richiede una base ammissibile dalla quale partire, dato un LP in forma standard, si può trasformare in forma d'equazione aggiungendo le variabili slack, la matrice originale verrà affiancata da una matrice identità di $m$ colonne ($m$ numero originale di vincoli), queste sono banalmente linearmente indipendenti, quindi quella composta dalle variabili slack è sempre una valida base dalla quale partire.
+
+Come procedere nel caso generale di un problema che si trova già in forma di equazione? 
+\begin{eqnarray*}
+    A\mathbf x = \mathbf b \\ \mathbf x \ge \mathbf 0
+\end{eqnarray*}
+\textit{Nota} : Si può assumere che $\mathbf b$ abbia ogni componente positiva, se così non dovesse essere, il vincolo 
+$$ a_{1,j}x_1+\dots + a_{n,j}x_n=b_j$$
+si potrebbe trasformare in 
+$$ -a_{1,j}x_1-\dots - a_{n,j}x_n=-b_j$$
+Al problema originale si possono aggiungere delle variabili slack per ogni vincolo 
+$$ A'\begin{bmatrix}\mathbf x \\ \mathbf y \end{bmatrix}=\begin{bmatrix}
+    A | \text{Id}_m
+\end{bmatrix}\begin{bmatrix}
+    x_1\\ \vdots \\ x_n\\ y_1 \\ \vdots \\ y_m
+\end{bmatrix}=\mathbf b \ \ \ \ \ \ \ \  \begin{matrix}
+    \mathbf x\ge 0 \\ \mathbf y \ge 0
+\end{matrix}$$
+In tal modo si ha una BFS semplice associata ad una base contenente le variabili slack. 
+\begin{osservazione}
+    Se esiste una soluzione per $A'\begin{bmatrix}\mathbf x \\ \mathbf y \end{bmatrix}=\mathbf b$ con le variabili slack uguali a zero, allora esiste una soluzione per il problema originale.
+\end{osservazione}
+Si può fare risolvendo il seguente LP con una nuova funzione obiettivo \begin{equation}\label{nuovoProblema}
+    \begin{matrix}
+    \max -y_1-y_2\dots - y_m\\ 
+    A'\begin{bmatrix}\mathbf x \\ \mathbf y \end{bmatrix}=\mathbf b\\ 
+    \mathbf x,\mathbf y \ge 0 
+\end{matrix}\end{equation}
+chiaramente dato $\mathbf y \ge 0$ il valore minimo che può assumere $\mathbf y $ è zero. Quindi se il nuovo problema \ref{nuovoProblema} ha soluzione ottimale diversa da zero, allora non esiste una soluzione per il problema originale.
+
+Il ragionamento appena espresso porta al seguente risultato.
+\begin{proposizione}
+    Il sistema di equazioni \begin{eqnarray*}
+        A\mathbf x = \mathbf b \\ \mathbf x \ge \mathbf 0
+    \end{eqnarray*}
+    ha soluzione \textbf{se e solo se } il seguente programma lineare
+    $$ \begin{matrix}
+        \max -y_1-y_2\dots - y_m\\ 
+        A'\begin{bmatrix}\mathbf x \\ \mathbf y \end{bmatrix}=\mathbf b\\ 
+        \mathbf x,\mathbf y \ge 0 
+    \end{matrix}$$
+    ha come valore ottimale 0.
+\end{proposizione}
+
+Nelle sezioni precedenti abbiamo visto come la ricerca di soluzioni ammissibili riguarda i punti contenuti in un poliedro (definito dai vincoli lineari), un problema correlato ma sostanzialmente diverso, riguarda lo stabilire se un dato poliedro sia vuoto o no. Si potrebbe ipotizzare, che tale problema sia simile alla risoluzione di un programma lineare, ma più semplice, in quanto un LP riguarda sia la ricerca di una soluzione ammissibile (punti nel poliedro), sia la ricerca del punto specifico che massimizza la funzione obiettivo. La seguente proposizione enuncia che tale ipotesi è falsa.
+\begin{proposizione}
+  Sia $\phi$ una funzione \textit{oracolo}, che dato un poliedro definito da un sistema di disequazioni lineari, assume valore 1 se e solo se il poliedro non è vuoto (il sistema ha soluzione), altrimenti, assume valore 0. Se $\phi$ esiste, è possibile risolvere un qualsiasi programma lineare tramite un numero finito di valutazioni di $\phi$.
+\end{proposizione}
+Piuttosto che una dimostrazione rigorosa sarà data una prova informale, sia 
+\begin{eqnarray*} \max \mathbf c^T\mathbf x\\
+    A\mathbf x \le \mathbf b \\ \mathbf x \ge \mathbf 0
+\end{eqnarray*}
+il programma lineare in questione, si assume che gli elementi di $A$ e di $\mathbf c$ siano numeri razionali e non reali. Si costruisce, dato un arbitrario $\alpha\in\mathbb Q$ il seguente poliedro 
+$$ 
+P_\alpha = \begin{cases}
+     \mathbf c^T\mathbf x\le \alpha\\
+    A\mathbf x \le \mathbf b \\ \mathbf x \ge \mathbf 0
+\end{cases}
+$$
+Si utilizza l'oracolo $\phi$, se $P_\alpha$ è non vuoto, ossia se $\phi(P_\alpha)=1$, allora il valore massimizzato del programma lineare è maggiore o uguale ad $\alpha$, altrimenti, se $\phi(P_\alpha)=0$, il valore è minore. Si può fare ricerca binaria sui valori di $\alpha$, data l'assunzione iniziale sul fatto che i numeri coinvolti siano razionali, la ricerca termina in un numero finito di passi.
+\section{Soluzioni Degenere}
+Alcune BFS sono problematiche quando valutate durante il metodo del simplesso e possono portare ad una situazione di stallo in cui si considerano in maniera ciclica le stesse basi a ripetizione. 
+\begin{definizione}
+    Dato un LP, sia $\mathbf x=[x_1,x_2\dots,x_n]^T$ una BFS, se l'insieme 
+    $$\{x_i \text{ t.c. }x_i>0\}$$
+    ha cardinalità minore di $n-m$ (alcune variabili di base sono uguali a zero), allora $\mathbf x$ è una soluzione \textbf{degenere}.
+\end{definizione}
+Si consideri il seguente esempio 
+\begin{equation}
+    \begin{matrix}
+        \max x_2 \\ x_1\le 1\\
+        -x_1+x_2\le 0 \\ 
+        x_1,x_2 \ge 0 
+    \end{matrix} \text{}
+\end{equation}
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.5\textwidth ]{images/degenere.eps}
+    }
+    \caption{Poliedro delle soluzioni ammissibili}
+\end{figure}
+
+La soluzione ottimale è (banalmente) $\bar{\mathbf x}=[1,1]^T$, il problema in forma di equazione assume la seguente forma 
+\begin{equation}
+    \begin{bmatrix}
+        1&0&1&0\\ 
+        -1&1&0&1
+    \end{bmatrix}\begin{bmatrix}
+        x_1\\x_2\\x_3\\x_4
+    \end{bmatrix}=\begin{bmatrix}
+        1\\0
+    \end{bmatrix}
+\end{equation}
+La base di partenza è quella composta dalle variabili slack, ossia $\mathcal B = \{3,4\}$, ponendo $x_1,x_2=0$ si risolve per $x_3,x_4$ trovando la BFS
+$$ \begin{bmatrix}
+    0 & 0 & 1 & 0
+\end{bmatrix}^T$$
+Questa è per definizione degenere, il tableau per $\mathcal B$ è il seguente 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+        $x_3=1-x_1$\\ 
+        $x_4=0+x_1-x_2$\\
+        \hline 
+        $z=0+x_2$ \\\hline 
+    \end{tabular}
+\end{center}
+si osservi come c'è un'unica possibilità di sostituzione per il pivot, si sostituisce $x_2$ con $x_4$, la nuova base è $\mathcal B = \{2,3\}$ 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+        $x_2=0+x_1-x_4$\\
+        $x_3=1-x_1$\\ 
+        \hline 
+        $z=0+x_1-x_4$ \\\hline 
+    \end{tabular}
+\end{center}
+La BFS in questo caso è identica, si noti come lo scambio delle variabili non ha fatto incrementare il valore di $z$, questa è la conseguenza di una soluzione degenere. In questo caso, scambiando $x_1$ con $x_3$ si ottiene la soluzione ottimale. Si noti che una BFS degenere può essere associata a più di una base (ciò non si verifica in ogni caso).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
 
