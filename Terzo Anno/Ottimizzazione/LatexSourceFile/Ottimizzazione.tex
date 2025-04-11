@@ -1347,25 +1347,105 @@ si osservi come c'è un'unica possibilità di sostituzione per il pivot, si sost
     \end{tabular}
 \end{center}
 La BFS in questo caso è identica, si noti come lo scambio delle variabili non ha fatto incrementare il valore di $z$, questa è la conseguenza di una soluzione degenere. In questo caso, scambiando $x_1$ con $x_3$ si ottiene la soluzione ottimale. Si noti che una BFS degenere può essere associata a più di una base (ciò non si verifica in ogni caso).
+\begin{osservazione}
+    Una soluzione è degenere se non è univocamente definita, ossia, esistono diversi insiemi di vincoli che identificano la stessa soluzione.
+\end{osservazione}
+Le variabili degenere sono causa di una descrizione \textit{ridondante} di un poliedro, che coinvolge iperpiani non necessari (se non considerati, il sistema di equazioni descrive lo stesso poliedro).
 
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.6\textwidth ]{images/solDegenere.eps}
+    }
+    \caption{Il vincolo $y\le 1$ è ridondante per il poliedro}
+\end{figure}
 
+\section{Problemi del Metodo del Simplesso}
+\subsection{Regola del Pivot}
+Nella forma generale un tableau del simplesso è definito come segue 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+       $\mathbf{x}_\mathcal{B} = \mathbf p + Q\mathbf x_N$\\ \hline 
+       $z=z_0+\mathbf r^T\mathbf x_N$ \\\hline 
+    \end{tabular}
+\end{center}
+Si è visto come se $\mathbf r \le \mathbf 0$ allora $z_0$ è la soluzione ottimale. Quando si deve scegliere quale variabile far entrare nella base durante un passo di computazione nel metodo del simplesso, è possibile scegliere una qualsiasi variabile $x_i$ tale per cui $r_i>0$. Per comodità, si assumano le seguenti notazioni per gli indici della base e del complemento della base:\begin{eqnarray*}
+    \mathcal B = \{k_1,k_2\dots,k_m\}\\ 
+    N=\{l_1,l_2\dots, l_{n-m}\}
+\end{eqnarray*}
+Essendo $\mathbf{x}_\mathcal{B} = \mathbf p + Q\mathbf x_N$, si ha che 
+$$ x_{k_i}=p_i+\sum_{j=1}^{n-m}Q_{i,j}x_{l_j}$$
+Sia $l_{\beta}$ l'indice che entra nella baso in uno step del simplesso 
+$$ l_\beta\in\{l_1,l_2\dots, l_{n-m}\} \text{ tale che }r_{\beta}>0$$
+Bisogna selezionare secondo un dato criterio, la variabile nella base che deve essere rimossa per fare posto a $x_{l_\beta}$. Il criterio è il seguente, la variabile che entra è $x_{k_\alpha}$, $\alpha$ è scelto in modo da minimizzare 
+$$-\frac{p_\alpha}{Q_{\alpha,\beta}} $$
+Ricapitolando, lo scambio 
+\begin{eqnarray*}
+    x_{l_\beta} \ \  \text{entrante}\\
+    x_{k_\alpha} \ \  \text{uscente}
+\end{eqnarray*}
+è valido se\begin{itemize}
+    \item $r_\beta>0$\\ 
+    \item $\alpha$ minimizza $-\dfrac{p_\alpha}{Q_{\alpha,\beta}}$ fra tutti gli $i$ tali che $Q_{i,\beta}<0$
+\end{itemize}
+Una \textbf{regola del pivot} descrive il criterio di scelta delle variabili da scambiare fra tutti i possibili scambi validi, alcune regole note sono le seguenti\begin{itemize}
+    \item \textbf{Coefficiente più grande} : Si sceglie $x_{l_\beta}$ entrante che massimizza $r_\beta$, la scelta di $x_{k_\alpha}$ uscente è arbitraria fra quelle valide. 
+    \item \textbf{Incremento maggiore} : Per tutti i possibili $l_j$ per cui $r_j>0$ si calcola 
+    $$ \min_{i\text{ t.c. }Q_{i,j}<0}-\frac{p_i}{Q_{i,j}}$$
+    e si sceglie $\beta$ che massimizza $$-\frac{p_i}{Q_{i,j}} r_j $$
+\end{itemize}
+Entrambe queste regole sono computazionalmente valide, seppure esistono dei casi limite in cui il simplesso va in loop a causa di variabili degenere. La seguente regola è computazionalmente inefficiente, ma garantisce la terminazione del metodo del simplesso.\begin{itemize}
+    \item \textbf{Regola di Bland} : Si sceglie $x_{l_\beta}$ tale che $r_\beta>0$ e $l_\beta$ è l'indice minimale.
+\end{itemize}
+\subsection{Cicli e Variabili Fickle}
+Si consideri un LP in forma di equazione, con tableau 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+       $\mathbf{x}_\mathcal{B} = \mathbf p + Q\mathbf x_N$\\ \hline 
+       $z=z_0+\mathbf r^T\mathbf x_N$ \\\hline 
+    \end{tabular}
+\end{center}
+e $\mathbf p,\mathbf r, Q$ univocamente definiti da una base ammissibile $\mathcal B$, denotando gli indici
+\begin{eqnarray*}
+    \mathcal B = \{k_1,k_2\dots,k_m\}\\ 
+    N=\{l_1,l_2\dots, l_{n-m}\}
+\end{eqnarray*}
+In un passo di computazione, secondo la regola di Bland, se $x_{l_\beta}$ è la variabile che entra nella base, la nuova base sarà 
+$$ (\mathcal B \backslash \{k_j\}) \cup \{l_\beta\}$$
+per cui $j$ è minimale. Un \textbf{ciclo} nel simplesso si manifesta sotto-forma di una sequenza di basi $\mathcal B_1,\dots,\mathcal B_t$ che si ripetono nei passi di computazione, il tableau della base $\mathcal B_i$ porta alla base $\mathcal B_{i+1}$, fino alla base $\mathcal B_t$ il cui tableau porta alla base $\mathcal B_1$.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/cicloSimplex.eps}
+\end{center}
+\begin{definizione}
+    Nel contesto dell'esecuzione del metodo del simplesso, una variabile $x_u$ è detta \textbf{fickle} se, per qualche $i,k,j$ con $j>k>i$, si ha che 
+    $$\begin{matrix}
+             u\in{\mathcal B}_i\\ 
+             u\notin{\mathcal B}_k\\ 
+             u\in{\mathcal B}_j
+    \end{matrix}$$
+    Quindi viene prima rimossa dalla base, per poi venire re-inserita in un passo di computazione successivo.
+\end{definizione}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Il seguente lemma è fondamentale per la dimostrazione (cruciale) della correttezza del metodo del simplesso quando la regola del pivot applicata è la regola di Bland.
+\begin{lemma2}
+    Siano $\mathcal  T(B_1)\rightarrow\mathcal  T(B_2)\rightarrow\dots \mathcal  T(B_t)\rightarrow \mathcal  T(B_1)$ le basi che susseguendosi formano un ciclo durante l'esecuzione del metodo del simplesso con una determinata regola del pivot. Sia $F$ l'insieme degli indici delle variabili fickle per tale esecuzione. Esiste un'unica soluzione ammissibile $\bar{\mathbf x}$ comune per tutte le basi $\mathcal B_1,\dots \mathcal B_t$, per cui $$ x_i=0, \ \ \forall i\in F$$
+\end{lemma2}
+\textit{Dimostrazione} : Il valore della funzione obiettivo durante il simplesso è crescente, essendo che ci si trova in un ciclo, questo rimane identico, denotiamo il tableau associato alla base $\mathcal B_j$ come segue 
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+       $\mathbf{x}_{\mathcal{B}_j} = \mathbf p^j + Q^j\mathbf x_{N_j}$\\ \hline 
+       $z=z_0+{\mathbf{r}^j}^T\mathbf x_{N_j}$ \\\hline 
+    \end{tabular}
+\end{center}
+e denotiamo ${\mathbf x}^{j}$ la BFS associata a $\mathcal B_j$.$z_0$ è invariante per ogni $j$. Siano $\beta$ e $\alpha$ gli indici delle variabili entrante ed uscente 
+$$ \mathcal B_{j+1}=(\mathcal B_j \backslash \{\alpha\})\cup\{\beta\}$$
+Il lemma afferma che la BFS è la stessa per tutte le basi e che le variabili fickle sono uguali a zero. Si vuole dimostrare la prima affermazione del lemma, ossia che $${\mathbf x}^{j}={\mathbf x}^{j+1}$$
+per ogni $j$. Sappiamo che le variabili non di base  in due passi di computazione differenti, ossia in $N_j$ e $N_{j+1}$, sono uguali a zero (esclusa $\beta$ che viene inserita in $N_{j+1}$) 
+$$ x_i^{j}=x_i^{j+1}=0, \ \ \ i\in N_j\backslash\{\beta\}$$
+Inoltre, sappiamo che il valore della funzione obiettivo non aumenta, essendo 
+$$ x^j_\alpha = p_\alpha^j+\begin{bmatrix}
+    Q^j_{\alpha,1}& Q^j_{\alpha,2}& \dots & Q^j_{\alpha,n-m}
+\end{bmatrix}^T\cdot \mathbf x_{N_j}$$
+necessariamente si ha che $p_\alpha^j=0 $, quindi $$ x^j_\alpha = \begin{bmatrix}
+    Q^j_{\alpha,1}& Q^j_{\alpha,2}& \dots & Q^j_{\alpha,n-m}
+\end{bmatrix}^T\cdot \mathbf x_{N_j}$$
 \end{document}
 
