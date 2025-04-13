@@ -1447,5 +1447,31 @@ $$ x^j_\alpha = p_\alpha^j+\begin{bmatrix}
 necessariamente si ha che $p_\alpha^j=0 $, quindi $$ x^j_\alpha = \begin{bmatrix}
     Q^j_{\alpha,1}& Q^j_{\alpha,2}& \dots & Q^j_{\alpha,n-m}
 \end{bmatrix}^T\cdot \mathbf x_{N_j}$$
+\redText{TODO : Finire la dimostrazione}
+\begin{teorema}
+    Il metodo del simplesso con la regola di Bland termina sempre, e non va entra mai in un ciclo.
+\end{teorema}
+\textit{Dimostrazione} : Si procede per assurdo, si assuma che durante l'esecuzione del metodo del simplesso per un generico LP con regola di Bland ci sia un ciclo: 
+$$\mathcal  T(B_1)\rightarrow\mathcal  T(B_2)\rightarrow\dots \mathcal  T(B_t)\rightarrow \mathcal  T(B_1)$$
+Sia $F$ l'insieme degli indici delle variabili \textit{fickle}, sia $v=\max(F)$. Si considerino due particolari basi : \begin{itemize}
+    \item Denotiamo $\mathcal B$ una base $\mathcal B_i$ per cui $v\notin \mathcal B_i$ e $v\in \mathcal B_{i+1}$
+    \item  Denotiamo $\mathcal B'$ una base $\mathcal B_j$ per cui $v\in \mathcal B_j$ e $v\notin \mathcal B_{j+1}$
+\end{itemize} 
+$\mathcal B$ è la base precedente a quella in cui entra $v$, e $\mathcal B'$ è l'ultima base in cui si trova $v$ prima di essere rimosso. Denotiamo i due relativi tableau
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+       $\mathbf{x}_\mathcal{B} = \mathbf p + Q\mathbf x_N$\\ \hline 
+       $z=z_0+\mathbf r^T\mathbf x_N$ \\\hline 
+    \end{tabular}
+    \begin{tabular}{|l|l|}\hline 
+        $\mathbf{x}_\mathcal{B'} = \mathbf p' + Q'\mathbf x_{N'}$\\ \hline 
+        $z=z_0+{\mathbf {r}'}^T\mathbf x_{N'}$ \\\hline 
+     \end{tabular}
+\end{center}
+Esplicitando gli elementi delle basi si ha$$ \begin{matrix}
+    \mathcal{B}=\{k_1,\dots k_m\} & & N=\{l_1,\dots l_{n-m}\}\\ \\
+    \mathcal{B'}=\{k'_1,\dots k'_m\} & & N'=\{l'_1,\dots l'_{n-m}\}
+\end{matrix}$$
+$v\in N \implies v = l_\beta$ per qualche $\beta$. Sia $k_\alpha$ l'indice che viene rimosso da $\mathcal B$ per far entrare $v$, similmente, $v=k'_{\alpha'}$ per qualche $\alpha'$ esce da $\mathcal B'$ per far entrare $l'_{\beta '}$ per qualche $\beta '$.
 \end{document}
 
