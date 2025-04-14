@@ -1425,7 +1425,7 @@ per cui $j$ è minimale. Un \textbf{ciclo} nel simplesso si manifesta sotto-form
 \end{definizione}
 
 Il seguente lemma è fondamentale per la dimostrazione (cruciale) della correttezza del metodo del simplesso quando la regola del pivot applicata è la regola di Bland.
-\begin{lemma2}
+\begin{lemma2}\label{lemma_fickle}
     Siano $\mathcal  T(B_1)\rightarrow\mathcal  T(B_2)\rightarrow\dots \mathcal  T(B_t)\rightarrow \mathcal  T(B_1)$ le basi che susseguendosi formano un ciclo durante l'esecuzione del metodo del simplesso con una determinata regola del pivot. Sia $F$ l'insieme degli indici delle variabili fickle per tale esecuzione. Esiste un'unica soluzione ammissibile $\bar{\mathbf x}$ comune per tutte le basi $\mathcal B_1,\dots \mathcal B_t$, per cui $$ x_i=0, \ \ \forall i\in F$$
 \end{lemma2}
 \textit{Dimostrazione} : Il valore della funzione obiettivo durante il simplesso è crescente, essendo che ci si trova in un ciclo, questo rimane identico, denotiamo il tableau associato alla base $\mathcal B_j$ come segue 
@@ -1472,6 +1472,46 @@ Esplicitando gli elementi delle basi si ha$$ \begin{matrix}
     \mathcal{B}=\{k_1,\dots k_m\} & & N=\{l_1,\dots l_{n-m}\}\\ \\
     \mathcal{B'}=\{k'_1,\dots k'_m\} & & N'=\{l'_1,\dots l'_{n-m}\}
 \end{matrix}$$
-$v\in N \implies v = l_\beta$ per qualche $\beta$. Sia $k_\alpha$ l'indice che viene rimosso da $\mathcal B$ per far entrare $v$, similmente, $v=k'_{\alpha'}$ per qualche $\alpha'$ esce da $\mathcal B'$ per far entrare $l'_{\beta '}$ per qualche $\beta '$.
-\end{document}
+$v\in N \implies v = l_\beta$ per qualche $\beta$. Sia $k_\alpha$ l'indice che viene rimosso da $\mathcal B$ per far entrare $v$, similmente, $v=k'_{\alpha'}$ per qualche $\alpha'$ che esce da $\mathcal B'$ per far entrare $l'_{\beta '}$ per qualche $\beta '$.
+Dato che si sta usando la regola di Bland, $l_\beta$ è il più piccolo indice (per una valida scelta) di pivot che viene rimosso da $N$.
+$$ 
+r_\beta>0, \ \  r_i\le 0 \ \ \forall i \text{ t.c. }l_i\in F\cap N 
+$$
+$\implies $ $v$ lascia $\mathcal{B}
+'\implies v = k'_{\alpha '}$ 
+ed è l'unico indice di $F\cap 
+\mathcal{B}'$ che soddisfa le condizioni per essere rimosso da $\mathcal B'$. 
+$$
+Q'[i,\beta']<0 \ \text{ e } \ -\frac{p_i'}{Q[i,\beta']}\text{ è minimale}
+$$
+ma $p_i'$ è zero, $p_i'$ è il valore di $\bar{x}_v$ per la BFS $\bar x$ associata alla base $\mathcal B'$, $x_v$ è una variabile fickle, è quindi uguale a zero per il lemma \ref{lemma_fickle}. Le altre variabili fickle in $\mathcal B'$ corrispondono a valori di $\mathbf p'$ uguali a zero, quindi $v$ è l'unica variabile fickle in $\mathcal B'$ tale per cui $Q[\alpha',\beta' ]<0$. Si costruisce un'ulteriore programma lineare basato su quello originale, come segue:
+\begin{equation}\label{problemaIncoerente}
+    \begin{matrix}
+        \max \mathbf c^T\mathbf x \textg{ stessa funzione obiettivo}\\ 
+        A\mathbf x  =\mathbf b\\ 
+        \mathbf x_{F\backslash \{v\}}\ge 0 \\ 
+        x_v\le 0 \\
+        \mathbf x_{N\backslash F}\le 0\\ 
+        \mathbf x_{\mathcal B\backslash F}\textg{ non è vincolato}
+    \end{matrix}
+\end{equation}
+Se i due seguenti claim sono veri, le assunzioni della dimostrazione portano ad una contraddizione.\bigskip 
+
+\textbf{Claim 1} : $\bar{\mathbf x}$
+ è una solzuione ottimale per il problema 
+ \ref{problemaIncoerente}.
+\textit{Dimostrazione Claim 1} : Sappiamo che $\bar{\mathbf x}$ è ammissibile per il problema originale, quindi $A\bar{\mathbf x}=\mathbf b$ è soddisfatta, inoltre $\bar x_v\le 0$ dato che tutte le variabili fickle sono uguali a zero. Chiaramente $\bar{\mathbf x}_N$ e $\bar{\mathbf x}_F$ sono nulli, quindi $\bar{\mathbf x}$ è ammissibile per il problema  \ref{problemaIncoerente}. Sia $\mathbf y$ una soluzione ammissibile per  \ref{problemaIncoerente}, il valore della funzione obiettivo con $\mathbf y$ è 
+$$\mathbf c^T\mathbf y = z_0+\mathbf r^T\mathbf y_N $$
+essendo $\mathbf y $ ammissibile si ha ${\mathbf y}_{N\backslash F}=\mathbf 0$.\begin{itemize}
+    \item $x_{l_j}\ge 0$ se $l_j\in F\backslash\{v\}$
+    \item $r_i\le 0, \ \forall i \text{ t.c. } l_i\in F\backslash\{v\}$
+    \item $r_\beta > 0$
+\end{itemize}
+Quindi ogni termine di $\mathbf r^T\mathbf y_N$ ha ogni componente minore o uguale di zero, quindi $\mathbf c^T\mathbf y \le z_0\implies \mathbf c^T\bar{\mathbf x}\ge 
+\mathbf c^T\mathbf y\implies$ $\bar{\mathbf x}$ è ottimale per il problema \ref{problemaIncoerente}. \hfill $\square$
+
+\bigskip\textbf{Claim 2} : Il programma lineare  \ref{problemaIncoerente} non è limitato.
+ 
+ 
+ \end{document}
 
