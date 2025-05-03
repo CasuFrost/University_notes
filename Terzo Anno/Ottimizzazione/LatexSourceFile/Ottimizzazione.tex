@@ -1195,7 +1195,7 @@ Ed il valore della funzione obiettivo con tale BFS è $z_0$.
 \begin{osservazione}
     Se $\mathbf r \le \mathbf 0$ la soluzione è ottimale ed il valore massimizzato della funzione obiettivo è $z_0$.
 \end{osservazione}
-\begin{lemma2}
+\begin{lemma2}\label{lemma_tableau}
     Per ogni base ammissibile $\mathcal B$, le componenti del tableau sono univocamente definite ed assumono i seguenti valori \begin{eqnarray}
         Q=-A_\mathcal{B}^{-1}\cdot A_N\\ 
         \mathbf p =A_\mathcal{B}^{-1}\mathbf b \\ 
@@ -1499,7 +1499,8 @@ Se i due seguenti claim sono veri, le assunzioni della dimostrazione portano ad 
 
 \textbf{Claim 1} : $\bar{\mathbf x}$
  è una solzuione ottimale per il problema 
- \ref{problemaIncoerente}.
+ \ref{problemaIncoerente}.\bigskip 
+
 \textit{Dimostrazione Claim 1} : Sappiamo che $\bar{\mathbf x}$ è ammissibile per il problema originale, quindi $A\bar{\mathbf x}=\mathbf b$ è soddisfatta, inoltre $\bar x_v\le 0$ dato che tutte le variabili fickle sono uguali a zero. Chiaramente $\bar{\mathbf x}_N$ e $\bar{\mathbf x}_F$ sono nulli, quindi $\bar{\mathbf x}$ è ammissibile per il problema  \ref{problemaIncoerente}. Sia $\mathbf y$ una soluzione ammissibile per  \ref{problemaIncoerente}, il valore della funzione obiettivo con $\mathbf y$ è 
 $$\mathbf c^T\mathbf y = z_0+\mathbf r^T\mathbf y_N $$
 essendo $\mathbf y $ ammissibile si ha ${\mathbf y}_{N\backslash F}=\mathbf 0$.\begin{itemize}
@@ -1510,8 +1511,107 @@ essendo $\mathbf y $ ammissibile si ha ${\mathbf y}_{N\backslash F}=\mathbf 0$.\
 Quindi ogni termine di $\mathbf r^T\mathbf y_N$ ha ogni componente minore o uguale di zero, quindi $\mathbf c^T\mathbf y \le z_0\implies \mathbf c^T\bar{\mathbf x}\ge 
 \mathbf c^T\mathbf y\implies$ $\bar{\mathbf x}$ è ottimale per il problema \ref{problemaIncoerente}. \hfill $\square$
 
-\bigskip\textbf{Claim 2} : Il programma lineare  \ref{problemaIncoerente} non è limitato.
+\bigskip\textbf{Claim 2} : Il programma lineare  \ref{problemaIncoerente} non è limitato.\bigskip 
  
+\textit{Dimostrazione Claim 2} : Sia $\bar x(t)$ definita come segue: tutte le sue componenti sono nulle eccetto la variabile $u$-esima, dove $u$ è l'indice entrante in $\mathcal B'$ \redText{TODO : finire dimostrazione}
  
- \end{document}
 
+
+\chapter{Dualità}
+\begin{definizione}
+    Sia \begin{eqnarray*}
+        \max \mathbf c^T\mathbf x\\ 
+        A\mathbf x \le \mathbf b \\ 
+        \mathbf x \ge 0 
+    \end{eqnarray*}
+    Un programma lineare che in tal contesto è detto problema \textbf{primario}. Il suo problema \textbf{duale} è il seguente programma lineare 
+    \begin{eqnarray*}
+        \min \mathbf b^T\mathbf y\\ 
+        A^T\mathbf y \ge \mathbf c \\ 
+        \mathbf y \ge 0 
+    \end{eqnarray*}
+\end{definizione}
+ \begin{teorema}
+    \textbf{(dualità debole)} L'ottima del problema duale è un \textit{limite superiore} per la funzione obiettivo del problema primario. $$ \text{ottimo primario }\le \text{ ottimo duale}$$Se esiste una soluzione per il duale, il primario è limitato, se il problema duale è illimitato, si avrebbe 
+    $$ \text{ottimo primario }\le -\infty$$
+    ciò è impossibile, il problema primario in tal caso non può essere ammissibile e limitato.
+\end{teorema}
+\begin{teorema}\label{dualità forte}
+\textbf{(dualità forte)} data una coppia di programmi lineari primario-duale, esattamente una delle seguenti condizioni si verifica\begin{itemize}
+    \item entrambi i problemi sono inammissibili 
+    \item il problema primario è ammissibile ma illimitato, il problema duale è inammissibile 
+    \item il problema duale è ammissibile ma illimitato, il problema primario è inammissibile
+    \item entrambi i problemi sono ammissibili e limitati, e condividono lo stesso ottimo
+\end{itemize}
+\end{teorema}
+La dimostrazione verrà riportata in seguito. La seguente tabella riassume le possibilità dei casi riguardanti le soluzione fra problema primario e duale.
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.8\textwidth ]{images/duality.eps}
+    }
+    \caption{In verde sono riportati i possibili casi}
+\end{figure}
+
+In generale, l'$i$-esimo vincolo del programma primario non deve essere necessariamente nella forma "$\le$", in base a questo, l'$i$-esima variabile del programma duale deve essere confinata in un certo intervallo della retta come segue$$
+\begin{cases}
+    A_i^T\mathbf x\le b_i \implies y_i \ge 0\\
+    A_i^T\mathbf x\ge b_i \implies y_i \le 0\\
+    A_i^T\mathbf x= b_i \implies y_i \in \R
+\end{cases}$$
+equivalentemente, la forma dell'$i$-esimo vincolo del programma duale dipende dalla regione alla quale appartiene l'$i$-esima variabile del programma primario 
+$$\begin{cases}
+    x_i \ge 0 \implies A_i\mathbf y \le c_i\\ 
+    x_i \le 0 \implies A_i\mathbf y \ge c_i\\ 
+    x_i \in \R\implies A_i\mathbf y = c_i
+\end{cases}$$
+\begin{proposizione}
+    Se $P$ è un programma lineare e $D$ è il suo duale, allora il duale di $D$ è $P$.
+\end{proposizione}
+\textbf{Claim}: il teorema \ref{Teo_dimostra_dualitàForte} è sufficiente a dimostrare il teorema \ref{dualità forte}.  
+\begin{teorema}\label{Teo_dimostra_dualitàForte}
+    Sia $P$ un programma lineare e $D$ il suo duale, se $P$ è ammissibile e limitato, anche $D$ lo è, e hanno lo stesso ottimo.
+\end{teorema}
+\textit{Dimostrazione}: Sia 
+$$ P=\begin{matrix}
+    \max \mathbf c^T\mathbf x\\ 
+        A\mathbf x \le \mathbf b \\ 
+        \mathbf x \ge 0 
+\end{matrix}$$
+il problema primario, con $\mathbf x \in \R^n$, si assuma che sia ammissibile e limitato, quindi che esiste un ottimo per $P$ ed il metodo del simplesso eseguito su $P$ fornirà una BFS che massimizza la funzione obiettivo. Si consideri il seguente problema $P^*$, equivalente a $P$ ma in forma di equazione
+$$ P^*=\begin{matrix}
+    \max \bar {\mathbf c}^T\bar {\mathbf x}\\ 
+        \bar A\bar {\mathbf x} \le \mathbf b \\ 
+        \bar {\mathbf x} \ge 0 
+\end{matrix}$$
+con \begin{eqnarray*}
+    \bar {\mathbf c} = \begin{bmatrix}
+        \mathbf c \ | \ 0 \ \dots 0 
+    \end{bmatrix}^T \in \R^{n+m}\\ 
+    \bar A = \begin{bmatrix}
+        A \ | \ Id_m 
+    \end{bmatrix}\\ \bar {\mathbf x}\in \R^{n+m}
+\end{eqnarray*}
+Sia $\mathcal B$ la base associata alla soluzione ottimale per $P^*$, il tableau associato è il seguente \begin{eqnarray*}
+    \bar {\mathbf x}_{\mathcal B}= \bar {\mathbf p}+\bar Q  \bar {\mathbf x}_{N}\\ 
+    z=z_0+\bar {\mathbf r}^T \bar {\mathbf x}_{N}
+\end{eqnarray*}
+la soluzione ottimale è $ \bar {\mathbf x}^*$ tale che \begin{eqnarray*}
+    \bar {\mathbf x}^*_N=\mathbf 0 \\ 
+    \bar {\mathbf x}^*_{\mathcal B} = \bar {\mathbf p}
+\end{eqnarray*}
+Dato il lemma \ref{lemma_tableau}: 
+$$\bar {\mathbf p}=\bar A^{-1}_{\mathcal B}\mathbf b $$
+La soluzione ottimale per il problema originale $P$ è uguale alle prime $n$ componenti di $ \bar {\mathbf x}^*$. Si definisce un termine $\mathbf y^*$ come segue \begin{equation}
+    \mathbf y^*=( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B})^T
+\end{equation}
+Lo scopo sta nel dimostrare che $\mathbf y^*$ è ammissibile per il duale di $P$, e che $\mathbf b^T\mathbf y^*=\mathbf c^T\mathbf x^*$.\bigskip 
+
+Si ha che $\mathbf c^T\mathbf x^*=\bar{\mathbf c}^T\bar{\mathbf x}^*$ perché gli ultimi $m$ elementi di $\mathbf c$ sono nulli. Inoltre $\bar{\mathbf c}^T\bar{\mathbf x}^*=\bar{\mathbf c}_{\mathcal B}^T\bar {\mathbf p}$ dato che $\bar {\mathbf p}$ equivale alle componenti non nulle di $\bar{\mathbf x}^*$. Da qui si ha \begin{equation}
+    \bar{\mathbf c}_{\mathcal B}^T\bar {\mathbf p}=\bar{\mathbf c}_{\mathcal B}^T\bar A^{-1}_{\mathcal B}\mathbf b
+\end{equation}
+per definizione $ \mathbf y^*=( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B})^T$\begin{eqnarray}
+    \bar{\mathbf c}_{\mathcal B}^T\bar A^{-1}_{\mathcal B}\mathbf b=\mathbf {y^*}^T\mathbf b=\mathbf b ^T\mathbf y^*\implies \\ 
+    \mathbf c^T\mathbf x^*=\mathbf b ^T\mathbf y^*
+\end{eqnarray}
+\end{document}
