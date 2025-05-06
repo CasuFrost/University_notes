@@ -1518,6 +1518,7 @@ Quindi ogni termine di $\mathbf r^T\mathbf y_N$ ha ogni componente minore o ugua
 
 
 \chapter{Dualità}
+\section{Dualità Forte e Debole}
 \begin{definizione}
     Sia \begin{eqnarray*}
         \max \mathbf c^T\mathbf x\\ 
@@ -1614,4 +1615,69 @@ per definizione $ \mathbf y^*=( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\ma
     \bar{\mathbf c}_{\mathcal B}^T\bar A^{-1}_{\mathcal B}\mathbf b=\mathbf {y^*}^T\mathbf b=\mathbf b ^T\mathbf y^*\implies \\ 
     \mathbf c^T\mathbf x^*=\mathbf b ^T\mathbf y^*
 \end{eqnarray}
+Bisogna mostrare che $\mathbf y^*$ è ammissibile per il duale di $P$, ossia che \begin{eqnarray*}
+    A^T\mathbf y^*\ge \mathbf c\\ 
+    \mathbf y^*\ge \mathbf 0
+\end{eqnarray*}
+Si può considerare la versione con le variabili slack e dimostrare direttamente che \begin{equation*}
+    \begin{bmatrix}
+        A^T\\ \_ \\ \\Id_m
+    \end{bmatrix}\mathbf y^* \ge \begin{bmatrix}
+        \mathbf c \\ \_ \\ \\ 0 \\ \vdots \\ 0
+    \end{bmatrix}
+\end{equation*}
+Si può riscrivere $$ \bar A^T\mathbf y^* \ge \bar{\mathbf c} $$
+Si ha che \begin{eqnarray*}
+    \bar A^T\mathbf y^*=\bar A^T( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B})^T=( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B}\bar A)^T
+\end{eqnarray*}
+si pone per definizione 
+$$ \mathbf w = ( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B}\bar A)^T$$
+è necessario mostrare che $\mathbf w \ge \bar{\mathbf c}$. Verrà dimostrato separando l'affermazione in due affermazioni, ossia \begin{itemize}
+    \item  $\mathbf w_N \ge \bar{\mathbf c}_N$ 
+    \item  $\mathbf w_{\mathcal B} \ge \bar{\mathbf c}_{\mathcal B}$
+\end{itemize}
+Si ha che $$ 
+\mathbf w_N=( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B}\bar A_N)^T
+$$
+si osservi la definizione di $\mathbf r$ nel lemma \ref{lemma_tableau}, ne consegue 
+$$ \mathbf r = \bar{\mathbf c}_N-( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B}\bar A_N)^T \implies  $$
+quindi 
+$$ \mathbf x_N=\bar{\mathbf c}_N-\mathbf r \ge  \bar{\mathbf c}_N $$
+perché $\mathbf r$ è un vettore di componenti minori di zero. quindi è dimostrato che  $\mathbf w_N \ge \bar{\mathbf c}_N$.\bigskip
+
+Si consideri ora  $\mathbf w_{\mathcal B}$, questo è uguale a 
+$$ \mathbf w_{\mathcal B} = ( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B}\bar A_{\mathcal B})^T$$
+ma $\bar A^{-1}_{\mathcal B}\bar A_{\mathcal B}^T$ è uguale alla matrice identità, quindi 
+$$ \mathbf w_{\mathcal B} =\bar {\mathbf c}^T_{\mathcal{B}}$$
+Entrambi i punti sono dimostrati, quindi $\mathbf y^*$ è ammissibile per il problema duale, e tale soluzione trova un'ottimo identico all'ottimo del problema primario $P$, quindi per il teorema della dualità debole,  $\mathbf y^*$ è una soluzione ottimale per il duale.
+\section{Lemma di Farkas}
+Abbiamo visto come il teorema della dualità forte stabilisce importanti risultati riguardo le soluzione di una coppia di problemi duale-primario. La seguente sezione riguarda un'interpretazione geometrica del teorema \ref{Teo_dimostra_dualitàForte}.
+\begin{lemma2}
+    \textbf{(Farkas)} Sia $A$ una matrice $m\times n$ e $\mathbf b \in \R^m$, esattamente una fra le seguenti è vera \begin{enumerate}
+        \item $\exists \mathbf x \in \R^n$ tale che $A\mathbf x = \mathbf b, \ \mathbf x \ge 0$
+        \item $\exists \mathbf y \in \R^m$ tale che $A\mathbf y^T\ge \mathbf0, \ \mathbf y^T\mathbf b<\mathbf 0$
+    \end{enumerate}
+\end{lemma2}
+\textit{Dimostrazione}: Si consideri il seguente programma lineare 
+$$P=\begin{cases}
+    \max \mathbf 0 \\ 
+    A\mathbf{x}=\mathbf b \\ 
+    \mathbf x\ge 0
+\end{cases}$$
+Il problema duale è 
+$$D=\begin{cases}
+    \min \mathbf b^T\mathbf y \\ 
+    A^T\mathbf{y}\ge \mathbf 0 \\ 
+    \mathbf y\in \R^m
+\end{cases}$$
+$D$ è ammissibile perché $\mathbf y = \mathbf 0$ è una soluzione, per il teorema della dualità forte, una delle seguenti è verificata\begin{itemize}
+    \item $P$ è inammissibile se $D$ è illimitato 
+    \item $P$ è ammissibile e ha lo stesso ottimo di $D$
+\end{itemize}
+Se $P$ fosse inammissibile,  ossia il punto \textit{(1)} del lemma non fosse verificato,  allora $\mathbf b^T\mathbf y$ tenderebbe $-\infty$, decrescendo indefinitamente, quindi esisterebbe un $\mathbf y$ che rende negativa la funzione obiettivo, ma allora il punto \textit{(2)} del lemma di Farkas è verificato.\bigskip 
+
+Se $P$ fosse ammissibile, ossia il punto \textit{(1)} del lemma fosse verificato, si avrebbe come ottimo 0, quindi non esisterebbe un $\mathbf y$ che rende negativa $\mathbf b^T\mathbf y$, quindi il punto \textit{(2)} del lemma di Farkas non sarebbe verificato.
+\hfill$\blacksquare$\bigskip
+
+Tale lemma fornisce un certificato per verificare l'ammissibilità di un programma lineare, se il punto 2 del lemma di Farkas è verificato per un programma lineare in forma di equazione, allora la regione ammissibile è vuota. Tale lemma può essere dimostrato sia utilizzando la dualità forte, sia non utilizzandola. Verrà data in seguito una dimostrazione che non si avvale del teorema \ref{dualità forte}.
 \end{document}
