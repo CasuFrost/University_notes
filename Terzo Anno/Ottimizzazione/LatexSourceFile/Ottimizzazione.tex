@@ -4,6 +4,13 @@
 \input{../../../preamble/preamble.tex}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+
+\newcommand{\bb}{{\mathbf{b}}}
+\newcommand{\bc}{{\mathbf{c}}}
+\newcommand{\x}{{\mathbf{x}}}
+\newcommand{\y}{{\mathbf{y}}}
+
+
  %TOGLI COMMENTO SE USI XELATEX
 %\usepackage{fontspec}
 \title{Ottimizzazione} %========TITOLO========%
@@ -1680,4 +1687,226 @@ Se $P$ fosse ammissibile, ossia il punto \textit{(1)} del lemma fosse verificato
 \hfill$\blacksquare$\bigskip
 
 Tale lemma fornisce un certificato per verificare l'ammissibilità di un programma lineare, se il punto 2 del lemma di Farkas è verificato per un programma lineare in forma di equazione, allora la regione ammissibile è vuota. Tale lemma può essere dimostrato sia utilizzando la dualità forte, sia non utilizzandola. Verrà data in seguito una dimostrazione che non si avvale del teorema \ref{dualità forte}.
+\bigskip 
+
+La seguente proposizione è una variante del lemma di Farkas.
+\begin{proposizione}\label{Variante_Farkas}
+    se $A\in Mat(m\times n)$ e $\bb \in \R^m$, le seguenti sono equivalenti\begin{itemize}
+        \item $A\x=\bb$ ha una soluzione non negativa se e solo se $\forall \y\in\R^m$ tale che $A^T\y\ge \mathbf 0$ si ha $\bb^T\y\ge \mathbf 0$
+        \item $A\x\le \bb$ ha una soluzione non negativa se e solo se per ogni  $\y \in \R^m_+$ tale che $A^T\y\ge \mathbf 0$ si ha $\bb^T\y\ge \mathbf 0$
+        \item $A\x\le \bb$ ha una soluzione se e solo se esiste una soluzione $\y \in \R^m_+$ tale che $A^T\y=\mathbf 0$ e $\bb^T\y\ge \mathbf 0$
+    \end{itemize}
+\end{proposizione}
+Si può utilizzare il secondo punto di tale proposizione per dimostrare il teorema \ref{Teo_dimostra_dualitàForte}.\acc 
+\textit{Dimostrazione (Teorema \ref{Teo_dimostra_dualitàForte})}: Siano $P,D$ una coppia di problemi primario-duale$$
+P=\begin{cases}
+    \max \mathbf c^T\mathbf x\\ 
+    A\mathbf x \le \mathbf b \\ 
+    \mathbf x \ge 0 
+\end{cases} \ \ \ \ D=
+\begin{cases}
+    \min \mathbf b^T\mathbf y\\ 
+    A^T\mathbf y \ge \mathbf c \\ 
+    \mathbf y \ge 0 
+\end{cases}$$
+si vuole mostrare che se $P$ ha un ottimo, allora $D$ ha lo stesso ottimo. 
+
+Sia $\x^*$ la soluzione ottimale di $P$, e sia $\gamma = \bc^T\x^*$ il valore massimizzato, il sistema di disequazioni\begin{eqnarray*}
+    A\x\le\bb\\ \bc^T\x\ge \gamma  
+\end{eqnarray*}
+ha come unica soluzione $\x^*$, invece il sistema\begin{eqnarray*}
+    A\x\le\bb\\ \bc^T\x\ge \gamma  + \varepsilon 
+\end{eqnarray*}
+non ha soluzione per ogni $\varepsilon > 0$. Si definiscono \begin{equation}
+    \hat A = \begin{bmatrix}
+        A \\ -\bc^T 
+    \end{bmatrix} \ \ \ \  
+    \hat \bb_\varepsilon = \begin{bmatrix}
+        \bb \\ -\gamma-\varepsilon
+    \end{bmatrix}
+\end{equation}\begin{itemize}
+    \item $\hat A\x\le \hat\bb_0$ ha una soluzione, ed è $\x^*$
+    \item $\hat A\x\le \hat\bb_\varepsilon$ con $\varepsilon>0$ non ha soluzione
+\end{itemize}
+Si consideri il secondo punto della proposizione \ref{Variante_Farkas}, ossia 
+\begin{quote}
+    $A\x\le \bb$ ha una soluzione non negativa se e solo se per ogni  $\y \in \R^m_+$ tale che $A^T\y\ge \mathbf 0$ si ha $\bb^T\y\ge \mathbf 0$
+\end{quote}
+Dato che non esiste una soluzione per il sistema $\hat A\x\le \hat\bb_\varepsilon$, allora esiste un $\hat\y\in\R^m$ tale che $\hat \y\ge\mathbf 0$ e \begin{eqnarray}
+    \hat A^T\hat\y\ge\mathbf 0 \\ 
+    \hat\y^T\hat\bb_\varepsilon<\mathbf 0
+\end{eqnarray}
+Sia $$ \hat\y = \begin{bmatrix}
+    \hat{\mathbf u} \\ z 
+\end{bmatrix}$$
+con $ \hat{\mathbf u}$ un vettore e $z$ uno scalare. allora \begin{eqnarray}
+    \hat A^T\hat\y\ge\mathbf 0 \implies \\ 
+    A^T\hat{\mathbf u}-\bc^Tz\ge \mathbf 0\implies\\ 
+    A^T\hat{\mathbf u}\ge \bc^Tz
+\end{eqnarray}
+inoltre \begin{eqnarray}
+    \hat\y^T\hat\bb_\varepsilon<\mathbf 0\implies \\
+    \hat{\mathbf u}^T\bb+z(-\gamma-\varepsilon)<0 \implies \\ 
+    \hat{\mathbf u}^T\bb<z(\gamma+\varepsilon)
+\end{eqnarray}
+Attenzione, si ricordi che $\hat\y\ge\mathbf 0$, quindi $z\ge 0$. Si consideri adesso il sistema 
+$$\hat A\x\le \hat\bb_0$$
+dato che ha una soluzione, il secondo punto della proposizione \ref{Variante_Farkas} implica che per ogni $\y$ tale che $A^T\y\ge \mathbf 0$ si ha $\y^T\bb_0\ge\mathbf 0$, ciò è valido anche per $\hat\y$ 
+$$ 
+\hat A^T\hat\y\ge\mathbf 0 \implies \hat\y^T\bb_0\ge \mathbf 0
+$$
+ma $ \hat\y = \begin{bmatrix}
+    \hat{\mathbf u} & z 
+\end{bmatrix}^T$, quindi 
+\begin{eqnarray}
+    \hat\y^T\bb_0\ge \mathbf 0\implies \\ 
+    \begin{bmatrix}
+        \hat{\mathbf u} & z 
+    \end{bmatrix}\begin{bmatrix}
+        \mathbf b \\ -\gamma 
+    \end{bmatrix}\ge\mathbf 0\implies \\ 
+    \hat{\mathbf u}^T\mathbf b \ge z\gamma
+\end{eqnarray}
+Dato tale risultato ed il risultato precedente, sappiamo che $z>0$ dato che 
+\begin{equation}
+    z\gamma\le \hat{\mathbf u}^T\bb<z(\gamma+\varepsilon)
+\end{equation} 
+essendo che $z\ne 0$, è possibile considerare il vettore $$\mathbf w = \frac{1}{z}\mathbf u$$
+Si ha che $\mathbf w$ è ammissibile per il problema duale $D$:
+$$ 
+A^T\mathbf w = A^T(\frac{1}{z}\mathbf u)\ge \bc\frac{1}{z}z=\bc
+$$
+inoltre 
+$$ \gamma\le\mathbf w^T\bb <\gamma+\varepsilon \implies\mathbf w^T\bb=\gamma$$
+$\mathbf w$ è quindi la soluzione ottimale del problema duale. \hfill$\blacksquare$
+\subsection{interpretazione Geometrica del Lemma di Farkas}
+\begin{definizione}
+    Dati $n$ punti $\mathbf a_1,\mathbf a_2,\dots, \mathbf a_n \in \R^m$, si definisce \textbf{cono convesso} generato da tali punti il seguente insieme 
+    $$ 
+    \Big\{\sum_{i=1}^n t_i\mathbf a_i \ : \ \{t_1\dots,t_n\}\in\R^n_+\Big\}
+    $$
+\end{definizione}
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.5\textwidth ]{images/cono_convesso.eps}
+    }
+    \caption{cono convesso in $\R^2$}
+\end{figure}
+
+\begin{lemma2}\label{Farkas_geometrico}
+    \textbf{(Farkas Geometrico)} Dati $n$ punti $\mathbf a_1,\mathbf a_2,\dots, \mathbf a_n \in \R^m$, ed un punto $\bb\in\R^m$, esattamente una fra le seguenti è vera\begin{enumerate}
+        \item $\bb$ è nel cono convesso generato da $\mathbf a_1,\mathbf a_2,\dots, \mathbf a_n$, ossia $\bb\in \Big\{\sum_{i=1}^n t_i\mathbf a_i \ : \ \{t_1\dots,t_n\}\in\R^n_+\Big\}$
+        \item Esiste un iperpiano $H$ passante per l'origine descritto da un vettore $\y$ $$ H=\{\x\in\R^n \ : \ \y^T\x=0\}$$
+        tale per cui, per ogni $i$, $\y^T\mathbf a_i \ge 0$ e $\y^T\bb<0$, ossia, il cono convesso si trova in una delle due metà definite da $H$, e $\bb$ si trova nell'altra metà.
+    \end{enumerate}
+\end{lemma2}
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.6\textwidth ]{images/Farkas.pdf}
+    }
+    \caption{Secondo il lemma di Farkas, il vettore $\bb$ non può trovarsi nella zona evidenziata in rosso. O si trova nel cono convesso, o nel mezzo spazio che non include il cono convesso.}
+\end{figure}
+
+Presenteremo adesso alcuni richiami di analisi sugli insiemi reali necessari per la dimostrazione della versione geometrica del lemma di Farkas.\bigskip 
+
+$Z\subseteq \R^n$ è un insieme \textit{aperto} se per ogni $\x\in Z$, esiste una palla $B_\epsilon(\x)$ centrata in $\x$ di raggio $\epsilon$ (arbitrario) che è contenuta in $Z$. Si ricordi che \begin{itemize}
+    \item l'unione di due insiemi aperti è un'insieme aperto  
+    \item l'intersezione di due insiemi aperti è un'insieme aperto  
+\end{itemize}
+
+\begin{lemma2}\label{fatto}
+    se $f$ è una funzione continua e biettiva su $\R^n$ e $U\subseteq \R^n$ è aperto, l'insieme $f(U)$ è aperto. Se $Z\subset \R^n$ è un'insieme chiuso e limitato, allora $f(Z)$ è un'insieme chiuso.  
+\end{lemma2}
+\begin{definizione}
+    Dati $n$ punti $\mathbf a_1,\mathbf a_2,\dots, \mathbf a_n \in \R^m$, il cono convesso generato da questi è \textbf{primitivo} se $\mathbf a_1,\mathbf a_2,\dots, \mathbf a_n$ sono linearmente indipendenti.
+\end{definizione}
+
+La dimostrazione del lemma \ref{Farkas_geometrico} consiste nella dimostrazione di 5 proposizioni.
+\begin{proposizione}\label{farkas_punto1}
+    Se $C$ è un cono convesso, allora $C$ è l'unione di un'insieme finito di coni primitivi.
+\end{proposizione}
+\textit{Dimostrazione:} Siano  $\mathbf a_1,\mathbf a_2,\dots, \mathbf a_n \in \R^m$ i punti che generano $C$, sia 
+$$ \mathcal I = \{ I\subseteq \{1,\dots,n\} \text{ t.c. } \{a_i \ i\in I\} \text{ sono linearmente indipendenti}\}$$
+$\mathcal I$ è un sotto-insieme dell'insieme potenza di $\{1,\dots n\}$, ha quindi cardinalità $|\mathcal I|\le 2^n$. Si denota $C_I$ il cono primitivo generato dall'insieme $\{a_i \ i\in I\}$ con $I\in\mathcal I$. Si vuole mostrare che 
+$$ 
+\bigcup_{I\in\mathcal I}C_I=C
+$$
+Sia $\x$ un elemento fissato di $C$
+$$ \x=\sum \alpha_i\mathbf a_i, \ \ \ \ \alpha_i\ge 0$$
+Sia $\x$ definito come segue: $\x$ è l'elemento cha massimizza il numero di coefficienti $\alpha_i$ uguali a zero, quindi ogni altro elemento di $C$ è una combinazione lineare di $\mathbf a_i$ che ha un numero di  coefficienti nulli minore del numero di coefficienti nulli di $\x$.
+
+Sia $I=\{i : \mathbf a_i>\mathbf 0\}$, si pone per assurdo che i vettori $\mathbf a_i$ con $i\in I$ non sono linearmente indipendenti, ossia 
+\begin{equation}
+    \exists\beta_i\in\R \ \ \ \text{ t.c. } \ \ \ \sum_{i\in I}\beta_i\mathbf a_i = \mathbf 0
+\end{equation}
+Si consideri il particolare coefficiente 
+$$ \alpha_i-t\beta_i$$
+per qualche $t\in \R$, per definizione, $\alpha_i>0$, scegliendo un valore di $t$ molto piccolo, $\alpha_i-t\beta_i>0$, se $t$ cresce indefinitamente, ad un certo punto $\alpha_i-t\beta_i$ diverrà negativo.
+Si sceglie $t=\frac{\alpha_j}{\beta_j}$ con $j$ l'indice che minimizza fra tutti il valore assoluto $$ |\frac{\alpha_j}{\beta_j}|$$
+il vettore 
+$$ \x^*=\sum_{i\in I}(\alpha_i-t\beta_i)\mathbf a_i=\sum_{i\in I}(\alpha_i-\frac{\alpha_j}{\beta_j}\beta_i)\mathbf a_i$$
+è per definizione un elemento del cono convesso $C$ dato che, per la specifica scelta di $t$, si ha che $(\alpha_i-t\beta_i)\ge 0$ per ogni $i\in I$, inoltre il vettore si può riscrivere 
+\begin{eqnarray*}\x^*=
+\sum_{i\in I}\alpha_i\mathbf a_i + t\sum_{i\in I}\beta\mathbf a_i =\\ \x+ t\sum_{i\in I}\beta\mathbf a_i
+\end{eqnarray*}
+La scelta di $t$ rende uno dei coefficienti $(\alpha_i-t\beta_i)$ uguali a zero, quindi $\x^*$ ha un coefficiente nullo in più rispetto ad $\x$, ma questo per definizione massimizzava il numero di coefficienti nulli, è quindi impossibile che l'assunzione che i vettori $\mathbf a_i$ con $i\in I$ non siano linearmente indipendenti sia vera, quindi 
+$\mathbf a_i$ con $i\in I$ sono linearmente indipendenti, allora $\x$ è nel cono primitivo $C_I$, quindi $ 
+\bigcup_{I\in\mathcal I}C_I=C
+$.\hfill$\blacksquare$
+
+\begin{proposizione}\label{farkas_punto2}
+    Ogni cono primitivo è un'insieme chiuso.
+\end{proposizione}
+\textit{Dimostrazione}: Sia $C_I$ un cono primitivo generato da $\mathbf{a}_i$ (linearmente indipendenti) con $i\in I$. si consideri la base canonica di $\R^n$
+$$ \mathbf e_1,\mathbf e_2\dots,\mathbf e_n=
+\begin{bmatrix}
+    1\\0\\\vdots\\0
+\end{bmatrix},\begin{bmatrix}
+    0\\1\\\vdots\\0
+\end{bmatrix}\dots,\begin{bmatrix}
+    0\\0\\\vdots\\1
+\end{bmatrix}$$
+dove $\mathbf e_i$ è il vettore composto da tutti zeri fatta eccezione per l'$i$-esima componente che è uguale ad $1$. Sia $\bar C$ il cono convesso generato da $ \mathbf e_1\dots,\mathbf e_n$, questo è chiuso perché è l'intersezione di un'insieme finito di mezzi spazi. Si consideri la funzione $f:\R^n\rightarrow\R^n$ definita come segue 
+$$f([x_i \ : \ i\in I]^T)=\sum_{i\in I}x_i\mathbf a_i$$
+essendo che $\mathbf{a}_i, \ i\in I$  sono linearmente indipendenti, $f$ è continua ed iniettiva, ma allora, essendo che $f(\bar C)=C_I$, per il lemma \ref{fatto}, $C_I$ è chiuso.
+\begin{proposizione}\label{farkas_punto3}
+    Ogni cono convesso è un'insieme chiuso. La dimostrazione è banale e segue dalle proposizioni \ref{farkas_punto1} e \ref{farkas_punto2}.
+\end{proposizione}
+\begin{proposizione}\label{farkas_punto4}
+    Se $X\subset \R^n$ è un'insieme chiuso e $\bb\notin X$, allora esiste un punto $\mathbf z\in X$ che minimizza la distanza euclidea con $\bb$, ossia è il \textg{più vicino } a $\bb$.
+\end{proposizione}
+\textit{Dimostrazione}: Sia $\x$ un punto in $X$, si consideri la sfera $B_\varepsilon(\bb)$ centrata in $\bb$ di raggio 
+$$ \varepsilon = \|\bb-\x\|$$
+$B_\varepsilon(\bb)$ è un'insieme chiuso, l'insieme $B_\varepsilon(\bb)\cap X$ è chiuso e limitato, si consideri la funzione $f:\R^n\rightarrow\R$ definita come segue
+$$ f(\y)=\|\bb-\y\|$$
+$f$ è continua in $B_\varepsilon(\bb)\cap X$ ed ha un minimo, tale punto è proprio il punto più vicino a $\bb$.
+\begin{proposizione}\label{farkas_punto5}
+    Se $C$ è un cono convesso di $\R^n$ e $\bb\notin C$, allora esiste $\mathbf z\in C$ tale che $\mathbf z$ è l'elemento di $C$ più vicino a $\bb$. La dimostrazione segue dalle proposizioni \ref{farkas_punto3} e \ref{farkas_punto4}.
+\end{proposizione}
+\textg{Dimostrazione (Lemma \ref{Farkas_geometrico})}: Sia $C$ il cono convesso, si assume che $\bb\notin C$, per la proposizione \label{farkas_punto5} esiste un punto nel cono che è il più vicino a $\bb$.
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.45\textwidth ]{images/dim_Farkas.eps}
+    }
+    \caption{$\mathbf z$ è il punto più vicino a $\bb$}
+\end{figure}
+
+Si considera l'iperpiano 
+$$H=\{\y\in\R^m \ : \ (\mathbf z-\bb)^T\y=0\} $$
+Si noti che $(\mathbf z-\bb)$ è ortogonale a $\mathbf z$, se così non fosse, esisterebbe un punto in $C$ più vicino a $\bb$. Si vuole mostrare che $(\mathbf z-\bb)^T\bb<0$\begin{eqnarray}
+    \mathbf z - \bb \ne 0 \implies (\mathbf z - \bb)^T(\mathbf z - \bb)>0\implies \\ 
+    (\mathbf z - \bb)^T\mathbf z - (\mathbf z - \bb)^T\bb >0
+\end{eqnarray}
+ma $(\mathbf z - \bb)^T\mathbf z =0$ data l'ortogonalità, quindi \begin{eqnarray}
+    (\mathbf z - \bb)^T\mathbf z - (\mathbf z - \bb)^T\bb >0\implies\\ 
+    - (\mathbf z - \bb)^T\bb >0\implies  (\mathbf z - \bb)^T\bb<0
+\end{eqnarray}
+
+Questo dimostra che $\bb$ non si trova sull'iperpiano ma su uno dei due mezzi-spazi definiti da esso. Inoltre, per ogni $\mathbf a_i$ si ha che 
+$$ (\mathbf z -\bb)^T\mathbf a_i=\|\mathbf z -\bb\|\cdot \|\mathbf a_i\|\cos\theta$$
+ed ogni termine di tale prodotto è positivo, quindi $ (\mathbf z -\bb)^T\mathbf a_i>0$, allora i vettori $\mathbf a_i$, e conseguentemente tutto il cono convesso da loro generato, si trovano sull'altra metà di spazio definita da $H$.\hfill$\blacksquare$
+\section{Il Teorema degli Slack Complementari}
 \end{document}
