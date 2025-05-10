@@ -1891,7 +1891,7 @@ $f$ è continua in $B_\varepsilon(\bb)\cap X$ ed ha un minimo, tale punto è pro
     \centering{
         \includegraphics[width=0.45\textwidth ]{images/dim_Farkas.eps}
     }
-    \caption{$\mathbf z$ è il punto più vicino a $\bb$}
+    \caption{$\mathbf z$ è il punto in $C$ più vicino a $\bb$}
 \end{figure}
 
 Si considera l'iperpiano 
@@ -1909,4 +1909,71 @@ Questo dimostra che $\bb$ non si trova sull'iperpiano ma su uno dei due mezzi-sp
 $$ (\mathbf z -\bb)^T\mathbf a_i=\|\mathbf z -\bb\|\cdot \|\mathbf a_i\|\cos\theta$$
 ed ogni termine di tale prodotto è positivo, quindi $ (\mathbf z -\bb)^T\mathbf a_i>0$, allora i vettori $\mathbf a_i$, e conseguentemente tutto il cono convesso da loro generato, si trovano sull'altra metà di spazio definita da $H$.\hfill$\blacksquare$
 \section{Il Teorema degli Slack Complementari}
+Si consideri una coppia $P,D$ di problemi primario-duale\begin{equation}\label{PD}
+P=\begin{cases}
+    \max \mathbf c^T\mathbf x\\ 
+    A\mathbf x \le \mathbf b \\ 
+    \mathbf x \ge 0 
+\end{cases} \ \ \ \ D=
+\begin{cases}
+    \min \mathbf b^T\mathbf y\\ 
+    A^T\mathbf y \ge \mathbf c \\ 
+    \mathbf y \ge 0 
+\end{cases}\end{equation}
+I vincoli in $P$ corrispondono a variabili in $D$, e vincoli in $D$ corrispondono a variabili in $P$. Data una soluzione $\x^*$, un vincolo 
+$$ x_1a_{j1}+\dots x_na_{jn}\le b_j$$
+si dice \textbf{slack} o \textbf{residuo} se 
+$$ x^*_1a_{j1}+\dots x^*_na_{jn}< b_j$$
+Ossia il vincolo soddisfa la disuguaglianza in maniera \textit{stretta}, ossia $A_j^T\x^*$ è strettamente minore di $b_j$. Se invece 
+$$ x^*_1a_{j1}+\dots x^*_na_{jn} = b_j$$
+il vincolo per $\x^*$ si dice \textbf{binding} o \textbf{saturo}. Tale denotazione si adotta anche ai vincoli del tipo $\x\ge \mathbf 0$, infatti se 
+$$ x^*_i>0$$
+la variabile $x_i^*$ è slack, altrimenti se 
+$$ x^*_i=0$$
+è binding. In tale contesto, il termine slack non è da confondere con le variabili slack che si aggiungono ad un programma lineare per farlo passare dalla forma canonica alla forma d'equazione. Si noti che la \textit{slackness} di ogni variabile è riferita ad una specifica soluzione.\bigskip 
+
+Il seguente teorema è fondamentale, descrive la relazione fra vincoli di un problema e variabili del suo duale nei termini della \textit{slackness}.
+\begin{teorema}
+    Siano $P,D$ una coppia di problemi primario-duale definiti come in \ref{PD}, entrambi ammissibili e limitati, sia $\x^*$ la soluzione ottimale per $P$, e $\y^*$ la soluzione ottimale per $D$, allora si verifica una delle seguenti\begin{enumerate}
+        \item Se $x^*_i>0$, ossia la variabile $x_i$ è slack per $\x^*$, allora il vincolo $i$-esimo di $D$ per $\y^*$ è binding.
+        \item Se il $j$-esimo vincolo di $P$ è slack per $\x^*$, allora $y^*_j=0$, ossia
+        la variabile $y_j$ è binding per $\y^*$.
+        \item Se $y^*_j>0$, ossia la variabile $y_i$ è slack per $\y^*$, allora il vincolo $j$-esimo di $P$ per $\x^*$ è binding.
+        \item Se l'$i$-esimo vincolo di $D$ è slack per $\y^*$, allora $x^*_i=0$, ossia
+        la variabile $x_i$ è binding per $\x^*$.
+    \end{enumerate}
+\end{teorema}
+\textit{Dimostrazione}: per ogni soluzione ammissibile $\bar\x$ per $P$, e $\bar\y$ per $D$ si ha 
+$$ A\bar\x\le\bar \bb$$
+moltiplicando tutto per $\bar\y^T$
+$$ \bar\y^TA\bar\x\le \bar\y^T\bb$$
+Analogamente, essendo 
+$$ A^T\bar\y\ge \bc$$
+si ha 
+$$ A^T\bar\y\bar\x\ge \bc^T\bar\x$$
+Quindi è valida la seguente\begin{equation}
+    \bc^T\bar\x\le\bar\y^TA\bar\x\le\bc^T\bar\y
+\end{equation}
+essendo che duale e primario hanno lo stesso ottimo 
+$$ \bc^T\x^*=\bar\bb^T\y^*$$
+si ha che 
+\begin{equation}
+     \bc^T\x^*\le{\y^*}^TA\x^*\le\bc^T\y^*
+\end{equation}
+Considerando la prima disuguaglianza \begin{eqnarray}
+     \bc^T\x^*\le{\y^*}^TA\x^*\implies \\
+      \bc^T\x^*-{\y^*}^TA\x^*=0\implies \\
+      (\bc^T-{\y^*}^TA)\x^*=0 \implies \\ \label{slackness_teo}
+      \sum_{i=1}^n(c_i-{\y^*}^TA_i)x^*_i=0
+\end{eqnarray}
+ma $(c_i-{\y^*}^TA_i)$ è minore o uguale di zero per ogni $i$, dato il vincolo $A^T\y\ge\bc$, e $x_i^*$ è maggiore o uguale a zero per ogni $i$, dato il vincolo $\x\ge 0$.\begin{itemize}
+    \item ogni termine della sommatoria \ref{slackness_teo} è il prodotto fra un numero maggiore o uguale a zero per uno minore o uguale a zero.
+    \item la somma totale è zero 
+    \item ogni prodotto $(c_i-{\y^*}^TA_i)x^*_i$ della sommatoria è quindi uguale a zero
+\end{itemize}
+Quindi $x_i^*>0$ (l'$i$-esima variabile di $P$ è slack), necessariamente $c_i-{\y^*}^TA_i=0\implies {\y^*}^TA_i=c_i$ (l'$i$-esimo vincolo di $D$ è binding). 
+
+Analogamente, se $c_i-{\y^*}^TA_i<0\implies {\y^*}^TA_i<c_i$ (l'$i$-esimo vincolo di $D$ è slack), necessariamente $x_i^*=0$ (l'$i$-esima variabile di $P$ è binding). Quindi i punti \textit{(1)} e \textit{(4)} del teorema sono dimostrati, i restanti punti possono essere dimostrati in maniera analoga.\hfill$\blacksquare$
+\subsection{Alcune Applicazioni}
+
 \end{document}
