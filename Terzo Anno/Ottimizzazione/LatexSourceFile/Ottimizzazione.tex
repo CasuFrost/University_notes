@@ -64,6 +64,7 @@ triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 \normalsize
 \newtheorem{definizione}{Definizione}
 \newtheorem{teorema}{Teorema}
+\newtheorem{congettura}{Congettura}
 \newtheorem{lemma2}{Lemma}
 \newtheorem{proposizione}{Proposizione}
 \newtheorem{osservazione}{Osservazione}
@@ -1933,7 +1934,7 @@ $$ x^*_i=0$$
 è binding. In tale contesto, il termine slack non è da confondere con le variabili slack che si aggiungono ad un programma lineare per farlo passare dalla forma canonica alla forma d'equazione. Si noti che la \textit{slackness} di ogni variabile è riferita ad una specifica soluzione.\bigskip 
 
 Il seguente teorema è fondamentale, descrive la relazione fra vincoli di un problema e variabili del suo duale nei termini della \textit{slackness}.
-\begin{teorema}
+\begin{teorema}\label{complementary_slackness}
     Siano $P,D$ una coppia di problemi primario-duale definiti come in \ref{PD}, entrambi ammissibili e limitati, sia $\x^*$ la soluzione ottimale per $P$, e $\y^*$ la soluzione ottimale per $D$, allora si verifica una delle seguenti\begin{enumerate}
         \item Se $x^*_i>0$, ossia la variabile $x_i$ è slack per $\x^*$, allora il vincolo $i$-esimo di $D$ per $\y^*$ è binding.
         \item Se il $j$-esimo vincolo di $P$ è slack per $\x^*$, allora $y^*_j=0$, ossia
@@ -1975,5 +1976,100 @@ Quindi $x_i^*>0$ (l'$i$-esima variabile di $P$ è slack), necessariamente $c_i-{
 
 Analogamente, se $c_i-{\y^*}^TA_i<0\implies {\y^*}^TA_i<c_i$ (l'$i$-esimo vincolo di $D$ è slack), necessariamente $x_i^*=0$ (l'$i$-esima variabile di $P$ è binding). Quindi i punti \textit{(1)} e \textit{(4)} del teorema sono dimostrati, i restanti punti possono essere dimostrati in maniera analoga.\hfill$\blacksquare$
 \subsection{Alcune Applicazioni}
+Il teorema \ref{complementary_slackness} può essere utilizzato per trovare la soluzione di un programma lineare, data una soluzione per il suo duale.
+Siano $P$ e $D$ una coppia di problemi primario-duale, sia $\x^*$ la soluzione ottimale per $P$, se $x_i^*>0$ allora l'$i$-esimo vincolo di $D$ è binding, quindi in forma di equazione, inoltre, in base a quali vincoli di $P$ sono binding, sono possono porre le variabili della soluzione $\y^*$ di $D$ uguali a zero, costruendo un sistema di $k$ equazioni in $k$ variabili.\bigskip 
+
+\textit{Esempio}: Si consideri la seguente coppia di problemi primario duale: 
+\begin{equation}
+    P=\begin{cases}
+        \max \  2x_1+4x_2+3x_3+x_4\\
+        3x_1+x_2+x_3+4x_4\le 12\\ 
+        x_1-3x_2+2x_3+3x_4\le 7\\ 
+        2x_1+x_2+3x_3-x_4\le 10\\ 
+        x_1,x_2,x_3,x_4\ge 0
+    \end{cases}
+    D=\begin{cases}
+        \min \ 12y_1+7y_2+10y_3\\ 
+        3y_1+y_2+2y_3\ge2\\
+        y_1-3y_2+y_3\ge 4\\ 
+        y_1+2y_2+3y_3\ge 3 \\ 
+        4y_1+3y_2-y_3\ge 1\\ 
+        y_1,y_2,y_3 \ge 0 
+    \end{cases}
+\end{equation}
+Si consideri la soluzione ottimale $\x^*=\begin{bmatrix}
+    0&10.4&0&0.4
+\end{bmatrix}^T$ per $P$, dato che $x_2^*,x_4^*>0$, per il teorema \ref{complementary_slackness} è vero che, se $\y^*$ è la soluzione ottimale per $D$ si ha 
+\begin{eqnarray*}
+y_1-3y_2+y_3 = 4\\ 
+4y_1+3y_2-y_3 = 1
+\end{eqnarray*}
+Inoltre si noti come il secondo vincolo di $P$ per $\x^*$ è slack
+\begin{eqnarray*}
+     x_1^*-3x_2^*+2x_3^*+3x_4^*=\\
+    -3\cdot 10.4+3\cdot 0.4 = -28.6 < 7
+\end{eqnarray*}
+Quindi $y_2^*=0$, si ha il seguente sistema di equazioni 
+$$ 
+\begin{cases}
+y_1-3y_2+y_3 = 4\\ 
+4y_1+3y_2-y_3 = 1\\ 
+y_2^*=0
+\end{cases}\implies 
+\begin{cases}
+y_1+y_3 = 4\\ 
+4y_1-y_3 = 1\\ 
+y_2^*=0
+\end{cases}\implies \y^*=\begin{bmatrix}
+    1&0&3
+\end{bmatrix}^T
+$$
+Un'altra possibilità è quella di usare il teorema \ref{complementary_slackness} per verificare che una data soluzione ammissibile sia ottimale. Proseguendo in tale maniera\begin{enumerate}
+    \item Data una soluzione $\x^*$ da verificare, si assume che sia ottimale 
+    \item Si calcola tramite il teorema \ref{complementary_slackness} la soluzione $\y^*$ ottimale per il suo duale 
+    \item Si verifica che le due soluzioni assumano lo stesso valore sulle funzioni obiettivo dei due problemi
+\end{enumerate}
+
+si consideri la seguente coppia di problemi primario duale\begin{equation}
+    P=\begin{cases}
+        \max \ 2x_1+16x_2+12x_3 \\ 
+        2x_1+x_2-x_3\le 3\\ 
+        -3x_1+8x_2+2x_3\le 12 \\ 
+        x_1,x_2,x_3\ge 0
+    \end{cases}
+    D=\begin{cases}
+        \min \ 3y_1+12y_2\\ 
+        2y_1-3y_2\ge 2 \\ 
+        y_1+8y_2\ge 16\\ 
+        -y_1+2y_2\ge 12 \\ 
+        y_1,y_2\ge 0
+    \end{cases}
+\end{equation}
+Si vuole verificare che $\x^*=\begin{bmatrix}
+    6&0&12
+\end{bmatrix}^T$ sia ottimale, si assume che lo sia e si calcola la soluzione ottimale per $D$.\begin{itemize}
+    \item Si noti come entrambi i vincoli di $P$ per $\x^*$ sono slack, quindi $y^*_1,y_2^*=0$
+\end{itemize}
+la soluzione ottimale per $D$ dovrebbe essere $\y^*=\begin{bmatrix}
+    0&0
+\end{bmatrix}^T$, ma questa non soddisfa i vincoli di $D$, quindi è impossibile che $\x^*$ sia ottimale.
+
+\chapter{Metodi Alternativi per la Risoluzione di un LP}
+Esiste uno specifico poliedro definito su $\R^n$ che soddisfa le seguenti \begin{itemize}
+    \item il poliedro è definito da $3n$ equazioni 
+    \item esiste un cammino sui vertici di lunghezza $2^n-1$ che collega due punti
+\end{itemize}
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.7\textwidth ]{images/Klee-Minty-polyhedron.eps}
+    }
+\end{figure}
+
+Tale risultato è stato dimostrato da  \textit{Klee} e \textit{Minty}, l'implicazione è chiara, nel caso peggiore il metodo del simplesso esegue un numero di passi esponenziali nella dimensione dell'input. È stato poi dimostrato che se venissero ordinate in maniera casuale le $n$ variabili del problema, per poi applicare la regola di Bland, il valore atteso del numero di pivot controllati nell'esecuzione sarebbe $\exp(C\sqrt{n\ln{(n)}})$, dove $C$ è una data costante.
+\begin{definizione}
+    Il \textbf{diametro} di un poliedro è la massima distanza (in termini di cammino sui vertici) fra due vertici qualsiasi del poliedro.
+\end{definizione}
+\textbf{Congettura di Hirsh} ogni poliedro in $\R^n$ definito da $cn$ vincoli ($c$ costante) ha un diametro minore o uguale a $n^c$.
+
 
 \end{document}
