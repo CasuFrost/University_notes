@@ -6,6 +6,7 @@
 \usepackage{algpseudocode}
 
 \newcommand{\bb}{{\mathbf{b}}}
+\newcommand{\bs}{{\mathbf{s}}}
 \newcommand{\bc}{{\mathbf{c}}}
 \newcommand{\x}{{\mathbf{x}}}
 \newcommand{\y}{{\mathbf{y}}}
@@ -410,7 +411,7 @@ Si definisce \textbf{soluzione ottimale} ogni soluzione ammissibile che massimiz
 \end{figure}
 Il numero di soluzioni di un programma lineare può variare fra i seguenti casi\begin{enumerate}
     \item Vi è un'unica soluzione ottimale.
-    \item Vi sono infinite soluzioni ottimale.
+    \item Vi sono infinite soluzioni ottimali.
     \item Non ci sono soluzioni ammissibili, nessun punto soddisfa tutti i vincoli lineari.
     \item Non ci sono soluzioni ottimali perché il problema non è limitato, ciò avviene se l'insieme dei punti ammissibili non è chiuso.
 \end{enumerate}
@@ -430,7 +431,7 @@ Si può quindi assumere che un generico problema di programmazione lineare rigua
 $$ -a_{1i}x_1-a_{2i}x_2-\dots - a_{ni}x_2\ge b_i $$
 Quindi si può assumere che ogni vincolo sia scritto nella forma \ref{vincolo}. Inoltre ogni vincolo di uguaglianza equivale a due disuguaglianze. Date le precedenti osservazioni, si può definire un'insieme di $m$ vincoli in maniera compatta tramite una matrice $m\times n $ ed un vettore $\mathbf b\in \R^m$. 
 $$ A\mathbf x \le \mathbf b$$ 
-Inoltre ogni vincolo di positività del tipo $x_i\ge 0$ equivale ad il vincolo $-x_i\le 0$. Se in un programma lineare una variabile $x_i$ può assumere qualsiasi valore in $\R$, si può sostituire con la differenza di due nuove variabili 
+Inoltre ogni vincolo di positività del tipo $x_i\ge 0$ equivale al vincolo $-x_i\le 0$. Se in un programma lineare una variabile $x_i$ può assumere qualsiasi valore in $\R$, si può sostituire con la differenza di due nuove variabili 
 $$x_i=z_i-z_i' $$
 ed imporre i vincoli $$ z_i,z_i'\ge 0$$ 
 in tal modo è possibile, per ogni variabile del programma lineare, imporre la positività. Ciò è utile per definire una \textit{forma standard} per un programma lineare. 
@@ -520,6 +521,7 @@ Un'esempio interessante di problema che si riconduce alla programmazione lineare
     \centering{
         \includegraphics[width=0.3\textwidth ]{images/cerchioPoligono.eps}
     }
+    \caption{Cerchio inscritto nel poligono}
 \end{figure}
 Si assume che i lati del poligono possono essere descritti da un'insieme di rette del tipo $y=mx+b$ con $m\ne 0$.\bigskip 
 
@@ -1008,7 +1010,7 @@ La dimensione di una faccia è uguale alla dimensione del più piccolo sottospaz
 \end{teorema}
 \textit{Dimostrazione} : Verranno dimostrati entrambe le implicazione del \textit{se e solo se}.
 
-\boxedMath{$\implies$} Sia vuole dimostrare che il vertice di un poliedro è soluzione di un programma lineare. Sia $\mathbf v$ un vertice di $P$, per definizione, esiste un iperpiano $a_1x_1+\dots+a_nx_n=b$ tale per cui $P$ è contenuto in una delle due metà definite da esso, sia questa $a_1x_1+\dots+a_nx_n\le b$, inoltre 
+\boxedMath{$\implies$} Si vuole dimostrare che il vertice di un poliedro è soluzione di un programma lineare. Sia $\mathbf v$ un vertice di $P$, per definizione, esiste un iperpiano $a_1x_1+\dots+a_nx_n=b$ tale per cui $P$ è contenuto in una delle due metà definite da esso, sia questa $a_1x_1+\dots+a_nx_n\le b$, inoltre 
 $$a_1v_1+\dots +a_nv_n=b  
 $$
 e 
@@ -1017,7 +1019,9 @@ Quindi, considerando il programma lineare
 \begin{eqnarray}
      \max \begin{bmatrix}
         a_1&a_2&\dots&a_n
-    \end{bmatrix}\mathbf x < b \\ \mathbf x \in P
+    \end{bmatrix}\mathbf x\\\begin{bmatrix}
+        a_1&a_2&\dots&a_n
+    \end{bmatrix}\mathbf x \le b \\ \mathbf x \in P
 \end{eqnarray}
 $\mathbf v$ è l'unica soluzione ottima, per il teorema \ref{teo:BFS}, allora $\mathbf v$ è una BFS.
 
@@ -1071,7 +1075,7 @@ $$A=\begin{bmatrix}
     x_4=3-x_1\\ 
     x_5=2-x_2
 \end{eqnarray*}
-Il valore della funzione obiettivo è $\mathbf c ^T \mathbf x=z=x_1+z_2$, si scrive tale equazione insieme alle equazioni del sistema, costruendo una tabella (la cui definizione formale verrà fornita in seguito):
+Il valore della funzione obiettivo è $\mathbf c ^T \mathbf x=z=x_1+x_2$, si scrive tale equazione insieme alle equazioni del sistema, costruendo una tabella (la cui definizione formale verrà fornita in seguito):
 \begin{center}
     \begin{tabular}{|l|l|}\hline 
         $x_3=1+x_1-x_2$\\ 
@@ -1099,7 +1103,7 @@ $$ \mathcal{B}_1 = \{3,4,5\}\implies \text{BFS}=\begin{bmatrix}
     \caption{BFS con $\mathcal B_1$}
 \end{figure}
 
-\textbf{Passo 2} : Si considera adesso una nuova base, partendo da quella iniziale, si tira fuori una variabile per inserirna un'altra, in questo caso lo scambio avviene fra $x_2$ e $x_3$, considerando $\mathcal B_2 = \{2,4,5\}$, la tabella diviene 
+\textbf{Passo 2} : Si considera adesso una nuova base, partendo da quella iniziale, si tira fuori una variabile per inserirne un'altra, in questo caso lo scambio avviene fra $x_2$ e $x_3$, considerando $\mathcal B_2 = \{2,4,5\}$, la tabella diviene 
 \begin{center}
     \begin{tabular}{|l|l|}\hline 
         $x_2=1+x_1-x_3$\\ 
@@ -1382,9 +1386,9 @@ Si è visto come se $\mathbf r \le \mathbf 0$ allora $z_0$ è la soluzione ottim
 \end{eqnarray*}
 Essendo $\mathbf{x}_\mathcal{B} = \mathbf p + Q\mathbf x_N$, si ha che 
 $$ x_{k_i}=p_i+\sum_{j=1}^{n-m}Q_{i,j}x_{l_j}$$
-Sia $l_{\beta}$ l'indice che entra nella baso in uno step del simplesso 
+Sia $l_{\beta}$ l'indice che entra nella base in uno step del simplesso 
 $$ l_\beta\in\{l_1,l_2\dots, l_{n-m}\} \text{ tale che }r_{\beta}>0$$
-Bisogna selezionare secondo un dato criterio, la variabile nella base che deve essere rimossa per fare posto a $x_{l_\beta}$. Il criterio è il seguente, la variabile che entra è $x_{k_\alpha}$, $\alpha$ è scelto in modo da minimizzare 
+Bisogna selezionare secondo un dato criterio, la variabile nella base che deve essere rimossa per fare posto a $x_{l_\beta}$. Il criterio è il seguente, la variabile che esce è $x_{k_\alpha}$, $\alpha$ è scelto in modo da minimizzare 
 $$-\frac{p_\alpha}{Q_{\alpha,\beta}} $$
 Ricapitolando, lo scambio 
 \begin{eqnarray*}
@@ -1457,7 +1461,7 @@ necessariamente si ha che $p_\alpha^j=0 $, quindi $$ x^j_\alpha = \begin{bmatrix
 \end{bmatrix}^T\cdot \mathbf x_{N_j}$$
 \redText{TODO : Finire la dimostrazione}
 \begin{teorema}
-    Il metodo del simplesso con la regola di Bland termina sempre, e non va entra mai in un ciclo.
+    Il metodo del simplesso con la regola di Bland termina sempre, e non entra mai in un ciclo.
 \end{teorema}
 \textit{Dimostrazione} : Si procede per assurdo, si assuma che durante l'esecuzione del metodo del simplesso per un generico LP con regola di Bland ci sia un ciclo: 
 $$\mathcal  T(B_1)\rightarrow\mathcal  T(B_2)\rightarrow\dots \mathcal  T(B_t)\rightarrow \mathcal  T(B_1)$$
@@ -1541,7 +1545,7 @@ Quindi ogni termine di $\mathbf r^T\mathbf y_N$ ha ogni componente minore o ugua
     \end{eqnarray*}
 \end{definizione}
  \begin{teorema}
-    \textbf{(dualità debole)} L'ottima del problema duale è un \textit{limite superiore} per la funzione obiettivo del problema primario. $$ \text{ottimo primario }\le \text{ ottimo duale}$$Se esiste una soluzione per il duale, il primario è limitato, se il problema duale è illimitato, si avrebbe 
+    \textbf{(dualità debole)} L'ottimo del problema duale è un \textit{limite superiore} per la funzione obiettivo del problema primario. $$ \text{ottimo primario }\le \text{ ottimo duale}$$Se esiste una soluzione per il duale, il primario è limitato, se il problema duale è illimitato, si avrebbe 
     $$ \text{ottimo primario }\le -\infty$$
     ciò è impossibile, il problema primario in tal caso non può essere ammissibile e limitato.
 \end{teorema}
@@ -1582,17 +1586,17 @@ $$\begin{cases}
     Sia $P$ un programma lineare e $D$ il suo duale, se $P$ è ammissibile e limitato, anche $D$ lo è, e hanno lo stesso ottimo.
 \end{teorema}
 \textit{Dimostrazione}: Sia 
-$$ P=\begin{matrix}
+$$ P=\begin{cases}
     \max \mathbf c^T\mathbf x\\ 
         A\mathbf x \le \mathbf b \\ 
         \mathbf x \ge 0 
-\end{matrix}$$
+\end{cases}$$
 il problema primario, con $\mathbf x \in \R^n$, si assuma che sia ammissibile e limitato, quindi che esiste un ottimo per $P$ ed il metodo del simplesso eseguito su $P$ fornirà una BFS che massimizza la funzione obiettivo. Si consideri il seguente problema $P^*$, equivalente a $P$ ma in forma di equazione
-$$ P^*=\begin{matrix}
+$$ P^*=\begin{cases}
     \max \bar {\mathbf c}^T\bar {\mathbf x}\\ 
         \bar A\bar {\mathbf x} \le \mathbf b \\ 
         \bar {\mathbf x} \ge 0 
-\end{matrix}$$
+\end{cases}$$
 con \begin{eqnarray*}
     \bar {\mathbf c} = \begin{bmatrix}
         \mathbf c \ | \ 0 \ \dots 0 
@@ -1657,7 +1661,7 @@ Si consideri ora  $\mathbf w_{\mathcal B}$, questo è uguale a
 $$ \mathbf w_{\mathcal B} = ( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B}\bar A_{\mathcal B})^T$$
 ma $\bar A^{-1}_{\mathcal B}\bar A_{\mathcal B}^T$ è uguale alla matrice identità, quindi 
 $$ \mathbf w_{\mathcal B} =\bar {\mathbf c}^T_{\mathcal{B}}$$
-Entrambi i punti sono dimostrati, quindi $\mathbf y^*$ è ammissibile per il problema duale, e tale soluzione trova un'ottimo identico all'ottimo del problema primario $P$, quindi per il teorema della dualità debole,  $\mathbf y^*$ è una soluzione ottimale per il duale.
+Entrambi i punti sono dimostrati, quindi $\mathbf y^*$ è ammissibile per il problema duale, e tale soluzione trova un'ottimo identico all'ottimo del problema primario $P$, quindi per il teorema della dualità debole,  $\mathbf y^*$ è una soluzione ottimale per il duale.\hfill$\blacksquare$
 \section{Lemma di Farkas}
 Abbiamo visto come il teorema della dualità forte stabilisce importanti risultati riguardo le soluzione di una coppia di problemi duale-primario. La seguente sezione riguarda un'interpretazione geometrica del teorema \ref{Teo_dimostra_dualitàForte}.
 \begin{lemma2}
@@ -1807,7 +1811,7 @@ $\mathbf w$ è quindi la soluzione ottimale del problema duale. \hfill$\blacksqu
     \centering{
         \includegraphics[width=0.6\textwidth ]{images/Farkas.pdf}
     }
-    \caption{Secondo il lemma di Farkas, il vettore $\bb$ non può trovarsi nella zona evidenziata in rosso. O si trova nel cono convesso, o nel mezzo spazio che non include il cono convesso.}
+    \caption{Secondo il lemma di Farkas, si può descrivere un iperpiano $\y^T\x=\mathbf 0$ che divide il vettore $\bb$ dal cono convesso.}
 \end{figure}
 
 Presenteremo adesso alcuni richiami di analisi sugli insiemi reali necessari per la dimostrazione della versione geometrica del lemma di Farkas.\bigskip 
@@ -1953,16 +1957,16 @@ $$ A^T\bar\y\ge \bc$$
 si ha 
 $$ A^T\bar\y\bar\x\ge \bc^T\bar\x$$
 Quindi è valida la seguente\begin{equation}
-    \bc^T\bar\x\le\bar\y^TA\bar\x\le\bc^T\bar\y
+    \bc^T\bar\x\le\bar\y^TA\bar\x\le\bb^T\bar\y
 \end{equation}
 essendo che duale e primario hanno lo stesso ottimo 
-$$ \bc^T\x^*=\bar\bb^T\y^*$$
+$$ \bc^T\x^*=\bb^T\y^*$$
 si ha che 
 \begin{equation}
-     \bc^T\x^*\le{\y^*}^TA\x^*\le\bc^T\y^*
+     \bc^T\x^*={\y^*}^TA\x^*=\bb^T\y^*
 \end{equation}
 Considerando la prima disuguaglianza \begin{eqnarray}
-     \bc^T\x^*\le{\y^*}^TA\x^*\implies \\
+     \bc^T\x^*={\y^*}^TA\x^*\implies \\
       \bc^T\x^*-{\y^*}^TA\x^*=0\implies \\
       (\bc^T-{\y^*}^TA)\x^*=0 \implies \\ \label{slackness_teo}
       \sum_{i=1}^n(c_i-{\y^*}^TA_i)x^*_i=0
@@ -2054,7 +2058,7 @@ la soluzione ottimale per $D$ dovrebbe essere $\y^*=\begin{bmatrix}
     0&0
 \end{bmatrix}^T$, ma questa non soddisfa i vincoli di $D$, quindi è impossibile che $\x^*$ sia ottimale.
 
-\chapter{Metodi Alternativi per la Risoluzione di un LP}
+\chapter{Metodi Polinomiali per la Risoluzione di un LP}
 Esiste uno specifico poliedro definito su $\R^n$ che soddisfa le seguenti \begin{itemize}
     \item il poliedro è definito da $3n$ equazioni 
     \item esiste un cammino sui vertici di lunghezza $2^n-1$ che collega due punti
@@ -2069,7 +2073,204 @@ Tale risultato è stato dimostrato da  \textit{Klee} e \textit{Minty}, l'implica
 \begin{definizione}
     Il \textbf{diametro} di un poliedro è la massima distanza (in termini di cammino sui vertici) fra due vertici qualsiasi del poliedro.
 \end{definizione}
-\textbf{Congettura di Hirsh} ogni poliedro in $\R^n$ definito da $cn$ vincoli ($c$ costante) ha un diametro minore o uguale a $n^c$.
+\textbf{Congettura di Hirsh} ogni poliedro in $\R^n$ definito da $cn$ vincoli ($c$ costante) ha un diametro minore o uguale a $n^c$.\bigskip 
+
+Esistono degli algoritmi polinomiali per la risoluzione di un programma lineare, è necessario descrivere prima quale sia la dimensione dell'input di un LP. Un programma lineare è descritto da una matrice e due vettori 
+$$ A\in Mat(m\times n),\bb\in \R^m,\bc\in\R^n$$
+Quanti bit servono per descrivere tali elementi? Per descrivere un singolo numero intero $\alpha$, sono necessari 
+$ \lceil \log_2(\alpha)+1 \rceil $ bit, si denota tale grandezza $\bra{\alpha}$.\begin{quote}
+    \textbf{assunzione}: Tutte le componenti di $A,\bb$ e $\bc$ sono numeri razionali
+\end{quote}
+Tale assunzione è fondamentale per far si che i numeri di  $A,\bb$ e $\bc$ si possano rappresentare con un numero finito di bit. Un qualsiasi numero razionale $\frac{p}{q}$ si può rappresentare come frazione di due numeri interi, quindi
+$$ \bra{\frac{p}{q}}=\bra p+\bra q$$
+le dimensioni di un vettore $\x\in\R^d$ si esprimono come somma delle dimensioni dei suoi componenti 
+$$ \bra\x=\sum_{i=1}^d\bra{x_i}$$
+analogamente, si descrivono le dimensioni della matrice $A$ come segue 
+$$\bra A=\sum_{i=1}^n\sum_{j=1}^m\bra{A_{ij}}$$
+dato un programma lineare $P$ in forma canonica, la dimensione del problema è
+$$ \bra P = \bra A +\bra\bb+\bra\bc$$
+L'algoritmo seguente farà un numero polinomiale in $\bra P$ di operazioni bit a bit. Non descriveremo un algoritmo che fa un numero di operazioni polinomiale in $n,m$, in quel caso, sarebbe \textbf{fortemente polinomiale}.
+\section{Metodo degli Ellissoidi}
+Sia $B^n$ la palla unitaria di $\R^n$
+$$ B^n=\{\x\in\R^n \ : \ \|\x\|\le 1\}$$
+\begin{definizione}
+    Data una matrice $M$ non singolare ed un vettore $\bs$ (detto centro), un'\textbf{ellissoide}  è il seguente insieme 
+    $$ E=\{M\x+\bs \ : \ \x\in B^n\}$$
+\end{definizione}
+geometricamente, un'ellissoide è una sfera che è stata stirata dall'applicazione lineare $M$ e centrata in $\bs$.
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=1\textwidth ]{images/ellissoide.eps}
+    }
+\end{figure}
+
+Un ellissoide $E$ si può definire anche in maniera differente 
+$$ E=\{\y\in\R^n \ : \ M^{-1}(\y-\bs)\in B^n\} = $$
+$$ E=\{\y\in\R^n \ : \ (\y-\bs)^T {M^{-1}}^TM^{-1}(\y-\bs) \le 1\} = $$
+$$ E=\{\y\in\R^n \ : \ (\y-\bs)^TQ(\y-\bs) \le 1\}  $$
+dove $Q={M^{-1}}^TM^{-1}$ è una matrice quadrata \textbf{positiva semi-definita}, ossia $$ \x^TQ\x>0, \forall \x$$
+
+\pgfplotsset{compat=1.15}
+
+\begin{figure}[h!]
+    \centering
+\begin{tikzpicture}
+\begin{axis}
+[view={135}{20},colormap={blue}{
+            color=(blue) color=(blue)
+        },
+axis lines=center,axis on top,
+ticks=none,set layers=default,axis equal,
+xlabel={$x$}, ylabel={$y$}, zlabel={$z$},
+xlabel style={anchor=south east},
+ylabel style={anchor=south west},
+zlabel style={anchor=south west},
+enlargelimits,
+tick align=inside,
+domain=0:2.00,
+samples=15, 
+z buffer=sort,
+]
+\addplot3 [surf,draw=blue!30,fill=white,domain=-1:1,samples=15,
+domain y=00:180] ({x},{-2*cos(y)*sqrt(1-x^2)},{-sin(y)*sqrt(1-x^2)});
+\addplot3 [surf,draw=blue!30,fill=white,domain=-1:1,
+domain y=0:180,on layer=axis foreground] ({x},{2*cos(y)*sqrt(1-x^2)},{sin(y)*sqrt(1-x^2)});
+\end{axis}
+\end{tikzpicture}
+\caption{ellissoide in $\R^3$}
+\end{figure}
+
+\begin{teorema}
+    $Q$ è una matrice positiva semi-definita se e solo se esiste una matrice $M$ non singolare tale che $$ Q=MM^T$$ 
+\end{teorema}
+\textbf{Corollario}: $E\subset \R^n$ è un ellissoide se e solo se esiste una matrice positiva semi-definita $Q$ ed un vettore $\bs\in\R^n$ tale che 
+$$ E=\{\y\in\R^n \ : \ (\y-\bs)^TQ(\y-\bs) \le 1\}  $$
+Il metodo degli ellissoidi non risolverà direttamente un programma lineare, ma si occuperà di verificare se un dato poliedro è o non è vuoto, è stato già dimostrato in precedenza che i due problemi sono equivalenti. Una descrizione iniziale del funzionamento dell'algoritmo è la seguente\begin{itemize}
+    \item L'algoritmo prende come input un poliedro $P$ descritto da una matrice $A$ ed un vettore $\bb$ 
+    $$P=\{\x \ : \ A\x\le \bb, \ \ \x\ge \mathbf 0\} $$
+    e due numeri razionali $R,\varepsilon$, l'assunzione è che $P$ sia contenuto interamente nella palla $B^n(\mathbf 0,R)$ di raggio $R$ centrata nell'origine.
+    $$ B^n(\mathbf 0,R)=\{\x\in\R^n \ : \ \|\x\|\le R\}$$
+    \item l'algoritmo genera una serie di $t$ ellissoidi $E_1,E_2\dots, E_t$ tali che 
+    $P\subset E_i$ per ogni $i$
+    \item l'algoritmo termina restituendo una delle seguenti risposte \begin{itemize}
+        \item è stato trovato un punto in $P$, ed è il centro di $E_t$
+        \item il volume di $E_t$ è minore di $\varepsilon$
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.35\textwidth ]{images/assunzione_ellissoidi.eps}
+    }
+    \caption{l'assunzione che il poliedro sia contenuto nella palla di raggio $R$}
+\end{figure}
+
+In particolare, se l'algoritmo non trova in punto in $P$, restituisce un \textit{certificato} che il poliedro non contiene una palla di raggio $\varepsilon$.\bigskip 
+
+Nell'algoritmo, l'ellissoide iniziale $E_0$ è proprio $B^n(\mathbf 0,R)$, denotiamo $\bs_i$ il centro dell'$i$-esimo ellissoide, in tal caso, $\bs_0=\mathbf 0$. Si assuma di essere nel $k$-esimo passo, e si a disposizione l'ellissoide $E_k$ centrato in $\bs_k$. Si verifica che $\bs_k$ sia un'elemento di $P$ 
+$$ A\bs_k\le \bb$$
+se ciò dovesse essere vero, si restituirebbe $\bs_k$, altrimenti, si avrebbe un vincolo che tale punto non soddisfa 
+$$ A_i^T\bs_k>b_i \ \ \ \text{ per qualche } i$$
+Il vincolo $i$-esimo definisce un iperpiano, e a sua volta un mezzo spazio 
+$$ \{\x \ : \ A_i^T\x\le b_i\}$$
+$\bs_k$ violando il vincolo, non si trova nel mezzo-spazio appena definito.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/taglio_ellissoide.eps}
+\end{center}
+Si considera l'iperpiano parallelo a $ \{\x \ : \ A_i^T\x= b_i\}$ ma passante per $\bs_k$, ossia quello che genera il mezzo spazio 
+$$\{\y \ : \ A_i^T\y\le A_i^T\bs_k\}$$
+e si considera l'insieme $H_k$ che è intersezione di tale mezzo spazio e $E_k$
+$$ H_k=E_k\cap \{\y \ : \ A_i^T\y\le A_i^T\bs_k\}$$
+\begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/taglio_ellissoide2.eps}
+\end{center}
+Si sceglie il prossimo ellissoide $E_{k+1}$ come il più piccolo ellissoide contenente $H_k$, e si avrà che $P\subset E_{k+1}$. La seguente proposizione non verrà dimostrata, ma è fondamentale per la descrizione dell'algoritmo.
+\begin{proposizione}
+    Dato l'ellissoide $E_k\subset \R^n$ descritto da un centro  $\bs_k$ che viola l'$i$-esimo vincolo di $A$ $$ A_i^T\bs_k>b_i$$
+    e $Q_k$ matrice positiva semi-definita, Il più piccolo ellissoide contenete 
+    $$ H_k=E_k\cap \{\y \ : \ A_i^T\y\le A_i^T\bs_k\}$$ 
+    è univocamente definito dal centro $\bs_{k+1}$ e dalla matrice $Q_{k+1}$ come segue
+    \begin{eqnarray}
+        \bs_{k+1}=\bs_k-\frac{1}{n-1}\frac{1}{\sqrt{A_iQ_kA_i^T}}Q_kA_i^T\\ 
+        Q_{k+1}=\frac{n^2}{n^2+1}\Big(
+        Q_k-\frac{2}{n+1}\frac{Q_kA_i^TA_iQ_k}{A_iQ_kA_i^T}    
+        \Big)
+    \end{eqnarray}
+\end{proposizione}
+
+Il volume dell'ellissoide $E_k$ è l'integrale della funzione identità su di esso 
+$$ \text{vol}(E_k)=\int_{E_k}d\x$$
+e passando da un'ellissoide al successivo nell'algoritmo tale volume decresce di un valore costante 
+$$ 
+\frac{\text{vol}(E_{k+1})}{\text{vol}(E_{k})}\le e^{-\frac{1}{2n+2}}<1
+$$
+Durante la successione di ellissoidi, se il volume dell'ellissoide corrente è minore del volume della palla di raggio $\varepsilon$ dato in ingresso, l'algoritmo termina senza restituire una soluzione, garantendo però che $P$ non è contenuto nella palla di raggio $\varepsilon$.
+\begin{proposizione}
+    L'algoritmo termina in un numero di passi polinomiale in funzione di $\bra A+\bra \bb+\bra R+\bra \varepsilon$.
+\end{proposizione}
+\textit{Dimostrazione}:  Il volume di $E_0=B^n(\mathbf 0,R)$ è $c\cdot R^n$ per qualche costante $c$ che dipende da $n$, inoltre per ogni $k$ si ha 
+$$ \text{vol}(E_k)\le \text{vol}(E_{k+1})e^{-\frac{k}{2n+2}}$$
+se $k\ge n(2n+2)\ln(\frac{R}{\varepsilon})$ si ha che 
+\begin{eqnarray}
+    \text{vol}(E_k)\le cR^n\cdot e^{\lceil n\cdot\ln(\frac{R}{\varepsilon}) \rceil}\\ 
+    cR^n\cdot e^{\lceil n\cdot\ln(\frac{R}{\varepsilon}) \rceil}=\frac{cR^n}e^{-\frac{R^n}{\varepsilon^n}}\le \varepsilon
+\end{eqnarray}
+Quindi $\lceil n(2n+2)\ln(\frac{R}{\varepsilon})\rceil$ è il massimo numero di passi del metodo degli ellissoidi, ed è polinomiale in $\bra A+\bra \bb+\bra R+\bra \varepsilon$.\hfill$\blacksquare$
+\subsection{Tecnicalità Implementative}
+Ci sono alcune criticità nel metodo degli ellissoidi, il calcolo del centro dell'ellissoide successivo avviene considerando il termine 
+$$ \bs_{k+1}=\bs_k-\frac{1}{n-1}\frac{1}{\sqrt{A_iQ_kA_i^T}}Q_kA_i^T$$
+questo presenta una radice quadrata quindi viola l'assunzione che tutti i numeri rappresentati siano razionali, è necessario includere un'ulteriore argomento in input, $\varepsilon_2$ necessario per arrotondare $\bs_{k+1}$ in modo da far si che ogni sua componente sia un numero razionale. Vi è un'altro problema, come viene scelto il valore di $R$ iniziale per far si che la palla $B^n(\mathbf 0,R)$ contenga completamente il poliedro $P$?\bigskip 
+Siano $\varphi$ e $l$ due valori definiti come segue\begin{equation}
+    \varphi = \bra A +\bra\bb \ \ \ \ \ \ \ l=2^\varphi
+\end{equation}
+\begin{proposizione}
+    Assumendo che ogni numero considerato sia razionale, il problema $A\x\le \bb, \ \x\ge \mathbf 0$ ha una soluzione se e solo se il problema$$ \begin{cases}
+        A\x\le \bb\\ \x\ge \mathbf 0\\ 
+        x_i\le l, \ \ \forall i 
+    \end{cases}$$
+    ha soluzione.
+\end{proposizione}
+\textit{Dimostrazione}: sia $\x^*$ una soluzione per il problema $A\x\le \bb, \ \x\ge \mathbf 0$, essendo $\x^*$ una soluzione ad un sistema di equazioni nei termini di $A$ e $\bb$, il numero di bit per rappresentare ogni $x_i^*$ è al più $\bra A +\bra \bb=\varphi $, quindi $x_i^*\le 2^\varphi = l$. \hfill$\blacksquare$
+
+Quindi, scegliendo $R=l$, si ha la certezza che ogni possibile punto del poliedro sia contenuto nella palla $B^n(\mathbf 0,l)$.\bigskip
+
+Vi è un'ultima tecnicalità da considerare, l'algoritmo potrebbe terminare senza restituire un punto in $P$ anche se quest'ultimo è non vuoto, dato che termina appena l'ellissoide $k$-esimo considerato ha un volume minore del volume della palla di raggio $\varepsilon$, e l'unica certezza che si ha da tale risultato è che il poliedro $P$ non contiene una palla di raggio $\varepsilon$.
+
+Si definiscono \begin{eqnarray*}
+    \eta  = 2^{-5\varphi}\\ 
+    \mathbf z = \begin{bmatrix}
+        \eta&\eta&\dots &\eta
+    \end{bmatrix}^T\in\R^n
+\end{eqnarray*}
+e si sceglie $\varepsilon=2^{-6\varphi}$. Ciò è funzionale dato che il sistema $$A\x\le\bb$$ ha soluzione se e solo se il sistema $$A\x\le\bb+\mathbf z$$
+ha soluzione, in tal caso l'insieme delle soluzioni ammissibili contiene necessariamente una palla di raggio $\varepsilon$.
+
+In conclusione, per verificare che un poliedro 
+$$ P=\{\x \ : \ A\x\le\bb, \ \ \x\ge\mathbf 0\}$$
+sia o non sia vuoto, è sufficiente eseguire il metodo degli ellissoidi sul poliedro derivato 
+$$ P'=\{\x \ : \ A\x\le\bb+\mathbf z, \ \ -l\le\x\le l\}$$
+Se l'algoritmo restituisce un punto, allora $P$ non è vuoto, altrimenti si ha la certezza che $P$ sia vuoto. Tale metodo è polinomiale nelle dimensioni di $\bra A+\bra\bb$.
+\section{Accenno al Metodo dei Punti Interni}
+Il metodo degli ellissoidi non si presta ad essere efficiente se implementato su un calcolatore, nell'effettivo vengono utilizzate delle rivisitazioni del simplesso oppure il metodo dei punti interni, quest'ultimo consiste nello svilupparsi di un cammino di punti contenuti nel poliedro $P$, muovendosi verso un punto ottimale per la funzione obiettivo. Il problema dato in input è quindi un programma lineare del tipo \begin{eqnarray*}
+    P=\{\x \ : \ A\x\le\bb, \ \ \x\ge\mathbf 0\}\\ 
+    \max \ \bc^T\x \  \text{su } P
+\end{eqnarray*}
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.25\textwidth ]{images/interior_point.eps}
+    }
+\end{figure}
+
+Si considera una funzione $f(\eta,\x)$ con $\x\in\R^n$ e $\eta\in[0,\infty)$ definita come segue\begin{equation}
+    f(\eta,\x)=\bc^T\x+\eta\sum_{i=1}^n\ln(b_i-A_i\x)
+\end{equation}
+se $\eta=0$ allora $f(\eta,\x)=f(0,\x)=\bc^T\x$ è la funzione obiettivo, dal momento che il logaritmo non è definito in 0, $f(\eta,\x)$ non è definita sulla frontiera di $P$, ossia nei punti che annullano l'argomento del logaritmo $$ b_i=A_i\x\implies b_i-A_i\x=0$$
+per ogni $\eta$ fissato, $f(\eta,\x)$ tende a $-\infty$ se $\x$ si avvicina alla frontiera di $P$, se $\eta$ tende a zero, $f(\eta,\x)$ tende a $\bc^T\x$.
+\begin{proposizione}
+    per ogni $\eta$ fissato, $f(\eta,\x)$ ha un'unico massimo in $P$.
+\end{proposizione}
+Senza entrare nel dettaglio, esistono dei metodi di ottimizzazione non lineare basati sui \textit{moltiplicatori di Lagrange} per la ricerca di un massimo di $f(\eta,\x)$, che porterà poi alla ricerca di un massimo per $\bc^T\x$ su $P$.
 
 
 \end{document}
