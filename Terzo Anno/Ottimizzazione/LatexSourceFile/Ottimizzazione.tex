@@ -2272,5 +2272,57 @@ per ogni $\eta$ fissato, $f(\eta,\x)$ tende a $-\infty$ se $\x$ si avvicina alla
 \end{proposizione}
 Senza entrare nel dettaglio, esistono dei metodi di ottimizzazione non lineare basati sui \textit{moltiplicatori di Lagrange} per la ricerca di un massimo di $f(\eta,\x)$, che porterà poi alla ricerca di un massimo per $\bc^T\x$ su $P$.
 
+\chapter{Programmazione Intera}
+La programmazione intera riguarda la soluzione di un programma lineare, con il vincolo ulteriore che la soluzione deve essere un vettore di numeri interi, il generico programma intero è il seguente\begin{equation}
+    \begin{matrix}
+        \max \bc^T\x\\ 
+        A\x\le\bb\\ 
+        \x\ge\mathbf 0\\ 
+        \x\in\Z^n
+    \end{matrix}
+\end{equation}
+Il noto \textbf{Knapsack Problem} è un classico esempio di problema che si può risolvere tramite la programmazione intera, vi è un'insieme di $n$ oggetti, $x_1,x_2\dots,x_n$, ad ogni oggetto $x_i$ è associato un valore $v_i$ ed un perso $w_i$, e si vuole trovare il sotto-insieme di oggetti $I$ che massimizza il valore complessivo$$ \sum_{i\in I}v_i$$ con il vincolo che il peso complessivo sia minore o uguale ad una certa costante $C$.
+$$ \sum_{i\in I}w_i\le C$$
+Il problema si modellizza considerando un vettore $\x$ che rappresenta gli oggetti, se $x_i=1$ allora l'$i$-esimo oggetto è considerato, altrimenti no$$ x_i=\begin{cases}
+    1\text{ se }i\in I\\
+    0\text{ altrimenti}
+\end{cases}$$
+sia $\mathbf v$ il vettore la cui $i$-esima componente $v_i$ è il valore dell'$i$-esimo oggetto, e $\mathbf w$ il vettore la cui $i$-esima componente $w_i$ è il peso dell'$i$-esimo oggetto. Il problema si modellizza come segue\begin{eqnarray*}
+    \max \ \mathbf v^T\x\\ 
+    \mathbf w^T\x\le C\\ 
+    \x \in \{0,1\}^n
+\end{eqnarray*}
+\section{Inviluppo Convesso dei Punti Interi}
+In questa sezione verrà presentato un metodo per la risoluzione di un programma intero. La programmazione intera è tipicamente NP-completa, non esiste quindi un algoritmo efficiente per risolvere un programma intero.\bigskip 
+
+L'insieme dei vincoli di un programma intero definisce un poliedro proprio come quello definito da un programma lineare 
+$$ P=\{\x\in\R^n \ : \ A\x\le\bb, \ \x\ge \mathbf 0\}$$
+Si consideri $A$ come l'insieme dei punti interi contenuti in $P$
+$$ A=\{\x\in\Z^n \ : \ \x\in P\}=\{\mathbf a_1,\mathbf a_2\dots,\mathbf a_k\}$$
+è di \textit{fondamentale importanza} l'inviluppo convesso di $A$, che in tale contesto verrà indicato $P_I$, ossia l'insieme di tutte le combinazioni convesse di $A$
+$$P_I =
+     \Big\{\sum_{i=1}^k \alpha_i\mathbf{a}_i  \ \ : \ \ \alpha_i\ge 0 \ \forall i,\ \sum_{i=1}^n \alpha_i=1\Big\} $$
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.7\textwidth ]{images/P_I.pdf}
+    }
+    \caption{In verde è rappresentato il poliedro definito dai vincoli, in blu l'inviluppo convesso dei suoi punti interi}
+\end{figure}
+\begin{proposizione}
+    Sia $\mathbf u_1,\mathbf u_2\dots,\mathbf u_n$ un'insieme di punti in $\R^n$, e sia $H$ l'inviluppo convesso di tali punti. Se $\mathbf v$ è un vertice di $H$, allora $\mathbf v = \mathbf u_i$ per qualche $i$.
+\end{proposizione}
+\textit{Dimostrazione}: sia $H$ l'inviluppo convesso di $\mathbf u_1,\mathbf u_2\dots,\mathbf u_n$, e sia $\mathbf v$ un vertice di $H$, esiste quindi un iper-piano 
+$$L=\{\x\in\R^n \ : \ \bc^T\x=\alpha\} $$contenente $\mathbf v$ tale per cui l'intero poliedro $H$ è contenuto in una delle due metà definite da $L$\begin{eqnarray*}
+    \bc^T\mathbf v = \alpha\\ 
+    \bc^T\x<\alpha, \forall \x\in H\backslash\{\mathbf v\}
+\end{eqnarray*}
+
+\begin{figure}[h]
+    \centering{
+        \includegraphics[width=0.4\textwidth ]{images/L_separa_H.eps}
+    }
+\end{figure}
+
 
 \end{document}
