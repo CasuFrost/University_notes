@@ -2320,9 +2320,38 @@ $$L=\{\x\in\R^n \ : \ \bc^T\x=\alpha\} $$contenente $\mathbf v$ tale per cui l'i
 
 \begin{figure}[h]
     \centering{
-        \includegraphics[width=0.4\textwidth ]{images/L_separa_H.eps}
+        \includegraphics[width=0.3\textwidth ]{images/L_separa_H.eps}
     }
 \end{figure}
-
-
+Si pone per assurdo che $\mathbf u_i\ne\mathbf v$, ossia che 
+$$ \mathbf v = \sum_{i=0}^n \beta_i\mathbf u_i, \ \ \ \sum_{i=1}^n\beta_i=1$$
+$$ \exists j \text{ t.c. }0<\beta_j<1$$
+Sia $j$ un fissato indice tale per cui $0<\beta_j<1$, si ha che 
+$$ \mathbf v = \beta_j\mathbf u_j+\sum_{i\ne j}\beta_i\mathbf u_i$$
+si consideri il seguente vettore 
+$$ \sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\mathbf u_i$$
+tale vettore è contenuto in $H$ perché 
+$$ \sum_{i\ne j}\beta_i=1-\beta_j\implies \sum_{i\ne j}\frac{\beta_i}{1-\beta_j}=\frac{1}{1-\beta_j}\sum_{i\ne j}\beta_i=1$$
+si riscrive 
+$$ \mathbf v = \beta_j\mathbf u_j+(1-\beta_j)\sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\mathbf u_i$$
+quindi 
+$$ \bc^T\mathbf v=\bc^T\Big(
+\beta_j\mathbf u_j+(1-\beta_j)\sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\mathbf u_i    
+\Big)$$
+ricordando che $\bc^T\mathbf v = \alpha$
+$$ \alpha=\bc^T\Big(
+\beta_j\mathbf u_j+(1-\beta_j)\sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\mathbf u_i    
+\Big)$$
+$$ \alpha=
+\beta_j\bc^T\mathbf u_j+(1-\beta_j)\sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\bc^T\mathbf u_i    
+$$
+essendo $$ \begin{matrix}
+    \bc^T\mathbf u_j\le \alpha \\ 
+    \bc^T\mathbf u_i \le \alpha, \ \forall i
+\end{matrix}$$
+si ha 
+\begin{eqnarray*}
+    \alpha \le \beta_j\alpha+(1-\beta_j)\sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\alpha\\ 
+    \alpha \le \beta_j\alpha+(1-\beta_j)\alpha=\alpha
+\end{eqnarray*}
 \end{document}
