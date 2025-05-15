@@ -19,13 +19,13 @@ Li metto pubblici per comodità, non sono gli appunti più affidabili del mondo 
 - [Appunti di Progettazione di Algoritmi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Latex%20source%20file/Progettazione%20di%20Algoritmi.pdf)
 - [Appunti di Reti di Elaboratori](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Latex%20source%20file/Reti%20di%20Elaboratori.pdf)
 ## Terzo Anno
-### Primo Semestre 
 - [Appunti di Fisica](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Fisica/LatexSrcFile/Fisica.pdf)
 - [Appunti di Ingegneria del Software](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Ingegneria%20del%20Software/Latex%20src%20file/Ingegneria%20del%20Software.pdf)
 - [Appunti di Automazione](https://raw.githubusercontent.com/CasuFrost/University_notes/main/Terzo%20Anno/Automazione/Latex%20src%20file/Automazione.pdf)
 - [Appunti di Programmazione di Sistemi Embedded e Multicore](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Programmazione%20di%20Sistemi%20Multicore/letexSrcFile/Programmazione%20di%20Sistemi%20Multicore.pdf)
 - [Appunti di Automi, Calcolabilità e Complessità](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0/LatexSourceFile/Automi%2C%20Calcolabilit%C3%A0%20e%20Complessit%C3%A0.pdf)
 - [Appunti di Ottimizzazione](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Ottimizzazione/LatexSourceFile/Ottimizzazione.pdf)
+- [Progetto di AI-Lab](https://github.com/SimoneLid/LordOfTheLine)
 
   
 Per alcuni esercizi svolti riguardanti diversi esami del corso, peremere nel seguente link : \
