@@ -1949,7 +1949,7 @@ Il seguente teorema è fondamentale, descrive la relazione fra vincoli di un pro
     \end{enumerate}
 \end{teorema}
 \textit{Dimostrazione}: per ogni soluzione ammissibile $\bar\x$ per $P$, e $\bar\y$ per $D$ si ha 
-$$ A\bar\x\le\bar \bb$$
+$$ A\bar\x\le \bb$$
 moltiplicando tutto per $\bar\y^T$
 $$ \bar\y^TA\bar\x\le \bar\y^T\bb$$
 Analogamente, essendo 
@@ -1981,7 +1981,7 @@ Quindi $x_i^*>0$ (l'$i$-esima variabile di $P$ è slack), necessariamente $c_i-{
 Analogamente, se $c_i-{\y^*}^TA_i<0\implies {\y^*}^TA_i<c_i$ (l'$i$-esimo vincolo di $D$ è slack), necessariamente $x_i^*=0$ (l'$i$-esima variabile di $P$ è binding). Quindi i punti \textit{(1)} e \textit{(4)} del teorema sono dimostrati, i restanti punti possono essere dimostrati in maniera analoga.\hfill$\blacksquare$
 \subsection{Alcune Applicazioni}
 Il teorema \ref{complementary_slackness} può essere utilizzato per trovare la soluzione di un programma lineare, data una soluzione per il suo duale.
-Siano $P$ e $D$ una coppia di problemi primario-duale, sia $\x^*$ la soluzione ottimale per $P$, se $x_i^*>0$ allora l'$i$-esimo vincolo di $D$ è binding, quindi in forma di equazione, inoltre, in base a quali vincoli di $P$ sono binding, sono possono porre le variabili della soluzione $\y^*$ di $D$ uguali a zero, costruendo un sistema di $k$ equazioni in $k$ variabili.\bigskip 
+Siano $P$ e $D$ una coppia di problemi primario-duale, sia $\x^*$ la soluzione ottimale per $P$, se $x_i^*>0$ allora l'$i$-esimo vincolo di $D$ è binding, quindi in forma di equazione, inoltre, in base a quali vincoli di $P$ sono binding, si possono porre le variabili della soluzione $\y^*$ di $D$ uguali a zero, costruendo un sistema di $k$ equazioni in $k$ variabili.\bigskip 
 
 \textit{Esempio}: Si consideri la seguente coppia di problemi primario duale: 
 \begin{equation}

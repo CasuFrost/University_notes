@@ -15,9 +15,9 @@
 [Esercizi di Reti degli Elaboratori](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Reti%20di%20Elaboratori/Esercizi/readme.md) \
 [Esercizi di Progettazione di Algoritmi](https://github.com/CasuFrost/University_notes/blob/main/Secondo%20Anno/Secondo%20Semestre/Progettazione%20di%20Algoritmi/Esercizi/ex.md)
 ## Terzo Anno
-### Primo Semestre
 [Esercizi di Fisica](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Fisica/Esercizi/ex.md)   \
 [Esami di Automi, Calcolabilità e Complessità](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automi,%20Calcolabilità%20e%20Complessità/Esami) \
-[Esami di Automazione](https://github.com/CasuFrost/University_notes/tree/main/Terzo%20Anno/Automazione/Esami)
+[Esami di Automazione](https://github.com/CasuFrost/University_notes/tree/main/Terzo%20Anno/Automazione/Esami) \
+[Esercizi di Ottimizzazione](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Ottimizzazione/Esercizi/Eserciziario.pdf)
  ## Disclaimer
 Non è sempre garantita l'affidabilità delle soluzioni
