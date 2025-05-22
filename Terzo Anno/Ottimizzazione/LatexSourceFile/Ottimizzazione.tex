@@ -2352,6 +2352,79 @@ essendo $$ \begin{matrix}
 si ha 
 \begin{eqnarray*}
     \alpha \le \beta_j\alpha+(1-\beta_j)\sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\alpha\\ 
-    \alpha \le \beta_j\alpha+(1-\beta_j)\alpha=\alpha
+    \alpha \le \beta_j\alpha+(1-\beta_j)\alpha=\alpha\implies\\ 
+    \alpha = \bc^T\mathbf v = \beta_j\bc^T\mathbf u_j+\bc^T((1-\beta_j)\sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\mathbf u_i)\le \alpha 
 \end{eqnarray*}
+serve specificatamente che $\bc^T\mathbf u_j=\alpha$, ma ciò è impossibile dato che solo il vertice $\mathbf v$ soddisfa tale condizione, vi è quindi una contraddizione.\hfill$\blacksquare$\\
+\redText{TODO: finire parte sui tagli Gomory}\newpage 
+\section{Il Matching Perfetto di Peso Minimo}
+Questa sezione presenta un'applicazione della programmazione intera ad un noto problema sui grafi.\begin{definizione}
+    Sia $G=(V,E)$ un grafo non diretto, un sotto-insieme $M\subseteq E(G)$ è detto un \textbf{matching} se tutti gli archi di $M$ non hanno vertici in comune, ossia $$\forall (u,v),(x,y)\in M, \ \  \ \begin{matrix}
+        u\ne x\\
+        v\ne y 
+    \end{matrix} $$
+    un matching è detto \textbf{perfetto} se i suoi archi toccano tutti i vertici del grafo.
+\end{definizione}
+Dato un grafo $G$ con pesi $w$ sugli archi, si vuole trovare il matching perfetto (da ora in poi, denominato PM) di peso minimo, ossia, la cui somma dei pesi degli archi del matching sia minimale. Il problema deve essere modellato nei termini della programmazione intera, le variabili del problema rappresentano gli archi del grafo $$ \x=[x_1,x_2\dots, x_{|E(G)|}]$$
+vi è una variabile $x_e$ per ogni arco $e\in E(G)$, e $$ x_e=\begin{cases}
+    1 \text{ se } e \text{ è nel PM}\\
+    0 \text{ se } e \text{ non è nel PM}
+\end{cases}$$
+La funzione obiettivo sarà $\mathbf w^T\mathbf x$, dove $\mathbf w$ è il vettore dei pesi sugli archi. Bisogna ora formalizzare i vincoli, si consideri la funzione $\delta:V(G)\rightarrow\mathcal P(E(G))$ definita come segue 
+$$ \delta(v)=\Big\{e \ \text{ tale che } \ \begin{matrix}
+e=(v,x) \text{ per qualche }x\in V(G) & \lor\\
+e=(x,v) \text{ per qualche }x\in V(G)&
+\end{matrix} \ \Big\}$$
+$\delta(v)$ è quindi l'insieme di tutti gli archi in $G$ che coinvolgono il vertice $v$. In questo modo si può modellare il problema come segue
+\begin{equation}\label{PM_min}
+\begin{matrix}
+    \min \mathbf w^T\mathbf x\\ \displaystyle
+    \sum_{e\in\delta(v)}x_e=1 \ \ \forall v\in V(G)\\ 
+    x_i\in\{0,1\} \ \ \forall i
+\end{matrix}
+\end{equation}
+Il vincolo $\sum_{e\in\delta(v)}x_e=1$ impone che il nodo $v$ deve essere toccato da un solo arco. Dato un grafo $G$, definiamo \textbf{vettore indicatore} un vettore $\x$ che descrive un matching per il grafo (le cui componenti sono quindi in $\{0,1\}$), chiaramente, i vertici del politopo del problema \ref{PM_min} sono vettori indicatori.
+\begin{definizione}
+    il \textbf{politopo del matching perfetto} $P_M$ è l'inviluppo convesso dei vettori indicatori.
+\end{definizione}
+Il seguente teorema propone un risultato che permette di risolvere il problema del PM di peso minimo tramite la risoluzione di un programma lineare, rilassando i vincoli del programma intero \ref{PM_min}, con l'assunzione che il grafo considerato sia \textit{bipartito}.
+\begin{proposizione}\label{cicli_pari}
+    Un grafo è bipartito se e solo se non ha cicli di lunghezza (numero di vertici coinvolti) dispari.
+\end{proposizione}
+\begin{teorema}
+    Sia $G$ un grafo bipartito, il politopo del matching perfetto è il seguente insieme 
+    $$ P_M= \Big\{
+    \mathbf x \in \R^{|E(G)|} \ : \ x_e\ge0 \  \forall e\in E(G),   \ 
+    \sum_{e\in\delta(v)}x_e=1 \ \ \forall v\in V(G) 
+    \Big\}$$
+    Praticamente, se il grafo è bipartito, non è necessario imporre il vincolo che $x_e\in\{0,1\}$, i vertici di tale politopo saranno automaticamente vettori interi le cui componenti sono comprese in $\{0,1\}$.
+\end{teorema}
+\textit{Dimostrazione}: Sia $\bar\x$ un vertice di $P_M$, si pone per assurdo che, per qualche $e$, $\bar x_e\in (0,1)$. Si definisce il \textbf{grafo di supporto} il grafo $G_u$ tale per cui \begin{eqnarray*}
+    V(G_u)=V(G)\\
+    E(G_u)=\{e\in E(G) \ : \ 0<\bar x_e<1\} 
+\end{eqnarray*}
+\textbf{Claim} non esistono vertici in $G_u$ di grado uguale ad 1. La dimostrazione è omessa.\bigskip
+
+\noindent
+Quindi i vertici di $G_u$ o sono isolati, oppure hanno grado almeno 2.\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/grafo_deg_no_1.eps}
+\end{center}
+Si consideri una componente di $G_u$ che ha almeno un'arco, essendo che tutti i vertici di tale componente hanno grado almeno due, in tale componente vi è un ciclo $C$, e questo è di lunghezza pari per la proposizione \ref{cicli_pari}. Si consideri il seguente valore 
+$$\epsilon = \min_{e\in C}(\bar x_e,1-\bar x_e) $$
+Si consideri il vettore $\bar\x^1$, ottenuto da $\bar\x$, sommando e sottraendo in maniera alternata il valore $\epsilon$ dalle componenti relative agli archi del ciclo $C$.\begin{center}
+    \includegraphics[width=0.25\textwidth ]{images/pm_epsilon.eps}
+\end{center}
+data la scelta di $\epsilon$, si avrà che ogni $\bar x_e^1>0$ per ogni $e$, inoltre, per ogni vertice $v\notin C$
+$$ \sum_{e\in\delta(v)}\bar x_e^1=1$$
+e per ogni vertice $v\in C$
+$$ \sum_{e\in\delta(v)}\bar x_e^1= \sum_{e\in\delta(v)}\bar x_e$$
+ciò è verificato dato che per ogni arco in cui si somma $\epsilon$ in $C$, ve ne è uno dalla quale si sottrae. In tal modo si è mostrato che $\bar \x^1\in P_M$. Si consideri poi un vettore $\bar \x^2$ ottenuto in maniera analoga al precedente ma sommando e sottraendo $\epsilon$ dalle componenti degli archi in $C$ in maniera opposta.\begin{center}
+    \includegraphics[width=0.5\textwidth ]{images/pm_epsilon2.eps}
+\end{center}
+per gli analoghi motivi, $\bar \x^2\in P_M$. Si noti come 
+$$\bar \x = \bar \x^1+\bar \x^2 $$
+si era assunto che $\bar \x$ fosse un vertice, ciò porta ad una contraddizione e completa la dimostrazione.\hfill$\blacksquare$\bigskip 
+
+\noindent
+Tale teorema dimostra che è sufficiente risolvere un programma lineare per trovare il PM di peso minimo per un grafo bipartito.
 \end{document}
