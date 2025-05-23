@@ -2388,6 +2388,7 @@ Il vincolo $\sum_{e\in\delta(v)}x_e=1$ impone che il nodo $v$ deve essere toccat
     il \textbf{politopo del matching perfetto} $P_M$ è l'inviluppo convesso dei vettori indicatori.
 \end{definizione}
 Il seguente teorema propone un risultato che permette di risolvere il problema del PM di peso minimo tramite la risoluzione di un programma lineare, rilassando i vincoli del programma intero \ref{PM_min}, con l'assunzione che il grafo considerato sia \textit{bipartito}.
+\subsection{PM per i Grafi Bipartiti}
 \begin{proposizione}\label{cicli_pari}
     Un grafo è bipartito se e solo se non ha cicli di lunghezza (numero di vertici coinvolti) dispari.
 \end{proposizione}
@@ -2427,4 +2428,44 @@ si era assunto che $\bar \x$ fosse un vertice, ciò porta ad una contraddizione 
 
 \noindent
 Tale teorema dimostra che è sufficiente risolvere un programma lineare per trovare il PM di peso minimo per un grafo bipartito.
+\subsection{PM per i Grafi non Bipartiti}
+Se un grafo non è bipartito è comunque possibile definire analiticamente il politopo del matching perfetto, ma con alcune restrizioni.\bigskip 
+
+Nel corso della dimostrazione, verrà denotato $\mathcal U$ un qualsiasi sotto-insieme dei nodi del grafo, contenente un numero dispari di elementi, si definisce poi un'estensione della funzione $\delta$ precedentemente definita, se $v$ è un vertice, $\delta(v)$ è l'insieme di tutti gli archi in $G$ che coinvolgono il vertice $v$, se invece $\mathcal U$ è un'insieme di vertici, $\delta(\mathcal U)$ è l'insieme degli archi che connettono i vertici in $\mathcal U$ con i vertici in $V(G)\backslash\mathcal U$. 
+\begin{center}
+    \includegraphics[width=0.55\textwidth ]{images/deltaU.eps}
+\end{center}
+\begin{teorema}
+    \textbf{(Edmonds)} Sia $G=(V,E)$ un grafo, l'insieme 
+    \begin{equation}
+        P^*=\Bigg\{x\in\R^{|E(G)|} \ : \ \begin{matrix}\displaystyle
+        \sum_{e\in \delta(v)}x_e=1 \ \ \forall v\in V(G), \ \ x_e\ge 0,\\ \displaystyle
+        \sum_{e\in\delta(\mathcal U)x_e\ge 1 \ \ \forall \mathcal U\subseteq V(G), \ |\mathcal U| \text{ dispari }}
+        \end{matrix} \Bigg\}
+    \end{equation}
+    è il politopo del matching perfetto di $G$.
+\end{teorema}
+\textit{Dimostrazione}: Si vuole dimostrare che i vertici di $P^*$ sono vettori indicatori del matching perfetto. Si assume che il teorema sia falso, sia $G$ un contro-esempio per il teorema con il minimo numero possibili di vertici, l'assunzione è che esiste un vertice $\bar\x$ di $P^*$ che ha una componente diversa da 0 o 1. Si consideri l'insieme $F$ degli archi relativi a tali componenti 
+$$ F=\{e\in E(G) \ : \ 0<\bar x_e <1\}$$
+Sia $G_F$ il grafo con gli stessi vertici di $G$, avente solo gli archi in $F$.\bigskip 
+
+\noindent\textbf{Caso 1}: Per ogni sotto-insieme $\mathcal U\subseteq V(G)$ con un numero dispari di elementi, si ha che 
+$$\sum_{e\in\delta(\mathcal U)}\bar x_e>1 $$
+sia $n=|V(G)|$ il numero dei vertici, si considera il seguente fattore\begin{equation}
+    \varepsilon=\min_{\begin{matrix}
+    e\in F\\ 
+    \mathcal U\subseteq V(G)\\ 
+    |\mathcal U| \text{dispari}
+    \end{matrix}}\Big(
+        \frac{\bar x_e}{2}, (\frac{1}{n}\sum_{e\in\delta(\mathcal U)}\bar x_e)-\frac{1}{n}
+    \Big)
+\end{equation}
+Se $v$ è un vertice in $G_F$ e non è isolato, allora il suo grado è almeno 2. $G_F$ non ha cicli di lunghezza pari (dimostrazione omessa). $G_F$ non ha cicli di lunghezza dispari tali per cui, ogni vertice del ciclo ha grado 2. \redText{TODO continuare}\bigskip
+
+\noindent\textbf{Caso 2}: Esiste $\mathcal U\subseteq V(G)$ con un numero dispari di elementi e $|\mathcal U|\ge 3$ tale che 
+$$\sum_{e\in\delta(\mathcal U)}\bar x_e=1 $$
+Sia fisso tale sotto-insieme $\mathcal U$, si considera il grafo $G_1$ ottenuto comprimendo i vertici di $\mathcal U$ in un'unico vertice denotato $v_1$.\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/compressione.eps}
+\end{center}
+Sia $\bar x_1$ una restrizione di $\bar x$ sui soli archi di $G_1$
 \end{document}
