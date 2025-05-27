@@ -1303,6 +1303,56 @@ P_\alpha = \begin{cases}
 \end{cases}
 $$
 Si utilizza l'oracolo $\phi$, se $P_\alpha$ è non vuoto, ossia se $\phi(P_\alpha)=1$, allora il valore massimizzato del programma lineare è maggiore o uguale ad $\alpha$, altrimenti, se $\phi(P_\alpha)=0$, il valore è minore. Si può fare ricerca binaria sui valori di $\alpha$, data l'assunzione iniziale sul fatto che i numeri coinvolti siano razionali, la ricerca termina in un numero finito di passi.
+\subsection{Trovare una Base Ammissibile}
+Si consideri il seguente programma lineare 
+\begin{eqnarray*}
+    \max \ -12x_1-3x_2-4x_3\\ 
+    -4x_1-2x_2-3x_3\le -2 \\ 
+    -8x_1-x_2-2x_3\le -3\\ 
+    x_1,x_2,x_3\ge 0 
+\end{eqnarray*}
+Si vuole risolvere con il metodo del simplesso, si trasforma quindi in forma di equazione:\begin{equation}\label{trivial_basis_inf}\begin{matrix}
+    \max \ -12x_1-3x_2-4x_3\\ 
+    -4x_1-2x_2-3x_3+x_4= -2 \\ 
+    -8x_1-x_2-2x_3+x_5= -3\\ 
+    x_1,x_2,x_3,x_4,x_5\ge 0 \end{matrix}
+\end{equation}
+Si procede tentando con la base iniziale (banale) $\mathcal B = \{4,5\}$, si noti però che tale base è inammissibile
+\begin{eqnarray*}
+    x_4= -2 \\ 
+    x_5= -3\\ 
+    x_4,x_5\ge 0 \\ 
+\end{eqnarray*}
+È necessario trovare una base ammissibile, questo è un compito computazionalmente complesso tanto quanto risolvere un programma lineare, de facto, nei casi in cui\begin{itemize}
+    \item La base banale iniziale di un LP trasformato con le slack variable non è ammissibile
+    \item Il problema da risolvere è dato direttamente in forma di equazione 
+\end{itemize}
+è necessario trovare una base ammissibile dalla quale iniziare il metodo del simplesso. Il seguente teorema fornisce un metodo a tale scopo.
+\begin{teorema}\label{feasibile_basis}
+    Dato un LP in forma di equazione \begin{eqnarray*}
+        \max c_1x_1+\dots + c_nx_n\\ 
+        a_{1,1}x_1+\dots + a_{1,n}x_n = b_1\\
+        \vdots \\ 
+        a_{m,1}x_1+\dots + a_{m,n}x_n = b_m\\
+        \x \ge \mathbf 0
+    \end{eqnarray*}
+    Si può considerare il seguente \textbf{problema ausiliario}\begin{eqnarray*}
+        \max -x_{n+1}-\dots - x_{n+m}\\ 
+        a_{1,1}x_1+\dots + a_{1,n}x_n \bullet x_{n+1}= b_1\\
+        \vdots \\ 
+        a_{m,1}x_1+\dots + a_{m,n}x_n \bullet x_{n+m}= b_m\\
+        \x \ge \mathbf 0
+    \end{eqnarray*}
+    Dove il simbolo $\bullet$ nell'$i$-esimo vincolo è uguale a $+$ se $b_i\ge 0$, ed è uguale a $-$ se $b_i<0$. Si ha la base $\mathcal B=\{n+1,n+2,\dots,n+n\}$ è ammissibile per il problema ausiliario, e qualsiasi BFS ottimale per tale problema, è associata ad una base la cui restrizione sulle variabili $1\dots, n$ è ammissibile per il problema originale.
+\end{teorema}
+Si consideri nuovamente il problema \ref{trivial_basis_inf}, applicando il teorema \ref{feasibile_basis} si ottiene il programma ausiliario 
+\begin{equation}\label{ausiliairio}\begin{matrix}
+    \max \ -x_6-x_7\\ 
+    -4x_1-2x_2-3x_3+x_4-x_6= -2 \\ 
+    -8x_1-x_2-2x_3+x_5-x_7= -3\\ 
+    x_1,x_2,x_3,x_4,x_5,x_6,x_7\ge 0 \end{matrix}
+\end{equation}
+la base $\mathcal B = \{6,7\}$ è ammissibile, e la soluzione ottimale è la BFS associata alla base $\mathcal B = \{1,2\}$, quest'ultima è ammissibile per il problema originale, e si può cominciare il metodo del simplesso partendo da questa.
 \section{Soluzioni Degenere}
 Alcune BFS sono problematiche quando valutate durante il metodo del simplesso e possono portare ad una situazione di stallo in cui si considerano in maniera ciclica le stesse basi a ripetizione. 
 \begin{definizione}
@@ -2197,8 +2247,7 @@ Si sceglie il prossimo ellissoide $E_{k+1}$ come il più piccolo ellissoide cont
         \Big)
     \end{eqnarray}
 \end{proposizione}
-
-Il volume dell'ellissoide $E_k$ è l'integrale della funzione identità su di esso 
+\noindent Il volume dell'ellissoide $E_k$ è l'integrale della funzione identità su di esso 
 $$ \text{vol}(E_k)=\int_{E_k}d\x$$
 e passando da un'ellissoide al successivo nell'algoritmo tale volume decresce di un valore costante 
 $$ 
@@ -2440,7 +2489,9 @@ Nel corso della dimostrazione, verrà denotato $\mathcal U$ un qualsiasi sotto-i
     \begin{equation}
         P^*=\Bigg\{x\in\R^{|E(G)|} \ : \ \begin{matrix}\displaystyle
         \sum_{e\in \delta(v)}x_e=1 \ \ \forall v\in V(G), \ \ x_e\ge 0,\\ \displaystyle
-        \sum_{e\in\delta(\mathcal U)x_e\ge 1 \ \ \forall \mathcal U\subseteq V(G), \ |\mathcal U| \text{ dispari }}
+        \sum_{\begin{matrix}
+        e\in\delta(\mathcal U) \\ \forall \mathcal U\subseteq V(G), \ |\mathcal U| \text{ dispari }
+        \end{matrix}}x_e\ge 1
         \end{matrix} \Bigg\}
     \end{equation}
     è il politopo del matching perfetto di $G$.
