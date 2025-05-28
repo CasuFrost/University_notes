@@ -2404,8 +2404,75 @@ si ha
     \alpha \le \beta_j\alpha+(1-\beta_j)\alpha=\alpha\implies\\ 
     \alpha = \bc^T\mathbf v = \beta_j\bc^T\mathbf u_j+\bc^T((1-\beta_j)\sum_{i\ne j}\frac{\beta_i}{1-\beta_j}\mathbf u_i)\le \alpha 
 \end{eqnarray*}
-serve specificatamente che $\bc^T\mathbf u_j=\alpha$, ma ciò è impossibile dato che solo il vertice $\mathbf v$ soddisfa tale condizione, vi è quindi una contraddizione.\hfill$\blacksquare$\\
-\redText{TODO: finire parte sui tagli Gomory}\newpage 
+serve specificatamente che $\bc^T\mathbf u_j=\alpha$, ma ciò è impossibile dato che solo il vertice $\mathbf v$ soddisfa tale condizione, vi è quindi una contraddizione.\hfill$\blacksquare$\bigskip 
+
+\noindent Tale proposizione ha delle implicazioni favorevoli, sia $P$ un politopo, e $P_I$ l'inviluppo convesso dei punti interi di $P$, piuttosto che risolvere il programma intero 
+\begin{eqnarray*}
+    \max \bc^T\x\\ \x\in P \\ \x\in\Z^n
+\end{eqnarray*}
+è possibile risolvere il programma lineare
+\begin{eqnarray*}
+    \max \bc^T\x\\ \x\in P_I \\ \x\in\R^n
+\end{eqnarray*}
+Dato che la soluzione sarà un vertice di $P_I$, che sappiamo essere un vettore di numeri interi. Tale strategia permette di risolvere un programma intero, l'inviluppo convesso dei punti interi di un politopo è un'insieme generalmente più piccolo \begin{eqnarray*}
+    P=\{\x \ : \ A\x\le\bb, \ \x\ge\mathbf 0\}\\ 
+    P_I=\Big\{\x \ : \ \begin{bmatrix}
+    A\\ \bar A
+    \end{bmatrix}\x\le\begin{bmatrix}
+    \bb\\ \bar \bb
+    \end{bmatrix}, \ \x\ge\mathbf 0\Big\}
+\end{eqnarray*}
+L'inviluppo convesso $P_I$ è definito dai vincoli di $P$, con in aggiunta dei vincoli aggiuntivi $\bar A \x\le \bar \bb$. Dato un programma intero, com'è possibile trovare tali vincoli in modo da riformulare il problema come un programma lineare?
+\subsection{Il Teorema di Gomory}
+Si consideri il seguente programma intero \begin{equation}
+    \begin{matrix}
+        \max 5x_1+8x_2\\ x_1+x_2\le 6\\ 
+        5x_1+9x_2\le45\\ 
+        x_1,x_2\ge 0, \ x_1,x_2\in \Z
+    \end{matrix}
+\end{equation}
+Si considera la sua versione rilassata in programma lineare (con aggiunta di variabili slack per renderlo in forma di equazione)
+\begin{equation}
+    \begin{matrix}
+        \max 5x_1+8x_2\\ x_1+x_2+x_3= 6\\ 
+        5x_1+9x_2+x_4=45\\ 
+        x_1,x_2,x_3,x_4\ge 0
+    \end{matrix}
+\end{equation}
+Si vuole risolvere il programma intero, si comincia risolvendo il programma lineare con il  metodo del simplesso, arrivando alla base $\mathcal B=\{1,2\}$ che fornisce il seguente tableau
+\begin{center}
+    \begin{tabular}{|l|l|}\hline 
+        $x_1=\nicefrac{9}{4}-\nicefrac{9}{4}x_3-\nicefrac{1}{4}x_4$\\ 
+        $x_2=\nicefrac{15}{4}+\nicefrac{5}{4}x_3-\nicefrac{1}{4}x_4$\\ 
+        \hline 
+        $z=\nicefrac{41}{4}-\nicefrac{5}{4}x_3-\nicefrac{3}{4}x_4$ \\\hline 
+    \end{tabular}
+\end{center}
+La BFS ottimale trovata è un vettore contenente numeri razionali, quindi non valida come soluzione del programma intero, si noti però che la seconda equazione del tableau, ossia 
+$$x_2=\nicefrac{15}{4}+\nicefrac{5}{4}x_3-\nicefrac{1}{4}x_4$$
+esprime un vincolo che deve essere soddisfatto da ogni soluzione ammissibile, anche quelle intere:
+\begin{eqnarray*}
+    x_2=\frac{15}{4}+\frac{5}{4}x_3-\frac{1}{4}x_4\implies \\
+    x_2-\frac{5}{4}x_3+\frac{1}{4}x_4=\frac{15}{4}\implies \\
+    (1+0)x_2+(-2+\nicefrac{3}{4})x_3+(0+\nicefrac{1}{4})x_4=3+\nicefrac{3}{4}
+\end{eqnarray*}
+Il vincolo è stato espresso dividendo parti decimali ed intere dei coefficienti, se si assume che la soluzione è un vettore di numeri razionali, si ottiene il seguente vincolo, per qualche $k\in\Z^+$
+$$ 
+0x_2+\frac{3}{4}x_3+\frac{1}{4}x_4=k+\frac{3}{4}
+$$
+Che si può riscrivere come 
+$$ 
+\frac{3}{4}x_3+\frac{1}{4}x_4\ge \frac{3}{4}
+$$
+$$ 
+-\frac{3}{4}x_3-\frac{1}{4}x_4\le -\frac{3}{4}
+$$
+Tale vincolo deve essere soddisfatto da ogni soluzione intera, si può quindi aggiungere al programma lineare, \textbf{tagliando} una porzione di politopo di soluzioni non intere.
+\begin{center}
+    \includegraphics[width=0.7\textwidth ]{images/gomorycut.eps}
+\end{center}
+
+
 \section{Il Matching Perfetto di Peso Minimo}
 Questa sezione presenta un'applicazione della programmazione intera ad un noto problema sui grafi.\begin{definizione}
     Sia $G=(V,E)$ un grafo non diretto, un sotto-insieme $M\subseteq E(G)$ è detto un \textbf{matching} se tutti gli archi di $M$ non hanno vertici in comune, ossia $$\forall (u,v),(x,y)\in M, \ \  \ \begin{matrix}
