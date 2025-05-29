@@ -102,7 +102,7 @@ triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 \end{definizione}
 Denominiamo flusso uscente dal vertice $v$ la somma del flusso (positivo) valutato su tutti gli archi che hanno $v$ come primo membro (che collegano $v$ ad un'altro vertice). Analogamente (ma in maniera opposta) si definisce il flusso entrante.
 Dato un flusso $f$ per una network $G$ si definisce il \textbf{valore del flusso} la somma del flusso uscente da $s$ 
-$$ \text{val}(f)=\sum_{(s,u)\in E(G)}f(s.u)$$
+$$ \text{val}(f)=\sum_{(s,u)\in E(G)}f(s,u)$$
 La terza proprietà, di conservazione del flusso, asserisce che il flusso uscente da un nodo deve essere identico al flusso entrante, sia $x$ un vertice fissato in $V(G)$
 $$ \sum_{\begin{matrix}(u,x)\in E(G)\\f(u,x)>0\end{matrix}}f(u,x)=-\Bigg(
 \sum_{\begin{matrix}(x,u)\in E(G)\\f(x,u)<0\end{matrix}}f(x,u)\Bigg)$$
@@ -409,11 +409,12 @@ Si definisce \textbf{soluzione ottimale} ogni soluzione ammissibile che massimiz
     \caption{Il punto $(3,2)$ è una soluzione ottimale per il programma lineare}
         \label{LP_esempio3}
 \end{figure}
+
 Il numero di soluzioni di un programma lineare può variare fra i seguenti casi\begin{enumerate}
     \item Vi è un'unica soluzione ottimale.
     \item Vi sono infinite soluzioni ottimali.
     \item Non ci sono soluzioni ammissibili, nessun punto soddisfa tutti i vincoli lineari.
-    \item Non ci sono soluzioni ottimali perché il problema non è limitato, ciò avviene se l'insieme dei punti ammissibili non è chiuso.
+    \item Non ci sono soluzioni ottimali perché il problema non è limitato, e la funzione obiettivo può essere massimizzata/minimizzata senza limiti.
 \end{enumerate}
 Generalmente la funzione obiettivo  $f:\R^n\rightarrow \R$ è del tipo 
 $$c_1x_1+c_2x_2+\dots+c_nx_n $$
@@ -615,7 +616,7 @@ Il problema descritto è \begin{eqnarray}
 \end{eqnarray}
 Considerando $\ker(A)=\{\mathbf x \text{ t.c. }A\mathbf x = \mathbf 0\}$ si ha un sottospazio di dimensione $n-m$ di $\mathbb R^n$, lo spazio delle soluzioni di $A\mathbf x = \mathbf b$ è un \textbf{sottospazio affine} e si ottiene sommando $\mathbf b$ a tutti i vettori di $\ker(A)$.\bigskip 
 \subsection{Soluzioni Ammissibili Basiche}
-\textit{Esempio} : Si consideri il triangolo delineato dai punti $(0,0,3),(0,3,0),(3,0,0)$, tutti i punti di tale triangolo sono i vettori $\mathbf x$ che soddisfano $A\mathbf x = \mathbf b$.\begin{figure}[h]
+\textit{Esempio} : Si consideri il triangolo delineato dai punti $(0,0,3),(0,3,0),(3,0,0)$, tutti i punti di tale triangolo sono i vettori $\mathbf x\ge \mathbf 0$ che soddisfano $A\mathbf x = \mathbf b$.\begin{figure}[h]
     \centering{
         \includegraphics[width=0.35\textwidth ]{images/triangolo.pdf}
     }
@@ -891,7 +892,7 @@ Tale punto può essere geometricamente individuato nell'insieme delle soluzioni 
 \begin{definizione}
     Dato un sotto-insieme di punti  $I\subset \mathbb R^n$, si definisce il suo \textbf{inviluppo convesso} l'intersezione di tutti i sotto-insiemi convessi di $\mathbb R^n$ contenenti $I$. Alternativamente, si può dire che l'inviluppo convesso di $I$ è il più piccolo insieme convesso contenente $I$.
 \end{definizione}
-\begin{figure}[h]\label{fig:solEsempio2}
+\begin{figure}[h]
     \centering{
         \includegraphics[width=0.4\textwidth ]{images/inviluppoConvesso.eps}
     }
@@ -986,7 +987,7 @@ $$ a_1 x_1+a_2 x_2+\dots +a_n x_n\ge b$$
                 domain=0:1,y domain=-1:1
             ] {y-0.3*x};
         \end{axis}
-        \end{tikzpicture}\caption{iperpiano in $\mathbb R^3$}
+        \end{tikzpicture}\caption{iperpiano in $\mathbb R^3$ (piano)}
 \end{figure}
 \begin{definizione}
     Un \textbf{poliedro} è l'intersezione di un numero finito di mezzi-spazi definiti da iperpiani. La dimensione del poliedro $P$ è uguale alla dimensione del più piccolo sotto-spazio affine di $\mathbb R^n$ contenente $P$. 
@@ -995,7 +996,7 @@ $$ a_1 x_1+a_2 x_2+\dots +a_n x_n\ge b$$
     Un \textbf{politopo} $P$ è un poliedro limitato, ossia, $\exists c\in \mathbb R$ tale che  $\forall \mathbf x \in P$,  $\|\mathbf x\|\le c$.
 \end{definizione}
 \begin{definizione}
-    Dato un poliedro $P$, un punto $\mathbf v$ è un \textbf{vertice} di $P$ se esiste un iperpiano $$\mathcal X = \{\mathbf x \in \mathbb R^n\text{ t.c. }a_1 x_1+a_2 x_2+\dots +a_n x_n= \}$$ tale per cui\begin{itemize}\item $\mathbf v\in\mathcal X$\item $\forall \bar{\mathbf x} \in P, \ \bar{\mathbf x}=[\bar x_1,\dots \bar x_n]^T \ne \mathbf v$ si ha 
+    Dato un poliedro $P$, un punto $\mathbf v$ è un \textbf{vertice} di $P$ se esiste un iperpiano $$\mathcal X = \{\mathbf x \in \mathbb R^n\text{ t.c. }a_1 x_1+a_2 x_2+\dots +a_n x_n= b\}$$ tale per cui\begin{itemize}\item $\mathbf v\in\mathcal X$\item $\forall \bar{\mathbf x} \in P, \ \bar{\mathbf x}=[\bar x_1,\dots \bar x_n]^T \ne \mathbf v$ si ha 
     $$ a_1 \bar x_1+a_2\bar x_2+\dots +a_n\bar x_n<  b$$\end{itemize}
 \end{definizione}
 \begin{definizione}
@@ -1412,7 +1413,7 @@ La BFS in questo caso è identica, si noti come lo scambio delle variabili non h
 \begin{osservazione}
     Una soluzione è degenere se non è univocamente definita, ossia, esistono diversi insiemi di vincoli che identificano la stessa soluzione.
 \end{osservazione}
-Le variabili degenere sono causa di una descrizione \textit{ridondante} di un poliedro, che coinvolge iperpiani non necessari (se non considerati, il sistema di equazioni descrive lo stesso poliedro).
+Le variabili degenere possono essere causa di una descrizione \textit{ridondante} di un poliedro, che coinvolge iperpiani non necessari (se non considerati, il sistema di equazioni descrive lo stesso poliedro).
 
 \begin{figure}[h]
     \centering{
@@ -1595,8 +1596,8 @@ Quindi ogni termine di $\mathbf r^T\mathbf y_N$ ha ogni componente minore o ugua
     \end{eqnarray*}
 \end{definizione}
  \begin{teorema}
-    \textbf{(dualità debole)} L'ottimo del problema duale è un \textit{limite superiore} per la funzione obiettivo del problema primario. $$ \text{ottimo primario }\le \text{ ottimo duale}$$Se esiste una soluzione per il duale, il primario è limitato, se il problema duale è illimitato, si avrebbe 
-    $$ \text{ottimo primario }\le -\infty$$
+    \textbf{(dualità debole)} L'ottimo del problema duale è un \textit{limite superiore} per la funzione obiettivo del problema primario. $$ \bc^T\x\le \text{ ottimo duale}$$Se esiste una soluzione per il duale, il primario è limitato, se il problema duale è illimitato, si avrebbe 
+    $$ \bc^T\x\le -\infty$$
     ciò è impossibile, il problema primario in tal caso non può essere ammissibile e limitato.
 \end{teorema}
 \begin{teorema}\label{dualità forte}
@@ -1613,7 +1614,7 @@ La dimostrazione verrà riportata in seguito. La seguente tabella riassume le po
     \centering{
         \includegraphics[width=0.8\textwidth ]{images/duality.eps}
     }
-    \caption{In verde sono riportati i possibili casi}
+    \caption{In verde sono riportati i casi possibili}
 \end{figure}
 
 In generale, l'$i$-esimo vincolo del programma primario non deve essere necessariamente nella forma "$\le$", in base a questo, l'$i$-esima variabile del programma duale deve essere confinata in un certo intervallo della retta come segue$$
@@ -1989,7 +1990,7 @@ $$ x^*_i=0$$
 
 Il seguente teorema è fondamentale, descrive la relazione fra vincoli di un problema e variabili del suo duale nei termini della \textit{slackness}.
 \begin{teorema}\label{complementary_slackness}
-    Siano $P,D$ una coppia di problemi primario-duale definiti come in \ref{PD}, entrambi ammissibili e limitati, sia $\x^*$ la soluzione ottimale per $P$, e $\y^*$ la soluzione ottimale per $D$, allora si verifica una delle seguenti\begin{enumerate}
+    \textbf{(Complementary Slackness)} Siano $P,D$ una coppia di problemi primario-duale definiti come in \ref{PD}, entrambi ammissibili e limitati, sia $\x^*$ la soluzione ottimale per $P$, e $\y^*$ la soluzione ottimale per $D$, allora si verifica una delle seguenti\begin{enumerate}
         \item Se $x^*_i>0$, ossia la variabile $x_i$ è slack per $\x^*$, allora il vincolo $i$-esimo di $D$ per $\y^*$ è binding.
         \item Se il $j$-esimo vincolo di $P$ è slack per $\x^*$, allora $y^*_j=0$, ossia
         la variabile $y_j$ è binding per $\y^*$.
@@ -2471,8 +2472,89 @@ Tale vincolo deve essere soddisfatto da ogni soluzione intera, si può quindi ag
 \begin{center}
     \includegraphics[width=0.7\textwidth ]{images/gomorycut.eps}
 \end{center}
-
-
+Vediamo la regola generale, quando si trova una soluzione ottimale non intera tramite il metodo del simplesso, nel tableau finale si avrà almeno un vincolo del tipo
+$$ 
+(a_1+f_1)x_1+(a_2+f_2)x_2+\dots+(a_n+f_n)x_n = a_0+f_0
+$$
+dove 
+\begin{eqnarray*}
+    a_i\in\Z\\ f_i \in [0,1)
+\end{eqnarray*}
+Considerando il vincolo 
+$$ \sum_{i=1}^nf_i\ge f_0$$
+Questo è detto il \textbf{taglio di Gomory} ed è soddisfatto da tutte le soluzioni intere del problema. Si può aggiungere tale vincolo (che esclude la soluzione ottimale non intera appena trovata) e ri-eseguire il metodo del simplesso.
+\begin{teorema}
+    Sia $P=\{\x \ : \ A\x=\bb, \ \x\ge\mathbf 0\}$ il poliedro di un LP e $\bar\x$ la BFS ottimale. Se $\bar \x$ non è un vettore di soli numeri interi, allora il taglio di Gomory applicato a $P$, definisce un nuovo poliedro $P'$ tale che \begin{itemize}
+        \item $\bar\x\notin P'$ (taglia fuori la BFS)
+        \item $\forall \x \in P\cap \Z^n, \ \ \x\in P'$ (preserva le soluzioni intere)
+    \end{itemize}
+\end{teorema}
+\textit{Dimostrazione}: 
+Si considera un riordinamento della matrice $A$, spostando le colonne inerenti alle variabili di base a sinistra, e le restanti a destra 
+$$ A=\begin{bmatrix}
+    A_{\mathcal B} \ | \ A_N
+\end{bmatrix}$$
+Si riordina poi anche il vettore delle variabili $\bar\x$
+ $$\bar\x=\begin{bmatrix}
+    \bar \x_{\mathcal B} \ | \  \bar \x_{N}
+ \end{bmatrix}^T=\begin{bmatrix}
+    \bar \x_{\mathcal B} \ | \  \mathbf 0
+ \end{bmatrix}^T$$
+ In tal modo, si può scrivere $$ \bar\x_{\mathcal B}=A^{-1}_{\mathcal B}\bb$$
+ inoltre 
+ \begin{eqnarray*}
+    A\bar\x=\begin{bmatrix}
+    A_{\mathcal B} \ | \ A_N
+\end{bmatrix}\bar\x=\bb\implies \\ 
+A^{-1}_{\mathcal B}A\bar\x = \begin{bmatrix}
+    Id_m \ | \ A^{-1}_{\mathcal B}A_N
+\end{bmatrix}\bar\x = A^{-1}_{\mathcal B}\bb \implies \\
+\bar\x_{\mathcal B}+A_{\mathcal B}^{-1}A_N\bar\x_N=A^{-1}_{\mathcal B}\bb
+ \end{eqnarray*}
+Si riscrive come segue 
+$$ 
+\bar\x_{\mathcal B}+\bar A\bar\x_N=\bar\bb$$
+definendo $\bar A = A_{\mathcal B}^{-1}A_N$ e $\bar\bb=A^{-1}_{\mathcal B}\bb$.
+Dal momento che $\bar\x$ non è un vettore di numeri interi, questo ha almeno una componente (fra le variabili di base) che non è un numero intero
+$$ \exists i \in \mathcal B, \ \ \bar x_i = \bar b_i\notin\Z$$
+Essendo $N$ l'insieme delle variabili di base 
+$$ \sum_{j\in N}\bar x_j = 0$$
+si può riscrivere 
+$$ \bar x_i + \sum_{j\in N}\bar x_j = b_i$$
+questo vincolo, che si può riscrivere separando parti intere e decimali
+$$ \bar x_i + \sum_{j\in N}\Big(  \lfloor\bar A_{i,j}\rfloor + (\bar A_{i,j}-\lfloor\bar A_{i,j}\rfloor) \Big)\bar x_j = \lfloor\bar b_i\rfloor + (\bar b_i-\lfloor\bar b_i\rfloor)$$
+permette di definire il seguente taglio di Gomory 
+$$ 
+\sum_{j\in N} (\bar A_{i,j}-\lfloor\bar A_{i,j}\rfloor)x_j \ge \bar b_i-\lfloor\bar b_i\rfloor
+$$
+Tale nuovo vincolo, permetterà di preservare le soluzioni intere e tagliare fuori $\bar \x$. Quest'ultima affermazione è banale, dato che $\bar x_j = 0, \forall j \in N$, si ha che  
+$$ 
+\sum_{j\in N} (\bar A_{i,j}-\lfloor\bar A_{i,j}\rfloor)\bar x_j = 0 < \bar b_i-\lfloor\bar b_i\rfloor
+$$
+Si vuole ora dimostrare che ogni $\y \in P\cap \Z$ soddisfa il taglio di Gomory. L'uguaglianza 
+$$ x_i=\bar b_i\implies \x+\sum_{j\in N}\bar A_{i,j}x_i=\bar b_i$$
+è soddisfatta anche dal punto intero $\y$, quindi 
+\begin{eqnarray*}
+    y_i + \sum_{j\in N}\Big(  \lfloor\bar A_{i,j}\rfloor + (\bar A_{i,j}-\lfloor\bar A_{i,j}\rfloor) \Big)y_j = \lfloor\bar b_i\rfloor + (\bar b_i-\lfloor\bar b_i\rfloor)\implies \\
+     y_i + \sum_{j\in N}  \lfloor\bar A_{i,j}\rfloor y_j + \sum_{j\in N}  (\bar A_{i,j}-\lfloor\bar A_{i,j}\rfloor)y_j = \lfloor\bar b_i\rfloor + (\bar b_i-\lfloor\bar b_i\rfloor)
+\end{eqnarray*}
+Spostando alcuni termini:
+$$ 
+ y_i +
+  \sum_{j\in N}  \lfloor\bar A_{i,j}\rfloor y_j -
+  \lfloor\bar b_i\rfloor 
+  =  
+  (\bar b_i-\lfloor\bar b_i\rfloor) - \sum_{j\in N}  (\bar A_{i,j}-\lfloor\bar A_{i,j}\rfloor)y_j 
+$$
+Essendo $\y$ un vettore di numeri interi con ogni componente maggiore o uguale a zero, si ha che, per qualche $k\in\Z^+$
+\begin{eqnarray*}
+    \sum_{j\in N}  (\bar A_{i,j}-
+    \lfloor\bar A_{i,j}\rfloor)y_j = k+ 
+    (\bar b_i-\lfloor\bar b_i\rfloor) \implies \\
+    \sum_{j\in N}  (\bar A_{i,j}-\lfloor
+    \bar A_{i,j}\rfloor)y_j \ge  \bar b_i-\lfloor\bar b_i\rfloor
+\end{eqnarray*}
+Il teorema è dimostrato.\hfill$\blacksquare$
 \section{Il Matching Perfetto di Peso Minimo}
 Questa sezione presenta un'applicazione della programmazione intera ad un noto problema sui grafi.\begin{definizione}
     Sia $G=(V,E)$ un grafo non diretto, un sotto-insieme $M\subseteq E(G)$ è detto un \textbf{matching} se tutti gli archi di $M$ non hanno vertici in comune, ossia $$\forall (u,v),(x,y)\in M, \ \  \ \begin{matrix}
