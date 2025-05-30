@@ -65,6 +65,7 @@ triennale in Informatica. Se dovessi notare errori, ti prego di segnalarmeli.
 \normalsize
 \newtheorem{definizione}{Definizione}
 \newtheorem{teorema}{Teorema}
+\newtheorem{esercizio}{Esercizio}
 \newtheorem{congettura}{Congettura}
 \newtheorem{lemma2}{Lemma}
 \newtheorem{proposizione}{Proposizione}
@@ -2668,4 +2669,81 @@ Sia fisso tale sotto-insieme $\mathcal U$, si considera il grafo $G_1$ ottenuto 
     \includegraphics[width=0.7\textwidth ]{images/compressione.eps}
 \end{center}
 Sia $\bar x_1$ una restrizione di $\bar x$ sui soli archi di $G_1$
+\chapter*{Esercizi}
+In questo capitolo sono riportati alcuni esercizi che il professore ha assegnato durante il corso delle lezioni.
+\begin{esercizio}
+\end{esercizio}
+Sia $G=(V,E,s,t,c)$ una network, di cui $s$ è il nodo source e $t$ il nodo sink e $c$ la capacità, sia $f$ un flusso di valore massimo per $G$. Dimostrare che esiste un flusso $f'$ di valore massimo tale per cui 
+$$ \forall (s,u)\in E(G), \ \ f'(s,u)\ge 0$$
+ossia, che non esistono archi con flusso negativo uscente da $s$.
+\begin{esercizio}
+\end{esercizio}
+Sia $G$ una network, dimostrare se la seguente affermazione\begin{quote}
+    \textit{Se le capacità sugli archi di $G$ sono tutte distinte, allora esiste un unico flusso ottimale}
+\end{quote}
+è vera o falsa, fornendo una dimostrazione.
+\begin{esercizio}
+\end{esercizio}
+Si consideri una network con source $s$ e sink $t$ in cui ogni vertice $v$ ha una \textit{lista di preferenza} sui suoi vertici adiacenti, si assume che quando si esegue una DFS su tale network, i vertici vengono visitati seguendo l'ordine di tale preferenza, ad esempio, se il vertice $v$ ha come lista $(u,x,y)$, allora quando viene visitato per la prima volta, il prossimo vertice che verrà visitato durante la DFS sarà $u$ (se non ancora visitato), altrimenti, $x$, se anche quest'ultimo è stato già visitato, si procederà con $y$. Fornire un'esempio di network in cui l'algoritmo di Ford Fulkerson, utilizzando la DFS con preferenza durante la ricerca del cammino da $s$ a $t$ nel grafo residuo, termina eseguendo un numero esponenziale di passi.
+\begin{esercizio}
+\end{esercizio}
+Sia $P$ un politopo definito come segue 
+$$P=\{\x\in\R^n \ : \ A\x\le\bb, \ \x\ge \mathbf 0\} $$
+si assume che $P\ne \emptyset$. Dimostrare le seguenti affermazioni\begin{enumerate}
+    \item esiste un vettore $\bc$ tale per cui il problema $$\max_{\x\in P}\bc^T\x$$ ha un'unica soluzione.
+    \item assumendo che $|P|\ge 2$, esiste un vettore $\bc$ tale per cui il  problema $$\max_{\x\in P}\bc^T\x$$
+    ha infinite soluzioni.
+\end{enumerate}
+\begin{esercizio}
+\end{esercizio}
+Si consideri il seguente LP \begin{eqnarray*}
+    \max \bc^T\x\\ A\x\le\bb \\ \x\ge \mathbf 0 
+\end{eqnarray*}
+dove la matrice $A$ ha $m$ righe ed $n$ colonne.
+Assumendo che il problema non ha soluzioni degenere, dimostrare che se $\x^*$ è una soluzione ammissibile con esattamente $m$ componenti diverse da 0, allora $\x^*$ è una BFS.
+\begin{esercizio}
+\end{esercizio}
+Si risolva il seguente LP con il metodo del simplesso \begin{eqnarray*}
+    \max 2x_1+x_2-x_3\\ 
+    x_1+2x_2+x_3+x_4=8\\ 
+    -x_1+x_2-2x_3+x_5=4\\ 
+    x_1,x_2,x_3,x_4,x_5\ge 0
+\end{eqnarray*}
+\begin{esercizio}
+\end{esercizio}
+Siano $(P)$ e $(D)$ una coppia di problemi primario-duale.
+$$\begin{matrix}
+        \max \  \mathbf c^T\mathbf x\\ 
+        A\mathbf x \le \mathbf b \\ 
+        \mathbf x \ge 0 
+    \end{matrix} \ \ \ \ \ \  \begin{matrix}
+        \min \  \mathbf b^T\mathbf y\\ 
+        A^T\mathbf y \ge \mathbf c \\ 
+        \mathbf y \ge 0 
+    \end{matrix}$$
+ Se $\x$ è una soluzione per $(P)$, e $\y$ è una soluzione per $(D)$, allora 
+$$ \bc^T\x\le \bb^T\y$$
+Fornire un'esempio di una coppia di problemi primario-duale, insieme ad una soluzione $\x^*$ per il primario e $\y^*$ per il duale, tali per cui 
+$$ \bc^T\x^*< \bb^T\y^*$$
+\begin{esercizio}
+\end{esercizio}
+Si consideri il seguente programma lineare parametrizzato da due valori reali $\gamma,\delta$
+\begin{eqnarray*}
+    \max  \ x_1+\gamma x_2\\ 
+    2x_1+x_2\le 5\\ 
+    x_1+3x_2\le \delta \\ 
+    x_1,x_2\ge 0 
+\end{eqnarray*}
+per quali valori di $\gamma,\delta$ la soluzione $\x^*=\begin{bmatrix}
+    2 & 1
+\end{bmatrix}^T$ è ottimale?
+\begin{esercizio}
+\end{esercizio}
+Si consideri un LP in $n$ variabili ed $m$ vincoli di cui $P$ è il poliedro delle soluzioni e $P_I$ è l'inviluppo convesso di $P\cap \Z^n$. Sia $\mathcal B$ una base ammissibile, e sia $i$ un indice fissato in $\mathcal B$. Sia $N$ l'insieme degli indici che non sono contenuti nella base 
+$$N=\{1,2,\dots n\}\backslash\mathcal B $$
+ Se $\x$ è la BFS associata a tale base, la seguente è soddisfatta 
+$$ x_i=p_i+\sum_{j\in N}Q_{i,j}x_j$$
+Si ricordi che la matrice $Q$ ed il vettore $\mathbf p$ sono univocamente definiti come nel lemma \ref{lemma_tableau}. Dimostrare che per ogni soluzione $\x^*$ in $P_I$, la seguente 
+$$\sum_{j\in N}(Q_{i,j}-\lfloor Q_{i,j}\rfloor)x^*_j\ge p_i-\lfloor p_i\rfloor $$
+è soddisfatta.
 \end{document}
