@@ -2669,8 +2669,10 @@ Sia fisso tale sotto-insieme $\mathcal U$, si considera il grafo $G_1$ ottenuto 
     \includegraphics[width=0.7\textwidth ]{images/compressione.eps}
 \end{center}
 Sia $\bar x_1$ una restrizione di $\bar x$ sui soli archi di $G_1$
+
+
 \chapter*{Esercizi}
-In questo capitolo sono riportati alcuni esercizi che il professore ha assegnato durante il corso delle lezioni.
+In questo capitolo sono riportati alcuni esercizi che il professore ha assegnato durante il corso delle lezioni. Le soluzioni degli esercizi non sono date dal professore ma sviluppate autonomamente da me o da altri studenti, è quindi possibile che siano errate.
 \begin{esercizio}
 \end{esercizio}
 Sia $G=(V,E,s,t,c)$ una network, di cui $s$ è il nodo source e $t$ il nodo sink e $c$ la capacità, sia $f$ un flusso di valore massimo per $G$. Dimostrare che esiste un flusso $f'$ di valore massimo tale per cui 
@@ -2700,7 +2702,13 @@ Si consideri il seguente LP \begin{eqnarray*}
     \max \bc^T\x\\ A\x\le\bb \\ \x\ge \mathbf 0 
 \end{eqnarray*}
 dove la matrice $A$ ha $m$ righe ed $n$ colonne.
-Assumendo che il problema non ha soluzioni degenere, dimostrare che se $\x^*$ è una soluzione ammissibile con esattamente $m$ componenti diverse da 0, allora $\x^*$ è una BFS.
+Assumendo che il problema non ha soluzioni degenere, dimostrare che se $\x^*$ è una soluzione ammissibile con esattamente $m$ componenti diverse da 0, allora $\x^*$ è una BFS.\bigskip 
+
+\noindent \textg{Soluzione}: $\x^*$ è una BFS se e solo se è un vertice del poliedro delle soluzioni ammissibili. Si pone per assurdo che $\x^*$ non è un vertice, allora è una combinazione convessa dei vertici 
+$$ \x^* = \sum_i \beta_i \x^i$$
+dove $\x^i$ è l'$i$-esimo vertice. Per definizione di combinazione convessa, i termini $\beta_i$ sono positivi, inoltre i vertici, essendo soluzioni, hanno anche essi ogni componente maggiore o uguale di zero. Ogni vertice per assunzione non è degenere, ha quindi $m$ componenti diverse da zero, essendo che due vertici distinti hanno almeno una componente tale per cui, in un vertice è uguale a zero mentre nell'altro è positiva, si ha che, per ogni $\alpha,\alpha' >0$, il termine 
+$$ \alpha\x^i+\alpha'\x^j, \ \ \ i\ne j$$
+ha \textit{almeno} $m+1$ componenti diverse da zero. Essendo che $\x^*$ è somma di almeno due vertici pesati da coefficienti positivi, si ha che $\x^*$ ha almeno $m+1$ componenti diverse da zero, ma ciò va in contraddizione con l'assunzione che tali componenti siano esattamente $m$, è quindi impossibile che $\x^*$ non sia un vertice.
 \begin{esercizio}
 \end{esercizio}
 Si risolva il seguente LP con il metodo del simplesso \begin{eqnarray*}
