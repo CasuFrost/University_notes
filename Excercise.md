@@ -18,6 +18,6 @@
 [Esercizi di Fisica](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Fisica/Esercizi/ex.md)   \
 [Esami di Automi, Calcolabilità e Complessità](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Automi,%20Calcolabilità%20e%20Complessità/Esami) \
 [Esami di Automazione](https://github.com/CasuFrost/University_notes/tree/main/Terzo%20Anno/Automazione/Esami) \
-[Esercizi di Ottimizzazione](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Ottimizzazione/Esercizi/Eserciziario.pdf)
+[Esercizi di Ottimizzazione](https://github.com/CasuFrost/University_notes/blob/main/Terzo%20Anno/Ottimizzazione/es.md)
  ## Disclaimer
 Non è sempre garantita l'affidabilità delle soluzioni

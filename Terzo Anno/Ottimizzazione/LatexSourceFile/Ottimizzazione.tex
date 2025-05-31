@@ -2692,9 +2692,9 @@ Si consideri una network con source $s$ e sink $t$ in cui ogni vertice $v$ ha un
 Sia $P$ un politopo definito come segue 
 $$P=\{\x\in\R^n \ : \ A\x\le\bb, \ \x\ge \mathbf 0\} $$
 si assume che $P\ne \emptyset$. Dimostrare le seguenti affermazioni\begin{enumerate}
-    \item esiste un vettore $\bc$ tale per cui il problema $$\max_{\x\in P}\bc^T\x$$ ha un'unica soluzione.
+    \item esiste un vettore $\bc$ tale per cui il problema $$\max_{\x\in P}\bc^T\x$$ ha un'unica soluzione ottimale.
     \item assumendo che $|P|\ge 2$, esiste un vettore $\bc$ tale per cui il  problema $$\max_{\x\in P}\bc^T\x$$
-    ha infinite soluzioni.
+    ha infinite soluzioni ottimali.
 \end{enumerate}
 \begin{esercizio}
 \end{esercizio}
@@ -2716,8 +2716,29 @@ Si risolva il seguente LP con il metodo del simplesso \begin{eqnarray*}
     x_1+2x_2+x_3+x_4=8\\ 
     -x_1+x_2-2x_3+x_5=4\\ 
     x_1,x_2,x_3,x_4,x_5\ge 0
-\end{eqnarray*}
-\begin{esercizio}
+\end{eqnarray*}\bigskip 
+
+\noindent\textg{Soluzione}: La base $\mathcal B=\{4,5\}$ è chiaramente ammissibile, si partirà da questa per applicare il metodo del simplesso
+\begin{center}
+    \begin{tabular}{|l}
+$\mathcal B = \{4,5\}$ \\ \hline
+$x_4=-x_1-2x_2-x_3+8$ \\
+$x_5=x_1-x_2+2x_3+4$ \\ \hline
+$z=2x_1+x_2-x_3$
+\end{tabular}
+\end{center}
+\begin{center}
+    \begin{tabular}{|l}
+$\mathcal B = \{1,5\}$ \\ \hline
+$x_1=-x_4-2x_2-x_3+8$ \\
+$x_5=-x_4-3x_2+x_3+12$ \\ \hline
+$z=-2x_4-3x_2-3x_3+16$
+\end{tabular}
+\end{center}
+La base $\{1,5\}$ è ottimale, l'ottimo del problema è 16 e la soluzione ottimale è $\begin{bmatrix}
+    8&0&0&0&16
+\end{bmatrix}^T$. 
+\begin{esercizio} 
 \end{esercizio}
 Siano $(P)$ e $(D)$ una coppia di problemi primario-duale.
 $$\begin{matrix}
@@ -2732,7 +2753,30 @@ $$\begin{matrix}
  Se $\x$ è una soluzione per $(P)$, e $\y$ è una soluzione per $(D)$, allora 
 $$ \bc^T\x\le \bb^T\y$$
 Fornire un'esempio di una coppia di problemi primario-duale, insieme ad una soluzione $\x^*$ per il primario e $\y^*$ per il duale, tali per cui 
-$$ \bc^T\x^*< \bb^T\y^*$$
+$$ \bc^T\x^*< \bb^T\y^*$$\bigskip
+
+\noindent \textg{Soluzione}: Il problema primario è 
+\begin{eqnarray*}
+    \max x_1\\ x_1+x_2\le 1 \\ x_1,x_2\ge 0
+\end{eqnarray*}
+il duale è \begin{eqnarray*}
+    \min y_1 \\ 
+    y_1\ge 1 \\ 
+\end{eqnarray*}
+le soluzioni sono $$ \x^*=\begin{bmatrix}
+    \nicefrac{1}{2}\\ \nicefrac{1}{2}
+\end{bmatrix} \ \ \ \ \y^*=\begin{bmatrix}
+    1\\1
+\end{bmatrix}$$
+\begin{center}
+    \includegraphics[width=0.6\textwidth ]{images/es8.eps}
+\end{center}
+la disuguaglianza sulle funzioni obiettivo è stretta 
+\begin{eqnarray*}
+    \bc^T\x^*<\bb^T\y^*\\
+    x_1^*<y_1^*\\ 
+    \frac{1}{2}<1
+\end{eqnarray*}
 \begin{esercizio}
 \end{esercizio}
 Si consideri il seguente programma lineare parametrizzato da due valori reali $\gamma,\delta$
@@ -2744,7 +2788,61 @@ Si consideri il seguente programma lineare parametrizzato da due valori reali $\
 \end{eqnarray*}
 per quali valori di $\gamma,\delta$ la soluzione $\x^*=\begin{bmatrix}
     2 & 1
-\end{bmatrix}^T$ è ottimale?
+\end{bmatrix}^T$ è ottimale?\bigskip
+
+\noindent
+\textg{Soluzione}: è utile un'osservazione, si noti come il secondo vincolo del programma lineare è soddisfatto da $\x^*$ se e solo se $\delta\ge 5$
+$$x_1+3x_2 = 2+3 = 5 \le \delta \implies \delta \ge 5 $$
+Si noti inoltre che se $\delta > 5$ il secondo vincolo è slack per $\x^*$, questo semplifica la dimostrazione. Il duale del LP è \begin{eqnarray*}
+\min 5y_1+\delta y_2\\ 
+2y_1+y_2\ge 1\\ 
+y_1+3y_2\ge \gamma \\ 
+\y>\mathbf 0
+\end{eqnarray*} 
+Si vuole usare il teorema degli slack complementari per dimostrare che esiste una soluzione $\y^*$ per il duale, il cui ottimo coincide con il valore della funzione obiettivo del primario valutata su $\x^*$. \begin{itemize}
+    \item \textbf{caso $\delta>5$)} Si assume che $\x^*$ è ottimale, sia $\y^*$ una soluzione ottimale per il duale, essendo che $x_1^*,x_2^*>0$, i due vincoli per $\y^*$ sono binding, inoltre, $y^*_2=0$ perché il secondo vincolo del primario è slack per $\x^*$.
+$$
+\begin{matrix}
+    2y^*_1= 1\\ 
+y^*_1= \gamma \\ 
+\end{matrix}\implies \y^*=\begin{bmatrix}
+    0.5 & 0
+\end{bmatrix}^T
+$$
+I valori delle funzioni obiettivo coincidono 
+\begin{eqnarray*}
+    5y^*_1+\delta y^*_2=x^*_1+\gamma x^*_2\\ 
+    5\gamma=2+\gamma \\ 
+    5\frac{1}{2}=2+\frac{1}{2}
+\end{eqnarray*}
+$\x^*$ è una soluzione ottimale. 
+\item \textbf{caso $\delta=5$)} in questo caso non si può annullare $y^*_2$, risolvendo il sistema si ottiene il valore di $\y^*$ in funzione di $\gamma$
+$$\begin{matrix}
+    2y^*_1+y^*_2= 1\\ 
+y^*_1+3y^*_2= \gamma \\ 
+\end{matrix} \implies 
+\begin{matrix}
+    y_1^*=\gamma-\frac{1}{2}\\ 
+    y_2^*=-2\gamma+\frac{3}{2}
+\end{matrix}
+$$
+$\x^*$ è ottimale se le funzioni obiettivo coincidono, essendo $\delta = 5$, si deve risolvere 
+$$ 5y^*_1+\delta y^*_2=x^*_1+\gamma x^*_2$$
+per $\gamma$\begin{eqnarray*}
+    5(\gamma-\frac{1}{2})+5 (-2\gamma+\frac{3}{2})=2+\gamma \implies 
+\\ \gamma = \frac{1}{2}
+\end{eqnarray*}
+\end{itemize}
+In definitiva, il punto $\x^*=\begin{bmatrix}
+    2 & 1
+\end{bmatrix}^T$ è una soluzione ottimale se $\gamma = \frac{1}{2}$ e $\delta\ge 5$.
+
+
+
+
+
+
+
 \begin{esercizio}
 \end{esercizio}
 Si consideri un LP in $n$ variabili ed $m$ vincoli di cui $P$ è il poliedro delle soluzioni e $P_I$ è l'inviluppo convesso di $P\cap \Z^n$. Sia $\mathcal B$ una base ammissibile, e sia $i$ un indice fissato in $\mathcal B$. Sia $N$ l'insieme degli indici che non sono contenuti nella base 
