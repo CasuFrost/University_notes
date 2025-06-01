@@ -354,14 +354,25 @@ Si può anche risalire in maniera naturale ad un grafo non diretto associato ad 
     Dato un grafo non diretto $G$ e due nodi $s,t$, un'insieme di cammini da $s$ a $t$ è \textbf{edge-disjoint} se non condividono alcun arco.
 \end{definizione}
 Verrà mostrato come, dato un grafo $G$, il numero massimo di cammini edge-disjoint è uguale al valore del flusso ottimale nella network associata.
+\begin{proposizione}
+   Sia $G$ un grafo non diretto e $\vec G$ la network associata. Se il numero massimo di cammini edge-disjoint da $s$ a $t$ in $G$ è $k$, allora il flusso di valore massimo in $\vec G$ ha valore $k$.
+\end{proposizione}
+\textit{Dimostrazione}: La network associata avrà a sua volta $k$ cammini edge-disjoint da $s$ a $t$, e per definizione, anche $k$ cammini edge-disjoint da $t$ a $s$. Si considera un flusso $f$ tale che, per ogni arco $(u,v)$ in uno dei percorsi da $s$ a $t$ si definisce in tal modo $$ \begin{cases}
+    f(u,v)=1\\f(v,u)=-1
+\end{cases}$$
+Ogni cammino determinerà un "sottoflusso" di valore $1$, e vi sono $k$ cammini che non si influenzano fra loro, il flusso finale in arrivo su $t$ sarà quindi uguale a $k$.\hfill$\blacksquare$\bigskip
+
+\noindent Si è mostrato che il numero di cammini edge-disjoint è uguale al flusso massimo della network associata, si vuole ora mostrare che il flusso massimo di una network è uguale al numero di cammini edge-disjoint del grafo associato. In tal modo, quando si vuole calcolare il numero di tali cammini, si può piuttosto definire la network associata per poi eseguire l'algoritmo di Edmonds-Karp.
 \begin{definizione}
-    Dato un flusso $f$ per una network $\vec G$, si definisce \textbf{supporto del flusso} l'insieme $$W=\{(u,v)\in E(\vec G) \text{ t.c. }f(u,v)\ne 0\} $$
+    Dato un flusso $f$ per una network $\vec G$, si definisce \textbf{supporto del flusso} il grafo diretto $\vec W$ i cui vertici sono gli stessi di $\vec G$, ed i cui archi sono $$E(\vec W)=\{(u,v)\in E(\vec G) \text{ t.c. }f(u,v)\ne 0\} $$
 \end{definizione}
 \begin{proposizione}
-    Se nel supporto $W$ di un flusso $f$ per una network $\vec G$ gli archi compongono $k$ cammini diretti da $s$ a $t$, allora ci sono $k$ cammini edge-disjoint da $s$ a $t$ nel grafo non diretto associato.
+    Sia $G$ un grafo e $\vec G$ la network associata con source $s$ e sink $t$. Se il flusso massimale $f$ di $\vec G$ ha valore $k$, allora, il grafo $W$ associato al supporto del flusso $\vec W$ ha al più $k$ cammini edge-disjoint da $s$ a $t$.
 \end{proposizione}
-\textit{Dimostrazione} : \redText{TODO : continuare}
+\textit{Dimostrazione}:
+Sia $f$ un flusso di valore massimo per $\vec G$, e sia $\vec W$ il supporto di tale flusso, con $W$ grafo associato a $\vec W$, si dimostra per induzione per $m$ numero di archi in $W$.\bigskip 
 
+\noindent\textbf{Caso base}: Se $m=0$, allora per ogni arco $(u,v)$ in $\vec G$, si ha $f(u,v)=0$, non essendoci archi in $W$ il numero di cammini edge-disjoint è 0, proprio come il valore massimo del flusso.
 
 
 
@@ -718,7 +729,7 @@ Si assuma che $|\mathcal B^*|<m$, ciò significherebbe che le restanti colonne d
 \end{osservazione}
 \textbf{Conclusione} : Esiste un numero finito di BFS. Ogni base è un sotto-insieme di $m$ elementi preso da $\{1,2,\dots n\}$, quindi esistono al più $\binom{n}{m}$ basi distinte, quindi esistono al più $\binom{n}{m}$  BFS.\bigskip 
 
-Il seguente risultato è fondamentale in quanto stabilisce che un programma lineare (che riguarda la ricerca di una soluzione fra un'insieme non numerabile) si può ridurre ad una ricerca fra un'insieme finito di possibili soluzioni ottimali. 
+Il seguente risultato è fondamentale in quanto stabilisce che un programma lineare (che riguarda la ricerca di una soluzione fra un'insieme non numerabile) si può ridurre ad un problema di ottimizzazione combinatoria.
 \begin{teorema}\label{teo:BFS}
     Si consideri un programma lineare in forma di equazione
 $$ 
@@ -2668,10 +2679,60 @@ $$\sum_{e\in\delta(\mathcal U)}\bar x_e=1 $$
 Sia fisso tale sotto-insieme $\mathcal U$, si considera il grafo $G_1$ ottenuto comprimendo i vertici di $\mathcal U$ in un'unico vertice denotato $v_1$.\begin{center}
     \includegraphics[width=0.7\textwidth ]{images/compressione.eps}
 \end{center}
-Sia $\bar x_1$ una restrizione di $\bar x$ sui soli archi di $G_1$
+Chiaramente $|V(G_1)|<|V(G)|$.
+Sia $\bar \x^1$ una restrizione di $\bar \x$ sui soli archi di $G_1$. Per ogni vertice $v$ che non è stato soggetto alla compressione, in $G_1$ si ha 
+$$ \sum_{e\in\delta(v)}\bar x^1_e = 1$$
+Per ogni insieme $W$ contenente un numero dispari di vertici si ha che $$ \begin{matrix}
+    \displaystyle \sum_{e\in\delta(W)}\bar x^1_e &=&  \sum_{e\in\delta(W)}\bar x_e & \ge 1\\  
+    \text{ in }G_1 & & \text{ in }G
+\end{matrix}$$ 
+in conclusione, è chiaro che $\bar \x^1\in P^* $, ma per assunzione $G$ era il contro esempio con il minor numero di vertici, vi è quindi una contraddizione $\implies \bar \x^1$ è nel politopo del matching perfetto di $G_1$.
 
+Indicando con $\Pi_i$ l'$i$-esimo vettore indicatore del matching perfetto di $G_1$, si ha 
+$$ \bar \x^1 = \alpha_1\Pi_1+\dots + \alpha_k\Pi_k$$
+con $$ \sum_{i=1}^k\alpha_i=1, \ \ \ \ \forall i \ \alpha_i\ge 0$$
+Si considera adesso un nuovo grafo $G_2$, ottenuto comprimendo i vertici di $V(G)\backslash \mathcal U$ in un'unico vertice $v_2$.\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/compressione2.eps}
+\end{center}
+Sia $\bar\x^2$ la restrizione di $\bar \x$ sui vertici di $G_2$, per le stesse osservazioni di prima $\bar\x^2\in P^*$, conseguentemente è anche nel politopo del matching perfetto di $G_2$, Indicando con $J_i$ l'$i$-esimo vettore indicatore del matching perfetto di $G_2$:
+$$ \bar \x^2 = \beta_iJ_1+\dots + \beta_{k'}J_{k'}$$
+Ricapitolando 
+\begin{equation}\label{pm_per_G1_G2}
+    \bar \x^1=\sum_{i=1}^k \alpha_i\Pi_i \ \ \ \ \ \ \bar \x^2=\sum_{i=1}^{k'} \beta_iJ_i
+\end{equation}
+È importante la seguente osservazione, ogni matching perfetto per $G_1$, ha un solo arco che collega il vertice $v_1$ ad uno dei restanti vertici in $V(G)\backslash\mathcal U$, analogamente, ogni matching perfetto per $G_2$, ha un solo arco che collega il vertice $v_2$ ad uno dei restanti vertici in $\mathcal U$.
+\begin{center}
+    \includegraphics[width=0.8\textwidth ]{images/compressione3.eps}
+\end{center}
+Si denota $\mu_i$ l'insieme degli archi del perfect matching di $G_1$ relativo al vettore indicatore $\Pi_i$, si denota $\eta_i$ l'insieme degli archi del perfect matching di $G_2$ relativo al vettore indicatore $J_i$. $\mu_i$ e $\eta_i$ sono insiemi di archi, mentre $\Pi_i$ e $J_i$ sono vettori.\bigskip 
 
-\chapter*{Esercizi}
+\noindent\textbf{Osservazione Cruciale}: Se $\mu_i$ e $\eta_i$ usano lo stesso arco per collegare il vertice compresso ad un vertice nell'insieme restante, allora $\mu_i\cup\eta_i$ è un perfect matching per $G$. Un'esempio è riportato in figura \ref{compressione4}.
+
+\begin{figure}[h!]
+    \centering 
+     \includegraphics[width=0.7\textwidth ]{images/compressione4.eps}
+     \caption{Utilizzo dello stesso arco}
+     \label{compressione4}
+\end{figure}
+
+In riferimento all'equazione \ref{pm_per_G1_G2}, è necessario trovare un numero $q$ tale che 
+$$ \forall i, \ \ \alpha_i=\frac{p^1_i}{q} \text{ per qualche }p^1_i$$
+$$ \forall i, \ \ \beta=\frac{p^2_i}{q} \text{ per qualche }p^2_i$$
+\redText{TODO: finire dimostrazione}
+
+\noindent Si ha quindi una procedura/algoritmo per trovare un perfect matching di peso minimo in un grafo non bipartito, definita dai seguenti passi\begin{enumerate}
+    \item si risolve il seguente LP$$\begin{cases}
+        \min \ \sum w(e)x_e\\
+        \sum_{e\in\delta(v)}x_e=1 \ \ \forall v\in V(G)\\ 
+        x_e\ge 1 \ \ \forall e\in E(G)
+    \end{cases} $$
+    \item se la soluzione è un vettore intero, è quella ottimale e si restituisce 
+    \item se la soluzione $\bar\x$ contiene dei numeri frazionari, esiste un ciclo $C$ nel grafo con un numero dispari di nodi ed archi con peso $\frac{1}{2}$, si aggiunge quindi il seguente vincolo nel LP $$\sum_{e\in\delta(v)}x_e\ge1 \ \ \forall v\in V(C)\\  $$
+    \item si risolve nuovamente LP ripartendo dal punto (1).
+\end{enumerate}
+Si noti come il vincolo aggiunto nel punto (3) non è altro che un taglio di Gomory, scelto in maniera precisa sfruttando molti concetti della teoria dei grafi, in modo da ridurre al minimo il numero totale di tagli da fare per convergere ad una soluzione. Se un PM per il grafo non esiste, ad un certo punto il programma lineare risulterà inammissibile.
+
+\chapter{Esercizi}
 In questo capitolo sono riportati alcuni esercizi che il professore ha assegnato durante il corso delle lezioni. Le soluzioni degli esercizi non sono date dal professore ma sviluppate autonomamente da me o da altri studenti, è quindi possibile che siano errate.
 \begin{esercizio}
 \end{esercizio}
