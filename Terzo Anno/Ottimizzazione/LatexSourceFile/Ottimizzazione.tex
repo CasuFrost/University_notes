@@ -129,7 +129,7 @@ Si definisce una funzione $f':E(G)\rightarrow\R$ come segue $$ f'(u,v)=\begin{ca
 \begin{proposizione}\label{prop:augmentation}
 $f'$ è un flusso per $G$.
 \end{proposizione}
-\textit{Dimostrazione} : Sia $(u,v)$ un arco in $G$, se $(u,v)\notin E(P)$, allora $f'(u,v)=f(u,v)$ e conseguentemente $f'(v,u)=f'(v,u)$, quindi la proprietà di skew simmetria è preservata. Differentemente, se $(u,v)\in E(P)$ si avrebbe che $f'(u,v)=f(u,v)+\alpha$ e $f'(v,u)=f(v,u)-\alpha=-f(u,v)-\alpha=-(f(u,v)+\alpha)$, quindi il nuovo flusso rispetta la proprietà di skew-simmetria. 
+\textit{Dimostrazione} : Sia $(u,v)$ un arco in $G$, se $(u,v)\notin E(P)$, allora $f'(u,v)=f(u,v)$ e conseguentemente $f'(v,u)=f(v,u)$, quindi la proprietà di skew simmetria è preservata. Differentemente, se $(u,v)\in E(P)$ si avrebbe che $f'(u,v)=f(u,v)+\alpha$ e $f'(v,u)=f(v,u)-\alpha=-f(u,v)-\alpha=-(f(u,v)+\alpha)$, quindi il nuovo flusso rispetta la proprietà di skew-simmetria. 
 
 Per ogni arco $(u,v)\in E(P)$ si ha che $f'(u,v)=f(u,v)+\alpha$, $\alpha$ è (per definizione) minore o uguale a $r(u,v)$ quindi 
 $$ f'(u,v)\le f(u,v)+r(u,v)$$
@@ -372,7 +372,46 @@ Ogni cammino determinerà un "sottoflusso" di valore $1$, e vi sono $k$ cammini 
 \textit{Dimostrazione}:
 Sia $f$ un flusso di valore massimo per $\vec G$, e sia $\vec W$ il supporto di tale flusso, con $W$ grafo associato a $\vec W$, si dimostra per induzione per $m$ numero di archi in $W$.\bigskip 
 
-\noindent\textbf{Caso base}: Se $m=0$, allora per ogni arco $(u,v)$ in $\vec G$, si ha $f(u,v)=0$, non essendoci archi in $W$ il numero di cammini edge-disjoint è 0, proprio come il valore massimo del flusso.
+\noindent\textbf{Caso base}: Se $m=0$, allora per ogni arco $(u,v)$ in $\vec G$, si ha $f(u,v)=0$, non essendoci archi in $W$ il numero di cammini edge-disjoint è 0, proprio come il valore massimo del flusso.\bigskip 
+
+\noindent\textbf{Ipotesi induttiva}: La proposizione è valida per $|E(W)|=m$.\bigskip 
+
+\noindent\textbf{Passo induttivo}: Si considera il caso in cui $|E(W)|=m+1$, sia $P\subseteq \vec W$ un sotto grafo tale che \begin{itemize}
+    \item $V(P)=\{v_0,v_1\dots,v_h\}$
+    \item $v_0=s$
+    \item per ogni $i$, si ha $(v_i,v_{i+1})\in E(\vec W)$, quindi $f(v_i,v_{i+1})\ne 0$
+    \item $h$ è massimale
+\end{itemize}
+Tale sotto grafo $P$ descrive il più lungo cammino da $s$ ad un'altro nodo nel supporto del flusso $\vec W$.\begin{itemize}
+    \item \textbf{Caso} $v_h=t$): In tal caso $P$ descrive il più lungo cammino $s\rightarrow t$ in $\vec W$, che è anche il più lungo cammino in $W$, si definisce un nuovo flusso $f'$ come segue $$ f'(x,y)=\begin{cases}
+        0 \text{ se }(x,y)\in E(P)\lor (y,x)\in E(P)\\ 
+        f(x,y)\text{ altrimenti}
+    \end{cases}$$
+    $f'$ rispetta le proprietà di flusso per la network $\vec W$. Si considera il supporto di $f'$ su $\vec W$, denotato $\vec W'$, per definizione di $f'$ si ha che $$E(\vec W')=E(\vec W)-E(P)$$
+    inoltre $$ \text{val}(f')=\text{val}(f)-1=k-1$$
+    $E(\vec W')$ ha $|E(W)|-1=m$ elementi, per ipotesi induttiva $\vec W'$ ha al più $\text{val}(f')=k-1$ cammini edge-disjoint da $s$ a $t$. 
+
+    Essendo $E(\vec W')=E(\vec W)-E(P)$, il cammino $P$ è disgiunto dai $k-1$ cammini di $\vec W'$, quindi $W$ ha $k$ cammini edge-disjoint.
+    \item \textbf{Caso} $v_h\ne t$): dal momento che $f(v_{h-1},v_h)=1$, esiste un arco in $\vec W$ tale per cui $f(u,v_h)=-1$ per qualche $u$ Inoltre per la conservazione del flusso $f(v_h,u)=1$.
+    
+    $u\in V(P)$ perché, se così non fosse, si potrebbe aggiungere l'arco $(v_h,u)$ ed incrementare la lunghezza del cammino, che è per definizione massimale. Inoltre\begin{eqnarray*}
+        f(v_{h-1},v_h)=1\\ f(u,v_h)=-1 
+    \end{eqnarray*}
+    quindi $v_{h-1}\ne u$. Denotando $u=v_i$ per qualche $i$, sia $C$ il ciclo diretto di nodi 
+    $$ C=\{v_i,v_{i+1}\dots, v_h,u\}$$
+    si considera una funzione $f''$ definita come segue $$ f''(x,y)=\begin{cases}
+        0 \text{ se }(x,y)\in E(C)\lor (y,x)\in E(C)\\ 
+        f(x,y)\text{ altrimenti}
+    \end{cases}$$
+    $f''$ rispetta le proprietà di flusso per la network $\vec W$. Sia $\vec W''$ il supporto del flusso di $f''$. Non è difficile mostrare che $\text{val}(f'')=\text{val}f$, essendo $|E(\vec W'')|<|E(\vec W)|$, per ipotesi induttiva $\vec W''$ ha al più $k$ cammini edge-disjoint da $s$ a $t$, anche $W$ ha tali cammini, dimostrando che la proposizione è vera per $|E(W)|=m+1$. 
+\end{itemize}
+\hfill$\blacksquare$\bigskip
+
+\noindent
+Da tale proposizione si mostra facilmente che se $G$ è il grafo associato alla network $\vec G$, e questa ha flusso di valore massimo uguale a $k$ da $s$ a $t$, allora $G$ ha al più $k$ cammini edge-disjoint da $s$ a $t$. Date tali premesse, si può enunciare il seguente risultato cruciale.
+\begin{teorema}
+    \textbf{(Menger)} Sia $G$ un grafo e $\vec G$ la network associata. Il massimo numero di cammini edge-disjoint da $s$ a $t$ in $G$ è uguale al valore di $f$, se $f$ è un flusso di valore massimo da $s$ a $t$ in $\vec G$.
+\end{teorema}
 
 
 
@@ -620,8 +659,9 @@ Se $\mathbf x$ soddisfa $A\mathbf x = \mathbf b$ allora soddisfa anche $A'\mathb
 Le operazioni sulle righe di $A$ non cambiano l'insieme delle soluzioni, si assume che le righe siano \textit{linearmente indipendenti}, che il rango di $A$ sia $m$, e che lo span delle righe di $A$ è un sottospazio di $\mathbb{R}^n$.\begin{proposizione}
     Il rango delle colonne di $A$ è $m$, la dimensione del sottospazio di $\mathbb R^m$ dato dallo span delle colonne è $m$.
 \end{proposizione}
-\textit{Dimostrazione} : \redText{TODO}\bigskip 
+La dimostrazione è omessa.\bigskip
 
+\noindent
 Il problema descritto è \begin{eqnarray}
     A\mathbf x = \mathbf b \\ \mathbf x \ge \mathbf  0 \\ \text{esiste una soluzione}\\ 
     \text{rango righe di }A=\text{rango colonne di }A=m
@@ -1002,13 +1042,13 @@ $$ a_1 x_1+a_2 x_2+\dots +a_n x_n\ge b$$
         \end{tikzpicture}\caption{iperpiano in $\mathbb R^3$ (piano)}
 \end{figure}
 \begin{definizione}
-    Un \textbf{poliedro} è l'intersezione di un numero finito di mezzi-spazi definiti da iperpiani. La dimensione del poliedro $P$ è uguale alla dimensione del più piccolo sotto-spazio affine di $\mathbb R^n$ contenente $P$. 
+    Un \textbf{poliedro} è l'intersezione di un numero finito di mezzi-spazi definiti da iperpiani. La dimensione del poliedro $P$ è uguale alla dimensione del più piccolo sotto-spazio affine di $\mathbb R^n$ contenente $P$. Un poliedro è definito da una matrice $A$ ed un vettore $\bb$ come l'insieme dei punti $\x\in\R^n$ che soddisfano $A\x\le\bb$. 
 \end{definizione}
 \begin{definizione}
     Un \textbf{politopo} $P$ è un poliedro limitato, ossia, $\exists c\in \mathbb R$ tale che  $\forall \mathbf x \in P$,  $\|\mathbf x\|\le c$.
 \end{definizione}
 \begin{definizione}
-    Dato un poliedro $P$, un punto $\mathbf v$ è un \textbf{vertice} di $P$ se esiste un iperpiano $$\mathcal X = \{\mathbf x \in \mathbb R^n\text{ t.c. }a_1 x_1+a_2 x_2+\dots +a_n x_n= b\}$$ tale per cui\begin{itemize}\item $\mathbf v\in\mathcal X$\item $\forall \bar{\mathbf x} \in P, \ \bar{\mathbf x}=[\bar x_1,\dots \bar x_n]^T \ne \mathbf v$ si ha 
+    Dato un poliedro $P$, un punto $\mathbf v$ è un \textbf{vertice} di $P$ se esiste un iperpiano $$\mathcal X = \{\mathbf x \in \mathbb R^n\text{ t.c. }a_1 x_1+a_2 x_2+\dots +a_n x_n= b\}$$ tale per cui\begin{itemize}\item $\mathbf v\in\mathcal X$\item $\forall \bar{\mathbf x} \in P\backslash\{\mathbf v\}$ si ha 
     $$ a_1 \bar x_1+a_2\bar x_2+\dots +a_n\bar x_n<  b$$\end{itemize}
 \end{definizione}
 \begin{definizione}
@@ -1019,7 +1059,7 @@ La dimensione di una faccia è uguale alla dimensione del più piccolo sottospaz
     Un \textbf{angolo} è una faccia di dimensione 1.
 \end{definizione}
 \begin{teorema}
-    Se $P$ è il poliedro rappresentante l'insieme delle soluzioni ammissibili di un programma lineare in forma di equazione, allora $\mathbf v$ è un vertice di $P$ se e solo se $\mathbf v$ è una soluzione ammissibile basica per il programma lineare.
+    Sia $P$  il poliedro rappresentante l'insieme delle soluzioni ammissibili di un programma lineare in forma di equazione, $\mathbf v\in\R^n$ è un vertice di $P$ se e solo se $\mathbf v$ è una soluzione ammissibile basica per il programma lineare.
 \end{teorema}
 \textit{Dimostrazione} : Verranno dimostrati entrambe le implicazione del \textit{se e solo se}.
 
@@ -1503,26 +1543,15 @@ Il seguente lemma è fondamentale per la dimostrazione (cruciale) della corrette
 \begin{lemma2}\label{lemma_fickle}
     Siano $\mathcal  T(B_1)\rightarrow\mathcal  T(B_2)\rightarrow\dots \mathcal  T(B_t)\rightarrow \mathcal  T(B_1)$ le basi che susseguendosi formano un ciclo durante l'esecuzione del metodo del simplesso con una determinata regola del pivot. Sia $F$ l'insieme degli indici delle variabili fickle per tale esecuzione. Esiste un'unica soluzione ammissibile $\bar{\mathbf x}$ comune per tutte le basi $\mathcal B_1,\dots \mathcal B_t$, per cui $$ x_i=0, \ \ \forall i\in F$$
 \end{lemma2}
-\textit{Dimostrazione} : Il valore della funzione obiettivo durante il simplesso è crescente, essendo che ci si trova in un ciclo, questo rimane identico, denotiamo il tableau associato alla base $\mathcal B_j$ come segue 
-\begin{center}
-    \begin{tabular}{|l|l|}\hline 
-       $\mathbf{x}_{\mathcal{B}_j} = \mathbf p^j + Q^j\mathbf x_{N_j}$\\ \hline 
-       $z=z_0+{\mathbf{r}^j}^T\mathbf x_{N_j}$ \\\hline 
-    \end{tabular}
-\end{center}
-e denotiamo ${\mathbf x}^{j}$ la BFS associata a $\mathcal B_j$.$z_0$ è invariante per ogni $j$. Siano $\beta$ e $\alpha$ gli indici delle variabili entrante ed uscente 
-$$ \mathcal B_{j+1}=(\mathcal B_j \backslash \{\alpha\})\cup\{\beta\}$$
-Il lemma afferma che la BFS è la stessa per tutte le basi e che le variabili fickle sono uguali a zero. Si vuole dimostrare la prima affermazione del lemma, ossia che $${\mathbf x}^{j}={\mathbf x}^{j+1}$$
-per ogni $j$. Sappiamo che le variabili non di base  in due passi di computazione differenti, ossia in $N_j$ e $N_{j+1}$, sono uguali a zero (esclusa $\beta$ che viene inserita in $N_{j+1}$) 
-$$ x_i^{j}=x_i^{j+1}=0, \ \ \ i\in N_j\backslash\{\beta\}$$
-Inoltre, sappiamo che il valore della funzione obiettivo non aumenta, essendo 
-$$ x^j_\alpha = p_\alpha^j+\begin{bmatrix}
-    Q^j_{\alpha,1}& Q^j_{\alpha,2}& \dots & Q^j_{\alpha,n-m}
-\end{bmatrix}^T\cdot \mathbf x_{N_j}$$
-necessariamente si ha che $p_\alpha^j=0 $, quindi $$ x^j_\alpha = \begin{bmatrix}
-    Q^j_{\alpha,1}& Q^j_{\alpha,2}& \dots & Q^j_{\alpha,n-m}
-\end{bmatrix}^T\cdot \mathbf x_{N_j}$$
-\redText{TODO : Finire la dimostrazione}
+\textit{Dimostrazione} : Essendo che la funzione obiettivo non aumenta, rimane costante per ogni soluzione del ciclo. Sia $\mathcal B$ una determinata base durante il ciclo, e $\mathcal B'$ la base successiva, con $u$ indice uscente e $v$ indice entrante $$\mathcal B'=(\mathcal B\backslash\{u\})\cup\{v\} $$
+La variabile $x_v$ che entra nella base potrebbe cambiare, diventando positive, tutte le altre restano zero essendo non basiche. Essendo che $x_v$ entra nella base, il coefficiente $r_v$ del vettore $\mathbf r$ per il tableau di $\mathcal B$ deve essere positivo
+\begin{eqnarray*}
+    z = z_0+\mathbf r^T\x_N\\ 
+    z=z_0+\sum_{j\in N}r_jx_j\\ 
+    z=z_0+\sum_{j\ne v}r_jx_j + r_vx_v\\
+    r_v>0 
+\end{eqnarray*}
+essendo la funzione obiettivo data da $z_0+\mathbf r^T\x_N$, se $x_v$ diventasse in $\mathcal B'$ strettamente positivo, allora la funzione obiettivo aumenterebbe, ciò è impossibile, dato che ci si trova in un ciclo, quindi $x_v=0$ in $\mathcal B'$, facendo anche si che le BFS associate alle basi $\mathcal B, \mathcal B'$ rimangano uguali, in quanto potrebbero differire esclusivamente su $x_v$ che è nulla per entrambe. \hfill$\blacksquare$
 \begin{teorema}
     Il metodo del simplesso con la regola di Bland termina sempre, e non entra mai in un ciclo.
 \end{teorema}
@@ -1588,9 +1617,26 @@ Quindi ogni termine di $\mathbf r^T\mathbf y_N$ ha ogni componente minore o ugua
 
 \bigskip\textbf{Claim 2} : Il programma lineare  \ref{problemaIncoerente} non è limitato.\bigskip 
  
-\textit{Dimostrazione Claim 2} : Sia $\bar x(t)$ definita come segue: tutte le sue componenti sono nulle eccetto la variabile $u$-esima, dove $u$ è l'indice entrante in $\mathcal B'$ \redText{TODO : finire dimostrazione}
- 
+\textit{Dimostrazione Claim 2} : Sia $\bar \x(t)$ definita come segue: tutte le sue componenti sono nulle eccetto la variabile $u$-esima, dove $u$ è l'indice entrante in $\mathcal B'$, in particolare $\bar x(t)_u=t$. 
 
+Si ricordi che per ogni soluzione $\x$ per $A\x=\bb$ si ha 
+$$ \x_{\mathcal B'}=\mathbf p'+Q'\x_{N'}$$
+Tale $\bar\x(t)$ è ammissibile per il problema \ref{problemaIncoerente} per ogni $t\in\R$
+$$ 
+\bar x(t)_{k_i'}=\bar x_{k_i'}+t\cdot Q'[i,\beta']\begin{cases}
+    \ge 0 \text{ if }k'_i\in F\backslash\{v\}\\ 
+    <0\text{ if }k'_i=v
+\end{cases}
+$$
+si noti però come la funzione obiettivo
+$$ 
+\bc^T\x(t)=z_0+\mathbf r'^T\bar\x_{N'}(t)=z_0+tr'_{\beta '}
+$$
+cresce indefinitamente al crescere di $t$, dato che $r'_{\beta '}>0$
+$$ \lim_{t\rightarrow\infty}z_0+tr'_{\beta '}=\infty$$
+Il problema è quindi illimitato.\hfill$\square$\bigskip
+
+\noindent Il programma lineare \ref{problemaIncoerente} ha una soluzione ottimale ed è illimitato, è una contraddizione, è impossibile che vi sia un ciclo durante l'esecuzione del simplesso con la regola di Bland.\hfill$\blacksquare$
 
 \chapter{Dualità}
 \section{Dualità Forte e Debole}
@@ -1657,7 +1703,7 @@ $$ P=\begin{cases}
 il problema primario, con $\mathbf x \in \R^n$, si assuma che sia ammissibile e limitato, quindi che esiste un ottimo per $P$ ed il metodo del simplesso eseguito su $P$ fornirà una BFS che massimizza la funzione obiettivo. Si consideri il seguente problema $P^*$, equivalente a $P$ ma in forma di equazione
 $$ P^*=\begin{cases}
     \max \bar {\mathbf c}^T\bar {\mathbf x}\\ 
-        \bar A\bar {\mathbf x} \le \mathbf b \\ 
+        \bar A\bar {\mathbf x} = \mathbf b \\ 
         \bar {\mathbf x} \ge 0 
 \end{cases}$$
 con \begin{eqnarray*}
@@ -1718,12 +1764,13 @@ si osservi la definizione di $\mathbf r$ nel lemma \ref{lemma_tableau}, ne conse
 $$ \mathbf r = \bar{\mathbf c}_N-( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B}\bar A_N)^T \implies  $$
 quindi 
 $$ \mathbf x_N=\bar{\mathbf c}_N-\mathbf r \ge  \bar{\mathbf c}_N $$
-perché $\mathbf r$ è un vettore di componenti minori di zero. quindi è dimostrato che  $\mathbf w_N \ge \bar{\mathbf c}_N$.\bigskip
+perché $\mathbf r$ è un vettore di componenti minori di zero, è quindi dimostrato che  $\mathbf w_N \ge \bar{\mathbf c}_N$.\bigskip
 
+\noindent
 Si consideri ora  $\mathbf w_{\mathcal B}$, questo è uguale a 
 $$ \mathbf w_{\mathcal B} = ( \bar {\mathbf c}^T_{\mathcal{B}}\bar A^{-1}_{\mathcal B}\bar A_{\mathcal B})^T$$
 ma $\bar A^{-1}_{\mathcal B}\bar A_{\mathcal B}^T$ è uguale alla matrice identità, quindi 
-$$ \mathbf w_{\mathcal B} =\bar {\mathbf c}^T_{\mathcal{B}}$$
+$$ \mathbf w_{\mathcal B} =\bar {\mathbf c}_{\mathcal{B}}$$
 Entrambi i punti sono dimostrati, quindi $\mathbf y^*$ è ammissibile per il problema duale, e tale soluzione trova un'ottimo identico all'ottimo del problema primario $P$, quindi per il teorema della dualità debole,  $\mathbf y^*$ è una soluzione ottimale per il duale.\hfill$\blacksquare$
 \section{Lemma di Farkas}
 Abbiamo visto come il teorema della dualità forte stabilisce importanti risultati riguardo le soluzione di una coppia di problemi duale-primario. La seguente sezione riguarda un'interpretazione geometrica del teorema \ref{Teo_dimostra_dualitàForte}.
@@ -1896,8 +1943,8 @@ La dimostrazione del lemma \ref{Farkas_geometrico} consiste nella dimostrazione 
     Se $C$ è un cono convesso, allora $C$ è l'unione di un'insieme finito di coni primitivi.
 \end{proposizione}
 \textit{Dimostrazione:} Siano  $\mathbf a_1,\mathbf a_2,\dots, \mathbf a_n \in \R^m$ i punti che generano $C$, sia 
-$$ \mathcal I = \{ I\subseteq \{1,\dots,n\} \text{ t.c. } \{a_i \ i\in I\} \text{ sono linearmente indipendenti}\}$$
-$\mathcal I$ è un sotto-insieme dell'insieme potenza di $\{1,\dots n\}$, ha quindi cardinalità $|\mathcal I|\le 2^n$. Si denota $C_I$ il cono primitivo generato dall'insieme $\{a_i \ i\in I\}$ con $I\in\mathcal I$. Si vuole mostrare che 
+$$ \mathcal I = \{ I\subseteq \{1,\dots,n\} \text{ t.c. } \{\mathbf a_i \ i\in I\} \text{ sono linearmente indipendenti}\}$$
+$\mathcal I$ è un sotto-insieme dell'insieme potenza di $\{1,\dots n\}$, ha quindi cardinalità $|\mathcal I|\le 2^n$. Si denota $C_I$ il cono primitivo generato dall'insieme $\{\mathbf a_i \ i\in I\}$ con $I\in\mathcal I$. Si vuole mostrare che 
 $$ 
 \bigcup_{I\in\mathcal I}C_I=C
 $$
@@ -1953,7 +2000,7 @@ $f$ è continua in $B_\varepsilon(\bb)\cap X$ ed ha un minimo, tale punto è pro
 \begin{proposizione}\label{farkas_punto5}
     Se $C$ è un cono convesso di $\R^n$ e $\bb\notin C$, allora esiste $\mathbf z\in C$ tale che $\mathbf z$ è l'elemento di $C$ più vicino a $\bb$. La dimostrazione segue dalle proposizioni \ref{farkas_punto3} e \ref{farkas_punto4}.
 \end{proposizione}
-\textg{Dimostrazione (Lemma \ref{Farkas_geometrico})}: Sia $C$ il cono convesso, si assume che $\bb\notin C$, per la proposizione \label{farkas_punto5} esiste un punto nel cono che è il più vicino a $\bb$.
+\textg{Dimostrazione (Lemma \ref{Farkas_geometrico})}: Sia $C$ il cono convesso, si assume che $\bb\notin C$, per la proposizione \label{farkas_punto5} esiste un punto $\mathbf z$ nel cono che è il più vicino a $\bb$.
 
 \begin{figure}[h]
     \centering{
@@ -1992,7 +2039,7 @@ I vincoli in $P$ corrispondono a variabili in $D$, e vincoli in $D$ corrispondon
 $$ x_1a_{j1}+\dots x_na_{jn}\le b_j$$
 si dice \textbf{slack} o \textbf{residuo} se 
 $$ x^*_1a_{j1}+\dots x^*_na_{jn}< b_j$$
-Ossia il vincolo soddisfa la disuguaglianza in maniera \textit{stretta}, ossia $A_j^T\x^*$ è strettamente minore di $b_j$. Se invece 
+Ossia il vincolo soddisfa la disuguaglianza in maniera \textit{stretta}, $A_j^T\x^*$ è strettamente minore di $b_j$. Se invece 
 $$ x^*_1a_{j1}+\dots x^*_na_{jn} = b_j$$
 il vincolo per $\x^*$ si dice \textbf{binding} o \textbf{saturo}. Tale denotazione si adotta anche ai vincoli del tipo $\x\ge \mathbf 0$, infatti se 
 $$ x^*_i>0$$
@@ -2002,7 +2049,7 @@ $$ x^*_i=0$$
 
 Il seguente teorema è fondamentale, descrive la relazione fra vincoli di un problema e variabili del suo duale nei termini della \textit{slackness}.
 \begin{teorema}\label{complementary_slackness}
-    \textbf{(Complementary Slackness)} Siano $P,D$ una coppia di problemi primario-duale definiti come in \ref{PD}, entrambi ammissibili e limitati, sia $\x^*$ la soluzione ottimale per $P$, e $\y^*$ la soluzione ottimale per $D$, allora si verifica una delle seguenti\begin{enumerate}
+    \textbf{(Complementary Slackness)} Siano $P,D$ una coppia di problemi primario-duale definiti come in \ref{PD}, entrambi ammissibili e limitati, sia $\x^*$ la soluzione ottimale per $P$, e $\y^*$ la soluzione ottimale per $D$, si ha che \begin{enumerate}
         \item Se $x^*_i>0$, ossia la variabile $x_i$ è slack per $\x^*$, allora il vincolo $i$-esimo di $D$ per $\y^*$ è binding.
         \item Se il $j$-esimo vincolo di $P$ è slack per $\x^*$, allora $y^*_j=0$, ossia
         la variabile $y_j$ è binding per $\y^*$.
@@ -2068,8 +2115,8 @@ Si consideri la soluzione ottimale $\x^*=\begin{bmatrix}
     0&10.4&0&0.4
 \end{bmatrix}^T$ per $P$, dato che $x_2^*,x_4^*>0$, per il teorema \ref{complementary_slackness} è vero che, se $\y^*$ è la soluzione ottimale per $D$ si ha 
 \begin{eqnarray*}
-y_1-3y_2+y_3 = 4\\ 
-4y_1+3y_2-y_3 = 1
+y^*_1-3y^*_2+y^*_3 = 4\\ 
+4y^*_1+3y^*_2-y^*_3 = 1
 \end{eqnarray*}
 Inoltre si noti come il secondo vincolo di $P$ per $\x^*$ è slack
 \begin{eqnarray*}
@@ -2079,13 +2126,13 @@ Inoltre si noti come il secondo vincolo di $P$ per $\x^*$ è slack
 Quindi $y_2^*=0$, si ha il seguente sistema di equazioni 
 $$ 
 \begin{cases}
-y_1-3y_2+y_3 = 4\\ 
-4y_1+3y_2-y_3 = 1\\ 
+y^*_1-3y^*_2+y^*_3 = 4\\ 
+4y^*_1+3y^*_2-y^*_3 = 1\\ 
 y_2^*=0
 \end{cases}\implies 
 \begin{cases}
-y_1+y_3 = 4\\ 
-4y_1-y_3 = 1\\ 
+y^*_1+y^*_3 = 4\\ 
+4y^*_1-y^*_3 = 1\\ 
 y_2^*=0
 \end{cases}\implies \y^*=\begin{bmatrix}
     1&0&3
@@ -2482,7 +2529,7 @@ $$
 $$
 Tale vincolo deve essere soddisfatto da ogni soluzione intera, si può quindi aggiungere al programma lineare, \textbf{tagliando} una porzione di politopo di soluzioni non intere.
 \begin{center}
-    \includegraphics[width=0.7\textwidth ]{images/gomorycut.eps}
+    \includegraphics[width=0.7\textwidth ]{images/gomoryCut.pdf}
 \end{center}
 Vediamo la regola generale, quando si trova una soluzione ottimale non intera tramite il metodo del simplesso, nel tableau finale si avrà almeno un vincolo del tipo
 $$ 
@@ -2683,7 +2730,7 @@ Chiaramente $|V(G_1)|<|V(G)|$.
 Sia $\bar \x^1$ una restrizione di $\bar \x$ sui soli archi di $G_1$. Per ogni vertice $v$ che non è stato soggetto alla compressione, in $G_1$ si ha 
 $$ \sum_{e\in\delta(v)}\bar x^1_e = 1$$
 Per ogni insieme $W$ contenente un numero dispari di vertici si ha che $$ \begin{matrix}
-    \displaystyle \sum_{e\in\delta(W)}\bar x^1_e &=&  \sum_{e\in\delta(W)}\bar x_e & \ge 1\\  
+    \displaystyle \sum_{e\in\delta(W)}\bar x^1_e &=&\displaystyle   \sum_{e\in\delta(W)}\bar x_e & \ge 1\\  
     \text{ in }G_1 & & \text{ in }G
 \end{matrix}$$ 
 in conclusione, è chiaro che $\bar \x^1\in P^* $, ma per assunzione $G$ era il contro esempio con il minor numero di vertici, vi è quindi una contraddizione $\implies \bar \x^1$ è nel politopo del matching perfetto di $G_1$.
@@ -2744,7 +2791,14 @@ ossia, che non esistono archi con flusso negativo uscente da $s$.
 Sia $G$ una network, dimostrare se la seguente affermazione\begin{quote}
     \textit{Se le capacità sugli archi di $G$ sono tutte distinte, allora esiste un unico flusso ottimale}
 \end{quote}
-è vera o falsa, fornendo una dimostrazione.
+è vera o falsa, fornendo una dimostrazione.\bigskip 
+
+\noindent \textg{Soluzione}:
+Si consideri la seguente network, in cui tutte le capacità sono distinte, e vi sono due differenti flussi di valore massimo
+\begin{center}
+    \includegraphics[width=1\textwidth ]{images/flussiCapDistinte.pdf}
+\end{center}
+è un contro-esempio valido per l'affermazione, quest'ultima risulta quindi falsa.
 \begin{esercizio}
 \end{esercizio}
 Si consideri una network con source $s$ e sink $t$ in cui ogni vertice $v$ ha una \textit{lista di preferenza} sui suoi vertici adiacenti, si assume che quando si esegue una DFS su tale network, i vertici vengono visitati seguendo l'ordine di tale preferenza, ad esempio, se il vertice $v$ ha come lista $(u,x,y)$, allora quando viene visitato per la prima volta, il prossimo vertice che verrà visitato durante la DFS sarà $u$ (se non ancora visitato), altrimenti, $x$, se anche quest'ultimo è stato già visitato, si procederà con $y$. Fornire un'esempio di network in cui l'algoritmo di Ford Fulkerson, utilizzando la DFS con preferenza durante la ricerca del cammino da $s$ a $t$ nel grafo residuo, termina eseguendo un numero esponenziale di passi.
@@ -2756,7 +2810,13 @@ si assume che $P\ne \emptyset$. Dimostrare le seguenti affermazioni\begin{enumer
     \item esiste un vettore $\bc$ tale per cui il problema $$\max_{\x\in P}\bc^T\x$$ ha un'unica soluzione ottimale.
     \item assumendo che $|P|\ge 2$, esiste un vettore $\bc$ tale per cui il  problema $$\max_{\x\in P}\bc^T\x$$
     ha infinite soluzioni ottimali.
-\end{enumerate}
+\end{enumerate}\bigskip 
+
+\noindent \textg{Soluzione}: Il primo punto è banale, dato che si può usare la definizione di vertice, si procede quindi con il secondo.
+
+Si può assumere che $P$ abbia almeno 2 vertici. Siano $\mathbf u,\mathbf v$ due vertici adiacenti, ossia due BFS associate alle basi $\mathcal{B},\mathcal{B}'$ tali per cui $$ |\mathcal{B}\cap \mathcal{B}'|=|\mathcal{B}|-1$$
+Essendo $\mathbf u,\mathbf v$ due punti in $\R^n$, esistono infiniti iperpiani passanti per entrambi, si deve considerare un particolare iperpiano $H$ che definisce la faccia di $P$ contenente $\mathbf u,\mathbf v$. Tale iperpiano è definito come i punti $\x$ che soddisfano $$\bc^T\x=\alpha $$
+per qualche $\bc\in\R^n,\alpha\in \R$. Tale $\bc$ definisce la funzione obiettivo per cui $\mathbf u,\mathbf v$  sono soluzioni ottimali. Il problema in questo caso ha due soluzioni ottimali, essendo $P$ convesso, ne ha infinite.
 \begin{esercizio}
 \end{esercizio}
 Si consideri il seguente LP \begin{eqnarray*}
