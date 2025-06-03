@@ -2,6 +2,7 @@
 % !TeX program = xelatex
 %==================PREAMBOLO=======================%
 \input{../../../preamble/preamble.tex}
+
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 
@@ -141,6 +142,7 @@ $$ \sum_{\begin{matrix}(u,x)\in E(G)\\f'(u,x)>0\end{matrix}}f'(u,x)=-\Bigg(
 \sum_{\begin{matrix}(x,u)\in E(G)\\f'(x,u)<0\end{matrix}}f'(x,u)\Bigg)$$
 la proprietà di conservazione del flusso è rispettata.\hfill$\blacksquare$\bigskip 
 
+\noindent
 Il valore del nuovo flusso è uguale al valore del flusso di partenza aumentato di $\alpha$ 
 $$ \text{val}(f')=\text{val}(f)+\alpha$$
 Dato che un singolo arco $(s,u)$ per qualche $u$ è necessariamente presente nel cammino $P$ da $s$ a $t$, ed il valore di $f'$ su $(s,u)$ è stato aumentato di $\alpha$.
@@ -198,7 +200,7 @@ $$ \sum_{\begin{matrix}
 \textbf{Conclusione} : Il valore di $f$ è uguale alla somma dei flussi uscenti dai vertici in $\mathcal U$ verso i vertici non contenuti in $\mathcal U$. Questa proprietà è invariante rispetto la scelta di $\mathcal U$, a patto che rispetti le proprietà inizialmente elencate (deve contenere $s$ ma non $t$). 
 
 \begin{definizione}
-    si definisce \textbf{capacità di taglio} la somma delle capacità degli archi che collegano i vertici in $\mathcal U$ ai vertici in $V(G)\backslash \mathcal U$
+    si definisce \textbf{capacità di taglio} per un'insieme di taglio $\mathcal U$, la somma delle capacità degli archi che collegano i vertici in $\mathcal U$ ai vertici in $V(G)\backslash \mathcal U$
     $$c_t= \sum_{\begin{matrix}
         (u,x)\in E(G),\\u\in \mathcal U,\\ x\notin \mathcal U
     \end{matrix}}c(u,x)$$
@@ -208,7 +210,7 @@ $$ \sum_{\begin{matrix}
     \includegraphics[width=0.5\textwidth ]{images/capacità_di_taglio.eps}
 \end{figure}
 \begin{osservazione}
-    il valore massimale del flusso è limitato dalla capacità di taglio 
+    il valore massimale del flusso per una network è limitato dalla capacità di taglio di un qualsiasi insieme di taglio
     $$ \text{val}(f)\le c_t$$
 \end{osservazione}
 \begin{proposizione} \label{prop:insTaglio}
@@ -237,7 +239,7 @@ La proposizione \ref{prop:insTaglio} non implica che non ci possa essere una net
     \label{taglio2}
 \end{figure}
 
-Nonostante ciò, esiste sempre un insieme $\mathcal U$ contenente $s$ e non $t$ la cui capacità di taglio è uguale al valore del flusso ottimale per la network data, tale insieme può essere trovato adoperando l'algoritmo di Ford-Fulkerson nella procedura precedentemente elencata.
+Nonostante ciò, esiste sempre un insieme $\mathcal U$ contenente $s$ e non $t$ la cui capacità di taglio è uguale al valore del flusso ottimale per la network data, tale insieme può essere trovato adoperando l'algoritmo di Ford-Fulkerson nella procedura precedentemente elencata. L'insieme di taglio con la capacità minore possibile, ha somma delle capacità uguale al valore del flusso massimale per una network, si può dire che  trovare il \textit{taglio minimo} equivale a trovare il \textit{flusso massimo}, questi due problemi costituiscono una coppia di programmi \textbf{primario-duale}, la definizione e formalizzazione verrà fornita in seguito nel capitolo \ref{dualità}.
 \begin{osservazione}
     L'algoritmo di Ford-Fulkerson, termina sempre se le capacità della network sono numeri in $\mathbb Q$.
 \end{osservazione}
@@ -343,7 +345,7 @@ In questa sezione verrà esposta un'applicazione dell'algoritmo di ricerca del f
         (u,v)\in E(\vec G)\\ 
         (v,u)\in E(\vec G)
     \end{cases}$
-    \item $\forall (u,v)\in \vec G$ \ \ \ , $c(u,v)=1$
+    \item $\forall (u,v)\in \vec G$, \ \ \  $c(u,v)=1$
 \end{itemize}
 \begin{figure}[h!]
     \centering 
@@ -353,6 +355,13 @@ Si può anche risalire in maniera naturale ad un grafo non diretto associato ad 
 \begin{definizione}
     Dato un grafo non diretto $G$ e due nodi $s,t$, un'insieme di cammini da $s$ a $t$ è \textbf{edge-disjoint} se non condividono alcun arco.
 \end{definizione}
+
+\begin{figure}[h!]
+    \centering 
+    \includegraphics[width=0.65\textwidth ]{images/edgeDisjoint.eps}
+    \caption{3 cammini edge-disjoint da $s$ a $t$}
+\end{figure}
+
 Verrà mostrato come, dato un grafo $G$, il numero massimo di cammini edge-disjoint è uguale al valore del flusso ottimale nella network associata.
 \begin{proposizione}
    Sia $G$ un grafo non diretto e $\vec G$ la network associata. Se il numero massimo di cammini edge-disjoint da $s$ a $t$ in $G$ è $k$, allora il flusso di valore massimo in $\vec G$ ha valore $k$.
@@ -480,7 +489,7 @@ e gli $m$ vincoli sono della forma $$\begin{matrix}
 Si può quindi assumere che un generico problema di programmazione lineare riguardi la massimizzazione di una funzione del tipo $\mathbf c^T \mathbf x$ per un fissato $\mathbf c \in \R^n$. Inoltre, ogni vincolo del tipo 
 \begin{equation}\label{vincolo} a_{1i}x_1+a_{2i}x_2+\dots + a_{ni}x_n\le b_i\end{equation}
 è soddisfatto dagli stessi punti che soddisfano 
-$$ -a_{1i}x_1-a_{2i}x_2-\dots - a_{ni}x_2\ge b_i $$
+$$ -a_{1i}x_1-a_{2i}x_2-\dots - a_{ni}x_2\ge -b_i $$
 Quindi si può assumere che ogni vincolo sia scritto nella forma \ref{vincolo}. Inoltre ogni vincolo di uguaglianza equivale a due disuguaglianze. Date le precedenti osservazioni, si può definire un'insieme di $m$ vincoli in maniera compatta tramite una matrice $m\times n $ ed un vettore $\mathbf b\in \R^m$. 
 $$ A\mathbf x \le \mathbf b$$ 
 Inoltre ogni vincolo di positività del tipo $x_i\ge 0$ equivale al vincolo $-x_i\le 0$. Se in un programma lineare una variabile $x_i$ può assumere qualsiasi valore in $\R$, si può sostituire con la differenza di due nuove variabili 
@@ -668,10 +677,37 @@ Il problema descritto è \begin{eqnarray}
 \end{eqnarray}
 Considerando $\ker(A)=\{\mathbf x \text{ t.c. }A\mathbf x = \mathbf 0\}$ si ha un sottospazio di dimensione $n-m$ di $\mathbb R^n$, lo spazio delle soluzioni di $A\mathbf x = \mathbf b$ è un \textbf{sottospazio affine} e si ottiene sommando $\mathbf b$ a tutti i vettori di $\ker(A)$.\bigskip 
 \subsection{Soluzioni Ammissibili Basiche}
+\tdplotsetmaincoords{60}{110}
 \textit{Esempio} : Si consideri il triangolo delineato dai punti $(0,0,3),(0,3,0),(3,0,0)$, tutti i punti di tale triangolo sono i vettori $\mathbf x\ge \mathbf 0$ che soddisfano $A\mathbf x = \mathbf b$.\begin{figure}[h]
-    \centering{
-        \includegraphics[width=0.35\textwidth ]{images/triangolo.pdf}
-    }
+    \centering
+    \begin{tikzpicture}
+    % Define the vertices
+    \coordinate (A) at (3,0,0);
+    \coordinate (B) at (0,3,0);
+    \coordinate (C) at (0,0,3);
+    \coordinate (O) at (0,0,0); % Origin
+
+    % Draw the axes
+    \draw[thick,->] (O) -- (4,0,0) node[anchor=north east]{$x$};
+    \draw[thick,->] (O) -- (0,4,0) node[anchor=north west]{$y$};
+    \draw[thick,->] (O) -- (0,0,4) node[anchor=south]{$z$};
+
+    % Draw the triangle faces (you might want to adjust opacity for better visualization)
+    \fill[blue!20, opacity=0.7] (A) -- (B) -- (C) -- cycle;
+
+    % Draw the edges of the triangle
+    \draw[blue, thick] (A) -- (B);
+    \draw[blue, thick] (B) -- (C);
+    \draw[blue, thick] (C) -- (A);
+
+    % Draw points and label them
+    \foreach \point/\label in {A/{(3,0,0)}, B/{(0,3,0)}, C/{(0,0,3)}}
+        \node[circle, fill, inner sep=1.5pt] at (\point) {};
+    \node[anchor=north east] at (A) {$(3,0,0)$};
+    \node[anchor=north west] at (B) {$(0,3,0)$};
+    \node[anchor=south] at (C) {$(0,0,3)$};
+
+\end{tikzpicture}
     \caption{triangolo in $\mathbb R^3$}
 \end{figure}
 Si ha $A=[1 \ \ 1 \ \ 1]$ e $b=3$
@@ -711,6 +747,7 @@ Se $A_{\mathcal{B}}$ non è \textbf{singolare} (il determinante è diverso da ze
     Una soluzione ammissibile $\bar{\mathbf x}$ è detta \textbf{basica} (BFS) se esiste un sotto-insieme di indici $\mathcal B\subseteq \{1,2,\dots n\}$ tale per cui\begin{itemize}
         \item $A_{\mathcal B}$ non è singolare 
         \item $\bar{x}_j=0$ $\forall j \notin \mathcal{B}$
+        \item $A_{\mathcal B}\bar\x_{\mathcal B}=\bb$
     \end{itemize}
 \end{definizione}
 \textit{Esempio} : Data la matrice \begin{equation}
@@ -765,7 +802,7 @@ Bisogna mostrare che $\mathcal B^*$ ha $m$ elementi in modo tale che $A_{\mathca
 
 Si assuma che $|\mathcal B^*|<m$, ciò significherebbe che le restanti colonne di $A$ sono contenute nello span delle colonne di $A_{\mathcal B^*}$, quindi $A$ ha \textit{meno} di $m$ colonne linearmente indipendenti, ma è noto che il rango di $A$ sia $m$, quindi l'assunzione  $|\mathcal B^*|<m$ porta ad una contraddizione $\implies |\mathcal B^*|=m$.\hfill$\blacksquare$
 \begin{osservazione}
-    Ogni base ha almeno una BFS associata.
+    Ogni base ammissibile ha almeno una BFS associata.
 \end{osservazione}
 \textbf{Conclusione} : Esiste un numero finito di BFS. Ogni base è un sotto-insieme di $m$ elementi preso da $\{1,2,\dots n\}$, quindi esistono al più $\binom{n}{m}$ basi distinte, quindi esistono al più $\binom{n}{m}$  BFS.\bigskip 
 
@@ -877,7 +914,7 @@ $$
 Il vettore $\mathbf z(-\frac{z_i}{w_i})$ ha una componente  nulla in più rispetto a $\mathbf z$, se si considera $$ t^*=\min_{i \text{ t.c. }w_i<0}(-\frac{z_i}{w_i})$$
 il vettore $\mathbf z(t^*)$ risulterà non negativo, quindi: 
 $$\begin{matrix}
-    A\mathbf z(t^*=\mathbf b)\\ \mathbf z(t^*)\ge 0
+    A\mathbf z(t^*)=\mathbf b\\ \mathbf z(t^*)\ge 0
 \end{matrix}$$
 Il vettore $\mathbf z(t^*)$ è una soluzione ammissibile ed ha uno 0 in più rispetto a $\mathbf z$, ma questa è una contraddizione (data la scelta di $\mathbf z$), quindi è impossibile che le colonne di $A_K$ siano linearmente dipendenti $\implies$ $\mathbf z$ è una BFS, lo Statement $\star$ è dimostrato.\hfill$\blacksquare$\acc 
 \textbf{Corollario} : Se un programma lineare ha una funzione obiettivo limitata, allora esiste un'algoritmo che trova una soluzione ottimale in un numero finito di passi.
@@ -1052,7 +1089,7 @@ $$ a_1 x_1+a_2 x_2+\dots +a_n x_n\ge b$$
     $$ a_1 \bar x_1+a_2\bar x_2+\dots +a_n\bar x_n<  b$$\end{itemize}
 \end{definizione}
 \begin{definizione}
-    Dato un poliedro $P$, una \textbf{faccia} è un'insieme $\mathcal U\subseteq P$ tale per cui esiste un iperpiano $\mathcal X$ tale che $\mathcal X\cap P = \mathcal U$, e per cui, ogni punto di $P$ si trova in uno dei due mezzi spazi definiti da $\mathcal X$
+    Dato un poliedro $P$, una \textbf{faccia} è un'insieme $\mathcal U\subseteq P$ tale per cui esiste un iperpiano $\mathcal X$ tale che $\mathcal X\cap P = \mathcal U$, e per cui, ogni punto di $P$ si trova in uno dei due mezzi spazi definiti da $\mathcal X$. Un vertice è una faccia di cardinalità 1.
 \end{definizione}
 La dimensione di una faccia è uguale alla dimensione del più piccolo sottospazio affine che la contiene.
 \begin{definizione}
@@ -1067,7 +1104,7 @@ La dimensione di una faccia è uguale alla dimensione del più piccolo sottospaz
 $$a_1v_1+\dots +a_nv_n=b  
 $$
 e 
-$$ a_1x_1+\dots +a_nx_n<b, \ \ \ \forall \mathbf x\in P, \ \ \ \mathbf x\ne\mathbf v  $$
+$$ a_1x_1+\dots +a_nx_n<b, \ \ \ \forall \mathbf x\in P\backslash\{\mathbf v\} $$
 Quindi, considerando il programma lineare 
 \begin{eqnarray}
      \max \begin{bmatrix}
@@ -1638,7 +1675,7 @@ Il problema è quindi illimitato.\hfill$\square$\bigskip
 
 \noindent Il programma lineare \ref{problemaIncoerente} ha una soluzione ottimale ed è illimitato, è una contraddizione, è impossibile che vi sia un ciclo durante l'esecuzione del simplesso con la regola di Bland.\hfill$\blacksquare$
 
-\chapter{Dualità}
+\chapter{Dualità}\label{dualità}
 \section{Dualità Forte e Debole}
 \begin{definizione}
     Sia \begin{eqnarray*}
