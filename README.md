@@ -1,5 +1,4 @@
 # Appunti Università - Laurea triennale in informatica
-Li metto pubblici per comodità, non sono gli appunti più affidabili del mondo e potrebbero esserci errori (perfavore, fatemeli notare nel caso). 
 
 ## Primo Anno
 ### Secondo Semestre
